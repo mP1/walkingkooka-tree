@@ -1,0 +1,65 @@
+EXPRESSION                                           = [ ABSOLUTE_AXIS_NODE_PREDICATE | DESCENDANTORSELFSLASHSLASH_AXIS_NODE_PREDICATE | PARENTDOTDOT_SELFDOT_SLASH_AXIS_NODE_PREDICATE ],
+                                                       [ { DESCENDANTORSELFSLASHSLASH_AXIS_NODE_PREDICATE | SLASH_PARENTDOTDOT_SELFDOT_SLASH_AXIS_NODE_PREDICATE | PARENTDOTDOT_SELFDOT_SLASH_AXIS_NODE_PREDICATE } ];
+
+ABSOLUTE_AXIS_NODE_PREDICATE                         = ABSOLUTE, AXIS_NODE_PREDICATE;
+
+DESCENDANTORSELFSLASHSLASH_AXIS_NODE_PREDICATE       = DESCENDANTORSELF_SLASH_SLASH, PARENTDOTDOT_SELFDOT_SLASH_AXIS_NODE_PREDICATE;
+
+SLASH_PARENTDOTDOT_SELFDOT_SLASH_AXIS_NODE_PREDICATE = SLASH, PARENTDOTDOT_SELFDOT_SLASH_AXIS_NODE_PREDICATE;
+
+PARENTDOTDOT_SELFDOT_SLASH_AXIS_NODE_PREDICATE       = PARENT_DOT_DOT | SELF_DOT | AXIS_NODE_PREDICATE;
+
+AXIS_NODE_PREDICATE                                  = [ AXIS ], NODE, [{ BRACKET_OPEN, PREDICATE, BRACKET_CLOSE }];
+
+
+
+(* axis ............................................................................................................*)
+AXIS                         = ANCESTOR | ANCESTOR_OR_SELF | CHILD | DESCENDANT | DESCENDANT_OR_SELF | FIRST_CHILD | FOLLOWING | FOLLOWING_SIBLING | LAST_CHILD | PARENT | PRECEDING | PRECEDING_SIBLING | SELF;
+
+
+
+(* node .............................................................................................................*)
+NODE                         = NODE_NAME | WILDCARD;
+
+(* attribute ........................................................................................................*)
+ATTRIBUTE                    = ATSIGN, ATTRIBUTE_NAME;
+
+(* predicate .......................................................................................................*)
+PREDICATE                    = [ WHITESPACE ], VALUE, [ WHITESPACE ],
+                               [ { AND_OR, [ WHITESPACE ], VALUE, [ WHITESPACE ]} ];
+
+
+AND_OR                       = ( AND | OR );
+
+
+(* arithmetic/comparisons .......................................................................................................*)
+
+BINARY_EXPRESSION              = BINARY_SUB_EXPRESSION, {[ WHITESPACE ], BINARY_OPERATOR, [ WHITESPACE ], BINARY_SUB_EXPRESSION_REQUIRED};
+BINARY_OPERATOR                = PLUS | MINUS | MODULO | MULTIPLY | DIVIDE | EQUALS | NOT_EQUALS | GREATER_THAN_EQUALS | GREATER_THAN | LESS_THAN_EQUALS | LESS_THAN;
+BINARY_SUB_EXPRESSION          = GROUP | NEGATIVE | QUOTED_TEXT | ATTRIBUTE | FUNCTION | NUMBER;
+BINARY_SUB_EXPRESSION_REQUIRED = BINARY_SUB_EXPRESSION;
+
+
+GROUP 			               = PARENS_OPEN, [ WHITESPACE ], VALUE_REQUIRED, [ WHITESPACE ], PARENS_CLOSE;
+
+
+(* NEGATIVE ........................................................................................................ *)
+NEGATIVE_REQUIRED   = [ WHITESPACE ],
+                      ( GROUP | QUOTED_TEXT | ATTRIBUTE | FUNCTION | NUMBER );
+NEGATIVE		    = MINUS, [ WHITESPACE ], NEGATIVE_REQUIRED;
+
+
+(* [starts-with(@attribute, "string-value") ..........................................................................*)
+FUNCTION                  = FUNCTION_NAME, PARENS_OPEN, [ WHITESPACE ], [ FUNCTION_PARAMETERS ], [ WHITESPACE ], PARENS_CLOSE;
+
+FUNCTION_PARAMETERS       = [ VALUE, [{ FUNCTION_PARAMETER_OTHERS }]];
+
+FUNCTION_PARAMETER_OTHERS = [ WHITESPACE ],
+                            PARAMETER_SEPARATOR,
+                            [ WHITESPACE ],
+                            VALUE_REQUIRED;
+
+
+(* values .............................................................................................................*)
+VALUE          = BINARY_EXPRESSION | GROUP | NEGATIVE | QUOTED_TEXT | ATTRIBUTE | FUNCTION | NUMBER;
+VALUE_REQUIRED = VALUE;
