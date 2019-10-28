@@ -441,7 +441,7 @@ public final class NodeSelectorParsers implements PublicStaticHelper {
     private static Parser<ParserContext> literal0(final String text,
                                                   final BiFunction<String, String, ParserToken> factory,
                                                   final Class<? extends NodeSelectorLeafParserToken> tokenClass) {
-        return CaseSensitivity.INSENSITIVE.parser(text)
+        return Parsers.string(text, CaseSensitivity.INSENSITIVE)
                 .transform((stringParserToken, context) -> factory.apply(((StringParserToken) stringParserToken).value(), stringParserToken.text()))
                 .setToString(tokenClass.getSimpleName())
                 .cast();
