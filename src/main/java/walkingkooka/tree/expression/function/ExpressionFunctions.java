@@ -25,157 +25,157 @@ import walkingkooka.reflect.PublicStaticHelper;
 public final class ExpressionFunctions implements PublicStaticHelper {
 
     /**
-     * {@see ExpressionAbsoluteFunction}
+     * {@see NumberExpressionFunction2Absolute}
      */
     public static ExpressionFunction<Number> abs() {
-        return ExpressionAbsoluteFunction.INSTANCE;
+        return NumberExpressionFunction2Absolute.INSTANCE;
     }
 
     /**
-     * {@see ExpressionBooleanFunction}
+     * {@see BooleanExpressionFunction}
      */
     public static ExpressionFunction<Boolean> booleanFunction() {
-        return ExpressionBooleanFunction.INSTANCE;
+        return BooleanExpressionFunction.INSTANCE;
     }
 
     /**
-     * {@see ExpressionCeilFunction}
+     * {@see NumberExpressionFunction2Ceil}
      */
     public static ExpressionFunction<Number> ceil() {
-        return ExpressionCeilFunction.INSTANCE;
+        return NumberExpressionFunction2Ceil.INSTANCE;
     }
 
     /**
-     * {@see ExpressionChooseFunction}
+     * {@see ChooseExpressionFunction}
      */
     public static ExpressionFunction<Object> choose() {
-        return ExpressionChooseFunction.INSTANCE;
+        return ChooseExpressionFunction.INSTANCE;
     }
 
     /**
-     * {@see ExpressionConcatFunction}
+     * {@see ConcatExpressionFunction}
      */
     public static ExpressionFunction<String> concat() {
-        return ExpressionConcatFunction.INSTANCE;
+        return ConcatExpressionFunction.INSTANCE;
     }
 
     /**
-     * {@see ExpressionContainsFunction}
+     * {@see ContainsExpressionFunction}
      */
     public static ExpressionFunction<Boolean> contains() {
-        return ExpressionContainsFunction.INSTANCE;
+        return ContainsExpressionFunction.INSTANCE;
     }
 
     /**
-     * {@see ExpressionEndsWithFunction}
+     * {@see EndsWithExpressionFunction}
      */
     public static ExpressionFunction<Boolean> endsWith() {
-        return ExpressionEndsWithFunction.INSTANCE;
+        return EndsWithExpressionFunction.INSTANCE;
     }
 
     /**
-     * {@see ExpressionFalseFunction}
+     * {@see FalseExpressionFunction}
      */
     public static ExpressionFunction<Boolean> falseFunction() {
-        return ExpressionFalseFunction.INSTANCE;
+        return FalseExpressionFunction.INSTANCE;
     }
 
     /**
-     * {@see ExpressionFloorFunction}
+     * {@see NumberExpressionFunction2Floor}
      */
     public static ExpressionFunction<Number> floor() {
-        return ExpressionFloorFunction.INSTANCE;
+        return NumberExpressionFunction2Floor.INSTANCE;
     }
 
     /**
-     * {@see ExpressionNormalizeSpaceFunction}
+     * {@see NormalizeSpaceExpressionFunction}
      */
     public static ExpressionFunction<String> normalizeSpace() {
-        return ExpressionNormalizeSpaceFunction.INSTANCE;
+        return NormalizeSpaceExpressionFunction.INSTANCE;
     }
 
     /**
-     * {@see FunctionExpressionNameFunction}
+     * {@see FunctionExpressionNameExpressionFunction}
      */
     public static ExpressionFunction<String> nodeName() {
-        return FunctionExpressionNameFunction.INSTANCE;
+        return FunctionExpressionNameExpressionFunction.INSTANCE;
     }
 
     /**
-     * {@see ExpressionNotFunction}
+     * {@see NotExpressionFunction}
      */
     public static ExpressionFunction<Boolean> not(final ExpressionFunction<?> function) {
-        return ExpressionNotFunction.with(function);
+        return NotExpressionFunction.with(function);
     }
 
     /**
-     * {@see ExpressionNumberFunction}
+     * {@see NumberExpressionFunction}
      */
     public static ExpressionFunction<Number> number() {
-        return ExpressionNumberFunction.INSTANCE;
+        return NumberExpressionFunction.INSTANCE;
     }
 
     /**
-     * {@see ExpressionRoundFunction}
+     * {@see NumberExpressionFunction2Round}
      */
     public static ExpressionFunction<Number> round() {
-        return ExpressionRoundFunction.INSTANCE;
+        return NumberExpressionFunction2Round.INSTANCE;
     }
 
     /**
-     * {@see ExpressionStartsWithFunction}
+     * {@see StartsWithExpressionFunction}
      */
     public static ExpressionFunction<Boolean> startsWith() {
-        return ExpressionStartsWithFunction.INSTANCE;
+        return StartsWithExpressionFunction.INSTANCE;
     }
 
     /**
-     * {@see ExpressionStringLengthFunction}
+     * {@see StringLengthExpressionFunction}
      */
     public static ExpressionFunction<Number> stringLength() {
-        return ExpressionStringLengthFunction.INSTANCE;
+        return StringLengthExpressionFunction.INSTANCE;
     }
 
     /**
-     * {@see ExpressionSubstringFunction}
+     * {@see SubstringExpressionFunction}
      */
     public static ExpressionFunction<String> substring(final int indexBias) {
-        return ExpressionSubstringFunction.with(indexBias);
+        return SubstringExpressionFunction.with(indexBias);
     }
 
     /**
-     * {@see ExpressionSubstringAfterFunction}
+     * {@see SubstringAfterExpressionFunction}
      */
     public static ExpressionFunction<String> substringAfter() {
-        return ExpressionSubstringAfterFunction.INSTANCE;
+        return SubstringAfterExpressionFunction.INSTANCE;
     }
 
     /**
-     * {@see ExpressionSubstringBeforeFunction}
+     * {@see SubstringBeforeExpressionFunction}
      */
     public static ExpressionFunction<String> substringBefore() {
-        return ExpressionSubstringBeforeFunction.INSTANCE;
+        return SubstringBeforeExpressionFunction.INSTANCE;
     }
 
     /**
-     * {@see ExpressionTextFunction}
+     * {@see TextExpressionFunction}
      */
     public static ExpressionFunction<String> text() {
-        return ExpressionTextFunction.INSTANCE;
+        return TextExpressionFunction.INSTANCE;
     }
 
     /**
-     * {@see ExpressionTrueFunction}
+     * {@see TrueExpressionFunction}
      */
     public static ExpressionFunction<Boolean> trueFunction() {
-        return ExpressionTrueFunction.INSTANCE;
+        return TrueExpressionFunction.INSTANCE;
     }
 
     /**
-     * {@see ExpressionTypeNameFunction}
+     * {@see TypeNameExpressionFunction}
      */
     public static ExpressionFunction<String> typeName() {
-        return ExpressionTypeNameFunction.INSTANCE;
+        return TypeNameExpressionFunction.INSTANCE;
     }
 
     /**
