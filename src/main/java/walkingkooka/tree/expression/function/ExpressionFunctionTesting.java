@@ -96,11 +96,11 @@ public interface ExpressionFunctionTesting<F extends ExpressionFunction<V>, V>
 
     @Override
     default String typeNamePrefix() {
-        return this.subtractTypeNameSuffix();
+        return "";
     }
 
     @Override
     default String typeNameSuffix() {
-        return Function.class.getSimpleName();
+        return ExpressionFunction.class.getSimpleName();
     }
 }
