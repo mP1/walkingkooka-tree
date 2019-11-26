@@ -19,12 +19,12 @@ package walkingkooka.tree.select;
 
 import walkingkooka.Value;
 import walkingkooka.text.CharSequences;
-import walkingkooka.tree.expression.AdditionExpression;
+import walkingkooka.tree.expression.AddExpression;
 import walkingkooka.tree.expression.AndExpression;
 import walkingkooka.tree.expression.BigDecimalExpression;
 import walkingkooka.tree.expression.BigIntegerExpression;
 import walkingkooka.tree.expression.BooleanExpression;
-import walkingkooka.tree.expression.DivisionExpression;
+import walkingkooka.tree.expression.DivideExpression;
 import walkingkooka.tree.expression.DoubleExpression;
 import walkingkooka.tree.expression.EqualsExpression;
 import walkingkooka.tree.expression.Expression;
@@ -40,7 +40,7 @@ import walkingkooka.tree.expression.LocalDateTimeExpression;
 import walkingkooka.tree.expression.LocalTimeExpression;
 import walkingkooka.tree.expression.LongExpression;
 import walkingkooka.tree.expression.ModuloExpression;
-import walkingkooka.tree.expression.MultiplicationExpression;
+import walkingkooka.tree.expression.MultiplyExpression;
 import walkingkooka.tree.expression.NegativeExpression;
 import walkingkooka.tree.expression.NotEqualsExpression;
 import walkingkooka.tree.expression.NotExpression;
@@ -48,7 +48,7 @@ import walkingkooka.tree.expression.OrExpression;
 import walkingkooka.tree.expression.PowerExpression;
 import walkingkooka.tree.expression.ReferenceExpression;
 import walkingkooka.tree.expression.StringExpression;
-import walkingkooka.tree.expression.SubtractionExpression;
+import walkingkooka.tree.expression.SubtractExpression;
 import walkingkooka.tree.expression.XorExpression;
 import walkingkooka.visit.Visiting;
 
@@ -124,7 +124,7 @@ final class ExpressionNodeSelectorToStringExpressionVisitor extends ExpressionVi
     }
 
     @Override
-    protected Visiting startVisit(final AdditionExpression node) {
+    protected Visiting startVisit(final AddExpression node) {
         return this.binary(node.left(), "+", node.right());
     }
 
@@ -134,7 +134,7 @@ final class ExpressionNodeSelectorToStringExpressionVisitor extends ExpressionVi
     }
 
     @Override
-    protected Visiting startVisit(final DivisionExpression node) {
+    protected Visiting startVisit(final DivideExpression node) {
         return this.binary(node.left(), " div ", node.right());
     }
 
@@ -174,7 +174,7 @@ final class ExpressionNodeSelectorToStringExpressionVisitor extends ExpressionVi
     }
 
     @Override
-    protected Visiting startVisit(final MultiplicationExpression node) {
+    protected Visiting startVisit(final MultiplyExpression node) {
         return this.binary(node.left(), "*", node.right());
     }
 
@@ -205,7 +205,7 @@ final class ExpressionNodeSelectorToStringExpressionVisitor extends ExpressionVi
     }
 
     @Override
-    protected Visiting startVisit(final SubtractionExpression node) {
+    protected Visiting startVisit(final SubtractExpression node) {
         return this.binary(node.left(), "-", node.right());
     }
 

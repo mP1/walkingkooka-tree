@@ -24,20 +24,20 @@ import java.math.BigInteger;
 import java.util.List;
 
 /**
- * A subtraction expression.
+ * A multiply expression.
  */
-public final class SubtractionExpression extends BinaryArithmeticExpression {
+public final class MultiplyExpression extends BinaryArithmeticExpression {
 
-    public final static FunctionExpressionName NAME = FunctionExpressionName.fromClass(SubtractionExpression.class);
+    public final static FunctionExpressionName NAME = FunctionExpressionName.fromClass(MultiplyExpression.class);
 
-    public final static String SYMBOL = "-";
+    public final static String SYMBOL = "*";
 
-    static SubtractionExpression with(final Expression left, final Expression right) {
+    static MultiplyExpression with(final Expression left, final Expression right) {
         check(left, right);
-        return new SubtractionExpression(NO_INDEX, left, right);
+        return new MultiplyExpression(NO_INDEX, left, right);
     }
 
-    private SubtractionExpression(final int index, final Expression left, final Expression right) {
+    private MultiplyExpression(final int index, final Expression left, final Expression right) {
         super(index, left, right);
     }
 
@@ -47,18 +47,18 @@ public final class SubtractionExpression extends BinaryArithmeticExpression {
     }
 
     @Override
-    public SubtractionExpression removeParent() {
+    public MultiplyExpression removeParent() {
         return this.removeParent0().cast();
     }
 
     @Override
-    public SubtractionExpression setChildren(final List<Expression> children) {
+    public MultiplyExpression setChildren(final List<Expression> children) {
         return this.setChildren0(children).cast();
     }
 
     @Override
-    SubtractionExpression replace1(final int index, final Expression left, final Expression right) {
-        return new SubtractionExpression(index, left, right);
+    MultiplyExpression replace1(final int index, final Expression left, final Expression right) {
+        return new MultiplyExpression(index, left, right);
     }
 
     // Visitor .........................................................................................................
@@ -75,34 +75,34 @@ public final class SubtractionExpression extends BinaryArithmeticExpression {
 
     @Override
     String applyText0(final String left, final String right, final ExpressionEvaluationContext context) {
-        throw new UnsupportedOperationException(left + SYMBOL + right); // TODO maybe if right exists in left "remove" it, else throw.
+        throw new UnsupportedOperationException(left + SYMBOL + right); // MAYBE try and convert right to int and times the string.
     }
 
     @Override
     BigDecimal applyBigDecimal0(final BigDecimal left, final BigDecimal right, final ExpressionEvaluationContext context) {
-        return left.subtract(right, context.mathContext());
+        return left.multiply(right, context.mathContext());
     }
 
     @Override
     BigInteger applyBigInteger0(final BigInteger left, final BigInteger right, final ExpressionEvaluationContext context) {
-        return left.subtract(right);
+        return left.multiply(right);
     }
 
     @Override
     double applyDouble0(final double left, final double right, final ExpressionEvaluationContext context) {
-        return left - right;
+        return left * right;
     }
 
     @Override
     long applyLong0(final long left, final long right, final ExpressionEvaluationContext context) {
-        return left - right;
+        return left * right;
     }
 
     // Object .........................................................................................................
 
     @Override
     boolean canBeEqual(final Object other) {
-        return other instanceof SubtractionExpression;
+        return other instanceof MultiplyExpression;
     }
 
     @Override

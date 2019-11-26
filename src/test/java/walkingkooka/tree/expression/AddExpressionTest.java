@@ -26,14 +26,14 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 
-public final class AdditionExpressionTest extends BinaryArithmeticExpressionTestCase<AdditionExpression> {
+public final class AddExpressionTest extends BinaryArithmeticExpressionTestCase<AddExpression> {
 
     @Test
     public void testAccept() {
         final StringBuilder b = new StringBuilder();
         final List<Expression> visited = Lists.array();
 
-        final AdditionExpression addition = this.createExpression();
+        final AddExpression addition = this.createExpression();
         final Expression text1 = addition.children().get(0);
         final Expression text2 = addition.children().get(1);
 
@@ -52,7 +52,7 @@ public final class AdditionExpressionTest extends BinaryArithmeticExpressionTest
             }
 
             @Override
-            protected Visiting startVisit(final AdditionExpression t) {
+            protected Visiting startVisit(final AddExpression t) {
                 assertSame(addition, t);
                 b.append("3");
                 visited.add(t);
@@ -60,7 +60,7 @@ public final class AdditionExpressionTest extends BinaryArithmeticExpressionTest
             }
 
             @Override
-            protected void endVisit(final AdditionExpression t) {
+            protected void endVisit(final AddExpression t) {
                 assertSame(addition, t);
                 b.append("4");
                 visited.add(t);
@@ -471,8 +471,8 @@ public final class AdditionExpressionTest extends BinaryArithmeticExpressionTest
     // helpers.........................................................................................................
 
     @Override
-    AdditionExpression createExpression(final Expression left, final Expression right) {
-        return AdditionExpression.with(left, right);
+    AddExpression createExpression(final Expression left, final Expression right) {
+        return AddExpression.with(left, right);
     }
 
     @Override
@@ -481,7 +481,7 @@ public final class AdditionExpressionTest extends BinaryArithmeticExpressionTest
     }
 
     @Override
-    Class<AdditionExpression> expressionType() {
-        return AdditionExpression.class;
+    Class<AddExpression> expressionType() {
+        return AddExpression.class;
     }
 }

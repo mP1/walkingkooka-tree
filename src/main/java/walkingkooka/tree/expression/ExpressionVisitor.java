@@ -86,11 +86,11 @@ public abstract class ExpressionVisitor extends Visitor<Expression> {
         // nop
     }
 
-    protected Visiting startVisit(final AdditionExpression node) {
+    protected Visiting startVisit(final AddExpression node) {
         return Visiting.CONTINUE;
     }
 
-    protected void endVisit(final AdditionExpression node) {
+    protected void endVisit(final AddExpression node) {
         // nop
     }
 
@@ -102,11 +102,11 @@ public abstract class ExpressionVisitor extends Visitor<Expression> {
         // nop
     }
 
-    protected Visiting startVisit(final DivisionExpression node) {
+    protected Visiting startVisit(final DivideExpression node) {
         return Visiting.CONTINUE;
     }
 
-    protected void endVisit(final DivisionExpression node) {
+    protected void endVisit(final DivideExpression node) {
         // nop
     }
 
@@ -166,11 +166,11 @@ public abstract class ExpressionVisitor extends Visitor<Expression> {
         // nop
     }
 
-    protected Visiting startVisit(final MultiplicationExpression node) {
+    protected Visiting startVisit(final MultiplyExpression node) {
         return Visiting.CONTINUE;
     }
 
-    protected void endVisit(final MultiplicationExpression node) {
+    protected void endVisit(final MultiplyExpression node) {
         // nop
     }
 
@@ -214,11 +214,11 @@ public abstract class ExpressionVisitor extends Visitor<Expression> {
         // nop
     }
 
-    protected Visiting startVisit(final SubtractionExpression node) {
+    protected Visiting startVisit(final SubtractExpression node) {
         return Visiting.CONTINUE;
     }
 
-    protected void endVisit(final SubtractionExpression node) {
+    protected void endVisit(final SubtractExpression node) {
         // nop
     }
 
