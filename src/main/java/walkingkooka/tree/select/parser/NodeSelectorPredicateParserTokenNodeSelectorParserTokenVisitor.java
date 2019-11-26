@@ -65,8 +65,7 @@ final class NodeSelectorPredicateParserTokenNodeSelectorParserTokenVisitor exten
 
     @Override
     protected Visiting startVisit(final NodeSelectorAdditionParserToken token) {
-        this.enter();
-        return super.startVisit(token);
+        return this.enter();
     }
 
     @Override
@@ -76,8 +75,7 @@ final class NodeSelectorPredicateParserTokenNodeSelectorParserTokenVisitor exten
 
     @Override
     protected Visiting startVisit(final NodeSelectorAndParserToken token) {
-        this.enter();
-        return super.startVisit(token);
+        return this.enter();
     }
 
     @Override
@@ -87,8 +85,7 @@ final class NodeSelectorPredicateParserTokenNodeSelectorParserTokenVisitor exten
 
     @Override
     protected Visiting startVisit(final NodeSelectorDivisionParserToken token) {
-        this.enter();
-        return super.startVisit(token);
+        return this.enter();
     }
 
     @Override
@@ -98,8 +95,7 @@ final class NodeSelectorPredicateParserTokenNodeSelectorParserTokenVisitor exten
 
     @Override
     protected Visiting startVisit(final NodeSelectorEqualsParserToken token) {
-        this.enter();
-        return super.startVisit(token);
+        return this.enter();
     }
 
     @Override
@@ -109,8 +105,7 @@ final class NodeSelectorPredicateParserTokenNodeSelectorParserTokenVisitor exten
 
     @Override
     protected Visiting startVisit(final NodeSelectorFunctionParserToken token) {
-        this.enter();
-        return super.startVisit(token);
+        return this.enter();
     }
 
     @Override
@@ -131,8 +126,7 @@ final class NodeSelectorPredicateParserTokenNodeSelectorParserTokenVisitor exten
 
     @Override
     protected Visiting startVisit(final NodeSelectorGreaterThanParserToken token) {
-        this.enter();
-        return super.startVisit(token);
+        return this.enter();
     }
 
     @Override
@@ -142,8 +136,7 @@ final class NodeSelectorPredicateParserTokenNodeSelectorParserTokenVisitor exten
 
     @Override
     protected Visiting startVisit(final NodeSelectorGreaterThanEqualsParserToken token) {
-        this.enter();
-        return super.startVisit(token);
+        return this.enter();
     }
 
     @Override
@@ -153,8 +146,7 @@ final class NodeSelectorPredicateParserTokenNodeSelectorParserTokenVisitor exten
 
     @Override
     protected Visiting startVisit(final NodeSelectorGroupParserToken token) {
-        this.enter();
-        return super.startVisit(token);
+        return this.enter();
     }
 
     @Override
@@ -164,8 +156,7 @@ final class NodeSelectorPredicateParserTokenNodeSelectorParserTokenVisitor exten
 
     @Override
     protected Visiting startVisit(final NodeSelectorLessThanParserToken token) {
-        this.enter();
-        return super.startVisit(token);
+        return this.enter();
     }
 
     @Override
@@ -175,8 +166,7 @@ final class NodeSelectorPredicateParserTokenNodeSelectorParserTokenVisitor exten
 
     @Override
     protected Visiting startVisit(final NodeSelectorLessThanEqualsParserToken token) {
-        this.enter();
-        return super.startVisit(token);
+        return this.enter();
     }
 
     @Override
@@ -186,8 +176,7 @@ final class NodeSelectorPredicateParserTokenNodeSelectorParserTokenVisitor exten
 
     @Override
     protected Visiting startVisit(final NodeSelectorModuloParserToken token) {
-        this.enter();
-        return super.startVisit(token);
+        return this.enter();
     }
 
     @Override
@@ -197,8 +186,7 @@ final class NodeSelectorPredicateParserTokenNodeSelectorParserTokenVisitor exten
 
     @Override
     protected Visiting startVisit(final NodeSelectorMultiplicationParserToken token) {
-        this.enter();
-        return super.startVisit(token);
+        return this.enter();
     }
 
     @Override
@@ -208,8 +196,7 @@ final class NodeSelectorPredicateParserTokenNodeSelectorParserTokenVisitor exten
 
     @Override
     protected Visiting startVisit(final NodeSelectorNegativeParserToken token) {
-        this.enter();
-        return super.startVisit(token);
+        return this.enter();
     }
 
     @Override
@@ -221,8 +208,7 @@ final class NodeSelectorPredicateParserTokenNodeSelectorParserTokenVisitor exten
 
     @Override
     protected Visiting startVisit(final NodeSelectorNotEqualsParserToken token) {
-        this.enter();
-        return super.startVisit(token);
+        return this.enter();
     }
 
     @Override
@@ -232,8 +218,7 @@ final class NodeSelectorPredicateParserTokenNodeSelectorParserTokenVisitor exten
 
     @Override
     protected Visiting startVisit(final NodeSelectorOrParserToken token) {
-        this.enter();
-        return super.startVisit(token);
+        return this.enter();
     }
 
     @Override
@@ -243,8 +228,7 @@ final class NodeSelectorPredicateParserTokenNodeSelectorParserTokenVisitor exten
 
     @Override
     protected Visiting startVisit(final NodeSelectorSubtractionParserToken token) {
-        this.enter();
-        return super.startVisit(token);
+        return this.enter();
     }
 
     @Override
@@ -276,9 +260,11 @@ final class NodeSelectorPredicateParserTokenNodeSelectorParserTokenVisitor exten
 
     // GENERAL PURPOSE .................................................................................................
 
-    private void enter() {
+    private Visiting enter() {
         this.previousChildren = this.previousChildren.push(this.children);
         this.children = Lists.array();
+
+        return Visiting.CONTINUE;
     }
 
     private void exitBinary(final BiFunction<Expression, Expression, Expression> factory,
