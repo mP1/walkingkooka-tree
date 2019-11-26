@@ -56,8 +56,7 @@ final class ParentNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NAME exte
         return this.selectParent(node, context);
     }
 
-    @Override
-    final N select(final N node, final NodeSelectorContext2<N, NAME, ANAME, AVALUE> context) {
+    @Override final N select(final N node, final NodeSelectorContext2<N, NAME, ANAME, AVALUE> context) {
         return this.selectNext(node, context);
     }
 

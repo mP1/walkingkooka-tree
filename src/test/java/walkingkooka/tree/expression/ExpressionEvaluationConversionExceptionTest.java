@@ -31,7 +31,7 @@ public final class ExpressionEvaluationConversionExceptionTest implements Standa
     public ExpressionEvaluationConversionException createThrowable(final String message, final Throwable cause) {
         return new ExpressionEvaluationConversionException(message, cause);
     }
-    
+
     @Override
     public Class<ExpressionEvaluationConversionException> type() {
         return ExpressionEvaluationConversionException.class;

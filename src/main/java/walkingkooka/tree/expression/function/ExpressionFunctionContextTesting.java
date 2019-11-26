@@ -19,7 +19,7 @@ package walkingkooka.tree.expression.function;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.ContextTesting;
-import walkingkooka.tree.expression.ExpressionNodeName;
+import walkingkooka.tree.expression.FunctionExpressionName;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -35,7 +35,7 @@ public interface ExpressionFunctionContextTesting<C extends ExpressionFunctionCo
 
     @Test
     default void testFunctionNullParametersFails() {
-        assertThrows(NullPointerException.class, () -> this.createContext().function(ExpressionNodeName.with("sum"), null));
+        assertThrows(NullPointerException.class, () -> this.createContext().function(FunctionExpressionName.with("sum"), null));
     }
 
     @Test

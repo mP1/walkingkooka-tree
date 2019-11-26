@@ -211,7 +211,7 @@ final public class LastChildNodeSelectorTest extends
     }
 
     // Object.......................................................................................................
-    
+
     @Test
     public void testToString() {
         this.toStringAndCheck(this.createSelector(), "last-child::*");

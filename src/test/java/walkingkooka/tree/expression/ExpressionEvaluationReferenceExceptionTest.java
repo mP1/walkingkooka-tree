@@ -31,7 +31,7 @@ public final class ExpressionEvaluationReferenceExceptionTest implements Standar
     public ExpressionEvaluationReferenceException createThrowable(final String message, final Throwable cause) {
         return new ExpressionEvaluationReferenceException(message, cause);
     }
-    
+
     @Override
     public Class<ExpressionEvaluationReferenceException> type() {
         return ExpressionEvaluationReferenceException.class;

@@ -23,7 +23,7 @@ import walkingkooka.naming.Name;
 import walkingkooka.predicate.Predicates;
 import walkingkooka.stream.push.PushableStreamConsumer;
 import walkingkooka.tree.Node;
-import walkingkooka.tree.expression.ExpressionNodeName;
+import walkingkooka.tree.expression.FunctionExpressionName;
 import walkingkooka.tree.expression.function.ExpressionFunction;
 
 import java.util.Objects;
@@ -48,7 +48,7 @@ final class NodeSelectorStreamConsumerPushableStreamConsumer<N extends Node<N, N
             ANAME extends Name,
             AVALUE> NodeSelectorStreamConsumerPushableStreamConsumer<N, NAME, ANAME, AVALUE> with(final N node,
                                                                                                   final NodeSelector<N, NAME, ANAME, AVALUE> selector,
-                                                                                                  final Function<ExpressionNodeName, Optional<ExpressionFunction<?>>> functions,
+                                                                                                  final Function<FunctionExpressionName, Optional<ExpressionFunction<?>>> functions,
                                                                                                   final Converter converter,
                                                                                                   final ConverterContext converterContext,
                                                                                                   final Class<N> nodeType) {
@@ -67,7 +67,7 @@ final class NodeSelectorStreamConsumerPushableStreamConsumer<N extends Node<N, N
      */
     private NodeSelectorStreamConsumerPushableStreamConsumer(final N node,
                                                              final NodeSelector<N, NAME, ANAME, AVALUE> selector,
-                                                             final Function<ExpressionNodeName, Optional<ExpressionFunction<?>>> functions,
+                                                             final Function<FunctionExpressionName, Optional<ExpressionFunction<?>>> functions,
                                                              final Converter converter,
                                                              final ConverterContext converterContext,
                                                              final Class<N> nodeType) {
@@ -96,7 +96,7 @@ final class NodeSelectorStreamConsumerPushableStreamConsumer<N extends Node<N, N
      */
     private N mapper(final N node) {
         final PushableStreamConsumer<N> pushableStreamConsumer = this.pushableStreamConsumer;
-        if(false == pushableStreamConsumer.isFinished()) {
+        if (false == pushableStreamConsumer.isFinished()) {
             pushableStreamConsumer.accept(node);
         }
         return node;

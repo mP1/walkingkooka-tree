@@ -309,7 +309,7 @@ public final class NodeSelectorParsers implements PublicStaticHelper {
     private static final Parser<ParserContext> MODULO_PARSER = literal("mod",
             NodeSelectorParserToken::moduloSymbol,
             NodeSelectorModuloSymbolParserToken.class);
-    
+
     private static final EbnfIdentifierName EQUALS_IDENTIFIER = EbnfIdentifierName.with("EQUALS");
     private static final Parser<ParserContext> EQUALS_PARSER = literal('=',
             NodeSelectorParserToken::equalsSymbol,
@@ -362,7 +362,7 @@ public final class NodeSelectorParsers implements PublicStaticHelper {
     private final static Parser<ParserContext> ATSIGN_SYMBOL_PARSER = literal('@',
             NodeSelectorParserToken::atSignSymbol,
             NodeSelectorAtSignSymbolParserToken.class);
-    
+
     static final EbnfIdentifierName ATTRIBUTE_NAME_IDENTIFIER = EbnfIdentifierName.with("ATTRIBUTE_NAME");
     private final static Parser<ParserContext> ATTRIBUTE_NAME_PARSER = name(NodeSelectorAttributeName.INITIAL,
             NodeSelectorAttributeName.PART,

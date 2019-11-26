@@ -17,8 +17,8 @@
 package walkingkooka.tree.select.parser;
 
 import walkingkooka.text.cursor.parser.ParserToken;
-import walkingkooka.tree.expression.ExpressionNode;
-import walkingkooka.tree.expression.ExpressionNodeName;
+import walkingkooka.tree.expression.Expression;
+import walkingkooka.tree.expression.FunctionExpressionName;
 import walkingkooka.visit.Visiting;
 
 import java.util.List;
@@ -41,10 +41,10 @@ public final class NodeSelectorPredicateParserToken extends NodeSelectorParentPa
     }
 
     /**
-     * Converts this token into an {@link ExpressionNode}
+     * Converts this token into an {@link Expression}
      */
-    public ExpressionNode toExpressionNode(final Predicate<ExpressionNodeName> functions) {
-        return NodeSelectorPredicateParserTokenNodeSelectorParserTokenVisitor.toExpressionNode(this, functions);
+    public Expression toExpression(final Predicate<FunctionExpressionName> functions) {
+        return NodeSelectorPredicateParserTokenNodeSelectorParserTokenVisitor.toExpression(this, functions);
     }
 
     // Visitor..........................................................................................................

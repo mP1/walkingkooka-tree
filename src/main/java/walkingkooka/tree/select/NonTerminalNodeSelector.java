@@ -35,8 +35,7 @@ abstract class NonTerminalNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, N
         this.next = next;
     }
 
-    @Override
-    final NodeSelector<N, NAME, ANAME, AVALUE> append0(final NodeSelector<N, NAME, ANAME, AVALUE> selector) {
+    @Override final NodeSelector<N, NAME, ANAME, AVALUE> append0(final NodeSelector<N, NAME, ANAME, AVALUE> selector) {
         return this.append1(this.next.append0(selector));
     }
 
@@ -64,8 +63,7 @@ abstract class NonTerminalNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, N
 
     // NodeSelectorVisitor..............................................................................................
 
-    @Override
-    final void accept0(final NodeSelectorVisitor<N, NAME, ANAME, AVALUE> visitor) {
+    @Override final void accept0(final NodeSelectorVisitor<N, NAME, ANAME, AVALUE> visitor) {
         if (Visiting.CONTINUE == this.traverseStart(visitor)) {
             this.next.traverse(visitor);
         }
@@ -100,8 +98,7 @@ abstract class NonTerminalNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, N
 
     abstract boolean equals1(final NonTerminalNodeSelector<?, ?, ?, ?> other);
 
-    @Override
-    final void toString0(final NodeSelectorToStringBuilder b) {
+    @Override final void toString0(final NodeSelectorToStringBuilder b) {
         this.toString1(b);
         this.toStringNext(b);
     }

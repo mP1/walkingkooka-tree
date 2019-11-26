@@ -26,7 +26,9 @@ import java.util.Optional;
 
 final public class Nodes implements PublicStaticHelper {
 
-    public static <N extends Node<N, NAME, ANAME, AVALUE>, NAME extends Name, ANAME extends Name, AVALUE>
+    public static <N extends Node<N, NAME, ANAME, AVALUE>,
+            NAME extends Name,
+            ANAME extends Name, AVALUE>
     Node<N, NAME, ANAME, AVALUE> fake() {
         return new FakeNode<>();
     }
@@ -51,7 +53,7 @@ final public class Nodes implements PublicStaticHelper {
         final Optional<N> parent = node.parent();
         return parent.isPresent() ?
                 pointer1(parent.get(), node) :
-                NodePointer.any(Cast.to(node.getClass()));
+                walkingkooka.tree.pointer.NodePointer.any(Cast.to(node.getClass()));
     }
 
     private static <N extends Node<N, NAME, ANAME, AVALUE>,

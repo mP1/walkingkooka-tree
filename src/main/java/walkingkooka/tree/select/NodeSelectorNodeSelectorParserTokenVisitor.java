@@ -19,7 +19,7 @@ package walkingkooka.tree.select;
 
 import walkingkooka.naming.Name;
 import walkingkooka.tree.Node;
-import walkingkooka.tree.expression.ExpressionNodeName;
+import walkingkooka.tree.expression.FunctionExpressionName;
 import walkingkooka.tree.select.parser.NodeSelectorAbsoluteParserToken;
 import walkingkooka.tree.select.parser.NodeSelectorAncestorOrSelfParserToken;
 import walkingkooka.tree.select.parser.NodeSelectorAncestorParserToken;
@@ -57,7 +57,7 @@ final class NodeSelectorNodeSelectorParserTokenVisitor<N extends Node<N, NAME, A
             NAME extends Name,
             ANAME extends Name, AVALUE> NodeSelector<N, NAME, ANAME, AVALUE> with(final NodeSelectorParserToken token,
                                                                                   final Function<NodeSelectorNodeName, NAME> nameFactory,
-                                                                                  final Predicate<ExpressionNodeName> functions,
+                                                                                  final Predicate<FunctionExpressionName> functions,
                                                                                   final Class<N> node) {
         Objects.requireNonNull(token, "token");
         Objects.requireNonNull(nameFactory, "nameFactory");
@@ -74,7 +74,7 @@ final class NodeSelectorNodeSelectorParserTokenVisitor<N extends Node<N, NAME, A
      */
     // @VisibleForTesting
     NodeSelectorNodeSelectorParserTokenVisitor(final Function<NodeSelectorNodeName, NAME> nameFactory,
-                                               final Predicate<ExpressionNodeName> functions,
+                                               final Predicate<FunctionExpressionName> functions,
                                                final Class<N> node) {
         super();
 
@@ -86,9 +86,9 @@ final class NodeSelectorNodeSelectorParserTokenVisitor<N extends Node<N, NAME, A
     private NodeSelector<N, NAME, ANAME, AVALUE> acceptAndComplete(final NodeSelectorParserToken token) {
         this.accept(token);
 
-    if(this.wildcard && this.axis) {
-        this.update(this.selector.children());
-    }
+        if (this.wildcard && this.axis) {
+            this.update(this.selector.children());
+        }
 
         return this.selector.setToString(token.text());
     }
@@ -96,11 +96,11 @@ final class NodeSelectorNodeSelectorParserTokenVisitor<N extends Node<N, NAME, A
     @Override
     protected Visiting startVisit(final NodeSelectorPredicateParserToken token) {
         this.childrenIfAxis();
-        this.test(this.selector.expression(token.toExpressionNode(this.functions)));
+        this.test(this.selector.expression(token.toExpression(this.functions)));
         return Visiting.SKIP;
     }
 
-    private final Predicate<ExpressionNodeName> functions;
+    private final Predicate<FunctionExpressionName> functions;
 
 
     // Leaf tokens...........................................................................................
@@ -198,7 +198,7 @@ final class NodeSelectorNodeSelectorParserTokenVisitor<N extends Node<N, NAME, A
     }
 
     private void childrenIfAxis() {
-        if(this.axis) {
+        if (this.axis) {
             this.update(this.selector.children());
         }
     }

@@ -23,8 +23,8 @@ import walkingkooka.naming.Name;
 import walkingkooka.stream.push.PushableStreamConsumer;
 import walkingkooka.text.CharacterConstant;
 import walkingkooka.tree.Node;
-import walkingkooka.tree.expression.ExpressionNode;
-import walkingkooka.tree.expression.ExpressionNodeName;
+import walkingkooka.tree.expression.Expression;
+import walkingkooka.tree.expression.FunctionExpressionName;
 import walkingkooka.tree.expression.function.ExpressionFunction;
 import walkingkooka.tree.select.parser.NodeSelectorExpressionParserToken;
 import walkingkooka.tree.select.parser.NodeSelectorNodeName;
@@ -60,7 +60,7 @@ public abstract class NodeSelector<N extends Node<N, NAME, ANAME, AVALUE>,
             ANAME extends Name,
             AVALUE> NodeSelector<N, NAME, ANAME, AVALUE> parserToken(final NodeSelectorExpressionParserToken token,
                                                                      final Function<NodeSelectorNodeName, NAME> nameFactory,
-                                                                     final Predicate<ExpressionNodeName> functions,
+                                                                     final Predicate<FunctionExpressionName> functions,
                                                                      final Class<N> nodeType) {
 
         return NodeSelectorNodeSelectorParserTokenVisitor.with(token, nameFactory, functions, nodeType);
@@ -177,8 +177,8 @@ public abstract class NodeSelector<N extends Node<N, NAME, ANAME, AVALUE>,
     /**
      * Appends an expression
      */
-    public final NodeSelector<N, NAME, ANAME, AVALUE> expression(final ExpressionNode expression) {
-        return NodeSelectorExpressionExpressionNodeVisitor.acceptExpression(expression, this);
+    public final NodeSelector<N, NAME, ANAME, AVALUE> expression(final Expression expression) {
+        return NodeSelectorExpressionExpressionVisitor.acceptExpression(expression, this);
     }
 
     /**
@@ -434,7 +434,7 @@ public abstract class NodeSelector<N extends Node<N, NAME, ANAME, AVALUE>,
      * {@link Stream} for further stream processing.
      */
     public final Stream<N> stream(final N node,
-                                  final Function<ExpressionNodeName, Optional<ExpressionFunction<?>>> functions,
+                                  final Function<FunctionExpressionName, Optional<ExpressionFunction<?>>> functions,
                                   final Converter converter,
                                   final ConverterContext converterContext,
                                   final Class<N> nodeType) {

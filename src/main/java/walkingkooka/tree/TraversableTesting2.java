@@ -34,7 +34,7 @@ import static org.junit.jupiter.api.Assertions.assertSame;
 /**
  * A mixin interface that contains tests and helpers to assist testing of {@link Traversable} implementations..
  */
-public interface TraversableTesting2<T extends Traversable<T> >
+public interface TraversableTesting2<T extends Traversable<T>>
         extends BeanPropertiesTesting,
         HashCodeEqualsDefinedTesting2<T>,
         ToStringTesting<T>,

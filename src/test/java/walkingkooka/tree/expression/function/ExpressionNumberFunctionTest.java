@@ -30,22 +30,22 @@ public final class ExpressionNumberFunctionTest extends ExpressionFunctionTestCa
 
     @Test
     public void testTwoParametersFails() {
-        assertThrows(IllegalArgumentException.class, () -> this.apply2( "a1", "b2"));
+        assertThrows(IllegalArgumentException.class, () -> this.apply2("a1", "b2"));
     }
 
     @Test
     public void testInteger() {
-        this.applyAndCheck2(parameters( 123), 123);
+        this.applyAndCheck2(parameters(123), 123);
     }
 
     @Test
     public void testString() {
-        this.applyAndCheck2(parameters( "123"), 123);
+        this.applyAndCheck2(parameters("123"), 123);
     }
 
     @Test
     public void testStringNonNumericFails() {
-        assertThrows(NumberFormatException.class, () -> this.apply2( "abc"));
+        assertThrows(NumberFormatException.class, () -> this.apply2("abc"));
     }
 
     @Test

@@ -18,7 +18,7 @@
 package walkingkooka.tree.select;
 
 import walkingkooka.naming.Name;
-import walkingkooka.tree.expression.ExpressionNode;
+import walkingkooka.tree.expression.Expression;
 
 import java.util.function.Predicate;
 
@@ -162,8 +162,8 @@ enum NodeSelectorToStringBuilderMode {
         return this.predicateOrExpression(predicate.toString(), b);
     }
 
-    final NodeSelectorToStringBuilderMode expression(final ExpressionNode expression, final StringBuilder b) {
-        return this.predicateOrExpression(ExpressionNodeSelectorToStringExpressionNodeVisitor.toString(expression), b);
+    final NodeSelectorToStringBuilderMode expression(final Expression expression, final StringBuilder b) {
+        return this.predicateOrExpression(ExpressionNodeSelectorToStringExpressionVisitor.toString(expression), b);
     }
 
     private NodeSelectorToStringBuilderMode predicateOrExpression(final String string, final StringBuilder b) {

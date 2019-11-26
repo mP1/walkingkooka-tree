@@ -21,9 +21,9 @@ import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.stack.Stack;
 import walkingkooka.collect.stack.Stacks;
 import walkingkooka.text.CharSequences;
-import walkingkooka.tree.expression.ExpressionNode;
-import walkingkooka.tree.expression.ExpressionNodeName;
+import walkingkooka.tree.expression.Expression;
 import walkingkooka.tree.expression.ExpressionReference;
+import walkingkooka.tree.expression.FunctionExpressionName;
 import walkingkooka.tree.select.NodeSelectorException;
 import walkingkooka.visit.Visiting;
 
@@ -32,23 +32,23 @@ import java.util.function.BiFunction;
 import java.util.function.Predicate;
 
 /**
- * This {@link NodeSelectorParserTokenVisitor} translates a {@link NodeSelectorPredicateParserToken} into a {@link walkingkooka.tree.expression.ExpressionNode} equivalent.
+ * This {@link NodeSelectorParserTokenVisitor} translates a {@link NodeSelectorPredicateParserToken} into a {@link Expression} equivalent.
  * A support {@link walkingkooka.tree.expression.ExpressionEvaluationContext} will provide function to definition and attribute to value lookups.
  */
 final class NodeSelectorPredicateParserTokenNodeSelectorParserTokenVisitor extends NodeSelectorParserTokenVisitor {
 
     /**
-     * Converts the contents of a predicate into a {@link ExpressionNode}.
+     * Converts the contents of a predicate into a {@link Expression}.
      */
-    static ExpressionNode toExpressionNode(final NodeSelectorPredicateParserToken token,
-                                           final Predicate<ExpressionNodeName> functions) {
+    static Expression toExpression(final NodeSelectorPredicateParserToken token,
+                                   final Predicate<FunctionExpressionName> functions) {
         final NodeSelectorPredicateParserTokenNodeSelectorParserTokenVisitor visitor = new NodeSelectorPredicateParserTokenNodeSelectorParserTokenVisitor(functions);
         token.accept(visitor);
 
-        final List<ExpressionNode> nodes = visitor.children;
+        final List<Expression> nodes = visitor.children;
         final int count = nodes.size();
         if (1 != count) {
-            throw new IllegalArgumentException("Expected either 0 or 1 ExpressionNodes but got " + count + "=" + nodes);
+            throw new IllegalArgumentException("Expected either 0 or 1 Expressions but got " + count + "=" + nodes);
         }
 
         return nodes.get(0);
@@ -58,7 +58,7 @@ final class NodeSelectorPredicateParserTokenNodeSelectorParserTokenVisitor exten
      * Private ctor use static method.
      */
     // @VisibleForTesting
-    NodeSelectorPredicateParserTokenNodeSelectorParserTokenVisitor(final Predicate<ExpressionNodeName> functions) {
+    NodeSelectorPredicateParserTokenNodeSelectorParserTokenVisitor(final Predicate<FunctionExpressionName> functions) {
         super();
         this.functions = functions;
     }
@@ -71,7 +71,7 @@ final class NodeSelectorPredicateParserTokenNodeSelectorParserTokenVisitor exten
 
     @Override
     protected void endVisit(final NodeSelectorAdditionParserToken token) {
-        this.exitBinary(ExpressionNode::addition, token);
+        this.exitBinary(Expression::addition, token);
     }
 
     @Override
@@ -82,9 +82,9 @@ final class NodeSelectorPredicateParserTokenNodeSelectorParserTokenVisitor exten
 
     @Override
     protected void endVisit(final NodeSelectorAndParserToken token) {
-        this.exitBinary(ExpressionNode::and, token);
+        this.exitBinary(Expression::and, token);
     }
-    
+
     @Override
     protected Visiting startVisit(final NodeSelectorDivisionParserToken token) {
         this.enter();
@@ -93,7 +93,7 @@ final class NodeSelectorPredicateParserTokenNodeSelectorParserTokenVisitor exten
 
     @Override
     protected void endVisit(final NodeSelectorDivisionParserToken token) {
-        this.exitBinary(ExpressionNode::division, token);
+        this.exitBinary(Expression::division, token);
     }
 
     @Override
@@ -104,7 +104,7 @@ final class NodeSelectorPredicateParserTokenNodeSelectorParserTokenVisitor exten
 
     @Override
     protected void endVisit(final NodeSelectorEqualsParserToken token) {
-        this.exitBinary(ExpressionNode::equalsNode, token);
+        this.exitBinary(Expression::equalsExpression, token);
     }
 
     @Override
@@ -115,19 +115,19 @@ final class NodeSelectorPredicateParserTokenNodeSelectorParserTokenVisitor exten
 
     @Override
     protected void endVisit(final NodeSelectorFunctionParserToken token) {
-        final ExpressionNodeName functionName = ExpressionNodeName.with(token.functionName().value());
+        final FunctionExpressionName functionName = FunctionExpressionName.with(token.functionName().value());
         if (!this.functions.test(functionName)) {
             throw new NodeSelectorException("Unknown function " + CharSequences.quoteAndEscape(functionName.value()) + " in " + CharSequences.quoteAndEscape(token.toString()));
         }
 
-        final ExpressionNode function = ExpressionNode.function(
+        final Expression function = Expression.function(
                 functionName,
                 this.children.subList(1, this.children.size()));
         this.exit();
         this.add(function, token);
     }
 
-    private final Predicate<ExpressionNodeName> functions;
+    private final Predicate<FunctionExpressionName> functions;
 
     @Override
     protected Visiting startVisit(final NodeSelectorGreaterThanParserToken token) {
@@ -137,7 +137,7 @@ final class NodeSelectorPredicateParserTokenNodeSelectorParserTokenVisitor exten
 
     @Override
     protected void endVisit(final NodeSelectorGreaterThanParserToken token) {
-        this.exitBinary(ExpressionNode::greaterThan, token);
+        this.exitBinary(Expression::greaterThan, token);
     }
 
     @Override
@@ -148,7 +148,7 @@ final class NodeSelectorPredicateParserTokenNodeSelectorParserTokenVisitor exten
 
     @Override
     protected void endVisit(final NodeSelectorGreaterThanEqualsParserToken token) {
-        this.exitBinary(ExpressionNode::greaterThanEquals, token);
+        this.exitBinary(Expression::greaterThanEquals, token);
     }
 
     @Override
@@ -159,7 +159,7 @@ final class NodeSelectorPredicateParserTokenNodeSelectorParserTokenVisitor exten
 
     @Override
     protected void endVisit(final NodeSelectorGroupParserToken token) {
-        this.exitBinary(ExpressionNode::addition, token);
+        this.exitBinary(Expression::addition, token);
     }
 
     @Override
@@ -170,7 +170,7 @@ final class NodeSelectorPredicateParserTokenNodeSelectorParserTokenVisitor exten
 
     @Override
     protected void endVisit(final NodeSelectorLessThanParserToken token) {
-        this.exitBinary(ExpressionNode::lessThan, token);
+        this.exitBinary(Expression::lessThan, token);
     }
 
     @Override
@@ -181,7 +181,7 @@ final class NodeSelectorPredicateParserTokenNodeSelectorParserTokenVisitor exten
 
     @Override
     protected void endVisit(final NodeSelectorLessThanEqualsParserToken token) {
-        this.exitBinary(ExpressionNode::lessThanEquals, token);
+        this.exitBinary(Expression::lessThanEquals, token);
     }
 
     @Override
@@ -192,7 +192,7 @@ final class NodeSelectorPredicateParserTokenNodeSelectorParserTokenVisitor exten
 
     @Override
     protected void endVisit(final NodeSelectorModuloParserToken token) {
-        this.exitBinary(ExpressionNode::modulo, token);
+        this.exitBinary(Expression::modulo, token);
     }
 
     @Override
@@ -203,7 +203,7 @@ final class NodeSelectorPredicateParserTokenNodeSelectorParserTokenVisitor exten
 
     @Override
     protected void endVisit(final NodeSelectorMultiplicationParserToken token) {
-        this.exitBinary(ExpressionNode::multiplication, token);
+        this.exitBinary(Expression::multiplication, token);
     }
 
     @Override
@@ -214,9 +214,9 @@ final class NodeSelectorPredicateParserTokenNodeSelectorParserTokenVisitor exten
 
     @Override
     protected void endVisit(final NodeSelectorNegativeParserToken token) {
-        final ExpressionNode parameter = this.children.get(0);
+        final Expression parameter = this.children.get(0);
         this.exit();
-        this.add(ExpressionNode.negative(parameter), token);
+        this.add(Expression.negative(parameter), token);
     }
 
     @Override
@@ -227,7 +227,7 @@ final class NodeSelectorPredicateParserTokenNodeSelectorParserTokenVisitor exten
 
     @Override
     protected void endVisit(final NodeSelectorNotEqualsParserToken token) {
-        this.exitBinary(ExpressionNode::notEquals, token);
+        this.exitBinary(Expression::notEquals, token);
     }
 
     @Override
@@ -238,7 +238,7 @@ final class NodeSelectorPredicateParserTokenNodeSelectorParserTokenVisitor exten
 
     @Override
     protected void endVisit(final NodeSelectorOrParserToken token) {
-        this.exitBinary(ExpressionNode::or, token);
+        this.exitBinary(Expression::or, token);
     }
 
     @Override
@@ -249,7 +249,7 @@ final class NodeSelectorPredicateParserTokenNodeSelectorParserTokenVisitor exten
 
     @Override
     protected void endVisit(final NodeSelectorSubtractionParserToken token) {
-        this.exitBinary(ExpressionNode::subtraction, token);
+        this.exitBinary(Expression::subtraction, token);
     }
 
     // Leaf................................................................................................
@@ -266,12 +266,12 @@ final class NodeSelectorPredicateParserTokenNodeSelectorParserTokenVisitor exten
 
     @Override
     protected void visit(final NodeSelectorNumberParserToken token) {
-        this.add(ExpressionNode.bigDecimal(token.value()), token);
+        this.add(Expression.bigDecimal(token.value()), token);
     }
 
     @Override
     protected void visit(final NodeSelectorQuotedTextParserToken token) {
-        this.add(ExpressionNode.text(token.value()), token);
+        this.add(Expression.string(token.value()), token);
     }
 
     // GENERAL PURPOSE .................................................................................................
@@ -281,10 +281,10 @@ final class NodeSelectorPredicateParserTokenNodeSelectorParserTokenVisitor exten
         this.children = Lists.array();
     }
 
-    private void exitBinary(final BiFunction<ExpressionNode, ExpressionNode, ExpressionNode> factory,
+    private void exitBinary(final BiFunction<Expression, Expression, Expression> factory,
                             final NodeSelectorParserToken token) {
-        final ExpressionNode left = this.children.get(0);
-        final ExpressionNode right = this.children.get(1);
+        final Expression left = this.children.get(0);
+        final Expression right = this.children.get(1);
         this.exit();
         this.add(factory.apply(left, right), token);
     }
@@ -295,23 +295,23 @@ final class NodeSelectorPredicateParserTokenNodeSelectorParserTokenVisitor exten
     }
 
     private void addReference(final ExpressionReference reference, final NodeSelectorParserToken token) {
-        final ExpressionNode node = ExpressionNode.reference(reference);
+        final Expression node = Expression.reference(reference);
         this.add(node, token);
     }
 
-    private void add(final ExpressionNode node, final NodeSelectorParserToken token) {
+    private void add(final Expression node, final NodeSelectorParserToken token) {
         if (null == node) {
             throw new NullPointerException("Null node returned for " + token);
         }
         this.children.add(node);
     }
 
-    private Stack<List<ExpressionNode>> previousChildren = Stacks.arrayList();
+    private Stack<List<Expression>> previousChildren = Stacks.arrayList();
 
     /**
-     * Aggregates the child {@link ExpressionNode}.
+     * Aggregates the child {@link Expression}.
      */
-    private List<ExpressionNode> children = Lists.array();
+    private List<Expression> children = Lists.array();
 
     @Override
     public String toString() {

@@ -31,7 +31,7 @@ public final class NodeSelectorExceptionTest implements StandardThrowableTesting
     public NodeSelectorException createThrowable(final String message, final Throwable cause) {
         return new NodeSelectorException(message, cause);
     }
-    
+
     @Override
     public Class<NodeSelectorException> type() {
         return NodeSelectorException.class;

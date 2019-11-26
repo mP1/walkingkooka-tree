@@ -32,14 +32,14 @@ public class FakeExpressionEvaluationContext extends FakeDecimalNumberContext im
     }
 
     @Override
-    public Object function(final ExpressionNodeName name, final List<Object> parameters) {
+    public Object function(final FunctionExpressionName name, final List<Object> parameters) {
         Objects.requireNonNull(name, "name");
         Objects.requireNonNull(parameters, "parameters");
         throw new UnsupportedOperationException();
     }
 
     @Override
-    public Optional<ExpressionNode> reference(final ExpressionReference reference) {
+    public Optional<Expression> reference(final ExpressionReference reference) {
         Objects.requireNonNull(reference, "reference");
         throw new UnsupportedOperationException();
     }

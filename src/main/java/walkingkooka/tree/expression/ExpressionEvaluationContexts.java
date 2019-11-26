@@ -31,8 +31,8 @@ public final class ExpressionEvaluationContexts implements PublicStaticHelper {
     /**
      * {@see BasicExpressionEvaluationContext}
      */
-    public static ExpressionEvaluationContext basic(final BiFunction<ExpressionNodeName, List<Object>, Object> functions,
-                                                    final Function<ExpressionReference, Optional<ExpressionNode>> references,
+    public static ExpressionEvaluationContext basic(final BiFunction<FunctionExpressionName, List<Object>, Object> functions,
+                                                    final Function<ExpressionReference, Optional<Expression>> references,
                                                     final Converter converter,
                                                     final ConverterContext context) {
         return BasicExpressionEvaluationContext.with(functions, references, converter, context);

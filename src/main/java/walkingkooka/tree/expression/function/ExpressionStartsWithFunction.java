@@ -17,7 +17,7 @@
 
 package walkingkooka.tree.expression.function;
 
-import walkingkooka.tree.expression.ExpressionNodeName;
+import walkingkooka.tree.expression.FunctionExpressionName;
 
 import java.util.List;
 
@@ -49,11 +49,11 @@ final class ExpressionStartsWithFunction extends ExpressionFunction2<Boolean> {
 
 
     @Override
-    public ExpressionNodeName name() {
+    public FunctionExpressionName name() {
         return NAME;
     }
 
-    private final static ExpressionNodeName NAME = ExpressionNodeName.with("starts-with");
+    private final static FunctionExpressionName NAME = FunctionExpressionName.with("starts-with");
 
     @Override
     public String toString() {

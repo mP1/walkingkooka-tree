@@ -17,7 +17,7 @@
 
 package walkingkooka.tree.expression.function;
 
-import walkingkooka.tree.expression.ExpressionNodeName;
+import walkingkooka.tree.expression.FunctionExpressionName;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
@@ -61,9 +61,9 @@ final class ExpressionCeilFunction extends ExpressionNumberFunction2 {
     }
 
     @Override
-    public ExpressionNodeName name() {
+    public FunctionExpressionName name() {
         return NAME;
     }
 
-    private final static ExpressionNodeName NAME = ExpressionNodeName.with("ceil");
+    private final static FunctionExpressionName NAME = FunctionExpressionName.with("ceil");
 }

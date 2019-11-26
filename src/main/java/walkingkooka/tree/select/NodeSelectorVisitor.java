@@ -19,7 +19,7 @@ package walkingkooka.tree.select;
 
 import walkingkooka.naming.Name;
 import walkingkooka.tree.Node;
-import walkingkooka.tree.expression.ExpressionNode;
+import walkingkooka.tree.expression.Expression;
 import walkingkooka.visit.Visiting;
 import walkingkooka.visit.Visitor;
 
@@ -108,11 +108,11 @@ public abstract class NodeSelectorVisitor<N extends Node<N, NAME, ANAME, AVALUE>
     protected void endVisitDescendantOrSelf(final NodeSelector<N, NAME, ANAME, AVALUE> selector) {
     }
 
-    protected Visiting startVisitExpression(final NodeSelector<N, NAME, ANAME, AVALUE> selector, final ExpressionNode expression) {
+    protected Visiting startVisitExpression(final NodeSelector<N, NAME, ANAME, AVALUE> selector, final Expression expression) {
         return Visiting.CONTINUE;
     }
 
-    protected void endVisitExpression(final NodeSelector<N, NAME, ANAME, AVALUE> selector, final ExpressionNode expression) {
+    protected void endVisitExpression(final NodeSelector<N, NAME, ANAME, AVALUE> selector, final Expression expression) {
     }
 
     protected Visiting startVisitFirstChild(final NodeSelector<N, NAME, ANAME, AVALUE> selector) {

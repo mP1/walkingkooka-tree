@@ -107,7 +107,7 @@ final public class TerminalNodeSelectorTest
     }
 
     // Object....................................................................................................
-    
+
     @Test
     public void testToString() {
         this.toStringAndCheck(this.createSelector(), "");
@@ -118,10 +118,9 @@ final public class TerminalNodeSelectorTest
         return TerminalNodeSelector.get();
     }
 
-    @Override
-    final void applyAndCheck0(final NodeSelector<TestNode, StringName, StringName, Object> selector,
-                              final TestNode start,
-                              final String... nodes) {
+    @Override final void applyAndCheck0(final NodeSelector<TestNode, StringName, StringName, Object> selector,
+                                        final TestNode start,
+                                        final String... nodes) {
         this.applyAndCheckUsingContext(selector, start, nodes);
     }
 
