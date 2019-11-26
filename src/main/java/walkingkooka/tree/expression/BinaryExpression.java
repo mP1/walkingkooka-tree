@@ -55,8 +55,7 @@ abstract class BinaryExpression extends ParentFixedExpression {
         return 2;
     }
 
-    @Override
-    final BinaryExpression replace0(final int index, final List<Expression> children) {
+    @Override final BinaryExpression replace0(final int index, final List<Expression> children) {
         return replace1(index, children.get(0), children.get(1));
     }
 

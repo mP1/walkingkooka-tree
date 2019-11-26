@@ -43,8 +43,7 @@ public final class NodeSelectorOrSymbolParserToken extends NodeSelectorSymbolPar
         return OR_PRIORITY;
     }
 
-    @Override
-    final NodeSelectorBinaryParserToken binaryOperand(final List<ParserToken> tokens, final String text) {
+    @Override final NodeSelectorBinaryParserToken binaryOperand(final List<ParserToken> tokens, final String text) {
         return or(tokens, text);
     }
 

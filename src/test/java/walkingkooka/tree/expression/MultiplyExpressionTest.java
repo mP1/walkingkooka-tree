@@ -26,16 +26,16 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 
-public final class DivisionExpressionTest extends BinaryArithmeticExpressionTestCase2<DivisionExpression> {
+public final class MultiplyExpressionTest extends BinaryArithmeticExpressionTestCase2<MultiplyExpression> {
 
     @Test
     public void testAccept() {
         final StringBuilder b = new StringBuilder();
         final List<Expression> visited = Lists.array();
 
-        final DivisionExpression division = this.createExpression();
-        final Expression text1 = division.children().get(0);
-        final Expression text2 = division.children().get(1);
+        final MultiplyExpression mul = this.createExpression();
+        final Expression text1 = mul.children().get(0);
+        final Expression text2 = mul.children().get(1);
 
         new FakeExpressionVisitor() {
             @Override
@@ -52,16 +52,16 @@ public final class DivisionExpressionTest extends BinaryArithmeticExpressionTest
             }
 
             @Override
-            protected Visiting startVisit(final DivisionExpression t) {
-                assertSame(division, t);
+            protected Visiting startVisit(final MultiplyExpression t) {
+                assertSame(mul, t);
                 b.append("3");
                 visited.add(t);
                 return Visiting.CONTINUE;
             }
 
             @Override
-            protected void endVisit(final DivisionExpression t) {
-                assertSame(division, t);
+            protected void endVisit(final MultiplyExpression t) {
+                assertSame(mul, t);
                 b.append("4");
                 visited.add(t);
             }
@@ -71,12 +71,12 @@ public final class DivisionExpressionTest extends BinaryArithmeticExpressionTest
                 b.append("5");
                 visited.add(t);
             }
-        }.accept(division);
+        }.accept(mul);
         assertEquals("1315215242", b.toString());
-        assertEquals(Lists.of(division, division,
+        assertEquals(Lists.of(mul, mul,
                 text1, text1, text1,
                 text2, text2, text2,
-                division, division),
+                mul, mul),
                 visited,
                 "visited");
     }
@@ -85,159 +85,158 @@ public final class DivisionExpressionTest extends BinaryArithmeticExpressionTest
 
     @Test
     public void testEvaluateToBooleanTrue() {
-        // left / right == truthy number
+        // left * right == truthy number
         this.evaluateAndCheckBoolean(this.createExpression(bigDecimal(12), bigDecimal(34)), true);
     }
 
     @Test
     public void testEvaluateToBooleanFalse() {
-        // left / right == truthy number
-        this.evaluateAndCheckBoolean(this.createExpression(bigDecimal(0), bigDecimal(-12)), false);
+        // left * right == truthy number
+        this.evaluateAndCheckBoolean(this.createExpression(bigDecimal(12), bigDecimal(0)), false);
     }
 
     // toBigDecimal...............................................................................................
 
     @Test
     public void testEvaluateToBigDecimalBigDecimal() {
-        this.evaluateAndCheckBigDecimal(this.createExpression(bigDecimal(50), bigDecimal(0.5)), 50 / 0.5);
+        this.evaluateAndCheckBigDecimal(this.createExpression(bigDecimal(12), bigDecimal(34)), 12 * 34);
     }
 
     @Test
     public void testEvaluateToBigDecimalBigInteger() {
-        this.evaluateAndCheckBigDecimal(this.createExpression(bigDecimal(50), bigInteger(10)), 50.0 / 10);
+        this.evaluateAndCheckBigDecimal(this.createExpression(bigDecimal(12), bigInteger(34)), 12 * 34);
     }
 
     @Test
     public void testEvaluateToBigDecimalDouble() {
-        this.evaluateAndCheckBigDecimal(this.createExpression(bigDecimal(50), doubleValue(0.5)), 50 / 0.5);
+        this.evaluateAndCheckBigDecimal(this.createExpression(bigDecimal(12), doubleValue(34)), 12 * 34);
     }
 
     @Test
     public void testEvaluateToBigDecimalLong() {
-        this.evaluateAndCheckBigDecimal(this.createExpression(bigDecimal(50), longValue(5)), 50.0 / 5);
+        this.evaluateAndCheckBigDecimal(this.createExpression(bigDecimal(12), longValue(34)), 12 * 34);
     }
-
 
     @Test
     public void testEvaluateToBigDecimalText() {
-        this.evaluateAndCheckBigDecimal(this.createExpression(bigDecimal(50), text(5)), 50.0 / 5);
+        this.evaluateAndCheckBigDecimal(this.createExpression(bigDecimal(12), text(34)), 12 * 34);
     }
 
     // toBigInteger...............................................................................................
 
     @Test
     public void testEvaluateToBigIntegerBigDecimal() {
-        this.evaluateAndCheckBigDecimal(this.createExpression(bigInteger(50), bigDecimal(0.5)), 50 / 0.5);
+        this.evaluateAndCheckBigDecimal(this.createExpression(bigInteger(12), bigDecimal(34)), 12 * 34);
     }
 
     @Test
     public void testEvaluateToBigIntegerBigInteger() {
-        this.evaluateAndCheckBigInteger(this.createExpression(bigInteger(50), bigInteger(10)), 50 / 10);
+        this.evaluateAndCheckBigInteger(this.createExpression(bigInteger(12), bigInteger(34)), 12 * 34);
     }
 
     @Test
     public void testEvaluateToBigIntegerDouble() {
-        this.evaluateAndCheckBigDecimal(this.createExpression(bigInteger(50), doubleValue(0.5)), 50 / 0.5);
+        this.evaluateAndCheckBigDecimal(this.createExpression(bigInteger(12), doubleValue(34)), 12 * 34);
     }
 
     @Test
     public void testEvaluateToBigIntegerLong() {
-        this.evaluateAndCheckBigInteger(this.createExpression(bigInteger(50), longValue(10)), 50 / 10);
+        this.evaluateAndCheckBigInteger(this.createExpression(bigInteger(12), longValue(34)), 12 * 34);
     }
 
     @Test
     public void testEvaluateToBigIntegerText() {
-        this.evaluateAndCheckBigInteger(this.createExpression(bigInteger(50), text(10)), 50 / 10);
+        this.evaluateAndCheckBigInteger(this.createExpression(bigInteger(12), text(34)), 12 * 34);
     }
 
     // toDouble...............................................................................................
 
     @Test
     public void testEvaluateToDoubleBigDecimal() {
-        this.evaluateAndCheckBigDecimal(this.createExpression(doubleValue(50), bigDecimal(0.5)), 50.0 / 0.5);
+        this.evaluateAndCheckBigDecimal(this.createExpression(doubleValue(12), bigDecimal(34)), 12 * 34);
     }
 
     @Test
     public void testEvaluateToDoubleBigInteger() {
-        this.evaluateAndCheckBigDecimal(this.createExpression(doubleValue(50), bigInteger(5)), 50.0 / 5);
+        this.evaluateAndCheckBigDecimal(this.createExpression(doubleValue(12), bigInteger(34)), 12 * 34);
     }
 
     @Test
     public void testEvaluateToDoubleDouble() {
-        this.evaluateAndCheckDouble(this.createExpression(doubleValue(50), doubleValue(0.5)), 50.0 / 0.5);
+        this.evaluateAndCheckDouble(this.createExpression(doubleValue(12), doubleValue(34)), 12.0 * 34.0);
     }
 
     @Test
     public void testEvaluateToDoubleLong() {
-        this.evaluateAndCheckDouble(this.createExpression(doubleValue(50), longValue(5)), 50.0 / 5L);
+        this.evaluateAndCheckDouble(this.createExpression(doubleValue(12), longValue(34)), 12.0 * 34.0);
     }
 
     @Test
     public void testEvaluateToDoubleText() {
-        this.evaluateAndCheckDouble(this.createExpression(doubleValue(50), text(5)), 50.0 / 5L);
+        this.evaluateAndCheckDouble(this.createExpression(doubleValue(12), text(34)), 12.0 * 34.0);
     }
 
     // toLong...............................................................................................
 
     @Test
     public void testEvaluateToLongBigDecimal() {
-        this.evaluateAndCheckBigDecimal(this.createExpression(longValue(60), bigDecimal(12)), 60.0 / 12);
+        this.evaluateAndCheckBigDecimal(this.createExpression(longValue(12), bigDecimal(34)), 12 * 34);
     }
 
     @Test
     public void testEvaluateToLongBigInteger() {
-        this.evaluateAndCheckBigInteger(this.createExpression(longValue(60), bigInteger(12)), 60 / 12L);
+        this.evaluateAndCheckBigInteger(this.createExpression(longValue(12), bigInteger(34)), 12 * 34);
     }
 
     @Test
     public void testEvaluateToLongDouble() {
-        this.evaluateAndCheckDouble(this.createExpression(longValue(60), doubleValue(12)), 60L / 12.0);
+        this.evaluateAndCheckDouble(this.createExpression(longValue(12), doubleValue(34)), 12L * 34.0);
     }
 
     @Test
     public void testEvaluateToLongLong() {
-        this.evaluateAndCheckLong(this.createExpression(longValue(60), longValue(12)), 60L / 12L);
+        this.evaluateAndCheckLong(this.createExpression(longValue(12), longValue(34)), 12L * 34L);
     }
 
     @Test
     public void testEvaluateToLongText() {
-        this.evaluateAndCheckLong(this.createExpression(longValue(60), text(12)), 60L / 12L);
+        this.evaluateAndCheckLong(this.createExpression(longValue(12), text(34)), 12L * 34L);
     }
 
     // toNumber.....................................................................................
 
     @Test
     public void testEvaluateToNumberBigDecimal() {
-        this.evaluateAndCheckNumberBigDecimal(this.createExpression(bigDecimal(60), bigDecimal(5)), 60.0 / 5);
+        this.evaluateAndCheckNumberBigDecimal(this.createExpression(bigDecimal(12), bigDecimal(34)), 12 * 34);
     }
 
     @Test
     public void testEvaluateToNumberBigInteger() {
-        this.evaluateAndCheckNumberBigInteger(this.createExpression(bigInteger(60), bigInteger(5)), 60 / 5);
+        this.evaluateAndCheckNumberBigInteger(this.createExpression(bigInteger(12), bigInteger(34)), 12 * 34);
     }
 
     @Test
     public void testEvaluateToNumberDouble() {
-        this.evaluateAndCheckNumberDouble(this.createExpression(doubleValue(60), doubleValue(5)), 60.0 / 5);
+        this.evaluateAndCheckNumberDouble(this.createExpression(doubleValue(12), doubleValue(34)), 12 * 34);
     }
 
     @Test
     public void testEvaluateToNumberLong() {
-        this.evaluateAndCheckNumberLong(this.createExpression(longValue(60), longValue(5)), 60 / 5);
+        this.evaluateAndCheckNumberLong(this.createExpression(longValue(12), longValue(34)), 12 * 34);
     }
 
     @Override
-    DivisionExpression createExpression(final Expression left, final Expression right) {
-        return DivisionExpression.with(left, right);
+    MultiplyExpression createExpression(final Expression left, final Expression right) {
+        return MultiplyExpression.with(left, right);
     }
 
     @Override
     String expectedToString() {
-        return LEFT_TO_STRING + "/" + RIGHT_TO_STRING;
+        return LEFT_TO_STRING + "*" + RIGHT_TO_STRING;
     }
 
     @Override
-    Class<DivisionExpression> expressionType() {
-        return DivisionExpression.class;
+    Class<MultiplyExpression> expressionType() {
+        return MultiplyExpression.class;
     }
 }

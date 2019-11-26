@@ -57,8 +57,7 @@ abstract class BinaryComparisonExpression extends BinaryExpression2 {
                 (this.isComparisonTrue(Double.compare(left, right))));
     }
 
-    @Override
-    final Expression applyLong(final long left, final long right, final ExpressionEvaluationContext context) {
+    @Override final Expression applyLong(final long left, final long right, final ExpressionEvaluationContext context) {
         return Expression.booleanExpression(this.isComparisonTrue(Long.compare(left, right)));
     }
 

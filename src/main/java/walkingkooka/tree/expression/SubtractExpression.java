@@ -24,20 +24,20 @@ import java.math.BigInteger;
 import java.util.List;
 
 /**
- * A division expression.
+ * A subtract expression.
  */
-public final class DivisionExpression extends BinaryArithmeticExpression {
+public final class SubtractExpression extends BinaryArithmeticExpression {
 
-    public final static FunctionExpressionName NAME = FunctionExpressionName.fromClass(DivisionExpression.class);
+    public final static FunctionExpressionName NAME = FunctionExpressionName.fromClass(SubtractExpression.class);
 
-    public final static String SYMBOL = "/";
+    public final static String SYMBOL = "-";
 
-    static DivisionExpression with(final Expression left, final Expression right) {
+    static SubtractExpression with(final Expression left, final Expression right) {
         check(left, right);
-        return new DivisionExpression(NO_INDEX, left, right);
+        return new SubtractExpression(NO_INDEX, left, right);
     }
 
-    private DivisionExpression(final int index, final Expression left, final Expression right) {
+    private SubtractExpression(final int index, final Expression left, final Expression right) {
         super(index, left, right);
     }
 
@@ -47,18 +47,18 @@ public final class DivisionExpression extends BinaryArithmeticExpression {
     }
 
     @Override
-    public DivisionExpression removeParent() {
+    public SubtractExpression removeParent() {
         return this.removeParent0().cast();
     }
 
     @Override
-    public DivisionExpression setChildren(final List<Expression> children) {
+    public SubtractExpression setChildren(final List<Expression> children) {
         return this.setChildren0(children).cast();
     }
 
     @Override
-    DivisionExpression replace1(final int index, final Expression left, final Expression right) {
-        return new DivisionExpression(index, left, right);
+    SubtractExpression replace1(final int index, final Expression left, final Expression right) {
+        return new SubtractExpression(index, left, right);
     }
 
     // Visitor .........................................................................................................
@@ -75,34 +75,34 @@ public final class DivisionExpression extends BinaryArithmeticExpression {
 
     @Override
     String applyText0(final String left, final String right, final ExpressionEvaluationContext context) {
-        throw new UnsupportedOperationException(left + SYMBOL + right);
+        throw new UnsupportedOperationException(left + SYMBOL + right); // TODO maybe if right exists in left "remove" it, else throw.
     }
 
     @Override
     BigDecimal applyBigDecimal0(final BigDecimal left, final BigDecimal right, final ExpressionEvaluationContext context) {
-        return left.divide(right, context.mathContext());
+        return left.subtract(right, context.mathContext());
     }
 
     @Override
     BigInteger applyBigInteger0(final BigInteger left, final BigInteger right, final ExpressionEvaluationContext context) {
-        return left.divide(right);
+        return left.subtract(right);
     }
 
     @Override
     double applyDouble0(final double left, final double right, final ExpressionEvaluationContext context) {
-        return left / right;
+        return left - right;
     }
 
     @Override
     long applyLong0(final long left, final long right, final ExpressionEvaluationContext context) {
-        return left / right;
+        return left - right;
     }
 
     // Object .........................................................................................................
 
     @Override
     boolean canBeEqual(final Object other) {
-        return other instanceof DivisionExpression;
+        return other instanceof SubtractExpression;
     }
 
     @Override

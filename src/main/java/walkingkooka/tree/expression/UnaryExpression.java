@@ -45,8 +45,7 @@ abstract class UnaryExpression extends ParentFixedExpression implements Value<Ex
         return 1;
     }
 
-    @Override
-    final UnaryExpression replace0(final int index, final List<Expression> children) {
+    @Override final UnaryExpression replace0(final int index, final List<Expression> children) {
         return replace1(index, children.get(0));
     }
 

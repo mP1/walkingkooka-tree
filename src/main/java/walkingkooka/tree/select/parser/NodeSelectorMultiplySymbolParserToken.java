@@ -43,8 +43,7 @@ public final class NodeSelectorMultiplySymbolParserToken extends NodeSelectorSym
         return MULTIPLY_DIVISION_PRIORITY;
     }
 
-    @Override
-    final NodeSelectorBinaryParserToken binaryOperand(final List<ParserToken> tokens, final String text) {
+    @Override final NodeSelectorBinaryParserToken binaryOperand(final List<ParserToken> tokens, final String text) {
         return NodeSelectorParserToken.multiplication(tokens, text);
     }
 

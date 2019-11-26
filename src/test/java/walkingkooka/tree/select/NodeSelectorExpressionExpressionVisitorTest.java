@@ -32,7 +32,7 @@ public final class NodeSelectorExpressionExpressionVisitorTest implements Expres
 
     @Test
     public void testAcceptExpressionIgnored() {
-        this.acceptExpressionAndCheck(Expression.addition(Expression.longExpression(1), Expression.longExpression(2)));
+        this.acceptExpressionAndCheck(Expression.add(Expression.longExpression(1), Expression.longExpression(2)));
     }
 
     @Test
