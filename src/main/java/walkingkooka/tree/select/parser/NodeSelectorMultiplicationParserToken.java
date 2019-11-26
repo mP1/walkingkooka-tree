@@ -22,7 +22,7 @@ import walkingkooka.visit.Visiting;
 import java.util.List;
 
 /**
- * Holds an multiplication
+ * Holds an multiply
  */
 public final class NodeSelectorMultiplicationParserToken extends NodeSelectorBinaryParserToken<NodeSelectorMultiplicationParserToken> {
 

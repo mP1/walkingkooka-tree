@@ -27,18 +27,18 @@ import java.util.Objects;
 /**
  * A addition expression.
  */
-public final class AdditionExpression extends BinaryArithmeticExpression {
+public final class AddExpression extends BinaryArithmeticExpression {
 
-    public final static FunctionExpressionName NAME = FunctionExpressionName.fromClass(AdditionExpression.class);
+    public final static FunctionExpressionName NAME = FunctionExpressionName.fromClass(AddExpression.class);
 
     public final static String SYMBOL = "+";
 
-    static AdditionExpression with(final Expression left, final Expression right) {
+    static AddExpression with(final Expression left, final Expression right) {
         check(left, right);
-        return new AdditionExpression(NO_INDEX, left, right);
+        return new AddExpression(NO_INDEX, left, right);
     }
 
-    private AdditionExpression(final int index, final Expression left, final Expression right) {
+    private AddExpression(final int index, final Expression left, final Expression right) {
         super(index, left, right);
     }
 
@@ -48,20 +48,20 @@ public final class AdditionExpression extends BinaryArithmeticExpression {
     }
 
     @Override
-    public AdditionExpression removeParent() {
+    public AddExpression removeParent() {
         return this.removeParent0().cast();
     }
 
     @Override
-    public AdditionExpression setChildren(final List<Expression> children) {
+    public AddExpression setChildren(final List<Expression> children) {
         Objects.requireNonNull(children, "children");
 
         return this.setChildren0(children).cast();
     }
 
     @Override
-    AdditionExpression replace1(final int index, final Expression left, final Expression right) {
-        return new AdditionExpression(index, left, right);
+    AddExpression replace1(final int index, final Expression left, final Expression right) {
+        return new AddExpression(index, left, right);
     }
 
     // Visitor .........................................................................................................
@@ -108,7 +108,7 @@ public final class AdditionExpression extends BinaryArithmeticExpression {
 
     @Override
     boolean canBeEqual(final Object other) {
-        return other instanceof AdditionExpression;
+        return other instanceof AddExpression;
     }
 
     @Override

@@ -76,10 +76,10 @@ public abstract class Expression implements Node<Expression, FunctionExpressionN
     // ........................................................................................
 
     /**
-     * {@see AdditionExpression}
+     * {@see AddExpression}
      */
-    public static AdditionExpression addition(final Expression left, final Expression right) {
-        return AdditionExpression.with(left, right);
+    public static AddExpression add(final Expression left, final Expression right) {
+        return AddExpression.with(left, right);
     }
 
     /**
@@ -111,10 +111,10 @@ public abstract class Expression implements Node<Expression, FunctionExpressionN
     }
 
     /**
-     * {@see DivisionExpression}
+     * {@see DivideExpression}
      */
-    public static DivisionExpression division(final Expression left, final Expression right) {
-        return DivisionExpression.with(left, right);
+    public static DivideExpression divide(final Expression left, final Expression right) {
+        return DivideExpression.with(left, right);
     }
 
     /**
@@ -202,10 +202,10 @@ public abstract class Expression implements Node<Expression, FunctionExpressionN
     }
 
     /**
-     * {@see MultiplicationExpression}
+     * {@see MultiplyExpression}
      */
-    public static MultiplicationExpression multiplication(final Expression left, final Expression right) {
-        return MultiplicationExpression.with(left, right);
+    public static MultiplyExpression multiply(final Expression left, final Expression right) {
+        return MultiplyExpression.with(left, right);
     }
 
     /**
@@ -251,10 +251,10 @@ public abstract class Expression implements Node<Expression, FunctionExpressionN
     }
 
     /**
-     * {@see SubtractionExpression}
+     * {@see SubtractExpression}
      */
-    public static SubtractionExpression subtraction(final Expression left, final Expression right) {
-        return SubtractionExpression.with(left, right);
+    public static SubtractExpression subtract(final Expression left, final Expression right) {
+        return SubtractExpression.with(left, right);
     }
 
     /**
@@ -354,10 +354,10 @@ public abstract class Expression implements Node<Expression, FunctionExpressionN
     // is...............................................................................................................
 
     /**
-     * Only {@link AdditionExpression} returns true
+     * Only {@link AddExpression} returns true
      */
-    public final boolean isAddition() {
-        return this instanceof AdditionExpression;
+    public final boolean isAdd() {
+        return this instanceof AddExpression;
     }
 
     /**
@@ -396,10 +396,10 @@ public abstract class Expression implements Node<Expression, FunctionExpressionN
     }
 
     /**
-     * Only {@link DivisionExpression} returns true
+     * Only {@link DivideExpression} returns true
      */
-    public final boolean isDivision() {
-        return this instanceof DivisionExpression;
+    public final boolean isDivide() {
+        return this instanceof DivideExpression;
     }
 
     /**
@@ -480,10 +480,10 @@ public abstract class Expression implements Node<Expression, FunctionExpressionN
     }
 
     /**
-     * Only {@link MultiplicationExpression} returns true
+     * Only {@link MultiplyExpression} returns true
      */
-    public final boolean isMultiplication() {
-        return this instanceof MultiplicationExpression;
+    public final boolean isMultiply() {
+        return this instanceof MultiplyExpression;
     }
 
     /**
@@ -536,10 +536,10 @@ public abstract class Expression implements Node<Expression, FunctionExpressionN
     }
 
     /**
-     * Only {@link SubtractionExpression} returns true
+     * Only {@link SubtractExpression} returns true
      */
-    public final boolean isSubtraction() {
-        return this instanceof SubtractionExpression;
+    public final boolean isSubtract() {
+        return this instanceof SubtractExpression;
     }
 
     /**

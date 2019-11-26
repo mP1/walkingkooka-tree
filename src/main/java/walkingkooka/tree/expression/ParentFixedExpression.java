@@ -28,8 +28,7 @@ abstract class ParentFixedExpression extends ParentExpression {
         super(index, children);
     }
 
-    @Override
-    final void replaceChildrenCheck(final List<Expression> children) {
+    @Override final void replaceChildrenCheck(final List<Expression> children) {
         final int expected = this.expectedChildCount();
         final int count = children.size();
         if (count != expected) {

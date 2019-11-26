@@ -31,13 +31,11 @@ abstract class NodeSelectorNonBinaryOperandSymbolParserToken extends NodeSelecto
 
     // operator priority..................................................................................................
 
-    @Override
-    final int operatorPriority() {
+    @Override final int operatorPriority() {
         return IGNORED;
     }
 
-    @Override
-    final NodeSelectorBinaryParserToken binaryOperand(final List<ParserToken> tokens, final String text) {
+    @Override final NodeSelectorBinaryParserToken binaryOperand(final List<ParserToken> tokens, final String text) {
         throw new UnsupportedOperationException();
     }
 }

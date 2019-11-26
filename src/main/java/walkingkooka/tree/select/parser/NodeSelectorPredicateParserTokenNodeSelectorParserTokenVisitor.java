@@ -71,7 +71,7 @@ final class NodeSelectorPredicateParserTokenNodeSelectorParserTokenVisitor exten
 
     @Override
     protected void endVisit(final NodeSelectorAdditionParserToken token) {
-        this.exitBinary(Expression::addition, token);
+        this.exitBinary(Expression::add, token);
     }
 
     @Override
@@ -93,7 +93,7 @@ final class NodeSelectorPredicateParserTokenNodeSelectorParserTokenVisitor exten
 
     @Override
     protected void endVisit(final NodeSelectorDivisionParserToken token) {
-        this.exitBinary(Expression::division, token);
+        this.exitBinary(Expression::divide, token);
     }
 
     @Override
@@ -159,7 +159,7 @@ final class NodeSelectorPredicateParserTokenNodeSelectorParserTokenVisitor exten
 
     @Override
     protected void endVisit(final NodeSelectorGroupParserToken token) {
-        this.exitBinary(Expression::addition, token);
+        this.exitBinary(Expression::add, token);
     }
 
     @Override
@@ -203,7 +203,7 @@ final class NodeSelectorPredicateParserTokenNodeSelectorParserTokenVisitor exten
 
     @Override
     protected void endVisit(final NodeSelectorMultiplicationParserToken token) {
-        this.exitBinary(Expression::multiplication, token);
+        this.exitBinary(Expression::multiply, token);
     }
 
     @Override
@@ -249,7 +249,7 @@ final class NodeSelectorPredicateParserTokenNodeSelectorParserTokenVisitor exten
 
     @Override
     protected void endVisit(final NodeSelectorSubtractionParserToken token) {
-        this.exitBinary(Expression::subtraction, token);
+        this.exitBinary(Expression::subtract, token);
     }
 
     // Leaf................................................................................................

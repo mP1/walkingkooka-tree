@@ -36,10 +36,9 @@ abstract class BinaryLogicalExpression extends BinaryExpression {
                 .toValue(context);
     }
 
-    @Override
-    final Expression apply(final Expression left,
-                           final Expression right,
-                           final ExpressionEvaluationContext context) {
+    @Override final Expression apply(final Expression left,
+                                     final Expression right,
+                                     final ExpressionEvaluationContext context) {
         Expression result;
 
         try {
