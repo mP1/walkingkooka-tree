@@ -28,7 +28,7 @@ import walkingkooka.convert.Converters;
 import walkingkooka.naming.Names;
 import walkingkooka.naming.StringName;
 import walkingkooka.tree.TestNode;
-import walkingkooka.tree.expression.ExpressionNodeName;
+import walkingkooka.tree.expression.FunctionExpressionName;
 import walkingkooka.tree.expression.function.ExpressionFunction;
 
 import java.util.Optional;
@@ -116,7 +116,7 @@ public final class NodeSelectorStreamConsumerPushableStreamConsumerTest extends 
         return TestNode.relativeNodeSelector().named(Names.string("abc123"));
     }
 
-    private Function<ExpressionNodeName, Optional<ExpressionFunction<?>>> functions() {
+    private Function<FunctionExpressionName, Optional<ExpressionFunction<?>>> functions() {
         return NodeSelectorContexts.basicFunctions();
     }
 

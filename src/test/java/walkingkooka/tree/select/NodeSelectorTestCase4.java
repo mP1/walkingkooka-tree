@@ -32,7 +32,7 @@ import walkingkooka.naming.Names;
 import walkingkooka.naming.StringName;
 import walkingkooka.predicate.Predicates;
 import walkingkooka.tree.TestNode;
-import walkingkooka.tree.expression.ExpressionNodeName;
+import walkingkooka.tree.expression.FunctionExpressionName;
 import walkingkooka.tree.expression.function.ExpressionFunction;
 
 import java.math.MathContext;
@@ -104,10 +104,9 @@ abstract public class NodeSelectorTestCase4<S extends NodeSelector<TestNode, Str
         this.applyAndCheck(this.createSelector(), start, nodes);
     }
 
-    @SafeVarargs
-    final void applyAndCheck(final NodeSelector<TestNode, StringName, StringName, Object> selector,
-                             final TestNode start,
-                             final TestNode... nodes) {
+    @SafeVarargs final void applyAndCheck(final NodeSelector<TestNode, StringName, StringName, Object> selector,
+                                          final TestNode start,
+                                          final TestNode... nodes) {
         this.applyAndCheck0(selector,
                 start,
                 nodeNames(nodes).toArray(new String[0]));
@@ -408,7 +407,7 @@ abstract public class NodeSelectorTestCase4<S extends NodeSelector<TestNode, Str
             }
 
             @Override
-            public Object function(final ExpressionNodeName name,
+            public Object function(final FunctionExpressionName name,
                                    final List<Object> parameters) {
                 this.finisherGuardCheck();
                 return context.function(name, parameters);
@@ -441,7 +440,7 @@ abstract public class NodeSelectorTestCase4<S extends NodeSelector<TestNode, Str
         return Maps.of(Names.string(name), value);
     }
 
-    final Function<ExpressionNodeName, Optional<ExpressionFunction<?>>> functions() {
+    final Function<FunctionExpressionName, Optional<ExpressionFunction<?>>> functions() {
         return NodeSelectorContexts.basicFunctions();
     }
 

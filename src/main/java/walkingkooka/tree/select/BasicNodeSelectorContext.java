@@ -24,7 +24,7 @@ import walkingkooka.convert.ConverterContext;
 import walkingkooka.naming.Name;
 import walkingkooka.tree.Node;
 import walkingkooka.tree.expression.ExpressionException;
-import walkingkooka.tree.expression.ExpressionNodeName;
+import walkingkooka.tree.expression.FunctionExpressionName;
 import walkingkooka.tree.expression.function.ExpressionFunction;
 
 import java.math.MathContext;
@@ -48,7 +48,7 @@ final class BasicNodeSelectorContext<N extends Node<N, NAME, ANAME, AVALUE>, NAM
             AVALUE> BasicNodeSelectorContext<N, NAME, ANAME, AVALUE> with(final BooleanSupplier finisher,
                                                                           final Predicate<N> filter,
                                                                           final Function<N, N> mapper,
-                                                                          final Function<ExpressionNodeName, Optional<ExpressionFunction<?>>> functions,
+                                                                          final Function<FunctionExpressionName, Optional<ExpressionFunction<?>>> functions,
                                                                           final Converter converter,
                                                                           final ConverterContext converterContext,
                                                                           final Class<N> nodeType) {
@@ -71,7 +71,7 @@ final class BasicNodeSelectorContext<N extends Node<N, NAME, ANAME, AVALUE>, NAM
     private BasicNodeSelectorContext(final BooleanSupplier finisher,
                                      final Predicate<N> filter,
                                      final Function<N, N> mapper,
-                                     final Function<ExpressionNodeName, Optional<ExpressionFunction<?>>> functions,
+                                     final Function<FunctionExpressionName, Optional<ExpressionFunction<?>>> functions,
                                      final Converter converter,
                                      final ConverterContext converterContext) {
         this.finisher = finisher;
@@ -128,13 +128,13 @@ final class BasicNodeSelectorContext<N extends Node<N, NAME, ANAME, AVALUE>, NAM
     private final ConverterContext converterContext;
 
     @Override
-    public Object function(final ExpressionNodeName name, final List<Object> parameters) {
+    public Object function(final FunctionExpressionName name, final List<Object> parameters) {
         return NODE.equals(name) ?
                 this.node() :
                 this.function0(name, parameters);
     }
 
-    private final static ExpressionNodeName NODE = ExpressionNodeName.with("node");
+    private final static FunctionExpressionName NODE = FunctionExpressionName.with("node");
 
     private N node() {
         final N current = this.current;
@@ -148,7 +148,7 @@ final class BasicNodeSelectorContext<N extends Node<N, NAME, ANAME, AVALUE>, NAM
      * Handles dispatching all functions other than <code>node()</code> which is special cased
      * because it needs to read {@link #current}.
      */
-    private Object function0(final ExpressionNodeName name, final List<Object> parameters) {
+    private Object function0(final FunctionExpressionName name, final List<Object> parameters) {
         final Optional<ExpressionFunction<?>> function = this.functions.apply(name);
         if (!function.isPresent()) {
             throw new ExpressionException("Unknown function " + name);
@@ -157,7 +157,7 @@ final class BasicNodeSelectorContext<N extends Node<N, NAME, ANAME, AVALUE>, NAM
         return function.get().apply(Lists.readOnly(parameters), this);
     }
 
-    private final Function<ExpressionNodeName, Optional<ExpressionFunction<?>>> functions;
+    private final Function<FunctionExpressionName, Optional<ExpressionFunction<?>>> functions;
 
     @Override
     public MathContext mathContext() {

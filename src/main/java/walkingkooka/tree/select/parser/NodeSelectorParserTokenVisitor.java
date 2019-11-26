@@ -32,7 +32,7 @@ public abstract class NodeSelectorParserTokenVisitor extends ParserTokenVisitor 
     protected void endVisit(final NodeSelectorAdditionParserToken token) {
         // nop
     }
-    
+
     // NodeSelectorAndParserToken....................................................................................
 
     protected Visiting startVisit(final NodeSelectorAndParserToken token) {
@@ -172,7 +172,7 @@ public abstract class NodeSelectorParserTokenVisitor extends ParserTokenVisitor 
     protected void endVisit(final NodeSelectorNegativeParserToken token) {
         // nop
     }
-    
+
     // NodeSelectorNotEqualsParserToken....................................................................................
 
     protected Visiting startVisit(final NodeSelectorNotEqualsParserToken token) {
@@ -212,7 +212,7 @@ public abstract class NodeSelectorParserTokenVisitor extends ParserTokenVisitor 
     protected void endVisit(final NodeSelectorSubtractionParserToken token) {
         // nop
     }
-    
+
     // NodeSelectorLeafParserToken ..........................................................................
 
     protected void visit(final NodeSelectorAbsoluteParserToken token) {

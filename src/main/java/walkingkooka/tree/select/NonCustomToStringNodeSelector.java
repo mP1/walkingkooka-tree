@@ -34,8 +34,7 @@ abstract class NonCustomToStringNodeSelector<N extends Node<N, NAME, ANAME, AVAL
         super();
     }
 
-    @Override
-    final NodeSelector<N, NAME, ANAME, AVALUE> unwrapIfCustomToStringNodeSelector() {
+    @Override final NodeSelector<N, NAME, ANAME, AVALUE> unwrapIfCustomToStringNodeSelector() {
         return this;
     }
 }

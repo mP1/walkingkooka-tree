@@ -31,7 +31,7 @@ public final class TraversableExceptionTest implements StandardThrowableTesting<
     public TraversableException createThrowable(final String message, final Throwable cause) {
         return new TraversableException(message, cause);
     }
-    
+
     @Override
     public Class<TraversableException> type() {
         return TraversableException.class;

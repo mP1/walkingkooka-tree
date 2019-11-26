@@ -41,8 +41,8 @@ import walkingkooka.text.cursor.parser.ParserContexts;
 import walkingkooka.text.cursor.parser.ParserReporters;
 import walkingkooka.text.cursor.parser.Parsers;
 import walkingkooka.tree.TestNode;
-import walkingkooka.tree.expression.ExpressionNode;
-import walkingkooka.tree.expression.ExpressionNodeName;
+import walkingkooka.tree.expression.Expression;
+import walkingkooka.tree.expression.FunctionExpressionName;
 import walkingkooka.tree.expression.function.ExpressionFunctionContext;
 import walkingkooka.tree.expression.function.FakeExpressionFunctionContext;
 import walkingkooka.tree.select.parser.NodeSelectorExpressionParserToken;
@@ -952,9 +952,9 @@ public final class NodeSelectorNodeSelectorParserTokenVisitorTest implements Nod
                 TestNode.relativeNodeSelector()
                         .children()
                         .expression(
-                                ExpressionNode.equalsNode(
+                                Expression.equalsExpression(
                                         function("position"),
-                                        ExpressionNode.bigDecimal(BigDecimal.valueOf(2))
+                                        Expression.bigDecimal(BigDecimal.valueOf(2))
                                 )));
     }
 
@@ -965,9 +965,9 @@ public final class NodeSelectorNodeSelectorParserTokenVisitorTest implements Nod
                         .children()
                         .named(nameAbc123())
                         .expression(
-                                ExpressionNode.equalsNode(
+                                Expression.equalsExpression(
                                         function("position"),
-                                        ExpressionNode.bigDecimal(BigDecimal.valueOf(2))
+                                        Expression.bigDecimal(BigDecimal.valueOf(2))
                                 )));
     }
 
@@ -1702,7 +1702,7 @@ public final class NodeSelectorNodeSelectorParserTokenVisitorTest implements Nod
         this.parseExpressionAndCheck("*[123]",
                 TestNode.relativeNodeSelector()
                         .children()
-                        .expression(ExpressionNode.bigDecimal(BigDecimal.valueOf(123))));
+                        .expression(Expression.bigDecimal(BigDecimal.valueOf(123))));
     }
 
     @Test
@@ -1711,7 +1711,7 @@ public final class NodeSelectorNodeSelectorParserTokenVisitorTest implements Nod
                 TestNode.relativeNodeSelector()
                         .children()
                         .named(nameAbc123())
-                        .expression(ExpressionNode.bigDecimal(BigDecimal.valueOf(123))));
+                        .expression(Expression.bigDecimal(BigDecimal.valueOf(123))));
     }
 
     @Test
@@ -1750,9 +1750,9 @@ public final class NodeSelectorNodeSelectorParserTokenVisitorTest implements Nod
                 TestNode.relativeNodeSelector()
                         .children()
                         .expression(
-                                ExpressionNode.equalsNode(
+                                Expression.equalsExpression(
                                         function("name"),
-                                        ExpressionNode.text("123")
+                                        Expression.string("123")
                                 )));
     }
 
@@ -2010,7 +2010,7 @@ public final class NodeSelectorNodeSelectorParserTokenVisitorTest implements Nod
                     }
 
                     @Override
-                    public Object function(final ExpressionNodeName name, final List<Object> parameters) {
+                    public Object function(final FunctionExpressionName name, final List<Object> parameters) {
                         assertNotNull(this.node, "node missing");
 
                         return NODE.equals(name) ?
@@ -2020,7 +2020,7 @@ public final class NodeSelectorNodeSelectorParserTokenVisitorTest implements Nod
                                         .apply(Lists.readOnly(parameters), this.expressionFunctionContext());
                     }
 
-                    private final ExpressionNodeName NODE = ExpressionNodeName.with("node");
+                    private final FunctionExpressionName NODE = FunctionExpressionName.with("node");
 
                     private ExpressionFunctionContext expressionFunctionContext() {
                         return new FakeExpressionFunctionContext() {
@@ -2058,7 +2058,7 @@ public final class NodeSelectorNodeSelectorParserTokenVisitorTest implements Nod
                     }
 
                     /**
-                     * Currently {@link walkingkooka.tree.expression.ExpressionNode} will convert a pair of {@link Boolean} into
+                     * Currently {@link Expression} will convert a pair of {@link Boolean} into
                      * {@link BigDecimal} prior to performing the operation such as equals.
                      */
                     private Either<BigDecimal, String> convertToBigDecimal(final Object value) {
@@ -2135,8 +2135,8 @@ public final class NodeSelectorNodeSelectorParserTokenVisitorTest implements Nod
         return Names.string("DEF456");
     }
 
-    private ExpressionNode function(final String name, final ExpressionNode... arguments) {
-        return ExpressionNode.function(ExpressionNodeName.with(name), Lists.of(arguments));
+    private Expression function(final String name, final Expression... arguments) {
+        return Expression.function(FunctionExpressionName.with(name), Lists.of(arguments));
     }
 
     @Override

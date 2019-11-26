@@ -21,7 +21,7 @@ import walkingkooka.build.Builder;
 import walkingkooka.naming.Name;
 import walkingkooka.text.CharSequences;
 import walkingkooka.text.CharacterConstant;
-import walkingkooka.tree.expression.ExpressionNode;
+import walkingkooka.tree.expression.Expression;
 
 import java.util.function.Predicate;
 
@@ -70,7 +70,7 @@ final class NodeSelectorToStringBuilder implements Builder<String> {
         this.mode = this.mode.predicate(predicate, this.b);
     }
 
-    void expression(final ExpressionNode expression) {
+    void expression(final Expression expression) {
         this.mode = this.mode.expression(expression, this.b);
     }
 

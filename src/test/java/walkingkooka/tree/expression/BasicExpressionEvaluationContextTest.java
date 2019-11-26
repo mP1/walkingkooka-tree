@@ -43,7 +43,8 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 public final class BasicExpressionEvaluationContextTest implements ClassTesting2<BasicExpressionEvaluationContext>,
         ExpressionEvaluationContextTesting<BasicExpressionEvaluationContext> {
 
-    private final static ExpressionReference REFERENCE = new ExpressionReference() {};
+    private final static ExpressionReference REFERENCE = new ExpressionReference() {
+    };
 
     @Test
     public void testWithNullFunctionsFails() {
@@ -84,7 +85,7 @@ public final class BasicExpressionEvaluationContextTest implements ClassTesting2
 
     @Test
     public void testReferences() {
-        assertEquals(Optional.of(this.expressionNode()), this.createContext().reference(REFERENCE));
+        assertEquals(Optional.of(this.expression()), this.createContext().reference(REFERENCE));
     }
 
     @Test
@@ -100,7 +101,7 @@ public final class BasicExpressionEvaluationContextTest implements ClassTesting2
                 this.converterContext());
     }
 
-    private BiFunction<ExpressionNodeName, List<Object>, Object> functions() {
+    private BiFunction<FunctionExpressionName, List<Object>, Object> functions() {
         return (functionName, parameters) -> {
             Objects.requireNonNull(functionName, "functionName");
             Objects.requireNonNull(parameters, "parameters");
@@ -111,8 +112,8 @@ public final class BasicExpressionEvaluationContextTest implements ClassTesting2
         };
     }
 
-    private ExpressionNodeName functionName() {
-        return ExpressionNodeName.with("sum");
+    private FunctionExpressionName functionName() {
+        return FunctionExpressionName.with("sum");
     }
 
     private List<Object> parameters() {
@@ -123,16 +124,16 @@ public final class BasicExpressionEvaluationContextTest implements ClassTesting2
         return "function-value-234";
     }
 
-    private Function<ExpressionReference, Optional<ExpressionNode>> references() {
+    private Function<ExpressionReference, Optional<Expression>> references() {
         return (r -> {
             Objects.requireNonNull(r, "references");
             assertEquals(REFERENCE, r, "reference");
-            return Optional.of(this.expressionNode());
+            return Optional.of(this.expression());
         });
     }
 
-    private ExpressionNode expressionNode() {
-        return ExpressionNode.text("expression node 123");
+    private Expression expression() {
+        return Expression.string("expression node 123");
     }
 
     private Converter converter() {

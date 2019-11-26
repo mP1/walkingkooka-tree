@@ -37,7 +37,7 @@ public interface ExpressionEvaluationContextTesting<C extends ExpressionEvaluati
 
     @Test
     default void testFunctionNullParametersFails() {
-        assertThrows(NullPointerException.class, () -> this.createContext().function(ExpressionNodeName.with("sum"), null));
+        assertThrows(NullPointerException.class, () -> this.createContext().function(FunctionExpressionName.with("sum"), null));
     }
 
     @Test
@@ -55,10 +55,10 @@ public interface ExpressionEvaluationContextTesting<C extends ExpressionEvaluati
         assertThrows(NullPointerException.class, () -> this.createContext().convert("value", null));
     }
 
-    default void toValueAndCheck(final ExpressionNode node, final ExpressionEvaluationContext context, final Object value) {
+    default void toValueAndCheck(final Expression node, final ExpressionEvaluationContext context, final Object value) {
         assertEquals(value,
                 node.toValue(context),
-                () -> "ExpressionNode.toValue failed, node=" + node + " context=" + context);
+                () -> "Expression.toValue failed, node=" + node + " context=" + context);
     }
 
     @Override

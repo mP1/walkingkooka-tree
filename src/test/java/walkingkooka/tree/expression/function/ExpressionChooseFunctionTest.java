@@ -40,22 +40,22 @@ public final class ExpressionChooseFunctionTest extends ExpressionFunctionTestCa
 
     @Test
     public void testBooleanTrue() {
-        this.applyAndCheck2(parameters( true, "*1", "*2"), "*1");
+        this.applyAndCheck2(parameters(true, "*1", "*2"), "*1");
     }
 
     @Test
     public void testTrueConverted() {
-        this.applyAndCheck2(parameters( "true", "*1", "*2"), "*1");
+        this.applyAndCheck2(parameters("true", "*1", "*2"), "*1");
     }
 
     @Test
     public void testBooleanFalse() {
-        this.applyAndCheck2(parameters( false, "*1", "*2"), "*2");
+        this.applyAndCheck2(parameters(false, "*1", "*2"), "*2");
     }
 
     @Test
     public void testConvertedFalse() {
-        this.applyAndCheck2(parameters( "false", "*1", "*2"), "*2");
+        this.applyAndCheck2(parameters("false", "*1", "*2"), "*2");
     }
 
     @Test

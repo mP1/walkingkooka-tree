@@ -19,7 +19,7 @@ package walkingkooka.tree.expression.function;
 
 import walkingkooka.Either;
 import walkingkooka.test.Fake;
-import walkingkooka.tree.expression.ExpressionNodeName;
+import walkingkooka.tree.expression.FunctionExpressionName;
 
 import java.math.MathContext;
 import java.util.List;
@@ -32,7 +32,7 @@ public class FakeExpressionFunctionContext implements ExpressionFunctionContext,
     }
 
     @Override
-    public Object function(final ExpressionNodeName name, final List<Object> parameters) {
+    public Object function(final FunctionExpressionName name, final List<Object> parameters) {
         Objects.requireNonNull(name, "name");
         Objects.requireNonNull(parameters, "parameters");
         throw new UnsupportedOperationException();

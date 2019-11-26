@@ -37,20 +37,20 @@ public interface ExpressionEvaluationContext extends Context, DecimalNumberConte
     List<Object> NO_PARAMETERS = Lists.empty();
 
     /**
-     * Locates a function with the given name and then executes it with the provided parameter values (not {@link ExpressionNode}
+     * Locates a function with the given name and then executes it with the provided parameter values (not {@link Expression}
      */
-    Object function(final ExpressionNodeName name, final List<Object> parameters);
+    Object function(final FunctionExpressionName name, final List<Object> parameters);
 
     /**
-     * Locates the value or a {@link ExpressionNode} for the given {@link ExpressionReference}
+     * Locates the value or a {@link Expression} for the given {@link ExpressionReference}
      */
-    Optional<ExpressionNode> reference(final ExpressionReference reference);
+    Optional<Expression> reference(final ExpressionReference reference);
 
     /**
-     * Locates the value or a {@link ExpressionNode} for the given {@link ExpressionReference} or throws a
+     * Locates the value or a {@link Expression} for the given {@link ExpressionReference} or throws a
      * {@link ExpressionEvaluationReferenceException}.
      */
-    default ExpressionNode referenceOrFail(final ExpressionReference reference) {
+    default Expression referenceOrFail(final ExpressionReference reference) {
         return this.reference(reference).orElseThrow(() -> new ExpressionEvaluationReferenceException("Unable to find " + reference));
     }
 

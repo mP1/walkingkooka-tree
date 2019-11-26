@@ -17,7 +17,7 @@
 
 package walkingkooka.tree.expression.function;
 
-import walkingkooka.tree.expression.ExpressionNodeName;
+import walkingkooka.tree.expression.FunctionExpressionName;
 
 import java.util.List;
 import java.util.Objects;
@@ -54,11 +54,11 @@ final class ExpressionNotFunction extends ExpressionFunction2<Boolean> {
     private final ExpressionFunction<?> function;
 
     @Override
-    public ExpressionNodeName name() {
+    public FunctionExpressionName name() {
         return NAME;
     }
 
-    private final static ExpressionNodeName NAME = ExpressionNodeName.with("not");
+    private final static FunctionExpressionName NAME = FunctionExpressionName.with("not");
 
     @Override
     public String toString() {

@@ -18,7 +18,7 @@
 package walkingkooka.tree.select;
 
 import walkingkooka.collect.map.Maps;
-import walkingkooka.tree.expression.ExpressionNodeName;
+import walkingkooka.tree.expression.FunctionExpressionName;
 import walkingkooka.tree.expression.function.ExpressionFunction;
 import walkingkooka.tree.expression.function.ExpressionFunctions;
 
@@ -29,7 +29,7 @@ import java.util.function.Function;
 /**
  * A {@link Function} that knows all xpath functions present in {@link walkingkooka.tree.expression.function.ExpressionFunctions}.
  */
-final class BasicNodeSelectorContextFunction implements Function<ExpressionNodeName, Optional<ExpressionFunction<?>>> {
+final class BasicNodeSelectorContextFunction implements Function<FunctionExpressionName, Optional<ExpressionFunction<?>>> {
 
     /**
      * Singleton
@@ -73,14 +73,14 @@ final class BasicNodeSelectorContextFunction implements Function<ExpressionNodeN
     }
 
     @Override
-    public Optional<ExpressionFunction<?>> apply(final ExpressionNodeName name) {
+    public Optional<ExpressionFunction<?>> apply(final FunctionExpressionName name) {
         return Optional.ofNullable(this.nameToFunction.get(name));
     }
 
     /**
-     * Provides a lookup by {@link ExpressionNodeName function name} to the actual function.
+     * Provides a lookup by {@link FunctionExpressionName function name} to the actual function.
      */
-    private final Map<ExpressionNodeName, ExpressionFunction<?>> nameToFunction;
+    private final Map<FunctionExpressionName, ExpressionFunction<?>> nameToFunction;
 
     @Override
     public String toString() {

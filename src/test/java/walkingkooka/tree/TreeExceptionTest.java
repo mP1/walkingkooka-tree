@@ -31,7 +31,7 @@ public final class TreeExceptionTest implements StandardThrowableTesting<TreeExc
     public TreeException createThrowable(final String message, final Throwable cause) {
         return new TreeException(message, cause);
     }
-    
+
     @Override
     public Class<TreeException> type() {
         return TreeException.class;
