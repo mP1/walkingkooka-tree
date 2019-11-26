@@ -54,8 +54,7 @@ abstract class LeafExpression<V> extends Expression implements Value<V> {
                 .cast();
     }
 
-    @Override
-    final Expression replace(final int index) {
+    @Override final Expression replace(final int index) {
         return this.replace0(index);
     }
 
@@ -79,8 +78,7 @@ abstract class LeafExpression<V> extends Expression implements Value<V> {
         throw new UnsupportedOperationException();
     }
 
-    @Override
-    final Expression setChild(final Expression newChild) {
+    @Override final Expression setChild(final Expression newChild) {
         return NeverError.unexpectedMethodCall(this, "setChild", newChild);
     }
 
@@ -91,13 +89,11 @@ abstract class LeafExpression<V> extends Expression implements Value<V> {
         return Objects.hash(this.value);
     }
 
-    @Override
-    final boolean equalsDescendants0(final Expression other) {
+    @Override final boolean equalsDescendants0(final Expression other) {
         return true;
     }
 
-    @Override
-    final boolean equalsIgnoringParentAndChildren(final Expression other) {
+    @Override final boolean equalsIgnoringParentAndChildren(final Expression other) {
         return other instanceof LeafExpression &&
                 equalsIgnoringParentAndChildren0(Cast.to(other));
 

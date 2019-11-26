@@ -29,10 +29,9 @@ abstract class BinaryExpression2 extends BinaryExpression {
         super(index, left, right);
     }
 
-    @Override
-    final Expression apply(final Expression left,
-                           final Expression right,
-                           final ExpressionEvaluationContext context) {
+    @Override final Expression apply(final Expression left,
+                                     final Expression right,
+                                     final ExpressionEvaluationContext context) {
         Expression result;
 
         try {

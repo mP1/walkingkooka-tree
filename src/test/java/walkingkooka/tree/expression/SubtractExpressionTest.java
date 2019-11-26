@@ -28,14 +28,14 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 
-public final class SubtractionExpressionTest extends BinaryArithmeticExpressionTestCase2<SubtractionExpression> {
+public final class SubtractExpressionTest extends BinaryArithmeticExpressionTestCase2<SubtractExpression> {
 
     @Test
     public void testAccept() {
         final StringBuilder b = new StringBuilder();
         final List<Expression> visited = Lists.array();
 
-        final SubtractionExpression sub = this.createExpression();
+        final SubtractExpression sub = this.createExpression();
         final Expression text1 = sub.children().get(0);
         final Expression text2 = sub.children().get(1);
 
@@ -54,7 +54,7 @@ public final class SubtractionExpressionTest extends BinaryArithmeticExpressionT
             }
 
             @Override
-            protected Visiting startVisit(final SubtractionExpression t) {
+            protected Visiting startVisit(final SubtractExpression t) {
                 assertSame(sub, t);
                 b.append("3");
                 visited.add(t);
@@ -62,7 +62,7 @@ public final class SubtractionExpressionTest extends BinaryArithmeticExpressionT
             }
 
             @Override
-            protected void endVisit(final SubtractionExpression t) {
+            protected void endVisit(final SubtractExpression t) {
                 assertSame(sub, t);
                 b.append("4");
                 visited.add(t);
@@ -429,8 +429,8 @@ public final class SubtractionExpressionTest extends BinaryArithmeticExpressionT
     }
 
     @Override
-    SubtractionExpression createExpression(final Expression left, final Expression right) {
-        return SubtractionExpression.with(left, right);
+    SubtractExpression createExpression(final Expression left, final Expression right) {
+        return SubtractExpression.with(left, right);
     }
 
     @Override
@@ -439,7 +439,7 @@ public final class SubtractionExpressionTest extends BinaryArithmeticExpressionT
     }
 
     @Override
-    Class<SubtractionExpression> expressionType() {
-        return SubtractionExpression.class;
+    Class<SubtractExpression> expressionType() {
+        return SubtractExpression.class;
     }
 }

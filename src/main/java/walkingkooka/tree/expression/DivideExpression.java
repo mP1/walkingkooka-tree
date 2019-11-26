@@ -24,20 +24,20 @@ import java.math.BigInteger;
 import java.util.List;
 
 /**
- * A multiplication expression.
+ * A division expression.
  */
-public final class MultiplicationExpression extends BinaryArithmeticExpression {
+public final class DivideExpression extends BinaryArithmeticExpression {
 
-    public final static FunctionExpressionName NAME = FunctionExpressionName.fromClass(MultiplicationExpression.class);
+    public final static FunctionExpressionName NAME = FunctionExpressionName.fromClass(DivideExpression.class);
 
-    public final static String SYMBOL = "*";
+    public final static String SYMBOL = "/";
 
-    static MultiplicationExpression with(final Expression left, final Expression right) {
+    static DivideExpression with(final Expression left, final Expression right) {
         check(left, right);
-        return new MultiplicationExpression(NO_INDEX, left, right);
+        return new DivideExpression(NO_INDEX, left, right);
     }
 
-    private MultiplicationExpression(final int index, final Expression left, final Expression right) {
+    private DivideExpression(final int index, final Expression left, final Expression right) {
         super(index, left, right);
     }
 
@@ -47,18 +47,18 @@ public final class MultiplicationExpression extends BinaryArithmeticExpression {
     }
 
     @Override
-    public MultiplicationExpression removeParent() {
+    public DivideExpression removeParent() {
         return this.removeParent0().cast();
     }
 
     @Override
-    public MultiplicationExpression setChildren(final List<Expression> children) {
+    public DivideExpression setChildren(final List<Expression> children) {
         return this.setChildren0(children).cast();
     }
 
     @Override
-    MultiplicationExpression replace1(final int index, final Expression left, final Expression right) {
-        return new MultiplicationExpression(index, left, right);
+    DivideExpression replace1(final int index, final Expression left, final Expression right) {
+        return new DivideExpression(index, left, right);
     }
 
     // Visitor .........................................................................................................
@@ -75,34 +75,34 @@ public final class MultiplicationExpression extends BinaryArithmeticExpression {
 
     @Override
     String applyText0(final String left, final String right, final ExpressionEvaluationContext context) {
-        throw new UnsupportedOperationException(left + SYMBOL + right); // MAYBE try and convert right to int and times the string.
+        throw new UnsupportedOperationException(left + SYMBOL + right);
     }
 
     @Override
     BigDecimal applyBigDecimal0(final BigDecimal left, final BigDecimal right, final ExpressionEvaluationContext context) {
-        return left.multiply(right, context.mathContext());
+        return left.divide(right, context.mathContext());
     }
 
     @Override
     BigInteger applyBigInteger0(final BigInteger left, final BigInteger right, final ExpressionEvaluationContext context) {
-        return left.multiply(right);
+        return left.divide(right);
     }
 
     @Override
     double applyDouble0(final double left, final double right, final ExpressionEvaluationContext context) {
-        return left * right;
+        return left / right;
     }
 
     @Override
     long applyLong0(final long left, final long right, final ExpressionEvaluationContext context) {
-        return left * right;
+        return left / right;
     }
 
     // Object .........................................................................................................
 
     @Override
     boolean canBeEqual(final Object other) {
-        return other instanceof MultiplicationExpression;
+        return other instanceof DivideExpression;
     }
 
     @Override

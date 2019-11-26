@@ -22,7 +22,7 @@ import walkingkooka.visit.Visiting;
 import java.util.List;
 
 /**
- * Holds an subtraction operation.
+ * Holds an subtract operation.
  */
 public final class NodeSelectorSubtractionParserToken extends NodeSelectorBinaryParserToken<NodeSelectorSubtractionParserToken> {
 

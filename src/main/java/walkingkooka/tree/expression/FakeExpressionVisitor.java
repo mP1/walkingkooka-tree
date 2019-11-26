@@ -85,12 +85,12 @@ public class FakeExpressionVisitor extends ExpressionVisitor implements Fake {
     }
 
     @Override
-    protected Visiting startVisit(final AdditionExpression node) {
+    protected Visiting startVisit(final AddExpression node) {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    protected void endVisit(final AdditionExpression node) {
+    protected void endVisit(final AddExpression node) {
         throw new UnsupportedOperationException();
     }
 
@@ -105,12 +105,12 @@ public class FakeExpressionVisitor extends ExpressionVisitor implements Fake {
     }
 
     @Override
-    protected Visiting startVisit(final DivisionExpression node) {
+    protected Visiting startVisit(final DivideExpression node) {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    protected void endVisit(final DivisionExpression node) {
+    protected void endVisit(final DivideExpression node) {
         throw new UnsupportedOperationException();
     }
 
@@ -175,12 +175,12 @@ public class FakeExpressionVisitor extends ExpressionVisitor implements Fake {
     }
 
     @Override
-    protected Visiting startVisit(final MultiplicationExpression node) {
+    protected Visiting startVisit(final MultiplyExpression node) {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    protected void endVisit(final MultiplicationExpression node) {
+    protected void endVisit(final MultiplyExpression node) {
         throw new UnsupportedOperationException();
     }
 
@@ -235,12 +235,12 @@ public class FakeExpressionVisitor extends ExpressionVisitor implements Fake {
     }
 
     @Override
-    protected Visiting startVisit(final SubtractionExpression node) {
+    protected Visiting startVisit(final SubtractExpression node) {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    protected void endVisit(final SubtractionExpression node) {
+    protected void endVisit(final SubtractExpression node) {
         throw new UnsupportedOperationException();
     }
 }
