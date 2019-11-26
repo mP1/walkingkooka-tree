@@ -35,10 +35,10 @@ public abstract class ExpressionNumberFunction2TestCase<F extends ExpressionNumb
 
     @Test
     public final void testTwoArgumentsFails() {
-        this.applyAndFail( 1, 2);
+        this.applyAndFail(1, 2);
     }
 
-    private void applyAndFail(final Object...parameters) {
+    private void applyAndFail(final Object... parameters) {
         assertThrows(IllegalArgumentException.class, () -> this.apply2(parameters));
     }
 

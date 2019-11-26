@@ -365,7 +365,7 @@ public final class NodeSelectorParsersTest implements ParserTesting2<Parser<Node
                         function(
                                 functionName(),
                                 parenthesisOpen(),
-                                    whitespace(),
+                                whitespace(),
                                 parenthesisClose()
                         )
                 ),
@@ -379,9 +379,9 @@ public final class NodeSelectorParsersTest implements ParserTesting2<Parser<Node
                 bracketOpen(),
                 predicate(whitespace(),
                         function(
-                            functionName(),
+                                functionName(),
                                 parenthesisOpen(),
-                                    whitespace(),
+                                whitespace(),
                                 parenthesisClose()
                         ),
                         whitespace()),
@@ -397,7 +397,7 @@ public final class NodeSelectorParsersTest implements ParserTesting2<Parser<Node
                         function(
                                 functionName(),
                                 parenthesisOpen(),
-                                    number(),
+                                number(),
                                 parenthesisClose()
                         )
                 ),
@@ -413,7 +413,7 @@ public final class NodeSelectorParsersTest implements ParserTesting2<Parser<Node
                         function(
                                 functionName(),
                                 parenthesisOpen(),
-                                    number(), comma(), number2(),
+                                number(), comma(), number2(),
                                 parenthesisClose()
                         )
                 ),
@@ -429,7 +429,7 @@ public final class NodeSelectorParsersTest implements ParserTesting2<Parser<Node
                         function(
                                 functionName(),
                                 parenthesisOpen(),
-                                    number(), comma(), number2(), comma(), number(3),
+                                number(), comma(), number2(), comma(), number(3),
                                 parenthesisClose()
                         )
                 ),
@@ -445,7 +445,7 @@ public final class NodeSelectorParsersTest implements ParserTesting2<Parser<Node
                         function(
                                 functionName(),
                                 parenthesisOpen(),
-                                    quotedText(),
+                                quotedText(),
                                 parenthesisClose()
                         )
                 ),
@@ -901,10 +901,10 @@ public final class NodeSelectorParsersTest implements ParserTesting2<Parser<Node
                 predicate(
                         group(
                                 parenthesisOpen(),
-                                    negative(
-                                            minusSymbol(),
-                                            number()
-                                    ),
+                                negative(
+                                        minusSymbol(),
+                                        number()
+                                ),
                                 parenthesisClose()
                         )
                 ),
@@ -966,10 +966,10 @@ public final class NodeSelectorParsersTest implements ParserTesting2<Parser<Node
                                 parenthesisOpen(),
                                 group(
                                         parenthesisOpen(),
-                                            greaterThan(
-                                                    number(),
-                                                    greaterThanSymbol(),
-                                                    number2()),
+                                        greaterThan(
+                                                number(),
+                                                greaterThanSymbol(),
+                                                number2()),
                                         parenthesisClose()
                                 ),
                                 parenthesisClose()
@@ -987,7 +987,7 @@ public final class NodeSelectorParsersTest implements ParserTesting2<Parser<Node
                         greaterThan(
                                 group(
                                         parenthesisOpen(),
-                                            number(),
+                                        number(),
                                         parenthesisClose()
                                 ),
                                 greaterThanSymbol(),
@@ -1008,7 +1008,7 @@ public final class NodeSelectorParsersTest implements ParserTesting2<Parser<Node
                                 greaterThanSymbol(),
                                 group(
                                         parenthesisOpen(),
-                                            number2(),
+                                        number2(),
                                         parenthesisClose()
                                 )
                         )

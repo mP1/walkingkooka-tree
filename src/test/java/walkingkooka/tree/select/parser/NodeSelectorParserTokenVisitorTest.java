@@ -31,7 +31,8 @@ public final class NodeSelectorParserTokenVisitorTest implements NodeSelectorPar
 
     @Override
     public NodeSelectorParserTokenVisitor createVisitor() {
-        return new NodeSelectorParserTokenVisitor() {};
+        return new NodeSelectorParserTokenVisitor() {
+        };
     }
 
     @Override

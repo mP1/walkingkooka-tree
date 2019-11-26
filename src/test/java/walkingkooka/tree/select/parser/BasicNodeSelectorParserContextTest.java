@@ -82,7 +82,7 @@ public final class BasicNodeSelectorParserContextTest implements ClassTesting2<B
     public MathContext mathContext() {
         return MathContext.DECIMAL32;
     }
-    
+
     @Override
     public char negativeSign() {
         return this.decimalNumberContext().negativeSign();

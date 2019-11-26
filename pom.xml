@@ -56,6 +56,12 @@
             <artifactId>walkingkooka-convert</artifactId>
             <version>master-SNAPSHOT</version>
         </dependency>
+
+        <dependency>
+            <groupId>com.github.mP1</groupId>
+            <artifactId>walkingkooka-text-cursor-parser-ebnf</artifactId>
+            <version>master-SNAPSHOT</version>
+        </dependency>
     </dependencies>
 
     <build>

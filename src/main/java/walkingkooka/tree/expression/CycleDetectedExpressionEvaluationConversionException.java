@@ -20,7 +20,7 @@ package walkingkooka.tree.expression;
 import java.util.Objects;
 
 /**
- * This exception is thrown whenever a reference cycle is detected between {@link ExpressionNode}.
+ * This exception is thrown whenever a reference cycle is detected between {@link Expression}.
  */
 public final class CycleDetectedExpressionEvaluationConversionException extends ExpressionEvaluationConversionException {
 

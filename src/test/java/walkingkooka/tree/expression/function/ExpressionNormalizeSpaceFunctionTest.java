@@ -30,7 +30,7 @@ public final class ExpressionNormalizeSpaceFunctionTest extends ExpressionFuncti
 
     @Test
     public void testTwoParametersFails() {
-        assertThrows(IllegalArgumentException.class, () -> this.apply2( "a1", "b2"));
+        assertThrows(IllegalArgumentException.class, () -> this.apply2("a1", "b2"));
     }
 
     @Test

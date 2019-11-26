@@ -17,7 +17,7 @@
 
 package walkingkooka.tree.expression.function;
 
-import walkingkooka.tree.expression.ExpressionNodeName;
+import walkingkooka.tree.expression.FunctionExpressionName;
 
 import java.util.List;
 
@@ -44,16 +44,16 @@ final class ExpressionStringLengthFunction extends ExpressionFunction2<Number> {
                         final ExpressionFunctionContext context) {
         this.checkParameterCount(parameters, 1);
 
-        return (long)this.string(parameters, 0, context).length();
+        return (long) this.string(parameters, 0, context).length();
     }
 
 
     @Override
-    public ExpressionNodeName name() {
+    public FunctionExpressionName name() {
         return NAME;
     }
 
-    private final static ExpressionNodeName NAME = ExpressionNodeName.with("string-length");
+    private final static FunctionExpressionName NAME = FunctionExpressionName.with("string-length");
 
     @Override
     public String toString() {

@@ -17,7 +17,7 @@
 
 package walkingkooka.tree.expression.function;
 
-import walkingkooka.tree.expression.ExpressionNodeName;
+import walkingkooka.tree.expression.FunctionExpressionName;
 
 import java.util.List;
 
@@ -45,11 +45,11 @@ final class ExpressionTrueFunction extends ExpressionFunction2<Boolean> {
     }
 
     @Override
-    public ExpressionNodeName name() {
+    public FunctionExpressionName name() {
         return NAME;
     }
 
-    private final static ExpressionNodeName NAME = ExpressionNodeName.with("true");
+    private final static FunctionExpressionName NAME = FunctionExpressionName.with("true");
 
     @Override
     public String toString() {

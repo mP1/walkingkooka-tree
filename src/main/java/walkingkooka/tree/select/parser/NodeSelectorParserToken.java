@@ -969,7 +969,7 @@ public abstract class NodeSelectorParserToken implements ParserToken {
     public final boolean equals(final Object other) {
         return this == other ||
                 this.canBeEqual(other) &&
-                        this.equals0((NodeSelectorParserToken)other);
+                        this.equals0((NodeSelectorParserToken) other);
     }
 
     abstract boolean canBeEqual(final Object other);

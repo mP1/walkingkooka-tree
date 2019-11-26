@@ -59,8 +59,7 @@ final class FollowingSiblingNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>,
         return this.selectFollowingSiblings(node, context);
     }
 
-    @Override
-    final N select(final N node, final NodeSelectorContext2<N, NAME, ANAME, AVALUE> context) {
+    @Override final N select(final N node, final NodeSelectorContext2<N, NAME, ANAME, AVALUE> context) {
         return this.selectNext(node, context);
     }
 

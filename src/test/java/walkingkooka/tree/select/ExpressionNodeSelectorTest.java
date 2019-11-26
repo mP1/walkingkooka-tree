@@ -24,8 +24,8 @@ import walkingkooka.naming.Names;
 import walkingkooka.naming.StringName;
 import walkingkooka.predicate.Predicates;
 import walkingkooka.tree.TestNode;
-import walkingkooka.tree.expression.ExpressionNode;
-import walkingkooka.tree.expression.ExpressionNodeName;
+import walkingkooka.tree.expression.Expression;
+import walkingkooka.tree.expression.FunctionExpressionName;
 import walkingkooka.visit.Visiting;
 
 import java.util.List;
@@ -54,10 +54,10 @@ final public class ExpressionNodeSelectorTest extends
     public void testAppendExpressionTrue() {
         final NodeSelector<TestNode, StringName, StringName, Object> selector = TestNode.relativeNodeSelector()
                 .children()
-                .expression(ExpressionNode.booleanNode(true));
+                .expression(Expression.booleanExpression(true));
         this.checkEqualsAndHashCode(TestNode.relativeNodeSelector()
-                .children()
-                .setToString("child::*[true()]"),
+                        .children()
+                        .setToString("child::*[true()]"),
                 selector);
     }
 
@@ -83,7 +83,7 @@ final public class ExpressionNodeSelectorTest extends
         final TestNode child2 = TestNode.with("child2");
         final TestNode parent = TestNode.with("self", child1, child2);
 
-        this.applyAndCheck(ExpressionNodeSelector.<TestNode, StringName, StringName, Object>with(ExpressionNode.booleanNode(true)).children(),
+        this.applyAndCheck(ExpressionNodeSelector.<TestNode, StringName, StringName, Object>with(Expression.booleanExpression(true)).children(),
                 parent,
                 child1, child2);
     }
@@ -91,30 +91,30 @@ final public class ExpressionNodeSelectorTest extends
     @SuppressWarnings("PointlessArithmeticExpression")
     @Test
     public void testChildrenExpressionNumberPosition1() {
-        this.childrenExpressionNumberPositionAndCheck(ExpressionNode.longNode(NodeSelector.INDEX_BIAS + 0), 0);
+        this.childrenExpressionNumberPositionAndCheck(Expression.longExpression(NodeSelector.INDEX_BIAS + 0), 0);
     }
 
     @Test
     public void testChildrenExpressionNumberPosition2() {
-        this.childrenExpressionNumberPositionAndCheck(ExpressionNode.longNode(NodeSelector.INDEX_BIAS + 1), 1);
+        this.childrenExpressionNumberPositionAndCheck(Expression.longExpression(NodeSelector.INDEX_BIAS + 1), 1);
     }
 
     @Test
     public void testChildrenExpressionNumberPosition3() {
-        this.childrenExpressionNumberPositionAndCheck(ExpressionNode.longNode(NodeSelector.INDEX_BIAS + 2), 2);
+        this.childrenExpressionNumberPositionAndCheck(Expression.longExpression(NodeSelector.INDEX_BIAS + 2), 2);
     }
 
     @Test
     public void testChildrenExpressionNumberPositionInvalid() {
-        this.childrenExpressionNumberPositionAndCheck(ExpressionNode.longNode(0), -1);
+        this.childrenExpressionNumberPositionAndCheck(Expression.longExpression(0), -1);
     }
 
     @Test
     public void testChildrenExpressionNumberPositionOutOfBounds() {
-        this.childrenExpressionNumberPositionAndCheck(ExpressionNode.longNode(99), -1);
+        this.childrenExpressionNumberPositionAndCheck(Expression.longExpression(99), -1);
     }
 
-    private void childrenExpressionNumberPositionAndCheck(final ExpressionNode expression,
+    private void childrenExpressionNumberPositionAndCheck(final Expression expression,
                                                           final int childIndex) {
         final TestNode parent = TestNode.with("parent",
                 TestNode.with("child1", TestNode.with("grandChild1")),
@@ -139,7 +139,7 @@ final public class ExpressionNodeSelectorTest extends
 
         this.applyAndCheck(TestNode.relativeNodeSelector()
                         .children()
-                        .expression(ExpressionNode.longNode(2))
+                        .expression(Expression.longExpression(2))
                         .attributeValueStartsWith(Names.string("B2"), "V"),
                 parent,
                 parent.child(1));
@@ -154,7 +154,7 @@ final public class ExpressionNodeSelectorTest extends
 
         this.applyFilterAndCheck(TestNode.relativeNodeSelector()
                         .children()
-                        .expression(ExpressionNode.longNode(2))
+                        .expression(Expression.longExpression(2))
                         .attributeValueStartsWith(Names.string("B2"), "V"),
                 parent,
                 Predicates.never());
@@ -169,7 +169,7 @@ final public class ExpressionNodeSelectorTest extends
 
         this.applyFilterAndCheck(TestNode.relativeNodeSelector()
                         .children()
-                        .expression(ExpressionNode.longNode(2))
+                        .expression(Expression.longExpression(2))
                         .attributeValueStartsWith(Names.string("B2"), "V"),
                 parent,
                 (n) -> !n.name().value().equals("child3"), // select parent, child1, child2, skip child3
@@ -180,13 +180,13 @@ final public class ExpressionNodeSelectorTest extends
     public void testExpressionFalseMap() {
         final TestNode node = TestNode.with("node");
 
-        this.acceptMapAndCheck(ExpressionNodeSelector.with(ExpressionNode.booleanNode(false)),
+        this.acceptMapAndCheck(ExpressionNodeSelector.with(Expression.booleanExpression(false)),
                 node);
     }
 
     @Test
     public void testExpressionTrueMap() {
-        this.acceptMapAndCheck(ExpressionNodeSelector.with(ExpressionNode.booleanNode(true)),
+        this.acceptMapAndCheck(ExpressionNodeSelector.with(Expression.booleanExpression(true)),
                 TestNode.with("node"),
                 TestNode.with("node*0"));
     }
@@ -197,7 +197,7 @@ final public class ExpressionNodeSelectorTest extends
 
         TestNode.clear();
 
-        this.acceptMapAndCheck(ExpressionNodeSelector.with(ExpressionNode.booleanNode(true)),
+        this.acceptMapAndCheck(ExpressionNodeSelector.with(Expression.booleanExpression(true)),
                 parent.child(0),
                 TestNode.with("parent", TestNode.with("child*0")).child(0));
     }
@@ -210,7 +210,7 @@ final public class ExpressionNodeSelectorTest extends
 
         TestNode.clear();
 
-        this.acceptMapAndCheck(ExpressionNodeSelector.with(ExpressionNode.booleanNode(true)),
+        this.acceptMapAndCheck(ExpressionNodeSelector.with(Expression.booleanExpression(true)),
                 parent.child(0),
                 TestNode.with("parent",
                         TestNode.with("child*0",
@@ -220,13 +220,13 @@ final public class ExpressionNodeSelectorTest extends
 
     @Test
     public void testExpressionNumberNegativeMap() {
-        this.acceptMapAndCheck(ExpressionNodeSelector.with(ExpressionNode.longNode(-2)),
+        this.acceptMapAndCheck(ExpressionNodeSelector.with(Expression.longExpression(-2)),
                 TestNode.with("node"));
     }
 
     @Test
     public void testExpressionNumberOutOfRangeMap() {
-        this.acceptMapAndCheck(ExpressionNodeSelector.with(ExpressionNode.longNode(999)),
+        this.acceptMapAndCheck(ExpressionNodeSelector.with(Expression.longExpression(999)),
                 TestNode.with("node"));
     }
 
@@ -241,7 +241,7 @@ final public class ExpressionNodeSelectorTest extends
 
         this.acceptMapAndCheck(TestNode.relativeNodeSelector()
                         .children()
-                        .expression(ExpressionNode.longNode(99)),
+                        .expression(Expression.longExpression(99)),
                 parent,
                 parent);
     }
@@ -257,8 +257,8 @@ final public class ExpressionNodeSelectorTest extends
 
         //noinspection PointlessArithmeticExpression
         this.acceptMapAndCheck(TestNode.relativeNodeSelector()
-                .children()
-                .expression(ExpressionNode.longNode(NodeSelector.INDEX_BIAS + 0)),
+                        .children()
+                        .expression(Expression.longExpression(NodeSelector.INDEX_BIAS + 0)),
                 parent,
                 TestNode.with("parent", TestNode.with("child1*0"), TestNode.with("child2"), TestNode.with("child3")));
     }
@@ -274,7 +274,7 @@ final public class ExpressionNodeSelectorTest extends
 
         this.acceptMapAndCheck(TestNode.relativeNodeSelector()
                         .children()
-                        .expression(ExpressionNode.longNode(NodeSelector.INDEX_BIAS + 1)),
+                        .expression(Expression.longExpression(NodeSelector.INDEX_BIAS + 1)),
                 parent,
                 TestNode.with("parent", TestNode.with("child1"), TestNode.with("child2*0"), TestNode.with("child3")));
     }
@@ -290,7 +290,7 @@ final public class ExpressionNodeSelectorTest extends
 
         this.acceptMapAndCheck(TestNode.relativeNodeSelector()
                         .children()
-                        .expression(ExpressionNode.longNode(NodeSelector.INDEX_BIAS + 2)),
+                        .expression(Expression.longExpression(NodeSelector.INDEX_BIAS + 2)),
                 parent,
                 TestNode.with("parent", TestNode.with("child1"), TestNode.with("child2"), TestNode.with("child3*0")));
     }
@@ -304,7 +304,7 @@ final public class ExpressionNodeSelectorTest extends
 
         TestNode.clear();
 
-        this.acceptMapAndCheck(TestNode.relativeNodeSelector().children().expression(ExpressionNode.booleanNode(true)),
+        this.acceptMapAndCheck(TestNode.relativeNodeSelector().children().expression(Expression.booleanExpression(true)),
                 parent,
                 TestNode.with("parent",
                         TestNode.with("child1*0", TestNode.with("grandChildren1")),
@@ -329,10 +329,10 @@ final public class ExpressionNodeSelectorTest extends
         this.acceptMapAndCheck(TestNode.relativeNodeSelector()
                         .children()
                         .named(Names.string("tr"))
-                        .expression(ExpressionNode.longNode(1))
+                        .expression(Expression.longExpression(1))
                         .children()
                         .named(Names.string("td"))
-                        .expression(ExpressionNode.longNode(1)),
+                        .expression(Expression.longExpression(1)),
                 parent,
                 TestNode.with("tbody",
                         TestNode.with("skip"),
@@ -362,9 +362,9 @@ final public class ExpressionNodeSelectorTest extends
         this.acceptMapAndCheck(TestNode.relativeNodeSelector()
                         .children()
                         .named(Names.string("tr"))
-                        .expression(ExpressionNode.longNode(1))
+                        .expression(Expression.longExpression(1))
                         .children()
-                        .expression(ExpressionNode.longNode(2)),
+                        .expression(Expression.longExpression(2)),
                 parent,
                 TestNode.with("tbody",
                         TestNode.with("tr",
@@ -395,9 +395,9 @@ final public class ExpressionNodeSelectorTest extends
         this.acceptMapAndCheck(TestNode.relativeNodeSelector()
                         .children()
                         .named(Names.string("tr"))
-                        .expression(ExpressionNode.longNode(2))
+                        .expression(Expression.longExpression(2))
                         .children()
-                        .expression(ExpressionNode.longNode(2)),
+                        .expression(Expression.longExpression(2)),
                 parent,
                 TestNode.with("tbody",
                         TestNode.with("tr",
@@ -418,7 +418,7 @@ final public class ExpressionNodeSelectorTest extends
         final List<NodeSelector> visited = Lists.array();
 
         final ExpressionNodeSelector<TestNode, StringName, StringName, Object> selector = this.createSelector();
-        final ExpressionNode expression = selector.expressionNode;
+        final Expression expression = selector.expression;
 
         final NodeSelector<TestNode, StringName, StringName, Object> next = selector.next;
 
@@ -438,7 +438,7 @@ final public class ExpressionNodeSelectorTest extends
 
             @Override
             protected Visiting startVisitExpression(final NodeSelector<TestNode, StringName, StringName, Object> s,
-                                                    final ExpressionNode e) {
+                                                    final Expression e) {
                 assertSame(selector, s, "selector");
                 assertSame(expression, e, "predicate");
                 b.append("3");
@@ -448,7 +448,7 @@ final public class ExpressionNodeSelectorTest extends
 
             @Override
             protected void endVisitExpression(final NodeSelector<TestNode, StringName, StringName, Object> s,
-                                              final ExpressionNode e) {
+                                              final Expression e) {
                 assertSame(selector, s, "selector");
                 assertSame(expression, e, "expression");
                 b.append("4");
@@ -483,7 +483,7 @@ final public class ExpressionNodeSelectorTest extends
     public void testToStringChildrenExpressionTrue() {
         this.toStringAndCheck(TestNode.relativeNodeSelector()
                         .children()
-                        .expression(ExpressionNode.booleanNode(true)),
+                        .expression(Expression.booleanExpression(true)),
                 "child::*[true()]");
     }
 
@@ -491,7 +491,7 @@ final public class ExpressionNodeSelectorTest extends
     public void testToStringChildrenExpressionFalse() {
         this.toStringAndCheck(TestNode.relativeNodeSelector()
                         .children()
-                        .expression(ExpressionNode.booleanNode(false)),
+                        .expression(Expression.booleanExpression(false)),
                 "child::*[false()]");
     }
 
@@ -500,14 +500,14 @@ final public class ExpressionNodeSelectorTest extends
         this.toStringAndCheck(TestNode.relativeNodeSelector()
                         .children()
                         .named(Names.string("ABC"))
-                        .expression(ExpressionNode.booleanNode(true)),
+                        .expression(Expression.booleanExpression(true)),
                 "child::ABC[true()]");
     }
 
     @Test
     public void testToStringExpressionChildren() {
         this.toStringAndCheck(TestNode.relativeNodeSelector()
-                        .expression(ExpressionNode.longNode(123))
+                        .expression(Expression.longExpression(123))
                         .firstChild(),
                 "*[123]/first-child::*");
     }
@@ -517,10 +517,10 @@ final public class ExpressionNodeSelectorTest extends
         return ExpressionNodeSelector.with(expression());
     }
 
-    private ExpressionNode expression() {
-        return ExpressionNode.equalsNode(
-                ExpressionNode.function(ExpressionNodeName.with("name"), Lists.of(ExpressionNode.function(ExpressionNodeName.with("node"), ExpressionNode.NO_CHILDREN))),
-                ExpressionNode.text("self")
+    private Expression expression() {
+        return Expression.equalsExpression(
+                Expression.function(FunctionExpressionName.with("name"), Lists.of(Expression.function(FunctionExpressionName.with("node"), Expression.NO_CHILDREN))),
+                Expression.string("self")
         );
     }
 

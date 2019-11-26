@@ -17,7 +17,7 @@
 
 package walkingkooka.tree.expression.function;
 
-import walkingkooka.tree.expression.ExpressionNodeName;
+import walkingkooka.tree.expression.FunctionExpressionName;
 
 import java.util.List;
 
@@ -54,11 +54,11 @@ final class ExpressionSubstringBeforeFunction extends ExpressionFunction2<String
 
 
     @Override
-    public ExpressionNodeName name() {
+    public FunctionExpressionName name() {
         return NAME;
     }
 
-    private final static ExpressionNodeName NAME = ExpressionNodeName.with("substring-before");
+    private final static FunctionExpressionName NAME = FunctionExpressionName.with("substring-before");
 
     @Override
     public String toString() {

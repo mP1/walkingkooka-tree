@@ -22,10 +22,10 @@ import walkingkooka.Either;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.naming.Name;
 import walkingkooka.tree.Node;
+import walkingkooka.tree.expression.Expression;
 import walkingkooka.tree.expression.ExpressionEvaluationContext;
-import walkingkooka.tree.expression.ExpressionNode;
-import walkingkooka.tree.expression.ExpressionNodeName;
 import walkingkooka.tree.expression.ExpressionReference;
+import walkingkooka.tree.expression.FunctionExpressionName;
 import walkingkooka.tree.select.parser.NodeSelectorAttributeName;
 
 import java.math.MathContext;
@@ -37,55 +37,55 @@ import java.util.Optional;
 /**
  * A {@link ExpressionEvaluationContext} that is used when evaluating predicates.
  */
-final class ExpressionNodeSelectorExpressionEvaluationContext<N extends Node<N, NAME, ANAME, AVALUE>,
+final class ExpressionSelectorExpressionEvaluationContext<N extends Node<N, NAME, ANAME, AVALUE>,
         NAME extends Name,
         ANAME extends Name,
         AVALUE>
         implements ExpressionEvaluationContext {
 
     /**
-     * Factory that creates a new {@link ExpressionNodeSelectorExpressionEvaluationContext}, using the given {@link Node} as the context.
+     * Factory that creates a new {@link ExpressionSelectorExpressionEvaluationContext}, using the given {@link Node} as the context.
      */
     static <N extends Node<N, NAME, ANAME, AVALUE>,
             NAME extends Name,
             ANAME extends Name,
             AVALUE>
-    ExpressionNodeSelectorExpressionEvaluationContext<N, NAME, ANAME, AVALUE> with(final N node,
-                                                                                   final NodeSelectorContext2<N, NAME, ANAME, AVALUE> context) {
-        return new ExpressionNodeSelectorExpressionEvaluationContext<>(node, context);
+    ExpressionSelectorExpressionEvaluationContext<N, NAME, ANAME, AVALUE> with(final N node,
+                                                                               final NodeSelectorContext2<N, NAME, ANAME, AVALUE> context) {
+        return new ExpressionSelectorExpressionEvaluationContext<>(node, context);
     }
 
     /**
      * Private ctor use factory.
      */
-    private ExpressionNodeSelectorExpressionEvaluationContext(final N node,
-                                                              final NodeSelectorContext2<N, NAME, ANAME, AVALUE> context) {
+    private ExpressionSelectorExpressionEvaluationContext(final N node,
+                                                          final NodeSelectorContext2<N, NAME, ANAME, AVALUE> context) {
         super();
         this.node = node;
         this.context = context;
     }
 
     @Override
-    public Object function(final ExpressionNodeName name, final List<Object> parameters) {
+    public Object function(final FunctionExpressionName name, final List<Object> parameters) {
         return POSITION.equals(name) ?
                 this.context.nodePosition() :
-                    this.dispatchFunction(name, parameters);
+                this.dispatchFunction(name, parameters);
     }
 
-    private final static ExpressionNodeName POSITION = ExpressionNodeName.with("position");
+    private final static FunctionExpressionName POSITION = FunctionExpressionName.with("position");
 
-    private Object dispatchFunction(final ExpressionNodeName name, final List<Object> parameters) {
+    private Object dispatchFunction(final FunctionExpressionName name, final List<Object> parameters) {
         final List<Object> thisAndParameters = Lists.array();
         thisAndParameters.add(this.node);
         thisAndParameters.addAll(parameters);
         return this.context.function(name, Lists.readOnly(parameters));
     }
-    
+
     /**
      * The reference should be an attribute name, cast and find the owner attribute.
      */
     @Override
-    public Optional<ExpressionNode> reference(final ExpressionReference reference) {
+    public Optional<Expression> reference(final ExpressionReference reference) {
         Objects.requireNonNull(reference, "reference");
 
         if (false == reference instanceof NodeSelectorAttributeName) {
@@ -94,11 +94,11 @@ final class ExpressionNodeSelectorExpressionEvaluationContext<N extends Node<N, 
         final NodeSelectorAttributeName attributeName = Cast.to(reference);
         final String attributeNameString = attributeName.value();
 
-        final Optional<ExpressionNode> attributeValue = this.node.attributes()
+        final Optional<Expression> attributeValue = this.node.attributes()
                 .entrySet()
                 .stream()
                 .filter(nameAndValue -> nameAndValue.getKey().value().equals(attributeNameString))
-                .map(nameAndValue -> ExpressionNode.valueOrFail(nameAndValue.getValue()))
+                .map(nameAndValue -> Expression.valueOrFail(nameAndValue.getValue()))
                 .findFirst();
         return attributeValue.isPresent() ?
                 attributeValue :
@@ -111,7 +111,7 @@ final class ExpressionNodeSelectorExpressionEvaluationContext<N extends Node<N, 
     // @VisibleForTesting
     final Node<?, ?, ?, ?> node;
 
-    private final static Optional<ExpressionNode> ABSENT = Optional.of(ExpressionNode.text(""));
+    private final static Optional<Expression> ABSENT = Optional.of(Expression.string(""));
 
     @Override
     public Locale locale() {

@@ -94,8 +94,7 @@ public abstract class NodeSelectorBinaryParserTokenTestCase<T extends NodeSelect
         return this.wildcard();
     }
 
-    @Override
-    final List<ParserToken> tokens() {
+    @Override final List<ParserToken> tokens() {
         return Lists.of(this.leftToken(), this.operatorSymbol(), this.rightToken());
     }
 

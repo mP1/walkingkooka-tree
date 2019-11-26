@@ -30,7 +30,7 @@ import java.util.Set;
 /**
  * Wraps another {@link ExpressionEvaluationContext} delegating all methods except for a guard within
  * {@link #reference(ExpressionReference)} to detect cycles between resolving a {@link ExpressionReference} to a
- * {@link ExpressionNode}, even indirectly.<br>
+ * {@link Expression}, even indirectly.<br>
  */
 final class CycleDetectingExpressionEvaluationContext implements ExpressionEvaluationContext {
 
@@ -87,22 +87,22 @@ final class CycleDetectingExpressionEvaluationContext implements ExpressionEvalu
     }
 
     @Override
-    public Object function(final ExpressionNodeName expressionNodeName, final List<Object> parameters) {
-        return this.context.function(expressionNodeName, parameters);
+    public Object function(final FunctionExpressionName functionName, final List<Object> parameters) {
+        return this.context.function(functionName, parameters);
     }
 
     @Override
-    public Optional<ExpressionNode> reference(final ExpressionReference reference) {
+    public Optional<Expression> reference(final ExpressionReference reference) {
         final Set<ExpressionReference> cycles = this.cycles;
 
         this.cycleCheck(reference, cycles);
 
         try {
             cycles.add(reference);
-            final ExpressionNode result = this.context.referenceOrFail(reference);
+            final Expression result = this.context.referenceOrFail(reference);
 
             if (result.isReference()) {
-                final ExpressionReferenceNode referenceNode = result.cast();
+                final ReferenceExpression referenceNode = result.cast();
                 this.cycleCheck(referenceNode.value(), cycles);
             }
 

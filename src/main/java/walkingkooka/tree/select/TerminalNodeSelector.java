@@ -61,8 +61,7 @@ final class TerminalNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NAME ex
         return context.all();
     }
 
-    @Override
-    final N apply1(final N node, final NodeSelectorContext2<N, NAME, ANAME, AVALUE> context) {
+    @Override final N apply1(final N node, final NodeSelectorContext2<N, NAME, ANAME, AVALUE> context) {
         return !context.isFinished() && context.test(node) ?
                 node.replace(context.selected(node)) :
                 node;

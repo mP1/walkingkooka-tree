@@ -17,7 +17,7 @@
 
 package walkingkooka.tree.expression.function;
 
-import walkingkooka.tree.expression.ExpressionNodeName;
+import walkingkooka.tree.expression.FunctionExpressionName;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -53,11 +53,11 @@ final class ExpressionConcatFunction extends ExpressionFunction2<String> {
     }
 
     @Override
-    public ExpressionNodeName name() {
+    public FunctionExpressionName name() {
         return NAME;
     }
 
-    private final static ExpressionNodeName NAME = ExpressionNodeName.with("concat");
+    private final static FunctionExpressionName NAME = FunctionExpressionName.with("concat");
 
     @Override
     public String toString() {

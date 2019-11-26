@@ -22,7 +22,7 @@ import walkingkooka.Either;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.math.HasMathContext;
 import walkingkooka.tree.expression.ExpressionEvaluationException;
-import walkingkooka.tree.expression.ExpressionNodeName;
+import walkingkooka.tree.expression.FunctionExpressionName;
 
 import java.util.List;
 
@@ -39,7 +39,7 @@ public interface ExpressionFunctionContext extends Context, HasMathContext {
     /**
      * Locates a function with the given name and then executes it with the provided parameter values.
      */
-    Object function(final ExpressionNodeName name, final List<Object> parameters);
+    Object function(final FunctionExpressionName name, final List<Object> parameters);
 
     /**
      * Handles converting the given value to the {@link Class target type}.

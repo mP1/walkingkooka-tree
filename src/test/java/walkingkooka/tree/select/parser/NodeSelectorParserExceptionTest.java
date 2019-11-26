@@ -31,7 +31,7 @@ public final class NodeSelectorParserExceptionTest implements StandardThrowableT
     public NodeSelectorParserException createThrowable(final String message, final Throwable cause) {
         return new NodeSelectorParserException(message, cause);
     }
-    
+
     @Override
     public Class<NodeSelectorParserException> type() {
         return NodeSelectorParserException.class;
