@@ -30,12 +30,12 @@ public final class ExpressionNotFunctionTest extends ExpressionFunctionTestCase<
 
     @Test
     public void testInverts() {
-        this.applyAndCheck2(parameters( "a1", "a"), false);
+        this.applyAndCheck2(parameters("a1", "a"), false);
     }
 
     @Test
     public void testInverts2() {
-        this.applyAndCheck2(parameters( "a1", "z"), true);
+        this.applyAndCheck2(parameters("a1", "z"), true);
     }
 
     @Test

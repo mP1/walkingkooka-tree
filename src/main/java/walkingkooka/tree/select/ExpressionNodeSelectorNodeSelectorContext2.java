@@ -25,14 +25,14 @@ import walkingkooka.tree.Node;
  * A {@link NodeSelectorContext2} that tracks the position of selected {@link Node}. This allows {@link ExpressionNodeSelector} to
  * test numeric values against the current position of the current {@link Node}.
  */
-final class ExpressionNodeSelectorNodeSelectorContext2<N extends Node<N, NAME, ANAME, AVALUE>, NAME extends Name, ANAME extends Name, AVALUE>
+final class ExpressionSelectorNodeSelectorContext2<N extends Node<N, NAME, ANAME, AVALUE>, NAME extends Name, ANAME extends Name, AVALUE>
         extends NodeSelectorContext2<N, NAME, ANAME, AVALUE> {
 
-    static <N extends Node<N, NAME, ANAME, AVALUE>, NAME extends Name, ANAME extends Name, AVALUE> ExpressionNodeSelectorNodeSelectorContext2<N, NAME, ANAME, AVALUE> with(final NodeSelectorContext<N, NAME, ANAME, AVALUE> context) {
-        return new ExpressionNodeSelectorNodeSelectorContext2<>(context);
+    static <N extends Node<N, NAME, ANAME, AVALUE>, NAME extends Name, ANAME extends Name, AVALUE> ExpressionSelectorNodeSelectorContext2<N, NAME, ANAME, AVALUE> with(final NodeSelectorContext<N, NAME, ANAME, AVALUE> context) {
+        return new ExpressionSelectorNodeSelectorContext2<>(context);
     }
 
-    private ExpressionNodeSelectorNodeSelectorContext2(final NodeSelectorContext<N, NAME, ANAME, AVALUE> context) {
+    private ExpressionSelectorNodeSelectorContext2(final NodeSelectorContext<N, NAME, ANAME, AVALUE> context) {
         super(context);
     }
 
@@ -58,11 +58,11 @@ final class ExpressionNodeSelectorNodeSelectorContext2<N extends Node<N, NAME, A
     boolean nodePositionTest(final Object value) {
         boolean result;
 
-        if(value instanceof Boolean) {
+        if (value instanceof Boolean) {
             result = Boolean.TRUE.equals(value);
         } else {
             final Either<Integer, String> position = this.convert(value, Integer.class);
-            if(position.isLeft()) {
+            if (position.isLeft()) {
                 result = this.position == position.leftValue();
             } else {
                 result = false;

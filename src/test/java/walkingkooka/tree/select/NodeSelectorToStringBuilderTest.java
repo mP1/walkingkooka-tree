@@ -25,8 +25,8 @@ import walkingkooka.naming.StringName;
 import walkingkooka.predicate.Predicates;
 import walkingkooka.reflect.ClassTesting2;
 import walkingkooka.reflect.JavaVisibility;
-import walkingkooka.tree.expression.ExpressionNode;
-import walkingkooka.tree.expression.ExpressionNodeName;
+import walkingkooka.tree.expression.Expression;
+import walkingkooka.tree.expression.FunctionExpressionName;
 
 import java.util.function.Predicate;
 
@@ -90,7 +90,7 @@ public final class NodeSelectorToStringBuilderTest implements ClassTesting2<Node
         b.predicate(predicate4());
         this.buildAndCheck(b, "axis1::def2[k>3][l>4]");
     }
-    
+
     @Test
     public void testAxisPredicateName() {
         final NodeSelectorToStringBuilder b = NodeSelectorToStringBuilder.empty();
@@ -163,7 +163,7 @@ public final class NodeSelectorToStringBuilderTest implements ClassTesting2<Node
     public void testPredicateExpression() {
         final NodeSelectorToStringBuilder b = NodeSelectorToStringBuilder.empty();
         b.predicate(predicate1());
-        b.expression(ExpressionNode.longNode(22));
+        b.expression(Expression.longExpression(22));
         this.buildAndCheck(b, "*[i>1][22]");
     }
 
@@ -219,7 +219,7 @@ public final class NodeSelectorToStringBuilderTest implements ClassTesting2<Node
         final NodeSelectorToStringBuilder b = NodeSelectorToStringBuilder.empty();
         b.name(abc1());
         b.predicate(predicate2());
-        b.expression(ExpressionNode.longNode(33));
+        b.expression(Expression.longExpression(33));
         b.name(jkl4());
         this.buildAndCheck(b, "abc1[j>2][33]/jkl4");
     }
@@ -397,7 +397,7 @@ public final class NodeSelectorToStringBuilderTest implements ClassTesting2<Node
         final NodeSelectorToStringBuilder b = NodeSelectorToStringBuilder.empty();
         b.descendantOrSelf();
         b.name(abc1());
-        b.expression(ExpressionNode.longNode(2));
+        b.expression(Expression.longExpression(2));
         b.axisName("axis3");
         this.buildAndCheck(b, "//abc1[2]/axis3::*");
     }
@@ -417,7 +417,7 @@ public final class NodeSelectorToStringBuilderTest implements ClassTesting2<Node
     public void testNameExpressionBooleanTrue() {
         final NodeSelectorToStringBuilder b = NodeSelectorToStringBuilder.empty();
         b.name(abc1());
-        b.expression(ExpressionNode.booleanNode(true));
+        b.expression(Expression.booleanExpression(true));
         this.buildAndCheck(b, "abc1[true()]");
     }
 
@@ -425,9 +425,9 @@ public final class NodeSelectorToStringBuilderTest implements ClassTesting2<Node
     public void testNameExpressionFunction() {
         final NodeSelectorToStringBuilder b = NodeSelectorToStringBuilder.empty();
         b.name(abc1());
-        b.expression(ExpressionNode.function(
-                ExpressionNodeName.with("def2"),
-                Lists.of(ExpressionNode.longNode(3))
+        b.expression(Expression.function(
+                FunctionExpressionName.with("def2"),
+                Lists.of(Expression.longExpression(3))
         ));
         this.buildAndCheck(b, "abc1[def2(3)]");
     }
@@ -436,7 +436,7 @@ public final class NodeSelectorToStringBuilderTest implements ClassTesting2<Node
     public void testNameExpressionBooleanTrueName() {
         final NodeSelectorToStringBuilder b = NodeSelectorToStringBuilder.empty();
         b.name(abc1());
-        b.expression(ExpressionNode.booleanNode(true));
+        b.expression(Expression.booleanExpression(true));
         b.name(ghi3());
         this.buildAndCheck(b, "abc1[true()]/ghi3");
     }
@@ -544,7 +544,7 @@ public final class NodeSelectorToStringBuilderTest implements ClassTesting2<Node
     }
 
     private Predicate<?> predicate(final int value) {
-        final char c = (char)('i' + value -1);
+        final char c = (char) ('i' + value - 1);
         return Predicates.customToString(Predicates.fake(), c + ">" + value);
     }
 

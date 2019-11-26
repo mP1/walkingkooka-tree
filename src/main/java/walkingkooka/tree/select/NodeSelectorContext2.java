@@ -20,7 +20,7 @@ package walkingkooka.tree.select;
 import walkingkooka.Either;
 import walkingkooka.naming.Name;
 import walkingkooka.tree.Node;
-import walkingkooka.tree.expression.ExpressionNodeName;
+import walkingkooka.tree.expression.FunctionExpressionName;
 
 import java.math.MathContext;
 import java.util.List;
@@ -39,15 +39,15 @@ abstract class NodeSelectorContext2<N extends Node<N, NAME, ANAME, AVALUE>, NAME
             AVALUE> NodeSelectorContext2<N, NAME, ANAME, AVALUE> all(final NodeSelectorContext<N, NAME, ANAME, AVALUE> context) {
         return AllNodeSelectorContext2.with(context);
     }
-    
+
     /**
-     * {@see ExpressionNodeSelectorNodeSelectorContext2}
+     * {@see ExpressionSelectorNodeSelectorContext2}
      */
     static <N extends Node<N, NAME, ANAME, AVALUE>,
             NAME extends Name,
             ANAME extends Name,
-            AVALUE> ExpressionNodeSelectorNodeSelectorContext2<N, NAME, ANAME, AVALUE> expression(final NodeSelectorContext<N, NAME, ANAME, AVALUE> context) {
-        return ExpressionNodeSelectorNodeSelectorContext2.with(context);
+            AVALUE> ExpressionSelectorNodeSelectorContext2<N, NAME, ANAME, AVALUE> expression(final NodeSelectorContext<N, NAME, ANAME, AVALUE> context) {
+        return ExpressionSelectorNodeSelectorContext2.with(context);
     }
 
     /**
@@ -81,7 +81,7 @@ abstract class NodeSelectorContext2<N extends Node<N, NAME, ANAME, AVALUE>, NAME
     }
 
     @Override
-    public final Object function(final ExpressionNodeName name, final List<Object> parameters) {
+    public final Object function(final FunctionExpressionName name, final List<Object> parameters) {
         return this.context.function(name, parameters);
     }
 
@@ -101,12 +101,12 @@ abstract class NodeSelectorContext2<N extends Node<N, NAME, ANAME, AVALUE>, NAME
     abstract NodeSelectorContext2<N, NAME, ANAME, AVALUE> all();
 
     /**
-     * The context should create a {@link ExpressionNodeSelectorNodeSelectorContext2} if it is not already one.
+     * The context should create a {@link ExpressionSelectorNodeSelectorContext2} if it is not already one.
      */
     abstract NodeSelectorContext2<N, NAME, ANAME, AVALUE> expressionCreateIfNecessary();
 
     /**
-     * Unconditionally create a {@link ExpressionNodeSelectorNodeSelectorContext2}.
+     * Unconditionally create a {@link ExpressionSelectorNodeSelectorContext2}.
      */
     abstract NodeSelectorContext2<N, NAME, ANAME, AVALUE> expression();
 

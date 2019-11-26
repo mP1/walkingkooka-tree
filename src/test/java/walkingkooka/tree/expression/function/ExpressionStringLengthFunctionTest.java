@@ -30,28 +30,28 @@ public final class ExpressionStringLengthFunctionTest extends ExpressionFunction
 
     @Test
     public void testTwoParametersFails() {
-        assertThrows(IllegalArgumentException.class, () -> this.apply2( "a1", "b2"));
+        assertThrows(IllegalArgumentException.class, () -> this.apply2("a1", "b2"));
     }
 
     @Test
     public void testEmptyString() {
-        this.applyAndCheck2(parameters( ""), 0L);
+        this.applyAndCheck2(parameters(""), 0L);
     }
 
 
     @Test
     public void testString() {
-        this.applyAndCheck2(parameters( "xyz"), 3L);
+        this.applyAndCheck2(parameters("xyz"), 3L);
     }
 
     @Test
     public void testNumber() {
-        this.applyAndCheck2(parameters( 123), 3L);
+        this.applyAndCheck2(parameters(123), 3L);
     }
 
     @Test
     public void testBoolean() {
-        this.applyAndCheck2(parameters( true), 4L);
+        this.applyAndCheck2(parameters(true), 4L);
     }
 
     @Test

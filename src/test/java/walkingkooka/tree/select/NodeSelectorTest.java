@@ -111,7 +111,7 @@ public final class NodeSelectorTest implements ClassTesting2<NodeSelector<TestNo
     @Override
     public Stream<TestNode> createStream() {
         return this.stream(TestNode.absoluteNodeSelector()
-                .descendantOrSelf(),
+                        .descendantOrSelf(),
                 ROOT);
     }
 

@@ -178,7 +178,7 @@ final class NodeSelectorEbnfParserCombinatorSyntaxTreeTransformer implements Ebn
      * Singleton
      */
     final static NodeSelectorEbnfParserCombinatorSyntaxTreeTransformer INSTANCE = new NodeSelectorEbnfParserCombinatorSyntaxTreeTransformer();
-    
+
     private NodeSelectorEbnfParserCombinatorSyntaxTreeTransformer() {
         super();
 
@@ -192,7 +192,7 @@ final class NodeSelectorEbnfParserCombinatorSyntaxTreeTransformer implements Ebn
 
         this.identiferToTransform = identiferToTransform;
     }
-    
+
     @Override
     public Parser<ParserContext> alternatives(final EbnfAlternativeParserToken token, final Parser<ParserContext> parser) {
         return parser;

@@ -17,7 +17,7 @@
 
 package walkingkooka.tree.expression.function;
 
-import walkingkooka.tree.expression.ExpressionNodeName;
+import walkingkooka.tree.expression.FunctionExpressionName;
 
 import java.util.List;
 
@@ -46,11 +46,11 @@ final class ExpressionNumberFunction extends ExpressionFunction2<Number> {
     }
 
     @Override
-    public ExpressionNodeName name() {
+    public FunctionExpressionName name() {
         return NAME;
     }
 
-    private final static ExpressionNodeName NAME = ExpressionNodeName.with("number");
+    private final static FunctionExpressionName NAME = FunctionExpressionName.with("number");
 
     @Override
     public String toString() {

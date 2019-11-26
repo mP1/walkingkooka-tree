@@ -30,47 +30,47 @@ public final class ExpressionStartsWithFunctionTest extends ExpressionFunctionTe
 
     @Test
     public void testOneParametersFails() {
-        assertThrows(IllegalArgumentException.class, () -> this.apply2( "a1"));
+        assertThrows(IllegalArgumentException.class, () -> this.apply2("a1"));
     }
 
     @Test
     public void testThreeParametersFails() {
-        assertThrows(IllegalArgumentException.class, () -> this.apply2( "a1", 2, 3));
+        assertThrows(IllegalArgumentException.class, () -> this.apply2("a1", 2, 3));
     }
 
     @Test
     public void testMissing() {
-        this.applyAndCheck2(parameters( "abc", "d"), false);
+        this.applyAndCheck2(parameters("abc", "d"), false);
     }
 
     @Test
     public void testMissing2() {
-        this.applyAndCheck2(parameters( "abcd", "abx"), false);
+        this.applyAndCheck2(parameters("abcd", "abx"), false);
     }
 
     @Test
     public void testMissingButEndsWith() {
-        this.applyAndCheck2(parameters( "abc", "bc"), false);
+        this.applyAndCheck2(parameters("abc", "bc"), false);
     }
 
     @Test
     public void testPresent() {
-        this.applyAndCheck2(parameters( "abc", "a"), true);
+        this.applyAndCheck2(parameters("abc", "a"), true);
     }
 
     @Test
     public void testPresent2() {
-        this.applyAndCheck2(parameters( "abcd", "abc"), true);
+        this.applyAndCheck2(parameters("abcd", "abc"), true);
     }
 
     @Test
     public void testPresentDifferentCase() {
-        this.applyAndCheck2(parameters( "abc", "A"), false);
+        this.applyAndCheck2(parameters("abc", "A"), false);
     }
 
     @Test
     public void testContainsEmpty() {
-        this.applyAndCheck2(parameters( "abc", ""), true);
+        this.applyAndCheck2(parameters("abc", ""), true);
     }
 
     @Test

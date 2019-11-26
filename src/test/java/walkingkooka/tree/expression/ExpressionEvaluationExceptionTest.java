@@ -31,7 +31,7 @@ public final class ExpressionEvaluationExceptionTest implements StandardThrowabl
     public ExpressionEvaluationException createThrowable(final String message, final Throwable cause) {
         return new ExpressionEvaluationException(message, cause);
     }
-    
+
     @Override
     public Class<ExpressionEvaluationException> type() {
         return ExpressionEvaluationException.class;

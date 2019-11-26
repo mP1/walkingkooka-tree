@@ -28,7 +28,7 @@ import walkingkooka.predicate.Predicates;
 import walkingkooka.reflect.ClassTesting2;
 import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.tree.TestNode;
-import walkingkooka.tree.expression.ExpressionNodeName;
+import walkingkooka.tree.expression.FunctionExpressionName;
 import walkingkooka.tree.expression.function.ExpressionFunction;
 
 import java.util.Optional;
@@ -144,8 +144,8 @@ public final class BasicNodeSelectorContextTest implements ClassTesting2<BasicNo
                 context.function(this.node(), NodeSelectorContext.NO_PARAMETERS));
     }
 
-    private ExpressionNodeName node() {
-        return ExpressionNodeName.with("node");
+    private FunctionExpressionName node() {
+        return FunctionExpressionName.with("node");
     }
 
     @Test
@@ -153,7 +153,7 @@ public final class BasicNodeSelectorContextTest implements ClassTesting2<BasicNo
         final BooleanSupplier finisher = this.finisher();
         final Predicate<TestNode> filter = this.predicate();
         final Function<TestNode, TestNode> mapper = this.mapper();
-        final Function<ExpressionNodeName, Optional<ExpressionFunction<?>>> functions = this.functions();
+        final Function<FunctionExpressionName, Optional<ExpressionFunction<?>>> functions = this.functions();
         final Converter converter = this.converter();
         final ConverterContext converterContext = this.converterContext();
         this.toStringAndCheck(BasicNodeSelectorContext.with(finisher,
@@ -194,7 +194,7 @@ public final class BasicNodeSelectorContextTest implements ClassTesting2<BasicNo
         return Function.identity();
     }
 
-    private Function<ExpressionNodeName, Optional<ExpressionFunction<?>>> functions() {
+    private Function<FunctionExpressionName, Optional<ExpressionFunction<?>>> functions() {
         return NodeSelectorContexts.basicFunctions();
     }
 

@@ -23,7 +23,7 @@ import java.math.BigDecimal;
 import java.math.BigInteger;
 
 public class FakeExpressionNumberVisitor extends ExpressionNumberVisitor {
-    @Override 
+    @Override
     protected Visiting startVisit(final Number number) {
         throw new UnsupportedOperationException();
     }

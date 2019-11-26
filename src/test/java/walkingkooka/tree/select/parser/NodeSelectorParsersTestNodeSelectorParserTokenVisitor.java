@@ -82,7 +82,7 @@ final class NodeSelectorParsersTestNodeSelectorParserTokenVisitor extends NodeSe
     protected void endVisit(final NodeSelectorDivisionParserToken token) {
         this.exit(NodeSelectorParserToken::division);
     }
-    
+
     @Override
     protected Visiting startVisit(final NodeSelectorEqualsParserToken token) {
         return this.enter();

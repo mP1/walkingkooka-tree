@@ -31,12 +31,12 @@ public final class ExpressionComparisonFunctionTest extends ExpressionFunctionTe
 
     @Test
     public void testOneParametersFails() {
-        assertThrows(IllegalArgumentException.class, () -> this.apply2( "a1"));
+        assertThrows(IllegalArgumentException.class, () -> this.apply2("a1"));
     }
 
     @Test
     public void testThreeParametersFails() {
-        assertThrows(IllegalArgumentException.class, () -> this.apply2( "a1", 2, 3));
+        assertThrows(IllegalArgumentException.class, () -> this.apply2("a1", 2, 3));
     }
 
     // EQ........................................................................................
@@ -155,7 +155,7 @@ public final class ExpressionComparisonFunctionTest extends ExpressionFunctionTe
                               final Object first,
                               final Object second,
                               final Boolean result) {
-        this.applyAndCheck2(ExpressionComparisonFunction.with(relation), parameters( first, second), result);
+        this.applyAndCheck2(ExpressionComparisonFunction.with(relation), parameters(first, second), result);
     }
 
     @Test

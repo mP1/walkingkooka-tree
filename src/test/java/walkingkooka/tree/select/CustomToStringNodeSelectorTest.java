@@ -149,10 +149,9 @@ final public class CustomToStringNodeSelectorTest extends NodeSelectorTestCase4<
         return Cast.to(CustomToStringNodeSelector.with(wrap, toString));
     }
 
-    @Override
-    final void applyAndCheck0(final NodeSelector<TestNode, StringName, StringName, Object> selector,
-                              final TestNode start,
-                              final String... nodes) {
+    @Override final void applyAndCheck0(final NodeSelector<TestNode, StringName, StringName, Object> selector,
+                                        final TestNode start,
+                                        final String... nodes) {
         this.applyAndCheckUsingContext(selector, start, nodes);
     }
 

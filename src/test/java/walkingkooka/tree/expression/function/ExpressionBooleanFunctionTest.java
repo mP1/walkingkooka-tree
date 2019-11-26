@@ -30,32 +30,32 @@ public final class ExpressionBooleanFunctionTest extends ExpressionFunctionTestC
 
     @Test
     public void testTwoParametersFails() {
-        assertThrows(IllegalArgumentException.class, () -> this.apply2( "a1", "b2"));
+        assertThrows(IllegalArgumentException.class, () -> this.apply2("a1", "b2"));
     }
 
     @Test
     public void testEmptyString() {
-        this.applyAndCheck2(parameters( ""), false);
+        this.applyAndCheck2(parameters(""), false);
     }
 
     @Test
     public void testStringTrue() {
-        this.applyAndCheck2(parameters( "true"), true);
+        this.applyAndCheck2(parameters("true"), true);
     }
 
     @Test
     public void testStringFalse() {
-        this.applyAndCheck2(parameters( "false"), false);
+        this.applyAndCheck2(parameters("false"), false);
     }
 
     @Test
     public void testBooleanTrue() {
-        this.applyAndCheck2(parameters( true), true);
+        this.applyAndCheck2(parameters(true), true);
     }
 
     @Test
     public void testBooleanFalse() {
-        this.applyAndCheck2(parameters( false), false);
+        this.applyAndCheck2(parameters(false), false);
     }
 
     @Test

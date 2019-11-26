@@ -30,32 +30,32 @@ public final class ExpressionConcatFunctionTest extends ExpressionFunctionTestCa
 
     @Test
     public void testOneString() {
-        this.applyAndCheck2(parameters( "a1"), "a1");
+        this.applyAndCheck2(parameters("a1"), "a1");
     }
 
     @Test
     public void testTwoStrings() {
-        this.applyAndCheck2(parameters( "a1", "b2"), "a1b2");
+        this.applyAndCheck2(parameters("a1", "b2"), "a1b2");
     }
 
     @Test
     public void testThreeStrings() {
-        this.applyAndCheck2(parameters( "a1", "b2", "c3"), "a1b2c3");
+        this.applyAndCheck2(parameters("a1", "b2", "c3"), "a1b2c3");
     }
 
     @Test
     public void testFourStrings() {
-        this.applyAndCheck2(parameters( "a1", "b2", "c3", "d4"), "a1b2c3d4");
+        this.applyAndCheck2(parameters("a1", "b2", "c3", "d4"), "a1b2c3d4");
     }
 
     @Test
     public void testBoolean() {
-        this.applyAndCheck2(parameters( "a1", true, false), "a1truefalse");
+        this.applyAndCheck2(parameters("a1", true, false), "a1truefalse");
     }
 
     @Test
     public void testNumbers() {
-        this.applyAndCheck2(parameters( "a1", 1, 234L), "a11234");
+        this.applyAndCheck2(parameters("a1", 1, 234L), "a11234");
     }
 
     @Test

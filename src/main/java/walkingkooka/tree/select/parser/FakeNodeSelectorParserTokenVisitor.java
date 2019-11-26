@@ -35,7 +35,7 @@ public class FakeNodeSelectorParserTokenVisitor extends NodeSelectorParserTokenV
     protected void endVisit(final NodeSelectorAdditionParserToken token) {
         throw new UnsupportedOperationException();
     }
-    
+
     @Override
     protected Visiting startVisit(final NodeSelectorAndParserToken token) {
         throw new UnsupportedOperationException();
@@ -155,7 +155,7 @@ public class FakeNodeSelectorParserTokenVisitor extends NodeSelectorParserTokenV
     protected void endVisit(final NodeSelectorModuloParserToken token) {
         throw new UnsupportedOperationException();
     }
-    
+
     @Override
     protected Visiting startVisit(final NodeSelectorMultiplicationParserToken token) {
         throw new UnsupportedOperationException();
@@ -165,7 +165,7 @@ public class FakeNodeSelectorParserTokenVisitor extends NodeSelectorParserTokenV
     protected void endVisit(final NodeSelectorMultiplicationParserToken token) {
         throw new UnsupportedOperationException();
     }
-    
+
     @Override
     protected Visiting startVisit(final NodeSelectorNotEqualsParserToken token) {
         throw new UnsupportedOperationException();
@@ -205,7 +205,7 @@ public class FakeNodeSelectorParserTokenVisitor extends NodeSelectorParserTokenV
     protected void endVisit(final NodeSelectorSubtractionParserToken token) {
         throw new UnsupportedOperationException();
     }
-    
+
     @Override
     protected void visit(final NodeSelectorAbsoluteParserToken token) {
         throw new UnsupportedOperationException();

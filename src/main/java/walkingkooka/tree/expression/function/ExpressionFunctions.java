@@ -95,10 +95,10 @@ public final class ExpressionFunctions implements PublicStaticHelper {
     }
 
     /**
-     * {@see ExpressionNodeNameFunction}
+     * {@see FunctionExpressionNameFunction}
      */
     public static ExpressionFunction<String> nodeName() {
-        return ExpressionNodeNameFunction.INSTANCE;
+        return FunctionExpressionNameFunction.INSTANCE;
     }
 
     /**

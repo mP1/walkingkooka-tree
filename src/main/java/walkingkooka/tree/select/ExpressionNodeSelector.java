@@ -21,13 +21,13 @@ import walkingkooka.Cast;
 import walkingkooka.convert.ConversionException;
 import walkingkooka.naming.Name;
 import walkingkooka.tree.Node;
-import walkingkooka.tree.expression.ExpressionNode;
+import walkingkooka.tree.expression.Expression;
 import walkingkooka.visit.Visiting;
 
 import java.util.Objects;
 
 /**
- * A {@link NodeSelector} that selects {@link Node nodes} depending on the result of executing the {@link ExpressionNode}.
+ * A {@link NodeSelector} that selects {@link Node nodes} depending on the result of executing the {@link Expression}.
  */
 final class ExpressionNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NAME extends Name, ANAME extends Name, AVALUE>
         extends
@@ -40,24 +40,24 @@ final class ExpressionNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NAME 
             NAME extends Name,
             ANAME extends Name,
             AVALUE>
-    ExpressionNodeSelector<N, NAME, ANAME, AVALUE> with(final ExpressionNode expressionNode) {
-        Objects.requireNonNull(expressionNode, "expressionNode");
+    ExpressionNodeSelector<N, NAME, ANAME, AVALUE> with(final Expression expression) {
+        Objects.requireNonNull(expression, "expression");
 
-        return new ExpressionNodeSelector<N, NAME, ANAME, AVALUE>(expressionNode, NodeSelector.terminal());
+        return new ExpressionNodeSelector<N, NAME, ANAME, AVALUE>(expression, NodeSelector.terminal());
     }
 
     /**
      * Private constructor
      */
-    private ExpressionNodeSelector(final ExpressionNode expressionNode,
+    private ExpressionNodeSelector(final Expression expression,
                                    final NodeSelector<N, NAME, ANAME, AVALUE> selector) {
         super(selector);
-        this.expressionNode = expressionNode;
+        this.expression = expression;
     }
 
     @Override
     NodeSelector<N, NAME, ANAME, AVALUE> append1(final NodeSelector<N, NAME, ANAME, AVALUE> selector) {
-        return new ExpressionNodeSelector<>(this.expressionNode, selector);
+        return new ExpressionNodeSelector<>(this.expression, selector);
     }
 
     @Override
@@ -77,7 +77,7 @@ final class ExpressionNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NAME 
 
         try {
             context.setNode(node);
-            if (context.nodePositionTest(this.expressionNode.toValue(ExpressionNodeSelectorExpressionEvaluationContext.with(node, context)))) {
+            if (context.nodePositionTest(this.expression.toValue(ExpressionSelectorExpressionEvaluationContext.with(node, context)))) {
                 result = this.select(node, context);
             }
         } catch (final ConversionException cause) {
@@ -92,10 +92,9 @@ final class ExpressionNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NAME 
      * the {@link Node} is selected.
      */
     // VisibleForTesting
-    final ExpressionNode expressionNode;
+    final Expression expression;
 
-    @Override
-    final N select(final N node, final NodeSelectorContext2<N, NAME, ANAME, AVALUE> context) {
+    @Override final N select(final N node, final NodeSelectorContext2<N, NAME, ANAME, AVALUE> context) {
         return this.selectNext(node, context);
     }
 
@@ -103,19 +102,19 @@ final class ExpressionNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NAME 
 
     @Override
     Visiting traverseStart(final NodeSelectorVisitor<N, NAME, ANAME, AVALUE> visitor) {
-        return visitor.startVisitExpression(this, this.expressionNode);
+        return visitor.startVisitExpression(this, this.expression);
     }
 
     @Override
     void traverseEnd(final NodeSelectorVisitor<N, NAME, ANAME, AVALUE> visitor) {
-        visitor.endVisitExpression(this, this.expressionNode);
+        visitor.endVisitExpression(this, this.expression);
     }
 
     // Object...........................................................................................................
 
     @Override
     int hashCode0(final NodeSelector<N, NAME, ANAME, AVALUE> next) {
-        return Objects.hash(next, this.expressionNode);
+        return Objects.hash(next, this.expression);
     }
 
     @Override
@@ -129,11 +128,11 @@ final class ExpressionNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NAME 
     }
 
     private boolean equals2(final ExpressionNodeSelector<?, ?, ?, ?> other) {
-        return this.expressionNode.equals(other.expressionNode);
+        return this.expression.equals(other.expression);
     }
 
     @Override
     void toString1(final NodeSelectorToStringBuilder b) {
-        b.expression(this.expressionNode);
+        b.expression(this.expression);
     }
 }

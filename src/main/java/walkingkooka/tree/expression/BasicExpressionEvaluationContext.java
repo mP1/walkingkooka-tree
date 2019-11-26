@@ -37,8 +37,8 @@ final class BasicExpressionEvaluationContext implements ExpressionEvaluationCont
     /**
      * Factory that creates a {@link BasicExpressionEvaluationContext}
      */
-    static BasicExpressionEvaluationContext with(final BiFunction<ExpressionNodeName, List<Object>, Object> functions,
-                                                 final Function<ExpressionReference, Optional<ExpressionNode>> references,
+    static BasicExpressionEvaluationContext with(final BiFunction<FunctionExpressionName, List<Object>, Object> functions,
+                                                 final Function<ExpressionReference, Optional<Expression>> references,
                                                  final Converter converter,
                                                  final ConverterContext converterContext) {
         Objects.requireNonNull(functions, "functions");
@@ -55,8 +55,8 @@ final class BasicExpressionEvaluationContext implements ExpressionEvaluationCont
     /**
      * Private ctor use factory
      */
-    private BasicExpressionEvaluationContext(final BiFunction<ExpressionNodeName, List<Object>, Object> functions,
-                                             final Function<ExpressionReference, Optional<ExpressionNode>> references,
+    private BasicExpressionEvaluationContext(final BiFunction<FunctionExpressionName, List<Object>, Object> functions,
+                                             final Function<ExpressionReference, Optional<Expression>> references,
                                              final Converter converter,
                                              final ConverterContext converterContext) {
         super();
@@ -112,22 +112,22 @@ final class BasicExpressionEvaluationContext implements ExpressionEvaluationCont
     }
 
     @Override
-    public Object function(final ExpressionNodeName name, final List<Object> parameters) {
+    public Object function(final FunctionExpressionName name, final List<Object> parameters) {
         return this.functions.apply(name, parameters);
     }
 
-    private final BiFunction<ExpressionNodeName, List<Object>, Object> functions;
+    private final BiFunction<FunctionExpressionName, List<Object>, Object> functions;
 
     @Override
-    public Optional<ExpressionNode> reference(final ExpressionReference reference) {
-        final Optional<ExpressionNode> node = this.references.apply(reference);
+    public Optional<Expression> reference(final ExpressionReference reference) {
+        final Optional<Expression> node = this.references.apply(reference);
         if (!node.isPresent()) {
             throw new ExpressionEvaluationReferenceException("Missing reference: " + reference);
         }
         return node;
     }
 
-    private final Function<ExpressionReference, Optional<ExpressionNode>> references;
+    private final Function<ExpressionReference, Optional<Expression>> references;
 
     @Override
     public <T> Either<T, String> convert(final Object value,

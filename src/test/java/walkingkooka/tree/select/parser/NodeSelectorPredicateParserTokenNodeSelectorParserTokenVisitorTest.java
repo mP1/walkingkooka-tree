@@ -50,7 +50,7 @@ public final class NodeSelectorPredicateParserTokenNodeSelectorParserTokenVisito
 
     @Override
     public String typeNamePrefix() {
-        return  NodeSelectorPredicateParserToken.class.getSimpleName();
+        return NodeSelectorPredicateParserToken.class.getSimpleName();
     }
 
     @Override

@@ -19,7 +19,7 @@ package walkingkooka.tree.expression.function;
 
 import walkingkooka.Cast;
 import walkingkooka.compare.ComparisonRelation;
-import walkingkooka.tree.expression.ExpressionNodeName;
+import walkingkooka.tree.expression.FunctionExpressionName;
 
 import java.util.List;
 import java.util.Objects;
@@ -61,11 +61,11 @@ final class ExpressionComparisonFunction extends ExpressionFunction2<Boolean> {
     private final ComparisonRelation relation;
 
     @Override
-    public ExpressionNodeName name() {
+    public FunctionExpressionName name() {
         return NAME;
     }
 
-    private final static ExpressionNodeName NAME = ExpressionNodeName.with("comparison");
+    private final static FunctionExpressionName NAME = FunctionExpressionName.with("comparison");
 
     @Override
     public String toString() {

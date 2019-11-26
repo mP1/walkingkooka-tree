@@ -21,7 +21,7 @@ import walkingkooka.convert.ConverterContext;
 import walkingkooka.naming.Name;
 import walkingkooka.reflect.PublicStaticHelper;
 import walkingkooka.tree.Node;
-import walkingkooka.tree.expression.ExpressionNodeName;
+import walkingkooka.tree.expression.FunctionExpressionName;
 import walkingkooka.tree.expression.function.ExpressionFunction;
 
 import java.util.Optional;
@@ -43,7 +43,7 @@ public final class NodeSelectorContexts implements PublicStaticHelper {
             AVALUE> NodeSelectorContext<N, NAME, ANAME, AVALUE> basic(final BooleanSupplier finisher,
                                                                       final Predicate<N> filter,
                                                                       final Function<N, N> mapper,
-                                                                      final Function<ExpressionNodeName, Optional<ExpressionFunction<?>>> functions,
+                                                                      final Function<FunctionExpressionName, Optional<ExpressionFunction<?>>> functions,
                                                                       final Converter converter,
                                                                       final ConverterContext converterContext,
                                                                       final Class<N> nodeType) {
@@ -59,7 +59,7 @@ public final class NodeSelectorContexts implements PublicStaticHelper {
     /**
      * {@see BasicNodeSelectorContextFunction}
      */
-    public static Function<ExpressionNodeName, Optional<ExpressionFunction<?>>> basicFunctions() {
+    public static Function<FunctionExpressionName, Optional<ExpressionFunction<?>>> basicFunctions() {
         return BasicNodeSelectorContextFunction.INSTANCE;
     }
 

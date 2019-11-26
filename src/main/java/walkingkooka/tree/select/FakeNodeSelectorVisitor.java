@@ -19,7 +19,7 @@ package walkingkooka.tree.select;
 
 import walkingkooka.naming.Name;
 import walkingkooka.tree.Node;
-import walkingkooka.tree.expression.ExpressionNode;
+import walkingkooka.tree.expression.Expression;
 import walkingkooka.visit.Visiting;
 
 import java.util.function.Predicate;
@@ -113,12 +113,12 @@ public class FakeNodeSelectorVisitor<N extends Node<N, NAME, ANAME, AVALUE>,
     }
 
     @Override
-    protected Visiting startVisitExpression(final NodeSelector<N, NAME, ANAME, AVALUE> selector, final ExpressionNode expression) {
+    protected Visiting startVisitExpression(final NodeSelector<N, NAME, ANAME, AVALUE> selector, final Expression expression) {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    protected void endVisitExpression(final NodeSelector<N, NAME, ANAME, AVALUE> selector, final ExpressionNode expression) {
+    protected void endVisitExpression(final NodeSelector<N, NAME, ANAME, AVALUE> selector, final Expression expression) {
         throw new UnsupportedOperationException();
     }
 

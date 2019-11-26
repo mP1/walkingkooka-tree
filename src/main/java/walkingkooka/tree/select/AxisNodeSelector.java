@@ -30,13 +30,11 @@ abstract class AxisNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NAME ext
         super(next);
     }
 
-    @Override
-    final int hashCode0(final NodeSelector<N, NAME, ANAME, AVALUE> next) {
+    @Override final int hashCode0(final NodeSelector<N, NAME, ANAME, AVALUE> next) {
         return next.hashCode();
     }
 
-    @Override
-    final boolean equals1(final NonTerminalNodeSelector<?, ?, ?, ?> other) {
+    @Override final boolean equals1(final NonTerminalNodeSelector<?, ?, ?, ?> other) {
         return true; // no extra properties...
     }
 }

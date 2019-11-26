@@ -47,9 +47,9 @@ abstract class ExpressionNumberFunction2 extends ExpressionFunction2<Number> {
 
     abstract Number applyBigInteger(final BigInteger number);
 
-    abstract Number applyDouble(final Double number) ;
+    abstract Number applyDouble(final Double number);
 
-    abstract Number applyLong(final Long number) ;
+    abstract Number applyLong(final Long number);
 
     @Override
     public String toString() {

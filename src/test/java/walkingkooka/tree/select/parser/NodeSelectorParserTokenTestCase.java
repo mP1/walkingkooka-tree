@@ -38,9 +38,9 @@ public abstract class NodeSelectorParserTokenTestCase<T extends NodeSelectorPars
 
     @Test
     public final void testPublicStaticFactoryMethod() {
-        PublicStaticFactoryTesting.check(NodeSelectorParserToken.class,
+        PublicStaticFactoryTesting.checkFactoryMethods(NodeSelectorParserToken.class,
                 NodeSelector.class.getSimpleName(),
-                ParserToken.class,
+                ParserToken.class.getSimpleName(),
                 this.type());
     }
 
