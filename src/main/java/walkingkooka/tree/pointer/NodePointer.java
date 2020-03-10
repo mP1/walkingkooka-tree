@@ -344,6 +344,9 @@ public abstract class NodePointer<N extends Node<N, NAME, ?, ?>, NAME extends Na
     }
 
     // Object...........................................................................................................
+    
+    @Override
+    public abstract int hashCode();
 
     @Override
     @SuppressWarnings("EqualsWhichDoesntCheckParameterClass")
