@@ -28,6 +28,7 @@ import java.util.Objects;
 /**
  * A leaf node, where a leaf has no children.
  */
+@SuppressWarnings("lgtm[java/inconsistent-equals-and-hashcode]")
 abstract class LeafExpression<V> extends Expression implements Value<V> {
 
     LeafExpression(final int index, final V value) {

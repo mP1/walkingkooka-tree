@@ -28,6 +28,7 @@ import java.util.Objects;
 /**
  * Represents a component that matches a node by its index relative to its parent.
  */
+@SuppressWarnings("lgtm[java/inconsistent-equals-and-hashcode]")
 final class NodePointerIndexedChild<N extends Node<N, NAME, ?, ?>, NAME extends Name> extends NodePointer<N, NAME> {
 
     /**
