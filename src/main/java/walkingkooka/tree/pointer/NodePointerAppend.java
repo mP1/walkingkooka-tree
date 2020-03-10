@@ -34,6 +34,7 @@ import java.util.Objects;
  * ...
  * </pre>
  */
+@SuppressWarnings("lgtm[java/inconsistent-equals-and-hashcode]")
 final class NodePointerAppend<N extends Node<N, NAME, ?, ?>, NAME extends Name> extends NodePointer<N, NAME> {
 
     /**

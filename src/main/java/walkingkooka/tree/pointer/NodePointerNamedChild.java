@@ -27,6 +27,7 @@ import java.util.Objects;
 /**
  * Represents a component that matches a node by its name from a parent.
  */
+@SuppressWarnings("lgtm[java/inconsistent-equals-and-hashcode]")
 final class NodePointerNamedChild<N extends Node<N, NAME, ?, ?>, NAME extends Name> extends NodePointer<N, NAME> {
 
     /**

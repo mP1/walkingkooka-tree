@@ -26,6 +26,7 @@ import java.util.Objects;
 /**
  * Matches all the nodes, or the start node.
  */
+@SuppressWarnings("lgtm[java/inconsistent-equals-and-hashcode]")
 final class NodePointerAny<N extends Node<N, NAME, ?, ?>, NAME extends Name> extends NodePointer<N, NAME> {
 
     /**

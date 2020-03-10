@@ -28,6 +28,7 @@ import java.util.Optional;
 /**
  * Represents the opening relative pointer..
  */
+@SuppressWarnings("lgtm[java/inconsistent-equals-and-hashcode]")
 final class NodePointerRelative<N extends Node<N, NAME, ?, ?>, NAME extends Name> extends NodePointer<N, NAME> {
 
     /**
