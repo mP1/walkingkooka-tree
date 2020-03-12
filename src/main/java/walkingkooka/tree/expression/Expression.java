@@ -619,6 +619,9 @@ public abstract class Expression implements Node<Expression, FunctionExpressionN
     // Object .......................................................................................................
 
     @Override
+    public abstract int hashCode();
+
+    @Override
     @SuppressWarnings("EqualsWhichDoesntCheckParameterClass")
     public final boolean equals(final Object other) {
         return this == other ||
