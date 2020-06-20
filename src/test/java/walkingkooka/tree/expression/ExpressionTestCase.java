@@ -446,17 +446,17 @@ public abstract class ExpressionTestCase<N extends Expression> implements ClassT
 
     private static <T> Converter fromBoolean(final Class<T> targetType, final Converter trueOrFalse) {
         final ConverterContext context = ConverterContexts.fake();
-        return Converters.booleanTrueFalse(Boolean.class,
-                Boolean.FALSE,
-                targetType,
+        return Converters.booleanTrueFalse((t)-> t instanceof Boolean,
+                Predicate.isEqual(Boolean.FALSE),
+                (t) -> t == targetType,
                 trueOrFalse.convertOrFail(1L, targetType, context),
                 trueOrFalse.convertOrFail(0L, targetType, context));
     }
 
     private static <S> Converter toBoolean(final Class<S> sourceType, final S falseValue) {
-        return Converters.booleanTrueFalse(sourceType,
-                falseValue,
-                Boolean.class,
+        return Converters.booleanTrueFalse((t) -> t.getClass() == sourceType,
+                Predicate.isEqual(falseValue),
+                (t) -> t == Boolean.class,
                 Boolean.TRUE,
                 Boolean.FALSE);
     }
