@@ -376,7 +376,7 @@ public abstract class ExpressionTestCase<N extends Expression> implements ClassT
                 // string ->
                 stringBigDecimal,
                 stringBigInteger,
-                Converters.function(String.class, Boolean.class, Boolean::valueOf),
+                Converters.<String, Boolean>function(v -> v instanceof String, Predicate.isEqual(Boolean.class), Boolean::valueOf),
                 stringDouble,
                 stringLocalDate,
                 stringLocalDateTime,
