@@ -25,6 +25,7 @@ import walkingkooka.convert.ConverterContexts;
 import walkingkooka.convert.Converters;
 import walkingkooka.math.DecimalNumberContexts;
 import walkingkooka.naming.StringName;
+import walkingkooka.predicate.Predicates;
 import walkingkooka.text.CharSequences;
 import walkingkooka.tree.TestNode;
 
@@ -114,7 +115,7 @@ public final class ExpressionSelectorNodeSelectorContext2Test extends NodeSelect
 
                 return Converters.collection(Lists.of(
                         Converters.numberNumber(),
-                        Converters.function(String.class, Integer.class, Integer::parseInt)))
+                        Converters.<String, Integer>function(v -> v instanceof String, Predicates.is(Integer.class), Integer::parseInt)))
                         .convert(value, target, ConverterContexts.basic(ConverterContexts.fake(), DecimalNumberContexts.american(MathContext.DECIMAL32)));
             }
         });

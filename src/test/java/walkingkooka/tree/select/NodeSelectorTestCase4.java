@@ -447,7 +447,7 @@ abstract public class NodeSelectorTestCase4<S extends NodeSelector<TestNode, Str
     final Converter converter() {
         return Converters.collection(Lists.of(
                 Converters.numberNumber(),
-                Converters.function(String.class, Integer.class, Integer::parseInt),
+                Converters.<String, Integer>function((t) -> t instanceof String, Predicates.is(Integer.class), Integer::parseInt),
                 Converters.simple()
         ));
     }
