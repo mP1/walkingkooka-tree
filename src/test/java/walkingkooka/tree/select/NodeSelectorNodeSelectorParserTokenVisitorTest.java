@@ -2063,7 +2063,7 @@ public final class NodeSelectorNodeSelectorParserTokenVisitorTest implements Nod
                      */
                     private Either<BigDecimal, String> convertToBigDecimal(final Object value) {
                         final Converter converter = value instanceof Boolean ?
-                                Converters.booleanTrueFalse(Boolean.class, Boolean.TRUE, BigDecimal.class, BigDecimal.ONE, BigDecimal.ZERO) :
+                                Converters.booleanTrueFalse(t -> t instanceof Boolean, Predicates.is(Boolean.TRUE), t -> t == BigDecimal.class, BigDecimal.ONE, BigDecimal.ZERO) :
                                 value instanceof String ?
                                         Converters.parser(BigDecimal.class, Parsers.bigDecimal(), (c) -> ParserContexts.basic(c, c)) :
                                         Converters.numberNumber();
@@ -2077,7 +2077,7 @@ public final class NodeSelectorNodeSelectorParserTokenVisitorTest implements Nod
                     private Either<Number, String> convertToNumber(final Object value) {
                         return value instanceof String ?
                                 Either.left(Integer.parseInt((String) value)) :
-                                Converters.booleanTrueFalse(Boolean.class, Boolean.TRUE, Number.class, 1L, 0L)
+                                Converters.booleanTrueFalse(t -> t instanceof Boolean, Predicates.is(Boolean.TRUE), t -> Number.class.isAssignableFrom(t), 1L, 0L)
                                         .convert(value, Number.class, ConverterContexts.fake());
                     }
 
