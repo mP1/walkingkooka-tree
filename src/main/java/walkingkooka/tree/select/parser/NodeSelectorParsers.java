@@ -23,17 +23,22 @@ import walkingkooka.predicate.character.CharPredicate;
 import walkingkooka.predicate.character.CharPredicates;
 import walkingkooka.reflect.PublicStaticHelper;
 import walkingkooka.text.CaseSensitivity;
+import walkingkooka.text.cursor.TextCursor;
+import walkingkooka.text.cursor.TextCursors;
 import walkingkooka.text.cursor.parser.BigDecimalParserToken;
 import walkingkooka.text.cursor.parser.CharacterParserToken;
 import walkingkooka.text.cursor.parser.DoubleQuotedParserToken;
 import walkingkooka.text.cursor.parser.Parser;
 import walkingkooka.text.cursor.parser.ParserContext;
+import walkingkooka.text.cursor.parser.ParserReporters;
 import walkingkooka.text.cursor.parser.ParserToken;
 import walkingkooka.text.cursor.parser.Parsers;
 import walkingkooka.text.cursor.parser.StringParserToken;
 import walkingkooka.text.cursor.parser.ebnf.EbnfGrammarLoader;
 import walkingkooka.text.cursor.parser.ebnf.EbnfGrammarParserToken;
 import walkingkooka.text.cursor.parser.ebnf.EbnfIdentifierName;
+import walkingkooka.text.cursor.parser.ebnf.EbnfParserContexts;
+import walkingkooka.text.cursor.parser.ebnf.EbnfParserToken;
 
 import java.util.Map;
 import java.util.Optional;
@@ -42,50 +47,25 @@ import java.util.function.Function;
 
 public final class NodeSelectorParsers implements PublicStaticHelper {
 
-    /**
-     * Returns a {@link Parser} that given text returns a {@link NodeSelectorParserToken}.
-     */
-    public static Parser<NodeSelectorParserContext> expression() {
-        return parserFromGrammar(EXPRESSION_IDENTIFIER);
-    }
-
     static final EbnfIdentifierName EXPRESSION_IDENTIFIER = EbnfIdentifierName.with("EXPRESSION");
 
     /**
      * Returns a {@link Parser} that given text returns a {@link NodeSelectorParserToken}.
      */
-    public static Parser<NodeSelectorParserContext> predicate() {
-        return parserFromGrammar(PREDICATE_IDENTIFIER);
+    public static Parser<NodeSelectorParserContext> expression() {
+        return EXPRESSION;
     }
 
-    static final EbnfIdentifierName PREDICATE_IDENTIFIER = EbnfIdentifierName.with("PREDICATE");
+    private final static Parser<NodeSelectorParserContext> EXPRESSION;
 
     /**
-     * Parsers the grammar and returns the selected parser.
+     * Returns a {@link Parser} that given text returns a {@link NodeSelectorParserToken}.
      */
-    private static Parser<NodeSelectorParserContext> parserFromGrammar(final EbnfIdentifierName parserName) {
-        try {
-            final Optional<EbnfGrammarParserToken> grammar = grammarLoader.grammar();
-
-            final Map<EbnfIdentifierName, Parser<ParserContext>> predefined = Maps.sorted();
-
-            axis(predefined);
-            predicate(predefined);
-            misc(predefined);
-
-            final Map<EbnfIdentifierName, Parser<ParserContext>> result = grammar.get()
-                    .combinator(predefined, NodeSelectorEbnfParserCombinatorSyntaxTreeTransformer.INSTANCE);
-
-            return result.get(parserName)
-                    .cast();
-        } catch (final NodeSelectorParserException rethrow) {
-            throw rethrow;
-        } catch (final Exception cause) {
-            throw new NodeSelectorParserException("Failed to return parsers from grammar file, message: " + cause.getMessage(), cause);
-        }
+    public static Parser<NodeSelectorParserContext> predicate() {
+        return PREDICATE;
     }
 
-    private final static EbnfGrammarLoader grammarLoader = EbnfGrammarLoader.with("node-selector-parsers.grammar", NodeSelectorParsers.class);
+    private final static Parser<NodeSelectorParserContext> PREDICATE;
 
     // AXIS .....................................................................................................
 
@@ -417,6 +397,37 @@ public final class NodeSelectorParsers implements PublicStaticHelper {
     private static final Parser<ParserContext> WILDCARD_PARSER = literal('*',
             NodeSelectorParserToken::wildcard,
             NodeSelectorWildcardParserToken.class);
+
+    // must be last so all other constants are set, avoiding NPEs.
+
+    /**
+     * Parsers the grammar and returns the selected parser.
+     */
+    static {
+        try {
+            final Map<EbnfIdentifierName, Parser<ParserContext>> predefined = Maps.sorted();
+
+            axis(predefined);
+            predicate(predefined);
+            misc(predefined);
+
+            final TextCursor grammarFile = TextCursors.charSequence(new NodeSelectorParsersGrammarProvider().text());
+
+            final Map<EbnfIdentifierName, Parser<ParserContext>> parsers = EbnfParserToken.grammarParser()
+                    .orFailIfCursorNotEmpty(ParserReporters.basic())
+                    .parse(grammarFile, EbnfParserContexts.basic())
+                    .orElseThrow(() -> new IllegalStateException("Unable to parse node selector parsers grammar file."))
+                    .cast(EbnfGrammarParserToken.class)
+                    .combinator(predefined, NodeSelectorEbnfParserCombinatorSyntaxTreeTransformer.INSTANCE);
+
+            EXPRESSION = parsers.get(EXPRESSION_IDENTIFIER).cast();
+            PREDICATE = parsers.get(EbnfIdentifierName.with("PREDICATE")).cast();
+        } catch (final NodeSelectorParserException rethrow) {
+            throw rethrow;
+        } catch (final Exception cause) {
+            throw new NodeSelectorParserException("Failed to parse grammar file and pick parsers, message: " + cause.getMessage(), cause);
+        }
+    }
 
     /**
      * Matches a token holding a single character.
