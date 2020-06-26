@@ -25,14 +25,14 @@ import walkingkooka.tree.Node;
  * A {@link NodeSelectorContext2} that tracks the position of selected {@link Node}. This allows {@link ExpressionNodeSelector} to
  * test numeric values against the current position of the current {@link Node}.
  */
-final class ExpressionSelectorNodeSelectorContext2<N extends Node<N, NAME, ANAME, AVALUE>, NAME extends Name, ANAME extends Name, AVALUE>
+final class ExpressionNodeSelectorNodeSelectorContext2<N extends Node<N, NAME, ANAME, AVALUE>, NAME extends Name, ANAME extends Name, AVALUE>
         extends NodeSelectorContext2<N, NAME, ANAME, AVALUE> {
 
-    static <N extends Node<N, NAME, ANAME, AVALUE>, NAME extends Name, ANAME extends Name, AVALUE> ExpressionSelectorNodeSelectorContext2<N, NAME, ANAME, AVALUE> with(final NodeSelectorContext<N, NAME, ANAME, AVALUE> context) {
-        return new ExpressionSelectorNodeSelectorContext2<>(context);
+    static <N extends Node<N, NAME, ANAME, AVALUE>, NAME extends Name, ANAME extends Name, AVALUE> ExpressionNodeSelectorNodeSelectorContext2<N, NAME, ANAME, AVALUE> with(final NodeSelectorContext<N, NAME, ANAME, AVALUE> context) {
+        return new ExpressionNodeSelectorNodeSelectorContext2<>(context);
     }
 
-    private ExpressionSelectorNodeSelectorContext2(final NodeSelectorContext<N, NAME, ANAME, AVALUE> context) {
+    private ExpressionNodeSelectorNodeSelectorContext2(final NodeSelectorContext<N, NAME, ANAME, AVALUE> context) {
         super(context);
     }
 
