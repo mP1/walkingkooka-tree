@@ -37,28 +37,28 @@ import java.util.Optional;
 /**
  * A {@link ExpressionEvaluationContext} that is used when evaluating predicates.
  */
-final class ExpressionSelectorExpressionEvaluationContext<N extends Node<N, NAME, ANAME, AVALUE>,
+final class ExpressionNodeSelectorExpressionEvaluationContext<N extends Node<N, NAME, ANAME, AVALUE>,
         NAME extends Name,
         ANAME extends Name,
         AVALUE>
         implements ExpressionEvaluationContext {
 
     /**
-     * Factory that creates a new {@link ExpressionSelectorExpressionEvaluationContext}, using the given {@link Node} as the context.
+     * Factory that creates a new {@link ExpressionNodeSelectorExpressionEvaluationContext}, using the given {@link Node} as the context.
      */
     static <N extends Node<N, NAME, ANAME, AVALUE>,
             NAME extends Name,
             ANAME extends Name,
             AVALUE>
-    ExpressionSelectorExpressionEvaluationContext<N, NAME, ANAME, AVALUE> with(final N node,
+    ExpressionNodeSelectorExpressionEvaluationContext<N, NAME, ANAME, AVALUE> with(final N node,
                                                                                final NodeSelectorContext2<N, NAME, ANAME, AVALUE> context) {
-        return new ExpressionSelectorExpressionEvaluationContext<>(node, context);
+        return new ExpressionNodeSelectorExpressionEvaluationContext<>(node, context);
     }
 
     /**
      * Private ctor use factory.
      */
-    private ExpressionSelectorExpressionEvaluationContext(final N node,
+    private ExpressionNodeSelectorExpressionEvaluationContext(final N node,
                                                           final NodeSelectorContext2<N, NAME, ANAME, AVALUE> context) {
         super();
         this.node = node;
