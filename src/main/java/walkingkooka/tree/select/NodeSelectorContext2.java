@@ -41,13 +41,13 @@ abstract class NodeSelectorContext2<N extends Node<N, NAME, ANAME, AVALUE>, NAME
     }
 
     /**
-     * {@see ExpressionSelectorNodeSelectorContext2}
+     * {@see ExpressionNodeSelectorNodeSelectorContext2}
      */
     static <N extends Node<N, NAME, ANAME, AVALUE>,
             NAME extends Name,
             ANAME extends Name,
-            AVALUE> ExpressionSelectorNodeSelectorContext2<N, NAME, ANAME, AVALUE> expression(final NodeSelectorContext<N, NAME, ANAME, AVALUE> context) {
-        return ExpressionSelectorNodeSelectorContext2.with(context);
+            AVALUE> ExpressionNodeSelectorNodeSelectorContext2<N, NAME, ANAME, AVALUE> expression(final NodeSelectorContext<N, NAME, ANAME, AVALUE> context) {
+        return ExpressionNodeSelectorNodeSelectorContext2.with(context);
     }
 
     /**
@@ -101,12 +101,12 @@ abstract class NodeSelectorContext2<N extends Node<N, NAME, ANAME, AVALUE>, NAME
     abstract NodeSelectorContext2<N, NAME, ANAME, AVALUE> all();
 
     /**
-     * The context should create a {@link ExpressionSelectorNodeSelectorContext2} if it is not already one.
+     * The context should create a {@link ExpressionNodeSelectorNodeSelectorContext2} if it is not already one.
      */
     abstract NodeSelectorContext2<N, NAME, ANAME, AVALUE> expressionCreateIfNecessary();
 
     /**
-     * Unconditionally create a {@link ExpressionSelectorNodeSelectorContext2}.
+     * Unconditionally create a {@link ExpressionNodeSelectorNodeSelectorContext2}.
      */
     abstract NodeSelectorContext2<N, NAME, ANAME, AVALUE> expression();
 
