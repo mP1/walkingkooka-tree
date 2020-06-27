@@ -226,10 +226,6 @@
                     <includes>
                         <include>**/*.*</include>
                     </includes>
-                    <excludes>
-                        <exclude>**/NodeSelectorParsersGrammarProvider.java</exclude>
-                        <exclude>**/NodeSelectorParsersGrammarProvider.class</exclude>
-                    </excludes>
                 </configuration>
             </plugin>
             <plugin>
@@ -240,10 +236,6 @@
                     <includes>
                         <include>**/*.*</include>
                     </includes>
-                    <excludes>
-                        <exclude>**/NodeSelectorParsersGrammarProvider.java</exclude>
-                        <exclude>**/NodeSelectorParsersGrammarProvider.class</exclude>
-                    </excludes>
                 </configuration>
                 <executions>
                     <execution>
