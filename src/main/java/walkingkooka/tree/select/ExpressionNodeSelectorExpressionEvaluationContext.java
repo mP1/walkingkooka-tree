@@ -141,8 +141,8 @@ final class ExpressionNodeSelectorExpressionEvaluationContext<N extends Node<N, 
     }
 
     @Override
-    public char exponentSymbol() {
-        return 'E';
+    public String exponentSymbol() {
+        return "E";
     }
 
     @Override
