@@ -60,8 +60,8 @@ final class BasicNodeSelectorParserContext implements NodeSelectorParserContext 
     }
 
     @Override
-    public char exponentSymbol() {
-        return 'E';
+    public String exponentSymbol() {
+        return "E";
     }
 
     @Override
