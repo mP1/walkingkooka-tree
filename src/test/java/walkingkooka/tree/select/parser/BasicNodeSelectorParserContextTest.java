@@ -50,7 +50,7 @@ public final class BasicNodeSelectorParserContextTest implements ClassTesting2<B
     @Test
     public void testToString() {
         this.toStringAndCheck(this.createContext(),
-                "decimalSeparator='.' exponentSymbol='E' negativeSign='-' percentageSymbol='%' positiveSign='+'");
+                "decimalSeparator='.' exponentSymbol=\"E\" negativeSign='-' percentageSymbol='%' positiveSign='+'");
     }
 
     @Override
@@ -69,7 +69,7 @@ public final class BasicNodeSelectorParserContextTest implements ClassTesting2<B
     }
 
     @Override
-    public char exponentSymbol() {
+    public String exponentSymbol() {
         return this.decimalNumberContext().exponentSymbol();
     }
 

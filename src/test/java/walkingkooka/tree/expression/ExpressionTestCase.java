@@ -406,8 +406,8 @@ public abstract class ExpressionTestCase<N extends Expression> implements ClassT
             }
 
             @Override
-            public char exponentSymbol() {
-                return 'E';
+            public String exponentSymbol() {
+                return "E";
             }
 
             @Override

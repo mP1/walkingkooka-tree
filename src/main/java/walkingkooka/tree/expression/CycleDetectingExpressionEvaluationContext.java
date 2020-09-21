@@ -62,7 +62,7 @@ final class CycleDetectingExpressionEvaluationContext implements ExpressionEvalu
     }
 
     @Override
-    public char exponentSymbol() {
+    public String exponentSymbol() {
         return this.context.exponentSymbol();
     }
 

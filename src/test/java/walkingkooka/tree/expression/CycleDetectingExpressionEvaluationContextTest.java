@@ -332,7 +332,7 @@ public final class CycleDetectingExpressionEvaluationContextTest implements Clas
             }
 
             @Override
-            public char exponentSymbol() {
+            public String exponentSymbol() {
                 return decimalNumberContext.exponentSymbol();
             }
 
@@ -381,7 +381,7 @@ public final class CycleDetectingExpressionEvaluationContextTest implements Clas
     }
 
     @Override
-    public char exponentSymbol() {
+    public String exponentSymbol() {
         return this.decimalNumberContext().exponentSymbol();
     }
 
