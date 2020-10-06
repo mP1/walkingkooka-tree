@@ -31,7 +31,7 @@ import java.util.stream.Collectors;
 /**
  * Represents a function with zero or more parameters.
  */
-public final class FunctionExpression extends VariableExpression {
+public class FunctionExpression extends VariableExpression {
 
     /**
      * Creates a new {@link FunctionExpression}
@@ -100,57 +100,57 @@ public final class FunctionExpression extends VariableExpression {
     // evaluation .....................................................................................................
 
     @Override
-    public final BigDecimal toBigDecimal(final ExpressionEvaluationContext context) {
+    public BigDecimal toBigDecimal(final ExpressionEvaluationContext context) {
         return this.executeFunction(context, BigDecimal.class);
     }
 
     @Override
-    public final BigInteger toBigInteger(final ExpressionEvaluationContext context) {
+    public BigInteger toBigInteger(final ExpressionEvaluationContext context) {
         return this.executeFunction(context, BigInteger.class);
     }
 
     @Override
-    public final boolean toBoolean(final ExpressionEvaluationContext context) {
+    public boolean toBoolean(final ExpressionEvaluationContext context) {
         return this.executeFunction(context, Boolean.class);
     }
 
     @Override
-    public final double toDouble(final ExpressionEvaluationContext context) {
+    public double toDouble(final ExpressionEvaluationContext context) {
         return this.executeFunction(context, Double.class);
     }
 
     @Override
-    public final LocalDate toLocalDate(final ExpressionEvaluationContext context) {
+    public LocalDate toLocalDate(final ExpressionEvaluationContext context) {
         return this.executeFunction(context, LocalDate.class);
     }
 
     @Override
-    public final LocalDateTime toLocalDateTime(final ExpressionEvaluationContext context) {
+    public LocalDateTime toLocalDateTime(final ExpressionEvaluationContext context) {
         return this.executeFunction(context, LocalDateTime.class);
     }
 
     @Override
-    public final LocalTime toLocalTime(final ExpressionEvaluationContext context) {
+    public LocalTime toLocalTime(final ExpressionEvaluationContext context) {
         return this.executeFunction(context, LocalTime.class);
     }
 
     @Override
-    public final long toLong(final ExpressionEvaluationContext context) {
+    public long toLong(final ExpressionEvaluationContext context) {
         return this.executeFunction(context, Long.class);
     }
 
     @Override
-    public final Number toNumber(final ExpressionEvaluationContext context) {
+    public Number toNumber(final ExpressionEvaluationContext context) {
         return this.executeFunction(context, Number.class);
     }
 
     @Override
-    public final String toString(final ExpressionEvaluationContext context) {
+    public String toString(final ExpressionEvaluationContext context) {
         return this.executeFunction(context, String.class);
     }
 
     @Override
-    public final Object toValue(final ExpressionEvaluationContext context) {
+    public Object toValue(final ExpressionEvaluationContext context) {
         return this.executeFunction(context);
     }
 
@@ -168,7 +168,8 @@ public final class FunctionExpression extends VariableExpression {
 
     // Object.........................................................................................................
 
-    @Override final boolean equalsIgnoringParentAndChildren(final Expression other) {
+    @Override
+    final boolean equalsIgnoringParentAndChildren(final Expression other) {
         return this.name.equals(other.name());
     }
 
@@ -179,7 +180,7 @@ public final class FunctionExpression extends VariableExpression {
 
         final List<Expression> expressions = this.value();
         int last = expressions.size() - 1;
-        for (Expression parameter : expressions) {
+        for (final Expression parameter : expressions) {
             parameter.toString0(b);
             last--;
             if (last >= 0) {
