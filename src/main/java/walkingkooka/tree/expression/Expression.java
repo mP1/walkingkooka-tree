@@ -271,6 +271,13 @@ public abstract class Expression implements Node<Expression, FunctionExpressionN
         return XorExpression.with(left, right);
     }
 
+    /**
+     * {@see ListExpression}
+     */
+    public static ListExpression list(final List<Expression> expressions) {
+        return ListExpression.with(expressions);
+    }
+
     private final static Optional<Expression> NO_PARENT = Optional.empty();
 
     /**
@@ -442,6 +449,13 @@ public abstract class Expression implements Node<Expression, FunctionExpressionN
      */
     public final boolean isLessThanEquals() {
         return this instanceof LessThanEqualsExpression;
+    }
+
+    /**
+     * Only {@link ListExpression} returns true
+     */
+    public final boolean isList() {
+        return this instanceof ListExpression;
     }
 
     /**
