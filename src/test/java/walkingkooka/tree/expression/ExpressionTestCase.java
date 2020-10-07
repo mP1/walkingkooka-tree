@@ -28,6 +28,7 @@ import walkingkooka.convert.Converters;
 import walkingkooka.datetime.DateTimeContexts;
 import walkingkooka.math.DecimalNumberContexts;
 import walkingkooka.naming.Name;
+import walkingkooka.predicate.Predicates;
 import walkingkooka.reflect.ClassTesting2;
 import walkingkooka.reflect.IsMethodTesting;
 import walkingkooka.reflect.JavaVisibility;
@@ -46,6 +47,7 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.ZoneOffset;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 import java.util.Locale;
 import java.util.function.Function;
 import java.util.function.Predicate;
@@ -388,6 +390,7 @@ public abstract class ExpressionTestCase<N extends Expression> implements ClassT
                 fromBoolean(BigDecimal.class, Converters.numberNumber()),
                 fromBoolean(BigInteger.class, Converters.numberNumber()),
                 fromBoolean(Double.class, Converters.numberNumber()),
+                listToBoolean(),
                 fromBoolean(LocalDate.class, Converters.numberLocalDate(Converters.JAVA_EPOCH_OFFSET)),
                 fromBoolean(LocalDateTime.class, Converters.numberLocalDateTime(Converters.JAVA_EPOCH_OFFSET)),
                 fromBoolean(LocalTime.class, Converters.numberLocalTime()),
@@ -441,6 +444,24 @@ public abstract class ExpressionTestCase<N extends Expression> implements ClassT
             public <T> Either<T, String> convert(final Object value, final Class<T> target) {
                 return converters.convert(value, target, ExpressionTestCase.this.converterContext());
             }
+        };
+    }
+
+    /**
+     * Converts an empty list to false, and non empty list to true.
+     */
+    private static Converter listToBoolean() {
+        return Converters.booleanTrueFalse((v) -> v instanceof List,
+                emptyList(),
+                Predicates.is(Boolean.class),
+                Boolean.TRUE,
+                Boolean.FALSE);
+    }
+
+    private static Predicate<Object> emptyList() {
+        return (v) -> {
+            final List<?> list = Cast.to(v);
+            return list.isEmpty();
         };
     }
 

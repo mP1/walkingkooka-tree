@@ -35,6 +35,7 @@ import walkingkooka.tree.expression.GreaterThanEqualsExpression;
 import walkingkooka.tree.expression.GreaterThanExpression;
 import walkingkooka.tree.expression.LessThanEqualsExpression;
 import walkingkooka.tree.expression.LessThanExpression;
+import walkingkooka.tree.expression.ListExpression;
 import walkingkooka.tree.expression.LocalDateExpression;
 import walkingkooka.tree.expression.LocalDateTimeExpression;
 import walkingkooka.tree.expression.LocalTimeExpression;
@@ -166,6 +167,17 @@ final class ExpressionNodeSelectorToStringExpressionVisitor extends ExpressionVi
     @Override
     protected Visiting startVisit(final LessThanEqualsExpression node) {
         return this.binary(node.left(), "<=", node.right());
+    }
+
+    @Override
+    protected Visiting startVisit(final ListExpression node) {
+        this.append('[');
+        return Visiting.CONTINUE;
+    }
+
+    @Override
+    protected void endVisit(final ListExpression node) {
+        this.append(']');
     }
 
     @Override
