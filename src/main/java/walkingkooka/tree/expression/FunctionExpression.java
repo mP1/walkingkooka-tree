@@ -31,7 +31,7 @@ import java.util.stream.Collectors;
 /**
  * Represents a function with zero or more parameters.
  */
-public class FunctionExpression extends VariableExpression {
+public final class FunctionExpression extends VariableExpression {
 
     /**
      * Creates a new {@link FunctionExpression}
