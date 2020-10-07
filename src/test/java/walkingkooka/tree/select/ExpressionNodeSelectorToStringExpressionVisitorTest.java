@@ -25,6 +25,7 @@ import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.text.CharSequences;
 import walkingkooka.text.cursor.TextCursors;
 import walkingkooka.text.cursor.parser.ParserException;
+import walkingkooka.text.cursor.parser.ParserReporterException;
 import walkingkooka.text.cursor.parser.ParserReporters;
 import walkingkooka.tree.expression.Expression;
 import walkingkooka.tree.expression.ExpressionVisitorTesting;
@@ -41,6 +42,7 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class ExpressionNodeSelectorToStringExpressionVisitorTest implements ExpressionVisitorTesting<ExpressionNodeSelectorToStringExpressionVisitor> {
 
@@ -200,6 +202,11 @@ public final class ExpressionNodeSelectorToStringExpressionVisitorTest implement
     @Test
     public void testNot2() {
         this.toStringAndCheck(Expression.not(Expression.longExpression(1)), "not(1)");
+    }
+
+    @Test
+    public void testList() {
+        assertThrows(ParserReporterException.class, () -> this.parseOrFail("[1,\"abc\", 3]"));
     }
 
     @Test

@@ -31,6 +31,7 @@ import walkingkooka.tree.expression.GreaterThanEqualsExpression;
 import walkingkooka.tree.expression.GreaterThanExpression;
 import walkingkooka.tree.expression.LessThanEqualsExpression;
 import walkingkooka.tree.expression.LessThanExpression;
+import walkingkooka.tree.expression.ListExpression;
 import walkingkooka.tree.expression.ModuloExpression;
 import walkingkooka.tree.expression.MultiplyExpression;
 import walkingkooka.tree.expression.NegativeExpression;
@@ -112,6 +113,11 @@ final class NodeSelectorExpressionExpressionVisitor<N extends Node<N, NAME, ANAM
 
     @Override
     protected Visiting startVisit(final LessThanEqualsExpression node) {
+        return Visiting.SKIP;
+    }
+
+    @Override
+    protected Visiting startVisit(final ListExpression node) {
         return Visiting.SKIP;
     }
 

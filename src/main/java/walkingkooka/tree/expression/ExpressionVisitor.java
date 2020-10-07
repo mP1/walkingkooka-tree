@@ -158,6 +158,14 @@ public abstract class ExpressionVisitor extends Visitor<Expression> {
         // nop
     }
 
+    protected Visiting startVisit(final ListExpression node) {
+        return Visiting.CONTINUE;
+    }
+
+    protected void endVisit(final ListExpression node) {
+        // nop
+    }
+
     protected Visiting startVisit(final ModuloExpression node) {
         return Visiting.CONTINUE;
     }
