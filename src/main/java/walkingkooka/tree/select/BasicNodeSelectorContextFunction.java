@@ -47,18 +47,8 @@ final class BasicNodeSelectorContextFunction implements Function<FunctionExpress
 
         this.register(ExpressionFunctions.booleanFunction());
         this.register(ExpressionFunctions.choose());
-        this.register(ExpressionFunctions.concat());
-        this.register(ExpressionFunctions.contains());
-        this.register(ExpressionFunctions.endsWith());
         this.register(ExpressionFunctions.falseFunction());
         this.register(ExpressionFunctions.nodeName());
-        this.register(ExpressionFunctions.normalizeSpace());
-        this.register(ExpressionFunctions.startsWith());
-        this.register(ExpressionFunctions.stringLength());
-        this.register(ExpressionFunctions.substring(NodeSelector.INDEX_BIAS));
-        this.register(ExpressionFunctions.substringAfter());
-        this.register(ExpressionFunctions.substringBefore());
-        this.register(ExpressionFunctions.text());
         this.register(ExpressionFunctions.trueFunction());
         this.register(ExpressionFunctions.typeName());
     }
