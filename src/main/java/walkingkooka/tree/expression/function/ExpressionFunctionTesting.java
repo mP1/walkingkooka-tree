@@ -27,7 +27,6 @@ import walkingkooka.text.CharSequences;
 import walkingkooka.util.BiFunctionTesting;
 
 import java.util.List;
-import java.util.function.Function;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
