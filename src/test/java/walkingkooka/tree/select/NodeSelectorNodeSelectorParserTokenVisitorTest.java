@@ -716,114 +716,6 @@ public final class NodeSelectorNodeSelectorParserTokenVisitorTest implements Nod
                 root, root, leaf1, leaf3);
     }
 
-    // concat ....................................................................................................
-
-    @Test
-    public void testAbsoluteNodeNameAttributeValueConcatEvaluate() {
-        final TestNode leaf1 = node("leaf1", "abc");
-        final TestNode leaf2 = node("leaf2", "x1");
-
-        final TestNode root = node("root", "zzz", leaf1, leaf2);
-
-        this.parseExpressionEvaluateAndCheck("//*[@id=concat(\"a\", \"b\", \"c\")]",
-                root,
-                leaf1);
-    }
-
-    @Test
-    public void testAbsoluteNodeNameAttributeValueConcatMissingAttributeEvaluate() {
-        final TestNode leaf1 = node("leaf1", "abc");
-        final TestNode leaf2 = node("leaf2");
-
-        final TestNode root = node("root", leaf1, leaf2);
-
-        this.parseExpressionEvaluateAndCheck("//*[@id=concat(@missing, \"abc\")]",
-                root,
-                leaf1);
-    }
-
-    @Test
-    public void testAbsoluteNodeNameAttributeValueConcatIntegerEvaluate() {
-        final TestNode leaf1 = node("leaf1", "abc");
-        final TestNode leaf2 = node("leaf2", "1x2");
-
-        final TestNode root = node("root", "zzzzz", leaf1, leaf2);
-
-        this.parseExpressionEvaluateAndCheck("//*[@id=concat(1, \"x\", 2)]",
-                root,
-                leaf2);
-    }
-
-    @Test
-    public void testAbsoluteNodeNameAttributeValueConcatInteger2Evaluate() {
-        final TestNode leaf1 = node("leaf1", "abc");
-        final TestNode leaf2 = node("leaf2", 123);
-
-        final TestNode root = node("root", 999, leaf1, leaf2);
-
-        this.parseExpressionEvaluateAndCheck("//*[@id=concat(\"123\")]",
-                root,
-                leaf2);
-    }
-
-    // ends with ....................................................................................................
-
-    @Test
-    public void testAbsoluteNodeNameAttributeValueEndsWithEvaluate() {
-        final TestNode leaf1 = node("leaf1", "abc");
-        final TestNode leaf2 = node("leaf2", "x1");
-
-        final TestNode root = node("root", leaf1, leaf2);
-
-        this.parseExpressionEvaluateAndCheck("//*[ends-with(@id, \"c\")]",
-                root,
-                leaf1);
-        this.parseExpressionEvaluateAndCheck("//*[ends-with(@id, \"1\")]",
-                root,
-                leaf2);
-    }
-
-    @Test
-    public void testAbsoluteNodeNameAttributeValueEndsWithMissingAttributeEvaluate() {
-        final TestNode leaf1 = node("leaf1", "abc");
-        final TestNode leaf2 = node("leaf2");
-
-        final TestNode root = node("root", leaf1, leaf2);
-
-        this.parseExpressionEvaluateAndCheck("//*[ends-with(@id, \"c\")]",
-                root,
-                leaf1);
-    }
-
-    @Test
-    public void testAbsoluteNodeNameAttributeValueEndsWithIntegerValueEvaluate() {
-        final TestNode leaf1 = node("leaf1", "abc");
-        final TestNode leaf2 = node("leaf2", "x1");
-
-        final TestNode root = node("root", leaf1, leaf2);
-
-        this.parseExpressionEvaluateAndCheck("//*[ends-with(@id, 1)]",
-                root,
-                leaf2);
-        this.parseExpressionEvaluateAndCheck("//*[ends-with(@id, 9)]",
-                root);
-    }
-
-    @Test
-    public void testAbsoluteNodeNameAttributeValueEndsWithIntegerValueEvaluate2() {
-        final TestNode leaf1 = node("leaf1", 123);
-        final TestNode leaf2 = node("leaf2", 456);
-
-        final TestNode root = node("root", leaf1, leaf2);
-
-        this.parseExpressionEvaluateAndCheck("//*[ends-with(@id, \"3\")]",
-                root,
-                leaf1);
-        this.parseExpressionEvaluateAndCheck("//*[ends-with(@id, \"56\")]",
-                root,
-                leaf2);
-    }
-
     // starts with ....................................................................................................
 
     @Test
@@ -878,68 +770,6 @@ public final class NodeSelectorNodeSelectorParserTokenVisitorTest implements Nod
                 root,
                 leaf1);
         this.parseExpressionEvaluateAndCheck("//*[starts-with(@id, \"56\")]",
-                root,
-                leaf2);
-    }
-
-    // string-length ....................................................................................................
-
-    @Test
-    public void testAbsoluteNodeNameAttributeValueStringLengthEvaluate() {
-        final TestNode leaf1 = node("leaf1", "a");
-        final TestNode leaf2 = node("leaf2", "zz");
-
-        final TestNode root = node("root", leaf1, leaf2);
-
-        this.parseExpressionEvaluateAndCheck("//*[string-length(@id)=1]",
-                root,
-                leaf1);
-        this.parseExpressionEvaluateAndCheck("//*[string-length(@id)=2]",
-                root,
-                leaf2);
-    }
-
-    @Test
-    public void testAbsoluteNodeNameAttributeValueStringLengthMissingAttributeEvaluate() {
-        final TestNode leaf1 = node("leaf1", "a");
-        final TestNode leaf2 = node("leaf2");
-
-        final TestNode root = node("root", leaf1, leaf2);
-
-        this.parseExpressionEvaluateAndCheck("//*[string-length(@id)=0]",
-                root,
-                root, leaf2);
-        this.parseExpressionEvaluateAndCheck("//*[string-length(@id)=1]",
-                root,
-                leaf1);
-    }
-
-    @Test
-    public void testAbsoluteNodeNameAttributeValueStringLengthIntegerValueEvaluate() {
-        final TestNode leaf1 = node("leaf1", 1);
-        final TestNode leaf2 = node("leaf2", 23);
-
-        final TestNode root = node("root", leaf1, leaf2);
-
-        this.parseExpressionEvaluateAndCheck("//*[string-length(@id)=1]",
-                root,
-                leaf1);
-        this.parseExpressionEvaluateAndCheck("//*[string-length(@id)=2]",
-                root,
-                leaf2);
-    }
-
-    @Test
-    public void testAbsoluteNodeNameAttributeValueStringLengthIntegerValueEvaluate2() {
-        final TestNode leaf1 = node("leaf1", 1);
-        final TestNode leaf2 = node("leaf2", 23);
-
-        final TestNode root = node("root", leaf1, leaf2);
-
-        this.parseExpressionEvaluateAndCheck("//*[string-length(@id)=1]",
-                root,
-                leaf1);
-        this.parseExpressionEvaluateAndCheck("//*[string-length(@id)=2]",
                 root,
                 leaf2);
     }
@@ -1790,28 +1620,6 @@ public final class NodeSelectorNodeSelectorParserTokenVisitorTest implements Nod
                 root, leaf);
     }
 
-    // function: text().......................................................................................
-
-    @Test
-    public void testExpressionStartsWithTextEvaluate() {
-        final TestNode child = node("child", 456);
-        final TestNode parent = node("parent", 123, child);
-
-        this.parseExpressionEvaluateAndCheck("*[starts-with(text(@id), \"4\")]",
-                parent,
-                child);
-    }
-
-    @Test
-    public void testDescendantsOrSelfExpressionStartsWithTextEvaluate() {
-        final TestNode child = node("child", 456);
-        final TestNode parent = node("parent", 123, child);
-
-        this.parseExpressionEvaluateAndCheck("//*[starts-with(text(@id), \"4\")]",
-                parent,
-                child);
-    }
-
     // function: true().......................................................................................
 
     @Test
@@ -2016,15 +1824,25 @@ public final class NodeSelectorNodeSelectorParserTokenVisitorTest implements Nod
                         switch (name.value()) {
                             case "node":
                                 return node;
-                            case "number":
+                            case "number": {
                                 final Object parameter = parameters.get(0);
                                 if (parameter instanceof String) {
                                     return new BigDecimal((String) parameter);
                                 }
                                 return new BigDecimal((Long) parameter);
+                            }
+                            case "starts-with": {
+                                final String string = parameters.get(0).toString();
+                                final String contains = parameters.get(1).toString();
+                                return string.startsWith(contains);
+                            }
+                            case "string-length": {
+                                return parameters.get(0).toString().length();
+                            }
                             default:
-                                return NodeSelectorContexts.basicFunctions().apply(name)
-                                        .get()
+                                return NodeSelectorContexts.basicFunctions()
+                                        .apply(name)
+                                        .orElseThrow(() -> new IllegalArgumentException(("Unknown function " + name)))
                                         .apply(Lists.readOnly(parameters), this.expressionFunctionContext());
                         }
                     }

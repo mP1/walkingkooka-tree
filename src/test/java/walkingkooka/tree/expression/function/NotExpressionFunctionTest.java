@@ -19,6 +19,9 @@ package walkingkooka.tree.expression.function;
 
 import org.junit.jupiter.api.Test;
 
+import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class NotExpressionFunctionTest extends ExpressionFunctionTestCase<NotExpressionFunction, Boolean> {
@@ -40,12 +43,29 @@ public final class NotExpressionFunctionTest extends ExpressionFunctionTestCase<
 
     @Test
     public void testToString() {
-        this.toStringAndCheck(this.createBiFunction(), "not(" + ExpressionFunctions.contains() + ")");
+        this.toStringAndCheck(this.createBiFunction(), "not(custom-string-contains)");
     }
 
     @Override
     public NotExpressionFunction createBiFunction() {
-        return NotExpressionFunction.with(ExpressionFunctions.contains());
+        return NotExpressionFunction.with(new FakeExpressionFunction<Boolean>() {
+
+            @Override
+            public Boolean apply(final List<Object> parameters,
+                                 final ExpressionFunctionContext context) {
+                assertEquals(2, parameters.size(), () -> "parameters " + parameters);
+
+                final String string = (String) parameters.get(0);
+                final String contains = (String) parameters.get(1);
+
+                return string.contains(contains);
+            }
+
+            @Override
+            public String toString() {
+                return "custom-string-contains";
+            }
+        });
     }
 
     @Override

@@ -39,27 +39,6 @@ public final class ExpressionFunctions implements PublicStaticHelper {
     }
 
     /**
-     * {@see ConcatExpressionFunction}
-     */
-    public static ExpressionFunction<String> concat() {
-        return ConcatExpressionFunction.INSTANCE;
-    }
-
-    /**
-     * {@see ContainsExpressionFunction}
-     */
-    public static ExpressionFunction<Boolean> contains() {
-        return ContainsExpressionFunction.INSTANCE;
-    }
-
-    /**
-     * {@see EndsWithExpressionFunction}
-     */
-    public static ExpressionFunction<Boolean> endsWith() {
-        return EndsWithExpressionFunction.INSTANCE;
-    }
-
-    /**
      * {@see FakeExpressionFunction}
      */
     public static <T> ExpressionFunction<T> fake() {
@@ -74,13 +53,6 @@ public final class ExpressionFunctions implements PublicStaticHelper {
     }
 
     /**
-     * {@see NormalizeSpaceExpressionFunction}
-     */
-    public static ExpressionFunction<String> normalizeSpace() {
-        return NormalizeSpaceExpressionFunction.INSTANCE;
-    }
-
-    /**
      * {@see FunctionExpressionNameExpressionFunction}
      */
     public static ExpressionFunction<String> nodeName() {
@@ -92,48 +64,6 @@ public final class ExpressionFunctions implements PublicStaticHelper {
      */
     public static ExpressionFunction<Boolean> not(final ExpressionFunction<?> function) {
         return NotExpressionFunction.with(function);
-    }
-
-    /**
-     * {@see StartsWithExpressionFunction}
-     */
-    public static ExpressionFunction<Boolean> startsWith() {
-        return StartsWithExpressionFunction.INSTANCE;
-    }
-
-    /**
-     * {@see StringLengthExpressionFunction}
-     */
-    public static ExpressionFunction<Number> stringLength() {
-        return StringLengthExpressionFunction.INSTANCE;
-    }
-
-    /**
-     * {@see SubstringExpressionFunction}
-     */
-    public static ExpressionFunction<String> substring(final int indexBias) {
-        return SubstringExpressionFunction.with(indexBias);
-    }
-
-    /**
-     * {@see SubstringAfterExpressionFunction}
-     */
-    public static ExpressionFunction<String> substringAfter() {
-        return SubstringAfterExpressionFunction.INSTANCE;
-    }
-
-    /**
-     * {@see SubstringBeforeExpressionFunction}
-     */
-    public static ExpressionFunction<String> substringBefore() {
-        return SubstringBeforeExpressionFunction.INSTANCE;
-    }
-
-    /**
-     * {@see TextExpressionFunction}
-     */
-    public static ExpressionFunction<String> text() {
-        return TextExpressionFunction.INSTANCE;
     }
 
     /**
