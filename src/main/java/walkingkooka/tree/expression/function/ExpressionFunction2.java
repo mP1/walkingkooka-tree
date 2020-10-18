@@ -65,13 +65,6 @@ abstract class ExpressionFunction2<T> implements ExpressionFunction<T> {
     }
 
     /**
-     * Converts a value into a {@link Number}.
-     */
-    final Number number(final Object value, final ExpressionFunctionContext context) {
-        return context.convertOrFail(value, Number.class);
-    }
-
-    /**
      * Converts a value into a string.
      */
     final String string(final Object value, final ExpressionFunctionContext context) {
@@ -97,13 +90,6 @@ abstract class ExpressionFunction2<T> implements ExpressionFunction<T> {
      */
     final int integer(final List<?> parameters, final int i, final ExpressionFunctionContext context) {
         return this.integer(this.parameter(parameters, i), context);
-    }
-
-    /**
-     * Type safe number parameter getter.
-     */
-    final Number number(final List<?> parameters, final int i, final ExpressionFunctionContext context) {
-        return this.number(this.parameter(parameters, i), context);
     }
 
     /**
