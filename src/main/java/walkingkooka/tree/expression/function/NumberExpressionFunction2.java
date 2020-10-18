@@ -38,7 +38,7 @@ abstract class NumberExpressionFunction2 extends ExpressionFunction2<Number> {
                         final ExpressionFunctionContext context) {
         this.checkParameterCount(parameters, 1);
 
-        return ExpressionNumberFunctionExpressionNumberVisitor.apply(this.number(parameters, 0, context),
+        return NumberExpressionFunction2ExpressionNumberVisitor.apply(this.number(parameters, 0, context),
                 this,
                 context);
     }
