@@ -2013,14 +2013,21 @@ public final class NodeSelectorNodeSelectorParserTokenVisitorTest implements Nod
                     public Object function(final FunctionExpressionName name, final List<Object> parameters) {
                         assertNotNull(this.node, "node missing");
 
-                        return NODE.equals(name) ?
-                                this.node :
-                                NodeSelectorContexts.basicFunctions().apply(name)
+                        switch (name.value()) {
+                            case "node":
+                                return node;
+                            case "number":
+                                final Object parameter = parameters.get(0);
+                                if (parameter instanceof String) {
+                                    return new BigDecimal((String) parameter);
+                                }
+                                return new BigDecimal((Long) parameter);
+                            default:
+                                return NodeSelectorContexts.basicFunctions().apply(name)
                                         .get()
                                         .apply(Lists.readOnly(parameters), this.expressionFunctionContext());
+                        }
                     }
-
-                    private final FunctionExpressionName NODE = FunctionExpressionName.with("node");
 
                     private ExpressionFunctionContext expressionFunctionContext() {
                         return new FakeExpressionFunctionContext() {

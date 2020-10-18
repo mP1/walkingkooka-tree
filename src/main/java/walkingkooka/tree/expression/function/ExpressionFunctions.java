@@ -25,24 +25,10 @@ import walkingkooka.reflect.PublicStaticHelper;
 public final class ExpressionFunctions implements PublicStaticHelper {
 
     /**
-     * {@see NumberExpressionFunction2Absolute}
-     */
-    public static ExpressionFunction<Number> abs() {
-        return NumberExpressionFunction2Absolute.INSTANCE;
-    }
-
-    /**
      * {@see BooleanExpressionFunction}
      */
     public static ExpressionFunction<Boolean> booleanFunction() {
         return BooleanExpressionFunction.INSTANCE;
-    }
-
-    /**
-     * {@see NumberExpressionFunction2Ceil}
-     */
-    public static ExpressionFunction<Number> ceil() {
-        return NumberExpressionFunction2Ceil.INSTANCE;
     }
 
     /**
@@ -81,13 +67,6 @@ public final class ExpressionFunctions implements PublicStaticHelper {
     }
 
     /**
-     * {@see NumberExpressionFunction2Floor}
-     */
-    public static ExpressionFunction<Number> floor() {
-        return NumberExpressionFunction2Floor.INSTANCE;
-    }
-
-    /**
      * {@see NormalizeSpaceExpressionFunction}
      */
     public static ExpressionFunction<String> normalizeSpace() {
@@ -106,20 +85,6 @@ public final class ExpressionFunctions implements PublicStaticHelper {
      */
     public static ExpressionFunction<Boolean> not(final ExpressionFunction<?> function) {
         return NotExpressionFunction.with(function);
-    }
-
-    /**
-     * {@see NumberExpressionFunction}
-     */
-    public static ExpressionFunction<Number> number() {
-        return NumberExpressionFunction.INSTANCE;
-    }
-
-    /**
-     * {@see NumberExpressionFunction2Round}
-     */
-    public static ExpressionFunction<Number> round() {
-        return NumberExpressionFunction2Round.INSTANCE;
     }
 
     /**

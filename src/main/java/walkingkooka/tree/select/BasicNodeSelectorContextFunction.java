@@ -45,19 +45,14 @@ final class BasicNodeSelectorContextFunction implements Function<FunctionExpress
         // must be init before register calls to avoid NPE.
         this.nameToFunction = Maps.sorted();
 
-        this.register(ExpressionFunctions.abs());
         this.register(ExpressionFunctions.booleanFunction());
-        this.register(ExpressionFunctions.ceil());
         this.register(ExpressionFunctions.choose());
         this.register(ExpressionFunctions.concat());
         this.register(ExpressionFunctions.contains());
         this.register(ExpressionFunctions.endsWith());
         this.register(ExpressionFunctions.falseFunction());
-        this.register(ExpressionFunctions.floor());
         this.register(ExpressionFunctions.nodeName());
         this.register(ExpressionFunctions.normalizeSpace());
-        this.register(ExpressionFunctions.number());
-        this.register(ExpressionFunctions.round());
         this.register(ExpressionFunctions.startsWith());
         this.register(ExpressionFunctions.stringLength());
         this.register(ExpressionFunctions.substring(NodeSelector.INDEX_BIAS));
