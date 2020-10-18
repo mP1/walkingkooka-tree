@@ -60,6 +60,13 @@ public final class ExpressionFunctions implements PublicStaticHelper {
     }
 
     /**
+     * {@see FakeExpressionFunction}
+     */
+    public static <T> ExpressionFunction<T> fake() {
+        return new FakeExpressionFunction();
+    }
+
+    /**
      * {@see FalseExpressionFunction}
      */
     public static ExpressionFunction<Boolean> falseFunction() {
