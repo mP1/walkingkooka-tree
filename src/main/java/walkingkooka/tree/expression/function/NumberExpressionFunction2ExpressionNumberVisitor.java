@@ -22,18 +22,18 @@ import walkingkooka.tree.expression.ExpressionNumberVisitor;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 
-final class ExpressionNumberFunctionExpressionNumberVisitor extends ExpressionNumberVisitor {
+final class NumberExpressionFunction2ExpressionNumberVisitor extends ExpressionNumberVisitor {
 
     static Number apply(final Number number,
                         final NumberExpressionFunction2 function,
                         final ExpressionFunctionContext context) {
-        final ExpressionNumberFunctionExpressionNumberVisitor visitor = new ExpressionNumberFunctionExpressionNumberVisitor(function, context);
+        final NumberExpressionFunction2ExpressionNumberVisitor visitor = new NumberExpressionFunction2ExpressionNumberVisitor(function, context);
         visitor.accept(number);
         return visitor.result;
     }
 
-    ExpressionNumberFunctionExpressionNumberVisitor(final NumberExpressionFunction2 function,
-                                                    final ExpressionFunctionContext context) {
+    NumberExpressionFunction2ExpressionNumberVisitor(final NumberExpressionFunction2 function,
+                                                     final ExpressionFunctionContext context) {
         super();
         this.function = function;
         this.context = context;
