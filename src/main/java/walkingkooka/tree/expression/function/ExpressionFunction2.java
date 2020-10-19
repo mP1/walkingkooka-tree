@@ -58,20 +58,6 @@ abstract class ExpressionFunction2<T> implements ExpressionFunction<T> {
     }
 
     /**
-     * Converts a value into an integer.
-     */
-    final int integer(final Object value, final ExpressionFunctionContext context) {
-        return context.convertOrFail(value, Integer.class);
-    }
-
-    /**
-     * Converts a value into a string.
-     */
-    final String string(final Object value, final ExpressionFunctionContext context) {
-        return context.convertOrFail(value, String.class);
-    }
-
-    /**
      * Type safe {@link Boolean} parameter getter.
      */
     final Boolean booleanValue(final List<?> parameters, final int i, final ExpressionFunctionContext context) {
@@ -83,20 +69,6 @@ abstract class ExpressionFunction2<T> implements ExpressionFunction<T> {
      */
     final Comparable comparable(final List<?> parameters, final int i, final ExpressionFunctionContext context) {
         return this.comparable(this.parameter(parameters, i), context);
-    }
-
-    /**
-     * Type safe integer parameter getter.
-     */
-    final int integer(final List<?> parameters, final int i, final ExpressionFunctionContext context) {
-        return this.integer(this.parameter(parameters, i), context);
-    }
-
-    /**
-     * Type safe String parameter getter.
-     */
-    final String string(final List<?> parameters, final int i, final ExpressionFunctionContext context) {
-        return this.string(this.parameter(parameters, i), context);
     }
 
     /**
