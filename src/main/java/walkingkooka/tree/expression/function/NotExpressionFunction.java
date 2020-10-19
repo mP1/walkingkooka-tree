@@ -23,35 +23,29 @@ import java.util.List;
 import java.util.Objects;
 
 /**
- * A function that inverts the result of another function.
+ * A function that inverts the a boolean value.
  */
 final class NotExpressionFunction extends ExpressionFunction2<Boolean> {
 
     /**
-     * Factory
+     * Singleton
      */
-    static NotExpressionFunction with(final ExpressionFunction<?> function) {
-        Objects.requireNonNull(function, "function");
-        return new NotExpressionFunction(function);
-    }
+    static final NotExpressionFunction INSTANCE = new NotExpressionFunction();
 
     /**
      * Private ctor
      */
-    private NotExpressionFunction(final ExpressionFunction<?> function) {
+    private NotExpressionFunction() {
         super();
-        this.function = function;
     }
 
     @Override
     public Boolean apply(final List<Object> parameters,
                          final ExpressionFunctionContext context) {
-        this.checkParameterCount(parameters, 2);
+        this.checkParameterCount(parameters, 1);
 
-        return !context.convertOrFail(this.function.apply(parameters, context), Boolean.class);
+        return !this.booleanValue(parameters, 0, context);
     }
-
-    private final ExpressionFunction<?> function;
 
     @Override
     public FunctionExpressionName name() {
@@ -62,6 +56,6 @@ final class NotExpressionFunction extends ExpressionFunction2<Boolean> {
 
     @Override
     public String toString() {
-        return "not(" + this.function + ")";
+        return this.name().toString();
     }
 }

@@ -62,8 +62,8 @@ public final class ExpressionFunctions implements PublicStaticHelper {
     /**
      * {@see NotExpressionFunction}
      */
-    public static ExpressionFunction<Boolean> not(final ExpressionFunction<?> function) {
-        return NotExpressionFunction.with(function);
+    public static ExpressionFunction<Boolean> not() {
+        return NotExpressionFunction.INSTANCE;
     }
 
     /**
