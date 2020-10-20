@@ -24,6 +24,7 @@ import walkingkooka.tree.expression.FunctionExpressionName;
 
 import java.math.MathContext;
 import java.util.List;
+import java.util.Locale;
 
 /**
  * Base class for several {@link NodeSelectorContext} wrappers. Static factory methods are also available for all sub classes.
@@ -88,6 +89,11 @@ abstract class NodeSelectorContext2<N extends Node<N, NAME, ANAME, AVALUE>, NAME
     @Override
     public final <T> Either<T, String> convert(final Object value, final Class<T> target) {
         return this.context.convert(value, target);
+    }
+
+    @Override
+    public Locale locale() {
+        return this.context.locale();
     }
 
     @Override
