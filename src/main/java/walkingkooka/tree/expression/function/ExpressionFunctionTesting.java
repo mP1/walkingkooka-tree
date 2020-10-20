@@ -30,6 +30,7 @@ import walkingkooka.util.BiFunctionTesting;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -39,6 +40,11 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 public interface ExpressionFunctionTesting<F extends ExpressionFunction<V>, V>
         extends BiFunctionTesting<F, List<Object>, ExpressionFunctionContext, V>,
         TypeNameTesting<F> {
+
+    @Test
+    default void testName() {
+        assertNotNull(this.createBiFunction().name());
+    }
 
     @Test
     default void testSetNameNullFails() {
