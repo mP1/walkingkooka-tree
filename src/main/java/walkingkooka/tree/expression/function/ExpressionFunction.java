@@ -21,6 +21,7 @@ import walkingkooka.naming.HasName;
 import walkingkooka.tree.expression.FunctionExpressionName;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.function.BiFunction;
 
 /**
@@ -28,4 +29,12 @@ import java.util.function.BiFunction;
  */
 public interface ExpressionFunction<T> extends BiFunction<List<Object>, ExpressionFunctionContext, T>,
         HasName<FunctionExpressionName> {
+
+    /**
+     * Gives this {@link ExpressionFunction} a new name.
+     */
+    default ExpressionFunction<T> setName(final FunctionExpressionName name) {
+        Objects.requireNonNull(name, "name");
+        return CustomNameExpressionFunction.with(this, name);
+    }
 }

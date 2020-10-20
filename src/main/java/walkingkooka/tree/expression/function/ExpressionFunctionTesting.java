@@ -17,6 +17,7 @@
 
 package walkingkooka.tree.expression.function;
 
+import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.Either;
 import walkingkooka.collect.list.Lists;
@@ -29,6 +30,8 @@ import walkingkooka.util.BiFunctionTesting;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 /**
  * Mixing interface that provides methods to test a {@link ExpressionFunction}
@@ -36,6 +39,17 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public interface ExpressionFunctionTesting<F extends ExpressionFunction<V>, V>
         extends BiFunctionTesting<F, List<Object>, ExpressionFunctionContext, V>,
         TypeNameTesting<F> {
+
+    @Test
+    default void testSetNameNullFails() {
+        assertThrows(NullPointerException.class, () -> this.createBiFunction().setName(null));
+    }
+
+    @Test
+    default void testSetNameSame() {
+        final F function = this.createBiFunction();
+        assertSame(function, function.setName(function.name()));
+    }
 
     default void apply2(final Object... parameters) {
         this.createBiFunction().apply(parameters(parameters), this.createContext());
