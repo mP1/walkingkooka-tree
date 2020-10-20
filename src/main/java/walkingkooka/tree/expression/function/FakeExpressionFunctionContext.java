@@ -23,6 +23,7 @@ import walkingkooka.tree.expression.FunctionExpressionName;
 
 import java.math.MathContext;
 import java.util.List;
+import java.util.Locale;
 import java.util.Objects;
 
 public class FakeExpressionFunctionContext implements ExpressionFunctionContext, Fake {
@@ -43,6 +44,11 @@ public class FakeExpressionFunctionContext implements ExpressionFunctionContext,
         Objects.requireNonNull(value, "value");
         Objects.requireNonNull(target, "target");
 
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public Locale locale() {
         throw new UnsupportedOperationException();
     }
 

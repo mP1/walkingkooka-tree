@@ -29,6 +29,7 @@ import walkingkooka.tree.expression.function.ExpressionFunction;
 
 import java.math.MathContext;
 import java.util.List;
+import java.util.Locale;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.function.BooleanSupplier;
@@ -135,6 +136,10 @@ final class BasicNodeSelectorContext<N extends Node<N, NAME, ANAME, AVALUE>, NAM
     }
 
     private final static FunctionExpressionName NODE = FunctionExpressionName.with("node");
+
+    public Locale locale() {
+        return this.converterContext.locale();
+    }
 
     private N node() {
         final N current = this.current;

@@ -25,6 +25,7 @@ import walkingkooka.tree.expression.FunctionExpressionName;
 
 import java.math.MathContext;
 import java.util.List;
+import java.util.Locale;
 
 public class FakeNodeSelectorContext<N extends Node<N, NAME, ANAME, AVALUE>,
         NAME extends Name,
@@ -58,6 +59,11 @@ public class FakeNodeSelectorContext<N extends Node<N, NAME, ANAME, AVALUE>,
 
     @Override
     public Object function(final FunctionExpressionName name, final List<Object> parameters) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public Locale locale() {
         throw new UnsupportedOperationException();
     }
 

@@ -40,6 +40,7 @@ import java.math.MathContext;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
@@ -418,6 +419,11 @@ abstract public class NodeSelectorTestCase4<S extends NodeSelector<TestNode, Str
             public <T> Either<T, String> convert(final Object value, final Class<T> target) {
                 this.finisherGuardCheck();
                 return context.convert(value, target);
+            }
+
+            @Override
+            public Locale locale() {
+                return context.locale();
             }
 
             @Override
