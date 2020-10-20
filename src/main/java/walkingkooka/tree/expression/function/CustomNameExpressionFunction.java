@@ -44,11 +44,17 @@ final class CustomNameExpressionFunction<T> implements ExpressionFunction<T> {
                         new CustomNameExpressionFunction<>(function, name);
     }
 
+    /**
+     * Handles the special case not preventing double wrapping a {@link CustomNameExpressionFunction}.
+     */
     static <T> ExpressionFunction<T> unwrap(final CustomNameExpressionFunction<T> function,
                                             final FunctionExpressionName name) {
         return new CustomNameExpressionFunction<>(function.function, name);
     }
 
+    /**
+     * Private ctor use factory.
+     */
     private CustomNameExpressionFunction(final ExpressionFunction<T> function,
                                          final FunctionExpressionName name) {
         super();
