@@ -31,7 +31,7 @@ import java.util.stream.Collectors;
 /**
  * A {@link ListExpression} holds an ordered sequence of values, what may be termed an array or list in other programming languages.
  */
-public class ListExpression extends VariableExpression {
+public final class ListExpression extends VariableExpression {
 
     public final static FunctionExpressionName NAME = FunctionExpressionName.fromClass(ListExpression.class);
 

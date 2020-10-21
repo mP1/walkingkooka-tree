@@ -69,7 +69,8 @@ abstract class BinaryArithmeticExpression extends BinaryExpression2 {
 
     abstract double applyDouble0(final double left, final double right, final ExpressionEvaluationContext context);
 
-    @Override final Expression applyLong(final long left, final long right, final ExpressionEvaluationContext context) {
+    @Override
+    final Expression applyLong(final long left, final long right, final ExpressionEvaluationContext context) {
         return Expression.longExpression(this.applyLong0(left, right, context));
     }
 

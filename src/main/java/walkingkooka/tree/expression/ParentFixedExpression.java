@@ -28,7 +28,8 @@ abstract class ParentFixedExpression extends ParentExpression {
         super(index, children);
     }
 
-    @Override final void replaceChildrenCheck(final List<Expression> children) {
+    @Override
+    final void replaceChildrenCheck(final List<Expression> children) {
         final int expected = this.expectedChildCount();
         final int count = children.size();
         if (count != expected) {
@@ -41,16 +42,17 @@ abstract class ParentFixedExpression extends ParentExpression {
     // Node........................................................................................................
 
     @Override
-    public Expression appendChild(final Expression child) {
+    public final Expression appendChild(final Expression child) {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    public Expression removeChild(int index) {
+    public final Expression removeChild(int index) {
         throw new UnsupportedOperationException();
     }
 
-    @Override final boolean equalsIgnoringParentAndChildren(final Expression other) {
+    @Override
+    final boolean equalsIgnoringParentAndChildren(final Expression other) {
         return true; // no other properties name already tested.
     }
 }

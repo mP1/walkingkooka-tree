@@ -42,11 +42,11 @@ abstract class BinaryExpression extends ParentFixedExpression {
         super(index, Lists.of(left, right));
     }
 
-    public Expression left() {
+    public final Expression left() {
         return this.children().get(0);
     }
 
-    public Expression right() {
+    public final Expression right() {
         return this.children().get(1);
     }
 
@@ -55,23 +55,14 @@ abstract class BinaryExpression extends ParentFixedExpression {
         return 2;
     }
 
-    @Override final BinaryExpression replace0(final int index, final List<Expression> children) {
+    @Override
+    final BinaryExpression replace0(final int index, final List<Expression> children) {
         return replace1(index, children.get(0), children.get(1));
     }
 
     abstract BinaryExpression replace1(final int index, final Expression left, final Expression right);
 
     // Node........................................................................................................
-
-    @Override
-    public Expression appendChild(final Expression child) {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public Expression removeChild(int index) {
-        throw new UnsupportedOperationException();
-    }
 
     @Override
     public final Optional<Expression> firstChild() {

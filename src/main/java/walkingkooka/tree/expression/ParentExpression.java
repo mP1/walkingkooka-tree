@@ -60,7 +60,8 @@ abstract class ParentExpression extends Expression {
                 this.replaceChildren(copy);
     }
 
-    @Override final Expression setChild(final Expression newChild) {
+    @Override
+    final Expression setChild(final Expression newChild) {
         final int index = newChild.index();
         final Expression previous = this.children().get(index);
         return previous.equalsIgnoringParentAndChildren(newChild) && previous.equalsDescendants(newChild) ?
@@ -85,7 +86,8 @@ abstract class ParentExpression extends Expression {
 
     abstract void replaceChildrenCheck(final List<Expression> children);
 
-    @Override final Expression replace(final int index) {
+    @Override
+    final Expression replace(final int index) {
         return this.replace0(index, this.children());
     }
 
