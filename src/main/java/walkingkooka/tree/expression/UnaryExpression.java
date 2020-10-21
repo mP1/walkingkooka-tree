@@ -41,7 +41,7 @@ abstract class UnaryExpression extends ParentFixedExpression implements Value<Ex
     }
 
     @Override
-    int expectedChildCount() {
+    final int expectedChildCount() {
         return 1;
     }
 
