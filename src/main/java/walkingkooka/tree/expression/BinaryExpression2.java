@@ -49,8 +49,8 @@ abstract class BinaryExpression2 extends BinaryExpression {
                 }
 
                 // both Long
-                final boolean leftByteShortIntegerLong = isByteShortIntegerLong(leftValue);
-                final boolean rightByteShortIntegerLong = isByteShortIntegerLong(rightValue);
+                final boolean leftByteShortIntegerLong = ExpressionNumber.isByteShortIntegerLong(leftValue);
+                final boolean rightByteShortIntegerLong = ExpressionNumber.isByteShortIntegerLong(rightValue);
                 if (leftByteShortIntegerLong && rightByteShortIntegerLong) {
                     result = this.applyLong(
                             context.convertOrFail(leftValue, Long.class),
@@ -71,7 +71,7 @@ abstract class BinaryExpression2 extends BinaryExpression {
                     break;
                 }
                 // both must be double,
-                if (isFloatDouble(leftValue) && isFloatDouble(rightValue)) {
+                if (ExpressionNumber.isFloatDouble(leftValue) && ExpressionNumber.isFloatDouble(rightValue)) {
                     result = this.applyDouble(
                             context.convertOrFail(leftValue, Double.class),
                             context.convertOrFail(rightValue, Double.class),

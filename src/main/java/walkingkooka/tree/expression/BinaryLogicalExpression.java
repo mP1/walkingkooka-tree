@@ -55,8 +55,8 @@ abstract class BinaryLogicalExpression extends BinaryExpression {
                 }
 
                 // both Long
-                final boolean leftLong = isByteShortIntegerLong(leftValue);
-                final boolean rightLong = isByteShortIntegerLong(rightValue);
+                final boolean leftLong = ExpressionNumber.isByteShortIntegerLong(leftValue);
+                final boolean rightLong = ExpressionNumber.isByteShortIntegerLong(rightValue);
                 if (leftLong && rightLong) {
                     result = this.applyLong(
                             context.convertOrFail(leftValue, Long.class),
