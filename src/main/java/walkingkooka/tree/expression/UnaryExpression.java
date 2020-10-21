@@ -54,16 +54,6 @@ abstract class UnaryExpression extends ParentFixedExpression implements Value<Ex
     // Node.............................................................................................................
 
     @Override
-    public Expression appendChild(final Expression child) {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public Expression removeChild(int index) {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
     public final Optional<Expression> firstChild() {
         return Optional.of(this.value());
     }
