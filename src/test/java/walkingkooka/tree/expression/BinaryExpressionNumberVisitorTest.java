@@ -91,6 +91,25 @@ public final class BinaryExpressionNumberVisitorTest implements BinaryExpression
                                 @Override
                                 protected void visit(final BigDecimal left,
                                                      final Number right) {
+                                    this.accept((Number) left, BigDecimal.valueOf(right.intValue()));
+                                }
+                            },
+                BigDecimal.valueOf(1),
+                2,
+                "startVisit BigDecimal 1 Integer 2", "startVisit BigDecimal 1 BigDecimal 2", "visit BigDecimal 1 BigDecimal 2", "endVisit BigDecimal 1 BigDecimal 2", "endVisit BigDecimal 1 Integer 2");
+    }
+
+    @Test
+    public void testAcceptBigDecimalUnsupportedAcceptBigDecimalBigDecimal() {
+        this.acceptAndCheck(new TestFakeBinaryExpressionNumberVisitor() {
+                                @Override
+                                protected void visit(final BigDecimal left, final BigDecimal right) {
+                                    this.logVisit(left, right);
+                                }
+
+                                @Override
+                                protected void visit(final BigDecimal left,
+                                                     final Number right) {
                                     this.accept(left, BigDecimal.valueOf(right.intValue()));
                                 }
                             },
@@ -151,6 +170,25 @@ public final class BinaryExpressionNumberVisitorTest implements BinaryExpression
 
     @Test
     public void testAcceptBigIntegerUnsupported() {
+        this.acceptAndCheck(new TestFakeBinaryExpressionNumberVisitor() {
+                                @Override
+                                protected void visit(final BigInteger left, final BigInteger right) {
+                                    this.logVisit(left, right);
+                                }
+
+                                @Override
+                                protected void visit(final BigInteger left,
+                                                     final Number right) {
+                                    this.accept((Number) left, BigInteger.valueOf(right.intValue()));
+                                }
+                            },
+                BigInteger.valueOf(1),
+                2,
+                "startVisit BigInteger 1 Integer 2", "startVisit BigInteger 1 BigInteger 2", "visit BigInteger 1 BigInteger 2", "endVisit BigInteger 1 BigInteger 2", "endVisit BigInteger 1 Integer 2");
+    }
+
+    @Test
+    public void testAcceptBigIntegerUnsupportedAcceptBigIntegerBigInteger() {
         this.acceptAndCheck(new TestFakeBinaryExpressionNumberVisitor() {
                                 @Override
                                 protected void visit(final BigInteger left, final BigInteger right) {
@@ -229,6 +267,26 @@ public final class BinaryExpressionNumberVisitorTest implements BinaryExpression
                                 @Override
                                 protected void visit(final Double left,
                                                      final Number right) {
+                                    this.accept((Number) left, BigInteger.valueOf(right.intValue()));
+                                }
+                            },
+                1.5,
+                2,
+                "startVisit Double 1.5 Integer 2", "startVisit Double 1.5 BigInteger 2", "visit Double 1.5 BigInteger 2", "endVisit Double 1.5 BigInteger 2", "endVisit Double 1.5 Integer 2");
+    }
+
+
+    @Test
+    public void testAcceptDoubleUnsupportedDoubleDouble() {
+        this.acceptAndCheck(new TestFakeBinaryExpressionNumberVisitor() {
+                                @Override
+                                protected void visit(final Double left, final BigInteger right) {
+                                    this.logVisit(left, right);
+                                }
+
+                                @Override
+                                protected void visit(final Double left,
+                                                     final Number right) {
                                     this.accept(left, BigInteger.valueOf(right.intValue()));
                                 }
                             },
@@ -289,6 +347,25 @@ public final class BinaryExpressionNumberVisitorTest implements BinaryExpression
 
     @Test
     public void testAcceptLongUnsupported() {
+        this.acceptAndCheck(new TestFakeBinaryExpressionNumberVisitor() {
+                                @Override
+                                protected void visit(final Long left, final BigInteger right) {
+                                    this.logVisit(left, right);
+                                }
+
+                                @Override
+                                protected void visit(final Long left,
+                                                     final Number right) {
+                                    this.accept((Number) left, BigInteger.valueOf(right.intValue()));
+                                }
+                            },
+                1L,
+                2,
+                "startVisit Long 1 Integer 2", "startVisit Long 1 BigInteger 2", "visit Long 1 BigInteger 2", "endVisit Long 1 BigInteger 2", "endVisit Long 1 Integer 2");
+    }
+
+    @Test
+    public void testAcceptLongUnsupportedAcceptLongLong() {
         this.acceptAndCheck(new TestFakeBinaryExpressionNumberVisitor() {
                                 @Override
                                 protected void visit(final Long left, final BigInteger right) {
