@@ -41,29 +41,24 @@ public abstract class ExpressionNumberVisitor extends Visitor<Number> {
         if (Visiting.CONTINUE == this.startVisit(number)) {
             Number n = number;
 
-            Exit:
             do {
-                do {
-                    if (n instanceof BigDecimal) {
-                        this.visit((BigDecimal) n);
-                        break Exit;
-                    }
-                    if (n instanceof BigInteger) {
-                        this.visit((BigInteger) n);
-                        break Exit;
-                    }
-                    if (n instanceof Double) {
-                        this.visit((Double) n);
-                        break Exit;
-                    }
-                    if (n instanceof Long) {
-                        this.visit((Long) n);
-                        break Exit;
-                    }
-                    n = this.visit(n);
-                } while (n != number);
-
-                throw new ExpressionException("Unsupported Number type " + number.getClass().getName() + "=" + number);
+                if (n instanceof BigDecimal) {
+                    this.visit((BigDecimal) n);
+                    break;
+                }
+                if (n instanceof BigInteger) {
+                    this.visit((BigInteger) n);
+                    break;
+                }
+                if (n instanceof Double) {
+                    this.visit((Double) n);
+                    break;
+                }
+                if (n instanceof Long) {
+                    this.visit((Long) n);
+                    break;
+                }
+                this.visit(n);
             } while (false);
         }
         this.endVisit(number);
@@ -89,10 +84,9 @@ public abstract class ExpressionNumberVisitor extends Visitor<Number> {
     }
 
     /**
-     * Invoked for non native {@link Number} types. The default behaviour is to return the same {@link Number} but other
-     * options include converting the given {@link Number} to one of the supported {@link Number} types.
+     * This is invoked whenever a {@link Number} other than {@link BigDecimal}, {@link BigInteger}, {@link Double} or {@link Long}
+     * is given. One strategy is to convert to one of the supported types and to call {@link #accept(Number) again.}
      */
-    protected Number visit(final Number number) {
-        return number;
+    protected void visit(final Number number) {
     }
 }

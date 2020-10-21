@@ -95,46 +95,47 @@ public final class ExpressionNumberVisitorTest implements ExpressionNumberVisito
     }
 
     @Test
-    public void testAcceptRetry() {
-        this.acceptAndCheck(new TestFakeExpressionNumberVisitor() {
-                                @Override
-                                protected void visit(final BigDecimal number) {
-                                    ExpressionNumberVisitorTest.this.visit = number;
-                                }
+    public void testAcceptUnsupportedNumberTypeRetry() {
+        this.start = null;
+        this.visit = null;
+        this.end = null;
 
-                                @Override
-                                protected Number visit(final Number number) {
-                                    return BigDecimal.valueOf(number.intValue());
-                                }
-                            }, 123,
-                BigDecimal.valueOf(123));
-    }
+        final int number = 123;
 
-    @Test
-    public void testAcceptUnsupportedNumberTypeFails() {
-        this.acceptFails(new ExpressionNumberVisitor() {
-        }, 123);
-    }
-
-    @Test
-    public void testAcceptUnsupportedNumberTypeFails2() {
-        this.acceptFails(new TestFakeExpressionNumberVisitor() {
+        new TestFakeExpressionNumberVisitor() {
             @Override
             protected void visit(final BigDecimal number) {
                 ExpressionNumberVisitorTest.this.visit = number;
             }
 
             @Override
-            protected Number visit(final Number number) {
-                return number;
+            protected void visit(final Number number) {
+                this.accept(BigDecimal.valueOf(number.intValue()));
             }
-        }, 123);
+        }.accept(number);
+
+        final BigDecimal bigDecimal = new BigDecimal(number);
+
+        assertEquals(bigDecimal, this.start, "start");
+        assertEquals(bigDecimal, this.visit, "visit");
+        assertEquals(number, this.end, "end");
     }
 
-    private void acceptFails(final ExpressionNumberVisitor visitor,
-                             final Number number) {
-        assertThrows(ExpressionException.class,
-                () -> visitor.accept(number));
+    @Test
+    public void testAcceptUnsupportedNumberTypeFails() {
+        assertThrows(UnsupportedOperationException.class, () -> {
+            new TestFakeExpressionNumberVisitor() {
+                @Override
+                protected void visit(final BigDecimal number) {
+                    ExpressionNumberVisitorTest.this.visit = number;
+                }
+
+                @Override
+                protected void visit(final Number number) {
+                    throw new UnsupportedOperationException();
+                }
+            }.accept(123);
+        });
     }
 
     private void acceptAndCheck(final TestFakeExpressionNumberVisitor visitor,
