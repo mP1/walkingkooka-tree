@@ -37,28 +37,25 @@ public class BinaryExpressionNumberVisitor {
                              final Number right) {
         Objects.requireNonNull(left, "left");
 
-        if (Visiting.CONTINUE == this.startVisit(left, right)) {
-            do {
-                if (left instanceof BigDecimal) {
-                    this.accept((BigDecimal) left, right);
-                    break;
-                }
-                if (left instanceof BigInteger) {
-                    this.accept((BigInteger) left, right);
-                    break;
-                }
-                if (left instanceof Double) {
-                    this.accept((Double) left, right);
-                    break;
-                }
-                if (left instanceof Long) {
-                    this.accept((Long) left, right);
-                    break;
-                }
-                this.visit(left, right);
-            } while (false);
-        }
-        this.endVisit(left, right);
+        do {
+            if (left instanceof BigDecimal) {
+                this.accept((BigDecimal) left, right);
+                break;
+            }
+            if (left instanceof BigInteger) {
+                this.accept((BigInteger) left, right);
+                break;
+            }
+            if (left instanceof Double) {
+                this.accept((Double) left, right);
+                break;
+            }
+            if (left instanceof Long) {
+                this.accept((Long) left, right);
+                break;
+            }
+            this.visit(left, right);
+        } while (false);
     }
 
     protected Visiting startVisit(final Number left,
@@ -79,27 +76,30 @@ public class BinaryExpressionNumberVisitor {
 
     // BIG DECIMAL......................................................................................................
 
-    private void accept(final BigDecimal left,
-                        final Number right) {
-        do {
-            if (right instanceof BigDecimal) {
-                this.visit(left, (BigDecimal) right);
-                break;
-            }
-            if (right instanceof BigInteger) {
-                this.visit(left, (BigInteger) right);
-                break;
-            }
-            if (right instanceof Double) {
-                this.visit(left, (Double) right);
-                break;
-            }
-            if (right instanceof Long) {
-                this.visit(left, (Long) right);
-                break;
-            }
-            this.visit(left, right);
-        } while (false);
+    public void accept(final BigDecimal left,
+                       final Number right) {
+        if (Visiting.CONTINUE == this.startVisit(left, right)) {
+            do {
+                if (right instanceof BigDecimal) {
+                    this.visit(left, (BigDecimal) right);
+                    break;
+                }
+                if (right instanceof BigInteger) {
+                    this.visit(left, (BigInteger) right);
+                    break;
+                }
+                if (right instanceof Double) {
+                    this.visit(left, (Double) right);
+                    break;
+                }
+                if (right instanceof Long) {
+                    this.visit(left, (Long) right);
+                    break;
+                }
+                this.visit(left, right);
+            } while (false);
+        }
+        this.endVisit(left, right);
     }
 
     protected void visit(final BigDecimal left, final BigDecimal right) {
@@ -124,27 +124,30 @@ public class BinaryExpressionNumberVisitor {
 
     // BIG INTEGER......................................................................................................
 
-    private void accept(final BigInteger left,
-                        final Number right) {
-        do {
-            if (right instanceof BigDecimal) {
-                this.visit(left, (BigDecimal) right);
-                break;
-            }
-            if (right instanceof BigInteger) {
-                this.visit(left, (BigInteger) right);
-                break;
-            }
-            if (right instanceof Double) {
-                this.visit(left, (Double) right);
-                break;
-            }
-            if (right instanceof Long) {
-                this.visit(left, (Long) right);
-                break;
-            }
-            this.visit(left, right);
-        } while (false);
+    public void accept(final BigInteger left,
+                       final Number right) {
+        if (Visiting.CONTINUE == this.startVisit(left, right)) {
+            do {
+                if (right instanceof BigDecimal) {
+                    this.visit(left, (BigDecimal) right);
+                    break;
+                }
+                if (right instanceof BigInteger) {
+                    this.visit(left, (BigInteger) right);
+                    break;
+                }
+                if (right instanceof Double) {
+                    this.visit(left, (Double) right);
+                    break;
+                }
+                if (right instanceof Long) {
+                    this.visit(left, (Long) right);
+                    break;
+                }
+                this.visit(left, right);
+            } while (false);
+        }
+        this.endVisit(left, right);
     }
 
     protected void visit(final BigInteger left, final BigDecimal right) {
@@ -169,27 +172,30 @@ public class BinaryExpressionNumberVisitor {
 
     // DOUBLE...........................................................................................................
 
-    private void accept(final Double left,
-                        final Number right) {
-        do {
-            if (right instanceof BigDecimal) {
-                this.visit(left, (BigDecimal) right);
-                break;
-            }
-            if (right instanceof BigInteger) {
-                this.visit(left, (BigInteger) right);
-                break;
-            }
-            if (right instanceof Double) {
-                this.visit(left, (Double) right);
-                break;
-            }
-            if (right instanceof Long) {
-                this.visit(left, (Long) right);
-                break;
-            }
-            this.visit(left, right);
-        } while (false);
+    public void accept(final Double left,
+                       final Number right) {
+        if (Visiting.CONTINUE == this.startVisit(left, right)) {
+            do {
+                if (right instanceof BigDecimal) {
+                    this.visit(left, (BigDecimal) right);
+                    break;
+                }
+                if (right instanceof BigInteger) {
+                    this.visit(left, (BigInteger) right);
+                    break;
+                }
+                if (right instanceof Double) {
+                    this.visit(left, (Double) right);
+                    break;
+                }
+                if (right instanceof Long) {
+                    this.visit(left, (Long) right);
+                    break;
+                }
+                this.visit(left, right);
+            } while (false);
+        }
+        this.endVisit(left, right);
     }
 
     protected void visit(final Double left, final BigDecimal right) {
@@ -213,27 +219,30 @@ public class BinaryExpressionNumberVisitor {
     }
     // LONG.............................................................................................................
 
-    private void accept(final Long left,
-                        final Number right) {
-        do {
-            if (right instanceof BigDecimal) {
-                this.visit(left, (BigDecimal) right);
-                break;
-            }
-            if (right instanceof BigInteger) {
-                this.visit(left, (BigInteger) right);
-                break;
-            }
-            if (right instanceof Double) {
-                this.visit(left, (Double) right);
-                break;
-            }
-            if (right instanceof Long) {
-                this.visit(left, (Long) right);
-                break;
-            }
-            this.visit(left, right);
-        } while (false);
+    public void accept(final Long left,
+                       final Number right) {
+        if (Visiting.CONTINUE == this.startVisit(left, right)) {
+            do {
+                if (right instanceof BigDecimal) {
+                    this.visit(left, (BigDecimal) right);
+                    break;
+                }
+                if (right instanceof BigInteger) {
+                    this.visit(left, (BigInteger) right);
+                    break;
+                }
+                if (right instanceof Double) {
+                    this.visit(left, (Double) right);
+                    break;
+                }
+                if (right instanceof Long) {
+                    this.visit(left, (Long) right);
+                    break;
+                }
+                this.visit(left, right);
+            } while (false);
+        }
+        this.endVisit(left, right);
     }
 
     protected void visit(final Long left, final BigDecimal right) {
