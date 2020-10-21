@@ -54,7 +54,7 @@ public class FakeExpressionNumberVisitor extends ExpressionNumberVisitor {
     }
 
     @Override
-    protected Number visit(final Number number) {
+    protected void visit(final Number number) {
         throw new UnsupportedOperationException();
     }
 }
