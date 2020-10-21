@@ -151,14 +151,6 @@ abstract class BinaryExpression extends ParentFixedExpression {
 
     abstract Expression applyLong(final long left, final long right, final ExpressionEvaluationContext context);
 
-    static boolean isByteShortIntegerLong(final Object value) {
-        return value instanceof Byte || value instanceof Short || value instanceof Integer || value instanceof Long;
-    }
-
-    static boolean isFloatDouble(final Object value) {
-        return value instanceof Float || value instanceof Double;
-    }
-
     // Object........................................................................................................
 
     final void toString0(final StringBuilder b) {
