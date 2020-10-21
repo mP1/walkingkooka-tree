@@ -29,59 +29,58 @@ abstract class BinaryExpression2 extends BinaryExpression {
         super(index, left, right);
     }
 
-    @Override final Expression apply(final Expression left,
-                                     final Expression right,
-                                     final ExpressionEvaluationContext context) {
-        Expression result;
+    @Override
+    final Expression apply(final ExpressionEvaluationContext context) {
+        final Expression result;
 
         try {
             for (; ; ) {
-                final Object leftValue = left.toValue(context);
-                final Object rightValue = right.toValue(context);
+                final Object left = this.left().toValue(context);
+                final Object right = this.right().toValue(context);
 
-                if (leftValue instanceof String) {
+                if (left instanceof String) {
 
                     result = this.applyText(
-                            context.convertOrFail(leftValue, String.class),
-                            context.convertOrFail(rightValue, String.class),
+                            context.convertOrFail(left, String.class),
+                            context.convertOrFail(right, String.class),
                             context);
                     break;
                 }
 
                 // both Long
-                final boolean leftByteShortIntegerLong = ExpressionNumber.isByteShortIntegerLong(leftValue);
-                final boolean rightByteShortIntegerLong = ExpressionNumber.isByteShortIntegerLong(rightValue);
+                final boolean leftByteShortIntegerLong = ExpressionNumber.isByteShortIntegerLong(left);
+                final boolean rightByteShortIntegerLong = ExpressionNumber.isByteShortIntegerLong(right);
                 if (leftByteShortIntegerLong && rightByteShortIntegerLong) {
                     result = this.applyLong(
-                            context.convertOrFail(leftValue, Long.class),
-                            context.convertOrFail(rightValue, Long.class),
+                            context.convertOrFail(left, Long.class),
+                            context.convertOrFail(right, Long.class),
                             context);
                     break;
                 }
                 // BigInteger and Long or both BigInteger
-                final boolean leftBigInteger = leftValue instanceof BigInteger;
-                final boolean rightBigInteger = rightValue instanceof BigInteger;
+                final boolean leftBigInteger = left instanceof BigInteger;
+                final boolean rightBigInteger = right instanceof BigInteger;
                 if (leftBigInteger && rightBigInteger ||
                         leftBigInteger && rightByteShortIntegerLong ||
                         leftByteShortIntegerLong && rightBigInteger) {
                     result = this.applyBigInteger(
-                            context.convertOrFail(leftValue, BigInteger.class),
-                            context.convertOrFail(rightValue, BigInteger.class),
+                            context.convertOrFail(left, BigInteger.class),
+                            context.convertOrFail(right, BigInteger.class),
                             context);
                     break;
                 }
                 // both must be double,
-                if (ExpressionNumber.isFloatDouble(leftValue) && ExpressionNumber.isFloatDouble(rightValue)) {
+                if (ExpressionNumber.isFloatDouble(left) && ExpressionNumber.isFloatDouble(right)) {
                     result = this.applyDouble(
-                            context.convertOrFail(leftValue, Double.class),
-                            context.convertOrFail(rightValue, Double.class),
+                            context.convertOrFail(left, Double.class),
+                            context.convertOrFail(right, Double.class),
                             context);
                     break;
                 }
                 // default is to promote both to BigDecimal.
                 result = this.applyBigDecimal(
-                        context.convertOrFail(leftValue, BigDecimal.class),
-                        context.convertOrFail(rightValue, BigDecimal.class),
+                        context.convertOrFail(left, BigDecimal.class),
+                        context.convertOrFail(right, BigDecimal.class),
                         context);
                 break;
             }
