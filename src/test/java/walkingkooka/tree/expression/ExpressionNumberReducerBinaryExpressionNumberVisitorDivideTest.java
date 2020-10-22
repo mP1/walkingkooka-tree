@@ -40,6 +40,11 @@ public final class ExpressionNumberReducerBinaryExpressionNumberVisitorDivideTes
     }
 
     @Override
+    Long longLongExpected() {
+        return (long)this.expected();
+    }
+
+    @Override
     Number function(final Number left, final Number right, final ExpressionNumberReducerContext context) {
         return ExpressionNumberReducerBinaryExpressionNumberVisitorDivide.compute(left, right, context);
     }

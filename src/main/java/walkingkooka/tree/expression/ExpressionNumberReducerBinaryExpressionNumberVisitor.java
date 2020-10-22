@@ -45,6 +45,12 @@ abstract class ExpressionNumberReducerBinaryExpressionNumberVisitor extends Bina
         return ExpressionNumberReducerBinaryExpressionNumberVisitorMultiply.compute(left, right, context);
     }
 
+    static Number power(final Number left,
+                           final Number right,
+                           final ExpressionNumberReducerContext context) {
+        return ExpressionNumberReducerBinaryExpressionNumberVisitorPower.compute(left, right, context);
+    }
+
     static Number subtract(final Number left,
                            final Number right,
                            final ExpressionNumberReducerContext context) {
@@ -162,7 +168,7 @@ abstract class ExpressionNumberReducerBinaryExpressionNumberVisitor extends Bina
 
     // helpers..........................................................................................................
 
-    private BigDecimal toBigDecimal(final Object value) {
+    final BigDecimal toBigDecimal(final Object value) {
         return this.convertOrFail(value, BigDecimal.class);
     }
 

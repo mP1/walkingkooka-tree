@@ -17,45 +17,45 @@
 
 package walkingkooka.tree.expression;
 
-public final class ExpressionNumberReducerBinaryExpressionNumberVisitorAddTest extends ExpressionNumberReducerBinaryExpressionNumberVisitorTestCase2<ExpressionNumberReducerBinaryExpressionNumberVisitorAdd> {
+public final class ExpressionNumberReducerBinaryExpressionNumberVisitorPowerTest extends ExpressionNumberReducerBinaryExpressionNumberVisitorTestCase2<ExpressionNumberReducerBinaryExpressionNumberVisitorPower> {
 
     @Override
-    public ExpressionNumberReducerBinaryExpressionNumberVisitorAdd createVisitor() {
-        return new ExpressionNumberReducerBinaryExpressionNumberVisitorAdd(CONTEXT);
+    public ExpressionNumberReducerBinaryExpressionNumberVisitorPower createVisitor() {
+        return new ExpressionNumberReducerBinaryExpressionNumberVisitorPower(CONTEXT);
     }
 
     @Override
     int left() {
-        return 1;
-    }
-
-    @Override
-    int right() {
         return 2;
     }
 
     @Override
-    int expected() {
+    int right() {
         return 3;
     }
 
     @Override
-    Long longLongExpected() {
-        return (long)this.expected();
+    int expected() {
+        return 8;
+    }
+
+    @Override
+    Double longLongExpected() {
+        return (double)this.expected();
     }
 
     @Override
     Number function(final Number left, final Number right, final ExpressionNumberReducerContext context) {
-        return ExpressionNumberReducerBinaryExpressionNumberVisitorAdd.compute(left, right, context);
+        return ExpressionNumberReducerBinaryExpressionNumberVisitorPower.compute(left, right, context);
     }
 
     @Override
     String expectedToString() {
-        return "add";
+        return "power";
     }
 
     @Override
-    public Class<ExpressionNumberReducerBinaryExpressionNumberVisitorAdd> type() {
-        return ExpressionNumberReducerBinaryExpressionNumberVisitorAdd.class;
+    public Class<ExpressionNumberReducerBinaryExpressionNumberVisitorPower> type() {
+        return ExpressionNumberReducerBinaryExpressionNumberVisitorPower.class;
     }
 }
