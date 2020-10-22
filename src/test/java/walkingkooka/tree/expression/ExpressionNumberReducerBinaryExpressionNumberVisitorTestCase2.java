@@ -120,63 +120,13 @@ public abstract class ExpressionNumberReducerBinaryExpressionNumberVisitorTestCa
 
     // Double...........................................................................................................
 
-    @Test
-    public final void testDoubleBigDecimal() {
-        this.doubleLeftFunctionAndCheck(new BigDecimal(this.right()), new BigDecimal(this.expected()));
-    }
-
-    @Test
-    public final void testDoubleBigInteger() {
-        this.doubleLeftFunctionAndCheck(BigInteger.valueOf(this.right()), BigDecimal.valueOf(this.expected()));
-    }
-
-    @Test
-    public final void testDoubleDouble() {
-        this.doubleLeftFunctionAndCheck(Double.valueOf(this.right()), Double.valueOf(this.expected()));
-    }
-
-    @Test
-    public final void testDoubleLong() {
-        this.doubleLeftFunctionAndCheck(Long.valueOf(this.right()), Double.valueOf(this.expected()));
-    }
-
-    @Test
-    public final void testDoubleNumber() {
-        this.doubleLeftFunctionAndCheck(this.right(), new BigDecimal(this.expected()));
-    }
-
-    private void doubleLeftFunctionAndCheck(final Number right, final Number expected) {
+    final void doubleLeftFunctionAndCheck(final Number right, final Number expected) {
         this.functionAndCheck(Double.valueOf(this.left()), right, expected);
     }
 
     // Long..............................................................................................................
 
-    @Test
-    public final void testLongBigDecimal() {
-        this.longLeftFunctionAndCheck(new BigDecimal(this.right()), new BigDecimal(this.expected()));
-    }
-
-    @Test
-    public final void testLongBigInteger() {
-        this.longLeftFunctionAndCheck(BigInteger.valueOf(this.right()), BigInteger.valueOf(this.expected()));
-    }
-
-    @Test
-    public final void testLongDouble() {
-        this.longLeftFunctionAndCheck(Double.valueOf(this.right()), Double.valueOf(this.expected()));
-    }
-
-    @Test
-    public final void testLongLong() {
-        this.longLeftFunctionAndCheck(Long.valueOf(this.right()), this.longLongExpected());
-    }
-
-    @Test
-    public final void testLongNumber() {
-        this.longLeftFunctionAndCheck(this.right(), new BigDecimal(this.expected()));
-    }
-
-    private void longLeftFunctionAndCheck(final Number right, final Number expected) {
+    final void longLeftFunctionAndCheck(final Number right, final Number expected) {
         this.functionAndCheck(Long.valueOf(this.left()), right, expected);
     }
 
@@ -199,8 +149,13 @@ public abstract class ExpressionNumberReducerBinaryExpressionNumberVisitorTestCa
     // helpers..........................................................................................................
 
     final void functionAndCheck(final Number left, final Number right, final Number expected) {
-        assertEquals(bigDecimalFix(expected), bigDecimalFix(this.function(left, right, CONTEXT)));
+        assertEquals(this.visitExpected(bigDecimalFix(expected)), bigDecimalFix(this.function(left, right, CONTEXT)));
     }
+
+    /**
+     * THe logical operations never return BigDecimal or Double this allows those expected value types to be fixed.
+     */
+    abstract Number visitExpected(final Number number);
 
     abstract int left();
 

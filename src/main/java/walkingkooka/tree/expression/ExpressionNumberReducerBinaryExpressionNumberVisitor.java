@@ -22,8 +22,7 @@ import java.math.BigInteger;
 import java.math.MathContext;
 
 /**
- * A {@link BinaryExpressionNumberVisitor} that converts both numbers to the same type and leaving four overloads
- * to do actual work.
+ * A {@link BinaryExpressionNumberVisitor} that is the base class for several visitors.
  */
 abstract class ExpressionNumberReducerBinaryExpressionNumberVisitor extends BinaryExpressionNumberVisitor {
 
@@ -33,6 +32,12 @@ abstract class ExpressionNumberReducerBinaryExpressionNumberVisitor extends Bina
         return ExpressionNumberReducerBinaryExpressionNumberVisitorAdd.compute(left, right, context);
     }
 
+    static Number and(final Number left,
+                      final Number right,
+                      final ExpressionNumberReducerContext context) {
+        return ExpressionNumberReducerBinaryExpressionNumberVisitorAnd.compute(left, right, context);
+    }
+
     static Number divide(final Number left,
                          final Number right,
                          final ExpressionNumberReducerContext context) {
@@ -40,8 +45,8 @@ abstract class ExpressionNumberReducerBinaryExpressionNumberVisitor extends Bina
     }
 
     static Number modulo(final Number left,
-                           final Number right,
-                           final ExpressionNumberReducerContext context) {
+                         final Number right,
+                         final ExpressionNumberReducerContext context) {
         return ExpressionNumberReducerBinaryExpressionNumberVisitorModulo.compute(left, right, context);
     }
 
@@ -52,8 +57,8 @@ abstract class ExpressionNumberReducerBinaryExpressionNumberVisitor extends Bina
     }
 
     static Number power(final Number left,
-                           final Number right,
-                           final ExpressionNumberReducerContext context) {
+                        final Number right,
+                        final ExpressionNumberReducerContext context) {
         return ExpressionNumberReducerBinaryExpressionNumberVisitorPower.compute(left, right, context);
     }
 
@@ -69,108 +74,71 @@ abstract class ExpressionNumberReducerBinaryExpressionNumberVisitor extends Bina
     }
 
     @Override
-    protected final void visit(final Number left, final Number right) {
-        this.accept(this.toBigDecimal(left), this.toBigDecimal(right));
-    }
+    protected abstract void visit(final Number left, final Number right);
 
     // BigDecimal.......................................................................................................
 
     protected abstract void visit(final BigDecimal left, final BigDecimal right);
 
     @Override
-    protected final void visit(final BigDecimal left, final BigInteger right) {
-        this.accept(left, this.toBigDecimal(right));
-    }
+    protected abstract void visit(final BigDecimal left, final BigInteger right);
 
     @Override
-    protected final void visit(final BigDecimal left, final Double right) {
-        this.accept(left, this.toBigDecimal(right));
-    }
+    protected abstract void visit(final BigDecimal left, final Double right);
 
     @Override
-    protected final void visit(final BigDecimal left, final Long right) {
-        this.accept(left, this.toBigDecimal(right));
-    }
+    protected abstract void visit(final BigDecimal left, final Long right);
 
     @Override
-    protected final void visit(final BigDecimal left, final Number right) {
-        this.accept(left, this.toBigDecimal(right));
-    }
+    protected abstract void visit(final BigDecimal left, final Number right);
 
     // BigInteger.......................................................................................................
 
-    @Override
-    protected final void visit(final BigInteger left, final BigDecimal right) {
-        this.accept(this.toBigDecimal(left), right);
-    }
+    protected abstract void visit(final BigInteger left, final BigDecimal right);
 
     @Override
-    abstract protected void visit(final BigInteger left, final BigInteger right);
+    protected abstract void visit(final BigInteger left, final BigInteger right);
 
     @Override
-    protected final void visit(final BigInteger left, final Double right) {
-        this.accept(this.toBigDecimal(left), this.toBigDecimal(right));
-    }
+    protected abstract void visit(final BigInteger left, final Double right);
 
     @Override
-    protected final void visit(final BigInteger left, final Long right) {
-        this.accept(left, this.toBigInteger(right));
-    }
+    protected abstract void visit(final BigInteger left, final Long right);
 
     @Override
-    protected final void visit(final BigInteger left, final Number right) {
-        this.accept(this.toBigDecimal(left), this.toBigDecimal(right));
-    }
+    protected abstract void visit(final BigInteger left, final Number right);
 
     // Double...........................................................................................................
 
-    @Override
-    protected final void visit(final Double left, final BigDecimal right) {
-        this.accept(this.toBigDecimal(left), right);
-    }
+    protected abstract void visit(final Double left, final BigDecimal right);
 
     @Override
-    protected final void visit(final Double left, final BigInteger right) {
-        this.accept(this.toBigDecimal(left), this.toBigDecimal(right));
-    }
+    protected abstract void visit(final Double left, final BigInteger right);
 
     @Override
     protected abstract void visit(final Double left, final Double right);
 
     @Override
-    protected final void visit(final Double left, final Long right) {
-        this.accept(left, this.toDouble(right));
-    }
+    protected abstract void visit(final Double left, final Long right);
 
     @Override
-    protected final void visit(final Double left, final Number right) {
-        this.accept(this.toBigDecimal(left), this.toBigDecimal(right));
-    }
+    protected abstract void visit(final Double left, final Number right);
 
     // Long.............................................................................................................
 
-    @Override
-    protected final void visit(final Long left, final BigDecimal right) {
-        this.accept(this.toBigDecimal(left), right);
-    }
+    protected abstract void visit(final Long left, final BigDecimal right);
 
     @Override
-    protected final void visit(final Long left, final BigInteger right) {
-        this.accept(this.toBigInteger(left), right);
-    }
+    protected abstract void visit(final Long left, final BigInteger right);
 
     @Override
-    protected final void visit(final Long left, final Double right) {
-        this.accept(this.toDouble(left), right);
-    }
+    protected abstract void visit(final Long left, final Double right);
 
     @Override
     protected abstract void visit(final Long left, final Long right);
 
     @Override
-    protected final void visit(final Long left, final Number right) {
-        this.accept(this.toBigDecimal(left), this.toBigDecimal(right));
-    }
+    protected abstract void visit(final Long left, final Number right);
 
     // helpers..........................................................................................................
 
@@ -178,17 +146,17 @@ abstract class ExpressionNumberReducerBinaryExpressionNumberVisitor extends Bina
         return this.convertOrFail(value, BigDecimal.class);
     }
 
-    private BigInteger toBigInteger(final Object value) {
+    final BigInteger toBigInteger(final Object value) {
         return this.convertOrFail(value, BigInteger.class);
     }
 
-    private Double toDouble(final Object value) {
+    final Double toDouble(final Object value) {
         return this.convertOrFail(value, Double.class);
     }
 
-//    private Long toLong(final Long value) {
-//        return this.convertOrFail(value, Long.class);
-//    }
+    final Long toLong(final Object value) {
+        return this.convertOrFail(value, Long.class);
+    }
 
     private <T> T convertOrFail(final Object value,
                                 final Class<T> target) {

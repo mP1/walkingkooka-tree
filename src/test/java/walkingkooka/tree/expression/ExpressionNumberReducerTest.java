@@ -27,6 +27,7 @@ import walkingkooka.math.DecimalNumberContexts;
 import walkingkooka.reflect.ClassTesting;
 import walkingkooka.reflect.JavaVisibility;
 
+import java.math.BigInteger;
 import java.math.MathContext;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -69,6 +70,11 @@ public final class ExpressionNumberReducerTest implements ClassTesting<Expressio
     @Test
     public void testAdd() {
         assertEquals(3L, this.reducer().add(2L).value());
+    }
+
+    @Test
+    public void testAnd() {
+        assertEquals(BigInteger.valueOf(3), this.reducer(0xF3).and(0xfL).value());
     }
 
     @Test

@@ -17,48 +17,34 @@
 
 package walkingkooka.tree.expression;
 
-import ch.obermuhlner.math.big.BigDecimalMath;
-
-import java.math.BigDecimal;
 import java.math.BigInteger;
 
-final class ExpressionNumberReducerBinaryExpressionNumberVisitorPower extends ExpressionNumberReducerBinaryExpressionNumberVisitorArithmetic {
+final class ExpressionNumberReducerBinaryExpressionNumberVisitorAnd extends ExpressionNumberReducerBinaryExpressionNumberVisitorLogical {
 
     static Number compute(final Number left,
                           final Number right,
                           final ExpressionNumberReducerContext context) {
-        final ExpressionNumberReducerBinaryExpressionNumberVisitorPower visitor = new ExpressionNumberReducerBinaryExpressionNumberVisitorPower(context);
+        final ExpressionNumberReducerBinaryExpressionNumberVisitorAnd visitor = new ExpressionNumberReducerBinaryExpressionNumberVisitorAnd(context);
         visitor.accept(left, right);
         return visitor.result;
     }
 
-    ExpressionNumberReducerBinaryExpressionNumberVisitorPower(final ExpressionNumberReducerContext context) {
+    ExpressionNumberReducerBinaryExpressionNumberVisitorAnd(final ExpressionNumberReducerContext context) {
         super(context);
     }
 
     @Override
-    protected void visit(final BigDecimal left, final BigDecimal right) {
-        this.result = BigDecimalMath.pow(left, right, this.context.mathContext());
-    }
-
-    @Override
     protected void visit(final BigInteger left, final BigInteger right) {
-        this.accept(this.toBigDecimal(left), this.toBigDecimal(right));
-        this.result = this.toBigDecimal(this.result).toBigIntegerExact();
-    }
-
-    @Override
-    protected void visit(final Double left, final Double right) {
-        this.result = Math.pow(left, right);
+        this.result = left.and(right);
     }
 
     @Override
     protected void visit(final Long left, final Long right) {
-        this.result = Math.pow(left, right); // TODO handle overflow https://github.com/mP1/walkingkooka-tree/issues/63
+        this.result = left & right; // TODO handle overflow https://github.com/mP1/walkingkooka-tree/issues/63
     }
 
     @Override
     public String toString() {
-        return "power";
+        return "and";
     }
 }

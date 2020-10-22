@@ -52,6 +52,14 @@ public final class ExpressionNumberReducer {
     }
 
     /**
+     * Logically ands using the given value, storing the result.
+     */
+    public ExpressionNumberReducer and(final Number value) {
+        this.value = ExpressionNumberReducerBinaryExpressionNumberVisitor.and(this.value, value, this.context);
+        return this;
+    }
+
+    /**
      * Divide by the given value, storing the result.
      */
     public ExpressionNumberReducer divide(final Number value) {
