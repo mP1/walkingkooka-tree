@@ -74,8 +74,6 @@ public final class PowerExpression extends BinaryArithmeticExpression {
 
     // Evaluation .......................................................................................................
 
-    // FIXME using Math.pow limits the precision of the calculation. A proper power for BigDecimal and BigInteger is required.
-
     @Override
     String applyText0(final String left, final String right, final ExpressionEvaluationContext context) {
         throw new UnsupportedOperationException(left + SYMBOL + right);
