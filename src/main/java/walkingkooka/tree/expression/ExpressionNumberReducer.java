@@ -84,6 +84,14 @@ public final class ExpressionNumberReducer {
     }
 
     /**
+     * Logically OR using the given value, storing the result.
+     */
+    public ExpressionNumberReducer or(final Number value) {
+        this.value = ExpressionNumberReducerBinaryExpressionNumberVisitor.or(this.value, value, this.context);
+        return this;
+    }
+
+    /**
      * Power by the given value, storing the result.
      */
     public ExpressionNumberReducer power(final Number value) {

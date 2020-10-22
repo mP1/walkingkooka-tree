@@ -98,6 +98,11 @@ public final class ExpressionNumberReducerTest implements ClassTesting<Expressio
     }
 
     @Test
+    public void testOr() {
+        assertEquals((long) (0xF0 | 0x01), this.reducer((long) 0xF0).or((long) 1).value());
+    }
+
+    @Test
     public void testPower() {
         assertEquals(8.0, this.reducer(2L).power(3L).value());
     }

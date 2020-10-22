@@ -56,6 +56,12 @@ abstract class ExpressionNumberReducerBinaryExpressionNumberVisitor extends Bina
         return ExpressionNumberReducerBinaryExpressionNumberVisitorMultiply.compute(left, right, context);
     }
 
+    static Number or(final Number left,
+                     final Number right,
+                     final ExpressionNumberReducerContext context) {
+        return ExpressionNumberReducerBinaryExpressionNumberVisitorOr.compute(left, right, context);
+    }
+
     static Number power(final Number left,
                         final Number right,
                         final ExpressionNumberReducerContext context) {
