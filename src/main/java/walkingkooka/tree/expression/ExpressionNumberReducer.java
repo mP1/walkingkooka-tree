@@ -25,12 +25,6 @@ import java.util.Objects;
  */
 public final class ExpressionNumberReducer {
 
-    public static Number add(final Number left,
-                             final Number right,
-                             final ExpressionNumberReducerContext context) {
-        return ExpressionNumberReducerAddBinaryExpressionNumberVisitor.add(left, right, context);
-    }
-
     /**
      * Creates a new {@link ExpressionNumberReducer} with the given value.
      */
@@ -53,7 +47,7 @@ public final class ExpressionNumberReducer {
      * Adds the given value, storing the result.
      */
     public ExpressionNumberReducer add(final Number value) {
-        this.value = add(this.value, value, this.context);
+        this.value = ExpressionNumberReducerAddBinaryExpressionNumberVisitor.add(this.value, value, this.context);
         return this;
     }
 
