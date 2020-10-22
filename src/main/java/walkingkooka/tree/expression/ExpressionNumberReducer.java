@@ -52,6 +52,14 @@ public final class ExpressionNumberReducer {
     }
 
     /**
+     * Multiply by the given value, storing the result.
+     */
+    public ExpressionNumberReducer multiply(final Number value) {
+        this.value = ExpressionNumberReducerBinaryExpressionNumberVisitor.multiply(this.value, value, this.context);
+        return this;
+    }
+
+    /**
      * Subtract the given value, storing the result.
      */
     public ExpressionNumberReducer subtract(final Number value) {
