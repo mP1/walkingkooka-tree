@@ -77,6 +77,11 @@ public final class ExpressionNumberReducerTest implements ClassTesting<Expressio
     }
 
     @Test
+    public void testMultiply() {
+        assertEquals(3L * 4L, this.reducer(3L).multiply(4L).value());
+    }
+
+    @Test
     public void testSubtract() {
         assertEquals(1L - -5L, this.reducer().subtract(-5L).value());
     }
@@ -87,7 +92,11 @@ public final class ExpressionNumberReducerTest implements ClassTesting<Expressio
     }
 
     private ExpressionNumberReducer reducer() {
-        return ExpressionNumberReducer.with(1L, CONTEXT);
+        return this.reducer(1L);
+    }
+
+    private ExpressionNumberReducer reducer(final Number number) {
+        return ExpressionNumberReducer.with(number, CONTEXT);
     }
 
     @Override
