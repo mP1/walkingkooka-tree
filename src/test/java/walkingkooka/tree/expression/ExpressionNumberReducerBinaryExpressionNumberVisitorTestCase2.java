@@ -220,6 +220,11 @@ public abstract class ExpressionNumberReducerBinaryExpressionNumberVisitorTestCa
 
     @Override
     public final String typeNamePrefix() {
-        return ExpressionNumberReducer.class.getSimpleName();
+        return ExpressionNumberReducerBinaryExpressionNumberVisitor.class.getSimpleName();
+    }
+
+    @Override
+    public final String typeNameSuffix() {
+        return "";
     }
 }

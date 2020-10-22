@@ -30,19 +30,19 @@ abstract class ExpressionNumberReducerBinaryExpressionNumberVisitor extends Bina
     static Number add(final Number left,
                       final Number right,
                       final ExpressionNumberReducerContext context) {
-        return ExpressionNumberReducerAddBinaryExpressionNumberVisitor.compute(left, right, context);
+        return ExpressionNumberReducerBinaryExpressionNumberVisitorAdd.compute(left, right, context);
     }
 
     static Number multiply(final Number left,
                            final Number right,
                            final ExpressionNumberReducerContext context) {
-        return ExpressionNumberReducerMultiplyBinaryExpressionNumberVisitor.compute(left, right, context);
+        return ExpressionNumberReducerBinaryExpressionNumberVisitorMultiply.compute(left, right, context);
     }
 
     static Number subtract(final Number left,
                            final Number right,
                            final ExpressionNumberReducerContext context) {
-        return ExpressionNumberReducerSubtractBinaryExpressionNumberVisitor.compute(left, right, context);
+        return ExpressionNumberReducerBinaryExpressionNumberVisitorSubtract.compute(left, right, context);
     }
 
     ExpressionNumberReducerBinaryExpressionNumberVisitor(final ExpressionNumberReducerContext context) {

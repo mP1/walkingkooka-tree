@@ -20,42 +20,42 @@ package walkingkooka.tree.expression;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 
-final class ExpressionNumberReducerMultiplyBinaryExpressionNumberVisitor extends ExpressionNumberReducerBinaryExpressionNumberVisitor {
+final class ExpressionNumberReducerBinaryExpressionNumberVisitorAdd extends ExpressionNumberReducerBinaryExpressionNumberVisitor {
 
     static Number compute(final Number left,
                           final Number right,
                           final ExpressionNumberReducerContext context) {
-        final ExpressionNumberReducerMultiplyBinaryExpressionNumberVisitor visitor = new ExpressionNumberReducerMultiplyBinaryExpressionNumberVisitor(context);
+        final ExpressionNumberReducerBinaryExpressionNumberVisitorAdd visitor = new ExpressionNumberReducerBinaryExpressionNumberVisitorAdd(context);
         visitor.accept(left, right);
         return visitor.result;
     }
 
-    ExpressionNumberReducerMultiplyBinaryExpressionNumberVisitor(final ExpressionNumberReducerContext context) {
+    ExpressionNumberReducerBinaryExpressionNumberVisitorAdd(final ExpressionNumberReducerContext context) {
         super(context);
     }
 
     @Override
     protected void visit(final BigDecimal left, final BigDecimal right) {
-        this.result = left.multiply(right, this.context.mathContext());
+        this.result = left.add(right, this.context.mathContext());
     }
 
     @Override
     protected void visit(final BigInteger left, final BigInteger right) {
-        this.result = left.multiply(right);
+        this.result = left.add(right);
     }
 
     @Override
     protected void visit(final Double left, final Double right) {
-        this.result = left * right;
+        this.result = left + right;
     }
 
     @Override
     protected void visit(final Long left, final Long right) {
-        this.result = left * right; // TODO handle overflow https://github.com/mP1/walkingkooka-tree/issues/63
+        this.result = left + right; // TODO handle overflow https://github.com/mP1/walkingkooka-tree/issues/63
     }
 
     @Override
     public String toString() {
-        return "multiply";
+        return "add";
     }
 }
