@@ -77,6 +77,11 @@ public final class ExpressionNumberReducerTest implements ClassTesting<Expressio
     }
 
     @Test
+    public void testSubtract() {
+        assertEquals(1L - -5L, this.reducer().subtract(-5L).value());
+    }
+
+    @Test
     public void testToString() {
         this.toStringAndCheck(this.reducer(), "1");
     }

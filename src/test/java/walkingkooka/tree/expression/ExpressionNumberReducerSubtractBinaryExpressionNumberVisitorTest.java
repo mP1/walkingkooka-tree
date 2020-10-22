@@ -17,16 +17,16 @@
 
 package walkingkooka.tree.expression;
 
-public final class ExpressionNumberReducerAddBinaryExpressionNumberVisitorTest extends ExpressionNumberReducerBinaryExpressionNumberVisitorTestCase2<ExpressionNumberReducerAddBinaryExpressionNumberVisitor> {
+public final class ExpressionNumberReducerSubtractBinaryExpressionNumberVisitorTest extends ExpressionNumberReducerBinaryExpressionNumberVisitorTestCase2<ExpressionNumberReducerSubtractBinaryExpressionNumberVisitor> {
 
     @Override
-    public ExpressionNumberReducerAddBinaryExpressionNumberVisitor createVisitor() {
-        return new ExpressionNumberReducerAddBinaryExpressionNumberVisitor(CONTEXT);
+    public ExpressionNumberReducerSubtractBinaryExpressionNumberVisitor createVisitor() {
+        return new ExpressionNumberReducerSubtractBinaryExpressionNumberVisitor(CONTEXT);
     }
 
     @Override
     int left() {
-        return 1;
+        return 5;
     }
 
     @Override
@@ -41,16 +41,16 @@ public final class ExpressionNumberReducerAddBinaryExpressionNumberVisitorTest e
 
     @Override
     Number function(final Number left, final Number right, final ExpressionNumberReducerContext context) {
-        return ExpressionNumberReducerAddBinaryExpressionNumberVisitor.compute(left, right, context);
+        return ExpressionNumberReducerSubtractBinaryExpressionNumberVisitor.compute(left, right, context);
     }
 
     @Override
     String expectedToString() {
-        return "add";
+        return "subtract";
     }
 
     @Override
-    public Class<ExpressionNumberReducerAddBinaryExpressionNumberVisitor> type() {
-        return ExpressionNumberReducerAddBinaryExpressionNumberVisitor.class;
+    public Class<ExpressionNumberReducerSubtractBinaryExpressionNumberVisitor> type() {
+        return ExpressionNumberReducerSubtractBinaryExpressionNumberVisitor.class;
     }
 }

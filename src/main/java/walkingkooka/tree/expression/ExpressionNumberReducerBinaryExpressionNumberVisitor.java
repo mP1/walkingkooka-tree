@@ -27,6 +27,18 @@ import java.math.MathContext;
  */
 abstract class ExpressionNumberReducerBinaryExpressionNumberVisitor extends BinaryExpressionNumberVisitor {
 
+    static Number add(final Number left,
+                      final Number right,
+                      final ExpressionNumberReducerContext context) {
+        return ExpressionNumberReducerAddBinaryExpressionNumberVisitor.compute(left, right, context);
+    }
+
+    static Number subtract(final Number left,
+                           final Number right,
+                           final ExpressionNumberReducerContext context) {
+        return ExpressionNumberReducerSubtractBinaryExpressionNumberVisitor.compute(left, right, context);
+    }
+
     ExpressionNumberReducerBinaryExpressionNumberVisitor(final ExpressionNumberReducerContext context) {
         super();
         this.context = context;

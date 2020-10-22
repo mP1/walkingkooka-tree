@@ -47,7 +47,15 @@ public final class ExpressionNumberReducer {
      * Adds the given value, storing the result.
      */
     public ExpressionNumberReducer add(final Number value) {
-        this.value = ExpressionNumberReducerAddBinaryExpressionNumberVisitor.add(this.value, value, this.context);
+        this.value = ExpressionNumberReducerBinaryExpressionNumberVisitor.add(this.value, value, this.context);
+        return this;
+    }
+
+    /**
+     * Subtract the given value, storing the result.
+     */
+    public ExpressionNumberReducer subtract(final Number value) {
+        this.value = ExpressionNumberReducerBinaryExpressionNumberVisitor.subtract(this.value, value, this.context);
         return this;
     }
 
