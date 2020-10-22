@@ -17,45 +17,45 @@
 
 package walkingkooka.tree.expression;
 
-public final class ExpressionNumberReducerBinaryExpressionNumberVisitorAddTest extends ExpressionNumberReducerBinaryExpressionNumberVisitorArithmeticTestCase<ExpressionNumberReducerBinaryExpressionNumberVisitorAdd> {
+public final class ExpressionNumberReducerBinaryExpressionNumberVisitorAndTest extends ExpressionNumberReducerBinaryExpressionNumberVisitorLogicalTestCase<ExpressionNumberReducerBinaryExpressionNumberVisitorAnd> {
 
     @Override
-    public ExpressionNumberReducerBinaryExpressionNumberVisitorAdd createVisitor() {
-        return new ExpressionNumberReducerBinaryExpressionNumberVisitorAdd(CONTEXT);
+    public ExpressionNumberReducerBinaryExpressionNumberVisitorAnd createVisitor() {
+        return new ExpressionNumberReducerBinaryExpressionNumberVisitorAnd(CONTEXT);
     }
 
     @Override
     int left() {
-        return 1;
+        return 0xF3;
     }
 
     @Override
     int right() {
-        return 2;
+        return 0x0F;
     }
 
     @Override
     int expected() {
-        return 3;
+        return this.left() & this.right();
     }
 
     @Override
     Long longLongExpected() {
-        return (long)this.expected();
+        return (long) this.expected();
     }
 
     @Override
     Number function(final Number left, final Number right, final ExpressionNumberReducerContext context) {
-        return ExpressionNumberReducerBinaryExpressionNumberVisitorAdd.compute(left, right, context);
+        return ExpressionNumberReducerBinaryExpressionNumberVisitorAnd.compute(left, right, context);
     }
 
     @Override
     String expectedToString() {
-        return "add";
+        return "and";
     }
 
     @Override
-    public Class<ExpressionNumberReducerBinaryExpressionNumberVisitorAdd> type() {
-        return ExpressionNumberReducerBinaryExpressionNumberVisitorAdd.class;
+    public Class<ExpressionNumberReducerBinaryExpressionNumberVisitorAnd> type() {
+        return ExpressionNumberReducerBinaryExpressionNumberVisitorAnd.class;
     }
 }
