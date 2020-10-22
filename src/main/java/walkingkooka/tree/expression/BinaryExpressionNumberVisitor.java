@@ -76,8 +76,8 @@ public class BinaryExpressionNumberVisitor {
 
     // BIG DECIMAL......................................................................................................
 
-    public void accept(final BigDecimal left,
-                       final Number right) {
+    public final void accept(final BigDecimal left,
+                             final Number right) {
         if (Visiting.CONTINUE == this.startVisit(left, right)) {
             do {
                 if (right instanceof BigDecimal) {
@@ -124,8 +124,8 @@ public class BinaryExpressionNumberVisitor {
 
     // BIG INTEGER......................................................................................................
 
-    public void accept(final BigInteger left,
-                       final Number right) {
+    public final void accept(final BigInteger left,
+                             final Number right) {
         if (Visiting.CONTINUE == this.startVisit(left, right)) {
             do {
                 if (right instanceof BigDecimal) {
@@ -172,8 +172,8 @@ public class BinaryExpressionNumberVisitor {
 
     // DOUBLE...........................................................................................................
 
-    public void accept(final Double left,
-                       final Number right) {
+    public final void accept(final Double left,
+                             final Number right) {
         if (Visiting.CONTINUE == this.startVisit(left, right)) {
             do {
                 if (right instanceof BigDecimal) {
@@ -219,8 +219,8 @@ public class BinaryExpressionNumberVisitor {
     }
     // LONG.............................................................................................................
 
-    public void accept(final Long left,
-                       final Number right) {
+    public final void accept(final Long left,
+                             final Number right) {
         if (Visiting.CONTINUE == this.startVisit(left, right)) {
             do {
                 if (right instanceof BigDecimal) {
