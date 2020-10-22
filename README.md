@@ -30,12 +30,6 @@ combining the expressiveness, power into solutions handling graphs.
 
 
 
-# Design
-
-All `Node` implementations in this project are immutable, all their apparent mutator methods actually return a different graph
-with the new graph. 
-
-
 ## Navigation
 All `Node` include a reference to their parent and children, along with helpers to find previous and following siblings.
 There are a variety of other navigation aides each best suited to different use cases with a brief summary below. A familiar
