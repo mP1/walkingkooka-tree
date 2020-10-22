@@ -20,6 +20,7 @@ package walkingkooka.tree.expression.function;
 import walkingkooka.Context;
 import walkingkooka.Either;
 import walkingkooka.collect.list.Lists;
+import walkingkooka.convert.ConvertOrFailFunction;
 import walkingkooka.locale.HasLocale;
 import walkingkooka.math.HasMathContext;
 import walkingkooka.tree.expression.ExpressionEvaluationException;
@@ -30,7 +31,7 @@ import java.util.List;
 /**
  * Context that accompanies a {@link ExpressionFunction}.
  */
-public interface ExpressionFunctionContext extends Context, HasLocale, HasMathContext {
+public interface ExpressionFunctionContext extends Context, ConvertOrFailFunction, HasLocale, HasMathContext {
 
     /**
      * Constant for functions without any parameters.

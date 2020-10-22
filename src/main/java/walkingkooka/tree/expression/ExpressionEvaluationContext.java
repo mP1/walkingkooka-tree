@@ -20,6 +20,7 @@ package walkingkooka.tree.expression;
 import walkingkooka.Context;
 import walkingkooka.Either;
 import walkingkooka.collect.list.Lists;
+import walkingkooka.convert.ConvertOrFailFunction;
 import walkingkooka.math.DecimalNumberContext;
 import walkingkooka.math.HasMathContext;
 
@@ -29,7 +30,7 @@ import java.util.Optional;
 /**
  * Context that travels during any expression evaluation.
  */
-public interface ExpressionEvaluationContext extends Context, DecimalNumberContext, HasMathContext {
+public interface ExpressionEvaluationContext extends Context, ConvertOrFailFunction, DecimalNumberContext, HasMathContext {
 
     /**
      * Constant for functions without any parameters.
