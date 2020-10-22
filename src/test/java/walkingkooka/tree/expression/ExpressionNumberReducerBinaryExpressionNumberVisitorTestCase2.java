@@ -168,7 +168,7 @@ public abstract class ExpressionNumberReducerBinaryExpressionNumberVisitorTestCa
 
     @Test
     public final void testLongLong() {
-        this.longLeftFunctionAndCheck(Long.valueOf(this.right()), Long.valueOf(this.expected()));
+        this.longLeftFunctionAndCheck(Long.valueOf(this.right()), this.longLongExpected());
     }
 
     @Test
@@ -207,6 +207,8 @@ public abstract class ExpressionNumberReducerBinaryExpressionNumberVisitorTestCa
     abstract int right();
 
     abstract int expected();
+
+    abstract Number longLongExpected();
 
     abstract Number function(final Number left, final Number right, final ExpressionNumberReducerContext context);
 

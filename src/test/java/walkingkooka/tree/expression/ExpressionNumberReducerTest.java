@@ -87,6 +87,11 @@ public final class ExpressionNumberReducerTest implements ClassTesting<Expressio
     }
 
     @Test
+    public void testPower() {
+        assertEquals(8.0, this.reducer(2L).power(3L).value());
+    }
+
+    @Test
     public void testSubtract() {
         assertEquals(1L - -5L, this.reducer().subtract(-5L).value());
     }
