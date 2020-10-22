@@ -39,6 +39,12 @@ abstract class ExpressionNumberReducerBinaryExpressionNumberVisitor extends Bina
         return ExpressionNumberReducerBinaryExpressionNumberVisitorDivide.compute(left, right, context);
     }
 
+    static Number modulo(final Number left,
+                           final Number right,
+                           final ExpressionNumberReducerContext context) {
+        return ExpressionNumberReducerBinaryExpressionNumberVisitorModulo.compute(left, right, context);
+    }
+
     static Number multiply(final Number left,
                            final Number right,
                            final ExpressionNumberReducerContext context) {

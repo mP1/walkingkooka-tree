@@ -60,6 +60,14 @@ public final class ExpressionNumberReducer {
     }
 
     /**
+     * The modulo using the value, storing the result.
+     */
+    public ExpressionNumberReducer modulo(final Number value) {
+        this.value = ExpressionNumberReducerBinaryExpressionNumberVisitor.modulo(this.value, value, this.context);
+        return this;
+    }
+
+    /**
      * Multiply by the given value, storing the result.
      */
     public ExpressionNumberReducer multiply(final Number value) {
