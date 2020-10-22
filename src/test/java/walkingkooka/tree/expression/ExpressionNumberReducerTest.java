@@ -113,6 +113,11 @@ public final class ExpressionNumberReducerTest implements ClassTesting<Expressio
     }
 
     @Test
+    public void testXor() {
+        assertEquals((long) (0xF1 ^ 0x03), this.reducer((long) 0xF1).xor(3L).value());
+    }
+
+    @Test
     public void testToString() {
         this.toStringAndCheck(this.reducer(), "1");
     }

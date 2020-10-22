@@ -108,6 +108,14 @@ public final class ExpressionNumberReducer {
     }
 
     /**
+     * Logically XOR using the given value, storing the result.
+     */
+    public ExpressionNumberReducer xor(final Number value) {
+        this.value = ExpressionNumberReducerBinaryExpressionNumberVisitor.xor(this.value, value, this.context);
+        return this;
+    }
+
+    /**
      * The context used to convert numbers to a requested target type.
      */
     private final ExpressionNumberReducerContext context;
