@@ -30,7 +30,7 @@ import java.util.Optional;
 /**
  * Context that travels during any expression evaluation.
  */
-public interface ExpressionEvaluationContext extends Context, ConvertOrFailFunction, DecimalNumberContext, HasMathContext {
+public interface ExpressionEvaluationContext extends Context, ConvertOrFailFunction, DecimalNumberContext, ExpressionNumberReducerContext, HasMathContext {
 
     /**
      * Constant for functions without any parameters.
