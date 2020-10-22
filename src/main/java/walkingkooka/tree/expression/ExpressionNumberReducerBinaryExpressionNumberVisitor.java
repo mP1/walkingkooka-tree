@@ -74,6 +74,12 @@ abstract class ExpressionNumberReducerBinaryExpressionNumberVisitor extends Bina
         return ExpressionNumberReducerBinaryExpressionNumberVisitorSubtract.compute(left, right, context);
     }
 
+    static Number xor(final Number left,
+                      final Number right,
+                      final ExpressionNumberReducerContext context) {
+        return ExpressionNumberReducerBinaryExpressionNumberVisitorXor.compute(left, right, context);
+    }
+
     ExpressionNumberReducerBinaryExpressionNumberVisitor(final ExpressionNumberReducerContext context) {
         super();
         this.context = context;
