@@ -44,6 +44,14 @@ public final class ExpressionNumberReducer {
     }
 
     /**
+     * Abs the given value, storing the result.
+     */
+    public ExpressionNumberReducer abs() {
+        this.value = ExpressionNumberReducerExpressionNumberVisitor.abs(this.value, this.context);
+        return this;
+    }
+
+    /**
      * Adds the given value, storing the result.
      */
     public ExpressionNumberReducer add(final Number value) {

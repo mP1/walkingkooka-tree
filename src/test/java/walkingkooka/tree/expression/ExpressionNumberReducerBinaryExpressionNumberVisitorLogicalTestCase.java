@@ -23,7 +23,7 @@ import java.math.BigDecimal;
 import java.math.BigInteger;
 
 public abstract class ExpressionNumberReducerBinaryExpressionNumberVisitorLogicalTestCase<V extends ExpressionNumberReducerBinaryExpressionNumberVisitorLogical>
-        extends ExpressionNumberReducerBinaryExpressionNumberVisitorTestCase2<V> {
+        extends ExpressionNumberReducerBinaryExpressionNumberVisitorTestCase<V> {
 
     ExpressionNumberReducerBinaryExpressionNumberVisitorLogicalTestCase() {
         super();

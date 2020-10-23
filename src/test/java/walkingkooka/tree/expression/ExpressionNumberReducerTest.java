@@ -68,6 +68,11 @@ public final class ExpressionNumberReducerTest implements ClassTesting<Expressio
     }
 
     @Test
+    public void testAbs() {
+        assertEquals(3L, this.reducer(3L).abs().value());
+    }
+
+    @Test
     public void testAdd() {
         assertEquals(3L, this.reducer().add(2L).value());
     }
