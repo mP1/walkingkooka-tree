@@ -90,6 +90,13 @@ public final class ExpressionNumberReducer {
     }
 
     /**
+     * Compares if the current value is greater than equal the given value.
+     */
+    public boolean greaterThanEquals(final Number value) {
+        return ExpressionNumberReducerBinaryExpressionNumberVisitor.greaterThanEquals(this.value, value, this.context);
+    }
+
+    /**
      * Compares if the current value is less than the given value.
      */
     public boolean lessThan(final Number value) {
