@@ -50,6 +50,12 @@ abstract class ExpressionNumberReducerBinaryExpressionNumberVisitor extends Bina
         return ExpressionNumberReducerBinaryExpressionNumberVisitorEquals.compare(left, right, context);
     }
 
+    static boolean greaterThan(final Number left,
+                               final Number right,
+                               final ExpressionNumberReducerContext context) {
+        return ExpressionNumberReducerBinaryExpressionNumberVisitorGreaterThan.compare(left, right, context);
+    }
+
     static boolean lessThan(final Number left,
                             final Number right,
                             final ExpressionNumberReducerContext context) {
