@@ -32,6 +32,11 @@ abstract class ExpressionNumberReducerExpressionNumberVisitor extends Expression
         return ExpressionNumberReducerExpressionNumberVisitorNegate.compute(value, context);
     }
 
+    static Number not(final Number value,
+                      final ExpressionNumberReducerContext context) {
+        return ExpressionNumberReducerExpressionNumberVisitorNot.compute(value, context);
+    }
+
     ExpressionNumberReducerExpressionNumberVisitor(final ExpressionNumberReducerContext context) {
         super();
         this.context = context;
@@ -53,16 +58,28 @@ abstract class ExpressionNumberReducerExpressionNumberVisitor extends Expression
     protected final void visit(final Number number) {
         final ExpressionNumberReducerContext context = this.context;
 
-        if(ExpressionNumber.isByteShortIntegerLong(number)) {
+        if (ExpressionNumber.isByteShortIntegerLong(number)) {
             this.accept(context.convertOrFail(number, Long.class));
         } else {
-            if(ExpressionNumber.isFloatDouble(number)) {
-                this.accept(context.convertOrFail(number, Double.class));
+            if (ExpressionNumber.isFloatDouble(number)) {
+                this.acceptFloatDouble(number);
             } else {
-                this.accept(context.convertOrFail(number, BigDecimal.class));
+                this.acceptNumber(number);
             }
         }
     }
+
+    private void acceptFloatDouble(final Number number) {
+        this.accept(this.context.convertOrFail(number, this.acceptFloatDoubleType()));
+    }
+
+    abstract Class<? extends Number> acceptFloatDoubleType();
+
+    private void acceptNumber(final Number number) {
+        this.accept(this.context.convertOrFail(number, this.acceptNumberType()));
+    }
+
+    abstract Class<? extends Number> acceptNumberType();
 
     final ExpressionNumberReducerContext context;
 

@@ -20,41 +20,31 @@ package walkingkooka.tree.expression;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 
-final class ExpressionNumberReducerExpressionNumberVisitorNegate extends ExpressionNumberReducerExpressionNumberVisitorArithmetic {
+final class ExpressionNumberReducerExpressionNumberVisitorNot extends ExpressionNumberReducerExpressionNumberVisitorLogical {
 
     static Number compute(final Number value,
                           final ExpressionNumberReducerContext context) {
-        final ExpressionNumberReducerExpressionNumberVisitorNegate visitor = new ExpressionNumberReducerExpressionNumberVisitorNegate(context);
+        final ExpressionNumberReducerExpressionNumberVisitorNot visitor = new ExpressionNumberReducerExpressionNumberVisitorNot(context);
         visitor.accept(value);
         return visitor.result;
     }
 
-    ExpressionNumberReducerExpressionNumberVisitorNegate(final ExpressionNumberReducerContext context) {
+    ExpressionNumberReducerExpressionNumberVisitorNot(final ExpressionNumberReducerContext context) {
         super(context);
     }
 
     @Override
-    protected void visit(final BigDecimal number) {
-        this.result = number.negate(this.context.mathContext());
-    }
-
-    @Override
     protected void visit(final BigInteger number) {
-        this.result = number.negate();
-    }
-
-    @Override
-    protected void visit(final Double number) {
-        this.result = -number;
+        this.result = number.not();
     }
 
     @Override
     protected void visit(final Long number) {
-        this.result = -number; // TODO overflow/underflow handling.
+        this.result = ~ number;
     }
 
     @Override
     public String toString() {
-        return "negate";
+        return "not";
     }
 }
