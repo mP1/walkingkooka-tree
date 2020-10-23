@@ -115,6 +115,13 @@ public final class ExpressionNumberReducer {
     }
 
     /**
+     * Compares the current value with the given value for in equality.
+     */
+    public boolean notEquals(final Number value) {
+        return ExpressionNumberReducerBinaryExpressionNumberVisitor.notEquals(this.value, value, this.context);
+    }
+
+    /**
      * Logically OR using the given value, storing the result.
      */
     public ExpressionNumberReducer or(final Number value) {

@@ -118,6 +118,11 @@ public final class ExpressionNumberReducerTest implements ClassTesting<Expressio
     }
 
     @Test
+    public void testNotEquals() {
+        assertEquals(true, this.reducer(59L).notEquals(60L));
+    }
+
+    @Test
     public void testNegateTwice() {
         assertEquals(3L, this.reducer(3L).negate().negate().value());
     }
