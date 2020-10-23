@@ -19,15 +19,9 @@ package walkingkooka.tree.expression;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.ToStringTesting;
-import walkingkooka.convert.ConverterContext;
-import walkingkooka.convert.ConverterContexts;
-import walkingkooka.convert.Converters;
-import walkingkooka.datetime.DateTimeContexts;
-import walkingkooka.math.DecimalNumberContexts;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
-import java.math.MathContext;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -39,87 +33,6 @@ public abstract class ExpressionNumberReducerBinaryExpressionNumberVisitorTestCa
         super();
     }
 
-    // BigDecimal.......................................................................................................
-
-    @Test
-    public final void testBigDecimalBigDecimal() {
-        this.bigDecimalLeftFunctionAndCheck(new BigDecimal(this.right()), new BigDecimal(this.expected()));
-    }
-
-    @Test
-    public final void testBigDecimalBigInteger() {
-        this.bigDecimalLeftFunctionAndCheck(BigInteger.valueOf(this.right()), new BigDecimal(this.expected()));
-    }
-
-    @Test
-    public final void testBigDecimalDouble() {
-        this.bigDecimalLeftFunctionAndCheck(Double.valueOf(this.right()), new BigDecimal(this.expected()));
-    }
-
-    @Test
-    public final void testBigDecimalLong() {
-        this.bigDecimalLeftFunctionAndCheck(Long.valueOf(this.right()), new BigDecimal(this.expected()));
-    }
-
-    @Test
-    public final void testBigDecimalNumber() {
-        this.bigDecimalLeftFunctionAndCheck(this.right(), new BigDecimal(this.expected()));
-    }
-
-    private void bigDecimalLeftFunctionAndCheck(final Number right, final Number expected) {
-        this.functionAndCheck(BigDecimal.valueOf(this.left()), right, expected);
-    }
-
-    // BigInteger........................................................................................................
-
-    @Test
-    public final void testBigIntegerBigDecimal() {
-        this.bigIntegerLeftFunctionAndCheck(new BigDecimal(this.right()), new BigDecimal(this.expected()));
-    }
-
-    @Test
-    public final void testBigIntegerBigInteger() {
-        this.bigIntegerLeftFunctionAndCheck(BigInteger.valueOf(this.right()), BigInteger.valueOf(this.expected()));
-    }
-
-    @Test
-    public final void testBigIntegerDouble() {
-        this.bigIntegerLeftFunctionAndCheck(Double.valueOf(this.right()), new BigDecimal(this.expected()));
-    }
-
-    @Test
-    public final void testBigIntegerLong() {
-        this.bigIntegerLeftFunctionAndCheck(Long.valueOf(this.right()), BigInteger.valueOf(this.expected()));
-    }
-
-    @Test
-    public final void testBigIntegerNumber() {
-        this.bigIntegerLeftFunctionAndCheck(this.right(), new BigDecimal(this.expected()));
-    }
-
-    private void bigIntegerLeftFunctionAndCheck(final Number right, final Number expected) {
-        this.functionAndCheck(BigInteger.valueOf(this.left()), right, expected);
-    }
-
-    // Double...........................................................................................................
-
-    final void doubleLeftFunctionAndCheck(final Number right, final Number expected) {
-        this.functionAndCheck(Double.valueOf(this.left()), right, expected);
-    }
-
-    // Long..............................................................................................................
-
-    final void longLeftFunctionAndCheck(final Number right, final Number expected) {
-        this.functionAndCheck(Long.valueOf(this.left()), right, expected);
-    }
-
-    // Number...........................................................................................................
-
-    @Test
-    public final void testNumberNumber() {
-        this.functionAndCheck(this.left(), this.right(), new BigDecimal(this.expected()));
-    }
-
     // toString...........................................................................................................
 
     @Test
@@ -129,26 +42,9 @@ public abstract class ExpressionNumberReducerBinaryExpressionNumberVisitorTestCa
 
     abstract String expectedToString();
 
-    // helpers..........................................................................................................
-
-    final void functionAndCheck(final Number left, final Number right, final Number expected) {
-        assertEquals(this.visitExpected(bigDecimalFix(expected)), bigDecimalFix(this.function(left, right, CONTEXT)));
-    }
-
-    /**
-     * THe logical operations never return BigDecimal or Double this allows those expected value types to be fixed.
-     */
-    abstract Number visitExpected(final Number number);
-
     abstract int left();
 
     abstract int right();
-
-    abstract int expected();
-
-    abstract Number longLongExpected();
-
-    abstract Number function(final Number left, final Number right, final ExpressionNumberReducerContext context);
 
     @Override
     public final String typeNamePrefix() {

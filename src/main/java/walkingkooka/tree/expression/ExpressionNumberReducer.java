@@ -76,6 +76,13 @@ public final class ExpressionNumberReducer {
     }
 
     /**
+     * Compares the current value with the given value.
+     */
+    public boolean equals(final Number value) {
+        return ExpressionNumberReducerBinaryExpressionNumberVisitor.equals(this.value, value, this.context);
+    }
+
+    /**
      * The modulo using the value, storing the result.
      */
     public ExpressionNumberReducer modulo(final Number value) {
