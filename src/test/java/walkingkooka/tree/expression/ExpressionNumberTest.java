@@ -182,6 +182,11 @@ public final class ExpressionNumberTest implements ClassTesting<ExpressionNumber
     }
 
     @Test
+    public void testIsExpressionNumber() {
+        isAndCheck(ExpressionNumber.with(1, ExpressionNumberContexts.fake()), true);
+    }
+
+    @Test
     public void testIsUnknown() {
         isAndCheck(new TestNumber(), false);
     }
