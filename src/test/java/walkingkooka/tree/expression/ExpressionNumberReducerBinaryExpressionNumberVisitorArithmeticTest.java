@@ -17,7 +17,7 @@
 
 package walkingkooka.tree.expression;
 
-public final class ExpressionNumberReducerBinaryExpressionNumberVisitorArithmeticTest extends ExpressionNumberReducerBinaryExpressionNumberVisitorTestCase<ExpressionNumberReducerBinaryExpressionNumberVisitorArithmetic> {
+public final class ExpressionNumberReducerBinaryExpressionNumberVisitorArithmeticTest extends ExpressionNumberReducerTestCase<ExpressionNumberReducerBinaryExpressionNumberVisitorArithmetic> {
     @Override
     public Class<ExpressionNumberReducerBinaryExpressionNumberVisitorArithmetic> type() {
         return ExpressionNumberReducerBinaryExpressionNumberVisitorArithmetic.class;
