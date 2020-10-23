@@ -92,6 +92,14 @@ public final class ExpressionNumberReducer {
     }
 
     /**
+     * Negate the current value, storing the result.
+     */
+    public ExpressionNumberReducer negate() {
+        this.value = ExpressionNumberReducerExpressionNumberVisitor.negate(this.value, this.context);
+        return this;
+    }
+
+    /**
      * Logically OR using the given value, storing the result.
      */
     public ExpressionNumberReducer or(final Number value) {

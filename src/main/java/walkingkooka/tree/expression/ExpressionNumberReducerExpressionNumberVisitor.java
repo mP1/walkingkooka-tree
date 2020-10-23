@@ -27,6 +27,11 @@ abstract class ExpressionNumberReducerExpressionNumberVisitor extends Expression
         return ExpressionNumberReducerExpressionNumberVisitorAbs.compute(value, context);
     }
 
+    static Number negate(final Number value,
+                         final ExpressionNumberReducerContext context) {
+        return ExpressionNumberReducerExpressionNumberVisitorNegate.compute(value, context);
+    }
+
     ExpressionNumberReducerExpressionNumberVisitor(final ExpressionNumberReducerContext context) {
         super();
         this.context = context;
