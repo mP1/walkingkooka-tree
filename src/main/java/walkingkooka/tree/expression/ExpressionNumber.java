@@ -49,7 +49,11 @@ public abstract class ExpressionNumber extends Number {
      * Returns true if the value type is one of the supported or upcastable types.
      */
     public static boolean is(final Object value) {
-        return isByteShortIntegerLong(value) || isFloatDouble(value) || value instanceof BigDecimal || value instanceof BigInteger;
+        return isByteShortIntegerLong(value) ||
+                isFloatDouble(value) ||
+                value instanceof BigDecimal ||
+                value instanceof BigInteger ||
+                value instanceof ExpressionNumber;
     }
 
     public static Class<? extends Number> wider(final Object value) {
