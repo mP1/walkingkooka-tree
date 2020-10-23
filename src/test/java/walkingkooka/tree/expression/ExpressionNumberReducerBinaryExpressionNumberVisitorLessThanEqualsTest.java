@@ -17,10 +17,10 @@
 
 package walkingkooka.tree.expression;
 
-public final class ExpressionNumberReducerBinaryExpressionNumberVisitorLessThanTest extends ExpressionNumberReducerBinaryExpressionNumberVisitorComparisonTestCase<ExpressionNumberReducerBinaryExpressionNumberVisitorLessThan> {
+public final class ExpressionNumberReducerBinaryExpressionNumberVisitorLessThanEqualsTest extends ExpressionNumberReducerBinaryExpressionNumberVisitorComparisonTestCase<ExpressionNumberReducerBinaryExpressionNumberVisitorLessThanEquals> {
     @Override
     boolean function(final Number left, final Number right, final ExpressionNumberReducerContext context) {
-        return ExpressionNumberReducerBinaryExpressionNumberVisitorLessThan.compare(left, right, context);
+        return ExpressionNumberReducerBinaryExpressionNumberVisitorLessThanEquals.compare(left, right, context);
     }
 
     @Override
@@ -40,21 +40,21 @@ public final class ExpressionNumberReducerBinaryExpressionNumberVisitorLessThanT
 
     @Override
     int right3() {
-        return 3;
+        return 1;
     }
 
     @Override
     String expectedToString() {
-        return "lessThan";
+        return "lessThanEquals";
     }
 
     @Override
-    public ExpressionNumberReducerBinaryExpressionNumberVisitorLessThan createVisitor() {
-        return new ExpressionNumberReducerBinaryExpressionNumberVisitorLessThan(null);
+    public ExpressionNumberReducerBinaryExpressionNumberVisitorLessThanEquals createVisitor() {
+        return new ExpressionNumberReducerBinaryExpressionNumberVisitorLessThanEquals(null);
     }
 
     @Override
-    public Class<ExpressionNumberReducerBinaryExpressionNumberVisitorLessThan> type() {
-        return ExpressionNumberReducerBinaryExpressionNumberVisitorLessThan.class;
+    public Class<ExpressionNumberReducerBinaryExpressionNumberVisitorLessThanEquals> type() {
+        return ExpressionNumberReducerBinaryExpressionNumberVisitorLessThanEquals.class;
     }
 }

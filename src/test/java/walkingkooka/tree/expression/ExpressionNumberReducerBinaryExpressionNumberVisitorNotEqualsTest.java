@@ -39,6 +39,11 @@ public final class ExpressionNumberReducerBinaryExpressionNumberVisitorNotEquals
     }
 
     @Override
+    int right3() {
+        return 34;
+    }
+
+    @Override
     String expectedToString() {
         return "notEquals";
     }

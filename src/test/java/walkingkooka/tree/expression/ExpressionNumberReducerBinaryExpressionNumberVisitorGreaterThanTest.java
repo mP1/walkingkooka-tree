@@ -39,6 +39,11 @@ public final class ExpressionNumberReducerBinaryExpressionNumberVisitorGreaterTh
     }
 
     @Override
+    int right3() {
+        return 0;
+    }
+
+    @Override
     String expectedToString() {
         return "greaterThan";
     }
