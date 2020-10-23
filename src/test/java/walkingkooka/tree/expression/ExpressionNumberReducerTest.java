@@ -98,6 +98,11 @@ public final class ExpressionNumberReducerTest implements ClassTesting<Expressio
     }
 
     @Test
+    public void testGreaterThan() {
+        assertEquals(true, this.reducer(61L).greaterThan(60L));
+    }
+
+    @Test
     public void testLessThan() {
         assertEquals(true, this.reducer(59L).lessThan(60L));
     }
