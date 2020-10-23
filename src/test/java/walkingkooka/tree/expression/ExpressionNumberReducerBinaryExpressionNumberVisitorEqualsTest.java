@@ -39,6 +39,11 @@ public final class ExpressionNumberReducerBinaryExpressionNumberVisitorEqualsTes
     }
 
     @Override
+    int right3() {
+        return this.right();
+    }
+
+    @Override
     String expectedToString() {
         return "equals";
     }

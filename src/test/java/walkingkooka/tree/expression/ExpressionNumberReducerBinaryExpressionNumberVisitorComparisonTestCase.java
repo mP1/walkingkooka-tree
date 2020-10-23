@@ -83,6 +83,31 @@ public abstract class ExpressionNumberReducerBinaryExpressionNumberVisitorCompar
         this.bigDecimalLeftFunctionAndCheck(this.right2(), false);
     }
 
+    @Test
+    public final void testBigDecimalBigDecimal3() {
+        this.bigDecimalLeftFunctionAndCheck(new BigDecimal(this.right3()), true);
+    }
+
+    @Test
+    public final void testBigDecimalBigInteger3() {
+        this.bigDecimalLeftFunctionAndCheck(BigInteger.valueOf(this.right3()), true);
+    }
+
+    @Test
+    public final void testBigDecimalDouble3() {
+        this.bigDecimalLeftFunctionAndCheck(Double.valueOf(this.right3()), true);
+    }
+
+    @Test
+    public final void testBigDecimalLong3() {
+        this.bigDecimalLeftFunctionAndCheck(Long.valueOf(this.right3()), true);
+    }
+
+    @Test
+    public final void testBigDecimalNumber3() {
+        this.bigDecimalLeftFunctionAndCheck(this.right3(), true);
+    }
+    
     private void bigDecimalLeftFunctionAndCheck(final Number right, final boolean expected) {
         this.functionAndCheck(BigDecimal.valueOf(this.left()), right, expected);
     }
@@ -138,7 +163,32 @@ public abstract class ExpressionNumberReducerBinaryExpressionNumberVisitorCompar
     public final void testBigIntegerNumber2() {
         this.bigIntegerLeftFunctionAndCheck(this.right2(), false);
     }
-    
+
+    @Test
+    public final void testBigIntegerBigDecimal3() {
+        this.bigIntegerLeftFunctionAndCheck(new BigDecimal(this.right3()), true);
+    }
+
+    @Test
+    public final void testBigIntegerBigInteger3() {
+        this.bigIntegerLeftFunctionAndCheck(BigInteger.valueOf(this.right3()), true);
+    }
+
+    @Test
+    public final void testBigIntegerDouble3() {
+        this.bigIntegerLeftFunctionAndCheck(Double.valueOf(this.right3()), true);
+    }
+
+    @Test
+    public final void testBigIntegerLong3() {
+        this.bigIntegerLeftFunctionAndCheck(Long.valueOf(this.right3()), true);
+    }
+
+    @Test
+    public final void testBigIntegerNumber3() {
+        this.bigIntegerLeftFunctionAndCheck(this.right3(), true);
+    }
+
     private void bigIntegerLeftFunctionAndCheck(final Number right, final boolean expected) {
         this.functionAndCheck(BigInteger.valueOf(this.left()), right, expected);
     }
@@ -195,6 +245,30 @@ public abstract class ExpressionNumberReducerBinaryExpressionNumberVisitorCompar
         this.doubleLeftFunctionAndCheck(this.right2(), false);
     }
 
+    @Test
+    public final void testDoubleBigDecimal3() {
+        this.doubleLeftFunctionAndCheck(new BigDecimal(this.right3()), true);
+    }
+
+    @Test
+    public final void testDoubleBigInteger3() {
+        this.doubleLeftFunctionAndCheck(BigInteger.valueOf(this.right3()), true);
+    }
+
+    @Test
+    public final void testDoubleDouble3() {
+        this.doubleLeftFunctionAndCheck(Double.valueOf(this.right3()), true);
+    }
+
+    @Test
+    public final void testDoubleLong3() {
+        this.doubleLeftFunctionAndCheck(Long.valueOf(this.right3()), true);
+    }
+
+    @Test
+    public final void testDoubleNumber3() {
+        this.doubleLeftFunctionAndCheck(this.right3(), true);
+    }
 
     private void doubleLeftFunctionAndCheck(final Number right, final boolean expected) {
         this.functionAndCheck(Double.valueOf(this.left()), right, expected);
@@ -252,6 +326,31 @@ public abstract class ExpressionNumberReducerBinaryExpressionNumberVisitorCompar
         this.longLeftFunctionAndCheck(this.right2(), false);
     }
 
+    @Test
+    public final void testLongBigDecimal3() {
+        this.longLeftFunctionAndCheck(new BigDecimal(this.right3()), true);
+    }
+
+    @Test
+    public final void testLongBigInteger3() {
+        this.longLeftFunctionAndCheck(BigInteger.valueOf(this.right3()), true);
+    }
+
+    @Test
+    public final void testLongDouble3() {
+        this.longLeftFunctionAndCheck(Double.valueOf(this.right3()), true);
+    }
+
+    @Test
+    public final void testLongLong3() {
+        this.longLeftFunctionAndCheck(Long.valueOf(this.right3()), true);
+    }
+
+    @Test
+    public final void testLongNumber3() {
+        this.longLeftFunctionAndCheck(this.right3(), true);
+    }
+
     private void longLeftFunctionAndCheck(final Number right, final boolean expected) {
         this.functionAndCheck(Double.valueOf(this.left()), right, expected);
     }
@@ -268,4 +367,9 @@ public abstract class ExpressionNumberReducerBinaryExpressionNumberVisitorCompar
      * This value must fail the comparison.
      */
     abstract int right2();
+
+    /**
+     * This value must return true for the comparison.
+     */
+    abstract int right3();
 }
