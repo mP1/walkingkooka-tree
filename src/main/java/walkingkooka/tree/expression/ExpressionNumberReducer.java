@@ -47,7 +47,7 @@ public final class ExpressionNumberReducer {
      * Abs the given value, storing the result.
      */
     public ExpressionNumberReducer abs() {
-        this.value = ExpressionNumberReducerExpressionNumberVisitor.abs(this.value, this.context);
+        this.value = ExpressionNumberReducerExpressionNumberVisitorArithmetic.abs(this.value, this.context);
         return this;
     }
 
@@ -95,7 +95,15 @@ public final class ExpressionNumberReducer {
      * Negate the current value, storing the result.
      */
     public ExpressionNumberReducer negate() {
-        this.value = ExpressionNumberReducerExpressionNumberVisitor.negate(this.value, this.context);
+        this.value = ExpressionNumberReducerExpressionNumberVisitorArithmetic.negate(this.value, this.context);
+        return this;
+    }
+
+    /**
+     * Not the current value, storing the result.
+     */
+    public ExpressionNumberReducer not() {
+        this.value = ExpressionNumberReducerExpressionNumberVisitorArithmetic.not(this.value, this.context);
         return this;
     }
 

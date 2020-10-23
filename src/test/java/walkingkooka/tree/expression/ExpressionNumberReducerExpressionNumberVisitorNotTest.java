@@ -17,35 +17,35 @@
 
 package walkingkooka.tree.expression;
 
-public final class ExpressionNumberReducerExpressionNumberVisitorAbsTest extends ExpressionNumberReducerExpressionNumberVisitorArithmeticTestCase<ExpressionNumberReducerExpressionNumberVisitorAbs> {
+public final class ExpressionNumberReducerExpressionNumberVisitorNotTest extends ExpressionNumberReducerExpressionNumberVisitorLogicalTestCase<ExpressionNumberReducerExpressionNumberVisitorNot> {
 
     @Override
-    public ExpressionNumberReducerExpressionNumberVisitorAbs createVisitor() {
-        return new ExpressionNumberReducerExpressionNumberVisitorAbs(CONTEXT);
+    public ExpressionNumberReducerExpressionNumberVisitorNot createVisitor() {
+        return new ExpressionNumberReducerExpressionNumberVisitorNot(CONTEXT);
     }
 
     @Override
     int value() {
-        return -123;
+        return 3;
     }
 
     @Override
     int expected() {
-        return 123;
+        return ~this.value();
     }
 
     @Override
     Number function(final Number value, final ExpressionNumberReducerContext context) {
-        return ExpressionNumberReducerExpressionNumberVisitorAbs.compute(value, context);
+        return ExpressionNumberReducerExpressionNumberVisitorNot.compute(value, context);
     }
 
     @Override
     String expectedToString() {
-        return "abs";
+        return "not";
     }
 
     @Override
-    public Class<ExpressionNumberReducerExpressionNumberVisitorAbs> type() {
-        return ExpressionNumberReducerExpressionNumberVisitorAbs.class;
+    public Class<ExpressionNumberReducerExpressionNumberVisitorNot> type() {
+        return ExpressionNumberReducerExpressionNumberVisitorNot.class;
     }
 }

@@ -20,7 +20,7 @@ package walkingkooka.tree.expression;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 
-final class ExpressionNumberReducerExpressionNumberVisitorAbs extends ExpressionNumberReducerExpressionNumberVisitor {
+final class ExpressionNumberReducerExpressionNumberVisitorAbs extends ExpressionNumberReducerExpressionNumberVisitorArithmetic {
 
     static Number compute(final Number value,
                           final ExpressionNumberReducerContext context) {

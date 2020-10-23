@@ -81,10 +81,12 @@ public abstract class ExpressionNumberReducerExpressionNumberVisitorTestCase<V e
 
     abstract String expectedToString();
 
+    abstract Number expectedNumber(final Number number);
+
     // helpers..........................................................................................................
 
     final void functionAndCheck(final Number value, final Number expected) {
-        assertEquals(bigDecimalFix(expected), bigDecimalFix(this.function(value, CONTEXT)));
+        assertEquals(this.expectedNumber(bigDecimalFix(expected)), bigDecimalFix(this.function(value, CONTEXT)));
     }
 
     abstract int value();
