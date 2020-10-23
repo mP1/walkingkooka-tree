@@ -26,7 +26,7 @@ import java.math.BigInteger;
  * Collection of utilities to assist with converting number values to one of the preferred expression number types of
  * {@link BigDecimal}, {@link BigInteger}, {@link Double} and {@link Long}.
  */
-public final class ExpressionNumber implements PublicStaticHelper {
+public final class ExpressionNumber {
 
     public static boolean isByteShortIntegerLong(final Object value) {
         return value instanceof Byte || value instanceof Short || value instanceof Integer || value instanceof Long;

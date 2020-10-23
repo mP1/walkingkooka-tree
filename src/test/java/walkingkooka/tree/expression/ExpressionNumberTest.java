@@ -18,6 +18,7 @@
 package walkingkooka.tree.expression;
 
 import org.junit.jupiter.api.Test;
+import walkingkooka.reflect.ClassTesting;
 import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.reflect.PublicStaticHelperTesting;
 
@@ -28,7 +29,7 @@ import java.math.BigInteger;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class ExpressionNumberTest implements PublicStaticHelperTesting<ExpressionNumber> {
+public final class ExpressionNumberTest implements ClassTesting<ExpressionNumber> {
 
     // isByteShortIntegerLong...........................................................................................
 
@@ -280,10 +281,5 @@ public final class ExpressionNumberTest implements PublicStaticHelperTesting<Exp
     @Override
     public JavaVisibility typeVisibility() {
         return JavaVisibility.PUBLIC;
-    }
-
-    @Override
-    public boolean canHavePublicTypes(final Method method) {
-        return false;
     }
 }
