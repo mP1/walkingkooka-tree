@@ -62,6 +62,12 @@ abstract class ExpressionNumberReducerBinaryExpressionNumberVisitor extends Bina
         return ExpressionNumberReducerBinaryExpressionNumberVisitorMultiply.compute(left, right, context);
     }
 
+    static boolean notEquals(final Number left,
+                             final Number right,
+                             final ExpressionNumberReducerContext context) {
+        return ExpressionNumberReducerBinaryExpressionNumberVisitorNotEquals.compare(left, right, context);
+    }
+
     static Number or(final Number left,
                      final Number right,
                      final ExpressionNumberReducerContext context) {
