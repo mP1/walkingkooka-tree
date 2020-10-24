@@ -27,6 +27,7 @@ import java.util.Objects;
 /**
  * A {@link ExpressionNumber} that holds and performs all operations on {@link BigDecimal values}.
  */
+@SuppressWarnings("lgtm[java/inconsistent-equals-and-hashcode]")
 final class ExpressionNumberBigDecimal extends ExpressionNumber {
 
     private static final long serialVersionUID = 0L;

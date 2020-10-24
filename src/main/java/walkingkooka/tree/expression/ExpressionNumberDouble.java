@@ -26,6 +26,7 @@ import java.math.BigInteger;
 /**
  * A {@link ExpressionNumber} that holds and performs all operations on {@link double values}.
  */
+@SuppressWarnings("lgtm[java/inconsistent-equals-and-hashcode]")
 final class ExpressionNumberDouble extends ExpressionNumber {
 
     private static final long serialVersionUID = 0L;
