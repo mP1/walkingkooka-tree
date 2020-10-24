@@ -30,8 +30,8 @@ public final class ExpressionNumberConverterDoubleTest extends ExpressionNumberC
     }
 
     @Override
-    ExpressionNumberConverterDouble createConverter(final ExpressionNumberContext context) {
-        return ExpressionNumberConverterDouble.with(context);
+    public ExpressionNumberConverterDouble createConverter() {
+        return ExpressionNumberConverterDouble.instance();
     }
 
     @Override

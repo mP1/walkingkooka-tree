@@ -30,21 +30,16 @@ import java.util.Objects;
  */
 abstract class ExpressionNumberConverter implements Converter {
 
-    static Converter expressionNumberBigDecimal(final ExpressionNumberContext context) {
-        return ExpressionNumberConverterBigDecimal.with(context);
+    static Converter expressionNumberBigDecimal() {
+        return ExpressionNumberConverterBigDecimal.instance();
     }
 
-    static Converter expressionNumberDouble(final ExpressionNumberContext context) {
-        return ExpressionNumberConverterDouble.with(context);
+    static Converter expressionNumberDouble() {
+        return ExpressionNumberConverterDouble.instance();
     }
 
-    static void checkContext(final ExpressionNumberContext context) {
-        Objects.requireNonNull(context, "context");
-    }
-
-    ExpressionNumberConverter(final ExpressionNumberContext context) {
+    ExpressionNumberConverter() {
         super();
-        this.context = context;
     }
 
     @Override
@@ -65,11 +60,9 @@ abstract class ExpressionNumberConverter implements Converter {
     }
 
     /**
-     * Factory that calls either of the two {@link ExpressionNumber} methods to wrap a double or {@link java.math.BigDecimal}
+     * Factory that calls either of the two {@link ExpressionNumber} methods to wrap a {@link Double} or {@link java.math.BigDecimal}
      */
     abstract ExpressionNumber expressionNumber(final Object value);
-
-    final ExpressionNumberContext context;
 
     @Override
     public final String toString() {

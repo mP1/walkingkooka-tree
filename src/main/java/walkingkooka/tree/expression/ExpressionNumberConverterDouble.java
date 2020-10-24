@@ -22,14 +22,12 @@ package walkingkooka.tree.expression;
  */
 final class ExpressionNumberConverterDouble extends ExpressionNumberConverter {
 
-    static ExpressionNumberConverterDouble with(final ExpressionNumberContext context) {
-        checkContext(context);
-
-        return new ExpressionNumberConverterDouble(context);
+    static ExpressionNumberConverterDouble instance() {
+        return new ExpressionNumberConverterDouble();
     }
 
-    private ExpressionNumberConverterDouble(final ExpressionNumberContext context) {
-        super(context);
+    private ExpressionNumberConverterDouble() {
+        super();
     }
 
     @Override

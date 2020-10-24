@@ -21,18 +21,4 @@ import walkingkooka.convert.Converter;
 import walkingkooka.math.HasMathContext;
 
 public interface ExpressionNumberContext extends HasMathContext {
-
-    /**
-     * {@see ExpressionNumberConverterBigDecimal.expressionNumberBigDecimal}
-     */
-    default Converter bigDecimalConverter() {
-        return ExpressionNumber.bigDecimalConverter(this);
-    }
-
-    /**
-     * {@see ExpressionNumberConverter#expressionNumberDouble}
-     */
-    default Converter doubleConverter() {
-        return ExpressionNumber.doubleConverter(this);
-    }
 }
