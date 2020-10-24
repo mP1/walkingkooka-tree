@@ -24,6 +24,7 @@ import walkingkooka.convert.ConvertOrFailFunction;
 import walkingkooka.locale.HasLocale;
 import walkingkooka.math.HasMathContext;
 import walkingkooka.tree.expression.ExpressionEvaluationException;
+import walkingkooka.tree.expression.ExpressionNumberContext;
 import walkingkooka.tree.expression.FunctionExpressionName;
 
 import java.util.List;
@@ -31,7 +32,11 @@ import java.util.List;
 /**
  * Context that accompanies a {@link ExpressionFunction}.
  */
-public interface ExpressionFunctionContext extends Context, ConvertOrFailFunction, HasLocale, HasMathContext {
+public interface ExpressionFunctionContext extends Context,
+        ConvertOrFailFunction,
+        ExpressionNumberContext,
+        HasLocale,
+        HasMathContext {
 
     /**
      * Constant for functions without any parameters.
