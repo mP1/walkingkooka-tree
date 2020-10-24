@@ -21,9 +21,6 @@ import walkingkooka.Cast;
 import walkingkooka.Either;
 import walkingkooka.convert.Converter;
 import walkingkooka.convert.ConverterContext;
-import walkingkooka.text.CharSequences;
-
-import java.util.Objects;
 
 /**
  * A {@link Converter} that may be used to wrap {@link Number} within a {@link ExpressionNumber}.
@@ -56,7 +53,7 @@ abstract class ExpressionNumberConverter implements Converter {
                                                final ConverterContext context) {
         return this.canConvert(value, type, context) ?
                 Cast.to(Either.left(expressionNumber(value))) :
-                Either.right("Unable to convert " + CharSequences.quoteIfChars(value) + " to " + type);
+                this.failConversion(value, type);
     }
 
     /**
