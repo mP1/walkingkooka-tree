@@ -20,7 +20,6 @@ package walkingkooka.tree.expression.function;
 import walkingkooka.tree.expression.FunctionExpressionName;
 
 import java.util.List;
-import java.util.Objects;
 
 /**
  * A function that inverts the a boolean value.
