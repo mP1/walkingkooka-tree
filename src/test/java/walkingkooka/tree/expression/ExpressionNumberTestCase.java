@@ -20,6 +20,7 @@ package walkingkooka.tree.expression;
 import org.junit.jupiter.api.Test;
 import walkingkooka.HashCodeEqualsDefinedTesting2;
 import walkingkooka.ToStringTesting;
+import walkingkooka.compare.ComparableTesting2;
 import walkingkooka.reflect.ClassTesting;
 import walkingkooka.reflect.IsMethodTesting;
 import walkingkooka.reflect.JavaVisibility;
@@ -35,7 +36,7 @@ import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public abstract class ExpressionNumberTestCase<N extends ExpressionNumber> implements ClassTesting<N>,
-        HashCodeEqualsDefinedTesting2<N>,
+        ComparableTesting2<ExpressionNumber>,
         IsMethodTesting<N>,
         ToStringTesting<N> {
 
@@ -768,6 +769,13 @@ public abstract class ExpressionNumberTestCase<N extends ExpressionNumber> imple
     @Override
     public final JavaVisibility typeVisibility() {
         return JavaVisibility.PACKAGE_PRIVATE;
+    }
+
+    // HashEquals......................................................................................................
+
+    @Override
+    public ExpressionNumber createComparable() {
+        return this.create();
     }
 
     // HashEquals......................................................................................................
