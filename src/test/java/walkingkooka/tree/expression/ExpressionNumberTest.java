@@ -25,6 +25,7 @@ import java.math.BigDecimal;
 import java.math.BigInteger;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class ExpressionNumberTest implements ClassTesting<ExpressionNumber> {
@@ -272,6 +273,82 @@ public final class ExpressionNumberTest implements ClassTesting<ExpressionNumber
         public double doubleValue() {
             return 0;
         }
+    }
+
+    // with.............................................................................................................
+
+    @Test
+    public void testWithNullNumberFails() {
+        assertThrows(NullPointerException.class, () -> ExpressionNumber.with((Number)null));
+    }
+
+    @Test
+    public void testWithByte() {
+        this.withNumberAndCheck((byte) 1);
+    }
+
+    @Test
+    public void testWithShort() {
+        this.withNumberAndCheck((short) 1);
+    }
+
+    @Test
+    public void testWithInteger() {
+        this.withNumberAndCheck(1);
+    }
+
+    @Test
+    public void testWithLong() {
+        this.withNumberAndCheck(1L);
+    }
+
+    @Test
+    public void testWithFloat() {
+        this.withNumberAndCheck(1.5f);
+    }
+
+    @Test
+    public void testWithDouble() {
+        this.withNumberAndCheck(1.5);
+    }
+
+    @Test
+    public void testWithBigInteger() {
+        this.withNumberAndCheck(BigInteger.TEN);
+    }
+
+    @Test
+    public void testWithBigDecimal() {
+        this.withNumberAndCheck(BigDecimal.valueOf(1.5));
+    }
+
+    private void withNumberAndCheck(final Number value) {
+        if(value instanceof BigInteger || value instanceof BigDecimal) {
+            final ExpressionNumber expressionNumber = ExpressionNumber.with(value);
+            assertEquals(ExpressionNumberBigDecimal.class, expressionNumber.getClass(), "type");
+            assertEquals(value instanceof BigDecimal ? value : new BigDecimal((BigInteger)value), expressionNumber.bigDecimal(), "bigDecimal");
+        } else {
+            final ExpressionNumber expressionNumber = ExpressionNumber.with(value);
+            assertEquals(ExpressionNumberDouble.class, expressionNumber.getClass(), "type");
+            assertEquals(value.doubleValue(), expressionNumber.doubleValue(), "doubleValue");
+        }
+    }
+
+    @Test
+    public void testWithExpressionNumberBigDecimal() {
+        final ExpressionNumber number = ExpressionNumber.with(BigDecimal.ONE);
+        assertSame(number, ExpressionNumber.with(number));
+    }
+
+    @Test
+    public void testWithExpressionNumberBigInteger() {
+        final ExpressionNumber number = ExpressionNumber.with(BigInteger.ONE);
+        assertSame(number, ExpressionNumber.with(number));
+    }
+
+    @Test
+    public void testWithUnknownNumberFails() {
+        assertThrows(IllegalArgumentException.class, () -> ExpressionNumber.with(new TestNumber()));
     }
 
     // helpers..........................................................................................................

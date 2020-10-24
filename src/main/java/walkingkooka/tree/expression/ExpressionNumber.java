@@ -73,6 +73,13 @@ public abstract class ExpressionNumber extends Number implements Comparable<Expr
     }
 
     /**
+     * Accepts any JRE number and wraps that value in a {@link ExpressionNumber}
+     */
+    public static ExpressionNumber with(final Number value) {
+        return ExpressionNumberNumberVisitor.toExpressionNumber(value);
+    }
+
+    /**
      * Creates a {@link ExpressionNumber} wrapping the given {@link Double}.
      * Future math operations will operate on doubles.
      */
