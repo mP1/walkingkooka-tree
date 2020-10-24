@@ -24,14 +24,12 @@ import java.math.BigDecimal;
  */
 final class ExpressionNumberConverterBigDecimal extends ExpressionNumberConverter {
 
-    static ExpressionNumberConverterBigDecimal with(final ExpressionNumberContext context) {
-        checkContext(context);
-
-        return new ExpressionNumberConverterBigDecimal(context);
+    static ExpressionNumberConverterBigDecimal instance() {
+        return new ExpressionNumberConverterBigDecimal();
     }
 
-    private ExpressionNumberConverterBigDecimal(final ExpressionNumberContext context) {
-        super(context);
+    private ExpressionNumberConverterBigDecimal() {
+        super();
     }
 
     @Override

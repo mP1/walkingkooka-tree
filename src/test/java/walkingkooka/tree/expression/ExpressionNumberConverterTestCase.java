@@ -25,19 +25,12 @@ import walkingkooka.convert.ConverterTesting2;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 
-import static org.junit.jupiter.api.Assertions.assertThrows;
-
 public abstract class ExpressionNumberConverterTestCase<C extends ExpressionNumberConverter> implements ConverterTesting2<C> {
 
     static final ExpressionNumberContext CONTEXT = ExpressionNumberContexts.fake();
 
     ExpressionNumberConverterTestCase() {
         super();
-    }
-
-    @Test
-    public final void testWithNullContextFails() {
-        assertThrows(NullPointerException.class, () -> this.createConverter(null));
     }
 
     @Test
@@ -106,13 +99,6 @@ public abstract class ExpressionNumberConverterTestCase<C extends ExpressionNumb
     }
 
     abstract ExpressionNumber expressionNumberHalf();
-
-    @Override
-    public final C createConverter() {
-        return this.createConverter(CONTEXT);
-    }
-
-    abstract C createConverter(final ExpressionNumberContext context);
 
     @Override
     public final ConverterContext createContext() {

@@ -31,10 +31,9 @@ public final class ExpressionNumberConverterBigDecimalTest extends ExpressionNum
     }
 
     @Override
-    ExpressionNumberConverterBigDecimal createConverter(final ExpressionNumberContext context) {
-        return ExpressionNumberConverterBigDecimal.with(context);
+    public ExpressionNumberConverterBigDecimal createConverter() {
+        return ExpressionNumberConverterBigDecimal.instance();
     }
-
 
     @Override
     public Class<ExpressionNumberConverterBigDecimal> type() {
