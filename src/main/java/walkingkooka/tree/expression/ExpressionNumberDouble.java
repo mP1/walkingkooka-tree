@@ -40,6 +40,10 @@ final class ExpressionNumberDouble extends ExpressionNumber {
         this.value = value;
     }
 
+    final Object value() {
+        return this.value;
+    }
+
     // abs..............................................................................................................
 
     @Override

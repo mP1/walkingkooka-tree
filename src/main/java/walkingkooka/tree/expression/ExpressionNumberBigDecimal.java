@@ -42,6 +42,10 @@ final class ExpressionNumberBigDecimal extends ExpressionNumber {
         this.value = value;
     }
 
+    Object value() {
+        return this.value;
+    }
+
     // abs..............................................................................................................
 
     @Override
