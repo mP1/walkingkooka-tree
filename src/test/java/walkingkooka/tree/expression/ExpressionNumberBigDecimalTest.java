@@ -36,6 +36,32 @@ public final class ExpressionNumberBigDecimalTest extends ExpressionNumberTestCa
         assertThrows(NullPointerException.class, () -> ExpressionNumberBigDecimal.withBigDecimal(BigDecimal.ONE, null));
     }
 
+    // comparable......................................................................................................
+
+    @Test
+    public void testCompareBigDecimalEquals() {
+        this.compareToAndCheckEquals(ExpressionNumberBigDecimal.withBigDecimal(BigDecimal.ONE, CONTEXT),
+                ExpressionNumberBigDecimal.withBigDecimal(BigDecimal.ONE, CONTEXT));
+    }
+
+    @Test
+    public void testCompareDoubleEquals() {
+        this.compareToAndCheckEquals(ExpressionNumberDouble.withDouble(1, CONTEXT),
+                ExpressionNumberDouble.withDouble(1, CONTEXT));
+    }
+
+    @Test
+    public void testCompareBigDecimalLess() {
+        this.compareToAndCheckLess(ExpressionNumberBigDecimal.withBigDecimal(BigDecimal.ONE, CONTEXT),
+                ExpressionNumberBigDecimal.withBigDecimal(BigDecimal.valueOf(2), CONTEXT));
+    }
+
+    @Test
+    public void testCompareDoubleLess() {
+        this.compareToAndCheckLess(ExpressionNumberBigDecimal.withBigDecimal(BigDecimal.ONE, CONTEXT),
+                ExpressionNumberDouble.withDouble(2, CONTEXT));
+    }
+
     // bigDecimal.......................................................................................................
 
     @Test

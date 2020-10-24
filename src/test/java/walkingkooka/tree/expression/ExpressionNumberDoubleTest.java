@@ -19,6 +19,8 @@ package walkingkooka.tree.expression;
 
 import org.junit.jupiter.api.Test;
 
+import java.math.BigDecimal;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -29,12 +31,39 @@ public final class ExpressionNumberDoubleTest extends ExpressionNumberTestCase<E
         assertThrows(NullPointerException.class, () -> ExpressionNumberDouble.withDouble(1, null));
     }
 
+    // comparable......................................................................................................
+
+    @Test
+    public void testCompareBigDecimalEquals() {
+        this.compareToAndCheckEquals(ExpressionNumberDouble.withDouble(1, CONTEXT),
+                ExpressionNumberBigDecimal.withBigDecimal(BigDecimal.ONE, CONTEXT));
+    }
+
+    @Test
+    public void testCompareDoubleEquals() {
+        this.compareToAndCheckEquals(ExpressionNumberDouble.withDouble(1, CONTEXT),
+                ExpressionNumberDouble.withDouble(1, CONTEXT));
+    }
+
+    @Test
+    public void testCompareBigDecimalLess() {
+        this.compareToAndCheckLess(ExpressionNumberDouble.withDouble(1, CONTEXT),
+                ExpressionNumberBigDecimal.withBigDecimal(BigDecimal.valueOf(2), CONTEXT));
+    }
+
+    @Test
+    public void testCompareDoubleLess() {
+        this.compareToAndCheckLess(ExpressionNumberDouble.withDouble(1, CONTEXT),
+                ExpressionNumberDouble.withDouble(2, CONTEXT));
+    }
+
     @Override
     ExpressionNumberDouble create(final double value) {
         return ExpressionNumberDouble.withDouble(value, CONTEXT);
     }
 
-    @Override final void checkValue0(final double value, final ExpressionNumberDouble number) {
+    @Override
+    final void checkValue0(final double value, final ExpressionNumberDouble number) {
         assertEquals(value, number.doubleValue());
     }
 

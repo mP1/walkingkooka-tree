@@ -34,7 +34,7 @@ import java.util.Objects;
  * - intValue
  * - longValue
  */
-public abstract class ExpressionNumber extends Number {
+public abstract class ExpressionNumber extends Number implements Comparable<ExpressionNumber> {
 
     private static final long serialVersionUID = 0L;
 
@@ -384,4 +384,17 @@ public abstract class ExpressionNumber extends Number {
 
     @Override
     public abstract String toString();
+
+    // Comparable.......................................................................................................
+    
+    @Override
+    public final int compareTo(final ExpressionNumber other) {
+        return other.compareTo0(this);
+    }
+
+    abstract int compareTo0(final ExpressionNumber other);
+
+    abstract int compareTo1(final ExpressionNumberBigDecimal other);
+
+    abstract int compareTo1(final ExpressionNumberDouble other);
 }

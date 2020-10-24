@@ -337,4 +337,20 @@ final class ExpressionNumberDouble extends ExpressionNumber {
     public String toString() {
         return String.valueOf(this.value);
     }
+
+    // Comparable.......................................................................................................
+
+    int compareTo0(final ExpressionNumber other) {
+        return other.compareTo1(this);
+    }
+
+    @Override
+    int compareTo1(final ExpressionNumberBigDecimal other) {
+        return this.bigDecimal().compareTo(other.value);
+    }
+
+    @Override
+    int compareTo1(final ExpressionNumberDouble other) {
+        return Double.compare(this.value, other.value);
+    }
 }
