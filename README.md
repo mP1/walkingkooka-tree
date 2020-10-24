@@ -63,21 +63,6 @@ An example of this utility may be to load a HTML document, assemble a selector t
 modify just those, with the result being the new updated tree.
 
 
-## [ExpressionNumberReducer](https://github.com/mP1/walkingkooka-tree/blob/master/src/main/java/walkingkooka/tree/expression/ExpressionNumberReducer.java) 
-This class may be used to perform mathematical operations on mixed Number types. Internally prior to each actual operation,
-the existing value and any new value are widen to be compatible, the operation performed and the result stored. This
-faciliates the creation of functions that work on all common Number sub types, where common means:
-   
-- Byte
-- Short
-- Integer
-- Long
-- Float
-- Double
-- BigInteger
-- BigDecimal
-
-
 
 ## Streaming
 
