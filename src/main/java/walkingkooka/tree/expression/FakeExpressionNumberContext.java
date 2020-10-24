@@ -17,8 +17,6 @@
 
 package walkingkooka.tree.expression;
 
-import walkingkooka.math.HasMathContext;
-
 import java.math.MathContext;
 
 public class FakeExpressionNumberContext implements ExpressionNumberContext {

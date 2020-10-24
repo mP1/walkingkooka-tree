@@ -18,7 +18,6 @@
 package walkingkooka.tree.expression.function;
 
 import walkingkooka.Cast;
-import walkingkooka.naming.Name;
 import walkingkooka.tree.expression.FunctionExpressionName;
 
 import java.util.List;
