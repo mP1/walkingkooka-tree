@@ -17,22 +17,25 @@
 
 package walkingkooka.tree.expression;
 
-import walkingkooka.convert.Converter;
-import walkingkooka.math.HasMathContext;
+public final class ExpressionNumberConverterDoubleTest extends ExpressionNumberConverterTestCase<ExpressionNumberConverterDouble> {
 
-public interface ExpressionNumberContext extends HasMathContext {
-
-    /**
-     * {@see ExpressionNumberConverterBigDecimal.expressionNumberBigDecimal}
-     */
-    default Converter bigDecimalConverter() {
-        return ExpressionNumber.bigDecimalConverter(this);
+    @Override
+    ExpressionNumber expressionNumberOne() {
+        return ExpressionNumber.with(1.0, CONTEXT);
     }
 
-    /**
-     * {@see ExpressionNumberConverter#expressionNumberDouble}
-     */
-    default Converter doubleConverter() {
-        return ExpressionNumber.doubleConverter(this);
+    @Override
+    ExpressionNumber expressionNumberHalf() {
+        return ExpressionNumber.with(0.5, CONTEXT);
+    }
+
+    @Override
+    ExpressionNumberConverterDouble createConverter(final ExpressionNumberContext context) {
+        return ExpressionNumberConverterDouble.with(context);
+    }
+
+    @Override
+    public Class<ExpressionNumberConverterDouble> type() {
+        return ExpressionNumberConverterDouble.class;
     }
 }
