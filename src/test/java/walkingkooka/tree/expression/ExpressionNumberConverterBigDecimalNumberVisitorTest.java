@@ -23,7 +23,7 @@ import walkingkooka.reflect.JavaVisibility;
 public final class ExpressionNumberConverterBigDecimalNumberVisitorTest implements NumberVisitorTesting<ExpressionNumberConverterBigDecimalNumberVisitor> {
     @Override
     public ExpressionNumberConverterBigDecimalNumberVisitor createVisitor() {
-        return new ExpressionNumberConverterBigDecimalNumberVisitor(null);
+        return new ExpressionNumberConverterBigDecimalNumberVisitor();
     }
 
     @Override

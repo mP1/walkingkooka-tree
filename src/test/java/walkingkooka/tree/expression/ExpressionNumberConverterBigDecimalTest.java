@@ -22,12 +22,12 @@ import java.math.BigDecimal;
 public final class ExpressionNumberConverterBigDecimalTest extends ExpressionNumberConverterTestCase<ExpressionNumberConverterBigDecimal> {
     @Override
     ExpressionNumber expressionNumberOne() {
-        return ExpressionNumber.with(BigDecimal.ONE, CONTEXT);
+        return ExpressionNumber.with(BigDecimal.ONE);
     }
 
     @Override
     ExpressionNumber expressionNumberHalf() {
-        return ExpressionNumber.with(BigDecimal.valueOf(0.5), CONTEXT);
+        return ExpressionNumber.with(BigDecimal.valueOf(0.5));
     }
 
     @Override

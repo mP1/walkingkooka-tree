@@ -22,7 +22,6 @@ import walkingkooka.convert.Converter;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
-import java.math.MathContext;
 import java.util.Objects;
 
 /**
@@ -77,18 +76,16 @@ public abstract class ExpressionNumber extends Number implements Comparable<Expr
      * Creates a {@link ExpressionNumber} wrapping the given {@link Double}.
      * Future math operations will operate on doubles.
      */
-    public static ExpressionNumber with(final double value,
-                                        final ExpressionNumberContext context) {
-        return ExpressionNumberDouble.withDouble(value, context);
+    public static ExpressionNumber with(final double value) {
+        return ExpressionNumberDouble.withDouble(value);
     }
 
     /**
      * Creates a {@link ExpressionNumber} wrapping the given {@link BigDecimal}.
      * Future math operations will operate on {@link BigDecimal}.
      */
-    public static ExpressionNumber with(final BigDecimal value,
-                                        final ExpressionNumberContext context) {
-        return ExpressionNumberBigDecimal.withBigDecimal(value, context);
+    public static ExpressionNumber with(final BigDecimal value) {
+        return ExpressionNumberBigDecimal.withBigDecimal(value);
     }
 
     /**
@@ -105,16 +102,11 @@ public abstract class ExpressionNumber extends Number implements Comparable<Expr
         return ExpressionNumberConverter.expressionNumberDouble(context);
     }
 
-    static void checkContext(final ExpressionNumberContext context) {
-        Objects.requireNonNull(context, "context");
-    }
-
     /**
      * Stop creation
      */
-    ExpressionNumber(final ExpressionNumberContext context) {
+    ExpressionNumber() {
         super();
-        this.context = context;
     }
 
     public final boolean isBigDecimal() {
@@ -127,11 +119,11 @@ public abstract class ExpressionNumber extends Number implements Comparable<Expr
 
     // abs..............................................................................................................
 
-    public abstract ExpressionNumber abs();
+    public abstract ExpressionNumber abs(final ExpressionNumberContext context);
 
     // negate...........................................................................................................
 
-    public abstract ExpressionNumber negate();
+    public abstract ExpressionNumber negate(final ExpressionNumberContext context);
 
     // not..............................................................................................................
 
@@ -145,87 +137,87 @@ public abstract class ExpressionNumber extends Number implements Comparable<Expr
 
     // add..............................................................................................................
 
-    public final ExpressionNumber add(final ExpressionNumber value) {
+    public final ExpressionNumber add(final ExpressionNumber value, final ExpressionNumberContext context) {
         check(value);
 
-        return value.add0(this);
+        return value.add0(this, context);
     }
 
-    abstract ExpressionNumber add0(final ExpressionNumber value);
+    abstract ExpressionNumber add0(final ExpressionNumber value, final ExpressionNumberContext context);
 
-    abstract ExpressionNumber add1(final ExpressionNumberBigDecimal value);
+    abstract ExpressionNumber add1(final ExpressionNumberBigDecimal value, final ExpressionNumberContext context);
 
-    abstract ExpressionNumber add1(final ExpressionNumberDouble value);
+    abstract ExpressionNumber add1(final ExpressionNumberDouble value, final ExpressionNumberContext context);
 
     // divide..............................................................................................................
 
-    public final ExpressionNumber divide(final ExpressionNumber value) {
+    public final ExpressionNumber divide(final ExpressionNumber value, final ExpressionNumberContext context) {
         check(value);
 
-        return value.divide0(this);
+        return value.divide0(this, context);
     }
 
-    abstract ExpressionNumber divide0(final ExpressionNumber value);
+    abstract ExpressionNumber divide0(final ExpressionNumber value, final ExpressionNumberContext context);
 
-    abstract ExpressionNumber divide1(final ExpressionNumberBigDecimal value);
+    abstract ExpressionNumber divide1(final ExpressionNumberBigDecimal value, final ExpressionNumberContext context);
 
-    abstract ExpressionNumber divide1(final ExpressionNumberDouble value);
+    abstract ExpressionNumber divide1(final ExpressionNumberDouble value, final ExpressionNumberContext context);
 
 // modulo..............................................................................................................
 
-    public final ExpressionNumber modulo(final ExpressionNumber value) {
+    public final ExpressionNumber modulo(final ExpressionNumber value, final ExpressionNumberContext context) {
         check(value);
 
-        return value.modulo0(this);
+        return value.modulo0(this, context);
     }
 
-    abstract ExpressionNumber modulo0(final ExpressionNumber value);
+    abstract ExpressionNumber modulo0(final ExpressionNumber value, final ExpressionNumberContext context);
 
-    abstract ExpressionNumber modulo1(final ExpressionNumberBigDecimal value);
+    abstract ExpressionNumber modulo1(final ExpressionNumberBigDecimal value, final ExpressionNumberContext context);
 
-    abstract ExpressionNumber modulo1(final ExpressionNumberDouble value);
+    abstract ExpressionNumber modulo1(final ExpressionNumberDouble value, final ExpressionNumberContext context);
 
     // multiply..............................................................................................................
 
-    public final ExpressionNumber multiply(final ExpressionNumber value) {
+    public final ExpressionNumber multiply(final ExpressionNumber value, final ExpressionNumberContext context) {
         check(value);
 
-        return value.multiply0(this);
+        return value.multiply0(this, context);
     }
 
-    abstract ExpressionNumber multiply0(final ExpressionNumber value);
+    abstract ExpressionNumber multiply0(final ExpressionNumber value, final ExpressionNumberContext context);
 
-    abstract ExpressionNumber multiply1(final ExpressionNumberBigDecimal value);
+    abstract ExpressionNumber multiply1(final ExpressionNumberBigDecimal value, final ExpressionNumberContext context);
 
-    abstract ExpressionNumber multiply1(final ExpressionNumberDouble value);
+    abstract ExpressionNumber multiply1(final ExpressionNumberDouble value, final ExpressionNumberContext context);
 
     // power..............................................................................................................
 
-    public final ExpressionNumber power(final ExpressionNumber value) {
+    public final ExpressionNumber power(final ExpressionNumber value, final ExpressionNumberContext context) {
         check(value);
 
-        return value.power0(this);
+        return value.power0(this, context);
     }
 
-    abstract ExpressionNumber power0(final ExpressionNumber value);
+    abstract ExpressionNumber power0(final ExpressionNumber value, final ExpressionNumberContext context);
 
-    abstract ExpressionNumber power1(final ExpressionNumberBigDecimal value);
+    abstract ExpressionNumber power1(final ExpressionNumberBigDecimal value, final ExpressionNumberContext context);
 
-    abstract ExpressionNumber power1(final ExpressionNumberDouble value);
+    abstract ExpressionNumber power1(final ExpressionNumberDouble value, final ExpressionNumberContext context);
 
     // subtract..............................................................................................................
 
-    public final ExpressionNumber subtract(final ExpressionNumber value) {
+    public final ExpressionNumber subtract(final ExpressionNumber value, final ExpressionNumberContext context) {
         check(value);
 
-        return value.subtract0(this);
+        return value.subtract0(this, context);
     }
 
-    abstract ExpressionNumber subtract0(final ExpressionNumber value);
+    abstract ExpressionNumber subtract0(final ExpressionNumber value, final ExpressionNumberContext context);
 
-    abstract ExpressionNumber subtract1(final ExpressionNumberBigDecimal value);
+    abstract ExpressionNumber subtract1(final ExpressionNumberBigDecimal value, final ExpressionNumberContext context);
 
-    abstract ExpressionNumber subtract1(final ExpressionNumberDouble value);
+    abstract ExpressionNumber subtract1(final ExpressionNumberDouble value, final ExpressionNumberContext context);
 
     // and..............................................................................................................
 
@@ -347,27 +339,6 @@ public abstract class ExpressionNumber extends Number implements Comparable<Expr
 
     public abstract BigDecimal bigDecimal();
 
-    // context..........................................................................................................
-
-    public final ExpressionNumberContext context() {
-        return this.context;
-    }
-
-    public final ExpressionNumber setContext(final ExpressionNumberContext context) {
-        checkContext(context);
-        return this.context.equals(context) ?
-                this :
-                this.replaceContext(context);
-    }
-
-    final MathContext mathContext() {
-        return this.context.mathContext();
-    }
-
-    final ExpressionNumberContext context;
-
-    abstract ExpressionNumber replaceContext(final ExpressionNumberContext context);
-
     // Object...........................................................................................................
 
     @Override
@@ -386,7 +357,7 @@ public abstract class ExpressionNumber extends Number implements Comparable<Expr
     public abstract String toString();
 
     // Comparable.......................................................................................................
-    
+
     @Override
     public final int compareTo(final ExpressionNumber other) {
         return other.compareTo0(this);

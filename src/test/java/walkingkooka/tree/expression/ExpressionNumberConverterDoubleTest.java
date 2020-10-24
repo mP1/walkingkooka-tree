@@ -21,12 +21,12 @@ public final class ExpressionNumberConverterDoubleTest extends ExpressionNumberC
 
     @Override
     ExpressionNumber expressionNumberOne() {
-        return ExpressionNumber.with(1.0, CONTEXT);
+        return ExpressionNumber.with(1.0);
     }
 
     @Override
     ExpressionNumber expressionNumberHalf() {
-        return ExpressionNumber.with(0.5, CONTEXT);
+        return ExpressionNumber.with(0.5);
     }
 
     @Override

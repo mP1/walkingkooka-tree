@@ -40,7 +40,7 @@ final class ExpressionNumberConverterDouble extends ExpressionNumberConverter {
     }
 
     private ExpressionNumber expressionNumber0(final Number value) {
-        return ExpressionNumber.with(value.doubleValue(), this.context);
+        return ExpressionNumber.with(value.doubleValue());
     }
 
     String expressionNumberType() {

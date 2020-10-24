@@ -42,7 +42,7 @@ final class ExpressionNumberConverterBigDecimal extends ExpressionNumberConverte
     }
 
     private ExpressionNumber expressionNumber0(final Number value) {
-        return ExpressionNumberConverterBigDecimalNumberVisitor.wrap(value, this.context);
+        return ExpressionNumberConverterBigDecimalNumberVisitor.wrap(value);
     }
 
     @Override
