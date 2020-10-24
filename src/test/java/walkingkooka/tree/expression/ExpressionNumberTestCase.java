@@ -18,7 +18,6 @@
 package walkingkooka.tree.expression;
 
 import org.junit.jupiter.api.Test;
-import walkingkooka.HashCodeEqualsDefinedTesting2;
 import walkingkooka.ToStringTesting;
 import walkingkooka.compare.ComparableTesting2;
 import walkingkooka.reflect.ClassTesting;
@@ -56,13 +55,13 @@ public abstract class ExpressionNumberTestCase<N extends ExpressionNumber> imple
     @Test
     public final void testAbsPositive() {
         final ExpressionNumber number = this.create(1);
-        assertSame(number, number.abs());
+        assertSame(number, number.abs(CONTEXT));
     }
 
     @Test
     public final void testAbsNegative() {
         final N number = this.create(-1);
-        final ExpressionNumber different = number.abs();
+        final ExpressionNumber different = number.abs(CONTEXT);
         assertNotSame(number, different);
         this.checkValue(1, different);
     }
@@ -72,7 +71,7 @@ public abstract class ExpressionNumberTestCase<N extends ExpressionNumber> imple
     @Test
     public final void testNegatePositive() {
         final N number = this.create(+1);
-        final ExpressionNumber different = number.negate();
+        final ExpressionNumber different = number.negate(CONTEXT);
         assertNotSame(number, different);
         this.checkValue(-1, different);
     }
@@ -80,13 +79,13 @@ public abstract class ExpressionNumberTestCase<N extends ExpressionNumber> imple
     @Test
     public final void testNegateZero() {
         final ExpressionNumber number = this.create(0);
-        assertSame(number, number.negate());
+        assertSame(number, number.negate(CONTEXT));
     }
 
     @Test
     public final void testNegateNegative() {
         final N number = this.create(-1);
-        final ExpressionNumber different = number.negate();
+        final ExpressionNumber different = number.negate(CONTEXT);
         assertNotSame(number, different);
         this.checkValue(1, different);
     }
@@ -100,7 +99,7 @@ public abstract class ExpressionNumberTestCase<N extends ExpressionNumber> imple
         final N number = this.create(value);
         final ExpressionNumber different = number.not();
         assertNotSame(number, different);
-        this.checkValue(~ value, different);
+        this.checkValue(~value, different);
     }
 
     @Test
@@ -110,7 +109,7 @@ public abstract class ExpressionNumberTestCase<N extends ExpressionNumber> imple
         final N number = this.create(value);
         final ExpressionNumber different = number.not();
         assertNotSame(number, different);
-        this.checkValue(~ value, different);
+        this.checkValue(~value, different);
     }
 
     @Test
@@ -120,7 +119,7 @@ public abstract class ExpressionNumberTestCase<N extends ExpressionNumber> imple
         final N number = this.create(value);
         final ExpressionNumber different = number.not();
         assertNotSame(number, different);
-        this.checkValue(~ value, different);
+        this.checkValue(~value, different);
     }
 
     // add..............................................................................................................
@@ -130,7 +129,7 @@ public abstract class ExpressionNumberTestCase<N extends ExpressionNumber> imple
         final int value = 1;
 
         final N number = this.create(value);
-        assertSame(number, number.add(this.create(0)));
+        assertSame(number, number.add(this.create(0), CONTEXT));
     }
 
     @Test
@@ -139,7 +138,7 @@ public abstract class ExpressionNumberTestCase<N extends ExpressionNumber> imple
         final int add = 2;
 
         final N number = this.create(value);
-        final ExpressionNumber different = number.add(ExpressionNumber.with(BigDecimal.valueOf(add), CONTEXT));
+        final ExpressionNumber different = number.add(ExpressionNumber.with(BigDecimal.valueOf(add)), CONTEXT);
         assertNotSame(number, different);
         this.checkValue(value + add, different);
     }
@@ -150,7 +149,7 @@ public abstract class ExpressionNumberTestCase<N extends ExpressionNumber> imple
         final int add = 2;
 
         final N number = this.create(value);
-        final ExpressionNumber different = number.add(ExpressionNumber.with((double)add, CONTEXT));
+        final ExpressionNumber different = number.add(ExpressionNumber.with(add), CONTEXT);
         assertNotSame(number, different);
         this.checkValue(value + add, different);
     }
@@ -162,7 +161,7 @@ public abstract class ExpressionNumberTestCase<N extends ExpressionNumber> imple
         final int value = 1;
 
         final N number = this.create(value);
-        assertThrows(ArithmeticException.class, () -> number.divide(this.create(0)));
+        assertThrows(ArithmeticException.class, () -> number.divide(this.create(0), CONTEXT));
     }
 
     @Test
@@ -170,7 +169,7 @@ public abstract class ExpressionNumberTestCase<N extends ExpressionNumber> imple
         final int value = 1;
 
         final N number = this.create(value);
-        assertSame(number, number.divide(this.create(1)));
+        assertSame(number, number.divide(this.create(1), CONTEXT));
     }
 
     @Test
@@ -179,7 +178,7 @@ public abstract class ExpressionNumberTestCase<N extends ExpressionNumber> imple
         final int divide = 2;
 
         final N number = this.create(value);
-        final ExpressionNumber different = number.divide(ExpressionNumber.with(BigDecimal.valueOf(divide), CONTEXT));
+        final ExpressionNumber different = number.divide(ExpressionNumber.with(BigDecimal.valueOf(divide)), CONTEXT);
         assertNotSame(number, different);
         this.checkValue(value / divide, different);
     }
@@ -190,7 +189,7 @@ public abstract class ExpressionNumberTestCase<N extends ExpressionNumber> imple
         final int divide = 2;
 
         final N number = this.create(value);
-        final ExpressionNumber different = number.divide(ExpressionNumber.with((double)divide, CONTEXT));
+        final ExpressionNumber different = number.divide(ExpressionNumber.with(divide), CONTEXT);
         assertNotSame(number, different);
         this.checkValue(value / divide, different);
     }
@@ -202,7 +201,7 @@ public abstract class ExpressionNumberTestCase<N extends ExpressionNumber> imple
         final int value = 1;
 
         final N number = this.create(value);
-        assertSame(number, number.power(this.create(0)));
+        assertSame(number, number.power(this.create(0), CONTEXT));
     }
 
     @Test
@@ -211,9 +210,9 @@ public abstract class ExpressionNumberTestCase<N extends ExpressionNumber> imple
         final int power = 3;
 
         final N number = this.create(value);
-        final ExpressionNumber different = number.power(ExpressionNumber.with(BigDecimal.valueOf(power), CONTEXT));
+        final ExpressionNumber different = number.power(ExpressionNumber.with(BigDecimal.valueOf(power)), CONTEXT);
         assertNotSame(number, different);
-        this.checkValue((int)Math.pow(value, power), different);
+        this.checkValue((int) Math.pow(value, power), different);
     }
 
     @Test
@@ -222,9 +221,9 @@ public abstract class ExpressionNumberTestCase<N extends ExpressionNumber> imple
         final int power = 3;
 
         final N number = this.create(value);
-        final ExpressionNumber different = number.power(ExpressionNumber.with((double)power, CONTEXT));
+        final ExpressionNumber different = number.power(ExpressionNumber.with(power), CONTEXT);
         assertNotSame(number, different);
-        this.checkValue((int)Math.pow(value, power), different);
+        this.checkValue((int) Math.pow(value, power), different);
     }
 
     // subtract..............................................................................................................
@@ -234,7 +233,7 @@ public abstract class ExpressionNumberTestCase<N extends ExpressionNumber> imple
         final int value = 1;
 
         final N number = this.create(value);
-        assertSame(number, number.subtract(this.create(0)));
+        assertSame(number, number.subtract(this.create(0), CONTEXT));
     }
 
     @Test
@@ -243,7 +242,7 @@ public abstract class ExpressionNumberTestCase<N extends ExpressionNumber> imple
         final int subtract = 2;
 
         final N number = this.create(value);
-        final ExpressionNumber different = number.subtract(ExpressionNumber.with(BigDecimal.valueOf(subtract), CONTEXT));
+        final ExpressionNumber different = number.subtract(ExpressionNumber.with(BigDecimal.valueOf(subtract)), CONTEXT);
         assertNotSame(number, different);
         this.checkValue(value - subtract, different);
     }
@@ -254,7 +253,7 @@ public abstract class ExpressionNumberTestCase<N extends ExpressionNumber> imple
         final int subtract = 2;
 
         final N number = this.create(value);
-        final ExpressionNumber different = number.subtract(ExpressionNumber.with((double)subtract, CONTEXT));
+        final ExpressionNumber different = number.subtract(ExpressionNumber.with(subtract), CONTEXT);
         assertNotSame(number, different);
         this.checkValue(value - subtract, different);
     }
@@ -275,7 +274,7 @@ public abstract class ExpressionNumberTestCase<N extends ExpressionNumber> imple
         final int and = 5;
 
         final N number = this.create(value);
-        final ExpressionNumber different = number.and(ExpressionNumber.with(BigDecimal.valueOf(and), CONTEXT));
+        final ExpressionNumber different = number.and(ExpressionNumber.with(BigDecimal.valueOf(and)));
         assertNotSame(number, different);
         this.checkValue(value & and, different);
     }
@@ -286,7 +285,7 @@ public abstract class ExpressionNumberTestCase<N extends ExpressionNumber> imple
         final int and = 5;
 
         final N number = this.create(value);
-        final ExpressionNumber different = number.and(ExpressionNumber.with((double)and, CONTEXT));
+        final ExpressionNumber different = number.and(ExpressionNumber.with(and));
         assertNotSame(number, different);
         this.checkValue(value & and, different);
     }
@@ -307,7 +306,7 @@ public abstract class ExpressionNumberTestCase<N extends ExpressionNumber> imple
         final int or = 5;
 
         final N number = this.create(value);
-        final ExpressionNumber different = number.or(ExpressionNumber.with(BigDecimal.valueOf(or), CONTEXT));
+        final ExpressionNumber different = number.or(ExpressionNumber.with(BigDecimal.valueOf(or)));
         assertNotSame(number, different);
         this.checkValue(value | or, different);
     }
@@ -318,7 +317,7 @@ public abstract class ExpressionNumberTestCase<N extends ExpressionNumber> imple
         final int or = 5;
 
         final N number = this.create(value);
-        final ExpressionNumber different = number.or(ExpressionNumber.with((double)or, CONTEXT));
+        final ExpressionNumber different = number.or(ExpressionNumber.with(or));
         assertNotSame(number, different);
         this.checkValue(value | or, different);
     }
@@ -339,7 +338,7 @@ public abstract class ExpressionNumberTestCase<N extends ExpressionNumber> imple
         final int xor = 5;
 
         final N number = this.create(value);
-        final ExpressionNumber different = number.xor(ExpressionNumber.with(BigDecimal.valueOf(xor), CONTEXT));
+        final ExpressionNumber different = number.xor(ExpressionNumber.with(BigDecimal.valueOf(xor)));
         assertNotSame(number, different);
         this.checkValue(value ^ xor, different);
     }
@@ -350,7 +349,7 @@ public abstract class ExpressionNumberTestCase<N extends ExpressionNumber> imple
         final int xor = 5;
 
         final N number = this.create(value);
-        final ExpressionNumber different = number.xor(ExpressionNumber.with((double)xor, CONTEXT));
+        final ExpressionNumber different = number.xor(ExpressionNumber.with(xor));
         assertNotSame(number, different);
         this.checkValue(value ^ xor, different);
     }
@@ -359,253 +358,253 @@ public abstract class ExpressionNumberTestCase<N extends ExpressionNumber> imple
 
     @Test
     public final void testEqualsSame() {
-        assertEquals(1 == 1, this.create(1).equals(ExpressionNumber.with(BigDecimal.ONE, CONTEXT)));
+        assertEquals(1 == 1, this.create(1).equals(ExpressionNumber.with(BigDecimal.ONE)));
     }
 
     @Test
     public final void testEqualsSameBigDecimal() {
-        assertEquals(1 == 1, this.create(1).equals(ExpressionNumber.with(BigDecimal.ONE, CONTEXT)));
+        assertEquals(1 == 1, this.create(1).equals(ExpressionNumber.with(BigDecimal.ONE)));
     }
 
     @Test
     public final void testEqualsSameDouble() {
-        assertEquals(1 == 1, this.create(1).equals(ExpressionNumber.with(Double.valueOf(1), CONTEXT)));
+        assertEquals(1 == 1, this.create(1).equals(ExpressionNumber.with(Double.valueOf(1))));
     }
 
     @Test
     public final void testEqualsDifferent() {
-        assertEquals(1 == 2, this.create(1).equals(ExpressionNumber.with(BigDecimal.valueOf(2), CONTEXT)));
+        assertEquals(1 == 2, this.create(1).equals(ExpressionNumber.with(BigDecimal.valueOf(2))));
     }
 
     @Test
     public final void testEqualsDifferentBigDecimal() {
-        assertEquals(1 == 2, this.create(1).equals(ExpressionNumber.with(BigDecimal.valueOf(2), CONTEXT)));
+        assertEquals(1 == 2, this.create(1).equals(ExpressionNumber.with(BigDecimal.valueOf(2))));
     }
 
     @Test
     public final void testEqualsDifferentDouble() {
-        assertEquals(1 == 2, this.create(1).equals(ExpressionNumber.with(Double.valueOf(2), CONTEXT)));
+        assertEquals(1 == 2, this.create(1).equals(ExpressionNumber.with(Double.valueOf(2))));
     }
 
     // greaterThan..............................................................................................................
 
     @Test
     public final void testGreaterThanLess() {
-        assertEquals(2 > 1, this.create(2).greaterThan(ExpressionNumber.with(BigDecimal.ONE, CONTEXT)));
+        assertEquals(2 > 1, this.create(2).greaterThan(ExpressionNumber.with(BigDecimal.ONE)));
     }
 
     @Test
     public final void testGreaterThanLessBigDecimal() {
-        assertEquals(2 > 1, this.create(2).greaterThan(ExpressionNumber.with(BigDecimal.ONE, CONTEXT)));
+        assertEquals(2 > 1, this.create(2).greaterThan(ExpressionNumber.with(BigDecimal.ONE)));
     }
 
     @Test
     public final void testGreaterThanLessDouble() {
-        assertEquals(2 > 1, this.create(2).greaterThan(ExpressionNumber.with(Double.valueOf(1), CONTEXT)));
+        assertEquals(2 > 1, this.create(2).greaterThan(ExpressionNumber.with(Double.valueOf(1))));
     }
 
     @Test
     public final void testGreaterThanSame() {
-        assertEquals(1 > 1, this.create(1).greaterThan(ExpressionNumber.with(BigDecimal.ONE, CONTEXT)));
+        assertEquals(1 > 1, this.create(1).greaterThan(ExpressionNumber.with(BigDecimal.ONE)));
     }
 
     @Test
     public final void testGreaterThanSameBigDecimal() {
-        assertEquals(1 > 1, this.create(1).greaterThan(ExpressionNumber.with(BigDecimal.ONE, CONTEXT)));
+        assertEquals(1 > 1, this.create(1).greaterThan(ExpressionNumber.with(BigDecimal.ONE)));
     }
 
     @Test
     public final void testGreaterThanSameDouble() {
-        assertEquals(1 > 1, this.create(1).greaterThan(ExpressionNumber.with(Double.valueOf(1), CONTEXT)));
+        assertEquals(1 > 1, this.create(1).greaterThan(ExpressionNumber.with(Double.valueOf(1))));
     }
 
     @Test
     public final void testGreaterThanGreater() {
-        assertEquals(2 > 1, this.create(2).greaterThan(ExpressionNumber.with(BigDecimal.ONE, CONTEXT)));
+        assertEquals(2 > 1, this.create(2).greaterThan(ExpressionNumber.with(BigDecimal.ONE)));
     }
 
     @Test
     public final void testGreaterThanGreaterBigDecimal() {
-        assertEquals(2 > 1, this.create(2).greaterThan(ExpressionNumber.with(BigDecimal.ONE, CONTEXT)));
+        assertEquals(2 > 1, this.create(2).greaterThan(ExpressionNumber.with(BigDecimal.ONE)));
     }
 
     @Test
     public final void testGreaterThanGreaterDouble() {
-        assertEquals(2 > 1, this.create(2).greaterThan(ExpressionNumber.with(Double.valueOf(1), CONTEXT)));
+        assertEquals(2 > 1, this.create(2).greaterThan(ExpressionNumber.with(Double.valueOf(1))));
     }
 
     // greaterThanEquals..............................................................................................................
 
     @Test
     public final void testGreaterThanEqualsLess() {
-        assertEquals(2 >= 1, this.create(2).greaterThanEquals(ExpressionNumber.with(BigDecimal.ONE, CONTEXT)));
+        assertEquals(2 >= 1, this.create(2).greaterThanEquals(ExpressionNumber.with(BigDecimal.ONE)));
     }
 
     @Test
     public final void testGreaterThanEqualsLessBigDecimal() {
-        assertEquals(2 >= 1, this.create(2).greaterThanEquals(ExpressionNumber.with(BigDecimal.ONE, CONTEXT)));
+        assertEquals(2 >= 1, this.create(2).greaterThanEquals(ExpressionNumber.with(BigDecimal.ONE)));
     }
 
     @Test
     public final void testGreaterThanEqualsLessDouble() {
-        assertEquals(2 >= 1, this.create(2).greaterThanEquals(ExpressionNumber.with(Double.valueOf(1), CONTEXT)));
+        assertEquals(2 >= 1, this.create(2).greaterThanEquals(ExpressionNumber.with(Double.valueOf(1))));
     }
 
     @Test
     public final void testGreaterThanEqualsSame() {
-        assertEquals(1 >= 1, this.create(1).greaterThanEquals(ExpressionNumber.with(BigDecimal.ONE, CONTEXT)));
+        assertEquals(1 >= 1, this.create(1).greaterThanEquals(ExpressionNumber.with(BigDecimal.ONE)));
     }
 
     @Test
     public final void testGreaterThanEqualsSameBigDecimal() {
-        assertEquals(1 >= 1, this.create(1).greaterThanEquals(ExpressionNumber.with(BigDecimal.ONE, CONTEXT)));
+        assertEquals(1 >= 1, this.create(1).greaterThanEquals(ExpressionNumber.with(BigDecimal.ONE)));
     }
 
     @Test
     public final void testGreaterThanEqualsSameDouble() {
-        assertEquals(1 >= 1, this.create(1).greaterThanEquals(ExpressionNumber.with(Double.valueOf(1), CONTEXT)));
+        assertEquals(1 >= 1, this.create(1).greaterThanEquals(ExpressionNumber.with(Double.valueOf(1))));
     }
 
     @Test
     public final void testGreaterThanEqualsGreater() {
-        assertEquals(2 >= 1, this.create(2).greaterThanEquals(ExpressionNumber.with(BigDecimal.ONE, CONTEXT)));
+        assertEquals(2 >= 1, this.create(2).greaterThanEquals(ExpressionNumber.with(BigDecimal.ONE)));
     }
 
     @Test
     public final void testGreaterThanEqualsGreaterBigDecimal() {
-        assertEquals(2 >= 1, this.create(2).greaterThanEquals(ExpressionNumber.with(BigDecimal.ONE, CONTEXT)));
+        assertEquals(2 >= 1, this.create(2).greaterThanEquals(ExpressionNumber.with(BigDecimal.ONE)));
     }
 
     @Test
     public final void testGreaterThanEqualsGreaterDouble() {
-        assertEquals(2 >= 1, this.create(2).greaterThanEquals(ExpressionNumber.with(Double.valueOf(1), CONTEXT)));
+        assertEquals(2 >= 1, this.create(2).greaterThanEquals(ExpressionNumber.with(Double.valueOf(1))));
     }
 
     // lessThan..............................................................................................................
 
     @Test
     public final void testLessThanLess() {
-        assertEquals(2 < 1, this.create(2).lessThan(ExpressionNumber.with(BigDecimal.ONE, CONTEXT)));
+        assertEquals(2 < 1, this.create(2).lessThan(ExpressionNumber.with(BigDecimal.ONE)));
     }
 
     @Test
     public final void testLessThanLessBigDecimal() {
-        assertEquals(2 < 1, this.create(2).lessThan(ExpressionNumber.with(BigDecimal.ONE, CONTEXT)));
+        assertEquals(2 < 1, this.create(2).lessThan(ExpressionNumber.with(BigDecimal.ONE)));
     }
 
     @Test
     public final void testLessThanLessDouble() {
-        assertEquals(2 < 1, this.create(2).lessThan(ExpressionNumber.with(Double.valueOf(1), CONTEXT)));
+        assertEquals(2 < 1, this.create(2).lessThan(ExpressionNumber.with(Double.valueOf(1))));
     }
 
     @Test
     public final void testLessThanSame() {
-        assertEquals(1 < 1, this.create(1).lessThan(ExpressionNumber.with(BigDecimal.ONE, CONTEXT)));
+        assertEquals(1 < 1, this.create(1).lessThan(ExpressionNumber.with(BigDecimal.ONE)));
     }
 
     @Test
     public final void testLessThanSameBigDecimal() {
-        assertEquals(1 < 1, this.create(1).lessThan(ExpressionNumber.with(BigDecimal.ONE, CONTEXT)));
+        assertEquals(1 < 1, this.create(1).lessThan(ExpressionNumber.with(BigDecimal.ONE)));
     }
 
     @Test
     public final void testLessThanSameDouble() {
-        assertEquals(1 < 1, this.create(1).lessThan(ExpressionNumber.with(Double.valueOf(1), CONTEXT)));
+        assertEquals(1 < 1, this.create(1).lessThan(ExpressionNumber.with(Double.valueOf(1))));
     }
 
     @Test
     public final void testLessThanGreater() {
-        assertEquals(2 < 1, this.create(2).lessThan(ExpressionNumber.with(BigDecimal.ONE, CONTEXT)));
+        assertEquals(2 < 1, this.create(2).lessThan(ExpressionNumber.with(BigDecimal.ONE)));
     }
 
     @Test
     public final void testLessThanGreaterBigDecimal() {
-        assertEquals(2 < 1, this.create(2).lessThan(ExpressionNumber.with(BigDecimal.ONE, CONTEXT)));
+        assertEquals(2 < 1, this.create(2).lessThan(ExpressionNumber.with(BigDecimal.ONE)));
     }
 
     @Test
     public final void testLessThanGreaterDouble() {
-        assertEquals(2 < 1, this.create(2).lessThan(ExpressionNumber.with(Double.valueOf(1), CONTEXT)));
+        assertEquals(2 < 1, this.create(2).lessThan(ExpressionNumber.with(Double.valueOf(1))));
     }
 
     // lessThanEquals..............................................................................................................
 
     @Test
     public final void testLessThanEqualsLess() {
-        assertEquals(2 <= 1, this.create(2).lessThanEquals(ExpressionNumber.with(BigDecimal.ONE, CONTEXT)));
+        assertEquals(2 <= 1, this.create(2).lessThanEquals(ExpressionNumber.with(BigDecimal.ONE)));
     }
 
     @Test
     public final void testLessThanEqualsLessBigDecimal() {
-        assertEquals(2 <= 1, this.create(2).lessThanEquals(ExpressionNumber.with(BigDecimal.ONE, CONTEXT)));
+        assertEquals(2 <= 1, this.create(2).lessThanEquals(ExpressionNumber.with(BigDecimal.ONE)));
     }
 
     @Test
     public final void testLessThanEqualsLessDouble() {
-        assertEquals(2 <= 1, this.create(2).lessThanEquals(ExpressionNumber.with(Double.valueOf(1), CONTEXT)));
+        assertEquals(2 <= 1, this.create(2).lessThanEquals(ExpressionNumber.with(Double.valueOf(1))));
     }
 
     @Test
     public final void testLessThanEqualsSame() {
-        assertEquals(1 <= 1, this.create(1).lessThanEquals(ExpressionNumber.with(BigDecimal.ONE, CONTEXT)));
+        assertEquals(1 <= 1, this.create(1).lessThanEquals(ExpressionNumber.with(BigDecimal.ONE)));
     }
 
     @Test
     public final void testLessThanEqualsSameBigDecimal() {
-        assertEquals(1 <= 1, this.create(1).lessThanEquals(ExpressionNumber.with(BigDecimal.ONE, CONTEXT)));
+        assertEquals(1 <= 1, this.create(1).lessThanEquals(ExpressionNumber.with(BigDecimal.ONE)));
     }
 
     @Test
     public final void testLessThanEqualsSameDouble() {
-        assertEquals(1 <= 1, this.create(1).lessThanEquals(ExpressionNumber.with(Double.valueOf(1), CONTEXT)));
+        assertEquals(1 <= 1, this.create(1).lessThanEquals(ExpressionNumber.with(Double.valueOf(1))));
     }
 
     @Test
     public final void testLessThanEqualsGreater() {
-        assertEquals(2 <= 1, this.create(2).lessThanEquals(ExpressionNumber.with(BigDecimal.ONE, CONTEXT)));
+        assertEquals(2 <= 1, this.create(2).lessThanEquals(ExpressionNumber.with(BigDecimal.ONE)));
     }
 
     @Test
     public final void testLessThanEqualsGreaterBigDecimal() {
-        assertEquals(2 <= 1, this.create(2).lessThanEquals(ExpressionNumber.with(BigDecimal.ONE, CONTEXT)));
+        assertEquals(2 <= 1, this.create(2).lessThanEquals(ExpressionNumber.with(BigDecimal.ONE)));
     }
 
     @Test
     public final void testLessThanEqualsGreaterDouble() {
-        assertEquals(2 <= 1, this.create(2).lessThanEquals(ExpressionNumber.with(Double.valueOf(1), CONTEXT)));
+        assertEquals(2 <= 1, this.create(2).lessThanEquals(ExpressionNumber.with(Double.valueOf(1))));
     }
     // notEquals..............................................................................................................
 
     @Test
     public final void testNotEqualsSame() {
-        assertEquals(1 != 1, this.create(1).notEquals(ExpressionNumber.with(BigDecimal.ONE, CONTEXT)));
+        assertEquals(1 != 1, this.create(1).notEquals(ExpressionNumber.with(BigDecimal.ONE)));
     }
 
     @Test
     public final void testNotEqualsSameBigDecimal() {
-        assertEquals(1 != 1, this.create(1).notEquals(ExpressionNumber.with(BigDecimal.ONE, CONTEXT)));
+        assertEquals(1 != 1, this.create(1).notEquals(ExpressionNumber.with(BigDecimal.ONE)));
     }
 
     @Test
     public final void testNotEqualsSameDouble() {
-        assertEquals(1 != 1, this.create(1).notEquals(ExpressionNumber.with(Double.valueOf(1), CONTEXT)));
+        assertEquals(1 != 1, this.create(1).notEquals(ExpressionNumber.with(Double.valueOf(1))));
     }
 
     @Test
     public final void testNotEqualsDifferent() {
-        assertEquals(1 != 2, this.create(1).notEquals(ExpressionNumber.with(BigDecimal.valueOf(2), CONTEXT)));
+        assertEquals(1 != 2, this.create(1).notEquals(ExpressionNumber.with(BigDecimal.valueOf(2))));
     }
 
     @Test
     public final void testNotEqualsDifferentBigDecimal() {
-        assertEquals(1 != 2, this.create(1).notEquals(ExpressionNumber.with(BigDecimal.valueOf(2), CONTEXT)));
+        assertEquals(1 != 2, this.create(1).notEquals(ExpressionNumber.with(BigDecimal.valueOf(2))));
     }
 
     @Test
     public final void testNotEqualsDifferentDouble() {
-        assertEquals(1 != 2, this.create(1).notEquals(ExpressionNumber.with(Double.valueOf(2), CONTEXT)));
+        assertEquals(1 != 2, this.create(1).notEquals(ExpressionNumber.with(Double.valueOf(2))));
     }
-    
+
     // byteValue........................................................................................................
 
     @Test
@@ -709,32 +708,6 @@ public abstract class ExpressionNumberTestCase<N extends ExpressionNumber> imple
         final int value = 1;
         assertEquals(BigDecimal.valueOf(value), this.create(value).bigDecimal().setScale(0));
     }
-    
-    // context..........................................................................................................
-
-    @Test
-    public final void testContext() {
-        assertSame(CONTEXT, this.create().context());
-    }
-
-    @Test
-    public final void testSetContextNullFails() {
-        assertThrows(NullPointerException.class, () -> this.create().setContext(null));
-    }
-
-    @Test
-    public final void testSetContextSame() {
-        final N number = this.create();
-        assertSame(number, number.setContext(CONTEXT));
-    }
-
-    @Test
-    public final void testSetContextDifferent() {
-        final N number = this.create();
-        final ExpressionNumberContext differentContext = new FakeExpressionNumberContext();
-        final ExpressionNumber different = number.setContext(differentContext);
-        assertSame(differentContext, different.context());
-    }
 
     // equals...........................................................................................................
 
@@ -746,7 +719,7 @@ public abstract class ExpressionNumberTestCase<N extends ExpressionNumber> imple
     @Test
     public final void testSameValueExpressionNumberBigDecimal() {
         final int value = 1;
-        this.checkNotEquals(ExpressionNumberDouble.withDouble(value, CONTEXT), ExpressionNumberBigDecimal.withBigDecimal(BigDecimal.valueOf(value), CONTEXT));
+        this.checkNotEquals(ExpressionNumberDouble.withDouble(value), ExpressionNumberBigDecimal.withBigDecimal(BigDecimal.valueOf(value)));
     }
 
     // helper...........................................................................................................
@@ -754,7 +727,7 @@ public abstract class ExpressionNumberTestCase<N extends ExpressionNumber> imple
     private N create() {
         return this.create(0);
     }
-    
+
     abstract N create(final double value);
 
     final void checkValue(final double value, final ExpressionNumber number) {
@@ -764,6 +737,7 @@ public abstract class ExpressionNumberTestCase<N extends ExpressionNumber> imple
             assertEquals(value, number.doubleValue());
         }
     }
+
     abstract void checkValue0(final double value, final N number);
 
     @Override

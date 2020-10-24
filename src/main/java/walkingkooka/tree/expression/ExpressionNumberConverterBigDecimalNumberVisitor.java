@@ -28,17 +28,15 @@ import java.math.BigInteger;
  */
 final class ExpressionNumberConverterBigDecimalNumberVisitor extends NumberVisitor {
 
-    static ExpressionNumber wrap(final Number number,
-                                 final ExpressionNumberContext context) {
-        final ExpressionNumberConverterBigDecimalNumberVisitor visitor = new ExpressionNumberConverterBigDecimalNumberVisitor(context);
+    static ExpressionNumber wrap(final Number number) {
+        final ExpressionNumberConverterBigDecimalNumberVisitor visitor = new ExpressionNumberConverterBigDecimalNumberVisitor();
         visitor.accept(number);
         return visitor.result;
     }
 
     // @VisibleForTesting
-    ExpressionNumberConverterBigDecimalNumberVisitor(final ExpressionNumberContext context) {
+    ExpressionNumberConverterBigDecimalNumberVisitor() {
         super();
-        this.context = context;
     }
 
     @Override
@@ -95,14 +93,13 @@ final class ExpressionNumberConverterBigDecimalNumberVisitor extends NumberVisit
     }
 
     private void acceptBigDecimal(final BigDecimal number) {
-        this.result = ExpressionNumber.with(number, this.context);
+        this.result = ExpressionNumber.with(number);
     }
 
     ExpressionNumber result;
-    private final ExpressionNumberContext context;
 
     @Override
     public String toString() {
-        return this.context.toString();
+        return String.valueOf(this.result);
     }
 }

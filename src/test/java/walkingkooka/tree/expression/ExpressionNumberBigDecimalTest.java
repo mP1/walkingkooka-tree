@@ -28,38 +28,33 @@ public final class ExpressionNumberBigDecimalTest extends ExpressionNumberTestCa
 
     @Test
     public void testWithNullBigDecimalFails() {
-        assertThrows(NullPointerException.class, () -> ExpressionNumberBigDecimal.withBigDecimal(null, CONTEXT));
-    }
-
-    @Test
-    public void testWithBigDecimalNullContextFails() {
-        assertThrows(NullPointerException.class, () -> ExpressionNumberBigDecimal.withBigDecimal(BigDecimal.ONE, null));
+        assertThrows(NullPointerException.class, () -> ExpressionNumberBigDecimal.withBigDecimal(null));
     }
 
     // comparable......................................................................................................
 
     @Test
     public void testCompareBigDecimalEquals() {
-        this.compareToAndCheckEquals(ExpressionNumberBigDecimal.withBigDecimal(BigDecimal.ONE, CONTEXT),
-                ExpressionNumberBigDecimal.withBigDecimal(BigDecimal.ONE, CONTEXT));
+        this.compareToAndCheckEquals(ExpressionNumberBigDecimal.withBigDecimal(BigDecimal.ONE),
+                ExpressionNumberBigDecimal.withBigDecimal(BigDecimal.ONE));
     }
 
     @Test
     public void testCompareDoubleEquals() {
-        this.compareToAndCheckEquals(ExpressionNumberDouble.withDouble(1, CONTEXT),
-                ExpressionNumberDouble.withDouble(1, CONTEXT));
+        this.compareToAndCheckEquals(ExpressionNumberDouble.withDouble(1),
+                ExpressionNumberDouble.withDouble(1));
     }
 
     @Test
     public void testCompareBigDecimalLess() {
-        this.compareToAndCheckLess(ExpressionNumberBigDecimal.withBigDecimal(BigDecimal.ONE, CONTEXT),
-                ExpressionNumberBigDecimal.withBigDecimal(BigDecimal.valueOf(2), CONTEXT));
+        this.compareToAndCheckLess(ExpressionNumberBigDecimal.withBigDecimal(BigDecimal.ONE),
+                ExpressionNumberBigDecimal.withBigDecimal(BigDecimal.valueOf(2)));
     }
 
     @Test
     public void testCompareDoubleLess() {
-        this.compareToAndCheckLess(ExpressionNumberBigDecimal.withBigDecimal(BigDecimal.ONE, CONTEXT),
-                ExpressionNumberDouble.withDouble(2, CONTEXT));
+        this.compareToAndCheckLess(ExpressionNumberBigDecimal.withBigDecimal(BigDecimal.ONE),
+                ExpressionNumberDouble.withDouble(2));
     }
 
     // bigDecimal.......................................................................................................
@@ -67,12 +62,12 @@ public final class ExpressionNumberBigDecimalTest extends ExpressionNumberTestCa
     @Test
     public final void testBigDecimal2() {
         final BigDecimal value = BigDecimal.valueOf(12.5);
-        assertEquals(value, ExpressionNumberBigDecimal.withBigDecimal(value, CONTEXT).bigDecimal());
+        assertEquals(value, ExpressionNumberBigDecimal.withBigDecimal(value).bigDecimal());
     }
 
     @Override
     ExpressionNumberBigDecimal create(final double value) {
-        return ExpressionNumberBigDecimal.withBigDecimal(BigDecimal.valueOf(value), CONTEXT);
+        return ExpressionNumberBigDecimal.withBigDecimal(BigDecimal.valueOf(value));
     }
 
     @Override final void checkValue0(final double value, final ExpressionNumberBigDecimal number) {

@@ -22,48 +22,41 @@ import org.junit.jupiter.api.Test;
 import java.math.BigDecimal;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class ExpressionNumberDoubleTest extends ExpressionNumberTestCase<ExpressionNumberDouble> {
-
-    @Test
-    public void testWithDoubleNullContextFails() {
-        assertThrows(NullPointerException.class, () -> ExpressionNumberDouble.withDouble(1, null));
-    }
 
     // comparable......................................................................................................
 
     @Test
     public void testCompareBigDecimalEquals() {
-        this.compareToAndCheckEquals(ExpressionNumberDouble.withDouble(1, CONTEXT),
-                ExpressionNumberBigDecimal.withBigDecimal(BigDecimal.ONE, CONTEXT));
+        this.compareToAndCheckEquals(ExpressionNumberDouble.withDouble(1),
+                ExpressionNumberBigDecimal.withBigDecimal(BigDecimal.ONE));
     }
 
     @Test
     public void testCompareDoubleEquals() {
-        this.compareToAndCheckEquals(ExpressionNumberDouble.withDouble(1, CONTEXT),
-                ExpressionNumberDouble.withDouble(1, CONTEXT));
+        this.compareToAndCheckEquals(ExpressionNumberDouble.withDouble(1),
+                ExpressionNumberDouble.withDouble(1));
     }
 
     @Test
     public void testCompareBigDecimalLess() {
-        this.compareToAndCheckLess(ExpressionNumberDouble.withDouble(1, CONTEXT),
-                ExpressionNumberBigDecimal.withBigDecimal(BigDecimal.valueOf(2), CONTEXT));
+        this.compareToAndCheckLess(ExpressionNumberDouble.withDouble(1),
+                ExpressionNumberBigDecimal.withBigDecimal(BigDecimal.valueOf(2)));
     }
 
     @Test
     public void testCompareDoubleLess() {
-        this.compareToAndCheckLess(ExpressionNumberDouble.withDouble(1, CONTEXT),
-                ExpressionNumberDouble.withDouble(2, CONTEXT));
+        this.compareToAndCheckLess(ExpressionNumberDouble.withDouble(1),
+                ExpressionNumberDouble.withDouble(2));
     }
 
     @Override
     ExpressionNumberDouble create(final double value) {
-        return ExpressionNumberDouble.withDouble(value, CONTEXT);
+        return ExpressionNumberDouble.withDouble(value);
     }
 
-    @Override
-    final void checkValue0(final double value, final ExpressionNumberDouble number) {
+    @Override final void checkValue0(final double value, final ExpressionNumberDouble number) {
         assertEquals(value, number.doubleValue());
     }
 

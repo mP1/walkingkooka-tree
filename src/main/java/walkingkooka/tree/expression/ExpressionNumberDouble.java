@@ -31,28 +31,26 @@ final class ExpressionNumberDouble extends ExpressionNumber {
 
     private static final long serialVersionUID = 0L;
 
-    static ExpressionNumberDouble withDouble(final double value,
-                                             final ExpressionNumberContext context) {
-        checkContext(context);
-        return new ExpressionNumberDouble(value, context);
+    static ExpressionNumberDouble withDouble(final double value) {
+        return new ExpressionNumberDouble(value);
     }
 
-    private ExpressionNumberDouble(final double value, final ExpressionNumberContext context) {
-        super(context);
+    private ExpressionNumberDouble(final double value) {
+        super();
         this.value = value;
     }
 
     // abs..............................................................................................................
 
     @Override
-    public ExpressionNumber abs() {
+    public ExpressionNumber abs(final ExpressionNumberContext context) {
         return this.setValue(Math.abs(this.value));
     }
 
     // neg..............................................................................................................
 
     @Override
-    public ExpressionNumber negate() {
+    public ExpressionNumber negate(final ExpressionNumberContext context) {
         return this.setValue(-this.value);
     }
 
@@ -66,34 +64,34 @@ final class ExpressionNumberDouble extends ExpressionNumber {
     // add..............................................................................................................
 
     @Override
-    ExpressionNumber add0(final ExpressionNumber value) {
-        return value.add1(this);
+    ExpressionNumber add0(final ExpressionNumber value, final ExpressionNumberContext context) {
+        return value.add1(this, context);
     }
 
     @Override
-    ExpressionNumber add1(final ExpressionNumberBigDecimal value) {
-        return value.add1(this);
+    ExpressionNumber add1(final ExpressionNumberBigDecimal value, final ExpressionNumberContext context) {
+        return value.add1(this, context);
     }
 
     @Override
-    ExpressionNumber add1(final ExpressionNumberDouble value) {
+    ExpressionNumber add1(final ExpressionNumberDouble value, final ExpressionNumberContext context) {
         return this.setValue(this.value + value.value);
     }
 
     // divide..............................................................................................................
 
     @Override
-    ExpressionNumber divide0(final ExpressionNumber value) {
-        return value.divide1(this);
+    ExpressionNumber divide0(final ExpressionNumber value, final ExpressionNumberContext context) {
+        return value.divide1(this, context);
     }
 
     @Override
-    ExpressionNumber divide1(final ExpressionNumberBigDecimal value) {
-        return value.setValue(this.bigDecimal().divide(value.value, this.mathContext()));
+    ExpressionNumber divide1(final ExpressionNumberBigDecimal value, final ExpressionNumberContext context) {
+        return value.setValue(this.bigDecimal().divide(value.value, context.mathContext()));
     }
 
     @Override
-    ExpressionNumber divide1(final ExpressionNumberDouble value) {
+    ExpressionNumber divide1(final ExpressionNumberDouble value, final ExpressionNumberContext context) {
         final double doubleValue = value.value;
         if (doubleValue == 0) {
             throw new ArithmeticException();
@@ -104,68 +102,68 @@ final class ExpressionNumberDouble extends ExpressionNumber {
     // modulo..............................................................................................................
 
     @Override
-    ExpressionNumber modulo0(final ExpressionNumber value) {
-        return value.modulo1(this);
+    ExpressionNumber modulo0(final ExpressionNumber value, final ExpressionNumberContext context) {
+        return value.modulo1(this, context);
     }
 
     @Override
-    ExpressionNumber modulo1(final ExpressionNumberBigDecimal value) {
-        return value.modulo1(this);
+    ExpressionNumber modulo1(final ExpressionNumberBigDecimal value, final ExpressionNumberContext context) {
+        return value.modulo1(this, context);
     }
 
     @Override
-    ExpressionNumber modulo1(final ExpressionNumberDouble value) {
+    ExpressionNumber modulo1(final ExpressionNumberDouble value, final ExpressionNumberContext context) {
         return this.setValue(this.value % value.value);
     }
 
     // multiply..............................................................................................................
 
     @Override
-    ExpressionNumber multiply0(final ExpressionNumber value) {
-        return value.multiply1(this);
+    ExpressionNumber multiply0(final ExpressionNumber value, final ExpressionNumberContext context) {
+        return value.multiply1(this, context);
     }
 
     @Override
-    ExpressionNumber multiply1(final ExpressionNumberBigDecimal value) {
-        return value.multiply1(this);
+    ExpressionNumber multiply1(final ExpressionNumberBigDecimal value, final ExpressionNumberContext context) {
+        return value.multiply1(this, context);
     }
 
     @Override
-    ExpressionNumber multiply1(final ExpressionNumberDouble value) {
+    ExpressionNumber multiply1(final ExpressionNumberDouble value, final ExpressionNumberContext context) {
         return this.setValue(this.value * value.value);
     }
 
     // power..............................................................................................................
 
     @Override
-    ExpressionNumber power0(final ExpressionNumber value) {
-        return value.power1(this);
+    ExpressionNumber power0(final ExpressionNumber value, final ExpressionNumberContext context) {
+        return value.power1(this, context);
     }
 
     @Override
-    ExpressionNumber power1(final ExpressionNumberBigDecimal value) {
-        return value.setValue(BigDecimalMath.pow(this.bigDecimal(), value.value, this.mathContext()));
+    ExpressionNumber power1(final ExpressionNumberBigDecimal value, final ExpressionNumberContext context) {
+        return value.setValue(BigDecimalMath.pow(this.bigDecimal(), value.value, context.mathContext()));
     }
 
     @Override
-    ExpressionNumber power1(final ExpressionNumberDouble value) {
+    ExpressionNumber power1(final ExpressionNumberDouble value, final ExpressionNumberContext context) {
         return this.setValue(Math.pow(this.value, value.value));
     }
 
     // subtract..............................................................................................................
 
     @Override
-    ExpressionNumber subtract0(final ExpressionNumber value) {
-        return value.subtract1(this);
+    ExpressionNumber subtract0(final ExpressionNumber value, final ExpressionNumberContext context) {
+        return value.subtract1(this, context);
     }
 
     @Override
-    ExpressionNumber subtract1(final ExpressionNumberBigDecimal value) {
+    ExpressionNumber subtract1(final ExpressionNumberBigDecimal value, final ExpressionNumberContext context) {
         return value.setValue(this.bigDecimal().subtract(value.value));
     }
 
     @Override
-    ExpressionNumber subtract1(final ExpressionNumberDouble value) {
+    ExpressionNumber subtract1(final ExpressionNumberDouble value, final ExpressionNumberContext context) {
         return this.setValue(this.value - value.value);
     }
 
@@ -235,13 +233,6 @@ final class ExpressionNumberDouble extends ExpressionNumber {
         return this.setValue(value.longValue() ^ (long) this.value);
     }
 
-    // context............................................................................................................
-
-    @Override
-    ExpressionNumber replaceContext(final ExpressionNumberContext context) {
-        return new ExpressionNumberDouble(this.value, context);
-    }
-
     // toXXX............................................................................................................
 
     @Override
@@ -307,7 +298,7 @@ final class ExpressionNumberDouble extends ExpressionNumber {
     private ExpressionNumber setValue(final double value) {
         return this.value == value ?
                 this :
-                new ExpressionNumberDouble(value, this.context);
+                new ExpressionNumberDouble(value);
     }
 
     private final double value;
