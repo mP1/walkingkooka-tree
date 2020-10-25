@@ -70,7 +70,7 @@ public abstract class ExpressionNumber extends Number implements Comparable<Expr
     /**
      * {@see ExpressionNumberConverterToNumberExpressionNumberBigDecimal.expressionNumberBigDecimal}
      */
-    public static Converter toExpressionNumberBigDecimalConverterConverter(final Converter converter) {
+    public static Converter toExpressionNumberBigDecimalConverter(final Converter converter) {
         return ExpressionNumberConverterToNumberExpressionNumber.expressionNumberBigDecimal(converter);
     }
 
