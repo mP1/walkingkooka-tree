@@ -25,6 +25,7 @@ import walkingkooka.convert.ConverterContexts;
 import walkingkooka.convert.Converters;
 import walkingkooka.reflect.TypeNameTesting;
 import walkingkooka.text.CharSequences;
+import walkingkooka.tree.expression.ExpressionNumber;
 import walkingkooka.util.BiFunctionTesting;
 
 import java.util.List;
@@ -97,14 +98,16 @@ public interface ExpressionFunctionTesting<F extends ExpressionFunction<V>, V>
         if (target == String.class) {
             return Either.left(Cast.to(value.toString()));
         }
-        if (value instanceof String && (target == Integer.class || target == Number.class)) {
-            return Either.left(Cast.to(Integer.parseInt(value.toString())));
+        if (value instanceof String && Number.class.isAssignableFrom(target)) {
+            final Double doubleValue = Double.parseDouble((String) value);
+            return ExpressionNumber.toExpressionNumberDoubleConverter(Converters.numberNumber())
+                    .convert(doubleValue, target, ConverterContexts.fake());
         }
         if (target == Boolean.class) {
             return Either.left(Cast.to(Boolean.parseBoolean(value.toString())));
         }
-
-        return Converters.numberNumber().convert(value, target, ConverterContexts.fake());
+        return ExpressionNumber.toExpressionNumberDoubleConverter(Converters.numberNumber())
+                .convert(value, target, ConverterContexts.fake());
     }
 
     default List<Object> parameters(final Object... values) {
