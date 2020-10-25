@@ -96,6 +96,13 @@ public abstract class ExpressionNumber extends Number implements Comparable<Expr
     }
 
     /**
+     * {@see ExpressionNumberConverterToExpressionNumber}
+     */
+    public static Converter toExpressionNumber() {
+        return ExpressionNumberConverterToExpressionNumber.INSTANCE;
+    }
+
+    /**
      * {@see ExpressionNumberConverterToNumberExpressionNumberBigDecimal.expressionNumberBigDecimal}
      */
     public static Converter toExpressionNumberBigDecimalConverterConverter(final Converter converter) {
