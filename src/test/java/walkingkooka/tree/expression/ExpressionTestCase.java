@@ -345,10 +345,10 @@ public abstract class ExpressionTestCase<N extends Expression> implements ClassT
 
             @Override
             public MathContext mathContext() {
-                return this.matchContext;
+                return this.mathContext;
             }
 
-            private final MathContext matchContext = MathContext.DECIMAL64;
+            private final MathContext mathContext = MathContext.DECIMAL64;
 
             @Override
             public <T> Either<T, String> convert(final Object value, final Class<T> target) {
