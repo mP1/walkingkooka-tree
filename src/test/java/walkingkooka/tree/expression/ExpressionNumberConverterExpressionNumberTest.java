@@ -93,11 +93,11 @@ public final class ExpressionNumberConverterExpressionNumberTest implements Conv
 
     @Override
     public String typeNamePrefix() {
-        return ExpressionNumberConverter.class.getSimpleName();
+        return ExpressionNumberConverterExpressionNumber.class.getSimpleName();
     }
 
     @Override
     public String typeNameSuffix() {
-        return ExpressionNumber.class.getSimpleName();
+        return "";
     }
 }
