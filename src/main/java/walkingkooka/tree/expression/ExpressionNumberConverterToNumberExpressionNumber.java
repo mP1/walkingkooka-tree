@@ -32,14 +32,14 @@ import java.util.Objects;
  * and then the ExpressionNumber created. To convert {@link Number} to {@link ExpressionNumber} the wrapped
  * converter should probably be {@link Converters#numberNumber()}.
  */
-abstract class ExpressionNumberConverterNumberExpressionNumber<E> implements Converter {
+abstract class ExpressionNumberConverterToNumberExpressionNumber<E> implements Converter {
 
     static Converter expressionNumberBigDecimal(final Converter converter) {
-        return ExpressionNumberConverterNumberExpressionNumberBigDecimal.with(converter);
+        return ExpressionNumberConverterToNumberExpressionNumberBigDecimal.with(converter);
     }
 
     static Converter expressionNumberDouble(final Converter converter) {
-        return ExpressionNumberConverterNumberExpressionNumberDouble.with(converter);
+        return ExpressionNumberConverterToNumberExpressionNumberDouble.with(converter);
     }
 
     static void checkConverter(final Converter converter) {
@@ -49,7 +49,7 @@ abstract class ExpressionNumberConverterNumberExpressionNumber<E> implements Con
     /**
      * Package private to limit subclassing.
      */
-    ExpressionNumberConverterNumberExpressionNumber(final Converter converter) {
+    ExpressionNumberConverterToNumberExpressionNumber(final Converter converter) {
         super();
         this.converter = converter;
     }

@@ -26,16 +26,16 @@ import java.math.BigInteger;
  * Creates a {@link ExpressionNumberBigDecimal from the given {@link Number}}. This assumes only valid Number sub classes are passed.
  * Passing a {@link ExpressionNumber} will fail.
  */
-final class ExpressionNumberConverterNumberExpressionNumberBigDecimalNumberVisitor extends NumberVisitor {
+final class ExpressionNumberConverterToNumberExpressionNumberBigDecimalNumberVisitor extends NumberVisitor {
 
     static ExpressionNumber wrap(final Number number) {
-        final ExpressionNumberConverterNumberExpressionNumberBigDecimalNumberVisitor visitor = new ExpressionNumberConverterNumberExpressionNumberBigDecimalNumberVisitor();
+        final ExpressionNumberConverterToNumberExpressionNumberBigDecimalNumberVisitor visitor = new ExpressionNumberConverterToNumberExpressionNumberBigDecimalNumberVisitor();
         visitor.accept(number);
         return visitor.result;
     }
 
     // @VisibleForTesting
-    ExpressionNumberConverterNumberExpressionNumberBigDecimalNumberVisitor() {
+    ExpressionNumberConverterToNumberExpressionNumberBigDecimalNumberVisitor() {
         super();
     }
 
