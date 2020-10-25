@@ -174,6 +174,44 @@ public abstract class ExpressionNumberTestCase<N extends ExpressionNumber> imple
         this.checkValue(~value, different);
     }
 
+    // round..............................................................................................................
+
+    @Test
+    public final void testRoundPositiveInteger() {
+        final ExpressionNumber number = this.create(1);
+        assertSame(number, number.round(CONTEXT));
+    }
+
+    @Test
+    public final void testRoundNegativeInteger() {
+        final ExpressionNumber number = this.create(-1);
+        assertSame(number, number.round(CONTEXT));
+    }
+
+    @Test
+    public final void testRoundRoundUp() {
+        final N number = this.create(1.6);
+        final ExpressionNumber different = number.round(CONTEXT);
+        assertNotSame(number, different);
+        this.checkValue(2, different);
+    }
+
+    @Test
+    public final void testRoundHalf() {
+        final N number = this.create(1.5);
+        final ExpressionNumber different = number.round(CONTEXT);
+        assertNotSame(number, different);
+        this.checkValue(2, different);
+    }
+
+    @Test
+    public final void testRoundRoundDown() {
+        final N number = this.create(1.4);
+        final ExpressionNumber different = number.round(CONTEXT);
+        assertNotSame(number, different);
+        this.checkValue(1, different);
+    }
+    
     // add..............................................................................................................
 
     @Test

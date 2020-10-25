@@ -153,6 +153,10 @@ public abstract class ExpressionNumber extends Number implements Comparable<Expr
 
     public abstract ExpressionNumber not();
 
+    // round............................................................................................................
+
+    public abstract ExpressionNumber round(final ExpressionNumberContext context);
+
     // binary operations.................................................................................................
 
     private static void check(final ExpressionNumber value) {
