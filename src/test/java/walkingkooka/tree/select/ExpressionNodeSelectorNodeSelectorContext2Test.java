@@ -28,6 +28,7 @@ import walkingkooka.naming.StringName;
 import walkingkooka.predicate.Predicates;
 import walkingkooka.text.CharSequences;
 import walkingkooka.tree.TestNode;
+import walkingkooka.tree.expression.ExpressionNumber;
 
 import java.math.MathContext;
 
@@ -114,7 +115,7 @@ public final class ExpressionNodeSelectorNodeSelectorContext2Test extends NodeSe
                 assertEquals(Integer.class, target, "target");
 
                 return Converters.collection(Lists.of(
-                        Converters.numberNumber(),
+                        ExpressionNumber.fromExpressionNumberConverter(Converters.numberNumber()),
                         Converters.<String, Integer>function(v -> v instanceof String, Predicates.is(Integer.class), Integer::parseInt)))
                         .convert(value, target, ConverterContexts.basic(ConverterContexts.fake(), DecimalNumberContexts.american(MathContext.DECIMAL32)));
             }

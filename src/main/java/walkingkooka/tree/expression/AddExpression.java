@@ -19,8 +19,6 @@ package walkingkooka.tree.expression;
 
 import walkingkooka.visit.Visiting;
 
-import java.math.BigDecimal;
-import java.math.BigInteger;
 import java.util.List;
 import java.util.Objects;
 
@@ -85,23 +83,10 @@ public final class AddExpression extends BinaryArithmeticExpression {
     }
 
     @Override
-    BigDecimal applyBigDecimal0(final BigDecimal left, final BigDecimal right, final ExpressionEvaluationContext context) {
-        return left.add(right, context.mathContext());
-    }
-
-    @Override
-    BigInteger applyBigInteger0(final BigInteger left, final BigInteger right, final ExpressionEvaluationContext context) {
-        return left.add(right);
-    }
-
-    @Override
-    double applyDouble0(final double left, final double right, final ExpressionEvaluationContext context) {
-        return left + right;
-    }
-
-    @Override
-    long applyLong0(final long left, final long right, final ExpressionEvaluationContext context) {
-        return left + right;
+    ExpressionNumber applyExpressionNumber0(final ExpressionNumber left,
+                                            final ExpressionNumber right,
+                                            final ExpressionEvaluationContext context) {
+        return left.add(right, context);
     }
 
     // Object .........................................................................................................

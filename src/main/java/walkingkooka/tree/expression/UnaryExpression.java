@@ -73,21 +73,21 @@ abstract class UnaryExpression extends ParentFixedExpression implements Value<Ex
 
     @Override
     public final LocalDate toLocalDate(final ExpressionEvaluationContext context) {
-        return context.convertOrFail(this.toNumber(context), LocalDate.class);
+        return context.convertOrFail(this.toExpressionNumber(context), LocalDate.class);
     }
 
     @Override
     public final LocalDateTime toLocalDateTime(final ExpressionEvaluationContext context) {
-        return context.convertOrFail(this.toNumber(context), LocalDateTime.class);
+        return context.convertOrFail(this.toExpressionNumber(context), LocalDateTime.class);
     }
 
     @Override
     public final LocalTime toLocalTime(final ExpressionEvaluationContext context) {
-        return context.convertOrFail(this.toNumber(context), LocalTime.class);
+        return context.convertOrFail(this.toExpressionNumber(context), LocalTime.class);
     }
 
     @Override
     public final Number toValue(final ExpressionEvaluationContext context) {
-        return this.toNumber(context);
+        return this.toExpressionNumber(context);
     }
 }

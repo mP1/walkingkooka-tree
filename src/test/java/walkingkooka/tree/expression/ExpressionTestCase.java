@@ -38,8 +38,6 @@ import walkingkooka.text.cursor.parser.ParserContexts;
 import walkingkooka.text.cursor.parser.Parsers;
 import walkingkooka.tree.NodeTesting;
 
-import java.math.BigDecimal;
-import java.math.BigInteger;
 import java.math.MathContext;
 import java.text.DecimalFormat;
 import java.time.LocalDate;
@@ -95,16 +93,12 @@ public abstract class ExpressionTestCase<N extends Expression> implements ClassT
         return Expression.booleanExpression(value);
     }
 
-    final BigDecimalExpression bigDecimal(final double value) {
-        return Expression.bigDecimal(BigDecimal.valueOf(value));
+    final ExpressionNumberExpression expressionNumber(final double value) {
+        return Expression.expressionNumber(expressionNumberValue(value));
     }
 
-    final BigIntegerExpression bigInteger(final long value) {
-        return Expression.bigInteger(BigInteger.valueOf(value));
-    }
-
-    final DoubleExpression doubleValue(final double value) {
-        return Expression.doubleExpression(value);
+    final ExpressionNumber expressionNumberValue(final double value) {
+        return ExpressionNumber.with(value);
     }
 
     final LocalDate localDateValue(final long value) {
@@ -134,10 +128,6 @@ public abstract class ExpressionTestCase<N extends Expression> implements ClassT
         return Expression.localTime(localTimeValue(value));
     }
 
-    final LongExpression longValue(final long value) {
-        return Expression.longExpression(value);
-    }
-
     final StringExpression text(final String value) {
         return Expression.string(value);
     }
@@ -158,44 +148,20 @@ public abstract class ExpressionTestCase<N extends Expression> implements ClassT
         this.checkEquals("toBoolean of " + node + " failed", expected, node.toBoolean(context));
     }
 
-    final void evaluateAndCheckBigDecimal(final Expression node, final double expected) {
-        this.evaluateAndCheckBigDecimal(node, BigDecimal.valueOf(expected));
+    final void evaluateAndCheckExpressionNumber(final Expression node,
+                                                final double expected) {
+        this.evaluateAndCheckExpressionNumber(node, ExpressionNumber.with(expected));
     }
 
-    final void evaluateAndCheckBigDecimal(final Expression node, final BigDecimal expected) {
-        this.evaluateAndCheckBigDecimal(node, context(), expected);
+    final void evaluateAndCheckExpressionNumber(final Expression node,
+                                                final ExpressionNumber expected) {
+        this.evaluateAndCheckExpressionNumber(node, this.context(), expected);
     }
 
-    final void evaluateAndCheckBigDecimal(final Expression node, final ExpressionEvaluationContext context, final double expected) {
-        this.evaluateAndCheckBigDecimal(node, context, BigDecimal.valueOf(expected));
-    }
-
-    final void evaluateAndCheckBigDecimal(final Expression node, final ExpressionEvaluationContext context, final BigDecimal expected) {
-        this.checkEquals("toBigDecimal of " + node + " failed", expected, node.toBigDecimal(context));
-    }
-
-    final void evaluateAndCheckBigInteger(final Expression node, final long expected) {
-        this.evaluateAndCheckBigInteger(node, BigInteger.valueOf(expected));
-    }
-
-    final void evaluateAndCheckBigInteger(final Expression node, final BigInteger expected) {
-        this.evaluateAndCheckBigInteger(node, context(), expected);
-    }
-
-    final void evaluateAndCheckBigInteger(final Expression node, final ExpressionEvaluationContext context, final long expected) {
-        this.evaluateAndCheckBigInteger(node, context, BigInteger.valueOf(expected));
-    }
-
-    final void evaluateAndCheckBigInteger(final Expression node, final ExpressionEvaluationContext context, final BigInteger expected) {
-        this.checkEquals("toBigInteger of " + node + " failed", expected, node.toBigInteger(context));
-    }
-
-    final void evaluateAndCheckDouble(final Expression node, final double expected) {
-        this.evaluateAndCheckDouble(node, context(), expected);
-    }
-
-    final void evaluateAndCheckDouble(final Expression node, final ExpressionEvaluationContext context, final double expected) {
-        this.checkEquals("toDouble of " + node + " failed", expected, node.toDouble(context));
+    final void evaluateAndCheckExpressionNumber(final Expression node,
+                                                final ExpressionEvaluationContext context,
+                                                final ExpressionNumber expected) {
+        this.checkEquals("toExpressionNumber of " + node + " failed", expected, node.toExpressionNumber(context));
     }
 
     final void evaluateAndCheckLocalDate(final Expression node, final long expected) {
@@ -204,10 +170,6 @@ public abstract class ExpressionTestCase<N extends Expression> implements ClassT
 
     final void evaluateAndCheckLocalDate(final Expression node, final LocalDate expected) {
         this.evaluateAndCheckLocalDate(node, context(), expected);
-    }
-
-    final void evaluateAndCheckLocalDate(final Expression node, final ExpressionEvaluationContext context, final long expected) {
-        this.evaluateAndCheckLocalDate(node, context, this.localDateValue(expected));
     }
 
     final void evaluateAndCheckLocalDate(final Expression node, final ExpressionEvaluationContext context, final LocalDate expected) {
@@ -246,50 +208,6 @@ public abstract class ExpressionTestCase<N extends Expression> implements ClassT
         this.checkEquals("toLocalTime of " + node + " failed", expected, node.toLocalTime(context));
     }
 
-    final void evaluateAndCheckLong(final Expression node, final long expected) {
-        this.evaluateAndCheckLong(node, context(), expected);
-    }
-
-    final void evaluateAndCheckLong(final Expression node, final ExpressionEvaluationContext context, final long expected) {
-        this.checkEquals("toLong of " + node + " failed", expected, node.toLong(context));
-    }
-
-    final void evaluateAndCheckNumberBigDecimal(final Expression node, final ExpressionEvaluationContext context, final double expected) {
-        this.evaluateAndCheckNumber(node, context, BigDecimal.valueOf(expected));
-    }
-
-    final void evaluateAndCheckNumberBigDecimal(final Expression node, final double expected) {
-        this.evaluateAndCheckNumberBigDecimal(node, BigDecimal.valueOf(expected));
-    }
-
-    final void evaluateAndCheckNumberBigDecimal(final Expression node, final BigDecimal expected) {
-        this.evaluateAndCheckNumber(node, expected);
-    }
-
-    final void evaluateAndCheckNumberBigInteger(final Expression node, final long expected) {
-        this.evaluateAndCheckNumberBigInteger(node, BigInteger.valueOf(expected));
-    }
-
-    final void evaluateAndCheckNumberBigInteger(final Expression node, final BigInteger expected) {
-        this.evaluateAndCheckNumber(node, expected);
-    }
-
-    final void evaluateAndCheckNumberDouble(final Expression node, final double expected) {
-        this.evaluateAndCheckNumber(node, expected);
-    }
-
-    final void evaluateAndCheckNumberLong(final Expression node, final long expected) {
-        this.evaluateAndCheckNumber(node, expected);
-    }
-
-    final void evaluateAndCheckNumber(final Expression node, final Number expected) {
-        this.evaluateAndCheckNumber(node, context(), expected);
-    }
-
-    final void evaluateAndCheckNumber(final Expression node, final ExpressionEvaluationContext context, final Number expected) {
-        this.checkEquals("toNumber of " + node + " failed", Cast.to(expected), Cast.to(node.toNumber(context)));
-    }
-
     final void evaluateAndCheckText(final Expression node, final String expected) {
         this.evaluateAndCheckText(node, context(), expected);
     }
@@ -325,14 +243,8 @@ public abstract class ExpressionTestCase<N extends Expression> implements ClassT
     ExpressionEvaluationContext context() {
         final Function<ConverterContext, ParserContext> parserContext = (c) -> ParserContexts.basic(c, c);
 
-        final Converter stringBigDecimal = Converters.parser(BigDecimal.class,
-                Parsers.bigDecimal(),
-                parserContext);
         final Converter stringNumber = Converters.parser(Number.class,
                 Parsers.bigDecimal(),
-                parserContext);
-        final Converter stringBigInteger = Converters.parser(BigInteger.class,
-                Parsers.bigInteger(10),
                 parserContext);
         final Converter stringDouble = Converters.parser(Double.class,
                 Parsers.doubleParser(),
@@ -346,55 +258,62 @@ public abstract class ExpressionTestCase<N extends Expression> implements ClassT
         final Converter stringLocalTime = Converters.parser(LocalTime.class,
                 Parsers.localTime((c) -> DateTimeFormatter.ISO_LOCAL_TIME),
                 parserContext);
-        final Converter stringLong = Converters.parser(Long.class,
-                Parsers.longParser(10),
-                parserContext);
 
         final Converter converters = Converters.collection(Lists.of(
                 Converters.simple(),
+                new Converter() {
+                    @Override public boolean canConvert(Object o, Class<?> aClass, ConverterContext converterContext) {
+                        return o instanceof ExpressionNumber && aClass == ExpressionNumber.class;
+                    }
+
+                    @Override
+                    public <T> Either<T, String> convert(Object o, Class<T> aClass, ConverterContext converterContext) {
+                        return Cast.to(Either.left(o));
+                    }
+                },
                 // localDate ->
                 toBoolean(LocalDate.class, LocalDate.ofEpochDay(0)),
                 Converters.localDateLocalDateTime(),
-                Converters.localDateNumber(Converters.JAVA_EPOCH_OFFSET),
+                ExpressionNumber.toExpressionNumberDoubleConverter(Converters.localDateNumber(Converters.JAVA_EPOCH_OFFSET)),
                 Converters.localDateString((c) -> DateTimeFormatter.ISO_LOCAL_DATE),
                 // localDateTime ->
                 toBoolean(LocalDateTime.class, LocalDateTime.ofEpochSecond(0, 0, ZoneOffset.UTC)),
                 Converters.localDateTimeLocalDate(),
                 Converters.localDateTimeLocalTime(),
-                Converters.localDateTimeNumber(Converters.JAVA_EPOCH_OFFSET),
+                ExpressionNumber.toExpressionNumberDoubleConverter(Converters.localDateTimeNumber(Converters.JAVA_EPOCH_OFFSET)),
                 Converters.localDateTimeString((c) -> DateTimeFormatter.ISO_LOCAL_DATE_TIME),
                 // localTime
                 toBoolean(LocalTime.class, LocalTime.ofNanoOfDay(0)),
                 Converters.localTimeLocalDateTime(),
-                Converters.localTimeNumber(),
+                ExpressionNumber.toExpressionNumberDoubleConverter(Converters.localTimeNumber()),
                 Converters.localTimeString((c) -> DateTimeFormatter.ISO_LOCAL_TIME),
-                // number ->
-                Converters.numberNumber(),
-                Converters.truthyNumberBoolean(),
-                Converters.numberLocalDate(Converters.JAVA_EPOCH_OFFSET),
-                Converters.numberLocalDateTime(Converters.JAVA_EPOCH_OFFSET),
-                Converters.numberLocalTime(),
-                Converters.numberString((c) -> new DecimalFormat("#.###")),
+                // ExpressionNumber ->),
+                ExpressionNumber.fromExpressionNumberConverter(Converters.numberNumber()),
+                ExpressionNumber.fromExpressionNumberConverter(Converters.truthyNumberBoolean()),
+                ExpressionNumber.fromExpressionNumberConverter(Converters.numberLocalDate(Converters.JAVA_EPOCH_OFFSET)),
+                ExpressionNumber.fromExpressionNumberConverter(Converters.numberLocalDateTime(Converters.JAVA_EPOCH_OFFSET)),
+                ExpressionNumber.fromExpressionNumberConverter(Converters.numberLocalTime()),
+                ExpressionNumber.fromExpressionNumberConverter(Converters.numberString((c) -> new DecimalFormat("#.###"))),
+                // Number ->),
+                ExpressionNumber.fromExpressionNumberConverter(Converters.numberNumber()),
+                ExpressionNumber.fromExpressionNumberConverter(Converters.truthyNumberBoolean()),
+                ExpressionNumber.fromExpressionNumberConverter(Converters.numberLocalDate(Converters.JAVA_EPOCH_OFFSET)),
+                ExpressionNumber.fromExpressionNumberConverter(Converters.numberLocalDateTime(Converters.JAVA_EPOCH_OFFSET)),
+                ExpressionNumber.fromExpressionNumberConverter(Converters.numberLocalTime()),
+                ExpressionNumber.fromExpressionNumberConverter(Converters.numberString((c) -> new DecimalFormat("#.###"))),
                 // string ->
-                stringBigDecimal,
-                stringBigInteger,
                 Converters.<String, Boolean>function(v -> v instanceof String, Predicate.isEqual(Boolean.class), Boolean::valueOf),
-                stringDouble,
                 stringLocalDate,
                 stringLocalDateTime,
                 stringLocalTime,
-                stringLong,
-                stringNumber,
+                ExpressionNumber.toExpressionNumberDoubleConverter(stringDouble),
                 Converters.objectString(),
                 // boolean ->
-                fromBoolean(BigDecimal.class, Converters.numberNumber()),
-                fromBoolean(BigInteger.class, Converters.numberNumber()),
-                fromBoolean(Double.class, Converters.numberNumber()),
                 listToBoolean(),
                 fromBoolean(LocalDate.class, Converters.numberLocalDate(Converters.JAVA_EPOCH_OFFSET)),
                 fromBoolean(LocalDateTime.class, Converters.numberLocalDateTime(Converters.JAVA_EPOCH_OFFSET)),
                 fromBoolean(LocalTime.class, Converters.numberLocalTime()),
-                fromBoolean(Long.class, Converters.numberNumber())));
+                fromBoolean(ExpressionNumber.class, ExpressionNumber.toExpressionNumberDoubleConverter(Converters.numberNumber()))));
 
         return new FakeExpressionEvaluationContext() {
 

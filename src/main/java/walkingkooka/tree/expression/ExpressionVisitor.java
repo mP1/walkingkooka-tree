@@ -46,19 +46,11 @@ public abstract class ExpressionVisitor extends Visitor<Expression> {
         // nop
     }
 
-    protected void visit(final BigDecimalExpression node) {
-        // nop
-    }
-
-    protected void visit(final BigIntegerExpression node) {
-        // nop
-    }
-
     protected void visit(final BooleanExpression node) {
         // nop
     }
 
-    protected void visit(final DoubleExpression node) {
+    protected void visit(final ExpressionNumberExpression node) {
         // nop
     }
 
@@ -71,10 +63,6 @@ public abstract class ExpressionVisitor extends Visitor<Expression> {
     }
 
     protected void visit(final LocalTimeExpression node) {
-        // nop
-    }
-
-    protected void visit(final LongExpression node) {
         // nop
     }
 

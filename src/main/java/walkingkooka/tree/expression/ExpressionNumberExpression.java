@@ -17,18 +17,22 @@
 
 package walkingkooka.tree.expression;
 
+
+import java.util.Objects;
+
 /**
- * A long number value.
+ * A {@link ValueExpression} that contains an {@link ExpressionNumber}.
  */
-public final class LongExpression extends ValueExpression<Long> {
+public final class ExpressionNumberExpression extends ValueExpression<ExpressionNumber> {
 
-    public final static FunctionExpressionName NAME = FunctionExpressionName.fromClass(LongExpression.class);
+    public final static FunctionExpressionName NAME = FunctionExpressionName.fromClass(ExpressionNumberExpression.class);
 
-    static LongExpression with(final long value) {
-        return new LongExpression(NO_INDEX, value);
+    static ExpressionNumberExpression with(final ExpressionNumber value) {
+        Objects.requireNonNull(value, "value");
+        return new ExpressionNumberExpression(NO_INDEX, value);
     }
 
-    private LongExpression(final int index, final Long value) {
+    private ExpressionNumberExpression(final int index, final ExpressionNumber value) {
         super(index, value);
     }
 
@@ -38,13 +42,13 @@ public final class LongExpression extends ValueExpression<Long> {
     }
 
     @Override
-    public LongExpression removeParent() {
+    public ExpressionNumberExpression removeParent() {
         return this.removeParent0().cast();
     }
 
     @Override
-    LongExpression replace1(final int index, final Long value) {
-        return new LongExpression(index, value);
+    ExpressionNumberExpression replace1(final int index, final ExpressionNumber value) {
+        return new ExpressionNumberExpression(index, value);
     }
 
     // visitor..........................................................................................................
@@ -58,7 +62,7 @@ public final class LongExpression extends ValueExpression<Long> {
 
     @Override
     boolean canBeEqual(final Object other) {
-        return other instanceof LongExpression;
+        return other instanceof ExpressionNumberExpression;
     }
 
     @Override

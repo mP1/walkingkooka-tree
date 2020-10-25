@@ -26,18 +26,8 @@ public abstract class BinaryArithmeticExpressionTestCase2<N extends BinaryArithm
     // toText.....................................................................................
 
     @Test
-    public final void testEvaluateToTextBigDecimalFail() {
-        this.evaluate(this.createExpression(text(12), bigDecimal(34)));
-    }
-
-    @Test
-    public final void testEvaluateToTextBigIntegerFail() {
-        this.evaluate(this.createExpression(text(12), bigInteger(34)));
-    }
-
-    @Test
-    public final void testEvaluateToTextDoubleFail() {
-        this.evaluate(this.createExpression(text(12), doubleValue(34)));
+    public final void testEvaluateToTextExpressionNumberFail() {
+        this.evaluate(this.createExpression(text(12), expressionNumber(34)));
     }
 
     @Test
@@ -53,11 +43,6 @@ public abstract class BinaryArithmeticExpressionTestCase2<N extends BinaryArithm
     @Test
     public final void testEvaluateToTextLocalTimeFail() {
         this.evaluate(this.createExpression(text(12), localTime(34)));
-    }
-
-    @Test
-    public final void testEvaluateToTextLongFail() {
-        this.evaluate(this.createExpression(text(12), longValue(34)));
     }
 
     @Test

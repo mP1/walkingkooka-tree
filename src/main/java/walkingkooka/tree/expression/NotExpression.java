@@ -19,8 +19,6 @@ package walkingkooka.tree.expression;
 
 import walkingkooka.visit.Visiting;
 
-import java.math.BigDecimal;
-import java.math.BigInteger;
 import java.util.List;
 import java.util.Objects;
 
@@ -75,49 +73,18 @@ public final class NotExpression extends UnaryExpression {
     // evaluation .....................................................................................................
 
     @Override
-    public BigDecimal toBigDecimal(final ExpressionEvaluationContext context) {
-        return new BigDecimal(this.toBigInteger(context));
-    }
-
-    @Override
-    public BigInteger toBigInteger(final ExpressionEvaluationContext context) {
-        return this.value().toBigInteger(context).not();
-    }
-
-    @Override
     public boolean toBoolean(final ExpressionEvaluationContext context) {
-        return context.convertOrFail(this.toNumber(context), Boolean.class);
+        return context.convertOrFail(this.toExpressionNumber(context), Boolean.class);
     }
 
     @Override
-    public double toDouble(final ExpressionEvaluationContext context) {
-        return context.convertOrFail(this.value().toBigInteger(context).not(), Double.class);
-    }
-
-    @Override
-    public long toLong(final ExpressionEvaluationContext context) {
-        return ~this.value().toLong(context);
-    }
-
-    @Override
-    public Number toNumber(final ExpressionEvaluationContext context) {
-        final Number number = this.value().toNumber(context);
-        return number instanceof Long ?
-                this.applyLong((Long) number) :
-                this.applyBigInteger(context.convertOrFail(number, BigInteger.class));
-    }
-
-    private BigInteger applyBigInteger(final BigInteger bigInteger) {
-        return bigInteger.not();
-    }
-
-    private Long applyLong(final Long longValue) {
-        return ~longValue;
+    public ExpressionNumber toExpressionNumber(final ExpressionEvaluationContext context) {
+        return this.value().toExpressionNumber(context).not();
     }
 
     @Override
     public String toString(final ExpressionEvaluationContext context) {
-        return context.convertOrFail(this.toNumber(context), String.class);
+        return context.convertOrFail(this.toExpressionNumber(context), String.class);
     }
 
     // Object ....................................................................................................

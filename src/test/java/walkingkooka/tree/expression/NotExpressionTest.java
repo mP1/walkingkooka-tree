@@ -21,7 +21,6 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.visit.Visiting;
 
-import java.math.BigInteger;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -84,61 +83,14 @@ public final class NotExpressionTest extends UnaryExpressionTestCase<NotExpressi
     // evaluate.....................................................................................
 
     @Test
-    public void testEvaluateToBigDecimal() {
+    public void testEvaluateToExpressionNumber() {
         final long value = 123;
-        this.evaluateAndCheckBigInteger(this.createExpression(bigDecimal(value)), BigInteger.valueOf(value).not());
+        this.evaluateAndCheckExpressionNumber(this.createExpression(expressionNumber(value)), ~value);
     }
 
     @Test
-    public void testEvaluateToBigDecimalWithDecimalsFails() {
-        assertThrows(ExpressionEvaluationConversionException.class, () -> this.createExpression(bigDecimal(1.5)).toNumber(context()));
-    }
-
-    @Test
-    public void testEvaluateToBigInteger() {
-        final BigInteger value = BigInteger.valueOf(123);
-        this.evaluateAndCheckBigInteger(this.createExpression(Expression.bigInteger(value)), value.not());
-    }
-
-    @Test
-    public void testEvaluateToDouble() {
-        final long value = 123;
-        this.evaluateAndCheckLong(this.createExpression(Expression.doubleExpression(value)), ~value);
-    }
-
-    @Test
-    public void testEvaluateToDoubleWithDecimalsFails() {
-        assertThrows(ExpressionEvaluationConversionException.class, () -> this.createExpression(doubleValue(1.5)).toNumber(context()));
-    }
-
-    @Test
-    public void testEvaluateToLong() {
-        final long value = 123L;
-        this.evaluateAndCheckLong(this.createExpression(Expression.longExpression(value)), ~value);
-    }
-
-    @Test
-    public void testEvaluateToNumberBigDecimal() {
-        final long value = 123;
-        this.evaluateAndCheckNumberBigInteger(this.createExpression(bigDecimal(value)), BigInteger.valueOf(value).not());
-    }
-
-    @Test
-    public void testEvaluateToNumberBigInteger() {
-        final BigInteger value = BigInteger.valueOf(123);
-        this.evaluateAndCheckNumberBigInteger(this.createExpression(Expression.bigInteger(value)), value.not());
-    }
-
-    @Test
-    public void testEvaluateToNumberDouble() {
-        final long value = 123;
-        this.evaluateAndCheckLong(this.createExpression(Expression.doubleExpression(value)), ~value);
-    }
-
-    @Test
-    public void testEvaluateToNumberLong() {
-        final long value = 123L;
-        this.evaluateAndCheckNumberLong(this.createExpression(Expression.longExpression(value)), ~value);
+    public void testEvaluateToExpressionNumberWithDecimalsFails() {
+        assertThrows(ArithmeticException.class, () -> this.createExpression(expressionNumber(1.5)).toExpressionNumber(context()));
     }
 
     @Override

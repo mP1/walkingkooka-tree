@@ -85,144 +85,26 @@ public final class PowerExpressionTest extends BinaryArithmeticExpressionTestCas
 
     @Test
     public void testEvaluateToBooleanTrue() {
-        // left ^^ right == truthy number
-        this.evaluateAndCheckBoolean(this.createExpression(bigDecimal(2), bigDecimal(3)), true);
+        // left ^^ right == truthy expressionNumber
+        this.evaluateAndCheckBoolean(this.createExpression(expressionNumber(2), expressionNumber(3)), true);
     }
 
     @Test
     public void testEvaluateToBooleanFalse() {
-        // left ^^ right == truthy number
-        this.evaluateAndCheckBoolean(this.createExpression(bigDecimal(0), bigDecimal(3)), false);
+        // left ^^ right == truthy expressionNumber
+        this.evaluateAndCheckBoolean(this.createExpression(expressionNumber(0), expressionNumber(3)), false);
     }
 
     // toBigDecimal...............................................................................................
 
     @Test
-    public void testEvaluateToBigDecimalBigDecimal() {
-        this.evaluateAndCheckBigDecimal(this.createExpression(bigDecimal(100), bigDecimal(0.5)), Math.pow(100, 0.5));
+    public void testEvaluateToExpressionNumber() {
+        this.evaluateAndCheckExpressionNumber(this.createExpression(expressionNumber(100), expressionNumber(0.5)), Math.pow(100, 0.5));
     }
 
     @Test
-    public void testEvaluateToBigDecimalBigInteger() {
-        this.evaluateAndCheckBigDecimal(this.createExpression(bigDecimal(100), bigInteger(2)), Math.pow(100, 2));
-    }
-
-    @Test
-    public void testEvaluateToBigDecimalDouble() {
-        this.evaluateAndCheckBigDecimal(this.createExpression(bigDecimal(100), doubleValue(0.5)), (int) Math.pow(100, 0.5));
-    }
-
-    @Test
-    public void testEvaluateToBigDecimalLong() {
-        this.evaluateAndCheckBigDecimal(this.createExpression(bigDecimal(100), longValue(2)), (int) Math.pow(100, 2));
-    }
-
-    @Test
-    public void testEvaluateToBigDecimalText() {
-        this.evaluateAndCheckBigDecimal(this.createExpression(bigDecimal(100), text(2)), (int) Math.pow(100, 2));
-    }
-
-    // toBigInteger....................................................................................................
-
-    @Test
-    public void testEvaluateToBigIntegerBigDecimal() {
-        this.evaluateAndCheckBigDecimal(this.createExpression(bigInteger(100), bigDecimal(2)), (int) Math.pow(100, 2));
-    }
-
-    @Test
-    public void testEvaluateToBigIntegerBigInteger() {
-        this.evaluateAndCheckBigInteger(this.createExpression(bigInteger(100), bigInteger(2)), (int) Math.pow(100, 2));
-    }
-
-    @Test
-    public void testEvaluateToBigIntegerDouble() {
-        this.evaluateAndCheckBigDecimal(this.createExpression(bigInteger(100), doubleValue(0.5)), Math.pow(100, 0.5));
-    }
-
-    @Test
-    public void testEvaluateToBigIntegerLong() {
-        this.evaluateAndCheckBigInteger(this.createExpression(bigInteger(100), longValue(2)), (int) Math.pow(100, 2));
-    }
-
-    @Test
-    public void testEvaluateToBigIntegerText() {
-        this.evaluateAndCheckBigInteger(this.createExpression(bigInteger(100), text(2)), (int) Math.pow(100, 2));
-    }
-
-    // toDouble....................................................................................................
-
-    @Test
-    public void testEvaluateToDoubleBigDecimal() {
-        this.evaluateAndCheckBigDecimal(this.createExpression(doubleValue(100), bigDecimal(0.5)), Math.pow(100, 0.5));
-    }
-
-    @Test
-    public void testEvaluateToDoubleBigInteger() {
-        this.evaluateAndCheckBigDecimal(this.createExpression(doubleValue(100), bigInteger(2)), Math.pow(100, 2));
-    }
-
-    @Test
-    public void testEvaluateToDoubleDouble() {
-        this.evaluateAndCheckDouble(this.createExpression(doubleValue(100), doubleValue(0.5)), Math.pow(100, 0.5));
-    }
-
-    @Test
-    public void testEvaluateToDoubleLong() {
-        this.evaluateAndCheckDouble(this.createExpression(doubleValue(100), longValue(2)), Math.pow(100, 2));
-    }
-
-    @Test
-    public void testEvaluateToDoubleText() {
-        this.evaluateAndCheckDouble(this.createExpression(doubleValue(100), text(2)), Math.pow(100, 2));
-    }
-
-    // toLong....................................................................................................
-
-    @Test
-    public void testEvaluateToLongBigDecimal() {
-        this.evaluateAndCheckBigDecimal(this.createExpression(longValue(100), bigDecimal(0.5)), Math.pow(100, 0.5));
-    }
-
-    @Test
-    public void testEvaluateToLongBigInteger() {
-        this.evaluateAndCheckBigInteger(this.createExpression(longValue(100), bigInteger(2)), (int) Math.pow(100, 2));
-    }
-
-    @Test
-    public void testEvaluateToLongDouble() {
-        this.evaluateAndCheckDouble(this.createExpression(longValue(100), doubleValue(0.5)), Math.pow(100, 0.5));
-    }
-
-    @Test
-    public void testEvaluateToLongLong() {
-        this.evaluateAndCheckLong(this.createExpression(longValue(100), longValue(2)), (long) Math.pow(100, 2));
-    }
-
-    @Test
-    public void testEvaluateToLongText() {
-        this.evaluateAndCheckLong(this.createExpression(longValue(100), text(2)), (long) Math.pow(100, 2));
-    }
-
-    // toNumber.....................................................................................
-
-    @Test
-    public void testEvaluateToNumberBigDecimal() {
-        this.evaluateAndCheckNumberBigDecimal(this.createExpression(bigDecimal(2), bigDecimal(5)), (long) Math.pow(2, 5));
-    }
-
-    @Test
-    public void testEvaluateToNumberBigInteger() {
-        this.evaluateAndCheckNumberBigInteger(this.createExpression(bigInteger(2), bigInteger(5)), (long) Math.pow(2, 5));
-    }
-
-    @Test
-    public void testEvaluateToNumberDouble() {
-        this.evaluateAndCheckNumberDouble(this.createExpression(doubleValue(2), doubleValue(5)), (long) Math.pow(2, 5));
-    }
-
-    @Test
-    public void testEvaluateToNumberLong() {
-        this.evaluateAndCheckNumberLong(this.createExpression(longValue(2), longValue(5)), (long) Math.pow(2, 5));
+    public void testEvaluateToExpressionNumberText() {
+        this.evaluateAndCheckExpressionNumber(this.createExpression(expressionNumber(100), text(2)), (int) Math.pow(100, 2));
     }
 
     @Override

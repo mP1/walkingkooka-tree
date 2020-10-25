@@ -124,28 +124,10 @@ public final class FunctionExpressionTest extends VariableExpressionTestCase<Fun
     }
 
     @Test
-    public void testToBigDecimal() {
-        this.evaluateAndCheckBigDecimal(this.createExpression(), this.context("123"), 123);
-    }
-
-    @Test
-    public void testToBigInteger() {
-        this.evaluateAndCheckBigInteger(this.createExpression(), this.context("123"), 123);
-    }
-
-    @Test
-    public void testToDouble() {
-        this.evaluateAndCheckDouble(this.createExpression(), this.context("123"), 123);
-    }
-
-    @Test
-    public void testToLong() {
-        this.evaluateAndCheckLong(this.createExpression(), this.context("123"), 123);
-    }
-
-    @Test
-    public void testToNumber() {
-        this.evaluateAndCheckNumberBigDecimal(this.createExpression(), this.context("123"), 123);
+    public void testToExpressionNumber() {
+        this.evaluateAndCheckExpressionNumber(this.createExpression(),
+                this.context("123"),
+                ExpressionNumber.with(123));
     }
 
     @Test

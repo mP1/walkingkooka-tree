@@ -66,43 +66,13 @@ public final class BooleanExpressionTest extends LeafExpressionTestCase<BooleanE
     }
 
     @Test
-    public void testTrueToBigDecimal() {
-        this.evaluateAndCheckBigDecimal(BooleanExpression.with(true), 1);
+    public void testTrueToExpressionNumber() {
+        this.evaluateAndCheckExpressionNumber(BooleanExpression.with(true), 1);
     }
 
     @Test
-    public void testFalseToBigDecimal() {
-        this.evaluateAndCheckBigDecimal(BooleanExpression.with(false), 0);
-    }
-
-    @Test
-    public void testTrueToBigInteger() {
-        this.evaluateAndCheckBigInteger(BooleanExpression.with(true), 1);
-    }
-
-    @Test
-    public void testFalseToBigInteger() {
-        this.evaluateAndCheckBigInteger(BooleanExpression.with(false), 0);
-    }
-
-    @Test
-    public void testTrueToDouble() {
-        this.evaluateAndCheckDouble(BooleanExpression.with(true), 1);
-    }
-
-    @Test
-    public void testFalseToDouble() {
-        this.evaluateAndCheckDouble(BooleanExpression.with(false), 0);
-    }
-
-    @Test
-    public void testTrueToLong() {
-        this.evaluateAndCheckLong(BooleanExpression.with(true), 1);
-    }
-
-    @Test
-    public void testFalseToLong() {
-        this.evaluateAndCheckLong(BooleanExpression.with(false), 0);
+    public void testFalseToExpressionNumber() {
+        this.evaluateAndCheckExpressionNumber(BooleanExpression.with(false), 0);
     }
 
     @Test

@@ -44,12 +44,12 @@ public final class ExpressionTest implements ClassTesting2<Expression> {
 
     @Test
     public void testValueOrFailBigInteger() {
-        this.valueOrFailAndCheck(BigInteger.valueOf(123), BigIntegerExpression.class);
+        this.valueOrFailAndCheck(BigInteger.valueOf(123));
     }
 
     @Test
     public void testValueOrFailBigDecimal() {
-        this.valueOrFailAndCheck(BigDecimal.valueOf(123.5), BigDecimalExpression.class);
+        this.valueOrFailAndCheck(BigDecimal.valueOf(123.5));
     }
 
     @Test
@@ -64,32 +64,37 @@ public final class ExpressionTest implements ClassTesting2<Expression> {
 
     @Test
     public void testValueOrFailFloat() {
-        this.valueOrFailAndCheck(123.5f, DoubleExpression.class, 123.5);
+        this.valueOrFailAndCheck(123.5f);
     }
 
     @Test
     public void testValueOrFailDouble() {
-        this.valueOrFailAndCheck(123.5, DoubleExpression.class);
+        this.valueOrFailAndCheck(123.5);
     }
 
     @Test
     public void testValueOrFailByte() {
-        this.valueOrFailAndCheck((byte) 123, LongExpression.class, 123L);
+        this.valueOrFailAndCheck((byte) 123);
     }
 
     @Test
     public void testValueOrFailShort() {
-        this.valueOrFailAndCheck((short) 123, LongExpression.class, 123L);
+        this.valueOrFailAndCheck((short) 123);
     }
 
     @Test
     public void testValueOrFailInteger() {
-        this.valueOrFailAndCheck(123, LongExpression.class, 123L);
+        this.valueOrFailAndCheck(123);
     }
 
     @Test
     public void testValueOrFailLong() {
-        this.valueOrFailAndCheck(123L, LongExpression.class);
+        this.valueOrFailAndCheck(123L);
+    }
+
+    @Test
+    public void testValueOrFailExpressionNumber() {
+        this.valueOrFailAndCheck(ExpressionNumber.with(123));
     }
 
     @Test
@@ -113,11 +118,24 @@ public final class ExpressionTest implements ClassTesting2<Expression> {
         this.valueOrFailAndCheck("abc123", StringExpression.class);
     }
 
-    private void valueOrFailAndCheck(final Object value, final Class<? extends ValueExpression> type) {
+    private void valueOrFailAndCheck(final Object value,
+                                     final Class<? extends ValueExpression> type) {
         valueOrFailAndCheck(value, type, value);
     }
 
-    private void valueOrFailAndCheck(final Object value, final Class<? extends ValueExpression> type, final Object expected) {
+    private void valueOrFailAndCheck(final Number value) {
+        valueOrFailAndCheck(value,
+                ExpressionNumberExpression.class,
+                value instanceof Double ?
+                        ExpressionNumber.with(value.doubleValue()) :
+                        value instanceof BigDecimal ?
+                                ExpressionNumber.with((BigDecimal) value) :
+                                ExpressionNumber.with(value));
+    }
+
+    private void valueOrFailAndCheck(final Object value,
+                                     final Class<? extends ValueExpression> type,
+                                     final Object expected) {
         final Expression node = Expression.valueOrFail(value);
         assertEquals(type, node.getClass(), "node reflect of " + value);
         assertEquals(expected, type.cast(node).value(), "value");

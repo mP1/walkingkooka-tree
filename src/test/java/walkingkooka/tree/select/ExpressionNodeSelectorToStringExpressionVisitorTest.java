@@ -28,6 +28,7 @@ import walkingkooka.text.cursor.parser.ParserException;
 import walkingkooka.text.cursor.parser.ParserReporterException;
 import walkingkooka.text.cursor.parser.ParserReporters;
 import walkingkooka.tree.expression.Expression;
+import walkingkooka.tree.expression.ExpressionNumber;
 import walkingkooka.tree.expression.ExpressionVisitorTesting;
 import walkingkooka.tree.expression.FunctionExpressionName;
 import walkingkooka.tree.select.parser.NodeSelectorParserContexts;
@@ -35,7 +36,6 @@ import walkingkooka.tree.select.parser.NodeSelectorParsers;
 import walkingkooka.tree.select.parser.NodeSelectorPredicateParserToken;
 
 import java.math.BigDecimal;
-import java.math.BigInteger;
 import java.math.MathContext;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -62,23 +62,8 @@ public final class ExpressionNodeSelectorToStringExpressionVisitorTest implement
     }
 
     @Test
-    public void testBigDecimal() {
-        this.toStringAndCheck(Expression.bigDecimal(BigDecimal.valueOf(123.75)), "123.75");
-    }
-
-    @Test
-    public void testBigInteger() {
-        this.toStringAndCheck(Expression.bigInteger(BigInteger.valueOf(99)), "99");
-    }
-
-    @Test
-    public void testDouble() {
-        this.toStringAndCheck(Expression.doubleExpression(123.75), "123.75");
-    }
-
-    @Test
-    public void testLong() {
-        this.toStringAndCheck(Expression.longExpression(99L), "99");
+    public void testExpressionNumber() {
+        this.toStringAndCheck(Expression.expressionNumber(ExpressionNumber.with(BigDecimal.valueOf(123.75))), "123.75");
     }
 
     @Test
@@ -201,7 +186,7 @@ public final class ExpressionNodeSelectorToStringExpressionVisitorTest implement
 
     @Test
     public void testNot2() {
-        this.toStringAndCheck(Expression.not(Expression.longExpression(1)), "not(1)");
+        this.toStringAndCheck(Expression.not(Expression.expressionNumber(ExpressionNumber.with(1))), "not(1)");
     }
 
     @Test
@@ -224,8 +209,8 @@ public final class ExpressionNodeSelectorToStringExpressionVisitorTest implement
         this.toStringAndCheck(Expression.function(
                 FunctionExpressionName.with("fx"),
                 Lists.of(
-                        Expression.longExpression(1),
-                        Expression.bigDecimal(BigDecimal.valueOf(2.5))
+                        Expression.expressionNumber(ExpressionNumber.with(1)),
+                        Expression.expressionNumber(ExpressionNumber.with(BigDecimal.valueOf(2.5)))
                 )),
                 "fx(1,2.5)");
     }
