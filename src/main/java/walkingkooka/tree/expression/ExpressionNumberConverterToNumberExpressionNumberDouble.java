@@ -22,14 +22,14 @@ import walkingkooka.convert.Converter;
 /**
  * In addition to converting to a {@link Number} also supports creating a {@link ExpressionNumber#with(double)}.
  */
-final class ExpressionNumberConverterNumberExpressionNumberDouble extends ExpressionNumberConverterNumberExpressionNumber<Double> {
+final class ExpressionNumberConverterToNumberExpressionNumberDouble extends ExpressionNumberConverterToNumberExpressionNumber<Double> {
 
-    static ExpressionNumberConverterNumberExpressionNumberDouble with(final Converter converter) {
+    static ExpressionNumberConverterToNumberExpressionNumberDouble with(final Converter converter) {
         checkConverter(converter);
-        return new ExpressionNumberConverterNumberExpressionNumberDouble(converter);
+        return new ExpressionNumberConverterToNumberExpressionNumberDouble(converter);
     }
 
-    private ExpressionNumberConverterNumberExpressionNumberDouble(final Converter converter) {
+    private ExpressionNumberConverterToNumberExpressionNumberDouble(final Converter converter) {
         super(converter);
     }
 

@@ -20,10 +20,10 @@ package walkingkooka.tree.expression;
 import walkingkooka.math.NumberVisitorTesting;
 import walkingkooka.reflect.JavaVisibility;
 
-public final class ExpressionNumberConverterNumberExpressionNumberBigDecimalNumberVisitorTest implements NumberVisitorTesting<ExpressionNumberConverterNumberExpressionNumberBigDecimalNumberVisitor> {
+public final class ExpressionNumberConverterToNumberExpressionNumberBigDecimalNumberVisitorTest implements NumberVisitorTesting<ExpressionNumberConverterToNumberExpressionNumberBigDecimalNumberVisitor> {
     @Override
-    public ExpressionNumberConverterNumberExpressionNumberBigDecimalNumberVisitor createVisitor() {
-        return new ExpressionNumberConverterNumberExpressionNumberBigDecimalNumberVisitor();
+    public ExpressionNumberConverterToNumberExpressionNumberBigDecimalNumberVisitor createVisitor() {
+        return new ExpressionNumberConverterToNumberExpressionNumberBigDecimalNumberVisitor();
     }
 
     @Override
@@ -33,11 +33,11 @@ public final class ExpressionNumberConverterNumberExpressionNumberBigDecimalNumb
 
     @Override
     public String typeNamePrefix() {
-        return ExpressionNumberConverterNumberExpressionNumber.class.getSimpleName();
+        return ExpressionNumberConverterToNumberExpressionNumber.class.getSimpleName();
     }
 
     @Override
-    public Class<ExpressionNumberConverterNumberExpressionNumberBigDecimalNumberVisitor> type() {
-        return ExpressionNumberConverterNumberExpressionNumberBigDecimalNumberVisitor.class;
+    public Class<ExpressionNumberConverterToNumberExpressionNumberBigDecimalNumberVisitor> type() {
+        return ExpressionNumberConverterToNumberExpressionNumberBigDecimalNumberVisitor.class;
     }
 }

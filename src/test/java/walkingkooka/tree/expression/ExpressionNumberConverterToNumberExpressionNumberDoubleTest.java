@@ -19,7 +19,7 @@ package walkingkooka.tree.expression;
 
 import walkingkooka.convert.Converter;
 
-public final class ExpressionNumberConverterNumberExpressionNumberDoubleTest extends ExpressionNumberConverterNumberExpressionNumberTestCase<ExpressionNumberConverterNumberExpressionNumberDouble, ExpressionNumberDouble> {
+public final class ExpressionNumberConverterToNumberExpressionNumberDoubleTest extends ExpressionNumberConverterToNumberExpressionNumberTestCase<ExpressionNumberConverterToNumberExpressionNumberDouble, ExpressionNumberDouble> {
 
     @Override
     ExpressionNumberDouble expressionNumber(final double value) {
@@ -27,12 +27,12 @@ public final class ExpressionNumberConverterNumberExpressionNumberDoubleTest ext
     }
 
     @Override
-    public ExpressionNumberConverterNumberExpressionNumberDouble createConverter(final Converter converter) {
-        return ExpressionNumberConverterNumberExpressionNumberDouble.with(converter);
+    public ExpressionNumberConverterToNumberExpressionNumberDouble createConverter(final Converter converter) {
+        return ExpressionNumberConverterToNumberExpressionNumberDouble.with(converter);
     }
 
     @Override
-    public Class<ExpressionNumberConverterNumberExpressionNumberDouble> type() {
-        return ExpressionNumberConverterNumberExpressionNumberDouble.class;
+    public Class<ExpressionNumberConverterToNumberExpressionNumberDouble> type() {
+        return ExpressionNumberConverterToNumberExpressionNumberDouble.class;
     }
 }

@@ -33,9 +33,9 @@ import java.text.DecimalFormat;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public abstract class ExpressionNumberConverterNumberExpressionNumberTestCase<C extends ExpressionNumberConverterNumberExpressionNumber, N extends ExpressionNumber> implements ConverterTesting2<C> {
+public abstract class ExpressionNumberConverterToNumberExpressionNumberTestCase<C extends ExpressionNumberConverterToNumberExpressionNumber, N extends ExpressionNumber> implements ConverterTesting2<C> {
 
-    ExpressionNumberConverterNumberExpressionNumberTestCase() {
+    ExpressionNumberConverterToNumberExpressionNumberTestCase() {
         super();
     }
 
@@ -160,7 +160,7 @@ public abstract class ExpressionNumberConverterNumberExpressionNumberTestCase<C 
 
     @Override
     public final String typeNamePrefix() {
-        return ExpressionNumberConverterNumberExpressionNumber.class.getSimpleName();
+        return ExpressionNumberConverterToNumberExpressionNumber.class.getSimpleName();
     }
 
     @Override

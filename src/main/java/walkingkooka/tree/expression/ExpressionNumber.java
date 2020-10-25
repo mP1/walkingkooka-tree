@@ -96,17 +96,17 @@ public abstract class ExpressionNumber extends Number implements Comparable<Expr
     }
 
     /**
-     * {@see ExpressionNumberConverterNumberExpressionNumberBigDecimal.expressionNumberBigDecimal}
+     * {@see ExpressionNumberConverterToNumberExpressionNumberBigDecimal.expressionNumberBigDecimal}
      */
-    public static Converter bigDecimalExpressionNumberConverter(final Converter converter) {
-        return ExpressionNumberConverterNumberExpressionNumberBigDecimal.expressionNumberBigDecimal(converter);
+    public static Converter toExpressionNumberBigDecimalConverter(final Converter converter) {
+        return ExpressionNumberConverterToNumberExpressionNumber.expressionNumberBigDecimal(converter);
     }
 
     /**
-     * {@see ExpressionNumberConverterNumberExpressionNumber#expressionNumberDouble}
+     * {@see ExpressionNumberConverterToNumberExpressionNumber#expressionNumberDouble}
      */
-    public static Converter doubleExpressionNumberConverter(final Converter converter) {
-        return ExpressionNumberConverterNumberExpressionNumber.expressionNumberDouble(converter);
+    public static Converter toExpressionNumberDouble(final Converter converter) {
+        return ExpressionNumberConverterToNumberExpressionNumber.expressionNumberDouble(converter);
     }
 
     /**

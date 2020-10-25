@@ -24,14 +24,14 @@ import java.math.BigDecimal;
 /**
  * In addition to converting to a {@link Number} also supports creating a {@link ExpressionNumber#with(BigDecimal)}.
  */
-final class ExpressionNumberConverterNumberExpressionNumberBigDecimal extends ExpressionNumberConverterNumberExpressionNumber<BigDecimal> {
+final class ExpressionNumberConverterToNumberExpressionNumberBigDecimal extends ExpressionNumberConverterToNumberExpressionNumber<BigDecimal> {
 
-    static ExpressionNumberConverterNumberExpressionNumberBigDecimal with(final Converter converter) {
+    static ExpressionNumberConverterToNumberExpressionNumberBigDecimal with(final Converter converter) {
         checkConverter(converter);
-        return new ExpressionNumberConverterNumberExpressionNumberBigDecimal(converter);
+        return new ExpressionNumberConverterToNumberExpressionNumberBigDecimal(converter);
     }
 
-    private ExpressionNumberConverterNumberExpressionNumberBigDecimal(final Converter converter) {
+    private ExpressionNumberConverterToNumberExpressionNumberBigDecimal(final Converter converter) {
         super(converter);
     }
 

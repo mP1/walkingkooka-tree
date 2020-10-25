@@ -21,19 +21,19 @@ import walkingkooka.convert.Converter;
 
 import java.math.BigDecimal;
 
-public final class ExpressionNumberConverterNumberExpressionNumberBigDecimalTest extends ExpressionNumberConverterNumberExpressionNumberTestCase<ExpressionNumberConverterNumberExpressionNumberBigDecimal, ExpressionNumberBigDecimal> {
+public final class ExpressionNumberConverterToNumberExpressionNumberBigDecimalTest extends ExpressionNumberConverterToNumberExpressionNumberTestCase<ExpressionNumberConverterToNumberExpressionNumberBigDecimal, ExpressionNumberBigDecimal> {
     @Override
     ExpressionNumberBigDecimal expressionNumber(final double value) {
         return ExpressionNumberBigDecimal.withBigDecimal(BigDecimal.valueOf(value));
     }
 
     @Override
-    public ExpressionNumberConverterNumberExpressionNumberBigDecimal createConverter(final Converter converter) {
-        return ExpressionNumberConverterNumberExpressionNumberBigDecimal.with(converter);
+    public ExpressionNumberConverterToNumberExpressionNumberBigDecimal createConverter(final Converter converter) {
+        return ExpressionNumberConverterToNumberExpressionNumberBigDecimal.with(converter);
     }
 
     @Override
-    public Class<ExpressionNumberConverterNumberExpressionNumberBigDecimal> type() {
-        return ExpressionNumberConverterNumberExpressionNumberBigDecimal.class;
+    public Class<ExpressionNumberConverterToNumberExpressionNumberBigDecimal> type() {
+        return ExpressionNumberConverterToNumberExpressionNumberBigDecimal.class;
     }
 }
