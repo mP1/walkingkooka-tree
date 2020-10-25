@@ -61,7 +61,7 @@ abstract class ExpressionNumberConverterToNumberExpressionNumber<E> implements C
                                     final Class<?> type,
                                     final ConverterContext context) {
         return this.converterCanConvert(value, type, context) ||
-                this.converterCanConvert(value, this.expressionTypeValue(), context);
+                ExpressionNumber.class == type && this.converterCanConvert(value, this.expressionTypeValue(), context);
     }
 
     /**
