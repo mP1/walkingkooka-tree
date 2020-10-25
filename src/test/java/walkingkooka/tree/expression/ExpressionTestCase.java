@@ -261,16 +261,7 @@ public abstract class ExpressionTestCase<N extends Expression> implements ClassT
 
         final Converter converters = Converters.collection(Lists.of(
                 Converters.simple(),
-                new Converter() {
-                    @Override public boolean canConvert(Object o, Class<?> aClass, ConverterContext converterContext) {
-                        return o instanceof ExpressionNumber && aClass == ExpressionNumber.class;
-                    }
-
-                    @Override
-                    public <T> Either<T, String> convert(Object o, Class<T> aClass, ConverterContext converterContext) {
-                        return Cast.to(Either.left(o));
-                    }
-                },
+                ExpressionNumber.toExpressionNumber(),
                 // localDate ->
                 toBoolean(LocalDate.class, LocalDate.ofEpochDay(0)),
                 Converters.localDateLocalDateTime(),
