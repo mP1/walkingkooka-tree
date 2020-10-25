@@ -79,6 +79,13 @@ final class ExpressionNumberDouble extends ExpressionNumber {
         return this.setValue(~this.longValue());
     }
 
+    // round...........................................................................................................
+
+    @Override
+    public ExpressionNumber round(final ExpressionNumberContext context) {
+        return this.setValue(Math.round(this.value));
+    }
+
     // add..............................................................................................................
 
     @Override
