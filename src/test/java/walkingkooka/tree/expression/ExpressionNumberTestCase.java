@@ -66,6 +66,28 @@ public abstract class ExpressionNumberTestCase<N extends ExpressionNumber> imple
         this.checkValue(1, different);
     }
 
+    // ceil..............................................................................................................
+
+    @Test
+    public final void testCeilPositiveInteger() {
+        final ExpressionNumber number = this.create(1);
+        assertSame(number, number.ceil(CONTEXT));
+    }
+
+    @Test
+    public final void testCeilNegativeInteger() {
+        final ExpressionNumber number = this.create(-1);
+        assertSame(number, number.ceil(CONTEXT));
+    }
+
+    @Test
+    public final void testCeilRoundUp() {
+        final N number = this.create(1.4);
+        final ExpressionNumber different = number.ceil(CONTEXT);
+        assertNotSame(number, different);
+        this.checkValue(2, different);
+    }
+
     // negate...........................................................................................................
 
     @Test

@@ -51,6 +51,13 @@ final class ExpressionNumberDouble extends ExpressionNumber {
         return this.setValue(Math.abs(this.value));
     }
 
+    // ceil..............................................................................................................
+
+    @Override
+    public ExpressionNumber ceil(final ExpressionNumberContext context) {
+        return this.setValue(Math.ceil(this.value));
+    }
+
     // neg..............................................................................................................
 
     @Override

@@ -22,6 +22,7 @@ import walkingkooka.compare.ComparisonRelation;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.math.RoundingMode;
 import java.util.Objects;
 
 /**
@@ -51,6 +52,13 @@ final class ExpressionNumberBigDecimal extends ExpressionNumber {
     @Override
     public ExpressionNumber abs(final ExpressionNumberContext context) {
         return this.setValue(this.value.abs(context.mathContext()));
+    }
+
+    // ceil..............................................................................................................
+
+    @Override
+    public ExpressionNumber ceil(final ExpressionNumberContext context) {
+        return this.setValue(this.value.setScale(0, RoundingMode.CEILING));
     }
 
     // neg..............................................................................................................
