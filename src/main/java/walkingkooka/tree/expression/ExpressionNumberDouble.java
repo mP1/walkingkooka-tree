@@ -328,11 +328,6 @@ final class ExpressionNumberDouble extends ExpressionNumber {
         return ComparisonRelation.EQ.test(Double.compare(this.value, other.value));
     }
 
-    @Override
-    public String toString() {
-        return String.valueOf(this.value);
-    }
-
     // Comparable.......................................................................................................
 
     int compareTo0(final ExpressionNumber other) {

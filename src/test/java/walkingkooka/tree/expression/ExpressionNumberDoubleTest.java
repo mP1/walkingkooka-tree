@@ -51,6 +51,30 @@ public final class ExpressionNumberDoubleTest extends ExpressionNumberTestCase<E
                 ExpressionNumberDouble.withDouble(2));
     }
 
+    // toString.........................................................................................................
+
+    @Test
+    public void testToStringNaN() {
+        this.toStringAndCheck2(Double.NaN);
+    }
+
+    @Test
+    public void testToStringPositiveInfinity() {
+        this.toStringAndCheck2(Double.POSITIVE_INFINITY);
+    }
+
+    @Test
+    public void testToStringNegativeInfinity() {
+        this.toStringAndCheck2(Double.NEGATIVE_INFINITY);
+    }
+
+    @Test
+    public void testToStringIncludesDecimals() {
+        this.toStringAndCheck2(1.2345);
+    }
+
+    // helpers..........................................................................................................
+
     @Override
     ExpressionNumberDouble create(final double value) {
         return ExpressionNumberDouble.withDouble(value);
@@ -58,6 +82,11 @@ public final class ExpressionNumberDoubleTest extends ExpressionNumberTestCase<E
 
     @Override final void checkValue0(final double value, final ExpressionNumberDouble number) {
         assertEquals(value, number.doubleValue());
+    }
+
+    @Override
+    final void toStringAndCheck2(final double value) {
+        this.toStringAndCheck2(value, Double.toString(value));
     }
 
     @Override

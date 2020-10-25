@@ -722,6 +722,49 @@ public abstract class ExpressionNumberTestCase<N extends ExpressionNumber> imple
         this.checkNotEquals(ExpressionNumberDouble.withDouble(value), ExpressionNumberBigDecimal.withBigDecimal(BigDecimal.valueOf(value)));
     }
 
+    // toString...........................................................................................................
+
+    @Test
+    public final void testToStringTrailingZero() {
+        this.toStringAndCheck2(1, "1");
+    }
+
+    @Test
+    public final void testToStringWithoutTrailingZero() {
+        this.toStringAndCheck2(1.5, "1.5");
+    }
+
+    @Test
+    public final void testToStringWithoutTrailingZero2() {
+        this.toStringAndCheck2(1.125, "1.125");
+    }
+
+    @Test
+    public final void testToStringScientific10() {
+        this.toStringAndCheck2(1.1E10);
+    }
+
+    @Test
+    public final void testToStringScientific10b() {
+        this.toStringAndCheck2(1.0E10);
+    }
+
+    @Test
+    public final void testToStringScientific20() {
+        this.toStringAndCheck2(1.0E20);
+    }
+
+    @Test
+    public final void testToStringScientific100() {
+        this.toStringAndCheck2(1.0E100);
+    }
+
+    abstract void toStringAndCheck2(final double value);
+
+    final void toStringAndCheck2(final double value, final String toString) {
+        this.toStringAndCheck(this.create(value), toString);
+    }
+
     // helper...........................................................................................................
 
     private N create() {

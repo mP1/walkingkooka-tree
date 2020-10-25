@@ -65,14 +65,43 @@ public final class ExpressionNumberBigDecimalTest extends ExpressionNumberTestCa
         assertEquals(value, ExpressionNumberBigDecimal.withBigDecimal(value).bigDecimal());
     }
 
+    // toString.........................................................................................................
+
+    @Test
+    public void testToStringManyTrailingZeroes() {
+        this.toStringAndCheck2("1.0000", "1");
+    }
+
+    @Test
+    public void testToStringIncludesTrailingZeroes() {
+        this.toStringAndCheck2("1.0001", "1.0001");
+    }
+
+    @Test
+    public void testToStringIncludesTrailingZeroes2() {
+        this.toStringAndCheck2("1.2345", "1.2345");
+    }
+
+    private void toStringAndCheck2(final String value, final String expected) {
+        this.toStringAndCheck(ExpressionNumber.with(new BigDecimal(value)), expected);
+    }
+
+    // helper...........................................................................................................
+
     @Override
     ExpressionNumberBigDecimal create(final double value) {
         return ExpressionNumberBigDecimal.withBigDecimal(BigDecimal.valueOf(value));
     }
 
-    @Override final void checkValue0(final double value, final ExpressionNumberBigDecimal number) {
+    @Override
+    final void checkValue0(final double value, final ExpressionNumberBigDecimal number) {
         final BigDecimal actual = number.bigDecimal();
         assertEquals(BigDecimal.valueOf(value).setScale(actual.scale()), actual);
+    }
+
+    @Override
+    final void toStringAndCheck2(final double value) {
+        this.toStringAndCheck2(value, BigDecimal.valueOf(value).toString());
     }
 
     @Override

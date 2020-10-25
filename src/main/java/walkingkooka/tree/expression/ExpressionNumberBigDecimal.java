@@ -322,11 +322,6 @@ final class ExpressionNumberBigDecimal extends ExpressionNumber {
         return ComparisonRelation.EQ.test(this.value.compareTo(value));
     }
 
-    @Override
-    public String toString() {
-        return String.valueOf(this.value);
-    }
-
     // Comparable.......................................................................................................
 
     int compareTo0(final ExpressionNumber other) {

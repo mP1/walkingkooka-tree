@@ -369,8 +369,47 @@ public abstract class ExpressionNumber extends Number implements Comparable<Expr
 
     abstract boolean equals0(final ExpressionNumber other);
 
+    /**
+     * If the toString has only decimal zeros remove them.
+     */
     @Override
-    public abstract String toString();
+    public final String toString() {
+        // remove trailing zeros...
+        String toString = this.value().toString();
+        final int decimal = toString.lastIndexOf('.');
+        if(-1 != decimal) {
+            int end = toString.length() -1;
+            int trailing = -1;
+            int i = end;
+
+            Stop:
+            while(i >= decimal) {
+                switch(toString.charAt(end)) {
+                    case '0':
+                        end += trailing;
+                        break;
+                    case '1':
+                    case '2':
+                    case '3':
+                    case '4':
+                    case '5':
+                    case '6':
+                    case '7':
+                    case '8':
+                    case '9':
+                        trailing = 0;
+                        break;
+                    case '.':
+                        toString = toString.substring(0, end);
+                        break Stop; // stop
+                    default:
+                        break Stop; // must have found exponent etc dont trim anything
+                }
+                i--;
+            }
+        }
+        return toString;
+    }
 
     // Comparable.......................................................................................................
 
