@@ -18,11 +18,13 @@
 package walkingkooka.tree.expression;
 
 import org.junit.jupiter.api.Test;
+import walkingkooka.Either;
 import walkingkooka.convert.Converter;
 import walkingkooka.convert.ConverterContext;
 import walkingkooka.convert.ConverterContexts;
 import walkingkooka.convert.ConverterTesting2;
 import walkingkooka.convert.Converters;
+import walkingkooka.convert.FakeConverter;
 import walkingkooka.datetime.DateTimeContexts;
 import walkingkooka.math.DecimalNumberContexts;
 
@@ -31,6 +33,7 @@ import java.math.BigInteger;
 import java.math.MathContext;
 import java.text.DecimalFormat;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public abstract class ExpressionNumberConverterToNumberExpressionNumberTestCase<C extends ExpressionNumberConverterToNumberExpressionNumber, N extends ExpressionNumber> implements ConverterTesting2<C> {
@@ -42,6 +45,75 @@ public abstract class ExpressionNumberConverterToNumberExpressionNumberTestCase<
     @Test
     public final void testWithNullConverterFails() {
         assertThrows(NullPointerException.class, () -> this.createConverter(null));
+    }
+
+    @Test
+    public final void testConvertByteFails() {
+        this.convertFails2("123", Byte.class);
+    }
+
+    @Test
+    public final void testConvertShortFails() {
+        this.convertFails2("123", Short.class);
+    }
+
+    @Test
+    public final void testConvertIntegerFails() {
+        this.convertFails2("123", Integer.class);
+    }
+
+    @Test
+    public final void testConvertLongFails() {
+        this.convertFails2("123", Long.class);
+    }
+
+    @Test
+    public final void testConvertFloatFails() {
+        this.convertFails2("123", Float.class);
+    }
+
+    @Test
+    public final void testConvertDoubleFails() {
+        this.convertFails2("123", Double.class);
+    }
+
+    @Test
+    public final void testConvertBigIntegerFails() {
+        this.convertFails2("123", BigInteger.class);
+    }
+
+    @Test
+    public final void testConvertBigDecimalFails() {
+        this.convertFails2("123", BigDecimal.class);
+    }
+
+    @Test
+    public final void testConvertExpressionNumberFails() {
+        this.convertFails2("123", ExpressionNumber.class);
+    }
+
+    private void convertFails2(final String value, final Class<?> type) {
+        final Converter converter = this.createConverter(new FakeConverter() {
+            @Override
+            public boolean canConvert(final Object value,
+                                      final Class<?> type,
+                                      final ConverterContext context) {
+                return false;
+            }
+
+            @Override
+            public <T> Either<T, String> convert(final Object value,
+                                                 final Class<T> type,
+                                                 final ConverterContext context) {
+                return this.failConversion(value, type);
+            }
+        });
+        final ConverterContext context = this.createContext();
+        assertEquals(false, converter.canConvert(value, type, context));
+        this.convertFails(converter,
+                value,
+                type,
+                context);
     }
 
     // ??? -> Number....................................................................................................
