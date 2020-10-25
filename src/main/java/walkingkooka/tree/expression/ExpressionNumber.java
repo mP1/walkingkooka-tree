@@ -98,21 +98,21 @@ public abstract class ExpressionNumber extends Number implements Comparable<Expr
     /**
      * {@see ExpressionNumberConverterToNumberExpressionNumberBigDecimal.expressionNumberBigDecimal}
      */
-    public static Converter toExpressionNumberBigDecimalConverter(final Converter converter) {
+    public static Converter toExpressionNumberBigDecimalConverterConverter(final Converter converter) {
         return ExpressionNumberConverterToNumberExpressionNumber.expressionNumberBigDecimal(converter);
     }
 
     /**
      * {@see ExpressionNumberConverterToNumberExpressionNumber#expressionNumberDouble}
      */
-    public static Converter toExpressionNumberDouble(final Converter converter) {
+    public static Converter toExpressionNumberDoubleConverter(final Converter converter) {
         return ExpressionNumberConverterToNumberExpressionNumber.expressionNumberDouble(converter);
     }
 
     /**
      * {@see ExpressionNumberConverterFromExpressionNumberNumber}
      */
-    public static Converter fromExpressionNumber(final Converter converter) {
+    public static Converter fromExpressionNumberConverter(final Converter converter) {
         return ExpressionNumberConverterFromExpressionNumberNumber.with(converter);
     }
 
