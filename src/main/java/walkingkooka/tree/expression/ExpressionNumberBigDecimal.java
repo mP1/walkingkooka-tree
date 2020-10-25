@@ -61,6 +61,13 @@ final class ExpressionNumberBigDecimal extends ExpressionNumber {
         return this.setValue(this.value.setScale(0, RoundingMode.CEILING));
     }
 
+    // floor..............................................................................................................
+
+    @Override
+    public ExpressionNumber floor(final ExpressionNumberContext context) {
+        return this.setValue(this.value.setScale(0, RoundingMode.FLOOR));
+    }
+
     // neg..............................................................................................................
 
     @Override
