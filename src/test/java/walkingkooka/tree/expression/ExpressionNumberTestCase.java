@@ -88,6 +88,36 @@ public abstract class ExpressionNumberTestCase<N extends ExpressionNumber> imple
         this.checkValue(2, different);
     }
 
+    // floor..............................................................................................................
+
+    @Test
+    public final void testFloorPositiveInteger() {
+        final ExpressionNumber number = this.create(1);
+        assertSame(number, number.floor(CONTEXT));
+    }
+
+    @Test
+    public final void testFloorNegativeInteger() {
+        final ExpressionNumber number = this.create(-1);
+        assertSame(number, number.floor(CONTEXT));
+    }
+
+    @Test
+    public final void testFloorRoundDown() {
+        final N number = this.create(1.4);
+        final ExpressionNumber different = number.floor(CONTEXT);
+        assertNotSame(number, different);
+        this.checkValue(1, different);
+    }
+
+    @Test
+    public final void testFloorRoundDown2() {
+        final N number = this.create(1.7);
+        final ExpressionNumber different = number.floor(CONTEXT);
+        assertNotSame(number, different);
+        this.checkValue(1, different);
+    }
+
     // negate...........................................................................................................
 
     @Test
