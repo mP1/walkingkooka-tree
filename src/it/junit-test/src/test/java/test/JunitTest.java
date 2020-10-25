@@ -27,12 +27,14 @@ import walkingkooka.text.cursor.parser.Parser;
 import walkingkooka.text.cursor.parser.ParserReporters;
 import walkingkooka.text.cursor.parser.ParserToken;
 import walkingkooka.tree.expression.Expression;
+import walkingkooka.tree.expression.ExpressionNumber;
 import walkingkooka.tree.select.NodeSelector;
 import walkingkooka.tree.select.parser.NodeSelectorParserContext;
 import walkingkooka.tree.select.parser.NodeSelectorParserContexts;
 import walkingkooka.tree.select.parser.NodeSelectorParserToken;
 import walkingkooka.tree.select.parser.NodeSelectorParsers;
 
+import java.math.BigDecimal;
 import java.math.MathContext;
 
 @J2clTestInput(JunitTest.class)
@@ -55,7 +57,7 @@ public class JunitTest {
                 .cast(NodeSelectorParserToken.class);
         Assert.assertEquals(NodeSelector.absolute()
                         .named(Names.string("node123"))
-                        .expression(Expression.longExpression(45))
+                        .expression(Expression.expressionNumber(ExpressionNumber.with(BigDecimal.valueOf(45))))
                         .toString(),
                 ParserToken.text(Lists.of(token)));
     }

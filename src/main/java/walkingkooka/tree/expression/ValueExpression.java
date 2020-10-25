@@ -17,8 +17,6 @@
 
 package walkingkooka.tree.expression;
 
-import java.math.BigDecimal;
-import java.math.BigInteger;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -34,23 +32,13 @@ abstract class ValueExpression<V> extends LeafExpression<V> {
     }
 
     @Override
-    public final BigDecimal toBigDecimal(final ExpressionEvaluationContext context) {
-        return context.convertOrFail(this.value(), BigDecimal.class);
-    }
-
-    @Override
-    public final BigInteger toBigInteger(final ExpressionEvaluationContext context) {
-        return context.convertOrFail(this.value(), BigInteger.class);
-    }
-
-    @Override
     public final boolean toBoolean(final ExpressionEvaluationContext context) {
         return context.convertOrFail(this.value(), Boolean.class);
     }
 
     @Override
-    public final double toDouble(final ExpressionEvaluationContext context) {
-        return context.convertOrFail(this.value(), Double.class);
+    public final ExpressionNumber toExpressionNumber(final ExpressionEvaluationContext context) {
+        return context.convertOrFail(this.value(), ExpressionNumber.class);
     }
 
     @Override
@@ -66,16 +54,6 @@ abstract class ValueExpression<V> extends LeafExpression<V> {
     @Override
     public final LocalTime toLocalTime(final ExpressionEvaluationContext context) {
         return context.convertOrFail(this.value(), LocalTime.class);
-    }
-
-    @Override
-    public final long toLong(final ExpressionEvaluationContext context) {
-        return context.convertOrFail(this.value(), Long.class);
-    }
-
-    @Override
-    public final Number toNumber(final ExpressionEvaluationContext context) {
-        return context.convertOrFail(this.value(), Number.class);
     }
 
     @Override

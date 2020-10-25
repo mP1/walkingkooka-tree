@@ -66,28 +66,8 @@ public final class StringExpressionTest extends LeafExpressionTestCase<StringExp
     }
 
     @Test
-    public void testToBigDecimal() {
-        this.evaluateAndCheckBigDecimal(this.createExpression("123"), 123);
-    }
-
-    @Test
-    public void testToBigInteger() {
-        this.evaluateAndCheckBigInteger(this.createExpression("123"), 123);
-    }
-
-    @Test
-    public void testToDouble() {
-        this.evaluateAndCheckDouble(this.createExpression("123"), 123);
-    }
-
-    @Test
-    public void testToLong() {
-        this.evaluateAndCheckLong(this.createExpression("123"), 123);
-    }
-
-    @Test
-    public void testToNumber() {
-        this.evaluateAndCheckNumberBigDecimal(this.createExpression("123"), 123);
+    public void testToExpressionNumber() {
+        this.evaluateAndCheckExpressionNumber(this.createExpression("123"), ExpressionNumber.with(123));
     }
 
     @Test

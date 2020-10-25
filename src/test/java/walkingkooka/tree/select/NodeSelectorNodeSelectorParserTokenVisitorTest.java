@@ -24,7 +24,6 @@ import walkingkooka.Either;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.collect.set.Sets;
-import walkingkooka.convert.Converter;
 import walkingkooka.convert.ConverterContext;
 import walkingkooka.convert.ConverterContexts;
 import walkingkooka.convert.Converters;
@@ -37,11 +36,11 @@ import walkingkooka.predicate.Predicates;
 import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.text.CharSequences;
 import walkingkooka.text.cursor.TextCursors;
-import walkingkooka.text.cursor.parser.ParserContexts;
 import walkingkooka.text.cursor.parser.ParserReporters;
-import walkingkooka.text.cursor.parser.Parsers;
 import walkingkooka.tree.TestNode;
 import walkingkooka.tree.expression.Expression;
+import walkingkooka.tree.expression.ExpressionNumber;
+import walkingkooka.tree.expression.ExpressionNumberExpression;
 import walkingkooka.tree.expression.FunctionExpressionName;
 import walkingkooka.tree.expression.function.ExpressionFunctionContext;
 import walkingkooka.tree.expression.function.FakeExpressionFunctionContext;
@@ -784,7 +783,7 @@ public final class NodeSelectorNodeSelectorParserTokenVisitorTest implements Nod
                         .expression(
                                 Expression.equalsExpression(
                                         function("position"),
-                                        Expression.bigDecimal(BigDecimal.valueOf(2))
+                                        expressionNumberExpression(2)
                                 )));
     }
 
@@ -797,7 +796,7 @@ public final class NodeSelectorNodeSelectorParserTokenVisitorTest implements Nod
                         .expression(
                                 Expression.equalsExpression(
                                         function("position"),
-                                        Expression.bigDecimal(BigDecimal.valueOf(2))
+                                        expressionNumberExpression(2)
                                 )));
     }
 
@@ -1532,7 +1531,7 @@ public final class NodeSelectorNodeSelectorParserTokenVisitorTest implements Nod
         this.parseExpressionAndCheck("*[123]",
                 TestNode.relativeNodeSelector()
                         .children()
-                        .expression(Expression.bigDecimal(BigDecimal.valueOf(123))));
+                        .expression(expressionNumberExpression(123)));
     }
 
     @Test
@@ -1541,7 +1540,7 @@ public final class NodeSelectorNodeSelectorParserTokenVisitorTest implements Nod
                 TestNode.relativeNodeSelector()
                         .children()
                         .named(nameAbc123())
-                        .expression(Expression.bigDecimal(BigDecimal.valueOf(123))));
+                        .expression(expressionNumberExpression(123)));
     }
 
     @Test
@@ -1827,9 +1826,9 @@ public final class NodeSelectorNodeSelectorParserTokenVisitorTest implements Nod
                             case "number": {
                                 final Object parameter = parameters.get(0);
                                 if (parameter instanceof String) {
-                                    return new BigDecimal((String) parameter);
+                                    return ExpressionNumber.with(new BigDecimal((String) parameter));
                                 }
-                                return new BigDecimal((Long) parameter);
+                                return parameter;
                             }
                             case "starts-with": {
                                 final String string = parameters.get(0).toString();
@@ -1867,50 +1866,32 @@ public final class NodeSelectorNodeSelectorParserTokenVisitorTest implements Nod
                         Objects.requireNonNull(value, "value");
                         Objects.requireNonNull(target, "target");
 
+                        if (Integer.class == target && value instanceof ExpressionNumber) {
+                            final ExpressionNumber expressionNumber = (ExpressionNumber) value;
+                            return Cast.to(Either.left(expressionNumber.intValue()));
+                        }
+
+                        if (ExpressionNumber.class == target) {
+                            if (value instanceof Number) {
+                                return Cast.to(Either.left(ExpressionNumber.with((Number) value)));
+                            }
+                            if (value instanceof Boolean) {
+                                final Boolean booleanValue = (Boolean) value;
+                                return Cast.to(Either.left(ExpressionNumber.with(booleanValue ? BigDecimal.ONE : BigDecimal.ZERO)));
+                            }
+                        }
+
                         return Cast.to(target.isInstance(value) ?
                                 Either.left(target.cast(value)) :
-                                target == BigDecimal.class ?
-                                        this.convertToBigDecimal(value) :
-                                        target == Boolean.class ?
-                                                this.convertToBoolean(value) :
-                                                target == Integer.class ?
-                                                        this.convertToInteger(value) :
-                                                        target == Number.class ?
-                                                                this.convertToNumber(value) :
-                                                                target == String.class ?
-                                                                        this.convertToString(value) :
-                                                                        this.failConversion(value, target));
-                    }
-
-                    /**
-                     * Currently {@link Expression} will convert a pair of {@link Boolean} into
-                     * {@link BigDecimal} prior to performing the operation such as equals.
-                     */
-                    private Either<BigDecimal, String> convertToBigDecimal(final Object value) {
-                        final Converter converter = value instanceof Boolean ?
-                                Converters.booleanTrueFalse(t -> t instanceof Boolean, Predicates.is(Boolean.TRUE), t -> t == BigDecimal.class, BigDecimal.ONE, BigDecimal.ZERO) :
-                                value instanceof String ?
-                                        Converters.parser(BigDecimal.class, Parsers.bigDecimal(), (c) -> ParserContexts.basic(c, c)) :
-                                        Converters.numberNumber();
-                        return converter.convert(value, BigDecimal.class, this.converterContext);
+                                target == Boolean.class ?
+                                        this.convertToBoolean(value) :
+                                        target == String.class ?
+                                                this.convertToString(value) :
+                                                this.failConversion(value, target));
                     }
 
                     private Either<Boolean, String> convertToBoolean(final Object value) {
                         return Converters.truthyNumberBoolean().convert(value, Boolean.class, this.converterContext);
-                    }
-
-                    private Either<Number, String> convertToNumber(final Object value) {
-                        return value instanceof String ?
-                                Either.left(Integer.parseInt((String) value)) :
-                                Converters.booleanTrueFalse(t -> t instanceof Boolean, Predicates.is(Boolean.TRUE), t -> Number.class.isAssignableFrom(t), 1L, 0L)
-                                        .convert(value, Number.class, ConverterContexts.fake());
-                    }
-
-                    private Either<Integer, String> convertToInteger(final Object value) {
-                        if (value instanceof Number) {
-                            return Either.left(((Number) value).intValue());
-                        }
-                        return Either.left(Integer.parseInt(String.valueOf(value)));
                     }
 
                     private Either<String, String> convertToString(final Object value) {
@@ -1962,6 +1943,10 @@ public final class NodeSelectorNodeSelectorParserTokenVisitorTest implements Nod
 
     private Expression function(final String name, final Expression... arguments) {
         return Expression.function(FunctionExpressionName.with(name), Lists.of(arguments));
+    }
+
+    private ExpressionNumberExpression expressionNumberExpression(final int value) {
+        return Expression.expressionNumber(ExpressionNumber.with(BigDecimal.valueOf(value))); // NodeSelectorNumberParserToken requires BigDecimal
     }
 
     @Override

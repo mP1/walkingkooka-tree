@@ -17,17 +17,14 @@
 
 package walkingkooka.tree.select;
 
-import walkingkooka.Value;
 import walkingkooka.text.CharSequences;
 import walkingkooka.tree.expression.AddExpression;
 import walkingkooka.tree.expression.AndExpression;
-import walkingkooka.tree.expression.BigDecimalExpression;
-import walkingkooka.tree.expression.BigIntegerExpression;
 import walkingkooka.tree.expression.BooleanExpression;
 import walkingkooka.tree.expression.DivideExpression;
-import walkingkooka.tree.expression.DoubleExpression;
 import walkingkooka.tree.expression.EqualsExpression;
 import walkingkooka.tree.expression.Expression;
+import walkingkooka.tree.expression.ExpressionNumberExpression;
 import walkingkooka.tree.expression.ExpressionVisitor;
 import walkingkooka.tree.expression.FunctionExpression;
 import walkingkooka.tree.expression.FunctionExpressionName;
@@ -39,7 +36,6 @@ import walkingkooka.tree.expression.ListExpression;
 import walkingkooka.tree.expression.LocalDateExpression;
 import walkingkooka.tree.expression.LocalDateTimeExpression;
 import walkingkooka.tree.expression.LocalTimeExpression;
-import walkingkooka.tree.expression.LongExpression;
 import walkingkooka.tree.expression.ModuloExpression;
 import walkingkooka.tree.expression.MultiplyExpression;
 import walkingkooka.tree.expression.NegativeExpression;
@@ -75,23 +71,13 @@ final class ExpressionNodeSelectorToStringExpressionVisitor extends ExpressionVi
     }
 
     @Override
-    protected void visit(final BigDecimalExpression node) {
-        this.numericLiteral(node);
-    }
-
-    @Override
-    protected void visit(final BigIntegerExpression node) {
-        this.numericLiteral(node);
-    }
-
-    @Override
     protected void visit(final BooleanExpression node) {
         this.function(node.value().toString()); // outputs either true(), false()
     }
 
     @Override
-    protected void visit(final DoubleExpression node) {
-        this.numericLiteral(node);
+    protected void visit(final ExpressionNumberExpression node) {
+        this.append(node.value().toString());
     }
 
     @Override
@@ -107,11 +93,6 @@ final class ExpressionNodeSelectorToStringExpressionVisitor extends ExpressionVi
     @Override
     protected void visit(final LocalTimeExpression node) {
         this.function("localTime", node.value().toString()); // localDate()
-    }
-
-    @Override
-    protected void visit(final LongExpression node) {
-        this.numericLiteral(node);
     }
 
     @Override
@@ -276,10 +257,6 @@ final class ExpressionNodeSelectorToStringExpressionVisitor extends ExpressionVi
         this.parametersBegin();
         this.stringLiteral(parameter);
         this.parametersEnd();
-    }
-
-    private <T extends Expression & Value<? extends Number>> void numericLiteral(final T number) {
-        this.append(number.value().toString());
     }
 
     private void stringLiteral(final String text) {

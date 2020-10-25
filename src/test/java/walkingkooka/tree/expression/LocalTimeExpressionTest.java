@@ -79,18 +79,8 @@ public final class LocalTimeExpressionTest extends LeafExpressionTestCase<LocalT
     }
 
     @Test
-    public void testToBigDecimal() {
-        this.evaluateAndCheckBigDecimal(this.createExpression(), VALUE);
-    }
-
-    @Test
-    public void testToBigInteger() {
-        this.evaluateAndCheckBigInteger(this.createExpression(), VALUE);
-    }
-
-    @Test
-    public void testToDouble() {
-        this.evaluateAndCheckDouble(this.createExpression(), VALUE);
+    public void testToExpressionNumber() {
+        this.evaluateAndCheckExpressionNumber(this.createExpression(), VALUE);
     }
 
     @Test
@@ -108,11 +98,6 @@ public final class LocalTimeExpressionTest extends LeafExpressionTestCase<LocalT
     @Test
     public void testToLocalTime() {
         this.evaluateAndCheckLocalTime(this.createExpression(), this.value());
-    }
-
-    @Test
-    public void testToLong() {
-        this.evaluateAndCheckLong(this.createExpression(), VALUE);
     }
 
     @Test

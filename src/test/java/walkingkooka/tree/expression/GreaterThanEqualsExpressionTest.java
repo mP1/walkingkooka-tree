@@ -80,463 +80,61 @@ public final class GreaterThanEqualsExpressionTest extends BinaryComparisonExpre
                 visited);
     }
 
-    // BigDecimal ................................................................................................
+    // evaluate.........................................................................................................
 
     @Test
-    public void testEvaluateToBooleanBigDecimalBigDecimal() {
-        // left gte right == truthy number
-        this.evaluateAndCheckBoolean(this.createExpression(bigDecimal(12), bigDecimal(34)), false);
+    public void testEvaluateToBooleanExpressionNumberExpressionNumber() {
+        // left gte right == truthy expressionNumber
+        this.evaluateAndCheckBoolean(this.createExpression(expressionNumber(12), expressionNumber(34)), false);
     }
 
     @Test
-    public void testEvaluateToBooleanBigDecimalBigDecimal2() {
-        // left gte right == truthy number
-        this.evaluateAndCheckBoolean(this.createExpression(bigDecimal(12), bigDecimal(12)), true);
+    public void testEvaluateToBooleanExpressionNumberExpressionNumber2() {
+        // left gte right == truthy expressionNumber
+        this.evaluateAndCheckBoolean(this.createExpression(expressionNumber(12), expressionNumber(12)), true);
     }
 
     @Test
-    public void testEvaluateToBooleanBigDecimalBigDecimal3() {
-        // left gte right == truthy number
-        this.evaluateAndCheckBoolean(this.createExpression(bigDecimal(12), bigDecimal(-99)), true);
+    public void testEvaluateToBooleanExpressionNumberExpressionNumber3() {
+        // left gte right == truthy expressionNumber
+        this.evaluateAndCheckBoolean(this.createExpression(expressionNumber(12), expressionNumber(-99)), true);
     }
 
-    @Test
-    public void testEvaluateToBooleanBigDecimalBigInteger() {
-        // left gte right == truthy number
-        this.evaluateAndCheckBoolean(this.createExpression(bigDecimal(12), bigInteger(34)), false);
-    }
-
-    @Test
-    public void testEvaluateToBooleanBigDecimalBigInteger2() {
-        // left gte right == truthy number
-        this.evaluateAndCheckBoolean(this.createExpression(bigDecimal(12), bigInteger(12)), true);
-    }
-
-    @Test
-    public void testEvaluateToBooleanBigDecimalBigInteger3() {
-        // left gte right == truthy number
-        this.evaluateAndCheckBoolean(this.createExpression(bigDecimal(12), bigInteger(-99)), true);
-    }
-
-    @Test
-    public void testEvaluateToBooleanBigDecimalDouble() {
-        // left gte right == truthy number
-        this.evaluateAndCheckBoolean(this.createExpression(bigDecimal(12), doubleValue(34)), false);
-    }
-
-    @Test
-    public void testEvaluateToBooleanBigDecimalDouble2() {
-        // left gte right == truthy number
-        this.evaluateAndCheckBoolean(this.createExpression(bigDecimal(12), doubleValue(12)), true);
-    }
-
-    @Test
-    public void testEvaluateToBooleanBigDecimalDouble3() {
-        // left gte right == truthy number
-        this.evaluateAndCheckBoolean(this.createExpression(bigDecimal(12), doubleValue(-99)), true);
-    }
-
-    @Test
-    public void testEvaluateToBooleanBigDecimalLong() {
-        // left gte right == truthy number
-        this.evaluateAndCheckBoolean(this.createExpression(bigDecimal(12), longValue(34)), false);
-    }
-
-    @Test
-    public void testEvaluateToBooleanBigDecimalLong2() {
-        // left gte right == truthy number
-        this.evaluateAndCheckBoolean(this.createExpression(bigDecimal(12), longValue(12)), true);
-    }
-
-    @Test
-    public void testEvaluateToBooleanBigDecimalLong3() {
-        // left gte right == truthy number
-        this.evaluateAndCheckBoolean(this.createExpression(bigDecimal(12), longValue(-99)), true);
-    }
-
-    @Test
-    public void testEvaluateToBooleanBigDecimalText() {
-        // left gte right == truthy number
-        this.evaluateAndCheckBoolean(this.createExpression(bigDecimal(12), text(34)), false);
-    }
-
-    @Test
-    public void testEvaluateToBooleanBigDecimalText2() {
-        // left gte right == truthy number
-        this.evaluateAndCheckBoolean(this.createExpression(bigDecimal(12), text(12)), true);
-    }
-
-    @Test
-    public void testEvaluateToBooleanBigDecimalText3() {
-        // left gte right == truthy number
-        this.evaluateAndCheckBoolean(this.createExpression(bigDecimal(12), text(-99)), true);
-    }
-
-    // BigInteger................................................................................................
-
-    @Test
-    public void testEvaluateToBooleanBigIntegerBigDecimal() {
-        // left gte right == truthy number
-        this.evaluateAndCheckBoolean(this.createExpression(bigInteger(12), bigDecimal(34)), false);
-    }
-
-    @Test
-    public void testEvaluateToBooleanBigIntegerBigDecimal2() {
-        // left gte right == truthy number
-        this.evaluateAndCheckBoolean(this.createExpression(bigInteger(12), bigDecimal(12)), true);
-    }
-
-    @Test
-    public void testEvaluateToBooleanBigIntegerBigDecimal3() {
-        // left gte right == truthy number
-        this.evaluateAndCheckBoolean(this.createExpression(bigInteger(12), bigDecimal(-99)), true);
-    }
-
-    @Test
-    public void testEvaluateToBooleanBigIntegerBigInteger() {
-        // left gte right == truthy number
-        this.evaluateAndCheckBoolean(this.createExpression(bigInteger(12), bigInteger(34)), false);
-    }
-
-    @Test
-    public void testEvaluateToBooleanBigIntegerBigInteger2() {
-        // left gte right == truthy number
-        this.evaluateAndCheckBoolean(this.createExpression(bigInteger(12), bigInteger(12)), true);
-    }
-
-    @Test
-    public void testEvaluateToBooleanBigIntegerBigInteger3() {
-        // left gte right == truthy number
-        this.evaluateAndCheckBoolean(this.createExpression(bigInteger(12), bigInteger(-99)), true);
-    }
-
-    @Test
-    public void testEvaluateToBooleanBigIntegerDouble() {
-        // left gte right == truthy number
-        this.evaluateAndCheckBoolean(this.createExpression(bigInteger(12), doubleValue(34)), false);
-    }
-
-    @Test
-    public void testEvaluateToBooleanBigIntegerDouble2() {
-        // left gte right == truthy number
-        this.evaluateAndCheckBoolean(this.createExpression(bigInteger(12), doubleValue(12)), true);
-    }
-
-    @Test
-    public void testEvaluateToBooleanBigIntegerDouble3() {
-        // left gte right == truthy number
-        this.evaluateAndCheckBoolean(this.createExpression(bigInteger(12), doubleValue(-99)), true);
-    }
-
-    @Test
-    public void testEvaluateToBooleanBigIntegerLong() {
-        // left gte right == truthy number
-        this.evaluateAndCheckBoolean(this.createExpression(bigInteger(12), longValue(34)), false);
-    }
-
-    @Test
-    public void testEvaluateToBooleanBigIntegerLong2() {
-        // left gte right == truthy number
-        this.evaluateAndCheckBoolean(this.createExpression(bigInteger(12), longValue(12)), true);
-    }
-
-    @Test
-    public void testEvaluateToBooleanBigIntegerLong3() {
-        // left gte right == truthy number
-        this.evaluateAndCheckBoolean(this.createExpression(bigInteger(12), longValue(-99)), true);
-    }
-
-    @Test
-    public void testEvaluateToBooleanBigIntegerText() {
-        // left gte right == truthy number
-        this.evaluateAndCheckBoolean(this.createExpression(bigInteger(12), text(34)), false);
-    }
-
-    @Test
-    public void testEvaluateToBooleanBigIntegerText2() {
-        // left gte right == truthy number
-        this.evaluateAndCheckBoolean(this.createExpression(bigInteger(12), text(12)), true);
-    }
-
-    @Test
-    public void testEvaluateToBooleanBigIntegerText3() {
-        // left gte right == truthy number
-        this.evaluateAndCheckBoolean(this.createExpression(bigInteger(12), text(-99)), true);
-    }
-
-    // Double ................................................................................................
-
-    @Test
-    public void testEvaluateToBooleanDoubleBigDecimal() {
-        // left gte right == truthy number
-        this.evaluateAndCheckBoolean(this.createExpression(doubleValue(12), bigDecimal(34)), false);
-    }
-
-    @Test
-    public void testEvaluateToBooleanDoubleBigDecimal2() {
-        // left gte right == truthy number
-        this.evaluateAndCheckBoolean(this.createExpression(doubleValue(12), bigDecimal(12)), true);
-    }
-
-    @Test
-    public void testEvaluateToBooleanDoubleBigDecimal3() {
-        // left gte right == truthy number
-        this.evaluateAndCheckBoolean(this.createExpression(doubleValue(12), bigDecimal(-99)), true);
-    }
-
-    @Test
-    public void testEvaluateToBooleanDoubleBigInteger() {
-        // left gte right == truthy number
-        this.evaluateAndCheckBoolean(this.createExpression(doubleValue(12), bigInteger(34)), false);
-    }
-
-    @Test
-    public void testEvaluateToBooleanDoubleBigInteger2() {
-        // left gte right == truthy number
-        this.evaluateAndCheckBoolean(this.createExpression(doubleValue(12), bigInteger(12)), true);
-    }
-
-    @Test
-    public void testEvaluateToBooleanDoubleBigInteger3() {
-        // left gte right == truthy number
-        this.evaluateAndCheckBoolean(this.createExpression(doubleValue(12), bigInteger(-99)), true);
-    }
-
-    @Test
-    public void testEvaluateToBooleanDoubleDouble() {
-        // left gte right == truthy number
-        this.evaluateAndCheckBoolean(this.createExpression(doubleValue(12), doubleValue(34)), false);
-    }
-
-    @Test
-    public void testEvaluateToBooleanDoubleDouble2() {
-        // left gte right == truthy number
-        this.evaluateAndCheckBoolean(this.createExpression(doubleValue(12), doubleValue(12)), true);
-    }
-
-    @Test
-    public void testEvaluateToBooleanDoubleDouble3() {
-        // left gte right == truthy number
-        this.evaluateAndCheckBoolean(this.createExpression(doubleValue(12), doubleValue(-99)), true);
-    }
-
-    @Test
-    public void testEvaluateToBooleanDoubleLong() {
-        // left gte right == truthy number
-        this.evaluateAndCheckBoolean(this.createExpression(doubleValue(12), longValue(34)), false);
-    }
-
-    @Test
-    public void testEvaluateToBooleanDoubleLong2() {
-        // left gte right == truthy number
-        this.evaluateAndCheckBoolean(this.createExpression(doubleValue(12), longValue(12)), true);
-    }
-
-    @Test
-    public void testEvaluateToBooleanDoubleLong3() {
-        // left gte right == truthy number
-        this.evaluateAndCheckBoolean(this.createExpression(doubleValue(12), longValue(-99)), true);
-    }
-
-    @Test
-    public void testEvaluateToBooleanDoubleText() {
-        // left gte right == truthy number
-        this.evaluateAndCheckBoolean(this.createExpression(doubleValue(12), text(34)), false);
-    }
-
-    @Test
-    public void testEvaluateToBooleanDoubleText2() {
-        // left gte right == truthy number
-        this.evaluateAndCheckBoolean(this.createExpression(doubleValue(12), text(12)), true);
-    }
-
-    @Test
-    public void testEvaluateToBooleanDoubleText3() {
-        // left gte right == truthy number
-        this.evaluateAndCheckBoolean(this.createExpression(doubleValue(12), text(-99)), true);
-    }
-
-    // Long................................................................................................
-
-    @Test
-    public void testEvaluateToBooleanLongBigDecimal() {
-        // left gte right == truthy number
-        this.evaluateAndCheckBoolean(this.createExpression(longValue(12), bigDecimal(34)), false);
-    }
-
-    @Test
-    public void testEvaluateToBooleanLongBigDecimal2() {
-        // left gte right == truthy number
-        this.evaluateAndCheckBoolean(this.createExpression(longValue(12), bigDecimal(12)), true);
-    }
-
-    @Test
-    public void testEvaluateToBooleanLongBigDecimal3() {
-        // left gte right == truthy number
-        this.evaluateAndCheckBoolean(this.createExpression(longValue(12), bigDecimal(-99)), true);
-    }
-
-    @Test
-    public void testEvaluateToBooleanLongBigInteger() {
-        // left gte right == truthy number
-        this.evaluateAndCheckBoolean(this.createExpression(longValue(12), bigInteger(34)), false);
-    }
-
-    @Test
-    public void testEvaluateToBooleanLongBigInteger2() {
-        // left gte right == truthy number
-        this.evaluateAndCheckBoolean(this.createExpression(longValue(12), bigInteger(12)), true);
-    }
-
-    @Test
-    public void testEvaluateToBooleanLongBigInteger3() {
-        // left gte right == truthy number
-        this.evaluateAndCheckBoolean(this.createExpression(longValue(12), bigInteger(-99)), true);
-    }
-
-    @Test
-    public void testEvaluateToBooleanLongDouble() {
-        // left gte right == truthy number
-        this.evaluateAndCheckBoolean(this.createExpression(longValue(12), doubleValue(34)), false);
-    }
-
-    @Test
-    public void testEvaluateToBooleanLongDouble2() {
-        // left gte right == truthy number
-        this.evaluateAndCheckBoolean(this.createExpression(longValue(12), doubleValue(12)), true);
-    }
-
-    @Test
-    public void testEvaluateToBooleanLongDouble3() {
-        // left gte right == truthy number
-        this.evaluateAndCheckBoolean(this.createExpression(longValue(12), doubleValue(-99)), true);
-    }
-
-    @Test
-    public void testEvaluateToBooleanLongLong() {
-        // left gte right == truthy number
-        this.evaluateAndCheckBoolean(this.createExpression(longValue(12), longValue(34)), false);
-    }
-
-    @Test
-    public void testEvaluateToBooleanLongLong2() {
-        // left gte right == truthy number
-        this.evaluateAndCheckBoolean(this.createExpression(longValue(12), longValue(12)), true);
-    }
-
-    @Test
-    public void testEvaluateToBooleanLongLong3() {
-        // left gte right == truthy number
-        this.evaluateAndCheckBoolean(this.createExpression(longValue(12), longValue(-99)), true);
-    }
-
-    @Test
-    public void testEvaluateToBooleanLongText() {
-        // left gte right == truthy number
-        this.evaluateAndCheckBoolean(this.createExpression(longValue(12), text(34)), false);
-    }
-
-    @Test
-    public void testEvaluateToBooleanLongText2() {
-        // left gte right == truthy number
-        this.evaluateAndCheckBoolean(this.createExpression(longValue(12), text(12)), true);
-    }
-
-    @Test
-    public void testEvaluateToBooleanLongText3() {
-        // left gte right == truthy number
-        this.evaluateAndCheckBoolean(this.createExpression(longValue(12), text(-99)), true);
-    }
-
-    // Text................................................................................................
-
-    @Test
-    public void testEvaluateToBooleanTextBigDecimal() {
-        // left gte right == truthy number
-        this.evaluateAndCheckBoolean(this.createExpression(text(12), bigDecimal(34)), false);
-    }
-
-    @Test
-    public void testEvaluateToBooleanTextBigDecimal2() {
-        // left gte right == truthy number
-        this.evaluateAndCheckBoolean(this.createExpression(text(12), bigDecimal(12)), true);
-    }
-
-    @Test
-    public void testEvaluateToBooleanTextBigDecimal3() {
-        // left gte right == truthy number
-        this.evaluateAndCheckBoolean(this.createExpression(text(12), bigDecimal(-99)), true);
-    }
-
-    @Test
-    public void testEvaluateToBooleanTextBigInteger() {
-        // left gte right == truthy number
-        this.evaluateAndCheckBoolean(this.createExpression(text(12), bigInteger(34)), false);
-    }
-
-    @Test
-    public void testEvaluateToBooleanTextBigInteger2() {
-        // left gte right == truthy number
-        this.evaluateAndCheckBoolean(this.createExpression(text(12), bigInteger(12)), true);
-    }
-
-    @Test
-    public void testEvaluateToBooleanTextBigInteger3() {
-        // left gte right == truthy number
-        this.evaluateAndCheckBoolean(this.createExpression(text(12), bigInteger(-99)), true);
-    }
-
-    @Test
-    public void testEvaluateToBooleanTextDouble() {
-        // left gte right == truthy number
-        this.evaluateAndCheckBoolean(this.createExpression(text(12), doubleValue(34)), false);
-    }
-
-    @Test
-    public void testEvaluateToBooleanTextDouble2() {
-        // left gte right == truthy number
-        this.evaluateAndCheckBoolean(this.createExpression(text(12), doubleValue(12)), true);
-    }
-
-    @Test
-    public void testEvaluateToBooleanTextDouble3() {
-        // left gte right == truthy number
-        this.evaluateAndCheckBoolean(this.createExpression(text(12), doubleValue(-99)), true);
-    }
+    // Text.............................................................................................................
 
     @Test
-    public void testEvaluateToBooleanTextLong() {
-        // left gte right == truthy number
-        this.evaluateAndCheckBoolean(this.createExpression(text(12), longValue(34)), false);
+    public void testEvaluateToBooleanTextExpressionNumber() {
+        // left gte right == truthy expressionNumber
+        this.evaluateAndCheckBoolean(this.createExpression(text(12), expressionNumber(34)), false);
     }
 
     @Test
-    public void testEvaluateToBooleanTextLong2() {
-        // left gte right == truthy number
-        this.evaluateAndCheckBoolean(this.createExpression(text(12), longValue(12)), true);
+    public void testEvaluateToBooleanTextExpressionNumber2() {
+        // left gte right == truthy expressionNumber
+        this.evaluateAndCheckBoolean(this.createExpression(text(12), expressionNumber(12)), true);
     }
 
     @Test
-    public void testEvaluateToBooleanTextLong3() {
-        // left gte right == truthy number
-        this.evaluateAndCheckBoolean(this.createExpression(text(12), longValue(-99)), true);
+    public void testEvaluateToBooleanTextExpressionNumber3() {
+        // left gte right == truthy expressionNumber
+        this.evaluateAndCheckBoolean(this.createExpression(text(12), expressionNumber(-99)), true);
     }
 
     @Test
     public void testEvaluateToBooleanTextText() {
-        // left gte right == truthy number
+        // left gte right == truthy expressionNumber
         this.evaluateAndCheckBoolean(this.createExpression(text(12), text(34)), false);
     }
 
     @Test
     public void testEvaluateToBooleanTextText2() {
-        // left gte right == truthy number
+        // left gte right == truthy expressionNumber
         this.evaluateAndCheckBoolean(this.createExpression(text(12), text(12)), true);
     }
 
     @Test
     public void testEvaluateToBooleanTextText3() {
-        // left gte right == truthy number
+        // left gte right == truthy expressionNumber
         this.evaluateAndCheckBoolean(this.createExpression(text(12), text(-99)), true);
     }
 

@@ -18,4 +18,7 @@
 package walkingkooka.tree.expression;
 
 public abstract class BinaryComparisonExpressionTestCase<N extends BinaryComparisonExpression> extends BinaryExpression2TestCase<N> {
+    BinaryComparisonExpressionTestCase() {
+        super();
+    }
 }

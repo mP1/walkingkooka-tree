@@ -17,6 +17,7 @@
 
 package walkingkooka.tree.expression;
 
+import walkingkooka.compare.ComparisonRelation;
 import walkingkooka.visit.Visiting;
 
 import java.util.List;
@@ -68,9 +69,9 @@ public final class LessThanExpression extends BinaryComparisonExpression {
 
     // Evaluation .......................................................................................................
 
-    @Override
-    boolean isComparisonTrue(final int comparisonResult) {
-        return comparisonResult < 0;
+    @Override //
+    ComparisonRelation comparisonRelation() {
+        return ComparisonRelation.LT;
     }
 
     // Object .........................................................................................................

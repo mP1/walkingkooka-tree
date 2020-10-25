@@ -23,7 +23,6 @@ import walkingkooka.collect.list.Lists;
 import walkingkooka.visit.Visiting;
 
 import java.math.BigDecimal;
-import java.math.BigInteger;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -99,33 +98,9 @@ public final class ListExpressionTest extends VariableExpressionTestCase<ListExp
     }
 
     @Test
-    public void testToBigDecimal() {
+    public void testToExpressionNumber() {
         final BigDecimal value = BigDecimal.valueOf(123);
-        this.evaluateAndCheckBigDecimal(this.createExpression(), context(value), value);
-    }
-
-    @Test
-    public void testToBigInteger() {
-        final BigInteger value = BigInteger.valueOf(123);
-        this.evaluateAndCheckBigInteger(this.createExpression(), context(value), value);
-    }
-
-    @Test
-    public void testToDouble() {
-        final Double value = 123.5;
-        this.evaluateAndCheckDouble(this.createExpression(), context(value), value);
-    }
-
-    @Test
-    public void testToLong() {
-        final Long value = 123L;
-        this.evaluateAndCheckLong(this.createExpression(), context(value), value);
-    }
-
-    @Test
-    public void testToNumber() {
-        final BigDecimal value = BigDecimal.valueOf(123);
-        this.evaluateAndCheckNumberBigDecimal(this.createExpression(), context(value), value.doubleValue());
+        this.evaluateAndCheckExpressionNumber(this.createExpression(), context(ExpressionNumber.with(value)), ExpressionNumber.with(value));
     }
 
     @Test

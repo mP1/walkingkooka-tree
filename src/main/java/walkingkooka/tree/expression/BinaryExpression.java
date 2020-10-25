@@ -19,8 +19,6 @@ package walkingkooka.tree.expression;
 
 import walkingkooka.collect.list.Lists;
 
-import java.math.BigDecimal;
-import java.math.BigInteger;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -84,27 +82,15 @@ abstract class BinaryExpression extends ParentFixedExpression {
     // Evaluation ...................................................................................................
 
     @Override
-    public final BigDecimal toBigDecimal(final ExpressionEvaluationContext context) {
-        return this.apply(context)
-                .toBigDecimal(context);
-    }
-
-    @Override
-    public final BigInteger toBigInteger(final ExpressionEvaluationContext context) {
-        return this.apply(context)
-                .toBigInteger(context);
-    }
-
-    @Override
     public final boolean toBoolean(final ExpressionEvaluationContext context) {
         return this.apply(context)
                 .toBoolean(context);
     }
 
     @Override
-    public final double toDouble(final ExpressionEvaluationContext context) {
+    public final ExpressionNumber toExpressionNumber(final ExpressionEvaluationContext context) {
         return this.apply(context)
-                .toDouble(context);
+                .toExpressionNumber(context);
     }
 
     @Override
@@ -126,28 +112,12 @@ abstract class BinaryExpression extends ParentFixedExpression {
     }
 
     @Override
-    public final long toLong(final ExpressionEvaluationContext context) {
-        return this.apply(context)
-                .toLong(context);
-    }
-
-    @Override
-    public final Number toNumber(final ExpressionEvaluationContext context) {
-        return this.apply(context)
-                .toNumber(context);
-    }
-
-    @Override
     public final String toString(final ExpressionEvaluationContext context) {
         return this.apply(context)
                 .toString(context);
     }
 
     abstract Expression apply(final ExpressionEvaluationContext context);
-
-    abstract Expression applyBigInteger(final BigInteger left, final BigInteger right, final ExpressionEvaluationContext context);
-
-    abstract Expression applyLong(final long left, final long right, final ExpressionEvaluationContext context);
 
     // Object........................................................................................................
 

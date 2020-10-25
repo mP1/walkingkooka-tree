@@ -21,7 +21,6 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.visit.Visiting;
 
-import java.math.BigInteger;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -100,152 +99,30 @@ public final class OrExpressionTest extends BinaryLogicalExpressionTestCase<OrEx
     }
 
     @Test
-    public void testEvaluateToBooleanLongLongTrue() {
-        // left & right == truthy number
-        this.evaluateAndCheckBoolean(this.createExpression(longValue(7), longValue(3)), true);
+    public void testEvaluateToBooleanNumberNumberTrue() {
+        // left & right == truthy expressionNumber
+        this.evaluateAndCheckBoolean(this.createExpression(expressionNumber(7), expressionNumber(3)), true);
     }
 
     @Test
-    public void testEvaluateToBooleanLongLongFalse() {
-        // left & right == truthy number
-        this.evaluateAndCheckBoolean(this.createExpression(longValue(0), longValue(0)), false);
-    }
-
-    @Test
-    public void testEvaluateToBooleanBigIntegerBigIntegerTrue() {
-        // left | right == truthy number
-        this.evaluateAndCheckBoolean(this.createExpression(bigInteger(7), bigInteger(3)), true);
-    }
-
-    @Test
-    public void testEvaluateToBooleanBigIntegerBigIntegerFalse() {
-        // left | right == truthy number
-        this.evaluateAndCheckBoolean(this.createExpression(bigInteger(0), bigInteger(0)), false);
+    public void testEvaluateToBooleanNumberNumberFalse() {
+        // left & right == truthy expressionNumber
+        this.evaluateAndCheckBoolean(this.createExpression(expressionNumber(0), expressionNumber(0)), false);
     }
 
     @Test
     public void testEvaluateToBooleanTrue() {
-        // left | right == truthy number
-        this.evaluateAndCheckBoolean(this.createExpression(bigDecimal(7), bigDecimal(3)), true);
+        // left | right == truthy expressionNumber
+        this.evaluateAndCheckBoolean(this.createExpression(expressionNumber(7), expressionNumber(3)), true);
     }
 
     @Test
     public void testEvaluateToBooleanFalse() {
-        // left | right == truthy number
-        this.evaluateAndCheckBoolean(this.createExpression(bigDecimal(0), bigDecimal(0)), false);
+        // left | right == truthy expressionNumber
+        this.evaluateAndCheckBoolean(this.createExpression(expressionNumber(0), expressionNumber(0)), false);
     }
 
-    // toBigDecimal.....................................................................................
-
-    @Test
-    public void testEvaluateToBigDecimal() {
-        this.evaluateAndCheckBigDecimal(this.createExpression(bigDecimal(6), bigDecimal(3)), 6 | 3);
-    }
-
-    @Test
-    public void testEvaluateToBigDecimal2() {
-        this.evaluateAndCheckBigDecimal(this.createExpression(bigDecimal(6), bigInteger(3)), 6 | 3);
-    }
-
-    @Test
-    public void testEvaluateToBigDecimal3() {
-        this.evaluateAndCheckBigDecimal(this.createExpression(bigDecimal(6), doubleValue(3)), 6 | 3);
-    }
-
-    @Test
-    public void testEvaluateToBigDecimal4() {
-        this.evaluateAndCheckBigDecimal(this.createExpression(bigDecimal(6), longValue(3)), 6 | 3);
-    }
-
-    // toBigInteger.....................................................................................
-
-    @Test
-    public void testEvaluateToBigInteger() {
-        this.evaluateAndCheckBigDecimal(this.createExpression(bigInteger(6), bigDecimal(3)), 6 | 3);
-    }
-
-    @Test
-    public void testEvaluateToBigInteger2() {
-        this.evaluateAndCheckBigInteger(this.createExpression(bigInteger(6), bigInteger(3)), 6 | 3);
-    }
-
-    @Test
-    public void testEvaluateToBigInteger3() {
-        this.evaluateAndCheckBigDecimal(this.createExpression(bigInteger(6), doubleValue(3)), 6 | 3);
-    }
-
-    @Test
-    public void testEvaluateToBigInteger4() {
-        this.evaluateAndCheckBigInteger(this.createExpression(bigInteger(6), longValue(3)), 6 | 3);
-    }
-
-    // toDouble.....................................................................................
-
-    @Test
-    public void testEvaluateToDouble() {
-        this.evaluateAndCheckBigDecimal(this.createExpression(doubleValue(6), bigDecimal(3)), 6 | 3);
-    }
-
-    @Test
-    public void testEvaluateToDouble2() {
-        this.evaluateAndCheckBigDecimal(this.createExpression(doubleValue(6), bigInteger(3)), 6 | 3);
-    }
-
-    @Test
-    public void testEvaluateToDouble3() {
-        this.evaluateAndCheckLong(this.createExpression(doubleValue(6), doubleValue(3)), 6 | 3);
-    }
-
-    @Test
-    public void testEvaluateToDouble4() {
-        this.evaluateAndCheckLong(this.createExpression(doubleValue(6), longValue(3)), 6 | 3);
-    }
-
-    // toLong...............................................................................................
-
-    @Test
-    public void testEvaluateToLong() {
-        this.evaluateAndCheckBigDecimal(this.createExpression(longValue(6), bigDecimal(3)), 6L | 3L);
-    }
-
-    @Test
-    public void testEvaluateToLong2() {
-        this.evaluateAndCheckBigInteger(this.createExpression(longValue(6), bigInteger(3)), 6L | 3L);
-    }
-
-    @Test
-    public void testEvaluateToLong3() {
-        this.evaluateAndCheckLong(this.createExpression(longValue(6), doubleValue(3)), 6L | 3);
-    }
-
-    @Test
-    public void testEvaluateToLong4() {
-        this.evaluateAndCheckLong(this.createExpression(longValue(6), longValue(3)), 6L | 3L);
-    }
-
-    // toNumber...............................................................................................
-
-    @Test
-    public void testEvaluateToNumber() {
-        this.evaluateAndCheckNumberBigInteger(this.createExpression(longValue(6), bigDecimal(3)), 6 | 3);
-    }
-
-    @Test
-    public void testEvaluateToNumber2() {
-        this.evaluateAndCheckNumberBigInteger(this.createExpression(longValue(6), bigInteger(3)), 6 | 3);
-    }
-
-    @Test
-    public void testEvaluateToNumber3() {
-        this.evaluateAndCheckNumberBigInteger(this.createExpression(longValue(6), doubleValue(3)), 6 | 3);
-    }
-
-    @Test
-    public void testEvaluateToNumber4() {
-        this.evaluateAndCheckNumberLong(this.createExpression(longValue(6), longValue(3)), 6 | 3);
-    }
-
-    // toBoolean.....................................................................................
+    // toValue...........................................................................................................
 
     @Test
     public void testEvaluateToValueBooleanBooleanTrue() {
@@ -263,13 +140,8 @@ public final class OrExpressionTest extends BinaryLogicalExpressionTestCase<OrEx
     }
 
     @Test
-    public void testEvaluateToValueLongLong() {
-        this.evaluateAndCheckValue(this.createExpression(longValue(6), longValue(3)), 6L | 3L);
-    }
-
-    @Test
-    public void testEvaluateToValueBigIntegerBigInteger() {
-        this.evaluateAndCheckValue(this.createExpression(bigInteger(6), bigInteger(3)), BigInteger.valueOf(6 | 3));
+    public void testEvaluateToValue() {
+        this.evaluateAndCheckValue(this.createExpression(expressionNumber(6), expressionNumber(3)), expressionNumberValue(6 | 3));
     }
 
     @Override

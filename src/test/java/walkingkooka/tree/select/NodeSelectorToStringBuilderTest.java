@@ -26,6 +26,8 @@ import walkingkooka.predicate.Predicates;
 import walkingkooka.reflect.ClassTesting2;
 import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.tree.expression.Expression;
+import walkingkooka.tree.expression.ExpressionNumber;
+import walkingkooka.tree.expression.ExpressionNumberExpression;
 import walkingkooka.tree.expression.FunctionExpressionName;
 
 import java.util.function.Predicate;
@@ -163,7 +165,7 @@ public final class NodeSelectorToStringBuilderTest implements ClassTesting2<Node
     public void testPredicateExpression() {
         final NodeSelectorToStringBuilder b = NodeSelectorToStringBuilder.empty();
         b.predicate(predicate1());
-        b.expression(Expression.longExpression(22));
+        b.expression(expressionNumber(22));
         this.buildAndCheck(b, "*[i>1][22]");
     }
 
@@ -219,7 +221,7 @@ public final class NodeSelectorToStringBuilderTest implements ClassTesting2<Node
         final NodeSelectorToStringBuilder b = NodeSelectorToStringBuilder.empty();
         b.name(abc1());
         b.predicate(predicate2());
-        b.expression(Expression.longExpression(33));
+        b.expression(expressionNumber(33));
         b.name(jkl4());
         this.buildAndCheck(b, "abc1[j>2][33]/jkl4");
     }
@@ -397,7 +399,7 @@ public final class NodeSelectorToStringBuilderTest implements ClassTesting2<Node
         final NodeSelectorToStringBuilder b = NodeSelectorToStringBuilder.empty();
         b.descendantOrSelf();
         b.name(abc1());
-        b.expression(Expression.longExpression(2));
+        b.expression(expressionNumber(2));
         b.axisName("axis3");
         this.buildAndCheck(b, "//abc1[2]/axis3::*");
     }
@@ -427,7 +429,7 @@ public final class NodeSelectorToStringBuilderTest implements ClassTesting2<Node
         b.name(abc1());
         b.expression(Expression.function(
                 FunctionExpressionName.with("def2"),
-                Lists.of(Expression.longExpression(3))
+                Lists.of(expressionNumber(3))
         ));
         this.buildAndCheck(b, "abc1[def2(3)]");
     }
@@ -509,6 +511,10 @@ public final class NodeSelectorToStringBuilderTest implements ClassTesting2<Node
         b.customToString(custom);
         b.predicate(predicate2());
         this.buildAndCheck(b, custom + "[j>2]");
+    }
+
+    private ExpressionNumberExpression expressionNumber(final double value) {
+        return Expression.expressionNumber(ExpressionNumber.with(value));
     }
 
     private StringName abc1() {

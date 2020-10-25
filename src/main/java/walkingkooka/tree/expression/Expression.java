@@ -26,8 +26,6 @@ import walkingkooka.tree.Node;
 import walkingkooka.tree.select.NodeSelector;
 import walkingkooka.tree.select.parser.NodeSelectorExpressionParserToken;
 
-import java.math.BigDecimal;
-import java.math.BigInteger;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -52,7 +50,7 @@ public abstract class Expression implements Node<Expression, FunctionExpressionN
 
 
         return value instanceof Number ?
-                ExpressionValueOrFailNumberVisitor.expression((Number) value) :
+                expressionNumber(ExpressionNumber.with((Number) value)) :
                 value instanceof Boolean ?
                         booleanExpression(Cast.to(value)) :
                         value instanceof LocalDate ?
@@ -90,20 +88,6 @@ public abstract class Expression implements Node<Expression, FunctionExpressionN
     }
 
     /**
-     * {@see BigDecimalExpression}
-     */
-    public static BigDecimalExpression bigDecimal(final BigDecimal value) {
-        return BigDecimalExpression.with(value);
-    }
-
-    /**
-     * {@see BigIntegerExpression}
-     */
-    public static BigIntegerExpression bigInteger(final BigInteger value) {
-        return BigIntegerExpression.with(value);
-    }
-
-    /**
      * {@see BooleanExpression}
      */
     public static BooleanExpression booleanExpression(final boolean value) {
@@ -118,17 +102,17 @@ public abstract class Expression implements Node<Expression, FunctionExpressionN
     }
 
     /**
-     * {@see DoubleExpression}
-     */
-    public static DoubleExpression doubleExpression(final double value) {
-        return DoubleExpression.with(value);
-    }
-
-    /**
      * {@see EqualsExpression}
      */
     public static EqualsExpression equalsExpression(final Expression left, final Expression right) {
         return EqualsExpression.with(left, right);
+    }
+
+    /**
+     * {@see ExpressionNumberExpression}
+     */
+    public static ExpressionNumberExpression expressionNumber(final ExpressionNumber value) {
+        return ExpressionNumberExpression.with(value);
     }
 
     /**
@@ -185,13 +169,6 @@ public abstract class Expression implements Node<Expression, FunctionExpressionN
      */
     public static LocalTimeExpression localTime(final LocalTime value) {
         return LocalTimeExpression.with(value);
-    }
-
-    /**
-     * {@see LongExpression}
-     */
-    public static LongExpression longExpression(final long value) {
-        return LongExpression.with(value);
     }
 
     /**
@@ -375,31 +352,10 @@ public abstract class Expression implements Node<Expression, FunctionExpressionN
     }
 
     /**
-     * Only {@link BigDecimalExpression} returns true
-     */
-    public final boolean isBigDecimal() {
-        return this instanceof BigDecimalExpression;
-    }
-
-    /**
-     * Only {@link BigIntegerExpression} returns true
-     */
-    public final boolean isBigInteger() {
-        return this instanceof BigIntegerExpression;
-    }
-
-    /**
      * Only {@link BooleanExpression} returns true
      */
     public final boolean isBoolean() {
         return this instanceof BooleanExpression;
-    }
-
-    /**
-     * Only {@link DoubleExpression} returns true
-     */
-    public final boolean isDouble() {
-        return this instanceof DoubleExpression;
     }
 
     /**
@@ -414,6 +370,13 @@ public abstract class Expression implements Node<Expression, FunctionExpressionN
      */
     public final boolean isEquals() {
         return this instanceof EqualsExpression;
+    }
+
+    /**
+     * Only {@link ExpressionNumberExpression} returns true
+     */
+    public final boolean isExpressionNumber() {
+        return this instanceof ExpressionNumberExpression;
     }
 
     /**
@@ -477,13 +440,6 @@ public abstract class Expression implements Node<Expression, FunctionExpressionN
      */
     public final boolean isLocalTime() {
         return this instanceof LocalTimeExpression;
-    }
-
-    /**
-     * Only {@link LongExpression} returns true
-     */
-    public final boolean isLong() {
-        return this instanceof LongExpression;
     }
 
     /**
@@ -576,24 +532,14 @@ public abstract class Expression implements Node<Expression, FunctionExpressionN
     // Eval................................................................................................................
 
     /**
-     * Evaluates this node as a {@link BigDecimal}
-     */
-    public abstract BigDecimal toBigDecimal(final ExpressionEvaluationContext context);
-
-    /**
-     * Evaluates this node as a {@link BigInteger}
-     */
-    public abstract BigInteger toBigInteger(final ExpressionEvaluationContext context);
-
-    /**
      * Evaluates this node as a boolean
      */
     public abstract boolean toBoolean(final ExpressionEvaluationContext context);
 
     /**
-     * Evaluates this node as a {@link double}
+     * Evaluates this node as a {@link ExpressionNumber}
      */
-    public abstract double toDouble(final ExpressionEvaluationContext context);
+    public abstract ExpressionNumber toExpressionNumber(final ExpressionEvaluationContext context);
 
     /**
      * Evaluates this node as a {@link LocalDate}
@@ -609,16 +555,6 @@ public abstract class Expression implements Node<Expression, FunctionExpressionN
      * Evaluates this node as a {@link LocalTime}
      */
     public abstract LocalTime toLocalTime(final ExpressionEvaluationContext context);
-
-    /**
-     * Evaluates this node as a {@link long}
-     */
-    public abstract long toLong(final ExpressionEvaluationContext context);
-
-    /**
-     * Evaluates this node as a {@link Number}
-     */
-    public abstract Number toNumber(final ExpressionEvaluationContext context);
 
     /**
      * Evaluates this node as a {@link String}

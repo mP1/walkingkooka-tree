@@ -17,8 +17,7 @@
 
 package walkingkooka.tree.expression;
 
-import java.math.BigDecimal;
-import java.math.BigInteger;
+import walkingkooka.compare.ComparisonRelation;
 
 /**
  * Base class for all comparison {@link BinaryExpression} nodes such as LT, GTE etc.
@@ -38,31 +37,18 @@ abstract class BinaryComparisonExpression extends BinaryExpression2 {
 
     @Override
     final Expression applyText(final String left, final String right, final ExpressionEvaluationContext context) {
-        return Expression.booleanExpression(this.isComparisonTrue(left.compareTo(right)));
+        return Expression.booleanExpression(this.comparisonRelation().test(left.compareTo(right)));
     }
 
-    @Override
-    final Expression applyBigDecimal(final BigDecimal left, final BigDecimal right, final ExpressionEvaluationContext context) {
-        return Expression.booleanExpression(this.isComparisonTrue(left.compareTo(right)));
-    }
-
-    @Override
-    final Expression applyBigInteger(final BigInteger left, final BigInteger right, final ExpressionEvaluationContext context) {
-        return Expression.booleanExpression(this.isComparisonTrue(left.compareTo(right)));
-    }
-
-    @Override
-    final Expression applyDouble(final double left, final double right, final ExpressionEvaluationContext context) {
-        return Expression.booleanExpression(Double.isFinite(left) & Double.isFinite(right) &
-                (this.isComparisonTrue(Double.compare(left, right))));
-    }
-
-    @Override final Expression applyLong(final long left, final long right, final ExpressionEvaluationContext context) {
-        return Expression.booleanExpression(this.isComparisonTrue(Long.compare(left, right)));
+    @Override //
+    final Expression applyExpressionNumber(final ExpressionNumber left,
+                                           final ExpressionNumber right,
+                                           final ExpressionEvaluationContext context) {
+        return Expression.booleanExpression(this.comparisonRelation().test(left.compareTo(right)));
     }
 
     /**
      * Converts the ternary result of a comparison into a boolean for this comparison reflect.
      */
-    abstract boolean isComparisonTrue(final int comparisonResult);
+    abstract ComparisonRelation comparisonRelation();
 }

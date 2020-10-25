@@ -19,7 +19,6 @@ package walkingkooka.tree.expression;
 
 import walkingkooka.visit.Visiting;
 
-import java.math.BigInteger;
 import java.util.List;
 
 /**
@@ -73,18 +72,14 @@ public final class XorExpression extends BinaryLogicalExpression {
     // evaluation .....................................................................................................
 
     @Override
-    Expression applyBigInteger(final BigInteger left, final BigInteger right, final ExpressionEvaluationContext context) {
-        return Expression.bigInteger(left.xor(right));
-    }
-
-    @Override
     boolean applyBoolean0(final boolean left, final boolean right) {
         return left ^ right;
     }
 
     @Override
-    Expression applyLong(final long left, final long right, final ExpressionEvaluationContext context) {
-        return Expression.longExpression(left ^ right);
+    ExpressionNumber applyExpressionNumber0(final ExpressionNumber left,
+                                            final ExpressionNumber right) {
+        return left.xor(right);
     }
 
     // Object ........................................................................................................

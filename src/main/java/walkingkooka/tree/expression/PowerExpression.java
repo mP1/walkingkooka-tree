@@ -17,11 +17,8 @@
 
 package walkingkooka.tree.expression;
 
-import ch.obermuhlner.math.big.BigDecimalMath;
 import walkingkooka.visit.Visiting;
 
-import java.math.BigDecimal;
-import java.math.BigInteger;
 import java.util.List;
 
 /**
@@ -80,29 +77,10 @@ public final class PowerExpression extends BinaryArithmeticExpression {
     }
 
     @Override
-    BigDecimal applyBigDecimal0(final BigDecimal left, final BigDecimal right, final ExpressionEvaluationContext context) {
-        return BigDecimalMath.pow(left, right, context.mathContext());
-    }
-
-    @Override
-    BigInteger applyBigInteger0(final BigInteger left, final BigInteger right, final ExpressionEvaluationContext context) {
-        return this.applyBigDecimal0(new BigDecimal(left), new BigDecimal(right), context).toBigIntegerExact();
-    }
-
-    @Override
-    double applyDouble0(final double left, final double right, final ExpressionEvaluationContext context) {
-        return Math.pow(left, right);
-    }
-
-    @Override
-    long applyLong0(final long left, final long right, final ExpressionEvaluationContext context) {
-        final double doubleValue = this.applyDouble0(left, right, context);
-        final long longValue = (long) doubleValue;
-        if (doubleValue != longValue) {
-            throw new ExpressionEvaluationException("Precision loss " + left + "^^" + right);
-        }
-
-        return longValue;
+    ExpressionNumber applyExpressionNumber0(final ExpressionNumber left,
+                                            final ExpressionNumber right,
+                                            final ExpressionEvaluationContext context) {
+        return left.power(right, context);
     }
 
     // Object .........................................................................................................

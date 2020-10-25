@@ -17,19 +17,9 @@
 
 package walkingkooka.tree.expression;
 
-import org.junit.jupiter.api.Test;
-
-import static org.junit.jupiter.api.Assertions.assertThrows;
-
 public abstract class BinaryLogicalExpressionTestCase<N extends BinaryLogicalExpression> extends BinaryExpressionTestCase<N> {
 
-    @Test
-    public final void testEvaluateBigDecimalWithFractionFails() {
-        assertThrows(ExpressionEvaluationConversionException.class, () -> this.createExpression(bigDecimal(1.5), bigDecimal(0)).toString(context()));
-    }
-
-    @Test
-    public final void testEvaluateDoubleWithFractionFails() {
-        assertThrows(ExpressionEvaluationConversionException.class, () -> this.createExpression(doubleValue(1.5), doubleValue(0)).toString(context()));
+    BinaryLogicalExpressionTestCase() {
+        super();
     }
 }

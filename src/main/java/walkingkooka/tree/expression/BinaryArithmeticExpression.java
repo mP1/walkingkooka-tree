@@ -17,9 +17,6 @@
 
 package walkingkooka.tree.expression;
 
-import java.math.BigDecimal;
-import java.math.BigInteger;
-
 /**
  * Base class for all arithmetic {@link BinaryExpression} nodes such as addition, power etc.
  */
@@ -33,8 +30,19 @@ abstract class BinaryArithmeticExpression extends BinaryExpression2 {
 
     @Override
     public final Number toValue(final ExpressionEvaluationContext context) {
-        return this.toNumber(context);
+        return this.toExpressionNumber(context);
     }
+
+    @Override //
+    final Expression applyExpressionNumber(final ExpressionNumber left,
+                                           final ExpressionNumber right,
+                                           final ExpressionEvaluationContext context) {
+        return Expression.expressionNumber(this.applyExpressionNumber0(left, right, context));
+    }
+
+    abstract ExpressionNumber applyExpressionNumber0(final ExpressionNumber left,
+                                                     final ExpressionNumber right,
+                                                     final ExpressionEvaluationContext context);
 
     @Override
     final Expression applyText(final String left, final String right, final ExpressionEvaluationContext context) {
@@ -46,33 +54,4 @@ abstract class BinaryArithmeticExpression extends BinaryExpression2 {
      * {@link UnsupportedOperationException}
      */
     abstract String applyText0(final String left, final String right, final ExpressionEvaluationContext context);
-
-    final Expression applyBigDecimal(final BigDecimal left, final BigDecimal right, final ExpressionEvaluationContext context) {
-        return Expression.bigDecimal(this.applyBigDecimal0(left, right, context));
-    }
-
-    abstract BigDecimal applyBigDecimal0(final BigDecimal left, final BigDecimal right, final ExpressionEvaluationContext context);
-
-    @Override
-    final Expression applyBigInteger(final BigInteger left, final BigInteger right, final ExpressionEvaluationContext context) {
-        return Expression.bigInteger(this.applyBigInteger0(left, right, context));
-    }
-
-    abstract BigInteger applyBigInteger0(final BigInteger left, final BigInteger right, final ExpressionEvaluationContext context);
-
-    @Override
-    final Expression applyDouble(final double left, final double right, final ExpressionEvaluationContext context) {
-        return Expression.doubleExpression(Double.isFinite(left) && Double.isFinite(right) ?
-                this.applyDouble0(left, right, context) :
-                left);
-    }
-
-    abstract double applyDouble0(final double left, final double right, final ExpressionEvaluationContext context);
-
-    @Override
-    final Expression applyLong(final long left, final long right, final ExpressionEvaluationContext context) {
-        return Expression.longExpression(this.applyLong0(left, right, context));
-    }
-
-    abstract long applyLong0(final long left, final long right, final ExpressionEvaluationContext context);
 }

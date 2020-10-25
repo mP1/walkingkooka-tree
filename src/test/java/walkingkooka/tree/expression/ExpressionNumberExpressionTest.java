@@ -20,17 +20,17 @@ package walkingkooka.tree.expression;
 import org.junit.jupiter.api.Test;
 import walkingkooka.visit.Visiting;
 
-import java.math.BigInteger;
+import java.math.BigDecimal;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 
-public final class BigIntegerExpressionTest extends LeafExpressionTestCase<BigIntegerExpression, BigInteger> {
+public final class ExpressionNumberExpressionTest extends LeafExpressionTestCase<ExpressionNumberExpression, ExpressionNumber> {
 
     @Test
     public void testAccept() {
         final StringBuilder b = new StringBuilder();
-        final BigIntegerExpression node = this.createExpression();
+        final ExpressionNumberExpression node = this.createExpression();
 
         new FakeExpressionVisitor() {
             @Override
@@ -47,14 +47,13 @@ public final class BigIntegerExpressionTest extends LeafExpressionTestCase<BigIn
             }
 
             @Override
-            protected void visit(final BigIntegerExpression n) {
+            protected void visit(final ExpressionNumberExpression n) {
                 assertSame(node, n);
                 b.append("3");
             }
         }.accept(node);
         assertEquals("132", b.toString());
     }
-
 
     // Evaluation ...................................................................................................
 
@@ -69,28 +68,9 @@ public final class BigIntegerExpressionTest extends LeafExpressionTestCase<BigIn
     }
 
     @Test
-    public void testToBigDecimal() {
-        this.evaluateAndCheckBigDecimal(this.createExpression(123), 123);
-    }
-
-    @Test
-    public void testToBigInteger() {
-        this.evaluateAndCheckBigInteger(this.createExpression(123), 123);
-    }
-
-    @Test
-    public void testToDouble() {
-        this.evaluateAndCheckDouble(this.createExpression(123), 123);
-    }
-
-    @Test
-    public void testToLong() {
-        this.evaluateAndCheckLong(this.createExpression(123), 123);
-    }
-
-    @Test
-    public void testToNumberBigInteger() {
-        this.evaluateAndCheckNumberBigInteger(this.createExpression(123), 123);
+    public void testToExpressionNumber() {
+        final ExpressionNumber value = ExpressionNumber.with(BigDecimal.valueOf(123));
+        this.evaluateAndCheckExpressionNumber(this.createExpression(value), value);
     }
 
     @Test
@@ -102,35 +82,35 @@ public final class BigIntegerExpressionTest extends LeafExpressionTestCase<BigIn
 
     @Test
     public void testToString() {
-        this.toStringAndCheck(this.createExpression(BigInteger.ONE), "1");
+        this.toStringAndCheck(this.createExpression(this.value()), "1");
     }
 
     @Test
     public void testToString2() {
-        this.toStringAndCheck(this.createExpression(BigInteger.valueOf(234)), "234");
+        this.toStringAndCheck(this.createExpression(ExpressionNumber.with(234)), "234");
     }
 
-    private BigIntegerExpression createExpression(final long value) {
-        return this.createExpression(BigInteger.valueOf(value));
-    }
-
-    @Override
-    BigIntegerExpression createExpression(final BigInteger value) {
-        return BigIntegerExpression.with(value);
+    private ExpressionNumberExpression createExpression(final double value) {
+        return this.createExpression(ExpressionNumber.with(value));
     }
 
     @Override
-    BigInteger value() {
-        return BigInteger.valueOf(1);
+    ExpressionNumberExpression createExpression(final ExpressionNumber value) {
+        return ExpressionNumberExpression.with(value);
     }
 
     @Override
-    BigInteger differentValue() {
-        return BigInteger.valueOf(999);
+    ExpressionNumber value() {
+        return ExpressionNumber.with(BigDecimal.ONE);
     }
 
     @Override
-    Class<BigIntegerExpression> expressionType() {
-        return BigIntegerExpression.class;
+    ExpressionNumber differentValue() {
+        return ExpressionNumber.with(BigDecimal.valueOf(999));
+    }
+
+    @Override
+    Class<ExpressionNumberExpression> expressionType() {
+        return ExpressionNumberExpression.class;
     }
 }

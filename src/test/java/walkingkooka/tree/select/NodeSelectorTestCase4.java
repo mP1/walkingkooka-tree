@@ -33,6 +33,7 @@ import walkingkooka.naming.StringName;
 import walkingkooka.predicate.Predicates;
 import walkingkooka.tree.Node;
 import walkingkooka.tree.TestNode;
+import walkingkooka.tree.expression.ExpressionNumber;
 import walkingkooka.tree.expression.FunctionExpressionName;
 import walkingkooka.tree.expression.function.ExpressionFunction;
 
@@ -453,7 +454,7 @@ abstract public class NodeSelectorTestCase4<S extends NodeSelector<TestNode, Str
 
     final Converter converter() {
         return Converters.collection(Lists.of(
-                Converters.numberNumber(),
+                ExpressionNumber.fromExpressionNumberConverter(Converters.numberNumber()),
                 Converters.<String, Integer>function((t) -> t instanceof String, Predicates.is(Integer.class), Integer::parseInt),
                 Converters.function(t -> t instanceof Node, Predicates.is(Node.class), Function.identity()),
                 Converters.simple()

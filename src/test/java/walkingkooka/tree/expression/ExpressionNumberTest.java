@@ -30,251 +30,6 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class ExpressionNumberTest implements ClassTesting<ExpressionNumber> {
 
-    // isByteShortIntegerLong...........................................................................................
-
-    @Test
-    public void testIsByteShortIntegerLongByte() {
-        isByteShortIntegerLongAndCheck(Byte.MAX_VALUE, true);
-    }
-
-    @Test
-    public void testIsByteShortIntegerLongShort() {
-        isByteShortIntegerLongAndCheck(Short.MAX_VALUE, true);
-    }
-
-    @Test
-    public void testIsByteShortIntegerLongInteger() {
-        isByteShortIntegerLongAndCheck(Integer.MAX_VALUE, true);
-    }
-
-    @Test
-    public void testIsByteShortIntegerLongLong() {
-        isByteShortIntegerLongAndCheck(Long.MAX_VALUE, true);
-    }
-
-    @Test
-    public void testIsByteShortIntegerLongFloat() {
-        isByteShortIntegerLongAndCheck(Float.MAX_VALUE, false);
-    }
-
-    @Test
-    public void testIsByteShortIntegerLongDouble() {
-        isByteShortIntegerLongAndCheck(Double.MAX_VALUE, false);
-    }
-
-    @Test
-    public void testIsByteShortIntegerLongBigInteger() {
-        isByteShortIntegerLongAndCheck(BigInteger.ONE, false);
-    }
-
-    @Test
-    public void testIsByteShortIntegerLongBigDecimal() {
-        isByteShortIntegerLongAndCheck(BigDecimal.ONE, false);
-    }
-
-    @Test
-    public void testIsByteShortIntegerLongUnknown() {
-        isByteShortIntegerLongAndCheck(new TestNumber(), false);
-    }
-
-    private void isByteShortIntegerLongAndCheck(final Object value,
-                                                final boolean expected) {
-        assertEquals(expected,
-                ExpressionNumber.isByteShortIntegerLong(value),
-                () -> "isByteShortIntegerLongAndCheck " + value.getClass().getSimpleName() + " " + value);
-    }
-
-    // isFloatDouble...........................................................................................
-
-    @Test
-    public void testIsFloatDoubleByte() {
-        isFloatDoubleAndCheck(Byte.MAX_VALUE, false);
-    }
-
-    @Test
-    public void testIsFloatDoubleShort() {
-        isFloatDoubleAndCheck(Short.MAX_VALUE, false);
-    }
-
-    @Test
-    public void testIsFloatDoubleInteger() {
-        isFloatDoubleAndCheck(Integer.MAX_VALUE, false);
-    }
-
-    @Test
-    public void testIsFloatDoubleLong() {
-        isFloatDoubleAndCheck(Long.MAX_VALUE, false);
-    }
-
-    @Test
-    public void testIsFloatDoubleFloat() {
-        isFloatDoubleAndCheck(Float.MAX_VALUE, true);
-    }
-
-    @Test
-    public void testIsFloatDoubleDouble() {
-        isFloatDoubleAndCheck(Double.MAX_VALUE, true);
-    }
-
-    @Test
-    public void testIsFloatDoubleBigInteger() {
-        isFloatDoubleAndCheck(BigInteger.ONE, false);
-    }
-
-    @Test
-    public void testIsFloatDoubleBigDecimal() {
-        isFloatDoubleAndCheck(BigDecimal.ONE, false);
-    }
-
-    @Test
-    public void testIsFloatDoubleUnknown() {
-        isFloatDoubleAndCheck(new TestNumber(), false);
-    }
-
-    private void isFloatDoubleAndCheck(final Object value,
-                                       final boolean expected) {
-        assertEquals(expected,
-                ExpressionNumber.isFloatDouble(value),
-                () -> "isFloatDoubleAndCheck " + value.getClass().getSimpleName() + " " + value);
-    }
-
-    // is...........................................................................................
-
-    @Test
-    public void testIsByte() {
-        isAndCheck(Byte.MAX_VALUE, true);
-    }
-
-    @Test
-    public void testIsShort() {
-        isAndCheck(Short.MAX_VALUE, true);
-    }
-
-    @Test
-    public void testIsInteger() {
-        isAndCheck(Integer.MAX_VALUE, true);
-    }
-
-    @Test
-    public void testIsLong() {
-        isAndCheck(Long.MAX_VALUE, true);
-    }
-
-    @Test
-    public void testIsFloat() {
-        isAndCheck(Float.MAX_VALUE, true);
-    }
-
-    @Test
-    public void testIsDouble() {
-        isAndCheck(Double.MAX_VALUE, true);
-    }
-
-    @Test
-    public void testIsBigInteger() {
-        isAndCheck(BigInteger.ONE, true);
-    }
-
-    @Test
-    public void testIsBigDecimal() {
-        isAndCheck(BigDecimal.ONE, true);
-    }
-
-    @Test
-    public void testIsExpressionNumber() {
-        isAndCheck(ExpressionNumber.with(1), true);
-    }
-
-    @Test
-    public void testIsUnknown() {
-        isAndCheck(new TestNumber(), false);
-    }
-
-    private void isAndCheck(final Object value,
-                            final boolean expected) {
-        assertEquals(expected,
-                ExpressionNumber.is(value),
-                () -> "isAndCheck " + value.getClass().getSimpleName() + " " + value);
-    }
-
-    // wider...............................................................................................................
-
-    @Test
-    public void testWidenByte() {
-        widenAndCheck(Byte.MAX_VALUE, Long.class);
-    }
-
-    @Test
-    public void testWidenShort() {
-        widenAndCheck(Short.MAX_VALUE, Long.class);
-    }
-
-    @Test
-    public void testWidenInteger() {
-        widenAndCheck(Integer.MAX_VALUE, Long.class);
-    }
-
-    @Test
-    public void testWidenLong() {
-        widenAndCheck(Long.MAX_VALUE, Long.class);
-    }
-
-    @Test
-    public void testWidenFloat() {
-        widenAndCheck(Float.MAX_VALUE, Double.class);
-    }
-
-    @Test
-    public void testWidenDouble() {
-        widenAndCheck(Double.MAX_VALUE, Double.class);
-    }
-
-    @Test
-    public void testWidenBigInteger() {
-        widenAndCheck(BigInteger.ONE, BigInteger.class);
-    }
-
-    @Test
-    public void testWidenBigDecimal() {
-        widenAndCheck(BigDecimal.ONE, BigDecimal.class);
-    }
-
-    private void widenAndCheck(final Object value,
-                               final Class<? extends Number> expected) {
-        assertEquals(expected,
-                ExpressionNumber.wider(value),
-                () -> "widenAndCheck " + value.getClass().getSimpleName() + " " + value);
-    }
-
-    @Test
-    public void testWidenUnknownFails() {
-        assertThrows(IllegalArgumentException.class, () -> ExpressionNumber.wider(new TestNumber()));
-    }
-
-    final static class TestNumber extends Number {
-        private static final long serialVersionUID = 1;
-
-        @Override
-        public int intValue() {
-            return 0;
-        }
-
-        @Override
-        public long longValue() {
-            return 0;
-        }
-
-        @Override
-        public float floatValue() {
-            return 0;
-        }
-
-        @Override
-        public double doubleValue() {
-            return 0;
-        }
-    }
-
     // with.............................................................................................................
 
     @Test
@@ -349,6 +104,30 @@ public final class ExpressionNumberTest implements ClassTesting<ExpressionNumber
     @Test
     public void testWithUnknownNumberFails() {
         assertThrows(IllegalArgumentException.class, () -> ExpressionNumber.with(new TestNumber()));
+    }
+
+    final static class TestNumber extends Number {
+        private static final long serialVersionUID = 1;
+
+        @Override
+        public int intValue() {
+            return 0;
+        }
+
+        @Override
+        public long longValue() {
+            return 0;
+        }
+
+        @Override
+        public float floatValue() {
+            return 0;
+        }
+
+        @Override
+        public double doubleValue() {
+            return 0;
+        }
     }
 
     // helpers..........................................................................................................

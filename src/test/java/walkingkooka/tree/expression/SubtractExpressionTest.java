@@ -21,8 +21,6 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.visit.Visiting;
 
-import java.math.BigDecimal;
-import java.math.BigInteger;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -87,345 +85,122 @@ public final class SubtractExpressionTest extends BinaryArithmeticExpressionTest
 
     @Test
     public void testEvaluateToBooleanTrue() {
-        // left - right == truthy number
-        this.evaluateAndCheckBoolean(this.createExpression(bigDecimal(12), bigDecimal(34)), true);
+        // left - right == truthy expressionNumber
+        this.evaluateAndCheckBoolean(this.createExpression(expressionNumber(12), expressionNumber(34)), true);
     }
 
     @Test
     public void testEvaluateToBooleanFalse() {
-        // left - right == truthy number
-        this.evaluateAndCheckBoolean(this.createExpression(bigDecimal(12), bigDecimal(12)), false);
+        // left - right == truthy expressionNumber
+        this.evaluateAndCheckBoolean(this.createExpression(expressionNumber(12), expressionNumber(12)), false);
     }
 
-    // toBigDecimal....................................................................................................
+    // toExpressionNumber....................................................................................................
 
     @Test
-    public void testEvaluateToBigDecimalBigDecimal() {
-        this.evaluateAndCheckBigDecimal(this.createExpression(bigDecimal(12), bigDecimal(34.5)), BigDecimal.valueOf(12 - 34.5));
-    }
-
-    @Test
-    public void testEvaluateToBigDecimalBigInteger() {
-        this.evaluateAndCheckBigDecimal(this.createExpression(bigDecimal(12), bigInteger(34)), BigDecimal.valueOf(12 - 34));
+    public void testEvaluateToExpressionNumberExpressionNumber() {
+        this.evaluateAndCheckExpressionNumber(this.createExpression(expressionNumber(12), expressionNumber(34.5)), 12 - 34.5);
     }
 
     @Test
-    public void testEvaluateToBigDecimalDouble() {
-        this.evaluateAndCheckBigDecimal(this.createExpression(bigDecimal(12), doubleValue(34)), BigDecimal.valueOf(12 - 34));
+    public void testEvaluateToExpressionNumberLocalDate() {
+        this.evaluateAndCheckExpressionNumber(this.createExpression(expressionNumber(12), localDate(34)), 12 - 34);
     }
 
     @Test
-    public void testEvaluateToBigDecimalLocalDate() {
-        this.evaluateAndCheckBigDecimal(this.createExpression(bigDecimal(12), localDate(34)), BigDecimal.valueOf(12 - 34));
+    public void testEvaluateToExpressionNumberLocalDateTime() {
+        this.evaluateAndCheckExpressionNumber(this.createExpression(expressionNumber(12), localDateTime(34)), 12 - 34);
     }
 
     @Test
-    public void testEvaluateToBigDecimalLocalDateTime() {
-        this.evaluateAndCheckBigDecimal(this.createExpression(bigDecimal(12), localDateTime(34)), BigDecimal.valueOf(12 - 34));
+    public void testEvaluateToExpressionNumberLocalTime() {
+        this.evaluateAndCheckExpressionNumber(this.createExpression(expressionNumber(12), localTime(34)), 12 - 34);
     }
 
     @Test
-    public void testEvaluateToBigDecimalLocalTime() {
-        this.evaluateAndCheckBigDecimal(this.createExpression(bigDecimal(12), localTime(34)), BigDecimal.valueOf(12 - 34));
-    }
-
-    @Test
-    public void testEvaluateToBigDecimalLong() {
-        this.evaluateAndCheckBigDecimal(this.createExpression(bigDecimal(12), longValue(34)), BigDecimal.valueOf(12 - 34));
-    }
-
-    @Test
-    public void testEvaluateToBigDecimalText() {
-        this.evaluateAndCheckBigDecimal(this.createExpression(bigDecimal(12), text(34)), BigDecimal.valueOf(12 - 34));
-    }
-
-    // toBigInteger....................................................................................................
-
-    @Test
-    public void testEvaluateToBigIntegerBigDecimal() {
-        this.evaluateAndCheckBigDecimal(this.createExpression(bigInteger(12), bigDecimal(34)), BigDecimal.valueOf(12 - 34));
-    }
-
-    @Test
-    public void testEvaluateToBigIntegerBigInteger() {
-        this.evaluateAndCheckBigInteger(this.createExpression(bigInteger(12), bigInteger(34)), BigInteger.valueOf(12 - 34));
-    }
-
-    @Test
-    public void testEvaluateToBigIntegerDouble() {
-        this.evaluateAndCheckBigDecimal(this.createExpression(bigInteger(12), doubleValue(34)), BigDecimal.valueOf(12 - 34));
-    }
-
-    @Test
-    public void testEvaluateToBigIntegerLocalDate() {
-        this.evaluateAndCheckBigDecimal(this.createExpression(bigInteger(12), localDate(34)), BigDecimal.valueOf(12 - 34));
-    }
-
-    @Test
-    public void testEvaluateToBigIntegerLocalDateTime() {
-        this.evaluateAndCheckBigDecimal(this.createExpression(bigInteger(12), localDateTime(34)), BigDecimal.valueOf(12 - 34));
-    }
-
-    @Test
-    public void testEvaluateToBigIntegerLocalTime() {
-        this.evaluateAndCheckBigDecimal(this.createExpression(bigInteger(12), localTime(34)), BigDecimal.valueOf(12 - 34));
-    }
-
-    @Test
-    public void testEvaluateToBigIntegerLong() {
-        this.evaluateAndCheckBigInteger(this.createExpression(bigInteger(12), longValue(34)), BigInteger.valueOf(12 - 34));
-    }
-
-    @Test
-    public void testEvaluateToBigIntegerText() {
-        this.evaluateAndCheckBigInteger(this.createExpression(bigInteger(12), text(34)), BigInteger.valueOf(12 - 34));
-    }
-
-    // toDouble....................................................................................................
-
-    @Test
-    public void testEvaluateToDoubleBigDecimal() {
-        this.evaluateAndCheckBigDecimal(this.createExpression(doubleValue(12), bigDecimal(34)), BigDecimal.valueOf(12.0 - 34.0));
-    }
-
-    @Test
-    public void testEvaluateToDoubleBigInteger() {
-        this.evaluateAndCheckBigDecimal(this.createExpression(doubleValue(12), bigInteger(34)), BigDecimal.valueOf(12.0 - 34.0));
-    }
-
-    @Test
-    public void testEvaluateToDoubleDouble() {
-        this.evaluateAndCheckDouble(this.createExpression(doubleValue(12), doubleValue(34)), 12.0 - 34.0);
-    }
-
-    @Test
-    public void testEvaluateToDoubleLocalDate() {
-        this.evaluateAndCheckDouble(this.createExpression(doubleValue(12), localDate(34)), 12.0 - 34.0);
-    }
-
-    @Test
-    public void testEvaluateToDoubleLocalDateTime() {
-        this.evaluateAndCheckDouble(this.createExpression(doubleValue(12), localDateTime(34)), 12.0 - 34.0);
-    }
-
-    @Test
-    public void testEvaluateToDoubleLocalTime() {
-        this.evaluateAndCheckDouble(this.createExpression(doubleValue(12), localTime(34)), 12.0 - 34.0);
-    }
-
-    @Test
-    public void testEvaluateToDoubleLong() {
-        this.evaluateAndCheckDouble(this.createExpression(doubleValue(12), longValue(34)), 12.0 - 34.0);
-    }
-
-    @Test
-    public void testEvaluateToDoubleText() {
-        this.evaluateAndCheckDouble(this.createExpression(doubleValue(12), text(34)), 12.0 - 34.0);
+    public void testEvaluateToExpressionNumberText() {
+        this.evaluateAndCheckExpressionNumber(this.createExpression(expressionNumber(12), text(34)), 12 - 34);
     }
 
     // toLocalDate....................................................................................................
 
     @Test
-    public void testEvaluateToLocalDateBigDecimal() {
-        this.evaluateAndCheckBigDecimal(this.createExpression(localDate(12), bigDecimal(34)), BigDecimal.valueOf(12L - 34L));
-    }
-
-    @Test
-    public void testEvaluateToLocalDateBigInteger() {
-        this.evaluateAndCheckBigInteger(this.createExpression(localDate(12), bigInteger(34)), BigInteger.valueOf(12L - 34L));
-    }
-
-    @Test
-    public void testEvaluateToLocalDateDouble() {
-        this.evaluateAndCheckDouble(this.createExpression(localDate(12), doubleValue(34)), 12L - 34.0);
+    public void testEvaluateToLocalDateExpressionNumber() {
+        this.evaluateAndCheckExpressionNumber(this.createExpression(localDate(12), expressionNumber(34)), 12L - 34L);
     }
 
     @Test
     public void testEvaluateToLocalDateLocalDate() {
-        this.evaluateAndCheckLong(this.createExpression(localDate(12), localDate(34)), 12L - 34L);
+        this.evaluateAndCheckExpressionNumber(this.createExpression(localDate(12), localDate(34)), 12L - 34L);
     }
 
     @Test
     public void testEvaluateToLocalDateLocalDateTime() {
-        this.evaluateAndCheckLong(this.createExpression(localDate(12), localDateTime(34)), 12L - 34L);
+        this.evaluateAndCheckExpressionNumber(this.createExpression(localDate(12), localDateTime(34)), 12L - 34L);
     }
 
     @Test
     public void testEvaluateToLocalDateLocalTime() {
-        this.evaluateAndCheckLong(this.createExpression(localDate(12), localTime(34)), 12L - 34L);
-    }
-
-    @Test
-    public void testEvaluateToLocalDateLong() {
-        this.evaluateAndCheckLong(this.createExpression(localDate(12), longValue(34)), 12L - 34L);
+        this.evaluateAndCheckExpressionNumber(this.createExpression(localDate(12), localTime(34)), 12L - 34L);
     }
 
     @Test
     public void testEvaluateToLocalDateText() {
-        this.evaluateAndCheckLong(this.createExpression(localDate(12), text(34)), 12L - 34L);
+        this.evaluateAndCheckExpressionNumber(this.createExpression(localDate(12), text(34)), 12L - 34L);
     }
 
     // toLocalDateTime....................................................................................................
 
     @Test
-    public void testEvaluateToLocalDateTimeBigDecimal() {
-        this.evaluateAndCheckBigDecimal(this.createExpression(localDateTime(12), bigDecimal(34)), BigDecimal.valueOf(12L - 34L));
-    }
-
-    @Test
-    public void testEvaluateToLocalDateTimeBigInteger() {
-        this.evaluateAndCheckBigInteger(this.createExpression(localDateTime(12), bigInteger(34)), BigInteger.valueOf(12L - 34L));
-    }
-
-    @Test
-    public void testEvaluateToLocalDateTimeDouble() {
-        this.evaluateAndCheckDouble(this.createExpression(localDateTime(12), doubleValue(34)), 12L - 34.0);
+    public void testEvaluateToLocalDateTimeExpressionNumber() {
+        this.evaluateAndCheckExpressionNumber(this.createExpression(localDateTime(12), expressionNumber(34)), 12L - 34L);
     }
 
     @Test
     public void testEvaluateToLocalDateTimeLocalDate() {
-        this.evaluateAndCheckLong(this.createExpression(localDateTime(12), localDate(34)), 12L - 34L);
+        this.evaluateAndCheckExpressionNumber(this.createExpression(localDateTime(12), localDate(34)), 12L - 34L);
     }
 
     @Test
     public void testEvaluateToLocalDateTimeLocalDateTime() {
-        this.evaluateAndCheckLong(this.createExpression(localDateTime(12), localDateTime(34)), 12L - 34L);
+        this.evaluateAndCheckExpressionNumber(this.createExpression(localDateTime(12), localDateTime(34)), 12L - 34L);
     }
 
     @Test
     public void testEvaluateToLocalDateTimeLocalTime() {
-        this.evaluateAndCheckLong(this.createExpression(localDateTime(12), localTime(34)), 12L - 34L);
-    }
-
-    @Test
-    public void testEvaluateToLocalDateTimeLong() {
-        this.evaluateAndCheckLong(this.createExpression(localDateTime(12), longValue(34)), 12L - 34L);
+        this.evaluateAndCheckExpressionNumber(this.createExpression(localDateTime(12), localTime(34)), 12L - 34L);
     }
 
     @Test
     public void testEvaluateToLocalDateTimeText() {
-        this.evaluateAndCheckLong(this.createExpression(localDateTime(12), text(34)), 12L - 34L);
+        this.evaluateAndCheckExpressionNumber(this.createExpression(localDateTime(12), text(34)), 12L - 34L);
     }
 
     // toLocalTime....................................................................................................
 
     @Test
-    public void testEvaluateToLocalTimeBigDecimal() {
-        this.evaluateAndCheckBigDecimal(this.createExpression(localTime(12), bigDecimal(34)), BigDecimal.valueOf(12L - 34L));
-    }
-
-    @Test
-    public void testEvaluateToLocalTimeBigInteger() {
-        this.evaluateAndCheckBigInteger(this.createExpression(localTime(12), bigInteger(34)), BigInteger.valueOf(12L - 34L));
-    }
-
-    @Test
-    public void testEvaluateToLocalTimeDouble() {
-        this.evaluateAndCheckDouble(this.createExpression(localTime(12), doubleValue(34)), 12L - 34.0);
+    public void testEvaluateToLocalTimeExpressionNumber() {
+        this.evaluateAndCheckExpressionNumber(this.createExpression(localTime(12), expressionNumber(34)), 12L - 34L);
     }
 
     @Test
     public void testEvaluateToLocalTimeLocalDate() {
-        this.evaluateAndCheckLong(this.createExpression(localTime(12), localDate(34)), 12L - 34L);
+        this.evaluateAndCheckExpressionNumber(this.createExpression(localTime(12), localDate(34)), 12L - 34L);
     }
 
     @Test
     public void testEvaluateToLocalTimeLocalDateTime() {
-        this.evaluateAndCheckLong(this.createExpression(localTime(12), localDateTime(34)), 12L - 34L);
+        this.evaluateAndCheckExpressionNumber(this.createExpression(localTime(12), localDateTime(34)), 12L - 34L);
     }
 
     @Test
     public void testEvaluateToLocalTimeLocalTime() {
-        this.evaluateAndCheckLong(this.createExpression(localTime(12), localTime(34)), 12L - 34L);
-    }
-
-    @Test
-    public void testEvaluateToLocalTimeLong() {
-        this.evaluateAndCheckLong(this.createExpression(localTime(12), longValue(34)), 12L - 34L);
+        this.evaluateAndCheckExpressionNumber(this.createExpression(localTime(12), localTime(34)), 12L - 34L);
     }
 
     @Test
     public void testEvaluateToLocalTimeText() {
-        this.evaluateAndCheckLong(this.createExpression(localTime(12), text(34)), 12L - 34L);
-    }
-
-    // toLong....................................................................................................
-
-    @Test
-    public void testEvaluateToLongBigDecimal() {
-        this.evaluateAndCheckBigDecimal(this.createExpression(longValue(12), bigDecimal(34)), BigDecimal.valueOf(12L - 34L));
-    }
-
-    @Test
-    public void testEvaluateToLongBigInteger() {
-        this.evaluateAndCheckBigInteger(this.createExpression(longValue(12), bigInteger(34)), BigInteger.valueOf(12L - 34L));
-    }
-
-    @Test
-    public void testEvaluateToLongDouble() {
-        this.evaluateAndCheckDouble(this.createExpression(longValue(12), doubleValue(34)), 12L - 34.0);
-    }
-
-    @Test
-    public void testEvaluateToLongLocalDate() {
-        this.evaluateAndCheckLong(this.createExpression(longValue(12), localDate(34)), 12L - 34L);
-    }
-
-    @Test
-    public void testEvaluateToLongLocalDateTime() {
-        this.evaluateAndCheckLong(this.createExpression(longValue(12), localDateTime(34)), 12L - 34L);
-    }
-
-    @Test
-    public void testEvaluateToLongLocalTime() {
-        this.evaluateAndCheckLong(this.createExpression(longValue(12), localTime(34)), 12L - 34L);
-    }
-
-    @Test
-    public void testEvaluateToLongLong() {
-        this.evaluateAndCheckLong(this.createExpression(longValue(12), longValue(34)), 12L - 34L);
-    }
-
-    @Test
-    public void testEvaluateToLongText() {
-        this.evaluateAndCheckLong(this.createExpression(longValue(12), text(34)), 12L - 34L);
-    }
-
-    // toNumber.....................................................................................
-
-    @Test
-    public void testEvaluateToNumberBigDecimal() {
-        this.evaluateAndCheckNumberBigDecimal(this.createExpression(bigDecimal(12), bigDecimal(34)), 12 - 34);
-    }
-
-    @Test
-    public void testEvaluateToNumberBigInteger() {
-        this.evaluateAndCheckNumberBigInteger(this.createExpression(bigInteger(12), bigInteger(34)), 12 - 34);
-    }
-
-    @Test
-    public void testEvaluateToNumberDouble() {
-        this.evaluateAndCheckNumberDouble(this.createExpression(doubleValue(12), doubleValue(34)), 12 - 34);
-    }
-
-    @Test
-    public void testEvaluateToNumberLocalDate() {
-        this.evaluateAndCheckNumberBigDecimal(this.createExpression(longValue(12), localDate(34)), 12 - 34);
-    }
-
-    @Test
-    public void testEvaluateToNumberLocalDateTime() {
-        this.evaluateAndCheckNumberBigDecimal(this.createExpression(longValue(12), localDateTime(34)), 12 - 34);
-    }
-
-    @Test
-    public void testEvaluateToNumberLocalTime() {
-        this.evaluateAndCheckNumberBigDecimal(this.createExpression(longValue(12), localTime(34)), 12 - 34);
-    }
-
-    @Test
-    public void testEvaluateToNumberLong() {
-        this.evaluateAndCheckNumberLong(this.createExpression(longValue(12), longValue(34)), 12 - 34);
+        this.evaluateAndCheckExpressionNumber(this.createExpression(localTime(12), text(34)), 12L - 34L);
     }
 
     @Override

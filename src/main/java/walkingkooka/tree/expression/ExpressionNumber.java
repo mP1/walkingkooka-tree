@@ -37,41 +37,6 @@ public abstract class ExpressionNumber extends Number implements Comparable<Expr
 
     private static final long serialVersionUID = 0L;
 
-    public static boolean isByteShortIntegerLong(final Object value) {
-        return value instanceof Byte || value instanceof Short || value instanceof Integer || value instanceof Long;
-    }
-
-    public static boolean isFloatDouble(final Object value) {
-        return value instanceof Float || value instanceof Double;
-    }
-
-    /**
-     * Returns true if the value type is one of the supported or upcastable types.
-     */
-    public static boolean is(final Object value) {
-        return isByteShortIntegerLong(value) ||
-                isFloatDouble(value) ||
-                value instanceof BigDecimal ||
-                value instanceof BigInteger ||
-                value instanceof ExpressionNumber;
-    }
-
-    public static Class<? extends Number> wider(final Object value) {
-        return isByteShortIntegerLong(value) ?
-                Long.class :
-                isFloatDouble(value) ?
-                        Double.class :
-                        value instanceof BigInteger ?
-                                BigInteger.class :
-                                value instanceof BigDecimal ?
-                                        BigDecimal.class :
-                                        failUp(value);
-    }
-
-    private static Class<? extends Number> failUp(final Object value) {
-        throw new IllegalArgumentException("value is not a ExpressionNumber");
-    }
-
     /**
      * Accepts any JRE number and wraps that value in a {@link ExpressionNumber}
      */

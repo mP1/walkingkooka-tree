@@ -21,8 +21,6 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.visit.Visiting;
 
-import java.math.BigDecimal;
-import java.math.BigInteger;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -84,51 +82,9 @@ public final class NegativeExpressionTest extends UnaryExpressionTestCase<Negati
     // evaluate.....................................................................................
 
     @Test
-    public void testEvaluateToBigDecimal() {
-        final BigDecimal value = BigDecimal.valueOf(123);
-        this.evaluateAndCheckBigDecimal(this.createExpression(Expression.bigDecimal(value)), value.negate());
-    }
-
-    @Test
-    public void testEvaluateToBigInteger() {
-        final BigInteger value = BigInteger.valueOf(123);
-        this.evaluateAndCheckBigInteger(this.createExpression(Expression.bigInteger(value)), value.negate());
-    }
-
-    @Test
-    public void testEvaluateToDouble() {
-        final double value = 123;
-        this.evaluateAndCheckDouble(this.createExpression(Expression.doubleExpression(value)), -value);
-    }
-
-    @Test
-    public void testEvaluateToLong() {
-        final long value = 123L;
-        this.evaluateAndCheckLong(this.createExpression(Expression.longExpression(value)), -value);
-    }
-
-    @Test
-    public void testEvaluateToNumberBigDecimal() {
-        final BigDecimal value = BigDecimal.valueOf(123);
-        this.evaluateAndCheckNumberBigDecimal(this.createExpression(Expression.bigDecimal(value)), value.negate());
-    }
-
-    @Test
-    public void testEvaluateToNumberBigInteger() {
-        final BigInteger value = BigInteger.valueOf(123);
-        this.evaluateAndCheckNumberBigInteger(this.createExpression(Expression.bigInteger(value)), value.negate());
-    }
-
-    @Test
-    public void testEvaluateToNumberDouble() {
-        final double value = 123;
-        this.evaluateAndCheckDouble(this.createExpression(Expression.doubleExpression(value)), -value);
-    }
-
-    @Test
-    public void testEvaluateToNumberLong() {
-        final long value = 123L;
-        this.evaluateAndCheckNumberLong(this.createExpression(Expression.longExpression(value)), -value);
+    public void testEvaluateToExpressionNumber() {
+        final int value = 123;
+        this.evaluateAndCheckExpressionNumber(this.createExpression(expressionNumber(value)), -value);
     }
 
     @Override

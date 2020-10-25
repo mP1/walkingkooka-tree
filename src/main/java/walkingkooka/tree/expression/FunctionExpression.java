@@ -19,8 +19,6 @@ package walkingkooka.tree.expression;
 
 import walkingkooka.visit.Visiting;
 
-import java.math.BigDecimal;
-import java.math.BigInteger;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -100,23 +98,13 @@ public final class FunctionExpression extends VariableExpression {
     // evaluation .....................................................................................................
 
     @Override
-    public BigDecimal toBigDecimal(final ExpressionEvaluationContext context) {
-        return this.executeFunction(context, BigDecimal.class);
-    }
-
-    @Override
-    public BigInteger toBigInteger(final ExpressionEvaluationContext context) {
-        return this.executeFunction(context, BigInteger.class);
-    }
-
-    @Override
     public boolean toBoolean(final ExpressionEvaluationContext context) {
         return this.executeFunction(context, Boolean.class);
     }
 
     @Override
-    public double toDouble(final ExpressionEvaluationContext context) {
-        return this.executeFunction(context, Double.class);
+    public ExpressionNumber toExpressionNumber(final ExpressionEvaluationContext context) {
+        return this.executeFunction(context, ExpressionNumber.class);
     }
 
     @Override
@@ -132,16 +120,6 @@ public final class FunctionExpression extends VariableExpression {
     @Override
     public LocalTime toLocalTime(final ExpressionEvaluationContext context) {
         return this.executeFunction(context, LocalTime.class);
-    }
-
-    @Override
-    public long toLong(final ExpressionEvaluationContext context) {
-        return this.executeFunction(context, Long.class);
-    }
-
-    @Override
-    public Number toNumber(final ExpressionEvaluationContext context) {
-        return this.executeFunction(context, Number.class);
     }
 
     @Override

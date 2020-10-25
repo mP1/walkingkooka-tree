@@ -17,8 +17,6 @@
 
 package walkingkooka.tree.expression;
 
-import java.math.BigInteger;
-
 /**
  * Base class for the AND, OR, XOR {@link BinaryExpression}.
  */
@@ -53,21 +51,9 @@ abstract class BinaryLogicalExpression extends BinaryExpression {
                     break;
                 }
 
-                // both Long
-                final boolean leftLong = ExpressionNumber.isByteShortIntegerLong(left);
-                final boolean rightLong = ExpressionNumber.isByteShortIntegerLong(right);
-                if (leftLong && rightLong) {
-                    result = this.applyLong(
-                            context.convertOrFail(left, Long.class),
-                            context.convertOrFail(right, Long.class),
-                            context);
-                    break;
-                }
-                // default is to promote both to BigInteger, doubles and BigDecimal may fail if they have decimals.
-                result = this.applyBigInteger(
-                        context.convertOrFail(left, BigInteger.class),
-                        context.convertOrFail(right, BigInteger.class),
-                        context);
+                result = this.applyExpressionNumber(
+                        context.convertOrFail(left, ExpressionNumber.class),
+                        context.convertOrFail(right, ExpressionNumber.class));
                 break;
             }
         } catch (final ArithmeticException cause) {
@@ -82,4 +68,12 @@ abstract class BinaryLogicalExpression extends BinaryExpression {
     }
 
     abstract boolean applyBoolean0(final boolean left, final boolean right);
+
+    private Expression applyExpressionNumber(final ExpressionNumber left,
+                                             final ExpressionNumber right) {
+        return Expression.expressionNumber(this.applyExpressionNumber0(left, right));
+    }
+
+    abstract ExpressionNumber applyExpressionNumber0(final ExpressionNumber left,
+                                                     final ExpressionNumber right);
 }
