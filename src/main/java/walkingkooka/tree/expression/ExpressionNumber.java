@@ -32,6 +32,8 @@ import java.util.Objects;
  * - shortValue
  * - intValue
  * - longValue
+ * Note that the result is always the same type, adding a double with a BigDecimal always returns the left(this) type and
+ * does not widen or narrow the right parameter.
  */
 public abstract class ExpressionNumber extends Number implements Comparable<ExpressionNumber> {
 
@@ -140,180 +142,126 @@ public abstract class ExpressionNumber extends Number implements Comparable<Expr
     public final ExpressionNumber add(final ExpressionNumber value, final ExpressionNumberContext context) {
         check(value);
 
-        return value.add0(this, context);
+        return this.add0(value, context);
     }
 
     abstract ExpressionNumber add0(final ExpressionNumber value, final ExpressionNumberContext context);
-
-    abstract ExpressionNumber add1(final ExpressionNumberBigDecimal value, final ExpressionNumberContext context);
-
-    abstract ExpressionNumber add1(final ExpressionNumberDouble value, final ExpressionNumberContext context);
 
     // divide..............................................................................................................
 
     public final ExpressionNumber divide(final ExpressionNumber value, final ExpressionNumberContext context) {
         check(value);
 
-        return value.divide0(this, context);
+        return this.divide0(value, context);
     }
 
     abstract ExpressionNumber divide0(final ExpressionNumber value, final ExpressionNumberContext context);
 
-    abstract ExpressionNumber divide1(final ExpressionNumberBigDecimal value, final ExpressionNumberContext context);
-
-    abstract ExpressionNumber divide1(final ExpressionNumberDouble value, final ExpressionNumberContext context);
-
-// modulo..............................................................................................................
+    // modulo..............................................................................................................
 
     public final ExpressionNumber modulo(final ExpressionNumber value, final ExpressionNumberContext context) {
         check(value);
 
-        return value.modulo0(this, context);
+        return this.modulo0(value, context);
     }
 
     abstract ExpressionNumber modulo0(final ExpressionNumber value, final ExpressionNumberContext context);
-
-    abstract ExpressionNumber modulo1(final ExpressionNumberBigDecimal value, final ExpressionNumberContext context);
-
-    abstract ExpressionNumber modulo1(final ExpressionNumberDouble value, final ExpressionNumberContext context);
 
     // multiply..............................................................................................................
 
     public final ExpressionNumber multiply(final ExpressionNumber value, final ExpressionNumberContext context) {
         check(value);
 
-        return value.multiply0(this, context);
+        return this.multiply0(value, context);
     }
 
     abstract ExpressionNumber multiply0(final ExpressionNumber value, final ExpressionNumberContext context);
-
-    abstract ExpressionNumber multiply1(final ExpressionNumberBigDecimal value, final ExpressionNumberContext context);
-
-    abstract ExpressionNumber multiply1(final ExpressionNumberDouble value, final ExpressionNumberContext context);
 
     // power..............................................................................................................
 
     public final ExpressionNumber power(final ExpressionNumber value, final ExpressionNumberContext context) {
         check(value);
 
-        return value.power0(this, context);
+        return this.power0(value, context);
     }
 
     abstract ExpressionNumber power0(final ExpressionNumber value, final ExpressionNumberContext context);
-
-    abstract ExpressionNumber power1(final ExpressionNumberBigDecimal value, final ExpressionNumberContext context);
-
-    abstract ExpressionNumber power1(final ExpressionNumberDouble value, final ExpressionNumberContext context);
 
     // subtract..............................................................................................................
 
     public final ExpressionNumber subtract(final ExpressionNumber value, final ExpressionNumberContext context) {
         check(value);
 
-        return value.subtract0(this, context);
+        return this.subtract0(value, context);
     }
 
     abstract ExpressionNumber subtract0(final ExpressionNumber value, final ExpressionNumberContext context);
-
-    abstract ExpressionNumber subtract1(final ExpressionNumberBigDecimal value, final ExpressionNumberContext context);
-
-    abstract ExpressionNumber subtract1(final ExpressionNumberDouble value, final ExpressionNumberContext context);
 
     // and..............................................................................................................
 
     public final ExpressionNumber and(final ExpressionNumber value) {
         check(value);
 
-        return value.and0(this);
+        return this.and0(value);
     }
 
     abstract ExpressionNumber and0(final ExpressionNumber value);
-
-    abstract ExpressionNumber and1(final ExpressionNumberBigDecimal value);
-
-    abstract ExpressionNumber and1(final ExpressionNumberDouble value);
 
     // or..............................................................................................................
 
     public final ExpressionNumber or(final ExpressionNumber value) {
         check(value);
 
-        return value.or0(this);
+        return this.or0(value);
     }
 
     abstract ExpressionNumber or0(final ExpressionNumber value);
-
-    abstract ExpressionNumber or1(final ExpressionNumberBigDecimal value);
-
-    abstract ExpressionNumber or1(final ExpressionNumberDouble value);
 
     // xor..............................................................................................................
 
     public final ExpressionNumber xor(final ExpressionNumber value) {
         check(value);
 
-        return value.xor0(this);
+        return this.xor0(value);
     }
 
     abstract ExpressionNumber xor0(final ExpressionNumber value);
 
-    abstract ExpressionNumber xor1(final ExpressionNumberBigDecimal value);
-
-    abstract ExpressionNumber xor1(final ExpressionNumberDouble value);
-
     // equals..............................................................................................................
 
     public final boolean equals(final ExpressionNumber value) {
-        check(value);
-
-        return ComparisonRelation.EQ.test(value.compare0(this));
+        return ComparisonRelation.EQ.test(this.compareTo(value));
     }
 
     // greaterThan..............................................................................................................
 
     public final boolean greaterThan(final ExpressionNumber value) {
-        check(value);
-
-        return ComparisonRelation.GT.test(value.compare0(this));
+        return ComparisonRelation.GT.test(this.compareTo(value));
     }
 
     // greaterThanEquals..............................................................................................................
 
     public final boolean greaterThanEquals(final ExpressionNumber value) {
-        check(value);
-
-        return ComparisonRelation.GTE.test(value.compare0(this));
+        return ComparisonRelation.GTE.test(this.compareTo(value));
     }
 
     // lessThan..............................................................................................................
 
     public final boolean lessThan(final ExpressionNumber value) {
-        check(value);
-
-        return ComparisonRelation.LT.test(value.compare0(this));
+        return ComparisonRelation.LT.test(this.compareTo(value));
     }
 
     // lessThanEquals..............................................................................................................
 
     public final boolean lessThanEquals(final ExpressionNumber value) {
-        check(value);
-
-        return ComparisonRelation.LTE.test(value.compare0(this));
+        return ComparisonRelation.LTE.test(this.compareTo(value));
     }
 
     // notEquals..............................................................................................................
 
     public final boolean notEquals(final ExpressionNumber value) {
-        check(value);
-
-        return ComparisonRelation.NE.test(value.compare0(this));
+        return ComparisonRelation.NE.test(this.compareTo(value));
     }
-
-    abstract int compare0(final ExpressionNumber value);
-
-    abstract int compare1(final ExpressionNumberBigDecimal value);
-
-    abstract int compare1(final ExpressionNumberDouble value);
 
     // toXXX............................................................................................................
 
@@ -346,7 +294,8 @@ public abstract class ExpressionNumber extends Number implements Comparable<Expr
 
     @Override
     public final boolean equals(final Object other) {
-        return this == other || this.canBeEqual(other) && ComparisonRelation.EQ.test(this.compare0((ExpressionNumber) other));
+        return this == other ||
+                this.canBeEqual(other) && ComparisonRelation.EQ.test(this.compareTo((ExpressionNumber) other));
     }
 
     abstract boolean canBeEqual(final Object other);
@@ -392,17 +341,4 @@ public abstract class ExpressionNumber extends Number implements Comparable<Expr
         }
         return toString;
     }
-
-    // Comparable.......................................................................................................
-
-    @Override
-    public final int compareTo(final ExpressionNumber other) {
-        return other.compareTo0(this);
-    }
-
-    abstract int compareTo0(final ExpressionNumber other);
-
-    abstract int compareTo1(final ExpressionNumberBigDecimal other);
-
-    abstract int compareTo1(final ExpressionNumberDouble other);
 }
