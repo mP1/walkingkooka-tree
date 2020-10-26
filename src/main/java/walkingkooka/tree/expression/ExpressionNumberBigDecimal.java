@@ -331,15 +331,6 @@ final class ExpressionNumberBigDecimal extends ExpressionNumber {
         return other instanceof ExpressionNumberBigDecimal;
     }
 
-    @Override
-    boolean equals0(final ExpressionNumber other) {
-        return this.equals1((ExpressionNumberBigDecimal) other);
-    }
-
-    private boolean equals1(final ExpressionNumberBigDecimal other) {
-        return this.equalsValue(other.value);
-    }
-
     private boolean equalsValue(final BigDecimal value) {
         return ComparisonRelation.EQ.test(this.value.compareTo(value));
     }
