@@ -26,6 +26,7 @@ import walkingkooka.predicate.Predicates;
 import walkingkooka.tree.TestNode;
 import walkingkooka.tree.expression.Expression;
 import walkingkooka.tree.expression.ExpressionNumber;
+import walkingkooka.tree.expression.ExpressionNumberKind;
 import walkingkooka.tree.expression.FunctionExpressionName;
 import walkingkooka.visit.Visiting;
 
@@ -117,7 +118,7 @@ final public class ExpressionNodeSelectorTest extends
 
     private void childrenExpressionNumberPositionAndCheck(final long value,
                                                           final int childIndex) {
-        this.childrenExpressionNumberPositionAndCheck(Expression.expressionNumber(ExpressionNumber.with(value)), childIndex);
+        this.childrenExpressionNumberPositionAndCheck(Expression.expressionNumber(ExpressionNumberKind.DEFAULT.create(value)), childIndex);
     }
 
     private void childrenExpressionNumberPositionAndCheck(final Expression expression,
@@ -519,7 +520,7 @@ final public class ExpressionNodeSelectorTest extends
     }
 
     private Expression expressionNumber(final double value) {
-        return Expression.expressionNumber(ExpressionNumber.with(value));
+        return Expression.expressionNumber(ExpressionNumberKind.DEFAULT.create(value));
     }
 
     @Override

@@ -50,7 +50,7 @@ public abstract class Expression implements Node<Expression, FunctionExpressionN
 
 
         return value instanceof Number ?
-                expressionNumber(ExpressionNumber.with((Number) value)) :
+                expressionNumber(ExpressionNumberKind.DEFAULT.create((Number) value)) :
                 value instanceof Boolean ?
                         booleanExpression(Cast.to(value)) :
                         value instanceof LocalDate ?

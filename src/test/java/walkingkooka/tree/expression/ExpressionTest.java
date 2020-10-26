@@ -126,11 +126,7 @@ public final class ExpressionTest implements ClassTesting2<Expression> {
     private void valueOrFailAndCheck(final Number value) {
         valueOrFailAndCheck(value,
                 ExpressionNumberExpression.class,
-                value instanceof Double ?
-                        ExpressionNumber.with(value.doubleValue()) :
-                        value instanceof BigDecimal ?
-                                ExpressionNumber.with((BigDecimal) value) :
-                                ExpressionNumber.with(value));
+                ExpressionNumberKind.DEFAULT.create(value));
     }
 
     private void valueOrFailAndCheck(final Object value,

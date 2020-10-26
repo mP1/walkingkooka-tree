@@ -33,11 +33,6 @@ public final class ExpressionNumberTest implements ClassTesting<ExpressionNumber
     // with.............................................................................................................
 
     @Test
-    public void testWithNullNumberFails() {
-        assertThrows(NullPointerException.class, () -> ExpressionNumber.with((Number)null));
-    }
-
-    @Test
     public void testWithByte() {
         this.withNumberAndCheck((byte) 1);
     }
@@ -79,54 +74,15 @@ public final class ExpressionNumberTest implements ClassTesting<ExpressionNumber
 
     private void withNumberAndCheck(final Number value) {
         if(value instanceof BigInteger || value instanceof BigDecimal) {
-            final ExpressionNumber expressionNumber = ExpressionNumber.with(value);
+            final ExpressionNumber expressionNumber = ExpressionNumber.with(value instanceof BigDecimal ?
+                    (BigDecimal)value :
+                    new BigDecimal((BigInteger)value));
             assertEquals(ExpressionNumberBigDecimal.class, expressionNumber.getClass(), "type");
             assertEquals(value instanceof BigDecimal ? value : new BigDecimal((BigInteger)value), expressionNumber.bigDecimal(), "bigDecimal");
         } else {
-            final ExpressionNumber expressionNumber = ExpressionNumber.with(value);
+            final ExpressionNumber expressionNumber = ExpressionNumber.with(value.doubleValue());
             assertEquals(ExpressionNumberDouble.class, expressionNumber.getClass(), "type");
             assertEquals(value.doubleValue(), expressionNumber.doubleValue(), "doubleValue");
-        }
-    }
-
-    @Test
-    public void testWithExpressionNumberBigDecimal() {
-        final ExpressionNumber number = ExpressionNumber.with(BigDecimal.ONE);
-        assertSame(number, ExpressionNumber.with(number));
-    }
-
-    @Test
-    public void testWithExpressionNumberBigInteger() {
-        final ExpressionNumber number = ExpressionNumber.with(BigInteger.ONE);
-        assertSame(number, ExpressionNumber.with(number));
-    }
-
-    @Test
-    public void testWithUnknownNumberFails() {
-        assertThrows(IllegalArgumentException.class, () -> ExpressionNumber.with(new TestNumber()));
-    }
-
-    final static class TestNumber extends Number {
-        private static final long serialVersionUID = 1;
-
-        @Override
-        public int intValue() {
-            return 0;
-        }
-
-        @Override
-        public long longValue() {
-            return 0;
-        }
-
-        @Override
-        public float floatValue() {
-            return 0;
-        }
-
-        @Override
-        public double doubleValue() {
-            return 0;
         }
     }
 
