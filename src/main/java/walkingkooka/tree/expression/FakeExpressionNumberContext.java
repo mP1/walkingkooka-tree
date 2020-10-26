@@ -21,6 +21,11 @@ import java.math.MathContext;
 
 public class FakeExpressionNumberContext implements ExpressionNumberContext {
     @Override
+    public ExpressionNumberKind expressionNumberKind() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
     public MathContext mathContext() {
         throw new UnsupportedOperationException();
     }

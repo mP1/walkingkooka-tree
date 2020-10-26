@@ -24,6 +24,7 @@ import walkingkooka.naming.Name;
 import walkingkooka.tree.Node;
 import walkingkooka.tree.expression.Expression;
 import walkingkooka.tree.expression.ExpressionEvaluationContext;
+import walkingkooka.tree.expression.ExpressionNumberKind;
 import walkingkooka.tree.expression.ExpressionReference;
 import walkingkooka.tree.expression.FunctionExpressionName;
 import walkingkooka.tree.select.parser.NodeSelectorAttributeName;
@@ -63,6 +64,11 @@ final class ExpressionNodeSelectorExpressionEvaluationContext<N extends Node<N, 
         super();
         this.node = node;
         this.context = context;
+    }
+
+    @Override
+    public ExpressionNumberKind expressionNumberKind() {
+        return this.context.expressionNumberKind();
     }
 
     @Override

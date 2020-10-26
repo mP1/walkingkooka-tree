@@ -19,6 +19,7 @@ package walkingkooka.tree.expression.function;
 
 import walkingkooka.Either;
 import walkingkooka.test.Fake;
+import walkingkooka.tree.expression.ExpressionNumberKind;
 import walkingkooka.tree.expression.FunctionExpressionName;
 
 import java.math.MathContext;
@@ -30,6 +31,11 @@ public class FakeExpressionFunctionContext implements ExpressionFunctionContext,
 
     public FakeExpressionFunctionContext() {
         super();
+    }
+
+    @Override
+    public ExpressionNumberKind expressionNumberKind() {
+        throw new UnsupportedOperationException();
     }
 
     @Override

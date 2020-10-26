@@ -20,6 +20,7 @@ package walkingkooka.tree.select;
 import walkingkooka.Either;
 import walkingkooka.naming.Name;
 import walkingkooka.tree.Node;
+import walkingkooka.tree.expression.ExpressionNumberKind;
 import walkingkooka.tree.expression.FunctionExpressionName;
 
 import java.math.MathContext;
@@ -79,6 +80,11 @@ abstract class NodeSelectorContext2<N extends Node<N, NAME, ANAME, AVALUE>, NAME
     @Override
     public final N selected(final N node) {
         return this.context.selected(node);
+    }
+
+    @Override
+    public final ExpressionNumberKind expressionNumberKind() {
+        return this.context.expressionNumberKind();
     }
 
     @Override

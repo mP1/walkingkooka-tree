@@ -87,6 +87,11 @@ final class CycleDetectingExpressionEvaluationContext implements ExpressionEvalu
     }
 
     @Override
+    public ExpressionNumberKind expressionNumberKind() {
+        return this.context.expressionNumberKind();
+    }
+
+    @Override
     public Object function(final FunctionExpressionName functionName, final List<Object> parameters) {
         return this.context.function(functionName, parameters);
     }

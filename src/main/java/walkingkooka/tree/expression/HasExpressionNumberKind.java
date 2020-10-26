@@ -17,8 +17,7 @@
 
 package walkingkooka.tree.expression;
 
-import walkingkooka.math.HasMathContext;
+public interface HasExpressionNumberKind {
 
-public interface ExpressionNumberContext extends HasExpressionNumberKind,
-        HasMathContext {
+    ExpressionNumberKind expressionNumberKind();
 }

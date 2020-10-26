@@ -21,6 +21,7 @@ import walkingkooka.convert.ConverterContext;
 import walkingkooka.naming.Name;
 import walkingkooka.reflect.PublicStaticHelper;
 import walkingkooka.tree.Node;
+import walkingkooka.tree.expression.ExpressionNumberKind;
 import walkingkooka.tree.expression.FunctionExpressionName;
 import walkingkooka.tree.expression.function.ExpressionFunction;
 
@@ -43,6 +44,7 @@ public final class NodeSelectorContexts implements PublicStaticHelper {
             AVALUE> NodeSelectorContext<N, NAME, ANAME, AVALUE> basic(final BooleanSupplier finisher,
                                                                       final Predicate<N> filter,
                                                                       final Function<N, N> mapper,
+                                                                      final ExpressionNumberKind expressionNumberKind,
                                                                       final Function<FunctionExpressionName, Optional<ExpressionFunction<?>>> functions,
                                                                       final Converter converter,
                                                                       final ConverterContext converterContext,
@@ -50,6 +52,7 @@ public final class NodeSelectorContexts implements PublicStaticHelper {
         return BasicNodeSelectorContext.with(finisher,
                 filter,
                 mapper,
+                expressionNumberKind,
                 functions,
                 converter,
                 converterContext,
