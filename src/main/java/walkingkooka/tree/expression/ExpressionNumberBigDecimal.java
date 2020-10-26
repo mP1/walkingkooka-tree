@@ -323,7 +323,7 @@ final class ExpressionNumberBigDecimal extends ExpressionNumber {
 
     @Override
     public int hashCode() {
-        return value.hashCode();
+        return value.stripTrailingZeros().hashCode();
     }
 
     @Override
