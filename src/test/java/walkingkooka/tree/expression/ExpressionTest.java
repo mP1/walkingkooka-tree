@@ -94,7 +94,7 @@ public final class ExpressionTest implements ClassTesting2<Expression> {
 
     @Test
     public void testValueOrFailExpressionNumber() {
-        this.valueOrFailAndCheck(ExpressionNumber.with(123));
+        this.valueOrFailAndCheck(ExpressionNumberKind.DEFAULT.create(123));
     }
 
     @Test

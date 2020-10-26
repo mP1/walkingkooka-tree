@@ -69,7 +69,7 @@ public final class ExpressionNumberExpressionTest extends LeafExpressionTestCase
 
     @Test
     public void testToExpressionNumber() {
-        final ExpressionNumber value = ExpressionNumber.with(BigDecimal.valueOf(123));
+        final ExpressionNumber value = this.expressionNumberValue(123);
         this.evaluateAndCheckExpressionNumber(this.createExpression(value), value);
     }
 
@@ -87,11 +87,11 @@ public final class ExpressionNumberExpressionTest extends LeafExpressionTestCase
 
     @Test
     public void testToString2() {
-        this.toStringAndCheck(this.createExpression(ExpressionNumber.with(234)), "234");
+        this.toStringAndCheck(this.createExpression(this.expressionNumberValue(234)), "234");
     }
 
     private ExpressionNumberExpression createExpression(final double value) {
-        return this.createExpression(ExpressionNumber.with(value));
+        return this.createExpression(this.expressionNumberValue(value));
     }
 
     @Override
@@ -101,12 +101,12 @@ public final class ExpressionNumberExpressionTest extends LeafExpressionTestCase
 
     @Override
     ExpressionNumber value() {
-        return ExpressionNumber.with(BigDecimal.ONE);
+        return ExpressionNumberKind.DEFAULT.create(1);
     }
 
     @Override
     ExpressionNumber differentValue() {
-        return ExpressionNumber.with(BigDecimal.valueOf(999));
+        return ExpressionNumberKind.DEFAULT.create(999);
     }
 
     @Override
