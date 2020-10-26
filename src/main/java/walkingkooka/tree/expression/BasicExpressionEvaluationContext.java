@@ -37,16 +37,19 @@ final class BasicExpressionEvaluationContext implements ExpressionEvaluationCont
     /**
      * Factory that creates a {@link BasicExpressionEvaluationContext}
      */
-    static BasicExpressionEvaluationContext with(final BiFunction<FunctionExpressionName, List<Object>, Object> functions,
+    static BasicExpressionEvaluationContext with(final ExpressionNumberKind expressionNumberKind,
+                                                 final BiFunction<FunctionExpressionName, List<Object>, Object> functions,
                                                  final Function<ExpressionReference, Optional<Expression>> references,
                                                  final Converter converter,
                                                  final ConverterContext converterContext) {
+        Objects.requireNonNull(expressionNumberKind, "expressionNumberKind");
         Objects.requireNonNull(functions, "functions");
         Objects.requireNonNull(references, "references");
         Objects.requireNonNull(converter, "converter");
         Objects.requireNonNull(converterContext, "converterContext");
 
-        return new BasicExpressionEvaluationContext(functions,
+        return new BasicExpressionEvaluationContext(expressionNumberKind,
+                functions,
                 references,
                 converter,
                 converterContext);
@@ -55,11 +58,13 @@ final class BasicExpressionEvaluationContext implements ExpressionEvaluationCont
     /**
      * Private ctor use factory
      */
-    private BasicExpressionEvaluationContext(final BiFunction<FunctionExpressionName, List<Object>, Object> functions,
+    private BasicExpressionEvaluationContext(final ExpressionNumberKind expressionNumberKind,
+                                             final BiFunction<FunctionExpressionName, List<Object>, Object> functions,
                                              final Function<ExpressionReference, Optional<Expression>> references,
                                              final Converter converter,
                                              final ConverterContext converterContext) {
         super();
+        this.expressionNumberKind = expressionNumberKind;
         this.functions = functions;
         this.references = references;
         this.converter = converter;
@@ -110,6 +115,13 @@ final class BasicExpressionEvaluationContext implements ExpressionEvaluationCont
     public MathContext mathContext() {
         return this.converterContext.mathContext();
     }
+
+    @Override
+    public ExpressionNumberKind expressionNumberKind() {
+        return this.expressionNumberKind;
+    }
+
+    private ExpressionNumberKind expressionNumberKind;
 
     @Override
     public Object function(final FunctionExpressionName name, final List<Object> parameters) {

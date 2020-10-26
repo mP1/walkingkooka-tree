@@ -25,6 +25,7 @@ import walkingkooka.convert.Converter;
 import walkingkooka.convert.ConverterContext;
 import walkingkooka.convert.ConverterContexts;
 import walkingkooka.convert.Converters;
+import walkingkooka.convert.FakeConverter;
 import walkingkooka.datetime.DateTimeContexts;
 import walkingkooka.math.DecimalNumberContexts;
 import walkingkooka.naming.Name;
@@ -33,6 +34,7 @@ import walkingkooka.reflect.ClassTesting2;
 import walkingkooka.reflect.IsMethodTesting;
 import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.reflect.PublicStaticFactoryTesting;
+import walkingkooka.test.Fake;
 import walkingkooka.text.cursor.parser.ParserContext;
 import walkingkooka.text.cursor.parser.ParserContexts;
 import walkingkooka.text.cursor.parser.Parsers;
@@ -263,7 +265,27 @@ public abstract class ExpressionTestCase<N extends Expression> implements ClassT
 
         final Converter converters = Converters.collection(Lists.of(
                 Converters.simple(),
-                ExpressionNumber.toExpressionNumber(),
+                new FakeConverter() {
+                    @Override
+                    public boolean canConvert(final Object value,
+                                              final Class<?> type,
+                                              final ConverterContext context) {
+                        return value instanceof ExpressionNumber && ExpressionNumber.class == type;
+                    }
+
+                    @Override
+                    public <T> Either<T, String> convert(final Object value,
+                                                         final Class<T> type,
+                                                         final ConverterContext context) {
+                        return this.canConvert(value, type, context) ?
+                                Cast.to(Either.left(this.toExpressionNumber((ExpressionNumber)value))) :
+                                this.failConversion(value, type);
+                    }
+
+                    private ExpressionNumber toExpressionNumber(final ExpressionNumber value) {
+                        return value.setKind(EXPRESSION_NUMBER_KIND);
+                    }
+                },
                 // localDate ->
                 toBoolean(LocalDate.class, LocalDate.ofEpochDay(0)),
                 Converters.localDateLocalDateTime(),

@@ -28,6 +28,7 @@ import walkingkooka.predicate.Predicates;
 import walkingkooka.reflect.ClassTesting2;
 import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.tree.TestNode;
+import walkingkooka.tree.expression.ExpressionNumberKind;
 import walkingkooka.tree.expression.FunctionExpressionName;
 import walkingkooka.tree.expression.function.ExpressionFunction;
 
@@ -46,11 +47,14 @@ public final class BasicNodeSelectorContextTest implements ClassTesting2<BasicNo
                 StringName,
                 Object> {
 
+    private final static ExpressionNumberKind KIND = ExpressionNumberKind.DEFAULT;
+
     @Test
     public void testWithNullFinisher() {
         assertThrows(NullPointerException.class, () -> BasicNodeSelectorContext.with(null,
                 this.predicate(),
                 this.mapper(),
+                KIND,
                 this.functions(),
                 this.converter(),
                 this.converterContext(),
@@ -62,6 +66,7 @@ public final class BasicNodeSelectorContextTest implements ClassTesting2<BasicNo
         assertThrows(NullPointerException.class, () -> BasicNodeSelectorContext.with(this.finisher(),
                 null,
                 this.mapper(),
+                KIND,
                 this.functions(),
                 this.converter(),
                 this.converterContext(),
@@ -72,6 +77,19 @@ public final class BasicNodeSelectorContextTest implements ClassTesting2<BasicNo
     public void testWithNullSelectedFails() {
         assertThrows(NullPointerException.class, () -> BasicNodeSelectorContext.with(this.finisher(),
                 this.predicate(),
+                null,
+                KIND,
+                this.functions(),
+                this.converter(),
+                this.converterContext(),
+                this.nodeType()));
+    }
+
+    @Test
+    public void testWithNullExpressionNumberKindFails() {
+        assertThrows(NullPointerException.class, () -> BasicNodeSelectorContext.with(this.finisher(),
+                this.predicate(),
+                this.mapper(),
                 null,
                 this.functions(),
                 this.converter(),
@@ -84,6 +102,7 @@ public final class BasicNodeSelectorContextTest implements ClassTesting2<BasicNo
         assertThrows(NullPointerException.class, () -> BasicNodeSelectorContext.with(this.finisher(),
                 this.predicate(),
                 this.mapper(),
+                KIND,
                 null,
                 this.converter(),
                 this.converterContext(),
@@ -95,6 +114,7 @@ public final class BasicNodeSelectorContextTest implements ClassTesting2<BasicNo
         assertThrows(NullPointerException.class, () -> BasicNodeSelectorContext.with(this.finisher(),
                 this.predicate(),
                 this.mapper(),
+                KIND,
                 this.functions(),
                 null,
                 this.converterContext(),
@@ -106,6 +126,7 @@ public final class BasicNodeSelectorContextTest implements ClassTesting2<BasicNo
         assertThrows(NullPointerException.class, () -> BasicNodeSelectorContext.with(this.finisher(),
                 this.predicate(),
                 this.mapper(),
+                KIND,
                 this.functions(),
                 this.converter(),
                 null,
@@ -117,6 +138,7 @@ public final class BasicNodeSelectorContextTest implements ClassTesting2<BasicNo
         assertThrows(NullPointerException.class, () -> BasicNodeSelectorContext.with(this.finisher(),
                 this.predicate(),
                 this.mapper(),
+                KIND,
                 this.functions(),
                 this.converter(),
                 this.converterContext(),
@@ -159,11 +181,12 @@ public final class BasicNodeSelectorContextTest implements ClassTesting2<BasicNo
         this.toStringAndCheck(BasicNodeSelectorContext.with(finisher,
                 filter,
                 mapper,
+                KIND,
                 functions,
                 converter,
                 converterContext,
                 this.nodeType()),
-                finisher + " " + filter + " " + mapper + " " + functions + " " + converter + " " + converterContext);
+                finisher + " " + filter + " " + mapper + " " + KIND + " " + functions + " " + converter + " " + converterContext);
     }
 
     @Override
@@ -176,6 +199,7 @@ public final class BasicNodeSelectorContextTest implements ClassTesting2<BasicNo
         return BasicNodeSelectorContext.with(this.finisher(),
                 this.predicate(),
                 this.mapper(),
+                KIND,
                 this.functions(),
                 this.converter(),
                 this.converterContext(),

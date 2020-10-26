@@ -34,6 +34,7 @@ import walkingkooka.predicate.Predicates;
 import walkingkooka.tree.Node;
 import walkingkooka.tree.TestNode;
 import walkingkooka.tree.expression.ExpressionNumber;
+import walkingkooka.tree.expression.ExpressionNumberKind;
 import walkingkooka.tree.expression.FunctionExpressionName;
 import walkingkooka.tree.expression.function.ExpressionFunction;
 
@@ -60,6 +61,8 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 abstract public class NodeSelectorTestCase4<S extends NodeSelector<TestNode, StringName, StringName, Object>> extends NodeSelectorTestCase3<S>
         implements HashCodeEqualsDefinedTesting2<S>,
         ToStringTesting<S> {
+
+    final static ExpressionNumberKind EXPRESSION_NUMBER_KIND = ExpressionNumberKind.DEFAULT;
 
     NodeSelectorTestCase4() {
         super();
@@ -376,6 +379,7 @@ abstract public class NodeSelectorTestCase4<S extends NodeSelector<TestNode, Str
         final NodeSelectorContext<TestNode, StringName, StringName, Object> context = NodeSelectorContexts.basic(finisher,
                 filter,
                 mapper,
+                EXPRESSION_NUMBER_KIND,
                 this.functions(),
                 this.converter(),
                 ConverterContexts.fake(),
@@ -407,6 +411,11 @@ abstract public class NodeSelectorTestCase4<S extends NodeSelector<TestNode, Str
             public TestNode selected(final TestNode node) {
                 this.finisherGuardCheck();
                 return context.selected(node);
+            }
+
+            @Override
+            public ExpressionNumberKind expressionNumberKind() {
+                return context.expressionNumberKind();
             }
 
             @Override

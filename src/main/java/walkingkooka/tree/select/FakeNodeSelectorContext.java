@@ -21,6 +21,7 @@ import walkingkooka.Either;
 import walkingkooka.naming.Name;
 import walkingkooka.test.Fake;
 import walkingkooka.tree.Node;
+import walkingkooka.tree.expression.ExpressionNumberKind;
 import walkingkooka.tree.expression.FunctionExpressionName;
 
 import java.math.MathContext;
@@ -54,6 +55,11 @@ public class FakeNodeSelectorContext<N extends Node<N, NAME, ANAME, AVALUE>,
 
     @Override
     public <T> Either<T, String> convert(final Object value, final Class<T> target) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public ExpressionNumberKind expressionNumberKind() {
         throw new UnsupportedOperationException();
     }
 

@@ -43,12 +43,23 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 public final class BasicExpressionEvaluationContextTest implements ClassTesting2<BasicExpressionEvaluationContext>,
         ExpressionEvaluationContextTesting<BasicExpressionEvaluationContext> {
 
+    private final static ExpressionNumberKind KIND = ExpressionNumberKind.DEFAULT;
     private final static ExpressionReference REFERENCE = new ExpressionReference() {
     };
 
     @Test
-    public void testWithNullFunctionsFails() {
+    public void testWithNullExpressionNumberKindFails() {
         assertThrows(NullPointerException.class, () -> BasicExpressionEvaluationContext.with(null,
+                this.functions(),
+                this.references(),
+                this.converter(),
+                this.converterContext()));
+    }
+
+    @Test
+    public void testWithNullFunctionsFails() {
+        assertThrows(NullPointerException.class, () -> BasicExpressionEvaluationContext.with(KIND,
+                null,
                 this.references(),
                 this.converter(),
                 this.converterContext()));
@@ -56,7 +67,8 @@ public final class BasicExpressionEvaluationContextTest implements ClassTesting2
 
     @Test
     public void testWithNullReferencesFails() {
-        assertThrows(NullPointerException.class, () -> BasicExpressionEvaluationContext.with(this.functions(),
+        assertThrows(NullPointerException.class, () -> BasicExpressionEvaluationContext.with(KIND,
+                this.functions(),
                 null,
                 this.converter(),
                 this.converterContext()));
@@ -64,7 +76,8 @@ public final class BasicExpressionEvaluationContextTest implements ClassTesting2
 
     @Test
     public void testWithNullConverterFails() {
-        assertThrows(NullPointerException.class, () -> BasicExpressionEvaluationContext.with(this.functions(),
+        assertThrows(NullPointerException.class, () -> BasicExpressionEvaluationContext.with(KIND,
+                this.functions(),
                 this.references(),
                 null,
                 this.converterContext()));
@@ -72,7 +85,8 @@ public final class BasicExpressionEvaluationContextTest implements ClassTesting2
 
     @Test
     public void testWithNullConverterContextFails() {
-        assertThrows(NullPointerException.class, () -> BasicExpressionEvaluationContext.with(this.functions(),
+        assertThrows(NullPointerException.class, () -> BasicExpressionEvaluationContext.with(KIND,
+                this.functions(),
                 this.references(),
                 this.converter(),
                 null));
@@ -95,7 +109,8 @@ public final class BasicExpressionEvaluationContextTest implements ClassTesting2
 
     @Override
     public BasicExpressionEvaluationContext createContext() {
-        return BasicExpressionEvaluationContext.with(this.functions(),
+        return BasicExpressionEvaluationContext.with(KIND,
+                this.functions(),
                 this.references(),
                 this.converter(),
                 this.converterContext());

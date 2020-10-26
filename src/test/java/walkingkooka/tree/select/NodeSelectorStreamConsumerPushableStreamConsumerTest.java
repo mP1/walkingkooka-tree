@@ -28,6 +28,7 @@ import walkingkooka.convert.Converters;
 import walkingkooka.naming.Names;
 import walkingkooka.naming.StringName;
 import walkingkooka.tree.TestNode;
+import walkingkooka.tree.expression.ExpressionNumberKind;
 import walkingkooka.tree.expression.FunctionExpressionName;
 import walkingkooka.tree.expression.function.ExpressionFunction;
 
@@ -40,6 +41,8 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 public final class NodeSelectorStreamConsumerPushableStreamConsumerTest extends NodeSelectorTestCase2<NodeSelectorStreamConsumerPushableStreamConsumer<TestNode, StringName, StringName, Object>>
         implements ToStringTesting {
 
+    private final static ExpressionNumberKind KIND = ExpressionNumberKind.DEFAULT;
+
     @BeforeEach
     public void beforeEachTest() {
         TestNode.clear();
@@ -49,6 +52,7 @@ public final class NodeSelectorStreamConsumerPushableStreamConsumerTest extends 
     public void testWithNullNodeFails() {
         assertThrows(NullPointerException.class, () -> NodeSelectorStreamConsumerPushableStreamConsumer.with(null,
                 this.selector(),
+                KIND,
                 this.functions(),
                 this.converter(),
                 this.converterContext(),
@@ -58,9 +62,21 @@ public final class NodeSelectorStreamConsumerPushableStreamConsumerTest extends 
     // no TestWithNullSelector because NodeSelector.stream
 
     @Test
+    public void testWithNullExpressionNumberKindFails() {
+        assertThrows(NullPointerException.class, () -> NodeSelectorStreamConsumerPushableStreamConsumer.with(this.node,
+                this.selector(),
+                null,
+                this.functions(),
+                this.converter(),
+                this.converterContext(),
+                this.nodeType()));
+    }
+
+    @Test
     public void testWithNullFunctionsFails() {
         assertThrows(NullPointerException.class, () -> NodeSelectorStreamConsumerPushableStreamConsumer.with(this.node,
                 this.selector(),
+                KIND,
                 null,
                 this.converter(),
                 this.converterContext(),
@@ -71,6 +87,7 @@ public final class NodeSelectorStreamConsumerPushableStreamConsumerTest extends 
     public void testWithNullConverterFails() {
         assertThrows(NullPointerException.class, () -> NodeSelectorStreamConsumerPushableStreamConsumer.with(this.node,
                 this.selector(),
+                KIND,
                 this.functions(),
                 null,
                 this.converterContext(),
@@ -81,6 +98,7 @@ public final class NodeSelectorStreamConsumerPushableStreamConsumerTest extends 
     public void testWithNullConverterContextFails() {
         assertThrows(NullPointerException.class, () -> NodeSelectorStreamConsumerPushableStreamConsumer.with(this.node,
                 this.selector(),
+                KIND,
                 this.functions(),
                 this.converter(),
                 null,
@@ -91,6 +109,7 @@ public final class NodeSelectorStreamConsumerPushableStreamConsumerTest extends 
     public void testWithNullNodeTypeFails() {
         assertThrows(NullPointerException.class, () -> NodeSelectorStreamConsumerPushableStreamConsumer.with(this.node,
                 this.selector(),
+                KIND,
                 this.functions(),
                 this.converter(),
                 this.converterContext(),
@@ -103,6 +122,7 @@ public final class NodeSelectorStreamConsumerPushableStreamConsumerTest extends 
 
         this.toStringAndCheck(NodeSelectorStreamConsumerPushableStreamConsumer.with(this.node,
                 selector,
+                KIND,
                 this.functions(),
                 this.converter(),
                 this.converterContext(),
