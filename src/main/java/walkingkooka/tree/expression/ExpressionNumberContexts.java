@@ -19,7 +19,17 @@ package walkingkooka.tree.expression;
 
 import walkingkooka.reflect.PublicStaticHelper;
 
+import java.math.MathContext;
+
 public final class ExpressionNumberContexts implements PublicStaticHelper {
+
+    /**
+     * {@see BasicExpressionNumberContext}
+     */
+    public static ExpressionNumberContext basic(final ExpressionNumberKind expressionNumberKind,
+                                                final MathContext mathContext) {
+        return BasicExpressionNumberContext.with(expressionNumberKind, mathContext);
+    }
 
     /**
      * {@see FakeExpressionNumberContext}
