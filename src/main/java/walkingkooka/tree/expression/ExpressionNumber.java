@@ -43,7 +43,7 @@ public abstract class ExpressionNumber extends Number implements Comparable<Expr
      * Creates a {@link ExpressionNumber} wrapping the given {@link Double}.
      * Future math operations will operate on doubles.
      */
-    static ExpressionNumber with(final double value) {
+    static ExpressionNumberDouble with(final double value) {
         return ExpressionNumberDouble.withDouble(value);
     }
 
@@ -51,7 +51,7 @@ public abstract class ExpressionNumber extends Number implements Comparable<Expr
      * Creates a {@link ExpressionNumber} wrapping the given {@link BigDecimal}.
      * Future math operations will operate on {@link BigDecimal}.
      */
-    public static ExpressionNumber with(final BigDecimal value) {
+    static ExpressionNumberBigDecimal with(final BigDecimal value) {
         return ExpressionNumberBigDecimal.withBigDecimal(value);
     }
 

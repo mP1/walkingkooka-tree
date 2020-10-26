@@ -64,7 +64,7 @@ public final class ExpressionNodeSelectorToStringExpressionVisitorTest implement
 
     @Test
     public void testExpressionNumber() {
-        this.toStringAndCheck(Expression.expressionNumber(ExpressionNumber.with(BigDecimal.valueOf(123.75))), "123.75");
+        this.toStringAndCheck(Expression.expressionNumber(ExpressionNumberKind.DEFAULT.create(BigDecimal.valueOf(123.75))), "123.75");
     }
 
     @Test
