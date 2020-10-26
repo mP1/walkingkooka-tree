@@ -99,7 +99,7 @@ public final class DivideExpressionTest extends BinaryArithmeticExpressionTestCa
 
     @Test
     public void testEvaluateToExpressionNumber() {
-        this.evaluateAndCheckExpressionNumber(this.createExpression(expressionNumber(60), expressionNumber(5)), ExpressionNumber.with(60.0 / 5));
+        this.evaluateAndCheckExpressionNumber(this.createExpression(expressionNumber(60), expressionNumber(5)), expressionNumberValue(60.0 / 5));
     }
 
     @Override

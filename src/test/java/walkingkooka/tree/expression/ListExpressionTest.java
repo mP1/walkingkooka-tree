@@ -99,8 +99,8 @@ public final class ListExpressionTest extends VariableExpressionTestCase<ListExp
 
     @Test
     public void testToExpressionNumber() {
-        final BigDecimal value = BigDecimal.valueOf(123);
-        this.evaluateAndCheckExpressionNumber(this.createExpression(), context(ExpressionNumber.with(value)), ExpressionNumber.with(value));
+        final int value = 123;
+        this.evaluateAndCheckExpressionNumber(this.createExpression(), context(this.expressionNumberValue(value)), expressionNumberValue(value));
     }
 
     @Test

@@ -30,22 +30,22 @@ public final class ExpressionNumberConverterToExpressionNumberTest implements Co
 
     @Test
     public void testConvertersSimpleFails() {
-        this.convertFails(Converters.simple(), ExpressionNumber.with(1), ExpressionNumber.class);
+        this.convertFails(Converters.simple(), ExpressionNumberKind.DEFAULT.create(1), ExpressionNumber.class);
     }
 
     @Test
     public void testExpressionNumberBigDecimal() {
-        this.convertAndCheck(ExpressionNumber.with(1.0), ExpressionNumber.class);
+        this.convertAndCheck(ExpressionNumberKind.BIG_DECIMAL.create(1.0), ExpressionNumber.class);
     }
 
     @Test
     public void testExpressionNumberDouble() {
-        this.convertAndCheck(ExpressionNumber.with(1.0), ExpressionNumber.class);
+        this.convertAndCheck(ExpressionNumberKind.DOUBLE.create(1.0), ExpressionNumber.class);
     }
 
     @Test
     public void testExpressionNumberValueDifferentType() {
-        this.convertFails(ExpressionNumber.with(1), this.getClass());
+        this.convertFails(ExpressionNumberKind.DEFAULT.create(1), this.getClass());
     }
 
     @Test

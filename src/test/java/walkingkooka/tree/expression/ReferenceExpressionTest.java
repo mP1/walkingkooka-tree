@@ -75,7 +75,7 @@ public final class ReferenceExpressionTest extends LeafExpressionTestCase<Refere
 
     @Test
     public void testToExpressionNumber() {
-        this.evaluateAndCheckExpressionNumber(this.createExpression(), this.context("123"), ExpressionNumber.with(123));
+        this.evaluateAndCheckExpressionNumber(this.createExpression(), this.context("123"), expressionNumberValue(123));
     }
 
     @Test

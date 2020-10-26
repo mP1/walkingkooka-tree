@@ -67,7 +67,7 @@ public final class StringExpressionTest extends LeafExpressionTestCase<StringExp
 
     @Test
     public void testToExpressionNumber() {
-        this.evaluateAndCheckExpressionNumber(this.createExpression("123"), ExpressionNumber.with(123));
+        this.evaluateAndCheckExpressionNumber(this.createExpression("123"), expressionNumberValue(123));
     }
 
     @Test

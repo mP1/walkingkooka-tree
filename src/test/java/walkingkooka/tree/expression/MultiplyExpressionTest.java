@@ -99,7 +99,7 @@ public final class MultiplyExpressionTest extends BinaryArithmeticExpressionTest
 
     @Test
     public void testEvaluateToExpressionNumber() {
-        this.evaluateAndCheckExpressionNumber(this.createExpression(expressionNumber(12), expressionNumber(34)), ExpressionNumber.with(12 * 34));
+        this.evaluateAndCheckExpressionNumber(this.createExpression(expressionNumber(12), expressionNumber(34)), expressionNumberValue(12 * 34));
     }
 
     @Override

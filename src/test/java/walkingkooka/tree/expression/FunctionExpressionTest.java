@@ -127,7 +127,7 @@ public final class FunctionExpressionTest extends VariableExpressionTestCase<Fun
     public void testToExpressionNumber() {
         this.evaluateAndCheckExpressionNumber(this.createExpression(),
                 this.context("123"),
-                ExpressionNumberKind.DEFAULT.create(123));
+                expressionNumberValue(123));
     }
 
     @Test

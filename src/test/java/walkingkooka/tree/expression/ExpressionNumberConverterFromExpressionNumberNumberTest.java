@@ -90,12 +90,12 @@ public final class ExpressionNumberConverterFromExpressionNumberNumberTest imple
 
     @Test
     public void testExpressionNumberBigDecimal() {
-        this.convertAndCheck2(ExpressionNumber.with(BigDecimal.valueOf(128.5)), "128.5");
+        this.convertAndCheck2(ExpressionNumberKind.BIG_DECIMAL.create(BigDecimal.valueOf(128.5)), "128.5");
     }
 
     @Test
     public void testExpressionNumberDouble() {
-        this.convertAndCheck2(ExpressionNumber.with(128.5), "128.5");
+        this.convertAndCheck2(ExpressionNumberKind.DOUBLE.create(128.5), "128.5");
     }
 
     private void convertAndCheck2(final Object value,

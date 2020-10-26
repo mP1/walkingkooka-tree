@@ -99,12 +99,12 @@ public final class ModuloExpressionTest extends BinaryArithmeticExpressionTestCa
 
     @Test
     public void testEvaluateToNumberNumber() {
-        this.evaluateAndCheckExpressionNumber(this.createExpression(expressionNumber(12), expressionNumber(34)), ExpressionNumber.with(12 % 34));
+        this.evaluateAndCheckExpressionNumber(this.createExpression(expressionNumber(12), expressionNumber(34)), expressionNumberValue(12 % 34));
     }
 
     @Test
     public void testEvaluateToNumberText() {
-        this.evaluateAndCheckExpressionNumber(this.createExpression(expressionNumber(12), text(34)), ExpressionNumber.with(12 % 34));
+        this.evaluateAndCheckExpressionNumber(this.createExpression(expressionNumber(12), text(34)), expressionNumberValue(12 % 34));
     }
 
     @Override
