@@ -17,7 +17,6 @@
 
 package walkingkooka.tree.expression;
 
-import walkingkooka.convert.Converter;
 import walkingkooka.math.HasMathContext;
 
 public interface ExpressionNumberContext extends HasMathContext {
