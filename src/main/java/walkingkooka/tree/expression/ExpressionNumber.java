@@ -346,12 +346,10 @@ public abstract class ExpressionNumber extends Number implements Comparable<Expr
 
     @Override
     public final boolean equals(final Object other) {
-        return this == other || this.canBeEqual(other) && this.equals0((ExpressionNumber) other);
+        return this == other || this.canBeEqual(other) && ComparisonRelation.EQ.test(this.compare0((ExpressionNumber) other));
     }
 
     abstract boolean canBeEqual(final Object other);
-
-    abstract boolean equals0(final ExpressionNumber other);
 
     /**
      * If the toString has only decimal zeros remove them.

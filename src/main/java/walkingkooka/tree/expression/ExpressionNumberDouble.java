@@ -340,15 +340,6 @@ final class ExpressionNumberDouble extends ExpressionNumber {
         return other instanceof ExpressionNumberDouble;
     }
 
-    @Override
-    boolean equals0(final ExpressionNumber other) {
-        return this.equals1((ExpressionNumberDouble) other);
-    }
-
-    private boolean equals1(final ExpressionNumberDouble other) {
-        return ComparisonRelation.EQ.test(Double.compare(this.value, other.value));
-    }
-
     // Comparable.......................................................................................................
 
     int compareTo0(final ExpressionNumber other) {
