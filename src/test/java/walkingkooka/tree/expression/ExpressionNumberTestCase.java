@@ -864,6 +864,9 @@ public abstract class ExpressionNumberTestCase<N extends ExpressionNumber> imple
     abstract N create(final double value);
 
     final void checkValue(final double value, final ExpressionNumber number) {
+        assertEquals(this instanceof ExpressionNumberBigDecimalTest, number.isBigDecimal(), "result is wrong kind");
+        assertEquals(this instanceof ExpressionNumberDoubleTest, number.isDouble(), "result is wrong kind");
+
         try {
             this.checkValue0(value, (N) number);
         } catch (final ClassCastException again) {
