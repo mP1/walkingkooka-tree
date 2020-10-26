@@ -46,6 +46,16 @@ final class ExpressionNumberDouble extends ExpressionNumber {
         return ExpressionNumberKind.DOUBLE;
     }
 
+    @Override
+    ExpressionNumberBigDecimal setKindBigDecimal() {
+        return ExpressionNumberBigDecimal.with(this.bigDecimal());
+    }
+
+    @Override
+    ExpressionNumberDouble setKindDouble() {
+        return this;
+    }
+
     // abs..............................................................................................................
 
     @Override
