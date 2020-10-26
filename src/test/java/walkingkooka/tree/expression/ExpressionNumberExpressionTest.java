@@ -101,12 +101,12 @@ public final class ExpressionNumberExpressionTest extends LeafExpressionTestCase
 
     @Override
     ExpressionNumber value() {
-        return ExpressionNumberKind.DEFAULT.create(1);
+        return this.expressionNumberValue(1);
     }
 
     @Override
     ExpressionNumber differentValue() {
-        return ExpressionNumberKind.DEFAULT.create(999);
+        return this.expressionNumberValue(999);
     }
 
     @Override
