@@ -57,6 +57,21 @@ public abstract class ExpressionNumberTestCase<N extends ExpressionNumber> imple
         assertSame(kind.numberType(), number.value().getClass());
     }
 
+    @Test
+    public final void setKindNullFails() {
+        final N number = this.create();
+        assertThrows(NullPointerException.class, () -> this.create().setKind(null));
+    }
+
+    @Test
+    public final void setKindSame() {
+        final N number = this.create();
+        assertSame(number, number.setKind(number.kind()));
+    }
+
+    @Test
+    public abstract void setKindDifferent();
+
     // abs..............................................................................................................
 
     @Test

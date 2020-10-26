@@ -23,6 +23,7 @@ import java.math.BigDecimal;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertNotSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class ExpressionNumberBigDecimalTest extends ExpressionNumberTestCase<ExpressionNumberBigDecimal> {
@@ -30,6 +31,16 @@ public final class ExpressionNumberBigDecimalTest extends ExpressionNumberTestCa
     @Test
     public void testWithNullBigDecimalFails() {
         assertThrows(NullPointerException.class, () -> ExpressionNumberBigDecimal.withBigDecimal(null));
+    }
+
+    @Override
+    @Test
+    public void setKindDifferent() {
+        final double value = 1.5;
+        final ExpressionNumberBigDecimal number = this.create(value);
+        final ExpressionNumberDouble different = (ExpressionNumberDouble)number.setKind(ExpressionNumberKind.DOUBLE);
+        assertNotSame(number, different);
+        assertEquals(value, different.doubleValue());
     }
 
     // hashCode.........................................................................................................

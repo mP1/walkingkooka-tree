@@ -89,6 +89,23 @@ public abstract class ExpressionNumber extends Number implements Comparable<Expr
      */
     public abstract ExpressionNumberKind kind();
 
+    /**
+     * Would be setter that changes the kind of the {@link ExpressionNumber}.
+     */
+    public final ExpressionNumber setKind(final ExpressionNumberKind kind) {
+        Objects.requireNonNull(kind, "kind");
+
+        return ExpressionNumberKind.BIG_DECIMAL == kind ?
+                this.setKindBigDecimal() :
+                this.setKindDouble();
+    }
+
+    abstract ExpressionNumberBigDecimal setKindBigDecimal();
+
+    abstract ExpressionNumberDouble setKindDouble();
+
+    // value............................................................................................................
+
     abstract Object value();
 
     // abs..............................................................................................................
