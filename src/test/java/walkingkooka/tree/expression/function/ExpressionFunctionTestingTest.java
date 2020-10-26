@@ -23,6 +23,7 @@ import walkingkooka.Either;
 import walkingkooka.reflect.ClassTesting;
 import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.tree.expression.ExpressionNumber;
+import walkingkooka.tree.expression.ExpressionNumberKind;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -50,12 +51,12 @@ public final class ExpressionFunctionTestingTest implements ClassTesting<Express
 
     @Test
     public void testConvertStringToExpressionNumber() {
-        this.convertAndCheck("123", ExpressionNumber.class, ExpressionNumber.with(123));
+        this.convertAndCheck("123", ExpressionNumber.class, ExpressionNumberKind.DEFAULT.create(123));
     }
 
     @Test
     public void testConvertStringToExpressionNumber2() {
-        this.convertAndCheck("123.5", ExpressionNumber.class, ExpressionNumber.with(123.5));
+        this.convertAndCheck("123.5", ExpressionNumber.class, ExpressionNumberKind.DEFAULT.create(123.5));
     }
 
     @Test
@@ -70,7 +71,7 @@ public final class ExpressionFunctionTestingTest implements ClassTesting<Express
 
     @Test
     public void testConvertIntegerToExpressionNumberFalse() {
-        this.convertAndCheck(123, ExpressionNumber.class, ExpressionNumber.with(123));
+        this.convertAndCheck(123, ExpressionNumber.class, ExpressionNumberKind.DEFAULT.create(123));
     }
 
     private <T> void convertAndCheck(final Object value,

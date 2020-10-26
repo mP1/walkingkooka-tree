@@ -41,6 +41,7 @@ import walkingkooka.tree.TestNode;
 import walkingkooka.tree.expression.Expression;
 import walkingkooka.tree.expression.ExpressionNumber;
 import walkingkooka.tree.expression.ExpressionNumberExpression;
+import walkingkooka.tree.expression.ExpressionNumberKind;
 import walkingkooka.tree.expression.FunctionExpressionName;
 import walkingkooka.tree.expression.function.ExpressionFunctionContext;
 import walkingkooka.tree.expression.function.FakeExpressionFunctionContext;
@@ -1826,7 +1827,7 @@ public final class NodeSelectorNodeSelectorParserTokenVisitorTest implements Nod
                             case "number": {
                                 final Object parameter = parameters.get(0);
                                 if (parameter instanceof String) {
-                                    return ExpressionNumber.with(new BigDecimal((String) parameter));
+                                    return ExpressionNumberKind.DEFAULT.create(new BigDecimal((String) parameter));
                                 }
                                 return parameter;
                             }
@@ -1873,11 +1874,11 @@ public final class NodeSelectorNodeSelectorParserTokenVisitorTest implements Nod
 
                         if (ExpressionNumber.class == target) {
                             if (value instanceof Number) {
-                                return Cast.to(Either.left(ExpressionNumber.with((Number) value)));
+                                return Cast.to(Either.left(ExpressionNumberKind.DEFAULT.create((Number) value)));
                             }
                             if (value instanceof Boolean) {
                                 final Boolean booleanValue = (Boolean) value;
-                                return Cast.to(Either.left(ExpressionNumber.with(booleanValue ? BigDecimal.ONE : BigDecimal.ZERO)));
+                                return Cast.to(Either.left(ExpressionNumberKind.DEFAULT.create(booleanValue ? BigDecimal.ONE : BigDecimal.ZERO)));
                             }
                         }
 
@@ -1946,7 +1947,7 @@ public final class NodeSelectorNodeSelectorParserTokenVisitorTest implements Nod
     }
 
     private ExpressionNumberExpression expressionNumberExpression(final int value) {
-        return Expression.expressionNumber(ExpressionNumber.with(BigDecimal.valueOf(value))); // NodeSelectorNumberParserToken requires BigDecimal
+        return Expression.expressionNumber(ExpressionNumberKind.DEFAULT.create(value)); // NodeSelectorNumberParserToken requires BigDecimal
     }
 
     @Override

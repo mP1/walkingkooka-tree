@@ -98,7 +98,7 @@ public abstract class ExpressionTestCase<N extends Expression> implements ClassT
     }
 
     final ExpressionNumber expressionNumberValue(final double value) {
-        return ExpressionNumber.with(value);
+        return ExpressionNumberKind.DEFAULT.create(value);
     }
 
     final LocalDate localDateValue(final long value) {
@@ -150,7 +150,7 @@ public abstract class ExpressionTestCase<N extends Expression> implements ClassT
 
     final void evaluateAndCheckExpressionNumber(final Expression node,
                                                 final double expected) {
-        this.evaluateAndCheckExpressionNumber(node, ExpressionNumber.with(expected));
+        this.evaluateAndCheckExpressionNumber(node, expressionNumberValue(expected));
     }
 
     final void evaluateAndCheckExpressionNumber(final Expression node,
@@ -265,18 +265,18 @@ public abstract class ExpressionTestCase<N extends Expression> implements ClassT
                 // localDate ->
                 toBoolean(LocalDate.class, LocalDate.ofEpochDay(0)),
                 Converters.localDateLocalDateTime(),
-                ExpressionNumber.toExpressionNumberDoubleConverter(Converters.localDateNumber(Converters.JAVA_EPOCH_OFFSET)),
+                ExpressionNumberKind.DEFAULT.toConverter(Converters.localDateNumber(Converters.JAVA_EPOCH_OFFSET)),
                 Converters.localDateString((c) -> DateTimeFormatter.ISO_LOCAL_DATE),
                 // localDateTime ->
                 toBoolean(LocalDateTime.class, LocalDateTime.ofEpochSecond(0, 0, ZoneOffset.UTC)),
                 Converters.localDateTimeLocalDate(),
                 Converters.localDateTimeLocalTime(),
-                ExpressionNumber.toExpressionNumberDoubleConverter(Converters.localDateTimeNumber(Converters.JAVA_EPOCH_OFFSET)),
+                ExpressionNumberKind.DEFAULT.toConverter(Converters.localDateTimeNumber(Converters.JAVA_EPOCH_OFFSET)),
                 Converters.localDateTimeString((c) -> DateTimeFormatter.ISO_LOCAL_DATE_TIME),
                 // localTime
                 toBoolean(LocalTime.class, LocalTime.ofNanoOfDay(0)),
                 Converters.localTimeLocalDateTime(),
-                ExpressionNumber.toExpressionNumberDoubleConverter(Converters.localTimeNumber()),
+                ExpressionNumberKind.DEFAULT.toConverter(Converters.localTimeNumber()),
                 Converters.localTimeString((c) -> DateTimeFormatter.ISO_LOCAL_TIME),
                 // ExpressionNumber ->),
                 ExpressionNumber.fromExpressionNumberConverter(Converters.numberNumber()),
@@ -297,14 +297,14 @@ public abstract class ExpressionTestCase<N extends Expression> implements ClassT
                 stringLocalDate,
                 stringLocalDateTime,
                 stringLocalTime,
-                ExpressionNumber.toExpressionNumberDoubleConverter(stringDouble),
+                ExpressionNumberKind.DEFAULT.toConverter(stringDouble),
                 Converters.objectString(),
                 // boolean ->
                 listToBoolean(),
                 fromBoolean(LocalDate.class, Converters.numberLocalDate(Converters.JAVA_EPOCH_OFFSET)),
                 fromBoolean(LocalDateTime.class, Converters.numberLocalDateTime(Converters.JAVA_EPOCH_OFFSET)),
                 fromBoolean(LocalTime.class, Converters.numberLocalTime()),
-                fromBoolean(ExpressionNumber.class, ExpressionNumber.toExpressionNumberDoubleConverter(Converters.numberNumber()))));
+                fromBoolean(ExpressionNumber.class, ExpressionNumberKind.DEFAULT.toConverter(Converters.numberNumber()))));
 
         return new FakeExpressionEvaluationContext() {
 

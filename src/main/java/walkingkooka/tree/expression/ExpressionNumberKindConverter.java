@@ -32,25 +32,25 @@ import java.util.Objects;
  * and then the ExpressionNumber created. To convert {@link Number} to {@link ExpressionNumber} the wrapped
  * converter should probably be {@link Converters#numberNumber()}.
  */
-abstract class ExpressionNumberConverterToNumberExpressionNumber<E> implements Converter {
+final class ExpressionNumberKindConverter implements Converter {
 
-    static Converter expressionNumberBigDecimal(final Converter converter) {
-        return ExpressionNumberConverterToNumberExpressionNumberBigDecimal.with(converter);
-    }
-
-    static Converter expressionNumberDouble(final Converter converter) {
-        return ExpressionNumberConverterToNumberExpressionNumberDouble.with(converter);
-    }
-
-    static void checkConverter(final Converter converter) {
+    /**
+     * Factory that creates a new {@link ExpressionNumberKindConverter}. This should only be called by {@link ExpressionNumberKind#toConverter(Converter)}.
+     */
+    static ExpressionNumberKindConverter with(final ExpressionNumberKind kind,
+                                              final Converter converter) {
         Objects.requireNonNull(converter, "converter");
+
+        return new ExpressionNumberKindConverter(kind, converter);
     }
 
     /**
-     * Package private to limit subclassing.
+     * Private ctor use factory
      */
-    ExpressionNumberConverterToNumberExpressionNumber(final Converter converter) {
+    private ExpressionNumberKindConverter(final ExpressionNumberKind kind,
+                                          final Converter converter) {
         super();
+        this.kind = kind;
         this.converter = converter;
     }
 
@@ -67,7 +67,9 @@ abstract class ExpressionNumberConverterToNumberExpressionNumber<E> implements C
     /**
      * Returns either {@link BigDecimal} | {@link Double}.
      */
-    abstract Class<E> expressionTypeValue();
+    private Class<?> expressionTypeValue() {
+        return this.kind.numberType();
+    }
 
     private boolean converterCanConvert(final Object value,
                                         final Class<?> type,
@@ -96,21 +98,18 @@ abstract class ExpressionNumberConverterToNumberExpressionNumber<E> implements C
     private <T> Either<T, String> converterConvertAndCreateExpressionNumber(final Object value,
                                                                             final Class<T> type,
                                                                             final ConverterContext context) {
-        final Either<E, String> result = this.converter.convert(value, this.expressionTypeValue(), context);
+        final Either<T, String> result = Cast.to(this.converter.convert(value, this.expressionTypeValue(), context));
         return result.isRight() ?
                 this.failConversion(value, type) :
-                Cast.to(Either.left(this.expressionNumber(result.leftValue())));
+                Cast.to(Either.left(this.kind.create((Number) result.leftValue())));
     }
 
-    /**
-     * Factory that calls either of the two {@link ExpressionNumber} methods to wrap a {@link Double} or {@link java.math.BigDecimal}
-     */
-    abstract ExpressionNumber expressionNumber(final E value);
+    private final ExpressionNumberKind kind;
 
     /**
      * The {@link Converter}
      */
-    final Converter converter;
+    private final Converter converter;
 
     // Object...........................................................................................................
 

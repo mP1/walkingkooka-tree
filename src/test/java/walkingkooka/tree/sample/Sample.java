@@ -26,6 +26,7 @@ import walkingkooka.text.cursor.parser.ParserReporters;
 import walkingkooka.text.cursor.parser.ParserToken;
 import walkingkooka.tree.expression.Expression;
 import walkingkooka.tree.expression.ExpressionNumber;
+import walkingkooka.tree.expression.ExpressionNumberKind;
 import walkingkooka.tree.select.NodeSelector;
 import walkingkooka.tree.select.parser.NodeSelectorParserContext;
 import walkingkooka.tree.select.parser.NodeSelectorParserContexts;
@@ -54,7 +55,7 @@ public final class Sample {
                 .cast(NodeSelectorParserToken.class);
         assertEquals(NodeSelector.absolute()
                         .named(Names.string("node123"))
-                        .expression(Expression.expressionNumber(ExpressionNumber.with(45)))
+                        .expression(Expression.expressionNumber(ExpressionNumberKind.DEFAULT.create(45)))
                 .toString(),
                 ParserToken.text(Lists.of(token)));
     }

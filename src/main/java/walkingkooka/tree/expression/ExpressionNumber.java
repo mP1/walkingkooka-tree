@@ -40,17 +40,10 @@ public abstract class ExpressionNumber extends Number implements Comparable<Expr
     private static final long serialVersionUID = 0L;
 
     /**
-     * Accepts any JRE number and wraps that value in a {@link ExpressionNumber}
-     */
-    public static ExpressionNumber with(final Number value) {
-        return ExpressionNumberNumberVisitor.toExpressionNumber(value);
-    }
-
-    /**
      * Creates a {@link ExpressionNumber} wrapping the given {@link Double}.
      * Future math operations will operate on doubles.
      */
-    public static ExpressionNumber with(final double value) {
+    static ExpressionNumber with(final double value) {
         return ExpressionNumberDouble.withDouble(value);
     }
 
@@ -67,20 +60,6 @@ public abstract class ExpressionNumber extends Number implements Comparable<Expr
      */
     public static Converter toExpressionNumber() {
         return ExpressionNumberConverterToExpressionNumber.INSTANCE;
-    }
-
-    /**
-     * {@see ExpressionNumberConverterToNumberExpressionNumberBigDecimal.expressionNumberBigDecimal}
-     */
-    public static Converter toExpressionNumberBigDecimalConverter(final Converter converter) {
-        return ExpressionNumberConverterToNumberExpressionNumber.expressionNumberBigDecimal(converter);
-    }
-
-    /**
-     * {@see ExpressionNumberConverterToNumberExpressionNumber#expressionNumberDouble}
-     */
-    public static Converter toExpressionNumberDoubleConverter(final Converter converter) {
-        return ExpressionNumberConverterToNumberExpressionNumber.expressionNumberDouble(converter);
     }
 
     /**
@@ -104,6 +83,11 @@ public abstract class ExpressionNumber extends Number implements Comparable<Expr
     public final boolean isDouble() {
         return this instanceof ExpressionNumberDouble;
     }
+
+    /**
+     * Returns the matching {@link ExpressionNumberKind} for this kind of {@link ExpressionNumber}.
+     */
+    public abstract ExpressionNumberKind kind();
 
     abstract Object value();
 

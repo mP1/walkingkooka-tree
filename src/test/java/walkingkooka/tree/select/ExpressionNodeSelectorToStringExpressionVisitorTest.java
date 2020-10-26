@@ -29,6 +29,7 @@ import walkingkooka.text.cursor.parser.ParserReporterException;
 import walkingkooka.text.cursor.parser.ParserReporters;
 import walkingkooka.tree.expression.Expression;
 import walkingkooka.tree.expression.ExpressionNumber;
+import walkingkooka.tree.expression.ExpressionNumberKind;
 import walkingkooka.tree.expression.ExpressionVisitorTesting;
 import walkingkooka.tree.expression.FunctionExpressionName;
 import walkingkooka.tree.select.parser.NodeSelectorParserContexts;
@@ -186,7 +187,7 @@ public final class ExpressionNodeSelectorToStringExpressionVisitorTest implement
 
     @Test
     public void testNot2() {
-        this.toStringAndCheck(Expression.not(Expression.expressionNumber(ExpressionNumber.with(1))), "not(1)");
+        this.toStringAndCheck(Expression.not(Expression.expressionNumber(ExpressionNumberKind.DEFAULT.create(1))), "not(1)");
     }
 
     @Test
@@ -209,8 +210,8 @@ public final class ExpressionNodeSelectorToStringExpressionVisitorTest implement
         this.toStringAndCheck(Expression.function(
                 FunctionExpressionName.with("fx"),
                 Lists.of(
-                        Expression.expressionNumber(ExpressionNumber.with(1)),
-                        Expression.expressionNumber(ExpressionNumber.with(BigDecimal.valueOf(2.5)))
+                        Expression.expressionNumber(ExpressionNumberKind.DEFAULT.create(1)),
+                        Expression.expressionNumber(ExpressionNumberKind.DEFAULT.create(2.5))
                 )),
                 "fx(1,2.5)");
     }

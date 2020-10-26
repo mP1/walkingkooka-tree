@@ -50,6 +50,13 @@ public abstract class ExpressionNumberTestCase<N extends ExpressionNumber> imple
         super();
     }
 
+    @Test
+    public final void testKind() {
+        final N number = this.create();
+        final ExpressionNumberKind kind = number.kind();
+        assertSame(kind.numberType(), number.value().getClass());
+    }
+
     // abs..............................................................................................................
 
     @Test

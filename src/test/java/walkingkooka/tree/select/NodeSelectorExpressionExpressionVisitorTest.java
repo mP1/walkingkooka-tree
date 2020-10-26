@@ -26,6 +26,7 @@ import walkingkooka.tree.TestNode;
 import walkingkooka.tree.expression.Expression;
 import walkingkooka.tree.expression.ExpressionNumber;
 import walkingkooka.tree.expression.ExpressionNumberExpression;
+import walkingkooka.tree.expression.ExpressionNumberKind;
 import walkingkooka.tree.expression.ExpressionVisitorTesting;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -38,7 +39,7 @@ public final class NodeSelectorExpressionExpressionVisitorTest implements Expres
     }
 
     private ExpressionNumberExpression expressionNumberExpression(final int value) {
-        return Expression.expressionNumber(ExpressionNumber.with(value));
+        return Expression.expressionNumber(ExpressionNumberKind.DEFAULT.create(value));
     }
 
     @Test

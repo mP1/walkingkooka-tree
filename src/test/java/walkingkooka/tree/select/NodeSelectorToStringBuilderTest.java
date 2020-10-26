@@ -28,6 +28,7 @@ import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.tree.expression.Expression;
 import walkingkooka.tree.expression.ExpressionNumber;
 import walkingkooka.tree.expression.ExpressionNumberExpression;
+import walkingkooka.tree.expression.ExpressionNumberKind;
 import walkingkooka.tree.expression.FunctionExpressionName;
 
 import java.util.function.Predicate;
@@ -514,7 +515,7 @@ public final class NodeSelectorToStringBuilderTest implements ClassTesting2<Node
     }
 
     private ExpressionNumberExpression expressionNumber(final double value) {
-        return Expression.expressionNumber(ExpressionNumber.with(value));
+        return Expression.expressionNumber(ExpressionNumberKind.DEFAULT.create(value));
     }
 
     private StringName abc1() {

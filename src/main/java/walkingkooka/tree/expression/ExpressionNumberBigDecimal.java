@@ -47,6 +47,11 @@ final class ExpressionNumberBigDecimal extends ExpressionNumber {
         return this.value;
     }
 
+    @Override
+    public ExpressionNumberKind kind() {
+        return ExpressionNumberKind.BIG_DECIMAL;
+    }
+
     // abs..............................................................................................................
 
     @Override

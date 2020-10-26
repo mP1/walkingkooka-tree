@@ -41,6 +41,11 @@ final class ExpressionNumberDouble extends ExpressionNumber {
         return this.value;
     }
 
+    @Override
+    public ExpressionNumberKind kind() {
+        return ExpressionNumberKind.DOUBLE;
+    }
+
     // abs..............................................................................................................
 
     @Override
