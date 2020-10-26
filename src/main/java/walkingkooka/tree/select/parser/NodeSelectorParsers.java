@@ -209,11 +209,17 @@ public final class NodeSelectorParsers implements PublicStaticHelper {
 
     private static final EbnfIdentifierName NUMBER_IDENTIFIER = EbnfIdentifierName.with("NUMBER");
     private static final Parser<ParserContext> NUMBER_PARSER = Parsers.bigDecimal()
-            .transform(NodeSelectorParsers::number)
+            .transform(NodeSelectorParsers::expressionNumber)
             .setToString(NUMBER_IDENTIFIER.toString());
 
-    private static ParserToken number(final ParserToken token, final ParserContext context) {
-        return NodeSelectorParserToken.number(((BigDecimalParserToken) token).value(), token.text());
+    private static ParserToken expressionNumber(final ParserToken token,
+                                                final ParserContext context) {
+        return expressionNumber0(token.cast(BigDecimalParserToken.class), (NodeSelectorParserContext) context);
+    }
+
+    private static ParserToken expressionNumber0(final BigDecimalParserToken token,
+                                                 final NodeSelectorParserContext context) {
+        return NodeSelectorParserToken.expressionNumber(context.expressionNumberKind().create(token.value()), token.text());
     }
 
     private static final EbnfIdentifierName OR_IDENTIFIER = EbnfIdentifierName.with("OR");

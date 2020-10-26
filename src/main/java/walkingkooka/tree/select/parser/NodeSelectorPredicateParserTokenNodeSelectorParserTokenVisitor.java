@@ -22,7 +22,6 @@ import walkingkooka.collect.stack.Stack;
 import walkingkooka.collect.stack.Stacks;
 import walkingkooka.text.CharSequences;
 import walkingkooka.tree.expression.Expression;
-import walkingkooka.tree.expression.ExpressionNumber;
 import walkingkooka.tree.expression.ExpressionNumberKind;
 import walkingkooka.tree.expression.ExpressionReference;
 import walkingkooka.tree.expression.FunctionExpressionName;
@@ -251,7 +250,7 @@ final class NodeSelectorPredicateParserTokenNodeSelectorParserTokenVisitor exten
     }
 
     @Override
-    protected void visit(final NodeSelectorNumberParserToken token) {
+    protected void visit(final NodeSelectorExpressionNumberParserToken token) {
         this.add(Expression.expressionNumber(ExpressionNumberKind.DEFAULT.create(token.value())), token);
     }
 

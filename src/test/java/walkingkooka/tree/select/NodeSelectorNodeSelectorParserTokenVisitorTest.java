@@ -40,6 +40,7 @@ import walkingkooka.text.cursor.parser.ParserReporters;
 import walkingkooka.tree.TestNode;
 import walkingkooka.tree.expression.Expression;
 import walkingkooka.tree.expression.ExpressionNumber;
+import walkingkooka.tree.expression.ExpressionNumberContexts;
 import walkingkooka.tree.expression.ExpressionNumberExpression;
 import walkingkooka.tree.expression.ExpressionNumberKind;
 import walkingkooka.tree.expression.FunctionExpressionName;
@@ -62,6 +63,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 public final class NodeSelectorNodeSelectorParserTokenVisitorTest implements NodeSelectorParserTokenVisitorTesting<NodeSelectorNodeSelectorParserTokenVisitor<TestNode, StringName, StringName, Object>> {
+
+    private final static ExpressionNumberKind EXPRESSION_NUMBER_KIND = ExpressionNumberKind.DEFAULT;
 
     @BeforeEach
     public void beforeEachTest() {
@@ -1924,7 +1927,7 @@ public final class NodeSelectorNodeSelectorParserTokenVisitorTest implements Nod
         return NodeSelectorParsers.expression()
                 .orFailIfCursorNotEmpty(ParserReporters.basic())
                 .parse(TextCursors.charSequence(expression),
-                        NodeSelectorParserContexts.basic(decimalNumberContext()))
+                        NodeSelectorParserContexts.basic(ExpressionNumberContexts.basic(EXPRESSION_NUMBER_KIND, this.decimalNumberContext().mathContext())))
                 .orElseThrow(() -> new UnsupportedOperationException(expression))
                 .cast(NodeSelectorExpressionParserToken.class);
     }
@@ -1947,7 +1950,7 @@ public final class NodeSelectorNodeSelectorParserTokenVisitorTest implements Nod
     }
 
     private ExpressionNumberExpression expressionNumberExpression(final int value) {
-        return Expression.expressionNumber(ExpressionNumberKind.DEFAULT.create(value)); // NodeSelectorNumberParserToken requires BigDecimal
+        return Expression.expressionNumber(EXPRESSION_NUMBER_KIND.create(value)); // NodeSelectorExpressionNumberParserToken requires BigDecimal
     }
 
     @Override

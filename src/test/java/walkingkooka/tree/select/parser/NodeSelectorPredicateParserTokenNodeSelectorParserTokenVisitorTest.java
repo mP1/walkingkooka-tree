@@ -23,6 +23,7 @@ import walkingkooka.collect.list.Lists;
 import walkingkooka.predicate.Predicates;
 import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.reflect.ThrowableTesting;
+import walkingkooka.tree.expression.ExpressionNumberKind;
 import walkingkooka.tree.select.NodeSelectorException;
 
 import java.math.BigDecimal;
@@ -35,7 +36,7 @@ public final class NodeSelectorPredicateParserTokenNodeSelectorParserTokenVisito
     @Test
     public void testUnknownFunctionFails() {
         final NodeSelectorFunctionParserToken token = NodeSelectorParserToken.function(Lists.of(NodeSelectorParserToken.functionName(NodeSelectorFunctionName.with("zyx"), "xyz"),
-                NodeSelectorParserToken.number(BigDecimal.valueOf(123), "123")),
+                NodeSelectorParserToken.expressionNumber(ExpressionNumberKind.DEFAULT.create(123), "123")),
                 "xyz");
 
         final NodeSelectorException thrown = assertThrows(NodeSelectorException.class, () -> new NodeSelectorPredicateParserTokenNodeSelectorParserTokenVisitor(Predicates.never())

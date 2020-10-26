@@ -25,6 +25,7 @@ import walkingkooka.reflect.PublicStaticFactoryTesting;
 import walkingkooka.text.CharSequences;
 import walkingkooka.text.cursor.parser.ParserToken;
 import walkingkooka.text.cursor.parser.ParserTokenTesting;
+import walkingkooka.tree.expression.ExpressionNumberKind;
 import walkingkooka.tree.select.NodeSelector;
 
 import java.math.BigDecimal;
@@ -35,6 +36,12 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 public abstract class NodeSelectorParserTokenTestCase<T extends NodeSelectorParserToken> implements ClassTesting2<T>,
         IsMethodTesting<T>,
         ParserTokenTesting<T> {
+
+    final ExpressionNumberKind EXPRESSION_NUMBER_KIND = ExpressionNumberKind.DEFAULT;
+
+    NodeSelectorParserTokenTestCase() {
+        super();
+    }
 
     @Test
     public final void testPublicStaticFactoryMethod() {
@@ -274,7 +281,7 @@ public abstract class NodeSelectorParserTokenTestCase<T extends NodeSelectorPars
     }
 
     final NodeSelectorParserToken number(final double value) {
-        return NodeSelectorParserToken.number(BigDecimal.valueOf(value), String.valueOf(value));
+        return NodeSelectorParserToken.expressionNumber(EXPRESSION_NUMBER_KIND.create(value), String.valueOf(value));
     }
 
     final NodeSelectorOrParserToken or(final NodeSelectorParserToken... tokens) {

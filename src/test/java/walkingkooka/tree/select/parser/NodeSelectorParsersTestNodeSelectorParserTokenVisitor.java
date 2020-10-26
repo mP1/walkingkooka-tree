@@ -370,7 +370,7 @@ final class NodeSelectorParsersTestNodeSelectorParserTokenVisitor extends NodeSe
     }
 
     @Override
-    protected void visit(final NodeSelectorNumberParserToken token) {
+    protected void visit(final NodeSelectorExpressionNumberParserToken token) {
         this.add(token);
     }
 

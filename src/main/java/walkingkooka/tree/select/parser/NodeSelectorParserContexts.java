@@ -19,14 +19,15 @@ package walkingkooka.tree.select.parser;
 
 import walkingkooka.math.HasMathContext;
 import walkingkooka.reflect.PublicStaticHelper;
+import walkingkooka.tree.expression.ExpressionNumberContext;
 
 public final class NodeSelectorParserContexts implements PublicStaticHelper {
 
     /**
      * {@see BasicNodeSelectorParserContext}
      */
-    public static NodeSelectorParserContext basic(final HasMathContext hasMathContext) {
-        return BasicNodeSelectorParserContext.with(hasMathContext);
+    public static NodeSelectorParserContext basic(final ExpressionNumberContext context) {
+        return BasicNodeSelectorParserContext.with(context);
     }
 
     /**

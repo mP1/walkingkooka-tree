@@ -18,14 +18,13 @@
 package walkingkooka.tree.sample;
 
 import walkingkooka.collect.list.Lists;
-import walkingkooka.math.FakeDecimalNumberContext;
 import walkingkooka.naming.Names;
 import walkingkooka.text.cursor.TextCursors;
 import walkingkooka.text.cursor.parser.Parser;
 import walkingkooka.text.cursor.parser.ParserReporters;
 import walkingkooka.text.cursor.parser.ParserToken;
 import walkingkooka.tree.expression.Expression;
-import walkingkooka.tree.expression.ExpressionNumber;
+import walkingkooka.tree.expression.ExpressionNumberContexts;
 import walkingkooka.tree.expression.ExpressionNumberKind;
 import walkingkooka.tree.select.NodeSelector;
 import walkingkooka.tree.select.parser.NodeSelectorParserContext;
@@ -40,22 +39,17 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public final class Sample {
 
     public static void main(final String[] args) throws Exception {
+        final ExpressionNumberKind kind = ExpressionNumberKind.DEFAULT;
         final Parser<NodeSelectorParserContext> parser = NodeSelectorParsers.expression()
                 .orReport(ParserReporters.basic())
                 .cast();
-        final NodeSelectorParserContext context = NodeSelectorParserContexts.basic(new FakeDecimalNumberContext() {
-            @Override
-            public MathContext mathContext() {
-                return MathContext.DECIMAL32;
-            }
-        });
-
+        final NodeSelectorParserContext context = NodeSelectorParserContexts.basic(ExpressionNumberContexts.basic(kind, MathContext.DECIMAL32));
         final NodeSelectorParserToken token = parser.parse(TextCursors.charSequence("/node123[45]"), context)
                 .get()
                 .cast(NodeSelectorParserToken.class);
         assertEquals(NodeSelector.absolute()
                         .named(Names.string("node123"))
-                        .expression(Expression.expressionNumber(ExpressionNumberKind.DEFAULT.create(45)))
+                        .expression(Expression.expressionNumber(kind.create(45)))
                 .toString(),
                 ParserToken.text(Lists.of(token)));
     }

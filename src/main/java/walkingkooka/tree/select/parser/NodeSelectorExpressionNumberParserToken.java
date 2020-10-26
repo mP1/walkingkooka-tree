@@ -16,20 +16,20 @@
  */
 package walkingkooka.tree.select.parser;
 
-import java.math.BigDecimal;
+import walkingkooka.tree.expression.ExpressionNumber;
 
 /**
  * Holds a single decimal number.
  */
-public final class NodeSelectorNumberParserToken extends NodeSelectorNonSymbolParserToken<BigDecimal> {
+public final class NodeSelectorExpressionNumberParserToken extends NodeSelectorNonSymbolParserToken<ExpressionNumber> {
 
-    static NodeSelectorNumberParserToken with(final BigDecimal value, final String text) {
+    static NodeSelectorExpressionNumberParserToken with(final ExpressionNumber value, final String text) {
         checkTextNullOrWhitespace(text);
 
-        return new NodeSelectorNumberParserToken(value, text);
+        return new NodeSelectorExpressionNumberParserToken(value, text);
     }
 
-    private NodeSelectorNumberParserToken(final BigDecimal value, final String text) {
+    private NodeSelectorExpressionNumberParserToken(final ExpressionNumber value, final String text) {
         super(value, text);
     }
 
@@ -44,6 +44,6 @@ public final class NodeSelectorNumberParserToken extends NodeSelectorNonSymbolPa
 
     @Override
     boolean canBeEqual(final Object other) {
-        return other instanceof NodeSelectorNumberParserToken;
+        return other instanceof NodeSelectorExpressionNumberParserToken;
     }
 }

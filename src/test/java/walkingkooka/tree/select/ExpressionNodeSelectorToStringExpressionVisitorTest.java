@@ -29,6 +29,7 @@ import walkingkooka.text.cursor.parser.ParserReporterException;
 import walkingkooka.text.cursor.parser.ParserReporters;
 import walkingkooka.tree.expression.Expression;
 import walkingkooka.tree.expression.ExpressionNumber;
+import walkingkooka.tree.expression.ExpressionNumberContexts;
 import walkingkooka.tree.expression.ExpressionNumberKind;
 import walkingkooka.tree.expression.ExpressionVisitorTesting;
 import walkingkooka.tree.expression.FunctionExpressionName;
@@ -47,6 +48,8 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class ExpressionNodeSelectorToStringExpressionVisitorTest implements ExpressionVisitorTesting<ExpressionNodeSelectorToStringExpressionVisitor> {
 
+    private static final ExpressionNumberKind EXPRESSION_NUMBER_KIND = ExpressionNumberKind.DEFAULT;
+
     @Test
     public void testNumber() {
         this.parseAndStringExpressionCheck("123");
@@ -64,7 +67,7 @@ public final class ExpressionNodeSelectorToStringExpressionVisitorTest implement
 
     @Test
     public void testExpressionNumber() {
-        this.toStringAndCheck(Expression.expressionNumber(ExpressionNumberKind.DEFAULT.create(BigDecimal.valueOf(123.75))), "123.75");
+        this.toStringAndCheck(Expression.expressionNumber(EXPRESSION_NUMBER_KIND.create(BigDecimal.valueOf(123.75))), "123.75");
     }
 
     @Test
@@ -250,7 +253,7 @@ public final class ExpressionNodeSelectorToStringExpressionVisitorTest implement
         return NodeSelectorParsers.predicate()
                 .orReport(ParserReporters.basic())
                 .orFailIfCursorNotEmpty(ParserReporters.basic())
-                .parse(TextCursors.charSequence(expression), NodeSelectorParserContexts.basic(DecimalNumberContexts.american(MathContext.DECIMAL32)))
+                .parse(TextCursors.charSequence(expression), NodeSelectorParserContexts.basic(ExpressionNumberContexts.basic(EXPRESSION_NUMBER_KIND,  MathContext.DECIMAL32)))
                 .orElseThrow(() -> new ParserException("Failed to parse " + CharSequences.quoteAndEscape(expression)))
                 .cast(NodeSelectorPredicateParserToken.class);
     }

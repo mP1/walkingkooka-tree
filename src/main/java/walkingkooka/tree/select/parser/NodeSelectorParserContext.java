@@ -18,6 +18,7 @@
 package walkingkooka.tree.select.parser;
 
 import walkingkooka.text.cursor.parser.ParserContext;
+import walkingkooka.tree.expression.HasExpressionNumberKind;
 
-public interface NodeSelectorParserContext extends ParserContext {
+public interface NodeSelectorParserContext extends ParserContext, HasExpressionNumberKind {
 }
