@@ -18,7 +18,8 @@
 package walkingkooka.tree.select.parser;
 
 import walkingkooka.ToStringBuilder;
-import walkingkooka.math.HasMathContext;
+import walkingkooka.tree.expression.ExpressionNumberContext;
+import walkingkooka.tree.expression.ExpressionNumberKind;
 
 import java.math.MathContext;
 import java.util.List;
@@ -33,15 +34,15 @@ final class BasicNodeSelectorParserContext implements NodeSelectorParserContext 
     /**
      * Creates a new {@link }
      */
-    static BasicNodeSelectorParserContext with(final HasMathContext hasMathContext) {
-        Objects.requireNonNull(hasMathContext, "hasMathContext");
+    static BasicNodeSelectorParserContext with(final ExpressionNumberContext context) {
+        Objects.requireNonNull(context, "context");
 
-        return new BasicNodeSelectorParserContext(hasMathContext);
+        return new BasicNodeSelectorParserContext(context);
     }
 
-    private BasicNodeSelectorParserContext(final HasMathContext hasMathContext) {
+    private BasicNodeSelectorParserContext(final ExpressionNumberContext context) {
         super();
-        this.hasMathContext = hasMathContext;
+        this.context = context;
     }
 
     @Override
@@ -65,6 +66,11 @@ final class BasicNodeSelectorParserContext implements NodeSelectorParserContext 
     }
 
     @Override
+    public ExpressionNumberKind expressionNumberKind() {
+        return this.context.expressionNumberKind();
+    }
+
+    @Override
     public char groupingSeparator() {
         throw new UnsupportedOperationException();
     }
@@ -76,10 +82,10 @@ final class BasicNodeSelectorParserContext implements NodeSelectorParserContext 
 
     @Override
     public MathContext mathContext() {
-        return this.hasMathContext.mathContext();
+        return this.context.mathContext();
     }
 
-    private final HasMathContext hasMathContext;
+    private final ExpressionNumberContext context;
 
     @Override
     public char negativeSign() {

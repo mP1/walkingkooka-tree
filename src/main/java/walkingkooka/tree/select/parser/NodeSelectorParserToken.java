@@ -22,6 +22,7 @@ import walkingkooka.text.CharSequences;
 import walkingkooka.text.Whitespace;
 import walkingkooka.text.cursor.parser.ParserToken;
 import walkingkooka.text.cursor.parser.ParserTokenVisitor;
+import walkingkooka.tree.expression.ExpressionNumber;
 import walkingkooka.visit.Visiting;
 
 import java.math.BigDecimal;
@@ -164,6 +165,13 @@ public abstract class NodeSelectorParserToken implements ParserToken {
      */
     public static NodeSelectorExpressionParserToken expression(final List<ParserToken> value, final String text) {
         return NodeSelectorExpressionParserToken.with(value, text);
+    }
+
+    /**
+     * {@see NodeSelectorExpressionNumberParserToken}
+     */
+    public static NodeSelectorExpressionNumberParserToken expressionNumber(final ExpressionNumber value, final String text) {
+        return NodeSelectorExpressionNumberParserToken.with(value, text);
     }
 
     /**
@@ -332,13 +340,6 @@ public abstract class NodeSelectorParserToken implements ParserToken {
      */
     public static NodeSelectorNotEqualsSymbolParserToken notEqualsSymbol(final String value, final String text) {
         return NodeSelectorNotEqualsSymbolParserToken.with(value, text);
-    }
-
-    /**
-     * {@see NodeSelectorNumberParserToken}
-     */
-    public static NodeSelectorNumberParserToken number(final BigDecimal value, final String text) {
-        return NodeSelectorNumberParserToken.with(value, text);
     }
 
     /**
@@ -620,6 +621,13 @@ public abstract class NodeSelectorParserToken implements ParserToken {
     }
 
     /**
+     * Only {@link NodeSelectorExpressionNumberParserToken} return true
+     */
+    public final boolean isExpressionNumber() {
+        return this instanceof NodeSelectorExpressionNumberParserToken;
+    }
+
+    /**
      * Only {@link NodeSelectorFirstChildParserToken} return true
      */
     public final boolean isFirstChild() {
@@ -785,13 +793,6 @@ public abstract class NodeSelectorParserToken implements ParserToken {
      */
     public final boolean isNotEqualsSymbol() {
         return this instanceof NodeSelectorNotEqualsSymbolParserToken;
-    }
-
-    /**
-     * Only {@link NodeSelectorNumberParserToken} return true
-     */
-    public final boolean isNumber() {
-        return this instanceof NodeSelectorNumberParserToken;
     }
 
     /**

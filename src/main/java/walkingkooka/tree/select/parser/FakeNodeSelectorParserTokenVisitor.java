@@ -337,7 +337,7 @@ public class FakeNodeSelectorParserTokenVisitor extends NodeSelectorParserTokenV
     }
 
     @Override
-    protected void visit(final NodeSelectorNumberParserToken token) {
+    protected void visit(final NodeSelectorExpressionNumberParserToken token) {
         super.visit(token);
     }
 

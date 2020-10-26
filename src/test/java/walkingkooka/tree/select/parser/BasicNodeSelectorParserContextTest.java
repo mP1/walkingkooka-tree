@@ -22,6 +22,9 @@ import walkingkooka.math.DecimalNumberContext;
 import walkingkooka.math.DecimalNumberContexts;
 import walkingkooka.reflect.ClassTesting2;
 import walkingkooka.reflect.JavaVisibility;
+import walkingkooka.tree.expression.ExpressionNumberContext;
+import walkingkooka.tree.expression.ExpressionNumberContexts;
+import walkingkooka.tree.expression.ExpressionNumberKind;
 
 import java.math.MathContext;
 
@@ -55,7 +58,7 @@ public final class BasicNodeSelectorParserContextTest implements ClassTesting2<B
 
     @Override
     public BasicNodeSelectorParserContext createContext() {
-        return BasicNodeSelectorParserContext.with(this.decimalNumberContext());
+        return BasicNodeSelectorParserContext.with(ExpressionNumberContexts.basic(ExpressionNumberKind.DEFAULT, this.mathContext()));
     }
 
     @Override

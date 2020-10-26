@@ -323,7 +323,7 @@ public abstract class NodeSelectorParserTokenVisitor extends ParserTokenVisitor 
         // nop
     }
 
-    protected void visit(final NodeSelectorNumberParserToken token) {
+    protected void visit(final NodeSelectorExpressionNumberParserToken token) {
         // nop
     }
 

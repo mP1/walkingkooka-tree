@@ -38,7 +38,7 @@ public final class NodeSelectorNegativeParserTokenTest extends NodeSelectorParen
 
         final NodeSelectorNegativeParserToken negative = this.createToken();
         final NodeSelectorMinusSymbolParserToken minus = negative.value().get(0).cast(NodeSelectorMinusSymbolParserToken.class);
-        final NodeSelectorNumberParserToken number = negative.value().get(1).cast(NodeSelectorNumberParserToken.class);
+        final NodeSelectorExpressionNumberParserToken number = negative.value().get(1).cast(NodeSelectorExpressionNumberParserToken.class);
 
         new FakeNodeSelectorParserTokenVisitor() {
             @Override
@@ -77,7 +77,7 @@ public final class NodeSelectorNegativeParserTokenTest extends NodeSelectorParen
             }
 
             @Override
-            protected void visit(final NodeSelectorNumberParserToken t) {
+            protected void visit(final NodeSelectorExpressionNumberParserToken t) {
                 assertSame(number, t);
                 b.append("6");
                 visited.add(t);

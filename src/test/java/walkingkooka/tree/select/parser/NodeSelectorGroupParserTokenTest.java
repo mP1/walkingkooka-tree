@@ -39,7 +39,7 @@ public final class NodeSelectorGroupParserTokenTest extends NodeSelectorParentPa
         final NodeSelectorGroupParserToken expression = this.createToken();
 
         final NodeSelectorParenthesisOpenSymbolParserToken open = expression.value().get(0).cast(NodeSelectorParenthesisOpenSymbolParserToken.class);
-        final NodeSelectorNumberParserToken number = expression.value().get(1).cast(NodeSelectorNumberParserToken.class);
+        final NodeSelectorExpressionNumberParserToken number = expression.value().get(1).cast(NodeSelectorExpressionNumberParserToken.class);
         final NodeSelectorParenthesisCloseSymbolParserToken close = expression.value().get(2).cast(NodeSelectorParenthesisCloseSymbolParserToken.class);
 
         new FakeNodeSelectorParserTokenVisitor() {
@@ -79,7 +79,7 @@ public final class NodeSelectorGroupParserTokenTest extends NodeSelectorParentPa
             }
 
             @Override
-            protected void visit(final NodeSelectorNumberParserToken t) {
+            protected void visit(final NodeSelectorExpressionNumberParserToken t) {
                 assertSame(number, t);
                 b.append("6");
                 visited.add(t);

@@ -19,6 +19,8 @@ package walkingkooka.tree.select.parser;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.text.cursor.parser.ParserToken;
+import walkingkooka.tree.expression.ExpressionNumber;
+import walkingkooka.tree.expression.ExpressionNumberKind;
 import walkingkooka.visit.Visiting;
 
 import java.math.BigDecimal;
@@ -26,12 +28,14 @@ import java.math.BigDecimal;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 
-public final class NodeSelectorNumberParserTokenTest extends NodeSelectorNonSymbolParserTokenTestCase<NodeSelectorNumberParserToken, BigDecimal> {
+public final class NodeSelectorExpressionNumberParserTokenTest extends NodeSelectorNonSymbolParserTokenTestCase<NodeSelectorExpressionNumberParserToken, ExpressionNumber> {
+
+    private final static ExpressionNumberKind KIND = ExpressionNumberKind.DEFAULT;
 
     @Test
     public void testAccept() {
         final StringBuilder b = new StringBuilder();
-        final NodeSelectorNumberParserToken token = this.createToken();
+        final NodeSelectorExpressionNumberParserToken token = this.createToken();
 
         new FakeNodeSelectorParserTokenVisitor() {
             @Override
@@ -61,7 +65,7 @@ public final class NodeSelectorNumberParserTokenTest extends NodeSelectorNonSymb
             }
 
             @Override
-            protected void visit(final NodeSelectorNumberParserToken t) {
+            protected void visit(final NodeSelectorExpressionNumberParserToken t) {
                 assertSame(token, t);
                 b.append("5");
             }
@@ -75,22 +79,22 @@ public final class NodeSelectorNumberParserTokenTest extends NodeSelectorNonSymb
     }
 
     @Override
-    BigDecimal value() {
-        return BigDecimal.valueOf(12.5);
+    ExpressionNumber value() {
+        return KIND.create(12.5);
     }
 
     @Override
-    NodeSelectorNumberParserToken createToken(final BigDecimal value, final String text) {
-        return NodeSelectorNumberParserToken.with(value, text);
+    NodeSelectorExpressionNumberParserToken createToken(final ExpressionNumber value, final String text) {
+        return NodeSelectorExpressionNumberParserToken.with(value, text);
     }
 
     @Override
-    public NodeSelectorNumberParserToken createDifferentToken() {
-        return NodeSelectorNumberParserToken.with(BigDecimal.valueOf(-999), "-999");
+    public NodeSelectorExpressionNumberParserToken createDifferentToken() {
+        return NodeSelectorExpressionNumberParserToken.with(KIND.create(-999), "-999");
     }
 
     @Override
-    public Class<NodeSelectorNumberParserToken> type() {
-        return NodeSelectorNumberParserToken.class;
+    public Class<NodeSelectorExpressionNumberParserToken> type() {
+        return NodeSelectorExpressionNumberParserToken.class;
     }
 }
