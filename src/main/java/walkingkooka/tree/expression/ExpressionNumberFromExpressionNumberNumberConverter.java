@@ -27,21 +27,21 @@ import java.util.Objects;
  * A {@link Converter} that wraps another {@link Converter} that is converting {@link Number numbers} to another type.
  * This adds support for {@link ExpressionNumber} values.
  */
-final class ExpressionNumberConverterFromExpressionNumberNumber implements Converter {
+final class ExpressionNumberFromExpressionNumberNumberConverter implements Converter {
 
     /**
      * Wraps another {@link Converter}, which will receive the actual value of the {@link ExpressionNumber}.
      */
-    static final ExpressionNumberConverterFromExpressionNumberNumber with(final Converter converter) {
+    static final ExpressionNumberFromExpressionNumberNumberConverter with(final Converter converter) {
         Objects.requireNonNull(converter, "converter");
 
-        return new ExpressionNumberConverterFromExpressionNumberNumber(converter);
+        return new ExpressionNumberFromExpressionNumberNumberConverter(converter);
     }
 
     /**
      * Use Singleton
      */
-    private ExpressionNumberConverterFromExpressionNumberNumber(final Converter converter) {
+    private ExpressionNumberFromExpressionNumberNumberConverter(final Converter converter) {
         super();
         this.converter = converter;
     }
