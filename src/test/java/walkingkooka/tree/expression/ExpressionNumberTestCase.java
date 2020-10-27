@@ -342,6 +342,30 @@ public abstract class ExpressionNumberTestCase<N extends ExpressionNumber> imple
         assertNotSame(number, different);
         this.checkValue(value, different);
     }
+
+    // modulo..............................................................................................................
+
+    @Test
+    public final void testModuloBigDecimal() {
+        final int value = 7;
+        final int modulo = 3;
+
+        final N number = this.create(value);
+        final ExpressionNumber different = number.modulo(ExpressionNumber.with(BigDecimal.valueOf(modulo)), CONTEXT);
+        assertNotSame(number, different);
+        this.checkValue((value % modulo), different);
+    }
+
+    @Test
+    public final void testModuloDouble() {
+        final int value = 7;
+        final int modulo = 3;
+
+        final N number = this.create(value);
+        final ExpressionNumber different = number.modulo(ExpressionNumber.with(modulo), CONTEXT);
+        assertNotSame(number, different);
+        this.checkValue((value % modulo), different);
+    }
     
     // power..............................................................................................................
 
