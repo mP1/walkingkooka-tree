@@ -307,6 +307,42 @@ public abstract class ExpressionNumberTestCase<N extends ExpressionNumber> imple
         this.checkValue(value / divide, different);
     }
 
+    // min..............................................................................................................
+
+    @Test
+    public final void testMinLessBigDecimal() {
+        final N number = this.create(1);
+        final ExpressionNumber less = number.min(ExpressionNumber.with(BigDecimal.valueOf(2)));
+        assertSame(number, less);
+    }
+
+    @Test
+    public final void testMinLessDouble() {
+        final N number = this.create(1);
+        final ExpressionNumber less = number.min(ExpressionNumber.with(2.0));
+        assertSame(number, less);
+    }
+
+    @Test
+    public final void testMinGreaterBigDecimal() {
+        final int value = 10;
+
+        final N number = this.create(20);
+        final ExpressionNumber different = number.min(ExpressionNumber.with(BigDecimal.valueOf(value)));
+        assertNotSame(number, different);
+        this.checkValue(value, different);
+    }
+
+    @Test
+    public final void testMinGreaterDouble() {
+        final int value = 10;
+
+        final N number = this.create(20);
+        final ExpressionNumber different = number.min(ExpressionNumber.with(value));
+        assertNotSame(number, different);
+        this.checkValue(value, different);
+    }
+    
     // power..............................................................................................................
 
     @Test
