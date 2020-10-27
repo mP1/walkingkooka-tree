@@ -35,12 +35,12 @@ import java.util.function.Function;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class ExpressionNumberConverterFromExpressionNumberNumberTest implements ConverterTesting2<ExpressionNumberConverterFromExpressionNumberNumber>,
-        ToStringTesting<ExpressionNumberConverterFromExpressionNumberNumber> {
+public final class ExpressionNumberFromExpressionNumberNumberConverterTest implements ConverterTesting2<ExpressionNumberFromExpressionNumberNumberConverter>,
+        ToStringTesting<ExpressionNumberFromExpressionNumberNumberConverter> {
 
     @Test
     public void testWithNullConverterFails() {
-        assertThrows(NullPointerException.class, () -> ExpressionNumberConverterFromExpressionNumberNumber.with(null));
+        assertThrows(NullPointerException.class, () -> ExpressionNumberFromExpressionNumberNumberConverter.with(null));
     }
 
     @Test
@@ -109,8 +109,8 @@ public final class ExpressionNumberConverterFromExpressionNumberNumberTest imple
     }
 
     @Override
-    public ExpressionNumberConverterFromExpressionNumberNumber createConverter() {
-        return ExpressionNumberConverterFromExpressionNumberNumber.with(Converters.numberString(new Function<DecimalNumberContext, DecimalFormat>() {
+    public ExpressionNumberFromExpressionNumberNumberConverter createConverter() {
+        return ExpressionNumberFromExpressionNumberNumberConverter.with(Converters.numberString(new Function<DecimalNumberContext, DecimalFormat>() {
             @Override
             public DecimalFormat apply(DecimalNumberContext decimalNumberContext) {
                 return (DecimalFormat) DecimalFormat.getInstance();
@@ -130,13 +130,13 @@ public final class ExpressionNumberConverterFromExpressionNumberNumberTest imple
     }
 
     @Override
-    public Class<ExpressionNumberConverterFromExpressionNumberNumber> type() {
-        return ExpressionNumberConverterFromExpressionNumberNumber.class;
+    public Class<ExpressionNumberFromExpressionNumberNumberConverter> type() {
+        return ExpressionNumberFromExpressionNumberNumberConverter.class;
     }
 
     @Override
     public String typeNamePrefix() {
-        return ExpressionNumberConverterFromExpressionNumberNumber.class.getSimpleName();
+        return ExpressionNumberFromExpressionNumberNumberConverter.class.getSimpleName();
     }
 
     @Override
