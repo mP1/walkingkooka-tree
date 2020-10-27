@@ -63,6 +63,13 @@ public abstract class ExpressionNumber extends Number implements Comparable<Expr
     }
 
     /**
+     * {@see ExpressionNumberToExpressionNumberConverter}
+     */
+    public static Converter toExpressionNumberConverter() {
+        return ExpressionNumberToExpressionNumberConverter.INSTANCE;
+    }
+
+    /**
      * Stop creation
      */
     ExpressionNumber() {
