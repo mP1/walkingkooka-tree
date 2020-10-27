@@ -307,6 +307,42 @@ public abstract class ExpressionNumberTestCase<N extends ExpressionNumber> imple
         this.checkValue(value / divide, different);
     }
 
+    // max..............................................................................................................
+
+    @Test
+    public final void testMaxMoreBigDecimal() {
+        final N number = this.create(2);
+        final ExpressionNumber more = number.max(ExpressionNumber.with(BigDecimal.valueOf(1)));
+        assertSame(number, more);
+    }
+
+    @Test
+    public final void testMaxMoreDouble() {
+        final N number = this.create(2);
+        final ExpressionNumber more = number.max(ExpressionNumber.with(1.0));
+        assertSame(number, more);
+    }
+
+    @Test
+    public final void testMaxGreaterBigDecimal() {
+        final int value = 20;
+
+        final N number = this.create(10);
+        final ExpressionNumber different = number.max(ExpressionNumber.with(BigDecimal.valueOf(value)));
+        assertNotSame(number, different);
+        this.checkValue(value, different);
+    }
+
+    @Test
+    public final void testMaxGreaterDouble() {
+        final int value = 20;
+
+        final N number = this.create(10);
+        final ExpressionNumber different = number.max(ExpressionNumber.with(value));
+        assertNotSame(number, different);
+        this.checkValue(value, different);
+    }
+    
     // min..............................................................................................................
 
     @Test

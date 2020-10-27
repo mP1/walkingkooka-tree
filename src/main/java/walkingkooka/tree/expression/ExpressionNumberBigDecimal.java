@@ -118,6 +118,13 @@ final class ExpressionNumberBigDecimal extends ExpressionNumber {
         return this.setValue(this.value.divide(value.bigDecimal(), context.mathContext()));
     }
 
+    // max..............................................................................................................
+
+    @Override
+    ExpressionNumber max0(final ExpressionNumber value) {
+        return this.setValue(this.value.max(value.bigDecimal()));
+    }
+    
     // min..............................................................................................................
 
     @Override

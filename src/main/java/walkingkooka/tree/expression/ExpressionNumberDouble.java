@@ -116,6 +116,13 @@ final class ExpressionNumberDouble extends ExpressionNumber {
         return this.setValue(this.value / doubleValue);
     }
 
+    // max..............................................................................................................
+
+    @Override
+    ExpressionNumber max0(final ExpressionNumber value) {
+        return this.setValue(Math.max(this.value, value.doubleValue()));
+    }
+    
     // min..............................................................................................................
 
     @Override

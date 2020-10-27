@@ -158,6 +158,16 @@ public abstract class ExpressionNumber extends Number implements Comparable<Expr
 
     abstract ExpressionNumber divide0(final ExpressionNumber value, final ExpressionNumberContext context);
 
+    // max..............................................................................................................
+
+    public final ExpressionNumber max(final ExpressionNumber value) {
+        check(value);
+
+        return this.max0(value);
+    }
+
+    abstract ExpressionNumber max0(final ExpressionNumber value);
+
     // min..............................................................................................................
 
     public final ExpressionNumber min(final ExpressionNumber value) {
