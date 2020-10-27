@@ -26,7 +26,8 @@ public interface HasExpression {
 
     /**
      * Converts this instance to its {@link Expression} equivalent or returns empty. Empty is usually returned for
-     * worthless tokens such as whitespace.
+     * worthless tokens such as whitespace. The {@link ExpressionNumberContext} is necessary to help convert
+     * numeric values into {@link ExpressionNumber} if any appear.
      */
     Optional<Expression> expression(final ExpressionNumberContext context);
 }
