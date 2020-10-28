@@ -48,9 +48,8 @@ public abstract class Expression implements Node<Expression, FunctionExpressionN
     public static Expression valueOrFail(final Object value) {
         Objects.requireNonNull(value, "value");
 
-
-        return value instanceof Number ?
-                expressionNumber(ExpressionNumberKind.DEFAULT.create((Number) value)) :
+        return value instanceof ExpressionNumber ?
+                expressionNumber((ExpressionNumber) value) :
                 value instanceof Boolean ?
                         booleanExpression(Cast.to(value)) :
                         value instanceof LocalDate ?
