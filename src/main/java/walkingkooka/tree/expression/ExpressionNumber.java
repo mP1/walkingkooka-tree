@@ -19,6 +19,7 @@ package walkingkooka.tree.expression;
 
 import walkingkooka.compare.ComparisonRelation;
 import walkingkooka.convert.Converter;
+import walkingkooka.math.Maths;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
@@ -38,6 +39,21 @@ import java.util.Objects;
 public abstract class ExpressionNumber extends Number implements Comparable<ExpressionNumber> {
 
     private static final long serialVersionUID = 0L;
+
+    /**
+     * Tests if the value is a number or {@link ExpressionNumber}
+     */
+    public static boolean is(final Object value) {
+        return (null != value && Maths.isNumber(value)) || value instanceof ExpressionNumber;
+    }
+
+    /**
+     * Tests if the value is a Number or {@link ExpressionNumber}
+     */
+    public static boolean isClass(final Class<?> value) {
+        return (null != value && Maths.isNumberClass(value)) ||
+                (value == ExpressionNumber.class || value == ExpressionNumberBigDecimal.class || value == ExpressionNumberDouble.class);
+    }
 
     /**
      * Creates a {@link ExpressionNumber} wrapping the given {@link Double}.

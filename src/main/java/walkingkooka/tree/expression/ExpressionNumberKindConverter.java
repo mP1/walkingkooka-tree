@@ -61,14 +61,7 @@ final class ExpressionNumberKindConverter implements Converter {
                                     final Class<?> type,
                                     final ConverterContext context) {
         return this.converterCanConvert(value, type, context) ||
-                ExpressionNumber.class == type && this.converterCanConvert(value, this.expressionTypeValue(), context);
-    }
-
-    /**
-     * Returns either {@link BigDecimal} | {@link Double}.
-     */
-    private Class<?> expressionTypeValue() {
-        return this.kind.numberType();
+                (ExpressionNumber.isClass(type) && this.converterCanConvert(value, this.expressionTypeValue(), context));
     }
 
     private boolean converterCanConvert(final Object value,
@@ -103,6 +96,14 @@ final class ExpressionNumberKindConverter implements Converter {
                 this.failConversion(value, type) :
                 Cast.to(Either.left(this.kind.create((Number) result.leftValue())));
     }
+
+    /**
+     * Returns either {@link BigDecimal} | {@link Double}.
+     */
+    private Class<?> expressionTypeValue() {
+        return this.kind.numberType();
+    }
+
 
     private final ExpressionNumberKind kind;
 
