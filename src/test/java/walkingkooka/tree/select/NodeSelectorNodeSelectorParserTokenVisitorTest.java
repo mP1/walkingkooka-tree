@@ -1769,7 +1769,8 @@ public final class NodeSelectorNodeSelectorParserTokenVisitorTest implements Nod
     }
 
     private TestNode node(final String name, final Number idAttributeValue, final TestNode... nodes) {
-        return TestNode.with(name, nodes).setAttributes(Maps.of(Names.string("id"), idAttributeValue));
+        return TestNode.with(name, nodes)
+                .setAttributes(Maps.of(Names.string("id"), EXPRESSION_NUMBER_KIND.create(idAttributeValue)));
     }
 
     private void parseExpressionAndCheck(final String expression,
@@ -1818,6 +1819,11 @@ public final class NodeSelectorNodeSelectorParserTokenVisitorTest implements Nod
                     public TestNode selected(final TestNode node) {
                         selected.add(node);
                         return node;
+                    }
+
+                    @Override
+                    public ExpressionNumberKind expressionNumberKind() {
+                        return EXPRESSION_NUMBER_KIND;
                     }
 
                     @Override

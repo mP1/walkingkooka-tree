@@ -24,6 +24,7 @@ import walkingkooka.naming.Name;
 import walkingkooka.tree.Node;
 import walkingkooka.tree.expression.Expression;
 import walkingkooka.tree.expression.ExpressionEvaluationContext;
+import walkingkooka.tree.expression.ExpressionNumber;
 import walkingkooka.tree.expression.ExpressionNumberKind;
 import walkingkooka.tree.expression.ExpressionReference;
 import walkingkooka.tree.expression.FunctionExpressionName;
@@ -32,6 +33,7 @@ import walkingkooka.tree.select.parser.NodeSelectorAttributeName;
 import java.math.MathContext;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map.Entry;
 import java.util.Objects;
 import java.util.Optional;
 
@@ -104,11 +106,21 @@ final class ExpressionNodeSelectorExpressionEvaluationContext<N extends Node<N, 
                 .entrySet()
                 .stream()
                 .filter(nameAndValue -> nameAndValue.getKey().value().equals(attributeNameString))
-                .map(nameAndValue -> Expression.valueOrFail(nameAndValue.getValue()))
+                .map(this::toExpression)
                 .findFirst();
         return attributeValue.isPresent() ?
                 attributeValue :
                 ABSENT;
+    }
+
+    /**
+     * Auto convert {@link Number} to {@link ExpressionNumber} and wrap in an {@link Expression}.
+     */
+    private Expression toExpression(final Entry<?, ?> nameAndValue) {
+        final Object value = nameAndValue.getValue();
+        return Expression.valueOrFail(ExpressionNumber.is(value) ?
+                this.expressionNumberKind().create((Number) value) :
+                value);
     }
 
     /**

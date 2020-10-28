@@ -39,17 +39,17 @@ public final class ExpressionTest implements ClassTesting2<Expression> {
 
     @Test
     public void testValueOrFailUnknownValueTypeFails() {
-        assertThrows(IllegalArgumentException.class, () -> Expression.valueOrFail(this));
+        valueOrFailFails(this);
     }
 
     @Test
-    public void testValueOrFailBigInteger() {
-        this.valueOrFailAndCheck(BigInteger.valueOf(123));
+    public void testValueOrFailBigIntegerFails() {
+        valueOrFailFails(BigInteger.ONE);
     }
 
     @Test
-    public void testValueOrFailBigDecimal() {
-        this.valueOrFailAndCheck(BigDecimal.valueOf(123.5));
+    public void testValueOrFailBigDecimalFails() {
+        valueOrFailFails(BigInteger.TEN);
     }
 
     @Test
@@ -64,32 +64,32 @@ public final class ExpressionTest implements ClassTesting2<Expression> {
 
     @Test
     public void testValueOrFailFloat() {
-        this.valueOrFailAndCheck(123.5f);
+        this.valueOrFailFails(123.5f);
     }
 
     @Test
     public void testValueOrFailDouble() {
-        this.valueOrFailAndCheck(123.5);
+        this.valueOrFailFails(123.5);
     }
 
     @Test
     public void testValueOrFailByte() {
-        this.valueOrFailAndCheck((byte) 123);
+        this.valueOrFailFails((byte) 123);
     }
 
     @Test
     public void testValueOrFailShort() {
-        this.valueOrFailAndCheck((short) 123);
+        this.valueOrFailFails((short) 123);
     }
 
     @Test
     public void testValueOrFailInteger() {
-        this.valueOrFailAndCheck(123);
+        this.valueOrFailFails(123);
     }
 
     @Test
     public void testValueOrFailLong() {
-        this.valueOrFailAndCheck(123L);
+        this.valueOrFailFails(123L);
     }
 
     @Test
@@ -116,6 +116,10 @@ public final class ExpressionTest implements ClassTesting2<Expression> {
     @Test
     public void testValueOrFailText() {
         this.valueOrFailAndCheck("abc123", StringExpression.class);
+    }
+
+    private void valueOrFailFails(final Object value) {
+        assertThrows(IllegalArgumentException.class, () -> Expression.valueOrFail(value));
     }
 
     private void valueOrFailAndCheck(final Object value,
