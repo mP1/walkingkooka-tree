@@ -25,11 +25,112 @@ import java.math.BigDecimal;
 import java.math.BigInteger;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertSame;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class ExpressionNumberTest implements ClassTesting<ExpressionNumber> {
 
+    @Test
+    public void testIsNull() {
+        this.isAndCheck(null, false);
+    }
+
+    @Test
+    public void testIsByte() {
+        this.isAndCheck(Byte.MAX_VALUE);
+    }
+
+    @Test
+    public void testIsShort() {
+        this.isAndCheck(Short.MAX_VALUE);
+    }
+
+    @Test
+    public void testIsInteger() {
+        this.isAndCheck(Integer.MAX_VALUE);
+    }
+
+    @Test
+    public void testIsLong() {
+        this.isAndCheck(Long.MAX_VALUE);
+    }
+
+    @Test
+    public void testIsFloat() {
+        this.isAndCheck(Float.MAX_VALUE);
+    }
+
+    @Test
+    public void testIsDouble() {
+        this.isAndCheck(Double.MAX_VALUE);
+    }
+
+    @Test
+    public void testIsBigInteger() {
+        this.isAndCheck(BigInteger.ZERO);
+    }
+
+    @Test
+    public void testIsBigDecimal() {
+        this.isAndCheck(BigDecimal.ONE);
+    }
+
+    @Test
+    public void testIsExpressionNumberBig() {
+        assertEquals(true, ExpressionNumber.isClass(ExpressionNumber.class));
+    }
+
+    @Test
+    public void testIsExpressionNumberBigDecimal() {
+        this.isAndCheck(ExpressionNumber.with(BigDecimal.ONE));
+    }
+
+    @Test
+    public void testIsExpressionNumberDouble() {
+        this.isAndCheck(ExpressionNumber.with(1.0));
+    }
+
+    @Test
+    public void testIsNonJdkNumberType() {
+        this.isAndCheck(new Number() {
+            private static final long serialVersionUID = 0;
+
+            @Override
+            public int intValue() {
+                return 0;
+            }
+
+            @Override
+            public long longValue() {
+                return 0;
+            }
+
+            @Override
+            public float floatValue() {
+                return 0;
+            }
+
+            @Override
+            public double doubleValue() {
+                return 0;
+            }
+        }, false);
+    }
+
+    @Test
+    public void testIs() {
+        this.isAndCheck(this, false);
+    }
+
+    private void isAndCheck(final Number value) {
+        this.isAndCheck(value, true);
+    }
+
+    private void isAndCheck(final Object value, final boolean expected) {
+        assertEquals(expected, ExpressionNumber.is(value));
+
+        final Class<?> type = null != value ? value.getClass() : null;
+        assertEquals(expected, ExpressionNumber.isClass(type));
+    }
+    
     // with.............................................................................................................
 
     @Test
