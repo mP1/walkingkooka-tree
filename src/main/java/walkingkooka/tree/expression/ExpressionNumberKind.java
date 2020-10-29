@@ -18,6 +18,7 @@
 package walkingkooka.tree.expression;
 
 import walkingkooka.convert.Converter;
+import walkingkooka.convert.ConverterContext;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
@@ -71,7 +72,7 @@ public enum ExpressionNumberKind {
     /**
      * Adds support for converting numbers to another numbers or {@link ExpressionNumber}.
      */
-    public final Converter toConverter(final Converter converter) {
+    public final <C extends ConverterContext> Converter<C> toConverter(final Converter<C> converter) {
         return ExpressionNumberKindConverter.with(this, converter);
     }
 

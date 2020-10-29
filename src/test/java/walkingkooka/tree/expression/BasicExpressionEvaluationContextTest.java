@@ -151,7 +151,7 @@ public final class BasicExpressionEvaluationContextTest implements ClassTesting2
         return Expression.string("expression node 123");
     }
 
-    private Converter converter() {
+    private Converter<ConverterContext> converter() {
         return Converters.numberNumber();
     }
 

@@ -27,12 +27,19 @@ import walkingkooka.convert.Converters;
  * Handles the simple case of casting a value to {@link ExpressionNumber}. This is necessary because {@link ExpressionNumber}
  * actually has two package private sub classes and because {@link Converters#simple} will fail.
  */
-final class ExpressionNumberToExpressionNumberConverter implements Converter {
+final class ExpressionNumberToExpressionNumberConverter<C extends ConverterContext> implements Converter<C> {
+
+    /**
+     * Type safe instance getter
+     */
+    static <C extends ConverterContext> ExpressionNumberToExpressionNumberConverter<C> instance() {
+        return Cast.to(INSTANCE);
+    }
 
     /**
      * Singleton
      */
-    final static ExpressionNumberToExpressionNumberConverter INSTANCE = new ExpressionNumberToExpressionNumberConverter();
+    private final static ExpressionNumberToExpressionNumberConverter INSTANCE = new ExpressionNumberToExpressionNumberConverter();
 
     /**
      * Private to limit subclassing.
@@ -46,7 +53,7 @@ final class ExpressionNumberToExpressionNumberConverter implements Converter {
     @Override
     public final boolean canConvert(final Object value,
                                     final Class<?> type,
-                                    final ConverterContext context) {
+                                    final C context) {
         return value instanceof ExpressionNumber && ExpressionNumber.class == type;
     }
 
@@ -55,7 +62,7 @@ final class ExpressionNumberToExpressionNumberConverter implements Converter {
     @Override
     public final <T> Either<T, String> convert(final Object value,
                                                final Class<T> type,
-                                               final ConverterContext context) {
+                                               final C context) {
 
         return this.canConvert(value, type, context) ?
                 Cast.to(Either.left((ExpressionNumber) value)) :

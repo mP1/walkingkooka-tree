@@ -17,6 +17,7 @@
 
 package walkingkooka.tree.select;
 
+import walkingkooka.Cast;
 import walkingkooka.Either;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.convert.Converter;
@@ -47,14 +48,15 @@ final class BasicNodeSelectorContext<N extends Node<N, NAME, ANAME, AVALUE>, NAM
     static <N extends Node<N, NAME, ANAME, AVALUE>,
             NAME extends Name,
             ANAME extends Name,
-            AVALUE> BasicNodeSelectorContext<N, NAME, ANAME, AVALUE> with(final BooleanSupplier finisher,
-                                                                          final Predicate<N> filter,
-                                                                          final Function<N, N> mapper,
-                                                                          final ExpressionNumberKind expressionNumberKind,
-                                                                          final Function<FunctionExpressionName, Optional<ExpressionFunction<?>>> functions,
-                                                                          final Converter converter,
-                                                                          final ConverterContext converterContext,
-                                                                          final Class<N> nodeType) {
+            AVALUE,
+            C extends ConverterContext> BasicNodeSelectorContext<N, NAME, ANAME, AVALUE> with(final BooleanSupplier finisher,
+                                                                                              final Predicate<N> filter,
+                                                                                              final Function<N, N> mapper,
+                                                                                              final ExpressionNumberKind expressionNumberKind,
+                                                                                              final Function<FunctionExpressionName, Optional<ExpressionFunction<?>>> functions,
+                                                                                              final Converter<C> converter,
+                                                                                              final C converterContext,
+                                                                                              final Class<N> nodeType) {
         Objects.requireNonNull(finisher, "finisher");
         Objects.requireNonNull(filter, "filter");
         Objects.requireNonNull(mapper, "mapper");
@@ -64,12 +66,12 @@ final class BasicNodeSelectorContext<N extends Node<N, NAME, ANAME, AVALUE>, NAM
         Objects.requireNonNull(converterContext, "converterContext");
         Objects.requireNonNull(nodeType, "nodeType");
 
-        return new BasicNodeSelectorContext<>(finisher,
+        return new BasicNodeSelectorContext<N, NAME, ANAME, AVALUE>(finisher,
                 filter,
                 mapper,
                 expressionNumberKind,
                 functions,
-                converter,
+                converter.cast(ConverterContext.class),
                 converterContext);
     }
 
@@ -78,7 +80,7 @@ final class BasicNodeSelectorContext<N extends Node<N, NAME, ANAME, AVALUE>, NAM
                                      final Function<N, N> mapper,
                                      final ExpressionNumberKind expressionNumberKind,
                                      final Function<FunctionExpressionName, Optional<ExpressionFunction<?>>> functions,
-                                     final Converter converter,
+                                     final Converter<ConverterContext> converter,
                                      final ConverterContext converterContext) {
         this.finisher = finisher;
         this.filter = filter;
@@ -130,7 +132,7 @@ final class BasicNodeSelectorContext<N extends Node<N, NAME, ANAME, AVALUE>, NAM
         return this.converter.convert(value, target, this.converterContext);
     }
 
-    private final Converter converter;
+    private final Converter<ConverterContext> converter;
 
     private final ConverterContext converterContext;
 

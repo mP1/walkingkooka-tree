@@ -27,21 +27,21 @@ import java.util.Objects;
  * A {@link Converter} that wraps another {@link Converter} that is converting {@link Number numbers} to another type.
  * This adds support for {@link ExpressionNumber} values.
  */
-final class ExpressionNumberFromExpressionNumberNumberConverter implements Converter {
+final class ExpressionNumberFromExpressionNumberNumberConverter<C extends ConverterContext> implements Converter<C> {
 
     /**
      * Wraps another {@link Converter}, which will receive the actual value of the {@link ExpressionNumber}.
      */
-    static final ExpressionNumberFromExpressionNumberNumberConverter with(final Converter converter) {
+    static final <C extends ConverterContext> ExpressionNumberFromExpressionNumberNumberConverter<C> with(final Converter<C> converter) {
         Objects.requireNonNull(converter, "converter");
 
-        return new ExpressionNumberFromExpressionNumberNumberConverter(converter);
+        return new ExpressionNumberFromExpressionNumberNumberConverter<>(converter);
     }
 
     /**
      * Use Singleton
      */
-    private ExpressionNumberFromExpressionNumberNumberConverter(final Converter converter) {
+    private ExpressionNumberFromExpressionNumberNumberConverter(final Converter<C> converter) {
         super();
         this.converter = converter;
     }
@@ -52,7 +52,7 @@ final class ExpressionNumberFromExpressionNumberNumberConverter implements Conve
     @Override
     public boolean canConvert(final Object value,
                               final Class<?> type,
-                              final ConverterContext context) {
+                              final C context) {
         return value instanceof ExpressionNumber ?
                 this.canConvertExpressionNumber((ExpressionNumber) value, type, context) :
                 this.converter.canConvert(value, type, context);
@@ -64,7 +64,7 @@ final class ExpressionNumberFromExpressionNumberNumberConverter implements Conve
      */
     private boolean canConvertExpressionNumber(final ExpressionNumber value,
                                                final Class<?> type,
-                                               final ConverterContext context) {
+                                               final C context) {
         return this.converter.canConvert(value.value(),
                 type,
                 context);
@@ -74,7 +74,7 @@ final class ExpressionNumberFromExpressionNumberNumberConverter implements Conve
     @Override
     public <T> Either<T, String> convert(final Object value,
                                          final Class<T> type,
-                                         final ConverterContext context) {
+                                         final C context) {
         return value instanceof ExpressionNumber ?
                 this.convertExpressionNumber((ExpressionNumber) value, type, context) :
                 this.converter.convert(value, type, context);
@@ -82,7 +82,7 @@ final class ExpressionNumberFromExpressionNumberNumberConverter implements Conve
 
     private <T> Either<T, String> convertExpressionNumber(final ExpressionNumber number,
                                                           final Class<T> type,
-                                                          final ConverterContext context) {
+                                                          final C context) {
         final Either<T, String> result = this.converter.convert(number.value(), type, context);
         return result.isRight() ?
                 this.failConversion(number, type) :
@@ -92,7 +92,7 @@ final class ExpressionNumberFromExpressionNumberNumberConverter implements Conve
     /**
      * The assumed {@link Converter} which takes a {@link Number} and converts to some other target.
      */
-    private final Converter converter;
+    private final Converter<C> converter;
 
     @Override
     public String toString() {

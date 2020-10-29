@@ -18,6 +18,7 @@
 package walkingkooka.tree.expression;
 
 import org.junit.jupiter.api.Test;
+import walkingkooka.Cast;
 import walkingkooka.ToStringTesting;
 import walkingkooka.convert.Converter;
 import walkingkooka.convert.ConverterContext;
@@ -25,8 +26,8 @@ import walkingkooka.convert.ConverterContexts;
 import walkingkooka.convert.ConverterTesting2;
 import walkingkooka.convert.Converters;
 
-public final class ExpressionNumberToExpressionNumberConverterTest implements ConverterTesting2<ExpressionNumberToExpressionNumberConverter>,
-        ToStringTesting<ExpressionNumberToExpressionNumberConverter> {
+public final class ExpressionNumberToExpressionNumberConverterTest implements ConverterTesting2<ExpressionNumberToExpressionNumberConverter<ConverterContext>, ConverterContext>,
+        ToStringTesting<ExpressionNumberToExpressionNumberConverter<ConverterContext>> {
 
     @Test
     public void testConvertersSimpleFails() {
@@ -59,8 +60,8 @@ public final class ExpressionNumberToExpressionNumberConverterTest implements Co
     }
 
     @Override
-    public ExpressionNumberToExpressionNumberConverter createConverter() {
-        return ExpressionNumberToExpressionNumberConverter.INSTANCE;
+    public ExpressionNumberToExpressionNumberConverter<ConverterContext> createConverter() {
+        return ExpressionNumberToExpressionNumberConverter.instance();
     }
 
     @Override
@@ -69,8 +70,8 @@ public final class ExpressionNumberToExpressionNumberConverterTest implements Co
     }
 
     @Override
-    public Class<ExpressionNumberToExpressionNumberConverter> type() {
-        return ExpressionNumberToExpressionNumberConverter.class;
+    public Class<ExpressionNumberToExpressionNumberConverter<ConverterContext>> type() {
+        return Cast.to(ExpressionNumberToExpressionNumberConverter.class);
     }
 
     @Override

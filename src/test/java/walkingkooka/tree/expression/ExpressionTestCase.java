@@ -247,25 +247,25 @@ public abstract class ExpressionTestCase<N extends Expression> implements ClassT
     ExpressionEvaluationContext context() {
         final Function<ConverterContext, ParserContext> parserContext = (c) -> ParserContexts.basic(c, c);
 
-        final Converter stringNumber = Converters.parser(Number.class,
+        final Converter<ConverterContext> stringNumber = Converters.parser(Number.class,
                 Parsers.bigDecimal(),
                 parserContext);
-        final Converter stringDouble = Converters.parser(Double.class,
+        final Converter<ConverterContext> stringDouble = Converters.parser(Double.class,
                 Parsers.doubleParser(),
                 parserContext);
-        final Converter stringLocalDate = Converters.parser(LocalDate.class,
+        final Converter<ConverterContext> stringLocalDate = Converters.parser(LocalDate.class,
                 Parsers.localDate((c) -> DateTimeFormatter.ISO_LOCAL_DATE),
                 parserContext);
-        final Converter stringLocalDateTime = Converters.parser(LocalDateTime.class,
+        final Converter<ConverterContext> stringLocalDateTime = Converters.parser(LocalDateTime.class,
                 Parsers.localDateTime((c) -> DateTimeFormatter.ISO_LOCAL_DATE_TIME),
                 parserContext);
-        final Converter stringLocalTime = Converters.parser(LocalTime.class,
+        final Converter<ConverterContext> stringLocalTime = Converters.parser(LocalTime.class,
                 Parsers.localTime((c) -> DateTimeFormatter.ISO_LOCAL_TIME),
                 parserContext);
 
-        final Converter converters = Converters.collection(Lists.of(
+        final Converter<ConverterContext> converters = Converters.collection(Lists.of(
                 Converters.simple(),
-                new FakeConverter() {
+                new FakeConverter<ConverterContext>() {
                     @Override
                     public boolean canConvert(final Object value,
                                               final Class<?> type,
@@ -384,7 +384,7 @@ public abstract class ExpressionTestCase<N extends Expression> implements ClassT
     /**
      * Converts an empty list to false, and non empty list to true.
      */
-    private static Converter listToBoolean() {
+    private static Converter<ConverterContext> listToBoolean() {
         return Converters.booleanTrueFalse((v) -> v instanceof List,
                 emptyList(),
                 Predicates.is(Boolean.class),
@@ -399,7 +399,7 @@ public abstract class ExpressionTestCase<N extends Expression> implements ClassT
         };
     }
 
-    private static <T> Converter fromBoolean(final Class<T> targetType, final Converter trueOrFalse) {
+    private static <T> Converter<ConverterContext> fromBoolean(final Class<T> targetType, final Converter<ConverterContext> trueOrFalse) {
         final ConverterContext context = ConverterContexts.fake();
         return Converters.booleanTrueFalse((t)-> t instanceof Boolean,
                 Predicate.isEqual(Boolean.FALSE),
@@ -408,7 +408,7 @@ public abstract class ExpressionTestCase<N extends Expression> implements ClassT
                 trueOrFalse.convertOrFail(0L, targetType, context));
     }
 
-    private static <S> Converter toBoolean(final Class<S> sourceType, final S falseValue) {
+    private static <S> Converter<ConverterContext> toBoolean(final Class<S> sourceType, final S falseValue) {
         return Converters.booleanTrueFalse((t) -> t.getClass() == sourceType,
                 Predicate.isEqual(falseValue),
                 (t) -> t == Boolean.class,

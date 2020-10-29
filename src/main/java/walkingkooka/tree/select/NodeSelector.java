@@ -434,12 +434,12 @@ public abstract class NodeSelector<N extends Node<N, NAME, ANAME, AVALUE>,
      * Returns a stream which will execute this selector starting with the given {@link Node} and then push matches to the
      * {@link Stream} for further stream processing.
      */
-    public final Stream<N> stream(final N node,
-                                  final ExpressionNumberKind expressionNumberKind,
-                                  final Function<FunctionExpressionName, Optional<ExpressionFunction<?>>> functions,
-                                  final Converter converter,
-                                  final ConverterContext converterContext,
-                                  final Class<N> nodeType) {
+    public final <C extends ConverterContext> Stream<N> stream(final N node,
+                                                               final ExpressionNumberKind expressionNumberKind,
+                                                               final Function<FunctionExpressionName, Optional<ExpressionFunction<?>>> functions,
+                                                               final Converter<C> converter,
+                                                               final C converterContext,
+                                                               final Class<N> nodeType) {
         return PushableStreamConsumer.stream(
                 NodeSelectorStreamConsumerPushableStreamConsumer.with(node,
                         this,

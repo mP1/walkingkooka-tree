@@ -32,23 +32,23 @@ import java.util.function.Function;
 /**
  * An {@link ExpressionEvaluationContext} delegates to helpers or constants for each method.
  */
-final class BasicExpressionEvaluationContext implements ExpressionEvaluationContext {
+final class BasicExpressionEvaluationContext<C extends ConverterContext> implements ExpressionEvaluationContext {
 
     /**
      * Factory that creates a {@link BasicExpressionEvaluationContext}
      */
-    static BasicExpressionEvaluationContext with(final ExpressionNumberKind expressionNumberKind,
-                                                 final BiFunction<FunctionExpressionName, List<Object>, Object> functions,
-                                                 final Function<ExpressionReference, Optional<Expression>> references,
-                                                 final Converter converter,
-                                                 final ConverterContext converterContext) {
+    static <C extends ConverterContext> BasicExpressionEvaluationContext with(final ExpressionNumberKind expressionNumberKind,
+                                                                              final BiFunction<FunctionExpressionName, List<Object>, Object> functions,
+                                                                              final Function<ExpressionReference, Optional<Expression>> references,
+                                                                              final Converter<C> converter,
+                                                                              final C converterContext) {
         Objects.requireNonNull(expressionNumberKind, "expressionNumberKind");
         Objects.requireNonNull(functions, "functions");
         Objects.requireNonNull(references, "references");
         Objects.requireNonNull(converter, "converter");
         Objects.requireNonNull(converterContext, "converterContext");
 
-        return new BasicExpressionEvaluationContext(expressionNumberKind,
+        return new BasicExpressionEvaluationContext<>(expressionNumberKind,
                 functions,
                 references,
                 converter,
@@ -61,8 +61,8 @@ final class BasicExpressionEvaluationContext implements ExpressionEvaluationCont
     private BasicExpressionEvaluationContext(final ExpressionNumberKind expressionNumberKind,
                                              final BiFunction<FunctionExpressionName, List<Object>, Object> functions,
                                              final Function<ExpressionReference, Optional<Expression>> references,
-                                             final Converter converter,
-                                             final ConverterContext converterContext) {
+                                             final Converter<C> converter,
+                                             final C converterContext) {
         super();
         this.expressionNumberKind = expressionNumberKind;
         this.functions = functions;
@@ -147,8 +147,8 @@ final class BasicExpressionEvaluationContext implements ExpressionEvaluationCont
         return this.converter.convert(value, target, this.converterContext);
     }
 
-    private final Converter converter;
-    private final ConverterContext converterContext;
+    private final Converter<C> converter;
+    private final C converterContext;
 
     @Override
     public String toString() {

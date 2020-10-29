@@ -18,6 +18,7 @@
 package walkingkooka.tree.expression;
 
 import org.junit.jupiter.api.Test;
+import walkingkooka.Cast;
 import walkingkooka.ToStringTesting;
 import walkingkooka.convert.ConverterContext;
 import walkingkooka.convert.ConverterContexts;
@@ -35,8 +36,8 @@ import java.util.function.Function;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class ExpressionNumberFromExpressionNumberNumberConverterTest implements ConverterTesting2<ExpressionNumberFromExpressionNumberNumberConverter>,
-        ToStringTesting<ExpressionNumberFromExpressionNumberNumberConverter> {
+public final class ExpressionNumberFromExpressionNumberNumberConverterTest implements ConverterTesting2<ExpressionNumberFromExpressionNumberNumberConverter<ConverterContext>, ConverterContext>,
+        ToStringTesting<ExpressionNumberFromExpressionNumberNumberConverter<ConverterContext>> {
 
     @Test
     public void testWithNullConverterFails() {
@@ -109,7 +110,7 @@ public final class ExpressionNumberFromExpressionNumberNumberConverterTest imple
     }
 
     @Override
-    public ExpressionNumberFromExpressionNumberNumberConverter createConverter() {
+    public ExpressionNumberFromExpressionNumberNumberConverter<ConverterContext> createConverter() {
         return ExpressionNumberFromExpressionNumberNumberConverter.with(Converters.numberString(new Function<DecimalNumberContext, DecimalFormat>() {
             @Override
             public DecimalFormat apply(DecimalNumberContext decimalNumberContext) {
@@ -130,8 +131,8 @@ public final class ExpressionNumberFromExpressionNumberNumberConverterTest imple
     }
 
     @Override
-    public Class<ExpressionNumberFromExpressionNumberNumberConverter> type() {
-        return ExpressionNumberFromExpressionNumberNumberConverter.class;
+    public Class<ExpressionNumberFromExpressionNumberNumberConverter<ConverterContext>> type() {
+        return Cast.to(ExpressionNumberFromExpressionNumberNumberConverter.class);
     }
 
     @Override

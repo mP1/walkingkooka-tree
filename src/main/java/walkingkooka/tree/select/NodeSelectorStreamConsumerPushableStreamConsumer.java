@@ -47,20 +47,21 @@ final class NodeSelectorStreamConsumerPushableStreamConsumer<N extends Node<N, N
     static <N extends Node<N, NAME, ANAME, AVALUE>,
             NAME extends Name,
             ANAME extends Name,
-            AVALUE> NodeSelectorStreamConsumerPushableStreamConsumer<N, NAME, ANAME, AVALUE> with(final N node,
-                                                                                                  final NodeSelector<N, NAME, ANAME, AVALUE> selector,
-                                                                                                  final ExpressionNumberKind expressionNumberKind,
-                                                                                                  final Function<FunctionExpressionName, Optional<ExpressionFunction<?>>> functions,
-                                                                                                  final Converter converter,
-                                                                                                  final ConverterContext converterContext,
-                                                                                                  final Class<N> nodeType) {
+            AVALUE,
+            C extends ConverterContext> NodeSelectorStreamConsumerPushableStreamConsumer<N, NAME, ANAME, AVALUE> with(final N node,
+                                                                                                                      final NodeSelector<N, NAME, ANAME, AVALUE> selector,
+                                                                                                                      final ExpressionNumberKind expressionNumberKind,
+                                                                                                                      final Function<FunctionExpressionName, Optional<ExpressionFunction<?>>> functions,
+                                                                                                                      final Converter<C> converter,
+                                                                                                                      final C converterContext,
+                                                                                                                      final Class<N> nodeType) {
         Objects.requireNonNull(node, "node");
 
-        return new NodeSelectorStreamConsumerPushableStreamConsumer<>(node,
+        return new NodeSelectorStreamConsumerPushableStreamConsumer<N, NAME, ANAME, AVALUE>(node,
                 selector,
                 expressionNumberKind,
                 functions,
-                converter,
+                converter.cast(ConverterContext.class),
                 converterContext,
                 nodeType);
     }
@@ -72,7 +73,7 @@ final class NodeSelectorStreamConsumerPushableStreamConsumer<N extends Node<N, N
                                                              final NodeSelector<N, NAME, ANAME, AVALUE> selector,
                                                              final ExpressionNumberKind expressionNumberKind,
                                                              final Function<FunctionExpressionName, Optional<ExpressionFunction<?>>> functions,
-                                                             final Converter converter,
+                                                             final Converter<ConverterContext> converter,
                                                              final ConverterContext converterContext,
                                                              final Class<N> nodeType) {
         super();
