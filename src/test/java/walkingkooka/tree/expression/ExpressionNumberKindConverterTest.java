@@ -18,6 +18,7 @@
 package walkingkooka.tree.expression;
 
 import org.junit.jupiter.api.Test;
+import walkingkooka.Cast;
 import walkingkooka.Either;
 import walkingkooka.convert.Converter;
 import walkingkooka.convert.ConverterContext;
@@ -36,7 +37,7 @@ import java.text.DecimalFormat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class ExpressionNumberKindConverterTest implements ConverterTesting2<ExpressionNumberKindConverter> {
+public final class ExpressionNumberKindConverterTest implements ConverterTesting2<ExpressionNumberKindConverter<ConverterContext>, ConverterContext> {
 
     @Test
     public final void testWithNullConverterFails() {
@@ -97,7 +98,7 @@ public final class ExpressionNumberKindConverterTest implements ConverterTesting
     private void convertFails3(final ExpressionNumberKind kind,
                                final String value,
                                final Class<?> type) {
-        final Converter converter = kind.toConverter(new FakeConverter() {
+        final Converter<ConverterContext> converter = kind.toConverter(new FakeConverter<ConverterContext>() {
             @Override
             public boolean canConvert(final Object value,
                                       final Class<?> type,
@@ -266,7 +267,7 @@ public final class ExpressionNumberKindConverterTest implements ConverterTesting
     // factories & helpers..............................................................................................
 
     @Override
-    public final ExpressionNumberKindConverter createConverter() {
+    public final ExpressionNumberKindConverter<ConverterContext> createConverter() {
         return ExpressionNumberKindConverter.with(ExpressionNumberKind.BIG_DECIMAL, Converters.fake());
     }
 
@@ -276,7 +277,7 @@ public final class ExpressionNumberKindConverterTest implements ConverterTesting
     }
 
     @Override
-    public Class<ExpressionNumberKindConverter> type() {
-        return ExpressionNumberKindConverter.class;
+    public Class<ExpressionNumberKindConverter<ConverterContext>> type() {
+        return Cast.to(ExpressionNumberKindConverter.class);
     }
 }

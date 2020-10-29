@@ -32,23 +32,23 @@ import java.util.Objects;
  * and then the ExpressionNumber created. To convert {@link Number} to {@link ExpressionNumber} the wrapped
  * converter should probably be {@link Converters#numberNumber()}.
  */
-final class ExpressionNumberKindConverter implements Converter {
+final class ExpressionNumberKindConverter<C extends ConverterContext> implements Converter<C> {
 
     /**
      * Factory that creates a new {@link ExpressionNumberKindConverter}. This should only be called by {@link ExpressionNumberKind#toConverter(Converter)}.
      */
-    static ExpressionNumberKindConverter with(final ExpressionNumberKind kind,
-                                              final Converter converter) {
+    static <C extends ConverterContext> ExpressionNumberKindConverter<C> with(final ExpressionNumberKind kind,
+                                                                              final Converter<C> converter) {
         Objects.requireNonNull(converter, "converter");
 
-        return new ExpressionNumberKindConverter(kind, converter);
+        return new ExpressionNumberKindConverter<>(kind, converter);
     }
 
     /**
      * Private ctor use factory
      */
     private ExpressionNumberKindConverter(final ExpressionNumberKind kind,
-                                          final Converter converter) {
+                                          final Converter<C> converter) {
         super();
         this.kind = kind;
         this.converter = converter;
@@ -59,14 +59,14 @@ final class ExpressionNumberKindConverter implements Converter {
     @Override
     public final boolean canConvert(final Object value,
                                     final Class<?> type,
-                                    final ConverterContext context) {
+                                    final C context) {
         return this.converterCanConvert(value, type, context) ||
                 (ExpressionNumber.isClass(type) && this.converterCanConvert(value, this.expressionTypeValue(), context));
     }
 
     private boolean converterCanConvert(final Object value,
                                         final Class<?> type,
-                                        final ConverterContext context) {
+                                        final C context) {
         return this.converter.canConvert(value, type, context);
     }
 
@@ -75,7 +75,7 @@ final class ExpressionNumberKindConverter implements Converter {
     @Override
     public final <T> Either<T, String> convert(final Object value,
                                                final Class<T> type,
-                                               final ConverterContext context) {
+                                               final C context) {
 
         return this.converterCanConvert(value, type, context) ?
                 this.converterConvert(value, type, context) :
@@ -84,13 +84,13 @@ final class ExpressionNumberKindConverter implements Converter {
 
     private <T> Either<T, String> converterConvert(final Object value,
                                                    final Class<T> type,
-                                                   final ConverterContext context) {
+                                                   final C context) {
         return this.converter.convert(value, type, context);
     }
 
     private <T> Either<T, String> converterConvertAndCreateExpressionNumber(final Object value,
                                                                             final Class<T> type,
-                                                                            final ConverterContext context) {
+                                                                            final C context) {
         final Either<T, String> result = Cast.to(this.converter.convert(value, this.expressionTypeValue(), context));
         return result.isRight() ?
                 this.failConversion(value, type) :
@@ -110,7 +110,7 @@ final class ExpressionNumberKindConverter implements Converter {
     /**
      * The {@link Converter}
      */
-    private final Converter converter;
+    private final Converter<C> converter;
 
     // Object...........................................................................................................
 

@@ -176,7 +176,7 @@ public final class BasicNodeSelectorContextTest implements ClassTesting2<BasicNo
         final Predicate<TestNode> filter = this.predicate();
         final Function<TestNode, TestNode> mapper = this.mapper();
         final Function<FunctionExpressionName, Optional<ExpressionFunction<?>>> functions = this.functions();
-        final Converter converter = this.converter();
+        final Converter<ConverterContext> converter = this.converter();
         final ConverterContext converterContext = this.converterContext();
         this.toStringAndCheck(BasicNodeSelectorContext.with(finisher,
                 filter,
@@ -222,7 +222,7 @@ public final class BasicNodeSelectorContextTest implements ClassTesting2<BasicNo
         return NodeSelectorContexts.basicFunctions();
     }
 
-    private Converter converter() {
+    private Converter<ConverterContext> converter() {
         return Converters.fake();
     }
 

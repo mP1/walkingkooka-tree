@@ -26,6 +26,7 @@ import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.collect.set.Sets;
 import walkingkooka.convert.Converter;
+import walkingkooka.convert.ConverterContext;
 import walkingkooka.convert.ConverterContexts;
 import walkingkooka.convert.Converters;
 import walkingkooka.naming.Names;
@@ -461,7 +462,7 @@ abstract public class NodeSelectorTestCase4<S extends NodeSelector<TestNode, Str
         return NodeSelectorContexts.basicFunctions();
     }
 
-    final Converter converter() {
+    final Converter<ConverterContext> converter() {
         return Converters.collection(Lists.of(
                 ExpressionNumber.fromExpressionNumberConverter(Converters.numberNumber()),
                 Converters.<String, Integer>function((t) -> t instanceof String, Predicates.is(Integer.class), Integer::parseInt),

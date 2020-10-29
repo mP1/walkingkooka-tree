@@ -140,7 +140,7 @@ public final class NodeSelectorStreamConsumerPushableStreamConsumerTest extends 
         return NodeSelectorContexts.basicFunctions();
     }
 
-    private Converter converter() {
+    private Converter<ConverterContext> converter() {
         return Converters.fake();
     }
 
