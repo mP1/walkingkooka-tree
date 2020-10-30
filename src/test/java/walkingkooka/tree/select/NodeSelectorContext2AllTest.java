@@ -24,40 +24,40 @@ import walkingkooka.tree.TestNode;
 
 import static org.junit.jupiter.api.Assertions.assertSame;
 
-public final class AllNodeSelectorContext2Test extends NodeSelectorContext2TestCase<AllNodeSelectorContext2<TestNode, StringName, StringName, Object>,
+public final class NodeSelectorContext2AllTest extends NodeSelectorContext2TestCase<NodeSelectorContext2All<TestNode, StringName, StringName, Object>,
         TestNode, StringName, StringName, Object> {
 
     @Test
     public void testAll() {
-        final AllNodeSelectorContext2<TestNode, StringName, StringName, Object> context = this.createContext();
+        final NodeSelectorContext2All<TestNode, StringName, StringName, Object> context = this.createContext();
         assertSame(context, context.all());
     }
 
     @Test
     public void testExpression() {
-        final AllNodeSelectorContext2<TestNode, StringName, StringName, Object> context = this.createContext();
+        final NodeSelectorContext2All<TestNode, StringName, StringName, Object> context = this.createContext();
         this.checkType(context.expression(), ExpressionNodeSelectorNodeSelectorContext2.class);
     }
 
     @Test
     public void testExpressionCreateIfNecessary() {
-        final AllNodeSelectorContext2<TestNode, StringName, StringName, Object> context = this.createContext();
+        final NodeSelectorContext2All<TestNode, StringName, StringName, Object> context = this.createContext();
         this.checkType(context.expressionCreateIfNecessary(), ExpressionNodeSelectorNodeSelectorContext2.class);
     }
 
     @Test
     public void testToString() {
         final String toString = "Context123";
-        this.toStringAndCheck(AllNodeSelectorContext2.with(this.contextWithToString(toString)), toString);
+        this.toStringAndCheck(NodeSelectorContext2All.with(this.contextWithToString(toString)), toString);
     }
 
     @Override
-    public AllNodeSelectorContext2<TestNode, StringName, StringName, Object> createContext() {
-        return AllNodeSelectorContext2.with(null);
+    public NodeSelectorContext2All<TestNode, StringName, StringName, Object> createContext() {
+        return NodeSelectorContext2All.with(null);
     }
 
     @Override
-    public Class<AllNodeSelectorContext2<TestNode, StringName, StringName, Object>> type() {
-        return Cast.to(AllNodeSelectorContext2.class);
+    public Class<NodeSelectorContext2All<TestNode, StringName, StringName, Object>> type() {
+        return Cast.to(NodeSelectorContext2All.class);
     }
 }

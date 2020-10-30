@@ -23,14 +23,14 @@ import walkingkooka.tree.Node;
 /**
  * The default {@link NodeSelectorContext2}.
  */
-final class AllNodeSelectorContext2<N extends Node<N, NAME, ANAME, AVALUE>, NAME extends Name, ANAME extends Name, AVALUE>
+final class NodeSelectorContext2All<N extends Node<N, NAME, ANAME, AVALUE>, NAME extends Name, ANAME extends Name, AVALUE>
         extends NodeSelectorContext2<N, NAME, ANAME, AVALUE> {
 
-    static <N extends Node<N, NAME, ANAME, AVALUE>, NAME extends Name, ANAME extends Name, AVALUE> AllNodeSelectorContext2<N, NAME, ANAME, AVALUE> with(final NodeSelectorContext<N, NAME, ANAME, AVALUE> context) {
-        return new AllNodeSelectorContext2<>(context);
+    static <N extends Node<N, NAME, ANAME, AVALUE>, NAME extends Name, ANAME extends Name, AVALUE> NodeSelectorContext2All<N, NAME, ANAME, AVALUE> with(final NodeSelectorContext<N, NAME, ANAME, AVALUE> context) {
+        return new NodeSelectorContext2All<>(context);
     }
 
-    private AllNodeSelectorContext2(final NodeSelectorContext<N, NAME, ANAME, AVALUE> context) {
+    private NodeSelectorContext2All(final NodeSelectorContext<N, NAME, ANAME, AVALUE> context) {
         super(context);
     }
 
