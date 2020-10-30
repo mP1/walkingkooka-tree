@@ -33,13 +33,13 @@ import java.util.Locale;
 abstract class NodeSelectorContext2<N extends Node<N, NAME, ANAME, AVALUE>, NAME extends Name, ANAME extends Name, AVALUE> implements NodeSelectorContext<N, NAME, ANAME, AVALUE> {
 
     /**
-     * {@see AllNodeSelectorContext2}
+     * {@see NodeSelectorContext2All}
      */
     static <N extends Node<N, NAME, ANAME, AVALUE>,
             NAME extends Name,
             ANAME extends Name,
             AVALUE> NodeSelectorContext2<N, NAME, ANAME, AVALUE> all(final NodeSelectorContext<N, NAME, ANAME, AVALUE> context) {
-        return AllNodeSelectorContext2.with(context);
+        return NodeSelectorContext2All.with(context);
     }
 
     /**
@@ -108,7 +108,7 @@ abstract class NodeSelectorContext2<N extends Node<N, NAME, ANAME, AVALUE>, NAME
     }
 
     /**
-     * Unconditionally returns a {@link AllNodeSelectorContext2}.
+     * Unconditionally returns a {@link NodeSelectorContext2All}.
      */
     abstract NodeSelectorContext2<N, NAME, ANAME, AVALUE> all();
 
