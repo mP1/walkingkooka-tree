@@ -21,6 +21,7 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.Either;
 import walkingkooka.collect.list.Lists;
+import walkingkooka.convert.Converter;
 import walkingkooka.convert.ConverterContexts;
 import walkingkooka.convert.Converters;
 import walkingkooka.math.DecimalNumberContexts;
@@ -28,9 +29,17 @@ import walkingkooka.naming.StringName;
 import walkingkooka.predicate.Predicates;
 import walkingkooka.text.CharSequences;
 import walkingkooka.tree.TestNode;
+import walkingkooka.tree.expression.Expression;
+import walkingkooka.tree.expression.ExpressionEvaluationContexts;
 import walkingkooka.tree.expression.ExpressionNumber;
+import walkingkooka.tree.expression.ExpressionNumberConverterContext;
+import walkingkooka.tree.expression.ExpressionNumberConverterContexts;
+import walkingkooka.tree.expression.ExpressionReference;
 
 import java.math.MathContext;
+import java.util.Objects;
+import java.util.Optional;
+import java.util.function.Function;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotSame;
@@ -108,18 +117,47 @@ public final class ExpressionNodeSelectorNodeSelectorContext2Test extends NodeSe
 
     @Override
     public ExpressionNodeSelectorNodeSelectorContext2<TestNode, StringName, StringName, Object> createContext() {
-        final ExpressionNodeSelectorNodeSelectorContext2<TestNode, StringName, StringName, Object> context = ExpressionNodeSelectorNodeSelectorContext2.with(new FakeNodeSelectorContext<TestNode, StringName, StringName, Object>() {
+        final ExpressionNodeSelectorNodeSelectorContext2<TestNode, StringName, StringName, Object> context = ExpressionNodeSelectorNodeSelectorContext2.with(
+                new FakeNodeSelectorContext<TestNode, StringName, StringName, Object>() {
 
-            @Override
-            public <T> Either<T, String> convert(final Object value, final Class<T> target) {
-                assertEquals(Integer.class, target, "target");
+                    @Override
+                    public <T> Either<T, String> convert(final Object value, final Class<T> target) {
+                        assertEquals(Integer.class, target, "target");
 
-                return Converters.collection(Lists.of(
-                        ExpressionNumber.fromExpressionNumberConverter(Converters.numberNumber()),
-                        Converters.<String, Integer>function(v -> v instanceof String, Predicates.is(Integer.class), Integer::parseInt)))
-                        .convert(value, target, ConverterContexts.basic(ConverterContexts.fake(), DecimalNumberContexts.american(MathContext.DECIMAL32)));
-            }
-        });
+                        return this.converter().convert(value,
+                                        target,
+                                        this.converterContext());
+                    }
+
+                    @Override
+                    public Object evaluate(final Expression expression) {
+                        Objects.requireNonNull(expression, "expression");
+
+                        return expression.toExpressionNumber(
+                                ExpressionEvaluationContexts.basic(EXPRESSION_NUMBER_KIND,
+                                        (e, parameters) -> {
+                                            throw new UnsupportedOperationException();
+                                        },
+                                        new Function<ExpressionReference, Optional<Expression>>() {
+                                            @Override
+                                            public Optional<Expression> apply(ExpressionReference expressionReference) {
+                                                throw new UnsupportedOperationException();
+                                            }
+                                        },
+                                        this.converter(),
+                                        ExpressionNumberConverterContexts.basic(this.converterContext(), EXPRESSION_NUMBER_KIND)));
+                    }
+
+                    private Converter<ExpressionNumberConverterContext> converter() {
+                        return  Converters.collection(Lists.of(
+                                ExpressionNumber.fromExpressionNumberConverter(Converters.numberNumber()),
+                                Converters.<String, Integer>function(v -> v instanceof String, Predicates.is(Integer.class), Integer::parseInt)));
+                    }
+
+                    private ExpressionNumberConverterContext converterContext() {
+                        return ExpressionNumberConverterContexts.basic(ConverterContexts.basic(ConverterContexts.fake(), DecimalNumberContexts.american(MathContext.DECIMAL32)), EXPRESSION_NUMBER_KIND);
+                    }
+                });
         context.position = INDEX;
         return context;
     }

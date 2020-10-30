@@ -70,13 +70,6 @@ public enum ExpressionNumberKind {
     public abstract Class<?> numberType();
 
     /**
-     * Adds support for converting numbers to another numbers or {@link ExpressionNumber}.
-     */
-    public final <C extends ConverterContext> Converter<C> toConverter(final Converter<C> converter) {
-        return ExpressionNumberKindConverter.with(this, converter);
-    }
-
-    /**
      * This constant will disappear when {@link ExpressionNumberKind} is configurable.
      */
     public final static ExpressionNumberKind DEFAULT = DOUBLE;

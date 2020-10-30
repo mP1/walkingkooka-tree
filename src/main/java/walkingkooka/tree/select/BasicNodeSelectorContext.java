@@ -17,14 +17,14 @@
 
 package walkingkooka.tree.select;
 
-import walkingkooka.Cast;
 import walkingkooka.Either;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.convert.Converter;
-import walkingkooka.convert.ConverterContext;
 import walkingkooka.naming.Name;
 import walkingkooka.tree.Node;
+import walkingkooka.tree.expression.Expression;
 import walkingkooka.tree.expression.ExpressionException;
+import walkingkooka.tree.expression.ExpressionNumberConverterContext;
 import walkingkooka.tree.expression.ExpressionNumberKind;
 import walkingkooka.tree.expression.FunctionExpressionName;
 import walkingkooka.tree.expression.function.ExpressionFunction;
@@ -49,18 +49,16 @@ final class BasicNodeSelectorContext<N extends Node<N, NAME, ANAME, AVALUE>, NAM
             NAME extends Name,
             ANAME extends Name,
             AVALUE,
-            C extends ConverterContext> BasicNodeSelectorContext<N, NAME, ANAME, AVALUE> with(final BooleanSupplier finisher,
-                                                                                              final Predicate<N> filter,
-                                                                                              final Function<N, N> mapper,
-                                                                                              final ExpressionNumberKind expressionNumberKind,
-                                                                                              final Function<FunctionExpressionName, Optional<ExpressionFunction<?>>> functions,
-                                                                                              final Converter<C> converter,
-                                                                                              final C converterContext,
-                                                                                              final Class<N> nodeType) {
+            C extends ExpressionNumberConverterContext> BasicNodeSelectorContext<N, NAME, ANAME, AVALUE> with(final BooleanSupplier finisher,
+                                                                                                              final Predicate<N> filter,
+                                                                                                              final Function<N, N> mapper,
+                                                                                                              final Function<FunctionExpressionName, Optional<ExpressionFunction<?>>> functions,
+                                                                                                              final Converter<C> converter,
+                                                                                                              final C converterContext,
+                                                                                                              final Class<N> nodeType) {
         Objects.requireNonNull(finisher, "finisher");
         Objects.requireNonNull(filter, "filter");
         Objects.requireNonNull(mapper, "mapper");
-        Objects.requireNonNull(expressionNumberKind, "expressionNumberKind");
         Objects.requireNonNull(functions, "functions");
         Objects.requireNonNull(converter, "converter");
         Objects.requireNonNull(converterContext, "converterContext");
@@ -69,23 +67,20 @@ final class BasicNodeSelectorContext<N extends Node<N, NAME, ANAME, AVALUE>, NAM
         return new BasicNodeSelectorContext<N, NAME, ANAME, AVALUE>(finisher,
                 filter,
                 mapper,
-                expressionNumberKind,
                 functions,
-                converter.cast(ConverterContext.class),
+                converter.cast(ExpressionNumberConverterContext.class),
                 converterContext);
     }
 
     private BasicNodeSelectorContext(final BooleanSupplier finisher,
                                      final Predicate<N> filter,
                                      final Function<N, N> mapper,
-                                     final ExpressionNumberKind expressionNumberKind,
                                      final Function<FunctionExpressionName, Optional<ExpressionFunction<?>>> functions,
-                                     final Converter<ConverterContext> converter,
-                                     final ConverterContext converterContext) {
+                                     final Converter<ExpressionNumberConverterContext> converter,
+                                     final ExpressionNumberConverterContext converterContext) {
         this.finisher = finisher;
         this.filter = filter;
         this.mapper = mapper;
-        this.expressionNumberKind = expressionNumberKind;
         this.functions = functions;
         this.converter = converter;
         this.converterContext = converterContext;
@@ -128,21 +123,9 @@ final class BasicNodeSelectorContext<N extends Node<N, NAME, ANAME, AVALUE>, NAM
     private final Function<N, N> mapper;
 
     @Override
-    public <T> Either<T, String> convert(final Object value, final Class<T> target) {
-        return this.converter.convert(value, target, this.converterContext);
-    }
-
-    private final Converter<ConverterContext> converter;
-
-    private final ConverterContext converterContext;
-
-
-    @Override
     public ExpressionNumberKind expressionNumberKind() {
-        return this.expressionNumberKind;
+        return this.converterContext.expressionNumberKind();
     }
-
-    private final ExpressionNumberKind expressionNumberKind;
 
     @Override
     public Object function(final FunctionExpressionName name, final List<Object> parameters) {
@@ -153,9 +136,9 @@ final class BasicNodeSelectorContext<N extends Node<N, NAME, ANAME, AVALUE>, NAM
 
     private final static FunctionExpressionName NODE = FunctionExpressionName.with("node");
 
-    public Locale locale() {
-        return this.converterContext.locale();
-    }
+//    public Locale locale() {
+//        return this.converterContext.locale();
+//    }
 
     private N node() {
         final N current = this.current;
@@ -175,14 +158,29 @@ final class BasicNodeSelectorContext<N extends Node<N, NAME, ANAME, AVALUE>, NAM
             throw new ExpressionException("Unknown function " + name);
         }
 
-        return function.get().apply(Lists.readOnly(parameters), this);
+        return function.get()
+                .apply(Lists.readOnly(parameters), BasicNodeSelectorContextExpressionFunctionContext.with(this.functions, this.converter, this.converterContext));
     }
 
     private final Function<FunctionExpressionName, Optional<ExpressionFunction<?>>> functions;
 
+//    @Override
+//    public MathContext mathContext() {
+//        return this.converterContext.mathContext();
+//    }
+
     @Override
-    public MathContext mathContext() {
-        return this.converterContext.mathContext();
+    public <T> Either<T, String> convert(final Object value, final Class<T> target) {
+        return this.converter.convert(value, target, this.converterContext);
+    }
+
+    private final Converter<ExpressionNumberConverterContext> converter;
+
+    private final ExpressionNumberConverterContext converterContext;
+
+    @Override
+    public Object evaluate(final Expression expression) {
+        return expression.toExpressionNumber(BasicNodeSelectorContextExpressionEvalutionContext.with(this.functions, this.converter, this.converterContext));
     }
 
     /**
@@ -195,7 +193,6 @@ final class BasicNodeSelectorContext<N extends Node<N, NAME, ANAME, AVALUE>, NAM
         return this.finisher + " " +
                 this.filter + " " +
                 this.mapper + " " +
-                this.expressionNumberKind + " " +
                 this.functions + " " +
                 this.converter + " " +
                 this.converterContext;

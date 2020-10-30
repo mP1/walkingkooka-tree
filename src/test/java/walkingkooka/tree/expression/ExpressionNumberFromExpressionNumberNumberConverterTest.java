@@ -36,8 +36,8 @@ import java.util.function.Function;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class ExpressionNumberFromExpressionNumberNumberConverterTest implements ConverterTesting2<ExpressionNumberFromExpressionNumberNumberConverter<ConverterContext>, ConverterContext>,
-        ToStringTesting<ExpressionNumberFromExpressionNumberNumberConverter<ConverterContext>> {
+public final class ExpressionNumberFromExpressionNumberNumberConverterTest implements ConverterTesting2<ExpressionNumberFromExpressionNumberNumberConverter<ExpressionNumberConverterContext>, ExpressionNumberConverterContext>,
+        ToStringTesting<ExpressionNumberFromExpressionNumberNumberConverter<ExpressionNumberConverterContext>> {
 
     @Test
     public void testWithNullConverterFails() {
@@ -101,7 +101,9 @@ public final class ExpressionNumberFromExpressionNumberNumberConverterTest imple
 
     private void convertAndCheck2(final Object value,
                                   final String expected) {
-        this.convertAndCheck(value, String.class, expected);
+        this.convertAndCheck(value,
+                String.class,
+                expected);
     }
 
     @Test
@@ -110,10 +112,10 @@ public final class ExpressionNumberFromExpressionNumberNumberConverterTest imple
     }
 
     @Override
-    public ExpressionNumberFromExpressionNumberNumberConverter<ConverterContext> createConverter() {
-        return ExpressionNumberFromExpressionNumberNumberConverter.with(Converters.numberString(new Function<DecimalNumberContext, DecimalFormat>() {
+    public ExpressionNumberFromExpressionNumberNumberConverter<ExpressionNumberConverterContext> createConverter() {
+        return ExpressionNumberFromExpressionNumberNumberConverter.with(Converters.numberString(new Function<>() {
             @Override
-            public DecimalFormat apply(DecimalNumberContext decimalNumberContext) {
+            public DecimalFormat apply(final DecimalNumberContext decimalNumberContext) {
                 return (DecimalFormat) DecimalFormat.getInstance();
             }
 
@@ -126,12 +128,16 @@ public final class ExpressionNumberFromExpressionNumberNumberConverterTest imple
     }
 
     @Override
-    public ConverterContext createContext() {
-        return ConverterContexts.basic(DateTimeContexts.fake(), DecimalNumberContexts.american(MathContext.DECIMAL32));
+    public ExpressionNumberConverterContext createContext() {
+        return this.createContext(ExpressionNumberKind.DEFAULT);
+    }
+
+    private ExpressionNumberConverterContext createContext(final ExpressionNumberKind kind) {
+        return ExpressionNumberConverterContexts.basic(ConverterContexts.basic(DateTimeContexts.fake(), DecimalNumberContexts.american(MathContext.DECIMAL32)), kind);
     }
 
     @Override
-    public Class<ExpressionNumberFromExpressionNumberNumberConverter<ConverterContext>> type() {
+    public Class<ExpressionNumberFromExpressionNumberNumberConverter<ExpressionNumberConverterContext>> type() {
         return Cast.to(ExpressionNumberFromExpressionNumberNumberConverter.class);
     }
 

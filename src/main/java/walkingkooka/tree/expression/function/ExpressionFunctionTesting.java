@@ -26,6 +26,8 @@ import walkingkooka.convert.Converters;
 import walkingkooka.reflect.TypeNameTesting;
 import walkingkooka.text.CharSequences;
 import walkingkooka.tree.expression.ExpressionNumber;
+import walkingkooka.tree.expression.ExpressionNumberConverterContext;
+import walkingkooka.tree.expression.ExpressionNumberConverterContexts;
 import walkingkooka.tree.expression.ExpressionNumberKind;
 import walkingkooka.util.BiFunctionTesting;
 
@@ -85,6 +87,12 @@ public interface ExpressionFunctionTesting<F extends ExpressionFunction<V>, V>
 
     default ExpressionFunctionContext createContext() {
         return new FakeExpressionFunctionContext() {
+
+            @Override
+            public ExpressionNumberKind expressionNumberKind() {
+                return ExpressionFunctionTesting.this.expressionNumberKind();
+            }
+
             @Override
             public <T> Either<T, String> convert(final Object value, final Class<T> target) {
                 return ExpressionFunctionTesting.this.convert(value, target);
@@ -99,16 +107,19 @@ public interface ExpressionFunctionTesting<F extends ExpressionFunction<V>, V>
         if (target == String.class) {
             return Either.left(Cast.to(value.toString()));
         }
+
+        final ExpressionNumberConverterContext context = ExpressionNumberConverterContexts.basic(ConverterContexts.fake(), this.expressionNumberKind());
+
         if (value instanceof String && Number.class.isAssignableFrom(target)) {
             final Double doubleValue = Double.parseDouble((String) value);
-            return this.expressionNumberKind().toConverter(Converters.numberNumber())
-                    .convert(doubleValue, target, ConverterContexts.fake());
+            return ExpressionNumber.toExpressionNumberConverter(ExpressionNumber.fromExpressionNumberConverter(Converters.numberNumber()))
+                    .convert(doubleValue, target, context);
         }
         if (target == Boolean.class) {
             return Either.left(Cast.to(Boolean.parseBoolean(value.toString())));
         }
-        return this.expressionNumberKind().toConverter(Converters.numberNumber())
-                .convert(value, target, ConverterContexts.fake());
+        return ExpressionNumber.toExpressionNumberConverter(ExpressionNumber.fromExpressionNumberConverter(Converters.numberNumber()))
+                .convert(value, target, context);
     }
 
     default List<Object> parameters(final Object... values) {
@@ -118,6 +129,7 @@ public interface ExpressionFunctionTesting<F extends ExpressionFunction<V>, V>
     default ExpressionNumberKind expressionNumberKind() {
         return ExpressionNumberKind.DEFAULT;
     }
+
 
     // TypeNameTesting...........................................................................................
 

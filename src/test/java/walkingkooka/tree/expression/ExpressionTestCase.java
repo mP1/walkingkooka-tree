@@ -240,43 +240,43 @@ public abstract class ExpressionTestCase<N extends Expression> implements ClassT
         }
     }
 
-    private ConverterContext converterContext() {
-        return ConverterContexts.basic(DateTimeContexts.locale(Locale.ENGLISH, 20), DecimalNumberContexts.american(MathContext.DECIMAL32));
+    private ExpressionNumberConverterContext converterContext() {
+        return ExpressionNumberConverterContexts.basic(ConverterContexts.basic(DateTimeContexts.locale(Locale.ENGLISH, 20), DecimalNumberContexts.american(MathContext.DECIMAL32)), EXPRESSION_NUMBER_KIND);
     }
 
     ExpressionEvaluationContext context() {
         final Function<ConverterContext, ParserContext> parserContext = (c) -> ParserContexts.basic(c, c);
 
-        final Converter<ConverterContext> stringNumber = Converters.parser(Number.class,
+        final Converter<ExpressionNumberConverterContext> stringNumber = Converters.parser(Number.class,
                 Parsers.bigDecimal(),
                 parserContext);
-        final Converter<ConverterContext> stringDouble = Converters.parser(Double.class,
+        final Converter<ExpressionNumberConverterContext> stringDouble = Converters.parser(Double.class,
                 Parsers.doubleParser(),
                 parserContext);
-        final Converter<ConverterContext> stringLocalDate = Converters.parser(LocalDate.class,
+        final Converter<ExpressionNumberConverterContext> stringLocalDate = Converters.parser(LocalDate.class,
                 Parsers.localDate((c) -> DateTimeFormatter.ISO_LOCAL_DATE),
                 parserContext);
-        final Converter<ConverterContext> stringLocalDateTime = Converters.parser(LocalDateTime.class,
+        final Converter<ExpressionNumberConverterContext> stringLocalDateTime = Converters.parser(LocalDateTime.class,
                 Parsers.localDateTime((c) -> DateTimeFormatter.ISO_LOCAL_DATE_TIME),
                 parserContext);
-        final Converter<ConverterContext> stringLocalTime = Converters.parser(LocalTime.class,
+        final Converter<ExpressionNumberConverterContext> stringLocalTime = Converters.parser(LocalTime.class,
                 Parsers.localTime((c) -> DateTimeFormatter.ISO_LOCAL_TIME),
                 parserContext);
 
-        final Converter<ConverterContext> converters = Converters.collection(Lists.of(
+        final Converter<ExpressionNumberConverterContext> converters = Converters.collection(Lists.of(
                 Converters.simple(),
-                new FakeConverter<ConverterContext>() {
+                new FakeConverter<ExpressionNumberConverterContext>() {
                     @Override
                     public boolean canConvert(final Object value,
                                               final Class<?> type,
-                                              final ConverterContext context) {
+                                              final ExpressionNumberConverterContext context) {
                         return value instanceof ExpressionNumber && ExpressionNumber.class == type;
                     }
 
                     @Override
                     public <T> Either<T, String> convert(final Object value,
                                                          final Class<T> type,
-                                                         final ConverterContext context) {
+                                                         final ExpressionNumberConverterContext context) {
                         return this.canConvert(value, type, context) ?
                                 Cast.to(Either.left(this.toExpressionNumber((ExpressionNumber)value))) :
                                 this.failConversion(value, type);
@@ -289,18 +289,18 @@ public abstract class ExpressionTestCase<N extends Expression> implements ClassT
                 // localDate ->
                 toBoolean(LocalDate.class, LocalDate.ofEpochDay(0)),
                 Converters.localDateLocalDateTime(),
-                EXPRESSION_NUMBER_KIND.toConverter(Converters.localDateNumber(Converters.JAVA_EPOCH_OFFSET)),
+                ExpressionNumber.toExpressionNumberConverter(Converters.localDateNumber(Converters.JAVA_EPOCH_OFFSET)),
                 Converters.localDateString((c) -> DateTimeFormatter.ISO_LOCAL_DATE),
                 // localDateTime ->
                 toBoolean(LocalDateTime.class, LocalDateTime.ofEpochSecond(0, 0, ZoneOffset.UTC)),
                 Converters.localDateTimeLocalDate(),
                 Converters.localDateTimeLocalTime(),
-                EXPRESSION_NUMBER_KIND.toConverter(Converters.localDateTimeNumber(Converters.JAVA_EPOCH_OFFSET)),
+                ExpressionNumber.toExpressionNumberConverter(Converters.localDateTimeNumber(Converters.JAVA_EPOCH_OFFSET)),
                 Converters.localDateTimeString((c) -> DateTimeFormatter.ISO_LOCAL_DATE_TIME),
                 // localTime
                 toBoolean(LocalTime.class, LocalTime.ofNanoOfDay(0)),
                 Converters.localTimeLocalDateTime(),
-                EXPRESSION_NUMBER_KIND.toConverter(Converters.localTimeNumber()),
+                ExpressionNumber.toExpressionNumberConverter(Converters.localTimeNumber()),
                 Converters.localTimeString((c) -> DateTimeFormatter.ISO_LOCAL_TIME),
                 // ExpressionNumber ->),
                 ExpressionNumber.fromExpressionNumberConverter(Converters.numberNumber()),
@@ -321,14 +321,14 @@ public abstract class ExpressionTestCase<N extends Expression> implements ClassT
                 stringLocalDate,
                 stringLocalDateTime,
                 stringLocalTime,
-                EXPRESSION_NUMBER_KIND.toConverter(stringDouble),
+                ExpressionNumber.toExpressionNumberConverter(stringDouble),
                 Converters.objectString(),
                 // boolean ->
                 listToBoolean(),
                 fromBoolean(LocalDate.class, Converters.numberLocalDate(Converters.JAVA_EPOCH_OFFSET)),
                 fromBoolean(LocalDateTime.class, Converters.numberLocalDateTime(Converters.JAVA_EPOCH_OFFSET)),
                 fromBoolean(LocalTime.class, Converters.numberLocalTime()),
-                fromBoolean(ExpressionNumber.class, EXPRESSION_NUMBER_KIND.toConverter(Converters.numberNumber()))));
+                fromBoolean(ExpressionNumber.class, ExpressionNumber.toExpressionNumberConverter(Converters.numberNumber()))));
 
         return new FakeExpressionEvaluationContext() {
 
@@ -378,13 +378,18 @@ public abstract class ExpressionTestCase<N extends Expression> implements ClassT
             public <T> Either<T, String> convert(final Object value, final Class<T> target) {
                 return converters.convert(value, target, ExpressionTestCase.this.converterContext());
             }
+
+            @Override
+            public ExpressionNumberKind expressionNumberKind() {
+                return EXPRESSION_NUMBER_KIND;
+            }
         };
     }
 
     /**
      * Converts an empty list to false, and non empty list to true.
      */
-    private static Converter<ConverterContext> listToBoolean() {
+    private static Converter<ExpressionNumberConverterContext> listToBoolean() {
         return Converters.booleanTrueFalse((v) -> v instanceof List,
                 emptyList(),
                 Predicates.is(Boolean.class),
@@ -399,8 +404,9 @@ public abstract class ExpressionTestCase<N extends Expression> implements ClassT
         };
     }
 
-    private static <T> Converter<ConverterContext> fromBoolean(final Class<T> targetType, final Converter<ConverterContext> trueOrFalse) {
-        final ConverterContext context = ConverterContexts.fake();
+    private <T> Converter<ExpressionNumberConverterContext> fromBoolean(final Class<T> targetType,
+                                                                        final Converter<ExpressionNumberConverterContext> trueOrFalse) {
+        final ExpressionNumberConverterContext context = this.converterContext();
         return Converters.booleanTrueFalse((t)-> t instanceof Boolean,
                 Predicate.isEqual(Boolean.FALSE),
                 (t) -> t == targetType,
@@ -408,7 +414,7 @@ public abstract class ExpressionTestCase<N extends Expression> implements ClassT
                 trueOrFalse.convertOrFail(0L, targetType, context));
     }
 
-    private static <S> Converter<ConverterContext> toBoolean(final Class<S> sourceType, final S falseValue) {
+    private static <S> Converter<ExpressionNumberConverterContext> toBoolean(final Class<S> sourceType, final S falseValue) {
         return Converters.booleanTrueFalse((t) -> t.getClass() == sourceType,
                 Predicate.isEqual(falseValue),
                 (t) -> t == Boolean.class,

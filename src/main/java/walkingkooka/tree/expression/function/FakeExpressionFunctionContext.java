@@ -18,6 +18,7 @@
 package walkingkooka.tree.expression.function;
 
 import walkingkooka.Either;
+import walkingkooka.convert.FakeConverterContext;
 import walkingkooka.test.Fake;
 import walkingkooka.tree.expression.ExpressionNumberKind;
 import walkingkooka.tree.expression.FunctionExpressionName;
@@ -27,15 +28,10 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
 
-public class FakeExpressionFunctionContext implements ExpressionFunctionContext, Fake {
+public class FakeExpressionFunctionContext extends FakeConverterContext implements ExpressionFunctionContext {
 
     public FakeExpressionFunctionContext() {
         super();
-    }
-
-    @Override
-    public ExpressionNumberKind expressionNumberKind() {
-        throw new UnsupportedOperationException();
     }
 
     @Override
@@ -50,6 +46,11 @@ public class FakeExpressionFunctionContext implements ExpressionFunctionContext,
         Objects.requireNonNull(value, "value");
         Objects.requireNonNull(target, "target");
 
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public ExpressionNumberKind expressionNumberKind() {
         throw new UnsupportedOperationException();
     }
 

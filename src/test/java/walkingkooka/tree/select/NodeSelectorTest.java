@@ -29,6 +29,8 @@ import walkingkooka.reflect.ClassTesting2;
 import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.stream.StreamTesting;
 import walkingkooka.tree.TestNode;
+import walkingkooka.tree.expression.ExpressionNumber;
+import walkingkooka.tree.expression.ExpressionNumberConverterContexts;
 import walkingkooka.tree.expression.ExpressionNumberKind;
 
 import java.util.List;
@@ -119,10 +121,9 @@ public final class NodeSelectorTest implements ClassTesting2<NodeSelector<TestNo
     private Stream<TestNode> stream(final NodeSelector<TestNode, StringName, StringName, Object> selector,
                                     final TestNode node) {
         return selector.stream(node,
-                ExpressionNumberKind.DEFAULT,
                 NodeSelectorContexts.basicFunctions(),
                 Converters.fake(),
-                ConverterContexts.fake(),
+                ExpressionNumberConverterContexts.fake(),
                 TestNode.class);
     }
 

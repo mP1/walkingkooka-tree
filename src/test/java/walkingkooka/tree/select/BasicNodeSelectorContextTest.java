@@ -20,7 +20,6 @@ package walkingkooka.tree.select;
 import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.convert.Converter;
-import walkingkooka.convert.ConverterContext;
 import walkingkooka.convert.ConverterContexts;
 import walkingkooka.convert.Converters;
 import walkingkooka.naming.StringName;
@@ -28,6 +27,10 @@ import walkingkooka.predicate.Predicates;
 import walkingkooka.reflect.ClassTesting2;
 import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.tree.TestNode;
+import walkingkooka.tree.expression.Expression;
+import walkingkooka.tree.expression.ExpressionNumber;
+import walkingkooka.tree.expression.ExpressionNumberConverterContext;
+import walkingkooka.tree.expression.ExpressionNumberConverterContexts;
 import walkingkooka.tree.expression.ExpressionNumberKind;
 import walkingkooka.tree.expression.FunctionExpressionName;
 import walkingkooka.tree.expression.function.ExpressionFunction;
@@ -54,7 +57,6 @@ public final class BasicNodeSelectorContextTest implements ClassTesting2<BasicNo
         assertThrows(NullPointerException.class, () -> BasicNodeSelectorContext.with(null,
                 this.predicate(),
                 this.mapper(),
-                KIND,
                 this.functions(),
                 this.converter(),
                 this.converterContext(),
@@ -66,7 +68,6 @@ public final class BasicNodeSelectorContextTest implements ClassTesting2<BasicNo
         assertThrows(NullPointerException.class, () -> BasicNodeSelectorContext.with(this.finisher(),
                 null,
                 this.mapper(),
-                KIND,
                 this.functions(),
                 this.converter(),
                 this.converterContext(),
@@ -77,19 +78,6 @@ public final class BasicNodeSelectorContextTest implements ClassTesting2<BasicNo
     public void testWithNullSelectedFails() {
         assertThrows(NullPointerException.class, () -> BasicNodeSelectorContext.with(this.finisher(),
                 this.predicate(),
-                null,
-                KIND,
-                this.functions(),
-                this.converter(),
-                this.converterContext(),
-                this.nodeType()));
-    }
-
-    @Test
-    public void testWithNullExpressionNumberKindFails() {
-        assertThrows(NullPointerException.class, () -> BasicNodeSelectorContext.with(this.finisher(),
-                this.predicate(),
-                this.mapper(),
                 null,
                 this.functions(),
                 this.converter(),
@@ -102,7 +90,6 @@ public final class BasicNodeSelectorContextTest implements ClassTesting2<BasicNo
         assertThrows(NullPointerException.class, () -> BasicNodeSelectorContext.with(this.finisher(),
                 this.predicate(),
                 this.mapper(),
-                KIND,
                 null,
                 this.converter(),
                 this.converterContext(),
@@ -114,7 +101,6 @@ public final class BasicNodeSelectorContextTest implements ClassTesting2<BasicNo
         assertThrows(NullPointerException.class, () -> BasicNodeSelectorContext.with(this.finisher(),
                 this.predicate(),
                 this.mapper(),
-                KIND,
                 this.functions(),
                 null,
                 this.converterContext(),
@@ -126,7 +112,6 @@ public final class BasicNodeSelectorContextTest implements ClassTesting2<BasicNo
         assertThrows(NullPointerException.class, () -> BasicNodeSelectorContext.with(this.finisher(),
                 this.predicate(),
                 this.mapper(),
-                KIND,
                 this.functions(),
                 this.converter(),
                 null,
@@ -138,7 +123,6 @@ public final class BasicNodeSelectorContextTest implements ClassTesting2<BasicNo
         assertThrows(NullPointerException.class, () -> BasicNodeSelectorContext.with(this.finisher(),
                 this.predicate(),
                 this.mapper(),
-                KIND,
                 this.functions(),
                 this.converter(),
                 this.converterContext(),
@@ -171,22 +155,41 @@ public final class BasicNodeSelectorContextTest implements ClassTesting2<BasicNo
     }
 
     @Test
+    public void testEvaluate() {
+        final BasicNodeSelectorContext<TestNode, StringName, StringName, Object> context = this.createContext();
+        final int number = 123;
+
+        assertEquals(KIND.create(number), context.evaluate(Expression.expressionNumber(KIND.create(number))));
+    }
+
+    @Test
+    public void testEvaluateAddition() {
+        final BasicNodeSelectorContext<TestNode, StringName, StringName, Object> context = this.createContext();
+        final int left = 123;
+        final int right = 456;
+
+        assertEquals(KIND.create(left + right),
+                context.evaluate(Expression.add(
+                        Expression.expressionNumber(KIND.create(left)),
+                        Expression.expressionNumber(KIND.create(right)))));
+    }
+
+    @Test
     public void testToString() {
         final BooleanSupplier finisher = this.finisher();
         final Predicate<TestNode> filter = this.predicate();
         final Function<TestNode, TestNode> mapper = this.mapper();
         final Function<FunctionExpressionName, Optional<ExpressionFunction<?>>> functions = this.functions();
-        final Converter<ConverterContext> converter = this.converter();
-        final ConverterContext converterContext = this.converterContext();
+        final Converter<ExpressionNumberConverterContext> converter = this.converter();
+        final ExpressionNumberConverterContext converterContext = this.converterContext();
         this.toStringAndCheck(BasicNodeSelectorContext.with(finisher,
                 filter,
                 mapper,
-                KIND,
                 functions,
                 converter,
                 converterContext,
                 this.nodeType()),
-                finisher + " " + filter + " " + mapper + " " + KIND + " " + functions + " " + converter + " " + converterContext);
+                finisher + " " + filter + " " + mapper + " " + functions + " " + converter + " " + converterContext);
     }
 
     @Override
@@ -199,7 +202,6 @@ public final class BasicNodeSelectorContextTest implements ClassTesting2<BasicNo
         return BasicNodeSelectorContext.with(this.finisher(),
                 this.predicate(),
                 this.mapper(),
-                KIND,
                 this.functions(),
                 this.converter(),
                 this.converterContext(),
@@ -222,12 +224,12 @@ public final class BasicNodeSelectorContextTest implements ClassTesting2<BasicNo
         return NodeSelectorContexts.basicFunctions();
     }
 
-    private Converter<ConverterContext> converter() {
-        return Converters.fake();
+    private Converter<ExpressionNumberConverterContext> converter() {
+        return ExpressionNumber.toExpressionNumberConverter(Converters.fake());
     }
 
-    private ConverterContext converterContext() {
-        return ConverterContexts.fake();
+    private ExpressionNumberConverterContext converterContext() {
+        return ExpressionNumberConverterContexts.basic(ConverterContexts.fake(), KIND);
     }
 
     private Class<TestNode> nodeType() {

@@ -27,12 +27,12 @@ import java.util.Objects;
  * A {@link Converter} that wraps another {@link Converter} that is converting {@link Number numbers} to another type.
  * This adds support for {@link ExpressionNumber} values.
  */
-final class ExpressionNumberFromExpressionNumberNumberConverter<C extends ConverterContext> implements Converter<C> {
+final class ExpressionNumberFromExpressionNumberNumberConverter<C extends ExpressionNumberConverterContext> implements Converter<C> {
 
     /**
      * Wraps another {@link Converter}, which will receive the actual value of the {@link ExpressionNumber}.
      */
-    static final <C extends ConverterContext> ExpressionNumberFromExpressionNumberNumberConverter<C> with(final Converter<C> converter) {
+    static final <C extends ExpressionNumberConverterContext> ExpressionNumberFromExpressionNumberNumberConverter<C> with(final Converter<C> converter) {
         Objects.requireNonNull(converter, "converter");
 
         return new ExpressionNumberFromExpressionNumberNumberConverter<>(converter);
