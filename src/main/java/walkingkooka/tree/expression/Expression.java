@@ -67,7 +67,7 @@ public abstract class Expression implements Node<Expression, FunctionExpressionN
      * Reports an unknown value type given to {@link #valueOrFail}
      */
     static Expression valueOrFailFail(final Object value) {
-        throw new IllegalArgumentException("Unknown value " + CharSequences.quoteIfChars(value));
+        throw new IllegalArgumentException("Unknown value " + CharSequences.quoteIfChars(value) + "(" + value.getClass().getName() + ")");
     }
 
     // ........................................................................................
