@@ -67,7 +67,6 @@ final class ExpressionNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NAME 
 
     @Override
     NodeSelectorContext2<N, NAME, ANAME, AVALUE> finishPrepareContext(final NodeSelectorContext2<N, NAME, ANAME, AVALUE> context) {
-        //return context.expressionCreateIfNecessary();
         return context.expression();
     }
 
