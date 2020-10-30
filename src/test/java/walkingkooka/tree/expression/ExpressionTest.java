@@ -20,8 +20,8 @@ package walkingkooka.tree.expression;
 import org.junit.jupiter.api.Test;
 import walkingkooka.reflect.ClassTesting2;
 import walkingkooka.reflect.JavaVisibility;
+import walkingkooka.text.CharSequences;
 
-import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -119,7 +119,10 @@ public final class ExpressionTest implements ClassTesting2<Expression> {
     }
 
     private void valueOrFailFails(final Object value) {
-        assertThrows(IllegalArgumentException.class, () -> Expression.valueOrFail(value));
+        final IllegalArgumentException thrown = assertThrows(IllegalArgumentException.class, () -> Expression.valueOrFail(value));
+        assertEquals("Unknown value " + CharSequences.quoteIfChars(value) + "(" + value.getClass().getName() + ")",
+                thrown.getMessage(),
+                "message");
     }
 
     private void valueOrFailAndCheck(final Object value,
