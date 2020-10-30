@@ -23,6 +23,8 @@ import walkingkooka.naming.Name;
 import walkingkooka.predicate.Predicates;
 import walkingkooka.stream.push.PushableStreamConsumer;
 import walkingkooka.tree.Node;
+import walkingkooka.tree.expression.ExpressionNumber;
+import walkingkooka.tree.expression.ExpressionNumberConverterContext;
 import walkingkooka.tree.expression.ExpressionNumberKind;
 import walkingkooka.tree.expression.FunctionExpressionName;
 import walkingkooka.tree.expression.function.ExpressionFunction;
@@ -48,20 +50,18 @@ final class NodeSelectorStreamConsumerPushableStreamConsumer<N extends Node<N, N
             NAME extends Name,
             ANAME extends Name,
             AVALUE,
-            C extends ConverterContext> NodeSelectorStreamConsumerPushableStreamConsumer<N, NAME, ANAME, AVALUE> with(final N node,
-                                                                                                                      final NodeSelector<N, NAME, ANAME, AVALUE> selector,
-                                                                                                                      final ExpressionNumberKind expressionNumberKind,
-                                                                                                                      final Function<FunctionExpressionName, Optional<ExpressionFunction<?>>> functions,
-                                                                                                                      final Converter<C> converter,
-                                                                                                                      final C converterContext,
-                                                                                                                      final Class<N> nodeType) {
+            C extends ExpressionNumberConverterContext> NodeSelectorStreamConsumerPushableStreamConsumer<N, NAME, ANAME, AVALUE> with(final N node,
+                                                                                                                                      final NodeSelector<N, NAME, ANAME, AVALUE> selector,
+                                                                                                                                      final Function<FunctionExpressionName, Optional<ExpressionFunction<?>>> functions,
+                                                                                                                                      final Converter<C> converter,
+                                                                                                                                      final C converterContext,
+                                                                                                                                      final Class<N> nodeType) {
         Objects.requireNonNull(node, "node");
 
         return new NodeSelectorStreamConsumerPushableStreamConsumer<N, NAME, ANAME, AVALUE>(node,
                 selector,
-                expressionNumberKind,
                 functions,
-                converter.cast(ConverterContext.class),
+                converter.cast(ExpressionNumberConverterContext.class),
                 converterContext,
                 nodeType);
     }
@@ -71,10 +71,9 @@ final class NodeSelectorStreamConsumerPushableStreamConsumer<N extends Node<N, N
      */
     private NodeSelectorStreamConsumerPushableStreamConsumer(final N node,
                                                              final NodeSelector<N, NAME, ANAME, AVALUE> selector,
-                                                             final ExpressionNumberKind expressionNumberKind,
                                                              final Function<FunctionExpressionName, Optional<ExpressionFunction<?>>> functions,
-                                                             final Converter<ConverterContext> converter,
-                                                             final ConverterContext converterContext,
+                                                             final Converter<ExpressionNumberConverterContext> converter,
+                                                             final ExpressionNumberConverterContext converterContext,
                                                              final Class<N> nodeType) {
         super();
         this.selector = selector;
@@ -83,7 +82,6 @@ final class NodeSelectorStreamConsumerPushableStreamConsumer<N extends Node<N, N
         this.context = NodeSelectorContexts.basic(this::finisher,
                 Predicates.always(),
                 this::mapper,
-                expressionNumberKind,
                 functions,
                 converter,
                 converterContext,

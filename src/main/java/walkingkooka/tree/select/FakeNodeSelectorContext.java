@@ -21,6 +21,7 @@ import walkingkooka.Either;
 import walkingkooka.naming.Name;
 import walkingkooka.test.Fake;
 import walkingkooka.tree.Node;
+import walkingkooka.tree.expression.Expression;
 import walkingkooka.tree.expression.ExpressionNumberKind;
 import walkingkooka.tree.expression.FunctionExpressionName;
 
@@ -52,12 +53,12 @@ public class FakeNodeSelectorContext<N extends Node<N, NAME, ANAME, AVALUE>,
     public N selected(final N node) {
         throw new UnsupportedOperationException();
     }
-
-    @Override
-    public <T> Either<T, String> convert(final Object value, final Class<T> target) {
-        throw new UnsupportedOperationException();
-    }
-
+//
+//    @Override
+//    public <T> Either<T, String> convert(final Object value, final Class<T> target) {
+//        throw new UnsupportedOperationException();
+//    }
+//
     @Override
     public ExpressionNumberKind expressionNumberKind() {
         throw new UnsupportedOperationException();
@@ -69,12 +70,26 @@ public class FakeNodeSelectorContext<N extends Node<N, NAME, ANAME, AVALUE>,
     }
 
     @Override
-    public Locale locale() {
+    public <T> Either<T, String> convert(final Object value, final Class<T> target) {
         throw new UnsupportedOperationException();
     }
 
+    /**
+     * Evaluates the {@link Expression} returning the value.
+     */
     @Override
-    public MathContext mathContext() {
+    public Object evaluate(final Expression expression) {
         throw new UnsupportedOperationException();
     }
+
+    //
+//    @Override
+//    public Locale locale() {
+//        throw new UnsupportedOperationException();
+//    }
+//
+//    @Override
+//    public MathContext mathContext() {
+//        throw new UnsupportedOperationException();
+//    }
 }

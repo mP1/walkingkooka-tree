@@ -9,7 +9,7 @@
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY //KIND, either express or implied.
  * See the License for the specific language governing permissions and
  * limitations under the License.
  *
@@ -28,6 +28,9 @@ import walkingkooka.convert.Converters;
 import walkingkooka.naming.Names;
 import walkingkooka.naming.StringName;
 import walkingkooka.tree.TestNode;
+import walkingkooka.tree.expression.ExpressionNumber;
+import walkingkooka.tree.expression.ExpressionNumberConverterContext;
+import walkingkooka.tree.expression.ExpressionNumberConverterContexts;
 import walkingkooka.tree.expression.ExpressionNumberKind;
 import walkingkooka.tree.expression.FunctionExpressionName;
 import walkingkooka.tree.expression.function.ExpressionFunction;
@@ -52,7 +55,7 @@ public final class NodeSelectorStreamConsumerPushableStreamConsumerTest extends 
     public void testWithNullNodeFails() {
         assertThrows(NullPointerException.class, () -> NodeSelectorStreamConsumerPushableStreamConsumer.with(null,
                 this.selector(),
-                KIND,
+                ////KIND,
                 this.functions(),
                 this.converter(),
                 this.converterContext(),
@@ -61,22 +64,22 @@ public final class NodeSelectorStreamConsumerPushableStreamConsumerTest extends 
 
     // no TestWithNullSelector because NodeSelector.stream
 
-    @Test
-    public void testWithNullExpressionNumberKindFails() {
-        assertThrows(NullPointerException.class, () -> NodeSelectorStreamConsumerPushableStreamConsumer.with(this.node,
-                this.selector(),
-                null,
-                this.functions(),
-                this.converter(),
-                this.converterContext(),
-                this.nodeType()));
-    }
+//    @Test
+//    public void testWithNullExpressionNumberKindFails() {
+//        assertThrows(NullPointerException.class, () -> NodeSelectorStreamConsumerPushableStreamConsumer.with(this.node,
+//                this.selector(),
+//                null,
+//                this.functions(),
+//                this.converter(),
+//                this.converterContext(),
+//                this.nodeType()));
+//    }
 
     @Test
     public void testWithNullFunctionsFails() {
         assertThrows(NullPointerException.class, () -> NodeSelectorStreamConsumerPushableStreamConsumer.with(this.node,
                 this.selector(),
-                KIND,
+                //KIND,
                 null,
                 this.converter(),
                 this.converterContext(),
@@ -87,7 +90,7 @@ public final class NodeSelectorStreamConsumerPushableStreamConsumerTest extends 
     public void testWithNullConverterFails() {
         assertThrows(NullPointerException.class, () -> NodeSelectorStreamConsumerPushableStreamConsumer.with(this.node,
                 this.selector(),
-                KIND,
+                //KIND,
                 this.functions(),
                 null,
                 this.converterContext(),
@@ -98,7 +101,7 @@ public final class NodeSelectorStreamConsumerPushableStreamConsumerTest extends 
     public void testWithNullConverterContextFails() {
         assertThrows(NullPointerException.class, () -> NodeSelectorStreamConsumerPushableStreamConsumer.with(this.node,
                 this.selector(),
-                KIND,
+                //KIND,
                 this.functions(),
                 this.converter(),
                 null,
@@ -109,7 +112,7 @@ public final class NodeSelectorStreamConsumerPushableStreamConsumerTest extends 
     public void testWithNullNodeTypeFails() {
         assertThrows(NullPointerException.class, () -> NodeSelectorStreamConsumerPushableStreamConsumer.with(this.node,
                 this.selector(),
-                KIND,
+                //KIND,
                 this.functions(),
                 this.converter(),
                 this.converterContext(),
@@ -122,7 +125,7 @@ public final class NodeSelectorStreamConsumerPushableStreamConsumerTest extends 
 
         this.toStringAndCheck(NodeSelectorStreamConsumerPushableStreamConsumer.with(this.node,
                 selector,
-                KIND,
+                //KIND,
                 this.functions(),
                 this.converter(),
                 this.converterContext(),
@@ -140,12 +143,12 @@ public final class NodeSelectorStreamConsumerPushableStreamConsumerTest extends 
         return NodeSelectorContexts.basicFunctions();
     }
 
-    private Converter<ConverterContext> converter() {
+    private Converter<ExpressionNumberConverterContext> converter() {
         return Converters.fake();
     }
 
-    private ConverterContext converterContext() {
-        return ConverterContexts.fake();
+    private ExpressionNumberConverterContext converterContext() {
+        return ExpressionNumberConverterContexts.fake();
     }
 
     private Class<TestNode> nodeType() {

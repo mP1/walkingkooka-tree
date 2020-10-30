@@ -17,11 +17,10 @@
 package walkingkooka.tree.select;
 
 import walkingkooka.convert.Converter;
-import walkingkooka.convert.ConverterContext;
 import walkingkooka.naming.Name;
 import walkingkooka.reflect.PublicStaticHelper;
 import walkingkooka.tree.Node;
-import walkingkooka.tree.expression.ExpressionNumberKind;
+import walkingkooka.tree.expression.ExpressionNumberConverterContext;
 import walkingkooka.tree.expression.FunctionExpressionName;
 import walkingkooka.tree.expression.function.ExpressionFunction;
 
@@ -42,18 +41,16 @@ public final class NodeSelectorContexts implements PublicStaticHelper {
             NAME extends Name,
             ANAME extends Name,
             AVALUE,
-            C extends ConverterContext> NodeSelectorContext<N, NAME, ANAME, AVALUE> basic(final BooleanSupplier finisher,
-                                                                                          final Predicate<N> filter,
-                                                                                          final Function<N, N> mapper,
-                                                                                          final ExpressionNumberKind expressionNumberKind,
-                                                                                          final Function<FunctionExpressionName, Optional<ExpressionFunction<?>>> functions,
-                                                                                          final Converter<C> converter,
-                                                                                          final C converterContext,
-                                                                                          final Class<N> nodeType) {
+            C extends ExpressionNumberConverterContext> NodeSelectorContext<N, NAME, ANAME, AVALUE> basic(final BooleanSupplier finisher,
+                                                                                                          final Predicate<N> filter,
+                                                                                                          final Function<N, N> mapper,
+                                                                                                          final Function<FunctionExpressionName, Optional<ExpressionFunction<?>>> functions,
+                                                                                                          final Converter<C> converter,
+                                                                                                          final C converterContext,
+                                                                                                          final Class<N> nodeType) {
         return BasicNodeSelectorContext.with(finisher,
                 filter,
                 mapper,
-                expressionNumberKind,
                 functions,
                 converter,
                 converterContext,

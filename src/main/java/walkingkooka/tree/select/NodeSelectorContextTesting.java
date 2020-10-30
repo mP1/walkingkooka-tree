@@ -17,9 +17,12 @@
 
 package walkingkooka.tree.select;
 
+import org.junit.jupiter.api.Test;
 import walkingkooka.ContextTesting;
 import walkingkooka.naming.Name;
 import walkingkooka.tree.Node;
+
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 /**
  * Mixing testing interface for {@link NodeSelectorContext}
@@ -29,6 +32,11 @@ public interface NodeSelectorContextTesting<C extends NodeSelectorContext<N, NAM
         NAME extends Name,
         ANAME extends Name,
         AVALUE> extends ContextTesting<C> {
+
+    @Test
+    default void testEvaluateNullFails() {
+        assertThrows(NullPointerException.class, () -> this.createContext().evaluate(null));
+    }
 
     @Override
     default String typeNameSuffix() {

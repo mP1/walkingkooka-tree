@@ -18,14 +18,22 @@
 package walkingkooka.tree.select;
 
 import walkingkooka.Context;
+import walkingkooka.Either;
+import walkingkooka.collect.list.Lists;
 import walkingkooka.naming.Name;
 import walkingkooka.tree.Node;
+import walkingkooka.tree.expression.Expression;
+import walkingkooka.tree.expression.FunctionExpressionName;
+import walkingkooka.tree.expression.HasExpressionNumberKind;
 import walkingkooka.tree.expression.function.ExpressionFunctionContext;
+
+import java.util.List;
 
 /**
  * The {@link Context} that accompanies all match requests. Not it gathers the selected nodes and so cant be reused.
  */
-public interface NodeSelectorContext<N extends Node<N, NAME, ANAME, AVALUE>, NAME extends Name, ANAME extends Name, AVALUE> extends ExpressionFunctionContext {
+public interface NodeSelectorContext<N extends Node<N, NAME, ANAME, AVALUE>, NAME extends Name, ANAME extends Name, AVALUE> extends Context,
+        HasExpressionNumberKind {
 
     /**
      * One time flag that when true aborts future attempts to test and select additional {@link Node nodes}.
@@ -47,4 +55,25 @@ public interface NodeSelectorContext<N extends Node<N, NAME, ANAME, AVALUE>, NAM
      * Invoked with each and every selected {@link Node node}.
      */
     N selected(final N node);
+
+    /**
+     * Constant for functions without any parameters.
+     */
+    List<Object> NO_PARAMETERS = Lists.empty();
+
+    /**
+     * Locates a function with the given name and then executes it with the provided parameter values.
+     */
+    Object function(final FunctionExpressionName name, final List<Object> parameters);
+
+    /**
+     * Converts the given value to the requested type returning an {@link Either} with {@link Either#leftValue()} holding
+     * the result or {@link Either#rightValue()} holding an failure message.
+     */
+    <T> Either<T, String> convert(final Object value, final Class<T> target);
+
+    /**
+     * Evaluates the {@link Expression} returning the value.
+     */
+    Object evaluate(final Expression expression);
 }

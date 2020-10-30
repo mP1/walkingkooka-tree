@@ -20,32 +20,33 @@ package walkingkooka.tree.expression;
 import walkingkooka.Cast;
 import walkingkooka.Either;
 import walkingkooka.convert.Converter;
-import walkingkooka.convert.ConverterContext;
 import walkingkooka.convert.Converters;
 
+import java.util.Objects;
+
 /**
- * Handles the simple case of casting a value to {@link ExpressionNumber}. This is necessary because {@link ExpressionNumber}
- * actually has two package private sub classes and because {@link Converters#simple} will fail.
+ * A {@link Converter} that should wrap another {@link Converter} that converts anything to a Number.
+ * If the target is {@link ExpressionNumber} the wrapped will be used to convert the input value to a Number,
+ * and then the ExpressionNumber created. To convert {@link Number} to {@link ExpressionNumber} the wrapped
+ * converter should probably be {@link Converters#numberNumber()}.
  */
-final class ExpressionNumberToExpressionNumberConverter<C extends ConverterContext> implements Converter<C> {
+final class ExpressionNumberToExpressionNumberConverter<C extends ExpressionNumberConverterContext> implements Converter<C> {
 
     /**
-     * Type safe instance getter
+     * Factory that creates a new {@link ExpressionNumberToExpressionNumberConverter}. This should only be called by {@link ExpressionNumberKind#toConverter(Converter)}.
      */
-    static <C extends ConverterContext> ExpressionNumberToExpressionNumberConverter<C> instance() {
-        return Cast.to(INSTANCE);
+    static <C extends ExpressionNumberConverterContext> ExpressionNumberToExpressionNumberConverter<C> with(final Converter<C> converter) {
+        Objects.requireNonNull(converter, "converter");
+
+        return new ExpressionNumberToExpressionNumberConverter<>(converter);
     }
 
     /**
-     * Singleton
+     * Private ctor use factory
      */
-    private final static ExpressionNumberToExpressionNumberConverter INSTANCE = new ExpressionNumberToExpressionNumberConverter();
-
-    /**
-     * Private to limit subclassing.
-     */
-    private ExpressionNumberToExpressionNumberConverter() {
+    private ExpressionNumberToExpressionNumberConverter(final Converter<C> converter) {
         super();
+        this.converter = converter;
     }
 
     // canConvert........................................................................................................
@@ -54,7 +55,15 @@ final class ExpressionNumberToExpressionNumberConverter<C extends ConverterConte
     public final boolean canConvert(final Object value,
                                     final Class<?> type,
                                     final C context) {
-        return value instanceof ExpressionNumber && ExpressionNumber.class == type;
+        return (value instanceof ExpressionNumber && ExpressionNumber.class == type) &&
+                this.converterCanConvert(value, type, context) ||
+                (ExpressionNumber.isClass(type) && this.converterCanConvert(value, context.expressionNumberKind().numberType(), context));
+    }
+
+    private boolean converterCanConvert(final Object value,
+                                        final Class<?> type,
+                                        final C context) {
+        return this.converter.canConvert(value, type, context);
     }
 
     // convert..........................................................................................................
@@ -64,15 +73,46 @@ final class ExpressionNumberToExpressionNumberConverter<C extends ConverterConte
                                                final Class<T> type,
                                                final C context) {
 
-        return this.canConvert(value, type, context) ?
-                Cast.to(Either.left((ExpressionNumber) value)) :
-                this.failConversion(value, type);
+        return (value instanceof ExpressionNumber && ExpressionNumber.class == type) ?
+                Cast.to(Either.left(toExpressionNumber((ExpressionNumber) value, context))) :
+                this.converterCanConvert(value, type, context) ?
+                        this.converterConvert(value, type, context) :
+                        this.converterConvertAndCreateExpressionNumber(value, type, context);
     }
+
+    /**
+     * Performs a cast and updates the {@link ExpressionNumberKind} to match the context.
+     */
+    private static ExpressionNumber toExpressionNumber(final ExpressionNumber number,
+                                                       final ExpressionNumberConverterContext context) {
+        return number.setKind(context.expressionNumberKind());
+    }
+
+    private <T> Either<T, String> converterConvert(final Object value,
+                                                   final Class<T> type,
+                                                   final C context) {
+        return this.converter.convert(value, type, context);
+    }
+
+    private <T> Either<T, String> converterConvertAndCreateExpressionNumber(final Object value,
+                                                                            final Class<T> type,
+                                                                            final C context) {
+        final ExpressionNumberKind kind = context.expressionNumberKind();
+        final Either<T, String> result = Cast.to(this.converter.convert(value, kind.numberType(), context));
+        return result.isRight() ?
+                this.failConversion(value, type) :
+                Cast.to(Either.left(kind.create((Number) result.leftValue())));
+    }
+
+    /**
+     * The {@link Converter}
+     */
+    private final Converter<C> converter;
 
     // Object...........................................................................................................
 
     @Override
     public final String toString() {
-        return "ExpressionNumber";
+        return this.converter.toString() + "|" + ExpressionNumber.class.getSimpleName();
     }
 }

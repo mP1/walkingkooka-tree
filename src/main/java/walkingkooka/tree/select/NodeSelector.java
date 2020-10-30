@@ -24,6 +24,8 @@ import walkingkooka.stream.push.PushableStreamConsumer;
 import walkingkooka.text.CharacterConstant;
 import walkingkooka.tree.Node;
 import walkingkooka.tree.expression.Expression;
+import walkingkooka.tree.expression.ExpressionNumber;
+import walkingkooka.tree.expression.ExpressionNumberConverterContext;
 import walkingkooka.tree.expression.ExpressionNumberKind;
 import walkingkooka.tree.expression.FunctionExpressionName;
 import walkingkooka.tree.expression.function.ExpressionFunction;
@@ -434,16 +436,14 @@ public abstract class NodeSelector<N extends Node<N, NAME, ANAME, AVALUE>,
      * Returns a stream which will execute this selector starting with the given {@link Node} and then push matches to the
      * {@link Stream} for further stream processing.
      */
-    public final <C extends ConverterContext> Stream<N> stream(final N node,
-                                                               final ExpressionNumberKind expressionNumberKind,
-                                                               final Function<FunctionExpressionName, Optional<ExpressionFunction<?>>> functions,
-                                                               final Converter<C> converter,
-                                                               final C converterContext,
-                                                               final Class<N> nodeType) {
+    public final <C extends ExpressionNumberConverterContext> Stream<N> stream(final N node,
+                                                                               final Function<FunctionExpressionName, Optional<ExpressionFunction<?>>> functions,
+                                                                               final Converter<C> converter,
+                                                                               final C converterContext,
+                                                                               final Class<N> nodeType) {
         return PushableStreamConsumer.stream(
                 NodeSelectorStreamConsumerPushableStreamConsumer.with(node,
                         this,
-                        expressionNumberKind,
                         functions,
                         converter,
                         converterContext,

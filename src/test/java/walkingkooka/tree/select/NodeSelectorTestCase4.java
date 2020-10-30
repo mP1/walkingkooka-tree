@@ -34,7 +34,10 @@ import walkingkooka.naming.StringName;
 import walkingkooka.predicate.Predicates;
 import walkingkooka.tree.Node;
 import walkingkooka.tree.TestNode;
+import walkingkooka.tree.expression.Expression;
 import walkingkooka.tree.expression.ExpressionNumber;
+import walkingkooka.tree.expression.ExpressionNumberConverterContext;
+import walkingkooka.tree.expression.ExpressionNumberConverterContexts;
 import walkingkooka.tree.expression.ExpressionNumberKind;
 import walkingkooka.tree.expression.FunctionExpressionName;
 import walkingkooka.tree.expression.function.ExpressionFunction;
@@ -380,10 +383,10 @@ abstract public class NodeSelectorTestCase4<S extends NodeSelector<TestNode, Str
         final NodeSelectorContext<TestNode, StringName, StringName, Object> context = NodeSelectorContexts.basic(finisher,
                 filter,
                 mapper,
-                EXPRESSION_NUMBER_KIND,
+                //EXPRESSION_NUMBER_KIND,
                 this.functions(),
                 this.converter(),
-                ConverterContexts.fake(),
+                ExpressionNumberConverterContexts.fake(),
                 TestNode.class);
 
         return new NodeSelectorContext<>() {
@@ -433,15 +436,21 @@ abstract public class NodeSelectorTestCase4<S extends NodeSelector<TestNode, Str
             }
 
             @Override
-            public Locale locale() {
-                return context.locale();
+            public Object evaluate(final Expression expression) {
+                this.finisherGuardCheck();
+                return context.evaluate(expression);
             }
 
-            @Override
-            public MathContext mathContext() {
-                this.finisherGuardCheck();
-                return context.mathContext();
-            }
+            //            @Override
+//            public Locale locale() {
+//                return context.locale();
+//            }
+//
+//            @Override
+//            public MathContext mathContext() {
+//                this.finisherGuardCheck();
+//                return context.mathContext();
+//            }
 
             @Override
             public String toString() {
@@ -462,7 +471,7 @@ abstract public class NodeSelectorTestCase4<S extends NodeSelector<TestNode, Str
         return NodeSelectorContexts.basicFunctions();
     }
 
-    final Converter<ConverterContext> converter() {
+    final Converter<ExpressionNumberConverterContext> converter() {
         return Converters.collection(Lists.of(
                 ExpressionNumber.fromExpressionNumberConverter(Converters.numberNumber()),
                 Converters.<String, Integer>function((t) -> t instanceof String, Predicates.is(Integer.class), Integer::parseInt),

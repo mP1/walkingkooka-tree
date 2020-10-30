@@ -23,6 +23,7 @@ import walkingkooka.reflect.ClassTesting2;
 import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.tree.Node;
 import walkingkooka.tree.TestNode;
+import walkingkooka.tree.expression.ExpressionNumberKind;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -36,6 +37,8 @@ public abstract class NodeSelectorContext2TestCase<C extends NodeSelectorContext
         ANAME,
         AVALUE>,
         ClassTesting2<C> {
+
+    final static ExpressionNumberKind EXPRESSION_NUMBER_KIND = ExpressionNumberKind.DEFAULT;
 
     NodeSelectorContext2TestCase() {
         super();

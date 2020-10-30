@@ -19,7 +19,6 @@ package walkingkooka.tree.expression;
 
 import walkingkooka.compare.ComparisonRelation;
 import walkingkooka.convert.Converter;
-import walkingkooka.convert.ConverterContext;
 import walkingkooka.math.Maths;
 
 import java.math.BigDecimal;
@@ -75,15 +74,15 @@ public abstract class ExpressionNumber extends Number implements Comparable<Expr
     /**
      * {@see ExpressionNumberFromExpressionNumberNumberConverter}
      */
-    public static <C extends ConverterContext> Converter<C> fromExpressionNumberConverter(final Converter<C> converter) {
+    public static <C extends ExpressionNumberConverterContext> Converter<C> fromExpressionNumberConverter(final Converter<C> converter) {
         return ExpressionNumberFromExpressionNumberNumberConverter.with(converter);
     }
 
     /**
-     * {@see ExpressionNumberToExpressionNumberConverter}
+     * Adds support for converting numbers to another numbers or {@link ExpressionNumber}.
      */
-    public static <C extends ConverterContext> Converter<C> toExpressionNumberConverter() {
-        return ExpressionNumberToExpressionNumberConverter.instance();
+    public static <C extends ExpressionNumberConverterContext> Converter<C> toExpressionNumberConverter(final Converter<C> converter) {
+        return ExpressionNumberToExpressionNumberConverter.with(converter);
     }
 
     /**

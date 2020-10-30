@@ -54,7 +54,7 @@ final class ExpressionNodeSelectorExpressionEvaluationContext<N extends Node<N, 
             ANAME extends Name,
             AVALUE>
     ExpressionNodeSelectorExpressionEvaluationContext<N, NAME, ANAME, AVALUE> with(final N node,
-                                                                               final NodeSelectorContext2<N, NAME, ANAME, AVALUE> context) {
+                                                                                   final NodeSelectorContext2<N, NAME, ANAME, AVALUE> context) {
         return new ExpressionNodeSelectorExpressionEvaluationContext<>(node, context);
     }
 
@@ -62,7 +62,7 @@ final class ExpressionNodeSelectorExpressionEvaluationContext<N extends Node<N, 
      * Private ctor use factory.
      */
     private ExpressionNodeSelectorExpressionEvaluationContext(final N node,
-                                                          final NodeSelectorContext2<N, NAME, ANAME, AVALUE> context) {
+                                                              final NodeSelectorContext2<N, NAME, ANAME, AVALUE> context) {
         super();
         this.node = node;
         this.context = context;
@@ -118,8 +118,9 @@ final class ExpressionNodeSelectorExpressionEvaluationContext<N extends Node<N, 
      */
     private Expression toExpression(final Entry<?, ?> nameAndValue) {
         final Object value = nameAndValue.getValue();
+
         return Expression.valueOrFail(ExpressionNumber.is(value) ?
-                this.expressionNumberKind().create((Number) value) :
+                this.expressionNumberKind().create((Number)value) :
                 value);
     }
 

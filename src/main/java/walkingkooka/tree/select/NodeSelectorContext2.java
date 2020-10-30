@@ -20,6 +20,7 @@ package walkingkooka.tree.select;
 import walkingkooka.Either;
 import walkingkooka.naming.Name;
 import walkingkooka.tree.Node;
+import walkingkooka.tree.expression.Expression;
 import walkingkooka.tree.expression.ExpressionNumberKind;
 import walkingkooka.tree.expression.FunctionExpressionName;
 
@@ -33,7 +34,7 @@ import java.util.Locale;
 abstract class NodeSelectorContext2<N extends Node<N, NAME, ANAME, AVALUE>, NAME extends Name, ANAME extends Name, AVALUE> implements NodeSelectorContext<N, NAME, ANAME, AVALUE> {
 
     /**
-     * {@see NodeSelectorContext2All}
+     * {@see AllNodeSelectorContext2}
      */
     static <N extends Node<N, NAME, ANAME, AVALUE>,
             NAME extends Name,
@@ -98,14 +99,23 @@ abstract class NodeSelectorContext2<N extends Node<N, NAME, ANAME, AVALUE>, NAME
     }
 
     @Override
-    public Locale locale() {
-        return this.context.locale();
+    public Object evaluate(final Expression expression) {
+        return this.context.evaluate(expression);
     }
 
-    @Override
-    public MathContext mathContext() {
-        return this.context.mathContext();
-    }
+    //    @Override
+//    public Locale locale() {
+//        return this.context.locale();
+//    }
+//
+//    @Override
+//    public MathContext mathContext() {
+//        return this.context.mathContext();
+//    }
+
+//    ExpressionNumberKind expressionNumberKind() {
+//        return this.context.expressionNumberKind();
+//    }
 
     /**
      * Unconditionally returns a {@link NodeSelectorContext2All}.
