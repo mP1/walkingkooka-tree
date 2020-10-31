@@ -55,7 +55,7 @@ final class ExpressionNumberToExpressionNumberConverter<C extends ExpressionNumb
     public final boolean canConvert(final Object value,
                                     final Class<?> type,
                                     final C context) {
-        return (value instanceof ExpressionNumber && ExpressionNumber.class == type) &&
+        return (value instanceof ExpressionNumber && ExpressionNumber.class == type) ||
                 this.converterCanConvert(value, type, context) ||
                 (ExpressionNumber.isClass(type) && this.converterCanConvert(value, context.expressionNumberKind().numberType(), context));
     }
