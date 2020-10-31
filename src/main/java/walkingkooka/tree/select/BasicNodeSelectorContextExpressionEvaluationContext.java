@@ -38,19 +38,19 @@ import java.util.function.Function;
 /**
  * The {@link ExpressionFunctionContext} that accompanies each function execution.
  */
-final class BasicNodeSelectorContextExpressionEvalutionContext implements ExpressionEvaluationContext {
+final class BasicNodeSelectorContextExpressionEvaluationContext implements ExpressionEvaluationContext {
 
-    static BasicNodeSelectorContextExpressionEvalutionContext with(final Function<FunctionExpressionName, Optional<ExpressionFunction<?>>> functions,
-                                                                   final Converter<ExpressionNumberConverterContext> converter,
-                                                                   final ExpressionNumberConverterContext context) {
-        return new BasicNodeSelectorContextExpressionEvalutionContext(functions,
+    static BasicNodeSelectorContextExpressionEvaluationContext with(final Function<FunctionExpressionName, Optional<ExpressionFunction<?>>> functions,
+                                                                    final Converter<ExpressionNumberConverterContext> converter,
+                                                                    final ExpressionNumberConverterContext context) {
+        return new BasicNodeSelectorContextExpressionEvaluationContext(functions,
                 converter,
                 context);
     }
 
-    private BasicNodeSelectorContextExpressionEvalutionContext(final Function<FunctionExpressionName, Optional<ExpressionFunction<?>>> functions,
-                                                               final Converter<ExpressionNumberConverterContext> converter,
-                                                               final ExpressionNumberConverterContext context) {
+    private BasicNodeSelectorContextExpressionEvaluationContext(final Function<FunctionExpressionName, Optional<ExpressionFunction<?>>> functions,
+                                                                final Converter<ExpressionNumberConverterContext> converter,
+                                                                final ExpressionNumberConverterContext context) {
         super();
         this.functions = functions;
         this.converter = converter;

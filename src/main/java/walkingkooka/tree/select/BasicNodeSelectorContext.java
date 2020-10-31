@@ -29,9 +29,7 @@ import walkingkooka.tree.expression.ExpressionNumberKind;
 import walkingkooka.tree.expression.FunctionExpressionName;
 import walkingkooka.tree.expression.function.ExpressionFunction;
 
-import java.math.MathContext;
 import java.util.List;
-import java.util.Locale;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.function.BooleanSupplier;
@@ -180,7 +178,7 @@ final class BasicNodeSelectorContext<N extends Node<N, NAME, ANAME, AVALUE>, NAM
 
     @Override
     public Object evaluate(final Expression expression) {
-        return expression.toExpressionNumber(BasicNodeSelectorContextExpressionEvalutionContext.with(this.functions, this.converter, this.converterContext));
+        return expression.toExpressionNumber(BasicNodeSelectorContextExpressionEvaluationContext.with(this.functions, this.converter, this.converterContext));
     }
 
     /**
