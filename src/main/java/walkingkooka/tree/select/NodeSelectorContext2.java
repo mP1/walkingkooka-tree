@@ -103,20 +103,6 @@ abstract class NodeSelectorContext2<N extends Node<N, NAME, ANAME, AVALUE>, NAME
         return this.context.evaluate(expression);
     }
 
-    //    @Override
-//    public Locale locale() {
-//        return this.context.locale();
-//    }
-//
-//    @Override
-//    public MathContext mathContext() {
-//        return this.context.mathContext();
-//    }
-
-//    ExpressionNumberKind expressionNumberKind() {
-//        return this.context.expressionNumberKind();
-//    }
-
     /**
      * Unconditionally returns a {@link NodeSelectorContext2All}.
      */
