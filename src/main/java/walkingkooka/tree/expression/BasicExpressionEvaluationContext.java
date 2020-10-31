@@ -121,7 +121,7 @@ final class BasicExpressionEvaluationContext<C extends ConverterContext> impleme
         return this.expressionNumberKind;
     }
 
-    private ExpressionNumberKind expressionNumberKind;
+    private final ExpressionNumberKind expressionNumberKind;
 
     @Override
     public Object function(final FunctionExpressionName name, final List<Object> parameters) {
