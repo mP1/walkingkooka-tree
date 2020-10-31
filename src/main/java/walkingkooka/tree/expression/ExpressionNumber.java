@@ -345,14 +345,16 @@ public abstract class ExpressionNumber extends Number implements Comparable<Expr
         // remove trailing zeros...
         String toString = this.value().toString();
         final int decimal = toString.lastIndexOf('.');
-        if(-1 != decimal) {
-            int end = toString.length() -1;
+
+        if (-1 != decimal) {
+            int end = toString.length();
             int trailing = -1;
             int i = end;
 
             Stop:
-            while(i >= decimal) {
-                switch(toString.charAt(end)) {
+            while (i >= decimal) {
+                i--;
+                switch (toString.charAt(i)) {
                     case '0':
                         end += trailing;
                         break;
@@ -368,12 +370,11 @@ public abstract class ExpressionNumber extends Number implements Comparable<Expr
                         trailing = 0;
                         break;
                     case '.':
-                        toString = toString.substring(0, end);
+                        toString = toString.substring(0, i + 1 == end ? i : end);
                         break Stop; // stop
                     default:
                         break Stop; // must have found exponent etc dont trim anything
                 }
-                i--;
             }
         }
         return toString;
