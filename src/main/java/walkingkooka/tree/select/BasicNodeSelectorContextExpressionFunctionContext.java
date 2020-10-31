@@ -29,6 +29,7 @@ import walkingkooka.tree.expression.function.ExpressionFunctionContext;
 import java.math.MathContext;
 import java.util.List;
 import java.util.Locale;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.function.Function;
 
@@ -56,22 +57,21 @@ final class BasicNodeSelectorContextExpressionFunctionContext implements Express
 
     @Override
     public Object function(final FunctionExpressionName name, final List<Object> parameters) {
-        final Optional<ExpressionFunction<?>> function = this.functions.apply(name);
-        if (!function.isPresent()) {
-            throw new ExpressionException("Unknown function " + name);
-        }
-        return function(name, parameters);
-    }
+        Objects.requireNonNull(name, "name");
+        Objects.requireNonNull(parameters, "parameters");
 
-    private final Function<FunctionExpressionName, Optional<ExpressionFunction<?>>> functions;
+        final Optional<ExpressionFunction<?>> function = this.functions.apply(name);
+        if(false == function.isPresent()) {
+            throw new IllegalArgumentException("Unknown function " + name);
+        }
+        return function.get().apply(parameters, this);
+    }
 
     @Override
     public <T> Either<T, String> convert(final Object value,
                                          final Class<T> target) {
         return this.converter.convert(value, target, this.context);
     }
-
-    private final Converter<ExpressionNumberConverterContext> converter;
 
     @Override
     public Locale locale() {
@@ -88,10 +88,12 @@ final class BasicNodeSelectorContextExpressionFunctionContext implements Express
         return this.context.expressionNumberKind();
     }
 
-    private final ExpressionNumberConverterContext context;
-
     @Override
     public String toString() {
         return this.functions + " " + this.converter + " " + this.context;
     }
+
+    private final Function<FunctionExpressionName, Optional<ExpressionFunction<?>>> functions;
+    private final Converter<ExpressionNumberConverterContext> converter;
+    final ExpressionNumberConverterContext context;
 }

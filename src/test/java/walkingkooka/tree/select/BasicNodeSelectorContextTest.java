@@ -34,6 +34,7 @@ import walkingkooka.tree.expression.ExpressionNumberConverterContexts;
 import walkingkooka.tree.expression.ExpressionNumberKind;
 import walkingkooka.tree.expression.FunctionExpressionName;
 import walkingkooka.tree.expression.function.ExpressionFunction;
+import walkingkooka.tree.expression.function.ExpressionFunctions;
 
 import java.util.Optional;
 import java.util.function.BooleanSupplier;
@@ -152,6 +153,22 @@ public final class BasicNodeSelectorContextTest implements ClassTesting2<BasicNo
 
     private FunctionExpressionName node() {
         return FunctionExpressionName.with("node");
+    }
+
+    @Test
+    public void testFunctionInvokeTrue() {
+        final BasicNodeSelectorContext<TestNode, StringName, StringName, Object> context = this.createContext();
+
+        assertEquals(true,
+                context.function(ExpressionFunctions.trueFunction().name(), NodeSelectorContext.NO_PARAMETERS));
+    }
+
+    @Test
+    public void testFunctionInvokeFalse() {
+        final BasicNodeSelectorContext<TestNode, StringName, StringName, Object> context = this.createContext();
+
+        assertEquals(false,
+                context.function(ExpressionFunctions.falseFunction().name(), NodeSelectorContext.NO_PARAMETERS));
     }
 
     @Test
