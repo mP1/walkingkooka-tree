@@ -106,7 +106,7 @@ public final class ExpressionNumberToExpressionNumberConverterTest implements Co
     private void convertFails3(final ExpressionNumberKind kind,
                                final String value,
                                final Class<?> type) {
-        final Converter<ExpressionNumberConverterContext> converter = ExpressionNumber.toExpressionNumberConverter(new FakeConverter<ExpressionNumberConverterContext>() {
+        final Converter<ExpressionNumberConverterContext> converter = ExpressionNumber.toConverter(new FakeConverter<ExpressionNumberConverterContext>() {
             @Override
             public boolean canConvert(final Object value,
                                       final Class<?> type,
@@ -213,7 +213,7 @@ public final class ExpressionNumberToExpressionNumberConverterTest implements Co
                                       final Object from,
                                       final Class<N> target,
                                       final N number) {
-        this.convertAndCheck(ExpressionNumber.toExpressionNumberConverter(Converters.stringNumber((d) -> (DecimalFormat) DecimalFormat.getInstance())),
+        this.convertAndCheck(ExpressionNumber.toConverter(Converters.stringNumber((d) -> (DecimalFormat) DecimalFormat.getInstance())),
                 from,
                 target,
                 this.createContext(kind),
@@ -273,7 +273,7 @@ public final class ExpressionNumberToExpressionNumberConverterTest implements Co
                                             final Object from,
                                             final Class<N> target,
                                             final N number) {
-        this.convertAndCheck(ExpressionNumber.toExpressionNumberConverter(Converters.numberNumber()),
+        this.convertAndCheck(ExpressionNumber.toConverter(Converters.numberNumber()),
                 from,
                 target,
                 ExpressionNumberConverterContexts.basic(ConverterContexts.fake(), kind),

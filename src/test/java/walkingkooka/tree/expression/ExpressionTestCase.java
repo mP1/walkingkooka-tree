@@ -34,7 +34,6 @@ import walkingkooka.reflect.ClassTesting2;
 import walkingkooka.reflect.IsMethodTesting;
 import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.reflect.PublicStaticFactoryTesting;
-import walkingkooka.test.Fake;
 import walkingkooka.text.cursor.parser.ParserContext;
 import walkingkooka.text.cursor.parser.ParserContexts;
 import walkingkooka.text.cursor.parser.Parsers;
@@ -289,46 +288,46 @@ public abstract class ExpressionTestCase<N extends Expression> implements ClassT
                 // localDate ->
                 toBoolean(LocalDate.class, LocalDate.ofEpochDay(0)),
                 Converters.localDateLocalDateTime(),
-                ExpressionNumber.toExpressionNumberConverter(Converters.localDateNumber(Converters.JAVA_EPOCH_OFFSET)),
+                ExpressionNumber.toConverter(Converters.localDateNumber(Converters.JAVA_EPOCH_OFFSET)),
                 Converters.localDateString((c) -> DateTimeFormatter.ISO_LOCAL_DATE),
                 // localDateTime ->
                 toBoolean(LocalDateTime.class, LocalDateTime.ofEpochSecond(0, 0, ZoneOffset.UTC)),
                 Converters.localDateTimeLocalDate(),
                 Converters.localDateTimeLocalTime(),
-                ExpressionNumber.toExpressionNumberConverter(Converters.localDateTimeNumber(Converters.JAVA_EPOCH_OFFSET)),
+                ExpressionNumber.toConverter(Converters.localDateTimeNumber(Converters.JAVA_EPOCH_OFFSET)),
                 Converters.localDateTimeString((c) -> DateTimeFormatter.ISO_LOCAL_DATE_TIME),
                 // localTime
                 toBoolean(LocalTime.class, LocalTime.ofNanoOfDay(0)),
                 Converters.localTimeLocalDateTime(),
-                ExpressionNumber.toExpressionNumberConverter(Converters.localTimeNumber()),
+                ExpressionNumber.toConverter(Converters.localTimeNumber()),
                 Converters.localTimeString((c) -> DateTimeFormatter.ISO_LOCAL_TIME),
                 // ExpressionNumber ->),
-                ExpressionNumber.fromExpressionNumberConverter(Converters.numberNumber()),
-                ExpressionNumber.fromExpressionNumberConverter(Converters.truthyNumberBoolean()),
-                ExpressionNumber.fromExpressionNumberConverter(Converters.numberLocalDate(Converters.JAVA_EPOCH_OFFSET)),
-                ExpressionNumber.fromExpressionNumberConverter(Converters.numberLocalDateTime(Converters.JAVA_EPOCH_OFFSET)),
-                ExpressionNumber.fromExpressionNumberConverter(Converters.numberLocalTime()),
-                ExpressionNumber.fromExpressionNumberConverter(Converters.numberString((c) -> new DecimalFormat("#.###"))),
+                ExpressionNumber.fromConverter(Converters.numberNumber()),
+                ExpressionNumber.fromConverter(Converters.truthyNumberBoolean()),
+                ExpressionNumber.fromConverter(Converters.numberLocalDate(Converters.JAVA_EPOCH_OFFSET)),
+                ExpressionNumber.fromConverter(Converters.numberLocalDateTime(Converters.JAVA_EPOCH_OFFSET)),
+                ExpressionNumber.fromConverter(Converters.numberLocalTime()),
+                ExpressionNumber.fromConverter(Converters.numberString((c) -> new DecimalFormat("#.###"))),
                 // Number ->),
-                ExpressionNumber.fromExpressionNumberConverter(Converters.numberNumber()),
-                ExpressionNumber.fromExpressionNumberConverter(Converters.truthyNumberBoolean()),
-                ExpressionNumber.fromExpressionNumberConverter(Converters.numberLocalDate(Converters.JAVA_EPOCH_OFFSET)),
-                ExpressionNumber.fromExpressionNumberConverter(Converters.numberLocalDateTime(Converters.JAVA_EPOCH_OFFSET)),
-                ExpressionNumber.fromExpressionNumberConverter(Converters.numberLocalTime()),
-                ExpressionNumber.fromExpressionNumberConverter(Converters.numberString((c) -> new DecimalFormat("#.###"))),
+                ExpressionNumber.fromConverter(Converters.numberNumber()),
+                ExpressionNumber.fromConverter(Converters.truthyNumberBoolean()),
+                ExpressionNumber.fromConverter(Converters.numberLocalDate(Converters.JAVA_EPOCH_OFFSET)),
+                ExpressionNumber.fromConverter(Converters.numberLocalDateTime(Converters.JAVA_EPOCH_OFFSET)),
+                ExpressionNumber.fromConverter(Converters.numberLocalTime()),
+                ExpressionNumber.fromConverter(Converters.numberString((c) -> new DecimalFormat("#.###"))),
                 // string ->
                 Converters.<String, Boolean>function(v -> v instanceof String, Predicate.isEqual(Boolean.class), Boolean::valueOf),
                 stringLocalDate,
                 stringLocalDateTime,
                 stringLocalTime,
-                ExpressionNumber.toExpressionNumberConverter(stringDouble),
+                ExpressionNumber.toConverter(stringDouble),
                 Converters.objectString(),
                 // boolean ->
                 listToBoolean(),
                 fromBoolean(LocalDate.class, Converters.numberLocalDate(Converters.JAVA_EPOCH_OFFSET)),
                 fromBoolean(LocalDateTime.class, Converters.numberLocalDateTime(Converters.JAVA_EPOCH_OFFSET)),
                 fromBoolean(LocalTime.class, Converters.numberLocalTime()),
-                fromBoolean(ExpressionNumber.class, ExpressionNumber.toExpressionNumberConverter(Converters.numberNumber()))));
+                fromBoolean(ExpressionNumber.class, ExpressionNumber.toConverter(Converters.numberNumber()))));
 
         return new FakeExpressionEvaluationContext() {
 

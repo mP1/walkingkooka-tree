@@ -112,13 +112,13 @@ public interface ExpressionFunctionTesting<F extends ExpressionFunction<V>, V>
 
         if (value instanceof String && Number.class.isAssignableFrom(target)) {
             final Double doubleValue = Double.parseDouble((String) value);
-            return ExpressionNumber.toExpressionNumberConverter(ExpressionNumber.fromExpressionNumberConverter(Converters.numberNumber()))
+            return ExpressionNumber.toConverter(ExpressionNumber.fromConverter(Converters.numberNumber()))
                     .convert(doubleValue, target, context);
         }
         if (target == Boolean.class) {
             return Either.left(Cast.to(Boolean.parseBoolean(value.toString())));
         }
-        return ExpressionNumber.toExpressionNumberConverter(ExpressionNumber.fromExpressionNumberConverter(Converters.numberNumber()))
+        return ExpressionNumber.toConverter(ExpressionNumber.fromConverter(Converters.numberNumber()))
                 .convert(value, target, context);
     }
 

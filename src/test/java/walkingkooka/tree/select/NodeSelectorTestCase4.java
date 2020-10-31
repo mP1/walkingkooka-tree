@@ -26,8 +26,6 @@ import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.collect.set.Sets;
 import walkingkooka.convert.Converter;
-import walkingkooka.convert.ConverterContext;
-import walkingkooka.convert.ConverterContexts;
 import walkingkooka.convert.Converters;
 import walkingkooka.naming.Names;
 import walkingkooka.naming.StringName;
@@ -42,11 +40,9 @@ import walkingkooka.tree.expression.ExpressionNumberKind;
 import walkingkooka.tree.expression.FunctionExpressionName;
 import walkingkooka.tree.expression.function.ExpressionFunction;
 
-import java.math.MathContext;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
-import java.util.Locale;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
@@ -473,7 +469,7 @@ abstract public class NodeSelectorTestCase4<S extends NodeSelector<TestNode, Str
 
     final Converter<ExpressionNumberConverterContext> converter() {
         return Converters.collection(Lists.of(
-                ExpressionNumber.fromExpressionNumberConverter(Converters.numberNumber()),
+                ExpressionNumber.fromConverter(Converters.numberNumber()),
                 Converters.<String, Integer>function((t) -> t instanceof String, Predicates.is(Integer.class), Integer::parseInt),
                 Converters.function(t -> t instanceof Node, Predicates.is(Node.class), Function.identity()),
                 Converters.simple()

@@ -150,7 +150,7 @@ public final class ExpressionNodeSelectorNodeSelectorContext2Test extends NodeSe
 
                     private Converter<ExpressionNumberConverterContext> converter() {
                         return  Converters.collection(Lists.of(
-                                ExpressionNumber.fromExpressionNumberConverter(Converters.numberNumber()),
+                                ExpressionNumber.fromConverter(Converters.numberNumber()),
                                 Converters.<String, Integer>function(v -> v instanceof String, Predicates.is(Integer.class), Integer::parseInt)));
                     }
 
