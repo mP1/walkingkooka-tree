@@ -17,12 +17,29 @@
 
 package walkingkooka.tree.expression.function;
 
+import walkingkooka.collect.list.Lists;
 import walkingkooka.reflect.PublicStaticHelper;
+
+import java.util.function.Consumer;
 
 /**
  * Collection of static factory methods for numerous {@link ExpressionFunction}.
  */
 public final class ExpressionFunctions implements PublicStaticHelper {
+
+    /**
+     * Visit all {@link ExpressionFunction functions}. Note this does not include the {@link #fake() fake function}
+     */
+    public static void visit(final Consumer<ExpressionFunction<?>> consumer) {
+        Lists.of(booleanFunction(),
+                choose(),
+                falseFunction(),
+                nodeName(),
+                not(),
+                trueFunction(),
+                typeName())
+                .forEach(consumer);
+    }
 
     /**
      * {@see BooleanExpressionFunction}
