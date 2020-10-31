@@ -17,16 +17,47 @@
 
 package walkingkooka.tree.select;
 
+import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
-import walkingkooka.naming.StringName;
-import walkingkooka.tree.TestNode;
+import walkingkooka.Either;
+import walkingkooka.convert.Converter;
+import walkingkooka.tree.expression.ExpressionEvaluationContext;
+import walkingkooka.tree.expression.ExpressionNumberConverterContext;
+import walkingkooka.tree.expression.FunctionExpressionName;
+import walkingkooka.tree.expression.function.ExpressionFunction;
 import walkingkooka.tree.expression.function.ExpressionFunctionContextTesting;
 
-public final class BasicNodeSelectorContextExpressionFunctionContextTest implements ExpressionFunctionContextTesting<BasicNodeSelectorContextExpressionFunctionContext> {
+import java.util.Optional;
+import java.util.function.Function;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
+public final class BasicNodeSelectorContextExpressionFunctionContextTest extends BasicNodeSelectorContextTestCase<BasicNodeSelectorContextExpressionFunctionContext>
+        implements ExpressionFunctionContextTesting<BasicNodeSelectorContextExpressionFunctionContext> {
+
+    @Test
+    public void testFunction() {
+        assertEquals(FUNCTION_RESULT, this.createContext().function(FunctionExpressionName.with(FUNCTION_NAME), PARAMETERS));
+    }
+
+    @Test
+    public void testFunctionUnknownFails() {
+        assertThrows(IllegalArgumentException.class, () -> {
+            this.createContext().function(FunctionExpressionName.with("unknownFunction123"), ExpressionEvaluationContext.NO_PARAMETERS);
+        });
+    }
+
+    @Test
+    public void testConvert() {
+        assertEquals(Either.left(123), this.createContext().convert("123", Integer.class));
+    }
 
     @Override
-    public BasicNodeSelectorContextExpressionFunctionContext createContext() {
-        return BasicNodeSelectorContextExpressionFunctionContext.with(null, null, null);
+    public BasicNodeSelectorContextExpressionFunctionContext createContext(final Function<FunctionExpressionName, Optional<ExpressionFunction<?>>>functions,
+                                                                           final Converter<ExpressionNumberConverterContext> converter,
+                                                                           final ExpressionNumberConverterContext context) {
+        return BasicNodeSelectorContextExpressionFunctionContext.with(functions, converter, context);
     }
 
     @Override

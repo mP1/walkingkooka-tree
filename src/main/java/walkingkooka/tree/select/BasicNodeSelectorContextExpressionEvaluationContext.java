@@ -32,6 +32,7 @@ import walkingkooka.tree.expression.function.ExpressionFunctionContext;
 import java.math.MathContext;
 import java.util.List;
 import java.util.Locale;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.function.Function;
 
@@ -40,49 +41,35 @@ import java.util.function.Function;
  */
 final class BasicNodeSelectorContextExpressionEvaluationContext implements ExpressionEvaluationContext {
 
-    static BasicNodeSelectorContextExpressionEvaluationContext with(final Function<FunctionExpressionName, Optional<ExpressionFunction<?>>> functions,
-                                                                    final Converter<ExpressionNumberConverterContext> converter,
-                                                                    final ExpressionNumberConverterContext context) {
-        return new BasicNodeSelectorContextExpressionEvaluationContext(functions,
-                converter,
-                context);
+    static BasicNodeSelectorContextExpressionEvaluationContext with(final BasicNodeSelectorContextExpressionFunctionContext context) {
+        return new BasicNodeSelectorContextExpressionEvaluationContext(context);
     }
 
-    private BasicNodeSelectorContextExpressionEvaluationContext(final Function<FunctionExpressionName, Optional<ExpressionFunction<?>>> functions,
-                                                                final Converter<ExpressionNumberConverterContext> converter,
-                                                                final ExpressionNumberConverterContext context) {
+    private BasicNodeSelectorContextExpressionEvaluationContext(final BasicNodeSelectorContextExpressionFunctionContext context) {
         super();
-        this.functions = functions;
-        this.converter = converter;
         this.context = context;
     }
 
     @Override
     public Object function(final FunctionExpressionName name, final List<Object> parameters) {
-        final Optional<ExpressionFunction<?>> function = this.functions.apply(name);
-        if (!function.isPresent()) {
-            throw new ExpressionException("Unknown function " + name);
-        }
-        return function(name, parameters);
+        return this.context.function(name, parameters);
     }
 
-    @Override public Optional<Expression> reference(ExpressionReference reference) {
+    @Override
+    public Optional<Expression> reference(final ExpressionReference reference) {
+        Objects.requireNonNull(reference, "reference");
         return Optional.empty();
     }
-
-    private final Function<FunctionExpressionName, Optional<ExpressionFunction<?>>> functions;
 
     @Override
     public <T> Either<T, String> convert(final Object value,
                                          final Class<T> target) {
-        return this.converter.convert(value, target, this.context);
+        return this.context.convert(value, target);
     }
-
-    private final Converter<ExpressionNumberConverterContext> converter;
 
     @Override
     public Locale locale() {
-        return this.context.locale();
+        return this.context.context.locale();
     }
 
     @Override
@@ -97,43 +84,43 @@ final class BasicNodeSelectorContextExpressionEvaluationContext implements Expre
 
     @Override
     public String currencySymbol() {
-        return this.currencySymbol();
+        return this.context.context.currencySymbol();
     }
 
     @Override
     public char decimalSeparator() {
-        return this.decimalSeparator();
+        return this.context.context.decimalSeparator();
     }
 
     @Override
     public String exponentSymbol() {
-        return this.exponentSymbol();
+        return this.context.context.exponentSymbol();
     }
 
     @Override
     public char groupingSeparator() {
-        return this.groupingSeparator();
+        return this.context.context.groupingSeparator();
     }
 
     @Override
     public char percentageSymbol() {
-        return this.context.percentageSymbol();
+        return this.context.context.percentageSymbol();
     }
 
     @Override
     public char negativeSign() {
-        return this.context.negativeSign();
+        return this.context.context.negativeSign();
     }
 
     @Override
     public char positiveSign() {
-        return this.context.positiveSign();
+        return this.context.context.positiveSign();
     }
 
-    private final ExpressionNumberConverterContext context;
+    private final BasicNodeSelectorContextExpressionFunctionContext context;
 
     @Override
     public String toString() {
-        return this.functions + " " + this.converter + " " + this.context;
+        return this.context.toString();
     }
 }

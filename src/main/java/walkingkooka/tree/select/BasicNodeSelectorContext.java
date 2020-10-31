@@ -18,12 +18,10 @@
 package walkingkooka.tree.select;
 
 import walkingkooka.Either;
-import walkingkooka.collect.list.Lists;
 import walkingkooka.convert.Converter;
 import walkingkooka.naming.Name;
 import walkingkooka.tree.Node;
 import walkingkooka.tree.expression.Expression;
-import walkingkooka.tree.expression.ExpressionException;
 import walkingkooka.tree.expression.ExpressionNumberConverterContext;
 import walkingkooka.tree.expression.ExpressionNumberKind;
 import walkingkooka.tree.expression.FunctionExpressionName;
@@ -79,9 +77,9 @@ final class BasicNodeSelectorContext<N extends Node<N, NAME, ANAME, AVALUE>, NAM
         this.finisher = finisher;
         this.filter = filter;
         this.mapper = mapper;
-        this.functions = functions;
-        this.converter = converter;
-        this.converterContext = converterContext;
+
+        this.expressionFunctionContext = BasicNodeSelectorContextExpressionFunctionContext.with(functions, converter, converterContext);
+        this.expressionEvaluationContext = BasicNodeSelectorContextExpressionEvaluationContext.with(this.expressionFunctionContext);
     }
 
     @Override
@@ -122,7 +120,7 @@ final class BasicNodeSelectorContext<N extends Node<N, NAME, ANAME, AVALUE>, NAM
 
     @Override
     public ExpressionNumberKind expressionNumberKind() {
-        return this.converterContext.expressionNumberKind();
+        return this.expressionEvaluationContext.expressionNumberKind();
     }
 
     @Override
@@ -133,10 +131,6 @@ final class BasicNodeSelectorContext<N extends Node<N, NAME, ANAME, AVALUE>, NAM
     }
 
     private final static FunctionExpressionName NODE = FunctionExpressionName.with("node");
-
-//    public Locale locale() {
-//        return this.converterContext.locale();
-//    }
 
     private N node() {
         final N current = this.current;
@@ -151,35 +145,22 @@ final class BasicNodeSelectorContext<N extends Node<N, NAME, ANAME, AVALUE>, NAM
      * because it needs to read {@link #current}.
      */
     private Object function0(final FunctionExpressionName name, final List<Object> parameters) {
-        final Optional<ExpressionFunction<?>> function = this.functions.apply(name);
-        if (!function.isPresent()) {
-            throw new ExpressionException("Unknown function " + name);
-        }
-
-        return function.get()
-                .apply(Lists.readOnly(parameters), BasicNodeSelectorContextExpressionFunctionContext.with(this.functions, this.converter, this.converterContext));
+        return this.expressionFunctionContext.function(name, parameters);
     }
 
-    private final Function<FunctionExpressionName, Optional<ExpressionFunction<?>>> functions;
-
-//    @Override
-//    public MathContext mathContext() {
-//        return this.converterContext.mathContext();
-//    }
+    private final BasicNodeSelectorContextExpressionFunctionContext expressionFunctionContext;
 
     @Override
     public <T> Either<T, String> convert(final Object value, final Class<T> target) {
-        return this.converter.convert(value, target, this.converterContext);
+        return this.expressionEvaluationContext.convert(value, target);
     }
-
-    private final Converter<ExpressionNumberConverterContext> converter;
-
-    private final ExpressionNumberConverterContext converterContext;
 
     @Override
     public Object evaluate(final Expression expression) {
-        return expression.toExpressionNumber(BasicNodeSelectorContextExpressionEvaluationContext.with(this.functions, this.converter, this.converterContext));
+        return expression.toExpressionNumber(this.expressionEvaluationContext);
     }
+
+    private final BasicNodeSelectorContextExpressionEvaluationContext expressionEvaluationContext;
 
     /**
      * The current {@link Node} which is also becomes the first argument for all function invocations.
@@ -191,8 +172,6 @@ final class BasicNodeSelectorContext<N extends Node<N, NAME, ANAME, AVALUE>, NAM
         return this.finisher + " " +
                 this.filter + " " +
                 this.mapper + " " +
-                this.functions + " " +
-                this.converter + " " +
-                this.converterContext;
+                this.expressionFunctionContext;
     }
 }
