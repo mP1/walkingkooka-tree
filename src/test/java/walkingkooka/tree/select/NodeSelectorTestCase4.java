@@ -437,17 +437,6 @@ abstract public class NodeSelectorTestCase4<S extends NodeSelector<TestNode, Str
                 return context.evaluate(expression);
             }
 
-            //            @Override
-//            public Locale locale() {
-//                return context.locale();
-//            }
-//
-//            @Override
-//            public MathContext mathContext() {
-//                this.finisherGuardCheck();
-//                return context.mathContext();
-//            }
-
             @Override
             public String toString() {
                 return context.toString();
