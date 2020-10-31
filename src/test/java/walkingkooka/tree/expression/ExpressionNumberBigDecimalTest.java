@@ -107,6 +107,21 @@ public final class ExpressionNumberBigDecimalTest extends ExpressionNumberTestCa
     }
 
     @Test
+    public void testToStringTrailingZero2() {
+        this.toStringAndCheck2("1.50", "1.5");
+    }
+
+    @Test
+    public void testToStringTrailingZero3() {
+        this.toStringAndCheck2("1.500", "1.5");
+    }
+
+    @Test
+    public void testToStringTrailingZero4() {
+        this.toStringAndCheck2("1.560", "1.56");
+    }
+
+    @Test
     public void testToStringIncludesTrailingZeroes() {
         this.toStringAndCheck2("1.0001", "1.0001");
     }
