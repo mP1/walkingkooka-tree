@@ -24,8 +24,8 @@ import walkingkooka.reflect.ClassTesting2;
 import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.tree.FakeNode;
 
-public final class FunctionExpressionNameExpressionFunctionTest implements ClassTesting2<FunctionExpressionNameExpressionFunction>,
-        ExpressionFunctionTesting<FunctionExpressionNameExpressionFunction, String> {
+public final class NodeNameExpressionFunctionTest implements ClassTesting2<NodeNameExpressionFunction>,
+        ExpressionFunctionTesting<NodeNameExpressionFunction, String> {
 
     private final static String NAME = "Abc123";
 
@@ -50,13 +50,13 @@ public final class FunctionExpressionNameExpressionFunctionTest implements Class
     }
 
     @Override
-    public FunctionExpressionNameExpressionFunction createBiFunction() {
-        return FunctionExpressionNameExpressionFunction.INSTANCE;
+    public NodeNameExpressionFunction createBiFunction() {
+        return NodeNameExpressionFunction.INSTANCE;
     }
 
     @Override
-    public Class<FunctionExpressionNameExpressionFunction> type() {
-        return FunctionExpressionNameExpressionFunction.class;
+    public Class<NodeNameExpressionFunction> type() {
+        return NodeNameExpressionFunction.class;
     }
 
     @Override
