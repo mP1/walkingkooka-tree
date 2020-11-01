@@ -53,7 +53,6 @@ public final class NodeSelectorStreamConsumerPushableStreamConsumerTest extends 
     public void testWithNullNodeFails() {
         assertThrows(NullPointerException.class, () -> NodeSelectorStreamConsumerPushableStreamConsumer.with(null,
                 this.selector(),
-                ////KIND,
                 this.functions(),
                 this.converter(),
                 this.converterContext(),
