@@ -17,9 +17,10 @@
 
 package walkingkooka.tree.select;
 
-import walkingkooka.Either;
 import walkingkooka.naming.Name;
 import walkingkooka.tree.Node;
+import walkingkooka.tree.expression.Expression;
+import walkingkooka.tree.expression.ExpressionNumberKind;
 
 /**
  * A {@link NodeSelectorContext2} that tracks the position of selected {@link Node}. This allows {@link ExpressionNodeSelector} to
@@ -52,26 +53,18 @@ final class ExpressionNodeSelectorNodeSelectorContext2<N extends Node<N, NAME, A
     }
 
     /**
-     * Tests if a {@link Number} result matches the current position of the current {@link Node}.
+     * If the expression is a boolean return that or if a number compare that against the {@link #nodePosition).
      */
     @Override
-    boolean nodePositionTest(final Object value) {
-        boolean result;
-
-        if (value instanceof Boolean) {
-            result = Boolean.TRUE.equals(value);
-        } else {
-            final Either<Integer, String> position = this.convert(value, Integer.class);
-            if (position.isLeft()) {
-                result = this.position == position.leftValue();
-            } else {
-                result = false;
-            }
+    boolean isNodeSelected(final Expression expression) {
+        final Object value = this.evaluate(expression);
+        boolean selected = Boolean.TRUE.equals(value);
+        if(false == selected && value instanceof Number) {
+            final Number number = (Number)value;
+            selected = number.intValue() == this.nodePosition();
         }
-
         this.position++;
-
-        return result;
+        return selected;
     }
 
     @Override

@@ -20,6 +20,7 @@ import walkingkooka.convert.Converter;
 import walkingkooka.naming.Name;
 import walkingkooka.reflect.PublicStaticHelper;
 import walkingkooka.tree.Node;
+import walkingkooka.tree.expression.ExpressionEvaluationContext;
 import walkingkooka.tree.expression.ExpressionNumberConverterContext;
 import walkingkooka.tree.expression.FunctionExpressionName;
 import walkingkooka.tree.expression.function.ExpressionFunction;
@@ -44,23 +45,19 @@ public final class NodeSelectorContexts implements PublicStaticHelper {
             C extends ExpressionNumberConverterContext> NodeSelectorContext<N, NAME, ANAME, AVALUE> basic(final BooleanSupplier finisher,
                                                                                                           final Predicate<N> filter,
                                                                                                           final Function<N, N> mapper,
-                                                                                                          final Function<FunctionExpressionName, Optional<ExpressionFunction<?>>> functions,
-                                                                                                          final Converter<C> converter,
-                                                                                                          final C converterContext,
+                                                                                                          final Function<NodeSelectorContext<N, NAME, ANAME, AVALUE>, ExpressionEvaluationContext> expressionEvaluationContext,
                                                                                                           final Class<N> nodeType) {
         return BasicNodeSelectorContext.with(finisher,
                 filter,
                 mapper,
-                functions,
-                converter,
-                converterContext,
+                expressionEvaluationContext,
                 nodeType);
     }
 
     /**
      * {@see BasicNodeSelectorContextFunction}
      */
-    public static Function<FunctionExpressionName, Optional<ExpressionFunction<?>>> basicFunctions() {
+    public static Function<FunctionExpressionName, Optional<ExpressionFunction<?, ?>>> basicFunctions() {
         return BasicNodeSelectorContextFunction.INSTANCE;
     }
 

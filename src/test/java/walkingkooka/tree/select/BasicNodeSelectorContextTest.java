@@ -28,15 +28,20 @@ import walkingkooka.reflect.ClassTesting2;
 import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.tree.TestNode;
 import walkingkooka.tree.expression.Expression;
+import walkingkooka.tree.expression.ExpressionEvaluationContext;
+import walkingkooka.tree.expression.ExpressionEvaluationContexts;
 import walkingkooka.tree.expression.ExpressionNumber;
 import walkingkooka.tree.expression.ExpressionNumberConverterContext;
 import walkingkooka.tree.expression.ExpressionNumberConverterContexts;
 import walkingkooka.tree.expression.ExpressionNumberKind;
+import walkingkooka.tree.expression.ExpressionReference;
 import walkingkooka.tree.expression.FunctionExpressionName;
 import walkingkooka.tree.expression.function.ExpressionFunction;
 import walkingkooka.tree.expression.function.ExpressionFunctions;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.function.BiFunction;
 import java.util.function.BooleanSupplier;
 import java.util.function.Function;
 import java.util.function.Predicate;
@@ -58,9 +63,7 @@ public final class BasicNodeSelectorContextTest implements ClassTesting2<BasicNo
         assertThrows(NullPointerException.class, () -> BasicNodeSelectorContext.with(null,
                 this.predicate(),
                 this.mapper(),
-                this.functions(),
-                this.converter(),
-                this.converterContext(),
+                this.expressionEvaluationContext(),
                 this.nodeType()));
     }
 
@@ -69,9 +72,7 @@ public final class BasicNodeSelectorContextTest implements ClassTesting2<BasicNo
         assertThrows(NullPointerException.class, () -> BasicNodeSelectorContext.with(this.finisher(),
                 null,
                 this.mapper(),
-                this.functions(),
-                this.converter(),
-                this.converterContext(),
+                this.expressionEvaluationContext(),
                 this.nodeType()));
     }
 
@@ -80,41 +81,15 @@ public final class BasicNodeSelectorContextTest implements ClassTesting2<BasicNo
         assertThrows(NullPointerException.class, () -> BasicNodeSelectorContext.with(this.finisher(),
                 this.predicate(),
                 null,
-                this.functions(),
-                this.converter(),
-                this.converterContext(),
+                this.expressionEvaluationContext(),
                 this.nodeType()));
     }
 
     @Test
-    public void testWithNullFunctionsFails() {
+    public void testWithNullExpressionEvaluationContextFails() {
         assertThrows(NullPointerException.class, () -> BasicNodeSelectorContext.with(this.finisher(),
                 this.predicate(),
                 this.mapper(),
-                null,
-                this.converter(),
-                this.converterContext(),
-                this.nodeType()));
-    }
-
-    @Test
-    public void testWithNullConverterFails() {
-        assertThrows(NullPointerException.class, () -> BasicNodeSelectorContext.with(this.finisher(),
-                this.predicate(),
-                this.mapper(),
-                this.functions(),
-                null,
-                this.converterContext(),
-                this.nodeType()));
-    }
-
-    @Test
-    public void testWithNullConverterContextFails() {
-        assertThrows(NullPointerException.class, () -> BasicNodeSelectorContext.with(this.finisher(),
-                this.predicate(),
-                this.mapper(),
-                this.functions(),
-                this.converter(),
                 null,
                 this.nodeType()));
     }
@@ -124,51 +99,8 @@ public final class BasicNodeSelectorContextTest implements ClassTesting2<BasicNo
         assertThrows(NullPointerException.class, () -> BasicNodeSelectorContext.with(this.finisher(),
                 this.predicate(),
                 this.mapper(),
-                this.functions(),
-                this.converter(),
-                this.converterContext(),
+                this.expressionEvaluationContext(),
                 null));
-    }
-
-    @Test
-    public void testFunctionNodeMissingFails() {
-        final BasicNodeSelectorContext<TestNode, StringName, StringName, Object> context = this.createContext();
-
-        TestNode.clear();
-
-        assertThrows(NodeSelectorException.class, () -> context.function(this.node(), NodeSelectorContext.NO_PARAMETERS));
-    }
-
-    @Test
-    public void testFunctionNode() {
-        final BasicNodeSelectorContext<TestNode, StringName, StringName, Object> context = this.createContext();
-
-        TestNode.clear();
-        final TestNode current = TestNode.with("current123");
-        context.setNode(current);
-
-        assertEquals(current,
-                context.function(this.node(), NodeSelectorContext.NO_PARAMETERS));
-    }
-
-    private FunctionExpressionName node() {
-        return FunctionExpressionName.with("node");
-    }
-
-    @Test
-    public void testFunctionInvokeTrue() {
-        final BasicNodeSelectorContext<TestNode, StringName, StringName, Object> context = this.createContext();
-
-        assertEquals(true,
-                context.function(ExpressionFunctions.trueFunction().name(), NodeSelectorContext.NO_PARAMETERS));
-    }
-
-    @Test
-    public void testFunctionInvokeFalse() {
-        final BasicNodeSelectorContext<TestNode, StringName, StringName, Object> context = this.createContext();
-
-        assertEquals(false,
-                context.function(ExpressionFunctions.falseFunction().name(), NodeSelectorContext.NO_PARAMETERS));
     }
 
     @Test
@@ -196,17 +128,14 @@ public final class BasicNodeSelectorContextTest implements ClassTesting2<BasicNo
         final BooleanSupplier finisher = this.finisher();
         final Predicate<TestNode> filter = this.predicate();
         final Function<TestNode, TestNode> mapper = this.mapper();
-        final Function<FunctionExpressionName, Optional<ExpressionFunction<?>>> functions = this.functions();
-        final Converter<ExpressionNumberConverterContext> converter = this.converter();
-        final ExpressionNumberConverterContext converterContext = this.converterContext();
+        final Function<NodeSelectorContext<TestNode, StringName, StringName, Object>, ExpressionEvaluationContext> expressionEvaluationContext = this.expressionEvaluationContext();
+
         this.toStringAndCheck(BasicNodeSelectorContext.with(finisher,
                 filter,
                 mapper,
-                functions,
-                converter,
-                converterContext,
+                expressionEvaluationContext,
                 this.nodeType()),
-                finisher + " " + filter + " " + mapper + " " + functions + " " + converter + " " + converterContext);
+                finisher + " " + filter + " " + mapper + " " + expressionEvaluationContext);
     }
 
     @Override
@@ -219,9 +148,7 @@ public final class BasicNodeSelectorContextTest implements ClassTesting2<BasicNo
         return BasicNodeSelectorContext.with(this.finisher(),
                 this.predicate(),
                 this.mapper(),
-                this.functions(),
-                this.converter(),
-                this.converterContext(),
+                this.expressionEvaluationContext(),
                 this.nodeType());
     }
 
@@ -237,16 +164,39 @@ public final class BasicNodeSelectorContextTest implements ClassTesting2<BasicNo
         return Function.identity();
     }
 
-    private Function<FunctionExpressionName, Optional<ExpressionFunction<?>>> functions() {
-        return NodeSelectorContexts.basicFunctions();
-    }
+    private Function<NodeSelectorContext<TestNode, StringName, StringName, Object>, ExpressionEvaluationContext> expressionEvaluationContext() {
+        return new Function<NodeSelectorContext<TestNode, StringName, StringName, Object>, ExpressionEvaluationContext>() {
+            @Override
+            public ExpressionEvaluationContext apply(final NodeSelectorContext<TestNode, StringName, StringName, Object> context) {
+                return ExpressionEvaluationContexts.basic(ExpressionNumberKind.DEFAULT,
+                        this.functions(),
+                        this.references(),
+                        this.converter(),
+                        this.converterContext());
+            }
 
-    private Converter<ExpressionNumberConverterContext> converter() {
-        return ExpressionNumber.toConverter(Converters.fake());
-    }
+            private BiFunction<FunctionExpressionName, List<Object>, Object> functions() {
+                return (n, p) -> {
+                    throw new UnsupportedOperationException();
+                };
+            }
 
-    private ExpressionNumberConverterContext converterContext() {
-        return ExpressionNumberConverterContexts.basic(ConverterContexts.fake(), KIND);
+            private Function<ExpressionReference, Optional<Expression>> references() {
+                return (r) -> Optional.empty();
+            }
+
+            private Converter<ExpressionNumberConverterContext> converter() {
+                return ExpressionNumber.toConverter(Converters.fake());
+            }
+
+            private ExpressionNumberConverterContext converterContext() {
+                return ExpressionNumberConverterContexts.basic(ConverterContexts.fake(), KIND);
+            }
+
+            public String toString() {
+                return "factory123";
+            }
+        };
     }
 
     private Class<TestNode> nodeType() {

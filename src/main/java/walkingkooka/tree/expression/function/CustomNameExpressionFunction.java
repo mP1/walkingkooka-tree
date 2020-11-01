@@ -26,13 +26,13 @@ import java.util.Objects;
 /**
  * An {@link ExpressionFunction} that returns a different {@link FunctionExpressionName}.
  */
-final class CustomNameExpressionFunction<T> implements ExpressionFunction<T> {
+final class CustomNameExpressionFunction<T, C extends ExpressionFunctionContext> implements ExpressionFunction<T, C> {
 
     /**
      * Factory called by {@link ExpressionFunction#setName}
      */
-    static <T> ExpressionFunction<T> with(final ExpressionFunction<T> function,
-                                          final FunctionExpressionName name) {
+    static <T, C extends ExpressionFunctionContext> ExpressionFunction<T, C> with(final ExpressionFunction<T, C> function,
+                                                                                  final FunctionExpressionName name) {
         Objects.requireNonNull(function, "function");
         Objects.requireNonNull(name, "name");
 
@@ -46,15 +46,15 @@ final class CustomNameExpressionFunction<T> implements ExpressionFunction<T> {
     /**
      * Handles the special case not preventing double wrapping a {@link CustomNameExpressionFunction}.
      */
-    static <T> ExpressionFunction<T> unwrap(final CustomNameExpressionFunction<T> function,
-                                            final FunctionExpressionName name) {
+    static <T, C extends ExpressionFunctionContext> ExpressionFunction<T, C> unwrap(final CustomNameExpressionFunction<T, C> function,
+                                                                                    final FunctionExpressionName name) {
         return new CustomNameExpressionFunction<>(function.function, name);
     }
 
     /**
      * Private ctor use factory.
      */
-    private CustomNameExpressionFunction(final ExpressionFunction<T> function,
+    private CustomNameExpressionFunction(final ExpressionFunction<T, C> function,
                                          final FunctionExpressionName name) {
         super();
         this.function = function;
@@ -63,11 +63,11 @@ final class CustomNameExpressionFunction<T> implements ExpressionFunction<T> {
 
     @Override
     public T apply(final List<Object> parameters,
-                   final ExpressionFunctionContext context) {
+                   final C context) {
         return this.function.apply(parameters, context);
     }
 
-    private final ExpressionFunction<T> function;
+    private final ExpressionFunction<T, C> function;
 
     @Override
     public FunctionExpressionName name() {

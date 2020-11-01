@@ -15,21 +15,19 @@
  *
  */
 
-package walkingkooka.tree.expression.function;
+package walkingkooka.tree.select;
 
-import walkingkooka.tree.expression.FunctionExpressionName;
+import walkingkooka.naming.Name;
+import walkingkooka.tree.Node;
+import walkingkooka.tree.expression.function.FakeExpressionFunctionContext;
 
-import java.util.List;
-
-public class FakeExpressionFunction<T, C extends ExpressionFunctionContext> implements ExpressionFunction<T, C> {
-    @Override
-    public T apply(final List<Object> objects,
-                   final C expressionFunctionContext) {
-        throw new UnsupportedOperationException();
-    }
+public class FakeNodeSelectorExpressionFunctionContext<N extends Node<N, NAME, ANAME, AVALUE>,
+        NAME extends Name,
+        ANAME extends Name,
+        AVALUE> extends FakeExpressionFunctionContext implements NodeSelectorExpressionFunctionContext<N, NAME, ANAME, AVALUE> {
 
     @Override
-    public FunctionExpressionName name() {
+    public N node() {
         throw new UnsupportedOperationException();
     }
 }

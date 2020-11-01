@@ -17,6 +17,7 @@
 
 package walkingkooka.tree.expression.function;
 
+import walkingkooka.Cast;
 import walkingkooka.tree.expression.FunctionExpressionName;
 
 import java.util.List;
@@ -24,12 +25,19 @@ import java.util.List;
 /**
  * A function that returns {@link Object#getClass()#getName()} of the first parameter.
  */
-final class TypeNameExpressionFunction extends ExpressionFunction2<String> {
+final class TypeNameExpressionFunction<C extends ExpressionFunctionContext> extends ExpressionFunction2<String, C> {
+
+    /**
+     * Instance getter.
+     */
+    static <C extends ExpressionFunctionContext> TypeNameExpressionFunction<C> instance() {
+        return Cast.to(INSTANCE);
+    }
 
     /**
      * Singleton
      */
-    static final TypeNameExpressionFunction INSTANCE = new TypeNameExpressionFunction();
+    private static final TypeNameExpressionFunction INSTANCE = new TypeNameExpressionFunction();
 
     /**
      * Private ctor
@@ -40,7 +48,7 @@ final class TypeNameExpressionFunction extends ExpressionFunction2<String> {
 
     @Override
     public String apply(final List<Object> parameters,
-                        final ExpressionFunctionContext context) {
+                        final C context) {
         return this.parameter(parameters, 0).getClass().getName();
     }
 

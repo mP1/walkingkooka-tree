@@ -22,6 +22,8 @@ import walkingkooka.convert.ConversionException;
 import walkingkooka.naming.Name;
 import walkingkooka.tree.Node;
 import walkingkooka.tree.expression.Expression;
+import walkingkooka.tree.expression.ExpressionEvaluationContext;
+import walkingkooka.tree.expression.ExpressionNumberKind;
 import walkingkooka.visit.Visiting;
 
 import java.util.Objects;
@@ -76,7 +78,8 @@ final class ExpressionNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NAME 
 
         try {
             context.setNode(node);
-            if (context.nodePositionTest(this.expression.toValue(ExpressionNodeSelectorExpressionEvaluationContext.with(node, context)))) {
+
+            if (context.isNodeSelected(this.expression)) {
                 result = this.select(node, context);
             }
         } catch (final ConversionException cause) {

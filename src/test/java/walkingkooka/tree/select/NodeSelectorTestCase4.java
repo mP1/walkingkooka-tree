@@ -19,6 +19,7 @@ package walkingkooka.tree.select;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import walkingkooka.Cast;
 import walkingkooka.Either;
 import walkingkooka.HashCodeEqualsDefinedTesting2;
 import walkingkooka.ToStringTesting;
@@ -26,26 +27,36 @@ import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.collect.set.Sets;
 import walkingkooka.convert.Converter;
+import walkingkooka.convert.ConverterContext;
+import walkingkooka.convert.ConverterContexts;
 import walkingkooka.convert.Converters;
+import walkingkooka.datetime.DateTimeContexts;
+import walkingkooka.math.DecimalNumberContexts;
 import walkingkooka.naming.Names;
 import walkingkooka.naming.StringName;
 import walkingkooka.predicate.Predicates;
 import walkingkooka.tree.Node;
 import walkingkooka.tree.TestNode;
 import walkingkooka.tree.expression.Expression;
+import walkingkooka.tree.expression.ExpressionEvaluationContext;
+import walkingkooka.tree.expression.ExpressionEvaluationContexts;
 import walkingkooka.tree.expression.ExpressionNumber;
 import walkingkooka.tree.expression.ExpressionNumberConverterContext;
 import walkingkooka.tree.expression.ExpressionNumberConverterContexts;
 import walkingkooka.tree.expression.ExpressionNumberKind;
+import walkingkooka.tree.expression.ExpressionReference;
 import walkingkooka.tree.expression.FunctionExpressionName;
 import walkingkooka.tree.expression.function.ExpressionFunction;
+import walkingkooka.tree.expression.function.ExpressionFunctionContexts;
 
+import java.math.MathContext;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
+import java.util.function.BiFunction;
 import java.util.function.BooleanSupplier;
 import java.util.function.Consumer;
 import java.util.function.Function;
@@ -379,10 +390,7 @@ abstract public class NodeSelectorTestCase4<S extends NodeSelector<TestNode, Str
         final NodeSelectorContext<TestNode, StringName, StringName, Object> context = NodeSelectorContexts.basic(finisher,
                 filter,
                 mapper,
-                //EXPRESSION_NUMBER_KIND,
-                this.functions(),
-                this.converter(),
-                ExpressionNumberConverterContexts.fake(),
+                this.expressionEvaluationContext(),
                 TestNode.class);
 
         return new NodeSelectorContext<>() {
@@ -402,6 +410,11 @@ abstract public class NodeSelectorTestCase4<S extends NodeSelector<TestNode, Str
             }
 
             @Override
+            public TestNode node() {
+                return context.node();
+            }
+
+            @Override
             public void setNode(final TestNode node) {
                 this.finisherGuardCheck();
                 context.setNode(node);
@@ -411,24 +424,6 @@ abstract public class NodeSelectorTestCase4<S extends NodeSelector<TestNode, Str
             public TestNode selected(final TestNode node) {
                 this.finisherGuardCheck();
                 return context.selected(node);
-            }
-
-            @Override
-            public ExpressionNumberKind expressionNumberKind() {
-                return context.expressionNumberKind();
-            }
-
-            @Override
-            public Object function(final FunctionExpressionName name,
-                                   final List<Object> parameters) {
-                this.finisherGuardCheck();
-                return context.function(name, parameters);
-            }
-
-            @Override
-            public <T> Either<T, String> convert(final Object value, final Class<T> target) {
-                this.finisherGuardCheck();
-                return context.convert(value, target);
             }
 
             @Override
@@ -452,17 +447,52 @@ abstract public class NodeSelectorTestCase4<S extends NodeSelector<TestNode, Str
         return Maps.of(Names.string(name), value);
     }
 
-    final Function<FunctionExpressionName, Optional<ExpressionFunction<?>>> functions() {
-        return NodeSelectorContexts.basicFunctions();
+    final Function<NodeSelectorContext<TestNode, StringName, StringName, Object>, ExpressionEvaluationContext> expressionEvaluationContext() {
+        return (c) -> ExpressionEvaluationContexts.basic(EXPRESSION_NUMBER_KIND,
+                this.functions(c),
+                this.references(),
+                this.converter(),
+                this.converterContext());
     }
 
-    final Converter<ExpressionNumberConverterContext> converter() {
+    private BiFunction<FunctionExpressionName, List<Object>, Object> functions(final NodeSelectorContext context) {
+        return (n, p) -> {
+            return NodeSelectorContexts.basicFunctions().apply(n)
+                    .orElseThrow(() -> new IllegalArgumentException("Unknown function " + n))
+                    .apply(p, Cast.to(new FakeNodeSelectorExpressionFunctionContext(){
+                        @Override
+                        public Node node() {
+                            return context.node();
+                        }
+
+                        @Override
+                        public <T> Either<T, String> convert(final Object value,
+                                                         final Class<T> target) {
+                            return NodeSelectorTestCase4.this.converter()
+                                    .convert(value,
+                                            target,
+                                            NodeSelectorTestCase4.this.converterContext());
+                        }
+                    }));
+        };
+    }
+
+    private Function<ExpressionReference, Optional<Expression>> references() {
+        return (r) -> Optional.empty();
+    }
+
+    private Converter<ExpressionNumberConverterContext> converter() {
         return Converters.collection(Lists.of(
                 ExpressionNumber.fromConverter(Converters.numberNumber()),
                 Converters.<String, Integer>function((t) -> t instanceof String, Predicates.is(Integer.class), Integer::parseInt),
                 Converters.function(t -> t instanceof Node, Predicates.is(Node.class), Function.identity()),
-                Converters.simple()
+                ExpressionNumber.toConverter(Converters.simple())
         ));
+    }
+
+    private ExpressionNumberConverterContext converterContext() {
+        return ExpressionNumberConverterContexts.basic(ConverterContexts.basic(DateTimeContexts.fake(), DecimalNumberContexts.american(MathContext.DECIMAL32)),
+                EXPRESSION_NUMBER_KIND);
     }
 
     // HashCodeEqualsDefinedTesting.....................................................................................

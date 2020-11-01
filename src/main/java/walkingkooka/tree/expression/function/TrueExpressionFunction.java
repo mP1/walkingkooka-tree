@@ -17,6 +17,7 @@
 
 package walkingkooka.tree.expression.function;
 
+import walkingkooka.Cast;
 import walkingkooka.tree.expression.FunctionExpressionName;
 
 import java.util.List;
@@ -24,12 +25,19 @@ import java.util.List;
 /**
  * A function that always returns true
  */
-final class TrueExpressionFunction extends ExpressionFunction2<Boolean> {
+final class TrueExpressionFunction<C extends ExpressionFunctionContext> extends ExpressionFunction2<Boolean, C> {
+
+    /**
+     * Instance getter.
+     */
+    static <C extends ExpressionFunctionContext> TrueExpressionFunction<C> instance() {
+        return Cast.to(INSTANCE);
+    }
 
     /**
      * Singleton
      */
-    static final TrueExpressionFunction INSTANCE = new TrueExpressionFunction();
+    private static final TrueExpressionFunction INSTANCE = new TrueExpressionFunction();
 
     /**
      * Private ctor
@@ -40,7 +48,7 @@ final class TrueExpressionFunction extends ExpressionFunction2<Boolean> {
 
     @Override
     public Boolean apply(final List<Object> parameters,
-                         final ExpressionFunctionContext context) {
+                         final C context) {
         return Boolean.TRUE;
     }
 

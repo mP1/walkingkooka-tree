@@ -41,8 +41,8 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 /**
  * Mixing interface that provides methods to test a {@link ExpressionFunction}
  */
-public interface ExpressionFunctionTesting<F extends ExpressionFunction<V>, V>
-        extends BiFunctionTesting<F, List<Object>, ExpressionFunctionContext, V>,
+public interface ExpressionFunctionTesting<F extends ExpressionFunction<V, C>, V, C extends ExpressionFunctionContext>
+        extends BiFunctionTesting<F, List<Object>, C, V>,
         TypeNameTesting<F> {
 
     @Test
@@ -61,44 +61,16 @@ public interface ExpressionFunctionTesting<F extends ExpressionFunction<V>, V>
         assertSame(function, function.setName(function.name()));
     }
 
-    default void apply2(final Object... parameters) {
-        this.createBiFunction().apply(parameters(parameters), this.createContext());
-    }
-
-    default void applyAndCheck2(final List<Object> parameters,
-                                final V result) {
-        this.applyAndCheck2(this.createBiFunction(), parameters, result);
-    }
-
-    default <TT, RR> void applyAndCheck2(final ExpressionFunction<RR> function,
-                                         final List<Object> parameters,
-                                         final RR result) {
-        this.applyAndCheck2(function, parameters, this.createContext(), result);
-    }
-
-    default <TT, RR> void applyAndCheck2(final ExpressionFunction<RR> function,
-                                         final List<Object> parameters,
-                                         final ExpressionFunctionContext context,
-                                         final RR result) {
+    default <TT, RR, CC extends ExpressionFunctionContext> void applyAndCheck2(final ExpressionFunction<RR, CC> function,
+                                                                               final List<Object> parameters,
+                                                                               final CC context,
+                                                                               final RR result) {
         assertEquals(result,
                 function.apply(parameters, context),
                 () -> "Wrong result for " + function + " for params: " + CharSequences.quoteIfChars(parameters));
     }
 
-    default ExpressionFunctionContext createContext() {
-        return new FakeExpressionFunctionContext() {
-
-            @Override
-            public ExpressionNumberKind expressionNumberKind() {
-                return ExpressionFunctionTesting.this.expressionNumberKind();
-            }
-
-            @Override
-            public <T> Either<T, String> convert(final Object value, final Class<T> target) {
-                return ExpressionFunctionTesting.this.convert(value, target);
-            }
-        };
-    }
+    abstract C createContext();
 
     default <T> Either<T, String> convert(final Object value, final Class<T> target) {
         if (target.isInstance(value)) {

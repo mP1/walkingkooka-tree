@@ -28,15 +28,15 @@ import java.util.Objects;
  * A function that compares two parameters of the same value. Before comparing the second value is coverted to the same
  * type as the first.
  */
-final class ComparisonExpressionFunction extends ExpressionFunction2<Boolean> {
+final class ComparisonExpressionFunction<C extends ExpressionFunctionContext> extends ExpressionFunction2<Boolean, C> {
 
     /**
      * Factory
      */
-    static ComparisonExpressionFunction with(final ComparisonRelation relation) {
+    static <C extends ExpressionFunctionContext> ComparisonExpressionFunction<C> with(final ComparisonRelation relation) {
         Objects.requireNonNull(relation, "relation");
 
-        return new ComparisonExpressionFunction(relation);
+        return new ComparisonExpressionFunction<>(relation);
     }
 
     /**
@@ -49,7 +49,7 @@ final class ComparisonExpressionFunction extends ExpressionFunction2<Boolean> {
 
     @Override
     public Boolean apply(final List<Object> parameters,
-                         final ExpressionFunctionContext context) {
+                         final C context) {
         this.checkParameterCount(parameters, 2);
 
         final Comparable<?> first = this.comparable(parameters, 0, context);

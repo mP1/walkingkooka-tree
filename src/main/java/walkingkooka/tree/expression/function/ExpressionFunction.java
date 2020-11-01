@@ -27,13 +27,13 @@ import java.util.function.BiFunction;
 /**
  * Basic contract for a function within a {@link ExpressionFunctionContext}
  */
-public interface ExpressionFunction<T> extends BiFunction<List<Object>, ExpressionFunctionContext, T>,
+public interface ExpressionFunction<T, C extends ExpressionFunctionContext> extends BiFunction<List<Object>, C, T>,
         HasName<FunctionExpressionName> {
 
     /**
      * Gives this {@link ExpressionFunction} a new name.
      */
-    default ExpressionFunction<T> setName(final FunctionExpressionName name) {
+    default ExpressionFunction<T, C> setName(final FunctionExpressionName name) {
         Objects.requireNonNull(name, "name");
         return CustomNameExpressionFunction.with(this, name);
     }

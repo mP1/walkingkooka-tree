@@ -18,11 +18,12 @@
 package walkingkooka.tree.expression.function;
 
 import org.junit.jupiter.api.Test;
+import walkingkooka.Cast;
 import walkingkooka.compare.ComparisonRelation;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class ComparisonExpressionFunctionTest extends ExpressionFunctionTestCase<ComparisonExpressionFunction, Boolean> {
+public final class ComparisonExpressionFunctionTest extends ExpressionFunctionTestCase<ComparisonExpressionFunction<ExpressionFunctionContext>, Boolean> {
 
     @Test
     public void testZeroParametersFails() {
@@ -164,12 +165,12 @@ public final class ComparisonExpressionFunctionTest extends ExpressionFunctionTe
     }
 
     @Override
-    public ComparisonExpressionFunction createBiFunction() {
+    public ComparisonExpressionFunction<ExpressionFunctionContext> createBiFunction() {
         return ComparisonExpressionFunction.with(ComparisonRelation.EQ);
     }
 
     @Override
-    public Class<ComparisonExpressionFunction> type() {
-        return ComparisonExpressionFunction.class;
+    public Class<ComparisonExpressionFunction<ExpressionFunctionContext>> type() {
+        return Cast.to(ComparisonExpressionFunction.class);
     }
 }

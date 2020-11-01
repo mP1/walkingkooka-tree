@@ -18,7 +18,10 @@
 package walkingkooka.tree.expression.function;
 
 import walkingkooka.collect.list.Lists;
+import walkingkooka.naming.Name;
 import walkingkooka.reflect.PublicStaticHelper;
+import walkingkooka.tree.Node;
+import walkingkooka.tree.select.NodeSelectorExpressionFunctionContext;
 
 import java.util.function.Consumer;
 
@@ -30,10 +33,11 @@ public final class ExpressionFunctions implements PublicStaticHelper {
     /**
      * Visit all {@link ExpressionFunction functions}. Note this does not include the {@link #fake() fake function}
      */
-    public static void visit(final Consumer<ExpressionFunction<?>> consumer) {
+    public static void visit(final Consumer<ExpressionFunction<?, ?>> consumer) {
         Lists.of(booleanFunction(),
                 choose(),
                 falseFunction(),
+                node(),
                 nodeName(),
                 not(),
                 trueFunction(),
@@ -44,57 +48,68 @@ public final class ExpressionFunctions implements PublicStaticHelper {
     /**
      * {@see BooleanExpressionFunction}
      */
-    public static ExpressionFunction<Boolean> booleanFunction() {
-        return BooleanExpressionFunction.INSTANCE;
+    public static <C extends ExpressionFunctionContext> ExpressionFunction<Boolean, C> booleanFunction() {
+        return BooleanExpressionFunction.instance();
     }
 
     /**
      * {@see ChooseExpressionFunction}
      */
-    public static ExpressionFunction<Object> choose() {
-        return ChooseExpressionFunction.INSTANCE;
+    public static <C extends ExpressionFunctionContext> ExpressionFunction<Object, C> choose() {
+        return ChooseExpressionFunction.instance();
     }
 
     /**
      * {@see FakeExpressionFunction}
      */
-    public static <T> ExpressionFunction<T> fake() {
+    public static <T, C extends ExpressionFunctionContext> ExpressionFunction<T, C> fake() {
         return new FakeExpressionFunction();
     }
 
     /**
      * {@see FalseExpressionFunction}
      */
-    public static ExpressionFunction<Boolean> falseFunction() {
-        return FalseExpressionFunction.INSTANCE;
+    public static <C extends ExpressionFunctionContext> ExpressionFunction<Boolean, C> falseFunction() {
+        return FalseExpressionFunction.instance();
+    }
+
+    /**
+     * {@see NodeExpressionFunction}
+     */
+    public static <N extends Node<N, NAME, ANAME, AVALUE>,
+            NAME extends Name,
+            ANAME extends Name,
+            AVALUE,
+            C extends NodeSelectorExpressionFunctionContext<N, NAME, ANAME, AVALUE>> ExpressionFunction<N, C> node() {
+        return NodeExpressionFunction.instance();
     }
 
     /**
      * {@see NodeNameExpressionFunction}
      */
-    public static ExpressionFunction<String> nodeName() {
-        return NodeNameExpressionFunction.INSTANCE;
+    public static <C extends ExpressionFunctionContext> ExpressionFunction<String, C> nodeName() {
+        return NodeNameExpressionFunction.instance();
     }
 
     /**
      * {@see NotExpressionFunction}
      */
-    public static ExpressionFunction<Boolean> not() {
-        return NotExpressionFunction.INSTANCE;
+    public static <C extends ExpressionFunctionContext> ExpressionFunction<Boolean, C> not() {
+        return NotExpressionFunction.instance();
     }
 
     /**
      * {@see TrueExpressionFunction}
      */
-    public static ExpressionFunction<Boolean> trueFunction() {
-        return TrueExpressionFunction.INSTANCE;
+    public static <C extends ExpressionFunctionContext> ExpressionFunction<Boolean, C> trueFunction() {
+        return TrueExpressionFunction.instance();
     }
 
     /**
      * {@see TypeNameExpressionFunction}
      */
-    public static ExpressionFunction<String> typeName() {
-        return TypeNameExpressionFunction.INSTANCE;
+    public static <C extends ExpressionFunctionContext> ExpressionFunction<String, C> typeName() {
+        return TypeNameExpressionFunction.instance();
     }
 
     /**

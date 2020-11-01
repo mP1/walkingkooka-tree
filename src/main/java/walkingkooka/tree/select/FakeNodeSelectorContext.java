@@ -45,32 +45,17 @@ public class FakeNodeSelectorContext<N extends Node<N, NAME, ANAME, AVALUE>,
     }
 
     @Override
+    public N node() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
     public void setNode(final N node) {
         throw new UnsupportedOperationException();
     }
 
     @Override
     public N selected(final N node) {
-        throw new UnsupportedOperationException();
-    }
-//
-//    @Override
-//    public <T> Either<T, String> convert(final Object value, final Class<T> target) {
-//        throw new UnsupportedOperationException();
-//    }
-//
-    @Override
-    public ExpressionNumberKind expressionNumberKind() {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public Object function(final FunctionExpressionName name, final List<Object> parameters) {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public <T> Either<T, String> convert(final Object value, final Class<T> target) {
         throw new UnsupportedOperationException();
     }
 
@@ -81,15 +66,4 @@ public class FakeNodeSelectorContext<N extends Node<N, NAME, ANAME, AVALUE>,
     public Object evaluate(final Expression expression) {
         throw new UnsupportedOperationException();
     }
-
-    //
-//    @Override
-//    public Locale locale() {
-//        throw new UnsupportedOperationException();
-//    }
-//
-//    @Override
-//    public MathContext mathContext() {
-//        throw new UnsupportedOperationException();
-//    }
 }
