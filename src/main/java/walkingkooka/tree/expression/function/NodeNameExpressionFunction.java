@@ -25,16 +25,16 @@ import java.util.List;
 /**
  * A non standard function that returns {@link Node#name()}. It assumes the {@link Node} is the first parameter.
  */
-final class FunctionExpressionNameExpressionFunction extends ExpressionFunction2<String> {
+final class NodeNameExpressionFunction extends ExpressionFunction2<String> {
     /**
      * Singleton
      */
-    static final FunctionExpressionNameExpressionFunction INSTANCE = new FunctionExpressionNameExpressionFunction();
+    static final NodeNameExpressionFunction INSTANCE = new NodeNameExpressionFunction();
 
     /**
      * Private ctor
      */
-    private FunctionExpressionNameExpressionFunction() {
+    private NodeNameExpressionFunction() {
         super();
     }
 

@@ -70,10 +70,10 @@ public final class ExpressionFunctions implements PublicStaticHelper {
     }
 
     /**
-     * {@see FunctionExpressionNameExpressionFunction}
+     * {@see NodeNameExpressionFunction}
      */
     public static ExpressionFunction<String> nodeName() {
-        return FunctionExpressionNameExpressionFunction.INSTANCE;
+        return NodeNameExpressionFunction.INSTANCE;
     }
 
     /**
