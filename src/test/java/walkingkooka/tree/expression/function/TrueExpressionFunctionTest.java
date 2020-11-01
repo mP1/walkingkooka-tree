@@ -18,8 +18,9 @@
 package walkingkooka.tree.expression.function;
 
 import org.junit.jupiter.api.Test;
+import walkingkooka.Cast;
 
-public final class TrueExpressionFunctionTest extends ExpressionFunctionTestCase<TrueExpressionFunction, Boolean> {
+public final class TrueExpressionFunctionTest extends ExpressionFunctionTestCase<TrueExpressionFunction<ExpressionFunctionContext>, Boolean> {
 
     @Test
     public void testExecuteFunction() {
@@ -32,12 +33,12 @@ public final class TrueExpressionFunctionTest extends ExpressionFunctionTestCase
     }
 
     @Override
-    public TrueExpressionFunction createBiFunction() {
-        return TrueExpressionFunction.INSTANCE;
+    public TrueExpressionFunction<ExpressionFunctionContext> createBiFunction() {
+        return TrueExpressionFunction.instance();
     }
 
     @Override
-    public Class<TrueExpressionFunction> type() {
-        return TrueExpressionFunction.class;
+    public Class<TrueExpressionFunction<ExpressionFunctionContext>> type() {
+        return Cast.to(TrueExpressionFunction.class);
     }
 }

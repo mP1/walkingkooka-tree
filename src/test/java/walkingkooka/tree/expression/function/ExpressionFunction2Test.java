@@ -21,10 +21,10 @@ import walkingkooka.Cast;
 import walkingkooka.reflect.ClassTesting2;
 import walkingkooka.reflect.JavaVisibility;
 
-public final class ExpressionFunction2Test implements ClassTesting2<ExpressionFunction2<?>> {
+public final class ExpressionFunction2Test implements ClassTesting2<ExpressionFunction2<?, ?>> {
 
     @Override
-    public Class<ExpressionFunction2<?>> type() {
+    public Class<ExpressionFunction2<?, ?>> type() {
         return Cast.to(ExpressionFunction2.class);
     }
 

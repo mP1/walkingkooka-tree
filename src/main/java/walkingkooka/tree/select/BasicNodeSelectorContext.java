@@ -17,19 +17,13 @@
 
 package walkingkooka.tree.select;
 
-import walkingkooka.Either;
-import walkingkooka.convert.Converter;
 import walkingkooka.naming.Name;
 import walkingkooka.tree.Node;
 import walkingkooka.tree.expression.Expression;
+import walkingkooka.tree.expression.ExpressionEvaluationContext;
 import walkingkooka.tree.expression.ExpressionNumberConverterContext;
-import walkingkooka.tree.expression.ExpressionNumberKind;
-import walkingkooka.tree.expression.FunctionExpressionName;
-import walkingkooka.tree.expression.function.ExpressionFunction;
 
-import java.util.List;
 import java.util.Objects;
-import java.util.Optional;
 import java.util.function.BooleanSupplier;
 import java.util.function.Consumer;
 import java.util.function.Function;
@@ -48,38 +42,29 @@ final class BasicNodeSelectorContext<N extends Node<N, NAME, ANAME, AVALUE>, NAM
             C extends ExpressionNumberConverterContext> BasicNodeSelectorContext<N, NAME, ANAME, AVALUE> with(final BooleanSupplier finisher,
                                                                                                               final Predicate<N> filter,
                                                                                                               final Function<N, N> mapper,
-                                                                                                              final Function<FunctionExpressionName, Optional<ExpressionFunction<?>>> functions,
-                                                                                                              final Converter<C> converter,
-                                                                                                              final C converterContext,
+                                                                                                              final Function<NodeSelectorContext<N, NAME, ANAME, AVALUE>, ExpressionEvaluationContext> expressionEvaluationContext,
                                                                                                               final Class<N> nodeType) {
         Objects.requireNonNull(finisher, "finisher");
         Objects.requireNonNull(filter, "filter");
         Objects.requireNonNull(mapper, "mapper");
-        Objects.requireNonNull(functions, "functions");
-        Objects.requireNonNull(converter, "converter");
-        Objects.requireNonNull(converterContext, "converterContext");
+        Objects.requireNonNull(expressionEvaluationContext, "expressionEvaluationContext");
         Objects.requireNonNull(nodeType, "nodeType");
 
         return new BasicNodeSelectorContext<N, NAME, ANAME, AVALUE>(finisher,
                 filter,
                 mapper,
-                functions,
-                converter.cast(ExpressionNumberConverterContext.class),
-                converterContext);
+                expressionEvaluationContext);
     }
 
     private BasicNodeSelectorContext(final BooleanSupplier finisher,
                                      final Predicate<N> filter,
                                      final Function<N, N> mapper,
-                                     final Function<FunctionExpressionName, Optional<ExpressionFunction<?>>> functions,
-                                     final Converter<ExpressionNumberConverterContext> converter,
-                                     final ExpressionNumberConverterContext converterContext) {
+                                     final Function<NodeSelectorContext<N, NAME, ANAME, AVALUE>, ExpressionEvaluationContext> expressionEvaluationContext) {
         this.finisher = finisher;
         this.filter = filter;
         this.mapper = mapper;
 
-        this.expressionFunctionContext = BasicNodeSelectorContextExpressionFunctionContext.with(functions, converter, converterContext);
-        this.expressionEvaluationContext = BasicNodeSelectorContextExpressionEvaluationContext.with(this.expressionFunctionContext);
+        this.expressionEvaluationContext = expressionEvaluationContext;
     }
 
     @Override
@@ -104,6 +89,18 @@ final class BasicNodeSelectorContext<N extends Node<N, NAME, ANAME, AVALUE>, NAM
     private final Predicate<N> filter;
 
     /**
+     * Returns the current {@link Node}
+     */
+    @Override
+    public N node() {
+        final N current = this.current;
+        if (null == current) {
+            throw new NodeSelectorException("Current node not set"); // runtime error
+        }
+        return current;
+    }
+
+    /**
      * Saves the current node for that predicates and expressions that may need it.
      */
     @Override
@@ -119,48 +116,15 @@ final class BasicNodeSelectorContext<N extends Node<N, NAME, ANAME, AVALUE>, NAM
     private final Function<N, N> mapper;
 
     @Override
-    public ExpressionNumberKind expressionNumberKind() {
-        return this.expressionEvaluationContext.expressionNumberKind();
-    }
-
-    @Override
-    public Object function(final FunctionExpressionName name, final List<Object> parameters) {
-        return NODE.equals(name) ?
-                this.node() :
-                this.function0(name, parameters);
-    }
-
-    private final static FunctionExpressionName NODE = FunctionExpressionName.with("node");
-
-    private N node() {
-        final N current = this.current;
-        if (null == current) {
-            throw new NodeSelectorException("Current node not set");
-        }
-        return current;
+    public Object evaluate(final Expression expression) {
+        // create a new context and then evaluate the expression.
+        return expression.toValue(this.expressionEvaluationContext.apply(this));
     }
 
     /**
-     * Handles dispatching all functions other than <code>node()</code> which is special cased
-     * because it needs to read {@link #current}.
+     * A factory that returns a {@link ExpressionEvaluationContext} after being given a {@link NodeSelectorContext}.
      */
-    private Object function0(final FunctionExpressionName name, final List<Object> parameters) {
-        return this.expressionFunctionContext.function(name, parameters);
-    }
-
-    private final BasicNodeSelectorContextExpressionFunctionContext expressionFunctionContext;
-
-    @Override
-    public <T> Either<T, String> convert(final Object value, final Class<T> target) {
-        return this.expressionEvaluationContext.convert(value, target);
-    }
-
-    @Override
-    public Object evaluate(final Expression expression) {
-        return expression.toExpressionNumber(this.expressionEvaluationContext);
-    }
-
-    private final BasicNodeSelectorContextExpressionEvaluationContext expressionEvaluationContext;
+    private final Function<NodeSelectorContext<N, NAME, ANAME, AVALUE>, ExpressionEvaluationContext> expressionEvaluationContext;
 
     /**
      * The current {@link Node} which is also becomes the first argument for all function invocations.
@@ -172,6 +136,6 @@ final class BasicNodeSelectorContext<N extends Node<N, NAME, ANAME, AVALUE>, NAM
         return this.finisher + " " +
                 this.filter + " " +
                 this.mapper + " " +
-                this.expressionFunctionContext;
+                this.expressionEvaluationContext;
     }
 }

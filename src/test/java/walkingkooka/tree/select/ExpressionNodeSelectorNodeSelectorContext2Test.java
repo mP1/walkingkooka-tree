@@ -71,44 +71,39 @@ public final class ExpressionNodeSelectorNodeSelectorContext2Test extends NodeSe
     }
 
     @Test
-    public void testNodePositionBooleanFalse() {
-        this.nodePositionTestAndCheck(false, false);
+    public void testIsNodeSelectedBooleanFalse() {
+        this.isNodeSelectedAndCheck(Expression.booleanExpression(false), false);
     }
 
     @Test
-    public void testNodePositionBooleanTrue() {
-        this.nodePositionTestAndCheck(true, true);
+    public void testIsNodeSelectedBooleanTrue() {
+        this.isNodeSelectedAndCheck(Expression.booleanExpression(true), true);
     }
 
     @Test
-    public void testNodePositionLongDifferent() {
-        this.nodePositionTestAndCheck(INDEX + 99L, false);
+    public void testIsNodeSelectedNumberDifferent() {
+        this.isNodeSelectedAndCheck(Expression.expressionNumber(EXPRESSION_NUMBER_KIND.create(INDEX + 99L)), false);
     }
 
     @Test
-    public void testNodePositionLongEqual() {
-        this.nodePositionTestAndCheck((long) (INDEX), true);
+    public void testIsNodeSelectedNumberEqual() {
+        this.isNodeSelectedAndCheck(Expression.expressionNumber(EXPRESSION_NUMBER_KIND.create(INDEX)), true);
     }
 
     @Test
-    public void testNodePositionStringDifferent() {
-        this.nodePositionTestAndCheck(String.valueOf(INDEX + 99), false);
+    public void testIsNodeSelectedStringDifferent() {
+        this.isNodeSelectedAndCheck(Expression.string(String.valueOf(INDEX + 99)), false);
     }
 
-    @Test
-    public void testNodePositionStringEqual() {
-        this.nodePositionTestAndCheck(String.valueOf(INDEX), true);
-    }
-
-    private void nodePositionTestAndCheck(final Object value,
+    private void isNodeSelectedAndCheck(final Expression expression,
                                           final boolean expected) {
         assertEquals(expected,
-                this.createContext().nodePositionTest(value),
-                () -> "value: " + CharSequences.quoteIfChars(value));
+                this.createContext().isNodeSelected(expression),
+                () -> "expression: " + CharSequences.quoteIfChars(expression));
     }
 
     @Test
-    public void testNodePosition() {
+    public void testIsNodeSelected() {
         final ExpressionNodeSelectorNodeSelectorContext2<TestNode, StringName, StringName, Object> context = this.createContext();
         assertEquals(INDEX,
                 context.nodePosition(),
@@ -121,26 +116,17 @@ public final class ExpressionNodeSelectorNodeSelectorContext2Test extends NodeSe
                 new FakeNodeSelectorContext<TestNode, StringName, StringName, Object>() {
 
                     @Override
-                    public <T> Either<T, String> convert(final Object value, final Class<T> target) {
-                        assertEquals(Integer.class, target, "target");
-
-                        return this.converter().convert(value,
-                                        target,
-                                        this.converterContext());
-                    }
-
-                    @Override
                     public Object evaluate(final Expression expression) {
                         Objects.requireNonNull(expression, "expression");
 
-                        return expression.toExpressionNumber(
+                        return expression.toValue(
                                 ExpressionEvaluationContexts.basic(EXPRESSION_NUMBER_KIND,
                                         (e, parameters) -> {
                                             throw new UnsupportedOperationException();
                                         },
                                         new Function<ExpressionReference, Optional<Expression>>() {
                                             @Override
-                                            public Optional<Expression> apply(ExpressionReference expressionReference) {
+                                            public Optional<Expression> apply(final ExpressionReference reference) {
                                                 throw new UnsupportedOperationException();
                                             }
                                         },
@@ -150,6 +136,7 @@ public final class ExpressionNodeSelectorNodeSelectorContext2Test extends NodeSe
 
                     private Converter<ExpressionNumberConverterContext> converter() {
                         return  Converters.collection(Lists.of(
+                                ExpressionNumber.toConverter(Converters.truthyNumberBoolean()),
                                 ExpressionNumber.fromConverter(Converters.numberNumber()),
                                 Converters.<String, Integer>function(v -> v instanceof String, Predicates.is(Integer.class), Integer::parseInt)));
                     }

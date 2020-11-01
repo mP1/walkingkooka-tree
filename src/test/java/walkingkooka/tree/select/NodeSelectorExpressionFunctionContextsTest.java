@@ -17,29 +17,25 @@
 
 package walkingkooka.tree.select;
 
-import walkingkooka.reflect.ClassTesting2;
 import walkingkooka.reflect.JavaVisibility;
-import walkingkooka.tree.expression.FunctionExpressionName;
-import walkingkooka.tree.expression.function.ExpressionFunction;
-import walkingkooka.util.FunctionTesting;
+import walkingkooka.reflect.PublicStaticHelperTesting;
 
-import java.util.Optional;
+import java.lang.reflect.Method;
 
-public final class BasicNodeSelectorContextFunctionTest implements ClassTesting2<BasicNodeSelectorContextFunction>,
-        FunctionTesting<BasicNodeSelectorContextFunction, FunctionExpressionName, Optional<ExpressionFunction<?, ?>>> {
+public final class NodeSelectorExpressionFunctionContextsTest implements PublicStaticHelperTesting<NodeSelectorExpressionFunctionContexts> {
 
     @Override
-    public BasicNodeSelectorContextFunction createFunction() {
-        return BasicNodeSelectorContextFunction.INSTANCE;
+    public Class<NodeSelectorExpressionFunctionContexts> type() {
+        return NodeSelectorExpressionFunctionContexts.class;
     }
 
     @Override
-    public Class<BasicNodeSelectorContextFunction> type() {
-        return BasicNodeSelectorContextFunction.class;
+    public boolean canHavePublicTypes(final Method method) {
+        return false;
     }
 
     @Override
     public JavaVisibility typeVisibility() {
-        return JavaVisibility.PACKAGE_PRIVATE;
+        return JavaVisibility.PUBLIC;
     }
 }

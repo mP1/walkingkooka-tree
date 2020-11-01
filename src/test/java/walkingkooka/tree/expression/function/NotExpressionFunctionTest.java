@@ -18,8 +18,9 @@
 package walkingkooka.tree.expression.function;
 
 import org.junit.jupiter.api.Test;
+import walkingkooka.Cast;
 
-public final class NotExpressionFunctionTest extends ExpressionFunctionTestCase<NotExpressionFunction, Boolean> {
+public final class NotExpressionFunctionTest extends ExpressionFunctionTestCase<NotExpressionFunction<ExpressionFunctionContext>, Boolean> {
 
     @Test
     public void testInverts() {
@@ -37,12 +38,12 @@ public final class NotExpressionFunctionTest extends ExpressionFunctionTestCase<
     }
 
     @Override
-    public NotExpressionFunction createBiFunction() {
-        return NotExpressionFunction.INSTANCE;
+    public NotExpressionFunction<ExpressionFunctionContext> createBiFunction() {
+        return NotExpressionFunction.instance();
     }
 
     @Override
-    public Class<NotExpressionFunction> type() {
-        return NotExpressionFunction.class;
+    public Class<NotExpressionFunction<ExpressionFunctionContext>> type() {
+        return Cast.to(NotExpressionFunction.class);
     }
 }

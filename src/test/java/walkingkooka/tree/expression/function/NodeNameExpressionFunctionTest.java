@@ -18,14 +18,19 @@
 package walkingkooka.tree.expression.function;
 
 import org.junit.jupiter.api.Test;
+import walkingkooka.Cast;
+import walkingkooka.Either;
 import walkingkooka.naming.Names;
 import walkingkooka.naming.StringName;
 import walkingkooka.reflect.ClassTesting2;
 import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.tree.FakeNode;
+import walkingkooka.tree.Node;
 
-public final class NodeNameExpressionFunctionTest implements ClassTesting2<NodeNameExpressionFunction>,
-        ExpressionFunctionTesting<NodeNameExpressionFunction, String> {
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+public final class NodeNameExpressionFunctionTest implements ClassTesting2<NodeNameExpressionFunction<ExpressionFunctionContext>>,
+        ExpressionFunctionTesting<NodeNameExpressionFunction<ExpressionFunctionContext>, String, ExpressionFunctionContext> {
 
     private final static String NAME = "Abc123";
 
@@ -33,7 +38,21 @@ public final class NodeNameExpressionFunctionTest implements ClassTesting2<NodeN
     public void testExecuteFunction() {
         this.applyAndCheck2(this.createBiFunction(),
                 parameters(new TestFakeNode()),
+                this.createContext(),
                 NAME);
+    }
+
+    @Override
+    public ExpressionFunctionContext createContext() {
+        return new FakeExpressionFunctionContext() {
+            @Override
+            public <T> Either<T, String> convert(final Object value,
+                                                 final Class<T> target) {
+                assertEquals(true, value instanceof TestFakeNode, "value " + value);
+                assertEquals(Node.class, target, "target");
+                return Either.left(target.cast(value));
+            }
+        };
     }
 
     final static class TestFakeNode extends FakeNode<TestFakeNode, StringName, StringName, Object> {
@@ -50,13 +69,13 @@ public final class NodeNameExpressionFunctionTest implements ClassTesting2<NodeN
     }
 
     @Override
-    public NodeNameExpressionFunction createBiFunction() {
-        return NodeNameExpressionFunction.INSTANCE;
+    public NodeNameExpressionFunction<ExpressionFunctionContext> createBiFunction() {
+        return NodeNameExpressionFunction.instance();
     }
 
     @Override
-    public Class<NodeNameExpressionFunction> type() {
-        return NodeNameExpressionFunction.class;
+    public Class<NodeNameExpressionFunction<ExpressionFunctionContext>> type() {
+        return Cast.to(NodeNameExpressionFunction.class);
     }
 
     @Override

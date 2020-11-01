@@ -19,7 +19,6 @@ package walkingkooka.tree.select;
 
 import walkingkooka.Cast;
 import walkingkooka.Either;
-import walkingkooka.collect.list.Lists;
 import walkingkooka.naming.Name;
 import walkingkooka.tree.Node;
 import walkingkooka.tree.expression.Expression;
@@ -38,31 +37,32 @@ import java.util.Objects;
 import java.util.Optional;
 
 /**
- * A {@link ExpressionEvaluationContext} that is used when evaluating predicates.
+ * A {@link ExpressionEvaluationContext} that wraps another {@link ExpressionEvaluationContext} and retrieves references
+ * from a {@link Node node's} attributes.
  */
-final class ExpressionNodeSelectorExpressionEvaluationContext<N extends Node<N, NAME, ANAME, AVALUE>,
+final class BasicNodeSelectorExpressionEvaluationContext<N extends Node<N, NAME, ANAME, AVALUE>,
         NAME extends Name,
         ANAME extends Name,
         AVALUE>
         implements ExpressionEvaluationContext {
 
     /**
-     * Factory that creates a new {@link ExpressionNodeSelectorExpressionEvaluationContext}, using the given {@link Node} as the context.
+     * Factory that creates a new {@link BasicNodeSelectorExpressionEvaluationContext}, using the given {@link Node} as the context.
      */
     static <N extends Node<N, NAME, ANAME, AVALUE>,
             NAME extends Name,
             ANAME extends Name,
             AVALUE>
-    ExpressionNodeSelectorExpressionEvaluationContext<N, NAME, ANAME, AVALUE> with(final N node,
-                                                                                   final NodeSelectorContext2<N, NAME, ANAME, AVALUE> context) {
-        return new ExpressionNodeSelectorExpressionEvaluationContext<>(node, context);
+    BasicNodeSelectorExpressionEvaluationContext<N, NAME, ANAME, AVALUE> with(final N node,
+                                                                              final ExpressionEvaluationContext context) {
+        return new BasicNodeSelectorExpressionEvaluationContext<>(node, context);
     }
 
     /**
      * Private ctor use factory.
      */
-    private ExpressionNodeSelectorExpressionEvaluationContext(final N node,
-                                                              final NodeSelectorContext2<N, NAME, ANAME, AVALUE> context) {
+    private BasicNodeSelectorExpressionEvaluationContext(final N node,
+                                                         final ExpressionEvaluationContext context) {
         super();
         this.node = node;
         this.context = context;
@@ -74,19 +74,9 @@ final class ExpressionNodeSelectorExpressionEvaluationContext<N extends Node<N, 
     }
 
     @Override
-    public Object function(final FunctionExpressionName name, final List<Object> parameters) {
-        return POSITION.equals(name) ?
-                this.context.nodePosition() :
-                this.dispatchFunction(name, parameters);
-    }
-
-    private final static FunctionExpressionName POSITION = FunctionExpressionName.with("position");
-
-    private Object dispatchFunction(final FunctionExpressionName name, final List<Object> parameters) {
-        final List<Object> thisAndParameters = Lists.array();
-        thisAndParameters.add(this.node);
-        thisAndParameters.addAll(parameters);
-        return this.context.function(name, Lists.readOnly(parameters));
+    public Object function(final FunctionExpressionName name,
+                           final List<Object> parameters) {
+        return this.context.function(name, parameters);
     }
 
     /**
@@ -125,7 +115,7 @@ final class ExpressionNodeSelectorExpressionEvaluationContext<N extends Node<N, 
     }
 
     /**
-     * The node which will become parameter 0 in all function parameters.
+     * Returns the current {@link Node}.
      */
     // @VisibleForTesting
     final Node<?, ?, ?, ?> node;
@@ -134,12 +124,12 @@ final class ExpressionNodeSelectorExpressionEvaluationContext<N extends Node<N, 
 
     @Override
     public Locale locale() {
-        throw new UnsupportedOperationException();
+        return this.context.locale();
     }
 
     @Override
     public MathContext mathContext() {
-        return MathContext.DECIMAL32;
+        return this.context.mathContext();
     }
 
     @Override
@@ -147,42 +137,42 @@ final class ExpressionNodeSelectorExpressionEvaluationContext<N extends Node<N, 
         return this.context.convert(value, target);
     }
 
-    private final NodeSelectorContext2<N, NAME, ANAME, AVALUE> context;
-
     @Override
     public String currencySymbol() {
-        throw new UnsupportedOperationException();
+        return this.context.currencySymbol();
     }
 
     @Override
     public char decimalSeparator() {
-        return '.';
+        return this.context.decimalSeparator();
     }
 
     @Override
     public String exponentSymbol() {
-        return "E";
+        return this.context.exponentSymbol();
     }
 
     @Override
     public char groupingSeparator() {
-        return ',';
+        return this.context.groupingSeparator();
     }
 
     @Override
     public char percentageSymbol() {
-        return '%';
+        return this.context.percentageSymbol();
     }
 
     @Override
     public char negativeSign() {
-        return '-';
+        return this.context.negativeSign();
     }
 
     @Override
     public char positiveSign() {
-        return '+';
+        return this.context.positiveSign();
     }
+
+    private final ExpressionEvaluationContext context;
 
     @Override
     public String toString() {

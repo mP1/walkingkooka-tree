@@ -18,40 +18,49 @@
 package walkingkooka.tree.expression.function;
 
 import walkingkooka.Cast;
+import walkingkooka.naming.Name;
+import walkingkooka.tree.Node;
 import walkingkooka.tree.expression.FunctionExpressionName;
+import walkingkooka.tree.select.NodeSelectorExpressionFunctionContext;
 
 import java.util.List;
 
 /**
- * A function that converts the given value into a {@link Boolean}.
+ * Returns the current {@link Node} which is fetched from {@link NodeSelectorExpressionFunctionContext#node()}
  */
-final class BooleanExpressionFunction<C extends ExpressionFunctionContext> extends ExpressionFunction2<Boolean, C> {
+final class NodeExpressionFunction<N extends Node<N, NAME, ANAME, AVALUE>,
+        NAME extends Name,
+        ANAME extends Name,
+        AVALUE,
+        C extends NodeSelectorExpressionFunctionContext<N, NAME, ANAME, AVALUE>> extends ExpressionFunction2<N, C> {
 
     /**
      * Instance getter.
      */
-    static <C extends ExpressionFunctionContext> BooleanExpressionFunction<C> instance() {
+    static <N extends Node<N, NAME, ANAME, AVALUE>,
+            NAME extends Name,
+            ANAME extends Name,
+            AVALUE,
+            C extends NodeSelectorExpressionFunctionContext<N, NAME, ANAME, AVALUE>> NodeExpressionFunction<N, NAME, ANAME, AVALUE, C> instance() {
         return Cast.to(INSTANCE);
     }
 
     /**
      * Singleton
      */
-    private static final BooleanExpressionFunction INSTANCE = new BooleanExpressionFunction();
+    private static final NodeExpressionFunction INSTANCE = new NodeExpressionFunction();
 
     /**
      * Private ctor
      */
-    private BooleanExpressionFunction() {
+    private NodeExpressionFunction() {
         super();
     }
 
     @Override
-    public Boolean apply(final List<Object> parameters,
-                         final C context) {
-        this.checkParameterCount(parameters, 1);
-
-        return this.booleanValue(parameters, 0, context);
+    public N apply(final List<Object> parameters,
+                   final C context) {
+        return context.node();
     }
 
     @Override
@@ -59,7 +68,7 @@ final class BooleanExpressionFunction<C extends ExpressionFunctionContext> exten
         return NAME;
     }
 
-    private final static FunctionExpressionName NAME = FunctionExpressionName.with("boolean");
+    private final static FunctionExpressionName NAME = FunctionExpressionName.with("node");
 
     @Override
     public String toString() {

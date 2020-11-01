@@ -24,6 +24,7 @@ import walkingkooka.stream.push.PushableStreamConsumer;
 import walkingkooka.text.CharacterConstant;
 import walkingkooka.tree.Node;
 import walkingkooka.tree.expression.Expression;
+import walkingkooka.tree.expression.ExpressionEvaluationContext;
 import walkingkooka.tree.expression.ExpressionNumber;
 import walkingkooka.tree.expression.ExpressionNumberConverterContext;
 import walkingkooka.tree.expression.ExpressionNumberKind;
@@ -437,16 +438,12 @@ public abstract class NodeSelector<N extends Node<N, NAME, ANAME, AVALUE>,
      * {@link Stream} for further stream processing.
      */
     public final <C extends ExpressionNumberConverterContext> Stream<N> stream(final N node,
-                                                                               final Function<FunctionExpressionName, Optional<ExpressionFunction<?>>> functions,
-                                                                               final Converter<C> converter,
-                                                                               final C converterContext,
+                                                                               final Function<NodeSelectorContext<N, NAME, ANAME, AVALUE>, ExpressionEvaluationContext> expressionEvaluationContext,
                                                                                final Class<N> nodeType) {
         return PushableStreamConsumer.stream(
                 NodeSelectorStreamConsumerPushableStreamConsumer.with(node,
                         this,
-                        functions,
-                        converter,
-                        converterContext,
+                        expressionEvaluationContext,
                         nodeType));
     }
 

@@ -19,6 +19,7 @@ package walkingkooka.tree.select;
 
 import walkingkooka.naming.Name;
 import walkingkooka.tree.Node;
+import walkingkooka.tree.expression.Expression;
 
 /**
  * The default {@link NodeSelectorContext2}.
@@ -50,8 +51,8 @@ final class NodeSelectorContext2All<N extends Node<N, NAME, ANAME, AVALUE>, NAME
     }
 
     @Override
-    boolean nodePositionTest(final Object value) {
-        throw new UnsupportedOperationException();
+    boolean isNodeSelected(final Expression expression) {
+        return true; // ignore expression always true
     }
 
     @Override

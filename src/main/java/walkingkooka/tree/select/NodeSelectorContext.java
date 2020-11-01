@@ -32,8 +32,7 @@ import java.util.List;
 /**
  * The {@link Context} that accompanies all match requests. Not it gathers the selected nodes and so cant be reused.
  */
-public interface NodeSelectorContext<N extends Node<N, NAME, ANAME, AVALUE>, NAME extends Name, ANAME extends Name, AVALUE> extends Context,
-        HasExpressionNumberKind {
+public interface NodeSelectorContext<N extends Node<N, NAME, ANAME, AVALUE>, NAME extends Name, ANAME extends Name, AVALUE> extends Context {
 
     /**
      * One time flag that when true aborts future attempts to test and select additional {@link Node nodes}.
@@ -44,6 +43,11 @@ public interface NodeSelectorContext<N extends Node<N, NAME, ANAME, AVALUE>, NAM
      * Test method that filters {@link Node} prior to selection. If the test returns false the {@link Node} is not selected and is ignored.
      */
     boolean test(final N node);
+
+    /**
+     * Returns the current {@link Node}
+     */
+    N node();
 
     /**
      * Sets the current {@link Node}, in preparation for predicates or functions that read attributes or other values from
@@ -60,17 +64,6 @@ public interface NodeSelectorContext<N extends Node<N, NAME, ANAME, AVALUE>, NAM
      * Constant for functions without any parameters.
      */
     List<Object> NO_PARAMETERS = Lists.empty();
-
-    /**
-     * Locates a function with the given name and then executes it with the provided parameter values.
-     */
-    Object function(final FunctionExpressionName name, final List<Object> parameters);
-
-    /**
-     * Converts the given value to the requested type returning an {@link Either} with {@link Either#leftValue()} holding
-     * the result or {@link Either#rightValue()} holding an failure message.
-     */
-    <T> Either<T, String> convert(final Object value, final Class<T> target);
 
     /**
      * Evaluates the {@link Expression} returning the value.

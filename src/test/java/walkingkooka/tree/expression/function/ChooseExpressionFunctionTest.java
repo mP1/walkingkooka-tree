@@ -18,10 +18,11 @@
 package walkingkooka.tree.expression.function;
 
 import org.junit.jupiter.api.Test;
+import walkingkooka.Cast;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class ChooseExpressionFunctionTest extends ExpressionFunctionTestCase<ChooseExpressionFunction, Object> {
+public final class ChooseExpressionFunctionTest extends ExpressionFunctionTestCase<ChooseExpressionFunction<ExpressionFunctionContext>, Object> {
 
     @Test
     public void testZeroParametersFails() {
@@ -64,12 +65,12 @@ public final class ChooseExpressionFunctionTest extends ExpressionFunctionTestCa
     }
 
     @Override
-    public ChooseExpressionFunction createBiFunction() {
-        return ChooseExpressionFunction.INSTANCE;
+    public ChooseExpressionFunction<ExpressionFunctionContext> createBiFunction() {
+        return ChooseExpressionFunction.instance();
     }
 
     @Override
-    public Class<ChooseExpressionFunction> type() {
-        return ChooseExpressionFunction.class;
+    public Class<ChooseExpressionFunction<ExpressionFunctionContext>> type() {
+        return Cast.to(ChooseExpressionFunction.class);
     }
 }

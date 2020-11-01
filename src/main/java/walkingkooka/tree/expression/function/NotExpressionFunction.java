@@ -17,6 +17,7 @@
 
 package walkingkooka.tree.expression.function;
 
+import walkingkooka.Cast;
 import walkingkooka.tree.expression.FunctionExpressionName;
 
 import java.util.List;
@@ -24,12 +25,19 @@ import java.util.List;
 /**
  * A function that inverts the a boolean value.
  */
-final class NotExpressionFunction extends ExpressionFunction2<Boolean> {
+final class NotExpressionFunction<C extends ExpressionFunctionContext> extends ExpressionFunction2<Boolean, C> {
+
+    /**
+     * Instance getter.
+     */
+    static <C extends ExpressionFunctionContext> NotExpressionFunction<C> instance() {
+        return Cast.to(INSTANCE);
+    }
 
     /**
      * Singleton
      */
-    static final NotExpressionFunction INSTANCE = new NotExpressionFunction();
+    private static final NotExpressionFunction INSTANCE = new NotExpressionFunction();
 
     /**
      * Private ctor
@@ -40,7 +48,7 @@ final class NotExpressionFunction extends ExpressionFunction2<Boolean> {
 
     @Override
     public Boolean apply(final List<Object> parameters,
-                         final ExpressionFunctionContext context) {
+                         final C context) {
         this.checkParameterCount(parameters, 1);
 
         return !this.booleanValue(parameters, 0, context);

@@ -17,6 +17,7 @@
 
 package walkingkooka.tree.expression.function;
 
+import walkingkooka.Cast;
 import walkingkooka.tree.expression.FunctionExpressionName;
 
 import java.util.List;
@@ -39,12 +40,19 @@ import java.util.List;
  * The second object to consider returning.
  * </pre>
  */
-final class ChooseExpressionFunction extends ExpressionFunction2<Object> {
+final class ChooseExpressionFunction<C extends ExpressionFunctionContext> extends ExpressionFunction2<Object, C> {
+
+    /**
+     * Instance getter.
+     */
+    static <C extends ExpressionFunctionContext> ChooseExpressionFunction<C> instance() {
+        return Cast.to(INSTANCE);
+    }
 
     /**
      * Singleton
      */
-    static final ChooseExpressionFunction INSTANCE = new ChooseExpressionFunction();
+    private static final ChooseExpressionFunction INSTANCE = new ChooseExpressionFunction();
 
     /**
      * Private ctor
@@ -55,7 +63,7 @@ final class ChooseExpressionFunction extends ExpressionFunction2<Object> {
 
     @Override
     public Object apply(final List<Object> parameters,
-                        final ExpressionFunctionContext context) {
+                        final C context) {
         this.checkParameterCount(parameters, 3);
 
         return this.parameter(parameters,

@@ -29,7 +29,7 @@ import java.util.function.Function;
 /**
  * A {@link Function} that knows all xpath functions present in {@link walkingkooka.tree.expression.function.ExpressionFunctions}.
  */
-final class BasicNodeSelectorContextFunction implements Function<FunctionExpressionName, Optional<ExpressionFunction<?>>> {
+final class BasicNodeSelectorContextFunction implements Function<FunctionExpressionName, Optional<ExpressionFunction<?, ?>>> {
 
     /**
      * Singleton
@@ -48,19 +48,19 @@ final class BasicNodeSelectorContextFunction implements Function<FunctionExpress
         ExpressionFunctions.visit(this::register);
     }
 
-    private void register(final ExpressionFunction<?> function) {
+    private void register(final ExpressionFunction<?, ?> function) {
         this.nameToFunction.put(function.name(), function);
     }
 
     @Override
-    public Optional<ExpressionFunction<?>> apply(final FunctionExpressionName name) {
+    public Optional<ExpressionFunction<?, ?>> apply(final FunctionExpressionName name) {
         return Optional.ofNullable(this.nameToFunction.get(name));
     }
 
     /**
      * Provides a lookup by {@link FunctionExpressionName function name} to the actual function.
      */
-    private final Map<FunctionExpressionName, ExpressionFunction<?>> nameToFunction;
+    private final Map<FunctionExpressionName, ExpressionFunction<?, ?>> nameToFunction;
 
     @Override
     public String toString() {

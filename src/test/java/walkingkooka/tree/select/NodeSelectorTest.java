@@ -29,11 +29,14 @@ import walkingkooka.reflect.ClassTesting2;
 import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.stream.StreamTesting;
 import walkingkooka.tree.TestNode;
+import walkingkooka.tree.expression.ExpressionEvaluationContext;
+import walkingkooka.tree.expression.ExpressionEvaluationContexts;
 import walkingkooka.tree.expression.ExpressionNumber;
 import walkingkooka.tree.expression.ExpressionNumberConverterContexts;
 import walkingkooka.tree.expression.ExpressionNumberKind;
 
 import java.util.List;
+import java.util.function.Function;
 import java.util.stream.Stream;
 
 public final class NodeSelectorTest implements ClassTesting2<NodeSelector<TestNode, StringName, StringName, Object>>,
@@ -121,10 +124,12 @@ public final class NodeSelectorTest implements ClassTesting2<NodeSelector<TestNo
     private Stream<TestNode> stream(final NodeSelector<TestNode, StringName, StringName, Object> selector,
                                     final TestNode node) {
         return selector.stream(node,
-                NodeSelectorContexts.basicFunctions(),
-                Converters.fake(),
-                ExpressionNumberConverterContexts.fake(),
+            this.expressionEvaluationContext(),
                 TestNode.class);
+    }
+
+    private Function<NodeSelectorContext<TestNode, StringName, StringName, Object>, ExpressionEvaluationContext> expressionEvaluationContext() {
+        return (c) -> ExpressionEvaluationContexts.fake();
     }
 
     @Override

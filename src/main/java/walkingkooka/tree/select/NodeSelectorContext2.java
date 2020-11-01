@@ -69,7 +69,12 @@ abstract class NodeSelectorContext2<N extends Node<N, NAME, ANAME, AVALUE>, NAME
     }
 
     @Override
-    public void setNode(final N node) {
+    public final N node() {
+        return this.context.node();
+    }
+
+    @Override
+    public final void setNode(final N node) {
         this.context.setNode(node);
     }
 
@@ -84,22 +89,7 @@ abstract class NodeSelectorContext2<N extends Node<N, NAME, ANAME, AVALUE>, NAME
     }
 
     @Override
-    public final ExpressionNumberKind expressionNumberKind() {
-        return this.context.expressionNumberKind();
-    }
-
-    @Override
-    public final Object function(final FunctionExpressionName name, final List<Object> parameters) {
-        return this.context.function(name, parameters);
-    }
-
-    @Override
-    public final <T> Either<T, String> convert(final Object value, final Class<T> target) {
-        return this.context.convert(value, target);
-    }
-
-    @Override
-    public Object evaluate(final Expression expression) {
+    public final Object evaluate(final Expression expression) {
         return this.context.evaluate(expression);
     }
 
@@ -119,9 +109,9 @@ abstract class NodeSelectorContext2<N extends Node<N, NAME, ANAME, AVALUE>, NAME
     abstract NodeSelectorContext2<N, NAME, ANAME, AVALUE> expression();
 
     /**
-     * Invoked by {@link ExpressionNodeSelector} to test a value against the position of the current {@link Node}.
+     * Invoked during a {@link ExpressionNodeSelector} to test a value against the position of the current {@link Node}.
      */
-    abstract boolean nodePositionTest(final Object value);
+    abstract boolean isNodeSelected(final Expression expression);
 
     /**
      * Returns the current node's position.

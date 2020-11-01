@@ -28,7 +28,7 @@ import static org.junit.jupiter.api.Assertions.assertNotSame;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class CustomNameExpressionFunctionTest extends ExpressionFunctionTestCase<CustomNameExpressionFunction<String>, String> {
+public final class CustomNameExpressionFunctionTest extends ExpressionFunctionTestCase<CustomNameExpressionFunction<String, ExpressionFunctionContext>, String> {
 
     private final static FunctionExpressionName NAME = FunctionExpressionName.with("Custom");
 
@@ -52,15 +52,15 @@ public final class CustomNameExpressionFunctionTest extends ExpressionFunctionTe
 
     @Test
     public void testSetNameSame() {
-        final CustomNameExpressionFunction<String> function = this.createBiFunction();
+        final CustomNameExpressionFunction<String, ExpressionFunctionContext> function = this.createBiFunction();
         assertSame(function, function.setName(NAME));
     }
 
     @Test
     public void testSetNameDifferent() {
-        final CustomNameExpressionFunction<String> function = this.createBiFunction();
+        final CustomNameExpressionFunction<String, ExpressionFunctionContext> function = this.createBiFunction();
         final FunctionExpressionName different = FunctionExpressionName.with("different");
-        final ExpressionFunction<String> differentFunction = function.setName(different);
+        final ExpressionFunction<String, ExpressionFunctionContext> differentFunction = function.setName(different);
 
         assertNotSame(function, differentFunction);
         assertSame(different, differentFunction.name());
@@ -73,16 +73,16 @@ public final class CustomNameExpressionFunctionTest extends ExpressionFunctionTe
     }
 
     @Override
-    public CustomNameExpressionFunction<String> createBiFunction() {
+    public CustomNameExpressionFunction<String, ExpressionFunctionContext> createBiFunction() {
         return Cast.to(CustomNameExpressionFunction.with(wrapped(), NAME));
     }
 
-    private ExpressionFunction<String> wrapped() {
+    private ExpressionFunction<String, ExpressionFunctionContext> wrapped() {
         return ExpressionFunctions.typeName();
     }
 
     @Override
-    public Class<CustomNameExpressionFunction<String>> type() {
+    public Class<CustomNameExpressionFunction<String, ExpressionFunctionContext>> type() {
         return Cast.to(CustomNameExpressionFunction.class);
     }
 }

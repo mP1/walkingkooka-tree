@@ -24,7 +24,7 @@ import java.util.List;
 /**
  * Base class for many {@link ExpressionFunction} within this package.
  */
-abstract class ExpressionFunction2<T> implements ExpressionFunction<T> {
+abstract class ExpressionFunction2<T, C extends ExpressionFunctionContext> implements ExpressionFunction<T, C> {
 
     /**
      * Package private to limit sub classing.
@@ -46,35 +46,35 @@ abstract class ExpressionFunction2<T> implements ExpressionFunction<T> {
     /**
      * Converts a value into a boolean.
      */
-    final boolean booleanValue(final Object value, final ExpressionFunctionContext context) {
+    final boolean booleanValue(final Object value, final C context) {
         return context.convertOrFail(value, Boolean.class);
     }
 
     /**
      * Converts a value into a {@link Comparable} with type parameters.
      */
-    final Comparable comparable(final Object value, final ExpressionFunctionContext context) {
+    final Comparable comparable(final Object value, final C context) {
         return context.convertOrFail(value, Comparable.class);
     }
 
     /**
      * Type safe {@link Boolean} parameter getter.
      */
-    final Boolean booleanValue(final List<?> parameters, final int i, final ExpressionFunctionContext context) {
+    final Boolean booleanValue(final List<?> parameters, final int i, final C context) {
         return this.booleanValue(this.parameter(parameters, i), context);
     }
 
     /**
      * Type safe {@link Comparable} parameter getter.
      */
-    final Comparable comparable(final List<?> parameters, final int i, final ExpressionFunctionContext context) {
+    final Comparable comparable(final List<?> parameters, final int i, final C context) {
         return this.comparable(this.parameter(parameters, i), context);
     }
 
     /**
      * Retrieves the parameter at the index or throws a nice exception message.
      */
-    final <TT> TT parameter(final List<?> parameters, final int i, final Class<TT> type, final ExpressionFunctionContext context) {
+    final <TT> TT parameter(final List<?> parameters, final int i, final Class<TT> type, final C context) {
         return context.convertOrFail(this.parameter(parameters, i), type);
     }
 

@@ -18,13 +18,15 @@
 package walkingkooka.tree.expression.function;
 
 import org.junit.jupiter.api.Test;
+import walkingkooka.Cast;
 import walkingkooka.reflect.ClassTesting2;
 import walkingkooka.reflect.JavaVisibility;
 
 import java.math.BigDecimal;
+import java.util.List;
 
-public final class TypeNameExpressionFunctionTest implements ClassTesting2<TypeNameExpressionFunction>,
-        ExpressionFunctionTesting<TypeNameExpressionFunction, String> {
+public final class TypeNameExpressionFunctionTest implements ClassTesting2<TypeNameExpressionFunction<ExpressionFunctionContext>>,
+        ExpressionFunctionTesting<TypeNameExpressionFunction<ExpressionFunctionContext>, String, ExpressionFunctionContext> {
 
     @Test
     public void testBigDecimalParameter() {
@@ -38,19 +40,32 @@ public final class TypeNameExpressionFunctionTest implements ClassTesting2<TypeN
                 this.getClass().getName());
     }
 
+    private void applyAndCheck2(final List<Object> parameters,
+                                final String result) {
+        this.applyAndCheck(this.createBiFunction(),
+                parameters,
+                this.createContext(),
+                result);
+    }
+
+    @Override
+    public ExpressionFunctionContext createContext() {
+        return ExpressionFunctionContexts.fake();
+    }
+
     @Test
     public void testToString() {
         this.toStringAndCheck(this.createBiFunction(), "typeName");
     }
 
     @Override
-    public TypeNameExpressionFunction createBiFunction() {
-        return TypeNameExpressionFunction.INSTANCE;
+    public TypeNameExpressionFunction<ExpressionFunctionContext> createBiFunction() {
+        return TypeNameExpressionFunction.instance();
     }
 
     @Override
-    public Class<TypeNameExpressionFunction> type() {
-        return TypeNameExpressionFunction.class;
+    public Class<TypeNameExpressionFunction<ExpressionFunctionContext>> type() {
+        return Cast.to(TypeNameExpressionFunction.class);
     }
 
     @Override
