@@ -71,6 +71,7 @@ public final class CycleDetectingExpressionEvaluationContextTest implements Clas
         this.evaluateAndCheck(Expression.string(value), value);
     }
 
+    @Test
     public void testFunction() {
         final FunctionExpressionName name = FunctionExpressionName.with("sum");
         final List<Object> parameters = Lists.of("param-1", "param-2");
