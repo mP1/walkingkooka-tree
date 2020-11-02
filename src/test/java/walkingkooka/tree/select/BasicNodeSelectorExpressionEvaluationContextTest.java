@@ -60,7 +60,7 @@ public final class BasicNodeSelectorExpressionEvaluationContextTest implements E
         return (n, p) -> {
             Objects.requireNonNull(n, "name");
             Objects.requireNonNull(p, "parameters");
-            throw new UnsupportedOperationException();
+            throw new IllegalArgumentException("Unknown function " + n);
         };
     }
 

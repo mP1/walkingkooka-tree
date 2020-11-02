@@ -121,7 +121,10 @@ public final class BasicExpressionEvaluationContextTest implements ClassTesting2
             Objects.requireNonNull(functionName, "functionName");
             Objects.requireNonNull(parameters, "parameters");
 
-            assertEquals(this.functionName(), functionName, "functionName");
+            if (false == this.functionName().equals(functionName)) {
+                throw new IllegalArgumentException("Unknown function: " + functionName);
+            }
+
             assertEquals(this.parameters(), parameters, "parameters");
             return this.functionValue();
         };

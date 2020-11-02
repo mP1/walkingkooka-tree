@@ -34,6 +34,7 @@ import java.math.BigInteger;
 import java.math.MathContext;
 import java.util.List;
 import java.util.Locale;
+import java.util.Objects;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -310,6 +311,15 @@ public final class CycleDetectingExpressionEvaluationContextTest implements Clas
         final DecimalNumberContext decimalNumberContext = this.decimalNumberContext();
 
         return this.createContext(new FakeExpressionEvaluationContext() {
+
+            @Override
+            public Object function(final FunctionExpressionName name,
+                                   final List<Object> parameters) {
+                Objects.requireNonNull(name, "name");
+                Objects.requireNonNull(parameters, "parameters");
+
+                throw new IllegalArgumentException("Unknown function " + name);
+            }
 
             @Override
             public Locale locale() {
