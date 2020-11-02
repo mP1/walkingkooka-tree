@@ -124,6 +124,11 @@ final class BasicExpressionEvaluationContext<C extends ConverterContext> impleme
     private final ExpressionNumberKind expressionNumberKind;
 
     @Override
+    public Object evaluate(final Expression expression) {
+        return expression.toValue(this);
+    }
+
+    @Override
     public Object function(final FunctionExpressionName name, final List<Object> parameters) {
         return this.functions.apply(name, parameters);
     }

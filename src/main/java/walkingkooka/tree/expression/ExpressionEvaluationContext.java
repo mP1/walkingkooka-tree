@@ -36,6 +36,11 @@ public interface ExpressionEvaluationContext extends Context, ConvertOrFailFunct
         HasMathContext {
 
     /**
+     * Evaluate the given {@link Expression} returning the result/value.
+     */
+    Object evaluate(final Expression expression);
+
+    /**
      * Constant for functions without any parameters.
      */
     List<Object> NO_PARAMETERS = Lists.empty();

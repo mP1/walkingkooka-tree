@@ -17,6 +17,7 @@
 
 package walkingkooka.tree.select;
 
+import org.junit.jupiter.api.Test;
 import walkingkooka.convert.Converter;
 import walkingkooka.convert.ConverterContexts;
 import walkingkooka.convert.Converters;
@@ -43,6 +44,26 @@ import java.util.function.Function;
 public final class BasicNodeSelectorExpressionEvaluationContextTest implements ExpressionEvaluationContextTesting<BasicNodeSelectorExpressionEvaluationContext> {
 
     private final static ExpressionNumberKind EXPRESSION_NUMBER_KIND = ExpressionNumberKind.DEFAULT;
+
+    @Test
+    public void testEvaluateTrue() {
+        this.evaluateAndCheck2(true);
+    }
+
+    @Test
+    public void testEvaluateFalse() {
+        this.evaluateAndCheck2(false);
+    }
+
+    private void evaluateAndCheck2(final boolean value) {
+        this.evaluateAndCheck(Expression.booleanExpression(value), value);
+    }
+
+    @Test
+    public void testEvaluateString() {
+        final String value = "abc123";
+        this.evaluateAndCheck(Expression.string(value), value);
+    }
 
     @Override
     public BasicNodeSelectorExpressionEvaluationContext createContext() {

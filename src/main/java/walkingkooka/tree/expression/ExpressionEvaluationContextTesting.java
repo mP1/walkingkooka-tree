@@ -32,6 +32,29 @@ public interface ExpressionEvaluationContextTesting<C extends ExpressionEvaluati
         ContextTesting<C> {
 
     @Test
+    default void testEvaluateNullExpressionFails() {
+        assertThrows(NullPointerException.class, () -> this.createContext().evaluate(null));
+    }
+
+    @Test
+    default void testEvaluateExpressionUnknownFunctionNameFails() {
+        assertThrows(IllegalArgumentException.class, () -> this.createContext().evaluate(Expression.function(FunctionExpressionName.with("unknown-function-123"), Expression.NO_CHILDREN)));
+    }
+
+    default void evaluateAndCheck(final Expression expression,
+                                  final Object value) {
+        this.evaluateAndCheck(this.createContext(), expression, value);
+    }
+
+    default void evaluateAndCheck(final C context,
+                                  final Expression expression,
+                                  final Object value) {
+        assertEquals(value,
+                context.evaluate(expression),
+                () -> "evaluate " + expression + " " + context);
+    }
+
+    @Test
     default void testFunctionNullNameFails() {
         assertThrows(NullPointerException.class, () -> this.createContext().function(null, ExpressionEvaluationContext.NO_PARAMETERS));
     }
