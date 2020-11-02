@@ -19,6 +19,7 @@ package walkingkooka.tree.expression;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.ContextTesting;
+import walkingkooka.collect.list.Lists;
 import walkingkooka.math.DecimalNumberContextTesting2;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -33,6 +34,15 @@ public interface ExpressionEvaluationContextTesting<C extends ExpressionEvaluati
     @Test
     default void testFunctionNullNameFails() {
         assertThrows(NullPointerException.class, () -> this.createContext().function(null, ExpressionEvaluationContext.NO_PARAMETERS));
+    }
+
+    @Test
+    default void testFunctionUnknownFunctionNameFails() {
+        assertThrows(IllegalArgumentException.class, () -> this.createContext().function(this.unknownFunctionName(), Lists.empty()));
+    }
+
+    default FunctionExpressionName unknownFunctionName() {
+        return FunctionExpressionName.with("unknown-function-123");
     }
 
     @Test
