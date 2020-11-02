@@ -65,6 +65,12 @@ public final class CycleDetectingExpressionEvaluationContextTest implements Clas
         assertThrows(NullPointerException.class, () -> CycleDetectingExpressionEvaluationContext.with(null));
     }
 
+    @Test
+    public void testEvaluateString() {
+        final String value = "abc123";
+        this.evaluateAndCheck(Expression.string(value), value);
+    }
+
     public void testFunction() {
         final FunctionExpressionName name = FunctionExpressionName.with("sum");
         final List<Object> parameters = Lists.of("param-1", "param-2");
@@ -311,6 +317,11 @@ public final class CycleDetectingExpressionEvaluationContextTest implements Clas
         final DecimalNumberContext decimalNumberContext = this.decimalNumberContext();
 
         return this.createContext(new FakeExpressionEvaluationContext() {
+
+            @Override
+            public Object evaluate(final Expression expression) {
+                return expression.toValue(this);
+            }
 
             @Override
             public Object function(final FunctionExpressionName name,

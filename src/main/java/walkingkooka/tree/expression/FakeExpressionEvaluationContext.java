@@ -37,6 +37,12 @@ public class FakeExpressionEvaluationContext extends FakeDecimalNumberContext im
     }
 
     @Override
+    public Object evaluate(final Expression expression) {
+        Objects.requireNonNull(expression, "expression");
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
     public Object function(final FunctionExpressionName name, final List<Object> parameters) {
         Objects.requireNonNull(name, "name");
         Objects.requireNonNull(parameters, "parameters");
