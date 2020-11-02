@@ -72,7 +72,7 @@ public abstract class BinaryExpressionTestCase<N extends BinaryExpression> exten
     }
 
     @Test
-    public void testSetDifferentChildren() {
+    public final void testSetDifferentChildren() {
         final N expression = this.createExpression();
         final List<Expression> children = expression.children();
 
@@ -88,7 +88,7 @@ public abstract class BinaryExpressionTestCase<N extends BinaryExpression> exten
     }
 
     @Test
-    public void testSetDifferentChildrenListCopied() {
+    public final void testSetDifferentChildrenListCopied() {
         final N expression = this.createExpression();
 
         final List<Expression> differentChildren = Lists.array();
@@ -103,7 +103,7 @@ public abstract class BinaryExpressionTestCase<N extends BinaryExpression> exten
     }
 
     @Test
-    public void testToString() {
+    public final void testToString() {
         assertEquals(this.expectedToString(), this.createExpression().toString());
     }
 
@@ -122,7 +122,7 @@ public abstract class BinaryExpressionTestCase<N extends BinaryExpression> exten
     abstract N createExpression(final Expression left, final Expression right);
 
     @Override
-    List<Expression> children() {
+    final List<Expression> children() {
         return Lists.of(this.left(), this.right());
     }
 

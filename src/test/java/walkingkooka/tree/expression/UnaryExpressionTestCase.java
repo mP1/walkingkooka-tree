@@ -49,7 +49,7 @@ public abstract class UnaryExpressionTestCase<N extends UnaryExpression> extends
     }
 
     @Test
-    public void testSetDifferentChildren() {
+    public final void testSetDifferentChildren() {
         final N expression = this.createExpression();
         final List<Expression> children = expression.children();
 
@@ -65,7 +65,7 @@ public abstract class UnaryExpressionTestCase<N extends UnaryExpression> extends
     }
 
     @Test
-    public void testReplaceChild() {
+    public final void testReplaceChild() {
         final N expression = this.createExpression();
         final Expression replacement = this.differentChild();
         final N replaced = expression.replaceChild(expression.value(), replacement).cast();
@@ -74,7 +74,7 @@ public abstract class UnaryExpressionTestCase<N extends UnaryExpression> extends
     }
 
     @Test
-    public void testSetDifferentChildrenListCopied() {
+    public final void testSetDifferentChildrenListCopied() {
         final N expression = this.createExpression();
 
         final List<Expression> differentChildren = Lists.array();
@@ -93,14 +93,14 @@ public abstract class UnaryExpressionTestCase<N extends UnaryExpression> extends
     }
 
     @Test
-    public void testToString() {
+    public final void testToString() {
         this.toStringAndCheck(this.createExpression(), this.expectedToString());
     }
 
     abstract String expectedToString();
 
     @Override
-    N createExpression() {
+    final N createExpression() {
         return this.createExpression(this.child());
     }
 
@@ -111,7 +111,7 @@ public abstract class UnaryExpressionTestCase<N extends UnaryExpression> extends
     }
 
     @Override
-    List<Expression> children() {
+    final List<Expression> children() {
         return Lists.of(this.child());
     }
 
