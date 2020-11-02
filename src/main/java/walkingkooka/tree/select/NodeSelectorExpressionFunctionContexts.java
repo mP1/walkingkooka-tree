@@ -20,8 +20,21 @@ package walkingkooka.tree.select;
 import walkingkooka.naming.Name;
 import walkingkooka.reflect.PublicStaticHelper;
 import walkingkooka.tree.Node;
+import walkingkooka.tree.expression.function.ExpressionFunctionContext;
 
 public final class NodeSelectorExpressionFunctionContexts implements PublicStaticHelper {
+
+    /**
+     * {@see BasicNodeSelectorExpressionFunctionContext}
+     */
+    public static <N extends Node<N, NAME, ANAME, AVALUE>,
+            NAME extends Name,
+            ANAME extends Name,
+            AVALUE>
+    ExpressionFunctionContext basic(final N node,
+                                    final ExpressionFunctionContext context) {
+        return BasicNodeSelectorExpressionFunctionContext.with(node, context);
+    }
 
     /**
      * {@see FakeNodeSelectorExpressionFunctionContext}
