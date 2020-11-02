@@ -44,10 +44,6 @@ public abstract class NodeSelectorContext2TestCase<C extends NodeSelectorContext
         super();
     }
 
-    @Override
-    public final void testTypeNaming() {
-    }
-
     final NodeSelectorContext<TestNode, StringName, StringName, Object> contextWithToString(final String toString) {
         return new FakeNodeSelectorContext<>() {
             @Override
@@ -63,12 +59,12 @@ public abstract class NodeSelectorContext2TestCase<C extends NodeSelectorContext
 
     @Override
     public final String typeNamePrefix() {
-        throw new UnsupportedOperationException();
+        return NodeSelectorContext2.class.getSimpleName();
     }
 
     @Override
     public final String typeNameSuffix() {
-        throw new UnsupportedOperationException();
+        return "";
     }
 
     @Override

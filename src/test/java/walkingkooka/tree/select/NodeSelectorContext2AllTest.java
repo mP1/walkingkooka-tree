@@ -36,13 +36,13 @@ public final class NodeSelectorContext2AllTest extends NodeSelectorContext2TestC
     @Test
     public void testExpression() {
         final NodeSelectorContext2All<TestNode, StringName, StringName, Object> context = this.createContext();
-        this.checkType(context.expression(), ExpressionNodeSelectorNodeSelectorContext2.class);
+        this.checkType(context.expression(), NodeSelectorContext2ExpressionNodeSelector.class);
     }
 
     @Test
     public void testExpressionCreateIfNecessary() {
         final NodeSelectorContext2All<TestNode, StringName, StringName, Object> context = this.createContext();
-        this.checkType(context.expressionCreateIfNecessary(), ExpressionNodeSelectorNodeSelectorContext2.class);
+        this.checkType(context.expressionCreateIfNecessary(), NodeSelectorContext2ExpressionNodeSelector.class);
     }
 
     @Test
