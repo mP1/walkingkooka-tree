@@ -95,7 +95,8 @@ public abstract class VariableExpressionTestCase<N extends VariableExpression> e
         assertNotEquals(this.createExpression(), this.createExpression(differentChild()));
     }
 
-    @Override final N createExpression() {
+    @Override
+    final N createExpression() {
         return this.createExpression(this.children());
     }
 
@@ -106,7 +107,7 @@ public abstract class VariableExpressionTestCase<N extends VariableExpression> e
     abstract N createExpression(final List<Expression> children);
 
     @Override
-    List<Expression> children() {
+    final List<Expression> children() {
         return Lists.of(this.child1(), this.child2(), this.child3());
     }
 

@@ -65,7 +65,7 @@ public abstract class LeafExpressionTestCase<N extends LeafExpression<V>, V> ext
 
     @Test
     @Override
-    public void testParentWithoutChild() {
+    public final void testParentWithoutChild() {
         this.parentMissingCheck(this.createNode());
     }
 
@@ -78,7 +78,8 @@ public abstract class LeafExpressionTestCase<N extends LeafExpression<V>, V> ext
                 parent.children().get(0).removeParent());
     }
 
-    @Override final N createExpression() {
+    @Override
+    final N createExpression() {
         return this.createExpression(this.value());
     }
 
