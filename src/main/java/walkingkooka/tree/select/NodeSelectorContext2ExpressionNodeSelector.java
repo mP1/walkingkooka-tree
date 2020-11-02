@@ -20,20 +20,19 @@ package walkingkooka.tree.select;
 import walkingkooka.naming.Name;
 import walkingkooka.tree.Node;
 import walkingkooka.tree.expression.Expression;
-import walkingkooka.tree.expression.ExpressionNumberKind;
 
 /**
  * A {@link NodeSelectorContext2} that tracks the position of selected {@link Node}. This allows {@link ExpressionNodeSelector} to
  * test numeric values against the current position of the current {@link Node}.
  */
-final class ExpressionNodeSelectorNodeSelectorContext2<N extends Node<N, NAME, ANAME, AVALUE>, NAME extends Name, ANAME extends Name, AVALUE>
+final class NodeSelectorContext2ExpressionNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NAME extends Name, ANAME extends Name, AVALUE>
         extends NodeSelectorContext2<N, NAME, ANAME, AVALUE> {
 
-    static <N extends Node<N, NAME, ANAME, AVALUE>, NAME extends Name, ANAME extends Name, AVALUE> ExpressionNodeSelectorNodeSelectorContext2<N, NAME, ANAME, AVALUE> with(final NodeSelectorContext<N, NAME, ANAME, AVALUE> context) {
-        return new ExpressionNodeSelectorNodeSelectorContext2<>(context);
+    static <N extends Node<N, NAME, ANAME, AVALUE>, NAME extends Name, ANAME extends Name, AVALUE> NodeSelectorContext2ExpressionNodeSelector<N, NAME, ANAME, AVALUE> with(final NodeSelectorContext<N, NAME, ANAME, AVALUE> context) {
+        return new NodeSelectorContext2ExpressionNodeSelector<>(context);
     }
 
-    private ExpressionNodeSelectorNodeSelectorContext2(final NodeSelectorContext<N, NAME, ANAME, AVALUE> context) {
+    private NodeSelectorContext2ExpressionNodeSelector(final NodeSelectorContext<N, NAME, ANAME, AVALUE> context) {
         super(context);
     }
 

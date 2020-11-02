@@ -19,7 +19,6 @@ package walkingkooka.tree.select;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
-import walkingkooka.Either;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.convert.Converter;
 import walkingkooka.convert.ConverterContexts;
@@ -45,28 +44,28 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotSame;
 import static org.junit.jupiter.api.Assertions.assertSame;
 
-public final class ExpressionNodeSelectorNodeSelectorContext2Test extends NodeSelectorContext2TestCase<ExpressionNodeSelectorNodeSelectorContext2<TestNode, StringName, StringName, Object>,
+public final class NodeSelectorContext2ExpressionNodeSelectorTest extends NodeSelectorContext2TestCase<NodeSelectorContext2ExpressionNodeSelector<TestNode, StringName, StringName, Object>,
         TestNode, StringName, StringName, Object> {
 
     private final static int INDEX = 5;
 
     @Test
     public void testAll() {
-        final ExpressionNodeSelectorNodeSelectorContext2<TestNode, StringName, StringName, Object> context = this.createContext();
+        final NodeSelectorContext2ExpressionNodeSelector<TestNode, StringName, StringName, Object> context = this.createContext();
         this.checkType(context.all(), NodeSelectorContext2All.class);
     }
 
     @Test
     public void testExpression() {
-        final ExpressionNodeSelectorNodeSelectorContext2<TestNode, StringName, StringName, Object> context = this.createContext();
+        final NodeSelectorContext2ExpressionNodeSelector<TestNode, StringName, StringName, Object> context = this.createContext();
         final NodeSelectorContext2<TestNode, StringName, StringName, Object> expression = context.expression();
         assertNotSame(context, expression);
-        this.checkType(expression, ExpressionNodeSelectorNodeSelectorContext2.class);
+        this.checkType(expression, NodeSelectorContext2ExpressionNodeSelector.class);
     }
 
     @Test
     public void testExpressionCreateIfNecessary() {
-        final ExpressionNodeSelectorNodeSelectorContext2<TestNode, StringName, StringName, Object> context = this.createContext();
+        final NodeSelectorContext2ExpressionNodeSelector<TestNode, StringName, StringName, Object> context = this.createContext();
         assertSame(context, context.expressionCreateIfNecessary());
     }
 
@@ -104,15 +103,15 @@ public final class ExpressionNodeSelectorNodeSelectorContext2Test extends NodeSe
 
     @Test
     public void testIsNodeSelected() {
-        final ExpressionNodeSelectorNodeSelectorContext2<TestNode, StringName, StringName, Object> context = this.createContext();
+        final NodeSelectorContext2ExpressionNodeSelector<TestNode, StringName, StringName, Object> context = this.createContext();
         assertEquals(INDEX,
                 context.nodePosition(),
                 () -> "nodePosition in " + context);
     }
 
     @Override
-    public ExpressionNodeSelectorNodeSelectorContext2<TestNode, StringName, StringName, Object> createContext() {
-        final ExpressionNodeSelectorNodeSelectorContext2<TestNode, StringName, StringName, Object> context = ExpressionNodeSelectorNodeSelectorContext2.with(
+    public NodeSelectorContext2ExpressionNodeSelector<TestNode, StringName, StringName, Object> createContext() {
+        final NodeSelectorContext2ExpressionNodeSelector<TestNode, StringName, StringName, Object> context = NodeSelectorContext2ExpressionNodeSelector.with(
                 new FakeNodeSelectorContext<TestNode, StringName, StringName, Object>() {
 
                     @Override
@@ -151,13 +150,13 @@ public final class ExpressionNodeSelectorNodeSelectorContext2Test extends NodeSe
 
     @Test
     public void testToString() {
-        final ExpressionNodeSelectorNodeSelectorContext2<TestNode, StringName, StringName, Object> context = ExpressionNodeSelectorNodeSelectorContext2.with(this.contextWithToString("Context123"));
+        final NodeSelectorContext2ExpressionNodeSelector<TestNode, StringName, StringName, Object> context = NodeSelectorContext2ExpressionNodeSelector.with(this.contextWithToString("Context123"));
         context.position = 45;
         this.toStringAndCheck(context, "position: 45 Context123");
     }
 
     @Override
-    public Class<ExpressionNodeSelectorNodeSelectorContext2<TestNode, StringName, StringName, Object>> type() {
-        return Cast.to(ExpressionNodeSelectorNodeSelectorContext2.class);
+    public Class<NodeSelectorContext2ExpressionNodeSelector<TestNode, StringName, StringName, Object>> type() {
+        return Cast.to(NodeSelectorContext2ExpressionNodeSelector.class);
     }
 }

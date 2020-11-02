@@ -17,16 +17,9 @@
 
 package walkingkooka.tree.select;
 
-import walkingkooka.Either;
 import walkingkooka.naming.Name;
 import walkingkooka.tree.Node;
 import walkingkooka.tree.expression.Expression;
-import walkingkooka.tree.expression.ExpressionNumberKind;
-import walkingkooka.tree.expression.FunctionExpressionName;
-
-import java.math.MathContext;
-import java.util.List;
-import java.util.Locale;
 
 /**
  * Base class for several {@link NodeSelectorContext} wrappers. Static factory methods are also available for all sub classes.
@@ -44,13 +37,13 @@ abstract class NodeSelectorContext2<N extends Node<N, NAME, ANAME, AVALUE>, NAME
     }
 
     /**
-     * {@see ExpressionNodeSelectorNodeSelectorContext2}
+     * {@see NodeSelectorContext2ExpressionNodeSelector}
      */
     static <N extends Node<N, NAME, ANAME, AVALUE>,
             NAME extends Name,
             ANAME extends Name,
-            AVALUE> ExpressionNodeSelectorNodeSelectorContext2<N, NAME, ANAME, AVALUE> expression(final NodeSelectorContext<N, NAME, ANAME, AVALUE> context) {
-        return ExpressionNodeSelectorNodeSelectorContext2.with(context);
+            AVALUE> NodeSelectorContext2ExpressionNodeSelector<N, NAME, ANAME, AVALUE> expression(final NodeSelectorContext<N, NAME, ANAME, AVALUE> context) {
+        return NodeSelectorContext2ExpressionNodeSelector.with(context);
     }
 
     /**
@@ -99,12 +92,12 @@ abstract class NodeSelectorContext2<N extends Node<N, NAME, ANAME, AVALUE>, NAME
     abstract NodeSelectorContext2<N, NAME, ANAME, AVALUE> all();
 
     /**
-     * The context should create a {@link ExpressionNodeSelectorNodeSelectorContext2} if it is not already one.
+     * The context should create a {@link NodeSelectorContext2ExpressionNodeSelector} if it is not already one.
      */
     abstract NodeSelectorContext2<N, NAME, ANAME, AVALUE> expressionCreateIfNecessary();
 
     /**
-     * Unconditionally create a {@link ExpressionNodeSelectorNodeSelectorContext2}.
+     * Unconditionally create a {@link NodeSelectorContext2ExpressionNodeSelector}.
      */
     abstract NodeSelectorContext2<N, NAME, ANAME, AVALUE> expression();
 
