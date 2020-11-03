@@ -187,10 +187,6 @@ public abstract class ExpressionTestCase<N extends Expression> implements ClassT
         this.evaluateAndCheckLocalDateTime(node, context(), expected);
     }
 
-    final void evaluateAndCheckLocalDateTime(final Expression node, final ExpressionEvaluationContext context, final double expected) {
-        this.evaluateAndCheckLocalDateTime(node, context, localDateTimeValue(expected));
-    }
-
     final void evaluateAndCheckLocalDateTime(final Expression node, final ExpressionEvaluationContext context, final LocalDateTime expected) {
         this.checkEquals("toLocalDateTime of " + node + " failed", expected, node.toLocalDateTime(context));
     }
@@ -201,10 +197,6 @@ public abstract class ExpressionTestCase<N extends Expression> implements ClassT
 
     final void evaluateAndCheckLocalTime(final Expression node, final LocalTime expected) {
         this.evaluateAndCheckLocalTime(node, context(), expected);
-    }
-
-    final void evaluateAndCheckLocalTime(final Expression node, final ExpressionEvaluationContext context, final long expected) {
-        this.evaluateAndCheckLocalTime(node, context, this.localTimeValue(expected));
     }
 
     final void evaluateAndCheckLocalTime(final Expression node, final ExpressionEvaluationContext context, final LocalTime expected) {
