@@ -147,6 +147,12 @@ final class BasicExpressionEvaluationContext<C extends ConverterContext> impleme
     private final Function<ExpressionReference, Optional<Expression>> references;
 
     @Override
+    public boolean canConvert(final Object value,
+                              final Class<?> type) {
+        return this.converter.canConvert(value, type, this.converterContext);
+    }
+
+    @Override
     public <T> Either<T, String> convert(final Object value,
                                          final Class<T> target) {
         return this.converter.convert(value, target, this.converterContext);

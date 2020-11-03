@@ -17,6 +17,7 @@
 
 package walkingkooka.tree.expression;
 
+import walkingkooka.convert.Converter;
 import walkingkooka.convert.ConverterContext;
 import walkingkooka.reflect.PublicStaticHelper;
 
@@ -25,9 +26,12 @@ public final class ExpressionNumberConverterContexts implements PublicStaticHelp
     /**
      * {@see BasicExpressionNumberConverterContext}
      */
-    public static ExpressionNumberConverterContext basic(final ConverterContext context,
+    public static ExpressionNumberConverterContext basic(final Converter<ExpressionNumberConverterContext> converter,
+                                                         final ConverterContext context,
                                                          final ExpressionNumberKind kind) {
-        return BasicExpressionNumberConverterContext.with(context, kind);
+        return BasicExpressionNumberConverterContext.with(converter,
+                context,
+                kind);
     }
 
     /**

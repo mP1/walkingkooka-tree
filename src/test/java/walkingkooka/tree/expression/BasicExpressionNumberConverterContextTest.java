@@ -19,9 +19,11 @@ package walkingkooka.tree.expression;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.ToStringTesting;
+import walkingkooka.convert.Converter;
 import walkingkooka.convert.ConverterContext;
 import walkingkooka.convert.ConverterContextTesting;
 import walkingkooka.convert.ConverterContexts;
+import walkingkooka.convert.Converters;
 import walkingkooka.datetime.DateTimeContexts;
 import walkingkooka.math.DecimalNumberContext;
 import walkingkooka.math.DecimalNumberContexts;
@@ -35,15 +37,26 @@ public final class BasicExpressionNumberConverterContextTest implements Converte
         ToStringTesting<BasicExpressionNumberConverterContext> {
 
     private final static ExpressionNumberKind KIND = ExpressionNumberKind.DEFAULT;
+    private final static Converter<ExpressionNumberConverterContext> CONVERTER = Converters.numberNumber();
+
+    @Test
+    public void testWithNullConverterFails() {
+        assertThrows(NullPointerException.class, () -> BasicExpressionNumberConverterContext.with(null, this.converterContext(), KIND));
+    }
 
     @Test
     public void testWithNullConverterContextFails() {
-        assertThrows(NullPointerException.class, () -> BasicExpressionNumberConverterContext.with(null, KIND));
+        assertThrows(NullPointerException.class, () -> BasicExpressionNumberConverterContext.with(CONVERTER, null, KIND));
     }
 
     @Test
     public void testWithNullExpressionNumberKindFails() {
-        assertThrows(NullPointerException.class, () -> BasicExpressionNumberConverterContext.with(this.converterContext(), null));
+        assertThrows(NullPointerException.class, () -> BasicExpressionNumberConverterContext.with(CONVERTER, this.converterContext(), null));
+    }
+
+    @Test
+    public void testConvert() {
+        this.convertAndCheck(123, Float.class, 123f);
     }
 
     @Test
@@ -53,11 +66,13 @@ public final class BasicExpressionNumberConverterContextTest implements Converte
 
     @Override
     public BasicExpressionNumberConverterContext createContext() {
-        return BasicExpressionNumberConverterContext.with(this.converterContext(), KIND);
+        return BasicExpressionNumberConverterContext.with(CONVERTER, this.converterContext(), KIND);
     }
 
     private ConverterContext converterContext() {
-        return ConverterContexts.basic(DateTimeContexts.locale(Locale.forLanguageTag("EN-AU"), 20), this.decimalNumberContext());
+        return ConverterContexts.basic(Converters.fake(),
+                DateTimeContexts.locale(Locale.forLanguageTag("EN-AU"), 20),
+                this.decimalNumberContext());
     }
 
     private DecimalNumberContext decimalNumberContext() {

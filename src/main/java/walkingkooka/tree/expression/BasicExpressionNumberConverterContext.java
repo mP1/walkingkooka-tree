@@ -17,6 +17,8 @@
 
 package walkingkooka.tree.expression;
 
+import walkingkooka.Either;
+import walkingkooka.convert.Converter;
 import walkingkooka.convert.ConverterContext;
 
 import java.math.MathContext;
@@ -26,17 +28,39 @@ import java.util.Objects;
 
 final class BasicExpressionNumberConverterContext implements ExpressionNumberConverterContext {
 
-    static BasicExpressionNumberConverterContext with(final ConverterContext context, final ExpressionNumberKind kind) {
+    static BasicExpressionNumberConverterContext with(final Converter<ExpressionNumberConverterContext> converter,
+                                                      final ConverterContext context,
+                                                      final ExpressionNumberKind kind) {
+        Objects.requireNonNull(converter, "converter");
         Objects.requireNonNull(context, "context");
         Objects.requireNonNull(kind, "kind");
 
-        return new BasicExpressionNumberConverterContext(context, kind);
+        return new BasicExpressionNumberConverterContext(converter,
+                context,
+                kind);
     }
 
-    private BasicExpressionNumberConverterContext(final ConverterContext context, final ExpressionNumberKind kind) {
+    private BasicExpressionNumberConverterContext(final Converter<ExpressionNumberConverterContext> converter,
+                                                  final ConverterContext context,
+                                                  final ExpressionNumberKind kind) {
+        this.converter = converter;
         this.context = context;
         this.kind = kind;
     }
+
+    @Override
+    public boolean canConvert(final Object value,
+                              final Class<?> target) {
+        return this.converter.canConvert(value, target, this);
+    }
+
+    @Override
+    public <T> Either<T, String> convert(final Object value,
+                                         final Class<T> target) {
+        return this.converter.convert(value, target, this);
+    }
+
+    private final Converter<ExpressionNumberConverterContext> converter;
 
     @Override
     public List<String> ampms() {

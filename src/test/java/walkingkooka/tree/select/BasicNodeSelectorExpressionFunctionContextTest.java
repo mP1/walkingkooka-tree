@@ -19,6 +19,7 @@ package walkingkooka.tree.select;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
+import walkingkooka.Either;
 import walkingkooka.ToStringTesting;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.naming.StringName;
@@ -26,7 +27,6 @@ import walkingkooka.tree.TestNode;
 import walkingkooka.tree.expression.FunctionExpressionName;
 import walkingkooka.tree.expression.function.ExpressionFunctionContext;
 import walkingkooka.tree.expression.function.ExpressionFunctionContextTesting;
-import walkingkooka.tree.expression.function.ExpressionFunctionContexts;
 import walkingkooka.tree.expression.function.FakeExpressionFunctionContext;
 
 import java.util.List;
@@ -38,7 +38,21 @@ public final class BasicNodeSelectorExpressionFunctionContextTest implements Exp
         ToStringTesting<BasicNodeSelectorExpressionFunctionContext<TestNode, StringName, StringName, Object>> {
 
     private final static TestNode NODE = TestNode.with("testNode");
-    private final static ExpressionFunctionContext CONTEXT = ExpressionFunctionContexts.fake();
+    private final static ExpressionFunctionContext CONTEXT = new FakeExpressionFunctionContext() {
+        @Override
+        public boolean canConvert(final Object value,
+                                  final Class<?> type) {
+            return value instanceof Integer && Float.class == type;
+        }
+
+        @Override
+        public <T> Either<T, String> convert(final Object value,
+                                             final Class<T> target) {
+            return this.canConvert(value, target) ?
+                    Either.left(target.cast(((Number) value).floatValue())) :
+                    this.failConversion(value, target);
+        }
+    };
 
     @Test
     public void testWithNullNodeFails() {
@@ -48,6 +62,11 @@ public final class BasicNodeSelectorExpressionFunctionContextTest implements Exp
     @Test
     public void testWithNullContextFails() {
         assertThrows(NullPointerException.class, () -> BasicNodeSelectorExpressionFunctionContext.with(NODE, null));
+    }
+
+    @Test
+    public void testConvert() {
+        this.convertAndCheck(123, Float.class, 123f);
     }
 
     @Test

@@ -132,6 +132,16 @@ final class BasicNodeSelectorExpressionEvaluationContext<N extends Node<N, NAME,
     private final static Optional<Expression> ABSENT = Optional.of(Expression.string(""));
 
     @Override
+    public boolean canConvert(final Object value, final Class<?> type) {
+        return this.context.canConvert(value, type);
+    }
+
+    @Override
+    public <T> Either<T, String> convert(final Object value, final Class<T> type) {
+        return this.context.convert(value, type);
+    }
+
+    @Override
     public Locale locale() {
         return this.context.locale();
     }
@@ -139,11 +149,6 @@ final class BasicNodeSelectorExpressionEvaluationContext<N extends Node<N, NAME,
     @Override
     public MathContext mathContext() {
         return this.context.mathContext();
-    }
-
-    @Override
-    public <T> Either<T, String> convert(final Object value, final Class<T> target) {
-        return this.context.convert(value, target);
     }
 
     @Override

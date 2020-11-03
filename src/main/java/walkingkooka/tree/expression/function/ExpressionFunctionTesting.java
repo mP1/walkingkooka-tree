@@ -80,7 +80,9 @@ public interface ExpressionFunctionTesting<F extends ExpressionFunction<V, C>, V
             return Either.left(Cast.to(value.toString()));
         }
 
-        final ExpressionNumberConverterContext context = ExpressionNumberConverterContexts.basic(ConverterContexts.fake(), this.expressionNumberKind());
+        final ExpressionNumberConverterContext context = ExpressionNumberConverterContexts.basic(Converters.fake(),
+                ConverterContexts.fake(),
+                this.expressionNumberKind());
 
         if (value instanceof String && Number.class.isAssignableFrom(target)) {
             final Double doubleValue = Double.parseDouble((String) value);

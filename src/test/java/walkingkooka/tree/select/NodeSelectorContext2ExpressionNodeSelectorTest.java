@@ -130,18 +130,21 @@ public final class NodeSelectorContext2ExpressionNodeSelectorTest extends NodeSe
                                             }
                                         },
                                         this.converter(),
-                                        ExpressionNumberConverterContexts.basic(this.converterContext(), EXPRESSION_NUMBER_KIND)));
+                                        ExpressionNumberConverterContexts.basic(Converters.fake(), this.converterContext(), EXPRESSION_NUMBER_KIND)));
                     }
 
                     private Converter<ExpressionNumberConverterContext> converter() {
-                        return  Converters.collection(Lists.of(
+                        return Converters.collection(Lists.of(
                                 ExpressionNumber.toConverter(Converters.truthyNumberBoolean()),
                                 ExpressionNumber.fromConverter(Converters.numberNumber()),
                                 Converters.<String, Integer>function(v -> v instanceof String, Predicates.is(Integer.class), Integer::parseInt)));
                     }
 
                     private ExpressionNumberConverterContext converterContext() {
-                        return ExpressionNumberConverterContexts.basic(ConverterContexts.basic(ConverterContexts.fake(), DecimalNumberContexts.american(MathContext.DECIMAL32)), EXPRESSION_NUMBER_KIND);
+                        return ExpressionNumberConverterContexts.basic(this.converter(),
+                                ConverterContexts.basic(Converters.fake(),
+                                        ConverterContexts.fake(),
+                                        DecimalNumberContexts.american(MathContext.DECIMAL32)), EXPRESSION_NUMBER_KIND);
                     }
                 });
         context.position = INDEX;

@@ -307,7 +307,11 @@ public final class CycleDetectingExpressionEvaluationContextTest implements Clas
             @Override
             public <T> Either<T, String> convert(final Object value, final Class<T> target) {
                 return Converters.parser(BigInteger.class, Parsers.bigInteger(10), (c) -> ParserContexts.basic(c, c))
-                        .convert(value, target, ConverterContexts.basic(DateTimeContexts.fake(), this));
+                        .convert(value,
+                                target,
+                                ConverterContexts.basic(Converters.fake(),
+                                        DateTimeContexts.fake(),
+                                        this));
             }
         });
         assertEquals(Either.left(BigInteger.valueOf(123)), context.convert("123", BigInteger.class));

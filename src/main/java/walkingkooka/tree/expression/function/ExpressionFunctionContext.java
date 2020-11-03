@@ -18,12 +18,10 @@
 package walkingkooka.tree.expression.function;
 
 import walkingkooka.Context;
-import walkingkooka.Either;
 import walkingkooka.collect.list.Lists;
-import walkingkooka.convert.ConvertOrFailFunction;
+import walkingkooka.convert.CanConvert;
 import walkingkooka.locale.HasLocale;
 import walkingkooka.math.HasMathContext;
-import walkingkooka.tree.expression.ExpressionEvaluationException;
 import walkingkooka.tree.expression.ExpressionNumberContext;
 import walkingkooka.tree.expression.FunctionExpressionName;
 
@@ -33,7 +31,7 @@ import java.util.List;
  * Context that accompanies a {@link ExpressionFunction}.
  */
 public interface ExpressionFunctionContext extends Context,
-        ConvertOrFailFunction,
+        CanConvert,
         ExpressionNumberContext,
         HasLocale,
         HasMathContext {
@@ -47,23 +45,4 @@ public interface ExpressionFunctionContext extends Context,
      * Locates a function with the given name and then executes it with the provided parameter values.
      */
     Object function(final FunctionExpressionName name, final List<Object> parameters);
-
-    /**
-     * Handles converting the given value to the {@link Class target type}.
-     */
-    <T> Either<T, String> convert(final Object value,
-                                  final Class<T> target);
-
-    /**
-     * Converts the given value to the {@link Class target type} or throws a {@link ExpressionEvaluationException}
-     */
-    default <T> T convertOrFail(final Object value,
-                                final Class<T> target) {
-        final Either<T, String> converted = this.convert(value, target);
-        if (converted.isRight()) {
-            throw new ExpressionEvaluationException(converted.rightValue());
-        }
-
-        return converted.leftValue();
-    }
 }

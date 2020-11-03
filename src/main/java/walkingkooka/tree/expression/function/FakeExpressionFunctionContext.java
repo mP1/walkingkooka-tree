@@ -17,9 +17,7 @@
 
 package walkingkooka.tree.expression.function;
 
-import walkingkooka.Either;
 import walkingkooka.convert.FakeConverterContext;
-import walkingkooka.test.Fake;
 import walkingkooka.tree.expression.ExpressionNumberKind;
 import walkingkooka.tree.expression.FunctionExpressionName;
 
@@ -28,7 +26,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
 
-public class FakeExpressionFunctionContext implements ExpressionFunctionContext, Fake {
+public class FakeExpressionFunctionContext extends FakeConverterContext implements ExpressionFunctionContext {
 
     public FakeExpressionFunctionContext() {
         super();
@@ -38,14 +36,6 @@ public class FakeExpressionFunctionContext implements ExpressionFunctionContext,
     public Object function(final FunctionExpressionName name, final List<Object> parameters) {
         Objects.requireNonNull(name, "name");
         Objects.requireNonNull(parameters, "parameters");
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public <T> Either<T, String> convert(final Object value, final Class<T> target) {
-        Objects.requireNonNull(value, "value");
-        Objects.requireNonNull(target, "target");
-
         throw new UnsupportedOperationException();
     }
 
