@@ -25,7 +25,6 @@ import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.collect.set.Sets;
 import walkingkooka.convert.Converter;
-import walkingkooka.convert.ConverterContext;
 import walkingkooka.convert.ConverterContexts;
 import walkingkooka.convert.Converters;
 import walkingkooka.datetime.DateTimeContexts;
@@ -61,12 +60,9 @@ import java.math.BigDecimal;
 import java.math.MathContext;
 import java.util.Collection;
 import java.util.List;
-import java.util.Locale;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
-import java.util.function.BiFunction;
-import java.util.function.Function;
 import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -1838,11 +1834,12 @@ public final class NodeSelectorNodeSelectorParserTokenVisitorTest implements Nod
                     }
 
                     private ExpressionEvaluationContext expressionEvaluationContext() {
-                        return NodeSelectorExpressionEvaluationContexts.basic(this.node,ExpressionEvaluationContexts.basic(EXPRESSION_NUMBER_KIND,
-                                this::function,
-                                this::references,
-                                this.converter(),
-                                this.converterContext()));
+                        return NodeSelectorExpressionEvaluationContexts.basic(this.node,
+                                (r) -> ExpressionEvaluationContexts.basic(EXPRESSION_NUMBER_KIND,
+                                        this::function,
+                                        r,
+                                        this.converter(),
+                                        this.converterContext()));
                     }
 
                     private Object function(final FunctionExpressionName name, final List<Object> parameters) {

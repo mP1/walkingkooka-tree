@@ -35,6 +35,7 @@ import java.util.Locale;
 import java.util.Map.Entry;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.function.Function;
 
 /**
  * A {@link ExpressionEvaluationContext} that wraps another {@link ExpressionEvaluationContext} and retrieves references
@@ -54,7 +55,10 @@ final class BasicNodeSelectorExpressionEvaluationContext<N extends Node<N, NAME,
             ANAME extends Name,
             AVALUE>
     BasicNodeSelectorExpressionEvaluationContext<N, NAME, ANAME, AVALUE> with(final N node,
-                                                                              final ExpressionEvaluationContext context) {
+                                                                              final Function<Function<ExpressionReference, Optional<Expression>>,ExpressionEvaluationContext> context) {
+        Objects.requireNonNull(node, "node");
+        Objects.requireNonNull(context, "context");
+
         return new BasicNodeSelectorExpressionEvaluationContext<>(node, context);
     }
 
@@ -62,10 +66,10 @@ final class BasicNodeSelectorExpressionEvaluationContext<N extends Node<N, NAME,
      * Private ctor use factory.
      */
     private BasicNodeSelectorExpressionEvaluationContext(final N node,
-                                                         final ExpressionEvaluationContext context) {
+                                                         final Function<Function<ExpressionReference, Optional<Expression>>,ExpressionEvaluationContext> context) {
         super();
         this.node = node;
-        this.context = context;
+        this.context = context.apply(BasicNodeSelectorExpressionEvaluationContextReferenceFunction.with(this));
     }
 
     @Override
