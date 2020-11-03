@@ -28,7 +28,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
 
-public class FakeExpressionFunctionContext extends FakeConverterContext implements ExpressionFunctionContext {
+public class FakeExpressionFunctionContext implements ExpressionFunctionContext, Fake {
 
     public FakeExpressionFunctionContext() {
         super();
