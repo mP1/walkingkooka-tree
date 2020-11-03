@@ -27,7 +27,6 @@ import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.collect.set.Sets;
 import walkingkooka.convert.Converter;
-import walkingkooka.convert.ConverterContext;
 import walkingkooka.convert.ConverterContexts;
 import walkingkooka.convert.Converters;
 import walkingkooka.datetime.DateTimeContexts;
@@ -46,8 +45,6 @@ import walkingkooka.tree.expression.ExpressionNumberConverterContexts;
 import walkingkooka.tree.expression.ExpressionNumberKind;
 import walkingkooka.tree.expression.ExpressionReference;
 import walkingkooka.tree.expression.FunctionExpressionName;
-import walkingkooka.tree.expression.function.ExpressionFunction;
-import walkingkooka.tree.expression.function.ExpressionFunctionContexts;
 
 import java.math.MathContext;
 import java.util.Arrays;
@@ -467,7 +464,7 @@ abstract public class NodeSelectorTestCase4<S extends NodeSelector<TestNode, Str
 
                         @Override
                         public <T> Either<T, String> convert(final Object value,
-                                                         final Class<T> target) {
+                                                             final Class<T> target) {
                             return NodeSelectorTestCase4.this.converter()
                                     .convert(value,
                                             target,
@@ -491,7 +488,11 @@ abstract public class NodeSelectorTestCase4<S extends NodeSelector<TestNode, Str
     }
 
     private ExpressionNumberConverterContext converterContext() {
-        return ExpressionNumberConverterContexts.basic(ConverterContexts.basic(DateTimeContexts.fake(), DecimalNumberContexts.american(MathContext.DECIMAL32)),
+        return ExpressionNumberConverterContexts.basic(
+                this.converter(),
+                ConverterContexts.basic(Converters.fake(),
+                        DateTimeContexts.fake(),
+                        DecimalNumberContexts.american(MathContext.DECIMAL32)),
                 EXPRESSION_NUMBER_KIND);
     }
 

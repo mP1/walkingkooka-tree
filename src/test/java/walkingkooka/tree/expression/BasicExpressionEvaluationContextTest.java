@@ -18,7 +18,6 @@
 package walkingkooka.tree.expression;
 
 import org.junit.jupiter.api.Test;
-import walkingkooka.Either;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.convert.Converter;
 import walkingkooka.convert.ConverterContext;
@@ -124,7 +123,7 @@ public final class BasicExpressionEvaluationContextTest implements ClassTesting2
 
     @Test
     public void testConvert() {
-        assertEquals(Either.left(123L), this.createContext().convert(123.0, Long.class));
+        this.convertAndCheck(123.0, Long.class, 123L);
     }
 
     @Override
@@ -179,7 +178,7 @@ public final class BasicExpressionEvaluationContextTest implements ClassTesting2
     }
 
     private ConverterContext converterContext() {
-        return ConverterContexts.basic(DateTimeContexts.fake(), this.decimalNumberContext());
+        return ConverterContexts.basic(this.converter(), DateTimeContexts.fake(), this.decimalNumberContext());
     }
 
     private DecimalNumberContext decimalNumberContext() {

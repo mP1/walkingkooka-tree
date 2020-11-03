@@ -67,6 +67,11 @@ public final class BasicNodeSelectorExpressionEvaluationContextTest implements E
     }
 
     @Test
+    public void testConvert() {
+        this.convertAndCheck(123, Float.class, 123f);
+    }
+
+    @Test
     public void testEvaluateTrue() {
         this.evaluateAndCheck2(true);
     }
@@ -123,10 +128,15 @@ public final class BasicNodeSelectorExpressionEvaluationContextTest implements E
     }
 
     private Converter<ExpressionNumberConverterContext> converter() {
-        return Converters.simple();
+        return Converters.numberNumber();
     }
+
     private ExpressionNumberConverterContext converterContext() {
-        return ExpressionNumberConverterContexts.basic(ConverterContexts.basic(DateTimeContexts.fake(), this.decimalNumberContext()), EXPRESSION_NUMBER_KIND);
+        return ExpressionNumberConverterContexts.basic(Converters.fake(),
+                ConverterContexts.basic(Converters.fake(),
+                        DateTimeContexts.fake(),
+                        this.decimalNumberContext()),
+                EXPRESSION_NUMBER_KIND);
     }
 
     @Override

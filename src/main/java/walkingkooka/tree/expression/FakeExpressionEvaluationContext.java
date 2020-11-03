@@ -61,6 +61,15 @@ public class FakeExpressionEvaluationContext extends FakeDecimalNumberContext im
     }
 
     @Override
+    public boolean canConvert(final Object value,
+                              final Class<?> target) {
+        Objects.requireNonNull(value, "value");
+        Objects.requireNonNull(target, "target");
+
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
     public <T> Either<T, String> convert(final Object value,
                                          final Class<T> target) {
         Objects.requireNonNull(value, "value");

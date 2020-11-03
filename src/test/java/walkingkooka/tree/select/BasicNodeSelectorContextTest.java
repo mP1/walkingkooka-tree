@@ -22,6 +22,8 @@ import walkingkooka.Cast;
 import walkingkooka.convert.Converter;
 import walkingkooka.convert.ConverterContexts;
 import walkingkooka.convert.Converters;
+import walkingkooka.datetime.DateTimeContexts;
+import walkingkooka.math.DecimalNumberContexts;
 import walkingkooka.naming.StringName;
 import walkingkooka.predicate.Predicates;
 import walkingkooka.reflect.ClassTesting2;
@@ -36,8 +38,6 @@ import walkingkooka.tree.expression.ExpressionNumberConverterContexts;
 import walkingkooka.tree.expression.ExpressionNumberKind;
 import walkingkooka.tree.expression.ExpressionReference;
 import walkingkooka.tree.expression.FunctionExpressionName;
-import walkingkooka.tree.expression.function.ExpressionFunction;
-import walkingkooka.tree.expression.function.ExpressionFunctions;
 
 import java.util.List;
 import java.util.Optional;
@@ -190,7 +190,10 @@ public final class BasicNodeSelectorContextTest implements ClassTesting2<BasicNo
             }
 
             private ExpressionNumberConverterContext converterContext() {
-                return ExpressionNumberConverterContexts.basic(ConverterContexts.fake(), KIND);
+                return ExpressionNumberConverterContexts.basic(Converters.fake(),
+                        ConverterContexts.basic(Converters.fake(),
+                                DateTimeContexts.fake(),
+                                DecimalNumberContexts.fake()), KIND);
             }
 
             public String toString() {

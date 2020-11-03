@@ -154,9 +154,15 @@ final class CycleDetectingExpressionEvaluationContext implements ExpressionEvalu
     }
 
     @Override
+    public boolean canConvert(final Object from,
+                              final Class<?> type) {
+        return this.context.canConvert(from, type);
+    }
+
+    @Override
     public <T> Either<T, String> convert(final Object from,
-                                         final Class<T> toType) {
-        return this.context.convert(from, toType);
+                                         final Class<T> type) {
+        return this.context.convert(from, type);
     }
 
     private final ExpressionEvaluationContext context;

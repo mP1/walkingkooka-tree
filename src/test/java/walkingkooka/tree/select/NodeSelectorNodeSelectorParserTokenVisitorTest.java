@@ -47,7 +47,6 @@ import walkingkooka.tree.expression.ExpressionNumberConverterContext;
 import walkingkooka.tree.expression.ExpressionNumberConverterContexts;
 import walkingkooka.tree.expression.ExpressionNumberExpression;
 import walkingkooka.tree.expression.ExpressionNumberKind;
-import walkingkooka.tree.expression.ExpressionReference;
 import walkingkooka.tree.expression.FunctionExpressionName;
 import walkingkooka.tree.expression.function.ExpressionFunctionContext;
 import walkingkooka.tree.expression.function.FakeExpressionFunctionContext;
@@ -61,7 +60,6 @@ import java.math.MathContext;
 import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
-import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -1873,10 +1871,6 @@ public final class NodeSelectorNodeSelectorParserTokenVisitorTest implements Nod
                         }
                     }
 
-                    private Optional<Expression> references(final ExpressionReference reference) {
-                        return Optional.empty();
-                    }
-
                     private Converter<ExpressionNumberConverterContext> converter() {
                         return new Converter<>() {
                             @Override
@@ -1950,8 +1944,13 @@ public final class NodeSelectorNodeSelectorParserTokenVisitorTest implements Nod
                         return Either.right("Failed to convert " + CharSequences.quoteIfChars(value) + " to " + target.getSimpleName());
                     }
 
-                    private final ExpressionNumberConverterContext converterContext() {
-                        return ExpressionNumberConverterContexts.basic(ConverterContexts.basic(DateTimeContexts.fake(), decimalNumberContext()), EXPRESSION_NUMBER_KIND);
+                    private ExpressionNumberConverterContext converterContext() {
+                        return ExpressionNumberConverterContexts.basic(Converters.fake(),
+                                ConverterContexts.basic(
+                                        Converters.fake(),
+                                        DateTimeContexts.fake(),
+                                        decimalNumberContext()),
+                                EXPRESSION_NUMBER_KIND);
                     }
                 });
 

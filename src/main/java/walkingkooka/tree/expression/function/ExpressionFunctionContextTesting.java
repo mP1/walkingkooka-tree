@@ -19,6 +19,7 @@ package walkingkooka.tree.expression.function;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.ContextTesting;
+import walkingkooka.convert.CanConvertTesting;
 import walkingkooka.tree.expression.FunctionExpressionName;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -26,7 +27,8 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 /**
  * Mixing testing interface for {@link ExpressionFunctionContext}
  */
-public interface ExpressionFunctionContextTesting<C extends ExpressionFunctionContext> extends ContextTesting<C> {
+public interface ExpressionFunctionContextTesting<C extends ExpressionFunctionContext> extends CanConvertTesting<C>,
+        ContextTesting<C> {
 
     @Test
     default void testFunctionNullNameFails() {
@@ -38,18 +40,12 @@ public interface ExpressionFunctionContextTesting<C extends ExpressionFunctionCo
         assertThrows(NullPointerException.class, () -> this.createContext().function(FunctionExpressionName.with("sum"), null));
     }
 
-    @Test
-    default void testConvertNullValueFails() {
-        assertThrows(NullPointerException.class, () -> this.createContext().convert(null, Object.class));
-    }
-
-    @Test
-    default void testConvertNullTargetTypeFails() {
-        assertThrows(NullPointerException.class, () -> this.createContext().convert("value", null));
-    }
-
     @Override
     default String typeNameSuffix() {
         return ExpressionFunctionContext.class.getSimpleName();
+    }
+
+    default C createCanConvert() {
+        return this.createContext();
     }
 }

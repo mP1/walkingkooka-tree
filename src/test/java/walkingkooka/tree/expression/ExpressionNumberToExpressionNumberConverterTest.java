@@ -276,7 +276,9 @@ public final class ExpressionNumberToExpressionNumberConverterTest implements Co
         this.convertAndCheck(ExpressionNumber.toConverter(Converters.numberNumber()),
                 from,
                 target,
-                ExpressionNumberConverterContexts.basic(ConverterContexts.fake(), kind),
+                ExpressionNumberConverterContexts.basic(Converters.fake(),
+                        ConverterContexts.fake(),
+                        kind),
                 number);
     }
 
@@ -348,7 +350,11 @@ public final class ExpressionNumberToExpressionNumberConverterTest implements Co
     }
 
     private ExpressionNumberConverterContext createContext(final ExpressionNumberKind kind) {
-        return ExpressionNumberConverterContexts.basic(ConverterContexts.basic(DateTimeContexts.fake(), DecimalNumberContexts.american(MathContext.DECIMAL32)), kind);
+        return ExpressionNumberConverterContexts.basic(Converters.fake(),
+                ConverterContexts.basic(Converters.fake(),
+                        DateTimeContexts.fake(),
+                        DecimalNumberContexts.american(MathContext.DECIMAL32)),
+                kind);
     }
 
     @Override

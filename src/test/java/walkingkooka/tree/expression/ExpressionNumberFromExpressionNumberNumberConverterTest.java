@@ -20,7 +20,6 @@ package walkingkooka.tree.expression;
 import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.ToStringTesting;
-import walkingkooka.convert.ConverterContext;
 import walkingkooka.convert.ConverterContexts;
 import walkingkooka.convert.ConverterTesting2;
 import walkingkooka.convert.Converters;
@@ -133,7 +132,11 @@ public final class ExpressionNumberFromExpressionNumberNumberConverterTest imple
     }
 
     private ExpressionNumberConverterContext createContext(final ExpressionNumberKind kind) {
-        return ExpressionNumberConverterContexts.basic(ConverterContexts.basic(DateTimeContexts.fake(), DecimalNumberContexts.american(MathContext.DECIMAL32)), kind);
+        return ExpressionNumberConverterContexts.basic(Converters.fake(),
+                ConverterContexts.basic(Converters.fake(),
+                        DateTimeContexts.fake(),
+                        DecimalNumberContexts.american(MathContext.DECIMAL32)),
+                kind);
     }
 
     @Override

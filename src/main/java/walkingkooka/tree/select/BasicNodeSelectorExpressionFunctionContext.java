@@ -70,6 +70,12 @@ final class BasicNodeSelectorExpressionFunctionContext<N extends Node<N, NAME, A
     }
 
     @Override
+    public boolean canConvert(final Object value,
+                              final Class<?> target) {
+        return this.context.canConvert(value, target);
+    }
+
+    @Override
     public <T> Either<T, String> convert(final Object value,
                                          final Class<T> target) {
         return this.context.convert(value, target);

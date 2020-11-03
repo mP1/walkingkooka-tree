@@ -18,6 +18,7 @@
 package walkingkooka.tree.expression;
 
 import org.junit.jupiter.api.Test;
+import walkingkooka.convert.ConversionException;
 import walkingkooka.convert.ConverterContexts;
 import walkingkooka.convert.Converters;
 import walkingkooka.visit.Visiting;
@@ -94,7 +95,7 @@ public final class LocalDateExpressionTest extends LeafExpressionTestCase<LocalD
 
     @Test
     public void testToLocalTime() {
-        assertThrows(ExpressionEvaluationException.class, () -> this.createExpression().toLocalTime(context()));
+        assertThrows(ConversionException.class, () -> this.createExpression().toLocalTime(context()));
     }
 
     @Test
