@@ -56,7 +56,7 @@ Selectors may be built by parsing a String holding the expression or by using th
 eventually creates a stream and verifies the result of a collect and other stream operations against the provided expectations.
 
 ### [NodeSelector mapping](https://github.com/mP1/walkingkooka-tree/blob/master/src/main/java/walkingkooka/tree/select/NodeSelectorContexts.java#L41) 
-It is possible to provide a `function` which applies a mapper function over selected or matched `Node`, with the new
+It is possible to provide a `evaluate` which applies a mapper evaluate over selected or matched `Node`, with the new
 tree root returned.
 
 An example of this utility may be to load a HTML document, assemble a selector to match only certain elements and map or

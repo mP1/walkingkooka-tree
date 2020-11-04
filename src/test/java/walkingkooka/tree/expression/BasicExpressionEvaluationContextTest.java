@@ -112,8 +112,10 @@ public final class BasicExpressionEvaluationContextTest implements ClassTesting2
     }
 
     @Test
-    public void testFunction() {
-        assertEquals(this.functionValue(), this.createContext().function(this.functionName(), this.parameters()));
+    public void testEvaluate() {
+        assertEquals(this.functionValue(),
+                this.createContext()
+                        .evaluate(this.functionName(), this.parameters()));
     }
 
     @Test

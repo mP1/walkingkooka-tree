@@ -137,7 +137,7 @@ public final class FunctionExpression extends VariableExpression {
     }
 
     private Object executeFunction(final ExpressionEvaluationContext context) {
-        return context.function(this.name(),
+        return context.evaluate(this.name(),
                 this.value()
                         .stream()
                         .map(v -> v.toValue(context))

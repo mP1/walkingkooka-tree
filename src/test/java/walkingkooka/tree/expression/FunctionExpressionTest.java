@@ -141,7 +141,7 @@ public final class FunctionExpressionTest extends VariableExpressionTestCase<Fun
         return new FakeExpressionEvaluationContext() {
 
             @Override
-            public Object function(final FunctionExpressionName name, final List<Object> parameters) {
+            public Object evaluate(final FunctionExpressionName name, final List<Object> parameters) {
                 assertEquals(name("fx"), name, "function name");
                 assertEquals(Lists.of("child-111", "child-222", "child-333"), parameters, "parameter values");
                 return functionValue;

@@ -129,7 +129,7 @@ final class BasicExpressionEvaluationContext<C extends ConverterContext> impleme
     }
 
     @Override
-    public Object function(final FunctionExpressionName name, final List<Object> parameters) {
+    public Object evaluate(final FunctionExpressionName name, final List<Object> parameters) {
         return this.functions.apply(name, parameters);
     }
 

@@ -72,20 +72,20 @@ public final class CycleDetectingExpressionEvaluationContextTest implements Clas
     }
 
     @Test
-    public void testFunction() {
+    public void testEvaluate() {
         final FunctionExpressionName name = FunctionExpressionName.with("sum");
         final List<Object> parameters = Lists.of("param-1", "param-2");
 
         final CycleDetectingExpressionEvaluationContext context = this.createContext(new FakeExpressionEvaluationContext() {
             @Override
-            public Object function(final FunctionExpressionName n, final List<Object> p) {
+            public Object evaluate(final FunctionExpressionName n, final List<Object> p) {
                 assertSame(name, n, "name");
                 assertSame(parameters, p, "parameters");
 
                 return VALUE;
             }
         });
-        assertSame(VALUE, context.function(name, parameters));
+        assertSame(VALUE, context.evaluate(name, parameters));
     }
 
     @Test
@@ -329,7 +329,7 @@ public final class CycleDetectingExpressionEvaluationContextTest implements Clas
             }
 
             @Override
-            public Object function(final FunctionExpressionName name,
+            public Object evaluate(final FunctionExpressionName name,
                                    final List<Object> parameters) {
                 Objects.requireNonNull(name, "name");
                 Objects.requireNonNull(parameters, "parameters");
