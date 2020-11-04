@@ -31,8 +31,8 @@ public final class NodeSelectorExpressionFunctionContexts implements PublicStati
             NAME extends Name,
             ANAME extends Name,
             AVALUE>
-    ExpressionFunctionContext basic(final N node,
-                                    final ExpressionFunctionContext context) {
+    NodeSelectorExpressionFunctionContext<N, NAME, ANAME, AVALUE> basic(final N node,
+                                                                             final ExpressionFunctionContext context) {
         return BasicNodeSelectorExpressionFunctionContext.with(node, context);
     }
 
