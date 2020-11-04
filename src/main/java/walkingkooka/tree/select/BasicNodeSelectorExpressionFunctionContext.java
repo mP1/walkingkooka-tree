@@ -64,9 +64,9 @@ final class BasicNodeSelectorExpressionFunctionContext<N extends Node<N, NAME, A
     private final N node;
 
     @Override
-    public Object function(final FunctionExpressionName name,
+    public Object evaluate(final FunctionExpressionName name,
                            final List<Object> parameters) {
-        return this.context.function(name, parameters);
+        return this.context.evaluate(name, parameters);
     }
 
     @Override

@@ -97,8 +97,8 @@ final class CycleDetectingExpressionEvaluationContext implements ExpressionEvalu
     }
 
     @Override
-    public Object function(final FunctionExpressionName functionName, final List<Object> parameters) {
-        return this.context.function(functionName, parameters);
+    public Object evaluate(final FunctionExpressionName functionName, final List<Object> parameters) {
+        return this.context.evaluate(functionName, parameters);
     }
 
     @Override

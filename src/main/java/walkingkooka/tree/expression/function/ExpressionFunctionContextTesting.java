@@ -31,13 +31,13 @@ public interface ExpressionFunctionContextTesting<C extends ExpressionFunctionCo
         ContextTesting<C> {
 
     @Test
-    default void testFunctionNullNameFails() {
-        assertThrows(NullPointerException.class, () -> this.createContext().function(null, ExpressionFunctionContext.NO_PARAMETERS));
+    default void testEvaluateNullFunctionNameFails() {
+        assertThrows(NullPointerException.class, () -> this.createContext().evaluate(null, ExpressionFunctionContext.NO_PARAMETERS));
     }
 
     @Test
-    default void testFunctionNullParametersFails() {
-        assertThrows(NullPointerException.class, () -> this.createContext().function(FunctionExpressionName.with("sum"), null));
+    default void testEvaluateFunctionNullParametersFails() {
+        assertThrows(NullPointerException.class, () -> this.createContext().evaluate(FunctionExpressionName.with("sum"), null));
     }
 
     @Override

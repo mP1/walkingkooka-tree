@@ -70,7 +70,7 @@ public final class BasicNodeSelectorExpressionFunctionContextTest implements Exp
     }
 
     @Test
-    public void testFunction() {
+    public void testEvaluate() {
         final FunctionExpressionName name = FunctionExpressionName.with("custom");
         final List<Object> parameters = Lists.of(1, 2, 3);
         final Object result = "123";
@@ -79,13 +79,13 @@ public final class BasicNodeSelectorExpressionFunctionContextTest implements Exp
                 BasicNodeSelectorExpressionFunctionContext.with(NODE,
                         new FakeExpressionFunctionContext() {
                             @Override
-                            public Object function(final FunctionExpressionName n,
+                            public Object evaluate(final FunctionExpressionName n,
                                                    final List<Object> p) {
                                 assertEquals(name, n, "name");
                                 assertEquals(parameters, p, "parameters");
                                 return result;
                             }
-                        }).function(name, parameters));
+                        }).evaluate(name, parameters));
     }
 
     @Test

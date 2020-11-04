@@ -57,13 +57,13 @@ public interface ExpressionEvaluationContextTesting<C extends ExpressionEvaluati
     }
 
     @Test
-    default void testFunctionNullNameFails() {
-        assertThrows(NullPointerException.class, () -> this.createContext().function(null, ExpressionEvaluationContext.NO_PARAMETERS));
+    default void testEvaluateNullFunctionNameFails() {
+        assertThrows(NullPointerException.class, () -> this.createContext().evaluate(null, ExpressionEvaluationContext.NO_PARAMETERS));
     }
 
     @Test
-    default void testFunctionUnknownFunctionNameFails() {
-        assertThrows(IllegalArgumentException.class, () -> this.createContext().function(this.unknownFunctionName(), Lists.empty()));
+    default void testEvaluateUnknownFunctionNameFails() {
+        assertThrows(IllegalArgumentException.class, () -> this.createContext().evaluate(this.unknownFunctionName(), Lists.empty()));
     }
 
     default FunctionExpressionName unknownFunctionName() {
@@ -71,8 +71,8 @@ public interface ExpressionEvaluationContextTesting<C extends ExpressionEvaluati
     }
 
     @Test
-    default void testFunctionNullParametersFails() {
-        assertThrows(NullPointerException.class, () -> this.createContext().function(FunctionExpressionName.with("sum"), null));
+    default void testEvaluateFunctionNullParametersFails() {
+        assertThrows(NullPointerException.class, () -> this.createContext().evaluate(FunctionExpressionName.with("sum"), null));
     }
 
     @Test

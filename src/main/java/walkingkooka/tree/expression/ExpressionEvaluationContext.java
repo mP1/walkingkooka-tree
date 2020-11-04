@@ -48,7 +48,7 @@ public interface ExpressionEvaluationContext extends Context,
     /**
      * Locates a function with the given name and then executes it with the provided parameter values (not {@link Expression}
      */
-    Object function(final FunctionExpressionName name, final List<Object> parameters);
+    Object evaluate(final FunctionExpressionName name, final List<Object> parameters);
 
     /**
      * Locates the value or a {@link Expression} for the given {@link ExpressionReference}

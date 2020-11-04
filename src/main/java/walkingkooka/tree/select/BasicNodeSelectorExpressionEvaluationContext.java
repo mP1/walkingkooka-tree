@@ -90,9 +90,9 @@ final class BasicNodeSelectorExpressionEvaluationContext<N extends Node<N, NAME,
     }
 
     @Override
-    public Object function(final FunctionExpressionName name,
+    public Object evaluate(final FunctionExpressionName name,
                            final List<Object> parameters) {
-        return this.context.function(name, parameters);
+        return this.context.evaluate(name, parameters);
     }
 
     /**

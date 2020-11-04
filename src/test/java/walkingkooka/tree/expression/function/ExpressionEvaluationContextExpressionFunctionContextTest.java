@@ -73,10 +73,10 @@ public final class ExpressionEvaluationContextExpressionFunctionContextTest impl
     }
 
     @Test
-    public void testFunction() {
+    public void testEvaluate() {
         final FunctionExpressionName name = FunctionExpressionName.with("function-123");
         final List<Object> parameters = Lists.of(1, true, 23.5);
-        assertEquals("@" + name + parameters, this.createContext().function(name, parameters));
+        assertEquals("@" + name + parameters, this.createContext().evaluate(name, parameters));
     }
 
     @Test
@@ -99,7 +99,7 @@ public final class ExpressionEvaluationContextExpressionFunctionContextTest impl
             }
 
             @Override
-            public Object function(final FunctionExpressionName name,
+            public Object evaluate(final FunctionExpressionName name,
                                    final List<Object> parameters) {
                 Objects.requireNonNull(name, "name");
                 Objects.requireNonNull(parameters, "parameters");

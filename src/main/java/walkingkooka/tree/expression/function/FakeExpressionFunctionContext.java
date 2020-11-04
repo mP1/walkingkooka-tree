@@ -33,7 +33,7 @@ public class FakeExpressionFunctionContext extends FakeConverterContext implemen
     }
 
     @Override
-    public Object function(final FunctionExpressionName name, final List<Object> parameters) {
+    public Object evaluate(final FunctionExpressionName name, final List<Object> parameters) {
         Objects.requireNonNull(name, "name");
         Objects.requireNonNull(parameters, "parameters");
         throw new UnsupportedOperationException();
