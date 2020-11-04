@@ -35,7 +35,7 @@ import java.util.Objects;
 final class BasicNodeSelectorExpressionFunctionContext<N extends Node<N, NAME, ANAME, AVALUE>,
         NAME extends Name,
         ANAME extends Name,
-        AVALUE> implements NodeSelectorExpressionFunctionContext {
+        AVALUE> implements NodeSelectorExpressionFunctionContext<N, NAME, ANAME, AVALUE> {
 
     static <N extends Node<N, NAME, ANAME, AVALUE>,
             NAME extends Name,
