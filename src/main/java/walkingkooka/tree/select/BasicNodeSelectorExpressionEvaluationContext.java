@@ -45,7 +45,7 @@ final class BasicNodeSelectorExpressionEvaluationContext<N extends Node<N, NAME,
         NAME extends Name,
         ANAME extends Name,
         AVALUE>
-        implements ExpressionEvaluationContext {
+        implements NodeSelectorExpressionEvaluationContext<N, NAME, ANAME, AVALUE> {
 
     /**
      * Factory that creates a new {@link BasicNodeSelectorExpressionEvaluationContext}, using the given {@link Node} as the context.
@@ -71,6 +71,13 @@ final class BasicNodeSelectorExpressionEvaluationContext<N extends Node<N, NAME,
         this.node = node;
         this.context = context.apply(BasicNodeSelectorExpressionEvaluationContextReferenceFunction.with(this));
     }
+
+    @Override
+    public N node() {
+        return this.node;
+    }
+
+    private final N node;
 
     @Override
     public ExpressionNumberKind expressionNumberKind() {
@@ -122,12 +129,6 @@ final class BasicNodeSelectorExpressionEvaluationContext<N extends Node<N, NAME,
                 this.expressionNumberKind().create((Number)value) :
                 value);
     }
-
-    /**
-     * Returns the current {@link Node}.
-     */
-    // @VisibleForTesting
-    final Node<?, ?, ?, ?> node;
 
     private final static Optional<Expression> ABSENT = Optional.of(Expression.string(""));
 
