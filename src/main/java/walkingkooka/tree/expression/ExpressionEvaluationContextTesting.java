@@ -18,10 +18,8 @@
 package walkingkooka.tree.expression;
 
 import org.junit.jupiter.api.Test;
-import walkingkooka.ContextTesting;
 import walkingkooka.collect.list.Lists;
-import walkingkooka.convert.CanConvertTesting;
-import walkingkooka.math.DecimalNumberContextTesting2;
+import walkingkooka.tree.expression.function.ExpressionFunctionContextTesting;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -29,8 +27,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 /**
  * Mixing testing interface for {@link ExpressionEvaluationContext}
  */
-public interface ExpressionEvaluationContextTesting<C extends ExpressionEvaluationContext> extends CanConvertTesting<C>,
-        ContextTesting<C> {
+public interface ExpressionEvaluationContextTesting<C extends ExpressionEvaluationContext> extends ExpressionFunctionContextTesting<C> {
 
     @Test
     default void testEvaluateNullExpressionFails() {
@@ -83,11 +80,6 @@ public interface ExpressionEvaluationContextTesting<C extends ExpressionEvaluati
         assertEquals(value,
                 node.toValue(context),
                 () -> "Expression.toValue failed, node=" + node + " context=" + context);
-    }
-
-    @Override
-    default C createCanConvert() {
-        return this.createContext();
     }
 
     @Override
