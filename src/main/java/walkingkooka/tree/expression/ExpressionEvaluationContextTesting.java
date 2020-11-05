@@ -62,10 +62,6 @@ public interface ExpressionEvaluationContextTesting<C extends ExpressionEvaluati
         assertThrows(IllegalArgumentException.class, () -> this.createContext().evaluate(this.unknownFunctionName(), Lists.empty()));
     }
 
-    default FunctionExpressionName unknownFunctionName() {
-        return FunctionExpressionName.with("unknown-function-123");
-    }
-
     @Test
     default void testEvaluateFunctionNullParametersFails() {
         assertThrows(NullPointerException.class, () -> this.createContext().evaluate(FunctionExpressionName.with("sum"), null));

@@ -31,6 +31,16 @@ public interface ExpressionFunctionContextTesting<C extends ExpressionFunctionCo
         ContextTesting<C> {
 
     @Test
+    default void testFunctionNullFunctionNameFails() {
+        assertThrows(NullPointerException.class, () -> this.createContext().function(null));
+    }
+
+    @Test
+    default void testFunctionUnknownFunctionNameFails() {
+        assertThrows(IllegalArgumentException.class, () -> this.createContext().function(this.unknownFunctionName()));
+    }
+
+    @Test
     default void testEvaluateNullFunctionNameFails() {
         assertThrows(NullPointerException.class, () -> this.createContext().evaluate(null, ExpressionFunctionContext.NO_PARAMETERS));
     }
@@ -47,5 +57,9 @@ public interface ExpressionFunctionContextTesting<C extends ExpressionFunctionCo
 
     default C createCanConvert() {
         return this.createContext();
+    }
+
+    default FunctionExpressionName unknownFunctionName() {
+        return FunctionExpressionName.with("unknown-function-123");
     }
 }

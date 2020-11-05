@@ -28,6 +28,8 @@ import walkingkooka.reflect.ClassTesting2;
 import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.text.cursor.parser.ParserContexts;
 import walkingkooka.text.cursor.parser.Parsers;
+import walkingkooka.tree.expression.function.ExpressionFunction;
+import walkingkooka.tree.expression.function.ExpressionFunctionContext;
 
 import java.math.BigInteger;
 import java.math.MathContext;
@@ -310,6 +312,12 @@ public final class CycleDetectingExpressionEvaluationContextTest implements Clas
     @Override
     public CycleDetectingExpressionEvaluationContext createContext() {
         return this.createContext(new FakeExpressionEvaluationContext() {
+
+            @Override
+            public ExpressionFunction<?, ExpressionFunctionContext> function(final FunctionExpressionName name) {
+                Objects.requireNonNull(name, "name");
+                throw new IllegalArgumentException("Unknown function " + name);
+            }
 
             @Override
             public Object evaluate(final Expression expression) {
