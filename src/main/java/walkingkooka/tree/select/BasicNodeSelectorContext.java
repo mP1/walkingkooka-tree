@@ -17,6 +17,7 @@
 
 package walkingkooka.tree.select;
 
+import walkingkooka.Cast;
 import walkingkooka.naming.Name;
 import walkingkooka.tree.Node;
 import walkingkooka.tree.expression.Expression;
@@ -39,10 +40,10 @@ final class BasicNodeSelectorContext<N extends Node<N, NAME, ANAME, AVALUE>, NAM
             NAME extends Name,
             ANAME extends Name,
             AVALUE,
-            C extends ExpressionNumberConverterContext> BasicNodeSelectorContext<N, NAME, ANAME, AVALUE> with(final BooleanSupplier finisher,
+            C extends ExpressionEvaluationContext> BasicNodeSelectorContext<N, NAME, ANAME, AVALUE> with(final BooleanSupplier finisher,
                                                                                                               final Predicate<N> filter,
                                                                                                               final Function<N, N> mapper,
-                                                                                                              final Function<NodeSelectorContext<N, NAME, ANAME, AVALUE>, ExpressionEvaluationContext> expressionEvaluationContext,
+                                                                                                              final Function<NodeSelectorContext<N, NAME, ANAME, AVALUE>, C> expressionEvaluationContext,
                                                                                                               final Class<N> nodeType) {
         Objects.requireNonNull(finisher, "finisher");
         Objects.requireNonNull(filter, "filter");
@@ -53,7 +54,7 @@ final class BasicNodeSelectorContext<N extends Node<N, NAME, ANAME, AVALUE>, NAM
         return new BasicNodeSelectorContext<N, NAME, ANAME, AVALUE>(finisher,
                 filter,
                 mapper,
-                expressionEvaluationContext);
+                Cast.to(expressionEvaluationContext));
     }
 
     private BasicNodeSelectorContext(final BooleanSupplier finisher,
