@@ -27,6 +27,8 @@ import walkingkooka.tree.expression.ExpressionNumber;
 import walkingkooka.tree.expression.ExpressionNumberKind;
 import walkingkooka.tree.expression.ExpressionReference;
 import walkingkooka.tree.expression.FunctionExpressionName;
+import walkingkooka.tree.expression.function.ExpressionFunction;
+import walkingkooka.tree.expression.function.ExpressionFunctionContext;
 import walkingkooka.tree.select.parser.NodeSelectorAttributeName;
 
 import java.math.MathContext;
@@ -85,14 +87,20 @@ final class BasicNodeSelectorExpressionEvaluationContext<N extends Node<N, NAME,
     }
 
     @Override
+    public ExpressionFunction<?, ExpressionFunctionContext> function(final FunctionExpressionName name) {
+        return this.context.function(name);
+    }
+
+    @Override
     public Object evaluate(final Expression expression) {
-        return this.context.evaluate(expression);
+        return expression.toValue(this);
     }
 
     @Override
     public Object evaluate(final FunctionExpressionName name,
                            final List<Object> parameters) {
-        return this.context.evaluate(name, parameters);
+        return this.function(name)
+                .apply(parameters, this);
     }
 
     /**

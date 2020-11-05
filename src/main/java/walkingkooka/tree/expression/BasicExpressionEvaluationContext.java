@@ -19,13 +19,14 @@ package walkingkooka.tree.expression;
 
 import walkingkooka.Either;
 import walkingkooka.convert.ConverterContext;
+import walkingkooka.tree.expression.function.ExpressionFunction;
+import walkingkooka.tree.expression.function.ExpressionFunctionContext;
 
 import java.math.MathContext;
 import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
 import java.util.Optional;
-import java.util.function.BiFunction;
 import java.util.function.Function;
 
 /**
@@ -37,7 +38,7 @@ final class BasicExpressionEvaluationContext implements ExpressionEvaluationCont
      * Factory that creates a {@link BasicExpressionEvaluationContext}
      */
     static BasicExpressionEvaluationContext with(final ExpressionNumberKind expressionNumberKind,
-                                                 final BiFunction<FunctionExpressionName, List<Object>, Object> functions,
+                                                 final Function<FunctionExpressionName, ExpressionFunction<?, ExpressionFunctionContext>> functions,
                                                  final Function<ExpressionReference, Optional<Expression>> references,
                                                  final ConverterContext converterContext) {
         Objects.requireNonNull(expressionNumberKind, "expressionNumberKind");
@@ -55,7 +56,7 @@ final class BasicExpressionEvaluationContext implements ExpressionEvaluationCont
      * Private ctor use factory
      */
     private BasicExpressionEvaluationContext(final ExpressionNumberKind expressionNumberKind,
-                                             final BiFunction<FunctionExpressionName, List<Object>, Object> functions,
+                                             final Function<FunctionExpressionName, ExpressionFunction<?, ExpressionFunctionContext>> functions,
                                              final Function<ExpressionReference, Optional<Expression>> references,
                                              final ConverterContext converterContext) {
         super();
@@ -83,16 +84,22 @@ final class BasicExpressionEvaluationContext implements ExpressionEvaluationCont
     private final ExpressionNumberKind expressionNumberKind;
 
     @Override
+    public ExpressionFunction<?, ExpressionFunctionContext> function(final FunctionExpressionName name) {
+        return this.functions.apply(name);
+    }
+
+    private final Function<FunctionExpressionName, ExpressionFunction<?, ExpressionFunctionContext>> functions;
+
+    @Override
     public Object evaluate(final Expression expression) {
         return expression.toValue(this);
     }
 
     @Override
     public Object evaluate(final FunctionExpressionName name, final List<Object> parameters) {
-        return this.functions.apply(name, parameters);
+        return this.function(name)
+                .apply(parameters, this);
     }
-
-    private final BiFunction<FunctionExpressionName, List<Object>, Object> functions;
 
     @Override
     public Optional<Expression> reference(final ExpressionReference reference) {

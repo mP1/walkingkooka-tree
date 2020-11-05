@@ -19,6 +19,7 @@ package walkingkooka.tree.expression;
 
 import walkingkooka.Either;
 import walkingkooka.math.FakeDecimalNumberContext;
+import walkingkooka.tree.expression.function.FakeExpressionFunctionContext;
 
 import java.math.MathContext;
 import java.util.List;
@@ -26,15 +27,10 @@ import java.util.Locale;
 import java.util.Objects;
 import java.util.Optional;
 
-public class FakeExpressionEvaluationContext implements ExpressionEvaluationContext {
+public class FakeExpressionEvaluationContext extends FakeExpressionFunctionContext implements ExpressionEvaluationContext {
 
     public FakeExpressionEvaluationContext() {
         super();
-    }
-
-    @Override
-    public ExpressionNumberKind expressionNumberKind() {
-        throw new UnsupportedOperationException();
     }
 
     @Override
@@ -53,34 +49,6 @@ public class FakeExpressionEvaluationContext implements ExpressionEvaluationCont
     @Override
     public Optional<Expression> reference(final ExpressionReference reference) {
         Objects.requireNonNull(reference, "reference");
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public Locale locale() {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public MathContext mathContext() {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public boolean canConvert(final Object value,
-                              final Class<?> target) {
-        Objects.requireNonNull(value, "value");
-        Objects.requireNonNull(target, "target");
-
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public <T> Either<T, String> convert(final Object value,
-                                         final Class<T> target) {
-        Objects.requireNonNull(value, "value");
-        Objects.requireNonNull(target, "target");
-
         throw new UnsupportedOperationException();
     }
 }

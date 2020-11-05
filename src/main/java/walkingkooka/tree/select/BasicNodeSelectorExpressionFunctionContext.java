@@ -22,6 +22,7 @@ import walkingkooka.naming.Name;
 import walkingkooka.tree.Node;
 import walkingkooka.tree.expression.ExpressionNumberKind;
 import walkingkooka.tree.expression.FunctionExpressionName;
+import walkingkooka.tree.expression.function.ExpressionFunction;
 import walkingkooka.tree.expression.function.ExpressionFunctionContext;
 
 import java.math.MathContext;
@@ -62,6 +63,11 @@ final class BasicNodeSelectorExpressionFunctionContext<N extends Node<N, NAME, A
     }
 
     private final N node;
+
+    @Override
+    public ExpressionFunction<?, ExpressionFunctionContext> function(final FunctionExpressionName name) {
+        return this.context.function(name);
+    }
 
     @Override
     public Object evaluate(final FunctionExpressionName name,

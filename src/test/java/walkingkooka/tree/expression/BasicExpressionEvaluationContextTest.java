@@ -21,22 +21,21 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.ToStringTesting;
 import walkingkooka.collect.list.Lists;
-import walkingkooka.convert.Converter;
 import walkingkooka.convert.ConverterContext;
 import walkingkooka.convert.ConverterContexts;
 import walkingkooka.convert.Converters;
 import walkingkooka.datetime.DateTimeContexts;
 import walkingkooka.math.DecimalNumberContexts;
-import walkingkooka.naming.StringName;
 import walkingkooka.reflect.ClassTesting2;
 import walkingkooka.reflect.JavaVisibility;
-import walkingkooka.tree.TestNode;
+import walkingkooka.tree.expression.function.ExpressionFunction;
+import walkingkooka.tree.expression.function.ExpressionFunctionContext;
+import walkingkooka.tree.expression.function.FakeExpressionFunction;
 
 import java.math.MathContext;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
-import java.util.function.BiFunction;
 import java.util.function.Function;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -121,7 +120,7 @@ public final class BasicExpressionEvaluationContextTest implements ClassTesting2
 
     @Test
     public void testToString() {
-        final BiFunction<FunctionExpressionName, List<Object>, Object> functions = this.functions();
+        final Function<FunctionExpressionName, ExpressionFunction<?, ExpressionFunctionContext>> functions = this.functions();
         final Function<ExpressionReference, Optional<Expression>> references = this.references();
         final ConverterContext converterContext = this.converterContext();
 
@@ -140,17 +139,23 @@ public final class BasicExpressionEvaluationContextTest implements ClassTesting2
                 this.converterContext());
     }
 
-    private BiFunction<FunctionExpressionName, List<Object>, Object> functions() {
-        return (functionName, parameters) -> {
+    private Function<FunctionExpressionName, ExpressionFunction<?, ExpressionFunctionContext>> functions() {
+        return (functionName) -> {
             Objects.requireNonNull(functionName, "functionName");
-            Objects.requireNonNull(parameters, "parameters");
 
             if (false == this.functionName().equals(functionName)) {
                 throw new IllegalArgumentException("Unknown function: " + functionName);
             }
 
-            assertEquals(this.parameters(), parameters, "parameters");
-            return this.functionValue();
+            return new FakeExpressionFunction<>() {
+                @Override
+                public Object apply(final List<Object> parameters,
+                                    final ExpressionFunctionContext context) {
+                    Objects.requireNonNull(parameters, "parameters");
+                    Objects.requireNonNull(context, "context");
+                    return BasicExpressionEvaluationContextTest.this.functionValue();
+                }
+            };
         };
     }
 

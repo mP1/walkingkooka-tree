@@ -38,6 +38,8 @@ import walkingkooka.tree.expression.ExpressionNumberConverterContexts;
 import walkingkooka.tree.expression.ExpressionNumberKind;
 import walkingkooka.tree.expression.ExpressionReference;
 import walkingkooka.tree.expression.FunctionExpressionName;
+import walkingkooka.tree.expression.function.ExpressionFunction;
+import walkingkooka.tree.expression.function.ExpressionFunctionContext;
 
 import java.util.List;
 import java.util.Optional;
@@ -165,7 +167,7 @@ public final class BasicNodeSelectorContextTest implements ClassTesting2<BasicNo
     }
 
     private Function<NodeSelectorContext<TestNode, StringName, StringName, Object>, ExpressionEvaluationContext> expressionEvaluationContext() {
-        return new Function<NodeSelectorContext<TestNode, StringName, StringName, Object>, ExpressionEvaluationContext>() {
+        return new Function<>() {
             @Override
             public ExpressionEvaluationContext apply(final NodeSelectorContext<TestNode, StringName, StringName, Object> context) {
                 return ExpressionEvaluationContexts.basic(ExpressionNumberKind.DEFAULT,
@@ -174,8 +176,8 @@ public final class BasicNodeSelectorContextTest implements ClassTesting2<BasicNo
                         this.converterContext());
             }
 
-            private BiFunction<FunctionExpressionName, List<Object>, Object> functions() {
-                return (n, p) -> {
+            private Function<FunctionExpressionName, ExpressionFunction<?, ExpressionFunctionContext>> functions() {
+                return (n) -> {
                     throw new UnsupportedOperationException();
                 };
             }

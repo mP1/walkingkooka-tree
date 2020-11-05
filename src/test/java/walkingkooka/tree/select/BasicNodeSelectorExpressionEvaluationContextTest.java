@@ -21,7 +21,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.collect.map.Maps;
-import walkingkooka.convert.Converter;
 import walkingkooka.convert.ConverterContexts;
 import walkingkooka.convert.Converters;
 import walkingkooka.datetime.DateTimeContexts;
@@ -35,12 +34,13 @@ import walkingkooka.tree.expression.ExpressionNumberConverterContext;
 import walkingkooka.tree.expression.ExpressionNumberConverterContexts;
 import walkingkooka.tree.expression.ExpressionNumberKind;
 import walkingkooka.tree.expression.FunctionExpressionName;
+import walkingkooka.tree.expression.function.ExpressionFunction;
+import walkingkooka.tree.expression.function.ExpressionFunctionContext;
 import walkingkooka.tree.select.parser.NodeSelectorAttributeName;
 
 import java.math.MathContext;
-import java.util.List;
 import java.util.Objects;
-import java.util.function.BiFunction;
+import java.util.function.Function;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -89,6 +89,11 @@ public final class BasicNodeSelectorExpressionEvaluationContextTest implements N
         this.evaluateAndCheck(Expression.string(value), value);
     }
 
+    @Override
+    public void testEvaluateFunctionNullParametersFails() {
+        throw new UnsupportedOperationException();
+    }
+
     @Test
     public void testReference() {
         final String attribute = "attribute123";
@@ -116,10 +121,9 @@ public final class BasicNodeSelectorExpressionEvaluationContextTest implements N
                 ));
     }
 
-    private BiFunction<FunctionExpressionName, List<Object>, Object> functions() {
-        return (n, p) -> {
+    private Function<FunctionExpressionName, ExpressionFunction<?, ExpressionFunctionContext>> functions() {
+        return (n) -> {
             Objects.requireNonNull(n, "name");
-            Objects.requireNonNull(p, "parameters");
             throw new IllegalArgumentException("Unknown function " + n);
         };
     }

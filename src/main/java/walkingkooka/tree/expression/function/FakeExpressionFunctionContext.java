@@ -33,6 +33,12 @@ public class FakeExpressionFunctionContext extends FakeConverterContext implemen
     }
 
     @Override
+    public ExpressionFunction<?, ExpressionFunctionContext> function(final FunctionExpressionName name) {
+        Objects.requireNonNull(name, "name");
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
     public Object evaluate(final FunctionExpressionName name, final List<Object> parameters) {
         Objects.requireNonNull(name, "name");
         Objects.requireNonNull(parameters, "parameters");

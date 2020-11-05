@@ -39,7 +39,6 @@ import walkingkooka.text.cursor.TextCursors;
 import walkingkooka.text.cursor.parser.ParserReporters;
 import walkingkooka.tree.TestNode;
 import walkingkooka.tree.expression.Expression;
-import walkingkooka.tree.expression.ExpressionEvaluationContext;
 import walkingkooka.tree.expression.ExpressionEvaluationContexts;
 import walkingkooka.tree.expression.ExpressionNumber;
 import walkingkooka.tree.expression.ExpressionNumberContexts;
@@ -48,8 +47,8 @@ import walkingkooka.tree.expression.ExpressionNumberConverterContexts;
 import walkingkooka.tree.expression.ExpressionNumberExpression;
 import walkingkooka.tree.expression.ExpressionNumberKind;
 import walkingkooka.tree.expression.FunctionExpressionName;
-import walkingkooka.tree.expression.function.ExpressionFunctionContext;
-import walkingkooka.tree.expression.function.FakeExpressionFunctionContext;
+import walkingkooka.tree.expression.function.ExpressionFunction;
+import walkingkooka.tree.expression.function.FakeExpressionFunction;
 import walkingkooka.tree.select.parser.NodeSelectorExpressionParserToken;
 import walkingkooka.tree.select.parser.NodeSelectorParserContexts;
 import walkingkooka.tree.select.parser.NodeSelectorParserTokenVisitorTesting;
@@ -61,10 +60,10 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
 import java.util.Set;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 public final class NodeSelectorNodeSelectorParserTokenVisitorTest implements NodeSelectorParserTokenVisitorTesting<NodeSelectorNodeSelectorParserTokenVisitor<TestNode, StringName, StringName, Object>> {
 
@@ -1831,51 +1830,59 @@ public final class NodeSelectorNodeSelectorParserTokenVisitorTest implements Nod
                         return expression.toValue(this.expressionEvaluationContext());
                     }
 
-                    private ExpressionEvaluationContext expressionEvaluationContext() {
+                    private NodeSelectorExpressionEvaluationContext<TestNode, StringName, StringName, Object> expressionEvaluationContext() {
                         return NodeSelectorExpressionEvaluationContexts.basic(this.node,
                                 (r) -> ExpressionEvaluationContexts.basic(EXPRESSION_NUMBER_KIND,
-                                        this::function,
+                                        Cast.to(this.function()),
                                         r,
                                         this.converterContext()));
                     }
 
-                    private Object function(final FunctionExpressionName name, final List<Object> parameters) {
-                        assertNotNull(this.node, "node missing");
-
-                        switch (name.value()) {
-                            case "node":
-                                return node;
-                            case "number": {
-                                final Object parameter = parameters.get(0);
-                                if (parameter instanceof String) {
-                                    return EXPRESSION_NUMBER_KIND.create(new BigDecimal((String) parameter));
-                                }
-                                return parameter;
-                            }
-                            case "starts-with": {
-                                final String string = parameters.get(0).toString();
-                                final String contains = parameters.get(1).toString();
-                                return string.startsWith(contains);
-                            }
-                            case "string-length": {
-                                return parameters.get(0).toString().length();
-                            }
-                            default:
-                                final ExpressionFunctionContext context = this.expressionFunctionContext();
-
-                                return NodeSelectorContexts.basicFunctions()
-                                        .apply(name)
-                                        .orElseThrow(() -> new IllegalArgumentException(("Unknown function \"" + name + "\" parameters=" + parameters)))
-                                        .apply(Lists.readOnly(parameters), Cast.to(context));
-                        }
-                    }
-
-                    private ExpressionFunctionContext expressionFunctionContext() {
-                        return new FakeExpressionFunctionContext() {
-                            @Override
-                            public <T> Either<T, String> convert(final Object value,
-                                                                 final Class<T> target) {
-                                return convert0(value, target);
+                    private Function<FunctionExpressionName, ExpressionFunction<?, NodeSelectorExpressionEvaluationContext<TestNode, StringName, StringName, Object>>> function() {
+                        return (n) -> {
+                            switch (n.value()) {
+                                case "node":
+                                    return new FakeExpressionFunction<>() {
+                                        @Override
+                                        public Object apply(final List<Object> parameters,
+                                                            final NodeSelectorExpressionEvaluationContext<TestNode, StringName, StringName, Object> context) {
+                                            return context.node();
+                                        }
+                                    };
+                                case "number":
+                                    return new FakeExpressionFunction<>() {
+                                        @Override
+                                        public Object apply(final List<Object> parameters,
+                                                            final NodeSelectorExpressionEvaluationContext<TestNode, StringName, StringName, Object> context) {
+                                            final Object parameter = parameters.get(0);
+                                            if (parameter instanceof String) {
+                                                return EXPRESSION_NUMBER_KIND.create(new BigDecimal((String) parameter));
+                                            }
+                                            return parameter;
+                                        }
+                                    };
+                                case "starts-with":
+                                    return new FakeExpressionFunction<>() {
+                                        @Override
+                                        public Object apply(final List<Object> parameters,
+                                                            final NodeSelectorExpressionEvaluationContext<TestNode, StringName, StringName, Object> context) {
+                                            final String string = parameters.get(0).toString();
+                                            final String contains = parameters.get(1).toString();
+                                            return string.startsWith(contains);
+                                        }
+                                    };
+                                case "string-length":
+                                    return new FakeExpressionFunction<>() {
+                                        @Override
+                                        public Object apply(final List<Object> parameters,
+                                                            final NodeSelectorExpressionEvaluationContext<TestNode, StringName, StringName, Object> context) {
+                                            return parameters.get(0).toString().length();
+                                        }
+                                    };
+                                default:
+                                    return Cast.to(NodeSelectorContexts.basicFunctions()
+                                            .apply(n)
+                                            .orElseThrow(() -> new IllegalArgumentException(("Unknown function \"" + n + "\""))));
                             }
                         };
                     }

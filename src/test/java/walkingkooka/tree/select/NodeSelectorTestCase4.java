@@ -20,7 +20,6 @@ package walkingkooka.tree.select;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
-import walkingkooka.Either;
 import walkingkooka.HashCodeEqualsDefinedTesting2;
 import walkingkooka.ToStringTesting;
 import walkingkooka.collect.list.Lists;
@@ -37,14 +36,14 @@ import walkingkooka.predicate.Predicates;
 import walkingkooka.tree.Node;
 import walkingkooka.tree.TestNode;
 import walkingkooka.tree.expression.Expression;
-import walkingkooka.tree.expression.ExpressionEvaluationContext;
 import walkingkooka.tree.expression.ExpressionEvaluationContexts;
 import walkingkooka.tree.expression.ExpressionNumber;
 import walkingkooka.tree.expression.ExpressionNumberConverterContext;
 import walkingkooka.tree.expression.ExpressionNumberConverterContexts;
 import walkingkooka.tree.expression.ExpressionNumberKind;
-import walkingkooka.tree.expression.ExpressionReference;
 import walkingkooka.tree.expression.FunctionExpressionName;
+import walkingkooka.tree.expression.function.ExpressionFunction;
+import walkingkooka.tree.expression.function.ExpressionFunctionContext;
 
 import java.math.MathContext;
 import java.util.Arrays;
@@ -53,7 +52,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
-import java.util.function.BiFunction;
 import java.util.function.BooleanSupplier;
 import java.util.function.Consumer;
 import java.util.function.Function;
@@ -387,7 +385,7 @@ abstract public class NodeSelectorTestCase4<S extends NodeSelector<TestNode, Str
         final NodeSelectorContext<TestNode, StringName, StringName, Object> context = NodeSelectorContexts.basic(finisher,
                 filter,
                 mapper,
-                this.expressionEvaluationContext(),
+                this.nodeSelectorExpressionEvaluationContext(),
                 TestNode.class);
 
         return new NodeSelectorContext<>() {
@@ -444,35 +442,18 @@ abstract public class NodeSelectorTestCase4<S extends NodeSelector<TestNode, Str
         return Maps.of(Names.string(name), value);
     }
 
-    final Function<NodeSelectorContext<TestNode, StringName, StringName, Object>, ExpressionEvaluationContext> expressionEvaluationContext() {
-        return (c) -> ExpressionEvaluationContexts.basic(EXPRESSION_NUMBER_KIND,
-                this.functions(c),
-                this.references(),
-                this.converterContext());
+    final Function<NodeSelectorContext<TestNode, StringName, StringName, Object>, NodeSelectorExpressionEvaluationContext<TestNode, StringName, StringName, Object>> nodeSelectorExpressionEvaluationContext() {
+        return (c) -> NodeSelectorExpressionEvaluationContexts.basic(c.node(),
+                (r) -> ExpressionEvaluationContexts.basic(EXPRESSION_NUMBER_KIND,
+                this.functions(),
+                r,
+                this.converterContext()));
     }
 
-    private BiFunction<FunctionExpressionName, List<Object>, Object> functions(final NodeSelectorContext context) {
-        return (n, p) -> {
-            return NodeSelectorContexts.basicFunctions().apply(n)
-                    .orElseThrow(() -> new IllegalArgumentException("Unknown function " + n))
-                    .apply(p, Cast.to(new FakeNodeSelectorExpressionFunctionContext(){
-                        @Override
-                        public Node node() {
-                            return context.node();
-                        }
-
-                        @Override
-                        public <T> Either<T, String> convert(final Object value,
-                                                             final Class<T> target) {
-                            return NodeSelectorTestCase4.this.converterContext()
-                                    .convert(value, target);
-                        }
-                    }));
-        };
-    }
-
-    private Function<ExpressionReference, Optional<Expression>> references() {
-        return (r) -> Optional.empty();
+    private Function<FunctionExpressionName, ExpressionFunction<?, ExpressionFunctionContext>> functions() {
+        return (n) -> Cast.to(NodeSelectorContexts.basicFunctions()
+                .apply(n)
+                .orElseThrow(() -> new IllegalArgumentException("Unknown function " + n)));
     }
 
     private Converter<ExpressionNumberConverterContext> converter() {
