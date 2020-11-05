@@ -23,6 +23,7 @@ import walkingkooka.convert.CanConvert;
 import walkingkooka.locale.HasLocale;
 import walkingkooka.math.DecimalNumberContext;
 import walkingkooka.math.HasMathContext;
+import walkingkooka.tree.expression.function.ExpressionFunctionContext;
 
 import java.util.List;
 import java.util.Optional;
@@ -30,26 +31,12 @@ import java.util.Optional;
 /**
  * Context that travels during any expression evaluation.
  */
-public interface ExpressionEvaluationContext extends Context,
-        CanConvert,
-        ExpressionNumberContext,
-        HasLocale,
-        HasMathContext {
+public interface ExpressionEvaluationContext extends ExpressionFunctionContext {
 
     /**
      * Evaluate the given {@link Expression} returning the result/value.
      */
     Object evaluate(final Expression expression);
-
-    /**
-     * Constant for functions without any parameters.
-     */
-    List<Object> NO_PARAMETERS = Lists.empty();
-
-    /**
-     * Locates a function with the given name and then executes it with the provided parameter values (not {@link Expression}
-     */
-    Object evaluate(final FunctionExpressionName name, final List<Object> parameters);
 
     /**
      * Locates the value or a {@link Expression} for the given {@link ExpressionReference}
