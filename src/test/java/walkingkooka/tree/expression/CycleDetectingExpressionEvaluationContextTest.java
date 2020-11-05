@@ -23,7 +23,6 @@ import walkingkooka.collect.list.Lists;
 import walkingkooka.convert.ConverterContexts;
 import walkingkooka.convert.Converters;
 import walkingkooka.datetime.DateTimeContexts;
-import walkingkooka.math.DecimalNumberContext;
 import walkingkooka.math.DecimalNumberContexts;
 import walkingkooka.reflect.ClassTesting2;
 import walkingkooka.reflect.JavaVisibility;
@@ -33,7 +32,6 @@ import walkingkooka.text.cursor.parser.Parsers;
 import java.math.BigInteger;
 import java.math.MathContext;
 import java.util.List;
-import java.util.Locale;
 import java.util.Objects;
 import java.util.Optional;
 
@@ -281,46 +279,36 @@ public final class CycleDetectingExpressionEvaluationContextTest implements Clas
     public void testMathContext() {
         final MathContext mathContext = MathContext.DECIMAL32;
 
-        final CycleDetectingExpressionEvaluationContext context = this.createContext(new FakeExpressionEvaluationContext() {
-            @Override
-            public MathContext mathContext() {
-                return mathContext;
-            }
-        });
+        final CycleDetectingExpressionEvaluationContext context = this.createContext(
+                new FakeExpressionEvaluationContext() {
+                    @Override
+                    public MathContext mathContext() {
+                        return mathContext;
+                    }
+                });
         assertSame(mathContext, context.mathContext());
     }
 
     @Test
     public void testConvert() {
-        final CycleDetectingExpressionEvaluationContext context = this.createContext(new FakeExpressionEvaluationContext() {
+        final CycleDetectingExpressionEvaluationContext context = this.createContext(
+                new FakeExpressionEvaluationContext() {
 
-            @Override
-            public char negativeSign() {
-                return '-';
-            }
-
-            @Override
-            public char positiveSign() {
-                return '+';
-            }
-
-            @Override
-            public <T> Either<T, String> convert(final Object value, final Class<T> target) {
-                return Converters.parser(BigInteger.class, Parsers.bigInteger(10), (c) -> ParserContexts.basic(c, c))
-                        .convert(value,
-                                target,
-                                ConverterContexts.basic(Converters.fake(),
-                                        DateTimeContexts.fake(),
-                                        this));
-            }
-        });
+                    @Override
+                    public <T> Either<T, String> convert(final Object value, final Class<T> target) {
+                        return Converters.parser(BigInteger.class, Parsers.bigInteger(10), (c) -> ParserContexts.basic(c, c))
+                                .convert(value,
+                                        target,
+                                        ConverterContexts.basic(Converters.fake(),
+                                                DateTimeContexts.fake(),
+                                                DecimalNumberContexts.american(MathContext.DECIMAL32)));
+                    }
+                });
         assertEquals(Either.left(BigInteger.valueOf(123)), context.convert("123", BigInteger.class));
     }
 
     @Override
     public CycleDetectingExpressionEvaluationContext createContext() {
-        final DecimalNumberContext decimalNumberContext = this.decimalNumberContext();
-
         return this.createContext(new FakeExpressionEvaluationContext() {
 
             @Override
@@ -336,56 +324,7 @@ public final class CycleDetectingExpressionEvaluationContextTest implements Clas
 
                 throw new IllegalArgumentException("Unknown function " + name);
             }
-
-            @Override
-            public Locale locale() {
-                return decimalNumberContext.locale();
-            }
-
-            @Override
-            public MathContext mathContext() {
-                return decimalNumberContext.mathContext();
-            }
-
-            @Override
-            public String currencySymbol() {
-                return decimalNumberContext.currencySymbol();
-            }
-
-            @Override
-            public char decimalSeparator() {
-                return decimalNumberContext.decimalSeparator();
-            }
-
-            @Override
-            public String exponentSymbol() {
-                return decimalNumberContext.exponentSymbol();
-            }
-
-            @Override
-            public char groupingSeparator() {
-                return decimalNumberContext.groupingSeparator();
-            }
-
-            @Override
-            public char negativeSign() {
-                return decimalNumberContext.negativeSign();
-            }
-
-            @Override
-            public char percentageSymbol() {
-                return decimalNumberContext.percentageSymbol();
-            }
-
-            @Override
-            public char positiveSign() {
-                return decimalNumberContext.positiveSign();
-            }
         });
-    }
-
-    private DecimalNumberContext decimalNumberContext() {
-        return DecimalNumberContexts.american(this.mathContext());
     }
 
     private CycleDetectingExpressionEvaluationContext createContext(final ExpressionEvaluationContext context) {
@@ -394,46 +333,6 @@ public final class CycleDetectingExpressionEvaluationContextTest implements Clas
 
     private Expression text() {
         return Expression.string(VALUE);
-    }
-
-    @Override
-    public String currencySymbol() {
-        return this.decimalNumberContext().currencySymbol();
-    }
-
-    @Override
-    public char decimalSeparator() {
-        return this.decimalNumberContext().decimalSeparator();
-    }
-
-    @Override
-    public String exponentSymbol() {
-        return this.decimalNumberContext().exponentSymbol();
-    }
-
-    @Override
-    public char groupingSeparator() {
-        return this.decimalNumberContext().groupingSeparator();
-    }
-
-    @Override
-    public MathContext mathContext() {
-        return MathContext.DECIMAL32;
-    }
-
-    @Override
-    public char negativeSign() {
-        return this.decimalNumberContext().negativeSign();
-    }
-
-    @Override
-    public char percentageSymbol() {
-        return this.decimalNumberContext().percentageSymbol();
-    }
-
-    @Override
-    public char positiveSign() {
-        return this.decimalNumberContext().positiveSign();
     }
 
     // ClassTesting.....................................................................................................
