@@ -34,6 +34,13 @@ public final class ReferenceExpressionTest extends LeafExpressionTestCase<Refere
     }
 
     @Test
+    public void testToReferenceOrValue() {
+        final ExpressionReference reference = new TestExpressionReference("reference!");
+        final ReferenceExpression expression = ReferenceExpression.with(reference);
+        assertEquals(reference, expression.toReferenceOrValue(ExpressionEvaluationContexts.fake()));
+    }
+
+    @Test
     public void testAccept() {
         final StringBuilder b = new StringBuilder();
         final ReferenceExpression node = this.createExpression();

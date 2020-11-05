@@ -34,6 +34,14 @@ abstract class ExpressionFunction2<T, C extends ExpressionFunctionContext> imple
     }
 
     /**
+     * Always resolve references to values.
+     */
+    @Override
+    public final boolean resolveReferences() {
+        return true;
+    }
+
+    /**
      * Checks and complains if the parameter count doesnt match the expected count.
      */
     final void checkParameterCount(final List<Object> parameters, final int expectedCount) {

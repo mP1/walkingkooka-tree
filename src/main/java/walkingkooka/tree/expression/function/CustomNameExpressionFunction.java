@@ -77,6 +77,11 @@ final class CustomNameExpressionFunction<T, C extends ExpressionFunctionContext>
     private FunctionExpressionName name;
 
     @Override
+    public boolean resolveReferences() {
+        return this.function.resolveReferences();
+    }
+
+    @Override
     public String toString() {
         return this.name().toString();
     }

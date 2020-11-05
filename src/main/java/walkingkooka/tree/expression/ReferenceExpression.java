@@ -94,6 +94,12 @@ public final class ReferenceExpression extends LeafExpression<ExpressionReferenc
     }
 
     @Override
+    public Object toReferenceOrValue(final ExpressionEvaluationContext context) {
+        Objects.requireNonNull(context, "context");
+        return this.value;
+    }
+
+    @Override
     public final Object toValue(final ExpressionEvaluationContext context) {
         return this.toExpression(context).toValue(context);
     }

@@ -222,6 +222,15 @@ public abstract class ExpressionTestCase<N extends Expression> implements ClassT
         } else {
             assertEquals(expected, value, () -> "toValue of " + node + " failed");
         }
+
+        if (false == node.isReference()) {
+            final Object referenceOrValue = node.toReferenceOrValue(context);
+            if (expected instanceof Comparable && referenceOrValue instanceof Comparable) {
+                this.checkEquals("toReferenceOrValue of " + node + " failed", Cast.to(expected), Cast.to(referenceOrValue));
+            } else {
+                assertEquals(expected, value, () -> "toReferenceOrValue of " + node + " failed");
+            }
+        }
     }
 
     private <T extends Comparable<T>> void checkEquals(final String message, final T expected, final T actual) {

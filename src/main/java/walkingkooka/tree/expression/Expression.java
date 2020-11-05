@@ -561,6 +561,12 @@ public abstract class Expression implements Node<Expression, FunctionExpressionN
     public abstract String toString(final ExpressionEvaluationContext context);
 
     /**
+     * Evaluates this node returning its {@link ExpressionReference} or value. For all sub classes except {@link ReferenceExpression}
+     * will be identical to {@link #toValue(ExpressionEvaluationContext)}.
+     */
+    public abstract Object toReferenceOrValue(final ExpressionEvaluationContext context);
+
+    /**
      * Evaluates this node returning its value.
      */
     public abstract Object toValue(final ExpressionEvaluationContext context);

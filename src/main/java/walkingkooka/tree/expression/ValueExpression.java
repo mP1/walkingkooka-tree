@@ -57,6 +57,11 @@ abstract class ValueExpression<V> extends LeafExpression<V> {
     }
 
     @Override
+    public final Object toReferenceOrValue(final ExpressionEvaluationContext context) {
+        return this.toValue(context);
+    }
+
+    @Override
     public final String toString(final ExpressionEvaluationContext context) {
         return context.convertOrFail(this.value(), String.class);
     }

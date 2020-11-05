@@ -20,10 +20,18 @@ package walkingkooka.tree.expression;
 import org.junit.jupiter.api.Test;
 import walkingkooka.Either;
 import walkingkooka.collect.list.Lists;
+import walkingkooka.naming.Names;
+import walkingkooka.naming.StringName;
+import walkingkooka.tree.expression.function.ExpressionFunction;
+import walkingkooka.tree.expression.function.ExpressionFunctionContext;
+import walkingkooka.tree.expression.function.FakeExpressionFunction;
+import walkingkooka.tree.select.parser.NodeSelectorAttributeName;
 import walkingkooka.visit.Visiting;
 
 import java.math.MathContext;
 import java.util.List;
+import java.util.Objects;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
@@ -54,6 +62,87 @@ public final class FunctionExpressionTest extends VariableExpressionTestCase<Fun
         final FunctionExpression different = node.setName(differentName);
         assertEquals(differentName, different.name(), "name");
         this.checkChildren(different, node.children());
+    }
+
+    @Test
+    public void testToValueFunctionResolveReferencesTrue() {
+        final StringName attribute = Names.string("attribute123");
+        final String value = "value-345";
+        final ExpressionReference reference = NodeSelectorAttributeName.with(attribute.value());
+
+        final FunctionExpressionName function = FunctionExpressionName.with("custom-function");
+        final List<Expression> parameters = Lists.of(
+                Expression.string("1"),
+                Expression.reference(reference)
+        );
+        final Expression expression = Expression.function(function, parameters);
+
+        assertEquals(Lists.of("1", value),
+                expression.toValue(new FakeExpressionEvaluationContext() {
+                    @Override
+                    public ExpressionFunction<?, ExpressionFunctionContext> function(final FunctionExpressionName name) {
+                        assertEquals(function, name, "function name");
+                        return new FakeExpressionFunction<>() {
+                            @Override
+                            public Object apply(final List<Object> parameters,
+                                                final ExpressionFunctionContext contet) {
+                                return parameters;
+                            }
+
+                            @Override
+                            public boolean resolveReferences() {
+                                return true;
+                            }
+                        };
+                    }
+
+                    @Override
+                    public Optional<Expression> reference(final ExpressionReference r) {
+                        assertSame(reference, r, "reference");
+                        return Optional.of(Expression.string(value));
+                    }
+                }));
+    }
+
+    @Test
+    public void testToValueFunctionResolveReferencesFalse() {
+        final StringName attribute = Names.string("attribute123");
+        final String value = "value-345";
+        final ExpressionReference reference = NodeSelectorAttributeName.with(attribute.value());
+
+        final FunctionExpressionName function = FunctionExpressionName.with("custom-function");
+        final List<Expression> parameters = Lists.of(
+                Expression.string("1"),
+                Expression.reference(reference)
+        );
+        final Expression expression = Expression.function(function, parameters);
+
+        assertEquals(Lists.of("1", reference),
+                expression.toValue(new FakeExpressionEvaluationContext() {
+                    @Override
+                    public ExpressionFunction<?, ExpressionFunctionContext> function(final FunctionExpressionName name) {
+                        assertEquals(function, name, "function name");
+                        return new FakeExpressionFunction<>() {
+
+                            @Override
+                            public Object apply(final List<Object> parameters,
+                                                final ExpressionFunctionContext context) {
+                                return parameters;
+                            }
+
+                            @Override
+                            public boolean resolveReferences() {
+                                return false;
+                            }
+                        };
+                    }
+
+                    public Object evaluate(final FunctionExpressionName name, final List<Object> parameters) {
+                        Objects.requireNonNull(name, "name");
+                        Objects.requireNonNull(parameters, "parameters");
+                        throw new UnsupportedOperationException();
+                    }
+                }));
     }
 
     @Test
@@ -139,12 +228,22 @@ public final class FunctionExpressionTest extends VariableExpressionTestCase<Fun
         final ExpressionEvaluationContext context = context();
 
         return new FakeExpressionEvaluationContext() {
-
             @Override
-            public Object evaluate(final FunctionExpressionName name, final List<Object> parameters) {
+            public ExpressionFunction<?, ExpressionFunctionContext> function(final FunctionExpressionName name) {
                 assertEquals(name("fx"), name, "function name");
-                assertEquals(Lists.of("child-111", "child-222", "child-333"), parameters, "parameter values");
-                return functionValue;
+                return new FakeExpressionFunction<>() {
+                    @Override
+                    public Object apply(final List<Object> parameters,
+                                        final ExpressionFunctionContext context) {
+                        assertEquals(Lists.of("child-111", "child-222", "child-333"), parameters, "parameter values");
+                        return functionValue;
+                    }
+
+                    @Override
+                    public boolean resolveReferences() {
+                        return true;
+                    }
+                };
             }
 
             @Override

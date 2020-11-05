@@ -32,4 +32,9 @@ public class FakeExpressionFunction<T, C extends ExpressionFunctionContext> impl
     public FunctionExpressionName name() {
         throw new UnsupportedOperationException();
     }
+
+    @Override
+    public boolean resolveReferences() {
+        throw new UnsupportedOperationException();
+    }
 }
