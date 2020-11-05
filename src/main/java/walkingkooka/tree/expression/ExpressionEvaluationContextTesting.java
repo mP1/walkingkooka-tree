@@ -20,6 +20,7 @@ package walkingkooka.tree.expression;
 import org.junit.jupiter.api.Test;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.tree.expression.function.ExpressionFunctionContextTesting;
+import walkingkooka.tree.expression.function.UnknownFunctionException;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -36,7 +37,7 @@ public interface ExpressionEvaluationContextTesting<C extends ExpressionEvaluati
 
     @Test
     default void testEvaluateExpressionUnknownFunctionNameFails() {
-        assertThrows(IllegalArgumentException.class, () -> this.createContext().evaluate(Expression.function(FunctionExpressionName.with("unknown-function-123"), Expression.NO_CHILDREN)));
+        assertThrows(UnknownFunctionException.class, () -> this.createContext().evaluate(Expression.function(FunctionExpressionName.with("unknown-function-123"), Expression.NO_CHILDREN)));
     }
 
     default void evaluateAndCheck(final Expression expression,
@@ -59,7 +60,7 @@ public interface ExpressionEvaluationContextTesting<C extends ExpressionEvaluati
 
     @Test
     default void testEvaluateUnknownFunctionNameFails() {
-        assertThrows(IllegalArgumentException.class, () -> this.createContext().evaluate(this.unknownFunctionName(), Lists.empty()));
+        assertThrows(UnknownFunctionException.class, () -> this.createContext().evaluate(this.unknownFunctionName(), Lists.empty()));
     }
 
     @Test
