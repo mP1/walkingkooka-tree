@@ -31,6 +31,7 @@ import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.tree.expression.function.ExpressionFunction;
 import walkingkooka.tree.expression.function.ExpressionFunctionContext;
 import walkingkooka.tree.expression.function.FakeExpressionFunction;
+import walkingkooka.tree.expression.function.UnknownFunctionException;
 
 import java.math.MathContext;
 import java.util.List;
@@ -144,7 +145,7 @@ public final class BasicExpressionEvaluationContextTest implements ClassTesting2
             Objects.requireNonNull(functionName, "functionName");
 
             if (false == this.functionName().equals(functionName)) {
-                throw new IllegalArgumentException("Unknown function: " + functionName);
+                throw new UnknownFunctionException(functionName);
             }
 
             return new FakeExpressionFunction<>() {

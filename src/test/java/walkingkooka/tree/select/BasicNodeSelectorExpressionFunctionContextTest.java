@@ -29,6 +29,7 @@ import walkingkooka.tree.expression.function.ExpressionFunction;
 import walkingkooka.tree.expression.function.ExpressionFunctionContext;
 import walkingkooka.tree.expression.function.ExpressionFunctionContextTesting;
 import walkingkooka.tree.expression.function.FakeExpressionFunctionContext;
+import walkingkooka.tree.expression.function.UnknownFunctionException;
 
 import java.util.List;
 import java.util.Objects;
@@ -45,7 +46,7 @@ public final class BasicNodeSelectorExpressionFunctionContextTest implements Exp
         @Override
         public ExpressionFunction<?, ExpressionFunctionContext> function(final FunctionExpressionName name) {
             Objects.requireNonNull(name, "name");
-            throw new IllegalArgumentException("Unknown function " + name);
+            throw new UnknownFunctionException(name);
         }
         
         @Override
