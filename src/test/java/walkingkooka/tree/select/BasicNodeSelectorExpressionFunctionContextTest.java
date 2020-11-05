@@ -25,11 +25,13 @@ import walkingkooka.collect.list.Lists;
 import walkingkooka.naming.StringName;
 import walkingkooka.tree.TestNode;
 import walkingkooka.tree.expression.FunctionExpressionName;
+import walkingkooka.tree.expression.function.ExpressionFunction;
 import walkingkooka.tree.expression.function.ExpressionFunctionContext;
 import walkingkooka.tree.expression.function.ExpressionFunctionContextTesting;
 import walkingkooka.tree.expression.function.FakeExpressionFunctionContext;
 
 import java.util.List;
+import java.util.Objects;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -39,6 +41,13 @@ public final class BasicNodeSelectorExpressionFunctionContextTest implements Exp
 
     private final static TestNode NODE = TestNode.with("testNode");
     private final static ExpressionFunctionContext CONTEXT = new FakeExpressionFunctionContext() {
+
+        @Override
+        public ExpressionFunction<?, ExpressionFunctionContext> function(final FunctionExpressionName name) {
+            Objects.requireNonNull(name, "name");
+            throw new IllegalArgumentException("Unknown function " + name);
+        }
+        
         @Override
         public boolean canConvert(final Object value,
                                   final Class<?> type) {
@@ -78,6 +87,7 @@ public final class BasicNodeSelectorExpressionFunctionContextTest implements Exp
         assertEquals(result,
                 BasicNodeSelectorExpressionFunctionContext.with(NODE,
                         new FakeExpressionFunctionContext() {
+
                             @Override
                             public Object evaluate(final FunctionExpressionName n,
                                                    final List<Object> p) {
