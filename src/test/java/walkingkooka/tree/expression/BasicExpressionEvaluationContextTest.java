@@ -18,6 +18,8 @@
 package walkingkooka.tree.expression;
 
 import org.junit.jupiter.api.Test;
+import walkingkooka.Cast;
+import walkingkooka.ToStringTesting;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.convert.Converter;
 import walkingkooka.convert.ConverterContext;
@@ -25,8 +27,10 @@ import walkingkooka.convert.ConverterContexts;
 import walkingkooka.convert.Converters;
 import walkingkooka.datetime.DateTimeContexts;
 import walkingkooka.math.DecimalNumberContexts;
+import walkingkooka.naming.StringName;
 import walkingkooka.reflect.ClassTesting2;
 import walkingkooka.reflect.JavaVisibility;
+import walkingkooka.tree.TestNode;
 
 import java.math.MathContext;
 import java.util.List;
@@ -39,7 +43,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class BasicExpressionEvaluationContextTest implements ClassTesting2<BasicExpressionEvaluationContext>,
-        ExpressionEvaluationContextTesting<BasicExpressionEvaluationContext> {
+        ExpressionEvaluationContextTesting<BasicExpressionEvaluationContext>,
+        ToStringTesting<BasicExpressionEvaluationContext> {
 
     private final static ExpressionNumberKind KIND = ExpressionNumberKind.DEFAULT;
     private final static ExpressionReference REFERENCE = new ExpressionReference() {
@@ -50,7 +55,6 @@ public final class BasicExpressionEvaluationContextTest implements ClassTesting2
         assertThrows(NullPointerException.class, () -> BasicExpressionEvaluationContext.with(null,
                 this.functions(),
                 this.references(),
-                this.converter(),
                 this.converterContext()));
     }
 
@@ -59,7 +63,6 @@ public final class BasicExpressionEvaluationContextTest implements ClassTesting2
         assertThrows(NullPointerException.class, () -> BasicExpressionEvaluationContext.with(KIND,
                 null,
                 this.references(),
-                this.converter(),
                 this.converterContext()));
     }
 
@@ -67,16 +70,6 @@ public final class BasicExpressionEvaluationContextTest implements ClassTesting2
     public void testWithNullReferencesFails() {
         assertThrows(NullPointerException.class, () -> BasicExpressionEvaluationContext.with(KIND,
                 this.functions(),
-                null,
-                this.converter(),
-                this.converterContext()));
-    }
-
-    @Test
-    public void testWithNullConverterFails() {
-        assertThrows(NullPointerException.class, () -> BasicExpressionEvaluationContext.with(KIND,
-                this.functions(),
-                this.references(),
                 null,
                 this.converterContext()));
     }
@@ -86,7 +79,6 @@ public final class BasicExpressionEvaluationContextTest implements ClassTesting2
         assertThrows(NullPointerException.class, () -> BasicExpressionEvaluationContext.with(KIND,
                 this.functions(),
                 this.references(),
-                this.converter(),
                 null));
     }
 
@@ -127,12 +119,24 @@ public final class BasicExpressionEvaluationContextTest implements ClassTesting2
         this.convertAndCheck(123.0, Long.class, 123L);
     }
 
+    @Test
+    public void testToString() {
+        final BiFunction<FunctionExpressionName, List<Object>, Object> functions = this.functions();
+        final Function<ExpressionReference, Optional<Expression>> references = this.references();
+        final ConverterContext converterContext = this.converterContext();
+
+        this.toStringAndCheck(BasicExpressionEvaluationContext.with(KIND,
+                functions,
+                references,
+                converterContext)
+                .toString(), functions + " " + references + " " + converterContext);
+    }
+
     @Override
     public BasicExpressionEvaluationContext createContext() {
         return BasicExpressionEvaluationContext.with(KIND,
                 this.functions(),
                 this.references(),
-                this.converter(),
                 this.converterContext());
     }
 
@@ -174,19 +178,17 @@ public final class BasicExpressionEvaluationContextTest implements ClassTesting2
         return Expression.string("expression node 123");
     }
 
-    private Converter<ConverterContext> converter() {
-        return Converters.numberNumber();
-    }
-
     private ConverterContext converterContext() {
-        return ConverterContexts.basic(this.converter(), DateTimeContexts.fake(), DecimalNumberContexts.american(MathContext.DECIMAL32));
+        return ConverterContexts.basic(Converters.numberNumber(),
+                DateTimeContexts.fake(),
+                DecimalNumberContexts.american(MathContext.DECIMAL32));
     }
 
     // ClassTesting.....................................................................................................
 
     @Override
     public Class<BasicExpressionEvaluationContext> type() {
-        return BasicExpressionEvaluationContext.class;
+        return Cast.to(BasicExpressionEvaluationContext.class);
     }
 
     @Override

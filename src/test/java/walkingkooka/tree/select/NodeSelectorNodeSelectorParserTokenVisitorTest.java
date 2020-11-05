@@ -1836,7 +1836,6 @@ public final class NodeSelectorNodeSelectorParserTokenVisitorTest implements Nod
                                 (r) -> ExpressionEvaluationContexts.basic(EXPRESSION_NUMBER_KIND,
                                         this::function,
                                         r,
-                                        this.converter(),
                                         this.converterContext()));
                     }
 
@@ -1869,24 +1868,6 @@ public final class NodeSelectorNodeSelectorParserTokenVisitorTest implements Nod
                                         .orElseThrow(() -> new IllegalArgumentException(("Unknown function \"" + name + "\" parameters=" + parameters)))
                                         .apply(Lists.readOnly(parameters), Cast.to(context));
                         }
-                    }
-
-                    private Converter<ExpressionNumberConverterContext> converter() {
-                        return new Converter<>() {
-                            @Override
-                            public boolean canConvert(final Object value,
-                                                      final Class<?> type,
-                                                      final ExpressionNumberConverterContext context) {
-                                throw new UnsupportedOperationException();
-                            }
-
-                            @Override
-                            public <T> Either<T, String> convert(final Object value,
-                                                                 final Class<T> type,
-                                                                 final ExpressionNumberConverterContext context) {
-                                return convert0(value, type);
-                            }
-                        };
                     }
 
                     private ExpressionFunctionContext expressionFunctionContext() {
@@ -1945,7 +1926,21 @@ public final class NodeSelectorNodeSelectorParserTokenVisitorTest implements Nod
                     }
 
                     private ExpressionNumberConverterContext converterContext() {
-                        return ExpressionNumberConverterContexts.basic(Converters.fake(),
+                        return ExpressionNumberConverterContexts.basic(new Converter<>() {
+                                                                           @Override
+                                                                           public boolean canConvert(final Object value,
+                                                                                                     final Class<?> type,
+                                                                                                     final ExpressionNumberConverterContext context) {
+                                                                               return true;
+                                                                           }
+
+                                                                           @Override
+                                                                           public <T> Either<T, String> convert(final Object value,
+                                                                                                                final Class<T> type,
+                                                                                                                final ExpressionNumberConverterContext context) {
+                                                                               return convert0(value, type);
+                                                                           }
+                                                                       },
                                 ConverterContexts.basic(
                                         Converters.fake(),
                                         DateTimeContexts.fake(),

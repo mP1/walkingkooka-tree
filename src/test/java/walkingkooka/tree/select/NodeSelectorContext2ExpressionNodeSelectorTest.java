@@ -120,7 +120,7 @@ public final class NodeSelectorContext2ExpressionNodeSelectorTest extends NodeSe
 
                         return expression.toValue(
                                 ExpressionEvaluationContexts.basic(EXPRESSION_NUMBER_KIND,
-                                        (e, parameters) -> {
+                                        (f, p) -> {
                                             throw new UnsupportedOperationException();
                                         },
                                         new Function<ExpressionReference, Optional<Expression>>() {
@@ -129,15 +129,7 @@ public final class NodeSelectorContext2ExpressionNodeSelectorTest extends NodeSe
                                                 throw new UnsupportedOperationException();
                                             }
                                         },
-                                        this.converter(),
                                         ExpressionNumberConverterContexts.basic(Converters.fake(), this.converterContext(), EXPRESSION_NUMBER_KIND)));
-                    }
-
-                    private Converter<ExpressionNumberConverterContext> converter() {
-                        return Converters.collection(Lists.of(
-                                ExpressionNumber.toConverter(Converters.truthyNumberBoolean()),
-                                ExpressionNumber.fromConverter(Converters.numberNumber()),
-                                Converters.<String, Integer>function(v -> v instanceof String, Predicates.is(Integer.class), Integer::parseInt)));
                     }
 
                     private ExpressionNumberConverterContext converterContext() {
@@ -145,6 +137,13 @@ public final class NodeSelectorContext2ExpressionNodeSelectorTest extends NodeSe
                                 ConverterContexts.basic(Converters.fake(),
                                         ConverterContexts.fake(),
                                         DecimalNumberContexts.american(MathContext.DECIMAL32)), EXPRESSION_NUMBER_KIND);
+                    }
+
+                    private Converter<ExpressionNumberConverterContext> converter() {
+                        return Converters.collection(Lists.of(
+                                ExpressionNumber.toConverter(Converters.truthyNumberBoolean()),
+                                ExpressionNumber.fromConverter(Converters.numberNumber()),
+                                Converters.<String, Integer>function(v -> v instanceof String, Predicates.is(Integer.class), Integer::parseInt)));
                     }
                 });
         context.position = INDEX;

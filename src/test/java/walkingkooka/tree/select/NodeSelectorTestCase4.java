@@ -448,7 +448,6 @@ abstract public class NodeSelectorTestCase4<S extends NodeSelector<TestNode, Str
         return (c) -> ExpressionEvaluationContexts.basic(EXPRESSION_NUMBER_KIND,
                 this.functions(c),
                 this.references(),
-                this.converter(),
                 this.converterContext());
     }
 
@@ -465,10 +464,8 @@ abstract public class NodeSelectorTestCase4<S extends NodeSelector<TestNode, Str
                         @Override
                         public <T> Either<T, String> convert(final Object value,
                                                              final Class<T> target) {
-                            return NodeSelectorTestCase4.this.converter()
-                                    .convert(value,
-                                            target,
-                                            NodeSelectorTestCase4.this.converterContext());
+                            return NodeSelectorTestCase4.this.converterContext()
+                                    .convert(value, target);
                         }
                     }));
         };
