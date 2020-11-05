@@ -28,7 +28,7 @@ public interface NodeSelectorExpressionEvaluationContext <N extends Node<N, NAME
         NAME extends Name,
         ANAME extends Name,
         AVALUE>
-        extends ExpressionEvaluationContext {
+        extends ExpressionEvaluationContext, NodeSelectorExpressionFunctionContext<N, NAME, ANAME, AVALUE> {
 
     N node();
 }
