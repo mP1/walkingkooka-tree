@@ -18,7 +18,6 @@
 package walkingkooka.tree.expression;
 
 import walkingkooka.Either;
-import walkingkooka.convert.Converter;
 import walkingkooka.convert.ConverterContext;
 
 import java.math.MathContext;
@@ -32,26 +31,23 @@ import java.util.function.Function;
 /**
  * An {@link ExpressionEvaluationContext} delegates to helpers or constants for each method.
  */
-final class BasicExpressionEvaluationContext<C extends ConverterContext> implements ExpressionEvaluationContext {
+final class BasicExpressionEvaluationContext implements ExpressionEvaluationContext {
 
     /**
      * Factory that creates a {@link BasicExpressionEvaluationContext}
      */
-    static <C extends ConverterContext> BasicExpressionEvaluationContext with(final ExpressionNumberKind expressionNumberKind,
-                                                                              final BiFunction<FunctionExpressionName, List<Object>, Object> functions,
-                                                                              final Function<ExpressionReference, Optional<Expression>> references,
-                                                                              final Converter<C> converter,
-                                                                              final C converterContext) {
+    static BasicExpressionEvaluationContext with(final ExpressionNumberKind expressionNumberKind,
+                                                 final BiFunction<FunctionExpressionName, List<Object>, Object> functions,
+                                                 final Function<ExpressionReference, Optional<Expression>> references,
+                                                 final ConverterContext converterContext) {
         Objects.requireNonNull(expressionNumberKind, "expressionNumberKind");
         Objects.requireNonNull(functions, "functions");
         Objects.requireNonNull(references, "references");
-        Objects.requireNonNull(converter, "converter");
         Objects.requireNonNull(converterContext, "converterContext");
 
-        return new BasicExpressionEvaluationContext<>(expressionNumberKind,
+        return new BasicExpressionEvaluationContext(expressionNumberKind,
                 functions,
                 references,
-                converter,
                 converterContext);
     }
 
@@ -61,13 +57,11 @@ final class BasicExpressionEvaluationContext<C extends ConverterContext> impleme
     private BasicExpressionEvaluationContext(final ExpressionNumberKind expressionNumberKind,
                                              final BiFunction<FunctionExpressionName, List<Object>, Object> functions,
                                              final Function<ExpressionReference, Optional<Expression>> references,
-                                             final Converter<C> converter,
-                                             final C converterContext) {
+                                             final ConverterContext converterContext) {
         super();
         this.expressionNumberKind = expressionNumberKind;
         this.functions = functions;
         this.references = references;
-        this.converter = converter;
         this.converterContext = converterContext;
     }
 
@@ -114,20 +108,19 @@ final class BasicExpressionEvaluationContext<C extends ConverterContext> impleme
     @Override
     public boolean canConvert(final Object value,
                               final Class<?> type) {
-        return this.converter.canConvert(value, type, this.converterContext);
+        return this.converterContext.canConvert(value, type);
     }
 
     @Override
     public <T> Either<T, String> convert(final Object value,
                                          final Class<T> target) {
-        return this.converter.convert(value, target, this.converterContext);
+        return this.converterContext.convert(value, target);
     }
 
-    private final Converter<C> converter;
-    private final C converterContext;
+    private final ConverterContext converterContext;
 
     @Override
     public String toString() {
-        return this.converterContext + " " + this.functions + " " + this.references + " " + this.converter;
+        return this.functions + " " + this.references + " " + this.converterContext;
     }
 }

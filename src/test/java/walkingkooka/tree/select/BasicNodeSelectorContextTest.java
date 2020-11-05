@@ -171,7 +171,6 @@ public final class BasicNodeSelectorContextTest implements ClassTesting2<BasicNo
                 return ExpressionEvaluationContexts.basic(ExpressionNumberKind.DEFAULT,
                         this.functions(),
                         this.references(),
-                        this.converter(),
                         this.converterContext());
             }
 
@@ -185,12 +184,8 @@ public final class BasicNodeSelectorContextTest implements ClassTesting2<BasicNo
                 return (r) -> Optional.empty();
             }
 
-            private Converter<ExpressionNumberConverterContext> converter() {
-                return ExpressionNumber.toConverter(Converters.fake());
-            }
-
             private ExpressionNumberConverterContext converterContext() {
-                return ExpressionNumberConverterContexts.basic(Converters.fake(),
+                return ExpressionNumberConverterContexts.basic(ExpressionNumber.toConverter(Converters.fake()),
                         ConverterContexts.basic(Converters.fake(),
                                 DateTimeContexts.fake(),
                                 DecimalNumberContexts.fake()), KIND);

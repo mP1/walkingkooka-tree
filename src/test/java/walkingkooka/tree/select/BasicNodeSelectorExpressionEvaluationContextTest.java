@@ -112,7 +112,6 @@ public final class BasicNodeSelectorExpressionEvaluationContextTest implements N
                         EXPRESSION_NUMBER_KIND,
                         this.functions(),
                         r,
-                        this.converter(),
                         this.converterContext()
                 ));
     }
@@ -125,12 +124,8 @@ public final class BasicNodeSelectorExpressionEvaluationContextTest implements N
         };
     }
 
-    private Converter<ExpressionNumberConverterContext> converter() {
-        return Converters.numberNumber();
-    }
-
     private ExpressionNumberConverterContext converterContext() {
-        return ExpressionNumberConverterContexts.basic(Converters.fake(),
+        return ExpressionNumberConverterContexts.basic(Converters.numberNumber(),
                 ConverterContexts.basic(Converters.fake(),
                         DateTimeContexts.fake(),
                         DecimalNumberContexts.american(MathContext.DECIMAL32)),
