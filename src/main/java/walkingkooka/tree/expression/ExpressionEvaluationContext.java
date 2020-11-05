@@ -20,6 +20,7 @@ package walkingkooka.tree.expression;
 import walkingkooka.Context;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.convert.CanConvert;
+import walkingkooka.locale.HasLocale;
 import walkingkooka.math.DecimalNumberContext;
 import walkingkooka.math.HasMathContext;
 
@@ -31,8 +32,8 @@ import java.util.Optional;
  */
 public interface ExpressionEvaluationContext extends Context,
         CanConvert,
-        DecimalNumberContext,
         ExpressionNumberContext,
+        HasLocale,
         HasMathContext {
 
     /**

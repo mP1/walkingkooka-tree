@@ -24,7 +24,6 @@ import walkingkooka.convert.ConverterContext;
 import walkingkooka.convert.ConverterContexts;
 import walkingkooka.convert.Converters;
 import walkingkooka.datetime.DateTimeContexts;
-import walkingkooka.math.DecimalNumberContext;
 import walkingkooka.math.DecimalNumberContexts;
 import walkingkooka.reflect.ClassTesting2;
 import walkingkooka.reflect.JavaVisibility;
@@ -180,51 +179,7 @@ public final class BasicExpressionEvaluationContextTest implements ClassTesting2
     }
 
     private ConverterContext converterContext() {
-        return ConverterContexts.basic(this.converter(), DateTimeContexts.fake(), this.decimalNumberContext());
-    }
-
-    private DecimalNumberContext decimalNumberContext() {
-        return DecimalNumberContexts.american(this.mathContext());
-    }
-
-    @Override
-    public String currencySymbol() {
-        return this.decimalNumberContext().currencySymbol();
-    }
-
-    @Override
-    public char decimalSeparator() {
-        return this.decimalNumberContext().decimalSeparator();
-    }
-
-    @Override
-    public String exponentSymbol() {
-        return this.decimalNumberContext().exponentSymbol();
-    }
-
-    @Override
-    public char groupingSeparator() {
-        return this.decimalNumberContext().groupingSeparator();
-    }
-
-    @Override
-    public MathContext mathContext() {
-        return MathContext.DECIMAL32;
-    }
-
-    @Override
-    public char negativeSign() {
-        return this.decimalNumberContext().negativeSign();
-    }
-
-    @Override
-    public char percentageSymbol() {
-        return this.decimalNumberContext().percentageSymbol();
-    }
-
-    @Override
-    public char positiveSign() {
-        return this.decimalNumberContext().positiveSign();
+        return ConverterContexts.basic(this.converter(), DateTimeContexts.fake(), DecimalNumberContexts.american(MathContext.DECIMAL32));
     }
 
     // ClassTesting.....................................................................................................

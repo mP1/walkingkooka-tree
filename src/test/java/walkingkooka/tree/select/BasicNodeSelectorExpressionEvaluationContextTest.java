@@ -25,13 +25,11 @@ import walkingkooka.convert.Converter;
 import walkingkooka.convert.ConverterContexts;
 import walkingkooka.convert.Converters;
 import walkingkooka.datetime.DateTimeContexts;
-import walkingkooka.math.DecimalNumberContext;
 import walkingkooka.math.DecimalNumberContexts;
 import walkingkooka.naming.Names;
 import walkingkooka.naming.StringName;
 import walkingkooka.tree.TestNode;
 import walkingkooka.tree.expression.Expression;
-import walkingkooka.tree.expression.ExpressionEvaluationContextTesting;
 import walkingkooka.tree.expression.ExpressionEvaluationContexts;
 import walkingkooka.tree.expression.ExpressionNumberConverterContext;
 import walkingkooka.tree.expression.ExpressionNumberConverterContexts;
@@ -135,56 +133,12 @@ public final class BasicNodeSelectorExpressionEvaluationContextTest implements N
         return ExpressionNumberConverterContexts.basic(Converters.fake(),
                 ConverterContexts.basic(Converters.fake(),
                         DateTimeContexts.fake(),
-                        this.decimalNumberContext()),
+                        DecimalNumberContexts.american(MathContext.DECIMAL32)),
                 EXPRESSION_NUMBER_KIND);
     }
 
     @Override
     public Class<BasicNodeSelectorExpressionEvaluationContext<TestNode, StringName, StringName, Object>> type() {
         return Cast.to(BasicNodeSelectorExpressionEvaluationContext.class);
-    }
-
-    @Override
-    public String currencySymbol() {
-        return this.decimalNumberContext().currencySymbol();
-    }
-
-    @Override
-    public char decimalSeparator() {
-        return this.decimalNumberContext().decimalSeparator();
-    }
-
-    @Override
-    public String exponentSymbol() {
-        return this.decimalNumberContext().exponentSymbol();
-    }
-
-    @Override
-    public char groupingSeparator() {
-        return this.decimalNumberContext().groupingSeparator();
-    }
-
-    @Override
-    public MathContext mathContext() {
-        return this.decimalNumberContext().mathContext();
-    }
-
-    @Override
-    public char negativeSign() {
-        return this.decimalNumberContext().negativeSign();
-    }
-
-    @Override
-    public char percentageSymbol() {
-        return this.decimalNumberContext().percentageSymbol();
-    }
-
-    @Override
-    public char positiveSign() {
-        return this.decimalNumberContext().positiveSign();
-    }
-    
-    private DecimalNumberContext decimalNumberContext() {
-        return DecimalNumberContexts.american(MathContext.DECIMAL32);
     }
 }

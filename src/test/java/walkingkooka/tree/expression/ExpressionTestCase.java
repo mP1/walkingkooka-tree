@@ -328,46 +328,9 @@ public abstract class ExpressionTestCase<N extends Expression> implements ClassT
         return new FakeExpressionEvaluationContext() {
 
             @Override
-            public String currencySymbol() {
-                return "$";
-            }
-
-            @Override
-            public char decimalSeparator() {
-                return '.';
-            }
-
-            @Override
-            public String exponentSymbol() {
-                return "E";
-            }
-
-            @Override
-            public char groupingSeparator() {
-                return ',';
-            }
-
-            @Override
-            public char negativeSign() {
-                return '-';
-            }
-
-            @Override
-            public char percentageSymbol() {
-                return '%';
-            }
-
-            @Override
-            public char positiveSign() {
-                return '+';
-            }
-
-            @Override
             public MathContext mathContext() {
-                return this.mathContext;
+                return MathContext.DECIMAL64;
             }
-
-            private final MathContext mathContext = MathContext.DECIMAL64;
 
             @Override
             public <T> Either<T, String> convert(final Object value, final Class<T> target) {

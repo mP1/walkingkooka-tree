@@ -22,10 +22,11 @@ import walkingkooka.math.FakeDecimalNumberContext;
 
 import java.math.MathContext;
 import java.util.List;
+import java.util.Locale;
 import java.util.Objects;
 import java.util.Optional;
 
-public class FakeExpressionEvaluationContext extends FakeDecimalNumberContext implements ExpressionEvaluationContext {
+public class FakeExpressionEvaluationContext implements ExpressionEvaluationContext {
 
     public FakeExpressionEvaluationContext() {
         super();
@@ -52,6 +53,11 @@ public class FakeExpressionEvaluationContext extends FakeDecimalNumberContext im
     @Override
     public Optional<Expression> reference(final ExpressionReference reference) {
         Objects.requireNonNull(reference, "reference");
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public Locale locale() {
         throw new UnsupportedOperationException();
     }
 

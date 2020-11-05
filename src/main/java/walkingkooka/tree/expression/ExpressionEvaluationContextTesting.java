@@ -29,8 +29,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 /**
  * Mixing testing interface for {@link ExpressionEvaluationContext}
  */
-public interface ExpressionEvaluationContextTesting<C extends ExpressionEvaluationContext> extends DecimalNumberContextTesting2<C>,
-        CanConvertTesting<C>,
+public interface ExpressionEvaluationContextTesting<C extends ExpressionEvaluationContext> extends CanConvertTesting<C>,
         ContextTesting<C> {
 
     @Test
