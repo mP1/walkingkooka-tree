@@ -48,6 +48,11 @@ public final class TypeNameExpressionFunctionTest implements ClassTesting2<TypeN
                 result);
     }
 
+    @Test
+    public void testResolveReferencesTrue() {
+        this.resolveReferenceAndCheck(true);
+    }
+
     @Override
     public ExpressionFunctionContext createContext() {
         return ExpressionFunctionContexts.fake();

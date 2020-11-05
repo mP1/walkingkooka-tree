@@ -39,6 +39,11 @@ public final class NodeExpressionFunctionTest implements ClassTesting2<NodeExpre
                 NODE);
     }
 
+    @Test
+    public void testResolveReferencesTrue() {
+        this.resolveReferenceAndCheck(true);
+    }
+
     @Override
     public NodeSelectorExpressionFunctionContext<TestNode, StringName, StringName, Object> createContext() {
         return new FakeNodeSelectorExpressionFunctionContext<>() {

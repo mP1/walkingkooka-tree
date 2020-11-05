@@ -17,6 +17,7 @@
 
 package walkingkooka.tree.expression.function;
 
+import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.Either;
 import walkingkooka.convert.ConverterContexts;
@@ -39,6 +40,12 @@ public abstract class ExpressionFunctionTestCase<F extends ExpressionFunction<T,
         super();
     }
 
+    @Test
+    public final void testResolveReferencesTrue() {
+        this.resolveReferenceAndCheck(true);
+    }
+
+
     final void apply2(final Object... parameters) {
         this.createBiFunction().apply(parameters(parameters), this.createContext());
     }
@@ -53,7 +60,6 @@ public abstract class ExpressionFunctionTestCase<F extends ExpressionFunction<T,
                               final T result) {
         this.applyAndCheck2(function, parameters, this.createContext(), result);
     }
-
 
     @Override
     public ExpressionFunctionContext createContext() {

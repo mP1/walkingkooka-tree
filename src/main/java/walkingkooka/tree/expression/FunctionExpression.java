@@ -17,6 +17,8 @@
 
 package walkingkooka.tree.expression;
 
+import walkingkooka.tree.expression.function.ExpressionFunction;
+import walkingkooka.tree.expression.function.ExpressionFunctionContext;
 import walkingkooka.visit.Visiting;
 
 import java.time.LocalDate;
@@ -24,6 +26,7 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.List;
 import java.util.Objects;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
 /**
@@ -137,11 +140,16 @@ public final class FunctionExpression extends VariableExpression {
     }
 
     private Object executeFunction(final ExpressionEvaluationContext context) {
-        return context.evaluate(this.name(),
-                this.value()
+        final ExpressionFunction<?, ExpressionFunctionContext> function = context.function(this.name());
+        final Function<Expression, Object> mapper = function.resolveReferences() ?
+                (e) -> e.toValue(context) :
+                (e) -> e.toReferenceOrValue(context);
+
+        return function.apply(this.value()
                         .stream()
-                        .map(v -> v.toValue(context))
-                        .collect(Collectors.toList()));
+                        .map(mapper)
+                        .collect(Collectors.toList()),
+                context);
     }
 
     // Object.........................................................................................................

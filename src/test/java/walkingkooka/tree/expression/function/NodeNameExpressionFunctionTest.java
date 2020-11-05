@@ -42,6 +42,11 @@ public final class NodeNameExpressionFunctionTest implements ClassTesting2<NodeN
                 NAME);
     }
 
+    @Test
+    public void testResolveReferencesTrue() {
+        this.resolveReferenceAndCheck(true);
+    }
+
     @Override
     public ExpressionFunctionContext createContext() {
         return new FakeExpressionFunctionContext() {

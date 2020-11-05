@@ -72,6 +72,17 @@ public interface ExpressionFunctionTesting<F extends ExpressionFunction<V, C>, V
 
     abstract C createContext();
 
+    default void resolveReferenceAndCheck(final boolean resolveReference) {
+        this.resolveReferenceAndCheck(this.createBiFunction(), resolveReference);
+    }
+
+    default void resolveReferenceAndCheck(final ExpressionFunction<?, ?> function,
+                                          final boolean resolveReference) {
+        assertEquals(resolveReference,
+                function.resolveReferences(),
+                () -> function.name() + " resolveReferences: " + function);
+    }
+
     default <T> Either<T, String> convert(final Object value, final Class<T> target) {
         if (target.isInstance(value)) {
             return Either.left(target.cast(value));

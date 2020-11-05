@@ -37,4 +37,11 @@ public interface ExpressionFunction<T, C extends ExpressionFunctionContext> exte
         Objects.requireNonNull(name, "name");
         return CustomNameExpressionFunction.with(this, name);
     }
+
+    /**
+     * When <code>true</code> parameters that are{@link walkingkooka.tree.expression.ExpressionReference are resolved to
+     * their actual non {@link walkingkooka.tree.expression.Expression} value.
+     * This is only honoured when {@link ExpressionFunctionContext#evaluate(FunctionExpressionName, List)} is used.
+     */
+    boolean resolveReferences();
 }
