@@ -1997,7 +1997,7 @@ public final class NodeSelectorNodeSelectorParserTokenVisitorTest implements Nod
     }
 
     private ExpressionNumberExpression expressionNumberExpression(final int value) {
-        return Expression.expressionNumber(EXPRESSION_NUMBER_KIND.create(value)); // NodeSelectorExpressionNumberParserToken requires BigDecimal
+        return Expression.expressionNumber(EXPRESSION_NUMBER_KIND.create(value));
     }
 
     @Override
