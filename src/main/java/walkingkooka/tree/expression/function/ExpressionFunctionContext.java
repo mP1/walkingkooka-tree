@@ -37,6 +37,11 @@ public interface ExpressionFunctionContext extends Context,
         HasMathContext {
 
     /**
+     * Returns the {@link ExpressionFunction} with the given {@link FunctionExpressionName}.
+     */
+    ExpressionFunction<?, ExpressionFunctionContext> function(final FunctionExpressionName name);
+
+    /**
      * Constant for functions without any parameters.
      */
     List<Object> NO_PARAMETERS = Lists.empty();

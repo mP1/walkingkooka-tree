@@ -19,6 +19,8 @@ package walkingkooka.tree.expression;
 
 import walkingkooka.Either;
 import walkingkooka.collect.set.Sets;
+import walkingkooka.tree.expression.function.ExpressionFunction;
+import walkingkooka.tree.expression.function.ExpressionFunctionContext;
 
 import java.math.MathContext;
 import java.util.List;
@@ -54,6 +56,11 @@ final class CycleDetectingExpressionEvaluationContext implements ExpressionEvalu
     @Override
     public ExpressionNumberKind expressionNumberKind() {
         return this.context.expressionNumberKind();
+    }
+
+    @Override
+    public ExpressionFunction<?, ExpressionFunctionContext> function(final FunctionExpressionName name) {
+        return this.context.function(name);
     }
 
     @Override
