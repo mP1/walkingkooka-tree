@@ -61,6 +61,11 @@ public interface ExpressionFunctionTesting<F extends ExpressionFunction<V, C>, V
         assertSame(function, function.setName(function.name()));
     }
 
+    @Test
+    default void testParametersWithNullFunction() {
+        assertThrows(NullPointerException.class, () -> this.createBiFunction().parameters(null));
+    }
+
     default <TT, RR, CC extends ExpressionFunctionContext> void applyAndCheck2(final ExpressionFunction<RR, CC> function,
                                                                                final List<Object> parameters,
                                                                                final CC context,
