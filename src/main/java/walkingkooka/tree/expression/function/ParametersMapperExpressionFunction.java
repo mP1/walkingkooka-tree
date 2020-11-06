@@ -26,18 +26,18 @@ import java.util.function.BiFunction;
 /**
  * Wraps an {@link ExpressionFunction} and applies a {@link java.util.function.Function} on the paraneters before calling the wrapped.
  */
-final class ParameterMapperExpressionFunction<T, C extends ExpressionFunctionContext> implements ExpressionFunction<T, C> {
+final class ParametersMapperExpressionFunction<T, C extends ExpressionFunctionContext> implements ExpressionFunction<T, C> {
 
-    static <T, C extends ExpressionFunctionContext> ParameterMapperExpressionFunction<T, C> with(final BiFunction<List<Object>, C, List<Object>> mapper,
-                                                                                                 final ExpressionFunction<T, C> function) {
+    static <T, C extends ExpressionFunctionContext> ParametersMapperExpressionFunction<T, C> with(final BiFunction<List<Object>, C, List<Object>> mapper,
+                                                                                                  final ExpressionFunction<T, C> function) {
         Objects.requireNonNull(mapper, "mapper");
         Objects.requireNonNull(function, "function");
 
-        return new ParameterMapperExpressionFunction<>(mapper, function);
+        return new ParametersMapperExpressionFunction<>(mapper, function);
     }
 
-    private ParameterMapperExpressionFunction(final BiFunction<List<Object>, C, List<Object>> mapper,
-                                              final ExpressionFunction<T, C> function) {
+    private ParametersMapperExpressionFunction(final BiFunction<List<Object>, C, List<Object>> mapper,
+                                               final ExpressionFunction<T, C> function) {
         this.mapper = mapper;
         this.function = function;
     }
@@ -65,7 +65,7 @@ final class ParameterMapperExpressionFunction<T, C extends ExpressionFunctionCon
     public ExpressionFunction<T, C> parameters(final BiFunction<List<Object>, C, List<Object>> mapper) {
         return this.mapper.equals(mapper) ?
                 this :
-                ParameterMapperExpressionFunction.with(mapper, this);
+                ParametersMapperExpressionFunction.with(mapper, this);
     }
 
     /**

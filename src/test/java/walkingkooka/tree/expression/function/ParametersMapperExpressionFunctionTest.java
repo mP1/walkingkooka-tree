@@ -32,10 +32,10 @@ import static org.junit.jupiter.api.Assertions.assertNotSame;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class ParameterMapperExpressionFunctionTest implements ExpressionFunctionTesting<ParameterMapperExpressionFunction<Object, FakeExpressionFunctionContext>,
+public final class ParametersMapperExpressionFunctionTest implements ExpressionFunctionTesting<ParametersMapperExpressionFunction<Object, FakeExpressionFunctionContext>,
         Object,
         FakeExpressionFunctionContext>,
-        ToStringTesting<ParameterMapperExpressionFunction<Object, FakeExpressionFunctionContext>> {
+        ToStringTesting<ParametersMapperExpressionFunction<Object, FakeExpressionFunctionContext>> {
 
     private final static BiFunction<List<Object>, FakeExpressionFunctionContext, List<Object>> MAPPER = (p, c) -> p.stream()
             .map(pp -> pp.toString().toUpperCase())
@@ -66,12 +66,12 @@ public final class ParameterMapperExpressionFunctionTest implements ExpressionFu
 
     @Test
     public void testWithNullMapperFails() {
-        assertThrows(NullPointerException.class, () -> ParameterMapperExpressionFunction.with(null, FUNCTION));
+        assertThrows(NullPointerException.class, () -> ParametersMapperExpressionFunction.with(null, FUNCTION));
     }
 
     @Test
     public void testWithNullFunctionFails() {
-        assertThrows(NullPointerException.class, () -> ParameterMapperExpressionFunction.with(MAPPER, null));
+        assertThrows(NullPointerException.class, () -> ParametersMapperExpressionFunction.with(MAPPER, null));
     }
 
     @Test
@@ -97,7 +97,7 @@ public final class ParameterMapperExpressionFunctionTest implements ExpressionFu
     }
 
     private void resolveReferencesAndCheck(final boolean resolveReferences) {
-        assertEquals(resolveReferences, ParameterMapperExpressionFunction.with(MAPPER, new FakeExpressionFunction<>() {
+        assertEquals(resolveReferences, ParametersMapperExpressionFunction.with(MAPPER, new FakeExpressionFunction<>() {
             @Override
             public boolean resolveReferences() {
                 return resolveReferences;
@@ -107,18 +107,18 @@ public final class ParameterMapperExpressionFunctionTest implements ExpressionFu
 
     @Test
     public void testMapSameFunction() {
-        final ParameterMapperExpressionFunction<Object, FakeExpressionFunctionContext> function = this.createBiFunction();
+        final ParametersMapperExpressionFunction<Object, FakeExpressionFunctionContext> function = this.createBiFunction();
         assertSame(function, function.parameters(MAPPER));
     }
 
     @Test
     public void testMapFunctionThenApply() {
-        final ParameterMapperExpressionFunction<Object, FakeExpressionFunctionContext> function = this.createBiFunction();
+        final ParametersMapperExpressionFunction<Object, FakeExpressionFunctionContext> function = this.createBiFunction();
 
         final BiFunction<List<Object>, FakeExpressionFunctionContext, List<Object>> mapper = (p, c) -> p.stream()
                 .map(pp -> pp.toString() + "-a")
                 .collect(Collectors.toList());
-        final ParameterMapperExpressionFunction<Object, FakeExpressionFunctionContext> function2 = Cast.to(function.parameters(mapper));
+        final ParametersMapperExpressionFunction<Object, FakeExpressionFunctionContext> function2 = Cast.to(function.parameters(mapper));
         assertNotSame(function, function2);
 
         this.applyAndCheck(function2,
@@ -135,8 +135,8 @@ public final class ParameterMapperExpressionFunctionTest implements ExpressionFu
     // helpers..........................................................................................................
 
     @Override
-    public ParameterMapperExpressionFunction<Object, FakeExpressionFunctionContext> createBiFunction() {
-        return ParameterMapperExpressionFunction.with(MAPPER, FUNCTION);
+    public ParametersMapperExpressionFunction<Object, FakeExpressionFunctionContext> createBiFunction() {
+        return ParametersMapperExpressionFunction.with(MAPPER, FUNCTION);
     }
 
     @Override
@@ -145,7 +145,7 @@ public final class ParameterMapperExpressionFunctionTest implements ExpressionFu
     }
 
     @Override
-    public Class<ParameterMapperExpressionFunction<Object, FakeExpressionFunctionContext>> type() {
-        return Cast.to(ParameterMapperExpressionFunction.class);
+    public Class<ParametersMapperExpressionFunction<Object, FakeExpressionFunctionContext>> type() {
+        return Cast.to(ParametersMapperExpressionFunction.class);
     }
 }

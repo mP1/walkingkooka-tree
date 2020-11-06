@@ -49,6 +49,6 @@ public interface ExpressionFunction<T, C extends ExpressionFunctionContext> exte
      * Returns a ne {@link ExpressionFunction} that adds the parameter mapper before this function.
      */
     default ExpressionFunction<T, C> parameters(final BiFunction<List<Object>, C, List<Object>> mapper) {
-        return ParameterMapperExpressionFunction.with(mapper, this);
+        return ParametersMapperExpressionFunction.with(mapper, this);
     }
 }
