@@ -44,4 +44,11 @@ public interface ExpressionFunction<T, C extends ExpressionFunctionContext> exte
      * This is only honoured when {@link ExpressionFunctionContext#evaluate(FunctionExpressionName, List)} is used.
      */
     boolean resolveReferences();
+
+    /**
+     * Returns a ne {@link ExpressionFunction} that adds the parameter mapper before this function.
+     */
+    default ExpressionFunction<T, C> parameters(final BiFunction<List<Object>, C, List<Object>> mapper) {
+        return ParameterMapperExpressionFunction.with(mapper, this);
+    }
 }
