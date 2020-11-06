@@ -36,6 +36,8 @@ public abstract class ParametersMapperExpressionFunctionBiFunctionTestCase2<F ex
 
     final void applyAndCheck2(final List<Object> parameters,
                               final List<Object> expected) {
-        this.applyAndCheck(parameters, new FakeExpressionFunctionContext(), expected);
+        this.applyAndCheck(parameters, this.createContext(), expected);
     }
+
+    abstract FakeExpressionFunctionContext createContext();
 }

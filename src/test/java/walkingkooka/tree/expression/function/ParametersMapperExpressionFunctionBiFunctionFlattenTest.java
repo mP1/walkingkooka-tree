@@ -83,4 +83,9 @@ public final class ParametersMapperExpressionFunctionBiFunctionFlattenTest exten
     public Class<ParametersMapperExpressionFunctionBiFunctionFlatten<FakeExpressionFunctionContext>> type() {
         return Cast.to(ParametersMapperExpressionFunctionBiFunctionFlatten.class);
     }
+
+    @Override
+    FakeExpressionFunctionContext createContext() {
+        return new FakeExpressionFunctionContext();
+    }
 }
