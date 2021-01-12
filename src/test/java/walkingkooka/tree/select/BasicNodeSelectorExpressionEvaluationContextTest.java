@@ -36,7 +36,7 @@ import walkingkooka.tree.expression.ExpressionNumberKind;
 import walkingkooka.tree.expression.FunctionExpressionName;
 import walkingkooka.tree.expression.function.ExpressionFunction;
 import walkingkooka.tree.expression.function.ExpressionFunctionContext;
-import walkingkooka.tree.expression.function.UnknownFunctionException;
+import walkingkooka.tree.expression.function.UnknownExpressionFunctionException;
 import walkingkooka.tree.select.parser.NodeSelectorAttributeName;
 
 import java.math.MathContext;
@@ -125,7 +125,7 @@ public final class BasicNodeSelectorExpressionEvaluationContextTest implements N
     private Function<FunctionExpressionName, ExpressionFunction<?, ExpressionFunctionContext>> functions() {
         return (n) -> {
             Objects.requireNonNull(n, "name");
-            throw new UnknownFunctionException(n);
+            throw new UnknownExpressionFunctionException(n);
         };
     }
 

@@ -23,11 +23,11 @@ import walkingkooka.tree.expression.FunctionExpressionName;
 
 import java.util.Objects;
 
-public class UnknownFunctionException extends ExpressionException {
+public class UnknownExpressionFunctionException extends ExpressionException {
 
     private static final long serialVersionUID = 1L;
 
-    public UnknownFunctionException(final FunctionExpressionName name) {
+    public UnknownExpressionFunctionException(final FunctionExpressionName name) {
         super();
         this.name = Objects.requireNonNull(name, "name");
     }
