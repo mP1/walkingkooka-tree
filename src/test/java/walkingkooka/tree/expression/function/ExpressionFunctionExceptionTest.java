@@ -17,26 +17,24 @@
 
 package walkingkooka.tree.expression.function;
 
-import org.junit.jupiter.api.Test;
 import walkingkooka.reflect.JavaVisibility;
-import walkingkooka.reflect.ThrowableTesting2;
-import walkingkooka.tree.expression.FunctionExpressionName;
+import walkingkooka.reflect.StandardThrowableTesting;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+public final class ExpressionFunctionExceptionTest implements StandardThrowableTesting<ExpressionFunctionException> {
 
-public final class UnknownFunctionExceptionTest implements ThrowableTesting2<UnknownFunctionException> {
-
-    @Test
-    public void testCreate() {
-        final FunctionExpressionName name = FunctionExpressionName.with("custom-function");
-        final UnknownFunctionException exception = new UnknownFunctionException(name);
-        this.checkMessage(exception, "Unknown function \"custom-function\"");
-        assertEquals(name, exception.name());
+    @Override
+    public ExpressionFunctionException createThrowable(final String message) {
+        return new ExpressionFunctionException(message);
     }
 
     @Override
-    public Class<UnknownFunctionException> type() {
-        return UnknownFunctionException.class;
+    public ExpressionFunctionException createThrowable(final String message, final Throwable cause) {
+        return new ExpressionFunctionException(message, cause);
+    }
+
+    @Override
+    public Class<ExpressionFunctionException> type() {
+        return ExpressionFunctionException.class;
     }
 
     @Override

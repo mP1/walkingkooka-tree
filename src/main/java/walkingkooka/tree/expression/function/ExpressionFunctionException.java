@@ -17,28 +17,21 @@
 
 package walkingkooka.tree.expression.function;
 
-import walkingkooka.reflect.JavaVisibility;
-import walkingkooka.reflect.StandardThrowableTesting;
+import walkingkooka.tree.expression.ExpressionException;
 
-public final class FunctionExceptionTest implements StandardThrowableTesting<FunctionException> {
+public class ExpressionFunctionException extends ExpressionException {
 
-    @Override
-    public FunctionException createThrowable(final String message) {
-        return new FunctionException(message);
+    private static final long serialVersionUID = 1L;
+
+    protected ExpressionFunctionException() {
+        super();
     }
 
-    @Override
-    public FunctionException createThrowable(final String message, final Throwable cause) {
-        return new FunctionException(message, cause);
+    public ExpressionFunctionException(final String message) {
+        super(message);
     }
 
-    @Override
-    public Class<FunctionException> type() {
-        return FunctionException.class;
-    }
-
-    @Override
-    public JavaVisibility typeVisibility() {
-        return JavaVisibility.PUBLIC;
+    public ExpressionFunctionException(final String message, final Throwable cause) {
+        super(message, cause);
     }
 }
