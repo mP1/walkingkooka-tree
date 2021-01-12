@@ -24,19 +24,19 @@ import walkingkooka.tree.expression.FunctionExpressionName;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public final class UnknownExpressionFunctionExceptionTest implements ThrowableTesting2<UnknownFunctionException> {
+public final class UnknownExpressionFunctionExceptionTest implements ThrowableTesting2<UnknownExpressionFunctionException> {
 
     @Test
     public void testCreate() {
         final FunctionExpressionName name = FunctionExpressionName.with("custom-function");
-        final UnknownFunctionException exception = new UnknownFunctionException(name);
+        final UnknownExpressionFunctionException exception = new UnknownExpressionFunctionException(name);
         this.checkMessage(exception, "Unknown function \"custom-function\"");
         assertEquals(name, exception.name());
     }
 
     @Override
-    public Class<UnknownFunctionException> type() {
-        return UnknownFunctionException.class;
+    public Class<UnknownExpressionFunctionException> type() {
+        return UnknownExpressionFunctionException.class;
     }
 
     @Override

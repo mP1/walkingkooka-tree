@@ -37,7 +37,7 @@ public interface ExpressionFunctionContextTesting<C extends ExpressionFunctionCo
 
     @Test
     default void testFunctionUnknownFunctionNameFails() {
-        assertThrows(UnknownFunctionException.class, () -> this.createContext().function(this.unknownFunctionName()));
+        assertThrows(UnknownExpressionFunctionException.class, () -> this.createContext().function(this.unknownFunctionName()));
     }
 
     @Test
