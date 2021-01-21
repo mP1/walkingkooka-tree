@@ -20,6 +20,7 @@ package walkingkooka.tree.expression;
 import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.Either;
+import walkingkooka.Value;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.convert.Converter;
 import walkingkooka.convert.ConverterContexts;
@@ -33,8 +34,13 @@ import walkingkooka.reflect.ClassTesting2;
 import walkingkooka.reflect.IsMethodTesting;
 import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.reflect.PublicStaticFactoryTesting;
+import walkingkooka.text.cursor.parser.DoubleParserToken;
+import walkingkooka.text.cursor.parser.LocalDateParserToken;
+import walkingkooka.text.cursor.parser.LocalDateTimeParserToken;
+import walkingkooka.text.cursor.parser.LocalTimeParserToken;
 import walkingkooka.text.cursor.parser.ParserContext;
 import walkingkooka.text.cursor.parser.ParserContexts;
+import walkingkooka.text.cursor.parser.ParserToken;
 import walkingkooka.text.cursor.parser.Parsers;
 import walkingkooka.tree.NodeTesting;
 
@@ -250,18 +256,30 @@ public abstract class ExpressionTestCase<N extends Expression> implements ClassT
     ExpressionEvaluationContext context() {
         final Function<ExpressionNumberConverterContext, ParserContext> parserContext = (c) -> ParserContexts.basic(c, c);
 
-        final Converter<ExpressionNumberConverterContext> stringDouble = Converters.parser(Double.class,
+        final Converter<ExpressionNumberConverterContext> stringDouble = Converters.parser(
+                Double.class,
                 Parsers.doubleParser(),
-                parserContext);
-        final Converter<ExpressionNumberConverterContext> stringLocalDate = Converters.parser(LocalDate.class,
+                parserContext,
+                (v) -> v.cast(DoubleParserToken.class).value()
+        );
+        final Converter<ExpressionNumberConverterContext> stringLocalDate = Converters.parser(
+                LocalDate.class,
                 Parsers.localDate((c) -> DateTimeFormatter.ISO_LOCAL_DATE),
-                parserContext);
-        final Converter<ExpressionNumberConverterContext> stringLocalDateTime = Converters.parser(LocalDateTime.class,
+                parserContext,
+                (v) -> v.cast(LocalDateParserToken.class).value()
+        );
+        final Converter<ExpressionNumberConverterContext> stringLocalDateTime = Converters.parser(
+                LocalDateTime.class,
                 Parsers.localDateTime((c) -> DateTimeFormatter.ISO_LOCAL_DATE_TIME),
-                parserContext);
-        final Converter<ExpressionNumberConverterContext> stringLocalTime = Converters.parser(LocalTime.class,
+                parserContext,
+                (v) -> v.cast(LocalDateTimeParserToken.class).value()
+        );
+        final Converter<ExpressionNumberConverterContext> stringLocalTime = Converters.parser(
+                LocalTime.class,
                 Parsers.localTime((c) -> DateTimeFormatter.ISO_LOCAL_TIME),
-                parserContext);
+                parserContext,
+                (v) -> v.cast(LocalTimeParserToken.class).value()
+        );
 
         final Converter<ExpressionNumberConverterContext> converters = Converters.collection(Lists.of(
                 Converters.simple(),

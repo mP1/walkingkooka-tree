@@ -26,6 +26,7 @@ import walkingkooka.datetime.DateTimeContexts;
 import walkingkooka.math.DecimalNumberContexts;
 import walkingkooka.reflect.ClassTesting2;
 import walkingkooka.reflect.JavaVisibility;
+import walkingkooka.text.cursor.parser.BigIntegerParserToken;
 import walkingkooka.text.cursor.parser.ParserContexts;
 import walkingkooka.text.cursor.parser.Parsers;
 import walkingkooka.tree.expression.function.ExpressionFunction;
@@ -299,7 +300,12 @@ public final class CycleDetectingExpressionEvaluationContextTest implements Clas
 
                     @Override
                     public <T> Either<T, String> convert(final Object value, final Class<T> target) {
-                        return Converters.parser(BigInteger.class, Parsers.bigInteger(10), (c) -> ParserContexts.basic(c, c))
+                        return Converters.parser(
+                                BigInteger.class,
+                                Parsers.bigInteger(10),
+                                (c) -> ParserContexts.basic(c, c),
+                                (t) -> t.cast(BigIntegerParserToken.class).value()
+                        )
                                 .convert(value,
                                         target,
                                         ConverterContexts.basic(Converters.fake(),
