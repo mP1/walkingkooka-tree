@@ -140,10 +140,13 @@ public final class NodeSelectorContext2ExpressionNodeSelectorTest extends NodeSe
                     }
 
                     private Converter<ExpressionNumberConverterContext> converter() {
-                        return Converters.collection(Lists.of(
-                                ExpressionNumber.toConverter(Converters.truthyNumberBoolean()),
-                                ExpressionNumber.fromConverter(Converters.numberNumber()),
-                                Converters.<String, Integer>function(v -> v instanceof String, Predicates.is(Integer.class), Integer::parseInt)));
+                        return Converters.collection(
+                                Lists.of(
+                                        ExpressionNumber.toConverter(Converters.truthyNumberBoolean()),
+                                        ExpressionNumber.fromConverter(Converters.numberNumber()),
+                                        Converters.<String, Integer, ExpressionNumberConverterContext>function(v -> v instanceof String, Predicates.is(Integer.class), Integer::parseInt)
+                                )
+                        );
                     }
                 });
         context.position = INDEX;

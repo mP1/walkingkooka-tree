@@ -20,7 +20,6 @@ package walkingkooka.tree.expression;
 import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.Either;
-import walkingkooka.Value;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.convert.Converter;
 import walkingkooka.convert.ConverterContexts;
@@ -40,7 +39,6 @@ import walkingkooka.text.cursor.parser.LocalDateTimeParserToken;
 import walkingkooka.text.cursor.parser.LocalTimeParserToken;
 import walkingkooka.text.cursor.parser.ParserContext;
 import walkingkooka.text.cursor.parser.ParserContexts;
-import walkingkooka.text.cursor.parser.ParserToken;
 import walkingkooka.text.cursor.parser.Parsers;
 import walkingkooka.tree.NodeTesting;
 
@@ -281,72 +279,75 @@ public abstract class ExpressionTestCase<N extends Expression> implements ClassT
                 (v) -> v.cast(LocalTimeParserToken.class).value()
         );
 
-        final Converter<ExpressionNumberConverterContext> converters = Converters.collection(Lists.of(
-                Converters.simple(),
-                new FakeConverter<ExpressionNumberConverterContext>() {
-                    @Override
-                    public boolean canConvert(final Object value,
-                                              final Class<?> type,
-                                              final ExpressionNumberConverterContext context) {
-                        return value instanceof ExpressionNumber && ExpressionNumber.class == type;
-                    }
+        final Converter<ExpressionNumberConverterContext> converters = Converters.collection(
+                Lists.of(
+                        Converters.simple(),
+                        new FakeConverter<ExpressionNumberConverterContext>() {
+                            @Override
+                            public boolean canConvert(final Object value,
+                                                      final Class<?> type,
+                                                      final ExpressionNumberConverterContext context) {
+                                return value instanceof ExpressionNumber && ExpressionNumber.class == type;
+                            }
 
-                    @Override
-                    public <T> Either<T, String> convert(final Object value,
-                                                         final Class<T> type,
-                                                         final ExpressionNumberConverterContext context) {
-                        return this.canConvert(value, type, context) ?
-                                Cast.to(Either.left(this.toExpressionNumber((ExpressionNumber)value))) :
-                                this.failConversion(value, type);
-                    }
+                            @Override
+                            public <T> Either<T, String> convert(final Object value,
+                                                                 final Class<T> type,
+                                                                 final ExpressionNumberConverterContext context) {
+                                return this.canConvert(value, type, context) ?
+                                        Cast.to(Either.left(this.toExpressionNumber((ExpressionNumber) value))) :
+                                        this.failConversion(value, type);
+                            }
 
-                    private ExpressionNumber toExpressionNumber(final ExpressionNumber value) {
-                        return value.setKind(EXPRESSION_NUMBER_KIND);
-                    }
-                },
-                // localDate ->
-                toBoolean(LocalDate.class, LocalDate.ofEpochDay(0)),
-                Converters.localDateLocalDateTime(),
-                ExpressionNumber.toConverter(Converters.localDateNumber(Converters.JAVA_EPOCH_OFFSET)),
-                Converters.localDateString((c) -> DateTimeFormatter.ISO_LOCAL_DATE),
-                // localDateTime ->
-                toBoolean(LocalDateTime.class, LocalDateTime.ofEpochSecond(0, 0, ZoneOffset.UTC)),
-                Converters.localDateTimeLocalDate(),
-                Converters.localDateTimeLocalTime(),
-                ExpressionNumber.toConverter(Converters.localDateTimeNumber(Converters.JAVA_EPOCH_OFFSET)),
-                Converters.localDateTimeString((c) -> DateTimeFormatter.ISO_LOCAL_DATE_TIME),
-                // localTime
-                toBoolean(LocalTime.class, LocalTime.ofNanoOfDay(0)),
-                Converters.localTimeLocalDateTime(),
-                ExpressionNumber.toConverter(Converters.localTimeNumber()),
-                Converters.localTimeString((c) -> DateTimeFormatter.ISO_LOCAL_TIME),
-                // ExpressionNumber ->),
-                ExpressionNumber.fromConverter(Converters.numberNumber()),
-                ExpressionNumber.fromConverter(Converters.truthyNumberBoolean()),
-                ExpressionNumber.fromConverter(Converters.numberLocalDate(Converters.JAVA_EPOCH_OFFSET)),
-                ExpressionNumber.fromConverter(Converters.numberLocalDateTime(Converters.JAVA_EPOCH_OFFSET)),
-                ExpressionNumber.fromConverter(Converters.numberLocalTime()),
-                ExpressionNumber.fromConverter(Converters.numberString((c) -> new DecimalFormat("#.###"))),
-                // Number ->),
-                ExpressionNumber.fromConverter(Converters.numberNumber()),
-                ExpressionNumber.fromConverter(Converters.truthyNumberBoolean()),
-                ExpressionNumber.fromConverter(Converters.numberLocalDate(Converters.JAVA_EPOCH_OFFSET)),
-                ExpressionNumber.fromConverter(Converters.numberLocalDateTime(Converters.JAVA_EPOCH_OFFSET)),
-                ExpressionNumber.fromConverter(Converters.numberLocalTime()),
-                ExpressionNumber.fromConverter(Converters.numberString((c) -> new DecimalFormat("#.###"))),
-                // string ->
-                Converters.<String, Boolean>function(v -> v instanceof String, Predicate.isEqual(Boolean.class), Boolean::valueOf),
-                stringLocalDate,
-                stringLocalDateTime,
-                stringLocalTime,
-                ExpressionNumber.toConverter(stringDouble),
-                Converters.objectString(),
-                // boolean ->
-                listToBoolean(),
-                fromBoolean(LocalDate.class, Converters.numberLocalDate(Converters.JAVA_EPOCH_OFFSET)),
-                fromBoolean(LocalDateTime.class, Converters.numberLocalDateTime(Converters.JAVA_EPOCH_OFFSET)),
-                fromBoolean(LocalTime.class, Converters.numberLocalTime()),
-                fromBoolean(ExpressionNumber.class, ExpressionNumber.toConverter(Converters.numberNumber()))));
+                            private ExpressionNumber toExpressionNumber(final ExpressionNumber value) {
+                                return value.setKind(EXPRESSION_NUMBER_KIND);
+                            }
+                        },
+                        // localDate ->
+                        toBoolean(LocalDate.class, LocalDate.ofEpochDay(0)),
+                        Converters.localDateLocalDateTime(),
+                        ExpressionNumber.toConverter(Converters.localDateNumber(Converters.JAVA_EPOCH_OFFSET)),
+                        Converters.localDateString((c) -> DateTimeFormatter.ISO_LOCAL_DATE),
+                        // localDateTime ->
+                        toBoolean(LocalDateTime.class, LocalDateTime.ofEpochSecond(0, 0, ZoneOffset.UTC)),
+                        Converters.localDateTimeLocalDate(),
+                        Converters.localDateTimeLocalTime(),
+                        ExpressionNumber.toConverter(Converters.localDateTimeNumber(Converters.JAVA_EPOCH_OFFSET)),
+                        Converters.localDateTimeString((c) -> DateTimeFormatter.ISO_LOCAL_DATE_TIME),
+                        // localTime
+                        toBoolean(LocalTime.class, LocalTime.ofNanoOfDay(0)),
+                        Converters.localTimeLocalDateTime(),
+                        ExpressionNumber.toConverter(Converters.localTimeNumber()),
+                        Converters.localTimeString((c) -> DateTimeFormatter.ISO_LOCAL_TIME),
+                        // ExpressionNumber ->),
+                        ExpressionNumber.fromConverter(Converters.numberNumber()),
+                        ExpressionNumber.fromConverter(Converters.truthyNumberBoolean()),
+                        ExpressionNumber.fromConverter(Converters.numberLocalDate(Converters.JAVA_EPOCH_OFFSET)),
+                        ExpressionNumber.fromConverter(Converters.numberLocalDateTime(Converters.JAVA_EPOCH_OFFSET)),
+                        ExpressionNumber.fromConverter(Converters.numberLocalTime()),
+                        ExpressionNumber.fromConverter(Converters.numberString((c) -> new DecimalFormat("#.###"))),
+                        // Number ->),
+                        ExpressionNumber.fromConverter(Converters.numberNumber()),
+                        ExpressionNumber.fromConverter(Converters.truthyNumberBoolean()),
+                        ExpressionNumber.fromConverter(Converters.numberLocalDate(Converters.JAVA_EPOCH_OFFSET)),
+                        ExpressionNumber.fromConverter(Converters.numberLocalDateTime(Converters.JAVA_EPOCH_OFFSET)),
+                        ExpressionNumber.fromConverter(Converters.numberLocalTime()),
+                        ExpressionNumber.fromConverter(Converters.numberString((c) -> new DecimalFormat("#.###"))),
+                        // string ->
+                        Converters.<String, Boolean, ExpressionNumberConverterContext>function(v -> v instanceof String, Predicate.isEqual(Boolean.class), Boolean::valueOf),
+                        stringLocalDate,
+                        stringLocalDateTime,
+                        stringLocalTime,
+                        ExpressionNumber.toConverter(stringDouble),
+                        Converters.objectString(),
+                        // boolean ->
+                        listToBoolean(),
+                        fromBoolean(LocalDate.class, Converters.numberLocalDate(Converters.JAVA_EPOCH_OFFSET)),
+                        fromBoolean(LocalDateTime.class, Converters.numberLocalDateTime(Converters.JAVA_EPOCH_OFFSET)),
+                        fromBoolean(LocalTime.class, Converters.numberLocalTime()),
+                        fromBoolean(ExpressionNumber.class, ExpressionNumber.toConverter(Converters.numberNumber()))
+                )
+        );
 
         return new FakeExpressionEvaluationContext() {
 
