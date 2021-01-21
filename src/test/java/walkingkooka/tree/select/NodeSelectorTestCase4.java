@@ -457,12 +457,14 @@ abstract public class NodeSelectorTestCase4<S extends NodeSelector<TestNode, Str
     }
 
     private Converter<ExpressionNumberConverterContext> converter() {
-        return Converters.collection(Lists.of(
-                ExpressionNumber.fromConverter(Converters.numberNumber()),
-                Converters.<String, Integer>function((t) -> t instanceof String, Predicates.is(Integer.class), Integer::parseInt),
-                Converters.function(t -> t instanceof Node, Predicates.is(Node.class), Function.identity()),
-                ExpressionNumber.toConverter(Converters.simple())
-        ));
+        return Converters.collection(
+                Lists.of(
+                        ExpressionNumber.fromConverter(Converters.numberNumber()),
+                        Converters.<String, Integer, ExpressionNumberConverterContext>function((t) -> t instanceof String, Predicates.is(Integer.class), Integer::parseInt),
+                        Converters.function(t -> t instanceof Node, Predicates.is(Node.class), Function.identity()),
+                        ExpressionNumber.toConverter(Converters.simple())
+                )
+        );
     }
 
     private ExpressionNumberConverterContext converterContext() {
