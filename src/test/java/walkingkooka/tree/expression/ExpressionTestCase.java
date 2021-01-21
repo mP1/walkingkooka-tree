@@ -249,7 +249,7 @@ public abstract class ExpressionTestCase<N extends Expression> implements ClassT
     }
 
     ExpressionEvaluationContext context() {
-        final Function<ConverterContext, ParserContext> parserContext = (c) -> ParserContexts.basic(c, c);
+        final Function<ExpressionNumberConverterContext, ParserContext> parserContext = (c) -> ParserContexts.basic(c, c);
 
         final Converter<ExpressionNumberConverterContext> stringNumber = Converters.parser(Number.class,
                 Parsers.bigDecimal(),
