@@ -22,7 +22,6 @@ import walkingkooka.Cast;
 import walkingkooka.Either;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.convert.Converter;
-import walkingkooka.convert.ConverterContext;
 import walkingkooka.convert.ConverterContexts;
 import walkingkooka.convert.Converters;
 import walkingkooka.convert.FakeConverter;
@@ -251,9 +250,6 @@ public abstract class ExpressionTestCase<N extends Expression> implements ClassT
     ExpressionEvaluationContext context() {
         final Function<ExpressionNumberConverterContext, ParserContext> parserContext = (c) -> ParserContexts.basic(c, c);
 
-        final Converter<ExpressionNumberConverterContext> stringNumber = Converters.parser(Number.class,
-                Parsers.bigDecimal(),
-                parserContext);
         final Converter<ExpressionNumberConverterContext> stringDouble = Converters.parser(Double.class,
                 Parsers.doubleParser(),
                 parserContext);
