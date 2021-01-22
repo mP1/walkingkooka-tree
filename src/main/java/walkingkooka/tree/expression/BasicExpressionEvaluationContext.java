@@ -84,6 +84,16 @@ final class BasicExpressionEvaluationContext implements ExpressionEvaluationCont
     private final ExpressionNumberKind expressionNumberKind;
 
     @Override
+    public int twoToFourDigitYear(final int year) {
+        return this.converterContext.twoToFourDigitYear(year);
+    }
+
+    @Override
+    public int twoDigitYear() {
+        return this.converterContext.twoDigitYear();
+    }
+
+    @Override
     public ExpressionFunction<?, ExpressionFunctionContext> function(final FunctionExpressionName name) {
         return this.functions.apply(name);
     }
