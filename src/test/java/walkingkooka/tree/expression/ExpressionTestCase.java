@@ -258,25 +258,25 @@ public abstract class ExpressionTestCase<N extends Expression> implements ClassT
                 Double.class,
                 Parsers.doubleParser(),
                 parserContext,
-                (v) -> v.cast(DoubleParserToken.class).value()
+                (v, c) -> v.cast(DoubleParserToken.class).value()
         );
         final Converter<ExpressionNumberConverterContext> stringLocalDate = Converters.parser(
                 LocalDate.class,
                 Parsers.localDate((c) -> DateTimeFormatter.ISO_LOCAL_DATE),
                 parserContext,
-                (v) -> v.cast(LocalDateParserToken.class).value()
+                (v, c) -> v.cast(LocalDateParserToken.class).value()
         );
         final Converter<ExpressionNumberConverterContext> stringLocalDateTime = Converters.parser(
                 LocalDateTime.class,
                 Parsers.localDateTime((c) -> DateTimeFormatter.ISO_LOCAL_DATE_TIME),
                 parserContext,
-                (v) -> v.cast(LocalDateTimeParserToken.class).value()
+                (v, c) -> v.cast(LocalDateTimeParserToken.class).value()
         );
         final Converter<ExpressionNumberConverterContext> stringLocalTime = Converters.parser(
                 LocalTime.class,
                 Parsers.localTime((c) -> DateTimeFormatter.ISO_LOCAL_TIME),
                 parserContext,
-                (v) -> v.cast(LocalTimeParserToken.class).value()
+                (v, c) -> v.cast(LocalTimeParserToken.class).value()
         );
 
         final Converter<ExpressionNumberConverterContext> converters = Converters.collection(

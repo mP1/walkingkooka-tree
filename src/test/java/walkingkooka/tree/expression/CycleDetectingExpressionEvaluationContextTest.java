@@ -304,7 +304,7 @@ public final class CycleDetectingExpressionEvaluationContextTest implements Clas
                                 BigInteger.class,
                                 Parsers.bigInteger(10),
                                 (c) -> ParserContexts.basic(c, c),
-                                (t) -> t.cast(BigIntegerParserToken.class).value()
+                                (t, c) -> t.cast(BigIntegerParserToken.class).value()
                         )
                                 .convert(value,
                                         target,
