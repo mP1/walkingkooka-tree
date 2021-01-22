@@ -59,6 +59,16 @@ final class CycleDetectingExpressionEvaluationContext implements ExpressionEvalu
     }
 
     @Override
+    public int twoToFourDigitYear(final int year) {
+        return this.context.twoToFourDigitYear(year);
+    }
+
+    @Override
+    public int twoDigitYear() {
+        return this.context.twoDigitYear();
+    }
+
+    @Override
     public ExpressionFunction<?, ExpressionFunctionContext> function(final FunctionExpressionName name) {
         return this.context.function(name);
     }

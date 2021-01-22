@@ -20,6 +20,7 @@ package walkingkooka.tree.expression.function;
 import walkingkooka.Context;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.convert.CanConvert;
+import walkingkooka.datetime.YearContext;
 import walkingkooka.locale.HasLocale;
 import walkingkooka.math.HasMathContext;
 import walkingkooka.tree.expression.ExpressionNumberContext;
@@ -34,7 +35,8 @@ public interface ExpressionFunctionContext extends Context,
         CanConvert,
         ExpressionNumberContext,
         HasLocale,
-        HasMathContext {
+        HasMathContext,
+        YearContext {
 
     /**
      * Returns the {@link ExpressionFunction} with the given {@link FunctionExpressionName}.
