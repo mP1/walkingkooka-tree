@@ -41,7 +41,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.function.BiFunction;
 
-final class NodeSelectorEbnfParserCombinatorSyntaxTreeTransformer implements EbnfParserCombinatorSyntaxTreeTransformer {
+final class NodeSelectorEbnfParserCombinatorSyntaxTreeTransformer implements EbnfParserCombinatorSyntaxTreeTransformer<ParserContext> {
 
     private static ParserToken attribute(final ParserToken token, final ParserContext context) {
         return parent(token, NodeSelectorParserToken::attribute);
