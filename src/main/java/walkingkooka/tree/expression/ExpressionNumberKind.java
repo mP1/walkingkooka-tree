@@ -17,9 +17,6 @@
 
 package walkingkooka.tree.expression;
 
-import walkingkooka.convert.Converter;
-import walkingkooka.convert.ConverterContext;
-
 import java.math.BigDecimal;
 import java.math.BigInteger;
 
@@ -33,10 +30,19 @@ public enum ExpressionNumberKind {
         public ExpressionNumber create(final Number number) {
             return number instanceof ExpressionNumberBigDecimal ?
                     (ExpressionNumberBigDecimal) number :
-                    number instanceof BigDecimal ? ExpressionNumberBigDecimal.withBigDecimal((BigDecimal) number) :
-                            number instanceof BigInteger ? ExpressionNumberBigDecimal.withBigDecimal(new BigDecimal((BigInteger) number)) :
-                                    number instanceof Long ? ExpressionNumberBigDecimal.withBigDecimal(new BigDecimal((Long) number)) :
-                                            ExpressionNumberBigDecimal.withBigDecimal(BigDecimal.valueOf(number.doubleValue()));
+                    number instanceof BigDecimal ? fromBigDecimal((BigDecimal) number) :
+                            number instanceof BigInteger ? fromBigDecimal(new BigDecimal((BigInteger) number)) :
+                                    number instanceof Long ? fromBigDecimal(new BigDecimal((Long) number)) :
+                                            fromBigDecimal(BigDecimal.valueOf(number.doubleValue()));
+        }
+
+        @Override
+        public ExpressionNumber parse(final String text) {
+            return fromBigDecimal(new BigDecimal(text));
+        }
+
+        private ExpressionNumber fromBigDecimal(final BigDecimal value) {
+            return ExpressionNumberBigDecimal.withBigDecimal(value);
         }
 
         @Override
@@ -50,7 +56,16 @@ public enum ExpressionNumberKind {
         public ExpressionNumber create(final Number number) {
             return number instanceof ExpressionNumberDouble ?
                     (ExpressionNumberDouble) number :
-                    ExpressionNumberDouble.withDouble(number.doubleValue());
+                    fromDouble(number.doubleValue());
+        }
+
+        @Override
+        public ExpressionNumber parse(final String text) {
+            return fromDouble(Double.parseDouble(text));
+        }
+
+        private ExpressionNumber fromDouble(final double value) {
+            return ExpressionNumberDouble.withDouble(value);
         }
 
         @Override
@@ -63,6 +78,11 @@ public enum ExpressionNumberKind {
      * Factory that creates the appropriate {@link ExpressionNumber} instance
      */
     public abstract ExpressionNumber create(final Number number);
+
+    /**
+     * Factory that parses the {@link String text} into the appropriate {@link ExpressionNumber} instance
+     */
+    public abstract ExpressionNumber parse(final String text);
 
     /**
      * Returns either {@link BigDecimal} or {@link Double}.
