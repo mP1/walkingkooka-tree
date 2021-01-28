@@ -19,7 +19,6 @@ package walkingkooka.tree.expression;
 
 import walkingkooka.Either;
 import walkingkooka.convert.Converter;
-import walkingkooka.convert.ConverterContext;
 
 import java.util.Objects;
 
@@ -39,7 +38,7 @@ final class ExpressionNumberFromExpressionNumberNumberConverter<C extends Expres
     }
 
     /**
-     * Use Singleton
+     * Use factory
      */
     private ExpressionNumberFromExpressionNumberNumberConverter(final Converter<C> converter) {
         super();
