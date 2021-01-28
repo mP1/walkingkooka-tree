@@ -23,8 +23,8 @@ import walkingkooka.convert.Converter;
 import java.util.Objects;
 
 /**
- * A {@link Converter} that wraps another {@link Converter} that is converting {@link Number numbers} to another type.
- * This adds support for {@link ExpressionNumber} values.
+ * A {@link Converter} that adds support for converting {@link ExpressionNumber} to a target type by passing
+ * the value from the {@link ExpressionNumber} to an intermediate {@link Converter}.
  */
 final class ExpressionNumberFromExpressionNumberNumberConverter<C extends ExpressionNumberConverterContext> implements Converter<C> {
 
@@ -89,7 +89,8 @@ final class ExpressionNumberFromExpressionNumberNumberConverter<C extends Expres
     }
 
     /**
-     * The assumed {@link Converter} which takes a {@link Number} and converts to some other target.
+     * The assumed {@link Converter} which takes a {@link Number} from a {@link ExpressionNumber} and converts to requested
+     * target target.
      */
     private final Converter<C> converter;
 
