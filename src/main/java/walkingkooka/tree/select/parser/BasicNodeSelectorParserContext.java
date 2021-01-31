@@ -61,6 +61,11 @@ final class BasicNodeSelectorParserContext implements NodeSelectorParserContext 
     }
 
     @Override
+    public int defaultYear() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
     public String exponentSymbol() {
         return "E";
     }
