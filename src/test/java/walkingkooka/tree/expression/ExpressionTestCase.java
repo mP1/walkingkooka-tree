@@ -246,7 +246,11 @@ public abstract class ExpressionTestCase<N extends Expression> implements ClassT
     private ExpressionNumberConverterContext converterContext() {
         return ExpressionNumberConverterContexts.basic(Converters.simple(),
                 ConverterContexts.basic(Converters.fake(),
-                        DateTimeContexts.locale(Locale.ENGLISH, 20),
+                        DateTimeContexts.locale(
+                                Locale.ENGLISH,
+                                1900,
+                                20
+                        ),
                         DecimalNumberContexts.american(MathContext.DECIMAL32)),
                 EXPRESSION_NUMBER_KIND);
     }

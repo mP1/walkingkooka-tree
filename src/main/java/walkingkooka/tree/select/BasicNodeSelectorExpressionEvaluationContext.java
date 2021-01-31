@@ -82,6 +82,11 @@ final class BasicNodeSelectorExpressionEvaluationContext<N extends Node<N, NAME,
     private final N node;
 
     @Override
+    public int defaultYear() {
+        return this.context.defaultYear();
+    }
+
+    @Override
     public ExpressionNumberKind expressionNumberKind() {
         return this.context.expressionNumberKind();
     }

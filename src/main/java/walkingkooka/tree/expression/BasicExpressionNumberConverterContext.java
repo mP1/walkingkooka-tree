@@ -67,12 +67,17 @@ final class BasicExpressionNumberConverterContext implements ExpressionNumberCon
         return this.context.ampms();
     }
 
-    @Override 
+    @Override
     public String ampm(int hourOfDay) {
         return this.context.ampm(hourOfDay);
     }
 
-    @Override 
+    @Override
+    public int defaultYear() {
+        return this.context.defaultYear();
+    }
+
+    @Override
     public List<String> monthNames() {
         return this.context.monthNames();
     }
