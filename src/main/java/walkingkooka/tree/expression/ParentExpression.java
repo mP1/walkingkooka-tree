@@ -36,7 +36,7 @@ abstract class ParentExpression extends Expression {
         final Optional<Expression> p = Optional.of(this);
 
         final List<Expression> copy = Lists.array();
-        this.children = copy;
+        this.children = Lists.readOnly(copy);
 
         int i = 0;
         for (Expression child : children) {
