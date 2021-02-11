@@ -22,6 +22,8 @@ import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.naming.Name;
 import walkingkooka.text.CharSequences;
+import walkingkooka.text.printer.IndentingPrinter;
+import walkingkooka.text.printer.TreePrintable;
 import walkingkooka.tree.Node;
 import walkingkooka.tree.select.NodeSelector;
 import walkingkooka.tree.select.parser.NodeSelectorExpressionParserToken;
@@ -35,7 +37,8 @@ import java.util.Objects;
 import java.util.Optional;
 import java.util.function.Predicate;
 
-public abstract class Expression implements Node<Expression, FunctionExpressionName, Name, Object> {
+public abstract class Expression implements Node<Expression, FunctionExpressionName, Name, Object>,
+        TreePrintable {
 
     /**
      * An empty list that holds no children.
@@ -570,6 +573,18 @@ public abstract class Expression implements Node<Expression, FunctionExpressionN
      * Evaluates this node returning its value.
      */
     public abstract Object toValue(final ExpressionEvaluationContext context);
+
+    // TreePrintable...................................................................................................
+
+    @Override
+    public abstract void printTree(final IndentingPrinter printer); // seemed to solve j2cl complaining about inconsistent hierarchy.
+
+    /**
+     * Returns the type name helper that will appear in {@link TreePrintable} output.
+     */
+    final String typeName() {
+        return this.getClass().getSimpleName();
+    }
 
     // Object .......................................................................................................
 

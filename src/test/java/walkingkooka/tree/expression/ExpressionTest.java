@@ -21,6 +21,10 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.reflect.ClassTesting2;
 import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.text.CharSequences;
+import walkingkooka.text.Indentation;
+import walkingkooka.text.LineEnding;
+import walkingkooka.text.printer.IndentingPrinter;
+import walkingkooka.text.printer.Printers;
 
 import java.math.BigInteger;
 import java.time.LocalDate;
@@ -143,6 +147,38 @@ public final class ExpressionTest implements ClassTesting2<Expression> {
         assertEquals(type, node.getClass(), "node reflect of " + value);
         assertEquals(expected, type.cast(node).value(), "value");
     }
+
+    // TreePrinting......................................................................................................
+
+    @Test
+    public void testTreePrint() {
+        final ExpressionNumberKind kind = ExpressionNumberKind.DOUBLE;
+        final Expression expression = Expression.add(
+                Expression.expressionNumber(kind.create(1.5)),
+                Expression.multiply(
+                        Expression.string("20"),
+                        Expression.booleanExpression(true)
+                )
+        );
+
+        final StringBuilder printed = new StringBuilder();
+
+        try (final IndentingPrinter printer = Printers.stringBuilder(printed, LineEnding.NL).indenting(Indentation.with("  "))) {
+            expression.printTree(printer);
+
+            printer.flush();
+            assertEquals(
+                    "AddExpression\n" +
+                            "  ExpressionNumberExpression 1.5\n" +
+                            "  MultiplyExpression\n" +
+                            "    StringExpression \"20\"\n" +
+                            "    BooleanExpression true\n",
+                    printed.toString()
+            );
+        }
+    }
+
+    // ClassTesting......................................................................................................
 
     @Override
     public Class<Expression> type() {
