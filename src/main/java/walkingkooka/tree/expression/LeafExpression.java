@@ -21,6 +21,8 @@ import walkingkooka.Cast;
 import walkingkooka.NeverError;
 import walkingkooka.Value;
 import walkingkooka.collect.list.Lists;
+import walkingkooka.text.CharSequences;
+import walkingkooka.text.printer.IndentingPrinter;
 
 import java.util.List;
 import java.util.Objects;
@@ -81,6 +83,14 @@ abstract class LeafExpression<V> extends Expression implements Value<V> {
 
     @Override final Expression setChild(final Expression newChild) {
         return NeverError.unexpectedMethodCall(this, "setChild", newChild);
+    }
+
+    // TreePrintable....................................................................................................
+
+    @Override
+    public final void printTree(final IndentingPrinter printer) {
+        printer.print(this.typeName() + " " + CharSequences.quoteIfChars(this.value()));
+        printer.println();
     }
 
     // Object ......................................................................................................

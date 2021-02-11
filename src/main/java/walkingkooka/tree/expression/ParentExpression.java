@@ -18,6 +18,7 @@
 package walkingkooka.tree.expression;
 
 import walkingkooka.collect.list.Lists;
+import walkingkooka.text.printer.IndentingPrinter;
 
 import java.util.List;
 import java.util.Objects;
@@ -98,6 +99,22 @@ abstract class ParentExpression extends Expression {
      */
     public final Object toReferenceOrValue(final ExpressionEvaluationContext context) {
         return this.toValue(context);
+    }
+
+    // TreePrintable....................................................................................................
+
+    @Override
+    public final void printTree(final IndentingPrinter printer) {
+        printer.print(this.typeName());
+        printer.println();
+
+        printer.indent();
+
+        for (final Expression child : this.children()) {
+            child.printTree(printer);
+        }
+
+        printer.outdent();
     }
 
     // Object...........................................................................................................
