@@ -28,7 +28,8 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 /**
  * Mixing testing interface for {@link ExpressionEvaluationContext}
  */
-public interface ExpressionEvaluationContextTesting<C extends ExpressionEvaluationContext> extends ExpressionFunctionContextTesting<C> {
+public interface ExpressionEvaluationContextTesting<C extends ExpressionEvaluationContext> extends ExpressionFunctionContextTesting<C>,
+        ExpressionPurityContextTesting<C> {
 
     @Test
     default void testEvaluateNullExpressionFails() {
@@ -66,26 +67,6 @@ public interface ExpressionEvaluationContextTesting<C extends ExpressionEvaluati
     @Test
     default void testEvaluateFunctionNullParametersFails() {
         assertThrows(NullPointerException.class, () -> this.createContext().evaluate(FunctionExpressionName.with("sum"), null));
-    }
-
-    @Test
-    default void testIsPureNullNameFails() {
-        assertThrows(NullPointerException.class, () -> this.createContext().isPure(null));
-    }
-
-    default void isPureAndCheck(final FunctionExpressionName name,
-                                final boolean expected) {
-        this.isPureAndCheck(this.createContext(), name, expected);
-    }
-
-    default void isPureAndCheck(final ExpressionEvaluationContext context,
-                                final FunctionExpressionName name,
-                                final boolean expected) {
-        assertEquals(
-                expected,
-                context.isPure(name),
-                () -> "isPure " + name
-        );
     }
 
     @Test
