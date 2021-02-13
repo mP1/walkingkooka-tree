@@ -28,7 +28,9 @@ import walkingkooka.tree.expression.ExpressionNumber;
 import walkingkooka.tree.expression.ExpressionNumberConverterContext;
 import walkingkooka.tree.expression.ExpressionNumberConverterContexts;
 import walkingkooka.tree.expression.ExpressionNumberKind;
+import walkingkooka.tree.expression.ExpressionPurityContext;
 import walkingkooka.tree.expression.ExpressionPurityTesting;
+import walkingkooka.tree.expression.FunctionExpressionName;
 
 import java.util.List;
 
@@ -44,7 +46,16 @@ public abstract class ExpressionFunctionTestCase<F extends ExpressionFunction<T,
 
     @Test
     public final void testIsPureTrue() {
-        this.isPureAndCheck(this.createBiFunction(), true);
+        this.isPureAndCheck(
+                this.createBiFunction(),
+                new ExpressionPurityContext() {
+                    @Override
+                    public boolean isPure(final FunctionExpressionName name) {
+                        throw new UnsupportedOperationException();
+                    }
+                },
+                true
+        );
     }
 
     @Test

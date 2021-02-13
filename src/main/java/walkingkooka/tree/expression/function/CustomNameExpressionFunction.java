@@ -18,6 +18,7 @@
 package walkingkooka.tree.expression.function;
 
 import walkingkooka.Cast;
+import walkingkooka.tree.expression.ExpressionPurityContext;
 import walkingkooka.tree.expression.FunctionExpressionName;
 
 import java.util.List;
@@ -68,8 +69,8 @@ final class CustomNameExpressionFunction<T, C extends ExpressionFunctionContext>
     }
 
     @Override
-    public boolean isPure() {
-        return this.function.isPure();
+    public boolean isPure(final ExpressionPurityContext context) {
+        return this.function.isPure(context);
     }
 
     private final ExpressionFunction<T, C> function;

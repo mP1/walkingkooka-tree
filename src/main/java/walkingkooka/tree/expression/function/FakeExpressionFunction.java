@@ -17,6 +17,7 @@
 
 package walkingkooka.tree.expression.function;
 
+import walkingkooka.tree.expression.ExpressionPurityContext;
 import walkingkooka.tree.expression.FunctionExpressionName;
 
 import java.util.List;
@@ -29,7 +30,7 @@ public class FakeExpressionFunction<T, C extends ExpressionFunctionContext> impl
     }
 
     @Override
-    public boolean isPure() {
+    public boolean isPure(final ExpressionPurityContext context) {
         throw new UnsupportedOperationException();
     }
 

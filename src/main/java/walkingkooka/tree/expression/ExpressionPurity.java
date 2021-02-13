@@ -22,5 +22,5 @@ package walkingkooka.tree.expression;
  * Note this ignores function result differences any {@link ExpressionEvaluationContext} changes.
  */
 public interface ExpressionPurity {
-    boolean isPure();
+    boolean isPure(final ExpressionPurityContext context);
 }
