@@ -47,4 +47,15 @@ public abstract class ParentFixedExpressionTestCase<N extends ParentFixedExpress
     public void testParentWithoutChild() {
         assertThrows(UnsupportedOperationException.class, super::testParentWithoutChild);
     }
+
+    // ExpressionPurity.................................................................................................
+
+    @Test
+    public void testIsPure() {
+        this.isPureAndCheck(
+                this.createExpression(),
+                this.context(),
+                true
+        );
+    }
 }

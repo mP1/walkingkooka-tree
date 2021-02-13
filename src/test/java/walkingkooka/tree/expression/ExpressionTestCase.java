@@ -57,6 +57,7 @@ import java.util.function.Predicate;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public abstract class ExpressionTestCase<N extends Expression> implements ClassTesting2<Expression>,
+        ExpressionPurityTesting,
         IsMethodTesting<N>,
         NodeTesting<Expression, FunctionExpressionName, Name, Object> {
 
@@ -437,7 +438,7 @@ public abstract class ExpressionTestCase<N extends Expression> implements ClassT
 
     @Override
     public final Predicate<String> isMethodIgnoreMethodFilter() {
-        return (m) -> m.equals("isRoot") || m.equals("parentOrFail");
+        return (m) -> m.equals("isRoot") || m.equals("parentOrFail") || m.equals("isPure");
     }
 
     // ClassTestCase.........................................................................................

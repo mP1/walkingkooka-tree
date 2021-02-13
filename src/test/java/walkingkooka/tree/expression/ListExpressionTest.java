@@ -22,7 +22,6 @@ import walkingkooka.Either;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.visit.Visiting;
 
-import java.math.BigDecimal;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -83,6 +82,17 @@ public final class ListExpressionTest extends VariableExpressionTestCase<ListExp
                 function, function),
                 visited,
                 "visited");
+    }
+
+    // ExpressionPurity.................................................................................................
+
+    @Test
+    public void testIsPureTrue() {
+        this.isPureAndCheck(
+                this.createExpression(),
+                this.context(),
+                true
+        );
     }
 
     // Evaluation ...................................................................................................

@@ -32,6 +32,11 @@ abstract class ValueExpression<V> extends LeafExpression<V> {
     }
 
     @Override
+    public final boolean isPure(final ExpressionPurityContext context) {
+        return true;
+    }
+
+    @Override
     public final boolean toBoolean(final ExpressionEvaluationContext context) {
         return context.convertOrFail(this.value(), Boolean.class);
     }

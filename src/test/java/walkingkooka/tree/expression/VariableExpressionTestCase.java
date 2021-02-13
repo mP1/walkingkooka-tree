@@ -90,13 +90,23 @@ public abstract class VariableExpressionTestCase<N extends VariableExpression> e
         this.checkChildren(expression, this.children());
     }
 
+    // ExpressionPurity.................................................................................................
+
+    @Test
+    public void testIsPureTrue() {
+        this.isPureAndCheck(
+                this.createExpression(),
+                this.context(),
+                true
+        );
+    }
+
     @Test
     public final void testEqualsDifferentChildren() {
         assertNotEquals(this.createExpression(), this.createExpression(differentChild()));
     }
 
-    @Override
-    final N createExpression() {
+    @Override final N createExpression() {
         return this.createExpression(this.children());
     }
 

@@ -38,6 +38,7 @@ import java.util.Optional;
 import java.util.function.Predicate;
 
 public abstract class Expression implements Node<Expression, FunctionExpressionName, Name, Object>,
+        ExpressionPurity,
         TreePrintable {
 
     /**
