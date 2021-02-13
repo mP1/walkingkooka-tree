@@ -27,17 +27,13 @@ import java.util.stream.Collectors;
 /**
  * Context that travels during any expression evaluation.
  */
-public interface ExpressionEvaluationContext extends ExpressionFunctionContext {
+public interface ExpressionEvaluationContext extends ExpressionFunctionContext,
+        ExpressionPurityContext {
 
     /**
      * Evaluate the given {@link Expression} returning the result/value.
      */
     Object evaluate(final Expression expression);
-
-    /**
-     * Tests if the identified {@link ExpressionFunction} is pure.
-     */
-    boolean isPure(final FunctionExpressionName name);
 
     /**
      * If the {@link ExpressionFunction#resolveReferences()} is true, then replace references with values.
