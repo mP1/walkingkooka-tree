@@ -77,6 +77,13 @@ public final class ListExpression extends VariableExpression {
         return this.children();
     }
 
+    // ExpressionPurity.................................................................................................
+
+    @Override
+    public boolean isPure(final ExpressionPurityContext context) {
+        return this.isPureChildren(context);
+    }
+
     // Visitor.........................................................................................................
 
     @Override

@@ -68,6 +68,17 @@ public final class ReferenceExpressionTest extends LeafExpressionTestCase<Refere
         assertEquals("132", b.toString());
     }
 
+    // ExpressionPurity.................................................................................................
+
+    @Test
+    public void testIsPureFalse() {
+        this.isPureAndCheck(
+                this.createExpression(),
+                this.context(),
+                false
+        );
+    }
+
     // Evaluation ...................................................................................................
 
     @Test

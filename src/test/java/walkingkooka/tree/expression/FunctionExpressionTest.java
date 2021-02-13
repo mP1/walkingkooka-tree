@@ -64,6 +64,34 @@ public final class FunctionExpressionTest extends VariableExpressionTestCase<Fun
         this.checkChildren(different, node.children());
     }
 
+    // ExpressionPurity.................................................................................................
+
+    @Test
+    public void testIsPureTrue() {
+        this.isPureAndCheck2(true);
+    }
+
+    @Test
+    public void testIsPureFalse() {
+        this.isPureAndCheck2(false);
+    }
+
+    private void isPureAndCheck2(final boolean pure) {
+        final FunctionExpressionName name = this.name();
+
+        this.isPureAndCheck(
+                this.createExpression(),
+                new ExpressionPurityContext() {
+                    @Override
+                    public boolean isPure(final FunctionExpressionName n) {
+                        assertEquals(name, n, "name");
+                        return pure;
+                    }
+                },
+                pure
+        );
+    }
+
     @Test
     public void testToValueFunctionResolveReferencesTrue() {
         final StringName attribute = Names.string("attribute123");
@@ -267,7 +295,11 @@ public final class FunctionExpressionTest extends VariableExpressionTestCase<Fun
 
     @Override
     FunctionExpression createExpression(final List<Expression> children) {
-        return FunctionExpression.with(name("fx"), children);
+        return FunctionExpression.with(this.name(), children);
+    }
+
+    private FunctionExpressionName name() {
+        return this.name("fx");
     }
 
     private FunctionExpressionName name(final String name) {

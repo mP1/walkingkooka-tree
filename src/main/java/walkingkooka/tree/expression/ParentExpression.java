@@ -101,6 +101,21 @@ abstract class ParentExpression extends Expression {
         return this.toValue(context);
     }
 
+    // ExpressionPurity..................................................................................................
+
+    final boolean isPureChildren(final ExpressionPurityContext context) {
+        boolean pure = true;
+
+        for (final Expression expression : this.children()) {
+            pure = pure & expression.isPure(context);
+            if (!pure) {
+                break;
+            }
+        }
+
+        return pure;
+    }
+
     // TreePrintable....................................................................................................
 
     @Override

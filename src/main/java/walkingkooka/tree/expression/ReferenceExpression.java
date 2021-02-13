@@ -54,6 +54,13 @@ public final class ReferenceExpression extends LeafExpression<ExpressionReferenc
         return new ReferenceExpression(index, value);
     }
 
+    // ExpressionPurity..................................................................................................
+
+    @Override
+    public boolean isPure(final ExpressionPurityContext context) {
+        return false;
+    }
+
     // visitor..........................................................................................................
 
     @Override
