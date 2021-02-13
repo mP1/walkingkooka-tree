@@ -29,10 +29,11 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public interface ExpressionPurityTesting {
 
     default void isPureAndCheck(final ExpressionPurity purity,
+                                final ExpressionPurityContext context,
                                 final boolean expected) {
         assertEquals(
                 expected,
-                purity.isPure(),
+                purity.isPure(context),
                 () -> purity instanceof TreePrintable ?
                         ((TreePrintable) purity).treeToString(Indentation.with("  "), LineEnding.NL) :
                         purity.toString()

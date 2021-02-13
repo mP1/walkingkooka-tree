@@ -118,7 +118,7 @@ final class BasicExpressionEvaluationContext implements ExpressionEvaluationCont
 
     @Override
     public boolean isPure(final FunctionExpressionName name) {
-        return this.functions.apply(name).isPure();
+        return this.functions.apply(name).isPure(this);
     }
 
     @Override

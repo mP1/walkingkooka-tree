@@ -21,6 +21,7 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.ToStringTesting;
 import walkingkooka.collect.list.Lists;
+import walkingkooka.tree.expression.ExpressionPurityContext;
 import walkingkooka.tree.expression.FunctionExpressionName;
 
 import java.util.List;
@@ -52,7 +53,7 @@ public final class ParametersMapperExpressionFunctionTest implements ExpressionF
         }
 
         @Override
-        public boolean isPure() {
+        public boolean isPure(final ExpressionPurityContext context) {
             return true;
         }
 

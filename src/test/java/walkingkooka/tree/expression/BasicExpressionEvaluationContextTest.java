@@ -186,7 +186,7 @@ public final class BasicExpressionEvaluationContextTest implements ClassTesting2
                 }
 
                 @Override
-                public boolean isPure() {
+                public boolean isPure(final ExpressionPurityContext context) {
                     return pure;
                 }
             };

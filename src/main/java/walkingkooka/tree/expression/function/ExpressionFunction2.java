@@ -17,6 +17,7 @@
 
 package walkingkooka.tree.expression.function;
 
+import walkingkooka.tree.expression.ExpressionPurityContext;
 import walkingkooka.tree.select.NodeSelectorException;
 
 import java.util.List;
@@ -34,7 +35,7 @@ abstract class ExpressionFunction2<T, C extends ExpressionFunctionContext> imple
     }
 
     @Override
-    public boolean isPure() {
+    public boolean isPure(final ExpressionPurityContext context) {
         return true;
     }
 

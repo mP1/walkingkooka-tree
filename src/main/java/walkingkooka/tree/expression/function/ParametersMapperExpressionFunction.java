@@ -17,6 +17,7 @@
 
 package walkingkooka.tree.expression.function;
 
+import walkingkooka.tree.expression.ExpressionPurityContext;
 import walkingkooka.tree.expression.FunctionExpressionName;
 
 import java.util.List;
@@ -49,8 +50,8 @@ final class ParametersMapperExpressionFunction<T, C extends ExpressionFunctionCo
     }
 
     @Override
-    public boolean isPure() {
-        return this.function.isPure();
+    public boolean isPure(final ExpressionPurityContext context) {
+        return this.function.isPure(context);
     }
 
     @Override
