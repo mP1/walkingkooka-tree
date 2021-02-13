@@ -52,6 +52,11 @@ public final class ParametersMapperExpressionFunctionTest implements ExpressionF
         }
 
         @Override
+        public boolean isPure() {
+            return true;
+        }
+
+        @Override
         public FunctionExpressionName name() {
             return NAME;
         }

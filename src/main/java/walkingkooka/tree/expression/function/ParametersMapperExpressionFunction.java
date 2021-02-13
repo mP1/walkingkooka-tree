@@ -49,6 +49,11 @@ final class ParametersMapperExpressionFunction<T, C extends ExpressionFunctionCo
     }
 
     @Override
+    public boolean isPure() {
+        return this.function.isPure();
+    }
+
+    @Override
     public FunctionExpressionName name() {
         return this.function.name();
     }

@@ -28,10 +28,12 @@ import walkingkooka.tree.expression.ExpressionNumber;
 import walkingkooka.tree.expression.ExpressionNumberConverterContext;
 import walkingkooka.tree.expression.ExpressionNumberConverterContexts;
 import walkingkooka.tree.expression.ExpressionNumberKind;
+import walkingkooka.tree.expression.ExpressionPurityTesting;
 
 import java.util.List;
 
 public abstract class ExpressionFunctionTestCase<F extends ExpressionFunction<T, ExpressionFunctionContext>, T> implements ExpressionFunctionTesting<F, T, ExpressionFunctionContext>,
+        ExpressionPurityTesting,
         ClassTesting2<F> {
 
     final static ExpressionNumberKind EXPRESSION_NUMBER_KIND = ExpressionNumberKind.DEFAULT;
@@ -41,10 +43,14 @@ public abstract class ExpressionFunctionTestCase<F extends ExpressionFunction<T,
     }
 
     @Test
+    public final void testIsPureTrue() {
+        this.isPureAndCheck(this.createBiFunction(), true);
+    }
+
+    @Test
     public final void testResolveReferencesTrue() {
         this.resolveReferenceAndCheck(true);
     }
-
 
     final void apply2(final Object... parameters) {
         this.createBiFunction().apply(parameters(parameters), this.createContext());

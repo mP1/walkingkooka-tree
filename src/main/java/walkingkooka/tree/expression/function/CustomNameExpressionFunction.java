@@ -67,6 +67,11 @@ final class CustomNameExpressionFunction<T, C extends ExpressionFunctionContext>
         return this.function.apply(parameters, context);
     }
 
+    @Override
+    public boolean isPure() {
+        return this.function.isPure();
+    }
+
     private final ExpressionFunction<T, C> function;
 
     @Override
