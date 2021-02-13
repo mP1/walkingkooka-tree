@@ -29,6 +29,7 @@ import walkingkooka.tree.expression.ExpressionNumber;
 import walkingkooka.tree.expression.ExpressionNumberConverterContext;
 import walkingkooka.tree.expression.ExpressionNumberConverterContexts;
 import walkingkooka.tree.expression.ExpressionNumberKind;
+import walkingkooka.tree.expression.ExpressionPurityTesting;
 import walkingkooka.util.BiFunctionTesting;
 
 import java.util.List;
@@ -43,6 +44,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
  */
 public interface ExpressionFunctionTesting<F extends ExpressionFunction<V, C>, V, C extends ExpressionFunctionContext>
         extends BiFunctionTesting<F, List<Object>, C, V>,
+        ExpressionPurityTesting,
         TypeNameTesting<F> {
 
     @Test
