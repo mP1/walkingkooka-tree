@@ -35,6 +35,11 @@ public interface ExpressionEvaluationContext extends ExpressionFunctionContext {
     Object evaluate(final Expression expression);
 
     /**
+     * Tests if the identified {@link ExpressionFunction} is pure.
+     */
+    boolean isPure(final FunctionExpressionName name);
+
+    /**
      * If the {@link ExpressionFunction#resolveReferences()} is true, then replace references with values.
      */
     default List<Object> resolveReferencesIfNecessary(final ExpressionFunction<?, ?> function,

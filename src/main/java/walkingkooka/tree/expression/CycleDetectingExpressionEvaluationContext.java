@@ -64,6 +64,11 @@ final class CycleDetectingExpressionEvaluationContext implements ExpressionEvalu
     }
 
     @Override
+    public boolean isPure(final FunctionExpressionName name) {
+        return this.context.isPure(name);
+    }
+
+    @Override
     public int twoToFourDigitYear(final int year) {
         return this.context.twoToFourDigitYear(year);
     }

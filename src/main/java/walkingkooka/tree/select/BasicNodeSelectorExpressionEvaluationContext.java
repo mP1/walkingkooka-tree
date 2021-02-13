@@ -118,6 +118,11 @@ final class BasicNodeSelectorExpressionEvaluationContext<N extends Node<N, NAME,
                 .apply(parameters, this);
     }
 
+    @Override
+    public boolean isPure(final FunctionExpressionName name) {
+        return this.context.isPure(name);
+    }
+
     /**
      * The reference should be an attribute name, cast and find the owner attribute.
      */
