@@ -110,6 +110,24 @@ public final class BasicExpressionEvaluationContextTest implements ClassTesting2
     }
 
     @Test
+    public void testIsPureTrue() {
+        this.isPureAndCheck2(true);
+    }
+
+    @Test
+    public void testIsPureFalse() {
+        this.isPureAndCheck2(false);
+    }
+
+    private void isPureAndCheck2(final boolean pure) {
+        this.isPureAndCheck(
+                this.createContext(pure),
+                this.functionName(),
+                pure
+        );
+    }
+
+    @Test
     public void testReferences() {
         assertEquals(Optional.of(this.expression()), this.createContext().reference(REFERENCE));
     }
@@ -134,13 +152,23 @@ public final class BasicExpressionEvaluationContextTest implements ClassTesting2
 
     @Override
     public BasicExpressionEvaluationContext createContext() {
-        return BasicExpressionEvaluationContext.with(KIND,
-                this.functions(),
+        return this.createContext(true);
+    }
+
+    private BasicExpressionEvaluationContext createContext(final boolean pure) {
+        return BasicExpressionEvaluationContext.with(
+                KIND,
+                this.functions(pure),
                 this.references(),
-                this.converterContext());
+                this.converterContext()
+        );
     }
 
     private Function<FunctionExpressionName, ExpressionFunction<?, ExpressionFunctionContext>> functions() {
+        return this.functions(true);
+    }
+
+    private Function<FunctionExpressionName, ExpressionFunction<?, ExpressionFunctionContext>> functions(final boolean pure) {
         return (functionName) -> {
             Objects.requireNonNull(functionName, "functionName");
 
@@ -155,6 +183,11 @@ public final class BasicExpressionEvaluationContextTest implements ClassTesting2
                     Objects.requireNonNull(parameters, "parameters");
                     Objects.requireNonNull(context, "context");
                     return BasicExpressionEvaluationContextTest.this.functionValue();
+                }
+
+                @Override
+                public boolean isPure() {
+                    return pure;
                 }
             };
         };

@@ -117,6 +117,11 @@ final class BasicExpressionEvaluationContext implements ExpressionEvaluationCont
     }
 
     @Override
+    public boolean isPure(final FunctionExpressionName name) {
+        return this.functions.apply(name).isPure();
+    }
+
+    @Override
     public Optional<Expression> reference(final ExpressionReference reference) {
         final Optional<Expression> node = this.references.apply(reference);
         if (!node.isPresent()) {

@@ -91,6 +91,29 @@ public final class CycleDetectingExpressionEvaluationContextTest implements Clas
     }
 
     @Test
+    public void testIsPureFalse() {
+        this.isPureAndCheck2(false);
+    }
+
+    @Test
+    public void testIsPureTrue() {
+        this.isPureAndCheck2(true);
+    }
+
+    private void isPureAndCheck2(final boolean pure) {
+        final FunctionExpressionName functionName = this.functionName();
+        this.isPureAndCheck(
+                this.createContext(pure),
+                functionName,
+                pure
+        );
+    }
+
+    private final FunctionExpressionName functionName() {
+        return FunctionExpressionName.with("function123");
+    }
+
+    @Test
     public void testReference() {
         final Expression target = this.text();
 
@@ -318,6 +341,10 @@ public final class CycleDetectingExpressionEvaluationContextTest implements Clas
 
     @Override
     public CycleDetectingExpressionEvaluationContext createContext() {
+        return this.createContext(true);
+    }
+
+    public CycleDetectingExpressionEvaluationContext createContext(final boolean pure) {
         return this.createContext(new FakeExpressionEvaluationContext() {
 
             @Override
@@ -338,6 +365,12 @@ public final class CycleDetectingExpressionEvaluationContextTest implements Clas
                 Objects.requireNonNull(parameters, "parameters");
 
                 throw new UnknownExpressionFunctionException(name);
+            }
+
+            @Override
+            public boolean isPure(final FunctionExpressionName name) {
+                Objects.requireNonNull(name, "name");
+                return pure;
             }
         });
     }

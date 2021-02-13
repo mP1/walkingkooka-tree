@@ -17,13 +17,9 @@
 
 package walkingkooka.tree.expression;
 
-import walkingkooka.Either;
-import walkingkooka.math.FakeDecimalNumberContext;
 import walkingkooka.tree.expression.function.FakeExpressionFunctionContext;
 
-import java.math.MathContext;
 import java.util.List;
-import java.util.Locale;
 import java.util.Objects;
 import java.util.Optional;
 
@@ -43,6 +39,11 @@ public class FakeExpressionEvaluationContext extends FakeExpressionFunctionConte
     public Object evaluate(final FunctionExpressionName name, final List<Object> parameters) {
         Objects.requireNonNull(name, "name");
         Objects.requireNonNull(parameters, "parameters");
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public boolean isPure(final FunctionExpressionName name) {
         throw new UnsupportedOperationException();
     }
 

@@ -69,6 +69,26 @@ public interface ExpressionEvaluationContextTesting<C extends ExpressionEvaluati
     }
 
     @Test
+    default void testIsPureNullNameFails() {
+        assertThrows(NullPointerException.class, () -> this.createContext().isPure(null));
+    }
+
+    default void isPureAndCheck(final FunctionExpressionName name,
+                                final boolean expected) {
+        this.isPureAndCheck(this.createContext(), name, expected);
+    }
+
+    default void isPureAndCheck(final ExpressionEvaluationContext context,
+                                final FunctionExpressionName name,
+                                final boolean expected) {
+        assertEquals(
+                expected,
+                context.isPure(name),
+                () -> "isPure " + name
+        );
+    }
+
+    @Test
     default void testReferenceNullReferenceFails() {
         assertThrows(NullPointerException.class, () -> this.createContext().reference(null));
     }
