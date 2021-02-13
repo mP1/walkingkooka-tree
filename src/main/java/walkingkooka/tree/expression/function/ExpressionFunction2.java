@@ -33,6 +33,11 @@ abstract class ExpressionFunction2<T, C extends ExpressionFunctionContext> imple
         super();
     }
 
+    @Override
+    public boolean isPure() {
+        return true;
+    }
+
     /**
      * Always resolve references to values.
      */

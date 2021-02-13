@@ -29,6 +29,11 @@ public class FakeExpressionFunction<T, C extends ExpressionFunctionContext> impl
     }
 
     @Override
+    public boolean isPure() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
     public FunctionExpressionName name() {
         throw new UnsupportedOperationException();
     }
