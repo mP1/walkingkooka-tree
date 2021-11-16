@@ -32,30 +32,25 @@ abstract class BinaryExpression2 extends BinaryExpression {
     final Expression apply(final ExpressionEvaluationContext context) {
         final Expression result;
 
-        try {
-            for (; ; ) {
-                final Object left = this.left().toValue(context);
-                final Object right = this.right().toValue(context);
+        do {
+            final Object left = this.left().toValue(context);
+            final Object right = this.right().toValue(context);
 
-                if (left instanceof String) {
-                    result = this.applyText(
-                            context.convertOrFail(left, String.class),
-                            context.convertOrFail(right, String.class),
-                            context);
-                    break;
-                }
-
-                // default is to promote both to ExpressionNumber.
-                result = this.applyExpressionNumber(
-                        context.convertOrFail(left, ExpressionNumber.class),
-                        context.convertOrFail(right, ExpressionNumber.class),
-                        context
-                );
+            if (left instanceof String) {
+                result = this.applyText(
+                        context.convertOrFail(left, String.class),
+                        context.convertOrFail(right, String.class),
+                        context);
                 break;
             }
-        } catch (final ArithmeticException cause) {
-            throw new ExpressionEvaluationException(cause.getMessage() + "\n" + this.toString(), cause);
-        }
+
+            // default is to promote both to ExpressionNumber.
+            result = this.applyExpressionNumber(
+                    context.convertOrFail(left, ExpressionNumber.class),
+                    context.convertOrFail(right, ExpressionNumber.class),
+                    context
+            );
+        } while (false);
 
         return result;
     }

@@ -38,27 +38,22 @@ abstract class BinaryLogicalExpression extends BinaryExpression {
     final Expression apply(final ExpressionEvaluationContext context) {
         final Expression result;
 
-        try {
-            for (; ; ) {
-                final Object left = this.left().toValue(context);
-                final Object right = this.right().toValue(context);
+        do {
+            final Object left = this.left().toValue(context);
+            final Object right = this.right().toValue(context);
 
-                if (left instanceof Boolean) {
-                    result = this.applyBoolean(
-                            context.convertOrFail(left, Boolean.class),
-                            context.convertOrFail(right, Boolean.class),
-                            context);
-                    break;
-                }
-
-                result = this.applyExpressionNumber(
-                        context.convertOrFail(left, ExpressionNumber.class),
-                        context.convertOrFail(right, ExpressionNumber.class));
+            if (left instanceof Boolean) {
+                result = this.applyBoolean(
+                        context.convertOrFail(left, Boolean.class),
+                        context.convertOrFail(right, Boolean.class),
+                        context);
                 break;
             }
-        } catch (final ArithmeticException cause) {
-            throw new ExpressionEvaluationException(cause.getMessage() + "\n" + this.toString(), cause);
-        }
+
+            result = this.applyExpressionNumber(
+                    context.convertOrFail(left, ExpressionNumber.class),
+                    context.convertOrFail(right, ExpressionNumber.class));
+        } while (false);
 
         return result;
     }
