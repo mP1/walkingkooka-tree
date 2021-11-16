@@ -111,7 +111,7 @@ final class ExpressionNumberDouble extends ExpressionNumber {
     ExpressionNumber divide0(final ExpressionNumber value, final ExpressionNumberContext context) {
         final double doubleValue = value.doubleValue();
         if (doubleValue == 0) {
-            throw new ArithmeticException();
+            throw new ExpressionEvaluationException("Division by zero");
         }
         return this.setValue(this.value / doubleValue);
     }

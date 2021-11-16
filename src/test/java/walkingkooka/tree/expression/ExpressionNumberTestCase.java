@@ -274,7 +274,8 @@ public abstract class ExpressionNumberTestCase<N extends ExpressionNumber> imple
         final int value = 1;
 
         final N number = this.create(value);
-        assertThrows(ArithmeticException.class, () -> number.divide(this.create(0), CONTEXT));
+        final ExpressionEvaluationException thrown = assertThrows(ExpressionEvaluationException.class, () -> number.divide(this.create(0), CONTEXT));
+        assertEquals("Division by zero", thrown.getMessage(), "message");
     }
 
     @Test
