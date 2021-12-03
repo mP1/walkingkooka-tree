@@ -21,7 +21,6 @@ import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotSame;
 
 public final class ExpressionNumberDoubleTest extends ExpressionNumberTestCase<ExpressionNumberDouble> {
@@ -33,7 +32,7 @@ public final class ExpressionNumberDoubleTest extends ExpressionNumberTestCase<E
         final ExpressionNumberDouble number = this.create(value);
         final ExpressionNumberBigDecimal different = (ExpressionNumberBigDecimal)number.setKind(ExpressionNumberKind.BIG_DECIMAL);
         assertNotSame(number, different);
-        assertEquals(value, different.doubleValue());
+        this.checkEquals(value, different.doubleValue());
     }
 
     // comparable......................................................................................................
@@ -92,7 +91,7 @@ public final class ExpressionNumberDoubleTest extends ExpressionNumberTestCase<E
     }
 
     @Override final void checkValue0(final double value, final ExpressionNumberDouble number) {
-        assertEquals(value, number.doubleValue());
+        this.checkEquals(value, number.doubleValue());
     }
 
     @Override

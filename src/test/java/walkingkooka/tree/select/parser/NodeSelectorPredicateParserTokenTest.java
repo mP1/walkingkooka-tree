@@ -24,7 +24,6 @@ import walkingkooka.visit.Visiting;
 
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 
 public final class NodeSelectorPredicateParserTokenTest extends NodeSelectorParentParserTokenTestCase<NodeSelectorPredicateParserToken> {
@@ -140,18 +139,18 @@ public final class NodeSelectorPredicateParserTokenTest extends NodeSelectorPare
                 visited.add(t);
             }
         }.accept(predicate);
-        assertEquals("13151721821921A21B21C21D26242", b.toString());
-        assertEquals(Lists.<Object>of(predicate, predicate,
-                function, function,
-                functionName, functionName, functionName,
-                parenOpen, parenOpen, parenOpen,
-                atSign, atSign, atSign,
-                attributeName, attributeName, attributeName,
-                comma, comma, comma,
-                quotedText, quotedText, quotedText,
-                parenClose, parenClose, parenClose,
-                function, function,
-                predicate, predicate),
+        this.checkEquals("13151721821921A21B21C21D26242", b.toString());
+        this.checkEquals(Lists.<Object>of(predicate, predicate,
+                        function, function,
+                        functionName, functionName, functionName,
+                        parenOpen, parenOpen, parenOpen,
+                        atSign, atSign, atSign,
+                        attributeName, attributeName, attributeName,
+                        comma, comma, comma,
+                        quotedText, quotedText, quotedText,
+                        parenClose, parenClose, parenClose,
+                        function, function,
+                        predicate, predicate),
                 visited,
                 "visited");
     }

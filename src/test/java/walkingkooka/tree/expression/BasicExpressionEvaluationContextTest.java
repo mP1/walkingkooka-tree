@@ -39,7 +39,6 @@ import java.util.Objects;
 import java.util.Optional;
 import java.util.function.Function;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class BasicExpressionEvaluationContextTest implements ClassTesting2<BasicExpressionEvaluationContext>,
@@ -104,7 +103,7 @@ public final class BasicExpressionEvaluationContextTest implements ClassTesting2
 
     @Test
     public void testEvaluate() {
-        assertEquals(this.functionValue(),
+        this.checkEquals(this.functionValue(),
                 this.createContext()
                         .evaluate(this.functionName(), this.parameters()));
     }
@@ -129,7 +128,7 @@ public final class BasicExpressionEvaluationContextTest implements ClassTesting2
 
     @Test
     public void testReferences() {
-        assertEquals(Optional.of(this.expression()), this.createContext().reference(REFERENCE));
+        this.checkEquals(Optional.of(this.expression()), this.createContext().reference(REFERENCE));
     }
 
     @Test
@@ -208,7 +207,7 @@ public final class BasicExpressionEvaluationContextTest implements ClassTesting2
     private Function<ExpressionReference, Optional<Expression>> references() {
         return (r -> {
             Objects.requireNonNull(r, "references");
-            assertEquals(REFERENCE, r, "reference");
+            this.checkEquals(REFERENCE, r, "reference");
             return Optional.of(this.expression());
         });
     }

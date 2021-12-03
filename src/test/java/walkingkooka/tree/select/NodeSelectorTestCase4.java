@@ -58,8 +58,6 @@ import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -95,7 +93,7 @@ abstract public class NodeSelectorTestCase4<S extends NodeSelector<TestNode, Str
 
         final String toString = "custom " + selector;
         final NodeSelector<TestNode, StringName, StringName, Object> custom = selector.setToString(toString);
-        assertEquals(toString, custom.toString(), "toString");
+        this.checkEquals(toString, custom.toString(), "toString");
     }
 
     abstract S createSelector();
@@ -141,8 +139,8 @@ abstract public class NodeSelectorTestCase4<S extends NodeSelector<TestNode, Str
                                     return true;
                                 },
                                 selected::add)));
-        assertEquals(Lists.of(nodes), nodeNames(selected), () -> "Selector.apply\n" + start);
-        assertNotEquals(Sets.empty(), potential, "potentials must not be empty");
+        this.checkEquals(Lists.of(nodes), nodeNames(selected), () -> "Selector.apply\n" + start);
+        this.checkNotEquals(Sets.empty(), potential, "potentials must not be empty");
         assertTrue(potential.contains(start), () -> "potentials must include initial node=" + potential);
     }
 
@@ -168,7 +166,7 @@ abstract public class NodeSelectorTestCase4<S extends NodeSelector<TestNode, Str
                                 Predicates.always(),
                                 selected::add)),
                 () -> "incorrect start node returned, selector: " + selector);
-        assertEquals(nodeNames(nodes),
+        this.checkEquals(nodeNames(nodes),
                 nodeNames(selected),
                 () -> "Selector.apply\n" + start);
     }
@@ -184,7 +182,7 @@ abstract public class NodeSelectorTestCase4<S extends NodeSelector<TestNode, Str
                                 Predicates.always(),
                                 selected::add)),
                 () -> "incorrect start node returned, selector: " + selector);
-        assertEquals(Lists.of(nodes),
+        this.checkEquals(Lists.of(nodes),
                 nodeNames(selected),
                 () -> "Selector.apply\n" + start);
     }
@@ -223,7 +221,7 @@ abstract public class NodeSelectorTestCase4<S extends NodeSelector<TestNode, Str
                                 Predicates.always(),
                                 selected::add)),
                 () -> "incorrect start node returned, selector: " + selector);
-        assertEquals(nodeNames(nodes),
+        this.checkEquals(nodeNames(nodes),
                 nodeNames(selected),
                 () -> "Selector.apply\n" + start);
     }
@@ -239,7 +237,7 @@ abstract public class NodeSelectorTestCase4<S extends NodeSelector<TestNode, Str
                                 Predicates.always(),
                                 selected::add)),
                 () -> "incorrect start node returned, selector: " + selector);
-        assertEquals(Lists.of(nodes),
+        this.checkEquals(Lists.of(nodes),
                 nodeNames(selected),
                 () -> "Selector.apply\n" + start);
     }
@@ -264,7 +262,7 @@ abstract public class NodeSelectorTestCase4<S extends NodeSelector<TestNode, Str
                 selector.apply(start,
                         this.context(filter,
                                 selected::add)));
-        assertEquals(nodeNames(nodes),
+        this.checkEquals(nodeNames(nodes),
                 nodeNames(selected),
                 () -> "Selector.apply\n" + start);
     }
@@ -278,7 +276,7 @@ abstract public class NodeSelectorTestCase4<S extends NodeSelector<TestNode, Str
                 selector.apply(start,
                         this.context(filter,
                                 selected::add)));
-        assertEquals(Lists.of(nodes),
+        this.checkEquals(Lists.of(nodes),
                 nodeNames(selected),
                 () -> "Selector.apply\n" + start);
     }
@@ -314,7 +312,7 @@ abstract public class NodeSelectorTestCase4<S extends NodeSelector<TestNode, Str
 
         final String startToString = start.toString();
 
-        assertEquals(result,
+        this.checkEquals(result,
                 selector.apply(start,
                         this.context0(() -> false,
                                 Predicates.always(),
@@ -333,7 +331,7 @@ abstract public class NodeSelectorTestCase4<S extends NodeSelector<TestNode, Str
                                     }
                                 })));
 
-        assertEquals(startToString,
+        this.checkEquals(startToString,
                 start.toString(),
                 "toString has changed for starting node, indicating it probably was mutated");
     }
@@ -363,7 +361,7 @@ abstract public class NodeSelectorTestCase4<S extends NodeSelector<TestNode, Str
     private void checkSelectCaller() {
         final Class<?> caller = TerminalNodeSelector.class;
 
-        assertEquals(Optional.of(caller.getSimpleName()),
+        this.checkEquals(Optional.of(caller.getSimpleName()),
                 Arrays.stream(Thread.currentThread().getStackTrace())
                         .map(this::simpleClassName)
                         .filter(c -> c.endsWith(NodeSelector.class.getSimpleName()))
@@ -395,7 +393,7 @@ abstract public class NodeSelectorTestCase4<S extends NodeSelector<TestNode, Str
             }
 
             private void finisherGuardCheck() {
-                assertEquals(false, this.isFinished(), () -> "finisher should be false: " + this);
+                checkEquals(false, this.isFinished(), () -> "finisher should be false: " + this);
             }
 
             @Override

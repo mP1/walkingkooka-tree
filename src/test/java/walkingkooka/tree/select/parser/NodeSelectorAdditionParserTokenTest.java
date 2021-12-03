@@ -24,7 +24,6 @@ import walkingkooka.visit.Visiting;
 
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 
 public final class NodeSelectorAdditionParserTokenTest extends NodeSelectorBinaryParserTokenTestCase<NodeSelectorAdditionParserToken> {
@@ -91,12 +90,12 @@ public final class NodeSelectorAdditionParserTokenTest extends NodeSelectorBinar
             }
 
         }.accept(add);
-        assertEquals("1315216217242", b.toString());
-        assertEquals(Lists.<Object>of(add, add,
-                nodeName, nodeName, nodeName,
-                addSymbol, addSymbol, addSymbol,
-                wildcard, wildcard, wildcard,
-                add, add),
+        this.checkEquals("1315216217242", b.toString());
+        this.checkEquals(Lists.<Object>of(add, add,
+                        nodeName, nodeName, nodeName,
+                        addSymbol, addSymbol, addSymbol,
+                        wildcard, wildcard, wildcard,
+                        add, add),
                 visited,
                 "visited");
     }

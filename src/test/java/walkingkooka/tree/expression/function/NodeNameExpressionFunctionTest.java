@@ -27,8 +27,6 @@ import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.tree.FakeNode;
 import walkingkooka.tree.Node;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
 public final class NodeNameExpressionFunctionTest implements ClassTesting2<NodeNameExpressionFunction<ExpressionFunctionContext>>,
         ExpressionFunctionTesting<NodeNameExpressionFunction<ExpressionFunctionContext>, String, ExpressionFunctionContext> {
 
@@ -53,8 +51,9 @@ public final class NodeNameExpressionFunctionTest implements ClassTesting2<NodeN
             @Override
             public <T> Either<T, String> convert(final Object value,
                                                  final Class<T> target) {
-                assertEquals(true, value instanceof TestFakeNode, "value " + value);
-                assertEquals(Node.class, target, "target");
+                checkEquals(true, value instanceof TestFakeNode, "value " + value);
+                checkEquals(Node.class, target, "target");
+
                 return Either.left(target.cast(value));
             }
         };

@@ -22,7 +22,6 @@ import walkingkooka.collect.list.Lists;
 import walkingkooka.tree.expression.function.ExpressionFunctionContextTesting;
 import walkingkooka.tree.expression.function.UnknownExpressionFunctionException;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 /**
@@ -49,7 +48,7 @@ public interface ExpressionEvaluationContextTesting<C extends ExpressionEvaluati
     default void evaluateAndCheck(final C context,
                                   final Expression expression,
                                   final Object value) {
-        assertEquals(value,
+        this.checkEquals(value,
                 context.evaluate(expression),
                 () -> "evaluate " + expression + " " + context);
     }
@@ -75,7 +74,7 @@ public interface ExpressionEvaluationContextTesting<C extends ExpressionEvaluati
     }
 
     default void toValueAndCheck(final Expression node, final ExpressionEvaluationContext context, final Object value) {
-        assertEquals(value,
+        this.checkEquals(value,
                 node.toValue(context),
                 () -> "Expression.toValue failed, node=" + node + " context=" + context);
     }

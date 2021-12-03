@@ -23,14 +23,12 @@ import walkingkooka.naming.StringName;
 import walkingkooka.tree.TestNode;
 import walkingkooka.visit.Visiting;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
 public final class NodePointerIndexedChildTest extends NodePointerTestCase2<NodePointerIndexedChild<TestNode, StringName>> {
 
     @Test
     public void testWith() {
         final NodePointerIndexedChild<TestNode, StringName> pointer = this.createNodePointer();
-        assertEquals(1, pointer.index, "index");
+        this.checkEquals(1, pointer.index, "index");
     }
 
     // add..............................................................................................................
@@ -165,7 +163,7 @@ public final class NodePointerIndexedChildTest extends NodePointerTestCase2<Node
 
         }.accept(this.createNodePointer());
 
-        assertEquals("1342", b.toString());
+        this.checkEquals("1342", b.toString());
     }
 
     @Test
@@ -204,7 +202,7 @@ public final class NodePointerIndexedChildTest extends NodePointerTestCase2<Node
 
         }.accept(this.createNodePointer().append());
 
-        assertEquals("1413252", b.toString());
+        this.checkEquals("1413252", b.toString());
     }
 
     @Test
@@ -238,7 +236,7 @@ public final class NodePointerIndexedChildTest extends NodePointerTestCase2<Node
 
         }.accept(this.createNodePointer().append());
 
-        assertEquals("1452", b.toString());
+        this.checkEquals("1452", b.toString());
     }
 
     @Override

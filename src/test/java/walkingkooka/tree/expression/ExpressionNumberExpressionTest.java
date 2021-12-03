@@ -20,9 +20,6 @@ package walkingkooka.tree.expression;
 import org.junit.jupiter.api.Test;
 import walkingkooka.visit.Visiting;
 
-import java.math.BigDecimal;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 
 public final class ExpressionNumberExpressionTest extends LeafExpressionTestCase<ExpressionNumberExpression, ExpressionNumber> {
@@ -52,7 +49,7 @@ public final class ExpressionNumberExpressionTest extends LeafExpressionTestCase
                 b.append("3");
             }
         }.accept(node);
-        assertEquals("132", b.toString());
+        this.checkEquals("132", b.toString());
     }
 
     // Evaluation ...................................................................................................

@@ -23,7 +23,6 @@ import walkingkooka.visit.Visiting;
 
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 
 public final class NegativeExpressionTest extends UnaryExpressionTestCase<NegativeExpression> {
@@ -71,10 +70,10 @@ public final class NegativeExpressionTest extends UnaryExpressionTestCase<Negati
                 visited.add(t);
             }
         }.accept(negative);
-        assertEquals("1315242", b.toString());
-        assertEquals(Lists.of(negative, negative,
-                child, child, child,
-                negative, negative),
+        this.checkEquals("1315242", b.toString());
+        this.checkEquals(Lists.of(negative, negative,
+                        child, child, child,
+                        negative, negative),
                 visited,
                 "visited");
     }

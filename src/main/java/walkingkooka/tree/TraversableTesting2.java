@@ -27,8 +27,6 @@ import walkingkooka.reflect.TypeNameTesting;
 import java.util.List;
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 
 /**
@@ -51,7 +49,7 @@ public interface TraversableTesting2<T extends Traversable<T>>
     default void testParentWithoutChild() {
         final T parent = this.createTraversable();
         final List<T> children = parent.children();
-        assertNotEquals(Lists.empty(), children, "expected at least 1 child");
+        this.checkNotEquals(Lists.empty(), children, "expected at least 1 child");
 
         this.parentMissingCheck(this.createTraversable());
     }
@@ -59,7 +57,7 @@ public interface TraversableTesting2<T extends Traversable<T>>
     @Test
     default void testRootWithoutParent() {
         final T node = this.createTraversable();
-        assertEquals(Optional.empty(), node.parent(), "node must have no parent");
+        this.checkEquals(Optional.empty(), node.parent(), "node must have no parent");
         assertSame(node, node.root());
     }
 
@@ -74,9 +72,9 @@ public interface TraversableTesting2<T extends Traversable<T>>
         final List<T> children = node.children();
         final Optional<T> first = node.firstChild();
         if (children.isEmpty()) {
-            assertEquals(Optional.empty(), first, "childless node must not have a first child.");
+            this.checkEquals(Optional.empty(), first, "childless node must not have a first child.");
         } else {
-            assertEquals(Optional.of(children.get(0)), first, "node with children must have a first child.");
+            this.checkEquals(Optional.of(children.get(0)), first, "node with children must have a first child.");
         }
     }
 
@@ -86,9 +84,9 @@ public interface TraversableTesting2<T extends Traversable<T>>
         final List<T> children = node.children();
         final Optional<T> last = node.lastChild();
         if (children.isEmpty()) {
-            assertEquals(Optional.empty(), last, "childless node must not have a last child.");
+            this.checkEquals(Optional.empty(), last, "childless node must not have a last child.");
         } else {
-            assertEquals(Optional.of(children.get(children.size() - 1)), last, "node with children must have a last child.");
+            this.checkEquals(Optional.of(children.get(children.size() - 1)), last, "node with children must have a last child.");
         }
     }
 

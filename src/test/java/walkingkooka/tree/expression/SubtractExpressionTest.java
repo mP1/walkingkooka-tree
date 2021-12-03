@@ -23,7 +23,6 @@ import walkingkooka.visit.Visiting;
 
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 
 public final class SubtractExpressionTest extends BinaryArithmeticExpressionTestCase2<SubtractExpression> {
@@ -72,11 +71,11 @@ public final class SubtractExpressionTest extends BinaryArithmeticExpressionTest
                 visited.add(t);
             }
         }.accept(sub);
-        assertEquals("1315215242", b.toString());
-        assertEquals(Lists.of(sub, sub,
-                text1, text1, text1,
-                text2, text2, text2,
-                sub, sub),
+        this.checkEquals("1315215242", b.toString());
+        this.checkEquals(Lists.of(sub, sub,
+                        text1, text1, text1,
+                        text2, text2, text2,
+                        sub, sub),
                 visited,
                 "visited");
     }

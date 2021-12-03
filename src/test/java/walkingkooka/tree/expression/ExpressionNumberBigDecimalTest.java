@@ -21,8 +21,6 @@ import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNotSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -40,7 +38,7 @@ public final class ExpressionNumberBigDecimalTest extends ExpressionNumberTestCa
         final ExpressionNumberBigDecimal number = this.create(value);
         final ExpressionNumberDouble different = (ExpressionNumberDouble)number.setKind(ExpressionNumberKind.DOUBLE);
         assertNotSame(number, different);
-        assertEquals(value, different.doubleValue());
+        this.checkEquals(value, different.doubleValue());
     }
 
     // hashCode.........................................................................................................
@@ -49,20 +47,20 @@ public final class ExpressionNumberBigDecimalTest extends ExpressionNumberTestCa
     public void testHashCodeEqualsLongDouble() {
         final BigDecimal bigDecimalLong = BigDecimal.valueOf(1L);
         final BigDecimal bigDecimalDouble = BigDecimal.valueOf(1.0);
-        assertNotEquals(bigDecimalLong, bigDecimalDouble, "should not be equal");
-        assertNotEquals(bigDecimalLong.hashCode(), bigDecimalDouble.hashCode(), "hashCodes should be different because of scale");
+        this.checkNotEquals(bigDecimalLong, bigDecimalDouble, "should not be equal");
+        this.checkNotEquals(bigDecimalLong.hashCode(), bigDecimalDouble.hashCode(), "hashCodes should be different because of scale");
 
-        assertEquals(ExpressionNumber.with(bigDecimalLong), ExpressionNumber.with(bigDecimalDouble));
+        this.checkEquals(ExpressionNumber.with(bigDecimalLong), ExpressionNumber.with(bigDecimalDouble));
     }
 
     @Test
     public void testHashCodeEqualsDifferentScale() {
         final BigDecimal bigDecimalDouble1 = new BigDecimal("1.0");
         final BigDecimal bigDecimalDouble2 = new BigDecimal("1.00000");
-        assertNotEquals(bigDecimalDouble1, bigDecimalDouble2, "should not be equal");
-        assertNotEquals(bigDecimalDouble1.hashCode(), bigDecimalDouble2.hashCode(), "hashCodes should be different because of scale");
+        this.checkNotEquals(bigDecimalDouble1, bigDecimalDouble2, "should not be equal");
+        this.checkNotEquals(bigDecimalDouble1.hashCode(), bigDecimalDouble2.hashCode(), "hashCodes should be different because of scale");
 
-        assertEquals(ExpressionNumber.with(bigDecimalDouble1), ExpressionNumber.with(bigDecimalDouble2));
+        this.checkEquals(ExpressionNumber.with(bigDecimalDouble1), ExpressionNumber.with(bigDecimalDouble2));
     }
 
     // comparable......................................................................................................
@@ -96,7 +94,7 @@ public final class ExpressionNumberBigDecimalTest extends ExpressionNumberTestCa
     @Test
     public final void testBigDecimal2() {
         final BigDecimal value = BigDecimal.valueOf(12.5);
-        assertEquals(value, ExpressionNumberBigDecimal.withBigDecimal(value).bigDecimal());
+        this.checkEquals(value, ExpressionNumberBigDecimal.withBigDecimal(value).bigDecimal());
     }
 
     // toString.........................................................................................................
@@ -145,7 +143,7 @@ public final class ExpressionNumberBigDecimalTest extends ExpressionNumberTestCa
     @Override
     final void checkValue0(final double value, final ExpressionNumberBigDecimal number) {
         final BigDecimal actual = number.bigDecimal();
-        assertEquals(BigDecimal.valueOf(value).setScale(actual.scale()), actual);
+        this.checkEquals(BigDecimal.valueOf(value).setScale(actual.scale()), actual);
     }
 
     @Override

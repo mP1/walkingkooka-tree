@@ -43,7 +43,6 @@ import java.math.MathContext;
 import java.util.Objects;
 import java.util.function.Function;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class BasicNodeSelectorExpressionEvaluationContextTest implements NodeSelectorExpressionEvaluationContextTesting<BasicNodeSelectorExpressionEvaluationContext<TestNode, StringName, StringName, Object>, TestNode, StringName, StringName, Object> {
@@ -102,7 +101,7 @@ public final class BasicNodeSelectorExpressionEvaluationContextTest implements N
         final TestNode node = TestNode.with("node123")
                 .setAttributes(Maps.of(Names.string(attribute), value));
 
-        assertEquals(Expression.string(value),
+        this.checkEquals(Expression.string(value),
                 this.createContext(node)
                         .referenceOrFail(NodeSelectorAttributeName.with(attribute)));
     }

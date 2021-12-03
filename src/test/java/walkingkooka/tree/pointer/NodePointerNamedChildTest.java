@@ -24,8 +24,6 @@ import walkingkooka.naming.StringName;
 import walkingkooka.tree.TestNode;
 import walkingkooka.visit.Visiting;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
 public final class NodePointerNamedChildTest extends NodePointerTestCase2<NodePointerNamedChild<TestNode, StringName>> {
 
     private final static StringName A1_NAME = Names.string("A1");
@@ -37,7 +35,7 @@ public final class NodePointerNamedChildTest extends NodePointerTestCase2<NodePo
     @Test
     public void testWith() {
         final NodePointerNamedChild<TestNode, StringName> pointer = this.createNodePointer();
-        assertEquals(this.name(), pointer.name, "name");
+        this.checkEquals(this.name(), pointer.name, "name");
     }
 
     // add..............................................................................................................
@@ -181,7 +179,7 @@ public final class NodePointerNamedChildTest extends NodePointerTestCase2<NodePo
 
         }.accept(this.createNodePointer());
 
-        assertEquals("1342", b.toString());
+        this.checkEquals("1342", b.toString());
     }
 
     @Test
@@ -220,7 +218,7 @@ public final class NodePointerNamedChildTest extends NodePointerTestCase2<NodePo
 
         }.accept(this.createNodePointer().append());
 
-        assertEquals("1513262", b.toString());
+        this.checkEquals("1513262", b.toString());
     }
 
     @Test
@@ -254,7 +252,7 @@ public final class NodePointerNamedChildTest extends NodePointerTestCase2<NodePo
 
         }.accept(this.createNodePointer().append());
 
-        assertEquals("1452", b.toString());
+        this.checkEquals("1452", b.toString());
     }
 
     @Override

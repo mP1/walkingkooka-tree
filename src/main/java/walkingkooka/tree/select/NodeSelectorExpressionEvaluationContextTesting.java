@@ -22,8 +22,6 @@ import walkingkooka.naming.Name;
 import walkingkooka.tree.Node;
 import walkingkooka.tree.expression.ExpressionEvaluationContextTesting;
 
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
-
 public interface NodeSelectorExpressionEvaluationContextTesting<C extends NodeSelectorExpressionEvaluationContext,
         N extends Node<N, NAME, ANAME, AVALUE>,
         NAME extends Name,
@@ -32,7 +30,7 @@ public interface NodeSelectorExpressionEvaluationContextTesting<C extends NodeSe
 
     @Test
     default void testNode() {
-        assertNotEquals(null, this.createContext().node());
+        this.checkNotEquals(null, this.createContext().node());
     }
 
     @Override

@@ -19,7 +19,6 @@ package walkingkooka.tree.select;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.collect.list.Lists;
-import walkingkooka.math.DecimalNumberContexts;
 import walkingkooka.predicate.Predicates;
 import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.text.CharSequences;
@@ -28,7 +27,6 @@ import walkingkooka.text.cursor.parser.ParserException;
 import walkingkooka.text.cursor.parser.ParserReporterException;
 import walkingkooka.text.cursor.parser.ParserReporters;
 import walkingkooka.tree.expression.Expression;
-import walkingkooka.tree.expression.ExpressionNumber;
 import walkingkooka.tree.expression.ExpressionNumberContexts;
 import walkingkooka.tree.expression.ExpressionNumberKind;
 import walkingkooka.tree.expression.ExpressionVisitorTesting;
@@ -43,7 +41,6 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class ExpressionNodeSelectorToStringExpressionVisitorTest implements ExpressionVisitorTesting<ExpressionNodeSelectorToStringExpressionVisitor> {
@@ -244,7 +241,7 @@ public final class ExpressionNodeSelectorToStringExpressionVisitorTest implement
 
         final Expression expressionObject = parsed.toExpression(Predicates.always());
 
-        assertEquals(expression,
+        this.checkEquals(expression,
                 ExpressionNodeSelectorToStringExpressionVisitor.toString(expressionObject),
                 () -> "Input expression: " + CharSequences.quoteAndEscape(expression) + "\n" + parsed + "\n" + expressionObject);
     }
@@ -260,7 +257,7 @@ public final class ExpressionNodeSelectorToStringExpressionVisitorTest implement
 
     private void toStringAndCheck(final Expression node,
                                   final String expression) {
-        assertEquals(expression,
+        this.checkEquals(expression,
                 ExpressionNodeSelectorToStringExpressionVisitor.toString(node),
                 () -> "Input expression: " + CharSequences.quoteAndEscape(expression) + "\n" + node);
     }

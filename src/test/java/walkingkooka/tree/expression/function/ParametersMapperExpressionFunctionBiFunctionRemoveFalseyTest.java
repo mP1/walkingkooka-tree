@@ -28,8 +28,6 @@ import java.math.BigInteger;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
 public final class ParametersMapperExpressionFunctionBiFunctionRemoveFalseyTest extends ParametersMapperExpressionFunctionBiFunctionTestCase2<ParametersMapperExpressionFunctionBiFunctionRemoveFalsey<FakeExpressionFunctionContext>> {
 
     @Test
@@ -44,7 +42,7 @@ public final class ParametersMapperExpressionFunctionBiFunctionRemoveFalseyTest 
 
     @Test
     public void testFunctionRemoveFalsey() {
-        assertEquals("1/2/3/4/5",
+        this.checkEquals("1/2/3/4/5",
                 new FakeExpressionFunction<String, FakeExpressionFunctionContext>() {
 
                     @Override
@@ -80,7 +78,7 @@ public final class ParametersMapperExpressionFunctionBiFunctionRemoveFalseyTest 
             @Override
             public <T> Either<T, String> convert(final Object value,
                                                  final Class<T> target) {
-                assertEquals(Boolean.class, target, "target");
+                checkEquals(Boolean.class, target, "target");
 
                 return Converters.<FakeExpressionFunctionContext>collection(Lists.of(
                         Converters.truthyNumberBoolean(),

@@ -23,20 +23,18 @@ import walkingkooka.reflect.JavaVisibility;
 
 import java.math.BigDecimal;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
 public final class ExpressionNumberKindTest implements ClassTesting<ExpressionNumberKind> {
 
     @Test
     public void testParseBigDecimal() {
         final String text = "12.3";
-        assertEquals(ExpressionNumberKind.BIG_DECIMAL.create(new BigDecimal(text)), ExpressionNumberKind.BIG_DECIMAL.parse(text));
+        this.checkEquals(ExpressionNumberKind.BIG_DECIMAL.create(new BigDecimal(text)), ExpressionNumberKind.BIG_DECIMAL.parse(text));
     }
 
     @Test
     public void testParseDouble() {
         final String text = "12.3";
-        assertEquals(ExpressionNumberKind.DOUBLE.create(new Double(text)), ExpressionNumberKind.DOUBLE.parse(text));
+        this.checkEquals(ExpressionNumberKind.DOUBLE.create(new Double(text)), ExpressionNumberKind.DOUBLE.parse(text));
     }
 
     @Override

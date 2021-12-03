@@ -34,7 +34,6 @@ import walkingkooka.util.BiFunctionTesting;
 
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -72,7 +71,7 @@ public interface ExpressionFunctionTesting<F extends ExpressionFunction<V, C>, V
                                                                                final List<Object> parameters,
                                                                                final CC context,
                                                                                final RR result) {
-        assertEquals(result,
+        this.checkEquals(result,
                 function.apply(parameters, context),
                 () -> "Wrong result for " + function + " for params: " + CharSequences.quoteIfChars(parameters));
     }
@@ -85,7 +84,7 @@ public interface ExpressionFunctionTesting<F extends ExpressionFunction<V, C>, V
 
     default void resolveReferenceAndCheck(final ExpressionFunction<?, ?> function,
                                           final boolean resolveReference) {
-        assertEquals(resolveReference,
+        this.checkEquals(resolveReference,
                 function.resolveReferences(),
                 () -> function.name() + " resolveReferences: " + function);
     }

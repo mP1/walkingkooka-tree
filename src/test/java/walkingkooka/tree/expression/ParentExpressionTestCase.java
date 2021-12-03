@@ -23,7 +23,6 @@ import walkingkooka.tree.ParentNodeTesting;
 
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 
 public abstract class ParentExpressionTestCase<N extends ParentExpression> extends ExpressionTestCase<N>
@@ -56,6 +55,6 @@ public abstract class ParentExpressionTestCase<N extends ParentExpression> exten
 
     final void checkChildren(final N node, final List<Expression> children) {
         // horrible if equals is used comparison will fail because children have different parents.
-        assertEquals(children.toString(), node.children().toString(), "children");
+        this.checkEquals(children.toString(), node.children().toString(), "children");
     }
 }

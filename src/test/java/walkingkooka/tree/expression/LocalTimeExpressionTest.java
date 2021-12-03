@@ -26,7 +26,6 @@ import walkingkooka.visit.Visiting;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -64,7 +63,7 @@ public final class LocalTimeExpressionTest extends LeafExpressionTestCase<LocalT
                 b.append("3");
             }
         }.accept(node);
-        assertEquals("132", b.toString());
+        this.checkEquals("132", b.toString());
     }
 
     // Evaluation ...................................................................................................

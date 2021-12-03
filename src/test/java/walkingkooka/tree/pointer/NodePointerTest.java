@@ -32,9 +32,7 @@ import walkingkooka.tree.TestNode;
 import java.util.Optional;
 import java.util.function.Function;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -537,14 +535,14 @@ public final class NodePointerTest implements ClassTesting2<NodePointer<TestNode
 
     private void traverseAndCheck(final NodePointer<TestNode, StringName> pointer, final TestNode root, final String toString) {
         final Optional<TestNode> result = pointer.traverse(root);
-        assertNotEquals(Optional.empty(), result, () -> "The pointer " + CharSequences.quote(pointer.toString()) + " should have matched a node but failed,\n" + root);
-        assertEquals(toString,
+        this.checkNotEquals(Optional.empty(), result, () -> "The pointer " + CharSequences.quote(pointer.toString()) + " should have matched a node but failed,\n" + root);
+        this.checkEquals(toString,
                 result.map(TestNode::toString).orElse(null),
                 () -> "The pointer " + CharSequences.quote(pointer.toString()) + " should have matched the node\n" + root);
     }
 
     private void traverseFail(final NodePointer<TestNode, StringName> pointer, final TestNode root) {
-        assertEquals(Optional.empty(),
+        this.checkEquals(Optional.empty(),
                 pointer.traverse(root),
                 () -> "The pointer " + CharSequences.quote(pointer.toString()) + " should have matched nothing\n" + root);
     }
@@ -576,7 +574,7 @@ public final class NodePointerTest implements ClassTesting2<NodePointer<TestNode
     @Override
     public NodePointer<TestNode, StringName> parseString(final String pointer) {
         final NodePointer<TestNode, StringName> parsed = NodePointer.parse(pointer, NAME_FACTORY, TestNode.class);
-        assertEquals(pointer,
+        this.checkEquals(pointer,
                 parsed.toString(),
                 () -> "pointer.parse: " + CharSequences.quoteAndEscape(pointer));
         return parsed;

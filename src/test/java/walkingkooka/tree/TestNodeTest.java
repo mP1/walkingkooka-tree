@@ -32,8 +32,6 @@ import java.util.Arrays;
 import java.util.Map;
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
 public class TestNodeTest implements ClassTesting2<TestNode>,
         ParentNodeTesting<TestNode, StringName, StringName, Object>,
         ResourceTesting {
@@ -67,8 +65,8 @@ public class TestNodeTest implements ClassTesting2<TestNode>,
         final String parent2ToString = parent2.toString();
         this.childrenParentCheck(parent2);
 
-        assertEquals(parentToString, parent.toString(), "parent.toString");
-        assertEquals(parentToString, parent2ToString.replace("parent2", "parent"), "parent2.toString");
+        this.checkEquals(parentToString, parent.toString(), "parent.toString");
+        this.checkEquals(parentToString, parent2ToString.replace("parent2", "parent"), "parent2.toString");
 
         this.parentWithoutAndCheck2(child1, child2);
     }
@@ -84,7 +82,7 @@ public class TestNodeTest implements ClassTesting2<TestNode>,
         } catch (final AssertionError expected) {
             failed = true;
         }
-        assertEquals(failed, true, "Factory should have failed with duplicate name");
+        this.checkEquals(failed, true, "Factory should have failed with duplicate name");
     }
 
     @Test
@@ -94,7 +92,7 @@ public class TestNodeTest implements ClassTesting2<TestNode>,
 
         TestNode.disableUniqueNameChecks();
 
-        assertEquals(first, TestNode.with(duplicateName));
+        this.checkEquals(first, TestNode.with(duplicateName));
     }
 
     @Test
@@ -114,7 +112,7 @@ public class TestNodeTest implements ClassTesting2<TestNode>,
         } catch (final AssertionError expected) {
             failed = true;
         }
-        assertEquals(failed, true, "Factory should have failed with duplicate name");
+        this.checkEquals(failed, true, "Factory should have failed with duplicate name");
     }
 
     @Test
@@ -133,7 +131,7 @@ public class TestNodeTest implements ClassTesting2<TestNode>,
         } catch (final AssertionError expected) {
             failed = true;
         }
-        assertEquals(failed, true, "Factory should have failed with duplicate name");
+        this.checkEquals(failed, true, "Factory should have failed with duplicate name");
     }
 
     @Test
@@ -188,10 +186,10 @@ public class TestNodeTest implements ClassTesting2<TestNode>,
         final TestNode parent2 = TestNode.with("parent2");
         final TestNode root = TestNode.with("root", parent1, parent2);
 
-        assertEquals(root, root.child(0).child(0).root());
-        assertEquals(root, root.child(0).child(1).root());
-        assertEquals(root, root.child(0).root());
-        assertEquals(root, root);
+        this.checkEquals(root, root.child(0).child(0).root());
+        this.checkEquals(root, root.child(0).child(1).root());
+        this.checkEquals(root, root.child(0).root());
+        this.checkEquals(root, root);
     }
 
     @Test
@@ -201,7 +199,7 @@ public class TestNodeTest implements ClassTesting2<TestNode>,
 
         TestNode.clear();
 
-        assertEquals(TestNode.with("root", TestNode.with("child2")),
+        this.checkEquals(TestNode.with("root", TestNode.with("child2")),
                 root.setChild(0, child2));
     }
 
@@ -214,9 +212,9 @@ public class TestNodeTest implements ClassTesting2<TestNode>,
 
         TestNode.clear();
 
-        assertEquals(TestNode.with("root",
-                TestNode.with("child1"),
-                TestNode.with("child3")),
+        this.checkEquals(TestNode.with("root",
+                        TestNode.with("child1"),
+                        TestNode.with("child3")),
                 root.setChild(1, child3));
     }
 
@@ -227,7 +225,7 @@ public class TestNodeTest implements ClassTesting2<TestNode>,
 
         TestNode.clear();
 
-        assertEquals(TestNode.with("root", TestNode.with("child3"), TestNode.with("child2")),
+        this.checkEquals(TestNode.with("root", TestNode.with("child3"), TestNode.with("child2")),
                 root.setChild(Names.string("child1"), child3));
     }
 
@@ -238,7 +236,7 @@ public class TestNodeTest implements ClassTesting2<TestNode>,
 
         TestNode.clear();
 
-        assertEquals(TestNode.with("root", TestNode.with("child1"), TestNode.with("child3")),
+        this.checkEquals(TestNode.with("root", TestNode.with("child1"), TestNode.with("child3")),
                 root.setChild(Names.string("child2"), child3));
     }
 
@@ -249,7 +247,7 @@ public class TestNodeTest implements ClassTesting2<TestNode>,
 
         TestNode.clear();
 
-        assertEquals(TestNode.with("root", TestNode.with("child1"), TestNode.with("child2"), TestNode.with("child3")),
+        this.checkEquals(TestNode.with("root", TestNode.with("child1"), TestNode.with("child2"), TestNode.with("child3")),
                 root.setChild(Names.string("unknown"), child3));
     }
 
@@ -265,7 +263,7 @@ public class TestNodeTest implements ClassTesting2<TestNode>,
                 .setChildren(Lists.of(child1, child2));
         final String parent2ToString = parent2.toString();
 
-        assertEquals(parentToString, parent2ToString);
+        this.checkEquals(parentToString, parent2ToString);
 
         this.parentWithoutAndCheck2(child1, child2);
     }
@@ -282,7 +280,7 @@ public class TestNodeTest implements ClassTesting2<TestNode>,
         final TestNode parent2 = parent.setChildren(Lists.of(child1, child3));
         final String parent2ToString = parent2.toString();
 
-        assertEquals(parentToString, parent2ToString
+        this.checkEquals(parentToString, parent2ToString
                 .replace("child3", "child2"));
 
         this.parentWithoutAndCheck2(child1, child2, child3);
@@ -302,12 +300,12 @@ public class TestNodeTest implements ClassTesting2<TestNode>,
 
         TestNode.clear();
 
-        assertEquals(TestNode.with("grandParent",
-                TestNode.with("parent1",
-                        TestNode.with("child1"), TestNode.with("child2")
-                ),
-                TestNode.with("parent2",
-                        TestNode.with("child3"), child5)),
+        this.checkEquals(TestNode.with("grandParent",
+                        TestNode.with("parent1",
+                                TestNode.with("child1"), TestNode.with("child2")
+                        ),
+                        TestNode.with("parent2",
+                                TestNode.with("child3"), child5)),
                 grandParent.child(1)
                         .setChild(1, child5)
                         .root());
@@ -329,12 +327,12 @@ public class TestNodeTest implements ClassTesting2<TestNode>,
 
         final Map<StringName, Object> attributes = Maps.of(Names.string("attribute123"), "value456");
 
-        assertEquals(TestNode.with("grandParent",
-                TestNode.with("parent1",
-                        TestNode.with("child1"), TestNode.with("child2")
-                ),
-                TestNode.with("parent2",
-                        TestNode.with("child3"), TestNode.with("child4").setAttributes(attributes))),
+        this.checkEquals(TestNode.with("grandParent",
+                        TestNode.with("parent1",
+                                TestNode.with("child1"), TestNode.with("child2")
+                        ),
+                        TestNode.with("parent2",
+                                TestNode.with("child3"), TestNode.with("child4").setAttributes(attributes))),
                 grandParent.child(1).child(1)
                         .setAttributes(attributes)
                         .root());
@@ -396,7 +394,7 @@ public class TestNodeTest implements ClassTesting2<TestNode>,
     private void traverseAndCheck(final TestNode node) {
         final NodePointer<TestNode, StringName> pointer = node.pointer();
 
-        assertEquals(Optional.of(node),
+        this.checkEquals(Optional.of(node),
                 pointer.traverse(node.root()),
                 "pointer returned wrong node");
     }

@@ -34,7 +34,6 @@ import java.math.BigInteger;
 import java.math.MathContext;
 import java.text.DecimalFormat;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class ExpressionNumberToExpressionNumberConverterTest implements ConverterTesting2<ExpressionNumberToExpressionNumberConverter<ExpressionNumberConverterContext>, ExpressionNumberConverterContext>,
@@ -122,7 +121,7 @@ public final class ExpressionNumberToExpressionNumberConverterTest implements Co
             }
         });
         final ExpressionNumberConverterContext context = this.createContext();
-        assertEquals(false, converter.canConvert(value, type, context));
+        this.checkEquals(false, converter.canConvert(value, type, context));
         this.convertFails(converter,
                 value,
                 type,

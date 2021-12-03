@@ -24,7 +24,6 @@ import walkingkooka.visit.Visiting;
 
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -68,8 +67,8 @@ public final class NodeSelectorFunctionParserTokenTest extends NodeSelectorParen
     private void check(final NodeSelectorFunctionParserToken function,
                        final NodeSelectorFunctionName functionName,
                        final ParserToken... parameters) {
-        assertEquals(functionName, function.functionName(), "functionName");
-        assertEquals(Lists.of(parameters), function.parameters(), "parameters");
+        this.checkEquals(functionName, function.functionName(), "functionName");
+        this.checkEquals(Lists.of(parameters), function.parameters(), "parameters");
     }
 
     @Test
@@ -141,13 +140,13 @@ public final class NodeSelectorFunctionParserTokenTest extends NodeSelectorParen
                 visited.add(t);
             }
         }.accept(function);
-        assertEquals("1315216217218242", b.toString());
-        assertEquals(Lists.<Object>of(function, function,
-                functionName, functionName, functionName,
-                parenOpen, parenOpen, parenOpen,
-                quotedText, quotedText, quotedText,
-                parenClose, parenClose, parenClose,
-                function, function),
+        this.checkEquals("1315216217218242", b.toString());
+        this.checkEquals(Lists.<Object>of(function, function,
+                        functionName, functionName, functionName,
+                        parenOpen, parenOpen, parenOpen,
+                        quotedText, quotedText, quotedText,
+                        parenClose, parenClose, parenClose,
+                        function, function),
                 visited,
                 "visited");
     }

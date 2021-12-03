@@ -39,7 +39,6 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.fail;
@@ -336,7 +335,7 @@ public final class CycleDetectingExpressionEvaluationContextTest implements Clas
                                                 DecimalNumberContexts.american(MathContext.DECIMAL32)));
                     }
                 });
-        assertEquals(Either.left(BigInteger.valueOf(123)), context.convert("123", BigInteger.class));
+        this.checkEquals(Either.left(BigInteger.valueOf(123)), context.convert("123", BigInteger.class));
     }
 
     @Override

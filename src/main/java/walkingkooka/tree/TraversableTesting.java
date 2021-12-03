@@ -17,25 +17,25 @@
 
 package walkingkooka.tree;
 
+import walkingkooka.test.Testing;
+
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 
 /**
  * A mixin interface that contains tests and helpers to assist testing of {@link Traversable} implementations..
  */
-public interface TraversableTesting {
+public interface TraversableTesting extends Testing {
 
     default void parentMissingCheck(final Traversable<?> traversable) {
-        assertEquals(Optional.empty(), traversable.parent(), "parent");
-        assertEquals(true, traversable.isRoot(), "root");
+        this.checkEquals(Optional.empty(), traversable.parent(), "parent");
+        this.checkEquals(true, traversable.isRoot(), "root");
     }
 
     default void parentPresentCheck(final Traversable<?> traversable) {
-        assertNotEquals(Optional.empty(), traversable.parent(), "parent");
-        assertEquals(false, traversable.isRoot(), "root");
+        this.checkNotEquals(Optional.empty(), traversable.parent(), "parent");
+        this.checkEquals(false, traversable.isRoot(), "root");
     }
 
     default void childrenCheck(final Traversable<?> parent) {
@@ -43,9 +43,9 @@ public interface TraversableTesting {
 
         int i = 0;
         for (Traversable<?> child : parent.children()) {
-            assertEquals(i, child.index(), () -> "Incorrect index of " + child);
+            this.checkEquals(i, child.index(), () -> "Incorrect index of " + child);
             final int j = i;
-            assertEquals(nodeAsParent, child.parent(), () -> "Incorrect parent of child " + j + "=" + child);
+            this.checkEquals(nodeAsParent, child.parent(), () -> "Incorrect parent of child " + j + "=" + child);
 
             this.childrenCheck(child);
             i++;
@@ -66,7 +66,7 @@ public interface TraversableTesting {
     }
 
     default void childCountCheck(final Traversable<?> parent, final int count) {
-        assertEquals(parent.children().size(), count, "children of parent");
+        this.checkEquals(parent.children().size(), count, "children of parent");
         this.childrenParentCheck(parent);
     }
 }

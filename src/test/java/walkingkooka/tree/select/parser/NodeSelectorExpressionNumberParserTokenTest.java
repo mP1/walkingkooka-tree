@@ -23,9 +23,6 @@ import walkingkooka.tree.expression.ExpressionNumber;
 import walkingkooka.tree.expression.ExpressionNumberKind;
 import walkingkooka.visit.Visiting;
 
-import java.math.BigDecimal;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 
 public final class NodeSelectorExpressionNumberParserTokenTest extends NodeSelectorNonSymbolParserTokenTestCase<NodeSelectorExpressionNumberParserToken, ExpressionNumber> {
@@ -70,7 +67,7 @@ public final class NodeSelectorExpressionNumberParserTokenTest extends NodeSelec
                 b.append("5");
             }
         }.accept(token);
-        assertEquals("13542", b.toString());
+        this.checkEquals("13542", b.toString());
     }
 
     @Override

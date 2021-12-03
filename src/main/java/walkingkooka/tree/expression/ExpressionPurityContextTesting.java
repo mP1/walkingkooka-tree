@@ -20,7 +20,6 @@ package walkingkooka.tree.expression;
 import org.junit.jupiter.api.Test;
 import walkingkooka.ContextTesting;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 /**
@@ -41,7 +40,7 @@ public interface ExpressionPurityContextTesting<C extends ExpressionPurityContex
     default void isPureAndCheck(final ExpressionPurityContext context,
                                 final FunctionExpressionName name,
                                 final boolean expected) {
-        assertEquals(
+        this.checkEquals(
                 expected,
                 context.isPure(name),
                 () -> "isPure " + name

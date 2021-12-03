@@ -29,7 +29,6 @@ import walkingkooka.visit.Visiting;
 import java.util.List;
 import java.util.function.Predicate;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -191,11 +190,11 @@ final public class NodePredicateNodeSelectorTest extends
             }
         }.accept(selector);
 
-        assertEquals("1315242", b.toString());
+        this.checkEquals("1315242", b.toString());
 
-        assertEquals(Lists.of(selector, selector,
-                next, next, next,
-                selector, selector),
+        this.checkEquals(Lists.of(selector, selector,
+                        next, next, next,
+                        selector, selector),
                 visited,
                 "visited");
     }

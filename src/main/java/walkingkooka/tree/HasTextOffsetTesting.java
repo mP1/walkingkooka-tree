@@ -21,8 +21,6 @@ import walkingkooka.test.Testing;
 import walkingkooka.text.HasText;
 import walkingkooka.text.HasTextOffset;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
 public interface HasTextOffsetTesting extends Testing {
 
     default void textOffsetAndCheck(final HasTextOffset has,
@@ -32,7 +30,7 @@ public interface HasTextOffsetTesting extends Testing {
 
     default void textOffsetAndCheck(final HasTextOffset has,
                                     final int offset) {
-        assertEquals(offset,
+        this.checkEquals(offset,
                 has.textOffset(),
                 () -> (has instanceof HasText ? ((HasText) has).text() : has.toString()) + (has instanceof Node ? "\n" + ((Node) has).root() : ""));
     }
