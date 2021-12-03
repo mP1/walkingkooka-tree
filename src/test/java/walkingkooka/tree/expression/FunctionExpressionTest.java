@@ -33,7 +33,6 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -60,7 +59,7 @@ public final class FunctionExpressionTest extends VariableExpressionTestCase<Fun
         final FunctionExpression node = this.createExpression();
         final FunctionExpressionName differentName = name("different-name");
         final FunctionExpression different = node.setName(differentName);
-        assertEquals(differentName, different.name(), "name");
+        this.checkEquals(differentName, different.name(), "name");
         this.checkChildren(different, node.children());
     }
 
@@ -84,7 +83,7 @@ public final class FunctionExpressionTest extends VariableExpressionTestCase<Fun
                 new ExpressionPurityContext() {
                     @Override
                     public boolean isPure(final FunctionExpressionName n) {
-                        assertEquals(name, n, "name");
+                        checkEquals(name, n, "name");
                         return pure;
                     }
                 },
@@ -105,11 +104,12 @@ public final class FunctionExpressionTest extends VariableExpressionTestCase<Fun
         );
         final Expression expression = Expression.function(function, parameters);
 
-        assertEquals(Lists.of("1", value),
+        this.checkEquals(
+                Lists.of("1", value),
                 expression.toValue(new FakeExpressionEvaluationContext() {
                     @Override
                     public ExpressionFunction<?, ExpressionFunctionContext> function(final FunctionExpressionName name) {
-                        assertEquals(function, name, "function name");
+                        checkEquals(function, name, "function name");
                         return new FakeExpressionFunction<>() {
                             @Override
                             public Object apply(final List<Object> parameters,
@@ -145,32 +145,35 @@ public final class FunctionExpressionTest extends VariableExpressionTestCase<Fun
         );
         final Expression expression = Expression.function(function, parameters);
 
-        assertEquals(Lists.of("1", reference),
-                expression.toValue(new FakeExpressionEvaluationContext() {
-                    @Override
-                    public ExpressionFunction<?, ExpressionFunctionContext> function(final FunctionExpressionName name) {
-                        assertEquals(function, name, "function name");
-                        return new FakeExpressionFunction<>() {
-
+        this.checkEquals(
+                Lists.of("1", reference),
+                expression.toValue(
+                        new FakeExpressionEvaluationContext() {
                             @Override
-                            public Object apply(final List<Object> parameters,
-                                                final ExpressionFunctionContext context) {
-                                return parameters;
+                            public ExpressionFunction<?, ExpressionFunctionContext> function(final FunctionExpressionName name) {
+                                checkEquals(function, name, "function name");
+                                return new FakeExpressionFunction<>() {
+
+                                    @Override
+                                    public Object apply(final List<Object> parameters,
+                                                        final ExpressionFunctionContext context) {
+                                        return parameters;
+                                    }
+
+                                    @Override
+                                    public boolean resolveReferences() {
+                                        return false;
+                                    }
+                                };
                             }
 
-                            @Override
-                            public boolean resolveReferences() {
-                                return false;
+                            public Object evaluate(final FunctionExpressionName name, final List<Object> parameters) {
+                                Objects.requireNonNull(name, "name");
+                                Objects.requireNonNull(parameters, "parameters");
+                                throw new UnsupportedOperationException();
                             }
-                        };
-                    }
-
-                    public Object evaluate(final FunctionExpressionName name, final List<Object> parameters) {
-                        Objects.requireNonNull(name, "name");
-                        Objects.requireNonNull(parameters, "parameters");
-                        throw new UnsupportedOperationException();
-                    }
-                }));
+                        })
+        );
     }
 
     @Test
@@ -218,12 +221,12 @@ public final class FunctionExpressionTest extends VariableExpressionTestCase<Fun
                 visited.add(t);
             }
         }.accept(function);
-        assertEquals("1315215215242", b.toString());
-        assertEquals(Lists.of(function, function,
-                text1, text1, text1,
-                text2, text2, text2,
-                text3, text3, text3,
-                function, function),
+        this.checkEquals("1315215215242", b.toString());
+        this.checkEquals(Lists.of(function, function,
+                        text1, text1, text1,
+                        text2, text2, text2,
+                        text3, text3, text3,
+                        function, function),
                 visited,
                 "visited");
     }
@@ -252,18 +255,20 @@ public final class FunctionExpressionTest extends VariableExpressionTestCase<Fun
         this.evaluateAndCheckText(this.createExpression(), this.context("123"), "123");
     }
 
-    final ExpressionEvaluationContext context(final String functionValue) {
+    private ExpressionEvaluationContext context(final String functionValue) {
         final ExpressionEvaluationContext context = context();
 
         return new FakeExpressionEvaluationContext() {
             @Override
             public ExpressionFunction<?, ExpressionFunctionContext> function(final FunctionExpressionName name) {
-                assertEquals(name("fx"), name, "function name");
+                checkEquals(name("fx"), name, "function name");
+
                 return new FakeExpressionFunction<>() {
                     @Override
                     public Object apply(final List<Object> parameters,
                                         final ExpressionFunctionContext context) {
-                        assertEquals(Lists.of("child-111", "child-222", "child-333"), parameters, "parameter values");
+                        checkEquals(Lists.of("child-111", "child-222", "child-333"), parameters, "parameter values");
+
                         return functionValue;
                     }
 
@@ -290,7 +295,7 @@ public final class FunctionExpressionTest extends VariableExpressionTestCase<Fun
 
     @Test
     public void testToString() {
-        assertEquals("fx(\"child-111\",\"child-222\",\"child-333\")", this.createExpression().toString());
+        this.checkEquals("fx(\"child-111\",\"child-222\",\"child-333\")", this.createExpression().toString());
     }
 
     @Override

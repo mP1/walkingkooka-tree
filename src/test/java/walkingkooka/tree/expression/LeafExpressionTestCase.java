@@ -20,8 +20,6 @@ package walkingkooka.tree.expression;
 import org.junit.jupiter.api.Test;
 import walkingkooka.collect.list.Lists;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNotSame;
 import static org.junit.jupiter.api.Assertions.assertSame;
 
@@ -34,7 +32,7 @@ public abstract class LeafExpressionTestCase<N extends LeafExpression<V>, V> ext
     @Test
     public final void testCreate() {
         final N node = this.createExpression();
-        assertEquals(Lists.empty(), node.children(), "children");
+        this.checkEquals(Lists.empty(), node.children(), "children");
         this.parentMissingCheck(node);
         this.checkValue(node, this.value());
     }
@@ -60,7 +58,7 @@ public abstract class LeafExpressionTestCase<N extends LeafExpression<V>, V> ext
 
     @Test
     public final void testEqualsDifferentValue() {
-        assertNotEquals(this.createExpression(), this.createExpression(this.differentValue()));
+        this.checkNotEquals(this.createExpression(), this.createExpression(this.differentValue()));
     }
 
     @Test
@@ -74,7 +72,7 @@ public abstract class LeafExpressionTestCase<N extends LeafExpression<V>, V> ext
         final N node = this.createExpression();
 
         final Expression parent = Expression.not(node);
-        assertEquals(node,
+        this.checkEquals(node,
                 parent.children().get(0).removeParent());
     }
 
@@ -90,6 +88,6 @@ public abstract class LeafExpressionTestCase<N extends LeafExpression<V>, V> ext
     abstract V differentValue();
 
     final void checkValue(final N node, final V value) {
-        assertEquals(value, node.value(), "value");
+        this.checkEquals(value, node.value(), "value");
     }
 }

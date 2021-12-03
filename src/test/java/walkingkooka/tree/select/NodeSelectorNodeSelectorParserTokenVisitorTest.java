@@ -63,8 +63,6 @@ import java.util.Set;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
 public final class NodeSelectorNodeSelectorParserTokenVisitorTest implements NodeSelectorParserTokenVisitorTesting<NodeSelectorNodeSelectorParserTokenVisitor<TestNode, StringName, StringName, Object>> {
 
     private final static ExpressionNumberKind EXPRESSION_NUMBER_KIND = ExpressionNumberKind.DEFAULT;
@@ -1779,7 +1777,7 @@ public final class NodeSelectorNodeSelectorParserTokenVisitorTest implements Nod
 
     private void parseExpressionAndCheck(final String expression,
                                          final NodeSelector<TestNode, StringName, StringName, Object> selector) {
-        assertEquals(selector,
+        this.checkEquals(selector,
                 this.parseExpression(expression).unwrapIfCustomToStringNodeSelector(),
                 () -> "Parse expression " + CharSequences.quoteAndEscape(expression));
     }
@@ -1956,7 +1954,7 @@ public final class NodeSelectorNodeSelectorParserTokenVisitorTest implements Nod
                     }
                 });
 
-        assertEquals(expected, names(selected), () -> expression + "\n" + selector.unwrapIfCustomToStringNodeSelector() + "\n" + root);
+        this.checkEquals(expected, names(selected), () -> expression + "\n" + selector.unwrapIfCustomToStringNodeSelector() + "\n" + root);
     }
 
     static abstract class TestExpressionFunction extends FakeExpressionFunction<Object, NodeSelectorExpressionEvaluationContext<TestNode, StringName, StringName, Object>> {

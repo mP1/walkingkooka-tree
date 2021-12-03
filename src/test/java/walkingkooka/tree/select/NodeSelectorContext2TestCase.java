@@ -25,8 +25,6 @@ import walkingkooka.tree.Node;
 import walkingkooka.tree.TestNode;
 import walkingkooka.tree.expression.ExpressionNumberKind;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
 public abstract class NodeSelectorContext2TestCase<C extends NodeSelectorContext<N, NAME, ANAME, AVALUE>,
         N extends Node<N, NAME, ANAME, AVALUE>,
         NAME extends Name,
@@ -54,7 +52,7 @@ public abstract class NodeSelectorContext2TestCase<C extends NodeSelectorContext
     }
 
     final void checkType(final NodeSelectorContext2<?, ?, ?, ?> context, final Class<? extends NodeSelectorContext2> type) {
-        assertEquals(type.getName(), context.getClass().getName(), () -> "" + context + " must be " + type.getName());
+        this.checkEquals(type.getName(), context.getClass().getName(), () -> "" + context + " must be " + type.getName());
     }
 
     @Override

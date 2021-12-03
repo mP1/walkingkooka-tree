@@ -19,7 +19,6 @@ package walkingkooka.tree.select;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
-import walkingkooka.convert.Converter;
 import walkingkooka.convert.ConverterContexts;
 import walkingkooka.convert.Converters;
 import walkingkooka.datetime.DateTimeContexts;
@@ -41,14 +40,11 @@ import walkingkooka.tree.expression.FunctionExpressionName;
 import walkingkooka.tree.expression.function.ExpressionFunction;
 import walkingkooka.tree.expression.function.ExpressionFunctionContext;
 
-import java.util.List;
 import java.util.Optional;
-import java.util.function.BiFunction;
 import java.util.function.BooleanSupplier;
 import java.util.function.Function;
 import java.util.function.Predicate;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class BasicNodeSelectorContextTest implements ClassTesting2<BasicNodeSelectorContext<TestNode, StringName, StringName, Object>>,
@@ -110,7 +106,7 @@ public final class BasicNodeSelectorContextTest implements ClassTesting2<BasicNo
         final BasicNodeSelectorContext<TestNode, StringName, StringName, Object> context = this.createContext();
         final int number = 123;
 
-        assertEquals(KIND.create(number), context.evaluate(Expression.expressionNumber(KIND.create(number))));
+        this.checkEquals(KIND.create(number), context.evaluate(Expression.expressionNumber(KIND.create(number))));
     }
 
     @Test
@@ -119,7 +115,7 @@ public final class BasicNodeSelectorContextTest implements ClassTesting2<BasicNo
         final int left = 123;
         final int right = 456;
 
-        assertEquals(KIND.create(left + right),
+        this.checkEquals(KIND.create(left + right),
                 context.evaluate(Expression.add(
                         Expression.expressionNumber(KIND.create(left)),
                         Expression.expressionNumber(KIND.create(right)))));

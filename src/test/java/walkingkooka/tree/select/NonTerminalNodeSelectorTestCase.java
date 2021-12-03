@@ -29,7 +29,6 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 
 public abstract class NonTerminalNodeSelectorTestCase<S extends NodeSelector<TestNode, StringName, StringName, Object>>
@@ -70,7 +69,7 @@ public abstract class NonTerminalNodeSelectorTestCase<S extends NodeSelector<Tes
                 .stream()
                 .map(n -> n.name().value())
                 .collect(Collectors.toList());
-        assertEquals(Lists.of(nodes), selectedNames, "names of selected nodes");
+        this.checkEquals(Lists.of(nodes), selectedNames, "names of selected nodes");
     }
 
     final S createSelector(final NodeSelector<TestNode, StringName, StringName, Object> selector) {

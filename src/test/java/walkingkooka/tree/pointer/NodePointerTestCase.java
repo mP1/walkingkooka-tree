@@ -29,7 +29,6 @@ import walkingkooka.tree.TestNode;
 
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public abstract class NodePointerTestCase<N extends NodePointer<TestNode, StringName>> implements ClassTesting2<N>,
@@ -74,7 +73,7 @@ public abstract class NodePointerTestCase<N extends NodePointer<TestNode, String
 
     final void nextAndCheck(final NodePointer<TestNode, StringName> pointer,
                             final NodePointer<TestNode, StringName> next) {
-        assertEquals(Optional.ofNullable(next),
+        this.checkEquals(Optional.ofNullable(next),
                 pointer.next(),
                 () -> " next of " + pointer);
     }
@@ -90,7 +89,7 @@ public abstract class NodePointerTestCase<N extends NodePointer<TestNode, String
                            final TestNode base,
                            final TestNode add,
                            final TestNode result) {
-        assertEquals(result,
+        this.checkEquals(result,
                 pointer.add(base, add),
                 () -> pointer + " add to " + base + ", " + add);
     }
@@ -104,7 +103,7 @@ public abstract class NodePointerTestCase<N extends NodePointer<TestNode, String
     final void removeAndCheck(final NodePointer<TestNode, StringName> pointer,
                               final TestNode node,
                               final TestNode result) {
-        assertEquals(result,
+        this.checkEquals(result,
                 pointer.remove(node),
                 () -> pointer + " remove from " + node);
     }

@@ -25,8 +25,6 @@ import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.tree.TestNode;
 import walkingkooka.visit.Visiting;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
 public final class NodePointerVisitorTest implements NodePointerVisitorTesting<FakeNodePointerVisitor<TestNode, StringName>, TestNode, StringName> {
 
     @Override
@@ -51,7 +49,7 @@ public final class NodePointerVisitorTest implements NodePointerVisitorTesting<F
 
         }.accept(NodePointer.parse("/1/abc/-", Names::string, TestNode.class));
 
-        assertEquals("12", b.toString());
+        this.checkEquals("12", b.toString());
     }
 
     @Test
@@ -76,7 +74,7 @@ public final class NodePointerVisitorTest implements NodePointerVisitorTesting<F
             }
         }.accept(NodePointer.any(TestNode.class));
 
-        assertEquals("132", b.toString());
+        this.checkEquals("132", b.toString());
     }
 
     @Test
@@ -113,7 +111,7 @@ public final class NodePointerVisitorTest implements NodePointerVisitorTesting<F
 
         }.accept(NodePointer.relative(0, TestNode.class));
 
-        assertEquals("1342", b.toString());
+        this.checkEquals("1342", b.toString());
     }
 
     @Test
@@ -146,7 +144,7 @@ public final class NodePointerVisitorTest implements NodePointerVisitorTesting<F
             @Override
             protected Visiting startVisitIndexedChild(final NodePointer<TestNode, StringName> node,
                                                       final int index) {
-                assertEquals(1, index, "index");
+                checkEquals(1, index, "index");
                 b.append("4");
                 return Visiting.CONTINUE;
             }
@@ -160,7 +158,7 @@ public final class NodePointerVisitorTest implements NodePointerVisitorTesting<F
             @Override
             protected Visiting startVisitNamedChild(final NodePointer<TestNode, StringName> node,
                                                     final StringName name) {
-                assertEquals(Names.string("abc"), name, "name");
+                checkEquals(Names.string("abc"), name, "name");
                 b.append("6");
                 return Visiting.CONTINUE;
             }
@@ -172,7 +170,7 @@ public final class NodePointerVisitorTest implements NodePointerVisitorTesting<F
             }
         }.accept(NodePointer.parse("/1/abc/-", Names::string, TestNode.class));
 
-        assertEquals("14161327252", b.toString());
+        this.checkEquals("14161327252", b.toString());
     }
 
     @Test
@@ -231,7 +229,7 @@ public final class NodePointerVisitorTest implements NodePointerVisitorTesting<F
             }
         }.accept(pointer);
 
-        assertEquals(path, b.toString());
+        this.checkEquals(path, b.toString());
 
         new NodePointerVisitor<TestNode, StringName>() {
         }.accept(pointer);

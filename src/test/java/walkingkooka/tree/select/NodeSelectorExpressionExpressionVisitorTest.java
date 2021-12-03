@@ -24,12 +24,9 @@ import walkingkooka.naming.StringName;
 import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.tree.TestNode;
 import walkingkooka.tree.expression.Expression;
-import walkingkooka.tree.expression.ExpressionNumber;
 import walkingkooka.tree.expression.ExpressionNumberExpression;
 import walkingkooka.tree.expression.ExpressionNumberKind;
 import walkingkooka.tree.expression.ExpressionVisitorTesting;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public final class NodeSelectorExpressionExpressionVisitorTest implements ExpressionVisitorTesting<NodeSelectorExpressionExpressionVisitor<TestNode, StringName, StringName, Object>> {
 
@@ -66,7 +63,7 @@ public final class NodeSelectorExpressionExpressionVisitorTest implements Expres
     private void acceptExpressionAndCheck(final NodeSelector<TestNode, StringName, StringName, Object> selector,
                                           final Expression expression,
                                           final NodeSelector<TestNode, StringName, StringName, Object> expected) {
-        assertEquals(expected,
+        this.checkEquals(expected,
                 NodeSelectorExpressionExpressionVisitor.acceptExpression(expression, selector),
                 () -> "expression=" + expression + " selector: " + selector);
     }

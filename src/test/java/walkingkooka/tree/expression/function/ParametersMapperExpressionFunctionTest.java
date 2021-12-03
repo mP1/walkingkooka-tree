@@ -28,7 +28,6 @@ import java.util.List;
 import java.util.function.BiFunction;
 import java.util.stream.Collectors;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotSame;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -89,7 +88,7 @@ public final class ParametersMapperExpressionFunctionTest implements ExpressionF
 
     @Test
     public void testName() {
-        assertEquals(NAME, this.createBiFunction().name());
+        this.checkEquals(NAME, this.createBiFunction().name());
     }
 
     @Test
@@ -103,7 +102,7 @@ public final class ParametersMapperExpressionFunctionTest implements ExpressionF
     }
 
     private void resolveReferencesAndCheck(final boolean resolveReferences) {
-        assertEquals(resolveReferences, ParametersMapperExpressionFunction.with(MAPPER, new FakeExpressionFunction<>() {
+        this.checkEquals(resolveReferences, ParametersMapperExpressionFunction.with(MAPPER, new FakeExpressionFunction<>() {
             @Override
             public boolean resolveReferences() {
                 return resolveReferences;

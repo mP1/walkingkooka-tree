@@ -54,8 +54,6 @@ import java.util.Locale;
 import java.util.function.Function;
 import java.util.function.Predicate;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
 public abstract class ExpressionTestCase<N extends Expression> implements ClassTesting2<Expression>,
         ExpressionPurityTesting,
         IsMethodTesting<N>,
@@ -152,7 +150,11 @@ public abstract class ExpressionTestCase<N extends Expression> implements ClassT
     }
 
     final void evaluateAndCheckBoolean(final Expression node, final ExpressionEvaluationContext context, final boolean expected) {
-        this.checkEquals("toBoolean of " + node + " failed", expected, node.toBoolean(context));
+        this.checkEquals(
+                expected,
+                node.toBoolean(context),
+                () -> "toBoolean of " + node + " failed"
+        );
     }
 
     final void evaluateAndCheckExpressionNumber(final Expression node,
@@ -168,7 +170,11 @@ public abstract class ExpressionTestCase<N extends Expression> implements ClassT
     final void evaluateAndCheckExpressionNumber(final Expression node,
                                                 final ExpressionEvaluationContext context,
                                                 final ExpressionNumber expected) {
-        this.checkEquals("toExpressionNumber of " + node + " failed", expected, node.toExpressionNumber(context));
+        this.checkEquals(
+                expected,
+                node.toExpressionNumber(context),
+                () -> "toExpressionNumber of " + node + " failed"
+        );
     }
 
     final void evaluateAndCheckLocalDate(final Expression node, final long expected) {
@@ -180,7 +186,11 @@ public abstract class ExpressionTestCase<N extends Expression> implements ClassT
     }
 
     final void evaluateAndCheckLocalDate(final Expression node, final ExpressionEvaluationContext context, final LocalDate expected) {
-        this.checkEquals("toLocalDate of " + node + " failed", expected, node.toLocalDate(context));
+        this.checkEquals(
+                expected,
+                node.toLocalDate(context),
+                () -> "toLocalDate of " + node + " failed"
+        );
     }
 
     final void evaluateAndCheckLocalDateTime(final Expression node, final double expected) {
@@ -192,7 +202,11 @@ public abstract class ExpressionTestCase<N extends Expression> implements ClassT
     }
 
     final void evaluateAndCheckLocalDateTime(final Expression node, final ExpressionEvaluationContext context, final LocalDateTime expected) {
-        this.checkEquals("toLocalDateTime of " + node + " failed", expected, node.toLocalDateTime(context));
+        this.checkEquals(
+                expected,
+                node.toLocalDateTime(context),
+                () -> "toLocalDateTime of " + node + " failed"
+        );
     }
 
     final void evaluateAndCheckLocalTime(final Expression node, final long expected) {
@@ -204,7 +218,11 @@ public abstract class ExpressionTestCase<N extends Expression> implements ClassT
     }
 
     final void evaluateAndCheckLocalTime(final Expression node, final ExpressionEvaluationContext context, final LocalTime expected) {
-        this.checkEquals("toLocalTime of " + node + " failed", expected, node.toLocalTime(context));
+        this.checkEquals(
+                expected,
+                node.toLocalTime(context),
+                () -> "toLocalTime of " + node + " failed"
+        );
     }
 
     final void evaluateAndCheckText(final Expression node, final String expected) {
@@ -212,7 +230,11 @@ public abstract class ExpressionTestCase<N extends Expression> implements ClassT
     }
 
     final void evaluateAndCheckText(final Expression node, final ExpressionEvaluationContext context, final String expected) {
-        this.checkEquals("toText of " + node + " failed", expected, node.toString(context));
+        this.checkEquals(
+                expected,
+                node.toString(context),
+                () -> "toText of " + node + " failed"
+        );
     }
 
     final void evaluateAndCheckValue(final Expression node, final Object expected) {
@@ -222,25 +244,34 @@ public abstract class ExpressionTestCase<N extends Expression> implements ClassT
     final void evaluateAndCheckValue(final Expression node, final ExpressionEvaluationContext context, final Object expected) {
         final Object value = node.toValue(context);
         if (expected instanceof Comparable && value instanceof Comparable) {
-            this.checkEquals("toValue of " + node + " failed", Cast.to(expected), Cast.to(value));
+            this.checkEquals(
+                    expected,
+                    value,
+                    () -> "toValue of " + node + " failed"
+            );
         } else {
-            assertEquals(expected, value, () -> "toValue of " + node + " failed");
+            this.checkEquals(
+                    expected,
+                    value,
+                    () -> "toValue of " + node + " failed"
+            );
         }
 
         if (false == node.isReference()) {
             final Object referenceOrValue = node.toReferenceOrValue(context);
             if (expected instanceof Comparable && referenceOrValue instanceof Comparable) {
-                this.checkEquals("toReferenceOrValue of " + node + " failed", Cast.to(expected), Cast.to(referenceOrValue));
+                this.checkEquals(
+                        expected,
+                        referenceOrValue,
+                        () -> "toReferenceOrValue of " + node + " failed"
+                );
             } else {
-                assertEquals(expected, value, () -> "toReferenceOrValue of " + node + " failed");
+                this.checkEquals(
+                        expected,
+                        value,
+                        () -> "toReferenceOrValue of " + node + " failed"
+                );
             }
-        }
-    }
-
-    private <T extends Comparable<T>> void checkEquals(final String message, final T expected, final T actual) {
-        // necessary because BigDecimals of different precisions (extra zeros) will not be equal.
-        if (expected.getClass() != actual.getClass() || 0 != expected.compareTo(actual)) {
-            assertEquals(expected, actual, message);
         }
     }
 

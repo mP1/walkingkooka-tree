@@ -23,7 +23,6 @@ import walkingkooka.visit.Visiting;
 
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -72,10 +71,10 @@ public final class NotExpressionTest extends UnaryExpressionTestCase<NotExpressi
                 visited.add(t);
             }
         }.accept(not);
-        assertEquals("1315242", b.toString());
-        assertEquals(Lists.of(not, not,
-                child, child, child,
-                not, not),
+        this.checkEquals("1315242", b.toString());
+        this.checkEquals(Lists.of(not, not,
+                        child, child, child,
+                        not, not),
                 visited,
                 "visited");
     }

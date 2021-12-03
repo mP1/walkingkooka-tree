@@ -24,7 +24,6 @@ import walkingkooka.visit.Visiting;
 
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 
 public final class NodeSelectorAttributeParserTokenTest extends NodeSelectorParentParserTokenTestCase<NodeSelectorAttributeParserToken> {
@@ -37,7 +36,7 @@ public final class NodeSelectorAttributeParserTokenTest extends NodeSelectorPare
     }
 
     private void checkAttributeName(final NodeSelectorAttributeParserToken token) {
-        assertEquals(attributeName().value(), token.attributeName(), "attributeName");
+        this.checkEquals(attributeName().value(), token.attributeName(), "attributeName");
     }
 
     @Test
@@ -93,11 +92,11 @@ public final class NodeSelectorAttributeParserTokenTest extends NodeSelectorPare
             }
         }.accept(attribute);
 
-        assertEquals("1315216242", b.toString());
-        assertEquals(Lists.<Object>of(attribute, attribute,
-                atSign, atSign, atSign,
-                name, name, name,
-                attribute, attribute),
+        this.checkEquals("1315216242", b.toString());
+        this.checkEquals(Lists.<Object>of(attribute, attribute,
+                        atSign, atSign, atSign,
+                        name, name, name,
+                        attribute, attribute),
                 visited,
                 "visited");
     }

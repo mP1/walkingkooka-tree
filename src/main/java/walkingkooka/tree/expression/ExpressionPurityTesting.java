@@ -17,21 +17,20 @@
 
 package walkingkooka.tree.expression;
 
+import walkingkooka.test.Testing;
 import walkingkooka.text.Indentation;
 import walkingkooka.text.LineEnding;
 import walkingkooka.text.printer.TreePrintable;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
 /**
  * A mixin interface with tests and helpers to assist in testing a {@link ExpressionPurity}
  */
-public interface ExpressionPurityTesting {
+public interface ExpressionPurityTesting extends Testing {
 
     default void isPureAndCheck(final ExpressionPurity purity,
                                 final ExpressionPurityContext context,
                                 final boolean expected) {
-        assertEquals(
+        this.checkEquals(
                 expected,
                 purity.isPure(context),
                 () -> purity instanceof TreePrintable ?

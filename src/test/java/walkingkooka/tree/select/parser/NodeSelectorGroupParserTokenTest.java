@@ -24,7 +24,6 @@ import walkingkooka.visit.Visiting;
 
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 
 public final class NodeSelectorGroupParserTokenTest extends NodeSelectorParentParserTokenTestCase<NodeSelectorGroupParserToken> {
@@ -92,10 +91,10 @@ public final class NodeSelectorGroupParserTokenTest extends NodeSelectorParentPa
                 visited.add(t);
             }
         }.accept(expression);
-        assertEquals("1315216217242", b.toString());
-        assertEquals(Lists.of(expression, expression,
-                open, open, open, number, number, number, close, close, close,
-                expression, expression),
+        this.checkEquals("1315216217242", b.toString());
+        this.checkEquals(Lists.of(expression, expression,
+                        open, open, open, number, number, number, close, close, close,
+                        expression, expression),
                 visited,
                 "visited");
     }

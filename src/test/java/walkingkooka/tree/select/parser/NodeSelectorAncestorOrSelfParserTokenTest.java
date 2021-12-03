@@ -20,7 +20,6 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.text.cursor.parser.ParserToken;
 import walkingkooka.visit.Visiting;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 
 public final class NodeSelectorAncestorOrSelfParserTokenTest extends NodeSelectorNonSymbolParserTokenTestCase<NodeSelectorAncestorOrSelfParserToken, String> {
@@ -63,7 +62,7 @@ public final class NodeSelectorAncestorOrSelfParserTokenTest extends NodeSelecto
                 b.append("5");
             }
         }.accept(token);
-        assertEquals("13542", b.toString());
+        this.checkEquals("13542", b.toString());
     }
 
     @Override

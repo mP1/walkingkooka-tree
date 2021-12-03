@@ -22,7 +22,6 @@ import walkingkooka.Cast;
 import walkingkooka.naming.StringName;
 import walkingkooka.tree.TestNode;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -50,7 +49,7 @@ final public class CustomToStringNodeSelectorTest extends NodeSelectorTestCase4<
     public void testWith() {
         final NodeSelector<TestNode, StringName, StringName, Object> wrapped = this.wrapped();
         final CustomToStringNodeSelector<TestNode, StringName, StringName, Object> custom = this.createSelector(wrapped);
-        assertEquals(wrapped, custom.selector, "selector");
+        this.checkEquals(wrapped, custom.selector, "selector");
     }
 
     @Test
@@ -60,8 +59,8 @@ final public class CustomToStringNodeSelectorTest extends NodeSelectorTestCase4<
 
         final String toString2 = "CustomToString2";
         final CustomToStringNodeSelector<TestNode, StringName, StringName, Object> again = this.createSelector(custom, toString2);
-        assertEquals(wrapped, again.selector, "selector");
-        assertEquals(toString2, again.toString(), "toString");
+        this.checkEquals(wrapped, again.selector, "selector");
+        this.checkEquals(toString2, again.toString(), "toString");
     }
 
     @Test
@@ -85,7 +84,7 @@ final public class CustomToStringNodeSelectorTest extends NodeSelectorTestCase4<
         final ParentNodeSelector<TestNode, StringName, StringName, Object> parent = Cast.to(TestNode.relativeNodeSelector()
                 .parent()
                 .append(custom));
-        assertEquals(parent.next, custom);
+        this.checkEquals(parent.next, custom);
     }
 
     @Test

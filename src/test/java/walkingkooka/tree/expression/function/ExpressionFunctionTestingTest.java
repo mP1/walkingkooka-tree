@@ -25,8 +25,6 @@ import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.tree.expression.ExpressionNumber;
 import walkingkooka.tree.expression.ExpressionNumberKind;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
 public final class ExpressionFunctionTestingTest implements ClassTesting<ExpressionFunctionTesting<?, ?, ?>> {
 
     @Test
@@ -77,7 +75,7 @@ public final class ExpressionFunctionTestingTest implements ClassTesting<Express
     private <T> void convertAndCheck(final Object value,
                                      final Class<T> target,
                                      final T expected) {
-        assertEquals(Either.left(expected), new ExpressionFunctionTesting<>() {
+        this.checkEquals(Either.left(expected), new ExpressionFunctionTesting<>() {
 
             @Override
             public Class<ExpressionFunction<Object, ExpressionFunctionContext>> type() {

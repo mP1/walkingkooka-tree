@@ -24,8 +24,6 @@ import walkingkooka.tree.TestNode;
 
 import java.util.Collections;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
 public class NodeSelectorNodeAttributeValueEndsWithPredicateTest
         extends NodeSelectorNodeAttributeValuePredicateTestCase<NodeSelectorNodeAttributeValueEndsWithPredicate<TestNode, StringName, StringName, Object>> {
 
@@ -41,7 +39,7 @@ public class NodeSelectorNodeAttributeValueEndsWithPredicateTest
 
     @Test
     public void testToString() {
-        assertEquals("ends-with(@attribute-1,\"123\")", this.createPredicate().toString());
+        this.checkEquals("ends-with(@attribute-1,\"123\")", this.createPredicate().toString());
     }
 
     @Override

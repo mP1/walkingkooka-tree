@@ -23,7 +23,6 @@ import walkingkooka.visit.Visiting;
 
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 
 public final class AddExpressionTest extends BinaryArithmeticExpressionTestCase<AddExpression> {
@@ -72,11 +71,11 @@ public final class AddExpressionTest extends BinaryArithmeticExpressionTestCase<
                 visited.add(t);
             }
         }.accept(addition);
-        assertEquals("1315215242", b.toString());
-        assertEquals(Lists.of(addition, addition,
-                text1, text1, text1,
-                text2, text2, text2,
-                addition, addition),
+        this.checkEquals("1315215242", b.toString());
+        this.checkEquals(Lists.of(addition, addition,
+                        text1, text1, text1,
+                        text2, text2, text2,
+                        addition, addition),
                 visited,
                 "visited");
     }

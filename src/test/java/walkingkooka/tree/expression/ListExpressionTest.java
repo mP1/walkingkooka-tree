@@ -24,7 +24,6 @@ import walkingkooka.visit.Visiting;
 
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 
 public final class ListExpressionTest extends VariableExpressionTestCase<ListExpression> {
@@ -74,12 +73,12 @@ public final class ListExpressionTest extends VariableExpressionTestCase<ListExp
                 visited.add(t);
             }
         }.accept(function);
-        assertEquals("1315215215242", b.toString());
-        assertEquals(Lists.of(function, function,
-                text1, text1, text1,
-                text2, text2, text2,
-                text3, text3, text3,
-                function, function),
+        this.checkEquals("1315215215242", b.toString());
+        this.checkEquals(Lists.of(function, function,
+                        text1, text1, text1,
+                        text2, text2, text2,
+                        text3, text3, text3,
+                        function, function),
                 visited,
                 "visited");
     }
@@ -133,7 +132,7 @@ public final class ListExpressionTest extends VariableExpressionTestCase<ListExp
 
     @Test
     public void testToString() {
-        assertEquals("[\"child-111\",\"child-222\",\"child-333\"]", this.createExpression().toString());
+        this.checkEquals("[\"child-111\",\"child-222\",\"child-333\"]", this.createExpression().toString());
     }
 
     @Override

@@ -23,7 +23,6 @@ import walkingkooka.text.cursor.parser.ParserToken;
 
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public abstract class NodeSelectorParentParserTokenTestCase<T extends NodeSelectorParentParserToken<T>> extends NodeSelectorParserTokenTestCase<T> {
@@ -47,8 +46,8 @@ public abstract class NodeSelectorParentParserTokenTestCase<T extends NodeSelect
         final String text = this.text();
         final T token = this.createToken(text, tokens);
         this.textAndCheck(token, text);
-        assertEquals(tokens, token.value(), "tokens");
-        assertEquals(tokens, token.value(), "tokens not copied");
+        this.checkEquals(tokens, token.value(), "tokens");
+        this.checkEquals(tokens, token.value(), "tokens not copied");
     }
 
     @Override
@@ -65,6 +64,6 @@ public abstract class NodeSelectorParentParserTokenTestCase<T extends NodeSelect
     abstract List<ParserToken> tokens();
 
     final void checkValue(final T token, final ParserToken... tokens) {
-        assertEquals(Lists.of(tokens), token.value(), "value");
+        this.checkEquals(Lists.of(tokens), token.value(), "value");
     }
 }

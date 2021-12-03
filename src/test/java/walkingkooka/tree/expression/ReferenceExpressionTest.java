@@ -24,7 +24,6 @@ import walkingkooka.visit.Visiting;
 import java.math.MathContext;
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 
 public final class ReferenceExpressionTest extends LeafExpressionTestCase<ReferenceExpression, ExpressionReference> {
@@ -37,7 +36,7 @@ public final class ReferenceExpressionTest extends LeafExpressionTestCase<Refere
     public void testToReferenceOrValue() {
         final ExpressionReference reference = new TestExpressionReference("reference!");
         final ReferenceExpression expression = ReferenceExpression.with(reference);
-        assertEquals(reference, expression.toReferenceOrValue(ExpressionEvaluationContexts.fake()));
+        this.checkEquals(reference, expression.toReferenceOrValue(ExpressionEvaluationContexts.fake()));
     }
 
     @Test
@@ -65,7 +64,7 @@ public final class ReferenceExpressionTest extends LeafExpressionTestCase<Refere
                 b.append("3");
             }
         }.accept(node);
-        assertEquals("132", b.toString());
+        this.checkEquals("132", b.toString());
     }
 
     // ExpressionPurity.................................................................................................
@@ -153,7 +152,7 @@ public final class ReferenceExpressionTest extends LeafExpressionTestCase<Refere
         }
     }
 
-    final ExpressionEvaluationContext context(final String referenceText) {
+    private ExpressionEvaluationContext context(final String referenceText) {
         final ExpressionEvaluationContext context = context();
         final ExpressionReference value = this.value();
 
@@ -161,7 +160,7 @@ public final class ReferenceExpressionTest extends LeafExpressionTestCase<Refere
 
             @Override
             public Optional<Expression> reference(final ExpressionReference reference) {
-                assertEquals(value, reference, "reference");
+                checkEquals(value, reference, "reference");
                 return Optional.of(Expression.string(referenceText));
             }
 

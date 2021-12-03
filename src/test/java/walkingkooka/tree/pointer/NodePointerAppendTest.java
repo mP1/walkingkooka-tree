@@ -24,7 +24,6 @@ import walkingkooka.naming.StringName;
 import walkingkooka.tree.TestNode;
 import walkingkooka.visit.Visiting;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class NodePointerAppendTest extends NodePointerTestCase<NodePointerAppend<TestNode, StringName>> {
@@ -112,7 +111,7 @@ public final class NodePointerAppendTest extends NodePointerTestCase<NodePointer
 
         }.accept(this.createNodePointer());
 
-        assertEquals("132", b.toString());
+        this.checkEquals("132", b.toString());
     }
 
     @Override

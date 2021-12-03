@@ -22,8 +22,6 @@ import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.reflect.ThrowableTesting2;
 import walkingkooka.tree.expression.FunctionExpressionName;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
 public final class UnknownExpressionFunctionExceptionTest implements ThrowableTesting2<UnknownExpressionFunctionException> {
 
     @Test
@@ -31,7 +29,7 @@ public final class UnknownExpressionFunctionExceptionTest implements ThrowableTe
         final FunctionExpressionName name = FunctionExpressionName.with("custom-function");
         final UnknownExpressionFunctionException exception = new UnknownExpressionFunctionException(name);
         this.checkMessage(exception, "Unknown function \"custom-function\"");
-        assertEquals(name, exception.name());
+        this.checkEquals(name, exception.name());
     }
 
     @Override

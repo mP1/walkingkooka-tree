@@ -24,7 +24,6 @@ import walkingkooka.visit.Visiting;
 
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 
 public final class NodeSelectorNegativeParserTokenTest extends NodeSelectorParentParserTokenTestCase<NodeSelectorNegativeParserToken> {
@@ -84,11 +83,11 @@ public final class NodeSelectorNegativeParserTokenTest extends NodeSelectorParen
             }
         }.accept(negative);
 
-        assertEquals("1315216242", b.toString());
-        assertEquals(Lists.<Object>of(negative, negative,
-                minus, minus, minus,
-                number, number, number,
-                negative, negative),
+        this.checkEquals("1315216242", b.toString());
+        this.checkEquals(Lists.<Object>of(negative, negative,
+                        minus, minus, minus,
+                        number, number, number,
+                        negative, negative),
                 visited,
                 "visited");
     }

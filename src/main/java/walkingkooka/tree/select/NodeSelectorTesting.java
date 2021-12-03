@@ -19,6 +19,7 @@ package walkingkooka.tree.select;
 
 import walkingkooka.collect.set.Sets;
 import walkingkooka.naming.Name;
+import walkingkooka.test.Testing;
 import walkingkooka.tree.Node;
 
 import java.util.ArrayList;
@@ -28,12 +29,10 @@ import java.util.Set;
 import java.util.function.Consumer;
 import java.util.function.Function;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
 public interface NodeSelectorTesting<N extends Node<N, NAME, ANAME, AVALUE>,
         NAME extends Name,
         ANAME extends Name,
-        AVALUE> {
+        AVALUE> extends Testing {
 
     N createNode();
 
@@ -42,18 +41,22 @@ public interface NodeSelectorTesting<N extends Node<N, NAME, ANAME, AVALUE>,
                                        final NodeSelector<N, NAME, ANAME, AVALUE> selector,
                                        final N... expected) {
         final List<N> selected = this.selectorApplyAndCollect(node, selector);
-        assertEquals(Sets.of(expected),
+        this.checkEquals(
+                Sets.of(expected),
                 new LinkedHashSet<>(selected),
-                () -> "incorrect nodes selected, selector:\n" + selector);
+                () -> "incorrect nodes selected, selector:\n" + selector
+        );
     }
 
     default void selectorApplyAndCheckCount(final N node,
                                             final NodeSelector<N, NAME, ANAME, AVALUE> selector,
                                             final int count) {
         final List<N> selected = this.selectorApplyAndCollect(node, selector);
-        assertEquals(count,
+        this.checkEquals(
+                count,
                 selected.size(),
-                () -> "incorrect number of matched node for selector\n" + selected);
+                () -> "incorrect number of matched node for selector\n" + selected
+        );
     }
 
     default List<N> selectorApplyAndCollect(final N node,
@@ -105,7 +108,8 @@ public interface NodeSelectorTesting<N extends Node<N, NAME, ANAME, AVALUE>,
                                           final NodeSelector<N, NAME, ANAME, AVALUE> selector,
                                           final Function<N, N> mapper,
                                           final N expected) {
-        assertEquals(expected,
+        this.checkEquals(
+                expected,
                 selector.apply(node, new FakeNodeSelectorContext<>() {
 
                     @Override
@@ -128,6 +132,7 @@ public interface NodeSelectorTesting<N extends Node<N, NAME, ANAME, AVALUE>,
                         return mapper.toString();
                     }
                 }),
-                () -> "selector " + selector + " map failed");
+                () -> "selector " + selector + " map failed"
+        );
     }
 }

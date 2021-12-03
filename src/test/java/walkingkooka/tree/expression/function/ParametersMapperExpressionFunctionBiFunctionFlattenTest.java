@@ -24,8 +24,6 @@ import walkingkooka.collect.list.Lists;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
 public final class ParametersMapperExpressionFunctionBiFunctionFlattenTest extends ParametersMapperExpressionFunctionBiFunctionTestCase2<ParametersMapperExpressionFunctionBiFunctionFlatten<FakeExpressionFunctionContext>> {
 
     @Test
@@ -50,7 +48,7 @@ public final class ParametersMapperExpressionFunctionBiFunctionFlattenTest exten
 
     @Test
     public void testFunctionFlatten() {
-        assertEquals("1/2/3/4/5",
+        this.checkEquals("1/2/3/4/5",
                 new FakeExpressionFunction<String, FakeExpressionFunctionContext>() {
 
                     @Override

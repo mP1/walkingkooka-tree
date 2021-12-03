@@ -40,7 +40,6 @@ import java.util.Objects;
 import java.util.Optional;
 import java.util.function.Function;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotSame;
 import static org.junit.jupiter.api.Assertions.assertSame;
 
@@ -96,7 +95,7 @@ public final class NodeSelectorContext2ExpressionNodeSelectorTest extends NodeSe
 
     private void isNodeSelectedAndCheck(final Expression expression,
                                           final boolean expected) {
-        assertEquals(expected,
+        this.checkEquals(expected,
                 this.createContext().isNodeSelected(expression),
                 () -> "expression: " + CharSequences.quoteIfChars(expression));
     }
@@ -104,7 +103,7 @@ public final class NodeSelectorContext2ExpressionNodeSelectorTest extends NodeSe
     @Test
     public void testIsNodeSelected() {
         final NodeSelectorContext2ExpressionNodeSelector<TestNode, StringName, StringName, Object> context = this.createContext();
-        assertEquals(INDEX,
+        this.checkEquals(INDEX,
                 context.nodePosition(),
                 () -> "nodePosition in " + context);
     }

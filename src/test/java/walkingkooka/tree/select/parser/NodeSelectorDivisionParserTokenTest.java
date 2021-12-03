@@ -24,7 +24,6 @@ import walkingkooka.visit.Visiting;
 
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 
 public final class NodeSelectorDivisionParserTokenTest extends NodeSelectorBinaryParserTokenTestCase<NodeSelectorDivisionParserToken> {
@@ -91,12 +90,12 @@ public final class NodeSelectorDivisionParserTokenTest extends NodeSelectorBinar
             }
 
         }.accept(division);
-        assertEquals("1315216217242", b.toString());
-        assertEquals(Lists.<Object>of(division, division,
-                nodeName, nodeName, nodeName,
-                divide, divide, divide,
-                wildcard, wildcard, wildcard,
-                division, division),
+        this.checkEquals("1315216217242", b.toString());
+        this.checkEquals(Lists.<Object>of(division, division,
+                        nodeName, nodeName, nodeName,
+                        divide, divide, divide,
+                        wildcard, wildcard, wildcard,
+                        division, division),
                 visited,
                 "visited");
     }

@@ -36,8 +36,6 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
 public final class NodeSelectorParsersTest implements ParserTesting2<Parser<NodeSelectorParserContext>,
         NodeSelectorParserContext> {
 
@@ -2277,7 +2275,7 @@ public final class NodeSelectorParsersTest implements ParserTesting2<Parser<Node
         final List<ParserToken> list = Lists.of(tokens);
         final String text = ParserToken.text(list);
 
-        assertEquals(text, text, "text should be all upper case");
+        this.checkEquals(text, text, "text should be all upper case");
 
         final Parser<NodeSelectorParserContext> parser = this.createParser();
         this.parseAndCheck3(parser,

@@ -24,8 +24,6 @@ import walkingkooka.reflect.JavaVisibility;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
 public final class ExpressionNumberTest implements ClassTesting<ExpressionNumber> {
 
     @Test
@@ -75,7 +73,7 @@ public final class ExpressionNumberTest implements ClassTesting<ExpressionNumber
 
     @Test
     public void testIsExpressionNumberBig() {
-        assertEquals(true, ExpressionNumber.isClass(ExpressionNumber.class));
+        this.checkEquals(true, ExpressionNumber.isClass(ExpressionNumber.class));
     }
 
     @Test
@@ -125,10 +123,10 @@ public final class ExpressionNumberTest implements ClassTesting<ExpressionNumber
     }
 
     private void isAndCheck(final Object value, final boolean expected) {
-        assertEquals(expected, ExpressionNumber.is(value));
+        this.checkEquals(expected, ExpressionNumber.is(value));
 
         final Class<?> type = null != value ? value.getClass() : null;
-        assertEquals(expected, ExpressionNumber.isClass(type));
+        this.checkEquals(expected, ExpressionNumber.isClass(type));
     }
     
     // with.............................................................................................................
@@ -176,14 +174,14 @@ public final class ExpressionNumberTest implements ClassTesting<ExpressionNumber
     private void withNumberAndCheck(final Number value) {
         if(value instanceof BigInteger || value instanceof BigDecimal) {
             final ExpressionNumber expressionNumber = ExpressionNumber.with(value instanceof BigDecimal ?
-                    (BigDecimal)value :
-                    new BigDecimal((BigInteger)value));
-            assertEquals(ExpressionNumberBigDecimal.class, expressionNumber.getClass(), "type");
-            assertEquals(value instanceof BigDecimal ? value : new BigDecimal((BigInteger)value), expressionNumber.bigDecimal(), "bigDecimal");
+                    (BigDecimal) value :
+                    new BigDecimal((BigInteger) value));
+            this.checkEquals(ExpressionNumberBigDecimal.class, expressionNumber.getClass(), "type");
+            this.checkEquals(value instanceof BigDecimal ? value : new BigDecimal((BigInteger) value), expressionNumber.bigDecimal(), "bigDecimal");
         } else {
             final ExpressionNumber expressionNumber = ExpressionNumber.with(value.doubleValue());
-            assertEquals(ExpressionNumberDouble.class, expressionNumber.getClass(), "type");
-            assertEquals(value.doubleValue(), expressionNumber.doubleValue(), "doubleValue");
+            this.checkEquals(ExpressionNumberDouble.class, expressionNumber.getClass(), "type");
+            this.checkEquals(value.doubleValue(), expressionNumber.doubleValue(), "doubleValue");
         }
     }
 

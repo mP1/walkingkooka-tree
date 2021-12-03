@@ -29,8 +29,6 @@ import java.util.Arrays;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
 public final class ExpressionFunctionsTest implements PublicStaticHelperTesting<ExpressionFunctions> {
 
     @Test
@@ -42,11 +40,11 @@ public final class ExpressionFunctionsTest implements PublicStaticHelperTesting<
                 .filter(m -> m.getReturnType() == ExpressionFunction.class && false == m.getName().equals("fake"))
                 .map(Method::getName)
                 .collect(Collectors.toCollection(Sets::sorted));
-        assertEquals(methods.size(),
+        this.checkEquals(methods.size(),
                 names.size(),
                 () -> methods.toString());
-        assertEquals(true, names.contains(ExpressionFunctions.booleanFunction().name()));
-        assertEquals(true, names.contains(ExpressionFunctions.trueFunction().name()));
+        this.checkEquals(true, names.contains(ExpressionFunctions.booleanFunction().name()));
+        this.checkEquals(true, names.contains(ExpressionFunctions.trueFunction().name()));
     }
 
     @Test

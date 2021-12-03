@@ -22,8 +22,6 @@ import walkingkooka.collect.list.Lists;
 
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNotSame;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -67,7 +65,7 @@ public abstract class VariableExpressionTestCase<N extends VariableExpression> e
         final N different = expression.setChildren(differentChildren).cast();
         assertNotSame(expression, different);
 
-        assertEquals(expression.name(), different.name(), "name");
+        this.checkEquals(expression.name(), different.name(), "name");
 
         this.checkChildren(different, differentChildren);
         this.checkChildren(expression, children);
@@ -103,7 +101,7 @@ public abstract class VariableExpressionTestCase<N extends VariableExpression> e
 
     @Test
     public final void testEqualsDifferentChildren() {
-        assertNotEquals(this.createExpression(), this.createExpression(differentChild()));
+        this.checkNotEquals(this.createExpression(), this.createExpression(differentChild()));
     }
 
     @Override final N createExpression() {

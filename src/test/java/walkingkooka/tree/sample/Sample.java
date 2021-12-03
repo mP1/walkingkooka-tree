@@ -47,10 +47,12 @@ public final class Sample {
         final NodeSelectorParserToken token = parser.parse(TextCursors.charSequence("/node123[45]"), context)
                 .get()
                 .cast(NodeSelectorParserToken.class);
-        assertEquals(NodeSelector.absolute()
+        assertEquals(
+                NodeSelector.absolute()
                         .named(Names.string("node123"))
                         .expression(Expression.expressionNumber(kind.create(45)))
-                .toString(),
-                ParserToken.text(Lists.of(token)));
+                        .toString(),
+                ParserToken.text(Lists.of(token))
+        );
     }
 }

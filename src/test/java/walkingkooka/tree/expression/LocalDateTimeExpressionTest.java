@@ -26,7 +26,6 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 
 public final class LocalDateTimeExpressionTest extends LeafExpressionTestCase<LocalDateTimeExpression, LocalDateTime> {
@@ -65,7 +64,7 @@ public final class LocalDateTimeExpressionTest extends LeafExpressionTestCase<Lo
                 b.append("3");
             }
         }.accept(node);
-        assertEquals("132", b.toString());
+        this.checkEquals("132", b.toString());
     }
 
     // Evaluation ...................................................................................................

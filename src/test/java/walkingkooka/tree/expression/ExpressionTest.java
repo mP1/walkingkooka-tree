@@ -31,7 +31,6 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class ExpressionTest implements ClassTesting2<Expression> {
@@ -124,7 +123,7 @@ public final class ExpressionTest implements ClassTesting2<Expression> {
 
     private void valueOrFailFails(final Object value) {
         final IllegalArgumentException thrown = assertThrows(IllegalArgumentException.class, () -> Expression.valueOrFail(value));
-        assertEquals("Unknown value " + CharSequences.quoteIfChars(value) + "(" + value.getClass().getName() + ")",
+        this.checkEquals("Unknown value " + CharSequences.quoteIfChars(value) + "(" + value.getClass().getName() + ")",
                 thrown.getMessage(),
                 "message");
     }
@@ -144,8 +143,8 @@ public final class ExpressionTest implements ClassTesting2<Expression> {
                                      final Class<? extends ValueExpression> type,
                                      final Object expected) {
         final Expression node = Expression.valueOrFail(value);
-        assertEquals(type, node.getClass(), "node reflect of " + value);
-        assertEquals(expected, type.cast(node).value(), "value");
+        this.checkEquals(type, node.getClass(), "node reflect of " + value);
+        this.checkEquals(expected, type.cast(node).value(), "value");
     }
 
     // TreePrinting......................................................................................................
@@ -167,7 +166,7 @@ public final class ExpressionTest implements ClassTesting2<Expression> {
             expression.printTree(printer);
 
             printer.flush();
-            assertEquals(
+            this.checkEquals(
                     "AddExpression\n" +
                             "  ExpressionNumberExpression 1.5\n" +
                             "  MultiplyExpression\n" +

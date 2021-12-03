@@ -27,7 +27,6 @@ import walkingkooka.visit.Visiting;
 
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 
 final public class TerminalNodeSelectorTest
@@ -99,9 +98,9 @@ final public class TerminalNodeSelectorTest
             }
         }.accept(selector);
 
-        assertEquals("132", b.toString());
+        this.checkEquals("132", b.toString());
 
-        assertEquals(Lists.of(selector, selector, selector),
+        this.checkEquals(Lists.of(selector, selector, selector),
                 visited,
                 "visited");
     }

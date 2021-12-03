@@ -23,7 +23,6 @@ import walkingkooka.text.CharSequences;
 
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNotSame;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -89,7 +88,7 @@ public abstract class UnaryExpressionTestCase<N extends UnaryExpression> extends
 
     @Test
     public final void testEqualsDifferentChildren() {
-        assertNotEquals(this.createExpression(), this.createExpression(differentChild()));
+        this.checkNotEquals(this.createExpression(), this.createExpression(differentChild()));
     }
 
     @Test

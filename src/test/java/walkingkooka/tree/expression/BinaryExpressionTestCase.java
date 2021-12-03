@@ -23,8 +23,6 @@ import walkingkooka.text.CharSequences;
 
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNotSame;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -52,7 +50,7 @@ public abstract class BinaryExpressionTestCase<N extends BinaryExpression> exten
         final N node = this.createExpression();
 
         final Expression parent = Expression.not(node);
-        assertEquals(node,
+        this.checkEquals(node,
                 parent.children().get(0).removeParent());
     }
 
@@ -104,14 +102,14 @@ public abstract class BinaryExpressionTestCase<N extends BinaryExpression> exten
 
     @Test
     public final void testToString() {
-        assertEquals(this.expectedToString(), this.createExpression().toString());
+        this.checkEquals(this.expectedToString(), this.createExpression().toString());
     }
 
     abstract String expectedToString();
 
     @Test
     public final void testEqualsDifferentChildren() {
-        assertNotEquals(this.createExpression(), this.createExpression(differentLeft(), differentRight()));
+        this.checkNotEquals(this.createExpression(), this.createExpression(differentLeft(), differentRight()));
     }
 
     @Override

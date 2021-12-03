@@ -24,8 +24,6 @@ import walkingkooka.naming.Name;
 import java.util.List;
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -48,7 +46,7 @@ public interface ParentNodeTesting<N extends Node<N, NAME, ANAME, AVALUE>,
     default void testParentWithoutChild() {
         final N parent = this.createNode();
         final List<N> children = parent.children();
-        assertNotEquals(Lists.empty(), children, "expected at least 1 child");
+        this.checkNotEquals(Lists.empty(), children, "expected at least 1 child");
 
         this.parentMissingCheck(children.get(0), parent.removeChild(0));
         this.parentMissingCheck(this.createNode());
@@ -57,7 +55,7 @@ public interface ParentNodeTesting<N extends Node<N, NAME, ANAME, AVALUE>,
     @Test
     default void testRootWithoutParent() {
         final N node = this.createNode();
-        assertEquals(Optional.empty(), node.parent(), "node must have no parent");
+        this.checkEquals(Optional.empty(), node.parent(), "node must have no parent");
         assertSame(node, node.root());
     }
 
