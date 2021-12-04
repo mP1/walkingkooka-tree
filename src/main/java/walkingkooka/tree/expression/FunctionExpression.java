@@ -162,7 +162,7 @@ public final class FunctionExpression extends VariableExpression {
     // Object.........................................................................................................
 
     @Override
-    final boolean equalsIgnoringParentAndChildren(final Expression other) {
+    boolean equalsIgnoringParentAndChildren(final Expression other) {
         return this.name.equals(other.name());
     }
 

@@ -108,7 +108,7 @@ public final class CycleDetectingExpressionEvaluationContextTest implements Clas
         );
     }
 
-    private final FunctionExpressionName functionName() {
+    private FunctionExpressionName functionName() {
         return FunctionExpressionName.with("function123");
     }
 

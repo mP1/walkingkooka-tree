@@ -104,14 +104,14 @@ final public class LastChildNodeSelectorTest extends
     }
 
     @Test
-    public final void testLastChildFinishedTrue() {
+    public void testLastChildFinishedTrue() {
         this.applyFinisherAndCheck(this.createSelector(),
                 TestNode.with("parent", TestNode.with("child")),
                 () -> true);
     }
 
     @Test
-    public final void testLastChildFinishedCountdown() {
+    public void testLastChildFinishedCountdown() {
         final TestNode child1 = TestNode.with("child1");
         final TestNode child2 = TestNode.with("child2");
         final TestNode parent = TestNode.with("parent", child1, child2);

@@ -43,7 +43,8 @@ public final class NodeSelectorModuloSymbolParserToken extends NodeSelectorSymbo
         return MOD_PRIORITY;
     }
 
-    @Override final NodeSelectorBinaryParserToken binaryOperand(final List<ParserToken> tokens, final String text) {
+    @Override
+    NodeSelectorBinaryParserToken binaryOperand(final List<ParserToken> tokens, final String text) {
         return NodeSelectorParserToken.modulo(tokens, text);
     }
 

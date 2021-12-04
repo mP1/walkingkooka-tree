@@ -105,7 +105,7 @@ final class CustomToStringNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, N
     }
 
     @Override
-    public final boolean equals(final Object other) {
+    public boolean equals(final Object other) {
         return this == other || other instanceof CustomToStringNodeSelector && this.equals0(Cast.to(other));
     }
 

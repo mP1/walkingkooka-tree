@@ -31,7 +31,7 @@ final class ExpressionNumberFromExpressionNumberNumberConverter<C extends Expres
     /**
      * Wraps another {@link Converter}, which will receive the actual value of the {@link ExpressionNumber}.
      */
-    static final <C extends ExpressionNumberConverterContext> ExpressionNumberFromExpressionNumberNumberConverter<C> with(final Converter<C> converter) {
+    static <C extends ExpressionNumberConverterContext> ExpressionNumberFromExpressionNumberNumberConverter<C> with(final Converter<C> converter) {
         Objects.requireNonNull(converter, "converter");
 
         return new ExpressionNumberFromExpressionNumberNumberConverter<>(converter);

@@ -92,7 +92,7 @@ public final class ExpressionNumberBigDecimalTest extends ExpressionNumberTestCa
     // bigDecimal.......................................................................................................
 
     @Test
-    public final void testBigDecimal2() {
+    public void testBigDecimal2() {
         final BigDecimal value = BigDecimal.valueOf(12.5);
         this.checkEquals(value, ExpressionNumberBigDecimal.withBigDecimal(value).bigDecimal());
     }
@@ -141,13 +141,13 @@ public final class ExpressionNumberBigDecimalTest extends ExpressionNumberTestCa
     }
 
     @Override
-    final void checkValue0(final double value, final ExpressionNumberBigDecimal number) {
+    void checkValue0(final double value, final ExpressionNumberBigDecimal number) {
         final BigDecimal actual = number.bigDecimal();
         this.checkEquals(BigDecimal.valueOf(value).setScale(actual.scale()), actual);
     }
 
     @Override
-    final void toStringAndCheck2(final double value) {
+    void toStringAndCheck2(final double value) {
         this.toStringAndCheck2(value, BigDecimal.valueOf(value).toString());
     }
 

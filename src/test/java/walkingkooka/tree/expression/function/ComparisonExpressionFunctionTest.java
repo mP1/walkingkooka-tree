@@ -152,10 +152,10 @@ public final class ComparisonExpressionFunctionTest extends ExpressionFunctionTe
 
     // helper........................................................................................
 
-    final void applyAndCheck3(final ComparisonRelation relation,
-                              final Object first,
-                              final Object second,
-                              final Boolean result) {
+    void applyAndCheck3(final ComparisonRelation relation,
+                        final Object first,
+                        final Object second,
+                        final Boolean result) {
         this.applyAndCheck2(ComparisonExpressionFunction.with(relation), parameters(first, second), result);
     }
 

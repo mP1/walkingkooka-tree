@@ -52,47 +52,47 @@ public final class ExpressionNumberToExpressionNumberConverterTest implements Co
     // fails............................................................................................................
 
     @Test
-    public final void testByteFails() {
+    public void testByteFails() {
         this.convertFails2("123", Byte.class);
     }
 
     @Test
-    public final void testShortFails() {
+    public void testShortFails() {
         this.convertFails2("123", Short.class);
     }
 
     @Test
-    public final void testIntegerFails() {
+    public void testIntegerFails() {
         this.convertFails2("123", Integer.class);
     }
 
     @Test
-    public final void testLongFails() {
+    public void testLongFails() {
         this.convertFails2("123", Long.class);
     }
 
     @Test
-    public final void testFloatFails() {
+    public void testFloatFails() {
         this.convertFails2("123", Float.class);
     }
 
     @Test
-    public final void testDoubleFails() {
+    public void testDoubleFails() {
         this.convertFails2("123", Double.class);
     }
 
     @Test
-    public final void testBigIntegerFails() {
+    public void testBigIntegerFails() {
         this.convertFails2("123", BigInteger.class);
     }
 
     @Test
-    public final void testBigDecimalFails() {
+    public void testBigDecimalFails() {
         this.convertFails2("123", BigDecimal.class);
     }
 
     @Test
-    public final void testExpressionNumberFails() {
+    public void testExpressionNumberFails() {
         this.convertFails2("123", ExpressionNumber.class);
     }
 
@@ -131,42 +131,42 @@ public final class ExpressionNumberToExpressionNumberConverterTest implements Co
     // ??? -> Number....................................................................................................
 
     @Test
-    public final void testByte() {
+    public void testByte() {
         this.convertAndCheck2("123", Byte.class, (byte) 123);
     }
 
     @Test
-    public final void testShort() {
+    public void testShort() {
         this.convertAndCheck2("123", Short.class, (short) 123);
     }
 
     @Test
-    public final void testInteger() {
+    public void testInteger() {
         this.convertAndCheck2("123", Integer.class, 123);
     }
 
     @Test
-    public final void testLong() {
+    public void testLong() {
         this.convertAndCheck2("123", Long.class, 123L);
     }
 
     @Test
-    public final void testFloat() {
+    public void testFloat() {
         this.convertAndCheck2("128.5", Float.class, 128.5f);
     }
 
     @Test
-    public final void testDouble() {
+    public void testDouble() {
         this.convertAndCheck2("128.5", Double.class, 128.5);
     }
 
     @Test
-    public final void testBigInteger() {
+    public void testBigInteger() {
         this.convertAndCheck2("123", BigInteger.class, BigInteger.valueOf(123));
     }
 
     @Test
-    public final void testBigDecimal() {
+    public void testBigDecimal() {
         this.convertAndCheck2("128.5", BigDecimal.class, BigDecimal.valueOf(128.5));
     }
 
@@ -187,12 +187,12 @@ public final class ExpressionNumberToExpressionNumberConverterTest implements Co
     // String -> ExpressionNumber..........................................................................................
 
     @Test
-    public final void testStringExpressionNumber() {
+    public void testStringExpressionNumber() {
         this.convertAndCheck3("128");
     }
 
     @Test
-    public final void testStringExpressionNumber2() {
+    public void testStringExpressionNumber2() {
         this.convertAndCheck3("128.5");
     }
 
@@ -222,37 +222,37 @@ public final class ExpressionNumberToExpressionNumberConverterTest implements Co
     // Number -> ExpressionNumber..........................................................................................
 
     @Test
-    public final void testByteExpressionNumber() {
+    public void testByteExpressionNumber() {
         this.convertNumberAndCheck((byte) 123);
     }
 
     @Test
-    public final void testShortNumberExpressionNumber() {
+    public void testShortNumberExpressionNumber() {
         this.convertNumberAndCheck((short) 123);
     }
 
     @Test
-    public final void testIntegerNumberExpressionNumber() {
+    public void testIntegerNumberExpressionNumber() {
         this.convertNumberAndCheck(123);
     }
 
     @Test
-    public final void testFloatNumberExpressionNumber() {
+    public void testFloatNumberExpressionNumber() {
         this.convertNumberAndCheck(123f);
     }
 
     @Test
-    public final void testDoubleNumberExpressionNumber() {
+    public void testDoubleNumberExpressionNumber() {
         this.convertNumberAndCheck(123.0);
     }
 
     @Test
-    public final void testBigIntegerNumberExpressionNumber() {
+    public void testBigIntegerNumberExpressionNumber() {
         this.convertNumberAndCheck(BigInteger.valueOf(123));
     }
 
     @Test
-    public final void testBigDecimalNumberExpressionNumber() {
+    public void testBigDecimalNumberExpressionNumber() {
         this.convertNumberAndCheck(BigDecimal.valueOf(128.5));
     }
 

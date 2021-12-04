@@ -90,12 +90,13 @@ public final class ExpressionNumberDoubleTest extends ExpressionNumberTestCase<E
         return ExpressionNumberDouble.withDouble(value);
     }
 
-    @Override final void checkValue0(final double value, final ExpressionNumberDouble number) {
+    @Override
+    void checkValue0(final double value, final ExpressionNumberDouble number) {
         this.checkEquals(value, number.doubleValue());
     }
 
     @Override
-    final void toStringAndCheck2(final double value) {
+    void toStringAndCheck2(final double value) {
         this.toStringAndCheck2(value, Double.toString(value));
     }
 
