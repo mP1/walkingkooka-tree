@@ -404,9 +404,7 @@ public final class NodeSelectorParsers implements PublicStaticHelper {
 
     // must be last so all other constants are set, avoiding NPEs.
 
-    /**
-     * Parsers the grammar and returns the selected parser.
-     */
+    // Parsers the grammar and returns the selected parser.
     static {
         try {
             final Map<EbnfIdentifierName, Parser<ParserContext>> predefined = Maps.sorted();

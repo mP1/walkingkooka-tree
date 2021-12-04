@@ -33,7 +33,7 @@ import java.util.Objects;
 final class ExpressionNumberToExpressionNumberConverter<C extends ExpressionNumberConverterContext> implements Converter<C> {
 
     /**
-     * Factory that creates a new {@link ExpressionNumberToExpressionNumberConverter}. This should only be called by {@link ExpressionNumberKind#toConverter(Converter)}.
+     * Factory that creates a new {@link ExpressionNumberToExpressionNumberConverter}. This should only be called by {@link ExpressionNumber#toConverter(Converter)}.
      */
     static <C extends ExpressionNumberConverterContext> ExpressionNumberToExpressionNumberConverter<C> with(final Converter<C> converter) {
         Objects.requireNonNull(converter, "converter");
