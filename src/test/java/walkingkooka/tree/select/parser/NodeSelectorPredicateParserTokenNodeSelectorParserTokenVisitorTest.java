@@ -26,8 +26,6 @@ import walkingkooka.reflect.ThrowableTesting;
 import walkingkooka.tree.expression.ExpressionNumberKind;
 import walkingkooka.tree.select.NodeSelectorException;
 
-import java.math.BigDecimal;
-
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class NodeSelectorPredicateParserTokenNodeSelectorParserTokenVisitorTest implements NodeSelectorParserTokenVisitorTesting<NodeSelectorPredicateParserTokenNodeSelectorParserTokenVisitor>,

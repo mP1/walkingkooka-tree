@@ -21,8 +21,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.collect.list.Lists;
-import walkingkooka.convert.ConverterContexts;
-import walkingkooka.convert.Converters;
 import walkingkooka.naming.Names;
 import walkingkooka.naming.StringName;
 import walkingkooka.reflect.ClassTesting2;
@@ -31,9 +29,6 @@ import walkingkooka.stream.StreamTesting;
 import walkingkooka.tree.TestNode;
 import walkingkooka.tree.expression.ExpressionEvaluationContext;
 import walkingkooka.tree.expression.ExpressionEvaluationContexts;
-import walkingkooka.tree.expression.ExpressionNumber;
-import walkingkooka.tree.expression.ExpressionNumberConverterContexts;
-import walkingkooka.tree.expression.ExpressionNumberKind;
 
 import java.util.List;
 import java.util.function.Function;

@@ -18,14 +18,10 @@
 package walkingkooka.tree.select;
 
 import walkingkooka.Context;
-import walkingkooka.Either;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.naming.Name;
 import walkingkooka.tree.Node;
 import walkingkooka.tree.expression.Expression;
-import walkingkooka.tree.expression.FunctionExpressionName;
-import walkingkooka.tree.expression.HasExpressionNumberKind;
-import walkingkooka.tree.expression.function.ExpressionFunctionContext;
 
 import java.util.List;
 

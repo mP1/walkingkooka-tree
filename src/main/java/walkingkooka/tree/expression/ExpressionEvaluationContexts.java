@@ -22,9 +22,7 @@ import walkingkooka.reflect.PublicStaticHelper;
 import walkingkooka.tree.expression.function.ExpressionFunction;
 import walkingkooka.tree.expression.function.ExpressionFunctionContext;
 
-import java.util.List;
 import java.util.Optional;
-import java.util.function.BiFunction;
 import java.util.function.Function;
 
 public final class ExpressionEvaluationContexts implements PublicStaticHelper {

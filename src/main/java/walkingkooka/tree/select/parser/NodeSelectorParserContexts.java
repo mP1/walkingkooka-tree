@@ -17,7 +17,6 @@
 
 package walkingkooka.tree.select.parser;
 
-import walkingkooka.math.HasMathContext;
 import walkingkooka.reflect.PublicStaticHelper;
 import walkingkooka.tree.expression.ExpressionNumberContext;
 
