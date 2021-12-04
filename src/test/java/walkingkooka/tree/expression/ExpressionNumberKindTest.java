@@ -34,7 +34,7 @@ public final class ExpressionNumberKindTest implements ClassTesting<ExpressionNu
     @Test
     public void testParseDouble() {
         final String text = "12.3";
-        this.checkEquals(ExpressionNumberKind.DOUBLE.create(new Double(text)), ExpressionNumberKind.DOUBLE.parse(text));
+        this.checkEquals(ExpressionNumberKind.DOUBLE.create(Double.parseDouble(text)), ExpressionNumberKind.DOUBLE.parse(text));
     }
 
     @Override
