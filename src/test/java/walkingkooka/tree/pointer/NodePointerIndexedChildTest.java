@@ -126,7 +126,7 @@ public final class NodePointerIndexedChildTest extends NodePointerTestCase2<Node
     }
 
     @Test
-    public final void testEqualsDifferentIndex() {
+    public void testEqualsDifferentIndex() {
         this.checkNotEquals(NodePointerIndexedChild.with(99));
     }
 

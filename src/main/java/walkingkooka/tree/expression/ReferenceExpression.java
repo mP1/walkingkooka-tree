@@ -71,32 +71,32 @@ public final class ReferenceExpression extends LeafExpression<ExpressionReferenc
     // evaluation .....................................................................................................
 
     @Override
-    public final boolean toBoolean(final ExpressionEvaluationContext context) {
+    public boolean toBoolean(final ExpressionEvaluationContext context) {
         return this.toExpression(context).toBoolean(context);
     }
 
     @Override
-    public final ExpressionNumber toExpressionNumber(final ExpressionEvaluationContext context) {
+    public ExpressionNumber toExpressionNumber(final ExpressionEvaluationContext context) {
         return this.toExpression(context).toExpressionNumber(context);
     }
 
     @Override
-    public final LocalDate toLocalDate(final ExpressionEvaluationContext context) {
+    public LocalDate toLocalDate(final ExpressionEvaluationContext context) {
         return this.toExpression(context).toLocalDate(context);
     }
 
     @Override
-    public final LocalDateTime toLocalDateTime(final ExpressionEvaluationContext context) {
+    public LocalDateTime toLocalDateTime(final ExpressionEvaluationContext context) {
         return this.toExpression(context).toLocalDateTime(context);
     }
 
     @Override
-    public final LocalTime toLocalTime(final ExpressionEvaluationContext context) {
+    public LocalTime toLocalTime(final ExpressionEvaluationContext context) {
         return this.toExpression(context).toLocalTime(context);
     }
 
     @Override
-    public final String toString(final ExpressionEvaluationContext context) {
+    public String toString(final ExpressionEvaluationContext context) {
         return this.toExpression(context).toString(context);
     }
 
@@ -107,7 +107,7 @@ public final class ReferenceExpression extends LeafExpression<ExpressionReferenc
     }
 
     @Override
-    public final Object toValue(final ExpressionEvaluationContext context) {
+    public Object toValue(final ExpressionEvaluationContext context) {
         return this.toExpression(context).toValue(context);
     }
 

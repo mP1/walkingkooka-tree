@@ -97,14 +97,14 @@ final public class AncestorNodeSelectorTest extends
     }
 
     @Test
-    public final void testAncestorFinishedTrue() {
+    public void testAncestorFinishedTrue() {
         this.applyFinisherAndCheck(this.createSelector(),
                 TestNode.with("parent", TestNode.with("child")).child(0),
                 () -> true);
     }
 
     @Test
-    public final void testAncestorFinishedCountdown() {
+    public void testAncestorFinishedCountdown() {
         final TestNode child = TestNode.with("child");
         final TestNode parent = TestNode.with("parent", child);
         final TestNode grandParent = TestNode.with("grandParent", parent);

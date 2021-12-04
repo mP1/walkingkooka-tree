@@ -66,7 +66,8 @@ final class AbsoluteNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NAME ex
         return pointer.traverse(node2).orElse(node2); // try and return the Node at the equivalent location as $node otherwise return node2 itself.
     }
 
-    @Override final N select(final N node, final NodeSelectorContext2<N, NAME, ANAME, AVALUE> context) {
+    @Override
+    N select(final N node, final NodeSelectorContext2<N, NAME, ANAME, AVALUE> context) {
         return this.selectNext(node, context);
     }
 
@@ -84,11 +85,13 @@ final class AbsoluteNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NAME ex
 
     // Object...........................................................................................................
 
-    @Override final int hashCode0(final NodeSelector<N, NAME, ANAME, AVALUE> next) {
+    @Override
+    int hashCode0(final NodeSelector<N, NAME, ANAME, AVALUE> next) {
         return Objects.hash(next);
     }
 
-    @Override final boolean equals1(final NonTerminalNodeSelector<?, ?, ?, ?> other) {
+    @Override
+    boolean equals1(final NonTerminalNodeSelector<?, ?, ?, ?> other) {
         return true;
     }
 

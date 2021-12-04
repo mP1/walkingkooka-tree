@@ -91,12 +91,12 @@ public final class NodePointerRelativeTest extends NodePointerTestCase2<NodePoin
     // equals...........................................................................................................
 
     @Test
-    public final void testEqualsAncestor() {
+    public void testEqualsAncestor() {
         this.checkNotEquals(NodePointerRelative.with(99, NO_HASH));
     }
 
     @Test
-    public final void testEqualsHash() {
+    public void testEqualsHash() {
         this.checkNotEquals(NodePointerRelative.with(1, !NO_HASH));
     }
 

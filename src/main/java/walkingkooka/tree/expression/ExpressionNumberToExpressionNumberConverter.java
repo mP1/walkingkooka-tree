@@ -52,9 +52,9 @@ final class ExpressionNumberToExpressionNumberConverter<C extends ExpressionNumb
     // canConvert........................................................................................................
 
     @Override
-    public final boolean canConvert(final Object value,
-                                    final Class<?> type,
-                                    final C context) {
+    public boolean canConvert(final Object value,
+                              final Class<?> type,
+                              final C context) {
         return (value instanceof ExpressionNumber && ExpressionNumber.class == type) ||
                 this.converterCanConvert(value, type, context) ||
                 (ExpressionNumber.isClass(type) && this.converterCanConvert(value, context.expressionNumberKind().numberType(), context));
@@ -69,9 +69,9 @@ final class ExpressionNumberToExpressionNumberConverter<C extends ExpressionNumb
     // convert..........................................................................................................
 
     @Override
-    public final <T> Either<T, String> convert(final Object value,
-                                               final Class<T> type,
-                                               final C context) {
+    public <T> Either<T, String> convert(final Object value,
+                                         final Class<T> type,
+                                         final C context) {
 
         return (value instanceof ExpressionNumber && ExpressionNumber.class == type) ?
                 Cast.to(Either.left(toExpressionNumber((ExpressionNumber) value, context))) :
@@ -112,7 +112,7 @@ final class ExpressionNumberToExpressionNumberConverter<C extends ExpressionNumb
     // Object...........................................................................................................
 
     @Override
-    public final String toString() {
+    public String toString() {
         return this.converter.toString() + "|" + ExpressionNumber.class.getSimpleName();
     }
 }

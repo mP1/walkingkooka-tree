@@ -43,7 +43,8 @@ public final class NodeSelectorDivideSymbolParserToken extends NodeSelectorSymbo
         return MULTIPLY_DIVISION_PRIORITY;
     }
 
-    @Override final NodeSelectorBinaryParserToken binaryOperand(final List<ParserToken> tokens, final String text) {
+    @Override
+    NodeSelectorBinaryParserToken binaryOperand(final List<ParserToken> tokens, final String text) {
         return division(tokens, text);
     }
 

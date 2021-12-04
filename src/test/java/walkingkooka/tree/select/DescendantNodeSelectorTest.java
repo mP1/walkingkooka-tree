@@ -149,14 +149,14 @@ final public class DescendantNodeSelectorTest extends
     }
 
     @Test
-    public final void testDescendantFinishedTrue() {
+    public void testDescendantFinishedTrue() {
         this.applyFinisherAndCheck(this.createSelector(),
                 TestNode.with("parent", TestNode.with("child")),
                 () -> true);
     }
 
     @Test
-    public final void testDescendantFinishedCountdown() {
+    public void testDescendantFinishedCountdown() {
         final TestNode grandChild = TestNode.with("grandChild");
         final TestNode child1 = TestNode.with("child1", grandChild);
         final TestNode child2 = TestNode.with("child2");
@@ -169,7 +169,7 @@ final public class DescendantNodeSelectorTest extends
     }
 
     @Test
-    public final void testDescendantFinishedCountdown2() {
+    public void testDescendantFinishedCountdown2() {
         final TestNode grandChild = TestNode.with("grandChild");
         final TestNode child1 = TestNode.with("child1", grandChild);
         final TestNode child2 = TestNode.with("child2");

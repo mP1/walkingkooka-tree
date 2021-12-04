@@ -336,21 +336,9 @@ final public class NamedNodeSelectorTest extends
         return NamedNodeSelector.with(name);
     }
 
-    final void applyAndCheck2(final String childName,
-                              final TestNode start,
-                              final TestNode... nodes) {
-        this.applyAndCheck2(Names.string(childName), start, nodes);
-    }
-
-    final void applyAndCheck2(final TestNode name,
-                              final TestNode start,
-                              final TestNode... nodes) {
-        this.applyAndCheck2(name.name(), start, nodes);
-    }
-
-    final void applyAndCheck2(final StringName childName,
-                              final TestNode start,
-                              final TestNode... nodes) {
+    void applyAndCheck2(final StringName childName,
+                        final TestNode start,
+                        final TestNode... nodes) {
         this.applyAndCheck(this.createSelector(childName), start, nodes);
     }
 

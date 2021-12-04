@@ -130,7 +130,7 @@ public final class NodePointerNamedChildTest extends NodePointerTestCase2<NodePo
     }
 
     @Test
-    public final void testEqualsDifferentName() {
+    public void testEqualsDifferentName() {
         this.checkNotEquals(NodePointerNamedChild.with(Names.string("different")));
     }
 

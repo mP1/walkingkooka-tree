@@ -147,7 +147,7 @@ public final class ListExpression extends VariableExpression {
     // Object.........................................................................................................
 
     @Override
-    final boolean equalsIgnoringParentAndChildren(final Expression other) {
+    boolean equalsIgnoringParentAndChildren(final Expression other) {
         return true; // no new properties to equality check
     }
 

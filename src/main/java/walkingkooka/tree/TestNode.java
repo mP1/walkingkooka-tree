@@ -122,7 +122,7 @@ public final class TestNode implements Node<TestNode, StringName, StringName, Ob
     private final StringName name;
 
     @Override
-    public final boolean hasUniqueNameAmongstSiblings() {
+    public boolean hasUniqueNameAmongstSiblings() {
         return true;
     }
 

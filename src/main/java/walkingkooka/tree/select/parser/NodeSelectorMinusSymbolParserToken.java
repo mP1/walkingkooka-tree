@@ -43,7 +43,8 @@ public final class NodeSelectorMinusSymbolParserToken extends NodeSelectorSymbol
         return ADDITION_SUBTRACTION_PRIORITY;
     }
 
-    @Override final NodeSelectorBinaryParserToken binaryOperand(final List<ParserToken> tokens, final String text) {
+    @Override
+    NodeSelectorBinaryParserToken binaryOperand(final List<ParserToken> tokens, final String text) {
         return subtraction(tokens, text);
     }
 

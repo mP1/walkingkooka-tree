@@ -104,14 +104,14 @@ final public class FirstChildNodeSelectorTest extends
     }
 
     @Test
-    public final void testFirstChildFinishedTrue() {
+    public void testFirstChildFinishedTrue() {
         this.applyFinisherAndCheck(this.createSelector(),
                 TestNode.with("parent", TestNode.with("child")),
                 () -> true);
     }
 
     @Test
-    public final void testFirstChildFinishedCountdown() {
+    public void testFirstChildFinishedCountdown() {
         final TestNode child1 = TestNode.with("child1");
         final TestNode child2 = TestNode.with("child2");
         final TestNode parent = TestNode.with("parent", child1, child2);

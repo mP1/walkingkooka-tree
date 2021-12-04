@@ -2338,303 +2338,303 @@ public final class NodeSelectorParsersTest implements ParserTesting2<Parser<Node
 
     // token factories...............................................................................
 
-    final NodeSelectorParserToken absolute() {
+    NodeSelectorParserToken absolute() {
         return NodeSelectorParserToken.absolute("/", "/");
     }
 
-    final NodeSelectorParserToken addition(final NodeSelectorParserToken... tokens) {
+    NodeSelectorParserToken addition(final NodeSelectorParserToken... tokens) {
         return NodeSelectorParserToken.addition(Lists.of(tokens), text(tokens));
     }
 
-    final NodeSelectorParserToken ancestor() {
+    NodeSelectorParserToken ancestor() {
         return NodeSelectorParserToken.ancestor("ancestor::", "ancestor::");
     }
 
-    final NodeSelectorParserToken ancestorOrSelf() {
+    NodeSelectorParserToken ancestorOrSelf() {
         return NodeSelectorParserToken.ancestorOrSelf("ancestor-or-self::", "ancestor-or-self::");
     }
 
-    final NodeSelectorParserToken and(final NodeSelectorParserToken... tokens) {
+    NodeSelectorParserToken and(final NodeSelectorParserToken... tokens) {
         return NodeSelectorParserToken.and(Lists.of(tokens), text(tokens));
     }
 
-    final NodeSelectorParserToken andSymbol() {
+    NodeSelectorParserToken andSymbol() {
         return NodeSelectorParserToken.andSymbol("and", "and");
     }
 
-    final NodeSelectorParserToken atSign() {
+    NodeSelectorParserToken atSign() {
         return NodeSelectorParserToken.atSignSymbol("@", "@");
     }
 
-    final NodeSelectorParserToken attribute(final NodeSelectorParserToken... tokens) {
+    NodeSelectorParserToken attribute(final NodeSelectorParserToken... tokens) {
         return NodeSelectorParserToken.attribute(Lists.of(tokens), text(tokens));
     }
 
-    final NodeSelectorParserToken attributeName() {
+    NodeSelectorParserToken attributeName() {
         return attributeName("attribute1");
     }
 
-    final NodeSelectorParserToken attributeName2() {
+    NodeSelectorParserToken attributeName2() {
         return attributeName("attribute2");
     }
 
-    final NodeSelectorParserToken attributeName(final String name) {
+    NodeSelectorParserToken attributeName(final String name) {
         return NodeSelectorParserToken.attributeName(NodeSelectorAttributeName.with(name), name);
     }
 
-    final NodeSelectorParserToken bracketOpen() {
+    NodeSelectorParserToken bracketOpen() {
         return NodeSelectorParserToken.bracketOpenSymbol("[", "[");
     }
 
-    final NodeSelectorParserToken bracketClose() {
+    NodeSelectorParserToken bracketClose() {
         return NodeSelectorParserToken.bracketCloseSymbol("]", "]");
     }
 
-    final NodeSelectorParserToken child() {
+    NodeSelectorParserToken child() {
         return NodeSelectorParserToken.child("child::", "child::");
     }
 
-    final NodeSelectorParserToken comma() {
+    NodeSelectorParserToken comma() {
         return NodeSelectorParserToken.parameterSeparatorSymbol(",", ",");
     }
 
-    final NodeSelectorParserToken descendant() {
+    NodeSelectorParserToken descendant() {
         return NodeSelectorParserToken.descendant("descendant::", "descendant::");
     }
 
-    final NodeSelectorParserToken descendantOrSelf() {
+    NodeSelectorParserToken descendantOrSelf() {
         return NodeSelectorParserToken.descendantOrSelf("descendant-or-self::", "descendant-or-self::");
     }
 
-    final NodeSelectorParserToken descendantOrSelfSlashSlash() {
+    NodeSelectorParserToken descendantOrSelfSlashSlash() {
         return NodeSelectorParserToken.descendantOrSelf("//", "//");
     }
 
-    final NodeSelectorParserToken divideSymbol() {
+    NodeSelectorParserToken divideSymbol() {
         return NodeSelectorParserToken.divideSymbol("div", "div");
     }
 
-    final NodeSelectorParserToken division(final NodeSelectorParserToken... tokens) {
+    NodeSelectorParserToken division(final NodeSelectorParserToken... tokens) {
         return NodeSelectorParserToken.division(Lists.of(tokens), text(tokens));
     }
 
-    final NodeSelectorParserToken equalsParserToken(final NodeSelectorParserToken... tokens) {
+    NodeSelectorParserToken equalsParserToken(final NodeSelectorParserToken... tokens) {
         return NodeSelectorParserToken.equalsParserToken(Lists.of(tokens), text(tokens));
     }
 
-    final NodeSelectorParserToken equalsSymbol() {
+    NodeSelectorParserToken equalsSymbol() {
         return NodeSelectorParserToken.equalsSymbol("=", "=");
     }
 
-    final NodeSelectorParserToken expressionNumber() {
+    NodeSelectorParserToken expressionNumber() {
         return expressionNumber(1.5);
     }
 
-    final NodeSelectorParserToken expressionNumber2() {
+    NodeSelectorParserToken expressionNumber2() {
         return expressionNumber(23.5);
     }
 
-    final NodeSelectorParserToken expressionNumber3() {
+    NodeSelectorParserToken expressionNumber3() {
         return expressionNumber(345.5);
     }
 
-    final NodeSelectorParserToken expressionNumber(final double value) {
+    NodeSelectorParserToken expressionNumber(final double value) {
         return NodeSelectorParserToken.expressionNumber(this.expressionNumberKind.create(value), String.valueOf(value));
     }
 
-    final NodeSelectorParserToken firstChild() {
+    NodeSelectorParserToken firstChild() {
         return NodeSelectorParserToken.firstChild("first-child::", "first-child::");
     }
 
-    final NodeSelectorParserToken following() {
+    NodeSelectorParserToken following() {
         return NodeSelectorParserToken.following("following::", "following::");
     }
 
-    final NodeSelectorParserToken followingSibling() {
+    NodeSelectorParserToken followingSibling() {
         return NodeSelectorParserToken.followingSibling("following-sibling::", "following-sibling::");
     }
 
-    final NodeSelectorParserToken function(final NodeSelectorParserToken... tokens) {
+    NodeSelectorParserToken function(final NodeSelectorParserToken... tokens) {
         return NodeSelectorParserToken.function(Lists.of(tokens), text(tokens));
     }
 
-    final NodeSelectorParserToken functionWithoutArguments() {
+    NodeSelectorParserToken functionWithoutArguments() {
         return function(functionName(), parenthesisOpen(), parenthesisClose());
     }
 
-    final NodeSelectorParserToken functionWithArguments() {
+    NodeSelectorParserToken functionWithArguments() {
         return function(functionName(), parenthesisOpen(), expressionNumber(), comma(), quotedText(), parenthesisClose());
     }
 
-    final NodeSelectorParserToken functionName() {
+    NodeSelectorParserToken functionName() {
         return functionName("contains");
     }
 
-    final NodeSelectorParserToken functionName(final String text) {
+    NodeSelectorParserToken functionName(final String text) {
         return NodeSelectorParserToken.functionName(NodeSelectorFunctionName.with(text), text);
     }
 
-    final NodeSelectorParserToken greaterThan(final NodeSelectorParserToken... tokens) {
+    NodeSelectorParserToken greaterThan(final NodeSelectorParserToken... tokens) {
         return NodeSelectorParserToken.greaterThan(Lists.of(tokens), text(tokens));
     }
 
-    final NodeSelectorParserToken greaterThanSymbol() {
+    NodeSelectorParserToken greaterThanSymbol() {
         return NodeSelectorParserToken.greaterThanSymbol(">", ">");
     }
 
-    final NodeSelectorParserToken greaterThanEquals(final NodeSelectorParserToken... tokens) {
+    NodeSelectorParserToken greaterThanEquals(final NodeSelectorParserToken... tokens) {
         return NodeSelectorParserToken.greaterThanEquals(Lists.of(tokens), text(tokens));
     }
 
-    final NodeSelectorParserToken greaterThanEqualsSymbol() {
+    NodeSelectorParserToken greaterThanEqualsSymbol() {
         return NodeSelectorParserToken.greaterThanEqualsSymbol(">=", ">=");
     }
 
-    final NodeSelectorParserToken group(final NodeSelectorParserToken... tokens) {
+    NodeSelectorParserToken group(final NodeSelectorParserToken... tokens) {
         return NodeSelectorParserToken.group(Lists.of(tokens), text(tokens));
     }
 
-    final NodeSelectorParserToken lessThan(final NodeSelectorParserToken... tokens) {
+    NodeSelectorParserToken lessThan(final NodeSelectorParserToken... tokens) {
         return NodeSelectorParserToken.lessThan(Lists.of(tokens), text(tokens));
     }
 
-    final NodeSelectorParserToken lessThanSymbol() {
+    NodeSelectorParserToken lessThanSymbol() {
         return NodeSelectorParserToken.lessThanSymbol("<", "<");
     }
 
-    final NodeSelectorParserToken lessThanEquals(final NodeSelectorParserToken... tokens) {
+    NodeSelectorParserToken lessThanEquals(final NodeSelectorParserToken... tokens) {
         return NodeSelectorParserToken.lessThanEquals(Lists.of(tokens), text(tokens));
     }
 
-    final NodeSelectorParserToken lessThanEqualsSymbol() {
+    NodeSelectorParserToken lessThanEqualsSymbol() {
         return NodeSelectorParserToken.lessThanEqualsSymbol("<=", "<=");
     }
 
-    final NodeSelectorParserToken lastChild() {
+    NodeSelectorParserToken lastChild() {
         return NodeSelectorParserToken.lastChild("last-child::", "last-child::");
     }
 
-    final NodeSelectorParserToken minusSymbol() {
+    NodeSelectorParserToken minusSymbol() {
         return NodeSelectorParserToken.minusSymbol("-", "-");
     }
 
-    final NodeSelectorParserToken modulo(final NodeSelectorParserToken... tokens) {
+    NodeSelectorParserToken modulo(final NodeSelectorParserToken... tokens) {
         return NodeSelectorParserToken.modulo(Lists.of(tokens), text(tokens));
     }
 
-    final NodeSelectorParserToken moduloSymbol() {
+    NodeSelectorParserToken moduloSymbol() {
         return NodeSelectorParserToken.moduloSymbol("mod", "mod");
     }
 
-    final NodeSelectorParserToken multiplication(final NodeSelectorParserToken... tokens) {
+    NodeSelectorParserToken multiplication(final NodeSelectorParserToken... tokens) {
         return NodeSelectorParserToken.multiplication(Lists.of(tokens), text(tokens));
     }
 
-    final NodeSelectorParserToken multiplySymbol() {
+    NodeSelectorParserToken multiplySymbol() {
         return NodeSelectorParserToken.multiplySymbol("*", "*");
     }
 
-    final NodeSelectorParserToken negative(final NodeSelectorParserToken... tokens) {
+    NodeSelectorParserToken negative(final NodeSelectorParserToken... tokens) {
         return NodeSelectorParserToken.negative(Lists.of(tokens), text(tokens));
     }
 
-    final NodeSelectorParserToken nodeName() {
+    NodeSelectorParserToken nodeName() {
         return nodeName("Node1");
     }
 
-    final NodeSelectorParserToken nodeName2() {
+    NodeSelectorParserToken nodeName2() {
         return nodeName("Node22");
     }
 
-    final NodeSelectorParserToken nodeName3() {
+    NodeSelectorParserToken nodeName3() {
         return nodeName("Node333");
     }
 
-    final NodeSelectorParserToken nodeName(final String name) {
+    NodeSelectorParserToken nodeName(final String name) {
         return NodeSelectorParserToken.nodeName(NodeSelectorNodeName.with(name), name);
     }
 
-    final NodeSelectorParserToken notEquals(final NodeSelectorParserToken... tokens) {
+    NodeSelectorParserToken notEquals(final NodeSelectorParserToken... tokens) {
         return NodeSelectorParserToken.notEquals(Lists.of(tokens), text(tokens));
     }
 
-    final NodeSelectorParserToken notEqualsSymbol() {
+    NodeSelectorParserToken notEqualsSymbol() {
         return NodeSelectorParserToken.notEqualsSymbol("!=", "!=");
     }
 
-    final NodeSelectorOrParserToken or(final NodeSelectorParserToken... tokens) {
+    NodeSelectorOrParserToken or(final NodeSelectorParserToken... tokens) {
         return NodeSelectorParserToken.or(Lists.of(tokens), text(tokens));
     }
 
-    final NodeSelectorParserToken orSymbol() {
+    NodeSelectorParserToken orSymbol() {
         return NodeSelectorParserToken.orSymbol("or", "or");
     }
 
-    final NodeSelectorParserToken parenthesisOpen() {
+    NodeSelectorParserToken parenthesisOpen() {
         return NodeSelectorParserToken.parenthesisOpenSymbol("(", "(");
     }
 
-    final NodeSelectorParserToken parenthesisClose() {
+    NodeSelectorParserToken parenthesisClose() {
         return NodeSelectorParserToken.parenthesisCloseSymbol(")", ")");
     }
 
-    final NodeSelectorParserToken parent() {
+    NodeSelectorParserToken parent() {
         return NodeSelectorParserToken.parentOf("parent::", "parent::");
     }
 
-    final NodeSelectorParserToken parentDotDot() {
+    NodeSelectorParserToken parentDotDot() {
         return NodeSelectorParserToken.parentOf("..", "..");
     }
 
-    final NodeSelectorParserToken plusSymbol() {
+    NodeSelectorParserToken plusSymbol() {
         return NodeSelectorParserToken.plusSymbol("+", "+");
     }
 
-    final NodeSelectorParserToken preceding() {
+    NodeSelectorParserToken preceding() {
         return NodeSelectorParserToken.preceding("preceding::", "preceding::");
     }
 
-    final NodeSelectorParserToken precedingSibling() {
+    NodeSelectorParserToken precedingSibling() {
         return NodeSelectorParserToken.precedingSibling("preceding-sibling::", "preceding-sibling::");
     }
 
-    final NodeSelectorParserToken predicate(final NodeSelectorParserToken... tokens) {
+    NodeSelectorParserToken predicate(final NodeSelectorParserToken... tokens) {
         return NodeSelectorParserToken.predicate(Lists.of(tokens), text(tokens));
     }
 
-    final NodeSelectorParserToken quotedText() {
+    NodeSelectorParserToken quotedText() {
         return quotedText("xyz");
     }
 
-    final NodeSelectorParserToken quotedText2() {
+    NodeSelectorParserToken quotedText2() {
         return quotedText("qrst");
     }
 
-    final NodeSelectorParserToken quotedText(final String value) {
+    NodeSelectorParserToken quotedText(final String value) {
         return NodeSelectorParserToken.quotedText(value, CharSequences.quoteAndEscape(value).toString());
     }
 
-    final NodeSelectorParserToken self() {
+    NodeSelectorParserToken self() {
         return NodeSelectorParserToken.self("self::", "self::");
     }
 
-    final NodeSelectorParserToken selfDot() {
+    NodeSelectorParserToken selfDot() {
         return NodeSelectorParserToken.self(".", ".");
     }
 
-    final NodeSelectorParserToken slash() {
+    NodeSelectorParserToken slash() {
         return NodeSelectorParserToken.slashSeparatorSymbol("/", "/");
     }
 
-    final NodeSelectorParserToken subtraction(final NodeSelectorParserToken... tokens) {
+    NodeSelectorParserToken subtraction(final NodeSelectorParserToken... tokens) {
         return NodeSelectorParserToken.subtraction(Lists.of(tokens), text(tokens));
     }
 
-    final NodeSelectorParserToken whitespace() {
+    NodeSelectorParserToken whitespace() {
         return NodeSelectorParserToken.whitespace("  ", "  ");
     }
 
-    final NodeSelectorParserToken wildcard() {
+    NodeSelectorParserToken wildcard() {
         return NodeSelectorParserToken.wildcard("*", "*");
     }
 
