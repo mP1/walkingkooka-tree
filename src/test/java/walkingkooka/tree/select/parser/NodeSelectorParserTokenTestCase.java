@@ -28,7 +28,6 @@ import walkingkooka.text.cursor.parser.ParserTokenTesting;
 import walkingkooka.tree.expression.ExpressionNumberKind;
 import walkingkooka.tree.select.NodeSelector;
 
-import java.math.BigDecimal;
 import java.util.function.Predicate;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;

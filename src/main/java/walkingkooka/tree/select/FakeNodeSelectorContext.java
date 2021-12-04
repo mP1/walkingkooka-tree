@@ -17,17 +17,10 @@
 
 package walkingkooka.tree.select;
 
-import walkingkooka.Either;
 import walkingkooka.naming.Name;
 import walkingkooka.test.Fake;
 import walkingkooka.tree.Node;
 import walkingkooka.tree.expression.Expression;
-import walkingkooka.tree.expression.ExpressionNumberKind;
-import walkingkooka.tree.expression.FunctionExpressionName;
-
-import java.math.MathContext;
-import java.util.List;
-import java.util.Locale;
 
 public class FakeNodeSelectorContext<N extends Node<N, NAME, ANAME, AVALUE>,
         NAME extends Name,

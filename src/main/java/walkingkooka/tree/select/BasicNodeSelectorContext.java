@@ -22,7 +22,6 @@ import walkingkooka.naming.Name;
 import walkingkooka.tree.Node;
 import walkingkooka.tree.expression.Expression;
 import walkingkooka.tree.expression.ExpressionEvaluationContext;
-import walkingkooka.tree.expression.ExpressionNumberConverterContext;
 
 import java.util.Objects;
 import java.util.function.BooleanSupplier;

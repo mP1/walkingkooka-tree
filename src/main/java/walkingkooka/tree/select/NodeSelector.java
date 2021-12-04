@@ -17,19 +17,14 @@
 
 package walkingkooka.tree.select;
 
-import walkingkooka.convert.Converter;
-import walkingkooka.convert.ConverterContext;
 import walkingkooka.naming.Name;
 import walkingkooka.stream.push.PushableStreamConsumer;
 import walkingkooka.text.CharacterConstant;
 import walkingkooka.tree.Node;
 import walkingkooka.tree.expression.Expression;
 import walkingkooka.tree.expression.ExpressionEvaluationContext;
-import walkingkooka.tree.expression.ExpressionNumber;
 import walkingkooka.tree.expression.ExpressionNumberConverterContext;
-import walkingkooka.tree.expression.ExpressionNumberKind;
 import walkingkooka.tree.expression.FunctionExpressionName;
-import walkingkooka.tree.expression.function.ExpressionFunction;
 import walkingkooka.tree.select.parser.NodeSelectorExpressionParserToken;
 import walkingkooka.tree.select.parser.NodeSelectorNodeName;
 import walkingkooka.tree.select.parser.NodeSelectorParserToken;
