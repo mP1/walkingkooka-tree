@@ -122,7 +122,7 @@ public final class NodeSelectorContext2ExpressionNodeSelectorTest extends NodeSe
                                         (f) -> {
                                             throw new UnsupportedOperationException();
                                         },
-                                        new Function<ExpressionReference, Optional<Expression>>() {
+                                        new Function<>() {
                                             @Override
                                             public Optional<Expression> apply(final ExpressionReference reference) {
                                                 throw new UnsupportedOperationException();

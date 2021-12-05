@@ -41,7 +41,7 @@ public final class ParametersMapperExpressionFunctionTest implements ExpressionF
             .map(pp -> pp.toString().toUpperCase())
             .collect(Collectors.toList());
 
-    private final static ExpressionFunction<Object, FakeExpressionFunctionContext> FUNCTION = new ExpressionFunction<Object, FakeExpressionFunctionContext>() {
+    private final static ExpressionFunction<Object, FakeExpressionFunctionContext> FUNCTION = new ExpressionFunction<>() {
 
         @Override
         public Object apply(final List<Object> parameters,

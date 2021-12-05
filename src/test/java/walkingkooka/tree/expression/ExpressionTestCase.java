@@ -318,7 +318,7 @@ public abstract class ExpressionTestCase<N extends Expression> implements ClassT
         final Converter<ExpressionNumberConverterContext> converters = Converters.collection(
                 Lists.of(
                         Converters.simple(),
-                        new FakeConverter<ExpressionNumberConverterContext>() {
+                        new FakeConverter<>() {
                             @Override
                             public boolean canConvert(final Object value,
                                                       final Class<?> type,

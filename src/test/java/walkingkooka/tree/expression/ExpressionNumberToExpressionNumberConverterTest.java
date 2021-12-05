@@ -105,7 +105,7 @@ public final class ExpressionNumberToExpressionNumberConverterTest implements Co
     private void convertFails3(final ExpressionNumberKind kind,
                                final String value,
                                final Class<?> type) {
-        final Converter<ExpressionNumberConverterContext> converter = ExpressionNumber.toConverter(new FakeConverter<ExpressionNumberConverterContext>() {
+        final Converter<ExpressionNumberConverterContext> converter = ExpressionNumber.toConverter(new FakeConverter<>() {
             @Override
             public boolean canConvert(final Object value,
                                       final Class<?> type,

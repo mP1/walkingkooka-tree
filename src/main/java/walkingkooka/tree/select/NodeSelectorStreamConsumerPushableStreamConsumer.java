@@ -50,7 +50,7 @@ final class NodeSelectorStreamConsumerPushableStreamConsumer<N extends Node<N, N
                                                                                                                                       final Class<N> nodeType) {
         Objects.requireNonNull(node, "node");
 
-        return new NodeSelectorStreamConsumerPushableStreamConsumer<N, NAME, ANAME, AVALUE>(node,
+        return new NodeSelectorStreamConsumerPushableStreamConsumer<>(node,
                 selector,
                 expressionEvaluationContext,
                 nodeType);
