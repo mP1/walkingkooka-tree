@@ -169,7 +169,7 @@ final class NodeSelectorExpressionExpressionVisitor<N extends Node<N, NAME, ANAM
     @Override
     protected void visit(final BooleanExpression node) {
         if (node.value()) {
-            this.selector = this.selector.setToString(this.selector.toString() + "[true()]");
+            this.selector = this.selector.setToString(this.selector + "[true()]");
             this.addExpression = false;
         }
     }

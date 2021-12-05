@@ -208,7 +208,7 @@ final public class NodePredicateNodeSelectorTest extends
 
     @Test
     public void testToString() {
-        this.toStringAndCheck(this.createSelector(), "*[" + this.predicate().toString() + "]");
+        this.toStringAndCheck(this.createSelector(), "*[" + this.predicate() + "]");
     }
 
     @Override
