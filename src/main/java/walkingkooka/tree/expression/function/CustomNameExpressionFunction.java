@@ -80,7 +80,7 @@ final class CustomNameExpressionFunction<T, C extends ExpressionFunctionContext>
         return this.name;
     }
 
-    private FunctionExpressionName name;
+    private final FunctionExpressionName name;
 
     @Override
     public boolean resolveReferences() {
