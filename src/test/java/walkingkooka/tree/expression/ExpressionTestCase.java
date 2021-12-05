@@ -243,19 +243,11 @@ public abstract class ExpressionTestCase<N extends Expression> implements ClassT
 
     final void evaluateAndCheckValue(final Expression node, final ExpressionEvaluationContext context, final Object expected) {
         final Object value = node.toValue(context);
-        if (expected instanceof Comparable && value instanceof Comparable) {
-            this.checkEquals(
-                    expected,
-                    value,
-                    () -> "toValue of " + node + " failed"
-            );
-        } else {
-            this.checkEquals(
-                    expected,
-                    value,
-                    () -> "toValue of " + node + " failed"
-            );
-        }
+        this.checkEquals(
+                expected,
+                value,
+                () -> "toValue of " + node + " failed"
+        );
 
         if (false == node.isReference()) {
             final Object referenceOrValue = node.toReferenceOrValue(context);
