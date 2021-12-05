@@ -63,7 +63,7 @@ public final class ExpressionFunctions implements PublicStaticHelper {
      * {@see FakeExpressionFunction}
      */
     public static <T, C extends ExpressionFunctionContext> ExpressionFunction<T, C> fake() {
-        return new FakeExpressionFunction();
+        return new FakeExpressionFunction<>();
     }
 
     /**
