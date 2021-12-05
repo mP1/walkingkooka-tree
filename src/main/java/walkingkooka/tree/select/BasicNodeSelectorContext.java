@@ -50,7 +50,7 @@ final class BasicNodeSelectorContext<N extends Node<N, NAME, ANAME, AVALUE>, NAM
         Objects.requireNonNull(expressionEvaluationContext, "expressionEvaluationContext");
         Objects.requireNonNull(nodeType, "nodeType");
 
-        return new BasicNodeSelectorContext<N, NAME, ANAME, AVALUE>(finisher,
+        return new BasicNodeSelectorContext<>(finisher,
                 filter,
                 mapper,
                 Cast.to(expressionEvaluationContext));
