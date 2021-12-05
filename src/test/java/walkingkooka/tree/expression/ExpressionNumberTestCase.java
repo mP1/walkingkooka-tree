@@ -27,6 +27,7 @@ import walkingkooka.reflect.JavaVisibility;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.math.MathContext;
+import java.math.RoundingMode;
 import java.util.function.Predicate;
 
 import static org.junit.jupiter.api.Assertions.assertNotSame;
@@ -964,7 +965,12 @@ public abstract class ExpressionNumberTestCase<N extends ExpressionNumber> imple
     @Test
     public final void testBigDecimal() {
         final int value = 1;
-        this.checkEquals(BigDecimal.valueOf(value), this.create(value).bigDecimal().setScale(0));
+        this.checkEquals(
+                BigDecimal.valueOf(value),
+                this.create(value)
+                        .bigDecimal()
+                        .setScale(0, RoundingMode.HALF_UP)
+        );
     }
 
     // equals...........................................................................................................

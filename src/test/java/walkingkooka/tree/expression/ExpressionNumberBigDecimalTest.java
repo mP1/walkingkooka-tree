@@ -20,6 +20,7 @@ package walkingkooka.tree.expression;
 import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 
 import static org.junit.jupiter.api.Assertions.assertNotSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -143,7 +144,11 @@ public final class ExpressionNumberBigDecimalTest extends ExpressionNumberTestCa
     @Override
     void checkValue0(final double value, final ExpressionNumberBigDecimal number) {
         final BigDecimal actual = number.bigDecimal();
-        this.checkEquals(BigDecimal.valueOf(value).setScale(actual.scale()), actual);
+        this.checkEquals(
+                BigDecimal.valueOf(value)
+                        .setScale(actual.scale(), RoundingMode.HALF_UP),
+                actual
+        );
     }
 
     @Override
