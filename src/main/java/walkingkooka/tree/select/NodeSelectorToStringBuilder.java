@@ -101,6 +101,6 @@ final class NodeSelectorToStringBuilder implements Builder<String> {
 
     @Override
     public String toString() {
-        return b.toString() + " (" + this.mode + ')';
+        return b + " (" + this.mode + ')';
     }
 }
