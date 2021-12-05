@@ -76,7 +76,7 @@ public interface ExpressionFunctionTesting<F extends ExpressionFunction<V, C>, V
                 () -> "Wrong result for " + function + " for params: " + CharSequences.quoteIfChars(parameters));
     }
 
-    abstract C createContext();
+    C createContext();
 
     default void resolveReferenceAndCheck(final boolean resolveReference) {
         this.resolveReferenceAndCheck(this.createBiFunction(), resolveReference);
