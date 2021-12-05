@@ -44,7 +44,7 @@ public abstract class ExpressionNumber extends Number implements Comparable<Expr
      * Tests if the value is a number or {@link ExpressionNumber}
      */
     public static boolean is(final Object value) {
-        return (null != value && Maths.isNumber(value)) || value instanceof ExpressionNumber;
+        return Maths.isNumber(value) || value instanceof ExpressionNumber;
     }
 
     /**
