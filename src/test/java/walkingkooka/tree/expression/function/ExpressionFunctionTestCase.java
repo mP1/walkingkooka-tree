@@ -87,7 +87,7 @@ public abstract class ExpressionFunctionTestCase<F extends ExpressionFunction<T,
             }
 
             @Override
-            public <T> Either<T, String> convert(final Object value, final Class<T> target) {
+            public <TT> Either<TT, String> convert(final Object value, final Class<TT> target) {
                 if (target.isInstance(value)) {
                     return Either.left(target.cast(value));
                 }
