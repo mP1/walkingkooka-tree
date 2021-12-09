@@ -19,10 +19,11 @@ package walkingkooka.tree.select.parser;
 
 import walkingkooka.reflect.ClassTesting2;
 import walkingkooka.reflect.JavaVisibility;
+import walkingkooka.text.cursor.parser.ParserContext;
 import walkingkooka.text.cursor.parser.ebnf.combinator.EbnfParserCombinatorSyntaxTreeTransformerTesting;
 
 public final class NodeSelectorEbnfParserCombinatorSyntaxTreeTransformerTest implements ClassTesting2<NodeSelectorEbnfParserCombinatorSyntaxTreeTransformer>,
-        EbnfParserCombinatorSyntaxTreeTransformerTesting<NodeSelectorEbnfParserCombinatorSyntaxTreeTransformer> {
+        EbnfParserCombinatorSyntaxTreeTransformerTesting<NodeSelectorEbnfParserCombinatorSyntaxTreeTransformer, ParserContext> {
 
     @Override
     public Class<NodeSelectorEbnfParserCombinatorSyntaxTreeTransformer> type() {
