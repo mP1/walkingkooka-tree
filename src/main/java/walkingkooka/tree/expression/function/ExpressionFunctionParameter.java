@@ -17,6 +17,8 @@
 
 package walkingkooka.tree.expression.function;
 
+import walkingkooka.Either;
+
 import java.util.Objects;
 
 /**
@@ -49,6 +51,24 @@ public final class ExpressionFunctionParameter<T> {
     }
 
     private final Class<T> type;
+
+    /**
+     * Converts the given parameter value to match the required type of this parameter.
+     */
+    public Either<T, String> convert(final Object value,
+                                     final ExpressionFunctionContext context) {
+        return context.convert(value, this.type);
+    }
+
+    /**
+     * Converts the given parameter value to match the required type of this parameter or fails.
+     */
+    public T convertOrFail(final Object value,
+                           final ExpressionFunctionContext context) {
+        return context.convertOrFail(value, this.type);
+    }
+
+    // Object...........................................................................................................
 
     @Override
     public int hashCode() {

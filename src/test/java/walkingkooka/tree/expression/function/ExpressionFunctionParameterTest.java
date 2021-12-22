@@ -19,6 +19,7 @@ package walkingkooka.tree.expression.function;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
+import walkingkooka.Either;
 import walkingkooka.HashCodeEqualsDefinedTesting2;
 import walkingkooka.ToStringTesting;
 
@@ -39,6 +40,42 @@ public final class ExpressionFunctionParameterTest implements HashCodeEqualsDefi
     @Test
     public void testWithNullTypeFails() {
         assertThrows(NullPointerException.class, () -> ExpressionFunctionParameter.with(NAME, null));
+    }
+
+    @Test
+    public void testConvert() {
+        final ExpressionFunctionParameter<Integer> parameter = ExpressionFunctionParameter.with(NAME, Integer.class);
+        this.checkEquals(
+                Either.left(12),
+                parameter.convert(
+                        "12",
+                        this.expressionFunctionContext()
+                )
+        );
+    }
+
+    @Test
+    public void testConvertOrFail() {
+        final ExpressionFunctionParameter<Integer> parameter = ExpressionFunctionParameter.with(NAME, Integer.class);
+        this.checkEquals(
+                12,
+                parameter.convertOrFail(
+                        "12",
+                        this.expressionFunctionContext()
+                )
+        );
+    }
+
+    private ExpressionFunctionContext expressionFunctionContext() {
+        return new FakeExpressionFunctionContext() {
+            @Override
+            public <T> Either<T, String> convert(final Object value,
+                                                 final Class<T> target) {
+                checkEquals("12", value, "value");
+                checkEquals(Integer.class, target, "target");
+                return Cast.to(Either.left(12));
+            }
+        };
     }
 
     @Test
