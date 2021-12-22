@@ -51,13 +51,13 @@ public interface ExpressionFunction<T, C extends ExpressionFunctionContext> exte
      * {@see ParametersMapperExpressionFunctionBiFunctionFlatten}
      */
     default ExpressionFunction<T, C> flatten() {
-        return this.parameters(ParametersMapperExpressionFunctionBiFunctionFlatten.instance());
+        return this.mapParameters(ParametersMapperExpressionFunctionBiFunctionFlatten.instance());
     }
 
     /**
      * Returns a ne {@link ExpressionFunction} that adds the parameter mapper before this function.
      */
-    default ExpressionFunction<T, C> parameters(final BiFunction<List<Object>, C, List<Object>> mapper) {
+    default ExpressionFunction<T, C> mapParameters(final BiFunction<List<Object>, C, List<Object>> mapper) {
         return ParametersMapperExpressionFunction.with(mapper, this);
     }
 
@@ -65,6 +65,6 @@ public interface ExpressionFunction<T, C extends ExpressionFunctionContext> exte
      * {@see ParametersMapperExpressionFunctionBiFunctionRemoveFalsey}
      */
     default ExpressionFunction<T, C> removeFalsey() {
-        return this.parameters(ParametersMapperExpressionFunctionBiFunctionRemoveFalsey.instance());
+        return this.mapParameters(ParametersMapperExpressionFunctionBiFunctionRemoveFalsey.instance());
     }
 }
