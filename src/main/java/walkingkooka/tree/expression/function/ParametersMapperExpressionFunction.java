@@ -68,7 +68,7 @@ final class ParametersMapperExpressionFunction<T, C extends ExpressionFunctionCo
      * Special cases that handles if the new mapper is equal to the current.
      */
     @Override
-    public ExpressionFunction<T, C> parameters(final BiFunction<List<Object>, C, List<Object>> mapper) {
+    public ExpressionFunction<T, C> mapParameters(final BiFunction<List<Object>, C, List<Object>> mapper) {
         return this.mapper.equals(mapper) ?
                 this :
                 ParametersMapperExpressionFunction.with(mapper, this);

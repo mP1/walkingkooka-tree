@@ -63,8 +63,8 @@ public interface ExpressionFunctionTesting<F extends ExpressionFunction<V, C>, V
     }
 
     @Test
-    default void testParametersWithNullFunction() {
-        assertThrows(NullPointerException.class, () -> this.createBiFunction().parameters(null));
+    default void testMapParametersWithNullFunction() {
+        assertThrows(NullPointerException.class, () -> this.createBiFunction().mapParameters(null));
     }
 
     default <TT, RR, CC extends ExpressionFunctionContext> void applyAndCheck2(final ExpressionFunction<RR, CC> function,

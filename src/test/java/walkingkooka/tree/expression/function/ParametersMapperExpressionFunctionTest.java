@@ -113,7 +113,7 @@ public final class ParametersMapperExpressionFunctionTest implements ExpressionF
     @Test
     public void testMapSameFunction() {
         final ParametersMapperExpressionFunction<Object, FakeExpressionFunctionContext> function = this.createBiFunction();
-        assertSame(function, function.parameters(MAPPER));
+        assertSame(function, function.mapParameters(MAPPER));
     }
 
     @Test
@@ -123,7 +123,7 @@ public final class ParametersMapperExpressionFunctionTest implements ExpressionF
         final BiFunction<List<Object>, FakeExpressionFunctionContext, List<Object>> mapper = (p, c) -> p.stream()
                 .map(pp -> pp.toString() + "-a")
                 .collect(Collectors.toList());
-        final ParametersMapperExpressionFunction<Object, FakeExpressionFunctionContext> function2 = Cast.to(function.parameters(mapper));
+        final ParametersMapperExpressionFunction<Object, FakeExpressionFunctionContext> function2 = Cast.to(function.mapParameters(mapper));
         assertNotSame(function, function2);
 
         this.applyAndCheck(function2,
