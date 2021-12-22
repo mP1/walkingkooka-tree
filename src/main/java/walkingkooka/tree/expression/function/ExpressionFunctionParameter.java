@@ -22,18 +22,18 @@ import java.util.Objects;
 /**
  * Captures an individual parameter to a @link ExpressionFunction}.
  */
-public final class ExpressionFunctionParameter {
+public final class ExpressionFunctionParameter<T> {
 
-    public static ExpressionFunctionParameter with(final ExpressionFunctionParameterName name,
-                                                   final Class<?> type) {
+    public static <T> ExpressionFunctionParameter<T> with(final ExpressionFunctionParameterName name,
+                                                          final Class<T> type) {
         Objects.requireNonNull(name, "name");
         Objects.requireNonNull(type, "type");
 
-        return new ExpressionFunctionParameter(name, type);
+        return new ExpressionFunctionParameter<>(name, type);
     }
 
     private ExpressionFunctionParameter(final ExpressionFunctionParameterName name,
-                                        final Class<?> type) {
+                                        final Class<T> type) {
         this.name = name;
         this.type = type;
     }
@@ -48,7 +48,7 @@ public final class ExpressionFunctionParameter {
         return this.type;
     }
 
-    private final Class<?> type;
+    private final Class<T> type;
 
     @Override
     public int hashCode() {
