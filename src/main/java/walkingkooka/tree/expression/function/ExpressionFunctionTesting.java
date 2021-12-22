@@ -33,6 +33,7 @@ import walkingkooka.tree.expression.ExpressionPurityTesting;
 import walkingkooka.util.BiFunctionTesting;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
@@ -60,6 +61,22 @@ public interface ExpressionFunctionTesting<F extends ExpressionFunction<V, C>, V
     default void testSetNameSame() {
         final F function = this.createBiFunction();
         assertSame(function, function.setName(function.name()));
+    }
+
+    @Test
+    default void testParameterNamesUnique() {
+        final F function = this.createBiFunction();
+        final List<ExpressionFunctionParameter<?>> parameters = function.parameters();
+        this.checkEquals(
+                parameters.stream()
+                        .map(ExpressionFunctionParameter::name)
+                        .distinct()
+                        .collect(Collectors.toList()),
+                parameters.stream()
+                        .map(ExpressionFunctionParameter::name)
+                        .collect(Collectors.toList()),
+                "parameters includes duplicate parameter names"
+        );
     }
 
     @Test

@@ -83,6 +83,16 @@ final class CustomNameExpressionFunction<T, C extends ExpressionFunctionContext>
     private final FunctionExpressionName name;
 
     @Override
+    public List<ExpressionFunctionParameter<?>> parameters() {
+        return this.function.parameters();
+    }
+
+    @Override
+    public boolean lsLastParameterVariable() {
+        return this.function.lsLastParameterVariable();
+    }
+
+    @Override
     public boolean resolveReferences() {
         return this.function.resolveReferences();
     }

@@ -18,6 +18,7 @@
 package walkingkooka.tree.expression.function;
 
 import walkingkooka.Cast;
+import walkingkooka.collect.list.Lists;
 import walkingkooka.compare.ComparisonRelation;
 import walkingkooka.tree.expression.FunctionExpressionName;
 
@@ -66,6 +67,21 @@ final class ComparisonExpressionFunction<C extends ExpressionFunctionContext> ex
     }
 
     private final static FunctionExpressionName NAME = FunctionExpressionName.with("comparison");
+
+    @Override
+    public List<ExpressionFunctionParameter<?>> parameters() {
+        return PARAMETERS;
+    }
+
+    private final static List<ExpressionFunctionParameter<?>> PARAMETERS = Lists.of(
+            ExpressionFunctionParameterName.with("first").setType(Comparable.class),
+            ExpressionFunctionParameterName.with("second").setType(Comparable.class)
+    );
+
+    @Override
+    public boolean lsLastParameterVariable() {
+        return false;
+    }
 
     @Override
     public String toString() {

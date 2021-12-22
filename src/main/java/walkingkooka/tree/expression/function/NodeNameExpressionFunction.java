@@ -18,6 +18,7 @@
 package walkingkooka.tree.expression.function;
 
 import walkingkooka.Cast;
+import walkingkooka.collect.list.Lists;
 import walkingkooka.tree.Node;
 import walkingkooka.tree.expression.FunctionExpressionName;
 
@@ -61,6 +62,20 @@ final class NodeNameExpressionFunction<C extends ExpressionFunctionContext> exte
     }
 
     private final static FunctionExpressionName NAME = FunctionExpressionName.with("name");
+
+    @Override
+    public List<ExpressionFunctionParameter<?>> parameters() {
+        return PARAMETERS;
+    }
+
+    private final static List<ExpressionFunctionParameter<?>> PARAMETERS = Lists.of(
+            ExpressionFunctionParameterName.with("node").setType(Node.class)
+    );
+
+    @Override
+    public boolean lsLastParameterVariable() {
+        return false;
+    }
 
     @Override
     public String toString() {

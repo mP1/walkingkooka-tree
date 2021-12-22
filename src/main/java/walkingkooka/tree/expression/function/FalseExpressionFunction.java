@@ -18,6 +18,7 @@
 package walkingkooka.tree.expression.function;
 
 import walkingkooka.Cast;
+import walkingkooka.collect.list.Lists;
 import walkingkooka.tree.expression.FunctionExpressionName;
 
 import java.util.List;
@@ -58,6 +59,16 @@ final class FalseExpressionFunction<C extends ExpressionFunctionContext> extends
     }
 
     private final static FunctionExpressionName NAME = FunctionExpressionName.with("false");
+
+    @Override
+    public List<ExpressionFunctionParameter<?>> parameters() {
+        return Lists.empty();
+    }
+
+    @Override
+    public boolean lsLastParameterVariable() {
+        return false;
+    }
 
     @Override
     public String toString() {
