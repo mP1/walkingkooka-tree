@@ -40,6 +40,16 @@ public class FakeExpressionFunction<T, C extends ExpressionFunctionContext> impl
     }
 
     @Override
+    public List<ExpressionFunctionParameter<?>> parameters() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public boolean lsLastParameterVariable() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
     public boolean resolveReferences() {
         throw new UnsupportedOperationException();
     }

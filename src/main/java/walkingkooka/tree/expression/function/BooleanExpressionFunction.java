@@ -18,6 +18,7 @@
 package walkingkooka.tree.expression.function;
 
 import walkingkooka.Cast;
+import walkingkooka.collect.list.Lists;
 import walkingkooka.tree.expression.FunctionExpressionName;
 
 import java.util.List;
@@ -60,6 +61,20 @@ final class BooleanExpressionFunction<C extends ExpressionFunctionContext> exten
     }
 
     private final static FunctionExpressionName NAME = FunctionExpressionName.with("boolean");
+
+    @Override
+    public List<ExpressionFunctionParameter<?>> parameters() {
+        return PARAMETERS;
+    }
+
+    private final static List<ExpressionFunctionParameter<?>> PARAMETERS = Lists.of(
+            ExpressionFunctionParameterName.with("parameter").setType(Object.class)
+    );
+
+    @Override
+    public boolean lsLastParameterVariable() {
+        return false;
+    }
 
     @Override
     public String toString() {
