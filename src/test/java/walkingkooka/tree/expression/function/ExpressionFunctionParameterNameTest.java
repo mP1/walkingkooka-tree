@@ -23,6 +23,8 @@ import walkingkooka.reflect.ClassTesting2;
 import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.text.CaseSensitivity;
 
+import static org.junit.jupiter.api.Assertions.assertSame;
+
 public final class ExpressionFunctionParameterNameTest implements ClassTesting2<ExpressionFunctionParameterName>,
         NameTesting2<ExpressionFunctionParameterName, ExpressionFunctionParameterName> {
 
@@ -44,6 +46,16 @@ public final class ExpressionFunctionParameterNameTest implements ClassTesting2<
     @Test
     public void testSampleUrlDashParameterDashName() {
         this.createNameAndCheck("url-parameter-name");
+    }
+
+    @Test
+    public void testSetType() {
+        final ExpressionFunctionParameterName name = this.createObject();
+
+        final Class<?> type = String.class;
+        final ExpressionFunctionParameter parameter = name.setType(type);
+        assertSame(name, parameter.name(), "name");
+        assertSame(type, parameter.type(), "type");
     }
 
     @Override

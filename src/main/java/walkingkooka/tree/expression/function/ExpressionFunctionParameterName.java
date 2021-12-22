@@ -53,6 +53,13 @@ public final class ExpressionFunctionParameterName implements Name,
 
     private final String name;
 
+    /**
+     * Factory that creates a {@link ExpressionFunctionParameter} with this name and the given {@link Class type}.
+     */
+    public ExpressionFunctionParameter setType(final Class<?> type) {
+        return ExpressionFunctionParameter.with(this, type);
+    }
+
     // Object...........................................................................................................
 
     @Override
