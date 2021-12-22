@@ -18,16 +18,18 @@
 package walkingkooka.tree.expression.function;
 
 import org.junit.jupiter.api.Test;
+import walkingkooka.Cast;
 import walkingkooka.HashCodeEqualsDefinedTesting2;
 import walkingkooka.ToStringTesting;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class ExpressionFunctionParameterTest implements HashCodeEqualsDefinedTesting2<ExpressionFunctionParameter>, ToStringTesting<ExpressionFunctionParameter> {
+public final class ExpressionFunctionParameterTest implements HashCodeEqualsDefinedTesting2<ExpressionFunctionParameter<String>>,
+        ToStringTesting<ExpressionFunctionParameter<String>> {
 
     private final static ExpressionFunctionParameterName NAME = ExpressionFunctionParameterName.with("name");
 
-    private final static Class<?> TYPE = String.class;
+    private final static Class<String> TYPE = String.class;
 
     @Test
     public void testWithNullNameFails() {
@@ -55,12 +57,12 @@ public final class ExpressionFunctionParameterTest implements HashCodeEqualsDefi
     }
 
     @Override
-    public ExpressionFunctionParameter createObject() {
+    public ExpressionFunctionParameter<String> createObject() {
         return ExpressionFunctionParameter.with(NAME, TYPE);
     }
 
     @Override
-    public Class<ExpressionFunctionParameter> type() {
-        return ExpressionFunctionParameter.class;
+    public Class<ExpressionFunctionParameter<String>> type() {
+        return Cast.to(ExpressionFunctionParameter.class);
     }
 }

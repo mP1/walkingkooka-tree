@@ -52,8 +52,8 @@ public final class ExpressionFunctionParameterNameTest implements ClassTesting2<
     public void testSetType() {
         final ExpressionFunctionParameterName name = this.createObject();
 
-        final Class<?> type = String.class;
-        final ExpressionFunctionParameter parameter = name.setType(type);
+        final Class<String> type = String.class;
+        final ExpressionFunctionParameter<String> parameter = name.setType(type);
         assertSame(name, parameter.name(), "name");
         assertSame(type, parameter.type(), "type");
     }

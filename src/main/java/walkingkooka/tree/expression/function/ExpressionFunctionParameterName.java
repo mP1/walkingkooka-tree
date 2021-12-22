@@ -56,7 +56,7 @@ public final class ExpressionFunctionParameterName implements Name,
     /**
      * Factory that creates a {@link ExpressionFunctionParameter} with this name and the given {@link Class type}.
      */
-    public ExpressionFunctionParameter setType(final Class<?> type) {
+    public <T> ExpressionFunctionParameter<T> setType(final Class<T> type) {
         return ExpressionFunctionParameter.with(this, type);
     }
 
