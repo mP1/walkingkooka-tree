@@ -42,10 +42,16 @@ public final class FunctionExpressionName implements Name,
     private final static CharPredicate PART = CharPredicates.letterOrDigit().or(CharPredicates.any("-"));
 
     static FunctionExpressionName fromClass(final Class<? extends Expression> klass) {
-        return new FunctionExpressionName(CharSequences.subSequence(klass.getSimpleName(),
-                0,
-                -"Expression".length()).toString());
+        return new FunctionExpressionName(
+                CharSequences.subSequence(
+                        klass.getSimpleName(),
+                        0,
+                        -EXPRESSION_STRING_LENGTH
+                ).toString()
+        );
     }
+
+    private final static int EXPRESSION_STRING_LENGTH = Expression.class.getSimpleName().length();
 
     // @VisibleForTesting
     private FunctionExpressionName(final String name) {
