@@ -26,6 +26,8 @@ import walkingkooka.text.cursor.parser.ParserToken;
 import walkingkooka.tree.expression.Expression;
 import walkingkooka.tree.expression.ExpressionNumberContexts;
 import walkingkooka.tree.expression.ExpressionNumberKind;
+import walkingkooka.tree.expression.function.ExpressionFunctionParameter;
+import walkingkooka.tree.expression.function.ExpressionFunctionParameterName;
 import walkingkooka.tree.select.NodeSelector;
 import walkingkooka.tree.select.parser.NodeSelectorParserContext;
 import walkingkooka.tree.select.parser.NodeSelectorParserContexts;
@@ -39,6 +41,12 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public final class Sample {
 
     public static void main(final String[] args) throws Exception {
+        final Sample sample = new Sample();
+        sample.testParseExpression();
+        sample.testExpressionFunctionParameterGetOrFail();
+    }
+
+    public void testParseExpression() {
         final ExpressionNumberKind kind = ExpressionNumberKind.DEFAULT;
         final Parser<NodeSelectorParserContext> parser = NodeSelectorParsers.expression()
                 .orReport(ParserReporters.basic())
@@ -47,12 +55,25 @@ public final class Sample {
         final NodeSelectorParserToken token = parser.parse(TextCursors.charSequence("/node123[45]"), context)
                 .get()
                 .cast(NodeSelectorParserToken.class);
-        assertEquals(
-                NodeSelector.absolute()
+        assertEquals(NodeSelector.absolute()
                         .named(Names.string("node123"))
                         .expression(Expression.expressionNumber(kind.create(45)))
                         .toString(),
                 ParserToken.text(Lists.of(token))
+        );
+    }
+
+    public void testExpressionFunctionParameterGetOrFail() {
+        final ExpressionFunctionParameter<Integer> parameter = ExpressionFunctionParameterName.with("test123").setType(Integer.class);
+        assertEquals(
+                100,
+                parameter.getOrFail(
+                        Lists.of(
+                                100,
+                                "B"
+                        ),
+                        0
+                )
         );
     }
 }

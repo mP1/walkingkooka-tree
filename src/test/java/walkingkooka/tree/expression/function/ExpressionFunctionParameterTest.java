@@ -17,12 +17,15 @@
 
 package walkingkooka.tree.expression.function;
 
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.Either;
 import walkingkooka.HashCodeEqualsDefinedTesting2;
 import walkingkooka.ToStringTesting;
 import walkingkooka.collect.list.Lists;
+
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -42,6 +45,58 @@ public final class ExpressionFunctionParameterTest implements HashCodeEqualsDefi
     public void testWithNullTypeFails() {
         assertThrows(NullPointerException.class, () -> ExpressionFunctionParameter.with(NAME, null));
     }
+
+    // getOrFail.......................................................................................................
+
+    @Test
+    public void testGetOrFailMissingFails() {
+        final ExpressionFunctionParameter<Integer> parameter = ExpressionFunctionParameter.with(NAME, Integer.class);
+        assertThrows(
+                IndexOutOfBoundsException.class,
+                () -> {
+                    parameter.getOrFail(
+                            List.of(
+                                    1, 2
+                            ),
+                            2
+                    );
+                }
+        );
+    }
+
+    @Test
+    @Disabled("Need to emulate Class.cast")
+    public void testGetOrFailWrongTypeFails() {
+        final ExpressionFunctionParameter<Integer> parameter = ExpressionFunctionParameter.with(NAME, Integer.class);
+        assertThrows(
+                ClassCastException.class,
+                () -> {
+                    parameter.getOrFail(
+                            List.of(
+                                    "A"
+                            ),
+                            0
+                    );
+                }
+        );
+    }
+
+    @Test
+    public void testGetOrFail() {
+        final ExpressionFunctionParameter<Integer> parameter = ExpressionFunctionParameter.with(NAME, Integer.class);
+        this.checkEquals(
+                100,
+                parameter.getOrFail(
+                        List.of(
+                                100,
+                                "B"
+                        ),
+                        0
+                )
+        );
+    }
+
+    // convert.........................................................................................................
 
     @Test
     public void testConvert() {

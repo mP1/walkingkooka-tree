@@ -29,6 +29,8 @@ import walkingkooka.text.cursor.parser.ParserToken;
 import walkingkooka.tree.expression.Expression;
 import walkingkooka.tree.expression.ExpressionNumberContexts;
 import walkingkooka.tree.expression.ExpressionNumberKind;
+import walkingkooka.tree.expression.function.ExpressionFunctionParameter;
+import walkingkooka.tree.expression.function.ExpressionFunctionParameterName;
 import walkingkooka.tree.select.NodeSelector;
 import walkingkooka.tree.select.parser.NodeSelectorParserContext;
 import walkingkooka.tree.select.parser.NodeSelectorParserContexts;
@@ -54,6 +56,23 @@ public class JunitTest {
                         .named(Names.string("node123"))
                         .expression(Expression.expressionNumber(kind.create(45)))
                         .toString(),
-                ParserToken.text(Lists.of(token)));
+                ParserToken.text(Lists.of(token))
+        );
+    }
+
+    // TODO verify Class.cast is emulated
+    @Test
+    public void testExpressionFunctionParameterGetOrFail() {
+        final ExpressionFunctionParameter<Integer> parameter = ExpressionFunctionParameterName.with("test123").setType(Integer.class);
+        Assert.assertEquals(
+                Integer.valueOf(100),
+                parameter.<Integer>getOrFail(
+                        Lists.of(
+                                100,
+                                "B"
+                        ),
+                        0
+                )
+        );
     }
 }
