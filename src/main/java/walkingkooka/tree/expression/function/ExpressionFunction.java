@@ -51,6 +51,18 @@ public interface ExpressionFunction<T, C extends ExpressionFunctionContext> exte
     boolean lsLastParameterVariable();
 
     /**
+     * Checks the given parameter values match the expected count exactly. Less or more parameters will result in a
+     * {@link IllegalArgumentException} being thrown.
+     */
+    default void checkOnlyRequiredParameters(final List<Object> parameters) {
+        final int actualCount = parameters.size();
+        final int expectedCount = this.parameters().size();
+        if (actualCount != expectedCount) {
+            throw new IllegalArgumentException("Expected only " + expectedCount + " but got " + actualCount + " parameters");
+        }
+    }
+
+    /**
      * Checks the given parameter values match the expected count. Extra parameters will result in an {@link IllegalArgumentException}.
      * Less parameters will not result in an exception and it is assumed default values will be used for missing.
      */

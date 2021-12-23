@@ -19,22 +19,64 @@ package walkingkooka.tree.expression.function;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.collect.list.Lists;
-import walkingkooka.collect.set.Sets;
 import walkingkooka.reflect.ClassTesting;
 import walkingkooka.reflect.JavaVisibility;
-import walkingkooka.reflect.PublicStaticHelperTesting;
-import walkingkooka.tree.expression.FunctionExpressionName;
 
-import java.lang.reflect.Method;
-import java.math.MathContext;
-import java.util.Arrays;
 import java.util.List;
-import java.util.Set;
-import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class ExpressionFunctionTest implements ClassTesting<ExpressionFunction> {
+
+
+    // checkOnlyRequiredParameters.....................................................................................
+
+    @Test
+    public void testCheckOnlyRequiredParametersLess() {
+        assertThrows(
+                IllegalArgumentException.class,
+                () -> {
+                    new FakeExpressionFunction<Void, FakeExpressionFunctionContext>() {
+                        @Override
+                        public List<ExpressionFunctionParameter<?>> parameters() {
+                            return ExpressionFunctionParameter.list(
+                                    ExpressionFunctionParameterName.with("first").setType(Integer.class),
+                                    ExpressionFunctionParameterName.with("second").setType(Integer.class)
+                            );
+                        }
+                    }.checkOnlyRequiredParameters(Lists.of(1));
+                }
+        );
+    }
+
+    @Test
+    public void testCheckOnlyRequiredParametersSame() {
+        new FakeExpressionFunction<Void, FakeExpressionFunctionContext>() {
+            @Override
+            public List<ExpressionFunctionParameter<?>> parameters() {
+                return ExpressionFunctionParameter.list(
+                        ExpressionFunctionParameterName.with("first").setType(Integer.class),
+                        ExpressionFunctionParameterName.with("second").setType(Integer.class)
+                );
+            }
+        }.checkOnlyRequiredParameters(Lists.of(1, 2));
+    }
+
+    @Test
+    public void testCheckOnlyRequiredParametersMoreFails() {
+        assertThrows(
+                IllegalArgumentException.class,
+                () -> {
+                    new FakeExpressionFunction<Void, FakeExpressionFunctionContext>() {
+                        @Override
+                        public List<ExpressionFunctionParameter<?>> parameters() {
+                            return ExpressionFunctionParameter.list(
+                                    ExpressionFunctionParameterName.with("first").setType(Integer.class)
+                            );
+                        }
+                    }.checkOnlyRequiredParameters(Lists.of(1, 2));
+                });
+    }
 
     // checkWithoutExtraParameters.....................................................................................
 
