@@ -18,13 +18,22 @@
 package walkingkooka.tree.expression.function;
 
 import walkingkooka.Either;
+import walkingkooka.collect.list.Lists;
 
+import java.util.List;
 import java.util.Objects;
 
 /**
  * Captures an individual parameter to a @link ExpressionFunction}.
  */
 public final class ExpressionFunctionParameter<T> {
+
+    /**
+     * Helper that creates a read only list of the given parameters.
+     */
+    public static List<ExpressionFunctionParameter<?>> list(final ExpressionFunctionParameter<?>... parameters) {
+        return Lists.of(parameters);
+    }
 
     public static <T> ExpressionFunctionParameter<T> with(final ExpressionFunctionParameterName name,
                                                           final Class<T> type) {
