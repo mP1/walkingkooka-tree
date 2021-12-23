@@ -51,6 +51,18 @@ public interface ExpressionFunction<T, C extends ExpressionFunctionContext> exte
     boolean lsLastParameterVariable();
 
     /**
+     * Checks the given parameter values match the expected count. Extra parameters will result in an {@link IllegalArgumentException}.
+     * Less parameters will not result in an exception and it is assumed default values will be used for missing.
+     */
+    default void checkWithoutExtraParameters(final List<Object> parameters) {
+        final int actualCount = parameters.size();
+        final int expectedCount = this.parameters().size();
+        if (actualCount > expectedCount) {
+            throw new IllegalArgumentException("Expected only " + expectedCount + " but got " + actualCount + " parameters");
+        }
+    }
+
+    /**
      * When <code>true</code> parameters that implement {@link walkingkooka.tree.expression.ExpressionReference} are resolved to
      * their actual non {@link walkingkooka.tree.expression.Expression} value.
      * This is only honoured when {@link ExpressionFunctionContext#evaluate(FunctionExpressionName, List)} is used.
