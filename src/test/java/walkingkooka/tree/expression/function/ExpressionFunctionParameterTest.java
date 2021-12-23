@@ -22,6 +22,7 @@ import walkingkooka.Cast;
 import walkingkooka.Either;
 import walkingkooka.HashCodeEqualsDefinedTesting2;
 import walkingkooka.ToStringTesting;
+import walkingkooka.collect.list.Lists;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -76,6 +77,17 @@ public final class ExpressionFunctionParameterTest implements HashCodeEqualsDefi
                 return Cast.to(Either.left(12));
             }
         };
+    }
+
+    @Test
+    public void testList() {
+        final ExpressionFunctionParameter<String> string = ExpressionFunctionParameterName.with("string").setType(String.class);
+        final ExpressionFunctionParameter<Integer> integer = ExpressionFunctionParameterName.with("integer").setType(Integer.class);
+
+        this.checkEquals(
+                Lists.of(string, integer),
+                ExpressionFunctionParameter.list(string, integer)
+        );
     }
 
     @Test
