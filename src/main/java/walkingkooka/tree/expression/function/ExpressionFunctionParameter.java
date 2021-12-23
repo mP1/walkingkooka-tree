@@ -17,6 +17,7 @@
 
 package walkingkooka.tree.expression.function;
 
+import walkingkooka.Cast;
 import walkingkooka.Either;
 import walkingkooka.collect.list.Lists;
 
@@ -60,6 +61,25 @@ public final class ExpressionFunctionParameter<T> {
     }
 
     private final Class<T> type;
+
+    /**
+     * Gets the parameter at index or fails and also complains if it is the wrong type.
+     */
+    public T getOrFail(final List<Object> parameters,
+                       final int index) {
+        if (index >= parameters.size()) {
+            throw new IndexOutOfBoundsException("Required parameter " + this.name() + " missing");
+        }
+
+        final Object value = parameters.get(index);
+        try {
+            // https://github.com/mP1/walkingkooka-tree/issues/307
+            // Emulate Class.cast
+            return Cast.to(value);
+        } catch (final ClassCastException cast) {
+            throw new ClassCastException("Parameter " + this.name() + " of wrong type " + value.getClass().getName() + " expected " + this.type());
+        }
+    }
 
     /**
      * Converts the given parameter value to match the required type of this parameter.
