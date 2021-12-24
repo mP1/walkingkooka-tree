@@ -40,6 +40,11 @@ public final class ComparisonExpressionFunctionTest extends ExpressionFunctionTe
         assertThrows(IllegalArgumentException.class, () -> this.apply2("a1", 2, 3));
     }
 
+    @Test
+    public void testResolveReferencesTrue() {
+        this.resolveReferenceAndCheck(true);
+    }
+
     // EQ........................................................................................
 
     @Test

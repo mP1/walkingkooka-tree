@@ -28,6 +28,11 @@ public final class TrueExpressionFunctionTest extends ExpressionFunctionTestCase
     }
 
     @Test
+    public void testResolveReferencesTrue() {
+        this.resolveReferenceAndCheck(true);
+    }
+
+    @Test
     public void testToString() {
         this.toStringAndCheck(this.createBiFunction(), "true");
     }
