@@ -42,7 +42,7 @@ public final class NodeNameExpressionFunctionTest implements ClassTesting2<NodeN
 
     @Test
     public void testResolveReferencesTrue() {
-        this.resolveReferenceAndCheck(true);
+        this.resolveReferenceAndCheck(false);
     }
 
     @Override

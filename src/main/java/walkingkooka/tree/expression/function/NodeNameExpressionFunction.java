@@ -18,8 +18,8 @@
 package walkingkooka.tree.expression.function;
 
 import walkingkooka.Cast;
-import walkingkooka.collect.list.Lists;
 import walkingkooka.tree.Node;
+import walkingkooka.tree.expression.ExpressionPurityContext;
 import walkingkooka.tree.expression.FunctionExpressionName;
 
 import java.util.List;
@@ -27,7 +27,7 @@ import java.util.List;
 /**
  * A non standard function that returns {@link Node#name()}. It assumes the {@link Node} is the first parameter.
  */
-final class NodeNameExpressionFunction<C extends ExpressionFunctionContext> extends ExpressionFunction2<String, C> {
+final class NodeNameExpressionFunction<C extends ExpressionFunctionContext> implements ExpressionFunction<String, C> {
 
     /**
      * Instance getter.
@@ -51,7 +51,9 @@ final class NodeNameExpressionFunction<C extends ExpressionFunctionContext> exte
     @Override
     public String apply(final List<Object> parameters,
                         final C context) {
-        return this.parameter(parameters, 0, Node.class, context)
+        this.checkOnlyRequiredParameters(parameters);
+
+        return NODE.getOrFail(parameters, 0)
                 .name()
                 .value();
     }
@@ -68,13 +70,24 @@ final class NodeNameExpressionFunction<C extends ExpressionFunctionContext> exte
         return PARAMETERS;
     }
 
-    private final static List<ExpressionFunctionParameter<?>> PARAMETERS = Lists.of(
-            ExpressionFunctionParameterName.with("node").setType(Node.class)
-    );
+    private final static ExpressionFunctionParameter<Node> NODE = ExpressionFunctionParameterName.with("node")
+            .setType(Node.class);
+
+    private final static List<ExpressionFunctionParameter<?>> PARAMETERS = ExpressionFunctionParameter.list(NODE);
 
     @Override
     public boolean lsLastParameterVariable() {
         return false;
+    }
+
+    @Override
+    public boolean resolveReferences() {
+        return false;
+    }
+
+    @Override
+    public boolean isPure(final ExpressionPurityContext context) {
+        return true;
     }
 
     @Override
