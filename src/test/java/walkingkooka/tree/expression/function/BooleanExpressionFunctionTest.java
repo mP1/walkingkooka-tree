@@ -60,8 +60,8 @@ public final class BooleanExpressionFunctionTest extends ExpressionFunctionTestC
     }
 
     @Test
-    public void testResolveReferencesTrue() {
-        this.resolveReferenceAndCheck(true);
+    public void testResolveReferencesFalse() {
+        this.resolveReferenceAndCheck(false);
     }
 
     @Test
