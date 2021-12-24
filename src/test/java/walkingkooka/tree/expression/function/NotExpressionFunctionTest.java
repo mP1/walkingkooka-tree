@@ -28,13 +28,8 @@ public final class NotExpressionFunctionTest extends ExpressionFunctionTestCase<
     }
 
     @Test
-    public void testInverts2() {
-        this.applyAndCheck2(parameters(""), true);
-    }
-
-    @Test
     public void testResolveReferencesTrue() {
-        this.resolveReferenceAndCheck(true);
+        this.resolveReferenceAndCheck(false);
     }
 
     @Test
