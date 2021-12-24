@@ -19,6 +19,7 @@ package walkingkooka.tree.expression.function;
 
 import walkingkooka.Cast;
 import walkingkooka.collect.list.Lists;
+import walkingkooka.tree.expression.ExpressionPurityContext;
 import walkingkooka.tree.expression.FunctionExpressionName;
 
 import java.util.List;
@@ -26,7 +27,7 @@ import java.util.List;
 /**
  * A function that always returns true
  */
-final class TrueExpressionFunction<C extends ExpressionFunctionContext> extends ExpressionFunction2<Boolean, C> {
+final class TrueExpressionFunction<C extends ExpressionFunctionContext> implements ExpressionFunction<Boolean, C> {
 
     /**
      * Instance getter.
@@ -50,6 +51,7 @@ final class TrueExpressionFunction<C extends ExpressionFunctionContext> extends 
     @Override
     public Boolean apply(final List<Object> parameters,
                          final C context) {
+        this.checkOnlyRequiredParameters(parameters);
         return Boolean.TRUE;
     }
 
@@ -68,6 +70,16 @@ final class TrueExpressionFunction<C extends ExpressionFunctionContext> extends 
     @Override
     public boolean lsLastParameterVariable() {
         return false;
+    }
+
+    @Override
+    public boolean resolveReferences() {
+        return false;
+    }
+
+    @Override
+    public boolean isPure(final ExpressionPurityContext context) {
+        return true;
     }
 
     @Override
