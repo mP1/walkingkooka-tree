@@ -18,7 +18,7 @@
 package walkingkooka.tree.expression.function;
 
 import walkingkooka.Cast;
-import walkingkooka.collect.list.Lists;
+import walkingkooka.tree.expression.ExpressionPurityContext;
 import walkingkooka.tree.expression.FunctionExpressionName;
 
 import java.util.List;
@@ -26,7 +26,7 @@ import java.util.List;
 /**
  * A function that inverts the a boolean value.
  */
-final class NotExpressionFunction<C extends ExpressionFunctionContext> extends ExpressionFunction2<Boolean, C> {
+final class NotExpressionFunction<C extends ExpressionFunctionContext> implements ExpressionFunction<Boolean, C> {
 
     /**
      * Instance getter.
@@ -50,9 +50,9 @@ final class NotExpressionFunction<C extends ExpressionFunctionContext> extends E
     @Override
     public Boolean apply(final List<Object> parameters,
                          final C context) {
-        this.checkParameterCount(parameters, 1);
+        this.checkOnlyRequiredParameters(parameters);
 
-        return !this.booleanValue(parameters, 0, context);
+        return !PARAMETER.getOrFail(parameters, 0);
     }
 
     @Override
@@ -67,14 +67,26 @@ final class NotExpressionFunction<C extends ExpressionFunctionContext> extends E
         return PARAMETERS;
     }
 
-    private final static List<ExpressionFunctionParameter<?>> PARAMETERS = Lists.of(
-            ExpressionFunctionParameterName.with("parameter")
-                    .setType(Boolean.class)
+    private final static ExpressionFunctionParameter<Boolean> PARAMETER = ExpressionFunctionParameterName.with("parameter")
+            .setType(Boolean.class);
+
+    private final static List<ExpressionFunctionParameter<?>> PARAMETERS = ExpressionFunctionParameter.list(
+            PARAMETER
     );
 
     @Override
     public boolean lsLastParameterVariable() {
         return false;
+    }
+
+    @Override
+    public boolean resolveReferences() {
+        return false;
+    }
+
+    @Override
+    public boolean isPure(final ExpressionPurityContext context) {
+        return true;
     }
 
     @Override
