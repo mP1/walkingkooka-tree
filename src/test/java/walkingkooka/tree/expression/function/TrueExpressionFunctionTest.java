@@ -29,7 +29,7 @@ public final class TrueExpressionFunctionTest extends ExpressionFunctionTestCase
 
     @Test
     public void testResolveReferencesTrue() {
-        this.resolveReferenceAndCheck(true);
+        this.resolveReferenceAndCheck(false);
     }
 
     @Test
