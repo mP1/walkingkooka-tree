@@ -21,6 +21,7 @@ import walkingkooka.Cast;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.naming.Name;
 import walkingkooka.tree.Node;
+import walkingkooka.tree.expression.ExpressionPurityContext;
 import walkingkooka.tree.expression.FunctionExpressionName;
 import walkingkooka.tree.select.NodeSelectorExpressionFunctionContext;
 
@@ -33,7 +34,7 @@ final class NodeExpressionFunction<N extends Node<N, NAME, ANAME, AVALUE>,
         NAME extends Name,
         ANAME extends Name,
         AVALUE,
-        C extends NodeSelectorExpressionFunctionContext<N, NAME, ANAME, AVALUE>> extends ExpressionFunction2<N, C> {
+        C extends NodeSelectorExpressionFunctionContext<N, NAME, ANAME, AVALUE>> implements ExpressionFunction<N, C> {
 
     /**
      * Instance getter.
@@ -81,6 +82,16 @@ final class NodeExpressionFunction<N extends Node<N, NAME, ANAME, AVALUE>,
     @Override
     public boolean lsLastParameterVariable() {
         return false;
+    }
+
+    @Override
+    public boolean resolveReferences() {
+        return false;
+    }
+
+    @Override
+    public boolean isPure(final ExpressionPurityContext context) {
+        return true;
     }
 
     @Override
