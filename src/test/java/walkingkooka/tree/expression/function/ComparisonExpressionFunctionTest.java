@@ -19,7 +19,6 @@ package walkingkooka.tree.expression.function;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
-import walkingkooka.compare.ComparisonRelation;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -41,137 +40,223 @@ public final class ComparisonExpressionFunctionTest extends ExpressionFunctionTe
     }
 
     @Test
-    public void testResolveReferencesTrue() {
-        this.resolveReferenceAndCheck(true);
+    public void testResolveReferencesFalse() {
+        this.resolveReferenceAndCheck(false);
     }
 
     // EQ........................................................................................
 
     @Test
     public void testEqualsLess() {
-        this.applyAndCheck3(ComparisonRelation.EQ, "a", "b", false);
+        this.applyAndCheck3(
+                ComparisonExpressionFunction.equals(),
+                "a",
+                "b",
+                false
+        );
     }
 
     @Test
     public void testEqualsEqual() {
-        this.applyAndCheck3(ComparisonRelation.EQ, "a", "a", true);
+        this.applyAndCheck3(
+                ComparisonExpressionFunction.equals(),
+                "a",
+                "a",
+                true
+        );
     }
 
     @Test
     public void testEqualsMore() {
-        this.applyAndCheck3(ComparisonRelation.EQ, "z", "a", false);
+        this.applyAndCheck3(
+                ComparisonExpressionFunction.equals(),
+                "z",
+                "a",
+                false
+        );
     }
 
     // NE........................................................................................
 
     @Test
     public void testNotEqualsLess() {
-        this.applyAndCheck3(ComparisonRelation.NE, "a", "b", true);
+        this.applyAndCheck3(
+                ComparisonExpressionFunction.notEquals(),
+                "a",
+                "b",
+                true
+        );
     }
 
     @Test
     public void testNotEqualsNeual() {
-        this.applyAndCheck3(ComparisonRelation.NE, "a", "a", false);
+        this.applyAndCheck3(
+                ComparisonExpressionFunction.notEquals(),
+                "a",
+                "a",
+                false
+        );
     }
 
     @Test
     public void testNotEqualsMore() {
-        this.applyAndCheck3(ComparisonRelation.NE, "z", "a", true);
+        this.applyAndCheck3(
+                ComparisonExpressionFunction.notEquals(),
+                "z",
+                "a",
+                true
+        );
     }
 
     // GT........................................................................................
 
     @Test
     public void testGreaterThanLess() {
-        this.applyAndCheck3(ComparisonRelation.GT, "a", "b", false);
+        this.applyAndCheck3(
+                ComparisonExpressionFunction.greaterThan(),
+                "a",
+                "b",
+                false
+        );
     }
 
     @Test
     public void testGreaterThanEqual() {
-        this.applyAndCheck3(ComparisonRelation.GT, "a", "a", false);
+        this.applyAndCheck3(
+                ComparisonExpressionFunction.greaterThan(),
+                "a",
+                "a",
+                false
+        );
     }
 
     @Test
     public void testGreaterThanMore() {
-        this.applyAndCheck3(ComparisonRelation.GT, "z", "a", true);
+        this.applyAndCheck3(
+                ComparisonExpressionFunction.greaterThan(),
+                "z",
+                "a",
+                true
+        );
     }
 
     // GTE........................................................................................
 
     @Test
     public void testGreaterThanEqualsLess() {
-        this.applyAndCheck3(ComparisonRelation.GTE, "a", "b", false);
+        this.applyAndCheck3(
+                ComparisonExpressionFunction.greaterThanEqual(),
+                "a",
+                "b",
+                false
+        );
     }
 
     @Test
     public void testGreaterThanEqualsEqual() {
-        this.applyAndCheck3(ComparisonRelation.GTE, "a", "a", true);
+        this.applyAndCheck3(
+                ComparisonExpressionFunction.greaterThanEqual(),
+                "a",
+                "a",
+                true
+        );
     }
 
     @Test
     public void testGreaterThanEqualsMore() {
-        this.applyAndCheck3(ComparisonRelation.GTE, "z", "a", true);
+        this.applyAndCheck3(
+                ComparisonExpressionFunction.greaterThanEqual(),
+                "z",
+                "a",
+                true
+        );
     }
 
     // LT........................................................................................
 
     @Test
     public void testLessThanLess() {
-        this.applyAndCheck3(ComparisonRelation.LT, "a", "b", true);
+        this.applyAndCheck3(
+                ComparisonExpressionFunction.lessThan(),
+                "a",
+                "b",
+                true
+        );
     }
 
     @Test
     public void testLessThanEqual() {
-        this.applyAndCheck3(ComparisonRelation.LT, "a", "a", false);
+        this.applyAndCheck3(
+                ComparisonExpressionFunction.lessThan(),
+                "a",
+                "a",
+                false
+        );
     }
 
     @Test
     public void testLessThanMore() {
-        this.applyAndCheck3(ComparisonRelation.LT, "z", "a", false);
+        this.applyAndCheck3(
+                ComparisonExpressionFunction.lessThan(),
+                "z",
+                "a",
+                false
+        );
     }
 
     // LTE........................................................................................
 
     @Test
     public void testLessThanEqualsLess() {
-        this.applyAndCheck3(ComparisonRelation.LTE, "a", "b", true);
+        this.applyAndCheck3(
+                ComparisonExpressionFunction.lessThanEqual(),
+                "a",
+                "b",
+                true
+        );
     }
 
     @Test
     public void testLessThanEqualsEqual() {
-        this.applyAndCheck3(ComparisonRelation.LTE, "a", "a", true);
+        this.applyAndCheck3(
+                ComparisonExpressionFunction.lessThanEqual(),
+                "a",
+                "a",
+                true
+        );
     }
 
     @Test
     public void testLessThanEqualsMore() {
-        this.applyAndCheck3(ComparisonRelation.LTE, "z", "a", false);
+        this.applyAndCheck3(
+                ComparisonExpressionFunction.lessThanEqual(),
+                "z",
+                "a",
+                false
+        );
     }
-
-    // conversion.............................................................................
-
-    @Test
-    public void testSecondParameterConverted() {
-        this.applyAndCheck3(ComparisonRelation.LTE, 123, "456", true);
-    }
-
 
     // helper........................................................................................
 
-    void applyAndCheck3(final ComparisonRelation relation,
+    void applyAndCheck3(final ComparisonExpressionFunction<ExpressionFunctionContext> function,
                         final Object first,
                         final Object second,
                         final Boolean result) {
-        this.applyAndCheck2(ComparisonExpressionFunction.with(relation), parameters(first, second), result);
+        this.applyAndCheck2(
+                function,
+                parameters(first, second),
+                result
+        );
     }
 
     @Test
     public void testToString() {
-        this.toStringAndCheck(this.createBiFunction(), ComparisonRelation.EQ.toString());
+        this.toStringAndCheck(this.createBiFunction(), "greater-than");
     }
 
     @Override
     public ComparisonExpressionFunction<ExpressionFunctionContext> createBiFunction() {
-        return ComparisonExpressionFunction.with(ComparisonRelation.EQ);
+        return ComparisonExpressionFunction.greaterThan();
     }
 
     @Override
