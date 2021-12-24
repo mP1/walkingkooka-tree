@@ -60,6 +60,11 @@ public final class ChooseExpressionFunctionTest extends ExpressionFunctionTestCa
     }
 
     @Test
+    public void testResolveReferencesTrue() {
+        this.resolveReferenceAndCheck(true);
+    }
+
+    @Test
     public void testToString() {
         this.toStringAndCheck(this.createBiFunction(), "choose");
     }
