@@ -18,7 +18,7 @@
 package walkingkooka.tree.expression.function;
 
 import walkingkooka.Cast;
-import walkingkooka.collect.list.Lists;
+import walkingkooka.tree.expression.ExpressionPurityContext;
 import walkingkooka.tree.expression.FunctionExpressionName;
 
 import java.util.List;
@@ -26,7 +26,7 @@ import java.util.List;
 /**
  * A function that returns {@link Object#getClass()#getName()} of the first parameter.
  */
-final class TypeNameExpressionFunction<C extends ExpressionFunctionContext> extends ExpressionFunction2<String, C> {
+final class TypeNameExpressionFunction<C extends ExpressionFunctionContext> implements ExpressionFunction<String, C> {
 
     /**
      * Instance getter.
@@ -48,12 +48,6 @@ final class TypeNameExpressionFunction<C extends ExpressionFunctionContext> exte
     }
 
     @Override
-    public String apply(final List<Object> parameters,
-                        final C context) {
-        return this.parameter(parameters, 0).getClass().getName();
-    }
-
-    @Override
     public FunctionExpressionName name() {
         return NAME;
     }
@@ -61,18 +55,36 @@ final class TypeNameExpressionFunction<C extends ExpressionFunctionContext> exte
     private final static FunctionExpressionName NAME = FunctionExpressionName.with("typeName");
 
     @Override
+    public String apply(final List<Object> parameters,
+                        final C context) {
+        this.checkOnlyRequiredParameters(parameters);
+        return PARAMETER.getOrFail(parameters, 0)
+                .getClass()
+                .getName();
+    }
+
+    @Override
     public List<ExpressionFunctionParameter<?>> parameters() {
         return PARAMETERS;
     }
 
-    private final static List<ExpressionFunctionParameter<?>> PARAMETERS = Lists.of(
-            ExpressionFunctionParameterName.with("parameter")
-                    .setType(Boolean.class)
-    );
+    private final static ExpressionFunctionParameter<Object> PARAMETER = ExpressionFunctionParameterName.with("parameter").setType(Object.class);
+
+    private final static List<ExpressionFunctionParameter<?>> PARAMETERS = ExpressionFunctionParameter.list(PARAMETER);
 
     @Override
     public boolean lsLastParameterVariable() {
         return false;
+    }
+
+    @Override
+    public boolean resolveReferences() {
+        return true;
+    }
+
+    @Override
+    public boolean isPure(final ExpressionPurityContext context) {
+        return true;
     }
 
     @Override
