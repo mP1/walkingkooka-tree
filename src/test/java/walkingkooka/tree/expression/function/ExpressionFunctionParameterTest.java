@@ -26,6 +26,7 @@ import walkingkooka.ToStringTesting;
 import walkingkooka.collect.list.Lists;
 
 import java.util.List;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -44,6 +45,54 @@ public final class ExpressionFunctionParameterTest implements HashCodeEqualsDefi
     @Test
     public void testWithNullTypeFails() {
         assertThrows(NullPointerException.class, () -> ExpressionFunctionParameter.with(NAME, null));
+    }
+
+    // get.............................................................................................................
+
+    @Test
+    public void testGetMissing() {
+        final ExpressionFunctionParameter<Integer> parameter = ExpressionFunctionParameter.with(NAME, Integer.class);
+        this.checkEquals(
+                Optional.empty(),
+                parameter.get(
+                        List.of(
+                                100
+                        ),
+                        1
+                )
+        );
+    }
+
+    @Test
+    @Disabled("Need to emulate Class.cast")
+    public void testGetWrongTypeFails() {
+        final ExpressionFunctionParameter<Integer> parameter = ExpressionFunctionParameter.with(NAME, Integer.class);
+        assertThrows(
+                ClassCastException.class,
+                () -> {
+                    parameter.get(
+                            List.of(
+                                    "A"
+                            ),
+                            0
+                    );
+                }
+        );
+    }
+
+    @Test
+    public void testGet() {
+        final ExpressionFunctionParameter<Integer> parameter = ExpressionFunctionParameter.with(NAME, Integer.class);
+        this.checkEquals(
+                Optional.of(100),
+                parameter.get(
+                        List.of(
+                                100,
+                                "B"
+                        ),
+                        0
+                )
+        );
     }
 
     // getOrDefault.....................................................................................................

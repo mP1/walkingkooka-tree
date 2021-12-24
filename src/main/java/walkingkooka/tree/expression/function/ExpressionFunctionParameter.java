@@ -23,6 +23,7 @@ import walkingkooka.collect.list.Lists;
 
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 
 /**
  * Captures an individual parameter to a @link ExpressionFunction}.
@@ -61,6 +62,16 @@ public final class ExpressionFunctionParameter<T> {
     }
 
     private final Class<T> type;
+
+    /**
+     * Gets the parameter at index or uses the default
+     */
+    public Optional<T> get(final List<Object> parameters,
+                           final int index) {
+        return index >= parameters.size() ?
+                Optional.empty() :
+                Optional.of(Cast.to(parameters.get(index)));
+    }
 
     /**
      * Gets the parameter at index or uses the default
