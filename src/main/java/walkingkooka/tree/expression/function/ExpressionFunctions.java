@@ -34,15 +34,22 @@ public final class ExpressionFunctions implements PublicStaticHelper {
      * Visit all {@link ExpressionFunction functions}. Note this does not include the {@link #fake() fake function}
      */
     public static void visit(final Consumer<ExpressionFunction<?, ?>> consumer) {
-        Lists.of(booleanFunction(),
+        Lists.of(
+                booleanFunction(),
                 choose(),
+                equals(),
                 falseFunction(),
+                greaterThan(),
+                greaterThanEquals(),
+                lessThan(),
+                lessThanEquals(),
                 node(),
                 nodeName(),
                 not(),
+                notEquals(),
                 trueFunction(),
-                typeName())
-                .forEach(consumer);
+                typeName()
+        ).forEach(consumer);
     }
 
     /**
@@ -60,6 +67,13 @@ public final class ExpressionFunctions implements PublicStaticHelper {
     }
 
     /**
+     * {@see ComparisonExpressionFunction}
+     */
+    public static <C extends ExpressionFunctionContext> ExpressionFunction<Boolean, C> equals() {
+        return ComparisonExpressionFunction.equals();
+    }
+
+    /**
      * {@see FakeExpressionFunction}
      */
     public static <T, C extends ExpressionFunctionContext> ExpressionFunction<T, C> fake() {
@@ -71,6 +85,34 @@ public final class ExpressionFunctions implements PublicStaticHelper {
      */
     public static <C extends ExpressionFunctionContext> ExpressionFunction<Boolean, C> falseFunction() {
         return FalseExpressionFunction.instance();
+    }
+
+    /**
+     * {@see ComparisonExpressionFunction}
+     */
+    public static <C extends ExpressionFunctionContext> ExpressionFunction<Boolean, C> greaterThan() {
+        return ComparisonExpressionFunction.greaterThan();
+    }
+
+    /**
+     * {@see ComparisonExpressionFunction}
+     */
+    public static <C extends ExpressionFunctionContext> ExpressionFunction<Boolean, C> greaterThanEquals() {
+        return ComparisonExpressionFunction.greaterThanEqual();
+    }
+
+    /**
+     * {@see ComparisonExpressionFunction}
+     */
+    public static <C extends ExpressionFunctionContext> ExpressionFunction<Boolean, C> lessThan() {
+        return ComparisonExpressionFunction.lessThan();
+    }
+
+    /**
+     * {@see ComparisonExpressionFunction}
+     */
+    public static <C extends ExpressionFunctionContext> ExpressionFunction<Boolean, C> lessThanEquals() {
+        return ComparisonExpressionFunction.lessThanEqual();
     }
 
     /**
@@ -96,6 +138,13 @@ public final class ExpressionFunctions implements PublicStaticHelper {
      */
     public static <C extends ExpressionFunctionContext> ExpressionFunction<Boolean, C> not() {
         return NotExpressionFunction.instance();
+    }
+
+    /**
+     * {@see ComparisonExpressionFunction}
+     */
+    public static <C extends ExpressionFunctionContext> ExpressionFunction<Boolean, C> notEquals() {
+        return ComparisonExpressionFunction.notEquals();
     }
 
     /**
