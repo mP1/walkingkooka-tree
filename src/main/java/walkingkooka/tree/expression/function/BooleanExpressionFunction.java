@@ -19,6 +19,7 @@ package walkingkooka.tree.expression.function;
 
 import walkingkooka.Cast;
 import walkingkooka.collect.list.Lists;
+import walkingkooka.tree.expression.ExpressionPurityContext;
 import walkingkooka.tree.expression.FunctionExpressionName;
 
 import java.util.List;
@@ -26,7 +27,7 @@ import java.util.List;
 /**
  * A function that converts the given value into a {@link Boolean}.
  */
-final class BooleanExpressionFunction<C extends ExpressionFunctionContext> extends ExpressionFunction2<Boolean, C> {
+final class BooleanExpressionFunction<C extends ExpressionFunctionContext> implements ExpressionFunction<Boolean, C> {
 
     /**
      * Instance getter.
@@ -50,9 +51,12 @@ final class BooleanExpressionFunction<C extends ExpressionFunctionContext> exten
     @Override
     public Boolean apply(final List<Object> parameters,
                          final C context) {
-        this.checkParameterCount(parameters, 1);
+        this.checkOnlyRequiredParameters(parameters);
 
-        return this.booleanValue(parameters, 0, context);
+        return context.convertOrFail(
+                PARAMETER.getOrFail(parameters, 0),
+                Boolean.class
+        );
     }
 
     @Override
@@ -67,13 +71,24 @@ final class BooleanExpressionFunction<C extends ExpressionFunctionContext> exten
         return PARAMETERS;
     }
 
-    private final static List<ExpressionFunctionParameter<?>> PARAMETERS = Lists.of(
-            ExpressionFunctionParameterName.with("parameter").setType(Object.class)
-    );
+    private final static ExpressionFunctionParameter<Object> PARAMETER = ExpressionFunctionParameterName.with("parameter")
+            .setType(Object.class);
+
+    private final static List<ExpressionFunctionParameter<?>> PARAMETERS = Lists.of(PARAMETER);
 
     @Override
     public boolean lsLastParameterVariable() {
         return false;
+    }
+
+    @Override
+    public boolean resolveReferences() {
+        return false;
+    }
+
+    @Override
+    public boolean isPure(final ExpressionPurityContext context) {
+        return true;
     }
 
     @Override
