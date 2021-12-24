@@ -18,7 +18,7 @@
 package walkingkooka.tree.expression.function;
 
 import walkingkooka.Cast;
-import walkingkooka.collect.list.Lists;
+import walkingkooka.tree.expression.ExpressionPurityContext;
 import walkingkooka.tree.expression.FunctionExpressionName;
 
 import java.util.List;
@@ -41,7 +41,7 @@ import java.util.List;
  * The second object to consider returning.
  * </pre>
  */
-final class ChooseExpressionFunction<C extends ExpressionFunctionContext> extends ExpressionFunction2<Object, C> {
+final class ChooseExpressionFunction<C extends ExpressionFunctionContext> implements ExpressionFunction<Object, C> {
 
     /**
      * Instance getter.
@@ -65,12 +65,12 @@ final class ChooseExpressionFunction<C extends ExpressionFunctionContext> extend
     @Override
     public Object apply(final List<Object> parameters,
                         final C context) {
-        this.checkParameterCount(parameters, 3);
+        this.checkOnlyRequiredParameters(parameters);
 
-        return this.parameter(parameters,
-                this.booleanValue(parameters, 0, context) ? 1 : 2);
+        return BOOLEAN.getOrFail(parameters, 0) ?
+                TRUE.getOrFail(parameters, 1) :
+                FALSE.getOrFail(parameters, 2);
     }
-
 
     @Override
     public FunctionExpressionName name() {
@@ -84,15 +84,34 @@ final class ChooseExpressionFunction<C extends ExpressionFunctionContext> extend
         return PARAMETERS;
     }
 
-    private final static List<ExpressionFunctionParameter<?>> PARAMETERS = Lists.of(
-            ExpressionFunctionParameterName.with("boolean").setType(Boolean.class),
-            ExpressionFunctionParameterName.with("true-value").setType(Object.class),
-            ExpressionFunctionParameterName.with("false-value").setType(Object.class)
+    private final static ExpressionFunctionParameter<Boolean> BOOLEAN = ExpressionFunctionParameterName.with("boolean")
+            .setType(Boolean.class);
+
+    private final static ExpressionFunctionParameter<Object> TRUE = ExpressionFunctionParameterName.with("true-value")
+            .setType(Object.class);
+
+    private final static ExpressionFunctionParameter<Object> FALSE = ExpressionFunctionParameterName.with("false-value")
+            .setType(Object.class);
+
+    private final static List<ExpressionFunctionParameter<?>> PARAMETERS = ExpressionFunctionParameter.list(
+            BOOLEAN,
+            TRUE,
+            FALSE
     );
 
     @Override
     public boolean lsLastParameterVariable() {
         return false;
+    }
+
+    @Override
+    public boolean resolveReferences() {
+        return false;
+    }
+
+    @Override
+    public boolean isPure(final ExpressionPurityContext context) {
+        return true;
     }
 
     @Override

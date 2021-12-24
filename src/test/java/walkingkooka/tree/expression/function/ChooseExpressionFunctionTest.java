@@ -45,23 +45,13 @@ public final class ChooseExpressionFunctionTest extends ExpressionFunctionTestCa
     }
 
     @Test
-    public void testTrueConverted() {
-        this.applyAndCheck2(parameters("true", "*1", "*2"), "*1");
-    }
-
-    @Test
     public void testBooleanFalse() {
         this.applyAndCheck2(parameters(false, "*1", "*2"), "*2");
     }
 
     @Test
-    public void testConvertedFalse() {
-        this.applyAndCheck2(parameters("false", "*1", "*2"), "*2");
-    }
-
-    @Test
-    public void testResolveReferencesTrue() {
-        this.resolveReferenceAndCheck(true);
+    public void testResolveReferencesFalse() {
+        this.resolveReferenceAndCheck(false);
     }
 
     @Test
