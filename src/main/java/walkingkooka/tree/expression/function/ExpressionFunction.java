@@ -58,7 +58,7 @@ public interface ExpressionFunction<T, C extends ExpressionFunctionContext> exte
         final int actualCount = parameters.size();
         final int expectedCount = this.parameters().size();
         if (actualCount != expectedCount) {
-            throw new IllegalArgumentException("Expected only " + expectedCount + " but got " + actualCount + " parameters");
+            this.failParameterCount(expectedCount, actualCount);
         }
     }
 
@@ -70,8 +70,15 @@ public interface ExpressionFunction<T, C extends ExpressionFunctionContext> exte
         final int actualCount = parameters.size();
         final int expectedCount = this.parameters().size();
         if (actualCount > expectedCount) {
-            throw new IllegalArgumentException("Expected only " + expectedCount + " but got " + actualCount + " parameters");
+            this.failParameterCount(expectedCount, actualCount);
         }
+    }
+
+    /**
+     * Helper that handles failed parameter count checks.
+     */
+    default void failParameterCount(final int expected, final int actual) {
+        throw new IllegalArgumentException("Expected only " + expected + " but got " + actual + " parameters");
     }
 
     /**
