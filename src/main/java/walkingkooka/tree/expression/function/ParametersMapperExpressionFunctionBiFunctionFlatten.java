@@ -26,8 +26,10 @@ import java.util.Objects;
 final class ParametersMapperExpressionFunctionBiFunctionFlatten<C extends ExpressionFunctionContext> extends ParametersMapperExpressionFunctionBiFunction<C> {
 
     static <C extends ExpressionFunctionContext> ParametersMapperExpressionFunctionBiFunctionFlatten<C> instance() {
-        return new ParametersMapperExpressionFunctionBiFunctionFlatten<>();
+        return Cast.to(INSTANCE);
     }
+
+    private final static ParametersMapperExpressionFunctionBiFunctionFlatten<?> INSTANCE = new ParametersMapperExpressionFunctionBiFunctionFlatten<>();
 
     private ParametersMapperExpressionFunctionBiFunctionFlatten() {
         super();
