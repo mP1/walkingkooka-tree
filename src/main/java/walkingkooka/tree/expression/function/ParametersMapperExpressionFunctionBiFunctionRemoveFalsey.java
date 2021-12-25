@@ -17,6 +17,8 @@
 
 package walkingkooka.tree.expression.function;
 
+import walkingkooka.Cast;
+
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
@@ -27,8 +29,11 @@ import java.util.stream.Collectors;
 final class ParametersMapperExpressionFunctionBiFunctionRemoveFalsey<C extends ExpressionFunctionContext> extends ParametersMapperExpressionFunctionBiFunction<C> {
 
     static <C extends ExpressionFunctionContext> ParametersMapperExpressionFunctionBiFunctionRemoveFalsey<C> instance() {
-        return new ParametersMapperExpressionFunctionBiFunctionRemoveFalsey<>();
+        return Cast.to(INSTANCE);
     }
+
+    private final static ParametersMapperExpressionFunctionBiFunctionRemoveFalsey<?> INSTANCE = new ParametersMapperExpressionFunctionBiFunctionRemoveFalsey<>();
+
 
     private ParametersMapperExpressionFunctionBiFunctionRemoveFalsey() {
         super();
