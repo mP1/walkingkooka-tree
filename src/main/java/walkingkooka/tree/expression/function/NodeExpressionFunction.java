@@ -85,6 +85,11 @@ final class NodeExpressionFunction<N extends Node<N, NAME, ANAME, AVALUE>,
     }
 
     @Override
+    public Class<N> returnType() {
+        return Cast.to(Node.class);
+    }
+
+    @Override
     public boolean resolveReferences() {
         return false;
     }

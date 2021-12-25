@@ -116,6 +116,11 @@ final class ComparisonExpressionFunction<C extends ExpressionFunctionContext> im
     }
 
     @Override
+    public Class<Boolean> returnType() {
+        return Boolean.class;
+    }
+
+    @Override
     public boolean resolveReferences() {
         return false;
     }

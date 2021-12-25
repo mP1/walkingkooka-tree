@@ -73,6 +73,11 @@ final class TrueExpressionFunction<C extends ExpressionFunctionContext> implemen
     }
 
     @Override
+    public Class<Boolean> returnType() {
+        return Boolean.class;
+    }
+
+    @Override
     public boolean resolveReferences() {
         return false;
     }

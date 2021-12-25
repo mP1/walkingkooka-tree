@@ -81,6 +81,11 @@ final class NodeNameExpressionFunction<C extends ExpressionFunctionContext> impl
     }
 
     @Override
+    public Class<String> returnType() {
+        return String.class;
+    }
+
+    @Override
     public boolean resolveReferences() {
         return false;
     }
