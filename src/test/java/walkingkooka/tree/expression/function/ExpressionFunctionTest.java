@@ -122,6 +122,182 @@ public final class ExpressionFunctionTest implements ClassTesting<ExpressionFunc
                 });
     }
 
+    // convertParameters ...............................................................................................
+
+    private final static ExpressionFunctionParameter<Integer> INTEGER = ExpressionFunctionParameterName.with("integer").setType(Integer.class);
+
+    private final static ExpressionFunctionParameter<Boolean> BOOLEAN = ExpressionFunctionParameterName.with("boolean").setType(Boolean.class);
+
+    @Test
+    public void testConvertParametersCorrectParameterCount() {
+        this.convertParametersAndCheck(
+                Lists.of(INTEGER),
+                false,
+                Lists.of("123"),
+                Lists.of(123)
+        );
+    }
+
+    @Test
+    public void testConvertParametersCorrectParameterCount2() {
+        this.convertParametersAndCheck(
+                Lists.of(INTEGER, BOOLEAN),
+                false,
+                Lists.of("123", "true"),
+                Lists.of(123, true)
+        );
+    }
+
+    @Test
+    public void testConvertParametersCorrectParameterCountLastParameterVariable() {
+        this.convertParametersAndCheck(
+                Lists.of(INTEGER),
+                true,
+                Lists.of("123", "456"),
+                Lists.of(123, 456)
+        );
+    }
+
+    @Test
+    public void testConvertParametersCorrectParameterCountLastParameterVariable2() {
+        this.convertParametersAndCheck(
+                Lists.of(INTEGER),
+                true,
+                Lists.of("123", "456", "678"),
+                Lists.of(123, 456, 678)
+        );
+    }
+
+    @Test
+    public void testConvertParametersCorrectParameterCountLastParameterVariable3() {
+        this.convertParametersAndCheck(
+                Lists.of(BOOLEAN, INTEGER),
+                true,
+                Lists.of("true", "456", "678"),
+                Lists.of(true, 456, 678)
+        );
+    }
+
+    @Test
+    public void testConvertParametersMissingParameterInfos() {
+        this.convertParametersAndCheck(
+                Lists.empty(),
+                false,
+                Lists.of("abc"),
+                Lists.of("abc")
+        );
+    }
+
+    @Test
+    public void testConvertParametersMissingParameterInfos2() {
+        this.convertParametersAndCheck(
+                Lists.of(INTEGER),
+                false,
+                Lists.of("123", "abc"),
+                Lists.of(123, "abc")
+        );
+    }
+
+    @Test
+    public void testConvertParametersMissingParameterInfos3() {
+        this.convertParametersAndCheck(
+                Lists.of(INTEGER, BOOLEAN),
+                false,
+                Lists.of("123", "true", "abc"),
+                Lists.of(123, true, "abc")
+        );
+    }
+
+    @Test
+    public void testConvertParametersNullParameterInfoFails() {
+        this.convertParametersAndFail(
+                Lists.of(new ExpressionFunctionParameter[]{null}),
+                false,
+                Lists.of("123"),
+                NullPointerException.class
+        );
+    }
+
+    @Test
+    public void testConvertParametersNullParameterInfoFails2() {
+        this.convertParametersAndFail(
+                Lists.of(INTEGER, null),
+                false,
+                Lists.of("123", "456"),
+                NullPointerException.class
+        );
+    }
+
+    @Test
+    public void testConvertParametersConvertFails2() {
+        this.convertParametersAndFail(
+                Lists.of(INTEGER, null),
+                false,
+                Lists.of("xyz"),
+                NumberFormatException.class
+        );
+    }
+
+    private void convertParametersAndCheck(final List<ExpressionFunctionParameter<?>> parameterInfos,
+                                           final boolean lsLastParameterVariable,
+                                           final List<Object> beforeValues,
+                                           final List<Object> afterValues) {
+        this.checkEquals(
+                afterValues,
+                this.convertParameters(parameterInfos, lsLastParameterVariable, beforeValues),
+                () -> "convertParameters " + beforeValues + " " + parameterInfos
+        );
+    }
+
+    private void convertParametersAndFail(final List<ExpressionFunctionParameter<?>> parameterInfos,
+                                          final boolean lsLastParameterVariable,
+                                          final List<Object> beforeValues,
+                                          final Class<? extends Throwable> thrown) {
+        assertThrows(
+                thrown,
+                () -> {
+                    this.convertParameters(parameterInfos, lsLastParameterVariable, beforeValues);
+                }
+        );
+    }
+
+    private List<Object> convertParameters(final List<ExpressionFunctionParameter<?>> parameterInfos,
+                                           final boolean lsLastParameterVariable,
+                                           final List<Object> beforeValues) {
+        return
+                new FakeExpressionFunction<Void, FakeExpressionFunctionContext>() {
+                    @Override
+                    public List<ExpressionFunctionParameter<?>> parameters() {
+                        return parameterInfos;
+                    }
+
+                    @Override
+                    public boolean lsLastParameterVariable() {
+                        return lsLastParameterVariable;
+                    }
+                }.convertParameters(
+                        beforeValues,
+                        new FakeExpressionFunctionContext() {
+                            @Override
+                            public <T> T convertOrFail(final Object value,
+                                                       final Class<T> target) {
+                                if (value instanceof String && Integer.class == target) {
+                                    return target.cast(Integer.parseInt((String) value));
+                                }
+                                if (value instanceof String && Double.class == target) {
+                                    return target.cast(Double.parseDouble((String) value));
+                                }
+                                if (value instanceof String && Boolean.class == target) {
+                                    return target.cast(Boolean.valueOf((String) value));
+                                }
+                                throw this.convertThrowable("Value=" + value + " target=" + target.getName());
+                            }
+                        }
+                );
+    }
+
+    // ClassTesting....................................................................................................
+
     @Override
     public Class<ExpressionFunction> type() {
         return ExpressionFunction.class;
