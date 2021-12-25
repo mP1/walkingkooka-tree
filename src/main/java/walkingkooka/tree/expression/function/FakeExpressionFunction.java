@@ -50,6 +50,11 @@ public class FakeExpressionFunction<T, C extends ExpressionFunctionContext> impl
     }
 
     @Override
+    public Class<T> returnType() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
     public boolean resolveReferences() {
         throw new UnsupportedOperationException();
     }

@@ -80,6 +80,11 @@ final class NotExpressionFunction<C extends ExpressionFunctionContext> implement
     }
 
     @Override
+    public Class<Boolean> returnType() {
+        return Boolean.class;
+    }
+
+    @Override
     public boolean resolveReferences() {
         return false;
     }

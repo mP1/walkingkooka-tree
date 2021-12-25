@@ -82,6 +82,11 @@ final class BooleanExpressionFunction<C extends ExpressionFunctionContext> imple
     }
 
     @Override
+    public Class<Boolean> returnType() {
+        return Boolean.class;
+    }
+
+    @Override
     public boolean resolveReferences() {
         return false;
     }

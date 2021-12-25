@@ -70,6 +70,11 @@ final class ParametersMapperExpressionFunction<T, C extends ExpressionFunctionCo
     }
 
     @Override
+    public Class<T> returnType() {
+        return this.function.returnType();
+    }
+
+    @Override
     public boolean resolveReferences() {
         return this.function.resolveReferences();
     }

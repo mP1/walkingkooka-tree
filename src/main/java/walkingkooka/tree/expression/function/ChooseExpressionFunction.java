@@ -105,6 +105,11 @@ final class ChooseExpressionFunction<C extends ExpressionFunctionContext> implem
     }
 
     @Override
+    public Class<Object> returnType() {
+        return Object.class;
+    }
+
+    @Override
     public boolean resolveReferences() {
         return false;
     }

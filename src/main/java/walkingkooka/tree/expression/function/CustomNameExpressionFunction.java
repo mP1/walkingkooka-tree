@@ -93,6 +93,11 @@ final class CustomNameExpressionFunction<T, C extends ExpressionFunctionContext>
     }
 
     @Override
+    public Class<T> returnType() {
+        return this.function.returnType();
+    }
+
+    @Override
     public boolean resolveReferences() {
         return this.function.resolveReferences();
     }

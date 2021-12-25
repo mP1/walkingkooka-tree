@@ -82,6 +82,13 @@ public interface ExpressionFunction<T, C extends ExpressionFunctionContext> exte
     }
 
     /**
+     * The return type of this function
+     *
+     * @return The return type of this function
+     */
+    Class<T> returnType();
+
+    /**
      * When <code>true</code> parameters that implement {@link walkingkooka.tree.expression.ExpressionReference} are resolved to
      * their actual non {@link walkingkooka.tree.expression.Expression} value.
      * This is only honoured when {@link ExpressionFunctionContext#evaluate(FunctionExpressionName, List)} is used.
