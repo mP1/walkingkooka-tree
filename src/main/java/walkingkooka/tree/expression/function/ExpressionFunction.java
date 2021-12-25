@@ -116,7 +116,7 @@ public interface ExpressionFunction<T, C extends ExpressionFunctionContext> exte
         }
 
         final int count = parameters.size();
-        if (this.lsLastParameterVariable()) {
+        if (this.lsLastParameterVariable() && null != parameterInfo) {
             while (i < count) {
                 after.add(parameterInfo.convertOrFail(parameters.get(i), context));
                 i++;
