@@ -400,36 +400,36 @@ public abstract class ExpressionTestCase<N extends Expression> implements ClassT
      * Converts an empty list to false, and non empty list to true.
      */
     private static Converter<ExpressionNumberConverterContext> listToBoolean() {
-        return Converters.booleanTrueFalse((v) -> v instanceof List,
-                emptyList(),
+        return Converters.booleanTrueFalse(
+                (v) -> v instanceof List,
                 Predicates.is(Boolean.class),
-                Boolean.TRUE,
-                Boolean.FALSE);
-    }
-
-    private static Predicate<Object> emptyList() {
-        return (v) -> {
-            final List<?> list = Cast.to(v);
-            return list.isEmpty();
-        };
+                (v) -> v.equals(Lists.empty()),
+                Boolean.FALSE,
+                Boolean.TRUE
+        );
     }
 
     private <T> Converter<ExpressionNumberConverterContext> fromBoolean(final Class<T> targetType,
                                                                         final Converter<ExpressionNumberConverterContext> trueOrFalse) {
         final ExpressionNumberConverterContext context = this.converterContext();
-        return Converters.booleanTrueFalse((t)-> t instanceof Boolean,
-                Predicate.isEqual(Boolean.FALSE),
+        return Converters.booleanTrueFalse(
+                (t) -> t instanceof Boolean,
                 (t) -> t == targetType,
+                Predicate.isEqual(Boolean.TRUE),
                 trueOrFalse.convertOrFail(1L, targetType, context),
-                trueOrFalse.convertOrFail(0L, targetType, context));
+                trueOrFalse.convertOrFail(0L, targetType, context)
+        );
     }
 
-    private static <S> Converter<ExpressionNumberConverterContext> toBoolean(final Class<S> sourceType, final S falseValue) {
-        return Converters.booleanTrueFalse((t) -> t.getClass() == sourceType,
-                Predicate.isEqual(falseValue),
+    private static <S> Converter<ExpressionNumberConverterContext> toBoolean(final Class<S> sourceType,
+                                                                             final S falseValue) {
+        return Converters.booleanTrueFalse(
+                (t) -> t.getClass() == sourceType,
                 (t) -> t == Boolean.class,
-                Boolean.TRUE,
-                Boolean.FALSE);
+                (v) -> falseValue.equals(v),
+                Boolean.FALSE,
+                Boolean.TRUE
+        );
     }
 
     @Override
