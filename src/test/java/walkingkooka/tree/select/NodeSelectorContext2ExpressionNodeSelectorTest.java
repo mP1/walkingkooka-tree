@@ -143,7 +143,7 @@ public final class NodeSelectorContext2ExpressionNodeSelectorTest extends NodeSe
                                 Lists.of(
                                         ExpressionNumber.toConverter(Converters.truthyNumberBoolean()),
                                         ExpressionNumber.fromConverter(Converters.numberNumber()),
-                                        Converters.<String, Integer, ExpressionNumberConverterContext>function(v -> v instanceof String, Predicates.is(Integer.class), Integer::parseInt)
+                                        Converters.<String, Integer, ExpressionNumberConverterContext>mapper(v -> v instanceof String, Predicates.is(Integer.class), Integer::parseInt)
                                 )
                         );
                     }
