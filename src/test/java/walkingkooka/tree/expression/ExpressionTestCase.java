@@ -362,7 +362,7 @@ public abstract class ExpressionTestCase<N extends Expression> implements ClassT
                         ExpressionNumber.fromConverter(Converters.numberLocalTime()),
                         ExpressionNumber.fromConverter(Converters.numberString((c) -> new DecimalFormat("#.###"))),
                         // string ->
-                        Converters.<String, Boolean, ExpressionNumberConverterContext>function(v -> v instanceof String, Predicate.isEqual(Boolean.class), Boolean::valueOf),
+                        Converters.<String, Boolean, ExpressionNumberConverterContext>mapper(v -> v instanceof String, Predicate.isEqual(Boolean.class), Boolean::valueOf),
                         stringLocalDate,
                         stringLocalDateTime,
                         stringLocalTime,
