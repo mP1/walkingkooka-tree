@@ -83,10 +83,10 @@ public final class ParametersMapperExpressionFunctionBiFunctionRemoveFalseyTest 
                 return Converters.<FakeExpressionFunctionContext>collection(Lists.of(
                         Converters.truthyNumberBoolean(),
                         Converters.booleanTrueFalse((v) -> v instanceof String,
-                                (v) -> "".equals(v),
                                 (v) -> Boolean.class == v,
-                                true,
-                                false)
+                                (v) -> "".equals(v),
+                                false,
+                                true)
                 )).convert(value, target, this);
             }
         };
