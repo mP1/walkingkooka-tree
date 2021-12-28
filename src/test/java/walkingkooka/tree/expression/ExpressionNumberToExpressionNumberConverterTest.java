@@ -32,7 +32,6 @@ import walkingkooka.math.DecimalNumberContexts;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.math.MathContext;
-import java.text.DecimalFormat;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -132,153 +131,70 @@ public final class ExpressionNumberToExpressionNumberConverterTest implements Co
 
     @Test
     public void testByte() {
-        this.convertAndCheck2("123", Byte.class, (byte) 123);
+        this.convertAndCheck2((byte) 123);
     }
 
     @Test
     public void testShort() {
-        this.convertAndCheck2("123", Short.class, (short) 123);
+        this.convertAndCheck2((short) 123);
     }
 
     @Test
     public void testInteger() {
-        this.convertAndCheck2("123", Integer.class, 123);
+        this.convertAndCheck2(123);
     }
 
     @Test
     public void testLong() {
-        this.convertAndCheck2("123", Long.class, 123L);
+        this.convertAndCheck2(123L);
     }
 
     @Test
     public void testFloat() {
-        this.convertAndCheck2("128.5", Float.class, 128.5f);
+        this.convertAndCheck2(128.5f);
     }
 
     @Test
     public void testDouble() {
-        this.convertAndCheck2("128.5", Double.class, 128.5);
+        this.convertAndCheck2(128.5);
     }
 
     @Test
     public void testBigInteger() {
-        this.convertAndCheck2("123", BigInteger.class, BigInteger.valueOf(123));
+        this.convertAndCheck2(BigInteger.valueOf(123));
     }
 
     @Test
     public void testBigDecimal() {
-        this.convertAndCheck2("128.5", BigDecimal.class, BigDecimal.valueOf(128.5));
+        this.convertAndCheck2(BigDecimal.valueOf(128.5));
     }
 
-    private <N> void convertAndCheck2(final String string,
-                                      final Class<N> target,
-                                      final N number) {
-        this.convertAndCheck4(ExpressionNumberKind.BIG_DECIMAL,
-                string,
+    private <N extends Number> void convertAndCheck2(final N number) {
+        this.convertAndCheck3(
+                ExpressionNumberKind.BIG_DECIMAL,
+                number,
                 ExpressionNumber.class,
-                ExpressionNumberKind.BIG_DECIMAL.create(new BigDecimal(string)));
+                ExpressionNumberKind.BIG_DECIMAL.create(number)
+        );
 
-        this.convertAndCheck4(ExpressionNumberKind.DOUBLE,
-                string,
+        this.convertAndCheck3(
+                ExpressionNumberKind.DOUBLE,
+                number,
                 ExpressionNumber.class,
-                ExpressionNumberKind.DOUBLE.create(Double.parseDouble(string)));
+                ExpressionNumberKind.DOUBLE.create(number)
+        );
     }
 
-    // String -> ExpressionNumber..........................................................................................
-
-    @Test
-    public void testStringExpressionNumber() {
-        this.convertAndCheck3("128");
-    }
-
-    @Test
-    public void testStringExpressionNumber2() {
-        this.convertAndCheck3("128.5");
-    }
-
-    private void convertAndCheck3(final String string) {
-        this.convertAndCheck4(ExpressionNumberKind.BIG_DECIMAL,
-                string,
-                ExpressionNumber.class,
-                ExpressionNumberKind.BIG_DECIMAL.create(new BigDecimal(string)));
-
-        this.convertAndCheck4(ExpressionNumberKind.DOUBLE,
-                string,
-                ExpressionNumber.class,
-                ExpressionNumberKind.DOUBLE.create(Double.parseDouble(string)));
-    }
-
-    private <N> void convertAndCheck4(final ExpressionNumberKind kind,
+    private <N> void convertAndCheck3(final ExpressionNumberKind kind,
                                       final Object from,
                                       final Class<N> target,
                                       final N number) {
-        this.convertAndCheck(ExpressionNumber.toConverter(Converters.stringNumber((d) -> (DecimalFormat) DecimalFormat.getInstance())),
+        this.convertAndCheck(
                 from,
                 target,
                 this.createContext(kind),
-                number);
-    }
-
-    // Number -> ExpressionNumber..........................................................................................
-
-    @Test
-    public void testByteExpressionNumber() {
-        this.convertNumberAndCheck((byte) 123);
-    }
-
-    @Test
-    public void testShortNumberExpressionNumber() {
-        this.convertNumberAndCheck((short) 123);
-    }
-
-    @Test
-    public void testIntegerNumberExpressionNumber() {
-        this.convertNumberAndCheck(123);
-    }
-
-    @Test
-    public void testFloatNumberExpressionNumber() {
-        this.convertNumberAndCheck(123f);
-    }
-
-    @Test
-    public void testDoubleNumberExpressionNumber() {
-        this.convertNumberAndCheck(123.0);
-    }
-
-    @Test
-    public void testBigIntegerNumberExpressionNumber() {
-        this.convertNumberAndCheck(BigInteger.valueOf(123));
-    }
-
-    @Test
-    public void testBigDecimalNumberExpressionNumber() {
-        this.convertNumberAndCheck(BigDecimal.valueOf(128.5));
-    }
-
-    private void convertNumberAndCheck(final Number value) {
-        this.convertNumberAndCheck2(ExpressionNumberKind.BIG_DECIMAL,
-                value,
-                ExpressionNumber.class,
-                ExpressionNumberKind.BIG_DECIMAL.create(value));
-
-        this.convertNumberAndCheck2(ExpressionNumberKind.DOUBLE,
-                value,
-                ExpressionNumber.class,
-                ExpressionNumberKind.DOUBLE.create(value));
-    }
-
-    private <N> void convertNumberAndCheck2(final ExpressionNumberKind kind,
-                                            final Object from,
-                                            final Class<N> target,
-                                            final N number) {
-        this.convertAndCheck(ExpressionNumber.toConverter(Converters.numberNumber()),
-                from,
-                target,
-                ExpressionNumberConverterContexts.basic(Converters.fake(),
-                        ConverterContexts.fake(),
-                        kind),
-                number);
+                number
+        );
     }
 
     // ExpressionNumber.................................................................................................
@@ -305,11 +221,12 @@ public final class ExpressionNumberToExpressionNumberConverterTest implements Co
 
     private void convertExpressionNumberAndCheck(final ExpressionNumber number,
                                                  final ExpressionNumberKind kind) {
-        this.convertAndCheck(ExpressionNumberToExpressionNumberConverter.with(Converters.numberNumber()),
+        this.convertAndCheck(
                 number,
                 ExpressionNumber.class,
                 this.createContext(kind),
-                kind.create(number));
+                kind.create(number)
+        );
     }
 
     @Test
@@ -340,7 +257,9 @@ public final class ExpressionNumberToExpressionNumberConverterTest implements Co
 
     @Override
     public ExpressionNumberToExpressionNumberConverter<ExpressionNumberConverterContext> createConverter() {
-        return ExpressionNumberToExpressionNumberConverter.with(Converters.fake());
+        return ExpressionNumberToExpressionNumberConverter.with(
+                Converters.numberNumber()
+        );
     }
 
     @Override
@@ -349,11 +268,15 @@ public final class ExpressionNumberToExpressionNumberConverterTest implements Co
     }
 
     private ExpressionNumberConverterContext createContext(final ExpressionNumberKind kind) {
-        return ExpressionNumberConverterContexts.basic(Converters.fake(),
-                ConverterContexts.basic(Converters.fake(),
+        return ExpressionNumberConverterContexts.basic(
+                Converters.fake(),
+                ConverterContexts.basic(
+                        Converters.fake(),
                         DateTimeContexts.fake(),
-                        DecimalNumberContexts.american(MathContext.DECIMAL32)),
-                kind);
+                        DecimalNumberContexts.american(MathContext.DECIMAL32)
+                ),
+                kind
+        );
     }
 
     @Override
