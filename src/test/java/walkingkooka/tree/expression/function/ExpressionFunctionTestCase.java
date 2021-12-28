@@ -18,15 +18,8 @@
 package walkingkooka.tree.expression.function;
 
 import org.junit.jupiter.api.Test;
-import walkingkooka.Cast;
-import walkingkooka.Either;
-import walkingkooka.convert.ConverterContexts;
-import walkingkooka.convert.Converters;
 import walkingkooka.reflect.ClassTesting2;
 import walkingkooka.reflect.JavaVisibility;
-import walkingkooka.tree.expression.ExpressionNumber;
-import walkingkooka.tree.expression.ExpressionNumberConverterContext;
-import walkingkooka.tree.expression.ExpressionNumberConverterContexts;
 import walkingkooka.tree.expression.ExpressionNumberKind;
 import walkingkooka.tree.expression.ExpressionPurityContext;
 import walkingkooka.tree.expression.ExpressionPurityTesting;
@@ -76,38 +69,7 @@ public abstract class ExpressionFunctionTestCase<F extends ExpressionFunction<T,
 
     @Override
     public ExpressionFunctionContext createContext() {
-        return new FakeExpressionFunctionContext() {
-            @Override
-            public ExpressionNumberKind expressionNumberKind() {
-                return EXPRESSION_NUMBER_KIND;
-            }
-
-            @Override
-            public <TT> Either<TT, String> convert(final Object value, final Class<TT> target) {
-                if (target.isInstance(value)) {
-                    return Either.left(target.cast(value));
-                }
-                if (target == String.class) {
-                    return Either.left(Cast.to(value.toString()));
-                }
-
-                final ExpressionNumberConverterContext context = ExpressionNumberConverterContexts.basic(Converters.fake(),
-                        ConverterContexts.fake(),
-                        this.expressionNumberKind());
-
-                if (value instanceof String && Number.class.isAssignableFrom(target)) {
-                    final Double doubleValue = Double.parseDouble((String) value);
-                    return ExpressionNumber.toConverter(ExpressionNumber.fromConverter(Converters.numberNumber()))
-                            .convert(doubleValue, target, context);
-                }
-                if (target == Boolean.class) {
-                    return Either.left(Cast.to(Boolean.parseBoolean(value.toString())));
-                }
-                return ExpressionNumber.toConverter(ExpressionNumber.fromConverter(Converters.numberNumber()))
-                        .convert(value, target, context);
-            }
-
-        };
+        return ExpressionFunctionContexts.fake();
     }
 
     @Override
