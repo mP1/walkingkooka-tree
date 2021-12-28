@@ -43,8 +43,7 @@ public final class ExpressionFunctionsTest implements PublicStaticHelperTesting<
         this.checkEquals(methods.size(),
                 names.size(),
                 () -> methods.toString());
-        this.checkEquals(true, names.contains(ExpressionFunctions.booleanFunction().name()));
-        this.checkEquals(true, names.contains(ExpressionFunctions.trueFunction().name()));
+        this.checkEquals(true, names.contains(ExpressionFunctions.typeName().name()));
     }
 
     @Test

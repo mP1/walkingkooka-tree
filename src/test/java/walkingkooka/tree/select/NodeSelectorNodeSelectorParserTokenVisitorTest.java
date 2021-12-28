@@ -1839,6 +1839,22 @@ public final class NodeSelectorNodeSelectorParserTokenVisitorTest implements Nod
                     private Function<FunctionExpressionName, ExpressionFunction<?, NodeSelectorExpressionEvaluationContext<TestNode, StringName, StringName, Object>>> function() {
                         return (n) -> {
                             switch (n.value()) {
+                                case "boolean":
+                                    return new TestExpressionFunction() {
+                                        @Override
+                                        public Object apply(final List<Object> parameters,
+                                                            final NodeSelectorExpressionEvaluationContext<TestNode, StringName, StringName, Object> context) {
+                                            return (Boolean) parameters.get(0);
+                                        }
+                                    };
+                                case "false":
+                                    return new TestExpressionFunction() {
+                                        @Override
+                                        public Object apply(final List<Object> parameters,
+                                                            final NodeSelectorExpressionEvaluationContext<TestNode, StringName, StringName, Object> context) {
+                                            return false;
+                                        }
+                                    };
                                 case "node":
                                     return new TestExpressionFunction() {
                                         @Override
@@ -1875,6 +1891,14 @@ public final class NodeSelectorNodeSelectorParserTokenVisitorTest implements Nod
                                         public Object apply(final List<Object> parameters,
                                                             final NodeSelectorExpressionEvaluationContext<TestNode, StringName, StringName, Object> context) {
                                             return parameters.get(0).toString().length();
+                                        }
+                                    };
+                                case "true":
+                                    return new TestExpressionFunction() {
+                                        @Override
+                                        public Object apply(final List<Object> parameters,
+                                                            final NodeSelectorExpressionEvaluationContext<TestNode, StringName, StringName, Object> context) {
+                                            return true;
                                         }
                                     };
                                 default:
