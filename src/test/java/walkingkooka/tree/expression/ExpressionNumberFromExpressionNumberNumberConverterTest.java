@@ -49,6 +49,11 @@ public final class ExpressionNumberFromExpressionNumberNumberConverterTest imple
     }
 
     @Test
+    public void testNull() {
+        this.convertAndCheck2(null, null);
+    }
+
+    @Test
     public void testByte() {
         this.convertAndCheck2((byte) 123, "123");
     }
