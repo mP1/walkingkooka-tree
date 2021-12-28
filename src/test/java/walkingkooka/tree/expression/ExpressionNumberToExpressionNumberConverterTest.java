@@ -130,6 +130,15 @@ public final class ExpressionNumberToExpressionNumberConverterTest implements Co
     // ??? -> Number....................................................................................................
 
     @Test
+    public void testNull() {
+        this.convertAndCheck(
+                null,
+                ExpressionNumber.class,
+                null
+        );
+    }
+
+    @Test
     public void testByte() {
         this.convertAndCheck2((byte) 123);
     }
