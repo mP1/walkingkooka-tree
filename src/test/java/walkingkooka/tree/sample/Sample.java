@@ -40,7 +40,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public final class Sample {
 
-    public static void main(final String[] args) throws Exception {
+    public static void main(final String[] args) {
         final Sample sample = new Sample();
         sample.testParseExpression();
         sample.testExpressionFunctionParameterGetOrFail();
