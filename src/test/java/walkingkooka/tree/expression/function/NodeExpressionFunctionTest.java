@@ -41,7 +41,7 @@ public final class NodeExpressionFunctionTest implements ClassTesting2<NodeExpre
 
     @Test
     public void testResolveReferencesTrue() {
-        this.resolveReferenceAndCheck(false);
+        this.resolveReferenceAndCheck(true);
     }
 
     @Override

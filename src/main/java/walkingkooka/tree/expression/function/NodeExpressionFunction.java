@@ -91,7 +91,7 @@ final class NodeExpressionFunction<N extends Node<N, NAME, ANAME, AVALUE>,
 
     @Override
     public boolean resolveReferences() {
-        return false;
+        return true;
     }
 
     @Override
