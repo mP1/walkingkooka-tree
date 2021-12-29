@@ -20,12 +20,165 @@ package walkingkooka.tree.expression.function;
 import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.Either;
+import walkingkooka.collect.list.Lists;
 import walkingkooka.reflect.ClassTesting;
 import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.tree.expression.ExpressionNumber;
 import walkingkooka.tree.expression.ExpressionNumberKind;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 public final class ExpressionFunctionTestingTest implements ClassTesting<ExpressionFunctionTesting<?, ?, ?>> {
+
+    // applyAndCheck....................................................................................................
+
+    @Test
+    public void testApplyAndCheck2ObjectVar() {
+        new ExpressionFunctionTesting<>() {
+
+            @Override
+            public Class<ExpressionFunction<Object, ExpressionFunctionContext>> type() {
+                throw new UnsupportedOperationException();
+            }
+
+            @Override
+            public ExpressionFunction<Object, ExpressionFunctionContext> createBiFunction() {
+                return stringConcatParameters();
+            }
+
+            @Override
+            public ExpressionFunctionContext createContext() {
+                return ExpressionFunctionTestingTest.this.createContext();
+            }
+        }.apply2(Lists.of("hello", "2"));
+    }
+
+    @Test
+    public void testApplyAndCheck2ListResult() {
+        new ExpressionFunctionTesting<>() {
+
+            @Override
+            public Class<ExpressionFunction<Object, ExpressionFunctionContext>> type() {
+                throw new UnsupportedOperationException();
+            }
+
+            @Override
+            public ExpressionFunction<Object, ExpressionFunctionContext> createBiFunction() {
+                return stringConcatParameters();
+            }
+
+            @Override
+            public ExpressionFunctionContext createContext() {
+                return ExpressionFunctionTestingTest.this.createContext();
+            }
+        }.applyAndCheck2(
+                Lists.of("hello", "2"),
+                "hello2"
+        );
+    }
+
+    @Test
+    public void testApplyAndCheck2ListResultFails() {
+        boolean fails = false;
+
+        try {
+            new ExpressionFunctionTesting<>() {
+
+                @Override
+                public Class<ExpressionFunction<Object, ExpressionFunctionContext>> type() {
+                    throw new UnsupportedOperationException();
+                }
+
+                @Override
+                public ExpressionFunction<Object, ExpressionFunctionContext> createBiFunction() {
+                    return stringConcatParameters();
+                }
+
+                @Override
+                public ExpressionFunctionContext createContext() {
+                    return ExpressionFunctionTestingTest.this.createContext();
+                }
+            }.applyAndCheck2(
+                    Lists.of("hello", "2"),
+                    "fail!!"
+            );
+        } catch (final Error cause) {
+            fails = true;
+        }
+        this.checkEquals(true, fails);
+    }
+
+    @Test
+    public void testApplyAndCheck2FunctionListResult() {
+        new ExpressionFunctionTesting<>() {
+
+            @Override
+            public Class<ExpressionFunction<Object, ExpressionFunctionContext>> type() {
+                throw new UnsupportedOperationException();
+            }
+
+            @Override
+            public ExpressionFunction<Object, ExpressionFunctionContext> createBiFunction() {
+                throw new UnsupportedOperationException();
+            }
+
+            @Override
+            public ExpressionFunctionContext createContext() {
+                return ExpressionFunctionTestingTest.this.createContext();
+            }
+        }.applyAndCheck2(
+                stringConcatParameters(),
+                Lists.of("hello", "2"),
+                "hello2"
+        );
+    }
+
+    @Test
+    public void testApplyAndCheck2FunctionListResultFails() {
+        boolean fails = false;
+
+        try {
+            new ExpressionFunctionTesting<>() {
+
+                @Override
+                public Class<ExpressionFunction<Object, ExpressionFunctionContext>> type() {
+                    throw new UnsupportedOperationException();
+                }
+
+                @Override
+                public ExpressionFunction<Object, ExpressionFunctionContext> createBiFunction() {
+                    throw new UnsupportedOperationException();
+                }
+
+                @Override
+                public ExpressionFunctionContext createContext() {
+                    return ExpressionFunctionTestingTest.this.createContext();
+                }
+            }.applyAndCheck2(
+                    stringConcatParameters(),
+                    Lists.of("hello", "2"),
+                    "fail!!"
+            );
+        } catch (final Error cause) {
+            fails = true;
+        }
+        this.checkEquals(true, fails);
+    }
+
+    private FakeExpressionFunction<Object, ExpressionFunctionContext> stringConcatParameters() {
+        return new FakeExpressionFunction<>() {
+            @Override
+            public String apply(final List<Object> objects,
+                                final ExpressionFunctionContext context) {
+                return objects.stream()
+                        .map(Object::toString)
+                        .collect(Collectors.joining());
+            }
+        };
+    }
+
+    // convert.........................................................................................................
 
     @Test
     public void testConvertStringToString() {
@@ -75,23 +228,25 @@ public final class ExpressionFunctionTestingTest implements ClassTesting<Express
     private <T> void convertAndCheck(final Object value,
                                      final Class<T> target,
                                      final T expected) {
-        this.checkEquals(Either.left(expected), new ExpressionFunctionTesting<>() {
+        this.checkEquals(
+                Either.left(expected),
+                new ExpressionFunctionTesting<>() {
 
-            @Override
-            public Class<ExpressionFunction<Object, ExpressionFunctionContext>> type() {
-                throw new UnsupportedOperationException();
-            }
+                    @Override
+                    public Class<ExpressionFunction<Object, ExpressionFunctionContext>> type() {
+                        throw new UnsupportedOperationException();
+                    }
 
-            @Override
-            public ExpressionFunction<Object, ExpressionFunctionContext> createBiFunction() {
-                throw new UnsupportedOperationException();
-            }
+                    @Override
+                    public ExpressionFunction<Object, ExpressionFunctionContext> createBiFunction() {
+                        throw new UnsupportedOperationException();
+                    }
 
-            @Override
-            public ExpressionFunctionContext createContext() {
-                return ExpressionFunctionTestingTest.this.createContext();
-            }
-        }.convert(value, target));
+                    @Override
+                    public ExpressionFunctionContext createContext() {
+                        return ExpressionFunctionTestingTest.this.createContext();
+                    }
+                }.convert(value, target));
     }
 
     public ExpressionFunctionContext createContext() {

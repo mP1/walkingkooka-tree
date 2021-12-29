@@ -84,6 +84,24 @@ public interface ExpressionFunctionTesting<F extends ExpressionFunction<V, C>, V
         assertThrows(NullPointerException.class, () -> this.createBiFunction().mapParameters(null));
     }
 
+    // apply...........................................................................................................
+
+    default V apply2(final Object... parameters) {
+        return this.createBiFunction()
+                .apply(parameters(parameters), this.createContext());
+    }
+
+    default void applyAndCheck2(final List<Object> parameters,
+                                final V result) {
+        this.applyAndCheck2(this.createBiFunction(), parameters, result);
+    }
+
+    default void applyAndCheck2(final F function,
+                                final List<Object> parameters,
+                                final V result) {
+        this.applyAndCheck2(function, parameters, this.createContext(), result);
+    }
+
     default <TT, RR, CC extends ExpressionFunctionContext> void applyAndCheck2(final ExpressionFunction<RR, CC> function,
                                                                                final List<Object> parameters,
                                                                                final CC context,
@@ -105,6 +123,8 @@ public interface ExpressionFunctionTesting<F extends ExpressionFunction<V, C>, V
                 function.resolveReferences(),
                 () -> function.name() + " resolveReferences: " + function);
     }
+
+    // convert..........................................................................................................
 
     default <T> Either<T, String> convert(final Object value, final Class<T> target) {
         if (target.isInstance(value)) {
@@ -138,8 +158,7 @@ public interface ExpressionFunctionTesting<F extends ExpressionFunction<V, C>, V
         return ExpressionNumberKind.DEFAULT;
     }
 
-
-    // TypeNameTesting...........................................................................................
+    // TypeNameTesting..................................................................................................
 
     @Override
     default String typeNamePrefix() {
