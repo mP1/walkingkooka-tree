@@ -25,8 +25,6 @@ import walkingkooka.tree.expression.ExpressionPurityContext;
 import walkingkooka.tree.expression.ExpressionPurityTesting;
 import walkingkooka.tree.expression.FunctionExpressionName;
 
-import java.util.List;
-
 public abstract class ExpressionFunctionTestCase<F extends ExpressionFunction<T, ExpressionFunctionContext>, T> implements ExpressionFunctionTesting<F, T, ExpressionFunctionContext>,
         ExpressionPurityTesting,
         ClassTesting2<F> {
@@ -49,22 +47,6 @@ public abstract class ExpressionFunctionTestCase<F extends ExpressionFunction<T,
                 },
                 true
         );
-    }
-
-
-    final void apply2(final Object... parameters) {
-        this.createBiFunction().apply(parameters(parameters), this.createContext());
-    }
-
-    final void applyAndCheck2(final List<Object> parameters,
-                                final T result) {
-        this.applyAndCheck2(this.createBiFunction(), parameters, result);
-    }
-
-    final void applyAndCheck2(final ExpressionFunction<T, ExpressionFunctionContext> function,
-                              final List<Object> parameters,
-                              final T result) {
-        this.applyAndCheck2(function, parameters, this.createContext(), result);
     }
 
     @Override

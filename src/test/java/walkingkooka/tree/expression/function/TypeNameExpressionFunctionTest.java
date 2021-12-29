@@ -23,7 +23,6 @@ import walkingkooka.reflect.ClassTesting2;
 import walkingkooka.reflect.JavaVisibility;
 
 import java.math.BigDecimal;
-import java.util.List;
 
 public final class TypeNameExpressionFunctionTest implements ClassTesting2<TypeNameExpressionFunction<ExpressionFunctionContext>>,
         ExpressionFunctionTesting<TypeNameExpressionFunction<ExpressionFunctionContext>, String, ExpressionFunctionContext> {
@@ -38,14 +37,6 @@ public final class TypeNameExpressionFunctionTest implements ClassTesting2<TypeN
     public void testThisTestParameter() {
         this.applyAndCheck2(parameters(this),
                 this.getClass().getName());
-    }
-
-    private void applyAndCheck2(final List<Object> parameters,
-                                final String result) {
-        this.applyAndCheck(this.createBiFunction(),
-                parameters,
-                this.createContext(),
-                result);
     }
 
     @Test
