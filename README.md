@@ -99,7 +99,21 @@ All `Node` implementations include a type safe `Visitor` making for easy walking
 children and descendants.
 
 eg:
+
 - [JsonNodeVisitor](https://github.com/mP1/walkingkooka-tree-json/blob/master/src/main/java/walkingkooka/tree/json/JsonNode.java)
 
+## Functions
 
+Only a few functions are available in this project and may be registered and invoked within expressions.
+
+- fake // useful for testing.
+- node
+- nodeName
+- typeName // equivalent to Object.getClass().getName()
+
+More functions are available in other projects including:
+
+- [boolean](https://github.com/mP1/walkingkooka-tree-expression-function-boolean)
+- [number](https://github.com/mP1/walkingkooka-tree-expression-function-number)
+- [string](https://github.com/mP1/walkingkooka-tree-expression-function-string)
 
