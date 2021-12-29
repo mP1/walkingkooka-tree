@@ -618,7 +618,7 @@ public abstract class ExpressionNumberTestCase<N extends ExpressionNumber> imple
 
     @Test
     public final void testEqualsSameDouble() {
-        this.checkEquals(1 == 1, this.create(1).equals(ExpressionNumber.with(Double.valueOf(1))));
+        this.checkEquals(1 == 1, this.create(1).equals(ExpressionNumber.with(1.0)));
     }
 
     @Test
@@ -633,7 +633,7 @@ public abstract class ExpressionNumberTestCase<N extends ExpressionNumber> imple
 
     @Test
     public final void testEqualsDifferentDouble() {
-        this.checkEquals(1 == 2, this.create(1).equals(ExpressionNumber.with(Double.valueOf(2))));
+        this.checkEquals(1 == 2, this.create(1).equals(ExpressionNumber.with(2.0)));
     }
 
     // greaterThan..............................................................................................................
@@ -650,7 +650,7 @@ public abstract class ExpressionNumberTestCase<N extends ExpressionNumber> imple
 
     @Test
     public final void testGreaterThanLessDouble() {
-        this.checkEquals(2 > 1, this.create(2).greaterThan(ExpressionNumber.with(Double.valueOf(1))));
+        this.checkEquals(2 > 1, this.create(2).greaterThan(ExpressionNumber.with(1.0)));
     }
 
     @Test
@@ -665,7 +665,7 @@ public abstract class ExpressionNumberTestCase<N extends ExpressionNumber> imple
 
     @Test
     public final void testGreaterThanSameDouble() {
-        this.checkEquals(1 > 1, this.create(1).greaterThan(ExpressionNumber.with(Double.valueOf(1))));
+        this.checkEquals(1 > 1, this.create(1).greaterThan(ExpressionNumber.with(1.0)));
     }
 
     @Test
@@ -680,7 +680,7 @@ public abstract class ExpressionNumberTestCase<N extends ExpressionNumber> imple
 
     @Test
     public final void testGreaterThanGreaterDouble() {
-        this.checkEquals(2 > 1, this.create(2).greaterThan(ExpressionNumber.with(Double.valueOf(1))));
+        this.checkEquals(2 > 1, this.create(2).greaterThan(ExpressionNumber.with(1.0)));
     }
 
     // greaterThanEquals..............................................................................................................
@@ -697,7 +697,7 @@ public abstract class ExpressionNumberTestCase<N extends ExpressionNumber> imple
 
     @Test
     public final void testGreaterThanEqualsLessDouble() {
-        this.checkEquals(2 >= 1, this.create(2).greaterThanEquals(ExpressionNumber.with(Double.valueOf(1))));
+        this.checkEquals(2 >= 1, this.create(2).greaterThanEquals(ExpressionNumber.with(1.0)));
     }
 
     @Test
@@ -712,7 +712,7 @@ public abstract class ExpressionNumberTestCase<N extends ExpressionNumber> imple
 
     @Test
     public final void testGreaterThanEqualsSameDouble() {
-        this.checkEquals(1 >= 1, this.create(1).greaterThanEquals(ExpressionNumber.with(Double.valueOf(1))));
+        this.checkEquals(1 >= 1, this.create(1).greaterThanEquals(ExpressionNumber.with(1.0)));
     }
 
     @Test
@@ -727,7 +727,7 @@ public abstract class ExpressionNumberTestCase<N extends ExpressionNumber> imple
 
     @Test
     public final void testGreaterThanEqualsGreaterDouble() {
-        this.checkEquals(2 >= 1, this.create(2).greaterThanEquals(ExpressionNumber.with(Double.valueOf(1))));
+        this.checkEquals(2 >= 1, this.create(2).greaterThanEquals(ExpressionNumber.with(1.0)));
     }
 
     // lessThan..............................................................................................................
@@ -744,7 +744,7 @@ public abstract class ExpressionNumberTestCase<N extends ExpressionNumber> imple
 
     @Test
     public final void testLessThanLessDouble() {
-        this.checkEquals(2 < 1, this.create(2).lessThan(ExpressionNumber.with(Double.valueOf(1))));
+        this.checkEquals(2 < 1, this.create(2).lessThan(ExpressionNumber.with(1.0)));
     }
 
     @Test
@@ -759,7 +759,7 @@ public abstract class ExpressionNumberTestCase<N extends ExpressionNumber> imple
 
     @Test
     public final void testLessThanSameDouble() {
-        this.checkEquals(1 < 1, this.create(1).lessThan(ExpressionNumber.with(Double.valueOf(1))));
+        this.checkEquals(1 < 1, this.create(1).lessThan(ExpressionNumber.with(1.0)));
     }
 
     @Test
@@ -774,7 +774,7 @@ public abstract class ExpressionNumberTestCase<N extends ExpressionNumber> imple
 
     @Test
     public final void testLessThanGreaterDouble() {
-        this.checkEquals(2 < 1, this.create(2).lessThan(ExpressionNumber.with(Double.valueOf(1))));
+        this.checkEquals(2 < 1, this.create(2).lessThan(ExpressionNumber.with(1.0)));
     }
 
     // lessThanEquals..............................................................................................................
@@ -791,7 +791,7 @@ public abstract class ExpressionNumberTestCase<N extends ExpressionNumber> imple
 
     @Test
     public final void testLessThanEqualsLessDouble() {
-        this.checkEquals(2 <= 1, this.create(2).lessThanEquals(ExpressionNumber.with(Double.valueOf(1))));
+        this.checkEquals(2 <= 1, this.create(2).lessThanEquals(ExpressionNumber.with(1.0)));
     }
 
     @Test
@@ -806,7 +806,7 @@ public abstract class ExpressionNumberTestCase<N extends ExpressionNumber> imple
 
     @Test
     public final void testLessThanEqualsSameDouble() {
-        this.checkEquals(1 <= 1, this.create(1).lessThanEquals(ExpressionNumber.with(Double.valueOf(1))));
+        this.checkEquals(1 <= 1, this.create(1).lessThanEquals(ExpressionNumber.with(1.0)));
     }
 
     @Test
@@ -821,7 +821,7 @@ public abstract class ExpressionNumberTestCase<N extends ExpressionNumber> imple
 
     @Test
     public final void testLessThanEqualsGreaterDouble() {
-        this.checkEquals(2 <= 1, this.create(2).lessThanEquals(ExpressionNumber.with(Double.valueOf(1))));
+        this.checkEquals(2 <= 1, this.create(2).lessThanEquals(ExpressionNumber.with(1.0)));
     }
     // notEquals..............................................................................................................
 
@@ -837,7 +837,7 @@ public abstract class ExpressionNumberTestCase<N extends ExpressionNumber> imple
 
     @Test
     public final void testNotEqualsSameDouble() {
-        this.checkEquals(1 != 1, this.create(1).notEquals(ExpressionNumber.with(Double.valueOf(1))));
+        this.checkEquals(1 != 1, this.create(1).notEquals(ExpressionNumber.with(1.0)));
     }
 
     @Test
@@ -852,7 +852,7 @@ public abstract class ExpressionNumberTestCase<N extends ExpressionNumber> imple
 
     @Test
     public final void testNotEqualsDifferentDouble() {
-        this.checkEquals(1 != 2, this.create(1).notEquals(ExpressionNumber.with(Double.valueOf(2))));
+        this.checkEquals(1 != 2, this.create(1).notEquals(ExpressionNumber.with(2.0)));
     }
 
     // byteValue........................................................................................................
