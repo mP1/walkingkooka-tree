@@ -35,18 +35,10 @@ public final class ExpressionFunctions implements PublicStaticHelper {
      */
     public static void visit(final Consumer<ExpressionFunction<?, ?>> consumer) {
         Lists.of(
-                choose(),
                 node(),
                 nodeName(),
                 typeName()
         ).forEach(consumer);
-    }
-
-    /**
-     * {@see ChooseExpressionFunction}
-     */
-    public static <C extends ExpressionFunctionContext> ExpressionFunction<Object, C> choose() {
-        return ChooseExpressionFunction.instance();
     }
 
     /**
