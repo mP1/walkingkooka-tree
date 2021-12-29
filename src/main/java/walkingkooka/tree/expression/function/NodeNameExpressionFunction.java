@@ -87,7 +87,7 @@ final class NodeNameExpressionFunction<C extends ExpressionFunctionContext> impl
 
     @Override
     public boolean resolveReferences() {
-        return false;
+        return true;
     }
 
     @Override
