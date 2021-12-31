@@ -114,6 +114,8 @@ Only a few functions are available in this project and may be registered and inv
 More functions are available in other projects including:
 
 - [boolean](https://github.com/mP1/walkingkooka-tree-expression-function-boolean)
+- [datetime](https://github.com/mP1/walkingkooka-tree-expression-function-datetime)
 - [number](https://github.com/mP1/walkingkooka-tree-expression-function-number)
+- [number-trigonometry](https://github.com/mP1/walkingkooka-tree-expression-function-number-trigonometry)
 - [string](https://github.com/mP1/walkingkooka-tree-expression-function-string)
 
