@@ -107,9 +107,9 @@ eg:
 Only a few functions are available in this project and may be registered and invoked within expressions.
 
 - fake // useful for testing.
-- node
-- nodeName
-- typeName // equivalent to Object.getClass().getName()
+- node()
+- nodeName(Node)
+- typeName(Object) // equivalent to Object.getClass().getName()
 
 More functions are available in other projects including:
 
