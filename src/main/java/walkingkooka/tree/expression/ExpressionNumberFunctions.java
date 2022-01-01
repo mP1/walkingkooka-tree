@@ -19,6 +19,11 @@ package walkingkooka.tree.expression;
 
 import walkingkooka.reflect.PublicStaticHelper;
 
+import java.math.BigDecimal;
+import java.math.MathContext;
+import java.util.function.BiFunction;
+import java.util.function.DoubleUnaryOperator;
+
 public final class ExpressionNumberFunctions implements PublicStaticHelper {
 
     /**
@@ -26,6 +31,14 @@ public final class ExpressionNumberFunctions implements PublicStaticHelper {
      */
     public static ExpressionNumberFunction fake() {
         return new FakeExpressionNumberFunction();
+    }
+
+    /**
+     * {@see LambasExpressionNumberFunction}
+     */
+    public static ExpressionNumberFunction lambdas(final BiFunction<BigDecimal, MathContext, BigDecimal> bigDecimal,
+                                                   final DoubleUnaryOperator doubleFunction) {
+        return LambasExpressionNumberFunction.with(bigDecimal, doubleFunction);
     }
 
     /**
