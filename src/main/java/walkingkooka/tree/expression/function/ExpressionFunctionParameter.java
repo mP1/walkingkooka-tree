@@ -41,22 +41,16 @@ public final class ExpressionFunctionParameter<T> {
     public final static ExpressionFunctionParameter<LocalDate> DATE = ExpressionFunctionParameterName.DATE.setType(LocalDate.class);
 
     public final static ExpressionFunctionParameter<LocalDateTime> DATETIME = ExpressionFunctionParameterName.DATETIME.setType(LocalDateTime.class);
-    ;
 
     public final static ExpressionFunctionParameter<ExpressionNumber> NUMBER = ExpressionFunctionParameterName.NUMBER.setType(ExpressionNumber.class);
-    ;
 
     public final static ExpressionFunctionParameter<String> STRING = ExpressionFunctionParameterName.STRING.setType(String.class);
-    ;
 
     public final static ExpressionFunctionParameter<String> TEXT = ExpressionFunctionParameterName.TEXT.setType(String.class);
-    ;
 
     public final static ExpressionFunctionParameter<LocalTime> TIME = ExpressionFunctionParameterName.TIME.setType(LocalTime.class);
-    ;
 
     public final static ExpressionFunctionParameter<Object> VALUE = ExpressionFunctionParameterName.VALUE.setType(Object.class);
-    ;
 
     /**
      * Helper that creates a read only list of the given parameters.
