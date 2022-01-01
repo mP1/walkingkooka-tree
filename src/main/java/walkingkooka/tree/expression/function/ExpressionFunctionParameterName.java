@@ -23,6 +23,10 @@ import walkingkooka.predicate.character.CharPredicate;
 import walkingkooka.predicate.character.CharPredicates;
 import walkingkooka.text.CaseSensitivity;
 
+import java.util.Map;
+import java.util.Objects;
+import java.util.TreeMap;
+
 /**
  * The name of an {@link ExpressionFunctionParameter}. A name is case sensitive and must start with a letter, followed
  * by letters/numbers or dashes.
@@ -30,16 +34,58 @@ import walkingkooka.text.CaseSensitivity;
 public final class ExpressionFunctionParameterName implements Name,
         Comparable<ExpressionFunctionParameterName> {
 
-    public static ExpressionFunctionParameterName with(final String name) {
-        CharPredicates.failIfNullOrEmptyOrInitialAndPartFalse(name,
-                "name",
-                INITIAL,
-                PART);
-        return new ExpressionFunctionParameterName(name);
-    }
-
     private final static CharPredicate INITIAL = CharPredicates.letter();
     private final static CharPredicate PART = CharPredicates.letterOrDigit().or(CharPredicates.any("-"));
+
+    private final static Map<String, ExpressionFunctionParameterName> CONSTANTS = new TreeMap<>();
+
+    public final static ExpressionFunctionParameterName BOOLEAN = register("boolean");
+
+    public final static ExpressionFunctionParameterName DATE = register("date");
+
+    public final static ExpressionFunctionParameterName DATETIME = register("date-time");
+
+    public final static ExpressionFunctionParameterName NUMBER = register("number");
+
+    public final static ExpressionFunctionParameterName STRING = register("string");
+
+    public final static ExpressionFunctionParameterName TEXT = register("text");
+
+    public final static ExpressionFunctionParameterName TIME = register("time");
+
+    /**
+     * Used to create and then register constants.
+     */
+    private static ExpressionFunctionParameterName register(final String name) {
+        final ExpressionFunctionParameterName created = create(name);
+        CONSTANTS.put(name, created);
+        return created;
+    }
+
+    /**
+     * Factory that returns a {@link ExpressionFunctionParameterName} with the given {@link String name}.
+     */
+    public static ExpressionFunctionParameterName with(final String name) {
+        Objects.requireNonNull(
+                name,
+                "name"
+        );
+
+        final ExpressionFunctionParameterName constant = CONSTANTS.get(name);
+        return null != constant ?
+                constant :
+                create(name);
+    }
+
+    private static ExpressionFunctionParameterName create(final String name) {
+        CharPredicates.failIfNullOrEmptyOrInitialAndPartFalse(
+                name,
+                "name",
+                INITIAL,
+                PART
+        );
+        return new ExpressionFunctionParameterName(name);
+    }
 
     // @VisibleForTesting
     private ExpressionFunctionParameterName(final String name) {
