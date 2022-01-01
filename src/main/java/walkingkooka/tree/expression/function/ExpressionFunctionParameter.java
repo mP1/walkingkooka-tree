@@ -34,6 +34,8 @@ import java.util.Optional;
  */
 public final class ExpressionFunctionParameter<T> {
 
+    public final static List<ExpressionFunctionParameter<?>> EMPTY = Lists.empty();
+
     public final static ExpressionFunctionParameter<Boolean> BOOLEAN = ExpressionFunctionParameterName.BOOLEAN.setType(Boolean.class);
 
     public final static ExpressionFunctionParameter<LocalDate> DATE = ExpressionFunctionParameterName.DATE.setType(LocalDate.class);
