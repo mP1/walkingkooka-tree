@@ -28,6 +28,7 @@ public interface ExpressionNumberFunctionTesting<F extends ExpressionNumberFunct
                                        final MathContext context,
                                        final BigDecimal expected) {
         this.mapBigDecimalAndCheck(
+                this.createExpressionNumberFunction(),
                 value,
                 context,
                 expected
