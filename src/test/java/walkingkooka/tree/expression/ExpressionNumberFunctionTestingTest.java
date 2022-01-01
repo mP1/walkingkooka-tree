@@ -21,6 +21,7 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.test.Testing;
 
 import java.math.BigDecimal;
+import java.math.MathContext;
 import java.math.RoundingMode;
 
 import static org.junit.jupiter.api.Assertions.assertSame;
@@ -30,6 +31,8 @@ public final class ExpressionNumberFunctionTestingTest implements Testing {
     @Test
     public void testMapBigDecimalAndCheck() {
         for (final RoundingMode roundingMode : RoundingMode.values()) {
+            final MathContext context = new MathContext(32, roundingMode);
+
             new ExpressionNumberFunctionTesting<>() {
                 @Override
                 public FakeExpressionNumberFunction createExpressionNumberFunction() {
@@ -39,13 +42,13 @@ public final class ExpressionNumberFunctionTestingTest implements Testing {
                     new FakeExpressionNumberFunction() {
                         @Override
                         public BigDecimal mapBigDecimal(final BigDecimal value,
-                                                        final RoundingMode r) {
-                            assertSame(roundingMode, r);
+                                                        final MathContext c) {
+                            assertSame(context, c);
                             return value.multiply(BigDecimal.TEN);
                         }
                     },
                     BigDecimal.TEN,
-                    roundingMode,
+                    context,
                     BigDecimal.valueOf(100)
             );
         }
@@ -65,12 +68,12 @@ public final class ExpressionNumberFunctionTestingTest implements Testing {
                     new FakeExpressionNumberFunction() {
                         @Override
                         public BigDecimal mapBigDecimal(final BigDecimal value,
-                                                        final RoundingMode r) {
+                                                        final MathContext c) {
                             return value.multiply(BigDecimal.TEN);
                         }
                     },
                     BigDecimal.TEN,
-                    RoundingMode.HALF_UP,
+                    new MathContext(32, RoundingMode.HALF_UP),
                     BigDecimal.valueOf(-1)
             );
             failed = false;

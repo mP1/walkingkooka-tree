@@ -20,6 +20,7 @@ package walkingkooka.tree.expression;
 import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
+import java.math.MathContext;
 import java.math.RoundingMode;
 
 import static org.junit.jupiter.api.Assertions.assertNotSame;
@@ -56,12 +57,12 @@ public final class ExpressionNumberBigDecimalTest extends ExpressionNumberTestCa
                                     new FakeExpressionNumberFunction() {
                                         @Override
                                         public BigDecimal mapBigDecimal(final BigDecimal value,
-                                                                        final RoundingMode r) {
-                                            assertSame(roundingMode, r);
+                                                                        final MathContext c) {
+                                            assertSame(roundingMode, c.getRoundingMode());
                                             return value.multiply(BigDecimal.valueOf(2));
                                         }
                                     },
-                                    roundingMode
+                                    new MathContext(32, roundingMode)
                             )
             );
         }
@@ -79,11 +80,11 @@ public final class ExpressionNumberBigDecimalTest extends ExpressionNumberTestCa
                             new FakeExpressionNumberFunction() {
                                 @Override
                                 public BigDecimal mapBigDecimal(final BigDecimal value,
-                                                                final RoundingMode r) {
+                                                                final MathContext c) {
                                     return value;
                                 }
                             },
-                            roundingMode
+                            new MathContext(32, roundingMode)
                     )
             );
         }

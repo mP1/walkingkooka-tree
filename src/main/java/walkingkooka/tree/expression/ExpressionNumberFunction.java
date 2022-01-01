@@ -18,7 +18,7 @@
 package walkingkooka.tree.expression;
 
 import java.math.BigDecimal;
-import java.math.RoundingMode;
+import java.math.MathContext;
 
 /**
  * A function that may be applied to a {@link ExpressionNumber}. The appropriate method is called depending on the
@@ -26,7 +26,7 @@ import java.math.RoundingMode;
  */
 public interface ExpressionNumberFunction {
 
-    BigDecimal mapBigDecimal(final BigDecimal value, final RoundingMode rounding);
+    BigDecimal mapBigDecimal(final BigDecimal value, final MathContext context);
 
     double mapDouble(final double value);
 }

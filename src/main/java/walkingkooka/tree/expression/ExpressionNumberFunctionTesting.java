@@ -20,27 +20,27 @@ package walkingkooka.tree.expression;
 import walkingkooka.test.Testing;
 
 import java.math.BigDecimal;
-import java.math.RoundingMode;
+import java.math.MathContext;
 
 public interface ExpressionNumberFunctionTesting<F extends ExpressionNumberFunction> extends Testing {
 
     default void mapBigDecimalAndCheck(final BigDecimal value,
-                                       final RoundingMode roundingMode,
+                                       final MathContext context,
                                        final BigDecimal expected) {
         this.mapBigDecimalAndCheck(
                 value,
-                roundingMode,
+                context,
                 expected
         );
     }
 
     default void mapBigDecimalAndCheck(final ExpressionNumberFunction function,
                                        final BigDecimal value,
-                                       final RoundingMode roundingMode,
+                                       final MathContext context,
                                        final BigDecimal expected) {
         this.checkEquals(
                 expected,
-                function.mapBigDecimal(value, roundingMode),
+                function.mapBigDecimal(value, context),
                 () -> "mapBigDecimal " + value
         );
     }
