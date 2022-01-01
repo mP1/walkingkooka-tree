@@ -62,6 +62,19 @@ final class ExpressionNumberBigDecimal extends ExpressionNumber {
         return ExpressionNumberDouble.with(this.doubleValue());
     }
 
+    // map..............................................................................................................
+
+    @Override
+    public ExpressionNumber map(final ExpressionNumberFunction function,
+                                final RoundingMode roundingMode) {
+        return this.setValue(
+                function.mapBigDecimal(
+                        this.bigDecimal(),
+                        roundingMode
+                )
+        );
+    }
+
     // abs..............................................................................................................
 
     @Override

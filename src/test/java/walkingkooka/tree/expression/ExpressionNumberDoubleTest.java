@@ -20,8 +20,10 @@ package walkingkooka.tree.expression;
 import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 
 import static org.junit.jupiter.api.Assertions.assertNotSame;
+import static org.junit.jupiter.api.Assertions.assertSame;
 
 public final class ExpressionNumberDoubleTest extends ExpressionNumberTestCase<ExpressionNumberDouble> {
 
@@ -30,9 +32,52 @@ public final class ExpressionNumberDoubleTest extends ExpressionNumberTestCase<E
     public void setKindDifferent() {
         final double value = 1.5;
         final ExpressionNumberDouble number = this.create(value);
-        final ExpressionNumberBigDecimal different = (ExpressionNumberBigDecimal)number.setKind(ExpressionNumberKind.BIG_DECIMAL);
+        final ExpressionNumberBigDecimal different = (ExpressionNumberBigDecimal) number.setKind(ExpressionNumberKind.BIG_DECIMAL);
         assertNotSame(number, different);
         this.checkEquals(value, different.doubleValue());
+    }
+
+    // map.............................................................................................................
+
+    @Override
+    @Test
+    public void testMap() {
+        for (final RoundingMode roundingMode : RoundingMode.values()) {
+            this.checkEquals(
+                    ExpressionNumber.with(10.0 * 2),
+                    ExpressionNumber.with(10)
+                            .map(
+                                    new FakeExpressionNumberFunction() {
+                                        @Override
+                                        public double mapDouble(final double value) {
+                                            return value * 2;
+                                        }
+                                    },
+                                    roundingMode
+                            )
+            );
+        }
+    }
+
+    @Override
+    @Test
+    public void testMapSame() {
+        for (final RoundingMode roundingMode : RoundingMode.values()) {
+            final ExpressionNumber number = ExpressionNumber.with(10);
+
+            assertSame(
+                    number,
+                    number.map(
+                            new FakeExpressionNumberFunction() {
+                                @Override
+                                public double mapDouble(final double value) {
+                                    return value;
+                                }
+                            },
+                            roundingMode
+                    )
+            );
+        }
     }
 
     // comparable......................................................................................................
