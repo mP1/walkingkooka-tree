@@ -24,13 +24,17 @@ import walkingkooka.Either;
 import walkingkooka.HashCodeEqualsDefinedTesting2;
 import walkingkooka.ToStringTesting;
 import walkingkooka.collect.list.Lists;
+import walkingkooka.collect.set.Sets;
+import walkingkooka.reflect.ConstantsTesting;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class ExpressionFunctionParameterTest implements HashCodeEqualsDefinedTesting2<ExpressionFunctionParameter<String>>,
+        ConstantsTesting<ExpressionFunctionParameter<String>>,
         ToStringTesting<ExpressionFunctionParameter<String>> {
 
     private final static ExpressionFunctionParameterName NAME = ExpressionFunctionParameterName.with("name");
@@ -268,5 +272,10 @@ public final class ExpressionFunctionParameterTest implements HashCodeEqualsDefi
     @Override
     public Class<ExpressionFunctionParameter<String>> type() {
         return Cast.to(ExpressionFunctionParameter.class);
+    }
+
+    @Override
+    public Set<ExpressionFunctionParameter<String>> intentionalDuplicateConstants() {
+        return Sets.empty();
     }
 }
