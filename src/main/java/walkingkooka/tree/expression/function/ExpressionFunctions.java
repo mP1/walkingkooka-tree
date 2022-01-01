@@ -21,6 +21,9 @@ import walkingkooka.collect.list.Lists;
 import walkingkooka.naming.Name;
 import walkingkooka.reflect.PublicStaticHelper;
 import walkingkooka.tree.Node;
+import walkingkooka.tree.expression.ExpressionNumber;
+import walkingkooka.tree.expression.ExpressionNumberFunction;
+import walkingkooka.tree.expression.FunctionExpressionName;
 import walkingkooka.tree.select.NodeSelectorExpressionFunctionContext;
 
 import java.util.function.Consumer;
@@ -39,6 +42,14 @@ public final class ExpressionFunctions implements PublicStaticHelper {
                 nodeName(),
                 typeName()
         ).forEach(consumer);
+    }
+
+    /**
+     * {@see ExpressionNumberFunctionExpressionFunction}
+     */
+    public static <C extends ExpressionFunctionContext> ExpressionFunction<ExpressionNumber, C> expressionNumberFunction(final FunctionExpressionName name,
+                                                                                                                         final ExpressionNumberFunction function) {
+        return ExpressionNumberFunctionExpressionFunction.with(name, function);
     }
 
     /**
