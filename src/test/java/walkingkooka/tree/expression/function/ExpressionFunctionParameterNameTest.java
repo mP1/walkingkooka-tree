@@ -18,15 +18,39 @@
 package walkingkooka.tree.expression.function;
 
 import org.junit.jupiter.api.Test;
+import walkingkooka.collect.set.Sets;
 import walkingkooka.naming.NameTesting2;
 import walkingkooka.reflect.ClassTesting2;
+import walkingkooka.reflect.ConstantsTesting;
 import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.text.CaseSensitivity;
 
+import java.util.Set;
+
 import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class ExpressionFunctionParameterNameTest implements ClassTesting2<ExpressionFunctionParameterName>,
+        ConstantsTesting<ExpressionFunctionParameterName>,
         NameTesting2<ExpressionFunctionParameterName, ExpressionFunctionParameterName> {
+
+    @Test
+    public void testWithNullFails() {
+        assertThrows(
+                NullPointerException.class,
+                () -> ExpressionFunctionParameterName.with(null)
+        );
+    }
+
+    @Test
+    public void testWithBooleanConstantSingleton() {
+        assertSame(
+                ExpressionFunctionParameterName.BOOLEAN,
+                ExpressionFunctionParameterName.with(
+                        ExpressionFunctionParameterName.BOOLEAN.value()
+                )
+        );
+    }
 
     @Test
     public void testSampleA() {
@@ -105,6 +129,8 @@ public final class ExpressionFunctionParameterNameTest implements ClassTesting2<
         return NameTesting2.subtract(ASCII, this.possibleValidChars(position));
     }
 
+    // ClassTesting....................................................................................................
+
     @Override
     public Class<ExpressionFunctionParameterName> type() {
         return ExpressionFunctionParameterName.class;
@@ -113,5 +139,12 @@ public final class ExpressionFunctionParameterNameTest implements ClassTesting2<
     @Override
     public JavaVisibility typeVisibility() {
         return JavaVisibility.PUBLIC;
+    }
+
+    // ConstantsTesting................................................................................................
+
+    @Override
+    public Set<ExpressionFunctionParameterName> intentionalDuplicateConstants() {
+        return Sets.empty();
     }
 }
