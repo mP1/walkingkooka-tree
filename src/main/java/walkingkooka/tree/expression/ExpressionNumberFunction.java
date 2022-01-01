@@ -17,6 +17,10 @@
 
 package walkingkooka.tree.expression;
 
+import walkingkooka.tree.expression.function.ExpressionFunction;
+import walkingkooka.tree.expression.function.ExpressionFunctionContext;
+import walkingkooka.tree.expression.function.ExpressionFunctions;
+
 import java.math.BigDecimal;
 import java.math.MathContext;
 
@@ -29,4 +33,13 @@ public interface ExpressionNumberFunction {
     BigDecimal mapBigDecimal(final BigDecimal value, final MathContext context);
 
     double mapDouble(final double value);
+
+    /**
+     * Factory that creates a {@link ExpressionFunction} with the provided name that accepts a single ExpressionNumber, maps that
+     * with this {@link ExpressionNumberFunction} and returns a {@link ExpressionNumber}.
+     * This function does not handle lists or var args.
+     */
+    default <C extends ExpressionFunctionContext> ExpressionFunction<ExpressionNumber, C> function(final FunctionExpressionName name) {
+        return ExpressionFunctions.expressionNumberFunction(name, this);
+    }
 }
