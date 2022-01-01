@@ -23,6 +23,7 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 
 import static org.junit.jupiter.api.Assertions.assertNotSame;
+import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class ExpressionNumberBigDecimalTest extends ExpressionNumberTestCase<ExpressionNumberBigDecimal> {
@@ -37,9 +38,55 @@ public final class ExpressionNumberBigDecimalTest extends ExpressionNumberTestCa
     public void setKindDifferent() {
         final double value = 1.5;
         final ExpressionNumberBigDecimal number = this.create(value);
-        final ExpressionNumberDouble different = (ExpressionNumberDouble)number.setKind(ExpressionNumberKind.DOUBLE);
+        final ExpressionNumberDouble different = (ExpressionNumberDouble) number.setKind(ExpressionNumberKind.DOUBLE);
         assertNotSame(number, different);
         this.checkEquals(value, different.doubleValue());
+    }
+
+    // map.............................................................................................................
+
+    @Override
+    @Test
+    public void testMap() {
+        for (final RoundingMode roundingMode : RoundingMode.values()) {
+            this.checkEquals(
+                    ExpressionNumber.with(BigDecimal.valueOf(10 * 2)),
+                    ExpressionNumber.with(BigDecimal.TEN)
+                            .map(
+                                    new FakeExpressionNumberFunction() {
+                                        @Override
+                                        public BigDecimal mapBigDecimal(final BigDecimal value,
+                                                                        final RoundingMode r) {
+                                            assertSame(roundingMode, r);
+                                            return value.multiply(BigDecimal.valueOf(2));
+                                        }
+                                    },
+                                    roundingMode
+                            )
+            );
+        }
+    }
+
+    @Override
+    @Test
+    public void testMapSame() {
+        for (final RoundingMode roundingMode : RoundingMode.values()) {
+            final ExpressionNumber number = ExpressionNumber.with(BigDecimal.TEN);
+
+            assertSame(
+                    number,
+                    number.map(
+                            new FakeExpressionNumberFunction() {
+                                @Override
+                                public BigDecimal mapBigDecimal(final BigDecimal value,
+                                                                final RoundingMode r) {
+                                    return value;
+                                }
+                            },
+                            roundingMode
+                    )
+            );
+        }
     }
 
     // hashCode.........................................................................................................

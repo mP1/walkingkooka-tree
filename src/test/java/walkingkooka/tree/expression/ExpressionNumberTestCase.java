@@ -73,6 +73,14 @@ public abstract class ExpressionNumberTestCase<N extends ExpressionNumber> imple
     @Test
     public abstract void setKindDifferent();
 
+    // map..............................................................................................................
+
+    @Test
+    public abstract void testMap();
+
+    @Test
+    public abstract void testMapSame();
+
     // abs..............................................................................................................
 
     @Test

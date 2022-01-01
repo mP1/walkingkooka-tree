@@ -19,6 +19,7 @@ package walkingkooka.tree.expression;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.math.RoundingMode;
 
 /**
  * A {@link ExpressionNumber} that holds and performs all operations on {@link double values}.
@@ -54,6 +55,16 @@ final class ExpressionNumberDouble extends ExpressionNumber {
     @Override
     ExpressionNumberDouble setKindDouble() {
         return this;
+    }
+
+    // map..............................................................................................................
+
+    @Override
+    public ExpressionNumber map(final ExpressionNumberFunction function,
+                                final RoundingMode roundingMode) {
+        return this.setValue(
+                function.mapDouble(this.doubleValue())
+        );
     }
 
     // abs..............................................................................................................
