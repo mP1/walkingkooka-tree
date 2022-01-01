@@ -53,6 +53,8 @@ public final class ExpressionFunctionParameterName implements Name,
 
     public final static ExpressionFunctionParameterName TIME = register("time");
 
+    public final static ExpressionFunctionParameterName VALUE = register("value");
+
     /**
      * Used to create and then register constants.
      */
