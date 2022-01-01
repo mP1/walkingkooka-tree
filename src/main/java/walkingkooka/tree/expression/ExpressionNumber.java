@@ -23,7 +23,7 @@ import walkingkooka.math.Maths;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
-import java.math.RoundingMode;
+import java.math.MathContext;
 import java.util.Objects;
 
 /**
@@ -131,7 +131,7 @@ public abstract class ExpressionNumber extends Number implements Comparable<Expr
      * Applies the given mapper returning the {@link ExpressionNumber} with the result.
      */
     abstract public ExpressionNumber map(final ExpressionNumberFunction function,
-                                         final RoundingMode roundingMode);
+                                         final MathContext context);
 
     // abs..............................................................................................................
 

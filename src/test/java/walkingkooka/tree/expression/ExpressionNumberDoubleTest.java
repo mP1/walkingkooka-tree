@@ -20,6 +20,7 @@ package walkingkooka.tree.expression;
 import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
+import java.math.MathContext;
 import java.math.RoundingMode;
 
 import static org.junit.jupiter.api.Assertions.assertNotSame;
@@ -53,7 +54,7 @@ public final class ExpressionNumberDoubleTest extends ExpressionNumberTestCase<E
                                             return value * 2;
                                         }
                                     },
-                                    roundingMode
+                                    new MathContext(32, roundingMode)
                             )
             );
         }
@@ -74,7 +75,7 @@ public final class ExpressionNumberDoubleTest extends ExpressionNumberTestCase<E
                                     return value;
                                 }
                             },
-                            roundingMode
+                            new MathContext(32, roundingMode)
                     )
             );
         }

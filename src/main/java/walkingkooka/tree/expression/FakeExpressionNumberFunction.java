@@ -18,12 +18,12 @@
 package walkingkooka.tree.expression;
 
 import java.math.BigDecimal;
-import java.math.RoundingMode;
+import java.math.MathContext;
 
 public class FakeExpressionNumberFunction implements ExpressionNumberFunction {
     @Override
     public BigDecimal mapBigDecimal(final BigDecimal value,
-                                    final RoundingMode rounding) {
+                                    final MathContext context) {
         throw new UnsupportedOperationException();
     }
 
