@@ -38,6 +38,8 @@ public final class ExpressionFunctionParameter<T> {
 
     public final static ExpressionFunctionParameter<Boolean> BOOLEAN = ExpressionFunctionParameterName.BOOLEAN.setType(Boolean.class);
 
+    public final static ExpressionFunctionParameter<Character> CHARACTER = ExpressionFunctionParameterName.CHARACTER.setType(Character.class);
+
     public final static ExpressionFunctionParameter<LocalDate> DATE = ExpressionFunctionParameterName.DATE.setType(LocalDate.class);
 
     public final static ExpressionFunctionParameter<LocalDateTime> DATETIME = ExpressionFunctionParameterName.DATETIME.setType(LocalDateTime.class);

@@ -41,6 +41,8 @@ public final class ExpressionFunctionParameterName implements Name,
 
     public final static ExpressionFunctionParameterName BOOLEAN = register("boolean");
 
+    public final static ExpressionFunctionParameterName CHARACTER = register("character");
+
     public final static ExpressionFunctionParameterName DATE = register("date");
 
     public final static ExpressionFunctionParameterName DATETIME = register("date-time");
