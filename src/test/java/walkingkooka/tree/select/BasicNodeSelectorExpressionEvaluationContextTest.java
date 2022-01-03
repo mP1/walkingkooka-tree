@@ -33,6 +33,7 @@ import walkingkooka.tree.expression.ExpressionEvaluationContexts;
 import walkingkooka.tree.expression.ExpressionNumberConverterContext;
 import walkingkooka.tree.expression.ExpressionNumberConverterContexts;
 import walkingkooka.tree.expression.ExpressionNumberKind;
+import walkingkooka.tree.expression.ExpressionReference;
 import walkingkooka.tree.expression.FunctionExpressionName;
 import walkingkooka.tree.expression.function.ExpressionFunction;
 import walkingkooka.tree.expression.function.ExpressionFunctionContext;
@@ -42,6 +43,7 @@ import walkingkooka.tree.select.parser.NodeSelectorAttributeName;
 
 import java.math.MathContext;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.function.Function;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -118,8 +120,7 @@ public final class BasicNodeSelectorExpressionEvaluationContextTest implements N
                         EXPRESSION_NUMBER_KIND,
                         this.functions(),
                         r,
-                        this.functionContext(),
-                        this.converterContext()
+                        this.functionContext()
                 ));
     }
 
@@ -131,7 +132,18 @@ public final class BasicNodeSelectorExpressionEvaluationContextTest implements N
     }
 
     private ExpressionFunctionContext functionContext() {
-        return ExpressionFunctionContexts.fake();
+        return ExpressionFunctionContexts.basic(
+                EXPRESSION_NUMBER_KIND,
+                this.functions(),
+                this.references(),
+                this.converterContext()
+        );
+    }
+
+    private Function<ExpressionReference, Optional<Expression>> references() {
+        return (r -> {
+            throw new UnsupportedOperationException();
+        });
     }
 
     private ExpressionNumberConverterContext converterContext() {

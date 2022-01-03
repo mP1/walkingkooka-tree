@@ -46,6 +46,7 @@ import walkingkooka.tree.expression.ExpressionNumberConverterContext;
 import walkingkooka.tree.expression.ExpressionNumberConverterContexts;
 import walkingkooka.tree.expression.ExpressionNumberExpression;
 import walkingkooka.tree.expression.ExpressionNumberKind;
+import walkingkooka.tree.expression.ExpressionReference;
 import walkingkooka.tree.expression.FunctionExpressionName;
 import walkingkooka.tree.expression.function.ExpressionFunction;
 import walkingkooka.tree.expression.function.ExpressionFunctionContext;
@@ -61,6 +62,7 @@ import java.math.MathContext;
 import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.Set;
 import java.util.function.Function;
 import java.util.stream.Collectors;
@@ -1834,15 +1836,14 @@ public final class NodeSelectorNodeSelectorParserTokenVisitorTest implements Nod
                         return NodeSelectorExpressionEvaluationContexts.basic(this.node,
                                 (r) -> ExpressionEvaluationContexts.basic(
                                         EXPRESSION_NUMBER_KIND,
-                                        Cast.to(this.function()),
+                                        Cast.to(this.functions()),
                                         r,
-                                        this.functionContext(),
-                                        this.converterContext()
+                                        this.functionContext()
                                 )
                         );
                     }
 
-                    private Function<FunctionExpressionName, ExpressionFunction<?, NodeSelectorExpressionEvaluationContext<TestNode, StringName, StringName, Object>>> function() {
+                    private Function<FunctionExpressionName, ExpressionFunction<?, NodeSelectorExpressionEvaluationContext<TestNode, StringName, StringName, Object>>> functions() {
                         return (n) -> {
                             switch (n.value()) {
                                 case "boolean":
@@ -1916,7 +1917,18 @@ public final class NodeSelectorNodeSelectorParserTokenVisitorTest implements Nod
                     }
 
                     private ExpressionFunctionContext functionContext() {
-                        return ExpressionFunctionContexts.fake();
+                        return ExpressionFunctionContexts.basic(
+                                EXPRESSION_NUMBER_KIND,
+                                Cast.to(this.functions()),
+                                this.references(),
+                                this.converterContext()
+                        );
+                    }
+
+                    private Function<ExpressionReference, Optional<Expression>> references() {
+                        return (r -> {
+                            throw new UnsupportedOperationException();
+                        });
                     }
 
                     private <T> Either<T, String> convert0(final Object value,

@@ -17,7 +17,6 @@
 
 package walkingkooka.tree.expression;
 
-import walkingkooka.convert.ConverterContext;
 import walkingkooka.reflect.PublicStaticHelper;
 import walkingkooka.tree.expression.function.ExpressionFunction;
 import walkingkooka.tree.expression.function.ExpressionFunctionContext;
@@ -33,14 +32,12 @@ public final class ExpressionEvaluationContexts implements PublicStaticHelper {
     public static ExpressionEvaluationContext basic(final ExpressionNumberKind expressionNumberKind,
                                                     final Function<FunctionExpressionName, ExpressionFunction<?, ExpressionFunctionContext>> functions,
                                                     final Function<ExpressionReference, Optional<Expression>> references,
-                                                    final ExpressionFunctionContext functionContext,
-                                                    final ConverterContext converterContext) {
+                                                    final ExpressionFunctionContext functionContext) {
         return BasicExpressionEvaluationContext.with(
                 expressionNumberKind,
                 functions,
                 references,
-                functionContext,
-                converterContext
+                functionContext
         );
     }
 
