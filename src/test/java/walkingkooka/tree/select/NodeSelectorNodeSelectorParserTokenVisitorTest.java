@@ -48,6 +48,8 @@ import walkingkooka.tree.expression.ExpressionNumberExpression;
 import walkingkooka.tree.expression.ExpressionNumberKind;
 import walkingkooka.tree.expression.FunctionExpressionName;
 import walkingkooka.tree.expression.function.ExpressionFunction;
+import walkingkooka.tree.expression.function.ExpressionFunctionContext;
+import walkingkooka.tree.expression.function.ExpressionFunctionContexts;
 import walkingkooka.tree.expression.function.FakeExpressionFunction;
 import walkingkooka.tree.select.parser.NodeSelectorExpressionParserToken;
 import walkingkooka.tree.select.parser.NodeSelectorParserContexts;
@@ -1830,10 +1832,14 @@ public final class NodeSelectorNodeSelectorParserTokenVisitorTest implements Nod
 
                     private NodeSelectorExpressionEvaluationContext<TestNode, StringName, StringName, Object> expressionEvaluationContext() {
                         return NodeSelectorExpressionEvaluationContexts.basic(this.node,
-                                (r) -> ExpressionEvaluationContexts.basic(EXPRESSION_NUMBER_KIND,
+                                (r) -> ExpressionEvaluationContexts.basic(
+                                        EXPRESSION_NUMBER_KIND,
                                         Cast.to(this.function()),
                                         r,
-                                        this.converterContext()));
+                                        this.functionContext(),
+                                        this.converterContext()
+                                )
+                        );
                     }
 
                     private Function<FunctionExpressionName, ExpressionFunction<?, NodeSelectorExpressionEvaluationContext<TestNode, StringName, StringName, Object>>> function() {
@@ -1907,6 +1913,10 @@ public final class NodeSelectorNodeSelectorParserTokenVisitorTest implements Nod
                                             .orElseThrow(() -> new IllegalArgumentException(("Unknown function \"" + n + "\""))));
                             }
                         };
+                    }
+
+                    private ExpressionFunctionContext functionContext() {
+                        return ExpressionFunctionContexts.fake();
                     }
 
                     private <T> Either<T, String> convert0(final Object value,

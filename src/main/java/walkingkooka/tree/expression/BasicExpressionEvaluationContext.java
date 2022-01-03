@@ -40,16 +40,21 @@ final class BasicExpressionEvaluationContext implements ExpressionEvaluationCont
     static BasicExpressionEvaluationContext with(final ExpressionNumberKind expressionNumberKind,
                                                  final Function<FunctionExpressionName, ExpressionFunction<?, ExpressionFunctionContext>> functions,
                                                  final Function<ExpressionReference, Optional<Expression>> references,
+                                                 final ExpressionFunctionContext functionContext,
                                                  final ConverterContext converterContext) {
         Objects.requireNonNull(expressionNumberKind, "expressionNumberKind");
         Objects.requireNonNull(functions, "functions");
         Objects.requireNonNull(references, "references");
+        Objects.requireNonNull(functionContext, "functionContext");
         Objects.requireNonNull(converterContext, "converterContext");
 
-        return new BasicExpressionEvaluationContext(expressionNumberKind,
+        return new BasicExpressionEvaluationContext(
+                expressionNumberKind,
                 functions,
                 references,
-                converterContext);
+                functionContext,
+                converterContext
+        );
     }
 
     /**
@@ -58,11 +63,13 @@ final class BasicExpressionEvaluationContext implements ExpressionEvaluationCont
     private BasicExpressionEvaluationContext(final ExpressionNumberKind expressionNumberKind,
                                              final Function<FunctionExpressionName, ExpressionFunction<?, ExpressionFunctionContext>> functions,
                                              final Function<ExpressionReference, Optional<Expression>> references,
+                                             final ExpressionFunctionContext functionContext,
                                              final ConverterContext converterContext) {
         super();
         this.expressionNumberKind = expressionNumberKind;
         this.functions = functions;
         this.references = references;
+        this.functionContext = functionContext;
         this.converterContext = converterContext;
     }
 
@@ -113,8 +120,10 @@ final class BasicExpressionEvaluationContext implements ExpressionEvaluationCont
     @Override
     public Object evaluate(final FunctionExpressionName name, final List<Object> parameters) {
         return this.function(name)
-                .apply(parameters, this);
+                .apply(parameters, this.functionContext);
     }
+
+    private final ExpressionFunctionContext functionContext;
 
     @Override
     public boolean isPure(final FunctionExpressionName name) {
@@ -148,6 +157,6 @@ final class BasicExpressionEvaluationContext implements ExpressionEvaluationCont
 
     @Override
     public String toString() {
-        return this.functions + " " + this.references + " " + this.converterContext;
+        return this.functions + " " + this.references + " " + this.functionContext + " " + this.converterContext;
     }
 }

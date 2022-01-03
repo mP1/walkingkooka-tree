@@ -36,6 +36,7 @@ import walkingkooka.tree.expression.ExpressionNumberKind;
 import walkingkooka.tree.expression.FunctionExpressionName;
 import walkingkooka.tree.expression.function.ExpressionFunction;
 import walkingkooka.tree.expression.function.ExpressionFunctionContext;
+import walkingkooka.tree.expression.function.ExpressionFunctionContexts;
 import walkingkooka.tree.expression.function.UnknownExpressionFunctionException;
 import walkingkooka.tree.select.parser.NodeSelectorAttributeName;
 
@@ -117,6 +118,7 @@ public final class BasicNodeSelectorExpressionEvaluationContextTest implements N
                         EXPRESSION_NUMBER_KIND,
                         this.functions(),
                         r,
+                        this.functionContext(),
                         this.converterContext()
                 ));
     }
@@ -126,6 +128,10 @@ public final class BasicNodeSelectorExpressionEvaluationContextTest implements N
             Objects.requireNonNull(n, "name");
             throw new UnknownExpressionFunctionException(n);
         };
+    }
+
+    private ExpressionFunctionContext functionContext() {
+        return ExpressionFunctionContexts.fake();
     }
 
     private ExpressionNumberConverterContext converterContext() {
