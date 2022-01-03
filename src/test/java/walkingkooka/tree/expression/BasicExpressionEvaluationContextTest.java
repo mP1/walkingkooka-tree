@@ -40,7 +40,6 @@ import java.util.Objects;
 import java.util.Optional;
 import java.util.function.Function;
 
-import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class BasicExpressionEvaluationContextTest implements ClassTesting2<BasicExpressionEvaluationContext>,
@@ -59,8 +58,7 @@ public final class BasicExpressionEvaluationContextTest implements ClassTesting2
                         null,
                         this.functions(),
                         this.references(),
-                        this.functionContext(),
-                        this.converterContext()
+                        this.functionContext()
                 )
         );
     }
@@ -73,8 +71,7 @@ public final class BasicExpressionEvaluationContextTest implements ClassTesting2
                         KIND,
                         null,
                         this.references(),
-                        this.functionContext(),
-                        this.converterContext()
+                        this.functionContext()
                 )
         );
     }
@@ -87,8 +84,7 @@ public final class BasicExpressionEvaluationContextTest implements ClassTesting2
                         KIND,
                         this.functions(),
                         null,
-                        this.functionContext(),
-                        this.converterContext()
+                        this.functionContext()
                 )
         );
     }
@@ -101,21 +97,6 @@ public final class BasicExpressionEvaluationContextTest implements ClassTesting2
                         KIND,
                         this.functions(),
                         this.references(),
-                        null,
-                        this.converterContext()
-                )
-        );
-    }
-
-    @Test
-    public void testWithNullConverterContextFails() {
-        assertThrows(
-                NullPointerException.class,
-                () -> BasicExpressionEvaluationContext.with(
-                        KIND,
-                        this.functions(),
-                        this.references(),
-                        this.functionContext(),
                         null
                 )
         );
@@ -181,17 +162,15 @@ public final class BasicExpressionEvaluationContextTest implements ClassTesting2
         final Function<FunctionExpressionName, ExpressionFunction<?, ExpressionFunctionContext>> functions = this.functions();
         final Function<ExpressionReference, Optional<Expression>> references = this.references();
         final ExpressionFunctionContext functionContext = this.functionContext();
-        final ConverterContext converterContext = this.converterContext();
 
         this.toStringAndCheck(
                 BasicExpressionEvaluationContext.with(
                         KIND,
                         functions,
                         references,
-                        functionContext,
-                        converterContext
+                        functionContext
                 ),
-                functions + " " + references + " " + functionContext + " " + converterContext
+                functions + " " + references + " " + functionContext
         );
     }
 
@@ -205,8 +184,7 @@ public final class BasicExpressionEvaluationContextTest implements ClassTesting2
                 KIND,
                 this.functions(pure),
                 this.references(),
-                this.functionContext(),
-                this.converterContext()
+                this.functionContext()
         );
     }
 
@@ -227,7 +205,8 @@ public final class BasicExpressionEvaluationContextTest implements ClassTesting2
                 public Object apply(final List<Object> parameters,
                                     final ExpressionFunctionContext context) {
                     Objects.requireNonNull(parameters, "parameters");
-                    assertSame(FUNCTION_CONTEXT, context, "factory ExpressionFunctionContext not passed to functions");
+                    Objects.requireNonNull(context, "context");
+
                     return BasicExpressionEvaluationContextTest.this.functionValue();
                 }
 
@@ -264,10 +243,13 @@ public final class BasicExpressionEvaluationContextTest implements ClassTesting2
     }
 
     private ExpressionFunctionContext functionContext() {
-        return FUNCTION_CONTEXT;
+        return ExpressionFunctionContexts.basic(
+                KIND,
+                this.functions(),
+                this.references(),
+                this.converterContext()
+        );
     }
-
-    private final static ExpressionFunctionContext FUNCTION_CONTEXT = ExpressionFunctionContexts.fake();
 
     private ConverterContext converterContext() {
         return ConverterContexts.basic(Converters.numberNumber(),

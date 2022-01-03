@@ -130,8 +130,8 @@ public final class NodeSelectorContext2ExpressionNodeSelectorTest extends NodeSe
                                                 throw new UnsupportedOperationException();
                                             }
                                         },
-                                        ExpressionFunctionContexts.fake(),
-                                        ExpressionNumberConverterContexts.basic(Converters.fake(), this.converterContext(), EXPRESSION_NUMBER_KIND)
+                                        ExpressionFunctionContexts.fake()
+                                        //ExpressionNumberConverterContexts.basic(Converters.fake(), this.converterContext(), EXPRESSION_NUMBER_KIND)
                                 )
                         );
                     }

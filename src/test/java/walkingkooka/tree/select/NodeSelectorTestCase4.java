@@ -41,6 +41,7 @@ import walkingkooka.tree.expression.ExpressionNumber;
 import walkingkooka.tree.expression.ExpressionNumberConverterContext;
 import walkingkooka.tree.expression.ExpressionNumberConverterContexts;
 import walkingkooka.tree.expression.ExpressionNumberKind;
+import walkingkooka.tree.expression.ExpressionReference;
 import walkingkooka.tree.expression.FunctionExpressionName;
 import walkingkooka.tree.expression.function.ExpressionFunction;
 import walkingkooka.tree.expression.function.ExpressionFunctionContext;
@@ -447,8 +448,7 @@ abstract public class NodeSelectorTestCase4<S extends NodeSelector<TestNode, Str
                         EXPRESSION_NUMBER_KIND,
                         this.functions(),
                         r,
-                        this.functionContext(),
-                        this.converterContext()
+                        this.functionContext()
                 )
         );
     }
@@ -471,7 +471,18 @@ abstract public class NodeSelectorTestCase4<S extends NodeSelector<TestNode, Str
     }
 
     private ExpressionFunctionContext functionContext() {
-        return ExpressionFunctionContexts.fake();
+        return ExpressionFunctionContexts.basic(
+                EXPRESSION_NUMBER_KIND,
+                this.functions(),
+                this.references(),
+                this.converterContext()
+        );
+    }
+
+    private Function<ExpressionReference, Optional<Expression>> references() {
+        return (r -> {
+            throw new UnsupportedOperationException();
+        });
     }
 
     private ExpressionNumberConverterContext converterContext() {

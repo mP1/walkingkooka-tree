@@ -18,7 +18,6 @@
 package walkingkooka.tree.expression;
 
 import walkingkooka.Either;
-import walkingkooka.convert.ConverterContext;
 import walkingkooka.tree.expression.function.ExpressionFunction;
 import walkingkooka.tree.expression.function.ExpressionFunctionContext;
 
@@ -40,20 +39,17 @@ final class BasicExpressionEvaluationContext implements ExpressionEvaluationCont
     static BasicExpressionEvaluationContext with(final ExpressionNumberKind expressionNumberKind,
                                                  final Function<FunctionExpressionName, ExpressionFunction<?, ExpressionFunctionContext>> functions,
                                                  final Function<ExpressionReference, Optional<Expression>> references,
-                                                 final ExpressionFunctionContext functionContext,
-                                                 final ConverterContext converterContext) {
+                                                 final ExpressionFunctionContext functionContext) {
         Objects.requireNonNull(expressionNumberKind, "expressionNumberKind");
         Objects.requireNonNull(functions, "functions");
         Objects.requireNonNull(references, "references");
         Objects.requireNonNull(functionContext, "functionContext");
-        Objects.requireNonNull(converterContext, "converterContext");
 
         return new BasicExpressionEvaluationContext(
                 expressionNumberKind,
                 functions,
                 references,
-                functionContext,
-                converterContext
+                functionContext
         );
     }
 
@@ -63,24 +59,22 @@ final class BasicExpressionEvaluationContext implements ExpressionEvaluationCont
     private BasicExpressionEvaluationContext(final ExpressionNumberKind expressionNumberKind,
                                              final Function<FunctionExpressionName, ExpressionFunction<?, ExpressionFunctionContext>> functions,
                                              final Function<ExpressionReference, Optional<Expression>> references,
-                                             final ExpressionFunctionContext functionContext,
-                                             final ConverterContext converterContext) {
+                                             final ExpressionFunctionContext functionContext) {
         super();
         this.expressionNumberKind = expressionNumberKind;
         this.functions = functions;
         this.references = references;
         this.functionContext = functionContext;
-        this.converterContext = converterContext;
     }
 
     @Override
     public Locale locale() {
-        return this.converterContext.locale();
+        return this.functionContext.locale();
     }
 
     @Override
     public MathContext mathContext() {
-        return this.converterContext.mathContext();
+        return this.functionContext.mathContext();
     }
 
     @Override
@@ -92,17 +86,17 @@ final class BasicExpressionEvaluationContext implements ExpressionEvaluationCont
 
     @Override
     public int defaultYear() {
-        return this.converterContext.defaultYear();
+        return this.functionContext.defaultYear();
     }
 
     @Override
     public int twoToFourDigitYear(final int year) {
-        return this.converterContext.twoToFourDigitYear(year);
+        return this.functionContext.twoToFourDigitYear(year);
     }
 
     @Override
     public int twoDigitYear() {
-        return this.converterContext.twoDigitYear();
+        return this.functionContext.twoDigitYear();
     }
 
     @Override
@@ -144,19 +138,17 @@ final class BasicExpressionEvaluationContext implements ExpressionEvaluationCont
     @Override
     public boolean canConvert(final Object value,
                               final Class<?> type) {
-        return this.converterContext.canConvert(value, type);
+        return this.functionContext.canConvert(value, type);
     }
 
     @Override
     public <T> Either<T, String> convert(final Object value,
                                          final Class<T> target) {
-        return this.converterContext.convert(value, target);
+        return this.functionContext.convert(value, target);
     }
-
-    private final ConverterContext converterContext;
 
     @Override
     public String toString() {
-        return this.functions + " " + this.references + " " + this.functionContext + " " + this.converterContext;
+        return this.functions + " " + this.references + " " + this.functionContext;
     }
 }
