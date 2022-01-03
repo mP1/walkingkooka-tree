@@ -34,6 +34,7 @@ import walkingkooka.tree.expression.ExpressionNumber;
 import walkingkooka.tree.expression.ExpressionNumberConverterContext;
 import walkingkooka.tree.expression.ExpressionNumberConverterContexts;
 import walkingkooka.tree.expression.ExpressionReference;
+import walkingkooka.tree.expression.function.ExpressionFunctionContexts;
 
 import java.math.MathContext;
 import java.util.Objects;
@@ -118,7 +119,8 @@ public final class NodeSelectorContext2ExpressionNodeSelectorTest extends NodeSe
                         Objects.requireNonNull(expression, "expression");
 
                         return expression.toValue(
-                                ExpressionEvaluationContexts.basic(EXPRESSION_NUMBER_KIND,
+                                ExpressionEvaluationContexts.basic(
+                                        EXPRESSION_NUMBER_KIND,
                                         (f) -> {
                                             throw new UnsupportedOperationException();
                                         },
@@ -128,7 +130,10 @@ public final class NodeSelectorContext2ExpressionNodeSelectorTest extends NodeSe
                                                 throw new UnsupportedOperationException();
                                             }
                                         },
-                                        ExpressionNumberConverterContexts.basic(Converters.fake(), this.converterContext(), EXPRESSION_NUMBER_KIND)));
+                                        ExpressionFunctionContexts.fake(),
+                                        ExpressionNumberConverterContexts.basic(Converters.fake(), this.converterContext(), EXPRESSION_NUMBER_KIND)
+                                )
+                        );
                     }
 
                     private ExpressionNumberConverterContext converterContext() {

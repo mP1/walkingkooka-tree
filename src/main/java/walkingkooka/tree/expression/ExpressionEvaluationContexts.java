@@ -33,11 +33,15 @@ public final class ExpressionEvaluationContexts implements PublicStaticHelper {
     public static ExpressionEvaluationContext basic(final ExpressionNumberKind expressionNumberKind,
                                                     final Function<FunctionExpressionName, ExpressionFunction<?, ExpressionFunctionContext>> functions,
                                                     final Function<ExpressionReference, Optional<Expression>> references,
-                                                    final ConverterContext context) {
-        return BasicExpressionEvaluationContext.with(expressionNumberKind,
+                                                    final ExpressionFunctionContext functionContext,
+                                                    final ConverterContext converterContext) {
+        return BasicExpressionEvaluationContext.with(
+                expressionNumberKind,
                 functions,
                 references,
-                context);
+                functionContext,
+                converterContext
+        );
     }
 
     /**

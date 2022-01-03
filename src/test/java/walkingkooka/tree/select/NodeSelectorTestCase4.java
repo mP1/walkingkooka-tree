@@ -44,6 +44,7 @@ import walkingkooka.tree.expression.ExpressionNumberKind;
 import walkingkooka.tree.expression.FunctionExpressionName;
 import walkingkooka.tree.expression.function.ExpressionFunction;
 import walkingkooka.tree.expression.function.ExpressionFunctionContext;
+import walkingkooka.tree.expression.function.ExpressionFunctionContexts;
 
 import java.math.MathContext;
 import java.util.Arrays;
@@ -442,10 +443,14 @@ abstract public class NodeSelectorTestCase4<S extends NodeSelector<TestNode, Str
 
     final Function<NodeSelectorContext<TestNode, StringName, StringName, Object>, NodeSelectorExpressionEvaluationContext<TestNode, StringName, StringName, Object>> nodeSelectorExpressionEvaluationContext() {
         return (c) -> NodeSelectorExpressionEvaluationContexts.basic(c.node(),
-                (r) -> ExpressionEvaluationContexts.basic(EXPRESSION_NUMBER_KIND,
-                this.functions(),
-                r,
-                this.converterContext()));
+                (r) -> ExpressionEvaluationContexts.basic(
+                        EXPRESSION_NUMBER_KIND,
+                        this.functions(),
+                        r,
+                        this.functionContext(),
+                        this.converterContext()
+                )
+        );
     }
 
     private Function<FunctionExpressionName, ExpressionFunction<?, ExpressionFunctionContext>> functions() {
@@ -463,6 +468,10 @@ abstract public class NodeSelectorTestCase4<S extends NodeSelector<TestNode, Str
                         ExpressionNumber.toConverter(Converters.simple())
                 )
         );
+    }
+
+    private ExpressionFunctionContext functionContext() {
+        return ExpressionFunctionContexts.fake();
     }
 
     private ExpressionNumberConverterContext converterContext() {

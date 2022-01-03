@@ -39,6 +39,7 @@ import walkingkooka.tree.expression.ExpressionReference;
 import walkingkooka.tree.expression.FunctionExpressionName;
 import walkingkooka.tree.expression.function.ExpressionFunction;
 import walkingkooka.tree.expression.function.ExpressionFunctionContext;
+import walkingkooka.tree.expression.function.ExpressionFunctionContexts;
 
 import java.util.Optional;
 import java.util.function.BooleanSupplier;
@@ -166,10 +167,13 @@ public final class BasicNodeSelectorContextTest implements ClassTesting2<BasicNo
         return new Function<>() {
             @Override
             public ExpressionEvaluationContext apply(final NodeSelectorContext<TestNode, StringName, StringName, Object> context) {
-                return ExpressionEvaluationContexts.basic(ExpressionNumberKind.DEFAULT,
+                return ExpressionEvaluationContexts.basic(
+                        ExpressionNumberKind.DEFAULT,
                         this.functions(),
                         this.references(),
-                        this.converterContext());
+                        this.functionContext(),
+                        this.converterContext()
+                );
             }
 
             private Function<FunctionExpressionName, ExpressionFunction<?, ExpressionFunctionContext>> functions() {
@@ -180,6 +184,10 @@ public final class BasicNodeSelectorContextTest implements ClassTesting2<BasicNo
 
             private Function<ExpressionReference, Optional<Expression>> references() {
                 return (r) -> Optional.empty();
+            }
+
+            private ExpressionFunctionContext functionContext() {
+                return ExpressionFunctionContexts.fake();
             }
 
             private ExpressionNumberConverterContext converterContext() {
