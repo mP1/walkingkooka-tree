@@ -124,6 +124,13 @@ public final class FunctionExpressionTest extends VariableExpressionTestCase<Fun
                         };
                     }
 
+                    public Object evaluate(final FunctionExpressionName name, final List<Object> parameters) {
+                        Objects.requireNonNull(name, "name");
+                        Objects.requireNonNull(parameters, "parameters");
+
+                        return this.function(name).apply(parameters, this);
+                    }
+
                     @Override
                     public Optional<Expression> reference(final ExpressionReference r) {
                         assertSame(reference, r, "reference");
@@ -170,7 +177,8 @@ public final class FunctionExpressionTest extends VariableExpressionTestCase<Fun
                             public Object evaluate(final FunctionExpressionName name, final List<Object> parameters) {
                                 Objects.requireNonNull(name, "name");
                                 Objects.requireNonNull(parameters, "parameters");
-                                throw new UnsupportedOperationException();
+
+                                return this.function(name).apply(parameters, this);
                             }
                         })
         );
@@ -277,6 +285,13 @@ public final class FunctionExpressionTest extends VariableExpressionTestCase<Fun
                         return true;
                     }
                 };
+            }
+
+            @Override
+            public Object evaluate(final FunctionExpressionName name,
+                                   final List<Object> parameters) {
+                return this.function(name)
+                        .apply(parameters, this);
             }
 
             @Override

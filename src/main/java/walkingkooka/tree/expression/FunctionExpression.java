@@ -152,11 +152,13 @@ public final class FunctionExpression extends VariableExpression {
                 (e) -> e.toValue(context) :
                 (e) -> e.toReferenceOrValue(context);
 
-        return function.apply(this.value()
+        return context.evaluate(
+                this.name(),
+                this.value()
                         .stream()
                         .map(mapper)
-                        .collect(Collectors.toList()),
-                context);
+                        .collect(Collectors.toList())
+        );
     }
 
     // Object.........................................................................................................
