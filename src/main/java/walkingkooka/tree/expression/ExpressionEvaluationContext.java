@@ -17,12 +17,9 @@
 
 package walkingkooka.tree.expression;
 
-import walkingkooka.tree.expression.function.ExpressionFunction;
 import walkingkooka.tree.expression.function.ExpressionFunctionContext;
 
-import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 /**
  * Context that travels during any expression evaluation.
@@ -34,21 +31,6 @@ public interface ExpressionEvaluationContext extends ExpressionFunctionContext,
      * Evaluate the given {@link Expression} returning the result/value.
      */
     Object evaluate(final Expression expression);
-
-    /**
-     * If the {@link ExpressionFunction#resolveReferences()} is true, then replace references with values.
-     */
-    default List<Object> resolveReferencesIfNecessary(final ExpressionFunction<?, ?> function,
-                                                      final List<Object> parameters) {
-        final boolean resolveReferences = function.resolveReferences();
-
-        return parameters.stream()
-                .map(p ->
-                    resolveReferences ?
-                            p :
-                            p)
-                .collect(Collectors.toList());
-    }
 
     /**
      * Locates the value or a {@link Expression} for the given {@link ExpressionReference}
