@@ -117,5 +117,6 @@ More functions are available in other projects including:
 - [datetime](https://github.com/mP1/walkingkooka-tree-expression-function-datetime)
 - [number](https://github.com/mP1/walkingkooka-tree-expression-function-number)
 - [number-trigonometry](https://github.com/mP1/walkingkooka-tree-expression-function-number-trigonometry)
+- [spreadsheet](https://github.com/mP1/walkingkooka-spreadsheet-expression-function)
 - [string](https://github.com/mP1/walkingkooka-tree-expression-function-string)
 
