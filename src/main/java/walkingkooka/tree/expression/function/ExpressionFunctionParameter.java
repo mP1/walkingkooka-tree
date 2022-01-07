@@ -21,6 +21,7 @@ import walkingkooka.Cast;
 import walkingkooka.Either;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.tree.expression.ExpressionNumber;
+import walkingkooka.tree.expression.ExpressionReference;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -45,6 +46,8 @@ public final class ExpressionFunctionParameter<T> {
     public final static ExpressionFunctionParameter<LocalDateTime> DATETIME = ExpressionFunctionParameterName.DATETIME.setType(LocalDateTime.class);
 
     public final static ExpressionFunctionParameter<ExpressionNumber> NUMBER = ExpressionFunctionParameterName.NUMBER.setType(ExpressionNumber.class);
+
+    public final static ExpressionFunctionParameter<ExpressionReference> REFERENCE = ExpressionFunctionParameterName.REFERENCE.setType(ExpressionReference.class);
 
     public final static ExpressionFunctionParameter<String> STRING = ExpressionFunctionParameterName.STRING.setType(String.class);
 
