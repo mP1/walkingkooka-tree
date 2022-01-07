@@ -49,6 +49,8 @@ public final class ExpressionFunctionParameterName implements Name,
 
     public final static ExpressionFunctionParameterName NUMBER = register("number");
 
+    public final static ExpressionFunctionParameterName REFERENCE = register("reference");
+
     public final static ExpressionFunctionParameterName STRING = register("string");
 
     public final static ExpressionFunctionParameterName TEXT = register("text");
