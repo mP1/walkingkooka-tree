@@ -21,15 +21,138 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.collect.set.Sets;
 import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.reflect.PublicStaticHelperTesting;
+import walkingkooka.text.CaseSensitivity;
 import walkingkooka.tree.expression.FunctionExpressionName;
 
 import java.lang.reflect.Method;
 import java.math.MathContext;
 import java.util.Arrays;
+import java.util.Optional;
 import java.util.Set;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
 public final class ExpressionFunctionsTest implements PublicStaticHelperTesting<ExpressionFunctions> {
+
+    @Test
+    public void testLookupNullFunctionsFails() {
+        assertThrows(
+                NullPointerException.class,
+                () -> {
+                    ExpressionFunctions.lookup(null, CaseSensitivity.SENSITIVE);
+                }
+        );
+    }
+
+    @Test
+    public void testLookupNullCaseSensitiveFails() {
+        assertThrows(
+                NullPointerException.class,
+                () -> {
+                    ExpressionFunctions.lookup(Sets.empty(), null);
+                }
+        );
+    }
+
+    @Test
+    public void testLookupCaseSensitive() {
+        final ExpressionFunction<Void, ExpressionFunctionContext> function = function("test-1");
+
+        final Function<FunctionExpressionName, Optional<ExpressionFunction<?, ExpressionFunctionContext>>> lookup =
+                ExpressionFunctions.lookup(
+                        Sets.of(
+                                function,
+                                function("test-function-2")
+                        ),
+                        CaseSensitivity.SENSITIVE
+                );
+        this.checkEquals(
+                Optional.of(
+                        function
+                ),
+                lookup.apply(
+                        FunctionExpressionName.with("test-1")
+                )
+        );
+    }
+
+    @Test
+    public void testLookupCaseSensitiveWrongCaseNotFound() {
+        final ExpressionFunction<Void, ExpressionFunctionContext> function = function("test-1");
+
+        final Function<FunctionExpressionName, Optional<ExpressionFunction<?, ExpressionFunctionContext>>> lookup =
+                ExpressionFunctions.lookup(
+                        Sets.of(
+                                function,
+                                function("test-function-2")
+                        ),
+                        CaseSensitivity.SENSITIVE
+                );
+        this.checkEquals(
+                Optional.empty(),
+                lookup.apply(
+                        FunctionExpressionName.with("TEST-1")
+                )
+        );
+    }
+
+    @Test
+    public void testLookupCaseInsensitiveWrongCase() {
+        final ExpressionFunction<Void, ExpressionFunctionContext> function = function("test-function-1");
+
+        final Function<FunctionExpressionName, Optional<ExpressionFunction<?, ExpressionFunctionContext>>> lookup =
+                ExpressionFunctions.lookup(
+                        Sets.of(
+                                function,
+                                function("test-function-2")
+                        ),
+                        CaseSensitivity.INSENSITIVE
+                );
+        this.checkEquals(
+                Optional.of(
+                        function
+                ),
+                lookup.apply(
+                        FunctionExpressionName.with("TEST-function-1")
+                )
+        );
+    }
+
+    @Test
+    public void testLookupCaseInsensitiveNotFound() {
+        final ExpressionFunction<Void, ExpressionFunctionContext> function = function("test-function-1");
+
+        final Function<FunctionExpressionName, Optional<ExpressionFunction<?, ExpressionFunctionContext>>> lookup =
+                ExpressionFunctions.lookup(
+                        Sets.of(
+                                function,
+                                function("test-function-2")
+                        ),
+                        CaseSensitivity.INSENSITIVE
+                );
+        this.checkEquals(
+                Optional.empty(),
+                lookup.apply(
+                        FunctionExpressionName.with("TEST-function-unknown")
+                )
+        );
+    }
+
+    private static ExpressionFunction<Void, ExpressionFunctionContext> function(final String name) {
+        return new FakeExpressionFunction<>() {
+            @Override
+            public FunctionExpressionName name() {
+                return FunctionExpressionName.with(name);
+            }
+
+            @Override
+            public String toString() {
+                return name;
+            }
+        };
+    }
 
     @Test
     public void testVisit() {
