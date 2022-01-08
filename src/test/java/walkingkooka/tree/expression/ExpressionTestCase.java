@@ -96,12 +96,14 @@ public abstract class ExpressionTestCase<N extends Expression> implements TreePr
 
     // evaluation........................................................................................................
 
-    final BooleanExpression booleanValue(final boolean value) {
-        return Expression.booleanExpression(value);
+    final ValueExpression<Boolean> booleanValue(final boolean value) {
+        return Expression.value(value);
     }
 
-    final ExpressionNumberExpression expressionNumber(final double value) {
-        return Expression.expressionNumber(expressionNumberValue(value));
+    final ValueExpression<ExpressionNumber> expressionNumber(final double value) {
+        return Expression.value(
+                expressionNumberValue(value)
+        );
     }
 
     final ExpressionNumber expressionNumberValue(final double value) {
@@ -113,8 +115,8 @@ public abstract class ExpressionTestCase<N extends Expression> implements TreePr
                 .convertOrFail(value, LocalDate.class, this.converterContext());
     }
 
-    final LocalDateExpression localDate(final long value) {
-        return Expression.localDate(localDateValue(value));
+    final ValueExpression<LocalDate> localDate(final long value) {
+        return Expression.value(localDateValue(value));
     }
 
     final LocalDateTime localDateTimeValue(final double value) {
@@ -122,8 +124,10 @@ public abstract class ExpressionTestCase<N extends Expression> implements TreePr
                 .convertOrFail(value, LocalDateTime.class, this.converterContext());
     }
 
-    final LocalDateTimeExpression localDateTime(final double value) {
-        return Expression.localDateTime(localDateTimeValue(value));
+    final ValueExpression<LocalDateTime> localDateTime(final double value) {
+        return Expression.value(
+                localDateTimeValue(value)
+        );
     }
 
     final LocalTime localTimeValue(final long value) {
@@ -131,19 +135,21 @@ public abstract class ExpressionTestCase<N extends Expression> implements TreePr
                 .convertOrFail(value, LocalTime.class, this.converterContext());
     }
 
-    final LocalTimeExpression localTime(final long value) {
-        return Expression.localTime(localTimeValue(value));
+    final ValueExpression<LocalTime> localTime(final long value) {
+        return Expression.value(
+                localTimeValue(value)
+        );
     }
 
-    final StringExpression text(final String value) {
-        return Expression.string(value);
+    final ValueExpression<String> text(final String value) {
+        return Expression.value(value);
     }
 
-    final StringExpression text(final Object value) {
+    final ValueExpression<String> text(final Object value) {
         return text(context().convertOrFail(value, String.class));
     }
 
-    final String textText(final ValueExpression value) {
+    final String textText(final ValueExpression<?> value) {
         return value.toString(context());
     }
 

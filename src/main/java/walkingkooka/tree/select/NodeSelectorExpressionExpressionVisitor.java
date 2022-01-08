@@ -21,7 +21,6 @@ import walkingkooka.naming.Name;
 import walkingkooka.tree.Node;
 import walkingkooka.tree.expression.AddExpression;
 import walkingkooka.tree.expression.AndExpression;
-import walkingkooka.tree.expression.BooleanExpression;
 import walkingkooka.tree.expression.DivideExpression;
 import walkingkooka.tree.expression.EqualsExpression;
 import walkingkooka.tree.expression.Expression;
@@ -40,6 +39,7 @@ import walkingkooka.tree.expression.NotExpression;
 import walkingkooka.tree.expression.OrExpression;
 import walkingkooka.tree.expression.PowerExpression;
 import walkingkooka.tree.expression.SubtractExpression;
+import walkingkooka.tree.expression.ValueExpression;
 import walkingkooka.tree.expression.XorExpression;
 import walkingkooka.visit.Visiting;
 
@@ -167,8 +167,9 @@ final class NodeSelectorExpressionExpressionVisitor<N extends Node<N, NAME, ANAM
     }
 
     @Override
-    protected void visit(final BooleanExpression node) {
-        if (node.value()) {
+    protected void visit(final ValueExpression<?> node) {
+        final Object value = node.value();
+        if (Boolean.TRUE.equals(node.value())) {
             this.selector = this.selector.setToString(this.selector + "[true()]");
             this.addExpression = false;
         }

@@ -26,9 +26,10 @@ import walkingkooka.predicate.Predicates;
 import walkingkooka.reflect.ClassTesting2;
 import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.tree.expression.Expression;
-import walkingkooka.tree.expression.ExpressionNumberExpression;
+import walkingkooka.tree.expression.ExpressionNumber;
 import walkingkooka.tree.expression.ExpressionNumberKind;
 import walkingkooka.tree.expression.FunctionExpressionName;
+import walkingkooka.tree.expression.ValueExpression;
 
 import java.util.function.Predicate;
 
@@ -419,7 +420,7 @@ public final class NodeSelectorToStringBuilderTest implements ClassTesting2<Node
     public void testNameExpressionBooleanTrue() {
         final NodeSelectorToStringBuilder b = NodeSelectorToStringBuilder.empty();
         b.name(abc1());
-        b.expression(Expression.booleanExpression(true));
+        b.expression(Expression.value(true));
         this.buildAndCheck(b, "abc1[true()]");
     }
 
@@ -438,7 +439,7 @@ public final class NodeSelectorToStringBuilderTest implements ClassTesting2<Node
     public void testNameExpressionBooleanTrueName() {
         final NodeSelectorToStringBuilder b = NodeSelectorToStringBuilder.empty();
         b.name(abc1());
-        b.expression(Expression.booleanExpression(true));
+        b.expression(Expression.value(true));
         b.name(ghi3());
         this.buildAndCheck(b, "abc1[true()]/ghi3");
     }
@@ -513,8 +514,10 @@ public final class NodeSelectorToStringBuilderTest implements ClassTesting2<Node
         this.buildAndCheck(b, custom + "[j>2]");
     }
 
-    private ExpressionNumberExpression expressionNumber(final double value) {
-        return Expression.expressionNumber(ExpressionNumberKind.DEFAULT.create(value));
+    private ValueExpression<ExpressionNumber> expressionNumber(final double value) {
+        return Expression.value(
+                ExpressionNumberKind.DEFAULT.create(value)
+        );
     }
 
     private StringName abc1() {

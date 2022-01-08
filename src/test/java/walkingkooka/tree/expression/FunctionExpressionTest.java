@@ -99,7 +99,7 @@ public final class FunctionExpressionTest extends VariableExpressionTestCase<Fun
 
         final FunctionExpressionName function = FunctionExpressionName.with("custom-function");
         final List<Expression> parameters = Lists.of(
-                Expression.string("1"),
+                Expression.value("1"),
                 Expression.reference(reference)
         );
         final Expression expression = Expression.function(function, parameters);
@@ -134,7 +134,7 @@ public final class FunctionExpressionTest extends VariableExpressionTestCase<Fun
                     @Override
                     public Optional<Expression> reference(final ExpressionReference r) {
                         assertSame(reference, r, "reference");
-                        return Optional.of(Expression.string(value));
+                        return Optional.of(Expression.value(value));
                     }
                 }));
     }
@@ -147,7 +147,7 @@ public final class FunctionExpressionTest extends VariableExpressionTestCase<Fun
 
         final FunctionExpressionName function = FunctionExpressionName.with("custom-function");
         final List<Expression> parameters = Lists.of(
-                Expression.string("1"),
+                Expression.value("1"),
                 Expression.reference(reference)
         );
         final Expression expression = Expression.function(function, parameters);
@@ -224,7 +224,7 @@ public final class FunctionExpressionTest extends VariableExpressionTestCase<Fun
             }
 
             @Override
-            protected void visit(final StringExpression t) {
+            protected void visit(final ValueExpression<?> t) {
                 b.append("5");
                 visited.add(t);
             }

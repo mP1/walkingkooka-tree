@@ -83,13 +83,19 @@ public final class BasicNodeSelectorExpressionEvaluationContextTest implements N
     }
 
     private void evaluateAndCheck2(final boolean value) {
-        this.evaluateAndCheck(Expression.booleanExpression(value), value);
+        this.evaluateAndCheck(
+                Expression.value(value),
+                value
+        );
     }
 
     @Test
     public void testEvaluateString() {
         final String value = "abc123";
-        this.evaluateAndCheck(Expression.string(value), value);
+        this.evaluateAndCheck(
+                Expression.value(value),
+                value
+        );
     }
 
     @Override
@@ -104,9 +110,11 @@ public final class BasicNodeSelectorExpressionEvaluationContextTest implements N
         final TestNode node = TestNode.with("node123")
                 .setAttributes(Maps.of(Names.string(attribute), value));
 
-        this.checkEquals(Expression.string(value),
+        this.checkEquals(
+                Expression.value(value),
                 this.createContext(node)
-                        .referenceOrFail(NodeSelectorAttributeName.with(attribute)));
+                        .referenceOrFail(NodeSelectorAttributeName.with(attribute))
+        );
     }
 
     @Override

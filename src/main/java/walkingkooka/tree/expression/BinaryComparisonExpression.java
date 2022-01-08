@@ -35,16 +35,27 @@ abstract class BinaryComparisonExpression extends BinaryExpression2 {
         return this.toBoolean(context);
     }
 
-    @Override
-    final Expression applyText(final String left, final String right, final ExpressionEvaluationContext context) {
-        return Expression.booleanExpression(this.comparisonRelation().test(left.compareTo(right)));
+    @Override final Expression applyText(final String left,
+                                         final String right,
+                                         final ExpressionEvaluationContext context) {
+        return Expression.value(
+                this.comparisonRelation()
+                        .test(
+                                left.compareTo(right)
+                        )
+        );
     }
 
     @Override //
     final Expression applyExpressionNumber(final ExpressionNumber left,
                                            final ExpressionNumber right,
                                            final ExpressionEvaluationContext context) {
-        return Expression.booleanExpression(this.comparisonRelation().test(left.compareTo(right)));
+        return Expression.value(
+                this.comparisonRelation()
+                        .test(
+                                left.compareTo(right)
+                        )
+        );
     }
 
     /**

@@ -45,28 +45,6 @@ abstract class LeafExpression<V> extends Expression implements Value<V> {
 
     final V value;
 
-    final LeafExpression<V> setValue0(final V value) {
-        return Objects.equals(this.value(), value) ?
-                this :
-                this.replaceValue(value);
-    }
-
-    final LeafExpression<V> replaceValue(final V value) {
-        return this.replace1(this.index, value)
-                .replaceChild(this.parent())
-                .cast();
-    }
-
-    @Override final Expression replace(final int index) {
-        return this.replace0(index);
-    }
-
-    final LeafExpression replace0(final int index) {
-        return this.replace1(index, this.value);
-    }
-
-    abstract LeafExpression replace1(final int index, final V value);
-
     @Override
     public final List<Expression> children() {
         return Lists.empty();
@@ -107,7 +85,6 @@ abstract class LeafExpression<V> extends Expression implements Value<V> {
     @Override final boolean equalsIgnoringParentAndChildren(final Expression other) {
         return other instanceof LeafExpression &&
                 equalsIgnoringParentAndChildren0(Cast.to(other));
-
     }
 
     private boolean equalsIgnoringParentAndChildren0(final LeafExpression other) {

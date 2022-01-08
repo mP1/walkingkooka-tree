@@ -21,7 +21,6 @@ import walkingkooka.Cast;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.naming.Name;
-import walkingkooka.text.CharSequences;
 import walkingkooka.text.printer.IndentingPrinter;
 import walkingkooka.text.printer.TreePrintable;
 import walkingkooka.tree.Node;
@@ -33,7 +32,6 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 import java.util.Optional;
 import java.util.function.Predicate;
 
@@ -45,34 +43,6 @@ public abstract class Expression implements Node<Expression, FunctionExpressionN
      * An empty list that holds no children.
      */
     public final static List<Expression> NO_CHILDREN = Lists.empty();
-
-    /**
-     * Tests the value and creates the appropriate {@see Expression}.
-     */
-    public static Expression valueOrFail(final Object value) {
-        Objects.requireNonNull(value, "value");
-
-        return value instanceof ExpressionNumber ?
-                expressionNumber((ExpressionNumber) value) :
-                value instanceof Boolean ?
-                        booleanExpression(Cast.to(value)) :
-                        value instanceof LocalDate ?
-                                localDate(Cast.to(value)) :
-                                value instanceof LocalDateTime ?
-                                        localDateTime(Cast.to(value)) :
-                                        value instanceof LocalTime ?
-                                                localTime(Cast.to(value)) :
-                                                value instanceof String ?
-                                                        string(Cast.to(value)) :
-                                                        valueOrFailFail(value);
-    }
-
-    /**
-     * Reports an unknown value type given to {@link #valueOrFail}
-     */
-    static Expression valueOrFailFail(final Object value) {
-        throw new IllegalArgumentException("Unknown value " + CharSequences.quoteIfChars(value) + "(" + value.getClass().getName() + ")");
-    }
 
     // ........................................................................................
 
@@ -91,13 +61,6 @@ public abstract class Expression implements Node<Expression, FunctionExpressionN
     }
 
     /**
-     * {@see BooleanExpression}
-     */
-    public static BooleanExpression booleanExpression(final boolean value) {
-        return BooleanExpression.with(value);
-    }
-
-    /**
      * {@see DivideExpression}
      */
     public static DivideExpression divide(final Expression left, final Expression right) {
@@ -109,13 +72,6 @@ public abstract class Expression implements Node<Expression, FunctionExpressionN
      */
     public static EqualsExpression equalsExpression(final Expression left, final Expression right) {
         return EqualsExpression.with(left, right);
-    }
-
-    /**
-     * {@see ExpressionNumberExpression}
-     */
-    public static ExpressionNumberExpression expressionNumber(final ExpressionNumber value) {
-        return ExpressionNumberExpression.with(value);
     }
 
     /**
@@ -151,27 +107,6 @@ public abstract class Expression implements Node<Expression, FunctionExpressionN
      */
     public static LessThanEqualsExpression lessThanEquals(final Expression left, final Expression right) {
         return LessThanEqualsExpression.with(left, right);
-    }
-
-    /**
-     * {@see LocalDateExpression}
-     */
-    public static LocalDateExpression localDate(final LocalDate value) {
-        return LocalDateExpression.with(value);
-    }
-
-    /**
-     * {@see LocalDateTimeExpression}
-     */
-    public static LocalDateTimeExpression localDateTime(final LocalDateTime value) {
-        return LocalDateTimeExpression.with(value);
-    }
-
-    /**
-     * {@see LocalTimeExpression}
-     */
-    public static LocalTimeExpression localTime(final LocalTime value) {
-        return LocalTimeExpression.with(value);
     }
 
     /**
@@ -238,10 +173,10 @@ public abstract class Expression implements Node<Expression, FunctionExpressionN
     }
 
     /**
-     * {@see StringExpression}
+     * {@see ValueExpression}
      */
-    public static StringExpression string(final String value) {
-        return StringExpression.with(value);
+    public static <V> ValueExpression<V> value(final V value) {
+        return ValueExpression.with(value);
     }
 
     /**
@@ -355,13 +290,6 @@ public abstract class Expression implements Node<Expression, FunctionExpressionN
     }
 
     /**
-     * Only {@link BooleanExpression} returns true
-     */
-    public final boolean isBoolean() {
-        return this instanceof BooleanExpression;
-    }
-
-    /**
      * Only {@link DivideExpression} returns true
      */
     public final boolean isDivide() {
@@ -373,13 +301,6 @@ public abstract class Expression implements Node<Expression, FunctionExpressionN
      */
     public final boolean isEquals() {
         return this instanceof EqualsExpression;
-    }
-
-    /**
-     * Only {@link ExpressionNumberExpression} returns true
-     */
-    public final boolean isExpressionNumber() {
-        return this instanceof ExpressionNumberExpression;
     }
 
     /**
@@ -422,27 +343,6 @@ public abstract class Expression implements Node<Expression, FunctionExpressionN
      */
     public final boolean isList() {
         return this instanceof ListExpression;
-    }
-
-    /**
-     * Only {@link LocalDateExpression} returns true
-     */
-    public final boolean isLocalDate() {
-        return this instanceof LocalDateExpression;
-    }
-
-    /**
-     * Only {@link LocalDateTimeExpression} returns true
-     */
-    public final boolean isLocalDateTime() {
-        return this instanceof LocalDateTimeExpression;
-    }
-
-    /**
-     * Only {@link LocalTimeExpression} returns true
-     */
-    public final boolean isLocalTime() {
-        return this instanceof LocalTimeExpression;
     }
 
     /**
@@ -502,17 +402,17 @@ public abstract class Expression implements Node<Expression, FunctionExpressionN
     }
 
     /**
-     * Only {@link StringExpression} returns true
-     */
-    public final boolean isString() {
-        return this instanceof StringExpression;
-    }
-
-    /**
      * Only {@link SubtractExpression} returns true
      */
     public final boolean isSubtract() {
         return this instanceof SubtractExpression;
+    }
+
+    /**
+     * Only {@link ValueExpression} returns true
+     */
+    public final boolean isValue() {
+        return this instanceof ValueExpression;
     }
 
     /**

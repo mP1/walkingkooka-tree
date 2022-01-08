@@ -161,7 +161,9 @@ public final class ReferenceExpressionTest extends LeafExpressionTestCase<Refere
             @Override
             public Optional<Expression> reference(final ExpressionReference reference) {
                 checkEquals(value, reference, "reference");
-                return Optional.of(Expression.string(referenceText));
+                return Optional.of(
+                        Expression.value(referenceText)
+                );
             }
 
             @Override

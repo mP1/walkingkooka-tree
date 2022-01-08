@@ -107,7 +107,13 @@ public final class BasicNodeSelectorContextTest implements ClassTesting2<BasicNo
         final BasicNodeSelectorContext<TestNode, StringName, StringName, Object> context = this.createContext();
         final int number = 123;
 
-        this.checkEquals(KIND.create(number), context.evaluate(Expression.expressionNumber(KIND.create(number))));
+        this.checkEquals(
+                KIND.create(number),
+                context.evaluate(
+                        Expression.value(KIND.create(number)
+                        )
+                )
+        );
     }
 
     @Test
@@ -116,10 +122,15 @@ public final class BasicNodeSelectorContextTest implements ClassTesting2<BasicNo
         final int left = 123;
         final int right = 456;
 
-        this.checkEquals(KIND.create(left + right),
-                context.evaluate(Expression.add(
-                        Expression.expressionNumber(KIND.create(left)),
-                        Expression.expressionNumber(KIND.create(right)))));
+        this.checkEquals(
+                KIND.create(left + right),
+                context.evaluate(
+                        Expression.add(
+                                Expression.value(KIND.create(left)),
+                                Expression.value(KIND.create(right))
+                        )
+                )
+        );
     }
 
     @Test

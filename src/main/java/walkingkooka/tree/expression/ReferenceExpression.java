@@ -49,8 +49,25 @@ public final class ReferenceExpression extends LeafExpression<ExpressionReferenc
         return this.removeParent0().cast();
     }
 
+    public ReferenceExpression setValue(final ExpressionReference value) {
+        return Objects.equals(this.value(), value) ?
+                this :
+                this.replaceValue(value);
+    }
+
+    private ReferenceExpression replaceValue(final ExpressionReference value) {
+        return this.replace1(this.index, value)
+                .replaceChild(this.parent())
+                .cast();
+    }
+
     @Override
-    ReferenceExpression replace1(final int index, final ExpressionReference value) {
+    public ReferenceExpression replace(final int index) {
+        return this.replace1(index, this.value);
+    }
+
+    private ReferenceExpression replace1(final int index,
+                                         final ExpressionReference value) {
         return new ReferenceExpression(index, value);
     }
 

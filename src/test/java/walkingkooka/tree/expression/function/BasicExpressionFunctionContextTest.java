@@ -196,7 +196,7 @@ public final class BasicExpressionFunctionContextTest implements ClassTesting2<B
     }
 
     private Expression expression() {
-        return Expression.string("expression node 123");
+        return Expression.value("expression node 123");
     }
 
     private ConverterContext converterContext() {

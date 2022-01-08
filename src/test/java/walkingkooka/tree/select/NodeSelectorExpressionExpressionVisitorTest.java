@@ -24,31 +24,37 @@ import walkingkooka.naming.StringName;
 import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.tree.TestNode;
 import walkingkooka.tree.expression.Expression;
-import walkingkooka.tree.expression.ExpressionNumberExpression;
+import walkingkooka.tree.expression.ExpressionNumber;
 import walkingkooka.tree.expression.ExpressionNumberKind;
 import walkingkooka.tree.expression.ExpressionVisitorTesting;
+import walkingkooka.tree.expression.ValueExpression;
 
 public final class NodeSelectorExpressionExpressionVisitorTest implements ExpressionVisitorTesting<NodeSelectorExpressionExpressionVisitor<TestNode, StringName, StringName, Object>> {
 
     @Test
     public void testAcceptExpressionIgnored() {
-        this.acceptExpressionAndCheck(Expression.add(expressionNumberExpression(1), expressionNumberExpression(2)));
+        this.acceptExpressionAndCheck(
+                Expression.add(
+                        number(1),
+                        number(2)
+                )
+        );
     }
 
-    private ExpressionNumberExpression expressionNumberExpression(final int value) {
-        return Expression.expressionNumber(ExpressionNumberKind.DEFAULT.create(value));
+    private ValueExpression<ExpressionNumber> number(final int value) {
+        return Expression.value(ExpressionNumberKind.DEFAULT.create(value));
     }
 
     @Test
     public void testAcceptExpressionBooleanFalse() {
-        this.acceptExpressionAndCheck(Expression.booleanExpression(false));
+        this.acceptExpressionAndCheck(Expression.value(false));
     }
 
     @Test
     public void testAcceptExpressionBooleanTrue() {
         final NodeSelector<TestNode, StringName, StringName, Object> selector = this.selector();
         this.acceptExpressionAndCheck(selector,
-                Expression.booleanExpression(true),
+                Expression.value(true),
                 selector.setToString(selector + "[true()]"));
     }
 

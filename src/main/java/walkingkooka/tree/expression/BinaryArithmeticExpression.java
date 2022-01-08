@@ -37,7 +37,9 @@ abstract class BinaryArithmeticExpression extends BinaryExpression2 {
     final Expression applyExpressionNumber(final ExpressionNumber left,
                                            final ExpressionNumber right,
                                            final ExpressionEvaluationContext context) {
-        return Expression.expressionNumber(this.applyExpressionNumber0(left, right, context));
+        return Expression.value(
+                this.applyExpressionNumber0(left, right, context)
+        );
     }
 
     abstract ExpressionNumber applyExpressionNumber0(final ExpressionNumber left,
@@ -46,7 +48,9 @@ abstract class BinaryArithmeticExpression extends BinaryExpression2 {
 
     @Override
     final Expression applyText(final String left, final String right, final ExpressionEvaluationContext context) {
-        return Expression.string(this.applyText0(left, right, context));
+        return Expression.value(
+                this.applyText0(left, right, context)
+        );
     }
 
     /**

@@ -66,7 +66,7 @@ public final class OrExpressionTest extends BinaryLogicalExpressionTestCase<OrEx
             }
 
             @Override
-            protected void visit(final StringExpression t) {
+            protected void visit(final ValueExpression<?> t) {
                 b.append("7");
                 visited.add(t);
             }

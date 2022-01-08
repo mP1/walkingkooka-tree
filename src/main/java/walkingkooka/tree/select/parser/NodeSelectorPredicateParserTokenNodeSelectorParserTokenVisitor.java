@@ -251,12 +251,22 @@ final class NodeSelectorPredicateParserTokenNodeSelectorParserTokenVisitor exten
 
     @Override
     protected void visit(final NodeSelectorExpressionNumberParserToken token) {
-        this.add(Expression.expressionNumber(ExpressionNumberKind.DEFAULT.create(token.value())), token);
+        this.add(
+                Expression.value(
+                        ExpressionNumberKind.DEFAULT.create(token.value())
+                ),
+                token
+        );
     }
 
     @Override
     protected void visit(final NodeSelectorQuotedTextParserToken token) {
-        this.add(Expression.string(token.value()), token);
+        this.add(
+                Expression.value(
+                        token.value()
+                ),
+                token
+        );
     }
 
     // GENERAL PURPOSE .................................................................................................
