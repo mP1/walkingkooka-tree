@@ -35,37 +35,12 @@ public class FakeExpressionVisitor extends ExpressionVisitor implements Fake {
     }
 
     @Override
-    protected void visit(final BooleanExpression node) {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    protected void visit(final ExpressionNumberExpression node) {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    protected void visit(final LocalDateExpression node) {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    protected void visit(final LocalDateTimeExpression node) {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    protected void visit(final LocalTimeExpression node) {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
     protected void visit(final ReferenceExpression node) {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    protected void visit(final StringExpression node) {
+    protected void visit(final ValueExpression<?> node) {
         throw new UnsupportedOperationException();
     }
 

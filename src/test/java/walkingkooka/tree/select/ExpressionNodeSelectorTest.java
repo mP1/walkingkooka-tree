@@ -54,7 +54,7 @@ final public class ExpressionNodeSelectorTest extends
     public void testAppendExpressionTrue() {
         final NodeSelector<TestNode, StringName, StringName, Object> selector = TestNode.relativeNodeSelector()
                 .children()
-                .expression(Expression.booleanExpression(true));
+                .expression(Expression.value(true));
         this.checkEqualsAndHashCode(TestNode.relativeNodeSelector()
                         .children()
                         .setToString("child::*[true()]"),
@@ -83,7 +83,7 @@ final public class ExpressionNodeSelectorTest extends
         final TestNode child2 = TestNode.with("child2");
         final TestNode parent = TestNode.with("self", child1, child2);
 
-        this.applyAndCheck(ExpressionNodeSelector.<TestNode, StringName, StringName, Object>with(Expression.booleanExpression(true)).children(),
+        this.applyAndCheck(ExpressionNodeSelector.<TestNode, StringName, StringName, Object>with(Expression.value(true)).children(),
                 parent,
                 child1, child2);
     }
@@ -116,7 +116,12 @@ final public class ExpressionNodeSelectorTest extends
 
     private void childrenExpressionNumberPositionAndCheck(final long value,
                                                           final int childIndex) {
-        this.childrenExpressionNumberPositionAndCheck(Expression.expressionNumber(ExpressionNumberKind.DEFAULT.create(value)), childIndex);
+        this.childrenExpressionNumberPositionAndCheck(
+                Expression.value(
+                        ExpressionNumberKind.DEFAULT.create(value)
+                ),
+                childIndex
+        );
     }
 
     private void childrenExpressionNumberPositionAndCheck(final Expression expression,
@@ -185,13 +190,13 @@ final public class ExpressionNodeSelectorTest extends
     public void testExpressionFalseMap() {
         final TestNode node = TestNode.with("node");
 
-        this.acceptMapAndCheck(ExpressionNodeSelector.with(Expression.booleanExpression(false)),
+        this.acceptMapAndCheck(ExpressionNodeSelector.with(Expression.value(false)),
                 node);
     }
 
     @Test
     public void testExpressionTrueMap() {
-        this.acceptMapAndCheck(ExpressionNodeSelector.with(Expression.booleanExpression(true)),
+        this.acceptMapAndCheck(ExpressionNodeSelector.with(Expression.value(true)),
                 TestNode.with("node"),
                 TestNode.with("node*0"));
     }
@@ -202,7 +207,7 @@ final public class ExpressionNodeSelectorTest extends
 
         TestNode.clear();
 
-        this.acceptMapAndCheck(ExpressionNodeSelector.with(Expression.booleanExpression(true)),
+        this.acceptMapAndCheck(ExpressionNodeSelector.with(Expression.value(true)),
                 parent.child(0),
                 TestNode.with("parent", TestNode.with("child*0")).child(0));
     }
@@ -215,11 +220,11 @@ final public class ExpressionNodeSelectorTest extends
 
         TestNode.clear();
 
-        this.acceptMapAndCheck(ExpressionNodeSelector.with(Expression.booleanExpression(true)),
+        this.acceptMapAndCheck(ExpressionNodeSelector.with(Expression.value(true)),
                 parent.child(0),
                 TestNode.with("parent",
-                        TestNode.with("child*0",
-                                TestNode.with("grand-child1"), TestNode.with("grand-child2")))
+                                TestNode.with("child*0",
+                                        TestNode.with("grand-child1"), TestNode.with("grand-child2")))
                         .child(0));
     }
 
@@ -309,7 +314,7 @@ final public class ExpressionNodeSelectorTest extends
 
         TestNode.clear();
 
-        this.acceptMapAndCheck(TestNode.relativeNodeSelector().children().expression(Expression.booleanExpression(true)),
+        this.acceptMapAndCheck(TestNode.relativeNodeSelector().children().expression(Expression.value(true)),
                 parent,
                 TestNode.with("parent",
                         TestNode.with("child1*0", TestNode.with("grandChildren1")),
@@ -488,7 +493,7 @@ final public class ExpressionNodeSelectorTest extends
     public void testToStringChildrenExpressionTrue() {
         this.toStringAndCheck(TestNode.relativeNodeSelector()
                         .children()
-                        .expression(Expression.booleanExpression(true)),
+                        .expression(Expression.value(true)),
                 "child::*[true()]");
     }
 
@@ -496,7 +501,7 @@ final public class ExpressionNodeSelectorTest extends
     public void testToStringChildrenExpressionFalse() {
         this.toStringAndCheck(TestNode.relativeNodeSelector()
                         .children()
-                        .expression(Expression.booleanExpression(false)),
+                        .expression(Expression.value(false)),
                 "child::*[false()]");
     }
 
@@ -505,7 +510,7 @@ final public class ExpressionNodeSelectorTest extends
         this.toStringAndCheck(TestNode.relativeNodeSelector()
                         .children()
                         .named(Names.string("ABC"))
-                        .expression(Expression.booleanExpression(true)),
+                        .expression(Expression.value(true)),
                 "child::ABC[true()]");
     }
 
@@ -518,7 +523,9 @@ final public class ExpressionNodeSelectorTest extends
     }
 
     private Expression expressionNumber(final double value) {
-        return Expression.expressionNumber(ExpressionNumberKind.DEFAULT.create(value));
+        return Expression.value(
+                ExpressionNumberKind.DEFAULT.create(value)
+        );
     }
 
     @Override
@@ -529,7 +536,7 @@ final public class ExpressionNodeSelectorTest extends
     private Expression expression() {
         return Expression.equalsExpression(
                 Expression.function(FunctionExpressionName.with("name"), Lists.of(Expression.function(FunctionExpressionName.with("node"), Expression.NO_CHILDREN))),
-                Expression.string("self")
+                Expression.value("self")
         );
     }
 

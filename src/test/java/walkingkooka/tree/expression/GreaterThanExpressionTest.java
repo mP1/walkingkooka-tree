@@ -66,7 +66,7 @@ public final class GreaterThanExpressionTest extends BinaryComparisonExpressionT
             }
 
             @Override
-            protected void visit(final StringExpression t) {
+            protected void visit(final ValueExpression<?> t) {
                 b.append("5");
                 visited.add(t);
             }

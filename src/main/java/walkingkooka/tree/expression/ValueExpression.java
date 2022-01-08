@@ -17,62 +17,124 @@
 
 package walkingkooka.tree.expression;
 
+import walkingkooka.text.CharSequences;
+
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.util.Objects;
 
 /**
- * Base class for all leafs except {@link ReferenceExpression}.
- * All toXXX methods take their value and convert it to the actual target value.
+ * Holds a value which may or may not be null.
  */
-abstract class ValueExpression<V> extends LeafExpression<V> {
+final public class ValueExpression<V> extends LeafExpression<V> {
 
-    ValueExpression(final int index, final V value) {
+    public final static FunctionExpressionName NAME = FunctionExpressionName.fromClass(ValueExpression.class);
+
+    static <V> ValueExpression<V> with(final V value) {
+        return new ValueExpression<>(NO_INDEX, value);
+    }
+
+    private ValueExpression(final int index, final V value) {
         super(index, value);
     }
 
     @Override
-    public final boolean isPure(final ExpressionPurityContext context) {
-        return true;
+    public FunctionExpressionName name() {
+        return NAME;
     }
 
     @Override
-    public final boolean toBoolean(final ExpressionEvaluationContext context) {
+    public ValueExpression removeParent() {
+        return this.removeParent0().cast();
+    }
+
+    public <VV> ValueExpression<VV> setValue(final VV value) {
+        return Objects.equals(this.value(), value) ?
+                (ValueExpression<VV>) this :
+                this.replaceValue(value);
+    }
+
+    private <VV> ValueExpression<VV> replaceValue(final VV value) {
+        return this.replace1(this.index, value)
+                .replaceChild(this.parent())
+                .cast();
+    }
+
+    @Override
+    public ValueExpression<V> replace(final int index) {
+        return this.replace1(index, this.value);
+    }
+
+    private <VV> ValueExpression<VV> replace1(final int index, final VV value) {
+        return new ValueExpression<>(index, value);
+    }
+
+    @Override
+    public boolean isPure(final ExpressionPurityContext context) {
+        return true;
+    }
+
+    // visitor..........................................................................................................
+
+    @Override
+    public void accept(final ExpressionVisitor visitor) {
+        visitor.visit(this);
+    }
+
+    // toXXX............................................................................................................
+
+    @Override
+    public boolean toBoolean(final ExpressionEvaluationContext context) {
         return context.convertOrFail(this.value(), Boolean.class);
     }
 
     @Override
-    public final ExpressionNumber toExpressionNumber(final ExpressionEvaluationContext context) {
+    public ExpressionNumber toExpressionNumber(final ExpressionEvaluationContext context) {
         return context.convertOrFail(this.value(), ExpressionNumber.class);
     }
 
     @Override
-    public final LocalDate toLocalDate(final ExpressionEvaluationContext context) {
+    public LocalDate toLocalDate(final ExpressionEvaluationContext context) {
         return context.convertOrFail(this.value(), LocalDate.class);
     }
 
     @Override
-    public final LocalDateTime toLocalDateTime(final ExpressionEvaluationContext context) {
+    public LocalDateTime toLocalDateTime(final ExpressionEvaluationContext context) {
         return context.convertOrFail(this.value(), LocalDateTime.class);
     }
 
     @Override
-    public final LocalTime toLocalTime(final ExpressionEvaluationContext context) {
+    public LocalTime toLocalTime(final ExpressionEvaluationContext context) {
         return context.convertOrFail(this.value(), LocalTime.class);
     }
 
     @Override
-    public final Object toReferenceOrValue(final ExpressionEvaluationContext context) {
+    public Object toReferenceOrValue(final ExpressionEvaluationContext context) {
         return this.toValue(context);
     }
 
+    // ExpressionEvaluationContext......................................................................................
+
     @Override
-    public final String toString(final ExpressionEvaluationContext context) {
-        return context.convertOrFail(this.value(), String.class);
+    public V toValue(final ExpressionEvaluationContext context) {
+        return this.value();
     }
 
     @Override
-    public final V toValue(final ExpressionEvaluationContext context) {
-        return this.value();
+    public String toString(final ExpressionEvaluationContext context) {
+        return context.convertOrFail(this.value(), String.class);
+    }
+
+    // Object ..........................................................................................................
+
+    @Override
+    boolean canBeEqual(final Object other) {
+        return other instanceof ValueExpression;
+    }
+
+    @Override
+    void toString0(final StringBuilder b) {
+        b.append(CharSequences.quoteIfChars(this.value));
     }
 }

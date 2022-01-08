@@ -44,10 +44,10 @@ import walkingkooka.tree.expression.ExpressionNumber;
 import walkingkooka.tree.expression.ExpressionNumberContexts;
 import walkingkooka.tree.expression.ExpressionNumberConverterContext;
 import walkingkooka.tree.expression.ExpressionNumberConverterContexts;
-import walkingkooka.tree.expression.ExpressionNumberExpression;
 import walkingkooka.tree.expression.ExpressionNumberKind;
 import walkingkooka.tree.expression.ExpressionReference;
 import walkingkooka.tree.expression.FunctionExpressionName;
+import walkingkooka.tree.expression.ValueExpression;
 import walkingkooka.tree.expression.function.ExpressionFunction;
 import walkingkooka.tree.expression.function.ExpressionFunctionContext;
 import walkingkooka.tree.expression.function.ExpressionFunctionContexts;
@@ -1591,7 +1591,7 @@ public final class NodeSelectorNodeSelectorParserTokenVisitorTest implements Nod
                         .expression(
                                 Expression.equalsExpression(
                                         function("name"),
-                                        Expression.string("123")
+                                        Expression.value("123")
                                 )));
     }
 
@@ -2055,8 +2055,10 @@ public final class NodeSelectorNodeSelectorParserTokenVisitorTest implements Nod
         return Expression.function(FunctionExpressionName.with(name), Lists.of(arguments));
     }
 
-    private ExpressionNumberExpression expressionNumberExpression(final int value) {
-        return Expression.expressionNumber(EXPRESSION_NUMBER_KIND.create(value));
+    private ValueExpression<ExpressionNumber> expressionNumberExpression(final int value) {
+        return Expression.value(
+                EXPRESSION_NUMBER_KIND.create(value)
+        );
     }
 
     @Override

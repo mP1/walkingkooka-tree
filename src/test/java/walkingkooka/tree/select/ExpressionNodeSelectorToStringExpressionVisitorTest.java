@@ -64,25 +64,44 @@ public final class ExpressionNodeSelectorToStringExpressionVisitorTest implement
 
     @Test
     public void testExpressionNumber() {
-        this.toStringAndCheck(Expression.expressionNumber(EXPRESSION_NUMBER_KIND.create(BigDecimal.valueOf(123.75))), "123.75");
+        this.toStringAndCheck(
+                Expression.value(
+                        EXPRESSION_NUMBER_KIND.create(
+                                BigDecimal.valueOf(123.75)
+                        )
+                ),
+                "123.75"
+        );
     }
 
     @Test
     public void testLocalDate() {
-        this.toStringAndCheck(Expression.localDate(LocalDate.of(2000, 12, 31)),
-                "localDate(\"2000-12-31\")");
+        this.toStringAndCheck(
+                Expression.value(
+                        LocalDate.of(2000, 12, 31)
+                ),
+                "localDate(\"2000-12-31\")"
+        );
     }
 
     @Test
     public void testLocalDateTime() {
-        this.toStringAndCheck(Expression.localDateTime(LocalDateTime.of(2000, 12, 31, 12, 58, 59, 999)),
-                "localDateTime(\"2000-12-31T12:58:59.000000999\")");
+        this.toStringAndCheck(
+                Expression.value(
+                        LocalDateTime.of(2000, 12, 31, 12, 58, 59, 999)
+                ),
+                "localDateTime(\"2000-12-31T12:58:59.000000999\")"
+        );
     }
 
     @Test
     public void testLocalTime() {
-        this.toStringAndCheck(Expression.localTime(LocalTime.of(12, 58, 59, 999)),
-                "localTime(\"12:58:59.000000999\")");
+        this.toStringAndCheck(
+                Expression.value(
+                        LocalTime.of(12, 58, 59, 999)
+                ),
+                "localTime(\"12:58:59.000000999\")"
+        );
     }
 
     @Test
@@ -92,12 +111,18 @@ public final class ExpressionNodeSelectorToStringExpressionVisitorTest implement
 
     @Test
     public void testString2() {
-        this.toStringAndCheck(Expression.string("abc"), "\"abc\"");
+        this.toStringAndCheck(
+                Expression.value("abc"),
+                "\"abc\""
+        );
     }
 
     @Test
     public void testStringRequiresEscaping() {
-        this.toStringAndCheck(Expression.string("ab\tc"), "\"ab\\tc\"");
+        this.toStringAndCheck(
+                Expression.value("ab\tc"),
+                "\"ab\\tc\""
+        );
     }
 
     @Test
@@ -106,13 +131,19 @@ public final class ExpressionNodeSelectorToStringExpressionVisitorTest implement
     }
 
     @Test
-    public void testBooleanTrue() {
-        this.toStringAndCheck(Expression.booleanExpression(true), "true()");
+    public void testStringBooleanTrue() {
+        this.toStringAndCheck(
+                Expression.value(true),
+                "true()"
+        );
     }
 
     @Test
-    public void testBooleanFalse() {
-        this.toStringAndCheck(Expression.booleanExpression(false), "false()");
+    public void testStringBooleanFalse() {
+        this.toStringAndCheck(
+                Expression.value(false),
+                "false()"
+        );
     }
 
     @Test
@@ -187,12 +218,21 @@ public final class ExpressionNodeSelectorToStringExpressionVisitorTest implement
 
     @Test
     public void testNot2() {
-        this.toStringAndCheck(Expression.not(Expression.expressionNumber(ExpressionNumberKind.DEFAULT.create(1))), "not(1)");
+        this.toStringAndCheck(
+                Expression.not(
+                        Expression.value(
+                                ExpressionNumberKind.DEFAULT.create(1))
+                ),
+                "not(1)"
+        );
     }
 
     @Test
     public void testList() {
-        assertThrows(ParserReporterException.class, () -> this.parseOrFail("[1,\"abc\", 3]"));
+        assertThrows(
+                ParserReporterException.class,
+                () -> this.parseOrFail("[1,\"abc\", 3]")
+        );
     }
 
     @Test
@@ -210,8 +250,8 @@ public final class ExpressionNodeSelectorToStringExpressionVisitorTest implement
         this.toStringAndCheck(Expression.function(
                 FunctionExpressionName.with("fx"),
                 Lists.of(
-                        Expression.expressionNumber(ExpressionNumberKind.DEFAULT.create(1)),
-                        Expression.expressionNumber(ExpressionNumberKind.DEFAULT.create(2.5))
+                        Expression.value(ExpressionNumberKind.DEFAULT.create(1)),
+                        Expression.value(ExpressionNumberKind.DEFAULT.create(2.5))
                 )),
                 "fx(1,2.5)");
     }

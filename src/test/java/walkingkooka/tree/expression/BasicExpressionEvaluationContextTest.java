@@ -113,13 +113,19 @@ public final class BasicExpressionEvaluationContextTest implements ClassTesting2
     }
 
     private void evaluateAndCheck2(final boolean value) {
-        this.evaluateAndCheck(Expression.booleanExpression(value), value);
+        this.evaluateAndCheck(
+                Expression.value(value),
+                value
+        );
     }
 
     @Test
     public void testEvaluateString() {
         final String value = "abc123";
-        this.evaluateAndCheck(Expression.string(value), value);
+        this.evaluateAndCheck(
+                Expression.value(value),
+                value
+        );
     }
 
     @Test
@@ -239,7 +245,7 @@ public final class BasicExpressionEvaluationContextTest implements ClassTesting2
     }
 
     private Expression expression() {
-        return Expression.string("expression node 123");
+        return Expression.value("expression node 123");
     }
 
     private ExpressionFunctionContext functionContext() {

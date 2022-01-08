@@ -57,7 +57,7 @@ public final class Sample {
                 .cast(NodeSelectorParserToken.class);
         assertEquals(NodeSelector.absolute()
                         .named(Names.string("node123"))
-                        .expression(Expression.expressionNumber(kind.create(45)))
+                        .expression(Expression.value(kind.create(45)))
                         .toString(),
                 ParserToken.text(Lists.of(token))
         );

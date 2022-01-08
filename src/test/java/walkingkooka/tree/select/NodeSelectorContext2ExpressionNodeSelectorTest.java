@@ -71,27 +71,27 @@ public final class NodeSelectorContext2ExpressionNodeSelectorTest extends NodeSe
 
     @Test
     public void testIsNodeSelectedBooleanFalse() {
-        this.isNodeSelectedAndCheck(Expression.booleanExpression(false), false);
+        this.isNodeSelectedAndCheck(Expression.value(false), false);
     }
 
     @Test
     public void testIsNodeSelectedBooleanTrue() {
-        this.isNodeSelectedAndCheck(Expression.booleanExpression(true), true);
+        this.isNodeSelectedAndCheck(Expression.value(true), true);
     }
 
     @Test
     public void testIsNodeSelectedNumberDifferent() {
-        this.isNodeSelectedAndCheck(Expression.expressionNumber(EXPRESSION_NUMBER_KIND.create(INDEX + 99L)), false);
+        this.isNodeSelectedAndCheck(Expression.value(EXPRESSION_NUMBER_KIND.create(INDEX + 99L)), false);
     }
 
     @Test
     public void testIsNodeSelectedNumberEqual() {
-        this.isNodeSelectedAndCheck(Expression.expressionNumber(EXPRESSION_NUMBER_KIND.create(INDEX)), true);
+        this.isNodeSelectedAndCheck(Expression.value(EXPRESSION_NUMBER_KIND.create(INDEX)), true);
     }
 
     @Test
     public void testIsNodeSelectedStringDifferent() {
-        this.isNodeSelectedAndCheck(Expression.string(String.valueOf(INDEX + 99)), false);
+        this.isNodeSelectedAndCheck(Expression.value(String.valueOf(INDEX + 99)), false);
     }
 
     private void isNodeSelectedAndCheck(final Expression expression,

@@ -46,31 +46,11 @@ public abstract class ExpressionVisitor extends Visitor<Expression> {
         // nop
     }
 
-    protected void visit(final BooleanExpression node) {
-        // nop
-    }
-
-    protected void visit(final ExpressionNumberExpression node) {
-        // nop
-    }
-
-    protected void visit(final LocalDateExpression node) {
-        // nop
-    }
-
-    protected void visit(final LocalDateTimeExpression node) {
-        // nop
-    }
-
-    protected void visit(final LocalTimeExpression node) {
-        // nop
-    }
-
     protected void visit(final ReferenceExpression node) {
         // nop
     }
 
-    protected void visit(final StringExpression node) {
+    protected void visit(final ValueExpression<?> node) {
         // nop
     }
 

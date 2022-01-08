@@ -153,12 +153,15 @@ final class BasicNodeSelectorExpressionEvaluationContext<N extends Node<N, NAME,
     private Expression toExpression(final Entry<?, ?> nameAndValue) {
         final Object value = nameAndValue.getValue();
 
-        return Expression.valueOrFail(ExpressionNumber.is(value) ?
-                this.expressionNumberKind().create((Number)value) :
-                value);
+        return Expression.value(
+                ExpressionNumber.is(value) ?
+                        this.expressionNumberKind()
+                                .create((Number) value) :
+                        value
+        );
     }
 
-    private final static Optional<Expression> ABSENT = Optional.of(Expression.string(""));
+    private final static Optional<Expression> ABSENT = Optional.of(Expression.value(""));
 
     @Override
     public boolean canConvert(final Object value, final Class<?> type) {

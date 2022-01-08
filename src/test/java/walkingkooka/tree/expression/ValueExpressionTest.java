@@ -17,17 +17,98 @@
 
 package walkingkooka.tree.expression;
 
-import walkingkooka.reflect.ClassTesting2;
-import walkingkooka.reflect.JavaVisibility;
+import org.junit.jupiter.api.Test;
+import walkingkooka.Cast;
+import walkingkooka.visit.Visiting;
 
-public final class ValueExpressionTest implements ClassTesting2<ValueExpression> {
-    @Override
-    public Class<ValueExpression> type() {
-        return ValueExpression.class;
+import static org.junit.jupiter.api.Assertions.assertSame;
+
+public final class ValueExpressionTest extends LeafExpressionTestCase<ValueExpression<ExpressionNumber>, ExpressionNumber> {
+
+    @Test
+    public void testAccept() {
+        final StringBuilder b = new StringBuilder();
+        final ValueExpression node = this.createExpression();
+
+        new FakeExpressionVisitor() {
+            @Override
+            protected Visiting startVisit(final Expression n) {
+                assertSame(node, n);
+                b.append("1");
+                return Visiting.CONTINUE;
+            }
+
+            @Override
+            protected void endVisit(final Expression n) {
+                assertSame(node, n);
+                b.append("2");
+            }
+
+            @Override
+            protected void visit(final ValueExpression<?> n) {
+                assertSame(node, n);
+                b.append("3");
+            }
+        }.accept(node);
+        this.checkEquals("132", b.toString());
+    }
+
+    // Evaluation ...................................................................................................
+
+    @Test
+    public void testToBooleanFalse() {
+        this.evaluateAndCheckBoolean(this.createExpression(0), false);
+    }
+
+    @Test
+    public void testToBooleanTrue() {
+        this.evaluateAndCheckBoolean(this.createExpression(1), true);
+    }
+
+    @Test
+    public void testToExpressionNumber() {
+        final ExpressionNumber value = this.expressionNumberValue(123);
+        this.evaluateAndCheckExpressionNumber(this.createExpression(value), value);
+    }
+
+    @Test
+    public void testToText() {
+        this.evaluateAndCheckText(this.createExpression(123), "123");
+    }
+
+    // ToString ...................................................................................................
+
+    @Test
+    public void testToString() {
+        this.toStringAndCheck(this.createExpression(this.value()), "1");
+    }
+
+    @Test
+    public void testToString2() {
+        this.toStringAndCheck(this.createExpression(this.expressionNumberValue(234)), "234");
+    }
+
+    private ValueExpression createExpression(final double value) {
+        return this.createExpression(this.expressionNumberValue(value));
     }
 
     @Override
-    public JavaVisibility typeVisibility() {
-        return JavaVisibility.PACKAGE_PRIVATE;
+    ValueExpression createExpression(final ExpressionNumber value) {
+        return ValueExpression.with(value);
+    }
+
+    @Override
+    ExpressionNumber value() {
+        return this.expressionNumberValue(1);
+    }
+
+    @Override
+    ExpressionNumber differentValue() {
+        return this.expressionNumberValue(999);
+    }
+
+    @Override
+    Class<ValueExpression<ExpressionNumber>> expressionType() {
+        return Cast.to(ValueExpression.class);
     }
 }

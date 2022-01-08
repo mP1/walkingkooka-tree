@@ -20,11 +20,10 @@ package walkingkooka.tree.select;
 import walkingkooka.text.CharSequences;
 import walkingkooka.tree.expression.AddExpression;
 import walkingkooka.tree.expression.AndExpression;
-import walkingkooka.tree.expression.BooleanExpression;
 import walkingkooka.tree.expression.DivideExpression;
 import walkingkooka.tree.expression.EqualsExpression;
 import walkingkooka.tree.expression.Expression;
-import walkingkooka.tree.expression.ExpressionNumberExpression;
+import walkingkooka.tree.expression.ExpressionNumber;
 import walkingkooka.tree.expression.ExpressionVisitor;
 import walkingkooka.tree.expression.FunctionExpression;
 import walkingkooka.tree.expression.FunctionExpressionName;
@@ -33,9 +32,6 @@ import walkingkooka.tree.expression.GreaterThanExpression;
 import walkingkooka.tree.expression.LessThanEqualsExpression;
 import walkingkooka.tree.expression.LessThanExpression;
 import walkingkooka.tree.expression.ListExpression;
-import walkingkooka.tree.expression.LocalDateExpression;
-import walkingkooka.tree.expression.LocalDateTimeExpression;
-import walkingkooka.tree.expression.LocalTimeExpression;
 import walkingkooka.tree.expression.ModuloExpression;
 import walkingkooka.tree.expression.MultiplyExpression;
 import walkingkooka.tree.expression.NegativeExpression;
@@ -44,11 +40,14 @@ import walkingkooka.tree.expression.NotExpression;
 import walkingkooka.tree.expression.OrExpression;
 import walkingkooka.tree.expression.PowerExpression;
 import walkingkooka.tree.expression.ReferenceExpression;
-import walkingkooka.tree.expression.StringExpression;
 import walkingkooka.tree.expression.SubtractExpression;
+import walkingkooka.tree.expression.ValueExpression;
 import walkingkooka.tree.expression.XorExpression;
 import walkingkooka.visit.Visiting;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.Arrays;
 import java.util.List;
 
@@ -71,39 +70,41 @@ final class ExpressionNodeSelectorToStringExpressionVisitor extends ExpressionVi
     }
 
     @Override
-    protected void visit(final BooleanExpression node) {
-        this.function(node.value().toString()); // outputs either true(), false()
-    }
-
-    @Override
-    protected void visit(final ExpressionNumberExpression node) {
-        this.append(node.value().toString());
-    }
-
-    @Override
-    protected void visit(final LocalDateExpression node) {
-        this.function("localDate", node.value().toString()); // localDate()
-    }
-
-    @Override
-    protected void visit(final LocalDateTimeExpression node) {
-        this.function("localDateTime", node.value().toString()); // localDate()
-    }
-
-    @Override
-    protected void visit(final LocalTimeExpression node) {
-        this.function("localTime", node.value().toString()); // localDate()
-    }
-
-    @Override
     protected void visit(final ReferenceExpression node) {
         this.append("@" + node); // must be an attribute
     }
 
     @Override
-    protected void visit(final StringExpression node) {
-        this.stringLiteral(node.value());
+    protected void visit(final ValueExpression<?> node) {
+        do {
+            final Object value = node.value();
+            if (value instanceof Boolean) {
+                this.function(value.toString());
+                break;
+            }
+            if (value instanceof String) {
+                this.stringLiteral((String) value);
+                break;
+            }
+            if (value instanceof ExpressionNumber) {
+                this.append(value.toString());
+                break;
+            }
+            if (value instanceof LocalDate) {
+                this.function("localDate", value.toString());
+                break;
+            }
+            if (value instanceof LocalDateTime) {
+                this.function("localDateTime", value.toString());
+                break;
+            }
+            if (value instanceof LocalTime) {
+                this.function("localTime", value.toString());
+                break;
+            }
+        } while (false);
     }
+
 
     @Override
     protected Visiting startVisit(final AddExpression node) {

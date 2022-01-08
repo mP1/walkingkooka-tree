@@ -69,7 +69,10 @@ public final class CycleDetectingExpressionEvaluationContextTest implements Clas
     @Test
     public void testEvaluateString() {
         final String value = "abc123";
-        this.evaluateAndCheck(Expression.string(value), value);
+        this.evaluateAndCheck(
+                Expression.value(value),
+                value
+        );
     }
 
     @Test
@@ -379,7 +382,7 @@ public final class CycleDetectingExpressionEvaluationContextTest implements Clas
     }
 
     private Expression text() {
-        return Expression.string(VALUE);
+        return Expression.value(VALUE);
     }
 
     // ClassTesting.....................................................................................................

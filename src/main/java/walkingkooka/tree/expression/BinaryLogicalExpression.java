@@ -59,14 +59,18 @@ abstract class BinaryLogicalExpression extends BinaryExpression {
     }
 
     final Expression applyBoolean(final boolean left, final boolean right, final ExpressionEvaluationContext context) {
-        return Expression.booleanExpression(this.applyBoolean0(left, right));
+        return Expression.value(
+                this.applyBoolean0(left, right)
+        );
     }
 
     abstract boolean applyBoolean0(final boolean left, final boolean right);
 
     private Expression applyExpressionNumber(final ExpressionNumber left,
                                              final ExpressionNumber right) {
-        return Expression.expressionNumber(this.applyExpressionNumber0(left, right));
+        return Expression.value(
+                this.applyExpressionNumber0(left, right)
+        );
     }
 
     abstract ExpressionNumber applyExpressionNumber0(final ExpressionNumber left,

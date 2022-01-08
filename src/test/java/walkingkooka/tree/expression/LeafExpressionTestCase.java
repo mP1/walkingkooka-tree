@@ -20,9 +20,6 @@ package walkingkooka.tree.expression;
 import org.junit.jupiter.api.Test;
 import walkingkooka.collect.list.Lists;
 
-import static org.junit.jupiter.api.Assertions.assertNotSame;
-import static org.junit.jupiter.api.Assertions.assertSame;
-
 public abstract class LeafExpressionTestCase<N extends LeafExpression<V>, V> extends ExpressionTestCase<N> {
 
     LeafExpressionTestCase() {
@@ -34,25 +31,6 @@ public abstract class LeafExpressionTestCase<N extends LeafExpression<V>, V> ext
         final N node = this.createExpression();
         this.checkEquals(Lists.empty(), node.children(), "children");
         this.parentMissingCheck(node);
-        this.checkValue(node, this.value());
-    }
-
-    @Test
-    public final void testSetSameValue() {
-        final N node = this.createExpression();
-        assertSame(node, node.setValue0(node.value()));
-    }
-
-    @Test
-    public final void testSetDifferentValue() {
-        final N node = this.createExpression();
-
-        final V differentValue = this.differentValue();
-        final N different = node.setValue0(differentValue).cast();
-        assertNotSame(node, different);
-        this.checkValue(different, differentValue);
-        this.parentMissingCheck(different);
-
         this.checkValue(node, this.value());
     }
 
