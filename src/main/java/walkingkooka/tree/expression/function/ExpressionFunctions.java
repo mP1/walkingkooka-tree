@@ -18,20 +18,49 @@
 package walkingkooka.tree.expression.function;
 
 import walkingkooka.collect.list.Lists;
+import walkingkooka.collect.map.Maps;
 import walkingkooka.naming.Name;
 import walkingkooka.reflect.PublicStaticHelper;
+import walkingkooka.text.CaseSensitivity;
 import walkingkooka.tree.Node;
 import walkingkooka.tree.expression.ExpressionNumber;
 import walkingkooka.tree.expression.ExpressionNumberFunction;
 import walkingkooka.tree.expression.FunctionExpressionName;
 import walkingkooka.tree.select.NodeSelectorExpressionFunctionContext;
 
+import java.util.Map;
+import java.util.Objects;
+import java.util.Optional;
+import java.util.Set;
 import java.util.function.Consumer;
+import java.util.function.Function;
 
 /**
  * Collection of static factory methods for numerous {@link ExpressionFunction}.
  */
 public final class ExpressionFunctions implements PublicStaticHelper {
+
+    /**
+     * Returns a function that may or may not be case sensitive when performing function name lookups.
+     */
+    public static <C extends ExpressionFunctionContext> Function<FunctionExpressionName, Optional<ExpressionFunction<?, C>>> lookup(final Set<ExpressionFunction<?, C>> functions,
+                                                                                                                                    final CaseSensitivity caseSensitivity) {
+        Objects.requireNonNull(caseSensitivity, "caseSensitivity");
+
+        final Map<String, ExpressionFunction<?, C>> nameToFunctions = Maps.sorted(caseSensitivity.comparator());
+
+        for (final ExpressionFunction<?, C> function : functions) {
+            nameToFunctions.put(function.name().value(), function);
+        }
+
+        return (name) -> {
+            Objects.requireNonNull(name, "name");
+
+            return Optional.ofNullable(
+                    nameToFunctions.get(name.value())
+            );
+        };
+    }
 
     /**
      * Visit all {@link ExpressionFunction functions}. Note this does not include the {@link #fake() fake function}
