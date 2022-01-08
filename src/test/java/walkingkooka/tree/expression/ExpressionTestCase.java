@@ -40,6 +40,7 @@ import walkingkooka.text.cursor.parser.LocalTimeParserToken;
 import walkingkooka.text.cursor.parser.ParserContext;
 import walkingkooka.text.cursor.parser.ParserContexts;
 import walkingkooka.text.cursor.parser.Parsers;
+import walkingkooka.text.printer.TreePrintableTesting;
 import walkingkooka.tree.NodeTesting;
 
 import java.math.MathContext;
@@ -54,7 +55,8 @@ import java.util.Locale;
 import java.util.function.Function;
 import java.util.function.Predicate;
 
-public abstract class ExpressionTestCase<N extends Expression> implements ClassTesting2<Expression>,
+public abstract class ExpressionTestCase<N extends Expression> implements TreePrintableTesting,
+        ClassTesting2<Expression>,
         ExpressionPurityTesting,
         IsMethodTesting<N>,
         NodeTesting<Expression, FunctionExpressionName, Name, Object> {
