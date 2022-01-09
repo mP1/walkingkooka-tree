@@ -75,6 +75,11 @@ final class ParametersMapperExpressionFunction<T, C extends ExpressionFunctionCo
     }
 
     @Override
+    public boolean requiresEvaluatedParameters() {
+        return this.function.requiresEvaluatedParameters();
+    }
+
+    @Override
     public boolean resolveReferences() {
         return this.function.resolveReferences();
     }

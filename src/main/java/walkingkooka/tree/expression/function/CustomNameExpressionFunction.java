@@ -98,6 +98,11 @@ final class CustomNameExpressionFunction<T, C extends ExpressionFunctionContext>
     }
 
     @Override
+    public boolean requiresEvaluatedParameters() {
+        return this.function.requiresEvaluatedParameters();
+    }
+
+    @Override
     public boolean resolveReferences() {
         return this.function.resolveReferences();
     }

@@ -88,6 +88,11 @@ final class ExpressionNumberFunctionExpressionFunction<C extends ExpressionFunct
     }
 
     @Override
+    public boolean requiresEvaluatedParameters() {
+        return true;
+    }
+
+    @Override
     public boolean resolveReferences() {
         return true;
     }

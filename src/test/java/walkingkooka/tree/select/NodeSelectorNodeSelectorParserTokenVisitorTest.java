@@ -2013,6 +2013,11 @@ public final class NodeSelectorNodeSelectorParserTokenVisitorTest implements Nod
                                      final NodeSelectorExpressionEvaluationContext<TestNode, StringName, StringName, Object> context);
 
         @Override
+        public boolean requiresEvaluatedParameters() {
+            return true;
+        }
+
+        @Override
         public boolean resolveReferences() {
             return true;
         }

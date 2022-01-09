@@ -17,6 +17,7 @@
 
 package walkingkooka.tree.expression;
 
+import walkingkooka.Cast;
 import walkingkooka.tree.expression.function.ExpressionFunction;
 import walkingkooka.tree.expression.function.ExpressionFunctionContext;
 import walkingkooka.visit.Visiting;
@@ -142,22 +143,46 @@ public final class FunctionExpression extends VariableExpression {
         return this.executeFunction(context);
     }
 
-    private <T> T executeFunction(final ExpressionEvaluationContext context, final Class<T> target) {
-        return context.convertOrFail(this.executeFunction(context), target);
+    private <T> T executeFunction(final ExpressionEvaluationContext context,
+                                  final Class<T> target) {
+        return context.convertOrFail(
+                this.executeFunction(context),
+                target
+        );
     }
 
     private Object executeFunction(final ExpressionEvaluationContext context) {
         final ExpressionFunction<?, ExpressionFunctionContext> function = context.function(this.name());
-        final Function<Expression, Object> mapper = function.resolveReferences() ?
-                (e) -> e.toValue(context) :
-                (e) -> e.toReferenceOrValue(context);
+
+        return this.executeFunction0(
+                function,
+                this.value(),
+                context
+        );
+    }
+
+    private Object executeFunction0(final ExpressionFunction<?, ExpressionFunctionContext> function,
+                                    final List<Expression> parameters,
+                                    final ExpressionEvaluationContext context) {
+        final List<Object> preparedParameters;
+
+        if (function.requiresEvaluatedParameters()) {
+            final Function<Expression, Object> mapper = function.resolveReferences() ?
+                    (e) -> e.toValue(context) :
+                    (e) -> e.toReferenceOrValue(context);
+            preparedParameters = this.value()
+                    .stream()
+                    .map(mapper)
+                    .collect(
+                            Collectors.toList()
+                    );
+        } else {
+            preparedParameters = Cast.to(parameters);
+        }
 
         return context.evaluate(
                 this.name(),
-                this.value()
-                        .stream()
-                        .map(mapper)
-                        .collect(Collectors.toList())
+                preparedParameters
         );
     }
 
