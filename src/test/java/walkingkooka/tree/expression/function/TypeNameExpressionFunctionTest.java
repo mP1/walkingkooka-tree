@@ -41,7 +41,7 @@ public final class TypeNameExpressionFunctionTest implements ClassTesting2<TypeN
 
     @Test
     public void testResolveReferencesTrue() {
-        this.resolveReferenceAndCheck(true);
+        this.resolveReferencesAndCheck(true);
     }
 
     @Override

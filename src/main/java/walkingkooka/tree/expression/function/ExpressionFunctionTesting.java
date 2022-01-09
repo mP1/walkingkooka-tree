@@ -113,12 +113,12 @@ public interface ExpressionFunctionTesting<F extends ExpressionFunction<V, C>, V
 
     C createContext();
 
-    default void resolveReferenceAndCheck(final boolean resolveReference) {
-        this.resolveReferenceAndCheck(this.createBiFunction(), resolveReference);
+    default void resolveReferencesAndCheck(final boolean resolveReference) {
+        this.resolveReferencesAndCheck(this.createBiFunction(), resolveReference);
     }
 
-    default void resolveReferenceAndCheck(final ExpressionFunction<?, ?> function,
-                                          final boolean resolveReference) {
+    default void resolveReferencesAndCheck(final ExpressionFunction<?, ?> function,
+                                           final boolean resolveReference) {
         this.checkEquals(resolveReference,
                 function.resolveReferences(),
                 () -> function.name() + " resolveReferences: " + function);
