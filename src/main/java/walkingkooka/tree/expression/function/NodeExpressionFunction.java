@@ -90,6 +90,11 @@ final class NodeExpressionFunction<N extends Node<N, NAME, ANAME, AVALUE>,
     }
 
     @Override
+    public boolean requiresEvaluatedParameters() {
+        return true;
+    }
+
+    @Override
     public boolean resolveReferences() {
         return true;
     }

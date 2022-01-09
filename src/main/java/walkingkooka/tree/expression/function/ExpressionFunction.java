@@ -90,6 +90,14 @@ public interface ExpressionFunction<T, C extends ExpressionFunctionContext> exte
     Class<T> returnType();
 
     /**
+     * When true indicates that any parameters in {@link walkingkooka.tree.expression.Expression} form be evaluated into
+     * java objects prior to invoking invoking {@link #apply(Object, Object)}. For the vast majority of cases all
+     * functions will return true, but for cases such as Excels isError it may be desired to catch any thrown exceptions
+     * and substitute an error object of some kind.
+     */
+    boolean requiresEvaluatedParameters();
+
+    /**
      * When <code>true</code> parameters that implement {@link walkingkooka.tree.expression.ExpressionReference} are resolved to
      * their actual non {@link walkingkooka.tree.expression.Expression} value.
      * This is only honoured when {@link ExpressionFunctionContext#evaluate(FunctionExpressionName, List)} is used.

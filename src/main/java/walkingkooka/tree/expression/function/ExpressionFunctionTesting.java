@@ -113,6 +113,21 @@ public interface ExpressionFunctionTesting<F extends ExpressionFunction<V, C>, V
 
     C createContext();
 
+    // requiresEvaluatedParameters......................................................................................
+
+    default void requiresEvaluatedParametersAndCheck(final boolean requiresEvaluatedParameters) {
+        this.requiresEvaluatedParametersAndCheck(this.createBiFunction(), requiresEvaluatedParameters);
+    }
+
+    default void requiresEvaluatedParametersAndCheck(final ExpressionFunction<?, ?> function,
+                                                     final boolean requiresEvaluatedParameters) {
+        this.checkEquals(requiresEvaluatedParameters,
+                function.requiresEvaluatedParameters(),
+                () -> function.name() + " requiresEvaluatedParameters: " + function);
+    }
+
+    // resolveReferences................................................................................................
+
     default void resolveReferencesAndCheck(final boolean resolveReference) {
         this.resolveReferencesAndCheck(this.createBiFunction(), resolveReference);
     }

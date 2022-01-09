@@ -86,6 +86,11 @@ final class NodeNameExpressionFunction<C extends ExpressionFunctionContext> impl
     }
 
     @Override
+    public boolean requiresEvaluatedParameters() {
+        return true;
+    }
+
+    @Override
     public boolean resolveReferences() {
         return true;
     }
