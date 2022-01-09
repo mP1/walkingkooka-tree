@@ -100,21 +100,27 @@ public final class ParametersMapperExpressionFunctionTest implements ExpressionF
 
     @Test
     public void testResolveReferencesTrue() {
-        this.resolveReferencesAndCheck(true);
+        this.resolveReferencesAndCheck2(true);
     }
 
     @Test
     public void testResolveReferencesFalse() {
-        this.resolveReferencesAndCheck(false);
+        this.resolveReferencesAndCheck2(false);
     }
 
-    private void resolveReferencesAndCheck(final boolean resolveReferences) {
-        this.checkEquals(resolveReferences, ParametersMapperExpressionFunction.with(MAPPER, new FakeExpressionFunction<>() {
-            @Override
-            public boolean resolveReferences() {
-                return resolveReferences;
-            }
-        }).resolveReferences());
+    private void resolveReferencesAndCheck2(final boolean resolveReferences) {
+        this.resolveReferencesAndCheck(
+                ParametersMapperExpressionFunction.with(
+                        MAPPER,
+                        new FakeExpressionFunction<>() {
+                            @Override
+                            public boolean resolveReferences() {
+                                return resolveReferences;
+                            }
+                        }
+                ),
+                resolveReferences
+        );
     }
 
     @Test

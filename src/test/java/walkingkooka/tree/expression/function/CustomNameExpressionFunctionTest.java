@@ -75,7 +75,7 @@ public final class CustomNameExpressionFunctionTest extends ExpressionFunctionTe
     }
 
     private void resolveReferencesAndCheck2(final boolean expected) {
-        this.resolveReferenceAndCheck(new FakeExpressionFunction<>() {
+        this.resolveReferencesAndCheck(new FakeExpressionFunction<>() {
 
                     @Override
                     public FunctionExpressionName name() {
