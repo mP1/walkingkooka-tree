@@ -22,117 +22,165 @@ import walkingkooka.collect.list.Lists;
 import walkingkooka.reflect.ClassTesting;
 import walkingkooka.reflect.JavaVisibility;
 
+import java.util.Collections;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class ExpressionFunctionTest implements ClassTesting<ExpressionFunction> {
 
+    private final static ExpressionFunctionParameter<Integer> REQUIRED = ExpressionFunctionParameterName.with("required")
+            .required(Integer.class);
 
-    // checkOnlyRequiredParameters.....................................................................................
+    private final static ExpressionFunctionParameter<Boolean> OPTIONAL = ExpressionFunctionParameterName.with("optional")
+            .optional(Boolean.class);
+
+    private final static ExpressionFunctionParameter<String> VARIABLE = ExpressionFunctionParameterName.with("variable")
+            .variable(String.class);
+
+    // checkParameterCount..............................................................................................
 
     @Test
-    public void testCheckOnlyRequiredParametersLess() {
-        assertThrows(
-                IllegalArgumentException.class,
-                () -> {
-                    new FakeExpressionFunction<Void, FakeExpressionFunctionContext>() {
-                        @Override
-                        public List<ExpressionFunctionParameter<?>> parameters() {
-                            return ExpressionFunctionParameter.list(
-                                    ExpressionFunctionParameterName.with("first").setType(Integer.class),
-                                    ExpressionFunctionParameterName.with("second").setType(Integer.class)
-                            );
-                        }
-                    }.checkOnlyRequiredParameters(Lists.of(1));
-                }
-        );
+    public void testCheckParametersRequired() {
+        this.checkParameters(1, REQUIRED);
     }
 
     @Test
-    public void testCheckOnlyRequiredParametersSame() {
+    public void testCheckParametersRequiredRequired() {
+        this.checkParameters(2, REQUIRED, REQUIRED);
+    }
+
+    @Test
+    public void testCheckParametersRequiredRequiredRequired() {
+        this.checkParameters(3, REQUIRED, REQUIRED, REQUIRED);
+    }
+
+    @Test
+    public void testCheckParametersRequiredRequiredExtraFails() {
+        this.checkParametersFails(2, REQUIRED);
+    }
+
+    @Test
+    public void testCheckParametersOptional() {
+        this.checkParameters(1, OPTIONAL);
+    }
+
+    @Test
+    public void testCheckParametersOptionalMissing() {
+        this.checkParameters(0, OPTIONAL);
+    }
+
+    @Test
+    public void testCheckParametersOptionalOptionalMissingMissing() {
+        this.checkParameters(0, OPTIONAL, OPTIONAL);
+    }
+
+    @Test
+    public void testCheckParametersOptionalOptionalPresentMissing() {
+        this.checkParameters(1, OPTIONAL, OPTIONAL);
+    }
+
+    @Test
+    public void testCheckParametersOptionalOptionalPresentPresent() {
+        this.checkParameters(2, OPTIONAL, OPTIONAL);
+    }
+
+    @Test
+    public void testCheckParametersOptionalOptionalPresentPresentExtraFails() {
+        this.checkParametersFails(3, OPTIONAL, OPTIONAL);
+    }
+
+    @Test
+    public void testCheckParametersVariableNone() {
+        this.checkParameters(0, VARIABLE);
+    }
+
+    @Test
+    public void testCheckParametersVariable() {
+        this.checkParameters(1, VARIABLE);
+    }
+
+    @Test
+    public void testCheckParametersVariable2() {
+        this.checkParameters(2, VARIABLE);
+    }
+
+    @Test
+    public void testCheckParametersRequiredVariable0Fails() {
+        this.checkParametersFails(0, REQUIRED, VARIABLE);
+    }
+
+    @Test
+    public void testCheckParametersRequiredVariable1() {
+        this.checkParameters(1, REQUIRED, VARIABLE);
+    }
+
+    @Test
+    public void testCheckParametersRequiredVariable2() {
+        this.checkParameters(2, REQUIRED, VARIABLE);
+    }
+
+    @Test
+    public void testCheckParametersRequiredVariable3() {
+        this.checkParameters(3, REQUIRED, VARIABLE);
+    }
+
+    @Test
+    public void testCheckParametersRequiredOptional0Fails() {
+        this.checkParametersFails(0, REQUIRED, OPTIONAL);
+    }
+
+    @Test
+    public void testCheckParametersRequiredOptional1() {
+        this.checkParameters(1, REQUIRED, OPTIONAL);
+    }
+
+    @Test
+    public void testCheckParametersRequiredOptional2() {
+        this.checkParameters(2, REQUIRED, OPTIONAL);
+    }
+
+    @Test
+    public void testCheckParametersRequiredOptional3Fails() {
+        this.checkParametersFails(3, REQUIRED, OPTIONAL);
+    }
+
+    private void checkParameters(final int count,
+                                 final ExpressionFunctionParameter<?>... parameters) {
         new FakeExpressionFunction<Void, FakeExpressionFunctionContext>() {
             @Override
             public List<ExpressionFunctionParameter<?>> parameters() {
-                return ExpressionFunctionParameter.list(
-                        ExpressionFunctionParameterName.with("first").setType(Integer.class),
-                        ExpressionFunctionParameterName.with("second").setType(Integer.class)
-                );
+                return Lists.of(parameters);
             }
-        }.checkOnlyRequiredParameters(Lists.of(1, 2));
+        }.checkParameterCount(Collections.nCopies(count, null));
     }
 
-    @Test
-    public void testCheckOnlyRequiredParametersMoreFails() {
-        assertThrows(
-                IllegalArgumentException.class,
-                () -> {
-                    new FakeExpressionFunction<Void, FakeExpressionFunctionContext>() {
-                        @Override
-                        public List<ExpressionFunctionParameter<?>> parameters() {
-                            return ExpressionFunctionParameter.list(
-                                    ExpressionFunctionParameterName.with("first").setType(Integer.class)
-                            );
-                        }
-                    }.checkOnlyRequiredParameters(Lists.of(1, 2));
-                });
-    }
 
-    // checkWithoutExtraParameters.....................................................................................
+    private void checkParametersFails(final int count,
+                                      final ExpressionFunctionParameter<?>... parameters) {
+        boolean failed = false;
 
-    @Test
-    public void testCheckWithoutExtraParametersLess() {
-        new FakeExpressionFunction<Void, FakeExpressionFunctionContext>() {
-            @Override
-            public List<ExpressionFunctionParameter<?>> parameters() {
-                return ExpressionFunctionParameter.list(
-                        ExpressionFunctionParameterName.with("first").setType(Integer.class),
-                        ExpressionFunctionParameterName.with("second").setType(Integer.class)
-                );
-            }
-        }.checkWithoutExtraParameters(Lists.of(1));
-    }
-
-    @Test
-    public void testCheckWithoutExtraParametersSame() {
-        new FakeExpressionFunction<Void, FakeExpressionFunctionContext>() {
-            @Override
-            public List<ExpressionFunctionParameter<?>> parameters() {
-                return ExpressionFunctionParameter.list(
-                        ExpressionFunctionParameterName.with("first").setType(Integer.class),
-                        ExpressionFunctionParameterName.with("second").setType(Integer.class)
-                );
-            }
-        }.checkWithoutExtraParameters(Lists.of(1, 2));
-    }
-
-    @Test
-    public void testCheckWithoutExtraParametersMoreFails() {
-        assertThrows(
-                IllegalArgumentException.class,
-                () -> {
-                    new FakeExpressionFunction<Void, FakeExpressionFunctionContext>() {
-                        @Override
-                        public List<ExpressionFunctionParameter<?>> parameters() {
-                            return ExpressionFunctionParameter.list(
-                                    ExpressionFunctionParameterName.with("first").setType(Integer.class)
-                            );
-                        }
-                    }.checkWithoutExtraParameters(Lists.of(1, 2));
-                });
+        try {
+            this.checkParameters(count, parameters);
+        } catch (final IllegalArgumentException expected) {
+            failed = true;
+        }
+        this.checkEquals(true, failed);
     }
 
     // convertParameters ...............................................................................................
 
-    private final static ExpressionFunctionParameter<Integer> INTEGER = ExpressionFunctionParameterName.with("integer").setType(Integer.class);
+    private final static ExpressionFunctionParameter<Integer> INTEGER_REQUIRED = ExpressionFunctionParameterName.with("integer").required(Integer.class);
 
-    private final static ExpressionFunctionParameter<Boolean> BOOLEAN = ExpressionFunctionParameterName.with("boolean").setType(Boolean.class);
+    private static final ExpressionFunctionParameter<Integer> INTEGER_VARIABLE = INTEGER_REQUIRED.name()
+            .variable(Integer.class);
+
+    private final static ExpressionFunctionParameter<Boolean> BOOLEAN = ExpressionFunctionParameterName.with("boolean").required(Boolean.class);
 
     @Test
     public void testConvertParametersCorrectParameterCount() {
         this.convertParametersAndCheck(
-                Lists.of(INTEGER),
-                false,
+                Lists.of(INTEGER_REQUIRED),
                 Lists.of("123"),
                 Lists.of(123)
         );
@@ -141,8 +189,7 @@ public final class ExpressionFunctionTest implements ClassTesting<ExpressionFunc
     @Test
     public void testConvertParametersCorrectParameterCount2() {
         this.convertParametersAndCheck(
-                Lists.of(INTEGER, BOOLEAN),
-                false,
+                Lists.of(INTEGER_REQUIRED, BOOLEAN),
                 Lists.of("123", "true"),
                 Lists.of(123, true)
         );
@@ -151,8 +198,7 @@ public final class ExpressionFunctionTest implements ClassTesting<ExpressionFunc
     @Test
     public void testConvertParametersCorrectParameterCountLastParameterVariable() {
         this.convertParametersAndCheck(
-                Lists.of(INTEGER),
-                true,
+                Lists.of(INTEGER_VARIABLE),
                 Lists.of("123", "456"),
                 Lists.of(123, 456)
         );
@@ -161,8 +207,7 @@ public final class ExpressionFunctionTest implements ClassTesting<ExpressionFunc
     @Test
     public void testConvertParametersCorrectParameterCountLastParameterVariable2() {
         this.convertParametersAndCheck(
-                Lists.of(INTEGER),
-                true,
+                Lists.of(INTEGER_VARIABLE),
                 Lists.of("123", "456", "678"),
                 Lists.of(123, 456, 678)
         );
@@ -171,8 +216,7 @@ public final class ExpressionFunctionTest implements ClassTesting<ExpressionFunc
     @Test
     public void testConvertParametersCorrectParameterCountLastParameterVariable3() {
         this.convertParametersAndCheck(
-                Lists.of(BOOLEAN, INTEGER),
-                true,
+                Lists.of(BOOLEAN, INTEGER_VARIABLE),
                 Lists.of("true", "456", "678"),
                 Lists.of(true, 456, 678)
         );
@@ -182,7 +226,6 @@ public final class ExpressionFunctionTest implements ClassTesting<ExpressionFunc
     public void testConvertParametersMissingParameterInfos() {
         this.convertParametersAndCheck(
                 Lists.empty(),
-                false,
                 Lists.of("abc"),
                 Lists.of("abc")
         );
@@ -191,8 +234,7 @@ public final class ExpressionFunctionTest implements ClassTesting<ExpressionFunc
     @Test
     public void testConvertParametersMissingParameterInfos2() {
         this.convertParametersAndCheck(
-                Lists.of(INTEGER),
-                false,
+                Lists.of(INTEGER_REQUIRED),
                 Lists.of("123", "abc"),
                 Lists.of(123, "abc")
         );
@@ -201,8 +243,7 @@ public final class ExpressionFunctionTest implements ClassTesting<ExpressionFunc
     @Test
     public void testConvertParametersMissingParameterInfos3() {
         this.convertParametersAndCheck(
-                Lists.of(INTEGER, BOOLEAN),
-                false,
+                Lists.of(INTEGER_REQUIRED, BOOLEAN),
                 Lists.of("123", "true", "abc"),
                 Lists.of(123, true, "abc")
         );
@@ -212,7 +253,6 @@ public final class ExpressionFunctionTest implements ClassTesting<ExpressionFunc
     public void testConvertParametersNullParameterInfoFails() {
         this.convertParametersAndFail(
                 Lists.of(new ExpressionFunctionParameter[]{null}),
-                false,
                 Lists.of("123"),
                 NullPointerException.class
         );
@@ -221,8 +261,7 @@ public final class ExpressionFunctionTest implements ClassTesting<ExpressionFunc
     @Test
     public void testConvertParametersNullParameterInfoFails2() {
         this.convertParametersAndFail(
-                Lists.of(INTEGER, null),
-                false,
+                Lists.of(INTEGER_REQUIRED, null),
                 Lists.of("123", "456"),
                 NullPointerException.class
         );
@@ -231,38 +270,34 @@ public final class ExpressionFunctionTest implements ClassTesting<ExpressionFunc
     @Test
     public void testConvertParametersConvertFails2() {
         this.convertParametersAndFail(
-                Lists.of(INTEGER, null),
-                false,
+                Lists.of(INTEGER_REQUIRED, null),
                 Lists.of("xyz"),
                 NumberFormatException.class
         );
     }
 
     private void convertParametersAndCheck(final List<ExpressionFunctionParameter<?>> parameterInfos,
-                                           final boolean lsLastParameterVariable,
                                            final List<Object> beforeValues,
                                            final List<Object> afterValues) {
         this.checkEquals(
                 afterValues,
-                this.convertParameters(parameterInfos, lsLastParameterVariable, beforeValues),
+                this.convertParameters(parameterInfos, beforeValues),
                 () -> "convertParameters " + beforeValues + " " + parameterInfos
         );
     }
 
     private void convertParametersAndFail(final List<ExpressionFunctionParameter<?>> parameterInfos,
-                                          final boolean lsLastParameterVariable,
                                           final List<Object> beforeValues,
                                           final Class<? extends Throwable> thrown) {
         assertThrows(
                 thrown,
                 () -> {
-                    this.convertParameters(parameterInfos, lsLastParameterVariable, beforeValues);
+                    this.convertParameters(parameterInfos, beforeValues);
                 }
         );
     }
 
     private List<Object> convertParameters(final List<ExpressionFunctionParameter<?>> parameterInfos,
-                                           final boolean lsLastParameterVariable,
                                            final List<Object> beforeValues) {
         return
                 new FakeExpressionFunction<Void, FakeExpressionFunctionContext>() {
@@ -271,10 +306,6 @@ public final class ExpressionFunctionTest implements ClassTesting<ExpressionFunc
                         return parameterInfos;
                     }
 
-                    @Override
-                    public boolean lsLastParameterVariable() {
-                        return lsLastParameterVariable;
-                    }
                 }.convertParameters(
                         beforeValues,
                         new FakeExpressionFunctionContext() {

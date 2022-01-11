@@ -57,7 +57,8 @@ final class TypeNameExpressionFunction<C extends ExpressionFunctionContext> impl
     @Override
     public String apply(final List<Object> parameters,
                         final C context) {
-        this.checkOnlyRequiredParameters(parameters);
+        this.checkParameterCount(parameters);
+
         return PARAMETER.getOrFail(parameters, 0)
                 .getClass()
                 .getName();
@@ -68,14 +69,9 @@ final class TypeNameExpressionFunction<C extends ExpressionFunctionContext> impl
         return PARAMETERS;
     }
 
-    private final static ExpressionFunctionParameter<Object> PARAMETER = ExpressionFunctionParameterName.with("parameter").setType(Object.class);
+    private final static ExpressionFunctionParameter<Object> PARAMETER = ExpressionFunctionParameterName.with("parameter").required(Object.class);
 
     private final static List<ExpressionFunctionParameter<?>> PARAMETERS = ExpressionFunctionParameter.list(PARAMETER);
-
-    @Override
-    public boolean lsLastParameterVariable() {
-        return false;
-    }
 
     @Override
     public Class<String> returnType() {

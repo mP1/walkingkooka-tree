@@ -73,13 +73,36 @@ public final class ExpressionFunctionParameterNameTest implements ClassTesting2<
     }
 
     @Test
-    public void testSetType() {
+    public void testRequired() {
         final ExpressionFunctionParameterName name = this.createObject();
 
         final Class<String> type = String.class;
-        final ExpressionFunctionParameter<String> parameter = name.setType(type);
+        final ExpressionFunctionParameter<String> parameter = name.required(type);
         assertSame(name, parameter.name(), "name");
         assertSame(type, parameter.type(), "type");
+        assertSame(ExpressionFunctionParameterCardinality.REQUIRED, parameter.cardinality(), "cardinality");
+    }
+
+    @Test
+    public void testOptional() {
+        final ExpressionFunctionParameterName name = this.createObject();
+
+        final Class<String> type = String.class;
+        final ExpressionFunctionParameter<String> parameter = name.optional(type);
+        assertSame(name, parameter.name(), "name");
+        assertSame(type, parameter.type(), "type");
+        assertSame(ExpressionFunctionParameterCardinality.OPTIONAL, parameter.cardinality(), "cardinality");
+    }
+
+    @Test
+    public void testVariable() {
+        final ExpressionFunctionParameterName name = this.createObject();
+
+        final Class<String> type = String.class;
+        final ExpressionFunctionParameter<String> parameter = name.variable(type);
+        assertSame(name, parameter.name(), "name");
+        assertSame(type, parameter.type(), "type");
+        assertSame(ExpressionFunctionParameterCardinality.VARIABLE, parameter.cardinality(), "cardinality");
     }
 
     @Override

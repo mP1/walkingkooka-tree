@@ -106,10 +106,36 @@ public final class ExpressionFunctionParameterName implements Name,
     private final String name;
 
     /**
-     * Factory that creates a {@link ExpressionFunctionParameter} with this name and the given {@link Class type}.
+     * Factory that creates a REQUIRED {@link ExpressionFunctionParameter} with this name and the given {@link Class type}.
      */
-    public <T> ExpressionFunctionParameter<T> setType(final Class<T> type) {
-        return ExpressionFunctionParameter.with(this, type);
+    public <T> ExpressionFunctionParameter<T> required(final Class<T> type) {
+        return ExpressionFunctionParameter.with(
+                this,
+                type,
+                ExpressionFunctionParameterCardinality.REQUIRED
+        );
+    }
+
+    /**
+     * Factory that creates a OPTIONAL {@link ExpressionFunctionParameter} with this name and the given {@link Class type}.
+     */
+    public <T> ExpressionFunctionParameter<T> optional(final Class<T> type) {
+        return ExpressionFunctionParameter.with(
+                this,
+                type,
+                ExpressionFunctionParameterCardinality.OPTIONAL
+        );
+    }
+
+    /**
+     * Factory that creates a VARIABLE {@link ExpressionFunctionParameter} with this name and the given {@link Class type}.
+     */
+    public <T> ExpressionFunctionParameter<T> variable(final Class<T> type) {
+        return ExpressionFunctionParameter.with(
+                this,
+                type,
+                ExpressionFunctionParameterCardinality.VARIABLE
+        );
     }
 
     // Object...........................................................................................................

@@ -27,6 +27,7 @@ import walkingkooka.tree.expression.ExpressionNumber;
 import walkingkooka.tree.expression.ExpressionNumberKind;
 import walkingkooka.tree.expression.FunctionExpressionName;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -177,6 +178,214 @@ public final class ExpressionFunctionTestingTest implements ClassTesting<Express
                         .collect(Collectors.joining());
             }
         };
+    }
+
+    // testParameterNamesUnique.........................................................................................
+
+    @Test
+    public void testTestParameterNamesUnique() {
+        new ExpressionFunctionTesting<FakeExpressionFunction<Void, FakeExpressionFunctionContext>, Void, FakeExpressionFunctionContext>() {
+
+            @Override
+            public FakeExpressionFunction<Void, FakeExpressionFunctionContext> createBiFunction() {
+                return new FakeExpressionFunction<>() {
+                    @Override
+                    public List<ExpressionFunctionParameter<?>> parameters() {
+                        return Lists.of(
+                                ExpressionFunctionParameter.BOOLEAN,
+                                ExpressionFunctionParameter.CHARACTER,
+                                ExpressionFunctionParameter.DATE
+                        );
+                    }
+                };
+            }
+
+            @Override
+            public FakeExpressionFunctionContext createContext() {
+                throw new UnsupportedOperationException();
+            }
+
+            @Override
+            public Class<FakeExpressionFunction<Void, FakeExpressionFunctionContext>> type() {
+                throw new UnsupportedOperationException();
+            }
+        }.testParameterNamesUnique();
+    }
+
+    @Test
+    public void testTestParameterNamesUniqueDuplicatesFail() {
+        boolean fail = false;
+
+        try {
+            new ExpressionFunctionTesting<FakeExpressionFunction<Void, FakeExpressionFunctionContext>, Void, FakeExpressionFunctionContext>() {
+
+                @Override
+                public FakeExpressionFunction<Void, FakeExpressionFunctionContext> createBiFunction() {
+                    return new FakeExpressionFunction<>() {
+                        @Override
+                        public List<ExpressionFunctionParameter<?>> parameters() {
+                            return Lists.of(
+                                    ExpressionFunctionParameter.BOOLEAN,
+                                    ExpressionFunctionParameter.CHARACTER,
+                                    ExpressionFunctionParameter.BOOLEAN
+                            );
+                        }
+                    };
+                }
+
+                @Override
+                public FakeExpressionFunctionContext createContext() {
+                    throw new UnsupportedOperationException();
+                }
+
+                @Override
+                public Class<FakeExpressionFunction<Void, FakeExpressionFunctionContext>> type() {
+                    throw new UnsupportedOperationException();
+                }
+            }.testParameterNamesUnique();
+        } catch (final AssertionError expected) {
+            fail = true;
+        }
+
+        this.checkEquals(true, fail);
+    }
+
+    // testParametersOptionalNotBeforeRequired.........................................................................
+
+    @Test
+    public void testParametersOptionalNotBeforeRequired() {
+        new ExpressionFunctionTesting<FakeExpressionFunction<Void, FakeExpressionFunctionContext>, Void, FakeExpressionFunctionContext>() {
+
+            @Override
+            public FakeExpressionFunction<Void, FakeExpressionFunctionContext> createBiFunction() {
+                return new FakeExpressionFunction<>() {
+                    @Override
+                    public List<ExpressionFunctionParameter<?>> parameters() {
+                        return Lists.of(
+                                ExpressionFunctionParameterName.BOOLEAN.required(Boolean.class),
+                                ExpressionFunctionParameterName.CHARACTER.optional(Character.class)
+                        );
+                    }
+                };
+            }
+
+            @Override
+            public FakeExpressionFunctionContext createContext() {
+                throw new UnsupportedOperationException();
+            }
+
+            @Override
+            public Class<FakeExpressionFunction<Void, FakeExpressionFunctionContext>> type() {
+                throw new UnsupportedOperationException();
+            }
+        }.testParametersOptionalNotBeforeRequired();
+    }
+
+    @Test
+    public void testParametersOptionalNotBeforeRequiredFails() {
+        boolean fail = false;
+
+        try {
+            new ExpressionFunctionTesting<FakeExpressionFunction<Void, FakeExpressionFunctionContext>, Void, FakeExpressionFunctionContext>() {
+
+                @Override
+                public FakeExpressionFunction<Void, FakeExpressionFunctionContext> createBiFunction() {
+                    return new FakeExpressionFunction<>() {
+                        @Override
+                        public List<ExpressionFunctionParameter<?>> parameters() {
+                            return Lists.of(
+                                    ExpressionFunctionParameterName.BOOLEAN.required(Boolean.class),
+                                    ExpressionFunctionParameterName.CHARACTER.optional(Character.class),
+                                    ExpressionFunctionParameterName.DATE.required(LocalDate.class)
+                            );
+                        }
+                    };
+                }
+
+                @Override
+                public FakeExpressionFunctionContext createContext() {
+                    throw new UnsupportedOperationException();
+                }
+
+                @Override
+                public Class<FakeExpressionFunction<Void, FakeExpressionFunctionContext>> type() {
+                    throw new UnsupportedOperationException();
+                }
+            }.testParametersOptionalNotBeforeRequired();
+        } catch (final AssertionError expected) {
+            fail = true;
+        }
+
+        this.checkEquals(true, fail);
+    }
+
+    // testParametersOnlyLastMayBeVariable..............................................................................
+
+    @Test
+    public void testParametersOnlyLastMayBeVariable() {
+        new ExpressionFunctionTesting<FakeExpressionFunction<Void, FakeExpressionFunctionContext>, Void, FakeExpressionFunctionContext>() {
+
+            @Override
+            public FakeExpressionFunction<Void, FakeExpressionFunctionContext> createBiFunction() {
+                return new FakeExpressionFunction<>() {
+                    @Override
+                    public List<ExpressionFunctionParameter<?>> parameters() {
+                        return Lists.of(
+                                ExpressionFunctionParameterName.BOOLEAN.required(Boolean.class),
+                                ExpressionFunctionParameterName.CHARACTER.variable(Character.class)
+                        );
+                    }
+                };
+            }
+
+            @Override
+            public FakeExpressionFunctionContext createContext() {
+                throw new UnsupportedOperationException();
+            }
+
+            @Override
+            public Class<FakeExpressionFunction<Void, FakeExpressionFunctionContext>> type() {
+                throw new UnsupportedOperationException();
+            }
+        }.testParametersOnlyLastMayBeVariable();
+    }
+
+    @Test
+    public void testParametersOnlyLastMayBeVariableFails() {
+        boolean fail = false;
+
+        try {
+            new ExpressionFunctionTesting<FakeExpressionFunction<Void, FakeExpressionFunctionContext>, Void, FakeExpressionFunctionContext>() {
+
+                @Override
+                public FakeExpressionFunction<Void, FakeExpressionFunctionContext> createBiFunction() {
+                    return new FakeExpressionFunction<>() {
+                        @Override
+                        public List<ExpressionFunctionParameter<?>> parameters() {
+                            return Lists.of(
+                                    ExpressionFunctionParameterName.BOOLEAN.required(Boolean.class),
+                                    ExpressionFunctionParameterName.CHARACTER.variable(Character.class),
+                                    ExpressionFunctionParameterName.DATE.required(LocalDate.class)
+                            );
+                        }
+                    };
+                }
+
+                @Override
+                public FakeExpressionFunctionContext createContext() {
+                    throw new UnsupportedOperationException();
+                }
+
+                @Override
+                public Class<FakeExpressionFunction<Void, FakeExpressionFunctionContext>> type() {
+                    throw new UnsupportedOperationException();
+                }
+            }.testParametersOnlyLastMayBeVariable();
+        } catch (final AssertionError expected) {
+            fail = true;
+        }
+
+        this.checkEquals(true, fail);
     }
 
     // requiresEvaluatedParameters.....................................................................................

@@ -45,11 +45,6 @@ public class FakeExpressionFunction<T, C extends ExpressionFunctionContext> impl
     }
 
     @Override
-    public boolean lsLastParameterVariable() {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
     public Class<T> returnType() {
         throw new UnsupportedOperationException();
     }

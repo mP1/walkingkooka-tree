@@ -80,11 +80,6 @@ final class NodeExpressionFunction<N extends Node<N, NAME, ANAME, AVALUE>,
     private final static List<ExpressionFunctionParameter<?>> PARAMETERS = Lists.empty();
 
     @Override
-    public boolean lsLastParameterVariable() {
-        return false;
-    }
-
-    @Override
     public Class<N> returnType() {
         return Cast.to(Node.class);
     }

@@ -56,7 +56,7 @@ final class ExpressionNumberFunctionExpressionFunction<C extends ExpressionFunct
     @Override
     public ExpressionNumber apply(final List<Object> parameters,
                                   final C context) {
-        this.checkOnlyRequiredParameters(parameters);
+        this.checkParameterCount(parameters);
 
         return NUMBER.getOrFail(parameters, 0)
                 .map(
@@ -73,11 +73,10 @@ final class ExpressionNumberFunctionExpressionFunction<C extends ExpressionFunct
     }
 
     private final static ExpressionFunctionParameter<ExpressionNumber> NUMBER = ExpressionFunctionParameterName.with("number")
-            .setType(ExpressionNumber.class);
+            .required(ExpressionNumber.class);
 
     private final static List<ExpressionFunctionParameter<?>> PARAMETERS = ExpressionFunctionParameter.list(NUMBER);
 
-    @Override
     public boolean lsLastParameterVariable() {
         return false;
     }

@@ -88,11 +88,6 @@ final class CustomNameExpressionFunction<T, C extends ExpressionFunctionContext>
     }
 
     @Override
-    public boolean lsLastParameterVariable() {
-        return this.function.lsLastParameterVariable();
-    }
-
-    @Override
     public Class<T> returnType() {
         return this.function.returnType();
     }
