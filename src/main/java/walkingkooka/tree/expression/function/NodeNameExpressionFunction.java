@@ -51,7 +51,7 @@ final class NodeNameExpressionFunction<C extends ExpressionFunctionContext> impl
     @Override
     public String apply(final List<Object> parameters,
                         final C context) {
-        this.checkOnlyRequiredParameters(parameters);
+        this.checkParameterCount(parameters);
 
         return NODE.getOrFail(parameters, 0)
                 .name()
@@ -71,14 +71,9 @@ final class NodeNameExpressionFunction<C extends ExpressionFunctionContext> impl
     }
 
     private final static ExpressionFunctionParameter<Node> NODE = ExpressionFunctionParameterName.with("node")
-            .setType(Node.class);
+            .required(Node.class);
 
     private final static List<ExpressionFunctionParameter<?>> PARAMETERS = ExpressionFunctionParameter.list(NODE);
-
-    @Override
-    public boolean lsLastParameterVariable() {
-        return false;
-    }
 
     @Override
     public Class<String> returnType() {

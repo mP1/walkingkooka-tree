@@ -47,39 +47,33 @@ public interface ExpressionFunction<T, C extends ExpressionFunctionContext> exte
     List<ExpressionFunctionParameter<?>> parameters();
 
     /**
-     * When true indicates the var args.
-     */
-    boolean lsLastParameterVariable();
-
-    /**
      * Checks the given parameter values match the expected count exactly. Less or more parameters will result in a
      * {@link IllegalArgumentException} being thrown.
      */
-    default void checkOnlyRequiredParameters(final List<Object> parameters) {
-        final int actualCount = parameters.size();
-        final int expectedCount = this.parameters().size();
-        if (actualCount != expectedCount) {
-            this.failParameterCount(expectedCount, actualCount);
-        }
-    }
+    default void checkParameterCount(final List<Object> parameters) {
+        int min = 0;
+        int max = 0;
 
-    /**
-     * Checks the given parameter values match the expected count. Extra parameters will result in an {@link IllegalArgumentException}.
-     * Less parameters will not result in an exception and it is assumed default values will be used for missing.
-     */
-    default void checkWithoutExtraParameters(final List<Object> parameters) {
-        final int actualCount = parameters.size();
-        final int expectedCount = this.parameters().size();
-        if (actualCount > expectedCount) {
-            this.failParameterCount(expectedCount, actualCount);
-        }
-    }
+        ExpressionFunctionParameterCardinality last = null;
 
-    /**
-     * Helper that handles failed parameter count checks.
-     */
-    default void failParameterCount(final int expected, final int actual) {
-        throw new IllegalArgumentException("Expected only " + expected + " but got " + actual + " parameters");
+        for (final ExpressionFunctionParameter<?> functionParameter : this.parameters()) {
+            final ExpressionFunctionParameterCardinality cardinality = functionParameter.cardinality();
+            min += cardinality.min;
+            max += cardinality.max;
+            last = cardinality;
+        }
+
+        if (ExpressionFunctionParameterCardinality.VARIABLE == last) {
+            max = Integer.MAX_VALUE;
+        }
+
+        final int count = parameters.size();
+        if (count < min) {
+            throw new IllegalArgumentException("Missing parameters, got " + count + " expected " + min);
+        }
+        if (count > max) {
+            throw new IllegalArgumentException("Too many parameters got " + count + " expected " + max);
+        }
     }
 
     /**
@@ -124,7 +118,7 @@ public interface ExpressionFunction<T, C extends ExpressionFunctionContext> exte
         }
 
         final int count = parameters.size();
-        if (this.lsLastParameterVariable() && null != parameterInfo) {
+        if (null != parameterInfo && ExpressionFunctionParameterCardinality.VARIABLE == parameterInfo.cardinality()) {
             while (i < count) {
                 after.add(parameterInfo.convertOrFail(parameters.get(i), context));
                 i++;

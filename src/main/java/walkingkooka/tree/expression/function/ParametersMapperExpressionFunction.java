@@ -65,11 +65,6 @@ final class ParametersMapperExpressionFunction<T, C extends ExpressionFunctionCo
     }
 
     @Override
-    public boolean lsLastParameterVariable() {
-        return this.function.lsLastParameterVariable();
-    }
-
-    @Override
     public Class<T> returnType() {
         return this.function.returnType();
     }

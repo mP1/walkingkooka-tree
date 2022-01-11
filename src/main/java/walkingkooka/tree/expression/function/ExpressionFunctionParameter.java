@@ -37,25 +37,25 @@ public final class ExpressionFunctionParameter<T> {
 
     public final static List<ExpressionFunctionParameter<?>> EMPTY = Lists.empty();
 
-    public final static ExpressionFunctionParameter<Boolean> BOOLEAN = ExpressionFunctionParameterName.BOOLEAN.setType(Boolean.class);
+    public final static ExpressionFunctionParameter<Boolean> BOOLEAN = ExpressionFunctionParameterName.BOOLEAN.required(Boolean.class);
 
-    public final static ExpressionFunctionParameter<Character> CHARACTER = ExpressionFunctionParameterName.CHARACTER.setType(Character.class);
+    public final static ExpressionFunctionParameter<Character> CHARACTER = ExpressionFunctionParameterName.CHARACTER.required(Character.class);
 
-    public final static ExpressionFunctionParameter<LocalDate> DATE = ExpressionFunctionParameterName.DATE.setType(LocalDate.class);
+    public final static ExpressionFunctionParameter<LocalDate> DATE = ExpressionFunctionParameterName.DATE.required(LocalDate.class);
 
-    public final static ExpressionFunctionParameter<LocalDateTime> DATETIME = ExpressionFunctionParameterName.DATETIME.setType(LocalDateTime.class);
+    public final static ExpressionFunctionParameter<LocalDateTime> DATETIME = ExpressionFunctionParameterName.DATETIME.required(LocalDateTime.class);
 
-    public final static ExpressionFunctionParameter<ExpressionNumber> NUMBER = ExpressionFunctionParameterName.NUMBER.setType(ExpressionNumber.class);
+    public final static ExpressionFunctionParameter<ExpressionNumber> NUMBER = ExpressionFunctionParameterName.NUMBER.required(ExpressionNumber.class);
 
-    public final static ExpressionFunctionParameter<ExpressionReference> REFERENCE = ExpressionFunctionParameterName.REFERENCE.setType(ExpressionReference.class);
+    public final static ExpressionFunctionParameter<ExpressionReference> REFERENCE = ExpressionFunctionParameterName.REFERENCE.required(ExpressionReference.class);
 
-    public final static ExpressionFunctionParameter<String> STRING = ExpressionFunctionParameterName.STRING.setType(String.class);
+    public final static ExpressionFunctionParameter<String> STRING = ExpressionFunctionParameterName.STRING.required(String.class);
 
-    public final static ExpressionFunctionParameter<String> TEXT = ExpressionFunctionParameterName.TEXT.setType(String.class);
+    public final static ExpressionFunctionParameter<String> TEXT = ExpressionFunctionParameterName.TEXT.required(String.class);
 
-    public final static ExpressionFunctionParameter<LocalTime> TIME = ExpressionFunctionParameterName.TIME.setType(LocalTime.class);
+    public final static ExpressionFunctionParameter<LocalTime> TIME = ExpressionFunctionParameterName.TIME.required(LocalTime.class);
 
-    public final static ExpressionFunctionParameter<Object> VALUE = ExpressionFunctionParameterName.VALUE.setType(Object.class);
+    public final static ExpressionFunctionParameter<Object> VALUE = ExpressionFunctionParameterName.VALUE.required(Object.class);
 
     /**
      * Helper that creates a read only list of the given parameters.
@@ -65,17 +65,21 @@ public final class ExpressionFunctionParameter<T> {
     }
 
     public static <T> ExpressionFunctionParameter<T> with(final ExpressionFunctionParameterName name,
-                                                          final Class<T> type) {
+                                                          final Class<T> type,
+                                                          final ExpressionFunctionParameterCardinality cardinality) {
         Objects.requireNonNull(name, "name");
         Objects.requireNonNull(type, "type");
+        Objects.requireNonNull(cardinality, "cardinality");
 
-        return new ExpressionFunctionParameter<>(name, type);
+        return new ExpressionFunctionParameter<>(name, type, cardinality);
     }
 
     private ExpressionFunctionParameter(final ExpressionFunctionParameterName name,
-                                        final Class<T> type) {
+                                        final Class<T> type,
+                                        final ExpressionFunctionParameterCardinality cardinality) {
         this.name = name;
         this.type = type;
+        this.cardinality = cardinality;
     }
 
     public ExpressionFunctionParameterName name() {
@@ -89,6 +93,12 @@ public final class ExpressionFunctionParameter<T> {
     }
 
     private final Class<T> type;
+
+    public ExpressionFunctionParameterCardinality cardinality() {
+        return this.cardinality;
+    }
+
+    private final ExpressionFunctionParameterCardinality cardinality;
 
     /**
      * Gets the parameter at index or uses the default
@@ -150,7 +160,7 @@ public final class ExpressionFunctionParameter<T> {
 
     @Override
     public int hashCode() {
-        return Objects.hash(this.name, this.type);
+        return Objects.hash(this.name, this.type, this.cardinality);
     }
 
     public boolean equals(final Object other) {
@@ -158,11 +168,13 @@ public final class ExpressionFunctionParameter<T> {
     }
 
     private boolean equals0(final ExpressionFunctionParameter other) {
-        return this.name.equals(other.name) && this.type.equals(other.type);
+        return this.name.equals(other.name) &&
+                this.type.equals(other.type) &&
+                this.cardinality == other.cardinality;
     }
 
     @Override
     public String toString() {
-        return this.type.getName() + " " + this.name;
+        return this.type.getName() + " " + this.name + this.cardinality.parameterToString;
     }
 }

@@ -63,7 +63,7 @@ public class JunitTest {
     // TODO verify Class.cast is emulated
     @Test
     public void testExpressionFunctionParameterGetOrFail() {
-        final ExpressionFunctionParameter<Integer> parameter = ExpressionFunctionParameterName.with("test123").setType(Integer.class);
+        final ExpressionFunctionParameter<Integer> parameter = ExpressionFunctionParameterName.with("test123").required(Integer.class);
         Assert.assertEquals(
                 Integer.valueOf(100),
                 parameter.<Integer>getOrFail(

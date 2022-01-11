@@ -20,6 +20,7 @@ package walkingkooka.tree.expression.function;
 import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.Either;
+import walkingkooka.NeverError;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.convert.ConverterContexts;
 import walkingkooka.convert.Converters;
@@ -38,6 +39,7 @@ import java.util.stream.Collectors;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.fail;
 
 /**
  * Mixing interface that provides methods to test a {@link ExpressionFunction}
@@ -77,6 +79,47 @@ public interface ExpressionFunctionTesting<F extends ExpressionFunction<V, C>, V
                         .collect(Collectors.toList()),
                 "parameters includes duplicate parameter names"
         );
+    }
+
+    @Test
+    default void testParametersOptionalNotBeforeRequired() {
+        final List<ExpressionFunctionParameter<?>> parameters = this.createBiFunction().parameters();
+
+        ExpressionFunctionParameter previous = null;
+
+        for (int i = 0; i < parameters.size(); i++) {
+            final ExpressionFunctionParameter<?> parameter = parameters.get(i);
+            final ExpressionFunctionParameterCardinality current = parameter.cardinality();
+            switch (current) {
+                case OPTIONAL:
+                case VARIABLE:
+                    previous = parameter;
+                    break;
+                case REQUIRED:
+                    if (null != previous) {
+                        fail("Required parameter " + parameter + " after " + parameter);
+                    }
+                    break;
+                default:
+                    NeverError.unhandledCase(current, ExpressionFunctionParameterCardinality.values());
+            }
+        }
+    }
+
+    @Test
+    default void testParametersOnlyLastMayBeVariable() {
+        final List<ExpressionFunctionParameter<?>> parameters = this.createBiFunction()
+                .parameters();
+
+        final int secondLast = Math.max(0, parameters.size() - 1);
+        for (int i = 0; i < secondLast; i++) {
+            final ExpressionFunctionParameter<?> parameter = parameters.get(i);
+            this.checkNotEquals(
+                    ExpressionFunctionParameterCardinality.VARIABLE,
+                    parameter.cardinality(),
+                    () -> "non last parameter is variable=" + parameter
+            );
+        }
     }
 
     @Test

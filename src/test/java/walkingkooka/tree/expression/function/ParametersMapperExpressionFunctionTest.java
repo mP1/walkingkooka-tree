@@ -64,7 +64,7 @@ public final class ParametersMapperExpressionFunctionTest implements ExpressionF
         @Override
         public List<ExpressionFunctionParameter<?>> parameters() {
             return Lists.of(
-                    ExpressionFunctionParameterName.with("parameter1").setType(String.class)
+                    ExpressionFunctionParameterName.with("parameter1").required(String.class)
             );
         }
 
