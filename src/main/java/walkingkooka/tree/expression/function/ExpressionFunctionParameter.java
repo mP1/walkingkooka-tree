@@ -111,17 +111,6 @@ public final class ExpressionFunctionParameter<T> {
     }
 
     /**
-     * Gets the parameter at index or uses the default
-     */
-    public T getOrDefault(final List<Object> parameters,
-                          final int index,
-                          final T defaultValue) {
-        return index >= parameters.size() ?
-                defaultValue :
-                this.getOrFail(parameters, index);
-    }
-
-    /**
      * Gets the parameter at index or fails and also complains if it is the wrong type.
      */
     public T getOrFail(final List<Object> parameters,
