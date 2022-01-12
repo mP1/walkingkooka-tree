@@ -107,57 +107,6 @@ public final class ExpressionFunctionParameterTest implements HashCodeEqualsDefi
         );
     }
 
-    // getOrDefault.....................................................................................................
-
-    @Test
-    public void testGetOrDefaultMissing() {
-        final ExpressionFunctionParameter<Integer> parameter = ExpressionFunctionParameter.with(NAME, Integer.class, CARDINALITY);
-        this.checkEquals(
-                200,
-                parameter.getOrDefault(
-                        List.of(
-                                100
-                        ),
-                        1,
-                        200
-                )
-        );
-    }
-
-    @Test
-    @Disabled("Need to emulate Class.cast")
-    public void testGetOrDefaultWrongTypeFails() {
-        final ExpressionFunctionParameter<Integer> parameter = ExpressionFunctionParameter.with(NAME, Integer.class, CARDINALITY);
-        assertThrows(
-                ClassCastException.class,
-                () -> {
-                    parameter.getOrDefault(
-                            List.of(
-                                    "A"
-                            ),
-                            0,
-                            200
-                    );
-                }
-        );
-    }
-
-    @Test
-    public void testGetOrDefault() {
-        final ExpressionFunctionParameter<Integer> parameter = ExpressionFunctionParameter.with(NAME, Integer.class, CARDINALITY);
-        this.checkEquals(
-                100,
-                parameter.getOrDefault(
-                        List.of(
-                                100,
-                                "B"
-                        ),
-                        0,
-                        200
-                )
-        );
-    }
-
     // getOrFail.......................................................................................................
 
     @Test
