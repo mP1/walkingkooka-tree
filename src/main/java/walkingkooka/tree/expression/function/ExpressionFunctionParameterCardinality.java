@@ -33,6 +33,22 @@ public enum ExpressionFunctionParameterCardinality {
         this.max = max;
     }
 
+    void get(final ExpressionFunctionParameter<?> parameter) {
+        if (this != OPTIONAL) {
+            this.fail(parameter);
+        }
+    }
+
+    void getOrFail(final ExpressionFunctionParameter<?> parameter) {
+        if (this != REQUIRED) {
+            this.fail(parameter);
+        }
+    }
+
+    final void fail(final ExpressionFunctionParameter<?> parameter) {
+        throw new RuntimeException(parameter + " is not " + this.name().toLowerCase());
+    }
+
     final int min;
 
     final int max;

@@ -105,6 +105,8 @@ public final class ExpressionFunctionParameter<T> {
      */
     public Optional<T> get(final List<Object> parameters,
                            final int index) {
+        this.cardinality.get(this);
+
         return index >= parameters.size() ?
                 Optional.empty() :
                 Optional.of(Cast.to(parameters.get(index)));
@@ -115,6 +117,8 @@ public final class ExpressionFunctionParameter<T> {
      */
     public T getOrFail(final List<Object> parameters,
                        final int index) {
+        this.cardinality.getOrFail(this);
+
         if (index >= parameters.size()) {
             throw new IndexOutOfBoundsException("Required parameter " + this.name() + " missing");
         }
