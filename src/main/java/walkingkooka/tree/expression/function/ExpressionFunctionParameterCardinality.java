@@ -45,6 +45,12 @@ public enum ExpressionFunctionParameterCardinality {
         }
     }
 
+    void getVariable(final ExpressionFunctionParameter<?> parameter) {
+        if (this != VARIABLE) {
+            this.fail(parameter);
+        }
+    }
+
     final void fail(final ExpressionFunctionParameter<?> parameter) {
         throw new RuntimeException(parameter + " is not " + this.name().toLowerCase());
     }

@@ -134,6 +134,18 @@ public final class ExpressionFunctionParameter<T> {
     }
 
     /**
+     * Gets the variable values starting at the given index.
+     */
+    public List<T> getVariable(final List<Object> parameters,
+                               final int index) {
+        this.cardinality.getVariable(this);
+
+        return index >= parameters.size() ?
+                Lists.empty() :
+                Cast.to(parameters.subList(index, parameters.size()));
+    }
+
+    /**
      * Converts the given parameter value to match the required type of this parameter.
      */
     public Either<T, String> convert(final Object value,
