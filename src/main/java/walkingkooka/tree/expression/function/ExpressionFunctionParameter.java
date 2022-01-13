@@ -20,6 +20,7 @@ package walkingkooka.tree.expression.function;
 import walkingkooka.Cast;
 import walkingkooka.Either;
 import walkingkooka.collect.list.Lists;
+import walkingkooka.naming.HasName;
 import walkingkooka.tree.expression.ExpressionNumber;
 import walkingkooka.tree.expression.ExpressionReference;
 
@@ -33,7 +34,7 @@ import java.util.Optional;
 /**
  * Captures an individual parameter to a @link ExpressionFunction}.
  */
-public final class ExpressionFunctionParameter<T> {
+public final class ExpressionFunctionParameter<T> implements HasName<ExpressionFunctionParameterName> {
 
     public final static List<ExpressionFunctionParameter<?>> EMPTY = Lists.empty();
 
