@@ -538,12 +538,35 @@ public abstract class ExpressionNumberTestCase<N extends ExpressionNumber> imple
     }
 
     @Test
+    public final void testAndBigDecimalDecimals() {
+        final int value = 7;
+        final int and = 5;
+
+        final N number = this.create(value + 0.1);
+        final ExpressionNumber different = number.and(ExpressionNumber.with(BigDecimal.valueOf(and + 0.1)));
+        assertNotSame(number, different);
+        this.checkValue(value & and, different);
+    }
+
+
+    @Test
     public final void testAndDouble() {
         final int value = 7;
         final int and = 5;
 
         final N number = this.create(value);
         final ExpressionNumber different = number.and(ExpressionNumber.with(and));
+        assertNotSame(number, different);
+        this.checkValue(value & and, different);
+    }
+
+    @Test
+    public final void testAndDoubleDecimals() {
+        final int value = 7;
+        final int and = 5;
+
+        final N number = this.create(value + 0.1);
+        final ExpressionNumber different = number.and(ExpressionNumber.with(and + 0.1));
         assertNotSame(number, different);
         this.checkValue(value & and, different);
     }
