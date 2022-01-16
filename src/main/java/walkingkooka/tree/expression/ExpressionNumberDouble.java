@@ -194,6 +194,11 @@ final class ExpressionNumberDouble extends ExpressionNumber {
 
     @Override
     public byte byteValue() {
+        return (byte) this.value;
+    }
+
+    @Override
+    public byte byteValueExact() {
         final byte value = (byte) this.value;
         this.failIfDifferent(value, "byteValue");
         return value;
@@ -201,6 +206,11 @@ final class ExpressionNumberDouble extends ExpressionNumber {
 
     @Override
     public short shortValue() {
+        return (short) this.value;
+    }
+
+    @Override
+    public short shortValueExact() {
         final short value = (short) this.value;
         this.failIfDifferent(value, "shortValue");
         return value;
@@ -208,6 +218,11 @@ final class ExpressionNumberDouble extends ExpressionNumber {
 
     @Override
     public int intValue() {
+        return (int) this.value;
+    }
+
+    @Override
+    public int intValueExact() {
         final int value = (int) this.value;
         this.failIfDifferent(value, "intValue");
         return value;
@@ -215,6 +230,11 @@ final class ExpressionNumberDouble extends ExpressionNumber {
 
     @Override
     public long longValue() {
+        return (long) this.value;
+    }
+
+    @Override
+    public long longValueExact() {
         final long value = (long) this.value;
         this.failIfDifferent(value, "longValue");
         return value;

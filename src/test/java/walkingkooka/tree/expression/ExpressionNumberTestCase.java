@@ -868,74 +868,183 @@ public abstract class ExpressionNumberTestCase<N extends ExpressionNumber> imple
     @Test
     public final void testByteValue() {
         final byte value = 1;
-        this.checkEquals(value, this.create(value).byteValue());
+        this.checkEquals(
+                value,
+                this.create(value).byteValue()
+        );
     }
 
     @Test
-    public final void testByteValueFails() {
-        assertThrows(ArithmeticException.class, () -> this.create(1.5).byteValue());
+    public final void testByteValueDecimal() {
+        this.checkEquals(
+                (byte) 1,
+                this.create(1.5).byteValue()
+        );
+    }
+
+    // byteValueExact..................................................................................................
+
+    @Test
+    public final void testByteValueExact() {
+        final byte value = 1;
+        this.checkEquals(
+                value,
+                this.create(value).byteValueExact()
+        );
     }
 
     @Test
-    public final void testByteValueFails2() {
-        assertThrows(ArithmeticException.class, () -> this.create(Short.MAX_VALUE).byteValue());
+    public final void testByteValueExactFails() {
+        assertThrows(
+                ArithmeticException.class,
+                () -> this.create(1.5).byteValueExact()
+        );
     }
 
-    // shortValue.......................................................................................................
+    @Test
+    public final void testByteValueExactFails2() {
+        assertThrows(
+                ArithmeticException.class,
+                () -> this.create(Short.MAX_VALUE).byteValueExact()
+        );
+    }
+
+    // shortValue........................................................................................................
 
     @Test
     public final void testShortValue() {
         final short value = 1;
-        this.checkEquals(value, this.create(value).shortValue());
+        this.checkEquals(
+                value,
+                this.create(value).shortValue()
+        );
     }
 
     @Test
-    public final void testShortValueFails() {
-        assertThrows(ArithmeticException.class, () -> this.create(1.5).shortValue());
+    public final void testShortValueDecimal() {
+        this.checkEquals(
+                (short) 1,
+                this.create(1.5).shortValue()
+        );
+    }
+
+    // shortValueExact..................................................................................................
+
+    @Test
+    public final void testShortValueExact() {
+        final short value = 1;
+        this.checkEquals(
+                value,
+                this.create(value).shortValueExact()
+        );
     }
 
     @Test
-    public final void testShortValueFails2() {
-        assertThrows(ArithmeticException.class, () -> this.create(Integer.MAX_VALUE).shortValue());
+    public final void testShortValueExactFails() {
+        assertThrows(
+                ArithmeticException.class,
+                () -> this.create(1.5).shortValueExact()
+        );
     }
 
-    // intValue.......................................................................................................
+    @Test
+    public final void testShortValueExactFails2() {
+        assertThrows(
+                ArithmeticException.class,
+                () -> this.create(Integer.MAX_VALUE).shortValueExact()
+        );
+    }
+
+    // intValue........................................................................................................
 
     @Test
     public final void testIntValue() {
         final int value = 1;
-        this.checkEquals(value, this.create(value).intValue());
+        this.checkEquals(
+                value,
+                this.create(value).intValue()
+        );
     }
 
     @Test
-    public final void testIntValueFails() {
-        assertThrows(ArithmeticException.class, () -> this.create(1.5).intValue());
+    public final void testIntValueDecimal() {
+        this.checkEquals(
+                (int) 1,
+                this.create(1.5).intValue()
+        );
+    }
+
+    // intValueExact....................................................................................................
+
+    @Test
+    public final void testIntValueExact() {
+        final int value = 1;
+        this.checkEquals(
+                value,
+                this.create(value).intValueExact()
+        );
     }
 
     @Test
-    public final void testIntValueFails2() {
-        assertThrows(ArithmeticException.class, () -> this.create(Long.MAX_VALUE).intValue());
+    public final void testIntValueExactFails() {
+        assertThrows(
+                ArithmeticException.class,
+                () -> this.create(1.5).intValueExact()
+        );
     }
 
-    // longValue.......................................................................................................
+    @Test
+    public final void testIntValueExactFails2() {
+        assertThrows(
+                ArithmeticException.class,
+                () -> this.create(Long.MAX_VALUE).intValueExact()
+        );
+    }
+
+    // longValue........................................................................................................
 
     @Test
     public final void testLongValue() {
-        final int value = 1;
+        final long value = 1;
         this.checkEquals(
-                (long) value,
+                value,
                 this.create(value).longValue()
         );
     }
 
     @Test
-    public final void testLongValueFails() {
-        assertThrows(ArithmeticException.class, () -> this.create(1.5).longValue());
+    public final void testLongValueDecimal() {
+        this.checkEquals(
+                (long) 1,
+                this.create(1.5).longValue()
+        );
+    }
+
+    // longValueExact...................................................................................................
+
+    @Test
+    public final void testLongValueExact() {
+        final int value = 1;
+        this.checkEquals(
+                (long) value,
+                this.create(value).longValueExact()
+        );
     }
 
     @Test
-    public final void testLongValueFails2() {
-        assertThrows(ArithmeticException.class, () -> this.create(Double.MAX_VALUE).longValue());
+    public final void testLongValueExactFails() {
+        assertThrows(
+                ArithmeticException.class,
+                () -> this.create(1.5).longValueExact()
+        );
+    }
+
+    @Test
+    public final void testLongValueExactFails2() {
+        assertThrows(
+                ArithmeticException.class,
+                () -> this.create(Double.MAX_VALUE).longValueExact()
+        );
     }
 
     // floatValue.......................................................................................................
