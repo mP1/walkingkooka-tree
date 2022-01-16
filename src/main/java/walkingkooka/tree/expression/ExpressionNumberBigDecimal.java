@@ -253,6 +253,11 @@ final class ExpressionNumberBigDecimal extends ExpressionNumber {
 
     @Override
     public BigInteger bigInteger() {
+        return this.value.toBigInteger();
+    }
+
+    @Override
+    public BigInteger bigIntegerExact() {
         return this.value.toBigIntegerExact();
     }
 

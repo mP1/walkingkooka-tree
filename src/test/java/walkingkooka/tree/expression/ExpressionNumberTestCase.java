@@ -1077,6 +1077,27 @@ public abstract class ExpressionNumberTestCase<N extends ExpressionNumber> imple
         this.checkEquals(BigInteger.valueOf(value), this.create(value).bigInteger());
     }
 
+
+    // bigIntegerExact.......................................................................................................
+
+    @Test
+    public final void testBigIntegerExact() {
+        final int value = 1;
+        this.checkEquals(
+                BigInteger.valueOf(value),
+                this.create(value).bigIntegerExact()
+        );
+    }
+
+    @Test
+    public final void testBigIntegerExactDecimalFails() {
+        assertThrows(
+                ArithmeticException.class,
+                () -> this.create(1.5)
+                        .bigIntegerExact()
+        );
+    }
+
     // bigDecimal.......................................................................................................
 
     @Test

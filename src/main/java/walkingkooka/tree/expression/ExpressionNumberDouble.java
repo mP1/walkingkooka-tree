@@ -259,7 +259,14 @@ final class ExpressionNumberDouble extends ExpressionNumber {
 
     @Override
     public BigInteger bigInteger() {
-        return this.bigDecimal().toBigIntegerExact();
+        return this.bigDecimal()
+                .toBigInteger();
+    }
+
+    @Override
+    public BigInteger bigIntegerExact() {
+        return this.bigDecimal()
+                .toBigIntegerExact();
     }
 
     @Override

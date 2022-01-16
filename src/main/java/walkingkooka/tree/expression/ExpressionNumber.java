@@ -321,6 +321,8 @@ public abstract class ExpressionNumber extends Number implements Comparable<Expr
 
     public abstract BigInteger bigInteger();
 
+    public abstract BigInteger bigIntegerExact();
+
     public abstract BigDecimal bigDecimal();
 
     // Object...........................................................................................................
