@@ -182,21 +182,36 @@ final class ExpressionNumberBigDecimal extends ExpressionNumber {
 
     @Override
     ExpressionNumber and0(final ExpressionNumber value) {
-        return this.setValue(this.value.toBigIntegerExact().and(value.bigInteger()));
+        return this.setValue(
+                this.value.toBigInteger()
+                        .and(
+                                value.bigInteger()
+                        )
+        );
     }
 
     // or..............................................................................................................
 
     @Override
     ExpressionNumber or0(final ExpressionNumber value) {
-        return this.setValue(this.value.toBigIntegerExact().or(value.bigInteger()));
+        return this.setValue(
+                this.value.toBigInteger()
+                        .or(
+                                value.bigInteger()
+                        )
+        );
     }
 
     // xor..............................................................................................................
 
     @Override
     ExpressionNumber xor0(final ExpressionNumber value) {
-        return this.setValue(this.value.toBigIntegerExact().xor(value.bigInteger()));
+        return this.setValue(
+                this.value.toBigInteger()
+                        .xor(
+                                value.bigInteger()
+                        )
+        );
     }
 
     // toXXX............................................................................................................
