@@ -311,23 +311,13 @@ public abstract class ExpressionNumber extends Number implements Comparable<Expr
 
     // toXXX............................................................................................................
 
-    @Override
-    public abstract byte byteValue();
+    public abstract byte byteValueExact();
 
-    @Override
-    public abstract short shortValue();
+    public abstract short shortValueExact();
 
-    @Override
-    public abstract int intValue();
+    public abstract int intValueExact();
 
-    @Override
-    public abstract long longValue();
-
-    @Override
-    public abstract float floatValue();
-
-    @Override
-    public abstract double doubleValue();
+    public abstract long longValueExact();
 
     public abstract BigInteger bigInteger();
 

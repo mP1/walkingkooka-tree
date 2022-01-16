@@ -24,7 +24,6 @@ import walkingkooka.visit.Visiting;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertSame;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class NotExpressionTest extends UnaryExpressionTestCase<NotExpression> {
 
@@ -85,11 +84,6 @@ public final class NotExpressionTest extends UnaryExpressionTestCase<NotExpressi
     public void testEvaluateToExpressionNumber() {
         final long value = 123;
         this.evaluateAndCheckExpressionNumber(this.createExpression(expressionNumber(value)), ~value);
-    }
-
-    @Test
-    public void testEvaluateToExpressionNumberWithDecimalsFails() {
-        assertThrows(ArithmeticException.class, () -> this.createExpression(expressionNumber(1.5)).toExpressionNumber(context()));
     }
 
     @Override

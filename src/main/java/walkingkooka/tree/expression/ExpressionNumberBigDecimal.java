@@ -203,21 +203,41 @@ final class ExpressionNumberBigDecimal extends ExpressionNumber {
 
     @Override
     public byte byteValue() {
+        return this.value.byteValue();
+    }
+
+    @Override
+    public byte byteValueExact() {
         return this.value.byteValueExact();
     }
 
     @Override
     public short shortValue() {
+        return this.value.shortValue();
+    }
+
+    @Override
+    public short shortValueExact() {
         return this.value.shortValueExact();
     }
 
     @Override
     public int intValue() {
+        return this.value.intValue();
+    }
+
+    @Override
+    public int intValueExact() {
         return this.value.intValueExact();
     }
 
     @Override
     public long longValue() {
+        return this.value.longValue();
+    }
+
+    @Override
+    public long longValueExact() {
         return this.value.longValueExact();
     }
 
