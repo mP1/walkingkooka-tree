@@ -31,15 +31,18 @@ public final class FunctionExpressionName implements Name,
         Comparable<FunctionExpressionName> {
 
     public static FunctionExpressionName with(final String name) {
-        CharPredicates.failIfNullOrEmptyOrInitialAndPartFalse(name,
+        CharPredicates.failIfNullOrEmptyOrInitialAndPartFalse(
+                name,
                 "name",
                 INITIAL,
-                PART);
+                PART
+        );
         return new FunctionExpressionName(name);
     }
 
     private final static CharPredicate INITIAL = CharPredicates.letter();
-    private final static CharPredicate PART = CharPredicates.letterOrDigit().or(CharPredicates.any("-"));
+    private final static CharPredicate PART = CharPredicates.letterOrDigit()
+            .or(CharPredicates.any("-._"));
 
     static FunctionExpressionName fromClass(final Class<? extends Expression> klass) {
         return new FunctionExpressionName(

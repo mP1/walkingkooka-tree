@@ -17,6 +17,7 @@
 
 package walkingkooka.tree.expression;
 
+import org.junit.jupiter.api.Test;
 import walkingkooka.naming.NameTesting2;
 import walkingkooka.reflect.ClassTesting2;
 import walkingkooka.reflect.JavaVisibility;
@@ -24,6 +25,11 @@ import walkingkooka.text.CaseSensitivity;
 
 public final class FunctionExpressionNameTest implements ClassTesting2<FunctionExpressionName>,
         NameTesting2<FunctionExpressionName, FunctionExpressionName> {
+
+    @Test
+    public void testErrorDotType() {
+        this.createNameAndCheck("Error.Type");
+    }
 
     @Override
     public FunctionExpressionName createName(final String name) {
@@ -64,7 +70,7 @@ public final class FunctionExpressionNameTest implements ClassTesting2<FunctionE
     public String possibleValidChars(final int position) {
         return 0 == position ?
                 ASCII_LETTERS :
-                ASCII_LETTERS_DIGITS + "-";
+                ASCII_LETTERS_DIGITS + "-._";
     }
 
     @Override
