@@ -31,7 +31,6 @@ import walkingkooka.visit.Visiting;
 import java.math.MathContext;
 import java.util.List;
 import java.util.Objects;
-import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -144,110 +143,6 @@ public final class FunctionExpressionTest extends VariableExpressionTestCase<Fun
         );
     }
 
-    @Test
-    public void testToValueFunctionRequiresEvaluatedParametersTrueResolveReferencesTrue() {
-        final StringName attribute = Names.string("attribute123");
-        final String value = "value-345";
-        final ExpressionReference reference = NodeSelectorAttributeName.with(attribute.value());
-
-        final List<Expression> parameters = Lists.of(
-                Expression.value("1"),
-                Expression.reference(reference)
-        );
-
-        this.checkEquals(
-                Lists.of("1", value),
-                Expression.function(FUNCTION_NAME, parameters)
-                        .toValue(
-                                new FakeExpressionEvaluationContext() {
-                                    @Override
-                                    public ExpressionFunction<?, ExpressionFunctionContext> function(final FunctionExpressionName name) {
-                                        checkEquals(FUNCTION_NAME, name, "function name");
-                                        return new FakeExpressionFunction<>() {
-                                            @Override
-                                            public Object apply(final List<Object> parameters,
-                                                                final ExpressionFunctionContext contet) {
-                                                return parameters;
-                                            }
-
-                                            @Override
-                                            public boolean requiresEvaluatedParameters() {
-                                                return true;
-                                            }
-
-                                            @Override
-                                            public boolean resolveReferences() {
-                                                return true;
-                                            }
-                                        };
-                                    }
-
-                                    public Object evaluate(final FunctionExpressionName name, final List<Object> parameters) {
-                                        Objects.requireNonNull(name, "name");
-                                        Objects.requireNonNull(parameters, "parameters");
-
-                                        return this.function(name).apply(parameters, this);
-                                    }
-
-                                    @Override
-                                    public Optional<Expression> reference(final ExpressionReference r) {
-                                        assertSame(reference, r, "reference");
-                                        return Optional.of(Expression.value(value));
-                                    }
-                                }
-                        )
-        );
-    }
-
-    @Test
-    public void testToValueFunctionRequiresEvaluatedParametersTrueResolveReferencesFalse() {
-        final StringName attribute = Names.string("attribute123");
-        final ExpressionReference reference = NodeSelectorAttributeName.with(attribute.value());
-
-        final List<Expression> parameters = Lists.of(
-                Expression.value("1"),
-                Expression.reference(reference)
-        );
-
-        this.checkEquals(
-                Lists.of("1", reference),
-                Expression.function(FUNCTION_NAME, parameters)
-                        .toValue(
-                                new FakeExpressionEvaluationContext() {
-                                    @Override
-                                    public ExpressionFunction<?, ExpressionFunctionContext> function(final FunctionExpressionName name) {
-                                        checkEquals(FUNCTION_NAME, name, "function name");
-                                        return new FakeExpressionFunction<>() {
-
-                                            @Override
-                                            public Object apply(final List<Object> parameters,
-                                                                final ExpressionFunctionContext context) {
-                                                return parameters;
-                                            }
-
-                                            @Override
-                                            public boolean requiresEvaluatedParameters() {
-                                                return true;
-                                            }
-
-                                            @Override
-                                            public boolean resolveReferences() {
-                                                return false;
-                                            }
-                                        };
-                                    }
-
-                                    public Object evaluate(final FunctionExpressionName name, final List<Object> parameters) {
-                                        Objects.requireNonNull(name, "name");
-                                        Objects.requireNonNull(parameters, "parameters");
-
-                                        return this.function(name).apply(parameters, this);
-                                    }
-                                }
-                        )
-        );
-    }
-
     // accept..........................................................................................................
 
     @Test
@@ -341,8 +236,6 @@ public final class FunctionExpressionTest extends VariableExpressionTestCase<Fun
                     @Override
                     public Object apply(final List<Object> parameters,
                                         final ExpressionFunctionContext context) {
-                        checkEquals(Lists.of("child-111", "child-222", "child-333"), parameters, "parameter values");
-
                         return functionValue;
                     }
 
