@@ -17,8 +17,10 @@
 
 package walkingkooka.tree.expression;
 
+import walkingkooka.tree.expression.function.ExpressionFunction;
 import walkingkooka.tree.expression.function.ExpressionFunctionContext;
 
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -31,6 +33,19 @@ public interface ExpressionEvaluationContext extends ExpressionFunctionContext,
      * Evaluate the given {@link Expression} returning the result/value.
      */
     Object evaluate(final Expression expression);
+
+    /**
+     * Accepts a function and its parameters and returns a List view of those parameters honouring
+     * the {@link ExpressionFunction#requiresEvaluatedParameters()} and {@link ExpressionFunction#resolveReferences()}.
+     */
+    default List<Object> prepareParameters(final ExpressionFunction<?, ExpressionFunctionContext> function,
+                                           final List<Object> parameters) {
+        return ExpressionEvaluationContextParametersList.with(
+                parameters,
+                function,
+                this
+        );
+    }
 
     /**
      * Locates the value or a {@link Expression} for the given {@link ExpressionReference}

@@ -18,8 +18,6 @@
 package walkingkooka.tree.expression;
 
 import walkingkooka.Cast;
-import walkingkooka.tree.expression.function.ExpressionFunction;
-import walkingkooka.tree.expression.function.ExpressionFunctionContext;
 import walkingkooka.visit.Visiting;
 
 import java.time.LocalDate;
@@ -27,8 +25,6 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.List;
 import java.util.Objects;
-import java.util.function.Function;
-import java.util.stream.Collectors;
 
 /**
  * Represents a function with zero or more parameters.
@@ -152,37 +148,20 @@ public final class FunctionExpression extends VariableExpression {
     }
 
     private Object executeFunction(final ExpressionEvaluationContext context) {
-        final ExpressionFunction<?, ExpressionFunctionContext> function = context.function(this.name());
-
         return this.executeFunction0(
-                function,
                 this.value(),
                 context
         );
     }
 
-    private Object executeFunction0(final ExpressionFunction<?, ExpressionFunctionContext> function,
-                                    final List<Expression> parameters,
+    /**
+     * Delegates to the given context.
+     */
+    private Object executeFunction0(final List<Expression> parameters,
                                     final ExpressionEvaluationContext context) {
-        final List<Object> preparedParameters;
-
-        if (function.requiresEvaluatedParameters()) {
-            final Function<Expression, Object> mapper = function.resolveReferences() ?
-                    (e) -> e.toValue(context) :
-                    (e) -> e.toReferenceOrValue(context);
-            preparedParameters = this.value()
-                    .stream()
-                    .map(mapper)
-                    .collect(
-                            Collectors.toList()
-                    );
-        } else {
-            preparedParameters = Cast.to(parameters);
-        }
-
         return context.evaluate(
                 this.name(),
-                preparedParameters
+                Cast.to(parameters)
         );
     }
 
