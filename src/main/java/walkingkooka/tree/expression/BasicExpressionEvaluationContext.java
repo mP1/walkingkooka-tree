@@ -113,8 +113,12 @@ final class BasicExpressionEvaluationContext implements ExpressionEvaluationCont
 
     @Override
     public Object evaluate(final FunctionExpressionName name, final List<Object> parameters) {
-        return this.function(name)
-                .apply(parameters, this.functionContext);
+        final ExpressionFunction<?, ExpressionFunctionContext> function = this.function(name);
+
+        return function.apply(
+                this.prepareParameters(function, parameters),
+                this.functionContext
+        );
     }
 
     private final ExpressionFunctionContext functionContext;
