@@ -63,6 +63,11 @@ final class ExpressionNumberBigDecimal extends ExpressionNumber {
         return ExpressionNumberDouble.with(this.doubleValue());
     }
 
+    @Override
+    public ExpressionNumberSign sign() {
+        return ExpressionNumberSign.pick(this.value);
+    }
+
     // map..............................................................................................................
 
     @Override

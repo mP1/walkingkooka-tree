@@ -125,6 +125,10 @@ public abstract class ExpressionNumber extends Number implements Comparable<Expr
 
     abstract Object value();
 
+    // sign.............................................................................................................
+
+    public abstract ExpressionNumberSign sign();
+
     // map..............................................................................................................
 
     /**
