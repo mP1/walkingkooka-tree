@@ -111,7 +111,7 @@ public final class BasicNodeSelectorExpressionEvaluationContextTest implements N
                 .setAttributes(Maps.of(Names.string(attribute), value));
 
         this.checkEquals(
-                Expression.value(value),
+                value,
                 this.createContext(node)
                         .referenceOrFail(NodeSelectorAttributeName.with(attribute))
         );
@@ -127,7 +127,6 @@ public final class BasicNodeSelectorExpressionEvaluationContextTest implements N
                 (r) -> ExpressionEvaluationContexts.basic(
                         EXPRESSION_NUMBER_KIND,
                         this.functions(),
-                        r,
                         this.functionContext()
                 ));
     }
@@ -148,7 +147,7 @@ public final class BasicNodeSelectorExpressionEvaluationContextTest implements N
         );
     }
 
-    private Function<ExpressionReference, Optional<Expression>> references() {
+    private Function<ExpressionReference, Optional<Object>> references() {
         return (r -> {
             throw new UnsupportedOperationException();
         });

@@ -19,12 +19,14 @@ package walkingkooka.tree.expression.function;
 
 import walkingkooka.convert.FakeConverterContext;
 import walkingkooka.tree.expression.ExpressionNumberKind;
+import walkingkooka.tree.expression.ExpressionReference;
 import walkingkooka.tree.expression.FunctionExpressionName;
 
 import java.math.MathContext;
 import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
+import java.util.Optional;
 
 public class FakeExpressionFunctionContext extends FakeConverterContext implements ExpressionFunctionContext {
 
@@ -57,6 +59,11 @@ public class FakeExpressionFunctionContext extends FakeConverterContext implemen
 
     @Override
     public MathContext mathContext() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public Optional<Object> reference(final ExpressionReference reference) {
         throw new UnsupportedOperationException();
     }
 }

@@ -30,12 +30,9 @@ import walkingkooka.tree.expression.Expression;
 import walkingkooka.tree.expression.ExpressionEvaluationContexts;
 import walkingkooka.tree.expression.ExpressionNumber;
 import walkingkooka.tree.expression.ExpressionNumberConverterContext;
-import walkingkooka.tree.expression.ExpressionReference;
 import walkingkooka.tree.expression.function.ExpressionFunctionContexts;
 
 import java.util.Objects;
-import java.util.Optional;
-import java.util.function.Function;
 
 import static org.junit.jupiter.api.Assertions.assertNotSame;
 import static org.junit.jupiter.api.Assertions.assertSame;
@@ -119,12 +116,6 @@ public final class NodeSelectorContext2ExpressionNodeSelectorTest extends NodeSe
                                         EXPRESSION_NUMBER_KIND,
                                         (f) -> {
                                             throw new UnsupportedOperationException();
-                                        },
-                                        new Function<>() {
-                                            @Override
-                                            public Optional<Expression> apply(final ExpressionReference reference) {
-                                                throw new UnsupportedOperationException();
-                                            }
                                         },
                                         ExpressionFunctionContexts.fake()
                                 )

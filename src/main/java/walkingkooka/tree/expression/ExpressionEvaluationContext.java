@@ -21,7 +21,6 @@ import walkingkooka.tree.expression.function.ExpressionFunction;
 import walkingkooka.tree.expression.function.ExpressionFunctionContext;
 
 import java.util.List;
-import java.util.Optional;
 
 /**
  * Context that travels during any expression evaluation.
@@ -45,18 +44,5 @@ public interface ExpressionEvaluationContext extends ExpressionFunctionContext,
                 function,
                 this
         );
-    }
-
-    /**
-     * Locates the value or a {@link Expression} for the given {@link ExpressionReference}
-     */
-    Optional<Expression> reference(final ExpressionReference reference);
-
-    /**
-     * Locates the value or a {@link Expression} for the given {@link ExpressionReference} or throws a
-     * {@link ExpressionEvaluationReferenceException}.
-     */
-    default Expression referenceOrFail(final ExpressionReference reference) {
-        return this.reference(reference).orElseThrow(() -> new ExpressionEvaluationReferenceException("Unable to find " + reference));
     }
 }

@@ -21,7 +21,6 @@ import walkingkooka.reflect.PublicStaticHelper;
 import walkingkooka.tree.expression.function.ExpressionFunction;
 import walkingkooka.tree.expression.function.ExpressionFunctionContext;
 
-import java.util.Optional;
 import java.util.function.Function;
 
 public final class ExpressionEvaluationContexts implements PublicStaticHelper {
@@ -31,12 +30,10 @@ public final class ExpressionEvaluationContexts implements PublicStaticHelper {
      */
     public static ExpressionEvaluationContext basic(final ExpressionNumberKind expressionNumberKind,
                                                     final Function<FunctionExpressionName, ExpressionFunction<?, ExpressionFunctionContext>> functions,
-                                                    final Function<ExpressionReference, Optional<Expression>> references,
                                                     final ExpressionFunctionContext functionContext) {
         return BasicExpressionEvaluationContext.with(
                 expressionNumberKind,
                 functions,
-                references,
                 functionContext
         );
     }

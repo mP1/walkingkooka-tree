@@ -181,7 +181,6 @@ public final class BasicNodeSelectorContextTest implements ClassTesting2<BasicNo
                 return ExpressionEvaluationContexts.basic(
                         ExpressionNumberKind.DEFAULT,
                         this.functions(),
-                        this.references(),
                         this.functionContext()
                 );
             }
@@ -192,10 +191,6 @@ public final class BasicNodeSelectorContextTest implements ClassTesting2<BasicNo
                 };
             }
 
-            private Function<ExpressionReference, Optional<Expression>> references() {
-                return (r) -> Optional.empty();
-            }
-
             private ExpressionFunctionContext functionContext() {
                 return ExpressionFunctionContexts.basic(
                         KIND,
@@ -203,6 +198,10 @@ public final class BasicNodeSelectorContextTest implements ClassTesting2<BasicNo
                         this.references(),
                         this.converterContext()
                 );
+            }
+
+            private Function<ExpressionReference, Optional<Object>> references() {
+                return (r) -> Optional.empty();
             }
 
             private ExpressionNumberConverterContext converterContext() {

@@ -94,21 +94,20 @@ final class CycleDetectingExpressionEvaluationContext implements ExpressionEvalu
     }
 
     @Override
-    public Optional<Expression> reference(final ExpressionReference reference) {
+    public Optional<Object> reference(final ExpressionReference reference) {
         final Set<ExpressionReference> cycles = this.cycles;
 
         this.cycleCheck(reference, cycles);
 
         try {
             cycles.add(reference);
-            final Expression result = this.context.referenceOrFail(reference);
+            final Object value = this.context.referenceOrFail(reference);
 
-            if (result.isReference()) {
-                final ReferenceExpression referenceNode = result.cast();
-                this.cycleCheck(referenceNode.value(), cycles);
+            if (value instanceof ExpressionReference) {
+                this.cycleCheck((ExpressionReference) value, cycles);
             }
 
-            return Optional.of(result);
+            return Optional.of(value);
         } finally {
             cycles.remove(reference);
         }
