@@ -21,9 +21,7 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.convert.Converter;
-import walkingkooka.convert.ConverterContexts;
 import walkingkooka.convert.Converters;
-import walkingkooka.math.DecimalNumberContexts;
 import walkingkooka.naming.StringName;
 import walkingkooka.predicate.Predicates;
 import walkingkooka.text.CharSequences;
@@ -32,11 +30,9 @@ import walkingkooka.tree.expression.Expression;
 import walkingkooka.tree.expression.ExpressionEvaluationContexts;
 import walkingkooka.tree.expression.ExpressionNumber;
 import walkingkooka.tree.expression.ExpressionNumberConverterContext;
-import walkingkooka.tree.expression.ExpressionNumberConverterContexts;
 import walkingkooka.tree.expression.ExpressionReference;
 import walkingkooka.tree.expression.function.ExpressionFunctionContexts;
 
-import java.math.MathContext;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.function.Function;
@@ -131,16 +127,8 @@ public final class NodeSelectorContext2ExpressionNodeSelectorTest extends NodeSe
                                             }
                                         },
                                         ExpressionFunctionContexts.fake()
-                                        //ExpressionNumberConverterContexts.basic(Converters.fake(), this.converterContext(), EXPRESSION_NUMBER_KIND)
                                 )
                         );
-                    }
-
-                    private ExpressionNumberConverterContext converterContext() {
-                        return ExpressionNumberConverterContexts.basic(this.converter(),
-                                ConverterContexts.basic(Converters.fake(),
-                                        ConverterContexts.fake(),
-                                        DecimalNumberContexts.american(MathContext.DECIMAL32)), EXPRESSION_NUMBER_KIND);
                     }
 
                     private Converter<ExpressionNumberConverterContext> converter() {
