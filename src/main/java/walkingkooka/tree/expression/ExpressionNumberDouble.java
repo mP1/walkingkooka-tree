@@ -57,6 +57,11 @@ final class ExpressionNumberDouble extends ExpressionNumber {
         return this;
     }
 
+    @Override
+    public ExpressionNumberSign sign() {
+        return ExpressionNumberSign.pick(this.value);
+    }
+
     // map..............................................................................................................
 
     @Override

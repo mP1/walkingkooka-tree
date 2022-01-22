@@ -73,6 +73,41 @@ public abstract class ExpressionNumberTestCase<N extends ExpressionNumber> imple
     @Test
     public abstract void setKindDifferent();
 
+    // sign............................................................................................................
+
+    @Test
+    public final void testSignZero() {
+        this.signAndCheck(
+                0,
+                ExpressionNumberSign.ZERO
+        );
+    }
+
+    @Test
+    public final void testSignNegative() {
+        this.signAndCheck(
+                -1,
+                ExpressionNumberSign.NEGATIVE
+        );
+    }
+
+    @Test
+    public final void testSignPositive() {
+        this.signAndCheck(
+                +1,
+                ExpressionNumberSign.POSITIVE
+        );
+    }
+
+    private void signAndCheck(final double value,
+                              final ExpressionNumberSign sign) {
+        assertSame(
+                sign,
+                this.create(value).sign(),
+                () -> "sign of " + value
+        );
+    }
+
     // map..............................................................................................................
 
     @Test
