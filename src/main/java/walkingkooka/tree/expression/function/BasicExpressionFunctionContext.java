@@ -36,7 +36,6 @@ package walkingkooka.tree.expression.function;
 
 import walkingkooka.Either;
 import walkingkooka.convert.ConverterContext;
-import walkingkooka.tree.expression.Expression;
 import walkingkooka.tree.expression.ExpressionNumberKind;
 import walkingkooka.tree.expression.ExpressionReference;
 import walkingkooka.tree.expression.FunctionExpressionName;
@@ -58,7 +57,7 @@ final class BasicExpressionFunctionContext implements ExpressionFunctionContext 
      */
     static BasicExpressionFunctionContext with(final ExpressionNumberKind expressionNumberKind,
                                                final Function<FunctionExpressionName, ExpressionFunction<?, ExpressionFunctionContext>> functions,
-                                               final Function<ExpressionReference, Optional<Expression>> references,
+                                               final Function<ExpressionReference, Optional<Object>> references,
                                                final ConverterContext converterContext) {
         Objects.requireNonNull(expressionNumberKind, "expressionNumberKind");
         Objects.requireNonNull(functions, "functions");
@@ -78,7 +77,7 @@ final class BasicExpressionFunctionContext implements ExpressionFunctionContext 
      */
     private BasicExpressionFunctionContext(final ExpressionNumberKind expressionNumberKind,
                                            final Function<FunctionExpressionName, ExpressionFunction<?, ExpressionFunctionContext>> functions,
-                                           final Function<ExpressionReference, Optional<Expression>> references,
+                                           final Function<ExpressionReference, Optional<Object>> references,
                                            final ConverterContext converterContext) {
         super();
         this.expressionNumberKind = expressionNumberKind;
@@ -133,7 +132,12 @@ final class BasicExpressionFunctionContext implements ExpressionFunctionContext 
                 .apply(parameters, this);
     }
 
-    private final Function<ExpressionReference, Optional<Expression>> references;
+    @Override
+    public Optional<Object> reference(final ExpressionReference reference) {
+        return this.references.apply(reference);
+    }
+
+    private final Function<ExpressionReference, Optional<Object>> references;
 
     @Override
     public boolean canConvert(final Object value,

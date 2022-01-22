@@ -50,6 +50,8 @@ public final class BasicExpressionEvaluationContextTest implements ClassTesting2
     private final static ExpressionReference REFERENCE = new ExpressionReference() {
     };
 
+    private final static Object REFERENCE_VALUE = "expression node 123";
+
     @Test
     public void testWithNullExpressionNumberKindFails() {
         assertThrows(
@@ -57,7 +59,6 @@ public final class BasicExpressionEvaluationContextTest implements ClassTesting2
                 () -> BasicExpressionEvaluationContext.with(
                         null,
                         this.functions(),
-                        this.references(),
                         this.functionContext()
                 )
         );
@@ -69,20 +70,6 @@ public final class BasicExpressionEvaluationContextTest implements ClassTesting2
                 NullPointerException.class,
                 () -> BasicExpressionEvaluationContext.with(
                         KIND,
-                        null,
-                        this.references(),
-                        this.functionContext()
-                )
-        );
-    }
-
-    @Test
-    public void testWithNullReferencesFails() {
-        assertThrows(
-                NullPointerException.class,
-                () -> BasicExpressionEvaluationContext.with(
-                        KIND,
-                        this.functions(),
                         null,
                         this.functionContext()
                 )
@@ -96,7 +83,6 @@ public final class BasicExpressionEvaluationContextTest implements ClassTesting2
                 () -> BasicExpressionEvaluationContext.with(
                         KIND,
                         this.functions(),
-                        this.references(),
                         null
                 )
         );
@@ -155,7 +141,11 @@ public final class BasicExpressionEvaluationContextTest implements ClassTesting2
 
     @Test
     public void testReferences() {
-        this.checkEquals(Optional.of(this.expression()), this.createContext().reference(REFERENCE));
+        this.checkEquals(
+                Optional.of(REFERENCE_VALUE),
+                this.createContext()
+                        .reference(REFERENCE)
+        );
     }
 
     @Test
@@ -166,17 +156,15 @@ public final class BasicExpressionEvaluationContextTest implements ClassTesting2
     @Test
     public void testToString() {
         final Function<FunctionExpressionName, ExpressionFunction<?, ExpressionFunctionContext>> functions = this.functions();
-        final Function<ExpressionReference, Optional<Expression>> references = this.references();
         final ExpressionFunctionContext functionContext = this.functionContext();
 
         this.toStringAndCheck(
                 BasicExpressionEvaluationContext.with(
                         KIND,
                         functions,
-                        references,
                         functionContext
                 ),
-                functions + " " + references + " " + functionContext
+                functions + " " + functionContext
         );
     }
 
@@ -189,7 +177,6 @@ public final class BasicExpressionEvaluationContextTest implements ClassTesting2
         return BasicExpressionEvaluationContext.with(
                 KIND,
                 this.functions(pure),
-                this.references(),
                 this.functionContext()
         );
     }
@@ -236,18 +223,6 @@ public final class BasicExpressionEvaluationContextTest implements ClassTesting2
         return "function-value-234";
     }
 
-    private Function<ExpressionReference, Optional<Expression>> references() {
-        return (r -> {
-            Objects.requireNonNull(r, "references");
-            this.checkEquals(REFERENCE, r, "reference");
-            return Optional.of(this.expression());
-        });
-    }
-
-    private Expression expression() {
-        return Expression.value("expression node 123");
-    }
-
     private ExpressionFunctionContext functionContext() {
         return ExpressionFunctionContexts.basic(
                 KIND,
@@ -255,6 +230,14 @@ public final class BasicExpressionEvaluationContextTest implements ClassTesting2
                 this.references(),
                 this.converterContext()
         );
+    }
+
+    private Function<ExpressionReference, Optional<Object>> references() {
+        return (r -> {
+            Objects.requireNonNull(r, "references");
+            this.checkEquals(REFERENCE, r, "reference");
+            return Optional.of(REFERENCE_VALUE);
+        });
     }
 
     private ConverterContext converterContext() {

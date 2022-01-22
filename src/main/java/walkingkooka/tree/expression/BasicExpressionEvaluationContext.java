@@ -38,17 +38,14 @@ final class BasicExpressionEvaluationContext implements ExpressionEvaluationCont
      */
     static BasicExpressionEvaluationContext with(final ExpressionNumberKind expressionNumberKind,
                                                  final Function<FunctionExpressionName, ExpressionFunction<?, ExpressionFunctionContext>> functions,
-                                                 final Function<ExpressionReference, Optional<Expression>> references,
                                                  final ExpressionFunctionContext functionContext) {
         Objects.requireNonNull(expressionNumberKind, "expressionNumberKind");
         Objects.requireNonNull(functions, "functions");
-        Objects.requireNonNull(references, "references");
         Objects.requireNonNull(functionContext, "functionContext");
 
         return new BasicExpressionEvaluationContext(
                 expressionNumberKind,
                 functions,
-                references,
                 functionContext
         );
     }
@@ -58,12 +55,10 @@ final class BasicExpressionEvaluationContext implements ExpressionEvaluationCont
      */
     private BasicExpressionEvaluationContext(final ExpressionNumberKind expressionNumberKind,
                                              final Function<FunctionExpressionName, ExpressionFunction<?, ExpressionFunctionContext>> functions,
-                                             final Function<ExpressionReference, Optional<Expression>> references,
                                              final ExpressionFunctionContext functionContext) {
         super();
         this.expressionNumberKind = expressionNumberKind;
         this.functions = functions;
-        this.references = references;
         this.functionContext = functionContext;
     }
 
@@ -129,15 +124,9 @@ final class BasicExpressionEvaluationContext implements ExpressionEvaluationCont
     }
 
     @Override
-    public Optional<Expression> reference(final ExpressionReference reference) {
-        final Optional<Expression> node = this.references.apply(reference);
-        if (!node.isPresent()) {
-            throw new ExpressionEvaluationReferenceException("Missing reference: " + reference);
-        }
-        return node;
+    public Optional<Object> reference(final ExpressionReference reference) {
+        return this.functionContext.reference(reference);
     }
-
-    private final Function<ExpressionReference, Optional<Expression>> references;
 
     @Override
     public boolean canConvert(final Object value,
@@ -153,6 +142,6 @@ final class BasicExpressionEvaluationContext implements ExpressionEvaluationCont
 
     @Override
     public String toString() {
-        return this.functions + " " + this.references + " " + this.functionContext;
+        return this.functions + " " + this.functionContext;
     }
 }

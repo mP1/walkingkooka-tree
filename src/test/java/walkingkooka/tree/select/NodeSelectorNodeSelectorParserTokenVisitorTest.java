@@ -1837,7 +1837,6 @@ public final class NodeSelectorNodeSelectorParserTokenVisitorTest implements Nod
                                 (r) -> ExpressionEvaluationContexts.basic(
                                         EXPRESSION_NUMBER_KIND,
                                         Cast.to(this.functions()),
-                                        r,
                                         this.functionContext()
                                 )
                         );
@@ -1925,7 +1924,7 @@ public final class NodeSelectorNodeSelectorParserTokenVisitorTest implements Nod
                         );
                     }
 
-                    private Function<ExpressionReference, Optional<Expression>> references() {
+                    private Function<ExpressionReference, Optional<Object>> references() {
                         return (r -> {
                             throw new UnsupportedOperationException();
                         });

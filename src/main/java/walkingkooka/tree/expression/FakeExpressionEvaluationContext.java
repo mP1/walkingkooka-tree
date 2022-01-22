@@ -48,7 +48,7 @@ public class FakeExpressionEvaluationContext extends FakeExpressionFunctionConte
     }
 
     @Override
-    public Optional<Expression> reference(final ExpressionReference reference) {
+    public Optional<Object> reference(final ExpressionReference reference) {
         Objects.requireNonNull(reference, "reference");
         throw new UnsupportedOperationException();
     }

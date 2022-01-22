@@ -23,10 +23,14 @@ import walkingkooka.convert.CanConvert;
 import walkingkooka.datetime.YearContext;
 import walkingkooka.locale.HasLocale;
 import walkingkooka.math.HasMathContext;
+import walkingkooka.tree.expression.Expression;
+import walkingkooka.tree.expression.ExpressionEvaluationReferenceException;
 import walkingkooka.tree.expression.ExpressionNumberContext;
+import walkingkooka.tree.expression.ExpressionReference;
 import walkingkooka.tree.expression.FunctionExpressionName;
 
 import java.util.List;
+import java.util.Optional;
 
 /**
  * Context that accompanies a {@link ExpressionFunction}.
@@ -52,4 +56,17 @@ public interface ExpressionFunctionContext extends Context,
      * Locates a function with the given name and then executes it with the provided parameter values.
      */
     Object evaluate(final FunctionExpressionName name, final List<Object> parameters);
+
+    /**
+     * Locates the value or a {@link Expression} for the given {@link ExpressionReference}
+     */
+    Optional<Object> reference(final ExpressionReference reference);
+
+    /**
+     * Locates the value for the given {@link ExpressionReference} or throws a
+     * {@link ExpressionEvaluationReferenceException}.
+     */
+    default Object referenceOrFail(final ExpressionReference reference) {
+        return this.reference(reference).orElseThrow(() -> new ExpressionEvaluationReferenceException("Unable to find " + reference));
+    }
 }

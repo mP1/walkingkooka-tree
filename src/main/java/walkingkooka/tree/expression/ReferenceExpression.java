@@ -89,32 +89,32 @@ public final class ReferenceExpression extends LeafExpression<ExpressionReferenc
 
     @Override
     public boolean toBoolean(final ExpressionEvaluationContext context) {
-        return this.toExpression(context).toBoolean(context);
+        return this.toValueAndConvert(context, Boolean.class);
     }
 
     @Override
     public ExpressionNumber toExpressionNumber(final ExpressionEvaluationContext context) {
-        return this.toExpression(context).toExpressionNumber(context);
+        return this.toValueAndConvert(context, ExpressionNumber.class);
     }
 
     @Override
     public LocalDate toLocalDate(final ExpressionEvaluationContext context) {
-        return this.toExpression(context).toLocalDate(context);
+        return this.toValueAndConvert(context, LocalDate.class);
     }
 
     @Override
     public LocalDateTime toLocalDateTime(final ExpressionEvaluationContext context) {
-        return this.toExpression(context).toLocalDateTime(context);
+        return this.toValueAndConvert(context, LocalDateTime.class);
     }
 
     @Override
     public LocalTime toLocalTime(final ExpressionEvaluationContext context) {
-        return this.toExpression(context).toLocalTime(context);
+        return this.toValueAndConvert(context, LocalTime.class);
     }
 
     @Override
     public String toString(final ExpressionEvaluationContext context) {
-        return this.toExpression(context).toString(context);
+        return this.toValueAndConvert(context, String.class);
     }
 
     @Override
@@ -125,11 +125,15 @@ public final class ReferenceExpression extends LeafExpression<ExpressionReferenc
 
     @Override
     public Object toValue(final ExpressionEvaluationContext context) {
-        return this.toExpression(context).toValue(context);
+        return context.referenceOrFail(this.value);
     }
 
-    private Expression toExpression(final ExpressionEvaluationContext context) {
-        return context.referenceOrFail(this.value);
+    private <T> T toValueAndConvert(final ExpressionEvaluationContext context,
+                                    final Class<T> type) {
+        return context.convertOrFail(
+                context.referenceOrFail(this.value),
+                type
+        );
     }
 
     // Object ....................................................................................................

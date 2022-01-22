@@ -19,7 +19,6 @@ package walkingkooka.tree.select;
 
 import walkingkooka.naming.Name;
 import walkingkooka.tree.Node;
-import walkingkooka.tree.expression.Expression;
 import walkingkooka.tree.expression.ExpressionReference;
 
 import java.util.Optional;
@@ -31,7 +30,7 @@ import java.util.function.Function;
 final class BasicNodeSelectorExpressionEvaluationContextReferenceFunction<N extends Node<N, NAME, ANAME, AVALUE>,
         NAME extends Name,
         ANAME extends Name,
-        AVALUE> implements Function<ExpressionReference, Optional<Expression>> {
+        AVALUE> implements Function<ExpressionReference, Optional<Object>> {
 
     static <N extends Node<N, NAME, ANAME, AVALUE>,
             NAME extends Name,
@@ -47,7 +46,7 @@ final class BasicNodeSelectorExpressionEvaluationContextReferenceFunction<N exte
     }
 
     @Override
-    public Optional<Expression> apply(final ExpressionReference reference) {
+    public Optional<Object> apply(final ExpressionReference reference) {
         return context.reference(reference);
     }
 

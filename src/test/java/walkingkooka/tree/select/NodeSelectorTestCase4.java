@@ -447,7 +447,6 @@ abstract public class NodeSelectorTestCase4<S extends NodeSelector<TestNode, Str
                 (r) -> ExpressionEvaluationContexts.basic(
                         EXPRESSION_NUMBER_KIND,
                         this.functions(),
-                        r,
                         this.functionContext()
                 )
         );
@@ -479,7 +478,7 @@ abstract public class NodeSelectorTestCase4<S extends NodeSelector<TestNode, Str
         );
     }
 
-    private Function<ExpressionReference, Optional<Expression>> references() {
+    private Function<ExpressionReference, Optional<Object>> references() {
         return (r -> {
             throw new UnsupportedOperationException();
         });

@@ -34,7 +34,6 @@ import walkingkooka.tree.select.parser.NodeSelectorAttributeName;
 import java.math.MathContext;
 import java.util.List;
 import java.util.Locale;
-import java.util.Map.Entry;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.function.Function;
@@ -57,7 +56,7 @@ final class BasicNodeSelectorExpressionEvaluationContext<N extends Node<N, NAME,
             ANAME extends Name,
             AVALUE>
     BasicNodeSelectorExpressionEvaluationContext<N, NAME, ANAME, AVALUE> with(final N node,
-                                                                              final Function<Function<ExpressionReference, Optional<Expression>>,ExpressionEvaluationContext> context) {
+                                                                              final Function<Function<ExpressionReference, Optional<Object>>, ExpressionEvaluationContext> context) {
         Objects.requireNonNull(node, "node");
         Objects.requireNonNull(context, "context");
 
@@ -68,7 +67,7 @@ final class BasicNodeSelectorExpressionEvaluationContext<N extends Node<N, NAME,
      * Private ctor use factory.
      */
     private BasicNodeSelectorExpressionEvaluationContext(final N node,
-                                                         final Function<Function<ExpressionReference, Optional<Expression>>,ExpressionEvaluationContext> context) {
+                                                         final Function<Function<ExpressionReference, Optional<Object>>, ExpressionEvaluationContext> context) {
         super();
         this.node = node;
         this.context = context.apply(BasicNodeSelectorExpressionEvaluationContextReferenceFunction.with(this));
@@ -134,7 +133,7 @@ final class BasicNodeSelectorExpressionEvaluationContext<N extends Node<N, NAME,
      * The reference should be an attribute name, cast and find the owner attribute.
      */
     @Override
-    public Optional<Expression> reference(final ExpressionReference reference) {
+    public Optional<Object> reference(final ExpressionReference reference) {
         Objects.requireNonNull(reference, "reference");
 
         if (false == reference instanceof NodeSelectorAttributeName) {
@@ -143,32 +142,25 @@ final class BasicNodeSelectorExpressionEvaluationContext<N extends Node<N, NAME,
         final NodeSelectorAttributeName attributeName = Cast.to(reference);
         final String attributeNameString = attributeName.value();
 
-        final Optional<Expression> attributeValue = this.node.attributes()
+        final Optional<Object> attributeValue = this.node.attributes()
                 .entrySet()
                 .stream()
                 .filter(nameAndValue -> nameAndValue.getKey().value().equals(attributeNameString))
-                .map(this::toExpression)
+                .map(e -> wrapIfNumber(e.getValue()))
                 .findFirst();
         return attributeValue.isPresent() ?
                 attributeValue :
                 ABSENT;
     }
 
-    /**
-     * Auto convert {@link Number} to {@link ExpressionNumber} and wrap in an {@link Expression}.
-     */
-    private Expression toExpression(final Entry<?, ?> nameAndValue) {
-        final Object value = nameAndValue.getValue();
-
-        return Expression.value(
-                ExpressionNumber.is(value) ?
-                        this.expressionNumberKind()
-                                .create((Number) value) :
-                        value
-        );
+    private Object wrapIfNumber(final Object value) {
+        return ExpressionNumber.is(value) ?
+                this.expressionNumberKind()
+                        .create((Number) value) :
+                value;
     }
 
-    private final static Optional<Expression> ABSENT = Optional.of(Expression.value(""));
+    private final static Optional<Object> ABSENT = Optional.of("");
 
     @Override
     public boolean canConvert(final Object value, final Class<?> type) {

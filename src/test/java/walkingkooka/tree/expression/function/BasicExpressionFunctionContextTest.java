@@ -28,7 +28,6 @@ import walkingkooka.datetime.DateTimeContexts;
 import walkingkooka.math.DecimalNumberContexts;
 import walkingkooka.reflect.ClassTesting2;
 import walkingkooka.reflect.JavaVisibility;
-import walkingkooka.tree.expression.Expression;
 import walkingkooka.tree.expression.ExpressionNumberKind;
 import walkingkooka.tree.expression.ExpressionPurityContext;
 import walkingkooka.tree.expression.ExpressionReference;
@@ -47,8 +46,11 @@ public final class BasicExpressionFunctionContextTest implements ClassTesting2<B
         ToStringTesting<BasicExpressionFunctionContext> {
 
     private final static ExpressionNumberKind KIND = ExpressionNumberKind.DEFAULT;
+
     private final static ExpressionReference REFERENCE = new ExpressionReference() {
     };
+
+    private final static Object REFERENCE_VALUE = "*123*";
 
     @Test
     public void testWithNullExpressionNumberKindFails() {
@@ -110,6 +112,16 @@ public final class BasicExpressionFunctionContextTest implements ClassTesting2<B
     }
 
     @Test
+    public void testReference() {
+        this.checkEquals(
+                Optional.of(
+                        REFERENCE_VALUE
+                ),
+                this.createContext().reference(REFERENCE)
+        );
+    }
+
+    @Test
     public void testConvert() {
         this.convertAndCheck(123.0, Long.class, 123L);
     }
@@ -117,7 +129,7 @@ public final class BasicExpressionFunctionContextTest implements ClassTesting2<B
     @Test
     public void testToString() {
         final Function<FunctionExpressionName, ExpressionFunction<?, ExpressionFunctionContext>> functions = this.functions();
-        final Function<ExpressionReference, Optional<Expression>> references = this.references();
+        final Function<ExpressionReference, Optional<Object>> references = this.references();
         final ConverterContext converterContext = this.converterContext();
 
         this.toStringAndCheck(
@@ -187,16 +199,14 @@ public final class BasicExpressionFunctionContextTest implements ClassTesting2<B
         return "function-value-234";
     }
 
-    private Function<ExpressionReference, Optional<Expression>> references() {
+    private Function<ExpressionReference, Optional<Object>> references() {
         return (r -> {
             Objects.requireNonNull(r, "references");
             this.checkEquals(REFERENCE, r, "reference");
-            return Optional.of(this.expression());
+            return Optional.of(
+                    REFERENCE_VALUE
+            );
         });
-    }
-
-    private Expression expression() {
-        return Expression.value("expression node 123");
     }
 
     private ConverterContext converterContext() {
