@@ -76,6 +76,9 @@ public interface ExpressionFunctionContext extends Context,
      * Returns a {@link ExpressionEvaluationException} that captures the given {@link ExpressionReference} was not found.
      */
     default ExpressionEvaluationException referenceNotFound(final ExpressionReference reference) {
-        return new ExpressionEvaluationReferenceException("Unable to find " + reference);
+        return new ExpressionEvaluationReferenceException(
+                "Unable to find " + reference,
+                reference
+        );
     }
 }
