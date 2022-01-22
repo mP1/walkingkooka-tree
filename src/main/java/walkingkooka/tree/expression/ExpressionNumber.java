@@ -257,6 +257,16 @@ public abstract class ExpressionNumber extends Number implements Comparable<Expr
 
     abstract ExpressionNumber and0(final ExpressionNumber value);
 
+    // andNot...........................................................................................................
+
+    public final ExpressionNumber andNot(final ExpressionNumber value) {
+        check(value);
+
+        return this.andNot0(value);
+    }
+
+    abstract ExpressionNumber andNot0(final ExpressionNumber value);
+
     // or..............................................................................................................
 
     public final ExpressionNumber or(final ExpressionNumber value) {

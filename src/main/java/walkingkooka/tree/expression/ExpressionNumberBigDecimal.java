@@ -195,6 +195,18 @@ final class ExpressionNumberBigDecimal extends ExpressionNumber {
         );
     }
 
+    // andNot...........................................................................................................
+
+    @Override
+    ExpressionNumber andNot0(final ExpressionNumber value) {
+        return this.setValue(
+                this.value.toBigInteger()
+                        .andNot(
+                                value.bigInteger()
+                        )
+        );
+    }
+
     // or..............................................................................................................
 
     @Override
