@@ -23,7 +23,11 @@ import walkingkooka.reflect.JavaVisibility;
 
 import java.math.BigDecimal;
 
+import static org.junit.jupiter.api.Assertions.assertSame;
+
 public final class ExpressionNumberKindTest implements ClassTesting<ExpressionNumberKind> {
+
+    // parse............................................................................................................
 
     @Test
     public void testParseBigDecimal() {
@@ -36,6 +40,81 @@ public final class ExpressionNumberKindTest implements ClassTesting<ExpressionNu
         final String text = "12.3";
         this.checkEquals(ExpressionNumberKind.DOUBLE.create(Double.parseDouble(text)), ExpressionNumberKind.DOUBLE.parse(text));
     }
+
+    // setSign..........................................................................................................
+
+    @Test
+    public void testSetSignBigDecimalNegative() {
+        this.setSignAndCheck(
+                ExpressionNumberKind.BIG_DECIMAL,
+                ExpressionNumberSign.NEGATIVE,
+                ExpressionNumberKind.BIG_DECIMAL.create(-1)
+        );
+    }
+
+    @Test
+    public void testSetSignBigDecimalZero() {
+        this.setSignAndCheck(
+                ExpressionNumberKind.BIG_DECIMAL,
+                ExpressionNumberSign.ZERO,
+                ExpressionNumberKind.BIG_DECIMAL.create(0)
+        );
+    }
+
+    @Test
+    public void testSetSignBigDecimalPositive() {
+        this.setSignAndCheck(
+                ExpressionNumberKind.BIG_DECIMAL,
+                ExpressionNumberSign.POSITIVE,
+                ExpressionNumberKind.BIG_DECIMAL.create(1)
+        );
+    }
+
+    @Test
+    public void testSetSignDoubleNegative() {
+        this.setSignAndCheck(
+                ExpressionNumberKind.DOUBLE,
+                ExpressionNumberSign.NEGATIVE,
+                ExpressionNumberKind.DOUBLE.create(-1.0)
+        );
+    }
+
+    @Test
+    public void testSetSignDoubleZero() {
+        this.setSignAndCheck(
+                ExpressionNumberKind.DOUBLE,
+                ExpressionNumberSign.ZERO,
+                ExpressionNumberKind.DOUBLE.create(0.0)
+        );
+    }
+
+    @Test
+    public void testSetSignDoublePositive() {
+        this.setSignAndCheck(
+                ExpressionNumberKind.DOUBLE,
+                ExpressionNumberSign.POSITIVE,
+                ExpressionNumberKind.DOUBLE.create(1.0)
+        );
+    }
+
+    private void setSignAndCheck(final ExpressionNumberKind kind,
+                                 final ExpressionNumberSign sign,
+                                 final ExpressionNumber expected) {
+        final ExpressionNumber number = kind.setSign(sign);
+        this.checkEquals(
+                expected,
+                number,
+                kind + " setSign " + sign
+        );
+
+        assertSame(
+                kind,
+                number.kind(),
+                () -> "kind " + number
+        );
+    }
+
+    // ClassTesting.....................................................................................................
 
     @Override
     public Class<ExpressionNumberKind> type() {

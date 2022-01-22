@@ -49,6 +49,11 @@ public enum ExpressionNumberKind {
         public Class<?> numberType() {
             return BigDecimal.class;
         }
+
+        @Override
+        public ExpressionNumber setSign(final ExpressionNumberSign sign) {
+            return sign.expressionNumberBigDecimal();
+        }
     },
 
     DOUBLE {
@@ -72,6 +77,11 @@ public enum ExpressionNumberKind {
         public Class<?> numberType() {
             return Double.class;
         }
+
+        @Override
+        public ExpressionNumber setSign(final ExpressionNumberSign sign) {
+            return sign.expressionNumberDouble();
+        }
     };
 
     /**
@@ -88,6 +98,11 @@ public enum ExpressionNumberKind {
      * Returns either {@link BigDecimal} or {@link Double}.
      */
     public abstract Class<?> numberType();
+
+    /**
+     * Factory that returns a {@link ExpressionNumber} with this sign and the kind.
+     */
+    public abstract ExpressionNumber setSign(final ExpressionNumberSign sign);
 
     /**
      * This constant will disappear when {@link ExpressionNumberKind} is configurable.
