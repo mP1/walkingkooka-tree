@@ -24,6 +24,7 @@ import walkingkooka.datetime.YearContext;
 import walkingkooka.locale.HasLocale;
 import walkingkooka.math.HasMathContext;
 import walkingkooka.tree.expression.Expression;
+import walkingkooka.tree.expression.ExpressionEvaluationException;
 import walkingkooka.tree.expression.ExpressionEvaluationReferenceException;
 import walkingkooka.tree.expression.ExpressionNumberContext;
 import walkingkooka.tree.expression.ExpressionReference;
@@ -67,6 +68,14 @@ public interface ExpressionFunctionContext extends Context,
      * {@link ExpressionEvaluationReferenceException}.
      */
     default Object referenceOrFail(final ExpressionReference reference) {
-        return this.reference(reference).orElseThrow(() -> new ExpressionEvaluationReferenceException("Unable to find " + reference));
+        return this.reference(reference)
+                .orElseThrow(() -> this.referenceNotFound(reference));
+    }
+
+    /**
+     * Returns a {@link ExpressionEvaluationException} that captures the given {@link ExpressionReference} was not found.
+     */
+    default ExpressionEvaluationException referenceNotFound(final ExpressionReference reference) {
+        return new ExpressionEvaluationReferenceException("Unable to find " + reference);
     }
 }

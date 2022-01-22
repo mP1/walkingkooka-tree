@@ -20,7 +20,7 @@ package walkingkooka.tree.expression;
 /**
  * This exception is thrown whenever a reference lookup fails.
  */
-public class ExpressionEvaluationReferenceException extends ExpressionException {
+public class ExpressionEvaluationReferenceException extends ExpressionEvaluationException {
 
     private static final long serialVersionUID = 1;
 
