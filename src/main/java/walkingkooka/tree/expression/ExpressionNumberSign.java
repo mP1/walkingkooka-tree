@@ -24,11 +24,34 @@ import java.math.BigDecimal;
  */
 public enum ExpressionNumberSign {
 
-    NEGATIVE,
+    NEGATIVE(0),
 
-    ZERO,
+    ZERO(1),
 
-    POSITIVE;
+    POSITIVE(2);
+
+    ExpressionNumberSign(int index) {
+        this.index = index;
+    }
+
+    private final int index;
+
+    ExpressionNumber expressionNumberBigDecimal() {
+        return EXPRESSION_NUMBERS[this.index + 0];
+    }
+
+    ExpressionNumber expressionNumberDouble() {
+        return EXPRESSION_NUMBERS[this.index + 3];
+    }
+
+    private final static ExpressionNumber[] EXPRESSION_NUMBERS = new ExpressionNumber[]{
+            ExpressionNumberKind.BIG_DECIMAL.create(-1),
+            ExpressionNumberKind.BIG_DECIMAL.create(0),
+            ExpressionNumberKind.BIG_DECIMAL.create(+1),
+            ExpressionNumberKind.DOUBLE.create(-1),
+            ExpressionNumberKind.DOUBLE.create(0),
+            ExpressionNumberKind.DOUBLE.create(+1)
+    };
 
     static ExpressionNumberSign pick(final BigDecimal bigDecimal) {
         return pick0(bigDecimal.signum());
