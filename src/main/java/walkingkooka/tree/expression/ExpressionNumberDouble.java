@@ -181,6 +181,15 @@ final class ExpressionNumberDouble extends ExpressionNumber {
         return this.setValue(this.longValue() & value.longValue());
     }
 
+    // andNot...........................................................................................................
+
+    @Override
+    ExpressionNumber andNot0(final ExpressionNumber value) {
+        return this.setValue(
+                this.longValue() & ~value.longValue()
+        );
+    }
+
     // or..............................................................................................................
 
     @Override

@@ -606,6 +606,75 @@ public abstract class ExpressionNumberTestCase<N extends ExpressionNumber> imple
         this.checkValue(value & and, different);
     }
 
+    // andNot...........................................................................................................
+
+    @Test
+    public final void testAndNotMinusOne() {
+        final int value = 1;
+
+        final N number = this.create(value);
+        this.checkEquals(
+                this.create(0),
+                number.andNot(this.create(-1))
+        );
+    }
+
+    @Test
+    public final void testAndNotZero() {
+        final int value = 1;
+
+        final N number = this.create(value);
+        this.checkEquals(
+                number,
+                number.andNot(this.create(0))
+        );
+    }
+
+    @Test
+    public final void testAndNotBigDecimal() {
+        final int value = 7;
+        final int andNot = 5;
+
+        final N number = this.create(value);
+        final ExpressionNumber different = number.andNot(ExpressionNumber.with(BigDecimal.valueOf(andNot)));
+        assertNotSame(number, different);
+        this.checkValue(value & ~andNot, different);
+    }
+
+    @Test
+    public final void testAndNotBigDecimalDecimals() {
+        final int value = 7;
+        final int andNot = 5;
+
+        final N number = this.create(value + 0.1);
+        final ExpressionNumber different = number.andNot(ExpressionNumber.with(BigDecimal.valueOf(andNot + 0.1)));
+        assertNotSame(number, different);
+        this.checkValue(value & ~andNot, different);
+    }
+
+
+    @Test
+    public final void testAndNotDouble() {
+        final int value = 7;
+        final int andNot = 5;
+
+        final N number = this.create(value);
+        final ExpressionNumber different = number.andNot(ExpressionNumber.with(andNot));
+        assertNotSame(number, different);
+        this.checkValue(value & ~andNot, different);
+    }
+
+    @Test
+    public final void testAndNotDoubleDecimals() {
+        final int value = 7;
+        final int andNot = 5;
+
+        final N number = this.create(value + 0.1);
+        final ExpressionNumber different = number.andNot(ExpressionNumber.with(andNot + 0.1));
+        assertNotSame(number, different);
+        this.checkValue(value & ~andNot, different);
+    }
+
     // or..............................................................................................................
 
     @Test
