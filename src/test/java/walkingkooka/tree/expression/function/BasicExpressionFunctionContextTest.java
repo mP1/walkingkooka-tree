@@ -29,6 +29,7 @@ import walkingkooka.math.DecimalNumberContexts;
 import walkingkooka.reflect.ClassTesting2;
 import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.tree.expression.ExpressionEvaluationException;
+import walkingkooka.tree.expression.ExpressionEvaluationReferenceException;
 import walkingkooka.tree.expression.ExpressionNumberKind;
 import walkingkooka.tree.expression.ExpressionPurityContext;
 import walkingkooka.tree.expression.ExpressionReference;
@@ -52,6 +53,8 @@ public final class BasicExpressionFunctionContextTest implements ClassTesting2<B
     };
 
     private final static Object REFERENCE_VALUE = "*123*";
+
+    private final static String REFERENCE_NOT_FOUND_MESSAGE = "CustomMessage123";
 
     @Test
     public void testWithNullExpressionNumberKindFails() {
@@ -141,6 +144,20 @@ public final class BasicExpressionFunctionContextTest implements ClassTesting2<B
     }
 
     @Test
+    public void testReferenceNotFound() {
+        final ExpressionEvaluationReferenceException thrown = (ExpressionEvaluationReferenceException) this.createContext()
+                .referenceNotFound(REFERENCE);
+        this.checkEquals(
+                REFERENCE,
+                thrown.expressionReference()
+        );
+        this.checkEquals(
+                REFERENCE_NOT_FOUND_MESSAGE,
+                thrown.getMessage()
+        );
+    }
+
+    @Test
     public void testConvert() {
         this.convertAndCheck(123.0, Long.class, 123L);
     }
@@ -174,7 +191,7 @@ public final class BasicExpressionFunctionContextTest implements ClassTesting2<B
                 KIND,
                 this.functions(pure),
                 this.references(),
-                ExpressionFunctionContexts.referenceNotFound(),
+                (r) -> new ExpressionEvaluationReferenceException(REFERENCE_NOT_FOUND_MESSAGE, r),
                 this.converterContext()
         );
     }
