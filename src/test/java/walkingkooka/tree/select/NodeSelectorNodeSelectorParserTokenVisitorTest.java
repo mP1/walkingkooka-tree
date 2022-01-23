@@ -1920,6 +1920,7 @@ public final class NodeSelectorNodeSelectorParserTokenVisitorTest implements Nod
                                 EXPRESSION_NUMBER_KIND,
                                 Cast.to(this.functions()),
                                 this.references(),
+                                ExpressionFunctionContexts.referenceNotFound(),
                                 this.converterContext()
                         );
                     }

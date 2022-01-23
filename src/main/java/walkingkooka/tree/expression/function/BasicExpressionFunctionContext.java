@@ -36,6 +36,7 @@ package walkingkooka.tree.expression.function;
 
 import walkingkooka.Either;
 import walkingkooka.convert.ConverterContext;
+import walkingkooka.tree.expression.ExpressionEvaluationException;
 import walkingkooka.tree.expression.ExpressionNumberKind;
 import walkingkooka.tree.expression.ExpressionReference;
 import walkingkooka.tree.expression.FunctionExpressionName;
@@ -58,16 +59,19 @@ final class BasicExpressionFunctionContext implements ExpressionFunctionContext 
     static BasicExpressionFunctionContext with(final ExpressionNumberKind expressionNumberKind,
                                                final Function<FunctionExpressionName, ExpressionFunction<?, ExpressionFunctionContext>> functions,
                                                final Function<ExpressionReference, Optional<Object>> references,
+                                               final Function<ExpressionReference, ExpressionEvaluationException> referenceNotFound,
                                                final ConverterContext converterContext) {
         Objects.requireNonNull(expressionNumberKind, "expressionNumberKind");
         Objects.requireNonNull(functions, "functions");
         Objects.requireNonNull(references, "references");
+        Objects.requireNonNull(referenceNotFound, "referenceNotFound");
         Objects.requireNonNull(converterContext, "converterContext");
 
         return new BasicExpressionFunctionContext(
                 expressionNumberKind,
                 functions,
                 references,
+                referenceNotFound,
                 converterContext
         );
     }
@@ -78,11 +82,13 @@ final class BasicExpressionFunctionContext implements ExpressionFunctionContext 
     private BasicExpressionFunctionContext(final ExpressionNumberKind expressionNumberKind,
                                            final Function<FunctionExpressionName, ExpressionFunction<?, ExpressionFunctionContext>> functions,
                                            final Function<ExpressionReference, Optional<Object>> references,
+                                           final Function<ExpressionReference, ExpressionEvaluationException> referenceNotFound,
                                            final ConverterContext converterContext) {
         super();
         this.expressionNumberKind = expressionNumberKind;
         this.functions = functions;
         this.references = references;
+        this.referenceNotFound = referenceNotFound;
         this.converterContext = converterContext;
     }
 
@@ -140,6 +146,13 @@ final class BasicExpressionFunctionContext implements ExpressionFunctionContext 
     private final Function<ExpressionReference, Optional<Object>> references;
 
     @Override
+    public ExpressionEvaluationException referenceNotFound(final ExpressionReference reference) {
+        return this.referenceNotFound(reference);
+    }
+
+    private final Function<ExpressionReference, ExpressionEvaluationException> referenceNotFound;
+
+    @Override
     public boolean canConvert(final Object value,
                               final Class<?> type) {
         return this.converterContext.canConvert(value, type);
@@ -155,6 +168,6 @@ final class BasicExpressionFunctionContext implements ExpressionFunctionContext 
 
     @Override
     public String toString() {
-        return this.functions + " " + this.references + " " + this.converterContext;
+        return this.functions + " " + this.references + " " + this.referenceNotFound + " " + this.converterContext;
     }
 }
