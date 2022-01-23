@@ -17,12 +17,41 @@
 
 package walkingkooka.tree.expression.function;
 
+import org.junit.jupiter.api.Test;
 import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.reflect.PublicStaticHelperTesting;
+import walkingkooka.tree.expression.ExpressionEvaluationReferenceException;
+import walkingkooka.tree.expression.ExpressionReference;
 
 import java.lang.reflect.Method;
 
 public class ExpressionFunctionContextsTest implements PublicStaticHelperTesting<ExpressionFunctionContexts> {
+
+    @Test
+    public void testReferenceNotFound() {
+        final ExpressionReference reference = new ExpressionReference() {
+            @Override
+            public String toString() {
+                return "Reference123";
+            }
+        };
+
+        final ExpressionEvaluationReferenceException thrown = (ExpressionEvaluationReferenceException) ExpressionFunctionContexts.referenceNotFound()
+                .apply(reference);
+
+        this.checkEquals(
+                reference,
+                thrown.expressionReference(),
+                () -> reference.toString()
+        );
+
+
+        this.checkEquals(
+                "Reference not found: Reference123",
+                thrown.getMessage(),
+                () -> reference.toString()
+        );
+    }
 
     @Override
     public Class<ExpressionFunctionContexts> type() {

@@ -59,7 +59,7 @@ public final class ExpressionFunctionContexts implements PublicStaticHelper {
      */
     public static Function<ExpressionReference, ExpressionEvaluationException> referenceNotFound() {
         return (r) -> new ExpressionEvaluationReferenceException(
-                "Reference not found",
+                "Reference not found: " + r,
                 r
         );
     }
