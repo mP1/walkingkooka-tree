@@ -22,14 +22,17 @@ import walkingkooka.reflect.StandardThrowableTesting;
 
 public final class ExpressionEvaluationReferenceExceptionTest implements StandardThrowableTesting<ExpressionEvaluationReferenceException> {
 
+    private final static ExpressionReference EXPRESSION_REFERENCE = new ExpressionReference() {
+    };
+
     @Override
     public ExpressionEvaluationReferenceException createThrowable(final String message) {
-        return new ExpressionEvaluationReferenceException(message);
+        return new ExpressionEvaluationReferenceException(message, EXPRESSION_REFERENCE);
     }
 
     @Override
     public ExpressionEvaluationReferenceException createThrowable(final String message, final Throwable cause) {
-        return new ExpressionEvaluationReferenceException(message, cause);
+        return new ExpressionEvaluationReferenceException(message, EXPRESSION_REFERENCE, cause);
     }
 
     @Override
