@@ -129,6 +129,11 @@ final class BasicExpressionEvaluationContext implements ExpressionEvaluationCont
     }
 
     @Override
+    public ExpressionEvaluationException referenceNotFound(final ExpressionReference reference) {
+        return this.functionContext.referenceNotFound(reference);
+    }
+
+    @Override
     public boolean canConvert(final Object value,
                               final Class<?> type) {
         return this.functionContext.canConvert(value, type);
