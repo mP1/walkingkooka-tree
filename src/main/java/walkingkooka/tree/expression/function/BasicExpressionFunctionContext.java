@@ -147,7 +147,7 @@ final class BasicExpressionFunctionContext implements ExpressionFunctionContext 
 
     @Override
     public ExpressionEvaluationException referenceNotFound(final ExpressionReference reference) {
-        return this.referenceNotFound(reference);
+        return this.referenceNotFound.apply(reference);
     }
 
     private final Function<ExpressionReference, ExpressionEvaluationException> referenceNotFound;
