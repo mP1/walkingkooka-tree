@@ -28,6 +28,7 @@ import walkingkooka.datetime.DateTimeContexts;
 import walkingkooka.math.DecimalNumberContexts;
 import walkingkooka.reflect.ClassTesting2;
 import walkingkooka.reflect.JavaVisibility;
+import walkingkooka.tree.expression.ExpressionEvaluationException;
 import walkingkooka.tree.expression.ExpressionNumberKind;
 import walkingkooka.tree.expression.ExpressionPurityContext;
 import walkingkooka.tree.expression.ExpressionReference;
@@ -60,6 +61,7 @@ public final class BasicExpressionFunctionContextTest implements ClassTesting2<B
                         null,
                         this.functions(),
                         this.references(),
+                        ExpressionFunctionContexts.referenceNotFound(),
                         this.converterContext()
                 )
         );
@@ -73,6 +75,7 @@ public final class BasicExpressionFunctionContextTest implements ClassTesting2<B
                         KIND,
                         null,
                         this.references(),
+                        ExpressionFunctionContexts.referenceNotFound(),
                         this.converterContext()
                 )
         );
@@ -85,6 +88,21 @@ public final class BasicExpressionFunctionContextTest implements ClassTesting2<B
                 () -> BasicExpressionFunctionContext.with(
                         KIND,
                         this.functions(),
+                        null,
+                        ExpressionFunctionContexts.referenceNotFound(),
+                        this.converterContext()
+                )
+        );
+    }
+
+    @Test
+    public void testWithNullReferenceNotFoundFails() {
+        assertThrows(
+                NullPointerException.class,
+                () -> BasicExpressionFunctionContext.with(
+                        KIND,
+                        this.functions(),
+                        this.references(),
                         null,
                         this.converterContext()
                 )
@@ -99,6 +117,7 @@ public final class BasicExpressionFunctionContextTest implements ClassTesting2<B
                         KIND,
                         this.functions(),
                         this.references(),
+                        ExpressionFunctionContexts.referenceNotFound(),
                         null
                 )
         );
@@ -130,6 +149,7 @@ public final class BasicExpressionFunctionContextTest implements ClassTesting2<B
     public void testToString() {
         final Function<FunctionExpressionName, ExpressionFunction<?, ExpressionFunctionContext>> functions = this.functions();
         final Function<ExpressionReference, Optional<Object>> references = this.references();
+        final Function<ExpressionReference, ExpressionEvaluationException> referenceNotFound = ExpressionFunctionContexts.referenceNotFound();
         final ConverterContext converterContext = this.converterContext();
 
         this.toStringAndCheck(
@@ -137,9 +157,10 @@ public final class BasicExpressionFunctionContextTest implements ClassTesting2<B
                         KIND,
                         functions,
                         references,
+                        referenceNotFound,
                         converterContext
                 ),
-                functions + " " + references + " " + converterContext
+                functions + " " + references + " " + referenceNotFound + " " + converterContext
         );
     }
 
@@ -153,6 +174,7 @@ public final class BasicExpressionFunctionContextTest implements ClassTesting2<B
                 KIND,
                 this.functions(pure),
                 this.references(),
+                ExpressionFunctionContexts.referenceNotFound(),
                 this.converterContext()
         );
     }

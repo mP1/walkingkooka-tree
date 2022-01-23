@@ -19,6 +19,8 @@ package walkingkooka.tree.expression.function;
 
 import walkingkooka.convert.ConverterContext;
 import walkingkooka.reflect.PublicStaticHelper;
+import walkingkooka.tree.expression.ExpressionEvaluationException;
+import walkingkooka.tree.expression.ExpressionEvaluationReferenceException;
 import walkingkooka.tree.expression.ExpressionNumberKind;
 import walkingkooka.tree.expression.ExpressionReference;
 import walkingkooka.tree.expression.FunctionExpressionName;
@@ -34,11 +36,13 @@ public final class ExpressionFunctionContexts implements PublicStaticHelper {
     public static ExpressionFunctionContext basic(final ExpressionNumberKind expressionNumberKind,
                                                   final Function<FunctionExpressionName, ExpressionFunction<?, ExpressionFunctionContext>> functions,
                                                   final Function<ExpressionReference, Optional<Object>> references,
+                                                  final Function<ExpressionReference, ExpressionEvaluationException> referenceNotFound,
                                                   final ConverterContext converterContext) {
         return BasicExpressionFunctionContext.with(
                 expressionNumberKind,
                 functions,
                 references,
+                referenceNotFound,
                 converterContext
         );
     }
@@ -48,6 +52,16 @@ public final class ExpressionFunctionContexts implements PublicStaticHelper {
      */
     public static ExpressionFunctionContext fake() {
         return new FakeExpressionFunctionContext();
+    }
+
+    /**
+     * A function that creates a {@link ExpressionEvaluationReferenceException}.
+     */
+    public static Function<ExpressionReference, ExpressionEvaluationException> referenceNotFound() {
+        return (r) -> new ExpressionEvaluationReferenceException(
+                "Reference not found",
+                r
+        );
     }
 
     /**

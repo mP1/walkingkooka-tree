@@ -196,6 +196,7 @@ public final class BasicNodeSelectorContextTest implements ClassTesting2<BasicNo
                         KIND,
                         this.functions(),
                         this.references(),
+                        ExpressionFunctionContexts.referenceNotFound(),
                         this.converterContext()
                 );
             }

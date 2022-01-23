@@ -143,6 +143,7 @@ public final class BasicNodeSelectorExpressionEvaluationContextTest implements N
                 EXPRESSION_NUMBER_KIND,
                 this.functions(),
                 this.references(),
+                ExpressionFunctionContexts.referenceNotFound(),
                 this.converterContext()
         );
     }

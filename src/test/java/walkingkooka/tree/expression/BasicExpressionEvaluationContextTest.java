@@ -228,6 +228,7 @@ public final class BasicExpressionEvaluationContextTest implements ClassTesting2
                 KIND,
                 this.functions(),
                 this.references(),
+                ExpressionFunctionContexts.referenceNotFound(),
                 this.converterContext()
         );
     }

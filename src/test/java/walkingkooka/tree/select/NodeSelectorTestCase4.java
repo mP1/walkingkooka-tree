@@ -474,6 +474,7 @@ abstract public class NodeSelectorTestCase4<S extends NodeSelector<TestNode, Str
                 EXPRESSION_NUMBER_KIND,
                 this.functions(),
                 this.references(),
+                ExpressionFunctionContexts.referenceNotFound(),
                 this.converterContext()
         );
     }
