@@ -27,9 +27,11 @@ import walkingkooka.tree.expression.ExpressionReference;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.function.Consumer;
 
 /**
  * Captures an individual parameter to a @link ExpressionFunction}.
@@ -144,6 +146,85 @@ public final class ExpressionFunctionParameter<T> implements HasName<ExpressionF
         return index >= parameters.size() ?
                 Lists.empty() :
                 Cast.to(parameters.subList(index, parameters.size()));
+    }
+
+    /**
+     * Gets the variable values starting at the given index flattening any Lists which may include {@link ExpressionReference} references.
+     * If references contain lists or references these are flatten as well.
+     */
+    public <C extends ExpressionFunctionContext> List<T> getVariableAndFlatten(final List<Object> parameters,
+                                                                               final int index,
+                                                                               final ExpressionFunction<?, C> function,
+                                                                               final C context) {
+        this.cardinality.getVariable(this);
+
+        return index >= parameters.size() ?
+                Lists.empty() :
+                Cast.to(
+                        flatten(
+                                parameters.subList(
+                                        index,
+                                        parameters.size()
+                                ).iterator(),
+                                function,
+                                context
+                        )
+                );
+    }
+
+    private <C extends ExpressionFunctionContext> List<T> flatten(final Iterator<Object> parameters,
+                                                                  final ExpressionFunction<?, C> function,
+                                                                  final C context) {
+        final List<T> values = Lists.array();
+
+        flatten0(
+                parameters,
+                (e) -> values.add((T) e),
+                function.resolveReferences(),
+                context
+        );
+
+        return values;
+    }
+
+    private <T, C extends ExpressionFunctionContext> void flatten0(final Iterator<Object> parameters,
+                                                                   final Consumer<T> values,
+                                                                   final boolean resolveReferences,
+                                                                   final C context) {
+        while (parameters.hasNext()) {
+            this.flatten1(
+                    parameters.next(),
+                    values,
+                    resolveReferences,
+                    context
+            );
+        }
+    }
+
+    private <T, C extends ExpressionFunctionContext> void flatten1(final Object parameter,
+                                                                   final Consumer<T> values,
+                                                                   final boolean resolveReferences,
+                                                                   final C context) {
+        if (resolveReferences && parameter instanceof ExpressionReference) {
+            this.flatten1(
+                    context.referenceOrFail((ExpressionReference) parameter),
+                    values,
+                    resolveReferences,
+                    context
+            );
+        } else {
+            if (parameter instanceof Iterable) {
+                final Iterable<Object> iterable = (Iterable<Object>) parameter;
+                this.flatten0(
+                        iterable.iterator(),
+                        values,
+                        resolveReferences,
+                        context
+                );
+            } else {
+                values.accept((T) parameter);
+            }
+        }
     }
 
     /**

@@ -26,6 +26,7 @@ import walkingkooka.ToStringTesting;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.set.Sets;
 import walkingkooka.reflect.ConstantsTesting;
+import walkingkooka.tree.expression.ExpressionReference;
 
 import java.util.List;
 import java.util.Optional;
@@ -242,6 +243,177 @@ public final class ExpressionFunctionParameterTest implements HashCodeEqualsDefi
                         ),
                         1
                 )
+        );
+    }
+
+    // getVariableAndFlatten...........................................................................................
+
+    @Test
+    public void testGetVariableAndFlattenNone() {
+        this.getVariableAndFlattenAndCheck(
+                Lists.empty(),
+                false // resolveReferences
+        );
+    }
+
+    @Test
+    public void testGetVariableAndFlattenNoReferences() {
+        this.getVariableAndFlattenAndCheck(
+                Lists.of(
+                        10,
+                        20
+                ),
+                false // resolveReferences
+        );
+    }
+
+    @Test
+    public void testGetVariableAndFlattenReferenceNotResolved() {
+        this.getVariableAndFlattenAndCheck(
+                Lists.of(
+                        10,
+                        20,
+                        new TestExpressionReference(30)
+                ),
+                false // resolveReferences
+        );
+    }
+
+    @Test
+    public void testGetVariableAndFlattenReference() {
+        this.getVariableAndFlattenAndCheck2(
+                Lists.of(
+                        10,
+                        20,
+                        new TestExpressionReference(30)
+                ),
+                true, // resolveReferences
+                10, 20, 30
+        );
+    }
+
+    @Test
+    public void testGetVariableAndFlattenReference2() {
+        this.getVariableAndFlattenAndCheck2(
+                Lists.of(
+                        10,
+                        new TestExpressionReference(
+                                Lists.of(20, 30)
+                        ),
+                        40
+                ),
+                true, // resolveReferences
+                10, 20, 30, 40
+        );
+    }
+
+    @Test
+    public void testGetVariableAndFlattenReferenceToReference() {
+        this.getVariableAndFlattenAndCheck2(
+                Lists.of(
+                        10,
+                        new TestExpressionReference(
+                                Lists.of(20,
+                                        new TestExpressionReference(30),
+                                        40
+                                )
+                        )
+                ),
+                true, // resolveReferences
+                10, 20, 30, 40
+        );
+    }
+
+    @Test
+    public void testGetVariableAndFlattenReferenceToReference2() {
+        this.getVariableAndFlattenAndCheck2(
+                Lists.of(
+                        10,
+                        new TestExpressionReference(
+                                Lists.of(20,
+                                        new TestExpressionReference(
+                                                Lists.of(
+                                                        new TestExpressionReference(
+                                                                30
+                                                        )
+                                                )
+                                        ),
+                                        40
+                                )
+                        )
+                ),
+                true, // resolveReferences
+                10, 20, 30, 40
+        );
+    }
+
+    static class TestExpressionReference implements ExpressionReference {
+
+        TestExpressionReference(final Object value) {
+            this.value = value;
+        }
+
+        final Object value;
+    }
+
+    private void getVariableAndFlattenAndCheck(final List<Object> lastParameterValues,
+                                               final boolean resolveReferences) {
+        this.getVariableAndFlattenAndCheck3(
+                lastParameterValues,
+                resolveReferences,
+                lastParameterValues
+        );
+    }
+
+    private void getVariableAndFlattenAndCheck2(final List<Object> lastParameterValues,
+                                                final boolean resolveReferences,
+                                                final Object... expected) {
+        this.getVariableAndFlattenAndCheck3(
+                lastParameterValues,
+                resolveReferences,
+                Lists.of(expected)
+        );
+    }
+
+    private void getVariableAndFlattenAndCheck3(final List<Object> lastParameterValues,
+                                                final boolean resolveReferences,
+                                                final List<Object> expected) {
+        final ExpressionFunctionParameter<Integer> parameter = ExpressionFunctionParameter.with(
+                NAME,
+                Integer.class,
+                ExpressionFunctionParameterCardinality.VARIABLE
+        );
+
+        final List<Object> parameters = List.of(
+                "FIRST",
+                "SECOND",
+                lastParameterValues
+        );
+
+        this.checkEquals(
+                expected,
+                parameter.getVariableAndFlatten(
+                        parameters,
+                        2,
+                        new FakeExpressionFunction<>() {
+                            @Override
+                            public boolean resolveReferences() {
+                                return resolveReferences;
+                            }
+
+                            public String toString() {
+                                return "resolveReferences: " + this.resolveReferences();
+                            }
+                        },
+                        new FakeExpressionFunctionContext() {
+                            @Override
+                            public Object referenceOrFail(final ExpressionReference reference) {
+                                final TestExpressionReference testExpressionReference = (TestExpressionReference) reference;
+                                return testExpressionReference.value;
+                            }
+                        }
+                ),
+                () -> "getVariableAndFlatten " + parameters
         );
     }
 
