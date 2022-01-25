@@ -317,8 +317,20 @@ public abstract class ExpressionNumberTestCase<N extends ExpressionNumber> imple
         final int value = 1;
 
         final N number = this.create(value);
-        final ExpressionEvaluationException thrown = assertThrows(ExpressionEvaluationException.class, () -> number.divide(this.create(0), CONTEXT));
-        this.checkEquals("Division by zero", thrown.getMessage(), "message");
+        final ExpressionEvaluationException thrown = assertThrows(
+                ExpressionEvaluationException.class,
+                () -> number.divide(this.create(0), CONTEXT)
+        );
+        this.checkEquals(
+                "Division by zero",
+                thrown.getMessage(),
+                "message"
+        );
+        this.checkEquals(
+                ArithmeticException.class,
+                thrown.getCause().getClass(),
+                () -> "cause class"
+        );
     }
 
     @Test
