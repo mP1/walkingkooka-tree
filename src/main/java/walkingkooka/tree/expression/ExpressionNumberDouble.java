@@ -128,7 +128,7 @@ final class ExpressionNumberDouble extends ExpressionNumber {
                              final ExpressionNumberContext context) {
         final double result = this.value / value.doubleValue();
 
-        if (Double.isInfinite(result)) {
+        if (Double.isNaN(result) || Double.isInfinite(result)) {
             throw new ArithmeticException("Division by zero");
         }
         return this.setValue(result);
