@@ -124,12 +124,14 @@ final class ExpressionNumberDouble extends ExpressionNumber {
     // divide..............................................................................................................
 
     @Override
-    ExpressionNumber divide0(final ExpressionNumber value, final ExpressionNumberContext context) {
-        final double doubleValue = value.doubleValue();
-        if (doubleValue == 0) {
-            throw new ExpressionEvaluationException("Division by zero");
+    ExpressionNumber divide0(final ExpressionNumber value,
+                             final ExpressionNumberContext context) {
+        final double result = this.value / value.doubleValue();
+
+        if (Double.isInfinite(result)) {
+            throw new ArithmeticException("Division by zero");
         }
-        return this.setValue(this.value / doubleValue);
+        return this.setValue(result);
     }
 
     // max..............................................................................................................

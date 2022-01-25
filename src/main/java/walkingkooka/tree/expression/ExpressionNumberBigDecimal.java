@@ -134,11 +134,11 @@ final class ExpressionNumberBigDecimal extends ExpressionNumber {
 
     @Override
     ExpressionNumber divide0(final ExpressionNumber value, final ExpressionNumberContext context) {
-        try {
-            return this.setValue(this.value.divide(value.bigDecimal(), context.mathContext()));
-        } catch (final ArithmeticException cause) {
-            throw new ExpressionEvaluationException("Division by zero", cause);
-        }
+        return this.setValue(
+                this.value.divide(value.bigDecimal(),
+                        context.mathContext()
+                )
+        );
     }
 
     // max..............................................................................................................

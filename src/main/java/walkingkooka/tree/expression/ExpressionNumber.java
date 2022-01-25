@@ -182,7 +182,11 @@ public abstract class ExpressionNumber extends Number implements Comparable<Expr
     public final ExpressionNumber divide(final ExpressionNumber value, final ExpressionNumberContext context) {
         check(value);
 
-        return this.divide0(value, context);
+        try {
+            return this.divide0(value, context);
+        } catch (final ArithmeticException cause) {
+            throw new ExpressionEvaluationException("Division by zero", cause);
+        }
     }
 
     abstract ExpressionNumber divide0(final ExpressionNumber value, final ExpressionNumberContext context);
