@@ -314,8 +314,15 @@ public abstract class ExpressionNumberTestCase<N extends ExpressionNumber> imple
 
     @Test
     public final void testDivideZeroFails() {
-        final int value = 1;
+        this.divideZeroAndFail(0);
+    }
 
+    @Test
+    public final void testDivideZeroFails2() {
+        this.divideZeroAndFail(1);
+    }
+
+    private void divideZeroAndFail(final int value) {
         final N number = this.create(value);
         final ExpressionEvaluationException thrown = assertThrows(
                 ExpressionEvaluationException.class,
