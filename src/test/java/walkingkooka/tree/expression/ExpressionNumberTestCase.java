@@ -277,7 +277,41 @@ public abstract class ExpressionNumberTestCase<N extends ExpressionNumber> imple
         assertNotSame(number, different);
         this.checkValue(1, different);
     }
-    
+
+    // sqrt..............................................................................................................
+
+    @Test
+    public final void testSqrtNegativeFails() {
+        assertThrows(
+                ExpressionEvaluationException.class,
+                () -> this.create(-1).sqrt(CONTEXT)
+        );
+    }
+
+    @Test
+    public final void testSqrtZero() {
+        this.checkValue(
+                0,
+                this.create(0).sqrt(CONTEXT)
+        );
+    }
+
+    @Test
+    public final void testSqrtOne() {
+        this.checkValue(
+                1,
+                this.create(1).sqrt(CONTEXT)
+        );
+    }
+
+    @Test
+    public final void testSqrtNine() {
+        this.checkValue(
+                3,
+                this.create(9).sqrt(CONTEXT)
+        );
+    }
+
     // add..............................................................................................................
 
     @Test

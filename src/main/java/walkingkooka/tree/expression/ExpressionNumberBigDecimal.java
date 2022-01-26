@@ -176,6 +176,23 @@ final class ExpressionNumberBigDecimal extends ExpressionNumber {
         return this.setValue(BigDecimalMath.pow(this.value, value.bigDecimal(), context.mathContext()));
     }
 
+    // sqrt..............................................................................................................
+
+    @Override
+    public ExpressionNumber sqrt(final ExpressionNumberContext context) {
+        try {
+            return this.setValue(
+                    BigDecimalMath.sqrt(
+                            this.value,
+                            context.mathContext()
+                    )
+            );
+        } catch (final ArithmeticException cause) {
+            // cant wrap ArithmeticException which would make sqrt(-1) -> !DIV rather than !VALUE
+            throw new ExpressionEvaluationException(cause.getMessage());
+        }
+    }
+
     // subtract..............................................................................................................
 
     @Override
