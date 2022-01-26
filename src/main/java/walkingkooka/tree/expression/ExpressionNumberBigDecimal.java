@@ -92,14 +92,26 @@ final class ExpressionNumberBigDecimal extends ExpressionNumber {
 
     @Override
     public ExpressionNumber ceil(final ExpressionNumberContext context) {
-        return this.setValue(this.value.setScale(0, RoundingMode.CEILING));
+        return this.setValue(
+                ceilBigDecimal(this.value)
+        );
+    }
+
+    static BigDecimal ceilBigDecimal(final BigDecimal value) {
+        return value.setScale(0, RoundingMode.CEILING);
     }
 
     // floor..............................................................................................................
 
     @Override
     public ExpressionNumber floor(final ExpressionNumberContext context) {
-        return this.setValue(this.value.setScale(0, RoundingMode.FLOOR));
+        return this.setValue(
+                floorBigDecimal(this.value)
+        );
+    }
+
+    static BigDecimal floorBigDecimal(final BigDecimal value) {
+        return value.setScale(0, RoundingMode.FLOOR);
     }
 
     // neg..............................................................................................................
@@ -120,7 +132,16 @@ final class ExpressionNumberBigDecimal extends ExpressionNumber {
 
     @Override
     public ExpressionNumber round(final ExpressionNumberContext context) {
-        return this.setValue(this.value.setScale(0, RoundingMode.HALF_UP));
+        return this.setValue(
+                roundBigDecimal(this.value)
+        );
+    }
+
+    static BigDecimal roundBigDecimal(final BigDecimal value) {
+        return value.setScale(
+                0,
+                RoundingMode.HALF_UP
+        );
     }
 
     // add..............................................................................................................
