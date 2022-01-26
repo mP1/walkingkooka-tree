@@ -19,6 +19,8 @@ package walkingkooka.tree.expression;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.math.MathContext;
+import java.util.Objects;
 
 /**
  * {@link ExpressionNumber} come in two kinds, one that uses {@link BigDecimal} and another that uses {@link Double}.
@@ -51,6 +53,34 @@ public enum ExpressionNumberKind {
         }
 
         @Override
+        ExpressionNumber randomBetween0(final ExpressionNumber lower,
+                                        final ExpressionNumber upper,
+                                        final ExpressionNumberContext context) {
+            final BigDecimal lowerDouble = lower.bigDecimal();
+            final BigDecimal upperDouble = upper.bigDecimal();
+            if (lowerDouble.compareTo(upperDouble) > 0) {
+                throw new IllegalArgumentException("Lower " + upper + " must be less than upper " + upper);
+            }
+
+            final MathContext mathContext = context.mathContext();
+            BigDecimal bottom = ExpressionNumberBigDecimal.ceilBigDecimal(lowerDouble);
+            BigDecimal top = ExpressionNumberBigDecimal.floorBigDecimal(lowerDouble);
+
+            if (bottom.compareTo(top) > 0) {
+                top = bottom;
+            }
+
+            return this.create(
+                    ExpressionNumberBigDecimal.roundBigDecimal(
+                            bottom.add(
+                                    new BigDecimal(Math.random())
+                                            .multiply(top.subtract(bottom))
+                            )
+                    )
+            );
+        }
+
+        @Override
         public ExpressionNumber setSign(final ExpressionNumberSign sign) {
             return sign.expressionNumberBigDecimal();
         }
@@ -76,6 +106,27 @@ public enum ExpressionNumberKind {
         @Override
         public Class<?> numberType() {
             return Double.class;
+        }
+
+        @Override
+        ExpressionNumber randomBetween0(final ExpressionNumber lower,
+                                        final ExpressionNumber upper,
+                                        final ExpressionNumberContext context) {
+            final double lowerDouble = lower.doubleValue();
+            final double upperDouble = upper.doubleValue();
+            if (lowerDouble > upperDouble) {
+                throw new IllegalArgumentException("Lower " + upper + " must be less than upper " + upper);
+            }
+
+            double bottom = Math.ceil(lowerDouble);
+            double top = Math.floor(upperDouble);
+            if (bottom > top) {
+                top = bottom;
+            }
+
+            return this.create(
+                    (bottom + (long) (Math.random() * ((top - bottom))))
+            );
         }
 
         @Override
@@ -105,6 +156,22 @@ public enum ExpressionNumberKind {
     public final ExpressionNumber random(final ExpressionNumberContext context) {
         return this.create(Math.random());
     }
+
+    /**
+     * Generates a random {@link ExpressionNumber} integer value between the lower (inclusive) and upper bounds (exclusive)
+     */
+    public final ExpressionNumber randomBetween(final ExpressionNumber lower,
+                                                final ExpressionNumber upper,
+                                                final ExpressionNumberContext context) {
+        Objects.requireNonNull(lower, "lower");
+        Objects.requireNonNull(upper, "upper");
+
+        return this.randomBetween0(lower, upper, context);
+    }
+
+    abstract ExpressionNumber randomBetween0(final ExpressionNumber lower,
+                                             final ExpressionNumber upper,
+                                             final ExpressionNumberContext context);
 
     /**
      * Factory that returns a {@link ExpressionNumber} with this sign and the kind.

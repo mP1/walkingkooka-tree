@@ -22,8 +22,10 @@ import walkingkooka.reflect.ClassTesting;
 import walkingkooka.reflect.JavaVisibility;
 
 import java.math.BigDecimal;
+import java.math.MathContext;
 
 import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class ExpressionNumberKindTest implements ClassTesting<ExpressionNumberKind> {
 
@@ -49,6 +51,154 @@ public final class ExpressionNumberKindTest implements ClassTesting<ExpressionNu
         this.checkNotEquals(
                 null,
                 number
+        );
+    }
+
+    // randomBetween...................................................................................................
+
+    private final int RANDOM_COUNT = 100;
+
+    @Test
+    public void testRandomBetweenLowerGreaterThanUpperBigDecimalFails() {
+        this.randomBetweenLowerGreaterThanUpperFails(ExpressionNumberKind.BIG_DECIMAL);
+    }
+
+    @Test
+    public void testRandomBetweenLowerGreaterThanUpperDoubleFails() {
+        this.randomBetweenLowerGreaterThanUpperFails(ExpressionNumberKind.DOUBLE);
+    }
+
+    private void randomBetweenLowerGreaterThanUpperFails(final ExpressionNumberKind kind) {
+        assertThrows(
+                IllegalArgumentException.class,
+                () -> {
+                    kind.randomBetween(
+                            kind.create(5),
+                            kind.create(4),
+                            ExpressionNumberContexts.fake()
+                    );
+                }
+        );
+    }
+
+    @Test
+    public void testRandomBetweenBigDecimal() {
+        for (int i = 0; i < RANDOM_COUNT; i++) {
+            this.randomBetween(
+                    1000 + i,
+                    1000 + RANDOM_COUNT + i,
+                    ExpressionNumberKind.BIG_DECIMAL
+            );
+        }
+    }
+
+    @Test
+    public void testRandomBetweenBigDecimal2() {
+        for (int i = 0; i < RANDOM_COUNT; i++) {
+            this.randomBetween(
+                    -1000 + i,
+                    -1000 + RANDOM_COUNT + i,
+                    ExpressionNumberKind.BIG_DECIMAL
+            );
+        }
+    }
+
+    @Test
+    public void testRandomBetweenBigDecimal3() {
+        for (int i = 0; i < RANDOM_COUNT; i++) {
+            this.randomBetween(
+                    1,
+                    2,
+                    ExpressionNumberKind.BIG_DECIMAL
+            );
+        }
+    }
+
+    @Test
+    public void testRandomBetweenDouble() {
+        for (int i = 0; i < RANDOM_COUNT; i++) {
+            this.randomBetween(
+                    1000 + i,
+                    1010 + RANDOM_COUNT + i,
+                    ExpressionNumberKind.DOUBLE
+            );
+        }
+    }
+
+    @Test
+    public void testRandomBetweenDouble2() {
+        for (int i = 0; i < RANDOM_COUNT; i++) {
+            this.randomBetween(
+                    -1000 + i,
+                    -1000 + RANDOM_COUNT + i,
+                    ExpressionNumberKind.DOUBLE
+            );
+        }
+    }
+
+    @Test
+    public void testRandomBetweenDouble3() {
+        for (int i = 0; i < RANDOM_COUNT; i++) {
+            this.randomBetween(
+                    1,
+                    2,
+                    ExpressionNumberKind.DOUBLE
+            );
+        }
+    }
+
+    private void randomBetween(final double lower,
+                               final double upper,
+                               final ExpressionNumberKind kind) {
+        this.randomBetween(
+                kind.create(lower),
+                kind.create(upper),
+                kind
+        );
+    }
+
+    private void randomBetween(final ExpressionNumber lower,
+                               final ExpressionNumber upper,
+                               final ExpressionNumberKind kind) {
+        final ExpressionNumberContext context = new FakeExpressionNumberContext() {
+            @Override
+            public ExpressionNumberKind expressionNumberKind() {
+                return kind;
+            }
+
+            @Override
+            public MathContext mathContext() {
+                return MathContext.DECIMAL32;
+            }
+
+            @Override
+            public String toString() {
+                return this.expressionNumberKind() + " " + this.mathContext();
+            }
+        };
+
+        final ExpressionNumber random = kind.randomBetween(
+                lower,
+                upper,
+                context
+        );
+
+        this.checkEquals(
+                random.round(context),
+                random,
+                "random is not an integer value"
+        );
+
+        this.checkEquals(
+                true,
+                random.compareTo(lower) >= 0,
+                "random(" + random + ") must be >= lower(" + lower + ")"
+        );
+
+        this.checkEquals(
+                true,
+                random.compareTo(upper) < 0,
+                "random(" + random + ") must be < upper(" + upper + ")"
         );
     }
 
