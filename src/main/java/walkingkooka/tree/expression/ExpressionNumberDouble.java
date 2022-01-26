@@ -169,6 +169,20 @@ final class ExpressionNumberDouble extends ExpressionNumber {
         return this.setValue(Math.pow(this.value, value.doubleValue()));
     }
 
+    // sqrt..............................................................................................................
+
+    @Override
+    public ExpressionNumber sqrt(final ExpressionNumberContext context) {
+        final double sqrt = Math.sqrt(this.value);
+        if (Double.isNaN(sqrt) || Double.isInfinite(sqrt)) {
+            throw new ExpressionEvaluationException("Invalid value");
+        }
+
+        return this.setValue(
+                sqrt
+        );
+    }
+
     // subtract..............................................................................................................
 
     @Override

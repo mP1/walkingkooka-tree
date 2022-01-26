@@ -241,6 +241,10 @@ public abstract class ExpressionNumber extends Number implements Comparable<Expr
 
     abstract ExpressionNumber power0(final ExpressionNumber value, final ExpressionNumberContext context);
 
+    // sqrt..............................................................................................................
+
+    public abstract ExpressionNumber sqrt(final ExpressionNumberContext context);
+
     // subtract..............................................................................................................
 
     public final ExpressionNumber subtract(final ExpressionNumber value, final ExpressionNumberContext context) {
