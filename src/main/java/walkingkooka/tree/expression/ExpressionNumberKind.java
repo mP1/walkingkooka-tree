@@ -100,6 +100,13 @@ public enum ExpressionNumberKind {
     public abstract Class<?> numberType();
 
     /**
+     * Generates a random {@link ExpressionNumber} between 0 and 1
+     */
+    public final ExpressionNumber random(final ExpressionNumberContext context) {
+        return this.create(Math.random());
+    }
+
+    /**
      * Factory that returns a {@link ExpressionNumber} with this sign and the kind.
      */
     public abstract ExpressionNumber setSign(final ExpressionNumberSign sign);

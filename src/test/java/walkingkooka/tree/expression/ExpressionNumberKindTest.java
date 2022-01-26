@@ -41,6 +41,17 @@ public final class ExpressionNumberKindTest implements ClassTesting<ExpressionNu
         this.checkEquals(ExpressionNumberKind.DOUBLE.create(Double.parseDouble(text)), ExpressionNumberKind.DOUBLE.parse(text));
     }
 
+    // random..........................................................................................................
+
+    @Test
+    public void testRandom() {
+        final ExpressionNumber number = ExpressionNumberKind.DEFAULT.random(ExpressionNumberContexts.fake());
+        this.checkNotEquals(
+                null,
+                number
+        );
+    }
+
     // setSign..........................................................................................................
 
     @Test
