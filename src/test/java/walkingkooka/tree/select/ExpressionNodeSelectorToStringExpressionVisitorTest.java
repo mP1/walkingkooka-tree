@@ -221,7 +221,8 @@ public final class ExpressionNodeSelectorToStringExpressionVisitorTest implement
         this.toStringAndCheck(
                 Expression.not(
                         Expression.value(
-                                ExpressionNumberKind.DEFAULT.create(1))
+                                ExpressionNumberKind.DEFAULT.one()
+                        )
                 ),
                 "not(1)"
         );
@@ -250,7 +251,7 @@ public final class ExpressionNodeSelectorToStringExpressionVisitorTest implement
         this.toStringAndCheck(Expression.function(
                 FunctionExpressionName.with("fx"),
                 Lists.of(
-                        Expression.value(ExpressionNumberKind.DEFAULT.create(1)),
+                        Expression.value(ExpressionNumberKind.DEFAULT.one()),
                         Expression.value(ExpressionNumberKind.DEFAULT.create(2.5))
                 )),
                 "fx(1,2.5)");
