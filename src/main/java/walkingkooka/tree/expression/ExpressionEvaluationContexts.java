@@ -28,11 +28,9 @@ public final class ExpressionEvaluationContexts implements PublicStaticHelper {
     /**
      * {@see BasicExpressionEvaluationContext}
      */
-    public static ExpressionEvaluationContext basic(final ExpressionNumberKind expressionNumberKind,
-                                                    final Function<FunctionExpressionName, ExpressionFunction<?, ExpressionFunctionContext>> functions,
+    public static ExpressionEvaluationContext basic(final Function<FunctionExpressionName, ExpressionFunction<?, ExpressionFunctionContext>> functions,
                                                     final ExpressionFunctionContext functionContext) {
         return BasicExpressionEvaluationContext.with(
-                expressionNumberKind,
                 functions,
                 functionContext
         );

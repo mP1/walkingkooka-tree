@@ -17,9 +17,11 @@
 
 package walkingkooka.tree.expression;
 
+import walkingkooka.math.FakeDecimalNumberContext;
+
 import java.math.MathContext;
 
-public class FakeExpressionNumberContext implements ExpressionNumberContext {
+public class FakeExpressionNumberContext extends FakeDecimalNumberContext implements ExpressionNumberContext {
     @Override
     public ExpressionNumberKind expressionNumberKind() {
         throw new UnsupportedOperationException();

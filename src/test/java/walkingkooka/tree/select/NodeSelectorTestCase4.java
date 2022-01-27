@@ -445,7 +445,6 @@ abstract public class NodeSelectorTestCase4<S extends NodeSelector<TestNode, Str
     final Function<NodeSelectorContext<TestNode, StringName, StringName, Object>, NodeSelectorExpressionEvaluationContext<TestNode, StringName, StringName, Object>> nodeSelectorExpressionEvaluationContext() {
         return (c) -> NodeSelectorExpressionEvaluationContexts.basic(c.node(),
                 (r) -> ExpressionEvaluationContexts.basic(
-                        EXPRESSION_NUMBER_KIND,
                         this.functions(),
                         this.functionContext()
                 )

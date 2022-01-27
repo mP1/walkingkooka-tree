@@ -25,6 +25,7 @@ import walkingkooka.convert.ConverterContext;
 import walkingkooka.convert.ConverterContexts;
 import walkingkooka.convert.Converters;
 import walkingkooka.datetime.DateTimeContexts;
+import walkingkooka.math.DecimalNumberContext;
 import walkingkooka.math.DecimalNumberContexts;
 import walkingkooka.reflect.ClassTesting2;
 import walkingkooka.reflect.JavaVisibility;
@@ -46,30 +47,15 @@ public final class BasicExpressionEvaluationContextTest implements ClassTesting2
         ExpressionEvaluationContextTesting<BasicExpressionEvaluationContext>,
         ToStringTesting<BasicExpressionEvaluationContext> {
 
-    private final static ExpressionNumberKind KIND = ExpressionNumberKind.DEFAULT;
     private final static ExpressionReference REFERENCE = new ExpressionReference() {
     };
 
     private final static Object REFERENCE_VALUE = "expression node 123";
-
-    @Test
-    public void testWithNullExpressionNumberKindFails() {
-        assertThrows(
-                NullPointerException.class,
-                () -> BasicExpressionEvaluationContext.with(
-                        null,
-                        this.functions(),
-                        this.functionContext()
-                )
-        );
-    }
-
     @Test
     public void testWithNullFunctionsFails() {
         assertThrows(
                 NullPointerException.class,
                 () -> BasicExpressionEvaluationContext.with(
-                        KIND,
                         null,
                         this.functionContext()
                 )
@@ -81,7 +67,6 @@ public final class BasicExpressionEvaluationContextTest implements ClassTesting2
         assertThrows(
                 NullPointerException.class,
                 () -> BasicExpressionEvaluationContext.with(
-                        KIND,
                         this.functions(),
                         null
                 )
@@ -160,7 +145,6 @@ public final class BasicExpressionEvaluationContextTest implements ClassTesting2
 
         this.toStringAndCheck(
                 BasicExpressionEvaluationContext.with(
-                        KIND,
                         functions,
                         functionContext
                 ),
@@ -175,7 +159,6 @@ public final class BasicExpressionEvaluationContextTest implements ClassTesting2
 
     private BasicExpressionEvaluationContext createContext(final boolean pure) {
         return BasicExpressionEvaluationContext.with(
-                KIND,
                 this.functions(pure),
                 this.functionContext()
         );
@@ -225,7 +208,7 @@ public final class BasicExpressionEvaluationContextTest implements ClassTesting2
 
     private ExpressionFunctionContext functionContext() {
         return ExpressionFunctionContexts.basic(
-                KIND,
+                ExpressionNumberKind.DEFAULT,
                 this.functions(),
                 this.references(),
                 ExpressionFunctionContexts.referenceNotFound(),
@@ -245,6 +228,50 @@ public final class BasicExpressionEvaluationContextTest implements ClassTesting2
         return ConverterContexts.basic(Converters.numberNumber(),
                 DateTimeContexts.fake(),
                 DecimalNumberContexts.american(MathContext.DECIMAL32));
+    }
+
+    @Override
+    public String currencySymbol() {
+        return this.decimalNumberContext().currencySymbol();
+    }
+
+    @Override
+    public char decimalSeparator() {
+        return this.decimalNumberContext().decimalSeparator();
+    }
+
+    @Override
+    public String exponentSymbol() {
+        return this.decimalNumberContext().exponentSymbol();
+    }
+
+    @Override
+    public char groupingSeparator() {
+        return this.decimalNumberContext().groupingSeparator();
+    }
+
+    @Override
+    public MathContext mathContext() {
+        return this.decimalNumberContext().mathContext();
+    }
+
+    @Override
+    public char negativeSign() {
+        return this.decimalNumberContext().negativeSign();
+    }
+
+    @Override
+    public char percentageSymbol() {
+        return this.decimalNumberContext().percentageSymbol();
+    }
+
+    @Override
+    public char positiveSign() {
+        return this.decimalNumberContext().positiveSign();
+    }
+
+    private DecimalNumberContext decimalNumberContext() {
+        return DecimalNumberContexts.american(MathContext.DECIMAL32);
     }
 
     // ClassTesting.....................................................................................................

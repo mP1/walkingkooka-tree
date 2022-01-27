@@ -57,7 +57,12 @@ public final class BasicNodeSelectorParserContextTest implements ClassTesting2<B
 
     @Override
     public BasicNodeSelectorParserContext createContext() {
-        return BasicNodeSelectorParserContext.with(ExpressionNumberContexts.basic(ExpressionNumberKind.DEFAULT, this.mathContext()));
+        return BasicNodeSelectorParserContext.with(
+                ExpressionNumberContexts.basic(
+                        ExpressionNumberKind.DEFAULT,
+                        this.decimalNumberContext()
+                )
+        );
     }
 
     @Override

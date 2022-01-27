@@ -19,31 +19,31 @@ package walkingkooka.tree.expression;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.ToStringTesting;
+import walkingkooka.math.DecimalNumberContext;
+import walkingkooka.math.DecimalNumberContexts;
 import walkingkooka.reflect.ClassTesting;
 import walkingkooka.reflect.JavaVisibility;
-
-import java.math.MathContext;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class BasicExpressionNumberContextTest implements ClassTesting<BasicExpressionNumberContext>, ToStringTesting<BasicExpressionNumberContext> {
 
     private final static ExpressionNumberKind KIND = ExpressionNumberKind.DEFAULT;
-    private final static MathContext MATH_CONTEXT = MathContext.DECIMAL32;
+    private final static DecimalNumberContext DECIMAL_NUMBER_CONTEXT = DecimalNumberContexts.fake();
 
     @Test
     public void testWithNullExpressionNumberKindFails() {
-        assertThrows(NullPointerException.class, () -> BasicExpressionNumberContext.with(null, MATH_CONTEXT));
+        assertThrows(NullPointerException.class, () -> BasicExpressionNumberContext.with(null, DECIMAL_NUMBER_CONTEXT));
     }
 
     @Test
-    public void testWithNullMathContextFails() {
+    public void testWithNullDecimalNumberContextFails() {
         assertThrows(NullPointerException.class, () -> BasicExpressionNumberContext.with(KIND, null));
     }
 
     @Test
     public void testToString() {
-        this.toStringAndCheck(BasicExpressionNumberContext.with(KIND, MATH_CONTEXT), KIND + " " + MATH_CONTEXT);
+        this.toStringAndCheck(BasicExpressionNumberContext.with(KIND, DECIMAL_NUMBER_CONTEXT), KIND + " " + DECIMAL_NUMBER_CONTEXT);
     }
 
     @Override

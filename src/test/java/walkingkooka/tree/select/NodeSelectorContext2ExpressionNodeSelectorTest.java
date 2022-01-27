@@ -113,7 +113,6 @@ public final class NodeSelectorContext2ExpressionNodeSelectorTest extends NodeSe
 
                         return expression.toValue(
                                 ExpressionEvaluationContexts.basic(
-                                        EXPRESSION_NUMBER_KIND,
                                         (f) -> {
                                             throw new UnsupportedOperationException();
                                         },
