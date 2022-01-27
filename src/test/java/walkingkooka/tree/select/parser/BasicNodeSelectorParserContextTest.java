@@ -22,7 +22,6 @@ import walkingkooka.math.DecimalNumberContext;
 import walkingkooka.math.DecimalNumberContexts;
 import walkingkooka.reflect.ClassTesting2;
 import walkingkooka.reflect.JavaVisibility;
-import walkingkooka.tree.expression.ExpressionNumberContexts;
 import walkingkooka.tree.expression.ExpressionNumberKind;
 
 import java.math.MathContext;
@@ -32,9 +31,25 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 public final class BasicNodeSelectorParserContextTest implements ClassTesting2<BasicNodeSelectorParserContext>,
         NodeSelectorParserContextTesting<BasicNodeSelectorParserContext> {
 
+    private final static ExpressionNumberKind KIND = ExpressionNumberKind.DEFAULT;
+
     @Test
-    public void testWithNullHasMathContextFails() {
-        assertThrows(NullPointerException.class, () -> BasicNodeSelectorParserContext.with(null));
+    public void testWithNullKindFails() {
+        assertThrows(
+                NullPointerException.class,
+                () -> BasicNodeSelectorParserContext.with(
+                        null,
+                        this.mathContext()
+                )
+        );
+    }
+
+    @Test
+    public void testWithNullMathContextFails() {
+        assertThrows(
+                NullPointerException.class,
+                () -> BasicNodeSelectorParserContext.with(KIND, null)
+        );
     }
 
     @Override
@@ -58,10 +73,8 @@ public final class BasicNodeSelectorParserContextTest implements ClassTesting2<B
     @Override
     public BasicNodeSelectorParserContext createContext() {
         return BasicNodeSelectorParserContext.with(
-                ExpressionNumberContexts.basic(
-                        ExpressionNumberKind.DEFAULT,
-                        this.decimalNumberContext()
-                )
+                ExpressionNumberKind.DEFAULT,
+                this.mathContext()
         );
     }
 

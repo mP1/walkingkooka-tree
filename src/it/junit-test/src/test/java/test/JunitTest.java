@@ -21,14 +21,12 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import walkingkooka.collect.list.Lists;
-import walkingkooka.math.DecimalNumberContexts;
 import walkingkooka.naming.Names;
 import walkingkooka.text.cursor.TextCursors;
 import walkingkooka.text.cursor.parser.Parser;
 import walkingkooka.text.cursor.parser.ParserReporters;
 import walkingkooka.text.cursor.parser.ParserToken;
 import walkingkooka.tree.expression.Expression;
-import walkingkooka.tree.expression.ExpressionNumberContexts;
 import walkingkooka.tree.expression.ExpressionNumberKind;
 import walkingkooka.tree.expression.function.ExpressionFunctionParameter;
 import walkingkooka.tree.expression.function.ExpressionFunctionParameterName;
@@ -50,10 +48,8 @@ public class JunitTest {
                 .orReport(ParserReporters.basic())
                 .cast();
         final NodeSelectorParserContext context = NodeSelectorParserContexts.basic(
-                ExpressionNumberContexts.basic(
-                        kind,
-                        DecimalNumberContexts.american(MathContext.DECIMAL32)
-                )
+                kind,
+                MathContext.DECIMAL32
         );
         final NodeSelectorParserToken token = parser.parse(TextCursors.charSequence("/node123[45]"), context)
                 .get()
