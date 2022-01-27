@@ -45,7 +45,11 @@ public final class ExpressionNumberToExpressionNumberConverterTest implements Co
 
     @Test
     public void testConvertersSimpleFails() {
-        this.convertFails(Converters.simple(), ExpressionNumberKind.DEFAULT.create(1), ExpressionNumber.class);
+        this.convertFails(
+                Converters.simple(),
+                ExpressionNumberKind.DEFAULT.one(),
+                ExpressionNumber.class
+        );
     }
 
     // fails............................................................................................................
@@ -240,9 +244,11 @@ public final class ExpressionNumberToExpressionNumberConverterTest implements Co
 
     @Test
     public void testExpressionNumberValueDifferentType() {
-        this.convertFails(ExpressionNumberToExpressionNumberConverter.with(Converters.simple()),
-                ExpressionNumberKind.DEFAULT.create(1),
-                this.getClass());
+        this.convertFails(
+                ExpressionNumberToExpressionNumberConverter.with(Converters.simple()),
+                ExpressionNumberKind.DEFAULT.one(),
+                this.getClass()
+        );
     }
 
     @Test
