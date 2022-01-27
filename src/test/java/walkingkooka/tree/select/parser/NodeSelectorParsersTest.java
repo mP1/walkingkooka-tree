@@ -2533,10 +2533,6 @@ public final class NodeSelectorParsersTest implements ParserTesting2<Parser<Node
         return nodeName("Node22");
     }
 
-    NodeSelectorParserToken nodeName3() {
-        return nodeName("Node333");
-    }
-
     NodeSelectorParserToken nodeName(final String name) {
         return NodeSelectorParserToken.nodeName(NodeSelectorNodeName.with(name), name);
     }
@@ -2611,10 +2607,6 @@ public final class NodeSelectorParsersTest implements ParserTesting2<Parser<Node
 
     NodeSelectorParserToken slash() {
         return NodeSelectorParserToken.slashSeparatorSymbol("/", "/");
-    }
-
-    NodeSelectorParserToken subtraction(final NodeSelectorParserToken... tokens) {
-        return NodeSelectorParserToken.subtraction(Lists.of(tokens), text(tokens));
     }
 
     NodeSelectorParserToken whitespace() {
