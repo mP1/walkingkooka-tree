@@ -1835,7 +1835,6 @@ public final class NodeSelectorNodeSelectorParserTokenVisitorTest implements Nod
                     private NodeSelectorExpressionEvaluationContext<TestNode, StringName, StringName, Object> expressionEvaluationContext() {
                         return NodeSelectorExpressionEvaluationContexts.basic(this.node,
                                 (r) -> ExpressionEvaluationContexts.basic(
-                                        EXPRESSION_NUMBER_KIND,
                                         Cast.to(this.functions()),
                                         this.functionContext()
                                 )
@@ -2038,7 +2037,13 @@ public final class NodeSelectorNodeSelectorParserTokenVisitorTest implements Nod
         return NodeSelectorParsers.expression()
                 .orFailIfCursorNotEmpty(ParserReporters.basic())
                 .parse(TextCursors.charSequence(expression),
-                        NodeSelectorParserContexts.basic(ExpressionNumberContexts.basic(EXPRESSION_NUMBER_KIND, this.decimalNumberContext().mathContext())))
+                        NodeSelectorParserContexts.basic(
+                                ExpressionNumberContexts.basic(
+                                        EXPRESSION_NUMBER_KIND,
+                                        this.decimalNumberContext()
+                                )
+                        )
+                )
                 .orElseThrow(() -> new UnsupportedOperationException(expression))
                 .cast(NodeSelectorExpressionParserToken.class);
     }

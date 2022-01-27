@@ -19,6 +19,7 @@ package walkingkooka.tree.select;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.collect.list.Lists;
+import walkingkooka.math.DecimalNumberContexts;
 import walkingkooka.predicate.Predicates;
 import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.text.CharSequences;
@@ -291,7 +292,15 @@ public final class ExpressionNodeSelectorToStringExpressionVisitorTest implement
         return NodeSelectorParsers.predicate()
                 .orReport(ParserReporters.basic())
                 .orFailIfCursorNotEmpty(ParserReporters.basic())
-                .parse(TextCursors.charSequence(expression), NodeSelectorParserContexts.basic(ExpressionNumberContexts.basic(EXPRESSION_NUMBER_KIND,  MathContext.DECIMAL32)))
+                .parse(
+                        TextCursors.charSequence(expression),
+                        NodeSelectorParserContexts.basic(
+                                ExpressionNumberContexts.basic(
+                                        EXPRESSION_NUMBER_KIND,
+                                        DecimalNumberContexts.american(MathContext.DECIMAL32)
+                                )
+                        )
+                )
                 .orElseThrow(() -> new ParserException("Failed to parse " + CharSequences.quoteAndEscape(expression)))
                 .cast(NodeSelectorPredicateParserToken.class);
     }

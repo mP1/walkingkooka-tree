@@ -21,6 +21,7 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import walkingkooka.collect.list.Lists;
+import walkingkooka.math.DecimalNumberContexts;
 import walkingkooka.naming.Names;
 import walkingkooka.text.cursor.TextCursors;
 import walkingkooka.text.cursor.parser.Parser;
@@ -48,7 +49,12 @@ public class JunitTest {
         final Parser<NodeSelectorParserContext> parser = NodeSelectorParsers.expression()
                 .orReport(ParserReporters.basic())
                 .cast();
-        final NodeSelectorParserContext context = NodeSelectorParserContexts.basic(ExpressionNumberContexts.basic(kind, MathContext.DECIMAL32));
+        final NodeSelectorParserContext context = NodeSelectorParserContexts.basic(
+                ExpressionNumberContexts.basic(
+                        kind,
+                        DecimalNumberContexts.american(MathContext.DECIMAL32)
+                )
+        );
         final NodeSelectorParserToken token = parser.parse(TextCursors.charSequence("/node123[45]"), context)
                 .get()
                 .cast(NodeSelectorParserToken.class);

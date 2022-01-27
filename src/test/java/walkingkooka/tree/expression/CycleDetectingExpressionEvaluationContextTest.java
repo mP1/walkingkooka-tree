@@ -23,6 +23,7 @@ import walkingkooka.collect.list.Lists;
 import walkingkooka.convert.ConverterContexts;
 import walkingkooka.convert.Converters;
 import walkingkooka.datetime.DateTimeContexts;
+import walkingkooka.math.DecimalNumberContext;
 import walkingkooka.math.DecimalNumberContexts;
 import walkingkooka.reflect.ClassTesting2;
 import walkingkooka.reflect.JavaVisibility;
@@ -301,35 +302,109 @@ public final class CycleDetectingExpressionEvaluationContextTest implements Clas
         return this.createContext(true);
     }
 
-    public CycleDetectingExpressionEvaluationContext createContext(final boolean pure) {
-        return this.createContext(new FakeExpressionEvaluationContext() {
+    private CycleDetectingExpressionEvaluationContext createContext(final boolean pure) {
+        final DecimalNumberContext decimalNumberContext = this.decimalNumberContext();
 
-            @Override
-            public ExpressionFunction<?, ExpressionFunctionContext> function(final FunctionExpressionName name) {
-                Objects.requireNonNull(name, "name");
-                throw new UnknownExpressionFunctionException(name);
-            }
+        return this.createContext(
+                new FakeExpressionEvaluationContext() {
 
-            @Override
-            public Object evaluate(final Expression expression) {
-                return expression.toValue(this);
-            }
+                    @Override
+                    public ExpressionFunction<?, ExpressionFunctionContext> function(final FunctionExpressionName name) {
+                        Objects.requireNonNull(name, "name");
+                        throw new UnknownExpressionFunctionException(name);
+                    }
 
-            @Override
-            public Object evaluate(final FunctionExpressionName name,
-                                   final List<Object> parameters) {
-                Objects.requireNonNull(name, "name");
-                Objects.requireNonNull(parameters, "parameters");
+                    @Override
+                    public Object evaluate(final Expression expression) {
+                        return expression.toValue(this);
+                    }
 
-                throw new UnknownExpressionFunctionException(name);
-            }
+                    @Override
+                    public Object evaluate(final FunctionExpressionName name,
+                                           final List<Object> parameters) {
+                        Objects.requireNonNull(name, "name");
+                        Objects.requireNonNull(parameters, "parameters");
 
-            @Override
-            public boolean isPure(final FunctionExpressionName name) {
-                Objects.requireNonNull(name, "name");
-                return pure;
-            }
-        });
+                        throw new UnknownExpressionFunctionException(name);
+                    }
+
+                    @Override
+                    public boolean isPure(final FunctionExpressionName name) {
+                        Objects.requireNonNull(name, "name");
+                        return pure;
+                    }
+
+                    // DecimalNumberContext............................................................................
+
+                    @Override
+                    public String currencySymbol() {
+                        return decimalNumberContext.currencySymbol();
+                    }
+
+                    @Override
+                    public char decimalSeparator() {
+                        return decimalNumberContext.decimalSeparator();
+                    }
+
+                    @Override
+                    public String exponentSymbol() {
+                        return decimalNumberContext.exponentSymbol();
+                    }
+
+                    @Override
+                    public char groupingSeparator() {
+                        return decimalNumberContext.groupingSeparator();
+                    }
+
+                    @Override
+                    public char negativeSign() {
+                        return decimalNumberContext.negativeSign();
+                    }
+
+                    @Override
+                    public char percentageSymbol() {
+                        return decimalNumberContext.percentageSymbol();
+                    }
+
+                    @Override
+                    public char positiveSign() {
+                        return decimalNumberContext.positiveSign();
+                    }
+                }
+        );
+    }
+
+    private CycleDetectingExpressionEvaluationContext XXXcreateContext(final boolean pure) {
+        return this.createContext(
+                new FakeExpressionEvaluationContext() {
+
+                    @Override
+                    public ExpressionFunction<?, ExpressionFunctionContext> function(final FunctionExpressionName name) {
+                        Objects.requireNonNull(name, "name");
+                        throw new UnknownExpressionFunctionException(name);
+                    }
+
+                    @Override
+                    public Object evaluate(final Expression expression) {
+                        return expression.toValue(this);
+                    }
+
+                    @Override
+                    public Object evaluate(final FunctionExpressionName name,
+                                           final List<Object> parameters) {
+                        Objects.requireNonNull(name, "name");
+                        Objects.requireNonNull(parameters, "parameters");
+
+                        throw new UnknownExpressionFunctionException(name);
+                    }
+
+                    @Override
+                    public boolean isPure(final FunctionExpressionName name) {
+                        Objects.requireNonNull(name, "name");
+                        return pure;
+                    }
+                }
+        );
     }
 
     private CycleDetectingExpressionEvaluationContext createContext(final ExpressionEvaluationContext context) {
@@ -338,6 +413,50 @@ public final class CycleDetectingExpressionEvaluationContextTest implements Clas
 
     private ValueExpression text() {
         return Expression.value(VALUE);
+    }
+
+    @Override
+    public String currencySymbol() {
+        return this.decimalNumberContext().currencySymbol();
+    }
+
+    @Override
+    public char decimalSeparator() {
+        return this.decimalNumberContext().decimalSeparator();
+    }
+
+    @Override
+    public String exponentSymbol() {
+        return this.decimalNumberContext().exponentSymbol();
+    }
+
+    @Override
+    public char groupingSeparator() {
+        return this.decimalNumberContext().groupingSeparator();
+    }
+
+    @Override
+    public MathContext mathContext() {
+        return this.decimalNumberContext().mathContext();
+    }
+
+    @Override
+    public char negativeSign() {
+        return this.decimalNumberContext().negativeSign();
+    }
+
+    @Override
+    public char percentageSymbol() {
+        return this.decimalNumberContext().percentageSymbol();
+    }
+
+    @Override
+    public char positiveSign() {
+        return this.decimalNumberContext().positiveSign();
+    }
+
+    private DecimalNumberContext decimalNumberContext() {
+        return DecimalNumberContexts.american(MathContext.DECIMAL32);
     }
 
     // ClassTesting.....................................................................................................

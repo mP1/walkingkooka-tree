@@ -36,15 +36,12 @@ final class BasicExpressionEvaluationContext implements ExpressionEvaluationCont
     /**
      * Factory that creates a {@link BasicExpressionEvaluationContext}
      */
-    static BasicExpressionEvaluationContext with(final ExpressionNumberKind expressionNumberKind,
-                                                 final Function<FunctionExpressionName, ExpressionFunction<?, ExpressionFunctionContext>> functions,
+    static BasicExpressionEvaluationContext with(final Function<FunctionExpressionName, ExpressionFunction<?, ExpressionFunctionContext>> functions,
                                                  final ExpressionFunctionContext functionContext) {
-        Objects.requireNonNull(expressionNumberKind, "expressionNumberKind");
         Objects.requireNonNull(functions, "functions");
         Objects.requireNonNull(functionContext, "functionContext");
 
         return new BasicExpressionEvaluationContext(
-                expressionNumberKind,
                 functions,
                 functionContext
         );
@@ -53,13 +50,48 @@ final class BasicExpressionEvaluationContext implements ExpressionEvaluationCont
     /**
      * Private ctor use factory
      */
-    private BasicExpressionEvaluationContext(final ExpressionNumberKind expressionNumberKind,
-                                             final Function<FunctionExpressionName, ExpressionFunction<?, ExpressionFunctionContext>> functions,
+    private BasicExpressionEvaluationContext(final Function<FunctionExpressionName, ExpressionFunction<?, ExpressionFunctionContext>> functions,
                                              final ExpressionFunctionContext functionContext) {
         super();
-        this.expressionNumberKind = expressionNumberKind;
         this.functions = functions;
         this.functionContext = functionContext;
+    }
+
+    // ExpressionNumberContext.........................................................................................
+
+    @Override
+    public String currencySymbol() {
+        return this.functionContext.currencySymbol();
+    }
+
+    @Override
+    public char decimalSeparator() {
+        return this.functionContext.decimalSeparator();
+    }
+
+    @Override
+    public String exponentSymbol() {
+        return this.functionContext.exponentSymbol();
+    }
+
+    @Override
+    public char groupingSeparator() {
+        return this.functionContext.groupingSeparator();
+    }
+
+    @Override
+    public char percentageSymbol() {
+        return this.functionContext.percentageSymbol();
+    }
+
+    @Override
+    public char negativeSign() {
+        return this.functionContext.negativeSign();
+    }
+
+    @Override
+    public char positiveSign() {
+        return this.functionContext.positiveSign();
     }
 
     @Override
@@ -74,10 +106,8 @@ final class BasicExpressionEvaluationContext implements ExpressionEvaluationCont
 
     @Override
     public ExpressionNumberKind expressionNumberKind() {
-        return this.expressionNumberKind;
+        return this.functionContext.expressionNumberKind();
     }
-
-    private final ExpressionNumberKind expressionNumberKind;
 
     @Override
     public int defaultYear() {

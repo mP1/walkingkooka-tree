@@ -17,9 +17,8 @@
 
 package walkingkooka.tree.expression;
 
+import walkingkooka.math.DecimalNumberContext;
 import walkingkooka.reflect.PublicStaticHelper;
-
-import java.math.MathContext;
 
 public final class ExpressionNumberContexts implements PublicStaticHelper {
 
@@ -27,8 +26,11 @@ public final class ExpressionNumberContexts implements PublicStaticHelper {
      * {@see BasicExpressionNumberContext}
      */
     public static ExpressionNumberContext basic(final ExpressionNumberKind expressionNumberKind,
-                                                final MathContext mathContext) {
-        return BasicExpressionNumberContext.with(expressionNumberKind, mathContext);
+                                                final DecimalNumberContext decimalNumberContext) {
+        return BasicExpressionNumberContext.with(
+                expressionNumberKind,
+                decimalNumberContext
+        );
     }
 
     /**

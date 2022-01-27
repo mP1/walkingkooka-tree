@@ -24,6 +24,7 @@ import walkingkooka.collect.map.Maps;
 import walkingkooka.convert.ConverterContexts;
 import walkingkooka.convert.Converters;
 import walkingkooka.datetime.DateTimeContexts;
+import walkingkooka.math.DecimalNumberContext;
 import walkingkooka.math.DecimalNumberContexts;
 import walkingkooka.naming.Names;
 import walkingkooka.naming.StringName;
@@ -125,7 +126,6 @@ public final class BasicNodeSelectorExpressionEvaluationContextTest implements N
     private BasicNodeSelectorExpressionEvaluationContext<TestNode, StringName, StringName, Object> createContext(final TestNode node) {
         return BasicNodeSelectorExpressionEvaluationContext.with(node,
                 (r) -> ExpressionEvaluationContexts.basic(
-                        EXPRESSION_NUMBER_KIND,
                         this.functions(),
                         this.functionContext()
                 ));
@@ -155,12 +155,63 @@ public final class BasicNodeSelectorExpressionEvaluationContextTest implements N
     }
 
     private ExpressionNumberConverterContext converterContext() {
-        return ExpressionNumberConverterContexts.basic(Converters.numberNumber(),
-                ConverterContexts.basic(Converters.fake(),
+        return ExpressionNumberConverterContexts.basic(
+                Converters.numberNumber(),
+                ConverterContexts.basic(
+                        Converters.fake(),
                         DateTimeContexts.fake(),
-                        DecimalNumberContexts.american(MathContext.DECIMAL32)),
+                        decimalNumberContext()
+                ),
                 EXPRESSION_NUMBER_KIND);
     }
+
+    // FunctionContextTesting..........................................................................................
+
+    @Override
+    public String currencySymbol() {
+        return this.decimalNumberContext().currencySymbol();
+    }
+
+    @Override
+    public char decimalSeparator() {
+        return this.decimalNumberContext().decimalSeparator();
+    }
+
+    @Override
+    public String exponentSymbol() {
+        return this.decimalNumberContext().exponentSymbol();
+    }
+
+    @Override
+    public char groupingSeparator() {
+        return this.decimalNumberContext().groupingSeparator();
+    }
+
+    @Override
+    public MathContext mathContext() {
+        return this.decimalNumberContext().mathContext();
+    }
+
+    @Override
+    public char negativeSign() {
+        return this.decimalNumberContext().negativeSign();
+    }
+
+    @Override
+    public char percentageSymbol() {
+        return this.decimalNumberContext().percentageSymbol();
+    }
+
+    @Override
+    public char positiveSign() {
+        return this.decimalNumberContext().positiveSign();
+    }
+
+    private DecimalNumberContext decimalNumberContext() {
+        return DecimalNumberContexts.american(MathContext.DECIMAL32);
+    }
+
+    // ClassTesting....................................................................................................
 
     @Override
     public Class<BasicNodeSelectorExpressionEvaluationContext<TestNode, StringName, StringName, Object>> type() {

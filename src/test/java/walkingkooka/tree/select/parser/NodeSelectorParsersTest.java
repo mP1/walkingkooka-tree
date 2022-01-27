@@ -27,8 +27,8 @@ import walkingkooka.text.cursor.parser.Parser;
 import walkingkooka.text.cursor.parser.ParserReporters;
 import walkingkooka.text.cursor.parser.ParserTesting2;
 import walkingkooka.text.cursor.parser.ParserToken;
-import walkingkooka.tree.expression.ExpressionNumberContext;
 import walkingkooka.tree.expression.ExpressionNumberKind;
+import walkingkooka.tree.expression.FakeExpressionNumberContext;
 import walkingkooka.visit.Visiting;
 
 import java.math.MathContext;
@@ -2252,21 +2252,22 @@ public final class NodeSelectorParsersTest implements ParserTesting2<Parser<Node
     @Override
     public NodeSelectorParserContext createContext() {
         final ExpressionNumberKind kind = this.expressionNumberKind;
-        return NodeSelectorParserContexts.basic(new ExpressionNumberContext() {
+        return NodeSelectorParserContexts.basic(
+                new FakeExpressionNumberContext() {
 
-            @Override
-            public ExpressionNumberKind expressionNumberKind() {
-                if (null == kind) {
-                    throw new UnsupportedOperationException();
-                }
-                return kind;
-            }
+                    @Override
+                    public ExpressionNumberKind expressionNumberKind() {
+                        if (null == kind) {
+                            throw new UnsupportedOperationException();
+                        }
+                        return kind;
+                    }
 
-            @Override
-            public MathContext mathContext() {
-                return MathContext.DECIMAL32;
-            }
-        });
+                    @Override
+                    public MathContext mathContext() {
+                        return MathContext.DECIMAL32;
+                    }
+                });
     }
 
     // helpers................................................................................................

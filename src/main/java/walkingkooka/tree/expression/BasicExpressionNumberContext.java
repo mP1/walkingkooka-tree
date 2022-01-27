@@ -17,23 +17,26 @@
 
 package walkingkooka.tree.expression;
 
+import walkingkooka.math.DecimalNumberContext;
+
 import java.math.MathContext;
+import java.util.Locale;
 import java.util.Objects;
 
 final class BasicExpressionNumberContext implements ExpressionNumberContext {
 
     static BasicExpressionNumberContext with(final ExpressionNumberKind expressionNumberKind,
-                                             final MathContext mathContext) {
+                                             final DecimalNumberContext decimalNumberContext) {
         Objects.requireNonNull(expressionNumberKind, "expressionNumberKind");
-        Objects.requireNonNull(mathContext, "mathContext");
+        Objects.requireNonNull(decimalNumberContext, "decimalNumberContext");
 
-        return new BasicExpressionNumberContext(expressionNumberKind, mathContext);
+        return new BasicExpressionNumberContext(expressionNumberKind, decimalNumberContext);
     }
 
     private BasicExpressionNumberContext(final ExpressionNumberKind expressionNumberKind,
-                                         final MathContext mathContext) {
+                                         final DecimalNumberContext decimalNumberContext) {
         this.expressionNumberKind = expressionNumberKind;
-        this.mathContext = mathContext;
+        this.decimalNumberContext = decimalNumberContext;
     }
 
     @Override
@@ -43,15 +46,59 @@ final class BasicExpressionNumberContext implements ExpressionNumberContext {
 
     private final ExpressionNumberKind expressionNumberKind;
 
+    // DecimalNumberContext............................................................................................
+
     @Override
-    public MathContext mathContext() {
-        return this.mathContext;
+    public String currencySymbol() {
+        return this.decimalNumberContext.currencySymbol();
     }
 
-    private final MathContext mathContext;
+    @Override
+    public char decimalSeparator() {
+        return this.decimalNumberContext.decimalSeparator();
+    }
+
+    @Override
+    public String exponentSymbol() {
+        return this.decimalNumberContext.exponentSymbol();
+    }
+
+    @Override
+    public char groupingSeparator() {
+        return this.decimalNumberContext.groupingSeparator();
+    }
+
+    @Override
+    public char percentageSymbol() {
+        return this.decimalNumberContext.percentageSymbol();
+    }
+
+    @Override
+    public char negativeSign() {
+        return this.decimalNumberContext.negativeSign();
+    }
+
+    @Override
+    public char positiveSign() {
+        return this.decimalNumberContext.positiveSign();
+    }
+
+    @Override
+    public Locale locale() {
+        return this.decimalNumberContext.locale();
+    }
+
+    @Override
+    public MathContext mathContext() {
+        return this.decimalNumberContext.mathContext();
+    }
+
+    private final DecimalNumberContext decimalNumberContext;
+
+    // Object...........................................................................................................
 
     @Override
     public String toString() {
-        return this.expressionNumberKind + " " + this.mathContext;
+        return this.expressionNumberKind + " " + this.decimalNumberContext;
     }
 }
