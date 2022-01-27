@@ -46,10 +46,10 @@ public enum ExpressionNumberSign {
 
     private final static ExpressionNumber[] EXPRESSION_NUMBERS = new ExpressionNumber[]{
             ExpressionNumberKind.BIG_DECIMAL.create(-1),
-            ExpressionNumberKind.BIG_DECIMAL.create(0),
+            ExpressionNumberKind.BIG_DECIMAL.zero(),
             ExpressionNumberKind.BIG_DECIMAL.create(+1),
             ExpressionNumberKind.DOUBLE.create(-1),
-            ExpressionNumberKind.DOUBLE.create(0),
+            ExpressionNumberKind.DOUBLE.zero(),
             ExpressionNumberKind.DOUBLE.create(+1)
     };
 

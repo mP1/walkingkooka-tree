@@ -80,7 +80,7 @@ public final class ExpressionNumberFunctionExpressionFunctionTest implements Exp
         assertThrows(
                 IllegalArgumentException.class,
                 () -> {
-                    this.apply2(KIND.create(0), KIND.create(1));
+                    this.apply2(KIND.zero(), KIND.create(1));
                 }
         );
     }
