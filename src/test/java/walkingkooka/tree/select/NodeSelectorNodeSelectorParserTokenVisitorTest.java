@@ -41,7 +41,6 @@ import walkingkooka.tree.TestNode;
 import walkingkooka.tree.expression.Expression;
 import walkingkooka.tree.expression.ExpressionEvaluationContexts;
 import walkingkooka.tree.expression.ExpressionNumber;
-import walkingkooka.tree.expression.ExpressionNumberContexts;
 import walkingkooka.tree.expression.ExpressionNumberConverterContext;
 import walkingkooka.tree.expression.ExpressionNumberConverterContexts;
 import walkingkooka.tree.expression.ExpressionNumberKind;
@@ -2038,10 +2037,8 @@ public final class NodeSelectorNodeSelectorParserTokenVisitorTest implements Nod
                 .orFailIfCursorNotEmpty(ParserReporters.basic())
                 .parse(TextCursors.charSequence(expression),
                         NodeSelectorParserContexts.basic(
-                                ExpressionNumberContexts.basic(
-                                        EXPRESSION_NUMBER_KIND,
-                                        this.decimalNumberContext()
-                                )
+                                EXPRESSION_NUMBER_KIND,
+                                this.decimalNumberContext().mathContext()
                         )
                 )
                 .orElseThrow(() -> new UnsupportedOperationException(expression))

@@ -18,15 +18,21 @@
 package walkingkooka.tree.select.parser;
 
 import walkingkooka.reflect.PublicStaticHelper;
-import walkingkooka.tree.expression.ExpressionNumberContext;
+import walkingkooka.tree.expression.ExpressionNumberKind;
+
+import java.math.MathContext;
 
 public final class NodeSelectorParserContexts implements PublicStaticHelper {
 
     /**
      * {@see BasicNodeSelectorParserContext}
      */
-    public static NodeSelectorParserContext basic(final ExpressionNumberContext context) {
-        return BasicNodeSelectorParserContext.with(context);
+    public static NodeSelectorParserContext basic(final ExpressionNumberKind kind,
+                                                  final MathContext mathContext) {
+        return BasicNodeSelectorParserContext.with(
+                kind,
+                mathContext
+        );
     }
 
     /**

@@ -19,7 +19,6 @@ package walkingkooka.tree.select;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.collect.list.Lists;
-import walkingkooka.math.DecimalNumberContexts;
 import walkingkooka.predicate.Predicates;
 import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.text.CharSequences;
@@ -28,7 +27,6 @@ import walkingkooka.text.cursor.parser.ParserException;
 import walkingkooka.text.cursor.parser.ParserReporterException;
 import walkingkooka.text.cursor.parser.ParserReporters;
 import walkingkooka.tree.expression.Expression;
-import walkingkooka.tree.expression.ExpressionNumberContexts;
 import walkingkooka.tree.expression.ExpressionNumberKind;
 import walkingkooka.tree.expression.ExpressionVisitorTesting;
 import walkingkooka.tree.expression.FunctionExpressionName;
@@ -295,10 +293,8 @@ public final class ExpressionNodeSelectorToStringExpressionVisitorTest implement
                 .parse(
                         TextCursors.charSequence(expression),
                         NodeSelectorParserContexts.basic(
-                                ExpressionNumberContexts.basic(
-                                        EXPRESSION_NUMBER_KIND,
-                                        DecimalNumberContexts.american(MathContext.DECIMAL32)
-                                )
+                                EXPRESSION_NUMBER_KIND,
+                                MathContext.DECIMAL32
                         )
                 )
                 .orElseThrow(() -> new ParserException("Failed to parse " + CharSequences.quoteAndEscape(expression)))

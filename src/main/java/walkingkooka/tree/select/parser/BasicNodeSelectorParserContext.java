@@ -18,7 +18,6 @@
 package walkingkooka.tree.select.parser;
 
 import walkingkooka.ToStringBuilder;
-import walkingkooka.tree.expression.ExpressionNumberContext;
 import walkingkooka.tree.expression.ExpressionNumberKind;
 
 import java.math.MathContext;
@@ -34,15 +33,22 @@ final class BasicNodeSelectorParserContext implements NodeSelectorParserContext 
     /**
      * Creates a new {@link }
      */
-    static BasicNodeSelectorParserContext with(final ExpressionNumberContext context) {
-        Objects.requireNonNull(context, "context");
+    static BasicNodeSelectorParserContext with(final ExpressionNumberKind kind,
+                                               final MathContext mathContext) {
+        Objects.requireNonNull(kind, "kind");
+        Objects.requireNonNull(mathContext, "mathContext");
 
-        return new BasicNodeSelectorParserContext(context);
+        return new BasicNodeSelectorParserContext(
+                kind,
+                mathContext
+        );
     }
 
-    private BasicNodeSelectorParserContext(final ExpressionNumberContext context) {
+    private BasicNodeSelectorParserContext(final ExpressionNumberKind kind,
+                                           final MathContext mathContext) {
         super();
-        this.context = context;
+        this.kind = kind;
+        this.mathContext = mathContext;
     }
 
     @Override
@@ -72,8 +78,10 @@ final class BasicNodeSelectorParserContext implements NodeSelectorParserContext 
 
     @Override
     public ExpressionNumberKind expressionNumberKind() {
-        return this.context.expressionNumberKind();
+        return this.kind;
     }
+
+    private final ExpressionNumberKind kind;
 
     @Override
     public char groupingSeparator() {
@@ -87,10 +95,10 @@ final class BasicNodeSelectorParserContext implements NodeSelectorParserContext 
 
     @Override
     public MathContext mathContext() {
-        return this.context.mathContext();
+        return this.mathContext;
     }
 
-    private final ExpressionNumberContext context;
+    private final MathContext mathContext;
 
     @Override
     public char negativeSign() {
