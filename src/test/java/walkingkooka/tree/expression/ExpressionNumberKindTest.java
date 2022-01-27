@@ -275,6 +275,24 @@ public final class ExpressionNumberKindTest implements ClassTesting<ExpressionNu
         );
     }
 
+    // zero............................................................................................................
+
+    @Test
+    public void testZeroBigDecimal() {
+        this.checkEquals(
+                ExpressionNumberKind.BIG_DECIMAL.create(0),
+                ExpressionNumberKind.BIG_DECIMAL.zero()
+        );
+    }
+
+    @Test
+    public void testZeroOne() {
+        this.checkEquals(
+                ExpressionNumberKind.DOUBLE.create(0),
+                ExpressionNumberKind.DOUBLE.zero()
+        );
+    }
+
     // ClassTesting.....................................................................................................
 
     @Override
