@@ -29,6 +29,24 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class ExpressionNumberKindTest implements ClassTesting<ExpressionNumberKind> {
 
+    // one............................................................................................................
+
+    @Test
+    public void testOneBigDecimal() {
+        this.checkEquals(
+                ExpressionNumberKind.BIG_DECIMAL.create(1),
+                ExpressionNumberKind.BIG_DECIMAL.one()
+        );
+    }
+
+    @Test
+    public void testOneDouble() {
+        this.checkEquals(
+                ExpressionNumberKind.DOUBLE.create(1),
+                ExpressionNumberKind.DOUBLE.one()
+        );
+    }
+
     // parse............................................................................................................
 
     @Test

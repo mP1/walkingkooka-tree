@@ -27,7 +27,10 @@ import java.util.Objects;
  * The former uses more memory, is more accurate, but slower, while the later is less accurate limited to 64 bits but is faster.
  */
 public enum ExpressionNumberKind {
-    BIG_DECIMAL(ExpressionNumberBigDecimal.withBigDecimal(BigDecimal.ZERO)) {
+    BIG_DECIMAL(
+            ExpressionNumberBigDecimal.withBigDecimal(BigDecimal.ZERO),
+            ExpressionNumberBigDecimal.withBigDecimal(BigDecimal.ONE)
+    ) {
         @Override
         public ExpressionNumber create(final Number number) {
             return number instanceof ExpressionNumberBigDecimal ?
@@ -86,7 +89,10 @@ public enum ExpressionNumberKind {
         }
     },
 
-    DOUBLE(ExpressionNumberDouble.withDouble(0)) {
+    DOUBLE(
+            ExpressionNumberDouble.withDouble(0),
+            ExpressionNumberDouble.withDouble(1)
+    ) {
         @Override
         public ExpressionNumber create(final Number number) {
             return number instanceof ExpressionNumberDouble ?
@@ -135,14 +141,25 @@ public enum ExpressionNumberKind {
         }
     };
 
-    ExpressionNumberKind(final ExpressionNumber zero) {
+    ExpressionNumberKind(final ExpressionNumber zero,
+                         final ExpressionNumber one) {
         this.zero = zero;
+        this.one = one;
     }
 
     /**
      * Factory that creates the appropriate {@link ExpressionNumber} instance
      */
     public abstract ExpressionNumber create(final Number number);
+
+    /**
+     * Returns an {@link ExpressionNumber} with a value of +1.
+     */
+    public final ExpressionNumber one() {
+        return this.one;
+    }
+
+    private final ExpressionNumber one;
 
     /**
      * Factory that parses the {@link String text} into the appropriate {@link ExpressionNumber} instance
