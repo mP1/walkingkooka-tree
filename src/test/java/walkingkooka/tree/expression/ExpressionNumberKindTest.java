@@ -18,8 +18,10 @@
 package walkingkooka.tree.expression;
 
 import org.junit.jupiter.api.Test;
+import walkingkooka.InvalidCharacterException;
 import walkingkooka.reflect.ClassTesting;
 import walkingkooka.reflect.JavaVisibility;
+import walkingkooka.text.CharSequences;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
@@ -114,6 +116,353 @@ public final class ExpressionNumberKindTest implements ClassTesting<ExpressionNu
     public void testParseDouble() {
         final String text = "12.3";
         this.checkEquals(ExpressionNumberKind.DOUBLE.create(Double.parseDouble(text)), ExpressionNumberKind.DOUBLE.parse(text));
+    }
+
+    // parseWithBase........................................................................................................
+
+    @Test
+    public void testParseWithBaseBigDecimalNullTextFails() {
+        this.parseWithBaseFails(
+                ExpressionNumberKind.BIG_DECIMAL,
+                null,
+                2,
+                NullPointerException.class,
+                "text"
+        );
+    }
+
+    @Test
+    public void testParseWithBaseBigDecimalEmptyTextFails() {
+        this.parseWithBaseFails(
+                ExpressionNumberKind.BIG_DECIMAL,
+                "",
+                2,
+                IllegalArgumentException.class,
+                "text is empty"
+        );
+    }
+
+    @Test
+    public void testParseWithBaseBigDecimalBaseMinusOneFails() {
+        this.parseWithBaseInvalidBaseFails(
+                ExpressionNumberKind.BIG_DECIMAL,
+                -1
+        );
+    }
+
+    @Test
+    public void testParseWithBaseBigDecimalBase0Fails() {
+        this.parseWithBaseInvalidBaseFails(
+                ExpressionNumberKind.BIG_DECIMAL,
+                0
+        );
+    }
+
+    @Test
+    public void testParseWithBaseBigDecimalBase1Fails() {
+        this.parseWithBaseInvalidBaseFails(
+                ExpressionNumberKind.BIG_DECIMAL,
+                1
+        );
+    }
+
+    @Test
+    public void testParseWithBaseBigDecimalBase3Fails() {
+        this.parseWithBaseInvalidBaseFails(
+                ExpressionNumberKind.BIG_DECIMAL,
+                3
+        );
+    }
+
+    @Test
+    public void testParseWithBaseDoublease3Fails() {
+        this.parseWithBaseInvalidBaseFails(
+                ExpressionNumberKind.DOUBLE,
+                3
+        );
+    }
+
+    private void parseWithBaseInvalidBaseFails(final ExpressionNumberKind kind,
+                                               final int base) {
+        this.parseWithBaseFails(
+                kind,
+                "0",
+                base,
+                IllegalArgumentException.class,
+                "Invalid base " + base + " expected 2,8,10 or 16"
+        );
+    }
+
+    @Test
+    public void testParseWithBaseBigDecimalInvalidCharacterFails() {
+        this.parseWithBaseFails(
+                ExpressionNumberKind.BIG_DECIMAL,
+                "12",
+                2,
+                InvalidCharacterException.class,
+                "Invalid character '2' at 1 in \"12\""
+        );
+    }
+
+    @Test
+    public void testParseWithBaseBigDecimalInvalidCharacterFails2() {
+        this.parseWithBaseFails(
+                ExpressionNumberKind.BIG_DECIMAL,
+                "11-",
+                2,
+                InvalidCharacterException.class,
+                "Invalid character '-' at 2 in \"11-\""
+        );
+    }
+
+    private <T extends RuntimeException> void parseWithBaseFails(
+            final ExpressionNumberKind kind,
+            final String text,
+            final int base,
+            final Class<T> thrown,
+            final String expected) {
+        final T actual =
+                assertThrows(
+                        thrown,
+                        () -> kind.parseWithBase(
+                                text,
+                                base,
+                                this.createContext(kind)
+                        )
+                );
+        this.checkEquals(
+                expected,
+                actual.getMessage(),
+                () -> kind + ".parseWithBase " + CharSequences.quoteAndEscape(text) + ", base=" + base
+        );
+    }
+
+    @Test
+    public void testParseWithBaseBigDecimalBase2_0() {
+        this.parseWithBaseAndCheck(
+                ExpressionNumberKind.BIG_DECIMAL,
+                "0",
+                2,
+                0
+        );
+    }
+
+    @Test
+    public void testParseWithBaseBigDecimalBase2_101() {
+        this.parseWithBaseAndCheck(
+                ExpressionNumberKind.BIG_DECIMAL,
+                "101",
+                2,
+                5
+        );
+    }
+
+    @Test
+    public void testParseWithBaseBigDecimalBase2_01010101() {
+        this.parseWithBaseAndCheck(
+                ExpressionNumberKind.BIG_DECIMAL,
+                "01010101",
+                2,
+                0x55
+        );
+    }
+
+    @Test
+    public void testParseWithBaseBigDecimalBase2_Minus01010101() {
+        this.parseWithBaseAndCheck(
+                ExpressionNumberKind.BIG_DECIMAL,
+                "-01010101",
+                2,
+                -0x55
+        );
+    }
+
+    @Test
+    public void testParseWithBaseBigDecimalBase2_BigNumber() {
+        this.parseWithBaseAndCheck(
+                ExpressionNumberKind.BIG_DECIMAL,
+                "11110000101010100101010100000001",
+                2,
+                0xf0AA5501L
+        );
+    }
+
+    @Test
+    public void testParseWithBaseBigDecimalBase8_0() {
+        this.parseWithBaseAndCheck(
+                ExpressionNumberKind.BIG_DECIMAL,
+                "0",
+                8,
+                0
+        );
+    }
+
+    @Test
+    public void testParseWithBaseBigDecimalBase8_127() {
+        this.parseWithBaseAndCheck(
+                ExpressionNumberKind.BIG_DECIMAL,
+                "127",
+                8,
+                0127
+        );
+    }
+
+    @Test
+    public void testParseWithBaseBigDecimalBase8_0776() {
+        this.parseWithBaseAndCheck(
+                ExpressionNumberKind.BIG_DECIMAL,
+                "0776",
+                8,
+                0776
+        );
+    }
+
+    @Test
+    public void testParseWithBaseBigDecimalBase8_Minus776() {
+        this.parseWithBaseAndCheck(
+                ExpressionNumberKind.BIG_DECIMAL,
+                "-776",
+                8,
+                -0776
+        );
+    }
+
+    @Test
+    public void testParseWithBaseBigDecimalBase10_101() {
+        this.parseWithBaseAndCheck(
+                ExpressionNumberKind.BIG_DECIMAL,
+                "101",
+                10,
+                101
+        );
+    }
+
+    @Test
+    public void testParseWithBaseBigDecimalBase10_987() {
+        this.parseWithBaseAndCheck(
+                ExpressionNumberKind.BIG_DECIMAL,
+                "987",
+                10,
+                987
+        );
+    }
+
+    @Test
+    public void testParseWithBaseBigDecimalBase16_Minus876() {
+        this.parseWithBaseAndCheck(
+                ExpressionNumberKind.BIG_DECIMAL,
+                "-876",
+                10,
+                -876
+        );
+    }
+
+    @Test
+    public void testParseWithBaseBigDecimalBase16_101() {
+        this.parseWithBaseAndCheck(
+                ExpressionNumberKind.BIG_DECIMAL,
+                "101",
+                16,
+                0x101
+        );
+    }
+
+    @Test
+    public void testParseWithBaseBigDecimalBase16_0FF() {
+        this.parseWithBaseAndCheck(
+                ExpressionNumberKind.BIG_DECIMAL,
+                "0FF",
+                16,
+                0xff
+        );
+    }
+
+    @Test
+    public void testParseWithBaseBigDecimalBase16_Minus12EF() {
+        this.parseWithBaseAndCheck(
+                ExpressionNumberKind.BIG_DECIMAL,
+                "-12EF",
+                16,
+                -0x12EF
+        );
+    }
+
+    @Test
+    public void testParseWithBaseBigDecimalBase10_BigNumber() {
+        final String text = "-12345678901234567890123456789012345678901234567890";
+
+        this.parseWithBaseAndCheck(
+                ExpressionNumberKind.BIG_DECIMAL,
+                text,
+                10,
+                new BigDecimal(text)
+        );
+    }
+
+    @Test
+    public void testParseWithBaseBigDecimalBase10_DifferentPlusSign() {
+        final String text = "*123";
+
+        this.parseWithBaseAndCheck(
+                ExpressionNumberKind.BIG_DECIMAL,
+                text,
+                10,
+                this.createContext(ExpressionNumberKind.BIG_DECIMAL, '*', '!'),
+                ExpressionNumberKind.BIG_DECIMAL.create(123)
+        );
+    }
+
+    @Test
+    public void testParseWithBaseBigDecimalBase10_DifferentMinusSign() {
+        final String text = "*123";
+
+        this.parseWithBaseAndCheck(
+                ExpressionNumberKind.BIG_DECIMAL,
+                text,
+                10,
+                this.createContext(ExpressionNumberKind.BIG_DECIMAL, '!', '*'),
+                ExpressionNumberKind.BIG_DECIMAL.create(-123)
+        );
+    }
+
+    private void parseWithBaseAndCheck(final ExpressionNumberKind kind,
+                                       final String text,
+                                       final int base,
+                                       final Number expected) {
+        this.parseWithBaseAndCheck(
+                kind,
+                text,
+                base,
+                kind.create(expected)
+        );
+    }
+
+    private void parseWithBaseAndCheck(final ExpressionNumberKind kind,
+                                       final String text,
+                                       final int base,
+                                       final ExpressionNumber expected) {
+        this.parseWithBaseAndCheck(
+                kind,
+                text,
+                base,
+                this.createContext(kind),
+                expected
+        );
+    }
+
+    private void parseWithBaseAndCheck(final ExpressionNumberKind kind,
+                                       final String text,
+                                       final int base,
+                                       final ExpressionNumberContext context,
+                                       final ExpressionNumber expected) {
+        this.checkEquals(
+                expected,
+                kind.parseWithBase(
+                        text,
+                        base,
+                        context
+                )
+        );
     }
 
     // random..........................................................................................................
@@ -233,22 +582,7 @@ public final class ExpressionNumberKindTest implements ClassTesting<ExpressionNu
     private void randomBetween(final ExpressionNumber lower,
                                final ExpressionNumber upper,
                                final ExpressionNumberKind kind) {
-        final ExpressionNumberContext context = new FakeExpressionNumberContext() {
-            @Override
-            public ExpressionNumberKind expressionNumberKind() {
-                return kind;
-            }
-
-            @Override
-            public MathContext mathContext() {
-                return MathContext.DECIMAL32;
-            }
-
-            @Override
-            public String toString() {
-                return this.expressionNumberKind() + " " + this.mathContext();
-            }
-        };
+        final ExpressionNumberContext context = this.createContext(kind);
 
         final ExpressionNumber random = kind.randomBetween(
                 lower,
@@ -364,6 +698,43 @@ public final class ExpressionNumberKindTest implements ClassTesting<ExpressionNu
                 ExpressionNumberKind.DOUBLE.create(0),
                 ExpressionNumberKind.DOUBLE.zero()
         );
+    }
+
+    private ExpressionNumberContext createContext(final ExpressionNumberKind kind) {
+        return this.createContext(
+                kind,
+                '+',
+                '-'
+        );
+    }
+
+    private ExpressionNumberContext createContext(final ExpressionNumberKind kind,
+                                                  final char plus,
+                                                  final char minus) {
+        return new FakeExpressionNumberContext() {
+            @Override
+            public ExpressionNumberKind expressionNumberKind() {
+                return kind;
+            }
+
+            @Override
+            public MathContext mathContext() {
+                return MathContext.UNLIMITED;
+            }
+
+            @Override public char negativeSign() {
+                return minus;
+            }
+
+            @Override public char positiveSign() {
+                return plus;
+            }
+
+            @Override
+            public String toString() {
+                return this.expressionNumberKind() + " " + this.mathContext();
+            }
+        };
     }
 
     // ClassTesting.....................................................................................................
