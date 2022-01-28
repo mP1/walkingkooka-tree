@@ -22,12 +22,67 @@ import walkingkooka.reflect.ClassTesting;
 import walkingkooka.reflect.JavaVisibility;
 
 import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.math.MathContext;
 
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class ExpressionNumberKindTest implements ClassTesting<ExpressionNumberKind> {
+
+    // create............................................................................................................
+
+    @Test
+    public void testCreateBigDecimalInteger() {
+        this.checkEquals(
+                ExpressionNumberKind.BIG_DECIMAL.create(Integer.MAX_VALUE),
+                ExpressionNumberBigDecimal.withBigDecimal(BigDecimal.valueOf(Integer.MAX_VALUE))
+        );
+    }
+
+    @Test
+    public void testCreateBigDecimalLong() {
+        this.checkEquals(
+                ExpressionNumberKind.BIG_DECIMAL.create(Long.MAX_VALUE),
+                ExpressionNumberBigDecimal.withBigDecimal(BigDecimal.valueOf(Long.MAX_VALUE))
+        );
+    }
+
+    @Test
+    public void testCreateBigDecimalBigInteger() {
+        final BigInteger value = new BigInteger("123456789012345678901234567890");
+
+        this.checkEquals(
+                ExpressionNumberKind.BIG_DECIMAL.create(value),
+                ExpressionNumberBigDecimal.withBigDecimal(new BigDecimal(value))
+        );
+    }
+
+    @Test
+    public void testCreateBigDecimalBigDecimal() {
+        final BigDecimal value = new BigDecimal("123456789012345678901234567890");
+
+        this.checkEquals(
+                ExpressionNumberKind.BIG_DECIMAL.create(value),
+                ExpressionNumberBigDecimal.withBigDecimal(value)
+        );
+    }
+
+    @Test
+    public void testCreateDoubleFloat() {
+        this.checkEquals(
+                ExpressionNumberKind.DOUBLE.create(123.5f),
+                ExpressionNumberDouble.withDouble(123.5f)
+        );
+    }
+
+    @Test
+    public void testCreateDoubleDouble() {
+        this.checkEquals(
+                ExpressionNumberKind.DOUBLE.create(123.5),
+                ExpressionNumberDouble.withDouble(123.5)
+        );
+    }
 
     // one............................................................................................................
 
