@@ -402,4 +402,15 @@ public abstract class ExpressionNumber extends Number implements Comparable<Expr
         }
         return toString;
     }
+
+    // toStringBase......................................................................................................
+
+    /**
+     * Adds support for formatting this number in the given base.
+     */
+    public final String toStringWithBase(final ExpressionNumber base) {
+        Objects.requireNonNull(base, "base");
+
+        return this.bigInteger().toString(base.intValueExact());
+    }
 }
