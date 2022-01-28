@@ -1347,6 +1347,45 @@ public abstract class ExpressionNumberTestCase<N extends ExpressionNumber> imple
         this.toStringAndCheck(this.create(value), toString);
     }
 
+    // toString with base...............................................................................................
+
+    @Test
+    public final void testToStringWithBase2() {
+        this.toStringWithBaseAndCheck(
+                0xF5,
+                2,
+                "11110101"
+        );
+    }
+
+    @Test
+    public final void testToStringWithBase8() {
+        this.toStringWithBaseAndCheck(
+                0777,
+                8,
+                "777"
+        );
+    }
+
+    @Test
+    public final void testToStringWithBase16() {
+        this.toStringWithBaseAndCheck(
+                0x1234FEDC,
+                16,
+                "1234fedc"
+        );
+    }
+
+    private void toStringWithBaseAndCheck(final double number,
+                                          final double base,
+                                          final String toString) {
+        this.checkEquals(
+                toString,
+                this.create(number).toStringWithBase(this.create(base)),
+                () -> "toStringWithBase " + number + " base=" + base
+        );
+    }
+
     // helper...........................................................................................................
 
     private N create() {
