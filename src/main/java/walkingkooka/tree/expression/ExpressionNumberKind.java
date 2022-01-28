@@ -17,6 +17,9 @@
 
 package walkingkooka.tree.expression;
 
+import walkingkooka.InvalidCharacterException;
+import walkingkooka.text.CharSequences;
+
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.math.MathContext;
@@ -170,6 +173,64 @@ public enum ExpressionNumberKind {
      * Returns either {@link BigDecimal} or {@link Double}.
      */
     public abstract Class<?> numberType();
+
+    /**
+     * Parses the given text into a integer value. A leading sign will make any number negative, while any decimals will
+     * cause an {@link IllegalArgumentException} to be thrown.
+     */
+    public final ExpressionNumber parseWithBase(final String text,
+                                                final int base,
+                                                final ExpressionNumberContext context) {
+        CharSequences.failIfNullOrEmpty(text, "text");
+
+        switch (base) {
+            case 2:
+            case 8:
+            case 10:
+            case 16:
+                break;
+            default:
+                throw new IllegalArgumentException("Invalid base " + base + " expected 2,8,10 or 16");
+        }
+        Objects.requireNonNull(context, "context");
+
+        final ExpressionNumberKind kind = context.expressionNumberKind();
+        final ExpressionNumber multiplier = this.create(base);
+        final int length = text.length();
+
+        int start = 0;
+        boolean negative = false;
+
+        final char maybeSign = text.charAt(0);
+
+        if (context.positiveSign() == maybeSign) {
+            start++;
+        } else {
+            if (context.negativeSign() == maybeSign) {
+                negative = true;
+                start++;
+            }
+        }
+
+        ExpressionNumber value = this.zero();
+        for (int i = start; i < length; i++) {
+            final char c = text.charAt(i);
+            final int charNumericValue = Character.digit(c, base);
+            if (-1 == charNumericValue) {
+                throw new InvalidCharacterException(text, i);
+            }
+
+            value = value.multiply(multiplier, context)
+                    .add(
+                            kind.create(charNumericValue),
+                            context
+                    );
+        }
+
+        return negative ?
+                value.negate(context) :
+                value;
+    }
 
     /**
      * Generates a random {@link ExpressionNumber} between 0 and 1
