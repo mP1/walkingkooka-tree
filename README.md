@@ -14,6 +14,9 @@ Before expanding on their utility consider the following
 - [Expression](https://github.com/mP1/walkingkooka-tree/tree/master/src/main/java/walkingkooka/tree/expression) along
   with numerous helpers may be used to represent a runtime or execute numerous different language systems, which will be
   discussed below.
+- [ExpressionNumber](https://github.com/mP1/walkingkooka-tree/blob/master/src/main/java/walkingkooka/tree/expression/ExpressionNumber.java)
+  . Within `Expression` evaluation support for either `BigDecimal` (slower but more precision) or `double` (faster but
+  limited precision), and is hot-switchable.
 - [Node](https://github.com/mP1/walkingkooka-tree/blob/master/src/main/java/walkingkooka/tree/Node.java) A node
   represents a building block for a tree system, such as JSON, XML and more.
 - [Select](https://github.com/mP1/walkingkooka-tree/blob/master/src/main/java/walkingkooka/tree/select) A general
