@@ -29,11 +29,6 @@ import java.util.Objects;
 /**
  * Collection of utilities to assist with converting number values to one of the preferred expression number types of
  * {@link BigDecimal}, {@link BigInteger}, {@link Double} and {@link Long}.
- * The following Number methods will fail if precision is lost.
- * - byteValue
- * - shortValue
- * - intValue
- * - longValue
  * Note that the result is always the same type, adding a double with a BigDecimal always returns the left(this) type and
  * does not widen or narrow the right parameter.
  */
