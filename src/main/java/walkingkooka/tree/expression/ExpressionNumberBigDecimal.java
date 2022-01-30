@@ -114,6 +114,15 @@ final class ExpressionNumberBigDecimal extends ExpressionNumber {
         return value.setScale(0, RoundingMode.FLOOR);
     }
 
+    // log..............................................................................................................
+
+    @Override
+    public ExpressionNumber log(final ExpressionNumberContext context) {
+        return this.setValue(
+                BigDecimalMath.log(this.value, context.mathContext())
+        );
+    }
+
     // neg..............................................................................................................
 
     @Override

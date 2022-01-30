@@ -93,6 +93,15 @@ final class ExpressionNumberDouble extends ExpressionNumber {
         return this.setValue(Math.floor(this.value));
     }
 
+    // log..............................................................................................................
+
+    @Override
+    public ExpressionNumber log(final ExpressionNumberContext context) {
+        return this.setValue(
+                Math.log(this.value)
+        );
+    }
+
     // neg..............................................................................................................
 
     @Override
