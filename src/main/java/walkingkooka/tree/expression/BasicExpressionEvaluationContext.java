@@ -18,6 +18,7 @@
 package walkingkooka.tree.expression;
 
 import walkingkooka.Either;
+import walkingkooka.text.CaseSensitivity;
 import walkingkooka.tree.expression.function.ExpressionFunction;
 import walkingkooka.tree.expression.function.ExpressionFunctionContext;
 
@@ -37,13 +38,16 @@ final class BasicExpressionEvaluationContext implements ExpressionEvaluationCont
      * Factory that creates a {@link BasicExpressionEvaluationContext}
      */
     static BasicExpressionEvaluationContext with(final Function<FunctionExpressionName, ExpressionFunction<?, ExpressionFunctionContext>> functions,
-                                                 final ExpressionFunctionContext functionContext) {
+                                                 final ExpressionFunctionContext functionContext,
+                                                 final CaseSensitivity stringEqualityCaseSensitivity) {
         Objects.requireNonNull(functions, "functions");
         Objects.requireNonNull(functionContext, "functionContext");
+        Objects.requireNonNull(stringEqualityCaseSensitivity, "stringEqualityCaseSensitivity");
 
         return new BasicExpressionEvaluationContext(
                 functions,
-                functionContext
+                functionContext,
+                stringEqualityCaseSensitivity
         );
     }
 
@@ -51,10 +55,12 @@ final class BasicExpressionEvaluationContext implements ExpressionEvaluationCont
      * Private ctor use factory
      */
     private BasicExpressionEvaluationContext(final Function<FunctionExpressionName, ExpressionFunction<?, ExpressionFunctionContext>> functions,
-                                             final ExpressionFunctionContext functionContext) {
+                                             final ExpressionFunctionContext functionContext,
+                                             final CaseSensitivity stringEqualityCaseSensitivity) {
         super();
         this.functions = functions;
         this.functionContext = functionContext;
+        this.stringEqualityCaseSensitivity = stringEqualityCaseSensitivity;
     }
 
     // ExpressionNumberContext.........................................................................................
@@ -176,7 +182,14 @@ final class BasicExpressionEvaluationContext implements ExpressionEvaluationCont
     }
 
     @Override
+    public CaseSensitivity stringEqualityCaseSensitivity() {
+        return this.stringEqualityCaseSensitivity;
+    }
+
+    private final CaseSensitivity stringEqualityCaseSensitivity;
+
+    @Override
     public String toString() {
-        return this.functions + " " + this.functionContext;
+        return this.functions + " " + this.functionContext + " stringEquality: " + this.stringEqualityCaseSensitivity;
     }
 }

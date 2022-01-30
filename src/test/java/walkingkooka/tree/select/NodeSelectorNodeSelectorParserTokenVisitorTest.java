@@ -34,6 +34,7 @@ import walkingkooka.naming.Names;
 import walkingkooka.naming.StringName;
 import walkingkooka.predicate.Predicates;
 import walkingkooka.reflect.JavaVisibility;
+import walkingkooka.text.CaseSensitivity;
 import walkingkooka.text.CharSequences;
 import walkingkooka.text.cursor.TextCursors;
 import walkingkooka.text.cursor.parser.ParserReporters;
@@ -1835,7 +1836,8 @@ public final class NodeSelectorNodeSelectorParserTokenVisitorTest implements Nod
                         return NodeSelectorExpressionEvaluationContexts.basic(this.node,
                                 (r) -> ExpressionEvaluationContexts.basic(
                                         Cast.to(this.functions()),
-                                        this.functionContext()
+                                        this.functionContext(),
+                                        CaseSensitivity.SENSITIVE
                                 )
                         );
                     }

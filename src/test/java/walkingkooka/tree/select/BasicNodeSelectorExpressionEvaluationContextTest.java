@@ -28,6 +28,7 @@ import walkingkooka.math.DecimalNumberContext;
 import walkingkooka.math.DecimalNumberContexts;
 import walkingkooka.naming.Names;
 import walkingkooka.naming.StringName;
+import walkingkooka.text.CaseSensitivity;
 import walkingkooka.tree.TestNode;
 import walkingkooka.tree.expression.Expression;
 import walkingkooka.tree.expression.ExpressionEvaluationContexts;
@@ -127,7 +128,8 @@ public final class BasicNodeSelectorExpressionEvaluationContextTest implements N
         return BasicNodeSelectorExpressionEvaluationContext.with(node,
                 (r) -> ExpressionEvaluationContexts.basic(
                         this.functions(),
-                        this.functionContext()
+                        this.functionContext(),
+                        CaseSensitivity.SENSITIVE
                 ));
     }
 

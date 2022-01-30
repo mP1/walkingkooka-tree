@@ -33,6 +33,7 @@ import walkingkooka.reflect.ClassTesting2;
 import walkingkooka.reflect.IsMethodTesting;
 import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.reflect.PublicStaticFactoryTesting;
+import walkingkooka.text.CaseSensitivity;
 import walkingkooka.text.cursor.parser.DoubleParserToken;
 import walkingkooka.text.cursor.parser.LocalDateParserToken;
 import walkingkooka.text.cursor.parser.LocalDateTimeParserToken;
@@ -400,6 +401,11 @@ public abstract class ExpressionTestCase<N extends Expression> implements TreePr
             @Override
             public ExpressionNumberKind expressionNumberKind() {
                 return EXPRESSION_NUMBER_KIND;
+            }
+
+            @Override
+            public CaseSensitivity stringEqualityCaseSensitivity() {
+                return CaseSensitivity.SENSITIVE;
             }
         };
     }

@@ -27,6 +27,7 @@ import walkingkooka.naming.StringName;
 import walkingkooka.predicate.Predicates;
 import walkingkooka.reflect.ClassTesting2;
 import walkingkooka.reflect.JavaVisibility;
+import walkingkooka.text.CaseSensitivity;
 import walkingkooka.tree.TestNode;
 import walkingkooka.tree.expression.Expression;
 import walkingkooka.tree.expression.ExpressionEvaluationContext;
@@ -180,7 +181,8 @@ public final class BasicNodeSelectorContextTest implements ClassTesting2<BasicNo
             public ExpressionEvaluationContext apply(final NodeSelectorContext<TestNode, StringName, StringName, Object> context) {
                 return ExpressionEvaluationContexts.basic(
                         this.functions(),
-                        this.functionContext()
+                        this.functionContext(),
+                        CaseSensitivity.SENSITIVE
                 );
             }
 

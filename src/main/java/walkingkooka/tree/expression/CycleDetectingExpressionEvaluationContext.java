@@ -19,6 +19,7 @@ package walkingkooka.tree.expression;
 
 import walkingkooka.Either;
 import walkingkooka.collect.set.Sets;
+import walkingkooka.text.CaseSensitivity;
 import walkingkooka.tree.expression.function.ExpressionFunction;
 import walkingkooka.tree.expression.function.ExpressionFunctionContext;
 
@@ -195,7 +196,16 @@ final class CycleDetectingExpressionEvaluationContext implements ExpressionEvalu
         return this.context.convert(from, type);
     }
 
+    // Strings..........................................................................................................
+
+    @Override
+    public CaseSensitivity stringEqualityCaseSensitivity() {
+        return this.context.stringEqualityCaseSensitivity();
+    }
+
     private final ExpressionEvaluationContext context;
+
+    // toString.........................................................................................................
 
     @Override
     public String toString() {
