@@ -102,6 +102,7 @@ More functions are available in other projects including:
 - [boolean](https://github.com/mP1/walkingkooka-tree-expression-function-boolean)
 - [datetime](https://github.com/mP1/walkingkooka-tree-expression-function-datetime)
 - [engineering](https://github.com/mP1/walkingkooka-tree-expression-function-engineering)
+- [net](https://github.com/mP1/walkingkooka-tree-expression-function-net)
 - [number](https://github.com/mP1/walkingkooka-tree-expression-function-number)
 - [number-trigonometry](https://github.com/mP1/walkingkooka-tree-expression-function-number-trigonometry)
 - [spreadsheet](https://github.com/mP1/walkingkooka-spreadsheet-expression-function)
