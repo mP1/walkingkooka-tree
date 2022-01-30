@@ -123,6 +123,21 @@ final class ExpressionNumberBigDecimal extends ExpressionNumber {
         );
     }
 
+    // log10............................................................................................................
+
+    @Override
+    public ExpressionNumber log10(final ExpressionNumberContext context) {
+        final BigDecimal value = this.value;
+
+        try {
+            return this.setValue(
+                    BigDecimalMath.log10(value, context.mathContext())
+            );
+        } catch (final ArithmeticException cause) {
+            throw new IllegalArgumentException("Invalid value " + value + " < 0");
+        }
+    }
+
     // neg..............................................................................................................
 
     @Override
