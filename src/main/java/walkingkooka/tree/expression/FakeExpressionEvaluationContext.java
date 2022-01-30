@@ -17,6 +17,7 @@
 
 package walkingkooka.tree.expression;
 
+import walkingkooka.text.CaseSensitivity;
 import walkingkooka.tree.expression.function.FakeExpressionFunctionContext;
 
 import java.util.List;
@@ -50,6 +51,11 @@ public class FakeExpressionEvaluationContext extends FakeExpressionFunctionConte
     @Override
     public Optional<Object> reference(final ExpressionReference reference) {
         Objects.requireNonNull(reference, "reference");
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public CaseSensitivity stringEqualityCaseSensitivity() {
         throw new UnsupportedOperationException();
     }
 }

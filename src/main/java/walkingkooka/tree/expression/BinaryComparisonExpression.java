@@ -38,10 +38,13 @@ abstract class BinaryComparisonExpression extends BinaryExpression2 {
     @Override final Expression applyText(final String left,
                                          final String right,
                                          final ExpressionEvaluationContext context) {
+        // uses the {@link ExpressionEvaluationContext#stringEqualityCaseSensitivity()}
         return Expression.value(
                 this.comparisonRelation()
                         .test(
-                                left.compareTo(right)
+                                context.stringEqualityCaseSensitivity()
+                                        .comparator()
+                                        .compare(left, right)
                         )
         );
     }

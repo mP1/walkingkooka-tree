@@ -20,6 +20,7 @@ package walkingkooka.tree.select;
 import walkingkooka.Cast;
 import walkingkooka.Either;
 import walkingkooka.naming.Name;
+import walkingkooka.text.CaseSensitivity;
 import walkingkooka.tree.Node;
 import walkingkooka.tree.expression.Expression;
 import walkingkooka.tree.expression.ExpressionEvaluationContext;
@@ -217,6 +218,11 @@ final class BasicNodeSelectorExpressionEvaluationContext<N extends Node<N, NAME,
     @Override
     public MathContext mathContext() {
         return this.context.mathContext();
+    }
+
+    @Override
+    public CaseSensitivity stringEqualityCaseSensitivity() {
+        return this.context.stringEqualityCaseSensitivity();
     }
 
     private final ExpressionEvaluationContext context;
