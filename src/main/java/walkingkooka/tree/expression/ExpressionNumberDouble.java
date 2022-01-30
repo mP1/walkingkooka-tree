@@ -97,25 +97,26 @@ final class ExpressionNumberDouble extends ExpressionNumber {
 
     @Override
     public ExpressionNumber log(final ExpressionNumberContext context) {
-        final double value = this.value;
-
-        final double log = Math.log(value);
-        if (Double.isNaN(log) || Double.isInfinite(log)) {
-            throw new IllegalArgumentException("Number " + value + " < 0");
-        }
-        return this.setValue(log);
+        return this.setValueAndCheckPositive(
+                Math.log(this.value)
+        );
     }
 
     // log10............................................................................................................
 
     @Override
     public ExpressionNumber log10(final ExpressionNumberContext context) {
-        final double value = this.value;
-        final double log = Math.log10(value);
-        if (Double.isNaN(log) || Double.isInfinite(log)) {
-            throw new IllegalArgumentException("Number " + value + " < 0");
+        return this.setValueAndCheckPositive(
+                Math.log10(this.value)
+        );
+    }
+
+    private ExpressionNumber setValueAndCheckPositive(final double value) {
+
+        if (Double.isNaN(value) || Double.isInfinite(value)) {
+            throw new IllegalArgumentException("Number " + this.value + " < 0");
         }
-        return this.setValue(log);
+        return this.setValue(value);
     }
 
     // neg..............................................................................................................
