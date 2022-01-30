@@ -94,7 +94,30 @@ Two interesting examples of the Expression system are
   execute a spreadsheet formula.
 - An `Expression` is also a `Node` which means queries can also be executed over an expression.
 
-### [functions](https://github.com/mP1/walkingkooka-tree/blob/master/src/main/java/walkingkooka/tree/expression/function/ExpressionFunction.java)
+### [ExpressionEvaluationContext](https://github.com/mP1/walkingkooka-tree/blob/master/src/main/java/walkingkooka/tree/expression/ExpressionEvaluationException.java)
+
+One considerable advantage of using this approach is that `Expression` or `ExpressionFunction` can be assembled and kept
+unmodified while adjusting or changing the following properties to customise choices, or locale and more.
+
+A `Context` that captures locale sensitive values like the :
+
+- currency symbol
+- positive sign
+- negative sign
+- grouping separator
+- and much more.
+
+These are used by parsers when parsing text into numbers or formatters when formatting `ExpressionNumber` values to
+text.
+
+A `Context` that captures other numeric or computation related properties.
+
+- `ExpressionNumberKind` selects whether computations are done in `BigDecimal` or `double`.
+- `MathContext` when `BigDecimal` computations are active, controls `precision` and `Rounding`.
+
+A `Context` that also supports evaluating a function using its name and provided parameters.
+
+### [ExpressionFunction](https://github.com/mP1/walkingkooka-tree/blob/master/src/main/java/walkingkooka/tree/expression/function/ExpressionFunction.java)
 
 This interface makes it easy to insert a function located by name into an `Expression` AST.
 
@@ -113,6 +136,11 @@ More functions are available in other projects including:
 
 Many of these will be used to as the excel functions in
 the [spreadsheet project](https://github.com/mP1/walkingkooka-spreadsheet).
+
+### [ExpressionFunctionContext](https://github.com/mP1/walkingkooka-tree/blob/master/src/main/java/walkingkooka/tree/expression/function/ExpressionFunctionContext.java)
+
+Another `Context` that provides many of the properties and operations provided by `ExpressionEvaluationException` but
+with a `ExpressionFunction` focus.
 
 ### Visitors
 
