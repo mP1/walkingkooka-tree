@@ -97,9 +97,13 @@ final class ExpressionNumberDouble extends ExpressionNumber {
 
     @Override
     public ExpressionNumber log(final ExpressionNumberContext context) {
-        return this.setValue(
-                Math.log(this.value)
-        );
+        final double value = this.value;
+
+        final double log = Math.log(value);
+        if (Double.isNaN(log) || Double.isInfinite(log)) {
+            throw new IllegalArgumentException("Number " + value + " < 0");
+        }
+        return this.setValue(log);
     }
 
     // log10............................................................................................................

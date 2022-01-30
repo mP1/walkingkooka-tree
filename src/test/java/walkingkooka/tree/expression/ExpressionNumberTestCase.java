@@ -189,6 +189,16 @@ public abstract class ExpressionNumberTestCase<N extends ExpressionNumber> imple
     // log10............................................................................................................
 
     @Test
+    public final void testLogNegativeFails() {
+        assertThrows(
+                IllegalArgumentException.class,
+                () -> this.create(-1).log(CONTEXT)
+        );
+    }
+
+    // log10............................................................................................................
+
+    @Test
     public final void testLog10NegativeFails() {
         assertThrows(
                 IllegalArgumentException.class,
