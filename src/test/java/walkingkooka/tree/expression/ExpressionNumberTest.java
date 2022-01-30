@@ -72,7 +72,7 @@ public final class ExpressionNumberTest implements ClassTesting<ExpressionNumber
     }
 
     @Test
-    public void testIsExpressionNumberBig() {
+    public void testIsExpressionNumberExpressionNumber() {
         this.checkEquals(true, ExpressionNumber.isClass(ExpressionNumber.class));
     }
 
