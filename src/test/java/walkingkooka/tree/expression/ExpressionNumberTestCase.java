@@ -39,6 +39,8 @@ public abstract class ExpressionNumberTestCase<N extends ExpressionNumber> imple
         IsMethodTesting<N>,
         ToStringTesting<N> {
 
+    final static ExpressionNumberKind KIND = ExpressionNumberKind.DEFAULT;
+
     final static ExpressionNumberContext CONTEXT = new FakeExpressionNumberContext() {
 
         @Override

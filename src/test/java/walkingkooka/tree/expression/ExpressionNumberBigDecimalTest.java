@@ -44,6 +44,17 @@ public final class ExpressionNumberBigDecimalTest extends ExpressionNumberTestCa
         this.checkEquals(value, different.doubleValue());
     }
 
+    // log..............................................................................................................
+
+    @Test
+    public void testLog() {
+        this.checkEquals(
+                ExpressionNumberKind.BIG_DECIMAL.create(100)
+                        .log(CONTEXT),
+                ExpressionNumberKind.BIG_DECIMAL.create(new BigDecimal("4.60517"))
+        );
+    }
+
     // map.............................................................................................................
 
     @Override

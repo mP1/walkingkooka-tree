@@ -38,6 +38,19 @@ public final class ExpressionNumberDoubleTest extends ExpressionNumberTestCase<E
         this.checkEquals(value, different.doubleValue());
     }
 
+    // log..............................................................................................................
+
+    @Test
+    public void testLog() {
+        final double value = 100;
+
+        this.checkEquals(
+                ExpressionNumberKind.DOUBLE.create(value)
+                        .log(CONTEXT),
+                ExpressionNumberKind.DOUBLE.create(Math.log(value))
+        );
+    }
+
     // map.............................................................................................................
 
     @Override

@@ -144,6 +144,10 @@ public abstract class ExpressionNumber extends Number implements Comparable<Expr
 
     public abstract ExpressionNumber floor(final ExpressionNumberContext context);
 
+    // log..............................................................................................................
+
+    public abstract ExpressionNumber log(final ExpressionNumberContext context);
+
     // negate...........................................................................................................
 
     public abstract ExpressionNumber negate(final ExpressionNumberContext context);
