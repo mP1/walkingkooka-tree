@@ -17,6 +17,7 @@
 
 package walkingkooka.tree.expression;
 
+import ch.obermuhlner.math.big.BigDecimalMath;
 import walkingkooka.InvalidCharacterException;
 import walkingkooka.text.CharSequences;
 
@@ -56,6 +57,13 @@ public enum ExpressionNumberKind {
         @Override
         public Class<?> numberType() {
             return BigDecimal.class;
+        }
+
+        @Override
+        public ExpressionNumber pi(final ExpressionNumberContext context) {
+            return this.create(
+                    BigDecimalMath.pi(context.mathContext())
+            );
         }
 
         @Override
@@ -116,6 +124,13 @@ public enum ExpressionNumberKind {
         public Class<?> numberType() {
             return Double.class;
         }
+
+        @Override
+        public ExpressionNumber pi(final ExpressionNumberContext context) {
+            return PI;
+        }
+
+        private final ExpressionNumber PI = ExpressionNumber.with(Math.PI);
 
         @Override
         ExpressionNumber randomBetween0(final ExpressionNumber lower,
@@ -231,6 +246,8 @@ public enum ExpressionNumberKind {
                 value.negate(context) :
                 value;
     }
+
+    public abstract ExpressionNumber pi(final ExpressionNumberContext context);
 
     /**
      * Generates a random {@link ExpressionNumber} between 0 and 1

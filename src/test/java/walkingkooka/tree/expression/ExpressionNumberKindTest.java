@@ -465,6 +465,35 @@ public final class ExpressionNumberKindTest implements ClassTesting<ExpressionNu
         );
     }
 
+    // pi..........................................................................................................
+
+    @Test
+    public void testPiBigDecimal() {
+        final ExpressionNumber number = ExpressionNumberKind.BIG_DECIMAL.pi(
+                new FakeExpressionNumberContext() {
+                    @Override
+                    public MathContext mathContext() {
+                        return MathContext.DECIMAL32;
+                    }
+                }
+        );
+        this.checkEquals(
+                new BigDecimal("3.141593"),
+                number.bigDecimal()
+        );
+    }
+
+    @Test
+    public void testPiDouble() {
+        final ExpressionNumber number = ExpressionNumberKind.DOUBLE.pi(
+                ExpressionNumberContexts.fake()
+        );
+        this.checkEquals(
+                Math.PI,
+                number.doubleValue()
+        );
+    }
+
     // random..........................................................................................................
 
     @Test
