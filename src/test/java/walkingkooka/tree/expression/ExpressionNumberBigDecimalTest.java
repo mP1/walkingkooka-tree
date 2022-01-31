@@ -44,13 +44,13 @@ public final class ExpressionNumberBigDecimalTest extends ExpressionNumberTestCa
         this.checkEquals(value, different.doubleValue());
     }
 
-    // log..............................................................................................................
+    // ln...............................................................................................................
 
     @Test
-    public void testLog() {
+    public void testLn() {
         this.checkEquals(
                 ExpressionNumberKind.BIG_DECIMAL.create(100)
-                        .log(CONTEXT),
+                        .ln(CONTEXT),
                 ExpressionNumberKind.BIG_DECIMAL.create(new BigDecimal("4.60517"))
         );
     }

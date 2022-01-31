@@ -38,15 +38,15 @@ public final class ExpressionNumberDoubleTest extends ExpressionNumberTestCase<E
         this.checkEquals(value, different.doubleValue());
     }
 
-    // log..............................................................................................................
+    // ln...............................................................................................................
 
     @Test
-    public void testLog() {
+    public void testLn() {
         final double value = 100;
 
         this.checkEquals(
                 ExpressionNumberKind.DOUBLE.create(value)
-                        .log(CONTEXT),
+                        .ln(CONTEXT),
                 ExpressionNumberKind.DOUBLE.create(Math.log(value))
         );
     }
