@@ -146,7 +146,7 @@ public abstract class ExpressionNumber extends Number implements Comparable<Expr
 
     // log..............................................................................................................
 
-    public abstract ExpressionNumber log(final ExpressionNumberContext context);
+    public abstract ExpressionNumber ln(final ExpressionNumberContext context);
 
     // log10............................................................................................................
 
