@@ -17,6 +17,7 @@
 
 package walkingkooka.tree.expression;
 
+import ch.obermuhlner.math.big.BigDecimalMath;
 import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
@@ -42,6 +43,24 @@ public final class ExpressionNumberBigDecimalTest extends ExpressionNumberTestCa
         final ExpressionNumberDouble different = (ExpressionNumberDouble) number.setKind(ExpressionNumberKind.DOUBLE);
         assertNotSame(number, different);
         this.checkEquals(value, different.doubleValue());
+    }
+
+    // exp...............................................................................................................
+
+    @Test
+    public void testExp() {
+        final double value = 123;
+
+        this.checkEquals(
+                ExpressionNumberKind.BIG_DECIMAL.create(value)
+                        .exp(CONTEXT),
+                ExpressionNumberKind.BIG_DECIMAL.create(
+                        BigDecimalMath.exp(
+                                new BigDecimal(value),
+                                CONTEXT.mathContext()
+                        )
+                )
+        );
     }
 
     // ln...............................................................................................................
