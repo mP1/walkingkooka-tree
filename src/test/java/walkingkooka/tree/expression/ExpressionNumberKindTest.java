@@ -86,6 +86,35 @@ public final class ExpressionNumberKindTest implements ClassTesting<ExpressionNu
         );
     }
 
+    // e................................................................................................................
+
+    @Test
+    public void testEBigDecimal() {
+        final ExpressionNumber number = ExpressionNumberKind.BIG_DECIMAL.e(
+                new FakeExpressionNumberContext() {
+                    @Override
+                    public MathContext mathContext() {
+                        return MathContext.DECIMAL32;
+                    }
+                }
+        );
+        this.checkEquals(
+                new BigDecimal("2.718282"),
+                number.bigDecimal()
+        );
+    }
+
+    @Test
+    public void testEDouble() {
+        final ExpressionNumber number = ExpressionNumberKind.DOUBLE.e(
+                ExpressionNumberContexts.fake()
+        );
+        this.checkEquals(
+                Math.E,
+                number.doubleValue()
+        );
+    }
+
     // one............................................................................................................
 
     @Test
