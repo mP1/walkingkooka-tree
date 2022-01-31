@@ -46,6 +46,13 @@ public enum ExpressionNumberKind {
         }
 
         @Override
+        public ExpressionNumber e(final ExpressionNumberContext context) {
+            return this.create(
+                    BigDecimalMath.e(context.mathContext())
+            );
+        }
+
+        @Override
         public ExpressionNumber parse(final String text) {
             return fromBigDecimal(new BigDecimal(text));
         }
@@ -112,6 +119,13 @@ public enum ExpressionNumberKind {
         }
 
         @Override
+        public ExpressionNumber e(final ExpressionNumberContext context) {
+            return E;
+        }
+
+        private final ExpressionNumber E = ExpressionNumber.with(Math.E);
+
+        @Override
         public ExpressionNumber parse(final String text) {
             return fromDouble(Double.parseDouble(text));
         }
@@ -169,6 +183,8 @@ public enum ExpressionNumberKind {
      * Factory that creates the appropriate {@link ExpressionNumber} instance
      */
     public abstract ExpressionNumber create(final Number number);
+
+    public abstract ExpressionNumber e(final ExpressionNumberContext context);
 
     /**
      * Returns an {@link ExpressionNumber} with a value of +1.
