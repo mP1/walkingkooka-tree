@@ -144,7 +144,7 @@ public abstract class ExpressionNumber extends Number implements Comparable<Expr
 
     public abstract ExpressionNumber floor(final ExpressionNumberContext context);
 
-    // log..............................................................................................................
+    // ln..............................................................................................................
 
     public abstract ExpressionNumber ln(final ExpressionNumberContext context);
 
@@ -193,6 +193,17 @@ public abstract class ExpressionNumber extends Number implements Comparable<Expr
     }
 
     abstract ExpressionNumber divide0(final ExpressionNumber value, final ExpressionNumberContext context);
+
+    // log.............................................................................................................
+
+    public final ExpressionNumber log(final ExpressionNumber base,
+                                      final ExpressionNumberContext context) {
+        return this.ln(context)
+                .divide(
+                        base.ln(context),
+                        context
+                );
+    }
 
     // max..............................................................................................................
 

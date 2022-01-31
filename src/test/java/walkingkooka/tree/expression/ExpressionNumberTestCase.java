@@ -196,6 +196,32 @@ public abstract class ExpressionNumberTestCase<N extends ExpressionNumber> imple
         );
     }
 
+    // log..............................................................................................................
+
+    @Test
+    public final void testLog16Base2() {
+        this.checkEquals(
+                this.create(16)
+                        .log(
+                                this.create(2),
+                                CONTEXT
+                        ),
+                this.create(4)
+        );
+    }
+
+    @Test
+    public final void testLog100Base10() {
+        this.checkEquals(
+                this.create(100)
+                        .log(
+                                this.create(10),
+                                CONTEXT
+                        ),
+                this.create(2)
+        );
+    }
+
     // log10............................................................................................................
 
     @Test
