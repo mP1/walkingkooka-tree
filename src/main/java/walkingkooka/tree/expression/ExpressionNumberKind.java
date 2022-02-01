@@ -24,6 +24,7 @@ import walkingkooka.text.CharSequences;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.math.MathContext;
+import java.math.RoundingMode;
 import java.util.Objects;
 
 /**
@@ -83,7 +84,6 @@ public enum ExpressionNumberKind {
                 throw new IllegalArgumentException("Lower " + upper + " must be less than upper " + upper);
             }
 
-            final MathContext mathContext = context.mathContext();
             BigDecimal bottom = ExpressionNumberBigDecimal.ceilBigDecimal(lowerDouble);
             BigDecimal top = ExpressionNumberBigDecimal.floorBigDecimal(lowerDouble);
 
@@ -96,7 +96,8 @@ public enum ExpressionNumberKind {
                             bottom.add(
                                     new BigDecimal(Math.random())
                                             .multiply(top.subtract(bottom))
-                            )
+                            ),
+                            RoundingMode.HALF_UP
                     )
             );
         }

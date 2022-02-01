@@ -39,15 +39,17 @@ public abstract class ExpressionNumberTestCase<N extends ExpressionNumber> imple
         IsMethodTesting<N>,
         ToStringTesting<N> {
 
-    final static ExpressionNumberKind KIND = ExpressionNumberKind.DEFAULT;
+    final static ExpressionNumberContext CONTEXT = createContext(MathContext.DECIMAL32);
 
-    final static ExpressionNumberContext CONTEXT = new FakeExpressionNumberContext() {
+    private static ExpressionNumberContext createContext(final MathContext mathContext) {
+        return new FakeExpressionNumberContext() {
 
-        @Override
-        public MathContext mathContext() {
-            return MathContext.DECIMAL32;
-        }
-    };
+            @Override
+            public MathContext mathContext() {
+                return mathContext;
+            }
+        };
+    }
 
     ExpressionNumberTestCase() {
         super();
@@ -332,6 +334,34 @@ public abstract class ExpressionNumberTestCase<N extends ExpressionNumber> imple
         final ExpressionNumber different = number.round(CONTEXT);
         assertNotSame(number, different);
         this.checkValue(1, different);
+    }
+
+    @Test
+    public void testRoundRoundingModeFloor() {
+        final N number = this.create(1.4);
+
+        this.checkEquals(
+                number.round(
+                        createContext(
+                                new MathContext(0, RoundingMode.FLOOR)
+                        )
+                ),
+                this.create(1)
+        );
+    }
+
+    @Test
+    public void testRoundRoundingModeCeil() {
+        final N number = this.create(1.4);
+
+        this.checkEquals(
+                number.round(
+                        createContext(
+                                new MathContext(0, RoundingMode.CEILING)
+                        )
+                ),
+                this.create(2)
+        );
     }
 
     // sqrt..............................................................................................................
