@@ -175,14 +175,18 @@ final class ExpressionNumberBigDecimal extends ExpressionNumber {
     @Override
     public ExpressionNumber round(final ExpressionNumberContext context) {
         return this.setValue(
-                roundBigDecimal(this.value)
+                roundBigDecimal(
+                        this.value,
+                        context.mathContext().getRoundingMode()
+                )
         );
     }
 
-    static BigDecimal roundBigDecimal(final BigDecimal value) {
+    static BigDecimal roundBigDecimal(final BigDecimal value,
+                                      final RoundingMode roundingMode) {
         return value.setScale(
                 0,
-                RoundingMode.HALF_UP
+                roundingMode
         );
     }
 

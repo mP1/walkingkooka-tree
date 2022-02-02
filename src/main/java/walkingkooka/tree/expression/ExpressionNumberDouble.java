@@ -17,9 +17,13 @@
 
 package walkingkooka.tree.expression;
 
+import walkingkooka.NeverError;
+import walkingkooka.math.Maths;
+
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.math.MathContext;
+import java.math.RoundingMode;
 
 /**
  * A {@link ExpressionNumber} that holds and performs all operations on {@link double values}.
@@ -146,7 +150,12 @@ final class ExpressionNumberDouble extends ExpressionNumber {
 
     @Override
     public ExpressionNumber round(final ExpressionNumberContext context) {
-        return this.setValue(Math.round(this.value));
+        return this.setValue(
+                Maths.round(
+                        this.value,
+                        context.mathContext().getRoundingMode()
+                )
+        );
     }
 
     // add..............................................................................................................
