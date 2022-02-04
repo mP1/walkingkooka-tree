@@ -132,6 +132,7 @@ More functions are available in other projects including:
 - [number](https://github.com/mP1/walkingkooka-tree-expression-function-number)
 - [number-trigonometry](https://github.com/mP1/walkingkooka-tree-expression-function-number-trigonometry)
 - [spreadsheet](https://github.com/mP1/walkingkooka-spreadsheet-expression-function)
+- [stat](https://github.com/mP1/walkingkooka-tree-expression-function-stat)
 - [string](https://github.com/mP1/walkingkooka-tree-expression-function-string)
 
 Many of these will be used to as the excel functions in
