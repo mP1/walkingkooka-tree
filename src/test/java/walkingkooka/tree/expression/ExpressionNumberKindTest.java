@@ -196,18 +196,18 @@ public final class ExpressionNumberKindTest implements ClassTesting<ExpressionNu
     }
 
     @Test
-    public void testParseWithBaseBigDecimalBase3Fails() {
+    public void testParseWithBaseDouble1Fails() {
         this.parseWithBaseInvalidBaseFails(
-                ExpressionNumberKind.BIG_DECIMAL,
-                3
+                ExpressionNumberKind.DOUBLE,
+                1
         );
     }
 
     @Test
-    public void testParseWithBaseDoublease3Fails() {
+    public void testParseWithBaseDouble37Fails() {
         this.parseWithBaseInvalidBaseFails(
                 ExpressionNumberKind.DOUBLE,
-                3
+                37
         );
     }
 
@@ -218,7 +218,7 @@ public final class ExpressionNumberKindTest implements ClassTesting<ExpressionNu
                 "0",
                 base,
                 IllegalArgumentException.class,
-                "Invalid base " + base + " expected 2,8,10 or 16"
+                "Invalid base " + base + " expected between 2 and 36"
         );
     }
 
@@ -313,6 +313,26 @@ public final class ExpressionNumberKindTest implements ClassTesting<ExpressionNu
                 "11110000101010100101010100000001",
                 2,
                 0xf0AA5501L
+        );
+    }
+
+    @Test
+    public void testParseWithBase3() {
+        this.parseWithBaseAndCheck(
+                ExpressionNumberKind.BIG_DECIMAL,
+                "12",
+                3,
+                5
+        );
+    }
+
+    @Test
+    public void testParseWithBase4() {
+        this.parseWithBaseAndCheck(
+                ExpressionNumberKind.BIG_DECIMAL,
+                "12",
+                4,
+                6
         );
     }
 
