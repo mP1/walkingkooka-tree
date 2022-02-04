@@ -23,7 +23,6 @@ import walkingkooka.text.CharSequences;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
-import java.math.MathContext;
 import java.math.RoundingMode;
 import java.util.Objects;
 
@@ -215,14 +214,8 @@ public enum ExpressionNumberKind {
                                                 final ExpressionNumberContext context) {
         CharSequences.failIfNullOrEmpty(text, "text");
 
-        switch (base) {
-            case 2:
-            case 8:
-            case 10:
-            case 16:
-                break;
-            default:
-                throw new IllegalArgumentException("Invalid base " + base + " expected 2,8,10 or 16");
+        if (base < 2 || base > 36) {
+            throw new IllegalArgumentException("Invalid base " + base + " expected between 2 and 36");
         }
         Objects.requireNonNull(context, "context");
 
