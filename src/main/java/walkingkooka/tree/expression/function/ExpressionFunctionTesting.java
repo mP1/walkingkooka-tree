@@ -36,7 +36,6 @@ import walkingkooka.util.BiFunctionTesting;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.fail;
@@ -51,18 +50,28 @@ public interface ExpressionFunctionTesting<F extends ExpressionFunction<V, C>, V
 
     @Test
     default void testName() {
-        assertNotNull(this.createBiFunction().name());
+        checkNotEquals(
+                null,
+                this.createBiFunction().name()
+        );
     }
 
     @Test
     default void testSetNameNullFails() {
-        assertThrows(NullPointerException.class, () -> this.createBiFunction().setName(null));
+        assertThrows(
+                NullPointerException.class,
+                () -> this.createBiFunction()
+                        .setName(null)
+        );
     }
 
     @Test
     default void testSetNameSame() {
         final F function = this.createBiFunction();
-        assertSame(function, function.setName(function.name()));
+        assertSame(
+                function,
+                function.setName(function.name())
+        );
     }
 
     @Test
@@ -112,8 +121,10 @@ public interface ExpressionFunctionTesting<F extends ExpressionFunction<V, C>, V
                 .parameters();
 
         final int secondLast = Math.max(0, parameters.size() - 1);
+
         for (int i = 0; i < secondLast; i++) {
             final ExpressionFunctionParameter<?> parameter = parameters.get(i);
+
             this.checkNotEquals(
                     ExpressionFunctionParameterCardinality.VARIABLE,
                     parameter.cardinality(),
@@ -124,19 +135,30 @@ public interface ExpressionFunctionTesting<F extends ExpressionFunction<V, C>, V
 
     @Test
     default void testMapParametersWithNullFunction() {
-        assertThrows(NullPointerException.class, () -> this.createBiFunction().mapParameters(null));
+        assertThrows(
+                NullPointerException.class,
+                () -> this.createBiFunction()
+                        .mapParameters(null)
+        );
     }
 
     // apply...........................................................................................................
 
     default V apply2(final Object... parameters) {
         return this.createBiFunction()
-                .apply(parameters(parameters), this.createContext());
+                .apply(
+                        parameters(parameters),
+                        this.createContext()
+                );
     }
 
     default void applyAndCheck2(final List<Object> parameters,
                                 final V result) {
-        this.applyAndCheck2(this.createBiFunction(), parameters, result);
+        this.applyAndCheck2(
+                this.createBiFunction(),
+                parameters,
+                result
+        );
     }
 
     default void applyAndCheck2(final F function,
@@ -149,9 +171,16 @@ public interface ExpressionFunctionTesting<F extends ExpressionFunction<V, C>, V
                                                                                final List<Object> parameters,
                                                                                final CC context,
                                                                                final RR result) {
-        this.checkEquals(result,
+        this.checkEquals(
+                result,
                 function.apply(parameters, context),
-                () -> "Wrong result for " + function + " for params: " + CharSequences.quoteIfChars(parameters));
+                () -> "Wrong result for " +
+                        function +
+                        " for params: " +
+                        parameters.stream()
+                                .map(CharSequences::quoteIfChars)
+                                .collect(Collectors.joining(""))
+        );
     }
 
     C createContext();
@@ -159,27 +188,37 @@ public interface ExpressionFunctionTesting<F extends ExpressionFunction<V, C>, V
     // requiresEvaluatedParameters......................................................................................
 
     default void requiresEvaluatedParametersAndCheck(final boolean requiresEvaluatedParameters) {
-        this.requiresEvaluatedParametersAndCheck(this.createBiFunction(), requiresEvaluatedParameters);
+        this.requiresEvaluatedParametersAndCheck(
+                this.createBiFunction(),
+                requiresEvaluatedParameters
+        );
     }
 
     default void requiresEvaluatedParametersAndCheck(final ExpressionFunction<?, ?> function,
                                                      final boolean requiresEvaluatedParameters) {
-        this.checkEquals(requiresEvaluatedParameters,
+        this.checkEquals(
+                requiresEvaluatedParameters,
                 function.requiresEvaluatedParameters(),
-                () -> function.name() + " requiresEvaluatedParameters: " + function);
+                () -> function.name() + " requiresEvaluatedParameters: " + function
+        );
     }
 
     // resolveReferences................................................................................................
 
     default void resolveReferencesAndCheck(final boolean resolveReference) {
-        this.resolveReferencesAndCheck(this.createBiFunction(), resolveReference);
+        this.resolveReferencesAndCheck(
+                this.createBiFunction(),
+                resolveReference
+        );
     }
 
     default void resolveReferencesAndCheck(final ExpressionFunction<?, ?> function,
                                            final boolean resolveReference) {
-        this.checkEquals(resolveReference,
+        this.checkEquals(
+                resolveReference,
                 function.resolveReferences(),
-                () -> function.name() + " resolveReferences: " + function);
+                () -> function.name() + " resolveReferences: " + function
+        );
     }
 
     // convert..........................................................................................................
@@ -192,19 +231,24 @@ public interface ExpressionFunctionTesting<F extends ExpressionFunction<V, C>, V
             return Either.left(Cast.to(value.toString()));
         }
 
-        final ExpressionNumberConverterContext context = ExpressionNumberConverterContexts.basic(Converters.fake(),
+        final ExpressionNumberConverterContext context = ExpressionNumberConverterContexts.basic(
+                Converters.fake(),
                 ConverterContexts.fake(),
-                this.expressionNumberKind());
+                this.expressionNumberKind()
+        );
 
         if (value instanceof String && Number.class.isAssignableFrom(target)) {
             final Double doubleValue = Double.parseDouble((String) value);
+
             return ExpressionNumber.toConverter(ExpressionNumber.fromConverter(Converters.numberNumber()))
                     .convert(doubleValue, target, context);
         }
         if (target == Boolean.class) {
             return Either.left(Cast.to(Boolean.parseBoolean(value.toString())));
         }
-        return ExpressionNumber.toConverter(ExpressionNumber.fromConverter(Converters.numberNumber()))
+        return ExpressionNumber.toConverter(
+                        ExpressionNumber.fromConverter(Converters.numberNumber())
+                )
                 .convert(value, target, context);
     }
 
