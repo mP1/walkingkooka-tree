@@ -85,6 +85,7 @@ public final class ExpressionFunctionParameter<T> implements HasName<ExpressionF
         this.cardinality = cardinality;
     }
 
+    @Override
     public ExpressionFunctionParameterName name() {
         return this.name;
     }
