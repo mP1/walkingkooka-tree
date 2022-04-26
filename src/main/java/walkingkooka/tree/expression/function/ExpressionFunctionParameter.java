@@ -67,9 +67,10 @@ public final class ExpressionFunctionParameter<T> implements HasName<ExpressionF
         return Lists.of(parameters);
     }
 
-    public static <T> ExpressionFunctionParameter<T> with(final ExpressionFunctionParameterName name,
-                                                          final Class<T> type,
-                                                          final ExpressionFunctionParameterCardinality cardinality) {
+    // @VisibleForTesting
+    static <T> ExpressionFunctionParameter<T> with(final ExpressionFunctionParameterName name,
+                                                   final Class<T> type,
+                                                   final ExpressionFunctionParameterCardinality cardinality) {
         Objects.requireNonNull(name, "name");
         Objects.requireNonNull(type, "type");
         Objects.requireNonNull(cardinality, "cardinality");
