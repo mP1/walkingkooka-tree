@@ -102,7 +102,7 @@ public final class ExpressionFunctionParameter<T> implements HasName<ExpressionF
 
     private final ExpressionFunctionParameterName name;
 
-    public Class<?> type() {
+    public Class<T> type() {
         return this.type;
     }
 
