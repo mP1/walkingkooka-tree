@@ -47,6 +47,32 @@ public interface ExpressionFunction<T, C extends ExpressionFunctionContext> exte
     List<ExpressionFunctionParameter<?>> parameters();
 
     /**
+     * Gets the {@link ExpressionFunctionParameter} for the given parameter. This method is helpful because the last
+     * parameter may be {@link ExpressionFunctionParameterCardinality#VARIABLE}.
+     */
+    default ExpressionFunctionParameter<?> parameter(final int index) {
+        if (index < 0) {
+            throw new ArrayIndexOutOfBoundsException("Index " + index + " < 0");
+        }
+
+        final List<ExpressionFunctionParameter<?>> parameters = this.parameters();
+        final int count = parameters.size();
+
+        final ExpressionFunctionParameter<?> parameter;
+
+        if (index < count) {
+            parameter = parameters.get(index);
+        } else {
+            parameter = parameters.get(count - 1);
+            if (parameter.cardinality() != ExpressionFunctionParameterCardinality.VARIABLE) {
+                throw new ArrayIndexOutOfBoundsException("Unknown parameter " + index + " expected only " + count);
+            }
+        }
+
+        return parameter;
+    }
+
+    /**
      * Checks the given parameter values match the expected count exactly. Less or more parameters will result in a
      * {@link IllegalArgumentException} being thrown.
      */

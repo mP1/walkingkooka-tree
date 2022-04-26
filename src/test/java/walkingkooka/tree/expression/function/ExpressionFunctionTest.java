@@ -168,6 +168,112 @@ public final class ExpressionFunctionTest implements ClassTesting<ExpressionFunc
         this.checkEquals(true, failed);
     }
 
+    // parameter....... ...............................................................................................
+
+    @Test
+    public void testParameterIndexLessThanZeroFails() {
+        assertThrows(
+                IndexOutOfBoundsException.class,
+                () -> new FakeExpressionFunction<Void, ExpressionFunctionContext>().parameter(-1)
+        );
+    }
+
+    @Test
+    public void testParameterOutOfBoundsFails() {
+        assertThrows(
+                IndexOutOfBoundsException.class,
+                () -> new FakeExpressionFunction<Void, ExpressionFunctionContext>() {
+                    @Override
+                    public List<ExpressionFunctionParameter<?>> parameters() {
+                        return Lists.empty();
+                    }
+                }.parameter(0)
+        );
+    }
+
+    @Test
+    public void testParameterOutOfBoundsFails2() {
+        assertThrows(
+                IndexOutOfBoundsException.class,
+                () -> new FakeExpressionFunction<Void, ExpressionFunctionContext>() {
+                    @Override
+                    public List<ExpressionFunctionParameter<?>> parameters() {
+                        return Lists.of(REQUIRED);
+                    }
+                }.parameter(1)
+        );
+    }
+
+    @Test
+    public void testParametersNonVariable() {
+        this.parameterAndCheck(
+                Lists.of(REQUIRED),
+                0,
+                REQUIRED
+        );
+    }
+
+    @Test
+    public void testParametersNonVariable2() {
+        this.parameterAndCheck(
+                Lists.of(REQUIRED, OPTIONAL),
+                1,
+                OPTIONAL
+        );
+    }
+
+    @Test
+    public void testParametersVariable() {
+        this.parameterAndCheck(
+                Lists.of(VARIABLE),
+                2,
+                VARIABLE
+        );
+    }
+
+    @Test
+    public void testParametersVariable2() {
+        this.parameterAndCheck(
+                Lists.of(REQUIRED, OPTIONAL, VARIABLE),
+                2,
+                VARIABLE
+        );
+    }
+
+    @Test
+    public void testParametersVariable3() {
+        this.parameterAndCheck(
+                Lists.of(REQUIRED, OPTIONAL, VARIABLE),
+                99,
+                VARIABLE
+        );
+    }
+
+    private void parameterAndCheck(final List<ExpressionFunctionParameter<?>> parameters,
+                                   final int index,
+                                   final ExpressionFunctionParameter<?> parameter) {
+        this.parameterAndCheck(
+                new FakeExpressionFunction<>() {
+                    @Override
+                    public List<ExpressionFunctionParameter<?>> parameters() {
+                        return parameters;
+                    }
+                },
+                index,
+                parameter
+        );
+    }
+
+    private void parameterAndCheck(final FakeExpressionFunction<?, ?> function,
+                                   final int index,
+                                   final ExpressionFunctionParameter<?> parameter) {
+        this.checkEquals(
+                parameter,
+                function.parameter(index),
+                "function " + index
+        );
+    }
+
     // convertParameters ...............................................................................................
 
     private final static ExpressionFunctionParameter<Integer> INTEGER_REQUIRED = ExpressionFunctionParameterName.with("integer").required(Integer.class);
