@@ -490,19 +490,17 @@ public final class ExpressionFunctionParameterTest implements HashCodeEqualsDefi
     // convert.........................................................................................................
 
     @Test
-    public void testConvert() {
-        final ExpressionFunctionParameter<Integer> parameter = ExpressionFunctionParameter.with(
-                NAME,
-                Integer.class,
-                TYPE_PARAMETERS,
-                CARDINALITY
-        );
-        this.checkEquals(
-                Either.left(12),
-                parameter.convert(
-                        "12",
-                        this.expressionFunctionContext()
-                )
+    public void testConvertOrFailMissingListMissingTypeParameterFails() {
+        assertThrows(
+                IllegalStateException.class,
+                () -> {
+                    ExpressionFunctionParameter.with(
+                            NAME,
+                            Cast.to(List.class),
+                            ExpressionFunctionParameter.NO_TYPE_PARAMETERS,
+                            CARDINALITY
+                    ).convertOrFail(Lists.empty(), ExpressionFunctionContexts.fake());
+                }
         );
     }
 
@@ -524,14 +522,31 @@ public final class ExpressionFunctionParameterTest implements HashCodeEqualsDefi
         );
     }
 
+    @Test
+    public void testConvertOrFailList() {
+        final ExpressionFunctionParameter<List<Integer>> parameter = ExpressionFunctionParameter.with(
+                NAME,
+                Cast.to(List.class),
+                List.of(Integer.class),
+                CARDINALITY
+        );
+
+        this.checkEquals(
+                List.of(12, 34, 56),
+                parameter.convertOrFail(
+                        Lists.of("12", "34", "56"),
+                        this.expressionFunctionContext()
+                )
+        );
+    }
+
     private ExpressionFunctionContext expressionFunctionContext() {
         return new FakeExpressionFunctionContext() {
             @Override
             public <T> Either<T, String> convert(final Object value,
                                                  final Class<T> target) {
-                checkEquals("12", value, "value");
                 checkEquals(Integer.class, target, "target");
-                return Cast.to(Either.left(12));
+                return Cast.to(Either.left(Integer.parseInt((String) value)));
             }
         };
     }

@@ -18,7 +18,6 @@
 package walkingkooka.tree.expression.function;
 
 import walkingkooka.Cast;
-import walkingkooka.Either;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.naming.HasName;
 import walkingkooka.tree.expression.ExpressionNumber;
@@ -267,17 +266,35 @@ public final class ExpressionFunctionParameter<T> implements HasName<ExpressionF
     /**
      * Converts the given parameter value to match the required type of this parameter.
      */
-    public Either<T, String> convert(final Object value,
-                                     final ExpressionFunctionContext context) {
-        return context.convert(value, this.type);
-    }
-
-    /**
-     * Converts the given parameter value to match the required type of this parameter or fails.
-     */
     public T convertOrFail(final Object value,
                            final ExpressionFunctionContext context) {
-        return context.convertOrFail(value, this.type);
+        final Class<T> type = this.type();
+        final boolean isList = type.equals(List.class);
+        return isList ?
+                Cast.to(this.convertList((List<?>) value, context)) :
+                context.convertOrFail(value, type);
+    }
+
+    private List<?> convertList(final List<?> list,
+                                final ExpressionFunctionContext context) {
+        final List<Class<?>> typeParameters = this.typeParameters();
+        final int typeParametersCount = typeParameters.size();
+        final Class<?> listType;
+
+        switch (typeParametersCount) {
+            case 0:
+                throw new IllegalStateException("Missing required type parameter for List");
+            case 1:
+                listType = typeParameters.get(0);
+                break;
+            default:
+                throw new IllegalStateException("Expected only one type parameter for List but got " + typeParameters);
+        }
+
+        return Lists.immutable(
+                list.stream()
+                        .map(v -> context.convertOrFail(v, listType))
+                        .collect(Collectors.toList()));
     }
 
     // Object...........................................................................................................
