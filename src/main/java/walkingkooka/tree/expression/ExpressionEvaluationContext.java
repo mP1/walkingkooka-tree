@@ -20,6 +20,7 @@ package walkingkooka.tree.expression;
 import walkingkooka.text.CaseSensitivity;
 import walkingkooka.tree.expression.function.ExpressionFunction;
 import walkingkooka.tree.expression.function.ExpressionFunctionContext;
+import walkingkooka.tree.expression.function.ExpressionFunctionParameter;
 
 import java.util.List;
 
@@ -35,12 +36,17 @@ public interface ExpressionEvaluationContext extends ExpressionFunctionContext,
     Object evaluate(final Expression expression);
 
     /**
-     * Accepts a function and its parameters and returns a List view of those parameters honouring
-     * the {@link ExpressionFunction#requiresEvaluatedParameters()} and {@link ExpressionFunction#resolveReferences()}.
+     * Wraps the {@link List} of parameters values and performs several actions lazily for each parameter.
+     * <ul>
+     * <li>Resolve {@link Expression} if {@link ExpressionFunction#requiresEvaluatedParameters()}</li>
+     * <li>Resolve {@link ReferenceExpression} if {@link ExpressionFunction#resolveReferences()}</li>
+     * <li>Convert values to the {@link ExpressionFunctionParameter#type()}</li>
+     * </ul>
+     * The above list is only performed once for each parameter and cached for future fetches.
      */
     default List<Object> prepareParameters(final ExpressionFunction<?, ExpressionFunctionContext> function,
                                            final List<Object> parameters) {
-        return ExpressionEvaluationContextParametersList.with(
+        return ExpressionEvaluationContextPrepareParametersList.with(
                 parameters,
                 function,
                 this

@@ -49,6 +49,15 @@ public interface ExpressionFunctionContext extends Context,
     ExpressionFunction<?, ExpressionFunctionContext> function(final FunctionExpressionName name);
 
     /**
+     * This method is called with each parameter and value pair, prior to invoking the function.
+     * <br>
+     * This provides an opportunity to convert the value to the required parameter type if the language requires such
+     * semantics.
+     */
+    <T> T prepareParameter(final ExpressionFunctionParameter<T> parameter,
+                           final Object value);
+
+    /**
      * Constant for functions without any parameters.
      */
     List<Object> NO_PARAMETERS = Lists.empty();

@@ -34,7 +34,9 @@
 
 package walkingkooka.tree.expression.function;
 
+import walkingkooka.Cast;
 import walkingkooka.Either;
+import walkingkooka.collect.list.Lists;
 import walkingkooka.convert.ConverterContext;
 import walkingkooka.tree.expression.ExpressionEvaluationException;
 import walkingkooka.tree.expression.ExpressionNumberKind;
@@ -47,6 +49,7 @@ import java.util.Locale;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.function.Function;
+import java.util.stream.Collectors;
 
 /**
  * An {@link ExpressionFunctionContext} delegates to helpers or constants for each method.
@@ -168,6 +171,32 @@ final class BasicExpressionFunctionContext implements ExpressionFunctionContext 
     }
 
     private final Function<FunctionExpressionName, ExpressionFunction<?, ExpressionFunctionContext>> functions;
+
+    @Override
+    public <T> T prepareParameter(final ExpressionFunctionParameter<T> parameter,
+                                  final Object value) {
+        Objects.requireNonNull(parameter, "parameter");
+
+        final Class<T> type = parameter.type();
+        final boolean isList = type.equals(List.class);
+        return isList ?
+                Cast.to(this.convertList(parameter, type, value)) :
+                this.convertOrFail(value, type);
+    }
+
+    private <T> List<T> convertList(final ExpressionFunctionParameter<T> parameter,
+                                    final Class<T> listType,
+                                    final Object value) {
+        if (value instanceof List) {
+            throw new IllegalArgumentException("Parameter " + parameter.name() + " is not a List but " + listType);
+        }
+
+        final List<?> list = Cast.to(value);
+        return Lists.immutable(
+                list.stream()
+                        .map(v -> this.convertOrFail(v, listType))
+                        .collect(Collectors.toList()));
+    }
 
     @Override
     public Object evaluate(final FunctionExpressionName name,
