@@ -32,6 +32,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.function.Consumer;
+import java.util.stream.Collectors;
 
 /**
  * Captures an individual parameter to a @link ExpressionFunction}.
@@ -61,6 +62,11 @@ public final class ExpressionFunctionParameter<T> implements HasName<ExpressionF
     public final static ExpressionFunctionParameter<Object> VALUE = ExpressionFunctionParameterName.VALUE.required(Object.class);
 
     /**
+     * Type parameters for types that are not generic and have NO type parameters.
+     */
+    public final static List<Class<?>> NO_TYPE_PARAMETERS = Lists.empty();
+
+    /**
      * Helper that creates a read only list of the given parameters.
      */
     public static List<ExpressionFunctionParameter<?>> list(final ExpressionFunctionParameter<?>... parameters) {
@@ -70,20 +76,23 @@ public final class ExpressionFunctionParameter<T> implements HasName<ExpressionF
     // @VisibleForTesting
     static <T> ExpressionFunctionParameter<T> with(final ExpressionFunctionParameterName name,
                                                    final Class<T> type,
+                                                   final List<Class<?>> typeParameters,
                                                    final ExpressionFunctionParameterCardinality cardinality) {
         Objects.requireNonNull(name, "name");
         Objects.requireNonNull(type, "type");
         Objects.requireNonNull(cardinality, "cardinality");
 
-        return new ExpressionFunctionParameter<>(name, type, cardinality);
+        return new ExpressionFunctionParameter<>(name, type, cardinality, typeParameters);
     }
 
     private ExpressionFunctionParameter(final ExpressionFunctionParameterName name,
                                         final Class<T> type,
-                                        final ExpressionFunctionParameterCardinality cardinality) {
+                                        final ExpressionFunctionParameterCardinality cardinality,
+                                        final List<Class<?>> typeParameters) {
         this.name = name;
         this.type = type;
         this.cardinality = cardinality;
+        this.typeParameters = typeParameters;
     }
 
     @Override
@@ -98,6 +107,32 @@ public final class ExpressionFunctionParameter<T> implements HasName<ExpressionF
     }
 
     private final Class<T> type;
+
+    public List<Class<?>> typeParameters() {
+        return this.typeParameters;
+    }
+
+    /**
+     * Sets the type parameter, this is intended to supply the type parameters for {@link List}.
+     */
+    public ExpressionFunctionParameter<T> setTypeParameters(final List<Class<?>> typeParameters) {
+        Objects.requireNonNull(typeParameters, "typeParameters");
+
+        return this.setTypeParameters0(Lists.immutable(typeParameters));
+    }
+
+    private ExpressionFunctionParameter<T> setTypeParameters0(final List<Class<?>> typeParameters) {
+        return this.typeParameters.equals(typeParameters) ?
+                this :
+                new ExpressionFunctionParameter<>(
+                        name,
+                        type,
+                        cardinality,
+                        typeParameters
+                );
+    }
+
+    private final List<Class<?>> typeParameters;
 
     public ExpressionFunctionParameterCardinality cardinality() {
         return this.cardinality;
@@ -249,9 +284,15 @@ public final class ExpressionFunctionParameter<T> implements HasName<ExpressionF
 
     @Override
     public int hashCode() {
-        return Objects.hash(this.name, this.type, this.cardinality);
+        return Objects.hash(
+                this.name,
+                this.type,
+                this.typeParameters,
+                this.cardinality
+        );
     }
 
+    @Override
     public boolean equals(final Object other) {
         return this == other || other instanceof ExpressionFunctionParameter && this.equals0((ExpressionFunctionParameter) other);
     }
@@ -259,11 +300,26 @@ public final class ExpressionFunctionParameter<T> implements HasName<ExpressionF
     private boolean equals0(final ExpressionFunctionParameter other) {
         return this.name.equals(other.name) &&
                 this.type.equals(other.type) &&
+                this.typeParameters.equals(other.typeParameters) &&
                 this.cardinality == other.cardinality;
     }
 
     @Override
     public String toString() {
-        return this.type.getName() + " " + this.name + this.cardinality.parameterToString;
+        return this.type.getName() +
+                this.toStringTypeParameters() +
+                " " +
+                this.name +
+                this.cardinality.parameterToString;
+    }
+
+    private String toStringTypeParameters() {
+        final List<Class<?>> typeParameters = this.typeParameters();
+
+        return typeParameters.isEmpty() ?
+                "" :
+                typeParameters.stream()
+                        .map(Class::getName)
+                        .collect(Collectors.joining(",", "<", ">"));
     }
 }
