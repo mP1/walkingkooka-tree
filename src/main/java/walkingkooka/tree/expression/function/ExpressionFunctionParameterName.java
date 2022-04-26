@@ -109,8 +109,7 @@ public final class ExpressionFunctionParameterName implements Name,
      * Factory that creates a REQUIRED {@link ExpressionFunctionParameter} with this name and the given {@link Class type}.
      */
     public <T> ExpressionFunctionParameter<T> required(final Class<T> type) {
-        return ExpressionFunctionParameter.with(
-                this,
+        return parameter(
                 type,
                 ExpressionFunctionParameterCardinality.REQUIRED
         );
@@ -120,8 +119,7 @@ public final class ExpressionFunctionParameterName implements Name,
      * Factory that creates a OPTIONAL {@link ExpressionFunctionParameter} with this name and the given {@link Class type}.
      */
     public <T> ExpressionFunctionParameter<T> optional(final Class<T> type) {
-        return ExpressionFunctionParameter.with(
-                this,
+        return parameter(
                 type,
                 ExpressionFunctionParameterCardinality.OPTIONAL
         );
@@ -131,10 +129,19 @@ public final class ExpressionFunctionParameterName implements Name,
      * Factory that creates a VARIABLE {@link ExpressionFunctionParameter} with this name and the given {@link Class type}.
      */
     public <T> ExpressionFunctionParameter<T> variable(final Class<T> type) {
+        return parameter(
+                type,
+                ExpressionFunctionParameterCardinality.VARIABLE
+        );
+    }
+
+    private <T> ExpressionFunctionParameter<T> parameter(final Class<T> type,
+                                                         final ExpressionFunctionParameterCardinality cardinality) {
         return ExpressionFunctionParameter.with(
                 this,
                 type,
-                ExpressionFunctionParameterCardinality.VARIABLE
+                ExpressionFunctionParameter.NO_TYPE_PARAMETERS,
+                cardinality
         );
     }
 
