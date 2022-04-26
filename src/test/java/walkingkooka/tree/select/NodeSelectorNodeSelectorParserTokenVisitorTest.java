@@ -51,6 +51,8 @@ import walkingkooka.tree.expression.ValueExpression;
 import walkingkooka.tree.expression.function.ExpressionFunction;
 import walkingkooka.tree.expression.function.ExpressionFunctionContext;
 import walkingkooka.tree.expression.function.ExpressionFunctionContexts;
+import walkingkooka.tree.expression.function.ExpressionFunctionParameter;
+import walkingkooka.tree.expression.function.ExpressionFunctionParameterName;
 import walkingkooka.tree.expression.function.FakeExpressionFunction;
 import walkingkooka.tree.select.parser.NodeSelectorExpressionParserToken;
 import walkingkooka.tree.select.parser.NodeSelectorParserContexts;
@@ -2011,6 +2013,14 @@ public final class NodeSelectorNodeSelectorParserTokenVisitorTest implements Nod
 
         public abstract Object apply(final List<Object> parameters,
                                      final NodeSelectorExpressionEvaluationContext<TestNode, StringName, StringName, Object> context);
+
+        @Override
+        public List<ExpressionFunctionParameter<?>> parameters() {
+            return Lists.of(
+                    ExpressionFunctionParameterName.with("parameters")
+                            .variable(Object.class)
+            );
+        }
 
         @Override
         public boolean requiresEvaluatedParameters() {

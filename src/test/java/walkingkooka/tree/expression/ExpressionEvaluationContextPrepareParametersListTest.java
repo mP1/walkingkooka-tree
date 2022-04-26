@@ -18,20 +18,32 @@
 package walkingkooka.tree.expression;
 
 import org.junit.jupiter.api.Test;
+import walkingkooka.Cast;
 import walkingkooka.collect.list.ListTesting;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.reflect.ClassTesting;
 import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.tree.expression.function.ExpressionFunction;
 import walkingkooka.tree.expression.function.ExpressionFunctionContext;
+import walkingkooka.tree.expression.function.ExpressionFunctionParameter;
+import walkingkooka.tree.expression.function.ExpressionFunctionParameterName;
 import walkingkooka.tree.expression.function.FakeExpressionFunction;
 
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertSame;
 
-public final class ExpressionEvaluationContextParametersListTest implements ClassTesting<ExpressionEvaluationContextParametersList>,
+public final class ExpressionEvaluationContextPrepareParametersListTest implements ClassTesting<ExpressionEvaluationContextPrepareParametersList>,
         ListTesting {
+
+    private final static ExpressionEvaluationContext CONTEXT = new FakeExpressionEvaluationContext() {
+
+        @Override
+        public <T> T prepareParameter(final ExpressionFunctionParameter<T> parameter,
+                                      final Object value) {
+            return Cast.to(value);
+        }
+    };
 
     private final static ExpressionReference REFERENCE = new ExpressionReference() {
         @Override
@@ -49,10 +61,10 @@ public final class ExpressionEvaluationContextParametersListTest implements Clas
                 element1,
                 element2
         );
-        final ExpressionEvaluationContextParametersList list = ExpressionEvaluationContextParametersList.with(
+        final ExpressionEvaluationContextPrepareParametersList list = ExpressionEvaluationContextPrepareParametersList.with(
                 parameters,
                 this.function(false, false),
-                ExpressionEvaluationContexts.fake()
+                CONTEXT
         );
 
         this.sizeAndCheck(list, 2);
@@ -67,10 +79,10 @@ public final class ExpressionEvaluationContextParametersListTest implements Clas
                 element1,
                 element2
         );
-        final ExpressionEvaluationContextParametersList list = ExpressionEvaluationContextParametersList.with(
+        final ExpressionEvaluationContextPrepareParametersList list = ExpressionEvaluationContextPrepareParametersList.with(
                 parameters,
                 this.function(false, false),
-                ExpressionEvaluationContexts.fake()
+                CONTEXT
         );
 
         this.sizeAndCheck(list, 2);
@@ -87,10 +99,10 @@ public final class ExpressionEvaluationContextParametersListTest implements Clas
                 element1,
                 element2
         );
-        final ExpressionEvaluationContextParametersList list = ExpressionEvaluationContextParametersList.with(
+        final ExpressionEvaluationContextPrepareParametersList list = ExpressionEvaluationContextPrepareParametersList.with(
                 parameters,
                 this.function(false, false),
-                ExpressionEvaluationContexts.fake()
+                CONTEXT
         );
 
         this.sizeAndCheck(list, 2);
@@ -107,10 +119,10 @@ public final class ExpressionEvaluationContextParametersListTest implements Clas
                 element1,
                 element2
         );
-        final ExpressionEvaluationContextParametersList list = ExpressionEvaluationContextParametersList.with(
+        final ExpressionEvaluationContextPrepareParametersList list = ExpressionEvaluationContextPrepareParametersList.with(
                 parameters,
                 this.function(true, false),
-                ExpressionEvaluationContexts.fake()
+                CONTEXT
         );
 
         this.sizeAndCheck(list, 2);
@@ -127,10 +139,10 @@ public final class ExpressionEvaluationContextParametersListTest implements Clas
                 element1,
                 element2
         );
-        final ExpressionEvaluationContextParametersList list = ExpressionEvaluationContextParametersList.with(
+        final ExpressionEvaluationContextPrepareParametersList list = ExpressionEvaluationContextPrepareParametersList.with(
                 parameters,
                 this.function(true, false),
-                ExpressionEvaluationContexts.fake()
+                CONTEXT
         );
 
         this.sizeAndCheck(list, 2);
@@ -147,10 +159,10 @@ public final class ExpressionEvaluationContextParametersListTest implements Clas
                 element1,
                 element2
         );
-        final ExpressionEvaluationContextParametersList list = ExpressionEvaluationContextParametersList.with(
+        final ExpressionEvaluationContextPrepareParametersList list = ExpressionEvaluationContextPrepareParametersList.with(
                 parameters,
                 this.function(true, false),
-                ExpressionEvaluationContexts.fake()
+                CONTEXT
         );
 
         this.sizeAndCheck(list, 2);
@@ -168,10 +180,17 @@ public final class ExpressionEvaluationContextParametersListTest implements Clas
                 element1,
                 element2
         );
-        final ExpressionEvaluationContextParametersList list = ExpressionEvaluationContextParametersList.with(
+        final ExpressionEvaluationContextPrepareParametersList list = ExpressionEvaluationContextPrepareParametersList.with(
                 parameters,
                 this.function(false, true),
                 new FakeExpressionEvaluationContext() {
+
+                    @Override
+                    public <T> T prepareParameter(final ExpressionFunctionParameter<T> parameter,
+                                                  final Object value) {
+                        return Cast.to(value);
+                    }
+
                     @Override
                     public Expression referenceOrFail(final ExpressionReference r) {
                         assertSame(REFERENCE, r);
@@ -195,10 +214,22 @@ public final class ExpressionEvaluationContextParametersListTest implements Clas
                 element1,
                 element2
         );
-        final ExpressionEvaluationContextParametersList list = ExpressionEvaluationContextParametersList.with(
+        final ExpressionEvaluationContextPrepareParametersList list = ExpressionEvaluationContextPrepareParametersList.with(
                 parameters,
                 this.function(true, true),
                 new FakeExpressionEvaluationContext() {
+
+                    public List<Object> XXXprepareParameters(final ExpressionFunction<?, ExpressionFunctionContext> function,
+                                                             final List<Object> parameters) {
+                        return parameters;
+                    }
+
+                    @Override
+                    public <T> T prepareParameter(final ExpressionFunctionParameter<T> parameter,
+                                                  final Object value) {
+                        return Cast.to(value);
+                    }
+
                     @Override
                     public Expression referenceOrFail(final ExpressionReference r) {
                         assertSame(REFERENCE, r);
@@ -212,9 +243,49 @@ public final class ExpressionEvaluationContextParametersListTest implements Clas
         this.getAndCheck(list, 1, element2.value());
     }
 
+    @Test
+    public void testParameterValueConverted() {
+        final List<Object> parameters = Lists.of(
+                "111",
+                "222"
+        );
+        final ExpressionEvaluationContextPrepareParametersList list = ExpressionEvaluationContextPrepareParametersList.with(
+                parameters,
+                this.function(false, false),
+                new FakeExpressionEvaluationContext() {
+
+                    @Override
+                    public <T> T prepareParameter(final ExpressionFunctionParameter<T> parameter,
+                                                  final Object value) {
+                        return parameter.type().cast(Integer.parseInt((String) value));
+                    }
+                }
+        );
+
+        this.sizeAndCheck(list, 2);
+        this.getAndCheck(list, 0, 111);
+        this.getAndCheck(list, 1, 222);
+    }
+
     private ExpressionFunction<Void, ExpressionFunctionContext> function(final boolean requiresEvaluatedParameters,
                                                                          final boolean resolveReferences) {
+        return this.function(
+                Lists.of(ExpressionFunctionParameterName.with("parameters").variable(Object.class)),
+                requiresEvaluatedParameters,
+                resolveReferences
+        );
+    }
+
+    private ExpressionFunction<Void, ExpressionFunctionContext> function(final List<ExpressionFunctionParameter<?>> parameters,
+                                                                         final boolean requiresEvaluatedParameters,
+                                                                         final boolean resolveReferences) {
         return new FakeExpressionFunction<>() {
+
+            @Override
+            public List<ExpressionFunctionParameter<?>> parameters() {
+                return parameters;
+            }
+
             @Override
             public boolean requiresEvaluatedParameters() {
                 return requiresEvaluatedParameters;
@@ -227,7 +298,7 @@ public final class ExpressionEvaluationContextParametersListTest implements Clas
 
             @Override
             public String toString() {
-                return "requiresEvaluatedParameters: " + requiresEvaluatedParameters + " resolveReferences: " + resolveReferences;
+                return "parameters: " + parameters + " requiresEvaluatedParameters: " + requiresEvaluatedParameters + " resolveReferences: " + resolveReferences;
             }
         };
     }
@@ -235,8 +306,8 @@ public final class ExpressionEvaluationContextParametersListTest implements Clas
     // ClassTesting....................................................................................................
 
     @Override
-    public Class<ExpressionEvaluationContextParametersList> type() {
-        return ExpressionEvaluationContextParametersList.class;
+    public Class<ExpressionEvaluationContextPrepareParametersList> type() {
+        return ExpressionEvaluationContextPrepareParametersList.class;
     }
 
     @Override

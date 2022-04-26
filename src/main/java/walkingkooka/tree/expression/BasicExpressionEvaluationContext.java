@@ -21,6 +21,7 @@ import walkingkooka.Either;
 import walkingkooka.text.CaseSensitivity;
 import walkingkooka.tree.expression.function.ExpressionFunction;
 import walkingkooka.tree.expression.function.ExpressionFunctionContext;
+import walkingkooka.tree.expression.function.ExpressionFunctionParameter;
 
 import java.math.MathContext;
 import java.util.List;
@@ -31,6 +32,9 @@ import java.util.function.Function;
 
 /**
  * An {@link ExpressionEvaluationContext} delegates to helpers or constants for each method.
+ * Note that function parameters have any {@link Expression} & {@link ExpressionReference} evaluated to values and
+ * values are also converted to the parameter's type.
+ * This is useful for languages or environments that have auto converting of value semantics, think Javascript.
  */
 final class BasicExpressionEvaluationContext implements ExpressionEvaluationContext {
 
@@ -136,6 +140,12 @@ final class BasicExpressionEvaluationContext implements ExpressionEvaluationCont
     }
 
     private final Function<FunctionExpressionName, ExpressionFunction<?, ExpressionFunctionContext>> functions;
+
+    @Override
+    public <T> T prepareParameter(final ExpressionFunctionParameter<T> parameter,
+                                  final Object value) {
+        return this.functionContext.prepareParameter(parameter, value);
+    }
 
     @Override
     public Object evaluate(final Expression expression) {
