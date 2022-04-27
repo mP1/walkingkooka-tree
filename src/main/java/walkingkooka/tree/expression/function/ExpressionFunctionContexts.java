@@ -19,6 +19,7 @@ package walkingkooka.tree.expression.function;
 
 import walkingkooka.convert.ConverterContext;
 import walkingkooka.reflect.PublicStaticHelper;
+import walkingkooka.text.CaseSensitivity;
 import walkingkooka.tree.expression.ExpressionEvaluationException;
 import walkingkooka.tree.expression.ExpressionEvaluationReferenceException;
 import walkingkooka.tree.expression.ExpressionNumberKind;
@@ -37,12 +38,14 @@ public final class ExpressionFunctionContexts implements PublicStaticHelper {
                                                   final Function<FunctionExpressionName, ExpressionFunction<?, ExpressionFunctionContext>> functions,
                                                   final Function<ExpressionReference, Optional<Object>> references,
                                                   final Function<ExpressionReference, ExpressionEvaluationException> referenceNotFound,
+                                                  final CaseSensitivity caseSensitivity,
                                                   final ConverterContext converterContext) {
         return BasicExpressionFunctionContext.with(
                 expressionNumberKind,
                 functions,
                 references,
                 referenceNotFound,
+                caseSensitivity,
                 converterContext
         );
     }

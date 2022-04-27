@@ -29,6 +29,7 @@ import walkingkooka.math.DecimalNumberContext;
 import walkingkooka.math.DecimalNumberContexts;
 import walkingkooka.reflect.ClassTesting2;
 import walkingkooka.reflect.JavaVisibility;
+import walkingkooka.text.CaseSensitivity;
 import walkingkooka.tree.expression.ExpressionEvaluationException;
 import walkingkooka.tree.expression.ExpressionEvaluationReferenceException;
 import walkingkooka.tree.expression.ExpressionNumberKind;
@@ -57,6 +58,8 @@ public final class BasicExpressionFunctionContextTest implements ClassTesting2<B
 
     private final static String REFERENCE_NOT_FOUND_MESSAGE = "CustomMessage123";
 
+    private final static CaseSensitivity CASE_SENSITIVITY = CaseSensitivity.SENSITIVE;
+
     @Test
     public void testWithNullExpressionNumberKindFails() {
         assertThrows(
@@ -66,6 +69,7 @@ public final class BasicExpressionFunctionContextTest implements ClassTesting2<B
                         this.functions(),
                         this.references(),
                         ExpressionFunctionContexts.referenceNotFound(),
+                        CASE_SENSITIVITY,
                         this.converterContext()
                 )
         );
@@ -80,6 +84,7 @@ public final class BasicExpressionFunctionContextTest implements ClassTesting2<B
                         null,
                         this.references(),
                         ExpressionFunctionContexts.referenceNotFound(),
+                        CASE_SENSITIVITY,
                         this.converterContext()
                 )
         );
@@ -94,6 +99,7 @@ public final class BasicExpressionFunctionContextTest implements ClassTesting2<B
                         this.functions(),
                         null,
                         ExpressionFunctionContexts.referenceNotFound(),
+                        CASE_SENSITIVITY,
                         this.converterContext()
                 )
         );
@@ -107,6 +113,22 @@ public final class BasicExpressionFunctionContextTest implements ClassTesting2<B
                         KIND,
                         this.functions(),
                         this.references(),
+                        null,
+                        CASE_SENSITIVITY,
+                        this.converterContext()
+                )
+        );
+    }
+
+    @Test
+    public void testWithNullCaseSensitivityFails() {
+        assertThrows(
+                NullPointerException.class,
+                () -> BasicExpressionFunctionContext.with(
+                        KIND,
+                        this.functions(),
+                        this.references(),
+                        ExpressionFunctionContexts.referenceNotFound(),
                         null,
                         this.converterContext()
                 )
@@ -122,6 +144,7 @@ public final class BasicExpressionFunctionContextTest implements ClassTesting2<B
                         this.functions(),
                         this.references(),
                         ExpressionFunctionContexts.referenceNotFound(),
+                        CASE_SENSITIVITY,
                         null
                 )
         );
@@ -159,6 +182,22 @@ public final class BasicExpressionFunctionContextTest implements ClassTesting2<B
     }
 
     @Test
+    public void testCaseSensitivity() {
+        this.checkEquals(
+                CaseSensitivity.SENSITIVE,
+                this.createContext(CaseSensitivity.SENSITIVE).caseSensitivity()
+        );
+    }
+
+    @Test
+    public void testCaseSensitivity2() {
+        this.checkEquals(
+                CaseSensitivity.INSENSITIVE,
+                this.createContext(CaseSensitivity.INSENSITIVE).caseSensitivity()
+        );
+    }
+
+    @Test
     public void testConvert() {
         this.convertAndCheck(123.0, Long.class, 123L);
     }
@@ -176,9 +215,10 @@ public final class BasicExpressionFunctionContextTest implements ClassTesting2<B
                         functions,
                         references,
                         referenceNotFound,
+                        CASE_SENSITIVITY,
                         converterContext
                 ),
-                functions + " " + references + " " + referenceNotFound + " " + converterContext
+                functions + " " + references + " " + referenceNotFound + " " + CASE_SENSITIVITY + " " + converterContext
         );
     }
 
@@ -188,11 +228,27 @@ public final class BasicExpressionFunctionContextTest implements ClassTesting2<B
     }
 
     private BasicExpressionFunctionContext createContext(final boolean pure) {
+        return this.createContext(
+                pure,
+                CASE_SENSITIVITY
+        );
+    }
+
+    private BasicExpressionFunctionContext createContext(final CaseSensitivity caseSensitivity) {
+        return this.createContext(
+                true,
+                caseSensitivity
+        );
+    }
+
+    private BasicExpressionFunctionContext createContext(final boolean pure,
+                                                         final CaseSensitivity caseSensitivity) {
         return BasicExpressionFunctionContext.with(
                 KIND,
                 this.functions(pure),
                 this.references(),
                 (r) -> new ExpressionEvaluationReferenceException(REFERENCE_NOT_FOUND_MESSAGE, r),
+                caseSensitivity,
                 this.converterContext()
         );
     }

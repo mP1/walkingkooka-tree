@@ -53,7 +53,7 @@ public final class BasicExpressionEvaluationContextTest implements ClassTesting2
 
     private final static Object REFERENCE_VALUE = "expression node 123";
 
-    private final static CaseSensitivity STRING_EQUALS_CASE_SENSITIVITY = CaseSensitivity.SENSITIVE;
+    private final static CaseSensitivity CASE_SENSITIVITY = CaseSensitivity.SENSITIVE;
 
     @Test
     public void testWithNullFunctionsFails() {
@@ -61,8 +61,7 @@ public final class BasicExpressionEvaluationContextTest implements ClassTesting2
                 NullPointerException.class,
                 () -> BasicExpressionEvaluationContext.with(
                         null,
-                        this.functionContext(),
-                        STRING_EQUALS_CASE_SENSITIVITY
+                        this.functionContext()
                 )
         );
     }
@@ -73,19 +72,6 @@ public final class BasicExpressionEvaluationContextTest implements ClassTesting2
                 NullPointerException.class,
                 () -> BasicExpressionEvaluationContext.with(
                         this.functions(),
-                        null,
-                        STRING_EQUALS_CASE_SENSITIVITY
-                )
-        );
-    }
-
-    @Test
-    public void testWithNullStringCaseSensitivityFails() {
-        assertThrows(
-                NullPointerException.class,
-                () -> BasicExpressionEvaluationContext.with(
-                        this.functions(),
-                        this.functionContext(),
                         null
                 )
         );
@@ -168,10 +154,10 @@ public final class BasicExpressionEvaluationContextTest implements ClassTesting2
 
     private void evaluateStringEqualsAndCheck(final String left,
                                               final String right,
-                                              final CaseSensitivity stringEqualsCaseSensitivity,
+                                              final CaseSensitivity caseSensitivity,
                                               final boolean expected) {
         this.evaluateAndCheck(
-                this.createContext(true, stringEqualsCaseSensitivity),
+                this.createContext(true, caseSensitivity),
                 Expression.equalsExpression(
                         Expression.value(left),
                         Expression.value(right)
@@ -250,7 +236,7 @@ public final class BasicExpressionEvaluationContextTest implements ClassTesting2
 
     private void isPureAndCheck2(final boolean pure) {
         this.isPureAndCheck(
-                this.createContext(pure, STRING_EQUALS_CASE_SENSITIVITY),
+                this.createContext(pure, CASE_SENSITIVITY),
                 this.functionName(),
                 pure
         );
@@ -273,40 +259,29 @@ public final class BasicExpressionEvaluationContextTest implements ClassTesting2
     // toString.........................................................................................................
 
     @Test
-    public void testToStringStringEqualsCaseInsensitive() {
-        this.toStringAndCheck2(CaseSensitivity.INSENSITIVE);
-    }
-
-    @Test
-    public void testToStringStringEqualsCaseSensitive() {
-        this.toStringAndCheck2(CaseSensitivity.SENSITIVE);
-    }
-
-    private void toStringAndCheck2(final CaseSensitivity stringEqualsCaseSensitivity) {
+    public void testToString() {
         final Function<FunctionExpressionName, ExpressionFunction<?, ExpressionFunctionContext>> functions = this.functions();
         final ExpressionFunctionContext functionContext = this.functionContext();
 
         this.toStringAndCheck(
                 BasicExpressionEvaluationContext.with(
                         functions,
-                        functionContext,
-                        stringEqualsCaseSensitivity
+                        functionContext
                 ),
-                functions + " " + functionContext + " stringEquality: " + stringEqualsCaseSensitivity
+                functions + " " + functionContext
         );
     }
 
     @Override
     public BasicExpressionEvaluationContext createContext() {
-        return this.createContext(true, STRING_EQUALS_CASE_SENSITIVITY);
+        return this.createContext(true, CASE_SENSITIVITY);
     }
 
     private BasicExpressionEvaluationContext createContext(final boolean pure,
-                                                           final CaseSensitivity stringEqualsCaseSensitivity) {
+                                                           final CaseSensitivity caseSensitivity) {
         return BasicExpressionEvaluationContext.with(
                 this.functions(pure),
-                this.functionContext(),
-                stringEqualsCaseSensitivity
+                this.functionContext(caseSensitivity)
         );
     }
 
@@ -353,11 +328,16 @@ public final class BasicExpressionEvaluationContextTest implements ClassTesting2
     }
 
     private ExpressionFunctionContext functionContext() {
+        return this.functionContext(CASE_SENSITIVITY);
+    }
+
+    private ExpressionFunctionContext functionContext(final CaseSensitivity caseSensitivity) {
         return ExpressionFunctionContexts.basic(
                 ExpressionNumberKind.DEFAULT,
                 this.functions(),
                 this.references(),
                 ExpressionFunctionContexts.referenceNotFound(),
+                caseSensitivity,
                 this.converterContext()
         );
     }

@@ -18,7 +18,6 @@
 package walkingkooka.tree.expression;
 
 import walkingkooka.reflect.PublicStaticHelper;
-import walkingkooka.text.CaseSensitivity;
 import walkingkooka.tree.expression.function.ExpressionFunction;
 import walkingkooka.tree.expression.function.ExpressionFunctionContext;
 
@@ -30,12 +29,10 @@ public final class ExpressionEvaluationContexts implements PublicStaticHelper {
      * {@see BasicExpressionEvaluationContext}
      */
     public static ExpressionEvaluationContext basic(final Function<FunctionExpressionName, ExpressionFunction<?, ExpressionFunctionContext>> functions,
-                                                    final ExpressionFunctionContext functionContext,
-                                                    final CaseSensitivity stringEqualityCaseSensitivity) {
+                                                    final ExpressionFunctionContext functionContext) {
         return BasicExpressionEvaluationContext.with(
                 functions,
-                functionContext,
-                stringEqualityCaseSensitivity
+                functionContext
         );
     }
 

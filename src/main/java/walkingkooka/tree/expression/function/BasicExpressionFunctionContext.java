@@ -36,6 +36,7 @@ package walkingkooka.tree.expression.function;
 
 import walkingkooka.Either;
 import walkingkooka.convert.ConverterContext;
+import walkingkooka.text.CaseSensitivity;
 import walkingkooka.tree.expression.ExpressionEvaluationException;
 import walkingkooka.tree.expression.ExpressionNumberKind;
 import walkingkooka.tree.expression.ExpressionReference;
@@ -60,11 +61,13 @@ final class BasicExpressionFunctionContext implements ExpressionFunctionContext 
                                                final Function<FunctionExpressionName, ExpressionFunction<?, ExpressionFunctionContext>> functions,
                                                final Function<ExpressionReference, Optional<Object>> references,
                                                final Function<ExpressionReference, ExpressionEvaluationException> referenceNotFound,
+                                               final CaseSensitivity caseSensitivity,
                                                final ConverterContext converterContext) {
         Objects.requireNonNull(expressionNumberKind, "expressionNumberKind");
         Objects.requireNonNull(functions, "functions");
         Objects.requireNonNull(references, "references");
         Objects.requireNonNull(referenceNotFound, "referenceNotFound");
+        Objects.requireNonNull(caseSensitivity, "caseSensitivity");
         Objects.requireNonNull(converterContext, "converterContext");
 
         return new BasicExpressionFunctionContext(
@@ -72,6 +75,7 @@ final class BasicExpressionFunctionContext implements ExpressionFunctionContext 
                 functions,
                 references,
                 referenceNotFound,
+                caseSensitivity,
                 converterContext
         );
     }
@@ -83,12 +87,14 @@ final class BasicExpressionFunctionContext implements ExpressionFunctionContext 
                                            final Function<FunctionExpressionName, ExpressionFunction<?, ExpressionFunctionContext>> functions,
                                            final Function<ExpressionReference, Optional<Object>> references,
                                            final Function<ExpressionReference, ExpressionEvaluationException> referenceNotFound,
+                                           final CaseSensitivity caseSensitivity,
                                            final ConverterContext converterContext) {
         super();
         this.expressionNumberKind = expressionNumberKind;
         this.functions = functions;
         this.references = references;
         this.referenceNotFound = referenceNotFound;
+        this.caseSensitivity = caseSensitivity;
         this.converterContext = converterContext;
     }
 
@@ -197,6 +203,13 @@ final class BasicExpressionFunctionContext implements ExpressionFunctionContext 
     private final Function<ExpressionReference, ExpressionEvaluationException> referenceNotFound;
 
     @Override
+    public CaseSensitivity caseSensitivity() {
+        return this.caseSensitivity;
+    }
+
+    private final CaseSensitivity caseSensitivity;
+
+    @Override
     public boolean canConvert(final Object value,
                               final Class<?> type) {
         return this.converterContext.canConvert(value, type);
@@ -212,6 +225,6 @@ final class BasicExpressionFunctionContext implements ExpressionFunctionContext 
 
     @Override
     public String toString() {
-        return this.functions + " " + this.references + " " + this.referenceNotFound + " " + this.converterContext;
+        return this.functions + " " + this.references + " " + this.referenceNotFound + " " + this.caseSensitivity + " " + this.converterContext;
     }
 }

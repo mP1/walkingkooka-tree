@@ -128,8 +128,7 @@ public final class BasicNodeSelectorExpressionEvaluationContextTest implements N
         return BasicNodeSelectorExpressionEvaluationContext.with(node,
                 (r) -> ExpressionEvaluationContexts.basic(
                         this.functions(),
-                        this.functionContext(),
-                        CaseSensitivity.SENSITIVE
+                        this.functionContext()
                 ));
     }
 
@@ -146,6 +145,7 @@ public final class BasicNodeSelectorExpressionEvaluationContextTest implements N
                 this.functions(),
                 this.references(),
                 ExpressionFunctionContexts.referenceNotFound(),
+                CaseSensitivity.SENSITIVE,
                 this.converterContext()
         );
     }

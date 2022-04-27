@@ -1838,8 +1838,7 @@ public final class NodeSelectorNodeSelectorParserTokenVisitorTest implements Nod
                         return NodeSelectorExpressionEvaluationContexts.basic(this.node,
                                 (r) -> ExpressionEvaluationContexts.basic(
                                         Cast.to(this.functions()),
-                                        this.functionContext(),
-                                        CaseSensitivity.SENSITIVE
+                                        this.functionContext()
                                 )
                         );
                     }
@@ -1923,6 +1922,7 @@ public final class NodeSelectorNodeSelectorParserTokenVisitorTest implements Nod
                                 Cast.to(this.functions()),
                                 this.references(),
                                 ExpressionFunctionContexts.referenceNotFound(),
+                                CaseSensitivity.SENSITIVE,
                                 this.converterContext()
                         );
                     }
