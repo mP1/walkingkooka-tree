@@ -17,7 +17,6 @@
 
 package walkingkooka.tree.expression;
 
-import walkingkooka.text.CaseSensitivity;
 import walkingkooka.tree.expression.function.ExpressionFunction;
 import walkingkooka.tree.expression.function.ExpressionFunctionContext;
 import walkingkooka.tree.expression.function.ExpressionFunctionParameter;
@@ -52,9 +51,4 @@ public interface ExpressionEvaluationContext extends ExpressionFunctionContext,
                 this
         );
     }
-
-    /**
-     * Controls whether equals or not equals tests are case sensitive for {@link String strings}
-     */
-    CaseSensitivity stringEqualityCaseSensitivity();
 }

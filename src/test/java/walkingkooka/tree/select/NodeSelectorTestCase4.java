@@ -447,8 +447,7 @@ abstract public class NodeSelectorTestCase4<S extends NodeSelector<TestNode, Str
         return (c) -> NodeSelectorExpressionEvaluationContexts.basic(c.node(),
                 (r) -> ExpressionEvaluationContexts.basic(
                         this.functions(),
-                        this.functionContext(),
-                        CaseSensitivity.SENSITIVE
+                        this.functionContext()
                 )
         );
     }
@@ -476,6 +475,7 @@ abstract public class NodeSelectorTestCase4<S extends NodeSelector<TestNode, Str
                 this.functions(),
                 this.references(),
                 ExpressionFunctionContexts.referenceNotFound(),
+                CaseSensitivity.SENSITIVE,
                 this.converterContext()
         );
     }

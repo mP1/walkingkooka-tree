@@ -23,6 +23,7 @@ import walkingkooka.convert.CanConvert;
 import walkingkooka.datetime.YearContext;
 import walkingkooka.locale.HasLocale;
 import walkingkooka.math.HasMathContext;
+import walkingkooka.text.CaseSensitivity;
 import walkingkooka.tree.expression.Expression;
 import walkingkooka.tree.expression.ExpressionEvaluationException;
 import walkingkooka.tree.expression.ExpressionEvaluationReferenceException;
@@ -87,4 +88,9 @@ public interface ExpressionFunctionContext extends Context,
     default ExpressionEvaluationException referenceNotFound(final ExpressionReference reference) {
         return ExpressionFunctionContexts.referenceNotFound().apply(reference);
     }
+
+    /**
+     * Controls whether equals or not equals tests are case sensitive for {@link String strings}
+     */
+    CaseSensitivity caseSensitivity();
 }

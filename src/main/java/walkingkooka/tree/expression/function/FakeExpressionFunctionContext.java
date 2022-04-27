@@ -18,6 +18,7 @@
 package walkingkooka.tree.expression.function;
 
 import walkingkooka.convert.FakeConverterContext;
+import walkingkooka.text.CaseSensitivity;
 import walkingkooka.tree.expression.ExpressionNumberKind;
 import walkingkooka.tree.expression.ExpressionReference;
 import walkingkooka.tree.expression.FunctionExpressionName;
@@ -72,6 +73,11 @@ public class FakeExpressionFunctionContext extends FakeConverterContext implemen
 
     @Override
     public Optional<Object> reference(final ExpressionReference reference) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public CaseSensitivity caseSensitivity() {
         throw new UnsupportedOperationException();
     }
 }

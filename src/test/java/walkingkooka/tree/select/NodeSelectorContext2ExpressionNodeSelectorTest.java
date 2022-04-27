@@ -24,7 +24,6 @@ import walkingkooka.convert.Converter;
 import walkingkooka.convert.Converters;
 import walkingkooka.naming.StringName;
 import walkingkooka.predicate.Predicates;
-import walkingkooka.text.CaseSensitivity;
 import walkingkooka.text.CharSequences;
 import walkingkooka.tree.TestNode;
 import walkingkooka.tree.expression.Expression;
@@ -117,8 +116,7 @@ public final class NodeSelectorContext2ExpressionNodeSelectorTest extends NodeSe
                                         (f) -> {
                                             throw new UnsupportedOperationException();
                                         },
-                                        ExpressionFunctionContexts.fake(),
-                                        CaseSensitivity.SENSITIVE
+                                        ExpressionFunctionContexts.fake()
                                 )
                         );
                     }

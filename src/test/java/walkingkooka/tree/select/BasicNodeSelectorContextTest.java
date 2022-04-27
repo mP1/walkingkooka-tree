@@ -181,8 +181,7 @@ public final class BasicNodeSelectorContextTest implements ClassTesting2<BasicNo
             public ExpressionEvaluationContext apply(final NodeSelectorContext<TestNode, StringName, StringName, Object> context) {
                 return ExpressionEvaluationContexts.basic(
                         this.functions(),
-                        this.functionContext(),
-                        CaseSensitivity.SENSITIVE
+                        this.functionContext()
                 );
             }
 
@@ -198,6 +197,7 @@ public final class BasicNodeSelectorContextTest implements ClassTesting2<BasicNo
                         this.functions(),
                         this.references(),
                         ExpressionFunctionContexts.referenceNotFound(),
+                        CaseSensitivity.SENSITIVE,
                         this.converterContext()
                 );
             }
