@@ -127,7 +127,6 @@ public final class BasicNodeSelectorExpressionEvaluationContextTest implements N
     private BasicNodeSelectorExpressionEvaluationContext<TestNode, StringName, StringName, Object> createContext(final TestNode node) {
         return BasicNodeSelectorExpressionEvaluationContext.with(node,
                 (r) -> ExpressionEvaluationContexts.basic(
-                        this.functions(),
                         this.functionContext()
                 ));
     }

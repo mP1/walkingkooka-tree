@@ -18,22 +18,15 @@
 package walkingkooka.tree.expression;
 
 import walkingkooka.reflect.PublicStaticHelper;
-import walkingkooka.tree.expression.function.ExpressionFunction;
 import walkingkooka.tree.expression.function.ExpressionFunctionContext;
-
-import java.util.function.Function;
 
 public final class ExpressionEvaluationContexts implements PublicStaticHelper {
 
     /**
      * {@see BasicExpressionEvaluationContext}
      */
-    public static ExpressionEvaluationContext basic(final Function<FunctionExpressionName, ExpressionFunction<?, ExpressionFunctionContext>> functions,
-                                                    final ExpressionFunctionContext functionContext) {
-        return BasicExpressionEvaluationContext.with(
-                functions,
-                functionContext
-        );
+    public static ExpressionEvaluationContext basic(final ExpressionFunctionContext functionContext) {
+        return BasicExpressionEvaluationContext.with(functionContext);
     }
 
     /**
