@@ -43,6 +43,15 @@ import java.util.function.Function;
 /**
  * A {@link ExpressionEvaluationContext} that wraps another {@link ExpressionEvaluationContext} and retrieves references
  * from a {@link Node node's} attributes.
+ * <br>
+ * Note the provided {@link ExpressionEvaluationContext} needs to have the following functions registered to support
+ * the similarly named predicates.
+ * <ul>
+ *     <li>contains</li>
+ *     <li>ends-with</li>
+ *     <li>equals</li>
+ *     <li>starts-with</li>
+ * </ul>
  */
 final class BasicNodeSelectorExpressionEvaluationContext<N extends Node<N, NAME, ANAME, AVALUE>,
         NAME extends Name,
