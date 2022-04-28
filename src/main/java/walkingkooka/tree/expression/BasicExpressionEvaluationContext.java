@@ -28,7 +28,6 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
 import java.util.Optional;
-import java.util.function.Function;
 
 /**
  * An {@link ExpressionEvaluationContext} delegates to helpers or constants for each method.
@@ -41,24 +40,17 @@ final class BasicExpressionEvaluationContext implements ExpressionEvaluationCont
     /**
      * Factory that creates a {@link BasicExpressionEvaluationContext}
      */
-    static BasicExpressionEvaluationContext with(final Function<FunctionExpressionName, ExpressionFunction<?, ExpressionFunctionContext>> functions,
-                                                 final ExpressionFunctionContext functionContext) {
-        Objects.requireNonNull(functions, "functions");
+    static BasicExpressionEvaluationContext with(final ExpressionFunctionContext functionContext) {
         Objects.requireNonNull(functionContext, "functionContext");
 
-        return new BasicExpressionEvaluationContext(
-                functions,
-                functionContext
-        );
+        return new BasicExpressionEvaluationContext(functionContext);
     }
 
     /**
      * Private ctor use factory
      */
-    private BasicExpressionEvaluationContext(final Function<FunctionExpressionName, ExpressionFunction<?, ExpressionFunctionContext>> functions,
-                                             final ExpressionFunctionContext functionContext) {
+    private BasicExpressionEvaluationContext(final ExpressionFunctionContext functionContext) {
         super();
-        this.functions = functions;
         this.functionContext = functionContext;
     }
 
@@ -131,10 +123,8 @@ final class BasicExpressionEvaluationContext implements ExpressionEvaluationCont
 
     @Override
     public ExpressionFunction<?, ExpressionFunctionContext> function(final FunctionExpressionName name) {
-        return this.functions.apply(name);
+        return this.functionContext.function(name);
     }
-
-    private final Function<FunctionExpressionName, ExpressionFunction<?, ExpressionFunctionContext>> functions;
 
     @Override
     public <T> T prepareParameter(final ExpressionFunctionParameter<T> parameter,
@@ -161,7 +151,7 @@ final class BasicExpressionEvaluationContext implements ExpressionEvaluationCont
 
     @Override
     public boolean isPure(final FunctionExpressionName name) {
-        return this.functions.apply(name).isPure(this);
+        return this.functionContext.function(name).isPure(this);
     }
 
     @Override
@@ -193,6 +183,6 @@ final class BasicExpressionEvaluationContext implements ExpressionEvaluationCont
 
     @Override
     public String toString() {
-        return this.functions + " " + this.functionContext;
+        return this.functionContext.toString();
     }
 }

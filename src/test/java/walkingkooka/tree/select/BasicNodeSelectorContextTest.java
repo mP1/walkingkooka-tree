@@ -180,7 +180,6 @@ public final class BasicNodeSelectorContextTest implements ClassTesting2<BasicNo
             @Override
             public ExpressionEvaluationContext apply(final NodeSelectorContext<TestNode, StringName, StringName, Object> context) {
                 return ExpressionEvaluationContexts.basic(
-                        this.functions(),
                         this.functionContext()
                 );
             }

@@ -1837,7 +1837,6 @@ public final class NodeSelectorNodeSelectorParserTokenVisitorTest implements Nod
                     private NodeSelectorExpressionEvaluationContext<TestNode, StringName, StringName, Object> expressionEvaluationContext() {
                         return NodeSelectorExpressionEvaluationContexts.basic(this.node,
                                 (r) -> ExpressionEvaluationContexts.basic(
-                                        Cast.to(this.functions()),
                                         this.functionContext()
                                 )
                         );
