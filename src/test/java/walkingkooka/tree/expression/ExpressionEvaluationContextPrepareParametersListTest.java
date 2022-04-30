@@ -21,15 +21,18 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.collect.list.ListTesting;
 import walkingkooka.collect.list.Lists;
+import walkingkooka.collect.set.Sets;
 import walkingkooka.reflect.ClassTesting;
 import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.tree.expression.function.ExpressionFunction;
 import walkingkooka.tree.expression.function.ExpressionFunctionContext;
+import walkingkooka.tree.expression.function.ExpressionFunctionKind;
 import walkingkooka.tree.expression.function.ExpressionFunctionParameter;
 import walkingkooka.tree.expression.function.ExpressionFunctionParameterName;
 import walkingkooka.tree.expression.function.FakeExpressionFunction;
 
 import java.util.List;
+import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.assertSame;
 
@@ -63,7 +66,7 @@ public final class ExpressionEvaluationContextPrepareParametersListTest implemen
         );
         final ExpressionEvaluationContextPrepareParametersList list = ExpressionEvaluationContextPrepareParametersList.with(
                 parameters,
-                this.function(false, false),
+                this.function(),
                 CONTEXT
         );
 
@@ -81,7 +84,7 @@ public final class ExpressionEvaluationContextPrepareParametersListTest implemen
         );
         final ExpressionEvaluationContextPrepareParametersList list = ExpressionEvaluationContextPrepareParametersList.with(
                 parameters,
-                this.function(false, false),
+                this.function(),
                 CONTEXT
         );
 
@@ -101,7 +104,7 @@ public final class ExpressionEvaluationContextPrepareParametersListTest implemen
         );
         final ExpressionEvaluationContextPrepareParametersList list = ExpressionEvaluationContextPrepareParametersList.with(
                 parameters,
-                this.function(false, false),
+                this.function(),
                 CONTEXT
         );
 
@@ -121,7 +124,7 @@ public final class ExpressionEvaluationContextPrepareParametersListTest implemen
         );
         final ExpressionEvaluationContextPrepareParametersList list = ExpressionEvaluationContextPrepareParametersList.with(
                 parameters,
-                this.function(true, false),
+                this.function(ExpressionFunctionKind.REQUIRES_EVALUATED_PARAMETERS),
                 CONTEXT
         );
 
@@ -141,7 +144,7 @@ public final class ExpressionEvaluationContextPrepareParametersListTest implemen
         );
         final ExpressionEvaluationContextPrepareParametersList list = ExpressionEvaluationContextPrepareParametersList.with(
                 parameters,
-                this.function(true, false),
+                this.function(ExpressionFunctionKind.REQUIRES_EVALUATED_PARAMETERS),
                 CONTEXT
         );
 
@@ -161,7 +164,7 @@ public final class ExpressionEvaluationContextPrepareParametersListTest implemen
         );
         final ExpressionEvaluationContextPrepareParametersList list = ExpressionEvaluationContextPrepareParametersList.with(
                 parameters,
-                this.function(true, false),
+                this.function(ExpressionFunctionKind.REQUIRES_EVALUATED_PARAMETERS),
                 CONTEXT
         );
 
@@ -182,7 +185,7 @@ public final class ExpressionEvaluationContextPrepareParametersListTest implemen
         );
         final ExpressionEvaluationContextPrepareParametersList list = ExpressionEvaluationContextPrepareParametersList.with(
                 parameters,
-                this.function(false, true),
+                this.function(ExpressionFunctionKind.RESOLVE_REFERENCES),
                 new FakeExpressionEvaluationContext() {
 
                     @Override
@@ -216,7 +219,10 @@ public final class ExpressionEvaluationContextPrepareParametersListTest implemen
         );
         final ExpressionEvaluationContextPrepareParametersList list = ExpressionEvaluationContextPrepareParametersList.with(
                 parameters,
-                this.function(true, true),
+                this.function(
+                        ExpressionFunctionKind.REQUIRES_EVALUATED_PARAMETERS,
+                        ExpressionFunctionKind.RESOLVE_REFERENCES
+                ),
                 new FakeExpressionEvaluationContext() {
 
                     public List<Object> XXXprepareParameters(final ExpressionFunction<?, ExpressionFunctionContext> function,
@@ -251,7 +257,7 @@ public final class ExpressionEvaluationContextPrepareParametersListTest implemen
         );
         final ExpressionEvaluationContextPrepareParametersList list = ExpressionEvaluationContextPrepareParametersList.with(
                 parameters,
-                this.function(false, false),
+                this.function(),
                 new FakeExpressionEvaluationContext() {
 
                     @Override
@@ -267,18 +273,15 @@ public final class ExpressionEvaluationContextPrepareParametersListTest implemen
         this.getAndCheck(list, 1, 222);
     }
 
-    private ExpressionFunction<Void, ExpressionFunctionContext> function(final boolean requiresEvaluatedParameters,
-                                                                         final boolean resolveReferences) {
+    private ExpressionFunction<Void, ExpressionFunctionContext> function(final ExpressionFunctionKind... kinds) {
         return this.function(
                 Lists.of(ExpressionFunctionParameterName.with("parameters").variable(Object.class)),
-                requiresEvaluatedParameters,
-                resolveReferences
+                kinds
         );
     }
 
     private ExpressionFunction<Void, ExpressionFunctionContext> function(final List<ExpressionFunctionParameter<?>> parameters,
-                                                                         final boolean requiresEvaluatedParameters,
-                                                                         final boolean resolveReferences) {
+                                                                         final ExpressionFunctionKind... kinds) {
         return new FakeExpressionFunction<>() {
 
             @Override
@@ -287,18 +290,13 @@ public final class ExpressionEvaluationContextPrepareParametersListTest implemen
             }
 
             @Override
-            public boolean requiresEvaluatedParameters() {
-                return requiresEvaluatedParameters;
-            }
-
-            @Override
-            public boolean resolveReferences() {
-                return resolveReferences;
+            public Set<ExpressionFunctionKind> kinds() {
+                return Sets.of(kinds);
             }
 
             @Override
             public String toString() {
-                return "parameters: " + parameters + " requiresEvaluatedParameters: " + requiresEvaluatedParameters + " resolveReferences: " + resolveReferences;
+                return "parameters: " + parameters + " kinds: " + kinds;
             }
         };
     }

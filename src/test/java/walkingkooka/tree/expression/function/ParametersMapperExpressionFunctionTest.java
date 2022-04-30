@@ -21,10 +21,12 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.ToStringTesting;
 import walkingkooka.collect.list.Lists;
+import walkingkooka.collect.set.Sets;
 import walkingkooka.tree.expression.ExpressionPurityContext;
 import walkingkooka.tree.expression.FunctionExpressionName;
 
 import java.util.List;
+import java.util.Set;
 import java.util.function.BiFunction;
 import java.util.stream.Collectors;
 
@@ -69,8 +71,8 @@ public final class ParametersMapperExpressionFunctionTest implements ExpressionF
         }
 
         @Override
-        public boolean resolveReferences() {
-            return false;
+        public Set<ExpressionFunctionKind> kinds() {
+            return Sets.empty();
         }
     };
 
@@ -96,31 +98,6 @@ public final class ParametersMapperExpressionFunctionTest implements ExpressionF
     @Test
     public void testName() {
         this.checkEquals(NAME, this.createBiFunction().name());
-    }
-
-    @Test
-    public void testResolveReferencesTrue() {
-        this.resolveReferencesAndCheck2(true);
-    }
-
-    @Test
-    public void testResolveReferencesFalse() {
-        this.resolveReferencesAndCheck2(false);
-    }
-
-    private void resolveReferencesAndCheck2(final boolean resolveReferences) {
-        this.resolveReferencesAndCheck(
-                ParametersMapperExpressionFunction.with(
-                        MAPPER,
-                        new FakeExpressionFunction<>() {
-                            @Override
-                            public boolean resolveReferences() {
-                                return resolveReferences;
-                            }
-                        }
-                ),
-                resolveReferences
-        );
     }
 
     @Test

@@ -67,29 +67,6 @@ public final class CustomNameExpressionFunctionTest extends ExpressionFunctionTe
         assertNotSame(function, function.name());
     }
 
-    // resolveReferences................................................................................................
-
-    @Test
-    public void testResolveReferencesFalse() {
-        this.resolveReferencesAndCheck2(false);
-    }
-
-    private void resolveReferencesAndCheck2(final boolean expected) {
-        this.resolveReferencesAndCheck(new FakeExpressionFunction<>() {
-
-                    @Override
-                    public FunctionExpressionName name() {
-                        return NAME;
-                    }
-
-                    @Override
-                    public boolean resolveReferences() {
-                        return expected;
-                    }
-                }.setName(FunctionExpressionName.with("Custom123")),
-                expected);
-    }
-
     // toString.........................................................................................................
 
     @Test

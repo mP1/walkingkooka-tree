@@ -22,6 +22,7 @@ import walkingkooka.tree.expression.FunctionExpressionName;
 
 import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 import java.util.function.BiFunction;
 
 /**
@@ -70,13 +71,8 @@ final class ParametersMapperExpressionFunction<T, C extends ExpressionFunctionCo
     }
 
     @Override
-    public boolean requiresEvaluatedParameters() {
-        return this.function.requiresEvaluatedParameters();
-    }
-
-    @Override
-    public boolean resolveReferences() {
-        return this.function.resolveReferences();
+    public Set<ExpressionFunctionKind> kinds() {
+        return this.function.kinds();
     }
 
     /**

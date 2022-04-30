@@ -21,6 +21,7 @@ import walkingkooka.tree.expression.ExpressionPurityContext;
 import walkingkooka.tree.expression.FunctionExpressionName;
 
 import java.util.List;
+import java.util.Set;
 
 public class FakeExpressionFunction<T, C extends ExpressionFunctionContext> implements ExpressionFunction<T, C> {
     @Override
@@ -50,12 +51,7 @@ public class FakeExpressionFunction<T, C extends ExpressionFunctionContext> impl
     }
 
     @Override
-    public boolean requiresEvaluatedParameters() {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public boolean resolveReferences() {
+    public Set<ExpressionFunctionKind> kinds() {
         throw new UnsupportedOperationException();
     }
 }

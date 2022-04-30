@@ -23,6 +23,7 @@ import walkingkooka.tree.expression.FunctionExpressionName;
 
 import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 import java.util.function.BiFunction;
 
 /**
@@ -109,19 +110,9 @@ public interface ExpressionFunction<T, C extends ExpressionFunctionContext> exte
     Class<T> returnType();
 
     /**
-     * When true indicates that any parameters in {@link walkingkooka.tree.expression.Expression} form be evaluated into
-     * java objects prior to invoking invoking {@link #apply(Object, Object)}. For the vast majority of cases all
-     * functions will return true, but for cases such as Excels isError it may be desired to catch any thrown exceptions
-     * and substitute an error object of some kind.
+     * Meta customisations for this {@link ExpressionFunction}
      */
-    boolean requiresEvaluatedParameters();
-
-    /**
-     * When <code>true</code> parameters that implement {@link walkingkooka.tree.expression.ExpressionReference} are resolved to
-     * their actual non {@link walkingkooka.tree.expression.Expression} value.
-     * This is only honoured when {@link ExpressionFunctionContext#evaluate(FunctionExpressionName, List)} is used.
-     */
-    boolean resolveReferences();
+    Set<ExpressionFunctionKind> kinds();
 
     /**
      * Returns a ne {@link ExpressionFunction} that adds the parameter mapper before this function.

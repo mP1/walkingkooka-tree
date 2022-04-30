@@ -20,17 +20,21 @@ package walkingkooka.tree.expression;
 import org.junit.jupiter.api.Test;
 import walkingkooka.Either;
 import walkingkooka.collect.list.Lists;
+import walkingkooka.collect.set.Sets;
 import walkingkooka.naming.Names;
 import walkingkooka.naming.StringName;
 import walkingkooka.tree.expression.function.ExpressionFunction;
 import walkingkooka.tree.expression.function.ExpressionFunctionContext;
+import walkingkooka.tree.expression.function.ExpressionFunctionKind;
 import walkingkooka.tree.expression.function.FakeExpressionFunction;
 import walkingkooka.tree.select.parser.NodeSelectorAttributeName;
 import walkingkooka.visit.Visiting;
 
 import java.math.MathContext;
+import java.util.EnumSet;
 import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -125,8 +129,8 @@ public final class FunctionExpressionTest extends VariableExpressionTestCase<Fun
                                     }
 
                                     @Override
-                                    public boolean requiresEvaluatedParameters() {
-                                        return false;
+                                    public Set<ExpressionFunctionKind> kinds() {
+                                        return Sets.empty();
                                     }
                                 };
                             }
@@ -240,14 +244,14 @@ public final class FunctionExpressionTest extends VariableExpressionTestCase<Fun
                     }
 
                     @Override
-                    public boolean requiresEvaluatedParameters() {
-                        return true;
+                    public Set<ExpressionFunctionKind> kinds() {
+                        return KINDS;
                     }
 
-                    @Override
-                    public boolean resolveReferences() {
-                        return true;
-                    }
+                    private final Set<ExpressionFunctionKind> KINDS = EnumSet.of(
+                            ExpressionFunctionKind.REQUIRES_EVALUATED_PARAMETERS,
+                            ExpressionFunctionKind.RESOLVE_REFERENCES
+                    );
                 };
             }
 
