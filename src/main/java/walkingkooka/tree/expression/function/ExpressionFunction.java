@@ -136,11 +136,4 @@ public interface ExpressionFunction<T, C extends ExpressionFunctionContext> exte
     default ExpressionFunction<T, C> mapParameters(final BiFunction<List<Object>, C, List<Object>> mapper) {
         return ParametersMapperExpressionFunction.with(mapper, this);
     }
-
-    /**
-     * {@see ParametersMapperExpressionFunctionBiFunctionRemoveFalsey}
-     */
-    default ExpressionFunction<T, C> removeFalsey() {
-        return this.mapParameters(ParametersMapperExpressionFunctionBiFunctionRemoveFalsey.instance());
-    }
 }
