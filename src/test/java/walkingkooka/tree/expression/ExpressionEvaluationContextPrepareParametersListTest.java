@@ -174,6 +174,29 @@ public final class ExpressionEvaluationContextPrepareParametersListTest implemen
     }
 
     @Test
+    public void testObjectResolveReferencesTrueCached() {
+        final Object element1 = 111;
+        final Object element2 = "222";
+
+        final List<Object> parameters = Lists.of(
+                element1,
+                element2
+        );
+        final ExpressionEvaluationContextPrepareParametersList list = ExpressionEvaluationContextPrepareParametersList.with(
+                parameters,
+                this.function(ExpressionFunctionKind.REQUIRES_EVALUATED_PARAMETERS),
+                CONTEXT
+        );
+
+        this.sizeAndCheck(list, 2);
+        this.getAndCheck(list, 0, element1);
+        this.getAndCheck(list, 1, element2);
+
+        this.getAndCheck(list, 0, element1);
+        this.getAndCheck(list, 1, element2);
+    }
+
+    @Test
     public void testExpressionReferenceResolveReferencesTrue() {
         final ExpressionReference element1 = REFERENCE;
         final ValueExpression<?> value1 = Expression.value(111);
@@ -208,6 +231,49 @@ public final class ExpressionEvaluationContextPrepareParametersListTest implemen
     }
 
     @Test
+    public void testExpressionReferenceResolveReferencesTrueCached() {
+        final ExpressionReference element1 = REFERENCE;
+        final ValueExpression<?> value1 = Expression.value(111);
+        final ValueExpression<?> element2 = Expression.value("222");
+
+        final List<Object> parameters = Lists.of(
+                element1,
+                element2
+        );
+        final ExpressionEvaluationContextPrepareParametersList list = ExpressionEvaluationContextPrepareParametersList.with(
+                parameters,
+                this.function(ExpressionFunctionKind.RESOLVE_REFERENCES),
+                new FakeExpressionEvaluationContext() {
+
+                    @Override
+                    public <T> T prepareParameter(final ExpressionFunctionParameter<T> parameter,
+                                                  final Object value) {
+                        return Cast.to(value);
+                    }
+
+                    @Override
+                    public Expression referenceOrFail(final ExpressionReference r) {
+                        if (this.invoked) {
+                            throw new IllegalStateException("Value must not have been cached");
+                        }
+                        this.invoked = true;
+                        assertSame(REFERENCE, r);
+                        return value1;
+                    }
+
+                    private boolean invoked;
+                }
+        );
+
+        this.sizeAndCheck(list, 2);
+        this.getAndCheck(list, 0, value1);
+        this.getAndCheck(list, 1, element2);
+
+        this.getAndCheck(list, 0, value1);
+        this.getAndCheck(list, 1, element2);
+    }
+
+    @Test
     public void testExpressionReferenceResolveReferencesTrueRequireParametersEvaluated() {
         final ExpressionReference element1 = REFERENCE;
         final ValueExpression<?> value1 = Expression.value(111);
@@ -225,10 +291,42 @@ public final class ExpressionEvaluationContextPrepareParametersListTest implemen
                 ),
                 new FakeExpressionEvaluationContext() {
 
-                    public List<Object> XXXprepareParameters(final ExpressionFunction<?, ExpressionFunctionContext> function,
-                                                             final List<Object> parameters) {
-                        return parameters;
+                    @Override
+                    public <T> T prepareParameter(final ExpressionFunctionParameter<T> parameter,
+                                                  final Object value) {
+                        return Cast.to(value);
                     }
+
+                    @Override
+                    public Expression referenceOrFail(final ExpressionReference r) {
+                        assertSame(REFERENCE, r);
+                        return value1;
+                    }
+                }
+        );
+
+        this.sizeAndCheck(list, 2);
+        this.getAndCheck(list, 0, value1.value());
+        this.getAndCheck(list, 1, element2.value());
+    }
+
+    @Test
+    public void testExpressionReferenceResolveReferencesTrueRequireParametersEvaluatedCached() {
+        final ExpressionReference element1 = REFERENCE;
+        final ValueExpression<?> value1 = Expression.value(111);
+        final ValueExpression<?> element2 = Expression.value("222");
+
+        final List<Object> parameters = Lists.of(
+                element1,
+                element2
+        );
+        final ExpressionEvaluationContextPrepareParametersList list = ExpressionEvaluationContextPrepareParametersList.with(
+                parameters,
+                this.function(
+                        ExpressionFunctionKind.REQUIRES_EVALUATED_PARAMETERS,
+                        ExpressionFunctionKind.RESOLVE_REFERENCES
+                ),
+                new FakeExpressionEvaluationContext() {
 
                     @Override
                     public <T> T prepareParameter(final ExpressionFunctionParameter<T> parameter,
@@ -245,6 +343,9 @@ public final class ExpressionEvaluationContextPrepareParametersListTest implemen
         );
 
         this.sizeAndCheck(list, 2);
+        this.getAndCheck(list, 0, value1.value());
+        this.getAndCheck(list, 1, element2.value());
+
         this.getAndCheck(list, 0, value1.value());
         this.getAndCheck(list, 1, element2.value());
     }
@@ -270,6 +371,32 @@ public final class ExpressionEvaluationContextPrepareParametersListTest implemen
 
         this.sizeAndCheck(list, 2);
         this.getAndCheck(list, 0, 111);
+        this.getAndCheck(list, 1, 222);
+    }
+
+    @Test
+    public void testParameterValueConvertedCached() {
+        final List<Object> parameters = Lists.of(
+                "111",
+                "222"
+        );
+        final ExpressionEvaluationContextPrepareParametersList list = ExpressionEvaluationContextPrepareParametersList.with(
+                parameters,
+                this.function(),
+                new FakeExpressionEvaluationContext() {
+
+                    @Override
+                    public <T> T prepareParameter(final ExpressionFunctionParameter<T> parameter,
+                                                  final Object value) {
+                        return parameter.type().cast(Integer.parseInt((String) value));
+                    }
+                }
+        );
+
+        this.sizeAndCheck(list, 2);
+        this.getAndCheck(list, 0, 111);
+        this.getAndCheck(list, 0, 111);
+        this.getAndCheck(list, 1, 222);
         this.getAndCheck(list, 1, 222);
     }
 
