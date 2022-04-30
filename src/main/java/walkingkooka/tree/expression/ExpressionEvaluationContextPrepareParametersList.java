@@ -23,7 +23,6 @@ import walkingkooka.tree.expression.function.ExpressionFunctionKind;
 import walkingkooka.tree.expression.function.ExpressionFunctionParameter;
 
 import java.util.AbstractList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
 
@@ -51,26 +50,32 @@ final class ExpressionEvaluationContextPrepareParametersList extends AbstractLis
     private ExpressionEvaluationContextPrepareParametersList(final List<Object> parameters,
                                                              final ExpressionFunction<?, ExpressionFunctionContext> function,
                                                              final ExpressionEvaluationContext context) {
-        this.parameters = parameters.toArray(new Object[parameters.size()]);
-
+        this.parametersList = parameters;
+        this.parameters = new Object[parameters.size()];
         this.function = function;
         this.context = context;
     }
 
     @Override
     public Object get(final int index) {
-        final Object[] parametersValues = this.parameters;
+        if (null == this.parameters[index]) {
+            this.parameters[index] = this.get0(index);
+        }
+        return this.parameters[index];
+    }
+
+    private Object get0(final int index) {
         final ExpressionFunction<?, ExpressionFunctionContext> function = this.function;
         final ExpressionEvaluationContext context = this.context;
 
-        Object parameterValue = parametersValues[index];
+        Object parameterValue = this.parametersList.get(index);
 
         final Set<ExpressionFunctionKind> kinds = function.kinds();
 
         if (parameterValue instanceof Expression) {
             if (kinds.contains(ExpressionFunctionKind.REQUIRES_EVALUATED_PARAMETERS)) {
                 parameterValue = this.toReferenceOrValue(parameterValue);
-                parametersValues[index] = parameterValue;
+                this.parameters[index] = parameterValue;
             }
         }
         if (parameterValue instanceof ExpressionReference) {
@@ -80,7 +85,7 @@ final class ExpressionEvaluationContextPrepareParametersList extends AbstractLis
                 if (parameterValue instanceof Expression && kinds.contains(ExpressionFunctionKind.REQUIRES_EVALUATED_PARAMETERS)) {
                     parameterValue = this.toReferenceOrValue(parameterValue);
                 }
-                parametersValues[index] = parameterValue;
+                this.parameters[index] = parameterValue;
             }
         }
 
@@ -112,6 +117,8 @@ final class ExpressionEvaluationContextPrepareParametersList extends AbstractLis
         return this.parameters.length;
     }
 
+    private final List<Object> parametersList;
+
     /**
      * A copy of the original parameters, as an array, where elements are overwritten as values are evaluated or
      * references resolved.
@@ -120,6 +127,6 @@ final class ExpressionEvaluationContextPrepareParametersList extends AbstractLis
 
     @Override
     public String toString() {
-        return Arrays.toString(this.parameters);
+        return this.parametersList.toString();
     }
 }
