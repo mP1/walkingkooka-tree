@@ -23,7 +23,9 @@ import walkingkooka.tree.expression.function.ExpressionFunctionKind;
 import walkingkooka.tree.expression.function.ExpressionFunctionParameter;
 
 import java.util.AbstractList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 import java.util.Set;
 
 /**
@@ -35,87 +37,107 @@ import java.util.Set;
  * </ul>
  * The above list is only performed once for each parameter and cached for future fetches.
  */
-final class ExpressionEvaluationContextPrepareParametersList extends AbstractList<Object> {
+abstract class ExpressionEvaluationContextPrepareParametersList extends AbstractList<Object> {
 
     static ExpressionEvaluationContextPrepareParametersList with(final List<Object> parameters,
                                                                  final ExpressionFunction<?, ExpressionFunctionContext> function,
                                                                  final ExpressionEvaluationContext context) {
-        return new ExpressionEvaluationContextPrepareParametersList(
-                parameters,
-                function,
-                context
-        );
+        Objects.requireNonNull(parameters, "parameters");
+        Objects.requireNonNull(function, "function");
+        Objects.requireNonNull(context, "context");
+
+        return function.kinds().contains(ExpressionFunctionKind.FLATTEN) ?
+                ExpressionEvaluationContextPrepareParametersListFlattened.with(
+                        parameters,
+                        function,
+                        context
+                ) :
+                ExpressionEvaluationContextPrepareParametersListNonFlattened.with(
+                        parameters,
+                        function,
+                        context
+                );
     }
 
-    private ExpressionEvaluationContextPrepareParametersList(final List<Object> parameters,
-                                                             final ExpressionFunction<?, ExpressionFunctionContext> function,
-                                                             final ExpressionEvaluationContext context) {
-        this.parametersList = parameters;
-        this.parameters = new Object[parameters.size()];
-        this.function = function;
-        this.context = context;
-    }
-
-    @Override
-    public Object get(final int index) {
-        if (null == this.parameters[index]) {
-            this.parameters[index] = this.get0(index);
-        }
-        return this.parameters[index];
-    }
-
-    private Object get0(final int index) {
-        final ExpressionFunction<?, ExpressionFunctionContext> function = this.function;
-        final ExpressionEvaluationContext context = this.context;
-
-        Object parameterValue = this.parametersList.get(index);
-
+    static Object prepareParameter(final Object parameterValue,
+                                   final ExpressionFunction<?, ExpressionFunctionContext> function,
+                                   final ExpressionEvaluationContext context) {
         final Set<ExpressionFunctionKind> kinds = function.kinds();
+        Object result = parameterValue;
 
-        if (parameterValue instanceof Expression) {
+        if (result instanceof Expression) {
             if (kinds.contains(ExpressionFunctionKind.REQUIRES_EVALUATED_PARAMETERS)) {
-                parameterValue = this.toReferenceOrValue(parameterValue);
+                result = toReferenceOrValue(result, context);
             }
         }
-        if (parameterValue instanceof ExpressionReference) {
+        if (result instanceof ExpressionReference) {
             if (kinds.contains(ExpressionFunctionKind.RESOLVE_REFERENCES)) {
-                parameterValue = context.referenceOrFail((ExpressionReference) parameterValue);
+                result = context.referenceOrFail((ExpressionReference) result);
 
-                if (parameterValue instanceof Expression && kinds.contains(ExpressionFunctionKind.REQUIRES_EVALUATED_PARAMETERS)) {
-                    parameterValue = this.toReferenceOrValue(parameterValue);
+                if (result instanceof Expression && kinds.contains(ExpressionFunctionKind.REQUIRES_EVALUATED_PARAMETERS)) {
+                    result = toReferenceOrValue(result, context);
                 }
             }
         }
 
-        // should ExpressionFunction include a shouldConvertToParametersType ???
-        return context.prepareParameter(
-                function.parameter(index),
-                parameterValue
-        );
+        return result;
     }
 
-    private Object toReferenceOrValue(final Object parameter) {
+    private static Object toReferenceOrValue(final Object parameter,
+                                             final ExpressionEvaluationContext context) {
         final Expression expression = (Expression) parameter;
-        return expression.toReferenceOrValue(this.context);
+        return expression.toReferenceOrValue(context);
     }
 
     /**
-     * The function these parameters belong too. The function will provide numerous parameters about how to prepare the
+     * Private ctor
+     */
+    ExpressionEvaluationContextPrepareParametersList(final List<Object> parameters,
+                                                     final ExpressionFunction<?, ExpressionFunctionContext> function,
+                                                     final ExpressionEvaluationContext context) {
+        this.parametersList = parameters;
+        this.function = function;
+        this.context = context;
+
+        this.parameters = new Object[parameters.size()];
+        Arrays.fill(this.parameters, MISSING);
+    }
+
+    private final static Object MISSING = new Object();
+
+    /**
+     * Lazily with and convert the requested parameter to the {@link ExpressionFunctionParameter#type()}
+     */
+    @Override
+    public final Object get(final int index) {
+        if (MISSING == this.parameters[index]) {
+            this.parameters[index] = prepareAndConvert(index);
+        }
+        return this.parameters[index];
+    }
+
+    abstract Object prepareAndConvert(final int index);
+
+    /**
+     * The function these parameters belong too. The function will provide numerous parameters about how to with the
      * parameters if at all.
      */
-    private final ExpressionFunction<?, ExpressionFunctionContext> function;
+    final ExpressionFunction<?, ExpressionFunctionContext> function;
 
     /**
      * {@link ExpressionEvaluationContext context} used to resolve references and evaluate parameters to values.
      */
-    private final ExpressionEvaluationContext context;
+    final ExpressionEvaluationContext context;
 
     @Override
-    public int size() {
+    public final int size() {
         return this.parameters.length;
     }
 
-    private final List<Object> parametersList;
+    /**
+     * The original unprepared parameter values.
+     */
+    final List<Object> parametersList;
 
     /**
      * A copy of the original parameters, as an array, where elements are overwritten as values are evaluated or
@@ -124,7 +146,7 @@ final class ExpressionEvaluationContextPrepareParametersList extends AbstractLis
     private final Object[] parameters;
 
     @Override
-    public String toString() {
+    public final String toString() {
         return this.parametersList.toString();
     }
 }

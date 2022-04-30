@@ -27,6 +27,11 @@ import java.util.List;
 public enum ExpressionFunctionKind {
 
     /**
+     * Flatten expands any lists.
+     */
+    FLATTEN,
+
+    /**
      * Indicates that any parameters in {@link walkingkooka.tree.expression.Expression} form be evaluated into java
      * objects prior to invoking {@link ExpressionFunction#apply(Object, Object)}. For the vast majority of
      * cases all functions will return true, but for cases such as Excels isError it may be desired to catch any thrown
