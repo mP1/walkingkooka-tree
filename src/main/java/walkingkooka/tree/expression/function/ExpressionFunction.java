@@ -124,13 +124,6 @@ public interface ExpressionFunction<T, C extends ExpressionFunctionContext> exte
     boolean resolveReferences();
 
     /**
-     * {@see ParametersMapperExpressionFunctionBiFunctionFlatten}
-     */
-    default ExpressionFunction<T, C> flatten() {
-        return this.mapParameters(ParametersMapperExpressionFunctionBiFunctionFlatten.instance());
-    }
-
-    /**
      * Returns a ne {@link ExpressionFunction} that adds the parameter mapper before this function.
      */
     default ExpressionFunction<T, C> mapParameters(final BiFunction<List<Object>, C, List<Object>> mapper) {
