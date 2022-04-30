@@ -51,6 +51,7 @@ import walkingkooka.tree.expression.ValueExpression;
 import walkingkooka.tree.expression.function.ExpressionFunction;
 import walkingkooka.tree.expression.function.ExpressionFunctionContext;
 import walkingkooka.tree.expression.function.ExpressionFunctionContexts;
+import walkingkooka.tree.expression.function.ExpressionFunctionKind;
 import walkingkooka.tree.expression.function.ExpressionFunctionParameter;
 import walkingkooka.tree.expression.function.ExpressionFunctionParameterName;
 import walkingkooka.tree.expression.function.FakeExpressionFunction;
@@ -62,6 +63,7 @@ import walkingkooka.tree.select.parser.NodeSelectorParsers;
 import java.math.BigDecimal;
 import java.math.MathContext;
 import java.util.Collection;
+import java.util.EnumSet;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -2022,14 +2024,14 @@ public final class NodeSelectorNodeSelectorParserTokenVisitorTest implements Nod
         }
 
         @Override
-        public boolean requiresEvaluatedParameters() {
-            return true;
+        public Set<ExpressionFunctionKind> kinds() {
+            return KINDS;
         }
 
-        @Override
-        public boolean resolveReferences() {
-            return true;
-        }
+        private final Set<ExpressionFunctionKind> KINDS = EnumSet.of(
+                ExpressionFunctionKind.REQUIRES_EVALUATED_PARAMETERS,
+                ExpressionFunctionKind.RESOLVE_REFERENCES
+        );
     }
 
     private Set<String> names(final Collection<TestNode> nodes) {

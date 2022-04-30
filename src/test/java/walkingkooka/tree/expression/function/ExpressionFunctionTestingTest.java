@@ -22,7 +22,6 @@ import walkingkooka.Cast;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.reflect.ClassTesting;
 import walkingkooka.reflect.JavaVisibility;
-import walkingkooka.tree.expression.FunctionExpressionName;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -385,66 +384,7 @@ public final class ExpressionFunctionTestingTest implements ClassTesting<Express
         this.checkEquals(true, fail);
     }
 
-    // requiresEvaluatedParameters.....................................................................................
-
-    @Test
-    public void testRequiresEvaluatedParametersTrue() {
-        requiresEvaluatedParametersAndCheck(true);
-    }
-
-    @Test
-    public void testRequiresEvaluatedParametersFalse() {
-        requiresEvaluatedParametersAndCheck(false);
-    }
-
-    private void requiresEvaluatedParametersAndCheck(final boolean requires) {
-        this.requiresEvaluatedParametersAndCheck(requires, requires);
-    }
-
-    @Test
-    public void testRequiresEvaluatedParametersFails() {
-        boolean failed = false;
-        try {
-            requiresEvaluatedParametersAndCheck(false, true);
-        } catch (final AssertionError expected) {
-            failed = true;
-        }
-        this.checkEquals(true, failed);
-    }
-
-    private void requiresEvaluatedParametersAndCheck(final boolean requires,
-                                                     final boolean expected) {
-        new ExpressionFunctionTesting<FakeExpressionFunction<Void, FakeExpressionFunctionContext>, Void, FakeExpressionFunctionContext>() {
-            @Override
-            public FakeExpressionFunctionContext createContext() {
-                throw new UnsupportedOperationException();
-            }
-
-            @Override
-            public FakeExpressionFunction<Void, FakeExpressionFunctionContext> createBiFunction() {
-                throw new UnsupportedOperationException();
-            }
-
-            @Override
-            public Class<FakeExpressionFunction<Void, FakeExpressionFunctionContext>> type() {
-                throw new UnsupportedOperationException();
-            }
-        }.requiresEvaluatedParametersAndCheck(
-                new FakeExpressionFunction<Void, FakeExpressionFunctionContext>() {
-
-                    @Override
-                    public FunctionExpressionName name() {
-                        return FunctionExpressionName.with("test-function");
-                    }
-
-                    @Override
-                    public boolean requiresEvaluatedParameters() {
-                        return requires;
-                    }
-                }, expected);
-    }
-
-    public ExpressionFunctionContext createContext() {
+    private ExpressionFunctionContext createContext() {
         return ExpressionFunctionContexts.fake();
     }
 

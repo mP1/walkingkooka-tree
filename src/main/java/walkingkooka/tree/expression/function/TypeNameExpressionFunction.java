@@ -21,7 +21,9 @@ import walkingkooka.Cast;
 import walkingkooka.tree.expression.ExpressionPurityContext;
 import walkingkooka.tree.expression.FunctionExpressionName;
 
+import java.util.EnumSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * A function that returns {@link Object#getClass()#getName()} of the first parameter.
@@ -79,14 +81,14 @@ final class TypeNameExpressionFunction<C extends ExpressionFunctionContext> impl
     }
 
     @Override
-    public boolean requiresEvaluatedParameters() {
-        return true;
+    public Set<ExpressionFunctionKind> kinds() {
+        return KINDS;
     }
 
-    @Override
-    public boolean resolveReferences() {
-        return true;
-    }
+    private final Set<ExpressionFunctionKind> KINDS = EnumSet.of(
+            ExpressionFunctionKind.REQUIRES_EVALUATED_PARAMETERS,
+            ExpressionFunctionKind.RESOLVE_REFERENCES
+    );
 
     @Override
     public boolean isPure(final ExpressionPurityContext context) {

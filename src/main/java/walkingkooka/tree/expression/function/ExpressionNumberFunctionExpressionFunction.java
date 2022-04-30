@@ -22,8 +22,10 @@ import walkingkooka.tree.expression.ExpressionNumberFunction;
 import walkingkooka.tree.expression.ExpressionPurityContext;
 import walkingkooka.tree.expression.FunctionExpressionName;
 
+import java.util.EnumSet;
 import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 
 /**
  * An {@link ExpressionFunction} that delegates all calls to a {@link ExpressionNumberFunction}. A single {@link ExpressionNumber}
@@ -87,14 +89,14 @@ final class ExpressionNumberFunctionExpressionFunction<C extends ExpressionFunct
     }
 
     @Override
-    public boolean requiresEvaluatedParameters() {
-        return true;
+    public Set<ExpressionFunctionKind> kinds() {
+        return KINDS;
     }
 
-    @Override
-    public boolean resolveReferences() {
-        return true;
-    }
+    private final Set<ExpressionFunctionKind> KINDS = EnumSet.of(
+            ExpressionFunctionKind.REQUIRES_EVALUATED_PARAMETERS,
+            ExpressionFunctionKind.RESOLVE_REFERENCES
+    );
 
     @Override
     public boolean isPure(ExpressionPurityContext context) {

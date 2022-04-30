@@ -19,17 +19,19 @@ package walkingkooka.tree.expression;
 
 import walkingkooka.tree.expression.function.ExpressionFunction;
 import walkingkooka.tree.expression.function.ExpressionFunctionContext;
+import walkingkooka.tree.expression.function.ExpressionFunctionKind;
 import walkingkooka.tree.expression.function.ExpressionFunctionParameter;
 
 import java.util.AbstractList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Wraps the {@link List} of parameters values and performs several actions lazily for each parameter.
  * <ul>
- * <li>Resolve {@link Expression} if {@link ExpressionFunction#requiresEvaluatedParameters()}</li>
- * <li>Resolve {@link ReferenceExpression} if {@link ExpressionFunction#resolveReferences()}</li>
+ * <li>Evaluate {@link Expression} if {@link ExpressionFunctionKind#REQUIRES_EVALUATED_PARAMETERS}</li>
+ * <li>Resolve {@link ReferenceExpression} if {@link ExpressionFunctionKind#RESOLVE_REFERENCES}</li>
  * <li>Convert values to the {@link ExpressionFunctionParameter#type()}</li>
  * </ul>
  * The above list is only performed once for each parameter and cached for future fetches.
@@ -63,17 +65,19 @@ final class ExpressionEvaluationContextPrepareParametersList extends AbstractLis
 
         Object parameterValue = parametersValues[index];
 
+        final Set<ExpressionFunctionKind> kinds = function.kinds();
+
         if (parameterValue instanceof Expression) {
-            if (function.requiresEvaluatedParameters()) {
+            if (kinds.contains(ExpressionFunctionKind.REQUIRES_EVALUATED_PARAMETERS)) {
                 parameterValue = this.toReferenceOrValue(parameterValue);
                 parametersValues[index] = parameterValue;
             }
         }
         if (parameterValue instanceof ExpressionReference) {
-            if (function.resolveReferences()) {
+            if (kinds.contains(ExpressionFunctionKind.RESOLVE_REFERENCES)) {
                 parameterValue = context.referenceOrFail((ExpressionReference) parameterValue);
 
-                if (parameterValue instanceof Expression && function.requiresEvaluatedParameters()) {
+                if (parameterValue instanceof Expression && kinds.contains(ExpressionFunctionKind.REQUIRES_EVALUATED_PARAMETERS)) {
                     parameterValue = this.toReferenceOrValue(parameterValue);
                 }
                 parametersValues[index] = parameterValue;

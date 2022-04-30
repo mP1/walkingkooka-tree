@@ -216,7 +216,8 @@ public final class ExpressionFunctionParameter<T> implements HasName<ExpressionF
         flatten0(
                 parameters,
                 (e) -> values.add((T) e),
-                function.resolveReferences(),
+                function.kinds()
+                        .contains(ExpressionFunctionKind.RESOLVE_REFERENCES),
                 context
         );
 

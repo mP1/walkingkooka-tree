@@ -28,6 +28,7 @@ import walkingkooka.collect.set.Sets;
 import walkingkooka.reflect.ConstantsTesting;
 import walkingkooka.tree.expression.ExpressionReference;
 
+import java.util.EnumSet;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
@@ -466,13 +467,18 @@ public final class ExpressionFunctionParameterTest implements HashCodeEqualsDefi
                         parameters,
                         2,
                         new FakeExpressionFunction<>() {
+
                             @Override
-                            public boolean resolveReferences() {
-                                return resolveReferences;
+                            public Set<ExpressionFunctionKind> kinds() {
+                                return kinds;
                             }
 
+                            private final Set<ExpressionFunctionKind> kinds = resolveReferences ?
+                                    EnumSet.of(ExpressionFunctionKind.RESOLVE_REFERENCES) :
+                                    Sets.empty();
+
                             public String toString() {
-                                return "resolveReferences: " + this.resolveReferences();
+                                return this.kinds().toString();
                             }
                         },
                         new FakeExpressionFunctionContext() {
