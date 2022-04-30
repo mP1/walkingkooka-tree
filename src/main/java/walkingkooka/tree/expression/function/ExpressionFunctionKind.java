@@ -22,13 +22,13 @@ import walkingkooka.tree.expression.FunctionExpressionName;
 import java.util.List;
 
 /**
- * Customisation for an individual {@link ExpressionFunction}.
+ * Customises the execution of a {@link ExpressionFunction}.
  */
 public enum ExpressionFunctionKind {
 
     /**
      * Indicates that any parameters in {@link walkingkooka.tree.expression.Expression} form be evaluated into java
-     * objects prior to invoking invoking {@link ExpressionFunction#apply(Object, Object)}. For the vast majority of
+     * objects prior to invoking {@link ExpressionFunction#apply(Object, Object)}. For the vast majority of
      * cases all functions will return true, but for cases such as Excels isError it may be desired to catch any thrown
      * exceptions and substitute an error object of some kind.
      */
