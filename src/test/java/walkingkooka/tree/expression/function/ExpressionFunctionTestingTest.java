@@ -19,12 +19,9 @@ package walkingkooka.tree.expression.function;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
-import walkingkooka.Either;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.reflect.ClassTesting;
 import walkingkooka.reflect.JavaVisibility;
-import walkingkooka.tree.expression.ExpressionNumber;
-import walkingkooka.tree.expression.ExpressionNumberKind;
 import walkingkooka.tree.expression.FunctionExpressionName;
 
 import java.time.LocalDate;
@@ -445,77 +442,6 @@ public final class ExpressionFunctionTestingTest implements ClassTesting<Express
                         return requires;
                     }
                 }, expected);
-    }
-
-    // convert.........................................................................................................
-
-    @Test
-    public void testConvertStringToString() {
-        this.convertAndCheck("hello", String.class, "hello");
-    }
-
-    @Test
-    public void testConvertObjectToString() {
-        this.convertAndCheck(123, String.class, "123");
-    }
-
-    @Test
-    public void testConvertObjectToBooleanTrue() {
-        this.convertAndCheck("true", Boolean.class, Boolean.TRUE);
-    }
-
-    @Test
-    public void testConvertStringToInteger() {
-        this.convertAndCheck("123", Integer.class, 123);
-    }
-
-    @Test
-    public void testConvertStringToExpressionNumber() {
-        this.convertAndCheck("123", ExpressionNumber.class, ExpressionNumberKind.DEFAULT.create(123));
-    }
-
-    @Test
-    public void testConvertStringToExpressionNumber2() {
-        this.convertAndCheck("123.5", ExpressionNumber.class, ExpressionNumberKind.DEFAULT.create(123.5));
-    }
-
-    @Test
-    public void testConvertObjectToBooleanFalse() {
-        this.convertAndCheck("false", Boolean.class, Boolean.FALSE);
-    }
-
-    @Test
-    public void testConvertIntegerToLongFalse() {
-        this.convertAndCheck(123, Long.class, 123L);
-    }
-
-    @Test
-    public void testConvertIntegerToExpressionNumberFalse() {
-        this.convertAndCheck(123, ExpressionNumber.class, ExpressionNumberKind.DEFAULT.create(123));
-    }
-
-    private <T> void convertAndCheck(final Object value,
-                                     final Class<T> target,
-                                     final T expected) {
-        this.checkEquals(
-                Either.left(expected),
-                new ExpressionFunctionTesting<>() {
-
-                    @Override
-                    public Class<ExpressionFunction<Object, ExpressionFunctionContext>> type() {
-                        throw new UnsupportedOperationException();
-                    }
-
-                    @Override
-                    public ExpressionFunction<Object, ExpressionFunctionContext> createBiFunction() {
-                        throw new UnsupportedOperationException();
-                    }
-
-                    @Override
-                    public ExpressionFunctionContext createContext() {
-                        return ExpressionFunctionTestingTest.this.createContext();
-                    }
-                }.convert(value, target));
     }
 
     public ExpressionFunctionContext createContext() {
