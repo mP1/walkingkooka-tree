@@ -17,7 +17,6 @@
 
 package walkingkooka.tree.expression.function;
 
-import walkingkooka.collect.list.Lists;
 import walkingkooka.naming.HasName;
 import walkingkooka.tree.expression.ExpressionPurity;
 import walkingkooka.tree.expression.FunctionExpressionName;
@@ -123,41 +122,6 @@ public interface ExpressionFunction<T, C extends ExpressionFunctionContext> exte
      * This is only honoured when {@link ExpressionFunctionContext#evaluate(FunctionExpressionName, List)} is used.
      */
     boolean resolveReferences();
-
-    /**
-     * Converts all parameter values using the {@link ExpressionFunctionParameter} for each parameter.
-     */
-    default List<Object> convertParameters(final List<Object> parameters, final ExpressionFunctionContext context) {
-        final List<Object> after = Lists.array();
-
-        final List<ExpressionFunctionParameter<?>> parameterInfos = this.parameters();
-        final int parameterInfoCounts = parameterInfos.size();
-
-        int i = 0;
-        ExpressionFunctionParameter<?> parameterInfo = null;
-
-        while (i < parameterInfoCounts) {
-            parameterInfo = parameterInfos.get(i);
-
-            after.add(parameterInfo.convertOrFail(parameters.get(i), context));
-            i++;
-        }
-
-        final int count = parameters.size();
-        if (null != parameterInfo && ExpressionFunctionParameterCardinality.VARIABLE == parameterInfo.cardinality()) {
-            while (i < count) {
-                after.add(parameterInfo.convertOrFail(parameters.get(i), context));
-                i++;
-            }
-        } else {
-            while (i < count) {
-                after.add(parameters.get(i));
-                i++;
-            }
-        }
-
-        return Lists.readOnly(after);
-    }
 
     /**
      * {@see ParametersMapperExpressionFunctionBiFunctionFlatten}
