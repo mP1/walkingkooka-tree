@@ -75,7 +75,6 @@ final class ExpressionEvaluationContextPrepareParametersList extends AbstractLis
         if (parameterValue instanceof Expression) {
             if (kinds.contains(ExpressionFunctionKind.REQUIRES_EVALUATED_PARAMETERS)) {
                 parameterValue = this.toReferenceOrValue(parameterValue);
-                this.parameters[index] = parameterValue;
             }
         }
         if (parameterValue instanceof ExpressionReference) {
@@ -85,7 +84,6 @@ final class ExpressionEvaluationContextPrepareParametersList extends AbstractLis
                 if (parameterValue instanceof Expression && kinds.contains(ExpressionFunctionKind.REQUIRES_EVALUATED_PARAMETERS)) {
                     parameterValue = this.toReferenceOrValue(parameterValue);
                 }
-                this.parameters[index] = parameterValue;
             }
         }
 
