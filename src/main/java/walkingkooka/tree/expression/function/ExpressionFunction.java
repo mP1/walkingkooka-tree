@@ -115,6 +115,13 @@ public interface ExpressionFunction<T, C extends ExpressionFunctionContext> exte
     Set<ExpressionFunctionKind> kinds();
 
     /**
+     * Wraps this function if necessary so that it returns the given {@link ExpressionFunctionKind}.
+     */
+    default ExpressionFunction<T, C> setKinds(final Set<ExpressionFunctionKind> kinds) {
+        return CustomKindsExpressionFunction.with(this, kinds);
+    }
+
+    /**
      * Returns a ne {@link ExpressionFunction} that adds the parameter mapper before this function.
      */
     default ExpressionFunction<T, C> mapParameters(final BiFunction<List<Object>, C, List<Object>> mapper) {
