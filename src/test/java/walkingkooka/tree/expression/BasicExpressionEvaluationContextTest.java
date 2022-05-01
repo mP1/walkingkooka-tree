@@ -21,6 +21,7 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.ToStringTesting;
 import walkingkooka.collect.list.Lists;
+import walkingkooka.collect.set.Sets;
 import walkingkooka.convert.ConverterContext;
 import walkingkooka.convert.ConverterContexts;
 import walkingkooka.convert.Converters;
@@ -33,6 +34,7 @@ import walkingkooka.text.CaseSensitivity;
 import walkingkooka.tree.expression.function.ExpressionFunction;
 import walkingkooka.tree.expression.function.ExpressionFunctionContext;
 import walkingkooka.tree.expression.function.ExpressionFunctionContexts;
+import walkingkooka.tree.expression.function.ExpressionFunctionKind;
 import walkingkooka.tree.expression.function.FakeExpressionFunction;
 import walkingkooka.tree.expression.function.UnknownExpressionFunctionException;
 
@@ -40,6 +42,7 @@ import java.math.MathContext;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.Set;
 import java.util.function.Function;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -309,6 +312,11 @@ public final class BasicExpressionEvaluationContextTest implements ClassTesting2
                 @Override
                 public boolean isPure(final ExpressionPurityContext context) {
                     return pure;
+                }
+
+                @Override
+                public Set<ExpressionFunctionKind> kinds() {
+                    return Sets.empty();
                 }
             };
         };

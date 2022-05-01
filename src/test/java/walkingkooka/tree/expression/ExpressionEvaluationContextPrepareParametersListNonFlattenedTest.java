@@ -19,41 +19,15 @@ package walkingkooka.tree.expression;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
-import walkingkooka.collect.list.ListTesting;
 import walkingkooka.collect.list.Lists;
-import walkingkooka.collect.set.Sets;
-import walkingkooka.reflect.ClassTesting;
-import walkingkooka.reflect.JavaVisibility;
-import walkingkooka.tree.expression.function.ExpressionFunction;
-import walkingkooka.tree.expression.function.ExpressionFunctionContext;
 import walkingkooka.tree.expression.function.ExpressionFunctionKind;
 import walkingkooka.tree.expression.function.ExpressionFunctionParameter;
-import walkingkooka.tree.expression.function.ExpressionFunctionParameterName;
-import walkingkooka.tree.expression.function.FakeExpressionFunction;
 
 import java.util.List;
-import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.assertSame;
 
-public final class ExpressionEvaluationContextPrepareParametersListTest implements ClassTesting<ExpressionEvaluationContextPrepareParametersList>,
-        ListTesting {
-
-    private final static ExpressionEvaluationContext CONTEXT = new FakeExpressionEvaluationContext() {
-
-        @Override
-        public <T> T prepareParameter(final ExpressionFunctionParameter<T> parameter,
-                                      final Object value) {
-            return Cast.to(value);
-        }
-    };
-
-    private final static ExpressionReference REFERENCE = new ExpressionReference() {
-        @Override
-        public String toString() {
-            return "*reference*";
-        }
-    };
+public final class ExpressionEvaluationContextPrepareParametersListNonFlattenedTest extends ExpressionEvaluationContextPrepareParametersListTestCase<ExpressionEvaluationContextPrepareParametersListNonFlattened> {
 
     @Test
     public void testSize() {
@@ -64,10 +38,12 @@ public final class ExpressionEvaluationContextPrepareParametersListTest implemen
                 element1,
                 element2
         );
-        final ExpressionEvaluationContextPrepareParametersList list = ExpressionEvaluationContextPrepareParametersList.with(
-                parameters,
-                this.function(),
-                CONTEXT
+        final ExpressionEvaluationContextPrepareParametersListNonFlattened list = Cast.to(
+                ExpressionEvaluationContextPrepareParametersList.with(
+                        parameters,
+                        this.function(),
+                        CONTEXT
+                )
         );
 
         this.sizeAndCheck(list, 2);
@@ -82,10 +58,12 @@ public final class ExpressionEvaluationContextPrepareParametersListTest implemen
                 element1,
                 element2
         );
-        final ExpressionEvaluationContextPrepareParametersList list = ExpressionEvaluationContextPrepareParametersList.with(
-                parameters,
-                this.function(),
-                CONTEXT
+        final ExpressionEvaluationContextPrepareParametersListNonFlattened list = Cast.to(
+                ExpressionEvaluationContextPrepareParametersList.with(
+                        parameters,
+                        this.function(),
+                        CONTEXT
+                )
         );
 
         this.sizeAndCheck(list, 2);
@@ -102,10 +80,11 @@ public final class ExpressionEvaluationContextPrepareParametersListTest implemen
                 element1,
                 element2
         );
-        final ExpressionEvaluationContextPrepareParametersList list = ExpressionEvaluationContextPrepareParametersList.with(
-                parameters,
-                this.function(),
-                CONTEXT
+        final ExpressionEvaluationContextPrepareParametersListNonFlattened list = Cast.to(ExpressionEvaluationContextPrepareParametersList.with(
+                        parameters,
+                        this.function(),
+                        CONTEXT
+                )
         );
 
         this.sizeAndCheck(list, 2);
@@ -122,10 +101,12 @@ public final class ExpressionEvaluationContextPrepareParametersListTest implemen
                 element1,
                 element2
         );
-        final ExpressionEvaluationContextPrepareParametersList list = ExpressionEvaluationContextPrepareParametersList.with(
-                parameters,
-                this.function(ExpressionFunctionKind.REQUIRES_EVALUATED_PARAMETERS),
-                CONTEXT
+        final ExpressionEvaluationContextPrepareParametersListNonFlattened list = Cast.to(
+                ExpressionEvaluationContextPrepareParametersList.with(
+                        parameters,
+                        this.function(ExpressionFunctionKind.REQUIRES_EVALUATED_PARAMETERS),
+                        CONTEXT
+                )
         );
 
         this.sizeAndCheck(list, 2);
@@ -142,10 +123,12 @@ public final class ExpressionEvaluationContextPrepareParametersListTest implemen
                 element1,
                 element2
         );
-        final ExpressionEvaluationContextPrepareParametersList list = ExpressionEvaluationContextPrepareParametersList.with(
-                parameters,
-                this.function(ExpressionFunctionKind.REQUIRES_EVALUATED_PARAMETERS),
-                CONTEXT
+        final ExpressionEvaluationContextPrepareParametersListNonFlattened list = Cast.to(
+                ExpressionEvaluationContextPrepareParametersList.with(
+                        parameters,
+                        this.function(ExpressionFunctionKind.REQUIRES_EVALUATED_PARAMETERS),
+                        CONTEXT
+                )
         );
 
         this.sizeAndCheck(list, 2);
@@ -162,10 +145,12 @@ public final class ExpressionEvaluationContextPrepareParametersListTest implemen
                 element1,
                 element2
         );
-        final ExpressionEvaluationContextPrepareParametersList list = ExpressionEvaluationContextPrepareParametersList.with(
-                parameters,
-                this.function(ExpressionFunctionKind.REQUIRES_EVALUATED_PARAMETERS),
-                CONTEXT
+        final ExpressionEvaluationContextPrepareParametersListNonFlattened list = Cast.to(
+                ExpressionEvaluationContextPrepareParametersList.with(
+                        parameters,
+                        this.function(ExpressionFunctionKind.REQUIRES_EVALUATED_PARAMETERS),
+                        CONTEXT
+                )
         );
 
         this.sizeAndCheck(list, 2);
@@ -182,10 +167,12 @@ public final class ExpressionEvaluationContextPrepareParametersListTest implemen
                 element1,
                 element2
         );
-        final ExpressionEvaluationContextPrepareParametersList list = ExpressionEvaluationContextPrepareParametersList.with(
-                parameters,
-                this.function(ExpressionFunctionKind.REQUIRES_EVALUATED_PARAMETERS),
-                CONTEXT
+        final ExpressionEvaluationContextPrepareParametersListNonFlattened list = Cast.to(
+                ExpressionEvaluationContextPrepareParametersList.with(
+                        parameters,
+                        this.function(ExpressionFunctionKind.REQUIRES_EVALUATED_PARAMETERS),
+                        CONTEXT
+                )
         );
 
         this.sizeAndCheck(list, 2);
@@ -206,23 +193,25 @@ public final class ExpressionEvaluationContextPrepareParametersListTest implemen
                 element1,
                 element2
         );
-        final ExpressionEvaluationContextPrepareParametersList list = ExpressionEvaluationContextPrepareParametersList.with(
-                parameters,
-                this.function(ExpressionFunctionKind.RESOLVE_REFERENCES),
-                new FakeExpressionEvaluationContext() {
+        final ExpressionEvaluationContextPrepareParametersListNonFlattened list = Cast.to(
+                ExpressionEvaluationContextPrepareParametersList.with(
+                        parameters,
+                        this.function(ExpressionFunctionKind.RESOLVE_REFERENCES),
+                        new FakeExpressionEvaluationContext() {
 
-                    @Override
-                    public <T> T prepareParameter(final ExpressionFunctionParameter<T> parameter,
-                                                  final Object value) {
-                        return Cast.to(value);
-                    }
+                            @Override
+                            public <T> T prepareParameter(final ExpressionFunctionParameter<T> parameter,
+                                                          final Object value) {
+                                return Cast.to(value);
+                            }
 
-                    @Override
-                    public Expression referenceOrFail(final ExpressionReference r) {
-                        assertSame(REFERENCE, r);
-                        return value1;
-                    }
-                }
+                            @Override
+                            public Expression referenceOrFail(final ExpressionReference r) {
+                                assertSame(REFERENCE, r);
+                                return value1;
+                            }
+                        }
+                )
         );
 
         this.sizeAndCheck(list, 2);
@@ -240,16 +229,17 @@ public final class ExpressionEvaluationContextPrepareParametersListTest implemen
                 element1,
                 element2
         );
-        final ExpressionEvaluationContextPrepareParametersList list = ExpressionEvaluationContextPrepareParametersList.with(
-                parameters,
-                this.function(ExpressionFunctionKind.RESOLVE_REFERENCES),
-                new FakeExpressionEvaluationContext() {
+        final ExpressionEvaluationContextPrepareParametersListNonFlattened list = Cast.to(
+                ExpressionEvaluationContextPrepareParametersList.with(
+                        parameters,
+                        this.function(ExpressionFunctionKind.RESOLVE_REFERENCES),
+                        new FakeExpressionEvaluationContext() {
 
-                    @Override
-                    public <T> T prepareParameter(final ExpressionFunctionParameter<T> parameter,
-                                                  final Object value) {
-                        return Cast.to(value);
-                    }
+                            @Override
+                            public <T> T prepareParameter(final ExpressionFunctionParameter<T> parameter,
+                                                          final Object value) {
+                                return Cast.to(value);
+                            }
 
                     @Override
                     public Expression referenceOrFail(final ExpressionReference r) {
@@ -263,6 +253,7 @@ public final class ExpressionEvaluationContextPrepareParametersListTest implemen
 
                     private boolean invoked;
                 }
+                )
         );
 
         this.sizeAndCheck(list, 2);
@@ -283,17 +274,18 @@ public final class ExpressionEvaluationContextPrepareParametersListTest implemen
                 element1,
                 element2
         );
-        final ExpressionEvaluationContextPrepareParametersList list = ExpressionEvaluationContextPrepareParametersList.with(
-                parameters,
-                this.function(
-                        ExpressionFunctionKind.REQUIRES_EVALUATED_PARAMETERS,
-                        ExpressionFunctionKind.RESOLVE_REFERENCES
-                ),
-                new FakeExpressionEvaluationContext() {
+        final ExpressionEvaluationContextPrepareParametersListNonFlattened list = Cast.to(
+                ExpressionEvaluationContextPrepareParametersList.with(
+                        parameters,
+                        this.function(
+                                ExpressionFunctionKind.REQUIRES_EVALUATED_PARAMETERS,
+                                ExpressionFunctionKind.RESOLVE_REFERENCES
+                        ),
+                        new FakeExpressionEvaluationContext() {
 
-                    @Override
-                    public <T> T prepareParameter(final ExpressionFunctionParameter<T> parameter,
-                                                  final Object value) {
+                            @Override
+                            public <T> T prepareParameter(final ExpressionFunctionParameter<T> parameter,
+                                                          final Object value) {
                         return Cast.to(value);
                     }
 
@@ -303,6 +295,7 @@ public final class ExpressionEvaluationContextPrepareParametersListTest implemen
                         return value1;
                     }
                 }
+                )
         );
 
         this.sizeAndCheck(list, 2);
@@ -320,17 +313,18 @@ public final class ExpressionEvaluationContextPrepareParametersListTest implemen
                 element1,
                 element2
         );
-        final ExpressionEvaluationContextPrepareParametersList list = ExpressionEvaluationContextPrepareParametersList.with(
-                parameters,
-                this.function(
-                        ExpressionFunctionKind.REQUIRES_EVALUATED_PARAMETERS,
-                        ExpressionFunctionKind.RESOLVE_REFERENCES
-                ),
-                new FakeExpressionEvaluationContext() {
+        final ExpressionEvaluationContextPrepareParametersListNonFlattened list = Cast.to(
+                ExpressionEvaluationContextPrepareParametersList.with(
+                        parameters,
+                        this.function(
+                                ExpressionFunctionKind.REQUIRES_EVALUATED_PARAMETERS,
+                                ExpressionFunctionKind.RESOLVE_REFERENCES
+                        ),
+                        new FakeExpressionEvaluationContext() {
 
-                    @Override
-                    public <T> T prepareParameter(final ExpressionFunctionParameter<T> parameter,
-                                                  final Object value) {
+                            @Override
+                            public <T> T prepareParameter(final ExpressionFunctionParameter<T> parameter,
+                                                          final Object value) {
                         return Cast.to(value);
                     }
 
@@ -340,6 +334,7 @@ public final class ExpressionEvaluationContextPrepareParametersListTest implemen
                         return value1;
                     }
                 }
+                )
         );
 
         this.sizeAndCheck(list, 2);
@@ -356,17 +351,19 @@ public final class ExpressionEvaluationContextPrepareParametersListTest implemen
                 "111",
                 "222"
         );
-        final ExpressionEvaluationContextPrepareParametersList list = ExpressionEvaluationContextPrepareParametersList.with(
-                parameters,
-                this.function(),
-                new FakeExpressionEvaluationContext() {
+        final ExpressionEvaluationContextPrepareParametersListNonFlattened list = Cast.to(
+                ExpressionEvaluationContextPrepareParametersList.with(
+                        parameters,
+                        this.function(),
+                        new FakeExpressionEvaluationContext() {
 
-                    @Override
-                    public <T> T prepareParameter(final ExpressionFunctionParameter<T> parameter,
-                                                  final Object value) {
-                        return parameter.type().cast(Integer.parseInt((String) value));
-                    }
-                }
+                            @Override
+                            public <T> T prepareParameter(final ExpressionFunctionParameter<T> parameter,
+                                                          final Object value) {
+                                return parameter.type().cast(Integer.parseInt((String) value));
+                            }
+                        }
+                )
         );
 
         this.sizeAndCheck(list, 2);
@@ -380,17 +377,19 @@ public final class ExpressionEvaluationContextPrepareParametersListTest implemen
                 "111",
                 "222"
         );
-        final ExpressionEvaluationContextPrepareParametersList list = ExpressionEvaluationContextPrepareParametersList.with(
-                parameters,
-                this.function(),
-                new FakeExpressionEvaluationContext() {
+        final ExpressionEvaluationContextPrepareParametersListNonFlattened list = Cast.to(
+                ExpressionEvaluationContextPrepareParametersList.with(
+                        parameters,
+                        this.function(),
+                        new FakeExpressionEvaluationContext() {
 
-                    @Override
-                    public <T> T prepareParameter(final ExpressionFunctionParameter<T> parameter,
-                                                  final Object value) {
-                        return parameter.type().cast(Integer.parseInt((String) value));
-                    }
-                }
+                            @Override
+                            public <T> T prepareParameter(final ExpressionFunctionParameter<T> parameter,
+                                                          final Object value) {
+                                return parameter.type().cast(Integer.parseInt((String) value));
+                            }
+                        }
+                )
         );
 
         this.sizeAndCheck(list, 2);
@@ -400,43 +399,10 @@ public final class ExpressionEvaluationContextPrepareParametersListTest implemen
         this.getAndCheck(list, 1, 222);
     }
 
-    private ExpressionFunction<Void, ExpressionFunctionContext> function(final ExpressionFunctionKind... kinds) {
-        return this.function(
-                Lists.of(ExpressionFunctionParameterName.with("parameters").variable(Object.class)),
-                kinds
-        );
-    }
-
-    private ExpressionFunction<Void, ExpressionFunctionContext> function(final List<ExpressionFunctionParameter<?>> parameters,
-                                                                         final ExpressionFunctionKind... kinds) {
-        return new FakeExpressionFunction<>() {
-
-            @Override
-            public List<ExpressionFunctionParameter<?>> parameters() {
-                return parameters;
-            }
-
-            @Override
-            public Set<ExpressionFunctionKind> kinds() {
-                return Sets.of(kinds);
-            }
-
-            @Override
-            public String toString() {
-                return "parameters: " + parameters + " kinds: " + kinds;
-            }
-        };
-    }
-
     // ClassTesting....................................................................................................
 
     @Override
-    public Class<ExpressionEvaluationContextPrepareParametersList> type() {
-        return ExpressionEvaluationContextPrepareParametersList.class;
-    }
-
-    @Override
-    public JavaVisibility typeVisibility() {
-        return JavaVisibility.PACKAGE_PRIVATE;
+    public Class<ExpressionEvaluationContextPrepareParametersListNonFlattened> type() {
+        return ExpressionEvaluationContextPrepareParametersListNonFlattened.class;
     }
 }
