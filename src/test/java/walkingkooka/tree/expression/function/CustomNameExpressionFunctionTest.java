@@ -64,7 +64,7 @@ public final class CustomNameExpressionFunctionTest extends ExpressionFunctionTe
 
         assertNotSame(function, differentFunction);
         assertSame(different, differentFunction.name());
-        assertNotSame(function, function.name());
+        this.checkEquals(NAME, function.name());
     }
 
     // toString.........................................................................................................
