@@ -160,10 +160,10 @@ public interface ExpressionFunctionTesting<F extends ExpressionFunction<V, C>, V
         this.applyAndCheck2(function, parameters, this.createContext(), result);
     }
 
-    default <TT, RR, CC extends ExpressionFunctionContext> void applyAndCheck2(final ExpressionFunction<RR, CC> function,
-                                                                               final List<Object> parameters,
-                                                                               final CC context,
-                                                                               final RR result) {
+    default <RR, CC extends ExpressionFunctionContext> void applyAndCheck2(final ExpressionFunction<RR, CC> function,
+                                                                           final List<Object> parameters,
+                                                                           final CC context,
+                                                                           final RR result) {
         this.checkEquals(
                 result,
                 function.apply(parameters, context),
@@ -172,7 +172,7 @@ public interface ExpressionFunctionTesting<F extends ExpressionFunction<V, C>, V
                         " for params: " +
                         parameters.stream()
                                 .map(CharSequences::quoteIfChars)
-                                .collect(Collectors.joining(""))
+                                .collect(Collectors.joining(", "))
         );
     }
 
