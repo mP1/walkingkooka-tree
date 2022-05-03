@@ -225,6 +225,16 @@ final class BasicExpressionFunctionContext implements ExpressionFunctionContext 
 
     @Override
     public String toString() {
-        return this.functions + " " + this.references + " " + this.referenceNotFound + " " + this.caseSensitivity + " " + this.converterContext;
+        return this.expressionNumberKind +
+                " " +
+                this.functions +
+                " " +
+                this.references +
+                " " +
+                this.referenceNotFound +
+                " " +
+                this.caseSensitivity +
+                " " +
+                this.converterContext;
     }
 }

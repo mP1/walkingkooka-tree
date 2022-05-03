@@ -218,7 +218,17 @@ public final class BasicExpressionFunctionContextTest implements ClassTesting2<B
                         CASE_SENSITIVITY,
                         converterContext
                 ),
-                functions + " " + references + " " + referenceNotFound + " " + CASE_SENSITIVITY + " " + converterContext
+                KIND +
+                        " " +
+                        functions +
+                        " " +
+                        references +
+                        " " +
+                        referenceNotFound +
+                        " " +
+                        CASE_SENSITIVITY +
+                        " " +
+                        converterContext
         );
     }
 
