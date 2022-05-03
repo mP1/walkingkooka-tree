@@ -127,9 +127,18 @@ final class ExpressionEvaluationContextPrepareParametersListFlattened extends Ex
 
     @Override
     Object prepareAndConvert(final int index) {
-        return this.context.prepareParameter(
-                this.function.parameter(index),
-                this.parametersList.get(index)
-        );
+        final ExpressionEvaluationContext context = this.context;
+
+        Object result;
+        try {
+            result = context.prepareParameter(
+                    this.function.parameter(index),
+                    this.parametersList.get(index)
+            );
+        } catch (final RuntimeException cause) {
+            result = context.handleException(cause);
+        }
+
+        return result;
     }
 }

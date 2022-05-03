@@ -57,6 +57,11 @@ public class FakeExpressionFunctionContext extends FakeConverterContext implemen
     }
 
     @Override
+    public Object handleException(final RuntimeException exception) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
     public ExpressionNumberKind expressionNumberKind() {
         throw new UnsupportedOperationException();
     }

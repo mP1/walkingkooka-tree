@@ -26,6 +26,7 @@ import walkingkooka.tree.expression.function.ExpressionFunctionParameter;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class ExpressionEvaluationContextPrepareParametersListNonFlattenedTest extends ExpressionEvaluationContextPrepareParametersListTestCase<ExpressionEvaluationContextPrepareParametersListNonFlattened> {
 
@@ -397,6 +398,66 @@ public final class ExpressionEvaluationContextPrepareParametersListNonFlattenedT
         this.getAndCheck(list, 0, 111);
         this.getAndCheck(list, 1, 222);
         this.getAndCheck(list, 1, 222);
+    }
+
+    @Test
+    public void testGetFailedConvertExceptionTranslated() {
+        final ExpressionEvaluationContextPrepareParametersListNonFlattened list = Cast.to(
+                ExpressionEvaluationContextPrepareParametersList.with(
+                        Lists.of(
+                                "this parameter convert will throw",
+                                "222"
+                        ),
+                        function(
+                                Lists.of(VARIABLE),
+                                ExpressionFunctionKind.REQUIRES_EVALUATED_PARAMETERS,
+                                ExpressionFunctionKind.RESOLVE_REFERENCES
+                        ),
+                        CONTEXT_PARSE_INT
+                )
+        );
+
+        this.getAndCheck(list, 0, "@@@For input string: \"this parameter convert will throw\"");
+        this.getAndCheck(list, 1, 222);
+    }
+
+    @Test
+    public void testGetFailedConvert() {
+        final String message = "Message 123";
+
+        final ExpressionEvaluationContextPrepareParametersListNonFlattened list = Cast.to(
+                ExpressionEvaluationContextPrepareParametersList.with(
+                        Lists.of(
+                                "this value is never returned"
+                        ),
+                        function(
+                                Lists.of(VARIABLE),
+                                ExpressionFunctionKind.REQUIRES_EVALUATED_PARAMETERS,
+                                ExpressionFunctionKind.RESOLVE_REFERENCES
+                        ),
+                        new FakeExpressionEvaluationContext() {
+
+                            @Override
+                            public <T> T prepareParameter(final ExpressionFunctionParameter<T> parameter,
+                                                          final Object value) {
+                                throw new NumberFormatException(message);
+                            }
+
+                            @Override
+                            public Object handleException(final RuntimeException exception) {
+                                throw exception;
+                            }
+                        }
+                )
+        );
+
+        final NumberFormatException thrown = assertThrows(
+                NumberFormatException.class,
+                () -> {
+                    list.get(0);
+                }
+        );
+        this.checkEquals(message, thrown.getMessage(), "message");
     }
 
     // ClassTesting....................................................................................................

@@ -86,7 +86,14 @@ abstract class ExpressionEvaluationContextPrepareParametersList extends Abstract
     private static Object toReferenceOrValue(final Object parameter,
                                              final ExpressionEvaluationContext context) {
         final Expression expression = (Expression) parameter;
-        return expression.toReferenceOrValue(context);
+
+        Object result;
+        try {
+            result = expression.toReferenceOrValue(context);
+        } catch (final RuntimeException cause) {
+            result = context.handleException(cause);
+        }
+        return result;
     }
 
     /**

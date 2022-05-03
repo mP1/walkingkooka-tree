@@ -69,6 +69,22 @@ public interface ExpressionFunctionContext extends Context,
     Object evaluate(final FunctionExpressionName name, final List<Object> parameters);
 
     /**
+     * Receives all {@link RuntimeException} thrown by a {@link ExpressionFunction} or {@link Expression}.
+     * <br>
+     * This method exists a spreadsheet can handle expressions like 1/0 which throw an {@link ArithmeticException}
+     * which needs to be converted into an error object rather than propagating up the call chain until caught.
+     * <br
+     * Most implementations will simply rethrow.
+     * <br>
+     * This should be called whenever an {@link RuntimeException} is thrown by
+     * <ul>
+     *     <li>{@link #evaluate(FunctionExpressionName, List)} throws</li>
+     *     <li>{@link #prepareParameter(ExpressionFunctionParameter, Object)} throws</li>
+     * </ul>
+     */
+    Object handleException(final RuntimeException exception);
+
+    /**
      * Locates the value or a {@link Expression} for the given {@link ExpressionReference}
      */
     Optional<Object> reference(final ExpressionReference reference);

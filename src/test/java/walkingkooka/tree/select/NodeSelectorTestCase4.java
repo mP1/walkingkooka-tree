@@ -457,6 +457,30 @@ abstract public class NodeSelectorTestCase4<S extends NodeSelector<TestNode, Str
                 .orElseThrow(() -> new IllegalArgumentException("Unknown function " + n)));
     }
 
+    private ExpressionFunctionContext functionContext() {
+        return ExpressionFunctionContexts.basic(
+                EXPRESSION_NUMBER_KIND,
+                this.functions(),
+                this.exceptionHandler(),
+                this.references(),
+                ExpressionFunctionContexts.referenceNotFound(),
+                CaseSensitivity.SENSITIVE,
+                this.converterContext()
+        );
+    }
+
+    private Function<RuntimeException, Object> exceptionHandler() {
+        return (r) -> {
+            throw r;
+        };
+    }
+
+    private Function<ExpressionReference, Optional<Object>> references() {
+        return (r -> {
+            throw new UnsupportedOperationException();
+        });
+    }
+
     private Converter<ExpressionNumberConverterContext> converter() {
         return Converters.collection(
                 Lists.of(
@@ -466,23 +490,6 @@ abstract public class NodeSelectorTestCase4<S extends NodeSelector<TestNode, Str
                         ExpressionNumber.toConverter(Converters.simple())
                 )
         );
-    }
-
-    private ExpressionFunctionContext functionContext() {
-        return ExpressionFunctionContexts.basic(
-                EXPRESSION_NUMBER_KIND,
-                this.functions(),
-                this.references(),
-                ExpressionFunctionContexts.referenceNotFound(),
-                CaseSensitivity.SENSITIVE,
-                this.converterContext()
-        );
-    }
-
-    private Function<ExpressionReference, Optional<Object>> references() {
-        return (r -> {
-            throw new UnsupportedOperationException();
-        });
     }
 
     private ExpressionNumberConverterContext converterContext() {
