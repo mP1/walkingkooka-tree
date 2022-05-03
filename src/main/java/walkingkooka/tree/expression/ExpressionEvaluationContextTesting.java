@@ -18,7 +18,6 @@
 package walkingkooka.tree.expression;
 
 import org.junit.jupiter.api.Test;
-import walkingkooka.collect.list.Lists;
 import walkingkooka.tree.expression.function.ExpressionFunctionContextTesting;
 import walkingkooka.tree.expression.function.UnknownExpressionFunctionException;
 
@@ -32,12 +31,20 @@ public interface ExpressionEvaluationContextTesting<C extends ExpressionEvaluati
 
     @Test
     default void testEvaluateNullExpressionFails() {
-        assertThrows(NullPointerException.class, () -> this.createContext().evaluate(null));
+        assertThrows(
+                NullPointerException.class,
+                () -> this.createContext().evaluate(null)
+        );
     }
 
     @Test
     default void testEvaluateExpressionUnknownFunctionNameFails() {
-        assertThrows(UnknownExpressionFunctionException.class, () -> this.createContext().evaluate(Expression.function(FunctionExpressionName.with("unknown-function-123"), Expression.NO_CHILDREN)));
+        assertThrows(
+                UnknownExpressionFunctionException.class,
+                () -> this.createContext()
+                        .evaluate(Expression.function(FunctionExpressionName.with("unknown-function-123"), Expression.NO_CHILDREN)
+                        )
+        );
     }
 
     default void evaluateAndCheck(final Expression expression,
@@ -51,26 +58,6 @@ public interface ExpressionEvaluationContextTesting<C extends ExpressionEvaluati
         this.checkEquals(value,
                 context.evaluate(expression),
                 () -> "evaluate " + expression + " " + context);
-    }
-
-    @Test
-    default void testEvaluateNullFunctionNameFails() {
-        assertThrows(NullPointerException.class, () -> this.createContext().evaluate(null, ExpressionEvaluationContext.NO_PARAMETERS));
-    }
-
-    @Test
-    default void testEvaluateUnknownFunctionNameFails() {
-        assertThrows(UnknownExpressionFunctionException.class, () -> this.createContext().evaluate(this.unknownFunctionName(), Lists.empty()));
-    }
-
-    @Test
-    default void testEvaluateFunctionNullParametersFails() {
-        assertThrows(NullPointerException.class, () -> this.createContext().evaluate(FunctionExpressionName.with("sum"), null));
-    }
-
-    @Test
-    default void testReferenceNullReferenceFails() {
-        assertThrows(NullPointerException.class, () -> this.createContext().reference(null));
     }
 
     default void toValueAndCheck(final Expression node, final ExpressionEvaluationContext context, final Object value) {
