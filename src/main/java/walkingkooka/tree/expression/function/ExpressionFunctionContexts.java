@@ -36,6 +36,7 @@ public final class ExpressionFunctionContexts implements PublicStaticHelper {
      */
     public static ExpressionFunctionContext basic(final ExpressionNumberKind expressionNumberKind,
                                                   final Function<FunctionExpressionName, ExpressionFunction<?, ExpressionFunctionContext>> functions,
+                                                  final Function<RuntimeException, Object> exceptionHandler,
                                                   final Function<ExpressionReference, Optional<Object>> references,
                                                   final Function<ExpressionReference, ExpressionEvaluationException> referenceNotFound,
                                                   final CaseSensitivity caseSensitivity,
@@ -43,6 +44,7 @@ public final class ExpressionFunctionContexts implements PublicStaticHelper {
         return BasicExpressionFunctionContext.with(
                 expressionNumberKind,
                 functions,
+                exceptionHandler,
                 references,
                 referenceNotFound,
                 caseSensitivity,

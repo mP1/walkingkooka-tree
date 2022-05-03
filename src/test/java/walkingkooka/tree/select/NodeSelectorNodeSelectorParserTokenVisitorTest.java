@@ -1921,6 +1921,9 @@ public final class NodeSelectorNodeSelectorParserTokenVisitorTest implements Nod
                         return ExpressionFunctionContexts.basic(
                                 EXPRESSION_NUMBER_KIND,
                                 Cast.to(this.functions()),
+                                (r) -> {
+                                    throw r;
+                                },
                                 this.references(),
                                 ExpressionFunctionContexts.referenceNotFound(),
                                 CaseSensitivity.SENSITIVE,

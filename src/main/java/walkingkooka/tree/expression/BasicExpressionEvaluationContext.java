@@ -134,17 +134,38 @@ final class BasicExpressionEvaluationContext implements ExpressionEvaluationCont
 
     @Override
     public Object evaluate(final Expression expression) {
-        return expression.toValue(this);
+        Object result;
+
+        try {
+            result = expression.toValue(this);
+        } catch (final RuntimeException exception) {
+            result = this.handleException(exception);
+        }
+
+        return result;
     }
 
     @Override
     public Object evaluate(final FunctionExpressionName name, final List<Object> parameters) {
-        final ExpressionFunction<?, ExpressionFunctionContext> function = this.function(name);
+        Object result;
 
-        return function.apply(
-                this.prepareParameters(function, parameters),
-                this.functionContext
-        );
+        try {
+            final ExpressionFunction<?, ExpressionFunctionContext> function = this.function(name);
+
+            result = function.apply(
+                    this.prepareParameters(function, parameters),
+                    this.functionContext
+            );
+        } catch (final RuntimeException exception) {
+            result = this.handleException(exception);
+        }
+
+        return result;
+    }
+
+    @Override
+    public Object handleException(final RuntimeException exception) {
+        return this.functionContext.handleException(exception);
     }
 
     private final ExpressionFunctionContext functionContext;

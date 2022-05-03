@@ -73,9 +73,18 @@ final class ExpressionEvaluationContextPrepareParametersListNonFlattened extends
                 function,
                 context
         );
-        return context.prepareParameter(
-                function.parameter(index),
-                prepared
-        );
+
+        Object result;
+
+        try {
+            result = context.prepareParameter(
+                    function.parameter(index),
+                    prepared
+            );
+        } catch (final RuntimeException exception) {
+            result = context.handleException(exception);
+        }
+
+        return result;
     }
 }

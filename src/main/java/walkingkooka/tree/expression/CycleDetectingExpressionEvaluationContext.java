@@ -102,6 +102,11 @@ final class CycleDetectingExpressionEvaluationContext implements ExpressionEvalu
     }
 
     @Override
+    public Object handleException(final RuntimeException exception) {
+        return this.context.handleException(exception);
+    }
+
+    @Override
     public Optional<Object> reference(final ExpressionReference reference) {
         final Set<ExpressionReference> cycles = this.cycles;
 

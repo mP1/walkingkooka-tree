@@ -22,7 +22,6 @@ import walkingkooka.Cast;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.tree.expression.function.ExpressionFunctionKind;
 import walkingkooka.tree.expression.function.ExpressionFunctionParameter;
-import walkingkooka.tree.expression.function.ExpressionFunctionParameterName;
 
 import java.util.List;
 
@@ -30,26 +29,19 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class ExpressionEvaluationContextPrepareParametersListFlattenedTest extends ExpressionEvaluationContextPrepareParametersListTestCase<ExpressionEvaluationContextPrepareParametersListFlattened> {
 
-    private final static ExpressionFunctionParameter<Integer> VARIABLE = ExpressionFunctionParameterName.with("integer")
-            .variable(Integer.class);
-
-    private final static ExpressionEvaluationContext CONTEXT_PARSE_INT = new FakeExpressionEvaluationContext() {
-
-        @Override
-        public <T> T prepareParameter(final ExpressionFunctionParameter<T> parameter,
-                                      final Object value) {
-            return Cast.to(Integer.parseInt((String) value));
-        }
-    };
-
     // flatten..........................................................................................................
 
     @Test
     public void testNoListValues() {
         this.flattenAndCheck(
-                List.of(1, 2),
-                CONTEXT,
                 List.of(1, 2)
+        );
+    }
+
+    @Test
+    public void testDoesntConvert() {
+        this.flattenAndCheck(
+                List.of("!", 2)
         );
     }
 
@@ -101,6 +93,14 @@ public final class ExpressionEvaluationContextPrepareParametersListFlattenedTest
         );
     }
 
+    private void flattenAndCheck(final List<Object> parameters) {
+        this.flattenAndCheck(
+                parameters,
+                CONTEXT,
+                parameters
+        );
+    }
+
     private void flattenAndCheck(final List<Object> parameters,
                                  final ExpressionEvaluationContext context,
                                  final List<Object> expected) {
@@ -129,7 +129,7 @@ public final class ExpressionEvaluationContextPrepareParametersListFlattenedTest
     }
 
     @Test
-    public void testGetFailedConvert() {
+    public void testGetFailedConvertExceptionTranslated() {
         final ExpressionEvaluationContextPrepareParametersListFlattened list = Cast.to(
                 ExpressionEvaluationContextPrepareParametersList.with(
                         Lists.of(
@@ -146,13 +146,48 @@ public final class ExpressionEvaluationContextPrepareParametersListFlattenedTest
                 )
         );
 
-        assertThrows(
+        this.getAndCheck(list, 0, "@@@For input string: \"this parameter convert will throw\"");
+        this.getAndCheck(list, 1, 222);
+    }
+
+    @Test
+    public void testGetFailedConvert() {
+        final String message = "Message 123";
+
+        final ExpressionEvaluationContextPrepareParametersListFlattened list = Cast.to(
+                ExpressionEvaluationContextPrepareParametersList.with(
+                        Lists.of(
+                                "this value is never returned"
+                        ),
+                        function(
+                                Lists.of(VARIABLE),
+                                ExpressionFunctionKind.REQUIRES_EVALUATED_PARAMETERS,
+                                ExpressionFunctionKind.RESOLVE_REFERENCES,
+                                ExpressionFunctionKind.FLATTEN
+                        ),
+                        new FakeExpressionEvaluationContext() {
+
+                            @Override
+                            public <T> T prepareParameter(final ExpressionFunctionParameter<T> parameter,
+                                                          final Object value) {
+                                throw new NumberFormatException(message);
+                            }
+
+                            @Override
+                            public Object handleException(final RuntimeException exception) {
+                                throw exception;
+                            }
+                        }
+                )
+        );
+
+        final NumberFormatException thrown = assertThrows(
                 NumberFormatException.class,
                 () -> {
                     list.get(0);
                 }
         );
-        this.getAndCheck(list, 1, 222);
+        this.checkEquals(message, thrown.getMessage(), "message");
     }
 
     // ClassTesting....................................................................................................

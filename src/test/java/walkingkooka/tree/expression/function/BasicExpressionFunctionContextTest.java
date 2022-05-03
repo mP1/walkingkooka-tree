@@ -21,6 +21,7 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.ToStringTesting;
 import walkingkooka.collect.list.Lists;
+import walkingkooka.collect.set.Sets;
 import walkingkooka.convert.ConverterContext;
 import walkingkooka.convert.ConverterContexts;
 import walkingkooka.convert.Converters;
@@ -41,6 +42,7 @@ import java.math.MathContext;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.Set;
 import java.util.function.Function;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -60,6 +62,10 @@ public final class BasicExpressionFunctionContextTest implements ClassTesting2<B
 
     private final static CaseSensitivity CASE_SENSITIVITY = CaseSensitivity.SENSITIVE;
 
+    private final static Function<RuntimeException, Object> EXCEPTION_HANDLER = (r) -> {
+        throw r;
+    };
+
     @Test
     public void testWithNullExpressionNumberKindFails() {
         assertThrows(
@@ -67,6 +73,7 @@ public final class BasicExpressionFunctionContextTest implements ClassTesting2<B
                 () -> BasicExpressionFunctionContext.with(
                         null,
                         this.functions(),
+                        EXCEPTION_HANDLER,
                         this.references(),
                         ExpressionFunctionContexts.referenceNotFound(),
                         CASE_SENSITIVITY,
@@ -81,6 +88,23 @@ public final class BasicExpressionFunctionContextTest implements ClassTesting2<B
                 NullPointerException.class,
                 () -> BasicExpressionFunctionContext.with(
                         KIND,
+                        null,
+                        EXCEPTION_HANDLER,
+                        this.references(),
+                        ExpressionFunctionContexts.referenceNotFound(),
+                        CASE_SENSITIVITY,
+                        this.converterContext()
+                )
+        );
+    }
+
+    @Test
+    public void testWithNullExceptionHandlerFails() {
+        assertThrows(
+                NullPointerException.class,
+                () -> BasicExpressionFunctionContext.with(
+                        KIND,
+                        this.functions(),
                         null,
                         this.references(),
                         ExpressionFunctionContexts.referenceNotFound(),
@@ -97,6 +121,7 @@ public final class BasicExpressionFunctionContextTest implements ClassTesting2<B
                 () -> BasicExpressionFunctionContext.with(
                         KIND,
                         this.functions(),
+                        EXCEPTION_HANDLER,
                         null,
                         ExpressionFunctionContexts.referenceNotFound(),
                         CASE_SENSITIVITY,
@@ -112,6 +137,7 @@ public final class BasicExpressionFunctionContextTest implements ClassTesting2<B
                 () -> BasicExpressionFunctionContext.with(
                         KIND,
                         this.functions(),
+                        EXCEPTION_HANDLER,
                         this.references(),
                         null,
                         CASE_SENSITIVITY,
@@ -127,6 +153,7 @@ public final class BasicExpressionFunctionContextTest implements ClassTesting2<B
                 () -> BasicExpressionFunctionContext.with(
                         KIND,
                         this.functions(),
+                        EXCEPTION_HANDLER,
                         this.references(),
                         ExpressionFunctionContexts.referenceNotFound(),
                         null,
@@ -142,6 +169,7 @@ public final class BasicExpressionFunctionContextTest implements ClassTesting2<B
                 () -> BasicExpressionFunctionContext.with(
                         KIND,
                         this.functions(),
+                        EXCEPTION_HANDLER,
                         this.references(),
                         ExpressionFunctionContexts.referenceNotFound(),
                         CASE_SENSITIVITY,
@@ -156,6 +184,43 @@ public final class BasicExpressionFunctionContextTest implements ClassTesting2<B
                 this.functionName(),
                 this.parameters(),
                 this.functionValue()
+        );
+    }
+
+    @Test
+    public void testEvaluateThrownHandled() {
+        final String error = "**ERROR**";
+        final FunctionExpressionName name = FunctionExpressionName.with("throws");
+
+        this.evaluateAndCheck(
+                this.createContext(
+                        (n) -> new FakeExpressionFunction<>() {
+                            @Override
+                            public FunctionExpressionName name() {
+                                return name;
+                            }
+
+                            @Override
+                            public List<ExpressionFunctionParameter<?>> parameters() {
+                                return ExpressionFunctionParameter.EMPTY;
+                            }
+
+                            @Override
+                            public Set<ExpressionFunctionKind> kinds() {
+                                return Sets.empty();
+                            }
+
+                            @Override
+                            public Object apply(final List<Object> objects,
+                                                final ExpressionFunctionContext context) {
+                                throw new UnsupportedOperationException(error);
+                            }
+                        },
+                        (r) -> r.getMessage()
+                ),
+                name,
+                ExpressionFunctionContext.NO_PARAMETERS,
+                error
         );
     }
 
@@ -215,6 +280,7 @@ public final class BasicExpressionFunctionContextTest implements ClassTesting2<B
                 BasicExpressionFunctionContext.with(
                         KIND,
                         functions,
+                        EXCEPTION_HANDLER,
                         references,
                         referenceNotFound,
                         CASE_SENSITIVITY,
@@ -223,6 +289,8 @@ public final class BasicExpressionFunctionContextTest implements ClassTesting2<B
                 KIND +
                         " " +
                         functions +
+                        " " +
+                        EXCEPTION_HANDLER +
                         " " +
                         references +
                         " " +
@@ -258,9 +326,23 @@ public final class BasicExpressionFunctionContextTest implements ClassTesting2<B
         return BasicExpressionFunctionContext.with(
                 KIND,
                 this.functions(pure),
+                EXCEPTION_HANDLER,
                 this.references(),
                 (r) -> new ExpressionEvaluationReferenceException(REFERENCE_NOT_FOUND_MESSAGE, r),
                 caseSensitivity,
+                this.converterContext()
+        );
+    }
+
+    private BasicExpressionFunctionContext createContext(final Function<FunctionExpressionName, ExpressionFunction<?, ExpressionFunctionContext>> functions,
+                                                         final Function<RuntimeException, Object> exceptionHandler) {
+        return BasicExpressionFunctionContext.with(
+                KIND,
+                functions,
+                exceptionHandler,
+                this.references(),
+                (r) -> new ExpressionEvaluationReferenceException(REFERENCE_NOT_FOUND_MESSAGE, r),
+                CASE_SENSITIVITY,
                 this.converterContext()
         );
     }

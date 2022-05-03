@@ -19,12 +19,14 @@ package walkingkooka.tree.expression;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
+import walkingkooka.Either;
 import walkingkooka.ToStringTesting;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.set.Sets;
 import walkingkooka.convert.ConverterContext;
 import walkingkooka.convert.ConverterContexts;
 import walkingkooka.convert.Converters;
+import walkingkooka.convert.FakeConverterContext;
 import walkingkooka.datetime.DateTimeContexts;
 import walkingkooka.math.DecimalNumberContext;
 import walkingkooka.math.DecimalNumberContexts;
@@ -35,6 +37,7 @@ import walkingkooka.tree.expression.function.ExpressionFunction;
 import walkingkooka.tree.expression.function.ExpressionFunctionContext;
 import walkingkooka.tree.expression.function.ExpressionFunctionContexts;
 import walkingkooka.tree.expression.function.ExpressionFunctionKind;
+import walkingkooka.tree.expression.function.ExpressionFunctionParameter;
 import walkingkooka.tree.expression.function.FakeExpressionFunction;
 import walkingkooka.tree.expression.function.UnknownExpressionFunctionException;
 
@@ -95,6 +98,44 @@ public final class BasicExpressionEvaluationContextTest implements ClassTesting2
         this.evaluateAndCheck(
                 Expression.value(value),
                 value
+        );
+    }
+
+    @Test
+    public void testEvaluateExpressionThrowsExceptionTranslated() {
+        final ExpressionNumberKind kind = ExpressionNumberKind.DOUBLE;
+
+        this.evaluateAndCheck(
+                BasicExpressionEvaluationContext.with(
+                        ExpressionFunctionContexts.basic(
+                                kind,
+                                (n) -> {
+                                    throw new UnsupportedOperationException();
+                                },
+                                (r) -> "@@@" + r.getMessage(),
+                                (r) -> {
+                                    throw new UnsupportedOperationException();
+                                },
+                                (r) -> {
+                                    throw new UnsupportedOperationException();
+                                },
+                                CASE_SENSITIVITY,
+                                new FakeConverterContext() {
+                                    @Override
+                                    public <T> Either<T, String> convert(final Object value,
+                                                                         final Class<T> target) {
+                                        return Cast.to(
+                                                Either.left(value)
+                                        );
+                                    }
+                                }
+                        )
+                ),
+                Expression.divide(
+                        Expression.value(kind.one()),
+                        Expression.value(kind.zero())
+                ),
+                "@@@Division by zero"
         );
     }
 
@@ -219,6 +260,66 @@ public final class BasicExpressionEvaluationContextTest implements ClassTesting2
         );
     }
 
+    // function........................................................................................................
+
+    @Test
+    public void testEvaluateFunctionThrowsExceptionTranslated() {
+        final ExpressionNumberKind kind = ExpressionNumberKind.DOUBLE;
+
+        final FunctionExpressionName name = FunctionExpressionName.with("test123");
+
+        this.evaluateAndCheck(
+                BasicExpressionEvaluationContext.with(
+                        ExpressionFunctionContexts.basic(
+                                kind,
+                                (n) -> {
+                                    return new FakeExpressionFunction<>() {
+                                        @Override
+                                        public Object apply(final List<Object> objects,
+                                                            final ExpressionFunctionContext context) {
+                                            throw new UnsupportedOperationException("Thrown123");
+                                        }
+
+                                        @Override
+                                        public FunctionExpressionName name() {
+                                            return name;
+                                        }
+
+                                        @Override
+                                        public List<ExpressionFunctionParameter<?>> parameters() {
+                                            return ExpressionFunctionParameter.EMPTY;
+                                        }
+
+                                        public Set<ExpressionFunctionKind> kinds() {
+                                            return Sets.empty();
+                                        }
+                                    };
+                                },
+                                (r) -> "@@@" + r.getMessage(),
+                                (r) -> {
+                                    throw new UnsupportedOperationException();
+                                },
+                                (r) -> {
+                                    throw new UnsupportedOperationException();
+                                },
+                                CASE_SENSITIVITY,
+                                new FakeConverterContext() {
+                                    @Override
+                                    public <T> Either<T, String> convert(final Object value,
+                                                                         final Class<T> target) {
+                                        return Cast.to(
+                                                Either.left(value)
+                                        );
+                                    }
+                                }
+                        )
+                ),
+                name,
+                Lists.empty(),
+                "@@@Thrown123"
+        );
+    }
+
     // isPure..........................................................................................................
 
     @Test
@@ -285,11 +386,18 @@ public final class BasicExpressionEvaluationContextTest implements ClassTesting2
         );
     }
 
+    private Function<RuntimeException, Object> exceptionHandler() {
+        return (r) -> {
+            throw r;
+        };
+    }
+
     private ExpressionFunctionContext functionContext(final boolean isPure,
                                                       final CaseSensitivity caseSensitivity) {
         return ExpressionFunctionContexts.basic(
                 ExpressionNumberKind.DEFAULT,
                 this.functions(isPure),
+                this.exceptionHandler(),
                 this.references(),
                 ExpressionFunctionContexts.referenceNotFound(),
                 caseSensitivity,

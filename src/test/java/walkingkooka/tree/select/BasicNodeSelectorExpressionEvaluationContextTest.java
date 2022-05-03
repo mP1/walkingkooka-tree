@@ -131,6 +131,12 @@ public final class BasicNodeSelectorExpressionEvaluationContextTest implements N
                 ));
     }
 
+    private Function<RuntimeException, Object> exceptionHandler() {
+        return (r) -> {
+            throw r;
+        };
+    }
+
     private Function<FunctionExpressionName, ExpressionFunction<?, ExpressionFunctionContext>> functions() {
         return (n) -> {
             Objects.requireNonNull(n, "name");
@@ -142,6 +148,7 @@ public final class BasicNodeSelectorExpressionEvaluationContextTest implements N
         return ExpressionFunctionContexts.basic(
                 EXPRESSION_NUMBER_KIND,
                 this.functions(),
+                this.exceptionHandler(),
                 this.references(),
                 ExpressionFunctionContexts.referenceNotFound(),
                 CaseSensitivity.SENSITIVE,

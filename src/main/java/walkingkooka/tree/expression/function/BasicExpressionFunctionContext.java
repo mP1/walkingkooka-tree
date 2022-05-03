@@ -59,12 +59,14 @@ final class BasicExpressionFunctionContext implements ExpressionFunctionContext 
      */
     static BasicExpressionFunctionContext with(final ExpressionNumberKind expressionNumberKind,
                                                final Function<FunctionExpressionName, ExpressionFunction<?, ExpressionFunctionContext>> functions,
+                                               final Function<RuntimeException, Object> exceptionHandler,
                                                final Function<ExpressionReference, Optional<Object>> references,
                                                final Function<ExpressionReference, ExpressionEvaluationException> referenceNotFound,
                                                final CaseSensitivity caseSensitivity,
                                                final ConverterContext converterContext) {
         Objects.requireNonNull(expressionNumberKind, "expressionNumberKind");
         Objects.requireNonNull(functions, "functions");
+        Objects.requireNonNull(exceptionHandler, "exceptionHandler");
         Objects.requireNonNull(references, "references");
         Objects.requireNonNull(referenceNotFound, "referenceNotFound");
         Objects.requireNonNull(caseSensitivity, "caseSensitivity");
@@ -73,6 +75,7 @@ final class BasicExpressionFunctionContext implements ExpressionFunctionContext 
         return new BasicExpressionFunctionContext(
                 expressionNumberKind,
                 functions,
+                exceptionHandler,
                 references,
                 referenceNotFound,
                 caseSensitivity,
@@ -85,12 +88,15 @@ final class BasicExpressionFunctionContext implements ExpressionFunctionContext 
      */
     private BasicExpressionFunctionContext(final ExpressionNumberKind expressionNumberKind,
                                            final Function<FunctionExpressionName, ExpressionFunction<?, ExpressionFunctionContext>> functions,
+                                           final Function<RuntimeException, Object> exceptionHandler,
                                            final Function<ExpressionReference, Optional<Object>> references,
                                            final Function<ExpressionReference, ExpressionEvaluationException> referenceNotFound,
                                            final CaseSensitivity caseSensitivity,
                                            final ConverterContext converterContext) {
         super();
+
         this.expressionNumberKind = expressionNumberKind;
+        this.exceptionHandler = exceptionHandler;
         this.functions = functions;
         this.references = references;
         this.referenceNotFound = referenceNotFound;
@@ -184,9 +190,22 @@ final class BasicExpressionFunctionContext implements ExpressionFunctionContext 
     @Override
     public Object evaluate(final FunctionExpressionName name,
                            final List<Object> parameters) {
-        return this.function(name)
-                .apply(parameters, this);
+        Object result;
+        try {
+            result = this.function(name)
+                    .apply(parameters, this);
+        } catch (final RuntimeException cause) {
+            result = this.exceptionHandler.apply(cause);
+        }
+        return result;
     }
+
+    @Override
+    public Object handleException(final RuntimeException exception) {
+        return this.exceptionHandler.apply(exception);
+    }
+
+    private final Function<RuntimeException, Object> exceptionHandler;
 
     @Override
     public Optional<Object> reference(final ExpressionReference reference) {
@@ -228,6 +247,8 @@ final class BasicExpressionFunctionContext implements ExpressionFunctionContext 
         return this.expressionNumberKind +
                 " " +
                 this.functions +
+                " " +
+                this.exceptionHandler +
                 " " +
                 this.references +
                 " " +

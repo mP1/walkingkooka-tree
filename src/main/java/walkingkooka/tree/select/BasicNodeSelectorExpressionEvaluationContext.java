@@ -146,6 +146,11 @@ final class BasicNodeSelectorExpressionEvaluationContext<N extends Node<N, NAME,
         return this.context.isPure(name);
     }
 
+    @Override
+    public Object handleException(final RuntimeException exception) {
+        return this.context.handleException(exception);
+    }
+
     /**
      * The reference should be an attribute name, cast and find the owner attribute.
      */

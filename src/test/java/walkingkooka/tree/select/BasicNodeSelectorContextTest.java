@@ -184,6 +184,12 @@ public final class BasicNodeSelectorContextTest implements ClassTesting2<BasicNo
                 );
             }
 
+            private Function<RuntimeException, Object> exceptionHandler() {
+                return (r) -> {
+                    throw r;
+                };
+            }
+
             private Function<FunctionExpressionName, ExpressionFunction<?, ExpressionFunctionContext>> functions() {
                 return (n) -> {
                     throw new UnsupportedOperationException();
@@ -194,6 +200,7 @@ public final class BasicNodeSelectorContextTest implements ClassTesting2<BasicNo
                 return ExpressionFunctionContexts.basic(
                         KIND,
                         this.functions(),
+                        this.exceptionHandler(),
                         this.references(),
                         ExpressionFunctionContexts.referenceNotFound(),
                         CaseSensitivity.SENSITIVE,
