@@ -24,6 +24,8 @@ import walkingkooka.tree.expression.ExpressionEvaluationContext;
 import walkingkooka.tree.expression.ExpressionNumberContextTesting;
 import walkingkooka.tree.expression.FunctionExpressionName;
 
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 /**
@@ -93,6 +95,30 @@ public interface ExpressionFunctionContextTesting<C extends ExpressionFunctionCo
                 NullPointerException.class,
                 () -> this.createContext()
                         .reference(null)
+        );
+    }
+
+    default void evaluateAndCheck(final FunctionExpressionName name,
+                                  final List<Object> parameters,
+                                  final Object expected) {
+
+        this.evaluateAndCheck(
+                this.createContext(),
+                name,
+                parameters,
+                expected
+        );
+    }
+
+    default void evaluateAndCheck(final C context,
+                                  final FunctionExpressionName name,
+                                  final List<Object> parameters,
+                                  final Object expected) {
+
+        this.checkEquals(
+                expected,
+                context.evaluate(name, parameters),
+                () -> "evaluate " + name + " " + parameters
         );
     }
 
