@@ -90,7 +90,13 @@ public final class CycleDetectingExpressionEvaluationContextTest implements Clas
                 return VALUE;
             }
         });
-        assertSame(VALUE, context.evaluate(name, parameters));
+
+        this.evaluateAndCheck(
+                context,
+                name,
+                parameters,
+                VALUE
+        );
     }
 
     @Test

@@ -68,6 +68,19 @@ public final class BasicExpressionEvaluationContextTest implements ClassTesting2
         );
     }
 
+    // evaluate function................................................................................................
+
+    @Test
+    public void testEvaluate() {
+        this.evaluateAndCheck(
+                this.functionName(),
+                this.parameters(),
+                this.functionValue()
+        );
+    }
+
+    // evaluate expressions.............................................................................................
+
     @Test
     public void testEvaluateTrue() {
         this.evaluateAndCheck2(true);
@@ -92,13 +105,6 @@ public final class BasicExpressionEvaluationContextTest implements ClassTesting2
                 Expression.value(value),
                 value
         );
-    }
-
-    @Test
-    public void testEvaluate() {
-        this.checkEquals(this.functionValue(),
-                this.createContext()
-                        .evaluate(this.functionName(), this.parameters()));
     }
 
     // string equals....................................................................................................

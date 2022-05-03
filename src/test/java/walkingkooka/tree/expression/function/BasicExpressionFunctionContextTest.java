@@ -152,9 +152,11 @@ public final class BasicExpressionFunctionContextTest implements ClassTesting2<B
 
     @Test
     public void testEvaluate() {
-        this.checkEquals(this.functionValue(),
-                this.createContext()
-                        .evaluate(this.functionName(), this.parameters()));
+        this.evaluateAndCheck(
+                this.functionName(),
+                this.parameters(),
+                this.functionValue()
+        );
     }
 
     @Test
