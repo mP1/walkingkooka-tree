@@ -32,7 +32,7 @@ public enum ExpressionFunctionKind {
      * cases all functions will return true, but for cases such as Excels isError it may be desired to catch any thrown
      * exceptions and substitute an error object of some kind.
      */
-    EVALUATED_PARAMETERS,
+    EVALUATE_PARAMETERS,
 
     /**
      * Flatten expands any lists.

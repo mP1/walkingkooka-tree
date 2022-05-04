@@ -86,7 +86,7 @@ final class TypeNameExpressionFunction<C extends ExpressionFunctionContext> impl
     }
 
     private final Set<ExpressionFunctionKind> KINDS = EnumSet.of(
-            ExpressionFunctionKind.EVALUATED_PARAMETERS,
+            ExpressionFunctionKind.EVALUATE_PARAMETERS,
             ExpressionFunctionKind.RESOLVE_REFERENCES
     );
 
