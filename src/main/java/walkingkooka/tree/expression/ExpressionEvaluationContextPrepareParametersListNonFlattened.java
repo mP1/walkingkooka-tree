@@ -28,7 +28,7 @@ import java.util.Objects;
 /**
  * A lazy {@link List} of the original parameter values, performing the following if they are enabled for this function.
  * <ul>
- * <li>Evaluate {@link Expression} if {@link ExpressionFunctionKind#REQUIRES_EVALUATED_PARAMETERS}</li>
+ * <li>Evaluate {@link Expression} if {@link ExpressionFunctionKind#EVALUATED_PARAMETERS}</li>
  * <li>Resolve {@link ReferenceExpression} if {@link ExpressionFunctionKind#RESOLVE_REFERENCES}</li>
  * <li>Convert values to the {@link ExpressionFunctionParameter#type()}</li>
  * </ul>

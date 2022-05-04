@@ -109,7 +109,7 @@ public final class ExpressionEvaluationContextPrepareParametersListFlattenedTest
                         parameters,
                         function(
                                 Lists.of(VARIABLE),
-                                ExpressionFunctionKind.REQUIRES_EVALUATED_PARAMETERS,
+                                ExpressionFunctionKind.EVALUATED_PARAMETERS,
                                 ExpressionFunctionKind.RESOLVE_REFERENCES,
                                 ExpressionFunctionKind.FLATTEN
                         ),
@@ -138,7 +138,7 @@ public final class ExpressionEvaluationContextPrepareParametersListFlattenedTest
                         ),
                         function(
                                 Lists.of(VARIABLE),
-                                ExpressionFunctionKind.REQUIRES_EVALUATED_PARAMETERS,
+                                ExpressionFunctionKind.EVALUATED_PARAMETERS,
                                 ExpressionFunctionKind.RESOLVE_REFERENCES,
                                 ExpressionFunctionKind.FLATTEN
                         ),
@@ -161,7 +161,7 @@ public final class ExpressionEvaluationContextPrepareParametersListFlattenedTest
                         ),
                         function(
                                 Lists.of(VARIABLE),
-                                ExpressionFunctionKind.REQUIRES_EVALUATED_PARAMETERS,
+                                ExpressionFunctionKind.EVALUATED_PARAMETERS,
                                 ExpressionFunctionKind.RESOLVE_REFERENCES,
                                 ExpressionFunctionKind.FLATTEN
                         ),

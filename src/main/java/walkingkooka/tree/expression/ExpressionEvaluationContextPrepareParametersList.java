@@ -31,7 +31,7 @@ import java.util.Set;
 /**
  * Wraps the {@link List} of parameters values and performs several actions lazily for each parameter.
  * <ul>
- * <li>Evaluate {@link Expression} if {@link ExpressionFunctionKind#REQUIRES_EVALUATED_PARAMETERS}</li>
+ * <li>Evaluate {@link Expression} if {@link ExpressionFunctionKind#EVALUATED_PARAMETERS}</li>
  * <li>Resolve {@link ReferenceExpression} if {@link ExpressionFunctionKind#RESOLVE_REFERENCES}</li>
  * <li>Convert values to the {@link ExpressionFunctionParameter#type()}</li>
  * </ul>
@@ -66,7 +66,7 @@ abstract class ExpressionEvaluationContextPrepareParametersList extends Abstract
         Object result = parameterValue;
 
         if (result instanceof Expression) {
-            if (kinds.contains(ExpressionFunctionKind.REQUIRES_EVALUATED_PARAMETERS)) {
+            if (kinds.contains(ExpressionFunctionKind.EVALUATED_PARAMETERS)) {
                 result = toReferenceOrValue(result, context);
             }
         }
@@ -74,7 +74,7 @@ abstract class ExpressionEvaluationContextPrepareParametersList extends Abstract
             if (kinds.contains(ExpressionFunctionKind.RESOLVE_REFERENCES)) {
                 result = context.referenceOrFail((ExpressionReference) result);
 
-                if (result instanceof Expression && kinds.contains(ExpressionFunctionKind.REQUIRES_EVALUATED_PARAMETERS)) {
+                if (result instanceof Expression && kinds.contains(ExpressionFunctionKind.EVALUATED_PARAMETERS)) {
                     result = toReferenceOrValue(result, context);
                 }
             }

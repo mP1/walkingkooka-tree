@@ -2032,7 +2032,7 @@ public final class NodeSelectorNodeSelectorParserTokenVisitorTest implements Nod
         }
 
         private final Set<ExpressionFunctionKind> KINDS = EnumSet.of(
-                ExpressionFunctionKind.REQUIRES_EVALUATED_PARAMETERS,
+                ExpressionFunctionKind.EVALUATED_PARAMETERS,
                 ExpressionFunctionKind.RESOLVE_REFERENCES
         );
     }
