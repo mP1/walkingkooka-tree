@@ -94,7 +94,7 @@ final class ExpressionNumberFunctionExpressionFunction<C extends ExpressionFunct
     }
 
     private final Set<ExpressionFunctionKind> KINDS = EnumSet.of(
-            ExpressionFunctionKind.REQUIRES_EVALUATED_PARAMETERS,
+            ExpressionFunctionKind.EVALUATED_PARAMETERS,
             ExpressionFunctionKind.RESOLVE_REFERENCES
     );
 

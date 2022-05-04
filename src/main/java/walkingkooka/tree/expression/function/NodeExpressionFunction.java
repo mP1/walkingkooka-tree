@@ -92,7 +92,7 @@ final class NodeExpressionFunction<N extends Node<N, NAME, ANAME, AVALUE>,
     }
 
     private final Set<ExpressionFunctionKind> KINDS = EnumSet.of(
-            ExpressionFunctionKind.REQUIRES_EVALUATED_PARAMETERS,
+            ExpressionFunctionKind.EVALUATED_PARAMETERS,
             ExpressionFunctionKind.RESOLVE_REFERENCES
     );
 
