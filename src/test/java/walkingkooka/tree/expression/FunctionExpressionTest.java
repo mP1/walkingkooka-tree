@@ -249,7 +249,7 @@ public final class FunctionExpressionTest extends VariableExpressionTestCase<Fun
                     }
 
                     private final Set<ExpressionFunctionKind> KINDS = EnumSet.of(
-                            ExpressionFunctionKind.EVALUATED_PARAMETERS,
+                            ExpressionFunctionKind.EVALUATE_PARAMETERS,
                             ExpressionFunctionKind.RESOLVE_REFERENCES
                     );
                 };

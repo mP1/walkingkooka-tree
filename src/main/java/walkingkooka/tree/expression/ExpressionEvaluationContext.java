@@ -37,7 +37,7 @@ public interface ExpressionEvaluationContext extends ExpressionFunctionContext,
     /**
      * Wraps the {@link List} of parameters values and performs several actions lazily for each parameter.
      * <ul>
-     * <li>Resolve {@link Expression} if {@link walkingkooka.tree.expression.function.ExpressionFunctionKind#EVALUATED_PARAMETERS}</li>
+     * <li>Resolve {@link Expression} if {@link walkingkooka.tree.expression.function.ExpressionFunctionKind#EVALUATE_PARAMETERS}</li>
      * <li>Resolve {@link ReferenceExpression} if {@link walkingkooka.tree.expression.function.ExpressionFunctionKind#RESOLVE_REFERENCES}</li>
      * <li>Convert values to the {@link ExpressionFunctionParameter#type()}</li>
      * </ul>

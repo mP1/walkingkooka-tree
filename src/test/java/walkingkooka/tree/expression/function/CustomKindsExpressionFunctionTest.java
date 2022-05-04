@@ -64,7 +64,7 @@ public final class CustomKindsExpressionFunctionTest extends ExpressionFunctionT
         final CustomKindsExpressionFunction<String, ExpressionFunctionContext> function = this.createBiFunction();
 
         final Set<ExpressionFunctionKind> different = Sets.of(
-                ExpressionFunctionKind.EVALUATED_PARAMETERS
+                ExpressionFunctionKind.EVALUATE_PARAMETERS
         );
         final ExpressionFunction<String, ExpressionFunctionContext> differentFunction = function.setKinds(different);
 
