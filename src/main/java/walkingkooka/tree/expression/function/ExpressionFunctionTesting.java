@@ -22,8 +22,10 @@ import walkingkooka.NeverError;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.reflect.TypeNameTesting;
 import walkingkooka.text.CharSequences;
+import walkingkooka.tree.expression.Expression;
 import walkingkooka.tree.expression.ExpressionNumberKind;
 import walkingkooka.tree.expression.ExpressionPurityTesting;
+import walkingkooka.tree.expression.ExpressionReference;
 import walkingkooka.util.BiFunctionTesting;
 
 import java.util.List;
@@ -164,6 +166,43 @@ public interface ExpressionFunctionTesting<F extends ExpressionFunction<V, C>, V
                                                                            final List<Object> parameters,
                                                                            final CC context,
                                                                            final RR result) {
+        for (final ExpressionFunctionKind kind : function.kinds()) {
+            switch (kind) {
+                case EVALUATE_PARAMETERS:
+                    this.checkEquals(
+                            Lists.empty(),
+                            parameters.stream()
+                                    .filter(Expression.class::isInstance)
+                                    .collect(Collectors.toList()
+                                    ),
+                            () -> "Should not include parameter(s) of type " + Expression.class.getName()
+                    );
+                    break;
+                case FLATTEN:
+                    this.checkEquals(
+                            Lists.empty(),
+                            parameters.stream()
+                                    .filter(List.class::isInstance)
+                                    .collect(Collectors.toList()
+                                    ),
+                            () -> "Should not include parameter(s) of type " + List.class.getName()
+                    );
+                    break;
+                case RESOLVE_REFERENCES:
+                    this.checkEquals(
+                            Lists.empty(),
+                            parameters.stream()
+                                    .filter(ExpressionReference.class::isInstance)
+                                    .collect(Collectors.toList()
+                                    ),
+                            () -> "Should not include parameter(s) of type " + ExpressionReference.class.getName()
+                    );
+                    break;
+                default:
+                    break;
+            }
+        }
+
         this.checkEquals(
                 result,
                 function.apply(parameters, context),

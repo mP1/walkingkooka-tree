@@ -20,12 +20,19 @@ package walkingkooka.tree.expression.function;
 import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.collect.list.Lists;
+import walkingkooka.collect.set.Sets;
 import walkingkooka.reflect.ClassTesting;
 import walkingkooka.reflect.JavaVisibility;
+import walkingkooka.tree.expression.Expression;
+import walkingkooka.tree.expression.ExpressionReference;
 
 import java.time.LocalDate;
+import java.util.EnumSet;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
+
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class ExpressionFunctionTestingTest implements ClassTesting<ExpressionFunctionTesting<?, ?, ?>> {
 
@@ -38,7 +45,7 @@ public final class ExpressionFunctionTestingTest implements ClassTesting<Express
 
         @Override
         public ExpressionFunction<Object, ExpressionFunctionContext> createBiFunction() {
-            return stringConcatParameters();
+            return ExpressionFunctionTestingTest.this.stringConcatParameters();
         }
 
         @Override
@@ -46,6 +53,105 @@ public final class ExpressionFunctionTestingTest implements ClassTesting<Express
             return ExpressionFunctionTestingTest.this.createContext();
         }
     };
+
+    private final static ExpressionReference REFERENCE = new ExpressionReference() {
+        @Override
+        public String toString() {
+            return "ExpressionReference123";
+        }
+    };
+
+    // applyAndCheck kind/parameter checks.............................................................................
+
+    @Test
+    public void testApplyEvaluateExpressionParameterExpressionFails() {
+        this.applyFails(
+                EnumSet.of(ExpressionFunctionKind.EVALUATE_PARAMETERS),
+                Lists.of(
+                        Expression.value(1)
+                ),
+                "Should not include parameter(s) of type walkingkooka.tree.expression.Expression ==> expected: <[]> but was: <[1]>"
+        );
+    }
+
+    @Test
+    public void testApplyFlattenParameterListFails() {
+        this.applyFails(
+                EnumSet.of(ExpressionFunctionKind.FLATTEN),
+                Lists.of(
+                        Lists.empty()
+                ),
+                "Should not include parameter(s) of type java.util.List ==> expected: <[]> but was: <[[]]>"
+        );
+    }
+
+    @Test
+    public void testApplyResolveReferenceParameterReferenceFails() {
+        this.applyFails(
+                EnumSet.of(ExpressionFunctionKind.RESOLVE_REFERENCES),
+                Lists.of(
+                        REFERENCE
+                ),
+                "Should not include parameter(s) of type walkingkooka.tree.expression.ExpressionReference ==> expected: <[]> but was: <[ExpressionReference123]>"
+        );
+    }
+
+    private void applyFails(final Set<ExpressionFunctionKind> kinds,
+                            final List<Object> parameters,
+                            final String message) {
+        final AssertionError thrown = assertThrows(
+                AssertionError.class,
+                () -> TESTING.applyAndCheck2(
+                        new FakeExpressionFunction<>() {
+                            @Override
+                            public Set<ExpressionFunctionKind> kinds() {
+                                return kinds;
+                            }
+                        },
+                        parameters,
+                        ExpressionFunctionContexts.fake()
+                )
+        );
+        this.checkEquals(
+                message,
+                thrown.getMessage(),
+                kinds + " " + parameters
+        );
+    }
+
+    @Test
+    public void testApplyAndCheckWithExpressionParameter() {
+        TESTING.applyAndCheck2(
+                this.stringConcatParameters(),
+                Lists.of(
+                        Expression.value(1)
+                ),
+                "1"
+        );
+    }
+
+    @Test
+    public void testApplyAndCheckWithListParameter() {
+        TESTING.applyAndCheck2(
+                this.stringConcatParameters(),
+                Lists.of(
+                        Lists.empty()
+                ),
+                "[]"
+        );
+    }
+
+    @Test
+    public void testApplyAndCheckWithExpressionReferenceParameter() {
+        TESTING.applyAndCheck2(
+                this.stringConcatParameters(),
+                Lists.of(
+                        REFERENCE
+                ),
+                REFERENCE.toString()
+        );
+    }
+
 
     // applyAndCheck....................................................................................................
 
@@ -110,6 +216,11 @@ public final class ExpressionFunctionTestingTest implements ClassTesting<Express
                 return objects.stream()
                         .map(Object::toString)
                         .collect(Collectors.joining());
+            }
+
+            @Override
+            public Set<ExpressionFunctionKind> kinds() {
+                return Sets.empty();
             }
         };
     }
