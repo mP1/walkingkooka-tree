@@ -68,15 +68,15 @@ final class ExpressionEvaluationContextPrepareParametersListNonFlattened extends
         final ExpressionFunction<?, ExpressionFunctionContext> function = this.function;
         final ExpressionEvaluationContext context = this.context;
 
-        final Object prepared = prepareParameter(
-                this.parametersList.get(index),
-                function,
-                context
-        );
-
         Object result;
 
         try {
+            final Object prepared = prepareParameter(
+                    this.parametersList.get(index),
+                    function,
+                    context
+            );
+
             result = context.prepareParameter(
                     function.parameter(index),
                     prepared
