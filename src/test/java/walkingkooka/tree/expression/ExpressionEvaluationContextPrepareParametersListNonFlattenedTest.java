@@ -22,13 +22,17 @@ import walkingkooka.Cast;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.tree.expression.function.ExpressionFunctionKind;
 import walkingkooka.tree.expression.function.ExpressionFunctionParameter;
+import walkingkooka.tree.expression.function.ExpressionFunctionParameterName;
 
 import java.util.List;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class ExpressionEvaluationContextPrepareParametersListNonFlattenedTest extends ExpressionEvaluationContextPrepareParametersListTestCase<ExpressionEvaluationContextPrepareParametersListNonFlattened> {
+
+    private final static ExpressionNumberKind KIND = ExpressionNumberKind.DOUBLE;
 
     @Test
     public void testSize() {
@@ -398,6 +402,91 @@ public final class ExpressionEvaluationContextPrepareParametersListNonFlattenedT
         this.getAndCheck(list, 0, 111);
         this.getAndCheck(list, 1, 222);
         this.getAndCheck(list, 1, 222);
+    }
+
+    @Test
+    public void testGetFailedExpressionEvaluationExceptionTranslated() {
+        final ExpressionEvaluationContextPrepareParametersListNonFlattened list = Cast.to(
+                ExpressionEvaluationContextPrepareParametersList.with(
+                        Lists.of(
+                                Expression.divide(
+                                        Expression.value(KIND.one()),
+                                        Expression.value(KIND.zero())
+                                )
+                        ),
+                        function(
+                                Lists.of(
+                                        ExpressionFunctionParameterName.with("expression")
+                                                .variable(Object.class)
+                                ),
+                                ExpressionFunctionKind.EVALUATE_PARAMETERS
+                        ),
+                        new FakeExpressionEvaluationContext() {
+
+                            @Override
+                            public <T> T convertOrFail(final Object value,
+                                                       final Class<T> target) {
+                                return target.cast(value);
+                            }
+
+                            @Override
+                            public <T> T prepareParameter(final ExpressionFunctionParameter<T> parameter,
+                                                          final Object value) {
+                                return Cast.to(value);
+                            }
+
+                            @Override
+                            public Object handleException(final RuntimeException exception) {
+                                return "@@@" + exception.getMessage();
+                            }
+                        }
+                )
+        );
+
+        this.getAndCheck(list, 0, "@@@Division by zero");
+    }
+
+    @Test
+    public void testGetFailedReferenceNotFoundExceptionTranslated() {
+        final ExpressionEvaluationContextPrepareParametersListNonFlattened list = Cast.to(
+                ExpressionEvaluationContextPrepareParametersList.with(
+                        Lists.of(
+                                new ExpressionReference() {
+                                    @Override
+                                    public String toString() {
+                                        return "TestReference";
+                                    }
+                                }
+                        ),
+                        function(
+                                Lists.of(
+                                        ExpressionFunctionParameterName.with("reference")
+                                                .variable(Object.class)
+                                ),
+                                ExpressionFunctionKind.RESOLVE_REFERENCES
+                        ),
+                        new FakeExpressionEvaluationContext() {
+
+                            @Override
+                            public Optional<Object> reference(final ExpressionReference reference) {
+                                return Optional.empty();
+                            }
+
+                            @Override
+                            public <T> T prepareParameter(final ExpressionFunctionParameter<T> parameter,
+                                                          final Object value) {
+                                return Cast.to(value);
+                            }
+
+                            @Override
+                            public Object handleException(final RuntimeException exception) {
+                                return "@@@" + exception.getMessage();
+                            }
+                        }
+                )
+        );
+
+        this.getAndCheck(list, 0, "@@@Reference not found: TestReference");
     }
 
     @Test
