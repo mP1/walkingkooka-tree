@@ -456,7 +456,12 @@ public final class ExpressionNumberKindTest implements ClassTesting<ExpressionNu
                 ExpressionNumberKind.BIG_DECIMAL,
                 text,
                 10,
-                this.createContext(ExpressionNumberKind.BIG_DECIMAL, '*', '!'),
+                this.createContext(
+                        ExpressionNumberKind.BIG_DECIMAL,
+                        '*',
+                        '!',
+                        '@'
+                ),
                 ExpressionNumberKind.BIG_DECIMAL.create(123)
         );
     }
@@ -469,8 +474,49 @@ public final class ExpressionNumberKindTest implements ClassTesting<ExpressionNu
                 ExpressionNumberKind.BIG_DECIMAL,
                 text,
                 10,
-                this.createContext(ExpressionNumberKind.BIG_DECIMAL, '!', '*'),
+                this.createContext(
+                        ExpressionNumberKind.BIG_DECIMAL,
+                        '!',
+                        '*',
+                        '@'
+                ),
                 ExpressionNumberKind.BIG_DECIMAL.create(-123)
+        );
+    }
+
+    @Test
+    public void testParseWithBaseDecimal() {
+        final String text = "123@";
+
+        this.parseWithBaseAndCheck(
+                ExpressionNumberKind.BIG_DECIMAL,
+                text,
+                10,
+                this.createContext(
+                        ExpressionNumberKind.BIG_DECIMAL,
+                        '!',
+                        '*',
+                        '@'
+                ),
+                ExpressionNumberKind.BIG_DECIMAL.create(123)
+        );
+    }
+
+    @Test
+    public void testParseWithBaseDecimalsIgnored() {
+        final String text = "123@678";
+
+        this.parseWithBaseAndCheck(
+                ExpressionNumberKind.BIG_DECIMAL,
+                text,
+                10,
+                this.createContext(
+                        ExpressionNumberKind.BIG_DECIMAL,
+                        '!',
+                        '*',
+                        '@'
+                ),
+                ExpressionNumberKind.BIG_DECIMAL.create(123)
         );
     }
 
@@ -782,14 +828,22 @@ public final class ExpressionNumberKindTest implements ClassTesting<ExpressionNu
         return this.createContext(
                 kind,
                 '+',
-                '-'
+                '-',
+                '.'
         );
     }
 
     private ExpressionNumberContext createContext(final ExpressionNumberKind kind,
                                                   final char plus,
-                                                  final char minus) {
+                                                  final char minus,
+                                                  final char decimalSeparator) {
         return new FakeExpressionNumberContext() {
+
+            @Override
+            public char decimalSeparator() {
+                return decimalSeparator;
+            }
+
             @Override
             public ExpressionNumberKind expressionNumberKind() {
                 return kind;
@@ -800,11 +854,13 @@ public final class ExpressionNumberKindTest implements ClassTesting<ExpressionNu
                 return MathContext.UNLIMITED;
             }
 
-            @Override public char negativeSign() {
+            @Override
+            public char negativeSign() {
                 return minus;
             }
 
-            @Override public char positiveSign() {
+            @Override
+            public char positiveSign() {
                 return plus;
             }
 

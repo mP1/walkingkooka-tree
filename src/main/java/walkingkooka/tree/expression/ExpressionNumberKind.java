@@ -238,11 +238,24 @@ public enum ExpressionNumberKind {
         }
 
         ExpressionNumber value = this.zero();
+        boolean afterDecimal = false;
+
         for (int i = start; i < length; i++) {
             final char c = text.charAt(i);
+            if (context.decimalSeparator() == c) {
+                if (afterDecimal) {
+                    throw new InvalidCharacterException(text, i);
+                }
+                afterDecimal = true;
+                continue;
+            }
             final int charNumericValue = Character.digit(c, base);
             if (-1 == charNumericValue) {
                 throw new InvalidCharacterException(text, i);
+            }
+
+            if (afterDecimal) {
+                continue;
             }
 
             value = value.multiply(multiplier, context)
