@@ -46,12 +46,39 @@ public final class ExpressionEvaluationContextPrepareParametersListNonFlattenedT
         final ExpressionEvaluationContextPrepareParametersListNonFlattened list = Cast.to(
                 ExpressionEvaluationContextPrepareParametersList.with(
                         parameters,
-                        this.function(),
+                        this.function(
+                                ExpressionFunctionKind.CONVERT_PARAMETERS
+                        ),
                         CONTEXT
                 )
         );
 
         this.sizeAndCheck(list, 2);
+    }
+
+    @Test
+    public void testNotConverted() {
+        final Object element1 = 111;
+        final Object element2 = "222";
+
+        final List<Object> parameters = Lists.of(
+                element1,
+                element2
+        );
+        final ExpressionEvaluationContextPrepareParametersListNonFlattened list = Cast.to(
+                ExpressionEvaluationContextPrepareParametersList.with(
+                        parameters,
+                        this.function(),
+                        ExpressionEvaluationContexts.fake()
+                )
+        );
+
+        this.sizeAndCheck(list, 2);
+        this.getAndCheck(list, 0, element1);
+        this.getAndCheck(list, 1, element2);
+
+        this.getAndCheck(list, 0, element1);
+        this.getAndCheck(list, 1, element2);
     }
 
     @Test
@@ -66,7 +93,9 @@ public final class ExpressionEvaluationContextPrepareParametersListNonFlattenedT
         final ExpressionEvaluationContextPrepareParametersListNonFlattened list = Cast.to(
                 ExpressionEvaluationContextPrepareParametersList.with(
                         parameters,
-                        this.function(),
+                        this.function(
+                                ExpressionFunctionKind.CONVERT_PARAMETERS
+                        ),
                         CONTEXT
                 )
         );
@@ -87,7 +116,9 @@ public final class ExpressionEvaluationContextPrepareParametersListNonFlattenedT
         );
         final ExpressionEvaluationContextPrepareParametersListNonFlattened list = Cast.to(ExpressionEvaluationContextPrepareParametersList.with(
                         parameters,
-                        this.function(),
+                        this.function(
+                                ExpressionFunctionKind.CONVERT_PARAMETERS
+                        ),
                         CONTEXT
                 )
         );
@@ -109,7 +140,10 @@ public final class ExpressionEvaluationContextPrepareParametersListNonFlattenedT
         final ExpressionEvaluationContextPrepareParametersListNonFlattened list = Cast.to(
                 ExpressionEvaluationContextPrepareParametersList.with(
                         parameters,
-                        this.function(ExpressionFunctionKind.EVALUATE_PARAMETERS),
+                        this.function(
+                                ExpressionFunctionKind.CONVERT_PARAMETERS,
+                                ExpressionFunctionKind.EVALUATE_PARAMETERS
+                        ),
                         CONTEXT
                 )
         );
@@ -131,7 +165,10 @@ public final class ExpressionEvaluationContextPrepareParametersListNonFlattenedT
         final ExpressionEvaluationContextPrepareParametersListNonFlattened list = Cast.to(
                 ExpressionEvaluationContextPrepareParametersList.with(
                         parameters,
-                        this.function(ExpressionFunctionKind.EVALUATE_PARAMETERS),
+                        this.function(
+                                ExpressionFunctionKind.CONVERT_PARAMETERS,
+                                ExpressionFunctionKind.EVALUATE_PARAMETERS
+                        ),
                         CONTEXT
                 )
         );
@@ -153,7 +190,10 @@ public final class ExpressionEvaluationContextPrepareParametersListNonFlattenedT
         final ExpressionEvaluationContextPrepareParametersListNonFlattened list = Cast.to(
                 ExpressionEvaluationContextPrepareParametersList.with(
                         parameters,
-                        this.function(ExpressionFunctionKind.EVALUATE_PARAMETERS),
+                        this.function(
+                                ExpressionFunctionKind.CONVERT_PARAMETERS,
+                                ExpressionFunctionKind.EVALUATE_PARAMETERS
+                        ),
                         CONTEXT
                 )
         );
@@ -175,7 +215,10 @@ public final class ExpressionEvaluationContextPrepareParametersListNonFlattenedT
         final ExpressionEvaluationContextPrepareParametersListNonFlattened list = Cast.to(
                 ExpressionEvaluationContextPrepareParametersList.with(
                         parameters,
-                        this.function(ExpressionFunctionKind.EVALUATE_PARAMETERS),
+                        this.function(
+                                ExpressionFunctionKind.CONVERT_PARAMETERS,
+                                ExpressionFunctionKind.EVALUATE_PARAMETERS
+                        ),
                         CONTEXT
                 )
         );
@@ -201,7 +244,10 @@ public final class ExpressionEvaluationContextPrepareParametersListNonFlattenedT
         final ExpressionEvaluationContextPrepareParametersListNonFlattened list = Cast.to(
                 ExpressionEvaluationContextPrepareParametersList.with(
                         parameters,
-                        this.function(ExpressionFunctionKind.RESOLVE_REFERENCES),
+                        this.function(
+                                ExpressionFunctionKind.CONVERT_PARAMETERS,
+                                ExpressionFunctionKind.RESOLVE_REFERENCES
+                        ),
                         new FakeExpressionEvaluationContext() {
 
                             @Override
@@ -237,7 +283,10 @@ public final class ExpressionEvaluationContextPrepareParametersListNonFlattenedT
         final ExpressionEvaluationContextPrepareParametersListNonFlattened list = Cast.to(
                 ExpressionEvaluationContextPrepareParametersList.with(
                         parameters,
-                        this.function(ExpressionFunctionKind.RESOLVE_REFERENCES),
+                        this.function(
+                                ExpressionFunctionKind.CONVERT_PARAMETERS,
+                                ExpressionFunctionKind.RESOLVE_REFERENCES
+                        ),
                         new FakeExpressionEvaluationContext() {
 
                             @Override
@@ -246,8 +295,8 @@ public final class ExpressionEvaluationContextPrepareParametersListNonFlattenedT
                                 return Cast.to(value);
                             }
 
-                    @Override
-                    public Expression referenceOrFail(final ExpressionReference r) {
+                            @Override
+                            public Expression referenceOrFail(final ExpressionReference r) {
                         if (this.invoked) {
                             throw new IllegalStateException("Value must not have been cached");
                         }
@@ -283,6 +332,7 @@ public final class ExpressionEvaluationContextPrepareParametersListNonFlattenedT
                 ExpressionEvaluationContextPrepareParametersList.with(
                         parameters,
                         this.function(
+                                ExpressionFunctionKind.CONVERT_PARAMETERS,
                                 ExpressionFunctionKind.EVALUATE_PARAMETERS,
                                 ExpressionFunctionKind.RESOLVE_REFERENCES
                         ),
@@ -291,15 +341,15 @@ public final class ExpressionEvaluationContextPrepareParametersListNonFlattenedT
                             @Override
                             public <T> T prepareParameter(final ExpressionFunctionParameter<T> parameter,
                                                           final Object value) {
-                        return Cast.to(value);
-                    }
+                                return Cast.to(value);
+                            }
 
-                    @Override
-                    public Expression referenceOrFail(final ExpressionReference r) {
-                        assertSame(REFERENCE, r);
-                        return value1;
-                    }
-                }
+                            @Override
+                            public Expression referenceOrFail(final ExpressionReference r) {
+                                assertSame(REFERENCE, r);
+                                return value1;
+                            }
+                        }
                 )
         );
 
@@ -322,6 +372,7 @@ public final class ExpressionEvaluationContextPrepareParametersListNonFlattenedT
                 ExpressionEvaluationContextPrepareParametersList.with(
                         parameters,
                         this.function(
+                                ExpressionFunctionKind.CONVERT_PARAMETERS,
                                 ExpressionFunctionKind.EVALUATE_PARAMETERS,
                                 ExpressionFunctionKind.RESOLVE_REFERENCES
                         ),
@@ -330,15 +381,15 @@ public final class ExpressionEvaluationContextPrepareParametersListNonFlattenedT
                             @Override
                             public <T> T prepareParameter(final ExpressionFunctionParameter<T> parameter,
                                                           final Object value) {
-                        return Cast.to(value);
-                    }
+                                return Cast.to(value);
+                            }
 
-                    @Override
-                    public Expression referenceOrFail(final ExpressionReference r) {
-                        assertSame(REFERENCE, r);
-                        return value1;
-                    }
-                }
+                            @Override
+                            public Expression referenceOrFail(final ExpressionReference r) {
+                                assertSame(REFERENCE, r);
+                                return value1;
+                            }
+                        }
                 )
         );
 
@@ -351,7 +402,7 @@ public final class ExpressionEvaluationContextPrepareParametersListNonFlattenedT
     }
 
     @Test
-    public void testParameterValueConverted() {
+    public void testParameterValueNotConverted() {
         final List<Object> parameters = Lists.of(
                 "111",
                 "222"
@@ -360,6 +411,27 @@ public final class ExpressionEvaluationContextPrepareParametersListNonFlattenedT
                 ExpressionEvaluationContextPrepareParametersList.with(
                         parameters,
                         this.function(),
+                        ExpressionEvaluationContexts.fake()
+                )
+        );
+
+        this.sizeAndCheck(list, 2);
+        this.getAndCheck(list, 0, "111");
+        this.getAndCheck(list, 1, "222");
+    }
+
+    @Test
+    public void testParameterValueConverted() {
+        final List<Object> parameters = Lists.of(
+                "111",
+                "222"
+        );
+        final ExpressionEvaluationContextPrepareParametersListNonFlattened list = Cast.to(
+                ExpressionEvaluationContextPrepareParametersList.with(
+                        parameters,
+                        this.function(
+                                ExpressionFunctionKind.CONVERT_PARAMETERS
+                        ),
                         new FakeExpressionEvaluationContext() {
 
                             @Override
@@ -385,7 +457,9 @@ public final class ExpressionEvaluationContextPrepareParametersListNonFlattenedT
         final ExpressionEvaluationContextPrepareParametersListNonFlattened list = Cast.to(
                 ExpressionEvaluationContextPrepareParametersList.with(
                         parameters,
-                        this.function(),
+                        this.function(
+                                ExpressionFunctionKind.CONVERT_PARAMETERS
+                        ),
                         new FakeExpressionEvaluationContext() {
 
                             @Override
@@ -419,6 +493,7 @@ public final class ExpressionEvaluationContextPrepareParametersListNonFlattenedT
                                         ExpressionFunctionParameterName.with("expression")
                                                 .variable(Object.class)
                                 ),
+                                ExpressionFunctionKind.CONVERT_PARAMETERS,
                                 ExpressionFunctionKind.EVALUATE_PARAMETERS
                         ),
                         new FakeExpressionEvaluationContext() {
@@ -463,6 +538,7 @@ public final class ExpressionEvaluationContextPrepareParametersListNonFlattenedT
                                         ExpressionFunctionParameterName.with("reference")
                                                 .variable(Object.class)
                                 ),
+                                ExpressionFunctionKind.CONVERT_PARAMETERS,
                                 ExpressionFunctionKind.RESOLVE_REFERENCES
                         ),
                         new FakeExpressionEvaluationContext() {
@@ -499,6 +575,7 @@ public final class ExpressionEvaluationContextPrepareParametersListNonFlattenedT
                         ),
                         function(
                                 Lists.of(VARIABLE),
+                                ExpressionFunctionKind.CONVERT_PARAMETERS,
                                 ExpressionFunctionKind.EVALUATE_PARAMETERS,
                                 ExpressionFunctionKind.RESOLVE_REFERENCES
                         ),
@@ -521,6 +598,7 @@ public final class ExpressionEvaluationContextPrepareParametersListNonFlattenedT
                         ),
                         function(
                                 Lists.of(VARIABLE),
+                                ExpressionFunctionKind.CONVERT_PARAMETERS,
                                 ExpressionFunctionKind.EVALUATE_PARAMETERS,
                                 ExpressionFunctionKind.RESOLVE_REFERENCES
                         ),

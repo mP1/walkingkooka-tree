@@ -103,7 +103,11 @@ abstract class ExpressionEvaluationContextPrepareParametersList extends Abstract
                                                      final ExpressionFunction<?, ExpressionFunctionContext> function,
                                                      final ExpressionEvaluationContext context) {
         this.parametersList = parameters;
+
         this.function = function;
+        this.convert = function.kinds()
+                .contains(ExpressionFunctionKind.CONVERT_PARAMETERS);
+
         this.context = context;
 
         this.parameters = new Object[parameters.size()];
@@ -124,6 +128,11 @@ abstract class ExpressionEvaluationContextPrepareParametersList extends Abstract
     }
 
     abstract Object prepareAndConvert(final int index);
+
+    /**
+     * A flag will be true when the {@link ExpressionFunctionKind#CONVERT_PARAMETERS} is present.
+     */
+    boolean convert;
 
     /**
      * The function these parameters belong too. The function will provide numerous parameters about how to with the
