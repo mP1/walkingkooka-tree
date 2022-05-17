@@ -131,10 +131,14 @@ final class ExpressionEvaluationContextPrepareParametersListFlattened extends Ex
 
         Object result;
         try {
-            result = context.prepareParameter(
-                    this.function.parameter(index),
-                    this.parametersList.get(index)
-            );
+            final Object value = this.parametersList.get(index);
+
+            result = this.convert ?
+                    context.prepareParameter(
+                            this.function.parameter(index),
+                            value
+                    ) :
+                    value;
         } catch (final RuntimeException cause) {
             result = context.handleException(cause);
         }
