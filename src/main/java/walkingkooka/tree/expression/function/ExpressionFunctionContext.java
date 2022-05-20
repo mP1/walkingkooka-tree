@@ -19,10 +19,7 @@ package walkingkooka.tree.expression.function;
 
 import walkingkooka.Context;
 import walkingkooka.collect.list.Lists;
-import walkingkooka.convert.CanConvert;
-import walkingkooka.datetime.YearContext;
-import walkingkooka.locale.HasLocale;
-import walkingkooka.math.HasMathContext;
+import walkingkooka.convert.ConverterContext;
 import walkingkooka.text.CaseSensitivity;
 import walkingkooka.tree.expression.Expression;
 import walkingkooka.tree.expression.ExpressionEvaluationException;
@@ -38,11 +35,8 @@ import java.util.Optional;
  * Context that accompanies a {@link ExpressionFunction}.
  */
 public interface ExpressionFunctionContext extends Context,
-        CanConvert,
-        ExpressionNumberContext,
-        HasLocale,
-        HasMathContext,
-        YearContext {
+        ConverterContext,
+        ExpressionNumberContext {
 
     /**
      * Returns the {@link ExpressionFunction} with the given {@link FunctionExpressionName}.
