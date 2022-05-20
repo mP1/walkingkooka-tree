@@ -106,9 +106,26 @@ final class BasicExpressionEvaluationContext implements ExpressionEvaluationCont
         return this.functionContext.expressionNumberKind();
     }
 
+    // DateTimeContext.................................................................................................
+
+    @Override
+    public List<String> ampms() {
+        return this.functionContext.ampms();
+    }
+
     @Override
     public int defaultYear() {
         return this.functionContext.defaultYear();
+    }
+
+    @Override
+    public List<String> monthNames() {
+        return this.functionContext.monthNames();
+    }
+
+    @Override
+    public List<String> monthNameAbbreviations() {
+        return this.functionContext.monthNameAbbreviations();
     }
 
     @Override
@@ -120,6 +137,18 @@ final class BasicExpressionEvaluationContext implements ExpressionEvaluationCont
     public int twoDigitYear() {
         return this.functionContext.twoDigitYear();
     }
+
+    @Override
+    public List<String> weekDayNames() {
+        return this.functionContext.weekDayNames();
+    }
+
+    @Override
+    public List<String> weekDayNameAbbreviations() {
+        return this.functionContext.weekDayNameAbbreviations();
+    }
+
+    // functions........................................................................................................
 
     @Override
     public ExpressionFunction<?, ExpressionFunctionContext> function(final FunctionExpressionName name) {

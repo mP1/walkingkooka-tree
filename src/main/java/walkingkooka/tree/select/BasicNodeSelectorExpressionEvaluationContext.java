@@ -91,25 +91,7 @@ final class BasicNodeSelectorExpressionEvaluationContext<N extends Node<N, NAME,
 
     private final N node;
 
-    @Override
-    public int defaultYear() {
-        return this.context.defaultYear();
-    }
-
-    @Override
-    public ExpressionNumberKind expressionNumberKind() {
-        return this.context.expressionNumberKind();
-    }
-
-    @Override
-    public int twoToFourDigitYear(final int year) {
-        return this.context.twoToFourDigitYear(year);
-    }
-
-    @Override
-    public int twoDigitYear() {
-        return this.context.twoDigitYear();
-    }
+    // function.........................................................................................................
 
     @Override
     public ExpressionFunction<?, ExpressionFunctionContext> function(final FunctionExpressionName name) {
@@ -194,6 +176,48 @@ final class BasicNodeSelectorExpressionEvaluationContext<N extends Node<N, NAME,
         return this.context.convert(value, type);
     }
 
+    // DateTimeContext.................................................................................................
+
+    @Override
+    public List<String> ampms() {
+        return this.context.ampms();
+    }
+
+    @Override
+    public int defaultYear() {
+        return this.context.defaultYear();
+    }
+
+    @Override
+    public List<String> monthNames() {
+        return this.context.monthNames();
+    }
+
+    @Override
+    public List<String> monthNameAbbreviations() {
+        return this.context.monthNameAbbreviations();
+    }
+
+    @Override
+    public int twoToFourDigitYear(final int year) {
+        return this.context.twoToFourDigitYear(year);
+    }
+
+    @Override
+    public int twoDigitYear() {
+        return this.context.twoDigitYear();
+    }
+
+    @Override
+    public List<String> weekDayNames() {
+        return this.context.weekDayNames();
+    }
+
+    @Override
+    public List<String> weekDayNameAbbreviations() {
+        return this.context.weekDayNameAbbreviations();
+    }
+
     // DecimalNumberContext............................................................................................
 
     @Override
@@ -209,6 +233,11 @@ final class BasicNodeSelectorExpressionEvaluationContext<N extends Node<N, NAME,
     @Override
     public String exponentSymbol() {
         return this.context.exponentSymbol();
+    }
+
+    @Override
+    public ExpressionNumberKind expressionNumberKind() {
+        return this.context.expressionNumberKind();
     }
 
     @Override

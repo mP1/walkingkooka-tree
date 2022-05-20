@@ -159,9 +159,26 @@ final class BasicExpressionFunctionContext implements ExpressionFunctionContext 
 
     private final ExpressionNumberKind expressionNumberKind;
 
+    // DateTimeContext.................................................................................................
+
+    @Override
+    public List<String> ampms() {
+        return this.converterContext.ampms();
+    }
+
     @Override
     public int defaultYear() {
         return this.converterContext.defaultYear();
+    }
+
+    @Override
+    public List<String> monthNames() {
+        return this.converterContext.monthNames();
+    }
+
+    @Override
+    public List<String> monthNameAbbreviations() {
+        return this.converterContext.monthNameAbbreviations();
     }
 
     @Override
@@ -173,6 +190,18 @@ final class BasicExpressionFunctionContext implements ExpressionFunctionContext 
     public int twoDigitYear() {
         return this.converterContext.twoDigitYear();
     }
+
+    @Override
+    public List<String> weekDayNames() {
+        return this.converterContext.weekDayNames();
+    }
+
+    @Override
+    public List<String> weekDayNameAbbreviations() {
+        return this.converterContext.weekDayNameAbbreviations();
+    }
+
+    // functions........................................................................................................
 
     @Override
     public ExpressionFunction<?, ExpressionFunctionContext> function(final FunctionExpressionName name) {
