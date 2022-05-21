@@ -24,11 +24,14 @@ import walkingkooka.tree.expression.ExpressionEvaluationContext;
 /**
  * A {@link ExpressionEvaluationContext} that adds a getter to retrieve the current {@link Node}.
  */
-public interface NodeSelectorExpressionEvaluationContext <N extends Node<N, NAME, ANAME, AVALUE>,
+public interface NodeSelectorExpressionEvaluationContext<N extends Node<N, NAME, ANAME, AVALUE>,
         NAME extends Name,
         ANAME extends Name,
         AVALUE>
-        extends ExpressionEvaluationContext, NodeSelectorExpressionFunctionContext<N, NAME, ANAME, AVALUE> {
+        extends ExpressionEvaluationContext {
 
+    /**
+     * Returns the current {@link Node}.
+     */
     N node();
 }

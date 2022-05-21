@@ -18,7 +18,10 @@
 package walkingkooka.tree.expression.function;
 
 import walkingkooka.Cast;
+import walkingkooka.Context;
+import walkingkooka.convert.ConverterContext;
 import walkingkooka.tree.Node;
+import walkingkooka.tree.expression.ExpressionNumberContext;
 import walkingkooka.tree.expression.ExpressionPurityContext;
 import walkingkooka.tree.expression.FunctionExpressionName;
 
@@ -29,12 +32,12 @@ import java.util.Set;
 /**
  * A non standard function that returns {@link Node#name()}. It assumes the {@link Node} is the first parameter.
  */
-final class NodeNameExpressionFunction<C extends ExpressionFunctionContext> implements ExpressionFunction<String, C> {
+final class NodeNameExpressionFunction<C extends Context & ConverterContext & ExpressionNumberContext> implements ExpressionFunction<String, C> {
 
     /**
      * Instance getter.
      */
-    static <C extends ExpressionFunctionContext> NodeNameExpressionFunction<C> instance() {
+    static <C extends Context & ConverterContext & ExpressionNumberContext> NodeNameExpressionFunction<C> instance() {
         return Cast.to(INSTANCE);
     }
 

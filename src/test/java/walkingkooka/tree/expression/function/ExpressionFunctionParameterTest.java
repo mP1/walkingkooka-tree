@@ -26,7 +26,10 @@ import walkingkooka.ToStringTesting;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.set.Sets;
 import walkingkooka.reflect.ConstantsTesting;
+import walkingkooka.tree.expression.ExpressionEvaluationContext;
+import walkingkooka.tree.expression.ExpressionEvaluationContexts;
 import walkingkooka.tree.expression.ExpressionReference;
+import walkingkooka.tree.expression.FakeExpressionEvaluationContext;
 
 import java.util.EnumSet;
 import java.util.List;
@@ -481,7 +484,7 @@ public final class ExpressionFunctionParameterTest implements HashCodeEqualsDefi
                                 return this.kinds().toString();
                             }
                         },
-                        new FakeExpressionFunctionContext() {
+                        new FakeExpressionEvaluationContext() {
                             @Override
                             public Object referenceOrFail(final ExpressionReference reference) {
                                 final TestExpressionReference testExpressionReference = (TestExpressionReference) reference;
@@ -505,7 +508,7 @@ public final class ExpressionFunctionParameterTest implements HashCodeEqualsDefi
                             Cast.to(List.class),
                             ExpressionFunctionParameter.NO_TYPE_PARAMETERS,
                             CARDINALITY
-                    ).convertOrFail(Lists.empty(), ExpressionFunctionContexts.fake());
+                    ).convertOrFail(Lists.empty(), ExpressionEvaluationContexts.fake());
                 }
         );
     }
@@ -523,7 +526,7 @@ public final class ExpressionFunctionParameterTest implements HashCodeEqualsDefi
                 12,
                 parameter.convertOrFail(
                         "12",
-                        this.expressionFunctionContext()
+                        this.ExpressionEvaluationContext()
                 )
         );
     }
@@ -541,13 +544,13 @@ public final class ExpressionFunctionParameterTest implements HashCodeEqualsDefi
                 List.of(12, 34, 56),
                 parameter.convertOrFail(
                         Lists.of("12", "34", "56"),
-                        this.expressionFunctionContext()
+                        this.ExpressionEvaluationContext()
                 )
         );
     }
 
-    private ExpressionFunctionContext expressionFunctionContext() {
-        return new FakeExpressionFunctionContext() {
+    private ExpressionEvaluationContext ExpressionEvaluationContext() {
+        return new FakeExpressionEvaluationContext() {
             @Override
             public <T> Either<T, String> convert(final Object value,
                                                  final Class<T> target) {

@@ -17,6 +17,9 @@
 
 package walkingkooka.tree.expression.function;
 
+import walkingkooka.Context;
+import walkingkooka.convert.ConverterContext;
+import walkingkooka.tree.expression.ExpressionNumberContext;
 import walkingkooka.tree.expression.ExpressionPurityContext;
 import walkingkooka.tree.expression.FunctionExpressionName;
 
@@ -28,10 +31,10 @@ import java.util.function.BiFunction;
 /**
  * Wraps an {@link ExpressionFunction} and applies a {@link java.util.function.Function} on the paraneters before calling the wrapped.
  */
-final class ParametersMapperExpressionFunction<T, C extends ExpressionFunctionContext> implements ExpressionFunction<T, C> {
+final class ParametersMapperExpressionFunction<T, C extends Context & ConverterContext & ExpressionNumberContext> implements ExpressionFunction<T, C> {
 
-    static <T, C extends ExpressionFunctionContext> ParametersMapperExpressionFunction<T, C> with(final BiFunction<List<Object>, C, List<Object>> mapper,
-                                                                                                  final ExpressionFunction<T, C> function) {
+    static <T, C extends Context & ConverterContext & ExpressionNumberContext> ParametersMapperExpressionFunction<T, C> with(final BiFunction<List<Object>, C, List<Object>> mapper,
+                                                                                                                             final ExpressionFunction<T, C> function) {
         Objects.requireNonNull(mapper, "mapper");
         Objects.requireNonNull(function, "function");
 

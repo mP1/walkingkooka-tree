@@ -21,7 +21,6 @@ import walkingkooka.Either;
 import walkingkooka.collect.set.Sets;
 import walkingkooka.text.CaseSensitivity;
 import walkingkooka.tree.expression.function.ExpressionFunction;
-import walkingkooka.tree.expression.function.ExpressionFunctionContext;
 import walkingkooka.tree.expression.function.ExpressionFunctionParameter;
 
 import java.math.MathContext;
@@ -61,7 +60,7 @@ final class CycleDetectingExpressionEvaluationContext implements ExpressionEvalu
     }
 
     @Override
-    public ExpressionFunction<?, ExpressionFunctionContext> function(final FunctionExpressionName name) {
+    public ExpressionFunction<?, ExpressionEvaluationContext> function(final FunctionExpressionName name) {
         return this.context.function(name);
     }
 

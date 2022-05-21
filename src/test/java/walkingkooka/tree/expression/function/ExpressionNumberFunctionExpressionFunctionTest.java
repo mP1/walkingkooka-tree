@@ -25,6 +25,7 @@ import walkingkooka.tree.expression.ExpressionNumber;
 import walkingkooka.tree.expression.ExpressionNumberFunction;
 import walkingkooka.tree.expression.ExpressionNumberKind;
 import walkingkooka.tree.expression.ExpressionPurityTesting;
+import walkingkooka.tree.expression.FakeExpressionEvaluationContext;
 import walkingkooka.tree.expression.FakeExpressionNumberFunction;
 import walkingkooka.tree.expression.FunctionExpressionName;
 
@@ -34,9 +35,9 @@ import java.math.RoundingMode;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class ExpressionNumberFunctionExpressionFunctionTest implements ExpressionFunctionTesting<ExpressionNumberFunctionExpressionFunction<FakeExpressionFunctionContext>, ExpressionNumber, FakeExpressionFunctionContext>,
+public final class ExpressionNumberFunctionExpressionFunctionTest implements ExpressionFunctionTesting<ExpressionNumberFunctionExpressionFunction<FakeExpressionEvaluationContext>, ExpressionNumber, FakeExpressionEvaluationContext>,
         ExpressionPurityTesting,
-        ToStringTesting<ExpressionNumberFunctionExpressionFunction<FakeExpressionFunctionContext>> {
+        ToStringTesting<ExpressionNumberFunctionExpressionFunction<FakeExpressionEvaluationContext>> {
 
     private final static FunctionExpressionName NAME = FunctionExpressionName.with("test");
 
@@ -130,7 +131,7 @@ public final class ExpressionNumberFunctionExpressionFunctionTest implements Exp
     }
 
     @Override
-    public ExpressionNumberFunctionExpressionFunction<FakeExpressionFunctionContext> createBiFunction() {
+    public ExpressionNumberFunctionExpressionFunction<FakeExpressionEvaluationContext> createBiFunction() {
         return ExpressionNumberFunctionExpressionFunction.with(
                 NAME,
                 FUNCTION
@@ -138,8 +139,8 @@ public final class ExpressionNumberFunctionExpressionFunctionTest implements Exp
     }
 
     @Override
-    public FakeExpressionFunctionContext createContext() {
-        return new FakeExpressionFunctionContext() {
+    public FakeExpressionEvaluationContext createContext() {
+        return new FakeExpressionEvaluationContext() {
             @Override
             public MathContext mathContext() {
                 return new MathContext(32, RoundingMode.HALF_UP);
@@ -148,7 +149,7 @@ public final class ExpressionNumberFunctionExpressionFunctionTest implements Exp
     }
 
     @Override
-    public Class<ExpressionNumberFunctionExpressionFunction<FakeExpressionFunctionContext>> type() {
+    public Class<ExpressionNumberFunctionExpressionFunction<FakeExpressionEvaluationContext>> type() {
         return Cast.to(ExpressionNumberFunctionExpressionFunction.class);
     }
 }

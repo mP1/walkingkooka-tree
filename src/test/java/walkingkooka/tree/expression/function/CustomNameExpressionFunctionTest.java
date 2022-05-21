@@ -20,6 +20,7 @@ package walkingkooka.tree.expression.function;
 import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.collect.list.Lists;
+import walkingkooka.tree.expression.ExpressionEvaluationContext;
 import walkingkooka.tree.expression.FunctionExpressionName;
 
 import java.util.List;
@@ -28,7 +29,7 @@ import static org.junit.jupiter.api.Assertions.assertNotSame;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class CustomNameExpressionFunctionTest extends ExpressionFunctionTestCase<CustomNameExpressionFunction<String, ExpressionFunctionContext>, String> {
+public final class CustomNameExpressionFunctionTest extends ExpressionFunctionTestCase<CustomNameExpressionFunction<String, ExpressionEvaluationContext>, String> {
 
     private final static FunctionExpressionName NAME = FunctionExpressionName.with("Custom");
 
@@ -45,22 +46,22 @@ public final class CustomNameExpressionFunctionTest extends ExpressionFunctionTe
     @Test
     public void testApply() {
         final List<Object> parameters = Lists.of(this);
-        final ExpressionFunctionContext context = this.createContext();
+        final ExpressionEvaluationContext context = this.createContext();
         this.applyAndCheck(this.createBiFunction(), parameters, context,
                 this.wrapped().apply(parameters, context));
     }
 
     @Test
     public void testSetNameSame() {
-        final CustomNameExpressionFunction<String, ExpressionFunctionContext> function = this.createBiFunction();
+        final CustomNameExpressionFunction<String, ExpressionEvaluationContext> function = this.createBiFunction();
         assertSame(function, function.setName(NAME));
     }
 
     @Test
     public void testSetNameDifferent() {
-        final CustomNameExpressionFunction<String, ExpressionFunctionContext> function = this.createBiFunction();
+        final CustomNameExpressionFunction<String, ExpressionEvaluationContext> function = this.createBiFunction();
         final FunctionExpressionName different = FunctionExpressionName.with("different");
-        final ExpressionFunction<String, ExpressionFunctionContext> differentFunction = function.setName(different);
+        final ExpressionFunction<String, ExpressionEvaluationContext> differentFunction = function.setName(different);
 
         assertNotSame(function, differentFunction);
         assertSame(different, differentFunction.name());
@@ -75,16 +76,16 @@ public final class CustomNameExpressionFunctionTest extends ExpressionFunctionTe
     }
 
     @Override
-    public CustomNameExpressionFunction<String, ExpressionFunctionContext> createBiFunction() {
+    public CustomNameExpressionFunction<String, ExpressionEvaluationContext> createBiFunction() {
         return Cast.to(CustomNameExpressionFunction.with(wrapped(), NAME));
     }
 
-    private ExpressionFunction<String, ExpressionFunctionContext> wrapped() {
+    private ExpressionFunction<String, ExpressionEvaluationContext> wrapped() {
         return ExpressionFunctions.typeName();
     }
 
     @Override
-    public Class<CustomNameExpressionFunction<String, ExpressionFunctionContext>> type() {
+    public Class<CustomNameExpressionFunction<String, ExpressionEvaluationContext>> type() {
         return Cast.to(CustomNameExpressionFunction.class);
     }
 }

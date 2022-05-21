@@ -37,6 +37,7 @@ import walkingkooka.text.CaseSensitivity;
 import walkingkooka.tree.Node;
 import walkingkooka.tree.TestNode;
 import walkingkooka.tree.expression.Expression;
+import walkingkooka.tree.expression.ExpressionEvaluationContext;
 import walkingkooka.tree.expression.ExpressionEvaluationContexts;
 import walkingkooka.tree.expression.ExpressionNumber;
 import walkingkooka.tree.expression.ExpressionNumberConverterContext;
@@ -45,8 +46,6 @@ import walkingkooka.tree.expression.ExpressionNumberKind;
 import walkingkooka.tree.expression.ExpressionReference;
 import walkingkooka.tree.expression.FunctionExpressionName;
 import walkingkooka.tree.expression.function.ExpressionFunction;
-import walkingkooka.tree.expression.function.ExpressionFunctionContext;
-import walkingkooka.tree.expression.function.ExpressionFunctionContexts;
 
 import java.math.MathContext;
 import java.util.Arrays;
@@ -444,29 +443,24 @@ abstract public class NodeSelectorTestCase4<S extends NodeSelector<TestNode, Str
     }
 
     final Function<NodeSelectorContext<TestNode, StringName, StringName, Object>, NodeSelectorExpressionEvaluationContext<TestNode, StringName, StringName, Object>> nodeSelectorExpressionEvaluationContext() {
-        return (c) -> NodeSelectorExpressionEvaluationContexts.basic(c.node(),
+        return (c) -> NodeSelectorExpressionEvaluationContexts.basic(
+                c.node(),
                 (r) -> ExpressionEvaluationContexts.basic(
-                        this.functionContext()
+                        EXPRESSION_NUMBER_KIND,
+                        this.functions(),
+                        this.exceptionHandler(),
+                        this.references(),
+                        ExpressionEvaluationContexts.referenceNotFound(),
+                        CaseSensitivity.SENSITIVE,
+                        this.converterContext()
                 )
         );
     }
 
-    private Function<FunctionExpressionName, ExpressionFunction<?, ExpressionFunctionContext>> functions() {
+    private Function<FunctionExpressionName, ExpressionFunction<?, ExpressionEvaluationContext>> functions() {
         return (n) -> Cast.to(NodeSelectorContexts.basicFunctions()
                 .apply(n)
                 .orElseThrow(() -> new IllegalArgumentException("Unknown function " + n)));
-    }
-
-    private ExpressionFunctionContext functionContext() {
-        return ExpressionFunctionContexts.basic(
-                EXPRESSION_NUMBER_KIND,
-                this.functions(),
-                this.exceptionHandler(),
-                this.references(),
-                ExpressionFunctionContexts.referenceNotFound(),
-                CaseSensitivity.SENSITIVE,
-                this.converterContext()
-        );
     }
 
     private Function<RuntimeException, Object> exceptionHandler() {

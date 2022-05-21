@@ -23,20 +23,20 @@ import walkingkooka.naming.Name;
 import walkingkooka.tree.Node;
 import walkingkooka.tree.expression.ExpressionPurityContext;
 import walkingkooka.tree.expression.FunctionExpressionName;
-import walkingkooka.tree.select.NodeSelectorExpressionFunctionContext;
+import walkingkooka.tree.select.NodeSelectorExpressionEvaluationContext;
 
 import java.util.EnumSet;
 import java.util.List;
 import java.util.Set;
 
 /**
- * Returns the current {@link Node} which is fetched from {@link NodeSelectorExpressionFunctionContext#node()}
+ * Returns the current {@link Node} which is fetched from {@link NodeSelectorExpressionEvaluationContext#node()}
  */
 final class NodeExpressionFunction<N extends Node<N, NAME, ANAME, AVALUE>,
         NAME extends Name,
         ANAME extends Name,
         AVALUE,
-        C extends NodeSelectorExpressionFunctionContext<N, NAME, ANAME, AVALUE>> implements ExpressionFunction<N, C> {
+        C extends NodeSelectorExpressionEvaluationContext<N, NAME, ANAME, AVALUE>> implements ExpressionFunction<N, C> {
 
     /**
      * Instance getter.
@@ -45,7 +45,7 @@ final class NodeExpressionFunction<N extends Node<N, NAME, ANAME, AVALUE>,
             NAME extends Name,
             ANAME extends Name,
             AVALUE,
-            C extends NodeSelectorExpressionFunctionContext<N, NAME, ANAME, AVALUE>> NodeExpressionFunction<N, NAME, ANAME, AVALUE, C> instance() {
+            C extends NodeSelectorExpressionEvaluationContext<N, NAME, ANAME, AVALUE>> NodeExpressionFunction<N, NAME, ANAME, AVALUE, C> instance() {
         return Cast.to(INSTANCE);
     }
 

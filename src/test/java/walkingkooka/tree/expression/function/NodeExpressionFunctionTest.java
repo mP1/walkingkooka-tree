@@ -23,11 +23,11 @@ import walkingkooka.naming.StringName;
 import walkingkooka.reflect.ClassTesting2;
 import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.tree.TestNode;
-import walkingkooka.tree.select.FakeNodeSelectorExpressionFunctionContext;
-import walkingkooka.tree.select.NodeSelectorExpressionFunctionContext;
+import walkingkooka.tree.select.FakeNodeSelectorExpressionEvaluationContext;
+import walkingkooka.tree.select.NodeSelectorExpressionEvaluationContext;
 
-public final class NodeExpressionFunctionTest implements ClassTesting2<NodeExpressionFunction<TestNode, StringName, StringName, Object, NodeSelectorExpressionFunctionContext<TestNode, StringName, StringName, Object>>>,
-        ExpressionFunctionTesting<NodeExpressionFunction<TestNode, StringName, StringName, Object, NodeSelectorExpressionFunctionContext<TestNode, StringName, StringName, Object>>, TestNode, NodeSelectorExpressionFunctionContext<TestNode, StringName, StringName, Object>> {
+public final class NodeExpressionFunctionTest implements ClassTesting2<NodeExpressionFunction<TestNode, StringName, StringName, Object, NodeSelectorExpressionEvaluationContext<TestNode, StringName, StringName, Object>>>,
+        ExpressionFunctionTesting<NodeExpressionFunction<TestNode, StringName, StringName, Object, NodeSelectorExpressionEvaluationContext<TestNode, StringName, StringName, Object>>, TestNode, NodeSelectorExpressionEvaluationContext<TestNode, StringName, StringName, Object>> {
 
     private final static TestNode NODE = TestNode.with("test");
 
@@ -40,8 +40,8 @@ public final class NodeExpressionFunctionTest implements ClassTesting2<NodeExpre
     }
 
     @Override
-    public NodeSelectorExpressionFunctionContext<TestNode, StringName, StringName, Object> createContext() {
-        return new FakeNodeSelectorExpressionFunctionContext<>() {
+    public NodeSelectorExpressionEvaluationContext<TestNode, StringName, StringName, Object> createContext() {
+        return new FakeNodeSelectorExpressionEvaluationContext<>() {
 
             @Override
             public TestNode node() {
@@ -56,12 +56,12 @@ public final class NodeExpressionFunctionTest implements ClassTesting2<NodeExpre
     }
 
     @Override
-    public NodeExpressionFunction<TestNode, StringName, StringName, Object, NodeSelectorExpressionFunctionContext<TestNode, StringName, StringName, Object>> createBiFunction() {
+    public NodeExpressionFunction<TestNode, StringName, StringName, Object, NodeSelectorExpressionEvaluationContext<TestNode, StringName, StringName, Object>> createBiFunction() {
         return NodeExpressionFunction.instance();
     }
 
     @Override
-    public Class<NodeExpressionFunction<TestNode, StringName, StringName, Object, NodeSelectorExpressionFunctionContext<TestNode, StringName, StringName, Object>>> type() {
+    public Class<NodeExpressionFunction<TestNode, StringName, StringName, Object, NodeSelectorExpressionEvaluationContext<TestNode, StringName, StringName, Object>>> type() {
         return Cast.to(NodeExpressionFunction.class);
     }
 

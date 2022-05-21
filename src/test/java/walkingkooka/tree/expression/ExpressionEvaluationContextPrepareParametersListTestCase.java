@@ -24,7 +24,6 @@ import walkingkooka.collect.set.Sets;
 import walkingkooka.reflect.ClassTesting;
 import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.tree.expression.function.ExpressionFunction;
-import walkingkooka.tree.expression.function.ExpressionFunctionContext;
 import walkingkooka.tree.expression.function.ExpressionFunctionKind;
 import walkingkooka.tree.expression.function.ExpressionFunctionParameter;
 import walkingkooka.tree.expression.function.ExpressionFunctionParameterName;
@@ -73,15 +72,18 @@ public abstract class ExpressionEvaluationContextPrepareParametersListTestCase<T
         }
     };
 
-    final ExpressionFunction<Void, ExpressionFunctionContext> function(final ExpressionFunctionKind... kinds) {
+    final ExpressionFunction<Void, ExpressionEvaluationContext> function(final ExpressionFunctionKind... kinds) {
         return this.function(
-                Lists.of(ExpressionFunctionParameterName.with("parameters").variable(Object.class)),
+                Lists.of(
+                        ExpressionFunctionParameterName.with("parameters")
+                                .variable(Object.class)
+                ),
                 kinds
         );
     }
 
-    final ExpressionFunction<Void, ExpressionFunctionContext> function(final List<ExpressionFunctionParameter<?>> parameters,
-                                                                       final ExpressionFunctionKind... kinds) {
+    final ExpressionFunction<Void, ExpressionEvaluationContext> function(final List<ExpressionFunctionParameter<?>> parameters,
+                                                                         final ExpressionFunctionKind... kinds) {
         return new FakeExpressionFunction<>() {
 
             @Override

@@ -18,7 +18,6 @@
 package walkingkooka.tree.expression;
 
 import walkingkooka.tree.expression.function.ExpressionFunction;
-import walkingkooka.tree.expression.function.ExpressionFunctionContext;
 import walkingkooka.tree.expression.function.ExpressionFunctions;
 
 import java.math.BigDecimal;
@@ -39,7 +38,7 @@ public interface ExpressionNumberFunction {
      * with this {@link ExpressionNumberFunction} and returns a {@link ExpressionNumber}.
      * This function does not handle lists or var args.
      */
-    default <C extends ExpressionFunctionContext> ExpressionFunction<ExpressionNumber, C> function(final FunctionExpressionName name) {
+    default <C extends ExpressionEvaluationContext> ExpressionFunction<ExpressionNumber, C> function(final FunctionExpressionName name) {
         return ExpressionFunctions.expressionNumberFunction(name, this);
     }
 }

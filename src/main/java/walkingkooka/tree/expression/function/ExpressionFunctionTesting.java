@@ -18,11 +18,14 @@
 package walkingkooka.tree.expression.function;
 
 import org.junit.jupiter.api.Test;
+import walkingkooka.Context;
 import walkingkooka.NeverError;
 import walkingkooka.collect.list.Lists;
+import walkingkooka.convert.ConverterContext;
 import walkingkooka.reflect.TypeNameTesting;
 import walkingkooka.text.CharSequences;
 import walkingkooka.tree.expression.Expression;
+import walkingkooka.tree.expression.ExpressionNumberContext;
 import walkingkooka.tree.expression.ExpressionNumberKind;
 import walkingkooka.tree.expression.ExpressionPurityTesting;
 import walkingkooka.tree.expression.ExpressionReference;
@@ -38,7 +41,7 @@ import static org.junit.jupiter.api.Assertions.fail;
 /**
  * Mixing interface that provides methods to test a {@link ExpressionFunction}
  */
-public interface ExpressionFunctionTesting<F extends ExpressionFunction<V, C>, V, C extends ExpressionFunctionContext>
+public interface ExpressionFunctionTesting<F extends ExpressionFunction<V, C>, V, C extends Context & ConverterContext & ExpressionNumberContext>
         extends BiFunctionTesting<F, List<Object>, C, V>,
         ExpressionPurityTesting,
         TypeNameTesting<F> {
@@ -162,10 +165,10 @@ public interface ExpressionFunctionTesting<F extends ExpressionFunction<V, C>, V
         this.applyAndCheck2(function, parameters, this.createContext(), result);
     }
 
-    default <RR, CC extends ExpressionFunctionContext> void applyAndCheck2(final ExpressionFunction<RR, CC> function,
-                                                                           final List<Object> parameters,
-                                                                           final CC context,
-                                                                           final RR result) {
+    default <RR, CC extends Context & ConverterContext & ExpressionNumberContext> void applyAndCheck2(final ExpressionFunction<RR, CC> function,
+                                                                                                      final List<Object> parameters,
+                                                                                                      final CC context,
+                                                                                                      final RR result) {
         for (final ExpressionFunctionKind kind : function.kinds()) {
             switch (kind) {
                 case EVALUATE_PARAMETERS:

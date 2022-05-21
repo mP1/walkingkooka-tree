@@ -30,7 +30,6 @@ import walkingkooka.tree.expression.Expression;
 import walkingkooka.tree.expression.ExpressionEvaluationContexts;
 import walkingkooka.tree.expression.ExpressionNumber;
 import walkingkooka.tree.expression.ExpressionNumberConverterContext;
-import walkingkooka.tree.expression.function.ExpressionFunctionContexts;
 
 import java.util.Objects;
 
@@ -112,9 +111,7 @@ public final class NodeSelectorContext2ExpressionNodeSelectorTest extends NodeSe
                         Objects.requireNonNull(expression, "expression");
 
                         return expression.toValue(
-                                ExpressionEvaluationContexts.basic(
-                                        ExpressionFunctionContexts.fake()
-                                )
+                                ExpressionEvaluationContexts.fake()
                         );
                     }
 

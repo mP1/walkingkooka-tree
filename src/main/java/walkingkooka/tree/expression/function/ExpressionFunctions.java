@@ -23,10 +23,11 @@ import walkingkooka.naming.Name;
 import walkingkooka.reflect.PublicStaticHelper;
 import walkingkooka.text.CaseSensitivity;
 import walkingkooka.tree.Node;
+import walkingkooka.tree.expression.ExpressionEvaluationContext;
 import walkingkooka.tree.expression.ExpressionNumber;
 import walkingkooka.tree.expression.ExpressionNumberFunction;
 import walkingkooka.tree.expression.FunctionExpressionName;
-import walkingkooka.tree.select.NodeSelectorExpressionFunctionContext;
+import walkingkooka.tree.select.NodeSelectorExpressionEvaluationContext;
 
 import java.util.Map;
 import java.util.Objects;
@@ -43,8 +44,8 @@ public final class ExpressionFunctions implements PublicStaticHelper {
     /**
      * Returns a function that may or may not be case sensitive when performing function name lookups.
      */
-    public static <C extends ExpressionFunctionContext> Function<FunctionExpressionName, Optional<ExpressionFunction<?, C>>> lookup(final Set<ExpressionFunction<?, C>> functions,
-                                                                                                                                    final CaseSensitivity caseSensitivity) {
+    public static <C extends ExpressionEvaluationContext> Function<FunctionExpressionName, Optional<ExpressionFunction<?, C>>> lookup(final Set<ExpressionFunction<?, C>> functions,
+                                                                                                                                      final CaseSensitivity caseSensitivity) {
         Objects.requireNonNull(caseSensitivity, "caseSensitivity");
 
         final Map<String, ExpressionFunction<?, C>> nameToFunctions = Maps.sorted(caseSensitivity.comparator());
@@ -76,15 +77,15 @@ public final class ExpressionFunctions implements PublicStaticHelper {
     /**
      * {@see ExpressionNumberFunctionExpressionFunction}
      */
-    public static <C extends ExpressionFunctionContext> ExpressionFunction<ExpressionNumber, C> expressionNumberFunction(final FunctionExpressionName name,
-                                                                                                                         final ExpressionNumberFunction function) {
+    public static <C extends ExpressionEvaluationContext> ExpressionFunction<ExpressionNumber, C> expressionNumberFunction(final FunctionExpressionName name,
+                                                                                                                           final ExpressionNumberFunction function) {
         return ExpressionNumberFunctionExpressionFunction.with(name, function);
     }
 
     /**
      * {@see FakeExpressionFunction}
      */
-    public static <T, C extends ExpressionFunctionContext> ExpressionFunction<T, C> fake() {
+    public static <T, C extends ExpressionEvaluationContext> ExpressionFunction<T, C> fake() {
         return new FakeExpressionFunction<>();
     }
 
@@ -95,21 +96,21 @@ public final class ExpressionFunctions implements PublicStaticHelper {
             NAME extends Name,
             ANAME extends Name,
             AVALUE,
-            C extends NodeSelectorExpressionFunctionContext<N, NAME, ANAME, AVALUE>> ExpressionFunction<N, C> node() {
+            C extends NodeSelectorExpressionEvaluationContext<N, NAME, ANAME, AVALUE>> ExpressionFunction<N, C> node() {
         return NodeExpressionFunction.instance();
     }
 
     /**
      * {@see NodeNameExpressionFunction}
      */
-    public static <C extends ExpressionFunctionContext> ExpressionFunction<String, C> nodeName() {
+    public static <C extends ExpressionEvaluationContext> ExpressionFunction<String, C> nodeName() {
         return NodeNameExpressionFunction.instance();
     }
 
     /**
      * {@see TypeNameExpressionFunction}
      */
-    public static <C extends ExpressionFunctionContext> ExpressionFunction<String, C> typeName() {
+    public static <C extends ExpressionEvaluationContext> ExpressionFunction<String, C> typeName() {
         return TypeNameExpressionFunction.instance();
     }
 

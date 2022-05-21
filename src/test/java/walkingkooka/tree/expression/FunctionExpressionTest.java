@@ -24,7 +24,6 @@ import walkingkooka.collect.set.Sets;
 import walkingkooka.naming.Names;
 import walkingkooka.naming.StringName;
 import walkingkooka.tree.expression.function.ExpressionFunction;
-import walkingkooka.tree.expression.function.ExpressionFunctionContext;
 import walkingkooka.tree.expression.function.ExpressionFunctionKind;
 import walkingkooka.tree.expression.function.FakeExpressionFunction;
 import walkingkooka.tree.select.parser.NodeSelectorAttributeName;
@@ -117,13 +116,13 @@ public final class FunctionExpressionTest extends VariableExpressionTestCase<Fun
                 function.toValue(
                         new FakeExpressionEvaluationContext() {
                             @Override
-                            public ExpressionFunction<?, ExpressionFunctionContext> function(final FunctionExpressionName name) {
+                            public ExpressionFunction<?, ExpressionEvaluationContext> function(final FunctionExpressionName name) {
                                 checkEquals(FUNCTION_NAME, name, "function name");
                                 return new FakeExpressionFunction<>() {
 
                                     @Override
                                     public Object apply(final List<Object> p,
-                                                        final ExpressionFunctionContext context) {
+                                                        final ExpressionEvaluationContext context) {
                                         checkEquals(parameters, p);
                                         return parameters;
                                     }
@@ -225,7 +224,11 @@ public final class FunctionExpressionTest extends VariableExpressionTestCase<Fun
 
     @Test
     public void testToText() {
-        this.evaluateAndCheckText(this.createExpression(), this.context("123"), "123");
+        this.evaluateAndCheckText(
+                this.createExpression(),
+                this.context("123"),
+                "123"
+        );
     }
 
     private ExpressionEvaluationContext context(final String functionValue) {
@@ -233,13 +236,13 @@ public final class FunctionExpressionTest extends VariableExpressionTestCase<Fun
 
         return new FakeExpressionEvaluationContext() {
             @Override
-            public ExpressionFunction<?, ExpressionFunctionContext> function(final FunctionExpressionName name) {
+            public ExpressionFunction<?, ExpressionEvaluationContext> function(final FunctionExpressionName name) {
                 checkEquals(name("fx"), name, "function name");
 
                 return new FakeExpressionFunction<>() {
                     @Override
                     public Object apply(final List<Object> parameters,
-                                        final ExpressionFunctionContext context) {
+                                        final ExpressionEvaluationContext context) {
                         return functionValue;
                     }
 

@@ -31,6 +31,7 @@ import walkingkooka.naming.StringName;
 import walkingkooka.text.CaseSensitivity;
 import walkingkooka.tree.TestNode;
 import walkingkooka.tree.expression.Expression;
+import walkingkooka.tree.expression.ExpressionEvaluationContext;
 import walkingkooka.tree.expression.ExpressionEvaluationContexts;
 import walkingkooka.tree.expression.ExpressionNumberConverterContext;
 import walkingkooka.tree.expression.ExpressionNumberConverterContexts;
@@ -38,8 +39,6 @@ import walkingkooka.tree.expression.ExpressionNumberKind;
 import walkingkooka.tree.expression.ExpressionReference;
 import walkingkooka.tree.expression.FunctionExpressionName;
 import walkingkooka.tree.expression.function.ExpressionFunction;
-import walkingkooka.tree.expression.function.ExpressionFunctionContext;
-import walkingkooka.tree.expression.function.ExpressionFunctionContexts;
 import walkingkooka.tree.expression.function.UnknownExpressionFunctionException;
 import walkingkooka.tree.select.parser.NodeSelectorAttributeName;
 
@@ -125,9 +124,16 @@ public final class BasicNodeSelectorExpressionEvaluationContextTest implements N
     }
 
     private BasicNodeSelectorExpressionEvaluationContext<TestNode, StringName, StringName, Object> createContext(final TestNode node) {
-        return BasicNodeSelectorExpressionEvaluationContext.with(node,
+        return BasicNodeSelectorExpressionEvaluationContext.with(
+                node,
                 (r) -> ExpressionEvaluationContexts.basic(
-                        this.functionContext()
+                        EXPRESSION_NUMBER_KIND,
+                        this.functions(),
+                        this.exceptionHandler(),
+                        this.references(),
+                        ExpressionEvaluationContexts.referenceNotFound(),
+                        CaseSensitivity.SENSITIVE,
+                        this.converterContext()
                 ));
     }
 
@@ -137,23 +143,11 @@ public final class BasicNodeSelectorExpressionEvaluationContextTest implements N
         };
     }
 
-    private Function<FunctionExpressionName, ExpressionFunction<?, ExpressionFunctionContext>> functions() {
+    private Function<FunctionExpressionName, ExpressionFunction<?, ExpressionEvaluationContext>> functions() {
         return (n) -> {
             Objects.requireNonNull(n, "name");
             throw new UnknownExpressionFunctionException(n);
         };
-    }
-
-    private ExpressionFunctionContext functionContext() {
-        return ExpressionFunctionContexts.basic(
-                EXPRESSION_NUMBER_KIND,
-                this.functions(),
-                this.exceptionHandler(),
-                this.references(),
-                ExpressionFunctionContexts.referenceNotFound(),
-                CaseSensitivity.SENSITIVE,
-                this.converterContext()
-        );
     }
 
     private Function<ExpressionReference, Optional<Object>> references() {
@@ -170,7 +164,8 @@ public final class BasicNodeSelectorExpressionEvaluationContextTest implements N
                         DateTimeContexts.fake(),
                         decimalNumberContext()
                 ),
-                EXPRESSION_NUMBER_KIND);
+                EXPRESSION_NUMBER_KIND
+        );
     }
 
     // FunctionContextTesting..........................................................................................

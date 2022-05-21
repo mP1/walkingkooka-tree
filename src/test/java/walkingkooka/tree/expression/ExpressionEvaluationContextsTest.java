@@ -17,12 +17,39 @@
 
 package walkingkooka.tree.expression;
 
+import org.junit.jupiter.api.Test;
 import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.reflect.PublicStaticHelperTesting;
 
 import java.lang.reflect.Method;
 
 public class ExpressionEvaluationContextsTest implements PublicStaticHelperTesting<ExpressionEvaluationContexts> {
+
+    @Test
+    public void testReferenceNotFound() {
+        final ExpressionReference reference = new ExpressionReference() {
+            @Override
+            public String toString() {
+                return "Reference123";
+            }
+        };
+
+        final ExpressionEvaluationReferenceException thrown = (ExpressionEvaluationReferenceException) ExpressionEvaluationContexts.referenceNotFound()
+                .apply(reference);
+
+        this.checkEquals(
+                reference,
+                thrown.expressionReference(),
+                () -> reference.toString()
+        );
+
+
+        this.checkEquals(
+                "Reference not found: Reference123",
+                thrown.getMessage(),
+                () -> reference.toString()
+        );
+    }
 
     @Override
     public Class<ExpressionEvaluationContexts> type() {
@@ -31,7 +58,7 @@ public class ExpressionEvaluationContextsTest implements PublicStaticHelperTesti
 
     @Override
     public boolean canHavePublicTypes(final Method method) {
-        return false;
+        return method.getName().equals("referenceNotFound");
     }
 
     @Override

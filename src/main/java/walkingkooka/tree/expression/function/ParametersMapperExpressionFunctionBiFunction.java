@@ -17,10 +17,14 @@
 
 package walkingkooka.tree.expression.function;
 
+import walkingkooka.Context;
+import walkingkooka.convert.ConverterContext;
+import walkingkooka.tree.expression.ExpressionNumberContext;
+
 import java.util.List;
 import java.util.function.BiFunction;
 
-abstract class ParametersMapperExpressionFunctionBiFunction<C extends ExpressionFunctionContext> implements BiFunction<List<Object>, C, List<Object>> {
+abstract class ParametersMapperExpressionFunctionBiFunction<C extends Context & ConverterContext & ExpressionNumberContext> implements BiFunction<List<Object>, C, List<Object>> {
 
     ParametersMapperExpressionFunctionBiFunction() {
         super();
