@@ -18,16 +18,22 @@
 package walkingkooka.tree.expression;
 
 import org.junit.jupiter.api.Test;
-import walkingkooka.tree.expression.function.ExpressionFunctionContextTesting;
+import walkingkooka.convert.CanConvertTesting;
+import walkingkooka.text.printer.TreePrintableTesting;
 import walkingkooka.tree.expression.function.UnknownExpressionFunctionException;
+
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 /**
  * Mixing testing interface for {@link ExpressionEvaluationContext}
  */
-public interface ExpressionEvaluationContextTesting<C extends ExpressionEvaluationContext> extends ExpressionFunctionContextTesting<C>,
-        ExpressionPurityContextTesting<C> {
+public interface ExpressionEvaluationContextTesting<C extends ExpressionEvaluationContext> extends
+        CanConvertTesting<C>,
+        ExpressionNumberContextTesting<C>,
+        ExpressionPurityContextTesting<C>,
+        TreePrintableTesting {
 
     @Test
     default void testEvaluateNullExpressionFails() {
@@ -64,6 +70,102 @@ public interface ExpressionEvaluationContextTesting<C extends ExpressionEvaluati
         this.checkEquals(value,
                 node.toValue(context),
                 () -> "Expression.toValue failed, node=" + node + " context=" + context);
+    }
+
+    @Test
+    default void testFunctionNullFunctionNameFails() {
+        assertThrows(
+                NullPointerException.class,
+                () -> this.createContext()
+                        .function(null)
+        );
+    }
+
+    @Test
+    default void testFunctionUnknownFunctionNameFails() {
+        assertThrows(
+                UnknownExpressionFunctionException.class,
+                () -> this.createContext()
+                        .function(this.unknownFunctionName())
+        );
+    }
+
+
+    @Test
+    default void testEvaluateNullFunctionNameFails() {
+        assertThrows(
+                NullPointerException.class,
+                () -> this.createContext()
+                        .evaluate(
+                                null,
+                                ExpressionEvaluationContext.NO_PARAMETERS
+                        )
+        );
+    }
+
+    @Test
+    default void testEvaluateUnknownFunctionNameFails() {
+        assertThrows(
+                UnknownExpressionFunctionException.class,
+                () -> this.createContext()
+                        .evaluate(
+                                this.unknownFunctionName(),
+                                ExpressionEvaluationContext.NO_PARAMETERS
+                        )
+        );
+    }
+
+    @Test
+    default void testEvaluateFunctionNullParametersFails() {
+        assertThrows(
+                NullPointerException.class,
+                () -> this.createContext()
+                        .evaluate(
+                                FunctionExpressionName.with("sum"),
+                                null
+                        )
+        );
+    }
+
+    @Test
+    default void testReferenceNullReferenceFails() {
+        assertThrows(
+                NullPointerException.class,
+                () -> this.createContext()
+                        .reference(null)
+        );
+    }
+
+    default void evaluateAndCheck(final FunctionExpressionName name,
+                                  final List<Object> parameters,
+                                  final Object expected) {
+
+        this.evaluateAndCheck(
+                this.createContext(),
+                name,
+                parameters,
+                expected
+        );
+    }
+
+    default void evaluateAndCheck(final C context,
+                                  final FunctionExpressionName name,
+                                  final List<Object> parameters,
+                                  final Object expected) {
+
+        this.checkEquals(
+                expected,
+                context.evaluate(name, parameters),
+                () -> "evaluate " + name + " " + parameters
+        );
+    }
+
+    default FunctionExpressionName unknownFunctionName() {
+        return FunctionExpressionName.with("unknown-function-123");
+    }
+
+    default C createCanConvert() {
+        return this.createContext();
     }
 
     @Override

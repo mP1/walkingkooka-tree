@@ -21,11 +21,13 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.reflect.ClassTesting2;
 import walkingkooka.reflect.JavaVisibility;
+import walkingkooka.tree.expression.ExpressionEvaluationContext;
+import walkingkooka.tree.expression.ExpressionEvaluationContexts;
 
 import java.math.BigDecimal;
 
-public final class TypeNameExpressionFunctionTest implements ClassTesting2<TypeNameExpressionFunction<ExpressionFunctionContext>>,
-        ExpressionFunctionTesting<TypeNameExpressionFunction<ExpressionFunctionContext>, String, ExpressionFunctionContext> {
+public final class TypeNameExpressionFunctionTest implements ClassTesting2<TypeNameExpressionFunction<ExpressionEvaluationContext>>,
+        ExpressionFunctionTesting<TypeNameExpressionFunction<ExpressionEvaluationContext>, String, ExpressionEvaluationContext> {
 
     @Test
     public void testBigDecimalParameter() {
@@ -40,8 +42,8 @@ public final class TypeNameExpressionFunctionTest implements ClassTesting2<TypeN
     }
 
     @Override
-    public ExpressionFunctionContext createContext() {
-        return ExpressionFunctionContexts.fake();
+    public ExpressionEvaluationContext createContext() {
+        return ExpressionEvaluationContexts.fake();
     }
 
     @Test
@@ -50,12 +52,12 @@ public final class TypeNameExpressionFunctionTest implements ClassTesting2<TypeN
     }
 
     @Override
-    public TypeNameExpressionFunction<ExpressionFunctionContext> createBiFunction() {
+    public TypeNameExpressionFunction<ExpressionEvaluationContext> createBiFunction() {
         return TypeNameExpressionFunction.instance();
     }
 
     @Override
-    public Class<TypeNameExpressionFunction<ExpressionFunctionContext>> type() {
+    public Class<TypeNameExpressionFunction<ExpressionEvaluationContext>> type() {
         return Cast.to(TypeNameExpressionFunction.class);
     }
 

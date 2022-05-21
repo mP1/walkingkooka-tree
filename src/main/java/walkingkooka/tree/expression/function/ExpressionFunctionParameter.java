@@ -20,6 +20,7 @@ package walkingkooka.tree.expression.function;
 import walkingkooka.Cast;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.naming.HasName;
+import walkingkooka.tree.expression.ExpressionEvaluationContext;
 import walkingkooka.tree.expression.ExpressionNumber;
 import walkingkooka.tree.expression.ExpressionReference;
 
@@ -188,10 +189,10 @@ public final class ExpressionFunctionParameter<T> implements HasName<ExpressionF
      * Gets the variable values starting at the given index flattening any Lists which may include {@link ExpressionReference} references.
      * If references contain lists or references these are flatten as well.
      */
-    public <C extends ExpressionFunctionContext> List<T> getVariableAndFlatten(final List<Object> parameters,
-                                                                               final int index,
-                                                                               final ExpressionFunction<?, C> function,
-                                                                               final C context) {
+    public <C extends ExpressionEvaluationContext> List<T> getVariableAndFlatten(final List<Object> parameters,
+                                                                                 final int index,
+                                                                                 final ExpressionFunction<?, C> function,
+                                                                                 final C context) {
         this.cardinality.getVariable(this);
 
         return index >= parameters.size() ?
@@ -208,9 +209,9 @@ public final class ExpressionFunctionParameter<T> implements HasName<ExpressionF
                 );
     }
 
-    private <C extends ExpressionFunctionContext> List<T> flatten(final Iterator<Object> parameters,
-                                                                  final ExpressionFunction<?, C> function,
-                                                                  final C context) {
+    private <C extends ExpressionEvaluationContext> List<T> flatten(final Iterator<Object> parameters,
+                                                                    final ExpressionFunction<?, C> function,
+                                                                    final C context) {
         final List<T> values = Lists.array();
 
         flatten0(
@@ -224,10 +225,10 @@ public final class ExpressionFunctionParameter<T> implements HasName<ExpressionF
         return values;
     }
 
-    private <T, C extends ExpressionFunctionContext> void flatten0(final Iterator<Object> parameters,
-                                                                   final Consumer<T> values,
-                                                                   final boolean resolveReferences,
-                                                                   final C context) {
+    private <T, C extends ExpressionEvaluationContext> void flatten0(final Iterator<Object> parameters,
+                                                                     final Consumer<T> values,
+                                                                     final boolean resolveReferences,
+                                                                     final C context) {
         while (parameters.hasNext()) {
             this.flatten1(
                     parameters.next(),
@@ -238,10 +239,10 @@ public final class ExpressionFunctionParameter<T> implements HasName<ExpressionF
         }
     }
 
-    private <T, C extends ExpressionFunctionContext> void flatten1(final Object parameter,
-                                                                   final Consumer<T> values,
-                                                                   final boolean resolveReferences,
-                                                                   final C context) {
+    private <T, C extends ExpressionEvaluationContext> void flatten1(final Object parameter,
+                                                                     final Consumer<T> values,
+                                                                     final boolean resolveReferences,
+                                                                     final C context) {
         if (resolveReferences && parameter instanceof ExpressionReference) {
             this.flatten1(
                     context.referenceOrFail((ExpressionReference) parameter),
@@ -268,7 +269,7 @@ public final class ExpressionFunctionParameter<T> implements HasName<ExpressionF
      * Converts the given parameter value to match the required type of this parameter.
      */
     public T convertOrFail(final Object value,
-                           final ExpressionFunctionContext context) {
+                           final ExpressionEvaluationContext context) {
         final Class<T> type = this.type();
         final boolean isList = type.equals(List.class);
         return isList ?
@@ -277,7 +278,7 @@ public final class ExpressionFunctionParameter<T> implements HasName<ExpressionF
     }
 
     private List<?> convertList(final List<?> list,
-                                final ExpressionFunctionContext context) {
+                                final ExpressionEvaluationContext context) {
         final List<Class<?>> typeParameters = this.typeParameters();
         final int typeParametersCount = typeParameters.size();
         final Class<?> listType;

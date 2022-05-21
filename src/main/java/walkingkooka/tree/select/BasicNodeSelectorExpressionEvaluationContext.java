@@ -29,7 +29,6 @@ import walkingkooka.tree.expression.ExpressionNumberKind;
 import walkingkooka.tree.expression.ExpressionReference;
 import walkingkooka.tree.expression.FunctionExpressionName;
 import walkingkooka.tree.expression.function.ExpressionFunction;
-import walkingkooka.tree.expression.function.ExpressionFunctionContext;
 import walkingkooka.tree.expression.function.ExpressionFunctionParameter;
 import walkingkooka.tree.select.parser.NodeSelectorAttributeName;
 
@@ -94,7 +93,7 @@ final class BasicNodeSelectorExpressionEvaluationContext<N extends Node<N, NAME,
     // function.........................................................................................................
 
     @Override
-    public ExpressionFunction<?, ExpressionFunctionContext> function(final FunctionExpressionName name) {
+    public ExpressionFunction<?, ExpressionEvaluationContext> function(final FunctionExpressionName name) {
         return this.context.function(name);
     }
 
@@ -115,7 +114,7 @@ final class BasicNodeSelectorExpressionEvaluationContext<N extends Node<N, NAME,
     @Override
     public Object evaluate(final FunctionExpressionName name,
                            final List<Object> parameters) {
-        final ExpressionFunction<?, ExpressionFunctionContext> function = this.function(name);
+        final ExpressionFunction<?, ExpressionEvaluationContext> function = this.function(name);
 
         return function.apply(
                 this.prepareParameters(function, parameters),

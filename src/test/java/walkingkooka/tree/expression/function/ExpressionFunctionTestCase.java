@@ -20,12 +20,14 @@ package walkingkooka.tree.expression.function;
 import org.junit.jupiter.api.Test;
 import walkingkooka.reflect.ClassTesting2;
 import walkingkooka.reflect.JavaVisibility;
+import walkingkooka.tree.expression.ExpressionEvaluationContext;
+import walkingkooka.tree.expression.ExpressionEvaluationContexts;
 import walkingkooka.tree.expression.ExpressionNumberKind;
 import walkingkooka.tree.expression.ExpressionPurityContext;
 import walkingkooka.tree.expression.ExpressionPurityTesting;
 import walkingkooka.tree.expression.FunctionExpressionName;
 
-public abstract class ExpressionFunctionTestCase<F extends ExpressionFunction<T, ExpressionFunctionContext>, T> implements ExpressionFunctionTesting<F, T, ExpressionFunctionContext>,
+public abstract class ExpressionFunctionTestCase<F extends ExpressionFunction<T, ExpressionEvaluationContext>, T> implements ExpressionFunctionTesting<F, T, ExpressionEvaluationContext>,
         ExpressionPurityTesting,
         ClassTesting2<F> {
 
@@ -50,8 +52,8 @@ public abstract class ExpressionFunctionTestCase<F extends ExpressionFunction<T,
     }
 
     @Override
-    public ExpressionFunctionContext createContext() {
-        return ExpressionFunctionContexts.fake();
+    public ExpressionEvaluationContext createContext() {
+        return ExpressionEvaluationContexts.fake();
     }
 
     @Override

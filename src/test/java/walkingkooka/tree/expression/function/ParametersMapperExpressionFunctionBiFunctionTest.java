@@ -18,11 +18,19 @@
 package walkingkooka.tree.expression.function;
 
 import walkingkooka.Cast;
+import walkingkooka.reflect.ClassTesting;
+import walkingkooka.reflect.JavaVisibility;
+import walkingkooka.tree.expression.FakeExpressionEvaluationContext;
 
-public final class ParametersMapperExpressionFunctionBiFunctionTest extends ParametersMapperExpressionFunctionBiFunctionTestCase<ParametersMapperExpressionFunctionBiFunction<FakeExpressionFunctionContext>> {
+public final class ParametersMapperExpressionFunctionBiFunctionTest implements ClassTesting<ParametersMapperExpressionFunctionBiFunction<FakeExpressionEvaluationContext>> {
 
     @Override
-    public Class<ParametersMapperExpressionFunctionBiFunction<FakeExpressionFunctionContext>> type() {
+    public Class<ParametersMapperExpressionFunctionBiFunction<FakeExpressionEvaluationContext>> type() {
         return Cast.to(ParametersMapperExpressionFunctionBiFunction.class);
+    }
+
+    @Override
+    public final JavaVisibility typeVisibility() {
+        return JavaVisibility.PACKAGE_PRIVATE;
     }
 }

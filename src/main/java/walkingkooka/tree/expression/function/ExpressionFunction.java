@@ -17,7 +17,10 @@
 
 package walkingkooka.tree.expression.function;
 
+import walkingkooka.Context;
+import walkingkooka.convert.ConverterContext;
 import walkingkooka.naming.HasName;
+import walkingkooka.tree.expression.ExpressionNumberContext;
 import walkingkooka.tree.expression.ExpressionPurity;
 import walkingkooka.tree.expression.FunctionExpressionName;
 
@@ -27,9 +30,9 @@ import java.util.Set;
 import java.util.function.BiFunction;
 
 /**
- * Basic contract for a function within a {@link ExpressionFunctionContext}
+ * Basic contract for a function within a {@link walkingkooka.tree.expression.ExpressionEvaluationContext}
  */
-public interface ExpressionFunction<T, C extends ExpressionFunctionContext> extends BiFunction<List<Object>, C, T>,
+public interface ExpressionFunction<T, C extends Context & ConverterContext & ExpressionNumberContext> extends BiFunction<List<Object>, C, T>,
         ExpressionPurity,
         HasName<FunctionExpressionName> {
 

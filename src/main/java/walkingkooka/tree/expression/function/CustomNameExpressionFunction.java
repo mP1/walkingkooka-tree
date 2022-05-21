@@ -18,6 +18,9 @@
 package walkingkooka.tree.expression.function;
 
 import walkingkooka.Cast;
+import walkingkooka.Context;
+import walkingkooka.convert.ConverterContext;
+import walkingkooka.tree.expression.ExpressionNumberContext;
 import walkingkooka.tree.expression.ExpressionPurityContext;
 import walkingkooka.tree.expression.FunctionExpressionName;
 
@@ -28,13 +31,13 @@ import java.util.Set;
 /**
  * An {@link ExpressionFunction} that returns a different {@link FunctionExpressionName}.
  */
-final class CustomNameExpressionFunction<T, C extends ExpressionFunctionContext> implements ExpressionFunction<T, C> {
+final class CustomNameExpressionFunction<T, C extends Context & ConverterContext & ExpressionNumberContext> implements ExpressionFunction<T, C> {
 
     /**
      * Factory called by {@link ExpressionFunction#setName}
      */
-    static <T, C extends ExpressionFunctionContext> ExpressionFunction<T, C> with(final ExpressionFunction<T, C> function,
-                                                                                  final FunctionExpressionName name) {
+    static <T, C extends Context & ConverterContext & ExpressionNumberContext> ExpressionFunction<T, C> with(final ExpressionFunction<T, C> function,
+                                                                                                             final FunctionExpressionName name) {
         Objects.requireNonNull(function, "function");
         Objects.requireNonNull(name, "name");
 
@@ -48,8 +51,8 @@ final class CustomNameExpressionFunction<T, C extends ExpressionFunctionContext>
     /**
      * Handles the special case not preventing double wrapping a {@link CustomNameExpressionFunction}.
      */
-    static <T, C extends ExpressionFunctionContext> ExpressionFunction<T, C> unwrap(final CustomNameExpressionFunction<T, C> function,
-                                                                                    final FunctionExpressionName name) {
+    static <T, C extends Context & ConverterContext & ExpressionNumberContext> ExpressionFunction<T, C> unwrap(final CustomNameExpressionFunction<T, C> function,
+                                                                                                               final FunctionExpressionName name) {
         return new CustomNameExpressionFunction<>(function.function, name);
     }
 

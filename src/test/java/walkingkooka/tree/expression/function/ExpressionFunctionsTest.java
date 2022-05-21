@@ -22,6 +22,7 @@ import walkingkooka.collect.set.Sets;
 import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.reflect.PublicStaticHelperTesting;
 import walkingkooka.text.CaseSensitivity;
+import walkingkooka.tree.expression.ExpressionEvaluationContext;
 import walkingkooka.tree.expression.FunctionExpressionName;
 
 import java.lang.reflect.Method;
@@ -58,9 +59,9 @@ public final class ExpressionFunctionsTest implements PublicStaticHelperTesting<
 
     @Test
     public void testLookupCaseSensitive() {
-        final ExpressionFunction<Void, ExpressionFunctionContext> function = function("test-1");
+        final ExpressionFunction<Void, ExpressionEvaluationContext> function = function("test-1");
 
-        final Function<FunctionExpressionName, Optional<ExpressionFunction<?, ExpressionFunctionContext>>> lookup =
+        final Function<FunctionExpressionName, Optional<ExpressionFunction<?, ExpressionEvaluationContext>>> lookup =
                 ExpressionFunctions.lookup(
                         Sets.of(
                                 function,
@@ -80,9 +81,9 @@ public final class ExpressionFunctionsTest implements PublicStaticHelperTesting<
 
     @Test
     public void testLookupCaseSensitiveWrongCaseNotFound() {
-        final ExpressionFunction<Void, ExpressionFunctionContext> function = function("test-1");
+        final ExpressionFunction<Void, ExpressionEvaluationContext> function = function("test-1");
 
-        final Function<FunctionExpressionName, Optional<ExpressionFunction<?, ExpressionFunctionContext>>> lookup =
+        final Function<FunctionExpressionName, Optional<ExpressionFunction<?, ExpressionEvaluationContext>>> lookup =
                 ExpressionFunctions.lookup(
                         Sets.of(
                                 function,
@@ -100,9 +101,9 @@ public final class ExpressionFunctionsTest implements PublicStaticHelperTesting<
 
     @Test
     public void testLookupCaseInsensitiveWrongCase() {
-        final ExpressionFunction<Void, ExpressionFunctionContext> function = function("test-function-1");
+        final ExpressionFunction<Void, ExpressionEvaluationContext> function = function("test-function-1");
 
-        final Function<FunctionExpressionName, Optional<ExpressionFunction<?, ExpressionFunctionContext>>> lookup =
+        final Function<FunctionExpressionName, Optional<ExpressionFunction<?, ExpressionEvaluationContext>>> lookup =
                 ExpressionFunctions.lookup(
                         Sets.of(
                                 function,
@@ -122,9 +123,9 @@ public final class ExpressionFunctionsTest implements PublicStaticHelperTesting<
 
     @Test
     public void testLookupCaseInsensitiveNotFound() {
-        final ExpressionFunction<Void, ExpressionFunctionContext> function = function("test-function-1");
+        final ExpressionFunction<Void, ExpressionEvaluationContext> function = function("test-function-1");
 
-        final Function<FunctionExpressionName, Optional<ExpressionFunction<?, ExpressionFunctionContext>>> lookup =
+        final Function<FunctionExpressionName, Optional<ExpressionFunction<?, ExpressionEvaluationContext>>> lookup =
                 ExpressionFunctions.lookup(
                         Sets.of(
                                 function,
@@ -140,7 +141,7 @@ public final class ExpressionFunctionsTest implements PublicStaticHelperTesting<
         );
     }
 
-    private static ExpressionFunction<Void, ExpressionFunctionContext> function(final String name) {
+    private static ExpressionFunction<Void, ExpressionEvaluationContext> function(final String name) {
         return new FakeExpressionFunction<>() {
             @Override
             public FunctionExpressionName name() {

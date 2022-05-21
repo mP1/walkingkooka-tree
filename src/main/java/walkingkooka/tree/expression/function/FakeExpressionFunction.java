@@ -17,13 +17,16 @@
 
 package walkingkooka.tree.expression.function;
 
+import walkingkooka.Context;
+import walkingkooka.convert.ConverterContext;
+import walkingkooka.tree.expression.ExpressionNumberContext;
 import walkingkooka.tree.expression.ExpressionPurityContext;
 import walkingkooka.tree.expression.FunctionExpressionName;
 
 import java.util.List;
 import java.util.Set;
 
-public class FakeExpressionFunction<T, C extends ExpressionFunctionContext> implements ExpressionFunction<T, C> {
+public class FakeExpressionFunction<T, C extends Context & ConverterContext & ExpressionNumberContext> implements ExpressionFunction<T, C> {
     @Override
     public T apply(final List<Object> objects,
                    final C expressionFunctionContext) {

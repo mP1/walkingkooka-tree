@@ -39,8 +39,6 @@ import walkingkooka.tree.expression.ExpressionNumberKind;
 import walkingkooka.tree.expression.ExpressionReference;
 import walkingkooka.tree.expression.FunctionExpressionName;
 import walkingkooka.tree.expression.function.ExpressionFunction;
-import walkingkooka.tree.expression.function.ExpressionFunctionContext;
-import walkingkooka.tree.expression.function.ExpressionFunctionContexts;
 
 import java.util.Optional;
 import java.util.function.BooleanSupplier;
@@ -180,7 +178,13 @@ public final class BasicNodeSelectorContextTest implements ClassTesting2<BasicNo
             @Override
             public ExpressionEvaluationContext apply(final NodeSelectorContext<TestNode, StringName, StringName, Object> context) {
                 return ExpressionEvaluationContexts.basic(
-                        this.functionContext()
+                        KIND,
+                        this.functions(),
+                        this.exceptionHandler(),
+                        this.references(),
+                        ExpressionEvaluationContexts.referenceNotFound(),
+                        CaseSensitivity.SENSITIVE,
+                        this.converterContext()
                 );
             }
 
@@ -190,22 +194,10 @@ public final class BasicNodeSelectorContextTest implements ClassTesting2<BasicNo
                 };
             }
 
-            private Function<FunctionExpressionName, ExpressionFunction<?, ExpressionFunctionContext>> functions() {
+            private Function<FunctionExpressionName, ExpressionFunction<?, ExpressionEvaluationContext>> functions() {
                 return (n) -> {
                     throw new UnsupportedOperationException();
                 };
-            }
-
-            private ExpressionFunctionContext functionContext() {
-                return ExpressionFunctionContexts.basic(
-                        KIND,
-                        this.functions(),
-                        this.exceptionHandler(),
-                        this.references(),
-                        ExpressionFunctionContexts.referenceNotFound(),
-                        CaseSensitivity.SENSITIVE,
-                        this.converterContext()
-                );
             }
 
             private Function<ExpressionReference, Optional<Object>> references() {

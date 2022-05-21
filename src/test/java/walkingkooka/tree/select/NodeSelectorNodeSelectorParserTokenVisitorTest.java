@@ -49,8 +49,6 @@ import walkingkooka.tree.expression.ExpressionReference;
 import walkingkooka.tree.expression.FunctionExpressionName;
 import walkingkooka.tree.expression.ValueExpression;
 import walkingkooka.tree.expression.function.ExpressionFunction;
-import walkingkooka.tree.expression.function.ExpressionFunctionContext;
-import walkingkooka.tree.expression.function.ExpressionFunctionContexts;
 import walkingkooka.tree.expression.function.ExpressionFunctionKind;
 import walkingkooka.tree.expression.function.ExpressionFunctionParameter;
 import walkingkooka.tree.expression.function.ExpressionFunctionParameterName;
@@ -1837,9 +1835,18 @@ public final class NodeSelectorNodeSelectorParserTokenVisitorTest implements Nod
                     }
 
                     private NodeSelectorExpressionEvaluationContext<TestNode, StringName, StringName, Object> expressionEvaluationContext() {
-                        return NodeSelectorExpressionEvaluationContexts.basic(this.node,
+                        return NodeSelectorExpressionEvaluationContexts.basic(
+                                this.node,
                                 (r) -> ExpressionEvaluationContexts.basic(
-                                        this.functionContext()
+                                        EXPRESSION_NUMBER_KIND,
+                                        Cast.to(this.functions()),
+                                        (rr) -> {
+                                            throw rr;
+                                        },
+                                        this.references(),
+                                        ExpressionEvaluationContexts.referenceNotFound(),
+                                        CaseSensitivity.SENSITIVE,
+                                        this.converterContext()
                                 )
                         );
                     }
@@ -1915,20 +1922,6 @@ public final class NodeSelectorNodeSelectorParserTokenVisitorTest implements Nod
                                             .orElseThrow(() -> new IllegalArgumentException(("Unknown function \"" + n + "\""))));
                             }
                         };
-                    }
-
-                    private ExpressionFunctionContext functionContext() {
-                        return ExpressionFunctionContexts.basic(
-                                EXPRESSION_NUMBER_KIND,
-                                Cast.to(this.functions()),
-                                (r) -> {
-                                    throw r;
-                                },
-                                this.references(),
-                                ExpressionFunctionContexts.referenceNotFound(),
-                                CaseSensitivity.SENSITIVE,
-                                this.converterContext()
-                        );
                     }
 
                     private Function<ExpressionReference, Optional<Object>> references() {

@@ -21,6 +21,7 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.set.Sets;
+import walkingkooka.tree.expression.ExpressionEvaluationContext;
 
 import java.util.List;
 import java.util.Set;
@@ -29,7 +30,7 @@ import static org.junit.jupiter.api.Assertions.assertNotSame;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class CustomKindsExpressionFunctionTest extends ExpressionFunctionTestCase<CustomKindsExpressionFunction<String, ExpressionFunctionContext>, String> {
+public final class CustomKindsExpressionFunctionTest extends ExpressionFunctionTestCase<CustomKindsExpressionFunction<String, ExpressionEvaluationContext>, String> {
 
     private final static Set<ExpressionFunctionKind> KINDS = Sets.of(
             ExpressionFunctionKind.RESOLVE_REFERENCES
@@ -48,25 +49,25 @@ public final class CustomKindsExpressionFunctionTest extends ExpressionFunctionT
     @Test
     public void testApply() {
         final List<Object> parameters = Lists.of(this);
-        final ExpressionFunctionContext context = this.createContext();
+        final ExpressionEvaluationContext context = this.createContext();
         this.applyAndCheck(this.createBiFunction(), parameters, context,
                 this.wrapped().apply(parameters, context));
     }
 
     @Test
     public void testSetKindsSame() {
-        final CustomKindsExpressionFunction<String, ExpressionFunctionContext> function = this.createBiFunction();
+        final CustomKindsExpressionFunction<String, ExpressionEvaluationContext> function = this.createBiFunction();
         assertSame(function, function.setKinds(KINDS));
     }
 
     @Test
     public void testSetKindsDifferent() {
-        final CustomKindsExpressionFunction<String, ExpressionFunctionContext> function = this.createBiFunction();
+        final CustomKindsExpressionFunction<String, ExpressionEvaluationContext> function = this.createBiFunction();
 
         final Set<ExpressionFunctionKind> different = Sets.of(
                 ExpressionFunctionKind.EVALUATE_PARAMETERS
         );
-        final ExpressionFunction<String, ExpressionFunctionContext> differentFunction = function.setKinds(different);
+        final ExpressionFunction<String, ExpressionEvaluationContext> differentFunction = function.setKinds(different);
 
         assertNotSame(function, differentFunction);
         assertSame(different, differentFunction.kinds());
@@ -84,18 +85,18 @@ public final class CustomKindsExpressionFunctionTest extends ExpressionFunctionT
     }
 
     @Override
-    public CustomKindsExpressionFunction<String, ExpressionFunctionContext> createBiFunction() {
+    public CustomKindsExpressionFunction<String, ExpressionEvaluationContext> createBiFunction() {
         return Cast.to(
                 CustomKindsExpressionFunction.with(wrapped(), KINDS)
         );
     }
 
-    private ExpressionFunction<String, ExpressionFunctionContext> wrapped() {
+    private ExpressionFunction<String, ExpressionEvaluationContext> wrapped() {
         return ExpressionFunctions.typeName();
     }
 
     @Override
-    public Class<CustomKindsExpressionFunction<String, ExpressionFunctionContext>> type() {
+    public Class<CustomKindsExpressionFunction<String, ExpressionEvaluationContext>> type() {
         return Cast.to(CustomKindsExpressionFunction.class);
     }
 }

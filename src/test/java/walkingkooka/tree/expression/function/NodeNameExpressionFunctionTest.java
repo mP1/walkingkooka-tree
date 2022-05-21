@@ -26,9 +26,11 @@ import walkingkooka.reflect.ClassTesting2;
 import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.tree.FakeNode;
 import walkingkooka.tree.Node;
+import walkingkooka.tree.expression.ExpressionEvaluationContext;
+import walkingkooka.tree.expression.FakeExpressionEvaluationContext;
 
-public final class NodeNameExpressionFunctionTest implements ClassTesting2<NodeNameExpressionFunction<ExpressionFunctionContext>>,
-        ExpressionFunctionTesting<NodeNameExpressionFunction<ExpressionFunctionContext>, String, ExpressionFunctionContext> {
+public final class NodeNameExpressionFunctionTest implements ClassTesting2<NodeNameExpressionFunction<ExpressionEvaluationContext>>,
+        ExpressionFunctionTesting<NodeNameExpressionFunction<ExpressionEvaluationContext>, String, ExpressionEvaluationContext> {
 
     private final static String NAME = "Abc123";
 
@@ -41,8 +43,8 @@ public final class NodeNameExpressionFunctionTest implements ClassTesting2<NodeN
     }
 
     @Override
-    public ExpressionFunctionContext createContext() {
-        return new FakeExpressionFunctionContext() {
+    public ExpressionEvaluationContext createContext() {
+        return new FakeExpressionEvaluationContext() {
             @Override
             public <T> Either<T, String> convert(final Object value,
                                                  final Class<T> target) {
@@ -68,12 +70,12 @@ public final class NodeNameExpressionFunctionTest implements ClassTesting2<NodeN
     }
 
     @Override
-    public NodeNameExpressionFunction<ExpressionFunctionContext> createBiFunction() {
+    public NodeNameExpressionFunction<ExpressionEvaluationContext> createBiFunction() {
         return NodeNameExpressionFunction.instance();
     }
 
     @Override
-    public Class<NodeNameExpressionFunction<ExpressionFunctionContext>> type() {
+    public Class<NodeNameExpressionFunction<ExpressionEvaluationContext>> type() {
         return Cast.to(NodeNameExpressionFunction.class);
     }
 

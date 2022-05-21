@@ -18,7 +18,6 @@
 package walkingkooka.tree.expression;
 
 import walkingkooka.tree.expression.function.ExpressionFunction;
-import walkingkooka.tree.expression.function.ExpressionFunctionContext;
 import walkingkooka.tree.expression.function.ExpressionFunctionKind;
 import walkingkooka.tree.expression.function.ExpressionFunctionParameter;
 
@@ -37,7 +36,7 @@ import java.util.Objects;
 final class ExpressionEvaluationContextPrepareParametersListNonFlattened extends ExpressionEvaluationContextPrepareParametersList {
 
     static ExpressionEvaluationContextPrepareParametersListNonFlattened with(final List<Object> parameters,
-                                                                             final ExpressionFunction<?, ExpressionFunctionContext> function,
+                                                                             final ExpressionFunction<?, ExpressionEvaluationContext> function,
                                                                              final ExpressionEvaluationContext context) {
         Objects.requireNonNull(parameters, "parameters");
         Objects.requireNonNull(function, "function");
@@ -54,7 +53,7 @@ final class ExpressionEvaluationContextPrepareParametersListNonFlattened extends
      * Private ctor
      */
     private ExpressionEvaluationContextPrepareParametersListNonFlattened(final List<Object> parameters,
-                                                                         final ExpressionFunction<?, ExpressionFunctionContext> function,
+                                                                         final ExpressionFunction<?, ExpressionEvaluationContext> function,
                                                                          final ExpressionEvaluationContext context) {
         super(
                 parameters,
@@ -65,7 +64,7 @@ final class ExpressionEvaluationContextPrepareParametersListNonFlattened extends
 
     @Override
     Object prepareAndConvert(final int index) {
-        final ExpressionFunction<?, ExpressionFunctionContext> function = this.function;
+        final ExpressionFunction<?, ExpressionEvaluationContext> function = this.function;
         final ExpressionEvaluationContext context = this.context;
 
         Object result;

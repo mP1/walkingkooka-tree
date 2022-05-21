@@ -31,7 +31,6 @@ import walkingkooka.text.cursor.parser.BigIntegerParserToken;
 import walkingkooka.text.cursor.parser.ParserContexts;
 import walkingkooka.text.cursor.parser.Parsers;
 import walkingkooka.tree.expression.function.ExpressionFunction;
-import walkingkooka.tree.expression.function.ExpressionFunctionContext;
 import walkingkooka.tree.expression.function.UnknownExpressionFunctionException;
 
 import java.math.BigInteger;
@@ -315,7 +314,7 @@ public final class CycleDetectingExpressionEvaluationContextTest implements Clas
                 new FakeExpressionEvaluationContext() {
 
                     @Override
-                    public ExpressionFunction<?, ExpressionFunctionContext> function(final FunctionExpressionName name) {
+                    public ExpressionFunction<?, ExpressionEvaluationContext> function(final FunctionExpressionName name) {
                         Objects.requireNonNull(name, "name");
                         throw new UnknownExpressionFunctionException(name);
                     }
@@ -385,7 +384,7 @@ public final class CycleDetectingExpressionEvaluationContextTest implements Clas
                 new FakeExpressionEvaluationContext() {
 
                     @Override
-                    public ExpressionFunction<?, ExpressionFunctionContext> function(final FunctionExpressionName name) {
+                    public ExpressionFunction<?, ExpressionEvaluationContext> function(final FunctionExpressionName name) {
                         Objects.requireNonNull(name, "name");
                         throw new UnknownExpressionFunctionException(name);
                     }

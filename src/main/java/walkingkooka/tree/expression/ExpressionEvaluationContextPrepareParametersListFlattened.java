@@ -19,7 +19,6 @@ package walkingkooka.tree.expression;
 
 import walkingkooka.collect.list.Lists;
 import walkingkooka.tree.expression.function.ExpressionFunction;
-import walkingkooka.tree.expression.function.ExpressionFunctionContext;
 import walkingkooka.tree.expression.function.ExpressionFunctionKind;
 import walkingkooka.tree.expression.function.ExpressionFunctionParameter;
 import walkingkooka.tree.expression.function.ExpressionFunctionParameterCardinality;
@@ -34,7 +33,7 @@ import java.util.Objects;
 final class ExpressionEvaluationContextPrepareParametersListFlattened extends ExpressionEvaluationContextPrepareParametersList {
 
     static ExpressionEvaluationContextPrepareParametersListFlattened with(final List<Object> parameters,
-                                                                          final ExpressionFunction<?, ExpressionFunctionContext> function,
+                                                                          final ExpressionFunction<?, ExpressionEvaluationContext> function,
                                                                           final ExpressionEvaluationContext context) {
         Objects.requireNonNull(parameters, "parameters");
         Objects.requireNonNull(function, "function");
@@ -52,7 +51,7 @@ final class ExpressionEvaluationContextPrepareParametersListFlattened extends Ex
     }
 
     private static List<Object> flatten(final List<Object> parameters,
-                                        final ExpressionFunction<?, ExpressionFunctionContext> function,
+                                        final ExpressionFunction<?, ExpressionEvaluationContext> function,
                                         final ExpressionEvaluationContext context) {
         final ExpressionFunctionParameter<?> parameter = function.parameter(0);
         final ExpressionFunctionParameterCardinality cardinality = parameter.cardinality();
@@ -78,7 +77,7 @@ final class ExpressionEvaluationContextPrepareParametersListFlattened extends Ex
     private static void prepareParameterAndFlatten(final Object parameterValue,
                                                    final List<Object> parametersValues,
                                                    final ExpressionFunctionParameter<?> parameter,
-                                                   final ExpressionFunction<?, ExpressionFunctionContext> function,
+                                                   final ExpressionFunction<?, ExpressionEvaluationContext> function,
                                                    final ExpressionEvaluationContext context) {
         final Object prepared = prepareParameter(
                 parameterValue,
@@ -103,7 +102,7 @@ final class ExpressionEvaluationContextPrepareParametersListFlattened extends Ex
     private static void prepareParameterAndFlatten(final List<?> unflattenedParameterValues,
                                                    final List<Object> flattenParametersValues,
                                                    final ExpressionFunctionParameter<?> parameter,
-                                                   final ExpressionFunction<?, ExpressionFunctionContext> function,
+                                                   final ExpressionFunction<?, ExpressionEvaluationContext> function,
                                                    final ExpressionEvaluationContext context) {
         for (final Object parameterValue : unflattenedParameterValues) {
             prepareParameterAndFlatten(
@@ -120,7 +119,7 @@ final class ExpressionEvaluationContextPrepareParametersListFlattened extends Ex
      * Private ctor
      */
     private ExpressionEvaluationContextPrepareParametersListFlattened(final List<Object> parameters,
-                                                                      final ExpressionFunction<?, ExpressionFunctionContext> function,
+                                                                      final ExpressionFunction<?, ExpressionEvaluationContext> function,
                                                                       final ExpressionEvaluationContext context) {
         super(parameters, function, context);
     }

@@ -17,17 +17,45 @@
 
 package walkingkooka.tree.expression;
 
-import walkingkooka.tree.expression.function.FakeExpressionFunctionContext;
+import walkingkooka.convert.FakeConverterContext;
+import walkingkooka.text.CaseSensitivity;
+import walkingkooka.tree.expression.function.ExpressionFunction;
+import walkingkooka.tree.expression.function.ExpressionFunctionParameter;
 
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
-public class FakeExpressionEvaluationContext extends FakeExpressionFunctionContext implements ExpressionEvaluationContext {
+public class FakeExpressionEvaluationContext extends FakeConverterContext implements ExpressionEvaluationContext {
 
     public FakeExpressionEvaluationContext() {
         super();
     }
+
+    @Override
+    public ExpressionNumberKind expressionNumberKind() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public CaseSensitivity caseSensitivity() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public ExpressionFunction<?, ExpressionEvaluationContext> function(final FunctionExpressionName name) {
+        Objects.requireNonNull(name, "name");
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public <T> T prepareParameter(final ExpressionFunctionParameter<T> parameter,
+                                  final Object value) {
+        Objects.requireNonNull(parameter, "parameter");
+
+        throw new UnsupportedOperationException();
+    }
+
 
     @Override
     public Object evaluate(final Expression expression) {
@@ -39,6 +67,11 @@ public class FakeExpressionEvaluationContext extends FakeExpressionFunctionConte
     public Object evaluate(final FunctionExpressionName name, final List<Object> parameters) {
         Objects.requireNonNull(name, "name");
         Objects.requireNonNull(parameters, "parameters");
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public Object handleException(final RuntimeException exception) {
         throw new UnsupportedOperationException();
     }
 

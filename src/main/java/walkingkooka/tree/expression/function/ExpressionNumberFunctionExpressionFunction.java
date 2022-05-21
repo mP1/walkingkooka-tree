@@ -17,7 +17,10 @@
 
 package walkingkooka.tree.expression.function;
 
+import walkingkooka.Context;
+import walkingkooka.convert.ConverterContext;
 import walkingkooka.tree.expression.ExpressionNumber;
+import walkingkooka.tree.expression.ExpressionNumberContext;
 import walkingkooka.tree.expression.ExpressionNumberFunction;
 import walkingkooka.tree.expression.ExpressionPurityContext;
 import walkingkooka.tree.expression.FunctionExpressionName;
@@ -31,10 +34,10 @@ import java.util.Set;
  * An {@link ExpressionFunction} that delegates all calls to a {@link ExpressionNumberFunction}. A single {@link ExpressionNumber}
  * parameter is required and only accepted.
  */
-final class ExpressionNumberFunctionExpressionFunction<C extends ExpressionFunctionContext> implements ExpressionFunction<ExpressionNumber, C> {
+final class ExpressionNumberFunctionExpressionFunction<C extends Context & ConverterContext & ExpressionNumberContext> implements ExpressionFunction<ExpressionNumber, C> {
 
-    static <C extends ExpressionFunctionContext> ExpressionNumberFunctionExpressionFunction<C> with(final FunctionExpressionName name,
-                                                                                                    final ExpressionNumberFunction function) {
+    static <C extends Context & ConverterContext & ExpressionNumberContext> ExpressionNumberFunctionExpressionFunction<C> with(final FunctionExpressionName name,
+                                                                                                                               final ExpressionNumberFunction function) {
         Objects.requireNonNull(name, "name");
         Objects.requireNonNull(function, "function");
 

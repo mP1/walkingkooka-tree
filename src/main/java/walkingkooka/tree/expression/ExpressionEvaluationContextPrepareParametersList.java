@@ -18,7 +18,6 @@
 package walkingkooka.tree.expression;
 
 import walkingkooka.tree.expression.function.ExpressionFunction;
-import walkingkooka.tree.expression.function.ExpressionFunctionContext;
 import walkingkooka.tree.expression.function.ExpressionFunctionKind;
 import walkingkooka.tree.expression.function.ExpressionFunctionParameter;
 
@@ -40,7 +39,7 @@ import java.util.Set;
 abstract class ExpressionEvaluationContextPrepareParametersList extends AbstractList<Object> {
 
     static ExpressionEvaluationContextPrepareParametersList with(final List<Object> parameters,
-                                                                 final ExpressionFunction<?, ExpressionFunctionContext> function,
+                                                                 final ExpressionFunction<?, ExpressionEvaluationContext> function,
                                                                  final ExpressionEvaluationContext context) {
         Objects.requireNonNull(parameters, "parameters");
         Objects.requireNonNull(function, "function");
@@ -60,7 +59,7 @@ abstract class ExpressionEvaluationContextPrepareParametersList extends Abstract
     }
 
     static Object prepareParameter(final Object parameterValue,
-                                   final ExpressionFunction<?, ExpressionFunctionContext> function,
+                                   final ExpressionFunction<?, ExpressionEvaluationContext> function,
                                    final ExpressionEvaluationContext context) {
         final Set<ExpressionFunctionKind> kinds = function.kinds();
         Object result = parameterValue;
@@ -100,7 +99,7 @@ abstract class ExpressionEvaluationContextPrepareParametersList extends Abstract
      * Private ctor
      */
     ExpressionEvaluationContextPrepareParametersList(final List<Object> parameters,
-                                                     final ExpressionFunction<?, ExpressionFunctionContext> function,
+                                                     final ExpressionFunction<?, ExpressionEvaluationContext> function,
                                                      final ExpressionEvaluationContext context) {
         this.parametersList = parameters;
 
@@ -138,7 +137,7 @@ abstract class ExpressionEvaluationContextPrepareParametersList extends Abstract
      * The function these parameters belong too. The function will provide numerous parameters about how to with the
      * parameters if at all.
      */
-    final ExpressionFunction<?, ExpressionFunctionContext> function;
+    final ExpressionFunction<?, ExpressionEvaluationContext> function;
 
     /**
      * {@link ExpressionEvaluationContext context} used to resolve references and evaluate parameters to values.

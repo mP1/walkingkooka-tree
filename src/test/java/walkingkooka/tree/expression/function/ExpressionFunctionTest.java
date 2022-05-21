@@ -21,6 +21,8 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.reflect.ClassTesting;
 import walkingkooka.reflect.JavaVisibility;
+import walkingkooka.tree.expression.ExpressionEvaluationContext;
+import walkingkooka.tree.expression.FakeExpressionEvaluationContext;
 
 import java.util.Collections;
 import java.util.List;
@@ -147,7 +149,7 @@ public final class ExpressionFunctionTest implements ClassTesting<ExpressionFunc
 
     private void checkParameters(final int count,
                                  final ExpressionFunctionParameter<?>... parameters) {
-        new FakeExpressionFunction<Void, FakeExpressionFunctionContext>() {
+        new FakeExpressionFunction<Void, FakeExpressionEvaluationContext>() {
             @Override
             public List<ExpressionFunctionParameter<?>> parameters() {
                 return Lists.of(parameters);
@@ -174,7 +176,7 @@ public final class ExpressionFunctionTest implements ClassTesting<ExpressionFunc
     public void testParameterIndexLessThanZeroFails() {
         assertThrows(
                 IndexOutOfBoundsException.class,
-                () -> new FakeExpressionFunction<Void, ExpressionFunctionContext>().parameter(-1)
+                () -> new FakeExpressionFunction<Void, ExpressionEvaluationContext>().parameter(-1)
         );
     }
 
@@ -182,7 +184,7 @@ public final class ExpressionFunctionTest implements ClassTesting<ExpressionFunc
     public void testParameterOutOfBoundsFails() {
         assertThrows(
                 IndexOutOfBoundsException.class,
-                () -> new FakeExpressionFunction<Void, ExpressionFunctionContext>() {
+                () -> new FakeExpressionFunction<Void, ExpressionEvaluationContext>() {
                     @Override
                     public List<ExpressionFunctionParameter<?>> parameters() {
                         return Lists.empty();
@@ -195,7 +197,7 @@ public final class ExpressionFunctionTest implements ClassTesting<ExpressionFunc
     public void testParameterOutOfBoundsFails2() {
         assertThrows(
                 IndexOutOfBoundsException.class,
-                () -> new FakeExpressionFunction<Void, ExpressionFunctionContext>() {
+                () -> new FakeExpressionFunction<Void, ExpressionEvaluationContext>() {
                     @Override
                     public List<ExpressionFunctionParameter<?>> parameters() {
                         return Lists.of(REQUIRED);
@@ -253,7 +255,7 @@ public final class ExpressionFunctionTest implements ClassTesting<ExpressionFunc
                                    final int index,
                                    final ExpressionFunctionParameter<?> parameter) {
         this.parameterAndCheck(
-                new FakeExpressionFunction<>() {
+                new FakeExpressionFunction<Void, ExpressionEvaluationContext>() {
                     @Override
                     public List<ExpressionFunctionParameter<?>> parameters() {
                         return parameters;

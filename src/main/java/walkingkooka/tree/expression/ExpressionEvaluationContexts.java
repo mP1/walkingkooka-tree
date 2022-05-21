@@ -17,16 +17,35 @@
 
 package walkingkooka.tree.expression;
 
+import walkingkooka.convert.ConverterContext;
 import walkingkooka.reflect.PublicStaticHelper;
-import walkingkooka.tree.expression.function.ExpressionFunctionContext;
+import walkingkooka.text.CaseSensitivity;
+import walkingkooka.tree.expression.function.ExpressionFunction;
+
+import java.util.Optional;
+import java.util.function.Function;
 
 public final class ExpressionEvaluationContexts implements PublicStaticHelper {
 
     /**
      * {@see BasicExpressionEvaluationContext}
      */
-    public static ExpressionEvaluationContext basic(final ExpressionFunctionContext functionContext) {
-        return BasicExpressionEvaluationContext.with(functionContext);
+    public static ExpressionEvaluationContext basic(final ExpressionNumberKind expressionNumberKind,
+                                                    final Function<FunctionExpressionName, ExpressionFunction<?, ExpressionEvaluationContext>> functions,
+                                                    final Function<RuntimeException, Object> exceptionHandler,
+                                                    final Function<ExpressionReference, Optional<Object>> references,
+                                                    final Function<ExpressionReference, ExpressionEvaluationException> referenceNotFound,
+                                                    final CaseSensitivity caseSensitivity,
+                                                    final ConverterContext converterContext) {
+        return BasicExpressionEvaluationContext.with(
+                expressionNumberKind,
+                functions,
+                exceptionHandler,
+                references,
+                referenceNotFound,
+                caseSensitivity,
+                converterContext
+        );
     }
 
     /**
@@ -41,6 +60,16 @@ public final class ExpressionEvaluationContexts implements PublicStaticHelper {
      */
     public static ExpressionEvaluationContext fake() {
         return new FakeExpressionEvaluationContext();
+    }
+
+    /**
+     * A function that creates a {@link ExpressionEvaluationReferenceException}.
+     */
+    public static Function<ExpressionReference, ExpressionEvaluationException> referenceNotFound() {
+        return (r) -> new ExpressionEvaluationReferenceException(
+                "Reference not found: " + r,
+                r
+        );
     }
 
     /**
