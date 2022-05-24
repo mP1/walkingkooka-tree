@@ -98,15 +98,14 @@ final class ExpressionNumberToExpressionNumberConverter<C extends ExpressionNumb
                                                                             final Class<T> type,
                                                                             final C context) {
         final ExpressionNumberKind kind = context.expressionNumberKind();
-        final Either<Object, String> numberResult = Cast.to(
-                this.converter.convert(
-                        value,
-                        kind.numberType(),
-                        context
-                )
+
+        final Either<?, String> numberResult = this.converter.convert(
+                value,
+                kind.numberType(),
+                context
         );
 
-        Either<T, String> expressionNumberResult;
+        final Either<T, String> expressionNumberResult;
         if (numberResult.isRight()) {
             expressionNumberResult = this.failConversion(value, type);
         } else {
@@ -114,12 +113,11 @@ final class ExpressionNumberToExpressionNumberConverter<C extends ExpressionNumb
             if (null == numberResultValue || numberResultValue instanceof ExpressionNumber) {
                 expressionNumberResult = Cast.to(numberResult);
             } else {
-                expressionNumberResult = Cast.to(
-                        Either.left(
-                                kind.create(
-                                        (Number) numberResultValue
-                                )
-                        )
+                expressionNumberResult = this.successfulConversion(
+                        kind.create(
+                                (Number) numberResultValue
+                        ),
+                        type
                 );
             }
         }
