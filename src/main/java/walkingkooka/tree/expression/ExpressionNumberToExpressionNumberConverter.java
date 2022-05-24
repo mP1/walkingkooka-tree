@@ -74,7 +74,10 @@ final class ExpressionNumberToExpressionNumberConverter<C extends ExpressionNumb
                                          final C context) {
 
         return (value instanceof ExpressionNumber && ExpressionNumber.class == type) ?
-                Cast.to(Either.left(toExpressionNumber((ExpressionNumber) value, context))) :
+                this.successfulConversion(
+                        toExpressionNumber((ExpressionNumber) value, context),
+                        type
+                ) :
                 this.converterCanConvert(value, type, context) ?
                         this.converterConvert(value, type, context) :
                         this.converterConvertAndCreateExpressionNumber(value, type, context);
