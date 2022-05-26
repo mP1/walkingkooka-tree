@@ -38,24 +38,27 @@ import java.util.Set;
  */
 abstract class ExpressionEvaluationContextPrepareParametersList extends AbstractList<Object> {
 
-    static ExpressionEvaluationContextPrepareParametersList with(final List<Object> parameters,
-                                                                 final ExpressionFunction<?, ExpressionEvaluationContext> function,
-                                                                 final ExpressionEvaluationContext context) {
+    static List<Object> with(final List<Object> parameters,
+                             final ExpressionFunction<?, ExpressionEvaluationContext> function,
+                             final ExpressionEvaluationContext context) {
         Objects.requireNonNull(parameters, "parameters");
         Objects.requireNonNull(function, "function");
         Objects.requireNonNull(context, "context");
 
-        return function.kinds().contains(ExpressionFunctionKind.FLATTEN) ?
-                ExpressionEvaluationContextPrepareParametersListFlattened.with(
-                        parameters,
-                        function,
-                        context
-                ) :
-                ExpressionEvaluationContextPrepareParametersListNonFlattened.with(
-                        parameters,
-                        function,
-                        context
-                );
+        final Set<ExpressionFunctionKind> kinds = function.kinds();
+        return kinds.isEmpty() ?
+                parameters :
+                kinds.contains(ExpressionFunctionKind.FLATTEN) ?
+                        ExpressionEvaluationContextPrepareParametersListFlattened.with(
+                                parameters,
+                                function,
+                                context
+                        ) :
+                        ExpressionEvaluationContextPrepareParametersListNonFlattened.with(
+                                parameters,
+                                function,
+                                context
+                        );
     }
 
     static Object prepareParameter(final Object parameterValue,
