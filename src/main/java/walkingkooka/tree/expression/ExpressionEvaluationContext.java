@@ -19,7 +19,6 @@ package walkingkooka.tree.expression;
 
 import walkingkooka.Context;
 import walkingkooka.collect.list.Lists;
-import walkingkooka.convert.ConverterContext;
 import walkingkooka.text.CaseSensitivity;
 import walkingkooka.tree.expression.function.ExpressionFunction;
 import walkingkooka.tree.expression.function.ExpressionFunctionKind;
@@ -32,7 +31,7 @@ import java.util.Optional;
  * A {@link Context} that travels during any expression evaluation.
  */
 public interface ExpressionEvaluationContext extends Context,
-        ConverterContext,
+        ExpressionNumberConverterContext,
         ExpressionNumberContext,
         ExpressionPurityContext {
 
