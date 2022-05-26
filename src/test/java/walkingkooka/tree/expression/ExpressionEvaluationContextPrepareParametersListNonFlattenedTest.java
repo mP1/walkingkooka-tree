@@ -68,7 +68,7 @@ public final class ExpressionEvaluationContextPrepareParametersListNonFlattenedT
         final ExpressionEvaluationContextPrepareParametersListNonFlattened list = Cast.to(
                 ExpressionEvaluationContextPrepareParametersList.with(
                         parameters,
-                        this.function(),
+                        this.function(ExpressionFunctionKind.EVALUATE_PARAMETERS),
                         ExpressionEvaluationContexts.fake()
                 )
         );
@@ -410,7 +410,7 @@ public final class ExpressionEvaluationContextPrepareParametersListNonFlattenedT
         final ExpressionEvaluationContextPrepareParametersListNonFlattened list = Cast.to(
                 ExpressionEvaluationContextPrepareParametersList.with(
                         parameters,
-                        this.function(),
+                        this.function(ExpressionFunctionKind.EVALUATE_PARAMETERS),
                         ExpressionEvaluationContexts.fake()
                 )
         );
