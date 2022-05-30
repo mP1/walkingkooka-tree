@@ -22,6 +22,7 @@ import walkingkooka.convert.Converter;
 import walkingkooka.convert.ConverterContext;
 
 import java.math.MathContext;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
@@ -95,6 +96,11 @@ final class BasicExpressionNumberConverterContext implements ExpressionNumberCon
     @Override
     public String monthNameAbbreviation(int month) {
         return this.context.monthNameAbbreviation(month);
+    }
+
+    @Override
+    public LocalDateTime now() {
+        return this.context.now();
     }
 
     @Override public int twoDigitYear() {

@@ -277,15 +277,19 @@ public abstract class ExpressionTestCase<N extends Expression> implements TreePr
     }
 
     private ExpressionNumberConverterContext converterContext() {
-        return ExpressionNumberConverterContexts.basic(Converters.simple(),
+        return ExpressionNumberConverterContexts.basic(
+                Converters.simple(),
                 ConverterContexts.basic(Converters.fake(),
                         DateTimeContexts.locale(
                                 Locale.ENGLISH,
                                 1900,
-                                20
+                                20,
+                                LocalDateTime::now
                         ),
-                        DecimalNumberContexts.american(MathContext.DECIMAL32)),
-                EXPRESSION_NUMBER_KIND);
+                        DecimalNumberContexts.american(MathContext.DECIMAL32)
+                ),
+                EXPRESSION_NUMBER_KIND
+        );
     }
 
     ExpressionEvaluationContext context() {

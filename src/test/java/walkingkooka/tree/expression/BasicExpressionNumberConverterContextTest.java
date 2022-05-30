@@ -29,6 +29,7 @@ import walkingkooka.math.DecimalNumberContext;
 import walkingkooka.math.DecimalNumberContexts;
 
 import java.math.MathContext;
+import java.time.LocalDateTime;
 import java.util.Locale;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -70,13 +71,16 @@ public final class BasicExpressionNumberConverterContextTest implements Converte
     }
 
     private ConverterContext converterContext() {
-        return ConverterContexts.basic(Converters.fake(),
+        return ConverterContexts.basic(
+                Converters.fake(),
                 DateTimeContexts.locale(
                         Locale.forLanguageTag("EN-AU"),
                         1900,
-                        20
+                        20,
+                        LocalDateTime::now
                 ),
-                this.decimalNumberContext());
+                this.decimalNumberContext()
+        );
     }
 
     private DecimalNumberContext decimalNumberContext() {

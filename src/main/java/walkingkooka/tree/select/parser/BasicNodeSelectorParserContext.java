@@ -21,6 +21,7 @@ import walkingkooka.ToStringBuilder;
 import walkingkooka.tree.expression.ExpressionNumberKind;
 
 import java.math.MathContext;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
@@ -112,6 +113,11 @@ final class BasicNodeSelectorParserContext implements NodeSelectorParserContext 
 
     @Override
     public List<String> monthNameAbbreviations() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public LocalDateTime now() {
         throw new UnsupportedOperationException();
     }
 

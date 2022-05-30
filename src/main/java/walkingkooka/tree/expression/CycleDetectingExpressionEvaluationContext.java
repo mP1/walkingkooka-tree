@@ -24,6 +24,7 @@ import walkingkooka.tree.expression.function.ExpressionFunction;
 import walkingkooka.tree.expression.function.ExpressionFunctionParameter;
 
 import java.math.MathContext;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
@@ -146,6 +147,11 @@ final class CycleDetectingExpressionEvaluationContext implements ExpressionEvalu
     @Override
     public List<String> monthNameAbbreviations() {
         return this.context.monthNameAbbreviations();
+    }
+
+    @Override
+    public LocalDateTime now() {
+        return this.context.now();
     }
 
     @Override
