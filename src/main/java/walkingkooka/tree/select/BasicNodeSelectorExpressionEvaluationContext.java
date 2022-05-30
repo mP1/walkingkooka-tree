@@ -33,6 +33,7 @@ import walkingkooka.tree.expression.function.ExpressionFunctionParameter;
 import walkingkooka.tree.select.parser.NodeSelectorAttributeName;
 
 import java.math.MathContext;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
@@ -195,6 +196,11 @@ final class BasicNodeSelectorExpressionEvaluationContext<N extends Node<N, NAME,
     @Override
     public List<String> monthNameAbbreviations() {
         return this.context.monthNameAbbreviations();
+    }
+
+    @Override
+    public LocalDateTime now() {
+        return this.context.now();
     }
 
     @Override
