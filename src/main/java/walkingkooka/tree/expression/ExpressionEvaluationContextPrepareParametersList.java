@@ -138,7 +138,7 @@ abstract class ExpressionEvaluationContextPrepareParametersList extends Abstract
     /**
      * A flag will be true when the {@link ExpressionFunctionKind#CONVERT_PARAMETERS} is present.
      */
-    boolean convert;
+    final boolean convert;
 
     /**
      * The function these parameters belong too. The function will provide numerous parameters about how to with the
