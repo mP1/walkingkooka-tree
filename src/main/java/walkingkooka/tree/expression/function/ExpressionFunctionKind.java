@@ -49,5 +49,5 @@ public enum ExpressionFunctionKind {
      * their actual non {@link walkingkooka.tree.expression.Expression} value.
      * This is only honoured when {@link ExpressionFunctionContext#evaluate(FunctionExpressionName, List)} is used.
      */
-    RESOLVE_REFERENCES;
+    RESOLVE_REFERENCES
 }
