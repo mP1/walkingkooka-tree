@@ -30,7 +30,7 @@ public final class ParametersMapperExpressionFunctionBiFunctionTest implements C
     }
 
     @Override
-    public final JavaVisibility typeVisibility() {
+    public JavaVisibility typeVisibility() {
         return JavaVisibility.PACKAGE_PRIVATE;
     }
 }
