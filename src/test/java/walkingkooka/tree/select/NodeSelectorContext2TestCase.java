@@ -51,7 +51,8 @@ public abstract class NodeSelectorContext2TestCase<C extends NodeSelectorContext
         };
     }
 
-    final void checkType(final NodeSelectorContext2<?, ?, ?, ?> context, final Class<? extends NodeSelectorContext2> type) {
+    final void checkType(final NodeSelectorContext2<?, ?, ?, ?> context,
+                         final Class type) {
         this.checkEquals(type.getName(), context.getClass().getName(), () -> "" + context + " must be " + type.getName());
     }
 

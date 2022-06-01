@@ -22,7 +22,7 @@ import walkingkooka.visit.Visiting;
 
 import static org.junit.jupiter.api.Assertions.assertSame;
 
-public final class NodeSelectorDivideSymbolParserTokenTest extends NodeSelectorSymbolParserTokenTestCase<NodeSelectorDivideSymbolParserToken, String> {
+public final class NodeSelectorDivideSymbolParserTokenTest extends NodeSelectorSymbolParserTokenTestCase<NodeSelectorDivideSymbolParserToken> {
 
     @Test
     public void testAccept() {

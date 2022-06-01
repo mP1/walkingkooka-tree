@@ -436,7 +436,7 @@ public final class NodeSelectorParsers implements PublicStaticHelper {
      */
     private static Parser<ParserContext> literal(final char c,
                                                  final BiFunction<String, String, ParserToken> factory,
-                                                 final Class<? extends NodeSelectorLeafParserToken> tokenClass) {
+                                                 final Class<? extends NodeSelectorLeafParserToken<?>> tokenClass) {
         return Parsers.character(CaseSensitivity.SENSITIVE.charPredicate(c))
                 .transform((charParserToken, context) -> factory.apply(((CharacterParserToken) charParserToken).value().toString(), charParserToken.text()))
                 .setToString(tokenClass.getSimpleName())
@@ -445,7 +445,7 @@ public final class NodeSelectorParsers implements PublicStaticHelper {
 
     private static Parser<ParserContext> literal(final String text,
                                                  final BiFunction<String, String, ParserToken> factory,
-                                                 final Class<? extends NodeSelectorLeafParserToken> tokenClass) {
+                                                 final Class<? extends NodeSelectorLeafParserToken<?>> tokenClass) {
         return text.length() == 1 ?
                 literal(text.charAt(0), factory, tokenClass) :
                 literal0(text, factory, tokenClass);
@@ -453,7 +453,7 @@ public final class NodeSelectorParsers implements PublicStaticHelper {
 
     private static Parser<ParserContext> literal0(final String text,
                                                   final BiFunction<String, String, ParserToken> factory,
-                                                  final Class<? extends NodeSelectorLeafParserToken> tokenClass) {
+                                                  final Class<? extends NodeSelectorLeafParserToken<?>> tokenClass) {
         return Parsers.string(text, CaseSensitivity.INSENSITIVE)
                 .transform((stringParserToken, context) -> factory.apply(((StringParserToken) stringParserToken).value(), stringParserToken.text()))
                 .setToString(tokenClass.getSimpleName())

@@ -17,13 +17,14 @@
 
 package walkingkooka.tree.expression;
 
+import walkingkooka.Cast;
 import walkingkooka.reflect.ClassTesting2;
 import walkingkooka.reflect.JavaVisibility;
 
-public final class LeafExpressionTest implements ClassTesting2<LeafExpression> {
+public final class LeafExpressionTest implements ClassTesting2<LeafExpression<?>> {
     @Override
-    public Class<LeafExpression> type() {
-        return LeafExpression.class;
+    public Class<LeafExpression<?>> type() {
+        return Cast.to(LeafExpression.class);
     }
 
     @Override

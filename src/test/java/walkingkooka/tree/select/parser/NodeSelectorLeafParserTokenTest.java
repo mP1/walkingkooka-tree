@@ -17,13 +17,14 @@
 
 package walkingkooka.tree.select.parser;
 
+import walkingkooka.Cast;
 import walkingkooka.reflect.ClassTesting2;
 import walkingkooka.reflect.JavaVisibility;
 
-public final class NodeSelectorLeafParserTokenTest implements ClassTesting2<NodeSelectorLeafParserToken> {
+public final class NodeSelectorLeafParserTokenTest implements ClassTesting2<NodeSelectorLeafParserToken<?>> {
     @Override
-    public Class<NodeSelectorLeafParserToken> type() {
-        return NodeSelectorLeafParserToken.class;
+    public Class<NodeSelectorLeafParserToken<?>> type() {
+        return Cast.to(NodeSelectorLeafParserToken.class);
     }
 
     @Override

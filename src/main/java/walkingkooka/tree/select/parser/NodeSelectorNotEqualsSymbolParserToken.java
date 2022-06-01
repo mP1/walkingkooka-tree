@@ -44,7 +44,7 @@ public final class NodeSelectorNotEqualsSymbolParserToken extends NodeSelectorSy
     }
 
     @Override
-    NodeSelectorBinaryParserToken binaryOperand(final List<ParserToken> tokens, final String text) {
+    NodeSelectorBinaryParserToken<?> binaryOperand(final List<ParserToken> tokens, final String text) {
         return notEquals(tokens, text);
     }
 

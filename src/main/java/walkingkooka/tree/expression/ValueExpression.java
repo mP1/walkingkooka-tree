@@ -45,7 +45,7 @@ final public class ValueExpression<V> extends LeafExpression<V> {
     }
 
     @Override
-    public ValueExpression removeParent() {
+    public ValueExpression<V> removeParent() {
         return this.removeParent0().cast();
     }
 

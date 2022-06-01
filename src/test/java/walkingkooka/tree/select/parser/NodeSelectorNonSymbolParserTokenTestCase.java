@@ -16,7 +16,7 @@
  */
 package walkingkooka.tree.select.parser;
 
-public abstract class NodeSelectorNonSymbolParserTokenTestCase<T extends NodeSelectorLeafParserToken, V> extends NodeSelectorLeafParserTokenTestCase<T, V> {
+public abstract class NodeSelectorNonSymbolParserTokenTestCase<T extends NodeSelectorLeafParserToken<V>, V> extends NodeSelectorLeafParserTokenTestCase<T, V> {
 
     NodeSelectorNonSymbolParserTokenTestCase() {
         super();

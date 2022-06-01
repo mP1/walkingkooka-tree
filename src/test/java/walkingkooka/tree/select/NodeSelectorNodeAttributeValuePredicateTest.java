@@ -17,13 +17,14 @@
 
 package walkingkooka.tree.select;
 
+import walkingkooka.Cast;
 import walkingkooka.reflect.ClassTesting2;
 import walkingkooka.reflect.JavaVisibility;
 
-public final class NodeSelectorNodeAttributeValuePredicateTest implements ClassTesting2<NodeSelectorNodeAttributeValuePredicate> {
+public final class NodeSelectorNodeAttributeValuePredicateTest implements ClassTesting2<NodeSelectorNodeAttributeValuePredicate<?, ?, ?, ?>> {
     @Override
-    public Class<NodeSelectorNodeAttributeValuePredicate> type() {
-        return NodeSelectorNodeAttributeValuePredicate.class;
+    public Class<NodeSelectorNodeAttributeValuePredicate<?, ?, ?, ?>> type() {
+        return Cast.to(NodeSelectorNodeAttributeValuePredicate.class);
     }
 
     @Override

@@ -17,13 +17,14 @@
 
 package walkingkooka.tree.select;
 
+import walkingkooka.Cast;
 import walkingkooka.reflect.ClassTesting2;
 import walkingkooka.reflect.JavaVisibility;
 
-public final class AbsoluteOrAxisNodeSelectorTest implements ClassTesting2<AbsoluteOrAxisNodeSelector> {
+public final class AbsoluteOrAxisNodeSelectorTest implements ClassTesting2<AbsoluteOrAxisNodeSelector<?, ?, ?, ?>> {
     @Override
-    public Class<AbsoluteOrAxisNodeSelector> type() {
-        return AbsoluteOrAxisNodeSelector.class;
+    public Class<AbsoluteOrAxisNodeSelector<?, ?, ?, ?>> type() {
+        return Cast.to(AbsoluteOrAxisNodeSelector.class);
     }
 
     @Override

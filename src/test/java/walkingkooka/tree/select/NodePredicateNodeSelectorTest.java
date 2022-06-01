@@ -143,7 +143,7 @@ final public class NodePredicateNodeSelectorTest extends
     @Test
     public void testAccept() {
         final StringBuilder b = new StringBuilder();
-        final List<NodeSelector> visited = Lists.array();
+        final List<NodeSelector<TestNode, StringName, StringName, Object>> visited = Lists.array();
 
         final Predicate<TestNode> predicate = this.predicate();
         final NodePredicateNodeSelector<TestNode, StringName, StringName, Object> selector = NodePredicateNodeSelector.with(predicate);

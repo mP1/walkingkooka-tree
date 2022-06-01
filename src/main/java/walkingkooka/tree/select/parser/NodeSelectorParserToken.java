@@ -936,7 +936,7 @@ public abstract class NodeSelectorParserToken implements ParserToken {
     /**
      * Factory that creates the {@link NodeSelectorBinaryParserToken} sub class using the provided tokens and text.
      */
-    abstract NodeSelectorBinaryParserToken binaryOperand(final List<ParserToken> tokens, final String text);
+    abstract NodeSelectorBinaryParserToken<?> binaryOperand(final List<ParserToken> tokens, final String text);
 
     // Visitor ......................................................................................................
 

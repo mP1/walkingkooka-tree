@@ -28,7 +28,7 @@ public final class ValueExpressionTest extends LeafExpressionTestCase<ValueExpre
     @Test
     public void testAccept() {
         final StringBuilder b = new StringBuilder();
-        final ValueExpression node = this.createExpression();
+        final ValueExpression<ExpressionNumber> node = this.createExpression();
 
         new FakeExpressionVisitor() {
             @Override
@@ -88,12 +88,14 @@ public final class ValueExpressionTest extends LeafExpressionTestCase<ValueExpre
         this.toStringAndCheck(this.createExpression(this.expressionNumberValue(234)), "234");
     }
 
-    private ValueExpression createExpression(final double value) {
-        return this.createExpression(this.expressionNumberValue(value));
+    private ValueExpression<ExpressionNumber> createExpression(final double value) {
+        return this.createExpression(
+                this.expressionNumberValue(value)
+        );
     }
 
     @Override
-    ValueExpression createExpression(final ExpressionNumber value) {
+    ValueExpression<ExpressionNumber> createExpression(final ExpressionNumber value) {
         return ValueExpression.with(value);
     }
 

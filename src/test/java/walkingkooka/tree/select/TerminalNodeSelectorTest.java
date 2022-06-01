@@ -72,7 +72,7 @@ final public class TerminalNodeSelectorTest
     @Test
     public void testAccept() {
         final StringBuilder b = new StringBuilder();
-        final List<NodeSelector> visited = Lists.array();
+        final List<NodeSelector<TestNode, StringName, StringName, Object>> visited = Lists.array();
 
         final TerminalNodeSelector<TestNode, StringName, StringName, Object> selector = this.createSelector();
 

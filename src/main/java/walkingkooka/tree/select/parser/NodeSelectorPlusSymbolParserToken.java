@@ -44,7 +44,7 @@ public final class NodeSelectorPlusSymbolParserToken extends NodeSelectorSymbolP
     }
 
     @Override
-    NodeSelectorBinaryParserToken binaryOperand(final List<ParserToken> tokens, final String text) {
+    NodeSelectorBinaryParserToken<?> binaryOperand(final List<ParserToken> tokens, final String text) {
         return addition(tokens, text);
     }
 
