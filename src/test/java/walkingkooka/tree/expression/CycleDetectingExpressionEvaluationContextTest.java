@@ -410,39 +410,6 @@ public final class CycleDetectingExpressionEvaluationContextTest implements Clas
         );
     }
 
-    private CycleDetectingExpressionEvaluationContext XXXcreateContext(final boolean pure) {
-        return this.createContext(
-                new FakeExpressionEvaluationContext() {
-
-                    @Override
-                    public ExpressionFunction<?, ExpressionEvaluationContext> function(final FunctionExpressionName name) {
-                        Objects.requireNonNull(name, "name");
-                        throw new UnknownExpressionFunctionException(name);
-                    }
-
-                    @Override
-                    public Object evaluate(final Expression expression) {
-                        return expression.toValue(this);
-                    }
-
-                    @Override
-                    public Object evaluate(final FunctionExpressionName name,
-                                           final List<Object> parameters) {
-                        Objects.requireNonNull(name, "name");
-                        Objects.requireNonNull(parameters, "parameters");
-
-                        throw new UnknownExpressionFunctionException(name);
-                    }
-
-                    @Override
-                    public boolean isPure(final FunctionExpressionName name) {
-                        Objects.requireNonNull(name, "name");
-                        return pure;
-                    }
-                }
-        );
-    }
-
     private CycleDetectingExpressionEvaluationContext createContext(final ExpressionEvaluationContext context) {
         return CycleDetectingExpressionEvaluationContext.with(context);
     }
