@@ -46,8 +46,8 @@ public abstract class ExpressionEvaluationContextPrepareParametersListTestCase<T
     final static ExpressionEvaluationContext CONTEXT = new FakeExpressionEvaluationContext() {
 
         @Override
-        public <T> T prepareParameter(final ExpressionFunctionParameter<T> parameter,
-                                      final Object value) {
+        public <TT> TT prepareParameter(final ExpressionFunctionParameter<TT> parameter,
+                                        final Object value) {
             return Cast.to(value);
         }
     };
@@ -55,8 +55,8 @@ public abstract class ExpressionEvaluationContextPrepareParametersListTestCase<T
     final static ExpressionEvaluationContext CONTEXT_PARSE_INT = new FakeExpressionEvaluationContext() {
 
         @Override
-        public <T> T prepareParameter(final ExpressionFunctionParameter<T> parameter,
-                                      final Object value) {
+        public <TT> TT prepareParameter(final ExpressionFunctionParameter<TT> parameter,
+                                        final Object value) {
             return Cast.to(Integer.parseInt((String) value));
         }
 
