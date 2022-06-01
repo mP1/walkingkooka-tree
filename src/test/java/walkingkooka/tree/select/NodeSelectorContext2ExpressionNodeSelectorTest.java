@@ -19,17 +19,11 @@ package walkingkooka.tree.select;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
-import walkingkooka.collect.list.Lists;
-import walkingkooka.convert.Converter;
-import walkingkooka.convert.Converters;
 import walkingkooka.naming.StringName;
-import walkingkooka.predicate.Predicates;
 import walkingkooka.text.CharSequences;
 import walkingkooka.tree.TestNode;
 import walkingkooka.tree.expression.Expression;
 import walkingkooka.tree.expression.ExpressionEvaluationContexts;
-import walkingkooka.tree.expression.ExpressionNumber;
-import walkingkooka.tree.expression.ExpressionNumberConverterContext;
 
 import java.util.Objects;
 
@@ -112,16 +106,6 @@ public final class NodeSelectorContext2ExpressionNodeSelectorTest extends NodeSe
 
                         return expression.toValue(
                                 ExpressionEvaluationContexts.fake()
-                        );
-                    }
-
-                    private Converter<ExpressionNumberConverterContext> converter() {
-                        return Converters.collection(
-                                Lists.of(
-                                        ExpressionNumber.toConverter(Converters.truthyNumberBoolean()),
-                                        ExpressionNumber.fromConverter(Converters.numberNumber()),
-                                        Converters.<String, Integer, ExpressionNumberConverterContext>mapper(v -> v instanceof String, Predicates.is(Integer.class), Integer::parseInt)
-                                )
                         );
                     }
                 });

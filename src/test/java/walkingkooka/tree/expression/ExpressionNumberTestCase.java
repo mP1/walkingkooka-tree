@@ -63,13 +63,15 @@ public abstract class ExpressionNumberTestCase<N extends ExpressionNumber> imple
     }
 
     @Test
-    public final void setKindNullFails() {
-        final N number = this.create();
-        assertThrows(NullPointerException.class, () -> this.create().setKind(null));
+    public final void testSetKindNullFails() {
+        assertThrows(
+                NullPointerException.class,
+                () -> this.create().setKind(null)
+        );
     }
 
     @Test
-    public final void setKindSame() {
+    public final void testSetKindSame() {
         final N number = this.create();
         assertSame(number, number.setKind(number.kind()));
     }
