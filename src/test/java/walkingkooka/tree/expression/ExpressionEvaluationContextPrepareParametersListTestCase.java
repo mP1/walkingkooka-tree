@@ -29,6 +29,7 @@ import walkingkooka.tree.expression.function.ExpressionFunctionParameter;
 import walkingkooka.tree.expression.function.ExpressionFunctionParameterName;
 import walkingkooka.tree.expression.function.FakeExpressionFunction;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
 
@@ -98,7 +99,7 @@ public abstract class ExpressionEvaluationContextPrepareParametersListTestCase<T
 
             @Override
             public String toString() {
-                return "parameters: " + parameters + " kinds: " + kinds;
+                return "parameters: " + parameters + " kinds: " + Arrays.toString(kinds);
             }
         };
     }
