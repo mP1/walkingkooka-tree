@@ -74,7 +74,11 @@ abstract class ExpressionEvaluationContextPrepareParametersList extends Abstract
         }
         if (result instanceof ExpressionReference) {
             if (kinds.contains(ExpressionFunctionKind.RESOLVE_REFERENCES)) {
-                result = context.referenceOrFail((ExpressionReference) result);
+                try {
+                    result = context.referenceOrFail((ExpressionReference) result);
+                } catch (final RuntimeException cause) {
+                    result = context.handleException(cause);
+                }
 
                 if (result instanceof Expression && kinds.contains(ExpressionFunctionKind.EVALUATE_PARAMETERS)) {
                     result = toReferenceOrValue(result, context);

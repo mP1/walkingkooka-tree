@@ -48,6 +48,35 @@ public final class ExpressionEvaluationContextPrepareParametersListTest extends 
         );
     }
 
+    @Test
+    public void testPrepareParametersReferenceNotFound() {
+        final Object handled = "context.handleException -> **Handled**";
+
+        this.checkEquals(
+                handled,
+                ExpressionEvaluationContextPrepareParametersList.prepareParameter(
+                        new ExpressionReference() {
+                            @Override
+                            public String toString() {
+                                return "reference-not-found";
+                            }
+                        },
+                        new FakeExpressionFunction<>() {
+                            @Override
+                            public Set<ExpressionFunctionKind> kinds() {
+                                return Sets.of(ExpressionFunctionKind.RESOLVE_REFERENCES);
+                            }
+                        },
+                        new FakeExpressionEvaluationContext() {
+                            @Override
+                            public Object handleException(final RuntimeException exception) {
+                                return handled;
+                            }
+                        }
+                )
+        );
+    }
+
     @Override
     public Class<ExpressionEvaluationContextPrepareParametersList> type() {
         return ExpressionEvaluationContextPrepareParametersList.class;
