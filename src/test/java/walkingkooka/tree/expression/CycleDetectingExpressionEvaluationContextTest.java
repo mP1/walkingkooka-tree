@@ -142,23 +142,30 @@ public final class CycleDetectingExpressionEvaluationContextTest implements Clas
         // A1 -> target
         final ReferenceExpression target = Expression.reference(A1);
 
-        final CycleDetectingExpressionEvaluationContext context = this.createContext(new FakeExpressionEvaluationContext() {
+        final CycleDetectingExpressionEvaluationContext context = this.createContext(
+                new FakeExpressionEvaluationContext() {
 
-            @Override
-            public Optional<Object> reference(final ExpressionReference reference) {
-                if (A1 == reference) {
-                    return Optional.of(
-                            target.value()
-                    );
-                }
-                return this.unknownReference(reference);
-            }
+                    @Override
+                    public Optional<Object> reference(final ExpressionReference reference) {
+                        if (A1 == reference) {
+                            return Optional.of(
+                                    target.value()
+                            );
+                        }
+                        return this.unknownReference(reference);
+                    }
 
-            private <T> T unknownReference(final ExpressionReference reference) {
-                fail("Unknown reference=" + reference);
-                return null;
-            }
-        });
+                    private <T> T unknownReference(final ExpressionReference reference) {
+                        fail("Unknown reference=" + reference);
+                        return null;
+                    }
+
+
+                    @Override
+                    public Object handleException(final RuntimeException exception) {
+                        throw exception;
+                    }
+                });
 
         assertThrows(CycleDetectedExpressionEvaluationConversionException.class, () -> target.toValue(context));
     }
@@ -166,57 +173,71 @@ public final class CycleDetectingExpressionEvaluationContextTest implements Clas
     @Test
     public void testReferenceWithCycleFails() {
         // B2 -> A1 -> target
-        final CycleDetectingExpressionEvaluationContext context = this.createContext(new FakeExpressionEvaluationContext() {
+        final CycleDetectingExpressionEvaluationContext context = this.createContext(
+                new FakeExpressionEvaluationContext() {
 
-            @Override
-            public Optional<Object> reference(final ExpressionReference reference) {
-                return Optional.of(this.reference0(reference));
-            }
+                    @Override
+                    public Optional<Object> reference(final ExpressionReference reference) {
+                        return Optional.of(this.reference0(reference));
+                    }
 
-            private Object reference0(final ExpressionReference reference) {
-                if (B2 == reference) {
-                    return B2;
-                }
-                if (A1 == reference) {
-                    return A1;
-                }
-                return this.unknownReference(reference);
-            }
+                    private Object reference0(final ExpressionReference reference) {
+                        if (B2 == reference) {
+                            return B2;
+                        }
+                        if (A1 == reference) {
+                            return A1;
+                        }
+                        return this.unknownReference(reference);
+                    }
 
-            private <T> T unknownReference(final ExpressionReference reference) {
-                fail("Unknown reference=" + reference);
-                return null;
-            }
-        });
+                    private <T> T unknownReference(final ExpressionReference reference) {
+                        fail("Unknown reference=" + reference);
+                        return null;
+                    }
+
+
+                    @Override
+                    public Object handleException(final RuntimeException exception) {
+                        throw exception;
+                    }
+                });
         assertThrows(CycleDetectedExpressionEvaluationConversionException.class, () -> Expression.reference(A1).toValue(context));
     }
 
     @Test
     public void testReferenceWithCycleFails2() {
-        final CycleDetectingExpressionEvaluationContext context = this.createContext(new FakeExpressionEvaluationContext() {
+        final CycleDetectingExpressionEvaluationContext context = this.createContext(
+                new FakeExpressionEvaluationContext() {
 
-            @Override
-            public Optional<Object> reference(final ExpressionReference reference) {
-                return Optional.of(
-                        this.reference0(reference)
-                );
-            }
+                    @Override
+                    public Optional<Object> reference(final ExpressionReference reference) {
+                        return Optional.of(
+                                this.reference0(reference)
+                        );
+                    }
 
-            private Object reference0(final ExpressionReference reference) {
-                if (B2 == reference || C3 == reference) {
-                    return B2;
-                }
-                if (A1 == reference) {
-                    return A1;
-                }
-                return this.unknownReference(reference);
-            }
+                    private Object reference0(final ExpressionReference reference) {
+                        if (B2 == reference || C3 == reference) {
+                            return B2;
+                        }
+                        if (A1 == reference) {
+                            return A1;
+                        }
+                        return this.unknownReference(reference);
+                    }
 
-            private <T> T unknownReference(final ExpressionReference reference) {
-                fail("Unknown reference=" + reference);
-                return null;
-            }
-        });
+                    private <T> T unknownReference(final ExpressionReference reference) {
+                        fail("Unknown reference=" + reference);
+                        return null;
+                    }
+
+
+                    @Override
+                    public Object handleException(final RuntimeException exception) {
+                        throw exception;
+                    }
+                });
 
         assertThrows(CycleDetectedExpressionEvaluationConversionException.class, () -> {
             Expression.reference(B2).toValue(context); // --> B2 --> A1 --> B2 cycle!!!
@@ -255,6 +276,11 @@ public final class CycleDetectingExpressionEvaluationContextTest implements Clas
                     private <T> T unknownReference(final ExpressionReference reference) {
                         fail("Unknown reference=" + reference);
                         return null;
+                    }
+
+                    @Override
+                    public Object handleException(final RuntimeException exception) {
+                        throw exception;
                     }
                 });
 
@@ -312,6 +338,11 @@ public final class CycleDetectingExpressionEvaluationContextTest implements Clas
 
         return this.createContext(
                 new FakeExpressionEvaluationContext() {
+
+                    @Override
+                    public Object handleException(final RuntimeException exception) {
+                        throw exception;
+                    }
 
                     @Override
                     public ExpressionFunction<?, ExpressionEvaluationContext> function(final FunctionExpressionName name) {
