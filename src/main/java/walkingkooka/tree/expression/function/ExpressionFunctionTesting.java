@@ -142,6 +142,15 @@ public interface ExpressionFunctionTesting<F extends ExpressionFunction<V, C>, V
 
     // apply...........................................................................................................
 
+    default void applyAndCheck(final List<Object> parameters,
+                               final V expected) {
+        this.applyAndCheck(
+                parameters,
+                this.createContext(),
+                expected
+        );
+    }
+
     default V apply2(final Object... parameters) {
         return this.createBiFunction()
                 .apply(

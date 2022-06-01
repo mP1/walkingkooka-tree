@@ -39,6 +39,8 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class ExpressionFunctionTestingTest implements ClassTesting<ExpressionFunctionTesting<?, ?, ?>> {
 
+    private final static ExpressionEvaluationContext CONTEXT = ExpressionEvaluationContexts.fake();
+
     private final ExpressionFunctionTesting<ExpressionFunction<Object, ExpressionEvaluationContext>, Object, ExpressionEvaluationContext> TESTING = new ExpressionFunctionTesting<>() {
 
         @Override
@@ -63,6 +65,40 @@ public final class ExpressionFunctionTestingTest implements ClassTesting<Express
             return "ExpressionReference123";
         }
     };
+
+    // applyAndCheck ...................................................................................................
+
+    @Test
+    public void testApplyAndCheck() {
+        final List<Object> parameters = Lists.of(true, 1, "***parameters3***");
+        final Object expected = "**123**";
+
+        new ExpressionFunctionTesting<ExpressionFunction<Object, ExpressionEvaluationContext>, Object, ExpressionEvaluationContext>() {
+
+            @Override
+            public Class<ExpressionFunction<Object, ExpressionEvaluationContext>> type() {
+                throw new UnsupportedOperationException();
+            }
+
+            @Override
+            public ExpressionFunction<Object, ExpressionEvaluationContext> createBiFunction() {
+                return new FakeExpressionFunction<>() {
+                    @Override
+                    public Object apply(final List<Object> p,
+                                        final ExpressionEvaluationContext c) {
+                        checkEquals(parameters, p);
+                        checkEquals(CONTEXT, c);
+                        return expected;
+                    }
+                };
+            }
+
+            @Override
+            public ExpressionEvaluationContext createContext() {
+                return CONTEXT;
+            }
+        }.applyAndCheck(parameters, expected);
+    }
 
     // applyAndCheck kind/parameter checks.............................................................................
 
@@ -437,7 +473,7 @@ public final class ExpressionFunctionTestingTest implements ClassTesting<Express
     }
 
     private ExpressionEvaluationContext createContext() {
-        return ExpressionEvaluationContexts.fake();
+        return CONTEXT;
     }
 
     @Override
