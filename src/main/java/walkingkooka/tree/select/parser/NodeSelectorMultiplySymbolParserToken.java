@@ -44,7 +44,7 @@ public final class NodeSelectorMultiplySymbolParserToken extends NodeSelectorSym
     }
 
     @Override
-    NodeSelectorBinaryParserToken binaryOperand(final List<ParserToken> tokens, final String text) {
+    NodeSelectorBinaryParserToken<?> binaryOperand(final List<ParserToken> tokens, final String text) {
         return NodeSelectorParserToken.multiplication(tokens, text);
     }
 

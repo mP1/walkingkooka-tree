@@ -87,7 +87,7 @@ abstract class LeafExpression<V> extends Expression implements Value<V> {
                 equalsIgnoringParentAndChildren0(Cast.to(other));
     }
 
-    private boolean equalsIgnoringParentAndChildren0(final LeafExpression other) {
+    private boolean equalsIgnoringParentAndChildren0(final LeafExpression<?> other) {
         return this.value.equals(other.value);
     }
 }

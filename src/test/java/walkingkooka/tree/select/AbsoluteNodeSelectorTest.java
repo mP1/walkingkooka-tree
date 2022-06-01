@@ -131,7 +131,7 @@ final public class AbsoluteNodeSelectorTest extends
     @Test
     public void testAccept() {
         final StringBuilder b = new StringBuilder();
-        final List<NodeSelector> visited = Lists.array();
+        final List<NodeSelector<TestNode, StringName, StringName, Object>> visited = Lists.array();
 
         final AbsoluteNodeSelector<TestNode, StringName, StringName, Object> selector = this.createSelector();
         final NodeSelector<TestNode, StringName, StringName, Object> next = selector.next;

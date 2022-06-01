@@ -292,7 +292,7 @@ final public class PrecedingNodeSelectorTest extends
     @Test
     public void testAccept() {
         final StringBuilder b = new StringBuilder();
-        final List<NodeSelector> visited = Lists.array();
+        final List<NodeSelector<TestNode, StringName, StringName, Object>> visited = Lists.array();
 
         final PrecedingNodeSelector<TestNode, StringName, StringName, Object> selector = this.createSelector();
         final NodeSelector<TestNode, StringName, StringName, Object> next = selector.next;

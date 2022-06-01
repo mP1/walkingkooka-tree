@@ -77,7 +77,7 @@ final class NodeSelectorEbnfParserCombinatorSyntaxTreeTransformer implements Ebn
     private static final EbnfIdentifierName NEGATIVE_IDENTIFIER = EbnfIdentifierName.with("NEGATIVE");
 
     private static ParserToken parent(final ParserToken token,
-                                      final BiFunction<List<ParserToken>, String, ? extends NodeSelectorParentParserToken> factory) {
+                                      final BiFunction<List<ParserToken>, String, ? extends NodeSelectorParentParserToken<?>> factory) {
         return factory.apply(token instanceof SequenceParserToken ?
                         ((SequenceParserToken) token).value() :
                         Lists.of(token),

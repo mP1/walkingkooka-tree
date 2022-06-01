@@ -44,7 +44,7 @@ public final class NodeSelectorDivideSymbolParserToken extends NodeSelectorSymbo
     }
 
     @Override
-    NodeSelectorBinaryParserToken binaryOperand(final List<ParserToken> tokens, final String text) {
+    NodeSelectorBinaryParserToken<?> binaryOperand(final List<ParserToken> tokens, final String text) {
         return division(tokens, text);
     }
 

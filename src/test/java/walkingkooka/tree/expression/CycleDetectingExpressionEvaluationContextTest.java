@@ -414,7 +414,7 @@ public final class CycleDetectingExpressionEvaluationContextTest implements Clas
         return CycleDetectingExpressionEvaluationContext.with(context);
     }
 
-    private ValueExpression text() {
+    private ValueExpression<String> text() {
         return Expression.value(VALUE);
     }
 

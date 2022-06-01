@@ -92,7 +92,7 @@ public interface ExpressionFunctionTesting<F extends ExpressionFunction<V, C>, V
     default void testParametersOptionalNotBeforeRequired() {
         final List<ExpressionFunctionParameter<?>> parameters = this.createBiFunction().parameters();
 
-        ExpressionFunctionParameter previous = null;
+        ExpressionFunctionParameter<?> previous = null;
 
         for (int i = 0; i < parameters.size(); i++) {
             final ExpressionFunctionParameter<?> parameter = parameters.get(i);

@@ -44,7 +44,7 @@ public final class NodeSelectorLessThanEqualsSymbolParserToken extends NodeSelec
     }
 
     @Override
-    NodeSelectorBinaryParserToken binaryOperand(final List<ParserToken> tokens, final String text) {
+    NodeSelectorBinaryParserToken<?> binaryOperand(final List<ParserToken> tokens, final String text) {
         return lessThanEquals(tokens, text);
     }
 

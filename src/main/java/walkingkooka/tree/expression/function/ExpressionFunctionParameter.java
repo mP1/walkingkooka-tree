@@ -313,10 +313,10 @@ public final class ExpressionFunctionParameter<T> implements HasName<ExpressionF
 
     @Override
     public boolean equals(final Object other) {
-        return this == other || other instanceof ExpressionFunctionParameter && this.equals0((ExpressionFunctionParameter) other);
+        return this == other || other instanceof ExpressionFunctionParameter && this.equals0((ExpressionFunctionParameter<?>) other);
     }
 
-    private boolean equals0(final ExpressionFunctionParameter other) {
+    private boolean equals0(final ExpressionFunctionParameter<?> other) {
         return this.name.equals(other.name) &&
                 this.type.equals(other.type) &&
                 this.typeParameters.equals(other.typeParameters) &&
