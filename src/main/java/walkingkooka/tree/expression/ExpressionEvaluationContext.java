@@ -108,8 +108,15 @@ public interface ExpressionEvaluationContext extends Context,
      * {@link ExpressionEvaluationReferenceException}.
      */
     default Object referenceOrFail(final ExpressionReference reference) {
-        return this.reference(reference)
-                .orElseThrow(() -> this.referenceNotFound(reference));
+        Object result;
+        try {
+            result = this.reference(reference)
+                    .orElseThrow(() -> this.referenceNotFound(reference));
+        } catch (final RuntimeException exception) {
+            result = this.handleException(exception);
+        }
+
+        return result;
     }
 
     /**
