@@ -108,21 +108,22 @@ public final class ExpressionNumberToExpressionNumberConverterTest implements Co
     private void convertFails3(final ExpressionNumberKind kind,
                                final String value,
                                final Class<?> type) {
-        final Converter<ExpressionNumberConverterContext> converter = ExpressionNumber.toConverter(new FakeConverter<>() {
-            @Override
-            public boolean canConvert(final Object value,
-                                      final Class<?> type,
-                                      final ExpressionNumberConverterContext context) {
-                return false;
-            }
+        final Converter<ExpressionNumberConverterContext> converter = ExpressionNumber.toConverter(
+                new FakeConverter<>() {
+                    @Override
+                    public boolean canConvert(final Object value,
+                                              final Class<?> type,
+                                              final ExpressionNumberConverterContext context) {
+                        return false;
+                    }
 
-            @Override
-            public <T> Either<T, String> convert(final Object value,
-                                                 final Class<T> type,
-                                                 final ExpressionNumberConverterContext context) {
-                return this.failConversion(value, type);
-            }
-        });
+                    @Override
+                    public <T> Either<T, String> convert(final Object value,
+                                                         final Class<T> type,
+                                                         final ExpressionNumberConverterContext context) {
+                        return this.failConversion(value, type);
+                    }
+                });
         final ExpressionNumberConverterContext context = this.createContext();
         this.checkEquals(false, converter.canConvert(value, type, context));
         this.convertFails(converter,

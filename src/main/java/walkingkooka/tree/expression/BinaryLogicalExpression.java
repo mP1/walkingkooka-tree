@@ -45,8 +45,8 @@ abstract class BinaryLogicalExpression extends BinaryExpression {
             if (left instanceof Boolean) {
                 result = this.applyBoolean(
                         context.convertOrFail(left, Boolean.class),
-                        context.convertOrFail(right, Boolean.class),
-                        context);
+                        context.convertOrFail(right, Boolean.class)
+                );
                 break;
             }
 
@@ -58,7 +58,8 @@ abstract class BinaryLogicalExpression extends BinaryExpression {
         return result;
     }
 
-    final Expression applyBoolean(final boolean left, final boolean right, final ExpressionEvaluationContext context) {
+    final Expression applyBoolean(final boolean left,
+                                  final boolean right) {
         return Expression.value(
                 this.applyBoolean0(left, right)
         );

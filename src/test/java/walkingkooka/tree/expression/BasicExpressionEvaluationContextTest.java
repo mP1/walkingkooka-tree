@@ -607,12 +607,6 @@ public final class BasicExpressionEvaluationContextTest implements ClassTesting2
         );
     }
 
-    private Function<RuntimeException, Object> exceptionHandler() {
-        return (r) -> {
-            throw r;
-        };
-    }
-
     private Function<FunctionExpressionName, ExpressionFunction<?, ExpressionEvaluationContext>> functions() {
         return this.functions(true);
     }

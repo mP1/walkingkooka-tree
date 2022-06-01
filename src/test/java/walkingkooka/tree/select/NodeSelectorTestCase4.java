@@ -108,10 +108,6 @@ abstract public class NodeSelectorTestCase4<S extends NodeSelector<TestNode, Str
         this.applyAndCheck0(this.createSelector(), start);
     }
 
-    final void applyAndCheck(final TestNode start, final String... nodes) {
-        this.applyAndCheck0(this.createSelector(), start, nodes);
-    }
-
     final void applyAndCheck(final TestNode start, final TestNode... nodes) {
         this.applyAndCheck(this.createSelector(), start, nodes);
     }
@@ -210,22 +206,6 @@ abstract public class NodeSelectorTestCase4<S extends NodeSelector<TestNode, Str
                 start,
                 finisher,
                 new String[0]);
-    }
-
-    final void applyFinisherAndCheck(final NodeSelector<TestNode, StringName, StringName, Object> selector,
-                                     final TestNode start,
-                                     final BooleanSupplier finisher,
-                                     final TestNode... nodes) {
-        final Set<TestNode> selected = Sets.ordered();
-        assertSame(start,
-                selector.apply(start,
-                        this.context(finisher,
-                                Predicates.always(),
-                                selected::add)),
-                () -> "incorrect start node returned, selector: " + selector);
-        this.checkEquals(nodeNames(nodes),
-                nodeNames(selected),
-                () -> "Selector.apply\n" + start);
     }
 
     final void applyFinisherAndCheck(final NodeSelector<TestNode, StringName, StringName, Object> selector,
