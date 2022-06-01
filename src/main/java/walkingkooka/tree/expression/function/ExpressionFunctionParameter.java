@@ -225,10 +225,10 @@ public final class ExpressionFunctionParameter<T> implements HasName<ExpressionF
         return values;
     }
 
-    private <T, C extends ExpressionEvaluationContext> void flatten0(final Iterator<Object> parameters,
-                                                                     final Consumer<T> values,
-                                                                     final boolean resolveReferences,
-                                                                     final C context) {
+    private <TT, C extends ExpressionEvaluationContext> void flatten0(final Iterator<Object> parameters,
+                                                                      final Consumer<TT> values,
+                                                                      final boolean resolveReferences,
+                                                                      final C context) {
         while (parameters.hasNext()) {
             this.flatten1(
                     parameters.next(),
@@ -239,10 +239,10 @@ public final class ExpressionFunctionParameter<T> implements HasName<ExpressionF
         }
     }
 
-    private <T, C extends ExpressionEvaluationContext> void flatten1(final Object parameter,
-                                                                     final Consumer<T> values,
-                                                                     final boolean resolveReferences,
-                                                                     final C context) {
+    private <TT, C extends ExpressionEvaluationContext> void flatten1(final Object parameter,
+                                                                      final Consumer<TT> values,
+                                                                      final boolean resolveReferences,
+                                                                      final C context) {
         if (resolveReferences && parameter instanceof ExpressionReference) {
             this.flatten1(
                     context.referenceOrFail((ExpressionReference) parameter),
@@ -260,7 +260,7 @@ public final class ExpressionFunctionParameter<T> implements HasName<ExpressionF
                         context
                 );
             } else {
-                values.accept((T) parameter);
+                values.accept((TT) parameter);
             }
         }
     }
