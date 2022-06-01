@@ -17,13 +17,11 @@
 
 package walkingkooka.tree.expression;
 
-import walkingkooka.NeverError;
 import walkingkooka.math.Maths;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.math.MathContext;
-import java.math.RoundingMode;
 
 /**
  * A {@link ExpressionNumber} that holds and performs all operations on {@link double values}.
