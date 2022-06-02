@@ -57,4 +57,14 @@ public abstract class ExpressionFunctionTestCase<F extends ExpressionFunction<T,
     public final JavaVisibility typeVisibility() {
         return JavaVisibility.PACKAGE_PRIVATE;
     }
+
+    @Override
+    public final String typeNamePrefix() {
+        return ExpressionFunction.class.getSimpleName();
+    }
+
+    @Override
+    public final String typeNameSuffix() {
+        return "";
+    }
 }

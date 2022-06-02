@@ -31,17 +31,17 @@ import java.util.function.BiFunction;
 /**
  * Wraps an {@link ExpressionFunction} and applies a {@link java.util.function.Function} on the paraneters before calling the wrapped.
  */
-final class ParametersMapperExpressionFunction<T, C extends Context & ConverterContext & ExpressionNumberContext> implements ExpressionFunction<T, C> {
+final class ExpressionFunctionParametersMapper<T, C extends Context & ConverterContext & ExpressionNumberContext> implements ExpressionFunction<T, C> {
 
-    static <T, C extends Context & ConverterContext & ExpressionNumberContext> ParametersMapperExpressionFunction<T, C> with(final BiFunction<List<Object>, C, List<Object>> mapper,
+    static <T, C extends Context & ConverterContext & ExpressionNumberContext> ExpressionFunctionParametersMapper<T, C> with(final BiFunction<List<Object>, C, List<Object>> mapper,
                                                                                                                              final ExpressionFunction<T, C> function) {
         Objects.requireNonNull(mapper, "mapper");
         Objects.requireNonNull(function, "function");
 
-        return new ParametersMapperExpressionFunction<>(mapper, function);
+        return new ExpressionFunctionParametersMapper<>(mapper, function);
     }
 
-    private ParametersMapperExpressionFunction(final BiFunction<List<Object>, C, List<Object>> mapper,
+    private ExpressionFunctionParametersMapper(final BiFunction<List<Object>, C, List<Object>> mapper,
                                                final ExpressionFunction<T, C> function) {
         this.mapper = mapper;
         this.function = function;
@@ -85,7 +85,7 @@ final class ParametersMapperExpressionFunction<T, C extends Context & ConverterC
     public ExpressionFunction<T, C> mapParameters(final BiFunction<List<Object>, C, List<Object>> mapper) {
         return this.mapper.equals(mapper) ?
                 this :
-                ParametersMapperExpressionFunction.with(mapper, this);
+                ExpressionFunctionParametersMapper.with(mapper, this);
     }
 
     /**
