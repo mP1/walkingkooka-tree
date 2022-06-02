@@ -20,62 +20,40 @@ package walkingkooka.tree.expression.function;
 import walkingkooka.Context;
 import walkingkooka.convert.ConverterContext;
 import walkingkooka.tree.expression.ExpressionNumberContext;
-import walkingkooka.tree.expression.ExpressionPurityContext;
-import walkingkooka.tree.expression.FunctionExpressionName;
 
 import java.util.List;
 import java.util.Objects;
-import java.util.Set;
 import java.util.function.BiFunction;
 
 /**
  * Wraps an {@link ExpressionFunction} and applies a {@link java.util.function.Function} on the paraneters before calling the wrapped.
  */
-final class ExpressionFunctionParametersMapper<T, C extends Context & ConverterContext & ExpressionNumberContext> implements ExpressionFunction<T, C> {
+final class ExpressionFunctionParametersMapper<T, C extends Context & ConverterContext & ExpressionNumberContext> extends ExpressionFunctionParameters<T, C> {
 
     static <T, C extends Context & ConverterContext & ExpressionNumberContext> ExpressionFunctionParametersMapper<T, C> with(final BiFunction<List<Object>, C, List<Object>> mapper,
                                                                                                                              final ExpressionFunction<T, C> function) {
         Objects.requireNonNull(mapper, "mapper");
-        Objects.requireNonNull(function, "function");
+        checkFunction(function);
 
         return new ExpressionFunctionParametersMapper<>(mapper, function);
     }
 
     private ExpressionFunctionParametersMapper(final BiFunction<List<Object>, C, List<Object>> mapper,
                                                final ExpressionFunction<T, C> function) {
+        super(function);
         this.mapper = mapper;
-        this.function = function;
     }
 
     @Override
     public T apply(final List<Object> parameters,
                    final C context) {
-        return this.function.apply(this.mapper.apply(parameters, context), context);
-    }
-
-    @Override
-    public boolean isPure(final ExpressionPurityContext context) {
-        return this.function.isPure(context);
-    }
-
-    @Override
-    public FunctionExpressionName name() {
-        return this.function.name();
-    }
-
-    @Override
-    public List<ExpressionFunctionParameter<?>> parameters() {
-        return this.function.parameters();
-    }
-
-    @Override
-    public Class<T> returnType() {
-        return this.function.returnType();
-    }
-
-    @Override
-    public Set<ExpressionFunctionKind> kinds() {
-        return this.function.kinds();
+        return this.function.apply(
+                this.mapper.apply(
+                        parameters,
+                        context
+                ),
+                context
+        );
     }
 
     /**
@@ -92,11 +70,6 @@ final class ExpressionFunctionParametersMapper<T, C extends Context & ConverterC
      * The function that preprocesses parameters before calling the wrapped function
      */
     private final BiFunction<List<Object>, C, List<Object>> mapper;
-
-    /**
-     * The wrapped function
-     */
-    private final ExpressionFunction<T, C> function;
 
     @Override
     public String toString() {
