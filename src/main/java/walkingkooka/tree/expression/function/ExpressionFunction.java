@@ -28,6 +28,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 import java.util.function.BiFunction;
+import java.util.function.BiPredicate;
 
 /**
  * Basic contract for a function within a {@link walkingkooka.tree.expression.ExpressionEvaluationContext}
@@ -129,5 +130,12 @@ public interface ExpressionFunction<T, C extends Context & ConverterContext & Ex
      */
     default ExpressionFunction<T, C> mapParameters(final BiFunction<List<Object>, C, List<Object>> mapper) {
         return ExpressionFunctionParametersMapper.with(mapper, this);
+    }
+
+    /**
+     * Returns a new {@link ExpressionFunction} that filters parameters using the given {@link BiPredicate}.
+     */
+    default ExpressionFunction<T, C> filterParameters(final BiPredicate<Object, C> filter) {
+        return ExpressionFunctionParametersFilter.with(filter, this);
     }
 }
