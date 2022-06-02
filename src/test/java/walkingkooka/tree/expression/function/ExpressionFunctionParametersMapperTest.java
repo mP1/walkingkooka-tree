@@ -19,11 +19,10 @@ package walkingkooka.tree.expression.function;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
-import walkingkooka.ToStringTesting;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.set.Sets;
+import walkingkooka.tree.expression.ExpressionEvaluationContext;
 import walkingkooka.tree.expression.ExpressionPurityContext;
-import walkingkooka.tree.expression.FakeExpressionEvaluationContext;
 import walkingkooka.tree.expression.FunctionExpressionName;
 
 import java.util.List;
@@ -35,20 +34,17 @@ import static org.junit.jupiter.api.Assertions.assertNotSame;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class ParametersMapperExpressionFunctionTest implements ExpressionFunctionTesting<ParametersMapperExpressionFunction<Object, FakeExpressionEvaluationContext>,
-        Object,
-        FakeExpressionEvaluationContext>,
-        ToStringTesting<ParametersMapperExpressionFunction<Object, FakeExpressionEvaluationContext>> {
+public final class ExpressionFunctionParametersMapperTest extends ExpressionFunctionTestCase<ExpressionFunctionParametersMapper<Object, ExpressionEvaluationContext>, Object> {
 
-    private final static BiFunction<List<Object>, FakeExpressionEvaluationContext, List<Object>> MAPPER = (p, c) -> p.stream()
+    private final static BiFunction<List<Object>, ExpressionEvaluationContext, List<Object>> MAPPER = (p, c) -> p.stream()
             .map(pp -> pp.toString().toUpperCase())
             .collect(Collectors.toList());
 
-    private final static ExpressionFunction<Object, FakeExpressionEvaluationContext> FUNCTION = new FakeExpressionFunction<>() {
+    private final static ExpressionFunction<Object, ExpressionEvaluationContext> FUNCTION = new FakeExpressionFunction<>() {
 
         @Override
         public Object apply(final List<Object> parameters,
-                            final FakeExpressionEvaluationContext context) {
+                            final ExpressionEvaluationContext context) {
             return parameters.stream()
                     .map(p -> p.toString() + "-function")
                     .collect(Collectors.joining(","));
@@ -81,12 +77,12 @@ public final class ParametersMapperExpressionFunctionTest implements ExpressionF
 
     @Test
     public void testWithNullMapperFails() {
-        assertThrows(NullPointerException.class, () -> ParametersMapperExpressionFunction.with(null, FUNCTION));
+        assertThrows(NullPointerException.class, () -> ExpressionFunctionParametersMapper.with(null, FUNCTION));
     }
 
     @Test
     public void testWithNullFunctionFails() {
-        assertThrows(NullPointerException.class, () -> ParametersMapperExpressionFunction.with(MAPPER, null));
+        assertThrows(NullPointerException.class, () -> ExpressionFunctionParametersMapper.with(MAPPER, null));
     }
 
     @Test
@@ -103,18 +99,18 @@ public final class ParametersMapperExpressionFunctionTest implements ExpressionF
 
     @Test
     public void testMapSameFunction() {
-        final ParametersMapperExpressionFunction<Object, FakeExpressionEvaluationContext> function = this.createBiFunction();
+        final ExpressionFunctionParametersMapper<Object, ExpressionEvaluationContext> function = this.createBiFunction();
         assertSame(function, function.mapParameters(MAPPER));
     }
 
     @Test
     public void testMapFunctionThenApply() {
-        final ParametersMapperExpressionFunction<Object, FakeExpressionEvaluationContext> function = this.createBiFunction();
+        final ExpressionFunctionParametersMapper<Object, ExpressionEvaluationContext> function = this.createBiFunction();
 
-        final BiFunction<List<Object>, FakeExpressionEvaluationContext, List<Object>> mapper = (p, c) -> p.stream()
+        final BiFunction<List<Object>, ExpressionEvaluationContext, List<Object>> mapper = (p, c) -> p.stream()
                 .map(pp -> pp.toString() + "-a")
                 .collect(Collectors.toList());
-        final ParametersMapperExpressionFunction<Object, FakeExpressionEvaluationContext> function2 = Cast.to(function.mapParameters(mapper));
+        final ExpressionFunctionParametersMapper<Object, ExpressionEvaluationContext> function2 = Cast.to(function.mapParameters(mapper));
         assertNotSame(function, function2);
 
         this.applyAndCheck(function2,
@@ -131,17 +127,12 @@ public final class ParametersMapperExpressionFunctionTest implements ExpressionF
     // helpers..........................................................................................................
 
     @Override
-    public ParametersMapperExpressionFunction<Object, FakeExpressionEvaluationContext> createBiFunction() {
-        return ParametersMapperExpressionFunction.with(MAPPER, FUNCTION);
+    public ExpressionFunctionParametersMapper<Object, ExpressionEvaluationContext> createBiFunction() {
+        return ExpressionFunctionParametersMapper.with(MAPPER, FUNCTION);
     }
 
     @Override
-    public FakeExpressionEvaluationContext createContext() {
-        return new FakeExpressionEvaluationContext();
-    }
-
-    @Override
-    public Class<ParametersMapperExpressionFunction<Object, FakeExpressionEvaluationContext>> type() {
-        return Cast.to(ParametersMapperExpressionFunction.class);
+    public Class<ExpressionFunctionParametersMapper<Object, ExpressionEvaluationContext>> type() {
+        return Cast.to(ExpressionFunctionParametersMapper.class);
     }
 }

@@ -29,41 +29,41 @@ import java.util.Objects;
 import java.util.Set;
 
 /**
- * An {@link ExpressionFunction} that returns a different {@link FunctionExpressionName}.
+ * An {@link ExpressionFunction} that returns a different {@link ExpressionFunctionKind}.
  */
-final class CustomNameExpressionFunction<T, C extends Context & ConverterContext & ExpressionNumberContext> implements ExpressionFunction<T, C> {
+final class ExpressionFunctionCustomKinds<T, C extends Context & ConverterContext & ExpressionNumberContext> implements ExpressionFunction<T, C> {
 
     /**
      * Factory called by {@link ExpressionFunction#setName}
      */
     static <T, C extends Context & ConverterContext & ExpressionNumberContext> ExpressionFunction<T, C> with(final ExpressionFunction<T, C> function,
-                                                                                                             final FunctionExpressionName name) {
+                                                                                                             final Set<ExpressionFunctionKind> kinds) {
         Objects.requireNonNull(function, "function");
-        Objects.requireNonNull(name, "name");
+        Objects.requireNonNull(kinds, "kinds");
 
-        return function.name().equals(name) ?
+        return function.kinds().equals(kinds) ?
                 function :
-                function instanceof CustomNameExpressionFunction ?
-                        unwrap(Cast.to(function), name) :
-                        new CustomNameExpressionFunction<>(function, name);
+                function instanceof ExpressionFunctionCustomKinds ?
+                        unwrap(Cast.to(function), kinds) :
+                        new ExpressionFunctionCustomKinds<>(function, kinds);
     }
 
     /**
-     * Handles the special case not preventing double wrapping a {@link CustomNameExpressionFunction}.
+     * Handles the special case not preventing double wrapping a {@link ExpressionFunctionCustomKinds}.
      */
-    static <T, C extends Context & ConverterContext & ExpressionNumberContext> ExpressionFunction<T, C> unwrap(final CustomNameExpressionFunction<T, C> function,
-                                                                                                               final FunctionExpressionName name) {
-        return new CustomNameExpressionFunction<>(function.function, name);
+    static <T, C extends Context & ConverterContext & ExpressionNumberContext> ExpressionFunction<T, C> unwrap(final ExpressionFunctionCustomKinds<T, C> function,
+                                                                                                               final Set<ExpressionFunctionKind> kinds) {
+        return new ExpressionFunctionCustomKinds<>(function.function, kinds);
     }
 
     /**
      * Private ctor use factory.
      */
-    private CustomNameExpressionFunction(final ExpressionFunction<T, C> function,
-                                         final FunctionExpressionName name) {
+    private ExpressionFunctionCustomKinds(final ExpressionFunction<T, C> function,
+                                          final Set<ExpressionFunctionKind> kinds) {
         super();
         this.function = function;
-        this.name = name;
+        this.kinds = kinds;
     }
 
     @Override
@@ -81,10 +81,8 @@ final class CustomNameExpressionFunction<T, C extends Context & ConverterContext
 
     @Override
     public FunctionExpressionName name() {
-        return this.name;
+        return this.function.name();
     }
-
-    private final FunctionExpressionName name;
 
     @Override
     public List<ExpressionFunctionParameter<?>> parameters() {
@@ -98,11 +96,13 @@ final class CustomNameExpressionFunction<T, C extends Context & ConverterContext
 
     @Override
     public Set<ExpressionFunctionKind> kinds() {
-        return this.function.kinds();
+        return this.kinds;
     }
+
+    private final Set<ExpressionFunctionKind> kinds;
 
     @Override
     public String toString() {
-        return this.name().toString();
+        return this.function.toString();
     }
 }

@@ -20,30 +20,27 @@ package walkingkooka.tree.expression.function;
 import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.collect.list.Lists;
-import walkingkooka.collect.set.Sets;
 import walkingkooka.tree.expression.ExpressionEvaluationContext;
+import walkingkooka.tree.expression.FunctionExpressionName;
 
 import java.util.List;
-import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.assertNotSame;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class CustomKindsExpressionFunctionTest extends ExpressionFunctionTestCase<CustomKindsExpressionFunction<String, ExpressionEvaluationContext>, String> {
+public final class ExpressionFunctionCustomNameTest extends ExpressionFunctionTestCase<ExpressionFunctionCustomName<String, ExpressionEvaluationContext>, String> {
 
-    private final static Set<ExpressionFunctionKind> KINDS = Sets.of(
-            ExpressionFunctionKind.RESOLVE_REFERENCES
-    );
+    private final static FunctionExpressionName NAME = FunctionExpressionName.with("Custom");
 
     @Test
     public void testWithNullFunctionFails() {
-        assertThrows(NullPointerException.class, () -> CustomKindsExpressionFunction.with(null, KINDS));
+        assertThrows(NullPointerException.class, () -> ExpressionFunctionCustomName.with(null, NAME));
     }
 
     @Test
-    public void testWithNullKindsFails() {
-        assertThrows(NullPointerException.class, () -> CustomKindsExpressionFunction.with(wrapped(), null));
+    public void testWithNullNameFails() {
+        assertThrows(NullPointerException.class, () -> ExpressionFunctionCustomName.with(wrapped(), null));
     }
 
     @Test
@@ -55,40 +52,32 @@ public final class CustomKindsExpressionFunctionTest extends ExpressionFunctionT
     }
 
     @Test
-    public void testSetKindsSame() {
-        final CustomKindsExpressionFunction<String, ExpressionEvaluationContext> function = this.createBiFunction();
-        assertSame(function, function.setKinds(KINDS));
+    public void testSetNameSame() {
+        final ExpressionFunctionCustomName<String, ExpressionEvaluationContext> function = this.createBiFunction();
+        assertSame(function, function.setName(NAME));
     }
 
     @Test
-    public void testSetKindsDifferent() {
-        final CustomKindsExpressionFunction<String, ExpressionEvaluationContext> function = this.createBiFunction();
-
-        final Set<ExpressionFunctionKind> different = Sets.of(
-                ExpressionFunctionKind.EVALUATE_PARAMETERS
-        );
-        final ExpressionFunction<String, ExpressionEvaluationContext> differentFunction = function.setKinds(different);
+    public void testSetNameDifferent() {
+        final ExpressionFunctionCustomName<String, ExpressionEvaluationContext> function = this.createBiFunction();
+        final FunctionExpressionName different = FunctionExpressionName.with("different");
+        final ExpressionFunction<String, ExpressionEvaluationContext> differentFunction = function.setName(different);
 
         assertNotSame(function, differentFunction);
-        assertSame(different, differentFunction.kinds());
-        this.checkEquals(KINDS, function.kinds());
+        assertSame(different, differentFunction.name());
+        this.checkEquals(NAME, function.name());
     }
 
     // toString.........................................................................................................
 
     @Test
     public void testToString() {
-        this.toStringAndCheck(
-                this.createBiFunction(),
-                this.wrapped().toString()
-        );
+        this.toStringAndCheck(this.createBiFunction(), NAME.toString());
     }
 
     @Override
-    public CustomKindsExpressionFunction<String, ExpressionEvaluationContext> createBiFunction() {
-        return Cast.to(
-                CustomKindsExpressionFunction.with(wrapped(), KINDS)
-        );
+    public ExpressionFunctionCustomName<String, ExpressionEvaluationContext> createBiFunction() {
+        return Cast.to(ExpressionFunctionCustomName.with(wrapped(), NAME));
     }
 
     private ExpressionFunction<String, ExpressionEvaluationContext> wrapped() {
@@ -96,7 +85,7 @@ public final class CustomKindsExpressionFunctionTest extends ExpressionFunctionT
     }
 
     @Override
-    public Class<CustomKindsExpressionFunction<String, ExpressionEvaluationContext>> type() {
-        return Cast.to(CustomKindsExpressionFunction.class);
+    public Class<ExpressionFunctionCustomName<String, ExpressionEvaluationContext>> type() {
+        return Cast.to(ExpressionFunctionCustomName.class);
     }
 }

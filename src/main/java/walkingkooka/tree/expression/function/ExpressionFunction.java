@@ -41,7 +41,7 @@ public interface ExpressionFunction<T, C extends Context & ConverterContext & Ex
      */
     default ExpressionFunction<T, C> setName(final FunctionExpressionName name) {
         Objects.requireNonNull(name, "name");
-        return CustomNameExpressionFunction.with(this, name);
+        return ExpressionFunctionCustomName.with(this, name);
     }
 
     /**
@@ -121,13 +121,13 @@ public interface ExpressionFunction<T, C extends Context & ConverterContext & Ex
      * Wraps this function if necessary so that it returns the given {@link ExpressionFunctionKind}.
      */
     default ExpressionFunction<T, C> setKinds(final Set<ExpressionFunctionKind> kinds) {
-        return CustomKindsExpressionFunction.with(this, kinds);
+        return ExpressionFunctionCustomKinds.with(this, kinds);
     }
 
     /**
      * Returns a ne {@link ExpressionFunction} that adds the parameter mapper before this function.
      */
     default ExpressionFunction<T, C> mapParameters(final BiFunction<List<Object>, C, List<Object>> mapper) {
-        return ParametersMapperExpressionFunction.with(mapper, this);
+        return ExpressionFunctionParametersMapper.with(mapper, this);
     }
 }
