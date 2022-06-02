@@ -29,7 +29,7 @@ import java.util.Set;
 import java.util.function.BiFunction;
 
 /**
- * Wraps an {@link ExpressionFunction} and applies a {@link java.util.function.Function} on the paraneters before calling the wrapped.
+ * Wraps an {@link ExpressionFunction} and applies a {@link java.util.function.Function} on the parameters before calling the wrapped {@link ExpressionFunction}.
  */
 final class ExpressionFunctionParametersMapper<T, C extends Context & ConverterContext & ExpressionNumberContext> implements ExpressionFunction<T, C> {
 
