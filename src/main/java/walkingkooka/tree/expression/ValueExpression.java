@@ -19,9 +19,6 @@ package walkingkooka.tree.expression;
 
 import walkingkooka.text.CharSequences;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
 import java.util.Objects;
 
 /**
@@ -92,21 +89,6 @@ final public class ValueExpression<V> extends LeafExpression<V> {
     @Override
     public ExpressionNumber toExpressionNumber(final ExpressionEvaluationContext context) {
         return context.convertOrFail(this.value(), ExpressionNumber.class);
-    }
-
-    @Override
-    public LocalDate toLocalDate(final ExpressionEvaluationContext context) {
-        return context.convertOrFail(this.value(), LocalDate.class);
-    }
-
-    @Override
-    public LocalDateTime toLocalDateTime(final ExpressionEvaluationContext context) {
-        return context.convertOrFail(this.value(), LocalDateTime.class);
-    }
-
-    @Override
-    public LocalTime toLocalTime(final ExpressionEvaluationContext context) {
-        return context.convertOrFail(this.value(), LocalTime.class);
     }
 
     @Override

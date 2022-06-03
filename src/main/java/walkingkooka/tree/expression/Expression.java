@@ -27,9 +27,6 @@ import walkingkooka.tree.Node;
 import walkingkooka.tree.select.NodeSelector;
 import walkingkooka.tree.select.parser.NodeSelectorExpressionParserToken;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -443,21 +440,6 @@ public abstract class Expression implements Node<Expression, FunctionExpressionN
      * Evaluates this node as a {@link ExpressionNumber}
      */
     public abstract ExpressionNumber toExpressionNumber(final ExpressionEvaluationContext context);
-
-    /**
-     * Evaluates this node as a {@link LocalDate}
-     */
-    public abstract LocalDate toLocalDate(final ExpressionEvaluationContext context);
-
-    /**
-     * Evaluates this node as a {@link LocalDateTime}
-     */
-    public abstract LocalDateTime toLocalDateTime(final ExpressionEvaluationContext context);
-
-    /**
-     * Evaluates this node as a {@link LocalTime}
-     */
-    public abstract LocalTime toLocalTime(final ExpressionEvaluationContext context);
 
     /**
      * Evaluates this node as a {@link String}

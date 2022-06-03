@@ -197,8 +197,11 @@ public abstract class ExpressionTestCase<N extends Expression> implements TreePr
     final void evaluateAndCheckLocalDate(final Expression node, final ExpressionEvaluationContext context, final LocalDate expected) {
         this.checkEquals(
                 expected,
-                node.toLocalDate(context),
-                () -> "toLocalDate of " + node + " failed"
+                context.convertOrFail(
+                        node.toValue(context),
+                        LocalDate.class
+                ),
+                () -> "toValue of " + node + " failed"
         );
     }
 
@@ -213,8 +216,11 @@ public abstract class ExpressionTestCase<N extends Expression> implements TreePr
     final void evaluateAndCheckLocalDateTime(final Expression node, final ExpressionEvaluationContext context, final LocalDateTime expected) {
         this.checkEquals(
                 expected,
-                node.toLocalDateTime(context),
-                () -> "toLocalDateTime of " + node + " failed"
+                context.convertOrFail(
+                        node.toValue(context),
+                        LocalDateTime.class
+                ),
+                () -> "toValue of " + node + " failed"
         );
     }
 
@@ -229,8 +235,11 @@ public abstract class ExpressionTestCase<N extends Expression> implements TreePr
     final void evaluateAndCheckLocalTime(final Expression node, final ExpressionEvaluationContext context, final LocalTime expected) {
         this.checkEquals(
                 expected,
-                node.toLocalTime(context),
-                () -> "toLocalTime of " + node + " failed"
+                context.convertOrFail(
+                        node.toValue(context),
+                        LocalTime.class
+                ),
+                () -> "toValue of " + node + " failed"
         );
     }
 
