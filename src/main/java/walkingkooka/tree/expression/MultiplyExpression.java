@@ -72,14 +72,14 @@ public final class MultiplyExpression extends BinaryArithmeticExpression {
     // Evaluation .......................................................................................................
 
     @Override
-    String applyText0(final String left, final String right, final ExpressionEvaluationContext context) {
+    String applyText(final String left, final String right, final ExpressionEvaluationContext context) {
         throw new UnsupportedOperationException(left + SYMBOL + right); // MAYBE try and convert right to int and times the string.
     }
 
     @Override
-    ExpressionNumber applyExpressionNumber0(final ExpressionNumber left,
-                                            final ExpressionNumber right,
-                                            final ExpressionEvaluationContext context) {
+    ExpressionNumber applyExpressionNumber(final ExpressionNumber left,
+                                           final ExpressionNumber right,
+                                           final ExpressionEvaluationContext context) {
         return left.multiply(right, context);
     }
 

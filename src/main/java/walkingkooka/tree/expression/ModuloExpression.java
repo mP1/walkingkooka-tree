@@ -72,14 +72,14 @@ public final class ModuloExpression extends BinaryArithmeticExpression {
     // Evaluation .......................................................................................................
 
     @Override
-    String applyText0(final String left, final String right, final ExpressionEvaluationContext context) {
+    String applyText(final String left, final String right, final ExpressionEvaluationContext context) {
         throw new UnsupportedOperationException(left + SYMBOL + right);
     }
 
     @Override
-    ExpressionNumber applyExpressionNumber0(final ExpressionNumber left,
-                                            final ExpressionNumber right,
-                                            final ExpressionEvaluationContext context) {
+    ExpressionNumber applyExpressionNumber(final ExpressionNumber left,
+                                           final ExpressionNumber right,
+                                           final ExpressionEvaluationContext context) {
         return left.modulo(right, context);
     }
 

@@ -117,7 +117,20 @@ abstract class BinaryExpression extends ParentFixedExpression {
                 .toString(context);
     }
 
-    abstract Expression apply(final ExpressionEvaluationContext context);
+    final Expression apply(final ExpressionEvaluationContext context) {
+        return this.apply(
+                this.left().toValue(context),
+                this.right().toValue(context),
+                context
+        );
+    }
+
+    /**
+     * Sub classes must take the left and right values and create a result.
+     */
+    abstract Expression apply(final Object left,
+                              final Object right,
+                              final ExpressionEvaluationContext context);
 
     // Object........................................................................................................
 

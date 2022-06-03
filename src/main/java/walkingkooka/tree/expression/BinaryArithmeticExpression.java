@@ -20,9 +20,11 @@ package walkingkooka.tree.expression;
 /**
  * Base class for all arithmetic {@link BinaryExpression} nodes such as addition, power etc.
  */
-abstract class BinaryArithmeticExpression extends BinaryExpression2 {
+abstract class BinaryArithmeticExpression extends BinaryExpression {
 
-    BinaryArithmeticExpression(final int index, final Expression left, final Expression right) {
+    BinaryArithmeticExpression(final int index,
+                               final Expression left,
+                               final Expression right) {
         super(index, left, right);
     }
 
@@ -33,29 +35,44 @@ abstract class BinaryArithmeticExpression extends BinaryExpression2 {
         return this.toExpressionNumber(context);
     }
 
-    @Override //
-    final Expression applyExpressionNumber(final ExpressionNumber left,
-                                           final ExpressionNumber right,
-                                           final ExpressionEvaluationContext context) {
-        return Expression.value(
-                this.applyExpressionNumber0(left, right, context)
-        );
-    }
+    /**
+     * Includes dispatch logic with a special case if the left parameter is text, otherwise both values
+     * are converted to {@link ExpressionNumber} and given to {@link #applyExpressionNumber(ExpressionNumber, ExpressionNumber, ExpressionEvaluationContext)}.
+     */
+    @Override final Expression apply(final Object left,
+                                     final Object right,
+                                     final ExpressionEvaluationContext context) {
+        final Object result;
 
-    abstract ExpressionNumber applyExpressionNumber0(final ExpressionNumber left,
-                                                     final ExpressionNumber right,
-                                                     final ExpressionEvaluationContext context);
+        if (left instanceof Character || left instanceof String) {
+            result = this.applyText(
+                    context.convertOrFail(left, String.class),
+                    context.convertOrFail(right, String.class),
+                    context
+            );
+        } else {
+            result = this.applyExpressionNumber(
+                    context.convertOrFail(left, ExpressionNumber.class),
+                    context.convertOrFail(right, ExpressionNumber.class),
+                    context
+            );
+        }
 
-    @Override
-    final Expression applyText(final String left, final String right, final ExpressionEvaluationContext context) {
-        return Expression.value(
-                this.applyText0(left, right, context)
-        );
+        return Expression.value(result);
     }
 
     /**
      * Currently only addition supports two text parameters, which it concats both, all other operands throw
      * {@link UnsupportedOperationException}
      */
-    abstract String applyText0(final String left, final String right, final ExpressionEvaluationContext context);
+    abstract String applyText(final String left,
+                              final String right,
+                              final ExpressionEvaluationContext context);
+
+    /**
+     * Performs the actual binary operation using the two {@link ExpressionNumber} values.
+     */
+    abstract ExpressionNumber applyExpressionNumber(final ExpressionNumber left,
+                                                    final ExpressionNumber right,
+                                                    final ExpressionEvaluationContext context);
 }
