@@ -78,14 +78,14 @@ public final class AddExpression extends BinaryArithmeticExpression {
      * Addition between two strings results in concatenation of both operands.
      */
     @Override
-    String applyText0(final String left, final String right, final ExpressionEvaluationContext context) {
+    String applyText(final String left, final String right, final ExpressionEvaluationContext context) {
         return left.concat(right);
     }
 
     @Override
-    ExpressionNumber applyExpressionNumber0(final ExpressionNumber left,
-                                            final ExpressionNumber right,
-                                            final ExpressionEvaluationContext context) {
+    ExpressionNumber applyExpressionNumber(final ExpressionNumber left,
+                                           final ExpressionNumber right,
+                                           final ExpressionEvaluationContext context) {
         return left.add(right, context);
     }
 

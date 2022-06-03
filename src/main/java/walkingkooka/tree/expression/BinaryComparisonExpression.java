@@ -17,12 +17,13 @@
 
 package walkingkooka.tree.expression;
 
+import walkingkooka.Cast;
 import walkingkooka.compare.ComparisonRelation;
 
 /**
  * Base class for all comparison {@link BinaryExpression} nodes such as LT, GTE etc.
  */
-abstract class BinaryComparisonExpression extends BinaryExpression2 {
+abstract class BinaryComparisonExpression extends BinaryExpression {
 
     BinaryComparisonExpression(final int index, final Expression left, final Expression right) {
         super(index, left, right);
@@ -35,29 +36,57 @@ abstract class BinaryComparisonExpression extends BinaryExpression2 {
         return this.toBoolean(context);
     }
 
-    @Override final Expression applyText(final String left,
-                                         final String right,
-                                         final ExpressionEvaluationContext context) {
-        // uses the {@link ExpressionEvaluationContext#caseSensitivity()}
-        return Expression.value(
-                this.comparisonRelation()
-                        .test(
-                                context.caseSensitivity()
-                                        .comparator()
-                                        .compare(left, right)
-                        )
+    @Override final Expression apply(final Object left,
+                                     final Object right,
+                                     final ExpressionEvaluationContext context) {
+        final ComparisonRelation compare = this.comparisonRelation();
+
+        final Object result;
+        if (left instanceof Character || left instanceof String) {
+            result = this.applyText(
+                    compare,
+                    context.convertOrFail(left, String.class),
+                    context.convertOrFail(right, String.class),
+                    context
+            );
+        } else {
+            if (!(left instanceof Comparable)) {
+                throw new IllegalArgumentException(left + " is not comparable");
+            }
+
+            final Class<Comparable<?>> leftClass = Cast.to(left.getClass());
+            result = this.applyNonText(
+                    compare,
+                    Cast.to(left),
+                    Cast.to(context.convertOrFail(right, leftClass))
+            );
+        }
+
+        return Expression.value(result);
+    }
+
+    /**
+     * The {@link String#compareTo(String)} honours {@link ExpressionEvaluationContext#caseSensitivity()}
+     */
+    final boolean applyText(final ComparisonRelation compare,
+                            final String left,
+                            final String right,
+                            final ExpressionEvaluationContext context) {
+        return compare.test(
+                context.caseSensitivity()
+                        .comparator()
+                        .compare(left, right)
         );
     }
 
-    @Override //
-    final Expression applyExpressionNumber(final ExpressionNumber left,
-                                           final ExpressionNumber right,
-                                           final ExpressionEvaluationContext context) {
-        return Expression.value(
-                this.comparisonRelation()
-                        .test(
-                                left.compareTo(right)
-                        )
+    /**
+     * Handles all other non {@link String#compareTo(String)}. This assumes the two values are compare compatible.
+     */
+    private <CC extends Comparable<CC>> boolean applyNonText(final ComparisonRelation compare,
+                                                             final CC left,
+                                                             final CC right) {
+        return compare.test(
+                left.compareTo(right)
         );
     }
 

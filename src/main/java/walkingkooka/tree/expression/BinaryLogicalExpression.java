@@ -40,13 +40,9 @@ abstract class BinaryLogicalExpression extends BinaryExpression {
                 .toValue(context);
     }
 
-    @Override
-    final Expression apply(final ExpressionEvaluationContext context) {
-        final Object left = this.left()
-                .toValue(context);
-        final Object right = this.right()
-                .toValue(context);
-
+    @Override final Expression apply(final Object left,
+                                     final Object right,
+                                     final ExpressionEvaluationContext context) {
         final Object result;
         if (left instanceof Boolean) {
             result = this.applyBoolean(
@@ -63,9 +59,15 @@ abstract class BinaryLogicalExpression extends BinaryExpression {
         return Expression.value(result);
     }
 
+    /**
+     * Sub classes will perform the logical operation.
+     */
     abstract boolean applyBoolean(final boolean left,
                                   final boolean right);
 
+    /**
+     * Sub classes will perform the bitwise operation.
+     */
     abstract ExpressionNumber applyExpressionNumber(final ExpressionNumber left,
                                                     final ExpressionNumber right);
 }
