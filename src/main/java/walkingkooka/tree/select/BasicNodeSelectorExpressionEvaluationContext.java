@@ -280,6 +280,11 @@ final class BasicNodeSelectorExpressionEvaluationContext<N extends Node<N, NAME,
         return this.context.caseSensitivity();
     }
 
+    @Override
+    public boolean isText(final Object value) {
+        return this.context.isText(value);
+    }
+
     private final ExpressionEvaluationContext context;
 
     @Override

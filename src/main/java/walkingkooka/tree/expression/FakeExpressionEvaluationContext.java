@@ -49,6 +49,11 @@ public class FakeExpressionEvaluationContext extends FakeConverterContext implem
     }
 
     @Override
+    public boolean isText(final Object value) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
     public <T> T prepareParameter(final ExpressionFunctionParameter<T> parameter,
                                   final Object value) {
         Objects.requireNonNull(parameter, "parameter");

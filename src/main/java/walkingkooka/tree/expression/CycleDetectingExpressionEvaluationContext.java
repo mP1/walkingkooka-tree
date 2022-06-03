@@ -247,6 +247,11 @@ final class CycleDetectingExpressionEvaluationContext implements ExpressionEvalu
         return this.context.caseSensitivity();
     }
 
+    @Override
+    public boolean isText(final Object value) {
+        return this.context.isText(value);
+    }
+
     private final ExpressionEvaluationContext context;
 
     // toString.........................................................................................................

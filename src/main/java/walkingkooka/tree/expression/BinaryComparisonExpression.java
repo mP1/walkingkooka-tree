@@ -36,13 +36,14 @@ abstract class BinaryComparisonExpression extends BinaryExpression {
         return this.toBoolean(context);
     }
 
-    @Override final Expression apply(final Object left,
-                                     final Object right,
-                                     final ExpressionEvaluationContext context) {
+    @Override //
+    final Expression apply(final Object left,
+                           final Object right,
+                           final ExpressionEvaluationContext context) {
         final ComparisonRelation compare = this.comparisonRelation();
 
         final Object result;
-        if (left instanceof Character || left instanceof String) {
+        if (context.isText(left)) {
             result = this.applyText(
                     compare,
                     context.convertOrFail(left, String.class),

@@ -411,6 +411,11 @@ public abstract class ExpressionTestCase<N extends Expression> implements TreePr
             public CaseSensitivity caseSensitivity() {
                 return CaseSensitivity.SENSITIVE;
             }
+
+            @Override
+            public boolean isText(final Object value) {
+                return value instanceof String;
+            }
         };
     }
 
