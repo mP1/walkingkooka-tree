@@ -18,7 +18,13 @@
 package walkingkooka.tree.expression;
 
 /**
- * Base class for the AND, OR, XOR {@link BinaryExpression}.
+ * Base class for a logical {@link Expression}, basically the AND, OR, XOR operators.
+ * <br>
+ * When executed if the left parameter is boolean it will attempt to convert the right to a boolean and call
+ * {@link #applyBoolean(boolean, boolean)}.
+ * <br>
+ * When the left is not boolean it will attempt to convert both the left and right to {@link ExpressionNumber} and invoke
+ * {@link #applyExpressionNumber(ExpressionNumber, ExpressionNumber)}.
  */
 abstract class BinaryLogicalExpression extends BinaryExpression {
 
@@ -36,44 +42,30 @@ abstract class BinaryLogicalExpression extends BinaryExpression {
 
     @Override
     final Expression apply(final ExpressionEvaluationContext context) {
-        final Expression result;
+        final Object left = this.left()
+                .toValue(context);
+        final Object right = this.right()
+                .toValue(context);
 
-        do {
-            final Object left = this.left().toValue(context);
-            final Object right = this.right().toValue(context);
-
-            if (left instanceof Boolean) {
-                result = this.applyBoolean(
-                        context.convertOrFail(left, Boolean.class),
-                        context.convertOrFail(right, Boolean.class)
-                );
-                break;
-            }
-
+        final Object result;
+        if (left instanceof Boolean) {
+            result = this.applyBoolean(
+                    context.convertOrFail(left, Boolean.class),
+                    context.convertOrFail(right, Boolean.class)
+            );
+        } else {
             result = this.applyExpressionNumber(
                     context.convertOrFail(left, ExpressionNumber.class),
-                    context.convertOrFail(right, ExpressionNumber.class));
-        } while (false);
+                    context.convertOrFail(right, ExpressionNumber.class)
+            );
+        }
 
-        return result;
+        return Expression.value(result);
     }
 
-    final Expression applyBoolean(final boolean left,
-                                  final boolean right) {
-        return Expression.value(
-                this.applyBoolean0(left, right)
-        );
-    }
+    abstract boolean applyBoolean(final boolean left,
+                                  final boolean right);
 
-    abstract boolean applyBoolean0(final boolean left, final boolean right);
-
-    private Expression applyExpressionNumber(final ExpressionNumber left,
-                                             final ExpressionNumber right) {
-        return Expression.value(
-                this.applyExpressionNumber0(left, right)
-        );
-    }
-
-    abstract ExpressionNumber applyExpressionNumber0(final ExpressionNumber left,
-                                                     final ExpressionNumber right);
+    abstract ExpressionNumber applyExpressionNumber(final ExpressionNumber left,
+                                                    final ExpressionNumber right);
 }
