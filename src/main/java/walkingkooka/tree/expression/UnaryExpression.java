@@ -20,9 +20,6 @@ package walkingkooka.tree.expression;
 import walkingkooka.Value;
 import walkingkooka.collect.list.Lists;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -70,21 +67,6 @@ abstract class UnaryExpression extends ParentFixedExpression implements Value<Ex
     }
 
     // Evaluation...................................................................................................
-
-    @Override
-    public final LocalDate toLocalDate(final ExpressionEvaluationContext context) {
-        return context.convertOrFail(this.toExpressionNumber(context), LocalDate.class);
-    }
-
-    @Override
-    public final LocalDateTime toLocalDateTime(final ExpressionEvaluationContext context) {
-        return context.convertOrFail(this.toExpressionNumber(context), LocalDateTime.class);
-    }
-
-    @Override
-    public final LocalTime toLocalTime(final ExpressionEvaluationContext context) {
-        return context.convertOrFail(this.toExpressionNumber(context), LocalTime.class);
-    }
 
     @Override
     public final Number toValue(final ExpressionEvaluationContext context) {

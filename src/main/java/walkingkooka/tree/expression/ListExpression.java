@@ -19,9 +19,6 @@ package walkingkooka.tree.expression;
 
 import walkingkooka.visit.Visiting;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
@@ -105,21 +102,6 @@ public final class ListExpression extends VariableExpression {
     @Override
     public ExpressionNumber toExpressionNumber(final ExpressionEvaluationContext context) {
         return this.convertValues(context, ExpressionNumber.class);
-    }
-
-    @Override
-    public LocalDate toLocalDate(final ExpressionEvaluationContext context) {
-        return this.convertValues(context, LocalDate.class);
-    }
-
-    @Override
-    public LocalDateTime toLocalDateTime(final ExpressionEvaluationContext context) {
-        return this.convertValues(context, LocalDateTime.class);
-    }
-
-    @Override
-    public LocalTime toLocalTime(final ExpressionEvaluationContext context) {
-        return this.convertValues(context, LocalTime.class);
     }
 
     @Override
