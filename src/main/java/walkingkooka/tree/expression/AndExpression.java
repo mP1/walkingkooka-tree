@@ -69,13 +69,13 @@ public final class AndExpression extends BinaryLogicalExpression {
     // evaluation .....................................................................................................
 
     @Override
-    boolean applyBoolean0(final boolean left, final boolean right) {
+    boolean applyBoolean(final boolean left, final boolean right) {
         return left & right;
     }
 
     @Override
-    ExpressionNumber applyExpressionNumber0(final ExpressionNumber left,
-                                            final ExpressionNumber right) {
+    ExpressionNumber applyExpressionNumber(final ExpressionNumber left,
+                                           final ExpressionNumber right) {
         return left.and(right);
     }
 
