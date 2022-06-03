@@ -96,6 +96,11 @@ final class BasicExpressionEvaluationContext implements ExpressionEvaluationCont
 
     private final CaseSensitivity caseSensitivity;
 
+    @Override
+    public boolean isText(final Object value) {
+        return value instanceof Character || value instanceof CharSequence;
+    }
+
     // DateTimeContext.................................................................................................
 
     @Override

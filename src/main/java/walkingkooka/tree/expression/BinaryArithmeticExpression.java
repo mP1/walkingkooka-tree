@@ -39,12 +39,13 @@ abstract class BinaryArithmeticExpression extends BinaryExpression {
      * Includes dispatch logic with a special case if the left parameter is text, otherwise both values
      * are converted to {@link ExpressionNumber} and given to {@link #applyExpressionNumber(ExpressionNumber, ExpressionNumber, ExpressionEvaluationContext)}.
      */
-    @Override final Expression apply(final Object left,
-                                     final Object right,
-                                     final ExpressionEvaluationContext context) {
+    @Override //
+    final Expression apply(final Object left,
+                           final Object right,
+                           final ExpressionEvaluationContext context) {
         final Object result;
 
-        if (left instanceof Character || left instanceof String) {
+        if (context.isText(left)) {
             result = this.applyText(
                     context.convertOrFail(left, String.class),
                     context.convertOrFail(right, String.class),

@@ -127,6 +127,12 @@ public interface ExpressionEvaluationContext extends Context,
     }
 
     /**
+     * Tests if the given value should be considered text. This might be useful to prepare a value for {@link String
+     * comparison.
+     */
+    boolean isText(final Object value);
+
+    /**
      * Controls whether equals or not equals tests are case sensitive for {@link String strings}
      */
     CaseSensitivity caseSensitivity();

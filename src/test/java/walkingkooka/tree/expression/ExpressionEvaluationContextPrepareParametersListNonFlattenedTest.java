@@ -514,6 +514,11 @@ public final class ExpressionEvaluationContextPrepareParametersListNonFlattenedT
                             public Object handleException(final RuntimeException exception) {
                                 return "@@@" + exception.getMessage();
                             }
+
+                            @Override
+                            public boolean isText(final Object value) {
+                                return value instanceof String;
+                            }
                         }
                 )
         );
@@ -557,6 +562,11 @@ public final class ExpressionEvaluationContextPrepareParametersListNonFlattenedT
                             @Override
                             public Object handleException(final RuntimeException exception) {
                                 return "@@@" + exception.getMessage();
+                            }
+
+                            @Override
+                            public boolean isText(final Object value) {
+                                return value instanceof String;
                             }
                         }
                 )
