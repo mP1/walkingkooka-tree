@@ -44,7 +44,7 @@ final class NodeNameExpressionFunction<C extends Context & ConverterContext & Ex
     /**
      * Singleton
      */
-    private static final NodeNameExpressionFunction INSTANCE = new NodeNameExpressionFunction();
+    private static final NodeNameExpressionFunction<?> INSTANCE = new NodeNameExpressionFunction<>();
 
     /**
      * Private ctor

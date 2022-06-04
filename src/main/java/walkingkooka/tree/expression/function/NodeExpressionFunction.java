@@ -52,7 +52,7 @@ final class NodeExpressionFunction<N extends Node<N, NAME, ANAME, AVALUE>,
     /**
      * Singleton
      */
-    private static final NodeExpressionFunction INSTANCE = new NodeExpressionFunction();
+    private static final NodeExpressionFunction INSTANCE = new NodeExpressionFunction<>();
 
     /**
      * Private ctor
