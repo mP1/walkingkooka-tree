@@ -136,14 +136,20 @@ public final class NodePointerNamedChildTest extends NodePointerTestCase2<NodePo
 
     // toString.........................................................................................................
 
-//    @Test
-//    public void testToStringWithSlash() {
-//        this.toStringAndCheck(NodePointerNamedChild.with(Names.string("slash/")), "/slash~1");
-//    }
+    @Test
+    public void testToStringWithSlash() {
+        this.toStringAndCheck(
+                NodePointerNamedChild.with(Names.string("slash")),
+                "/slash"
+        );
+    }
 
     @Test
     public void testToStringWithTilde() {
-        this.toStringAndCheck(NodePointerNamedChild.with(Names.string("tilde~")), "/tilde~0");
+        this.toStringAndCheck(
+                NodePointerNamedChild.with(Names.string("tilde~")),
+                "/tilde~0"
+        );
     }
 
     // visitor..........................................................................................................
