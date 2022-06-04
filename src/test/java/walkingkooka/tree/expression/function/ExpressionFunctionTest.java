@@ -18,6 +18,7 @@
 package walkingkooka.tree.expression.function;
 
 import org.junit.jupiter.api.Test;
+import walkingkooka.Cast;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.reflect.ClassTesting;
 import walkingkooka.reflect.JavaVisibility;
@@ -29,7 +30,7 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class ExpressionFunctionTest implements ClassTesting<ExpressionFunction> {
+public final class ExpressionFunctionTest implements ClassTesting<ExpressionFunction<?, ?>> {
 
     private final static ExpressionFunctionParameter<Integer> REQUIRED = ExpressionFunctionParameterName.with("required")
             .required(Integer.class);
@@ -279,8 +280,8 @@ public final class ExpressionFunctionTest implements ClassTesting<ExpressionFunc
     // ClassTesting....................................................................................................
 
     @Override
-    public Class<ExpressionFunction> type() {
-        return ExpressionFunction.class;
+    public Class<ExpressionFunction<?, ?>> type() {
+        return Cast.to(ExpressionFunction.class);
     }
 
     @Override

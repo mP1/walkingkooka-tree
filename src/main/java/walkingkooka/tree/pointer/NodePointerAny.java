@@ -36,7 +36,7 @@ final class NodePointerAny<N extends Node<N, NAME, ?, ?>, NAME extends Name> ext
         return Cast.to(INSTANCE);
     }
 
-    private final static NodePointer INSTANCE = new NodePointerAny();
+    private final static NodePointer<?, ?> INSTANCE = new NodePointerAny<>();
 
     /**
      * Private ctor.

@@ -43,7 +43,7 @@ final class TypeNameExpressionFunction<C extends Context & ConverterContext & Ex
     /**
      * Singleton
      */
-    private static final TypeNameExpressionFunction INSTANCE = new TypeNameExpressionFunction();
+    private static final TypeNameExpressionFunction<?> INSTANCE = new TypeNameExpressionFunction<>();
 
     /**
      * Private ctor
