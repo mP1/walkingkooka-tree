@@ -76,6 +76,59 @@ public final class ExpressionFunctionParameterTest implements HashCodeEqualsDefi
         );
     }
 
+    // setCardinality...................................................................................................
+
+    @Test
+    public void testSetCardinalityNullFails() {
+        assertThrows(
+                NullPointerException.class,
+                () -> this.createObject().setCardinality(null)
+        );
+    }
+
+    @Test
+    public void testSetCardinalitySame() {
+        final ExpressionFunctionParameter<?> parameter = this.createObject();
+        assertSame(
+                parameter,
+                parameter.setCardinality(parameter.cardinality())
+        );
+    }
+
+    @Test
+    public void testSetCardinalityDifferent() {
+        final ExpressionFunctionParameter<?> parameter = this.createObject();
+
+        final ExpressionFunctionParameterCardinality cardinality = ExpressionFunctionParameterCardinality.OPTIONAL;
+        final ExpressionFunctionParameter<?> different = parameter.setCardinality(cardinality);
+
+        this.checkNotEquals(
+                parameter,
+                different
+        );
+
+        this.checkEquals(
+                parameter.name(),
+                different.name(),
+                "name"
+        );
+        this.checkEquals(
+                parameter.type(),
+                different.type(),
+                "type"
+        );
+        this.checkEquals(
+                cardinality,
+                different.cardinality(),
+                "cardinality"
+        );
+        this.checkEquals(
+                parameter.typeParameters(),
+                different.typeParameters(),
+                "typeParameters"
+        );
+    }
+
     // setTypeParameters................................................................................................
 
     @Test

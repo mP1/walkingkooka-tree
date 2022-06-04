@@ -138,6 +138,22 @@ public final class ExpressionFunctionParameter<T> implements HasName<ExpressionF
         return this.cardinality;
     }
 
+    /**
+     * Would be setter that returns a {@link ExpressionFunctionParameter} with the given {@link ExpressionFunctionParameterCardinality}.
+     */
+    public ExpressionFunctionParameter<T> setCardinality(final ExpressionFunctionParameterCardinality cardinality) {
+        Objects.requireNonNull(cardinality, "cardinality");
+
+        return this.cardinality.equals(cardinality) ?
+                this :
+                new ExpressionFunctionParameter<>(
+                        this.name,
+                        this.type,
+                        cardinality,
+                        this.typeParameters
+                );
+    }
+
     private final ExpressionFunctionParameterCardinality cardinality;
 
     /**
