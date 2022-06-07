@@ -86,7 +86,8 @@ public final class FunctionExpression extends VariableExpression {
 
     @Override
     public boolean isPure(final ExpressionPurityContext context) {
-        return context.isPure(this.name());
+        return context.isPure(this.name()) &&
+                this.isPureChildren(context);
     }
 
     // Visitor.........................................................................................................
