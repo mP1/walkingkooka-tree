@@ -32,6 +32,18 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.function.Predicate;
 
+/**
+ * There are many sub classes of {@link Expression} representing different concepts typically found with an expression
+ * language, from values, to arithmetic or functions.
+ * <br>
+ * The provided <code>toXXX</code> methods along with the required {@link ExpressionEvaluationContext} support a
+ * non turing complete language. A sub class {@link ExpressionVisitor} will need to be
+ * authored, to enable typical language features such as <code>if</code> and other similar conditional statements or
+ * <code>return</code>.
+ * <br>
+ * The {@link Expression} system is used to provide the runtime expression evaluation for the xpath like implementation
+ * and spreadsheet formula evaluation.
+ */
 public abstract class Expression implements Node<Expression, FunctionExpressionName, Name, Object>,
         ExpressionPurity,
         TreePrintable {
