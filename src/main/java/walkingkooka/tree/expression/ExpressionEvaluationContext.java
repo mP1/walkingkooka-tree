@@ -36,6 +36,24 @@ public interface ExpressionEvaluationContext extends Context,
         ExpressionPurityContext {
 
     /**
+     * If the value is a reference or expression resolve or evaluate.
+     */
+    default Object evaluateIfNecessary(final Object value) {
+        Object result = value;
+
+        do {
+            if (result instanceof ExpressionReference) {
+                result = this.referenceOrFail((ExpressionReference) result);
+            }
+            if (result instanceof Expression) {
+                result = this.evaluate((Expression) result);
+            }
+        } while (result instanceof ExpressionReference || result instanceof Expression);
+
+        return result;
+    }
+
+    /**
      * Evaluate the given {@link Expression} returning the result/value.
      */
     Object evaluate(final Expression expression);
