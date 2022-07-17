@@ -68,6 +68,7 @@ public final class ExpressionEvaluationContextPrepareParametersListTest extends 
                             }
                         },
                         new FakeExpressionEvaluationContext() {
+
                             @Override
                             public Object handleException(final RuntimeException exception) {
                                 return handled;
