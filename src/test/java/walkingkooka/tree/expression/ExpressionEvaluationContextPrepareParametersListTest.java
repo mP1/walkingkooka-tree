@@ -32,12 +32,12 @@ public final class ExpressionEvaluationContextPrepareParametersListTest extends 
 
     @Test
     public void testEmptyKinds() {
-        final List<Object> parameters = Lists.of(1, 2, 3);
+        final List<Object> values = Lists.of(1, 2, 3);
 
         assertSame(
-                parameters,
+                values,
                 ExpressionEvaluationContextPrepareParametersList.with(
-                        parameters,
+                        values,
                         new FakeExpressionFunction<>() {
                             @Override
                             public Set<ExpressionFunctionKind> kinds() {
@@ -54,7 +54,7 @@ public final class ExpressionEvaluationContextPrepareParametersListTest extends 
 
         this.checkEquals(
                 handled,
-                ExpressionEvaluationContextPrepareParametersList.prepareParameter(
+                ExpressionEvaluationContextPrepareParametersList.prepareValue(
                         new ExpressionReference() {
                             @Override
                             public String toString() {

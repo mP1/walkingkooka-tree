@@ -93,20 +93,20 @@ public final class ExpressionEvaluationContextPrepareParametersListFlattenedTest
         );
     }
 
-    private void flattenAndCheck(final List<Object> parameters) {
+    private void flattenAndCheck(final List<Object> values) {
         this.flattenAndCheck(
-                parameters,
+                values,
                 CONTEXT,
-                parameters
+                values
         );
     }
 
-    private void flattenAndCheck(final List<Object> parameters,
+    private void flattenAndCheck(final List<Object> values,
                                  final ExpressionEvaluationContext context,
                                  final List<Object> expected) {
         final ExpressionEvaluationContextPrepareParametersListFlattened flatten = Cast.to(
                 ExpressionEvaluationContextPrepareParametersList.with(
-                        parameters,
+                        values,
                         function(
                                 Lists.of(VARIABLE),
                                 ExpressionFunctionKind.CONVERT_PARAMETERS,

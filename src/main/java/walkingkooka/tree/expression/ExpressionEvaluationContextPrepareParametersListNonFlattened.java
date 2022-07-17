@@ -22,7 +22,6 @@ import walkingkooka.tree.expression.function.ExpressionFunctionKind;
 import walkingkooka.tree.expression.function.ExpressionFunctionParameter;
 
 import java.util.List;
-import java.util.Objects;
 
 /**
  * A lazy {@link List} of the original parameter values, performing the following if they are enabled for this function.
@@ -35,15 +34,11 @@ import java.util.Objects;
  */
 final class ExpressionEvaluationContextPrepareParametersListNonFlattened extends ExpressionEvaluationContextPrepareParametersList {
 
-    static ExpressionEvaluationContextPrepareParametersListNonFlattened with(final List<Object> parameters,
+    static ExpressionEvaluationContextPrepareParametersListNonFlattened with(final List<Object> values,
                                                                              final ExpressionFunction<?, ExpressionEvaluationContext> function,
                                                                              final ExpressionEvaluationContext context) {
-        Objects.requireNonNull(parameters, "parameters");
-        Objects.requireNonNull(function, "function");
-        Objects.requireNonNull(context, "context");
-
         return new ExpressionEvaluationContextPrepareParametersListNonFlattened(
-                parameters,
+                values,
                 function,
                 context
         );
@@ -52,11 +47,11 @@ final class ExpressionEvaluationContextPrepareParametersListNonFlattened extends
     /**
      * Private ctor
      */
-    private ExpressionEvaluationContextPrepareParametersListNonFlattened(final List<Object> parameters,
+    private ExpressionEvaluationContextPrepareParametersListNonFlattened(final List<Object> values,
                                                                          final ExpressionFunction<?, ExpressionEvaluationContext> function,
                                                                          final ExpressionEvaluationContext context) {
         super(
-                parameters,
+                values,
                 function,
                 context
         );
@@ -70,8 +65,8 @@ final class ExpressionEvaluationContextPrepareParametersListNonFlattened extends
         Object result;
 
         try {
-            final Object prepared = prepareParameter(
-                    this.parametersList.get(index),
+            final Object prepared = prepareValue(
+                    this.valuesList.get(index),
                     function,
                     context
             );
