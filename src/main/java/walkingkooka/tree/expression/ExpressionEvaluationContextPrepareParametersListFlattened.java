@@ -48,7 +48,8 @@ final class ExpressionEvaluationContextPrepareParametersListFlattened extends Ex
     private static List<Object> flatten(final List<Object> values,
                                         final ExpressionFunction<?, ExpressionEvaluationContext> function,
                                         final ExpressionEvaluationContext context) {
-        final ExpressionFunctionParameter<?> parameter = function.parameter(0);
+        final ExpressionFunctionParameter<?> parameter = function.parameters()
+                .get(0);
         final ExpressionFunctionParameterCardinality cardinality = parameter.cardinality();
         if (ExpressionFunctionParameterCardinality.VARIABLE != cardinality) {
             throw new IllegalStateException("Function " + function + " has " + ExpressionFunctionKind.FLATTEN + " should only have a single parameter");

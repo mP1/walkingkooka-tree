@@ -28,8 +28,6 @@ import walkingkooka.tree.expression.FakeExpressionEvaluationContext;
 import java.util.Collections;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertThrows;
-
 public final class ExpressionFunctionTest implements ClassTesting<ExpressionFunction<?, ?>> {
 
     private final static ExpressionFunctionParameter<Integer> REQUIRED = ExpressionFunctionParameterName.with("required")
@@ -171,45 +169,11 @@ public final class ExpressionFunctionTest implements ClassTesting<ExpressionFunc
         this.checkEquals(true, failed);
     }
 
-    // parameter....... ...............................................................................................
-
-    @Test
-    public void testParameterIndexLessThanZeroFails() {
-        assertThrows(
-                IndexOutOfBoundsException.class,
-                () -> new FakeExpressionFunction<Void, ExpressionEvaluationContext>().parameter(-1)
-        );
-    }
-
-    @Test
-    public void testParameterOutOfBoundsFails() {
-        assertThrows(
-                IndexOutOfBoundsException.class,
-                () -> new FakeExpressionFunction<Void, ExpressionEvaluationContext>() {
-                    @Override
-                    public List<ExpressionFunctionParameter<?>> parameters() {
-                        return Lists.empty();
-                    }
-                }.parameter(0)
-        );
-    }
-
-    @Test
-    public void testParameterOutOfBoundsFails2() {
-        assertThrows(
-                IndexOutOfBoundsException.class,
-                () -> new FakeExpressionFunction<Void, ExpressionEvaluationContext>() {
-                    @Override
-                    public List<ExpressionFunctionParameter<?>> parameters() {
-                        return Lists.of(REQUIRED);
-                    }
-                }.parameter(1)
-        );
-    }
+    // parameters.......................................................................................................
 
     @Test
     public void testParametersNonVariable() {
-        this.parameterAndCheck(
+        this.parametersGetAndCheck(
                 Lists.of(REQUIRED),
                 0,
                 REQUIRED
@@ -218,7 +182,7 @@ public final class ExpressionFunctionTest implements ClassTesting<ExpressionFunc
 
     @Test
     public void testParametersNonVariable2() {
-        this.parameterAndCheck(
+        this.parametersGetAndCheck(
                 Lists.of(REQUIRED, OPTIONAL),
                 1,
                 OPTIONAL
@@ -227,16 +191,16 @@ public final class ExpressionFunctionTest implements ClassTesting<ExpressionFunc
 
     @Test
     public void testParametersVariable() {
-        this.parameterAndCheck(
+        this.parametersGetAndCheck(
                 Lists.of(VARIABLE),
-                2,
+                0,
                 VARIABLE
         );
     }
 
     @Test
     public void testParametersVariable2() {
-        this.parameterAndCheck(
+        this.parametersGetAndCheck(
                 Lists.of(REQUIRED, OPTIONAL, VARIABLE),
                 2,
                 VARIABLE
@@ -245,17 +209,17 @@ public final class ExpressionFunctionTest implements ClassTesting<ExpressionFunc
 
     @Test
     public void testParametersVariable3() {
-        this.parameterAndCheck(
+        this.parametersGetAndCheck(
                 Lists.of(REQUIRED, OPTIONAL, VARIABLE),
-                99,
+                2,
                 VARIABLE
         );
     }
 
-    private void parameterAndCheck(final List<ExpressionFunctionParameter<?>> parameters,
-                                   final int index,
-                                   final ExpressionFunctionParameter<?> parameter) {
-        this.parameterAndCheck(
+    private void parametersGetAndCheck(final List<ExpressionFunctionParameter<?>> parameters,
+                                       final int index,
+                                       final ExpressionFunctionParameter<?> parameter) {
+        this.parametersGetAndCheck(
                 new FakeExpressionFunction<Void, ExpressionEvaluationContext>() {
                     @Override
                     public List<ExpressionFunctionParameter<?>> parameters() {
@@ -267,13 +231,13 @@ public final class ExpressionFunctionTest implements ClassTesting<ExpressionFunc
         );
     }
 
-    private void parameterAndCheck(final FakeExpressionFunction<?, ?> function,
-                                   final int index,
-                                   final ExpressionFunctionParameter<?> parameter) {
+    private void parametersGetAndCheck(final FakeExpressionFunction<?, ?> function,
+                                       final int index,
+                                       final ExpressionFunctionParameter<?> parameter) {
         this.checkEquals(
                 parameter,
-                function.parameter(index),
-                "function " + index
+                function.parameters().get(index),
+                "function.parameters().get(" + index + ")"
         );
     }
 
