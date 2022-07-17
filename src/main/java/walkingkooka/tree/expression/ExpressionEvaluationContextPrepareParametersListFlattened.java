@@ -120,16 +120,15 @@ final class ExpressionEvaluationContextPrepareParametersListFlattened extends Ex
     }
 
     @Override
-    Object prepareAndConvert(final int index) {
+    Object prepareAndConvert(final Object value,
+                             final ExpressionFunctionParameter<?> parameter) {
         final ExpressionEvaluationContext context = this.context;
 
         Object result;
         try {
-            final Object value = this.valuesList.get(index);
-
             result = this.convert ?
                     context.prepareParameter(
-                            this.function.parameter(index),
+                            parameter,
                             value
                     ) :
                     value;

@@ -20,6 +20,7 @@ package walkingkooka.tree.expression;
 import walkingkooka.tree.expression.function.ExpressionFunction;
 import walkingkooka.tree.expression.function.ExpressionFunctionKind;
 import walkingkooka.tree.expression.function.ExpressionFunctionParameter;
+import walkingkooka.tree.expression.function.ExpressionFunctionParameterCardinality;
 
 import java.util.AbstractList;
 import java.util.Arrays;
@@ -61,6 +62,7 @@ abstract class ExpressionEvaluationContextPrepareParametersList extends Abstract
                         );
     }
 
+    // Note the value is not converted to the parameter type.
     static Object prepareValue(final Object value,
                                final ExpressionFunction<?, ExpressionEvaluationContext> function,
                                final ExpressionEvaluationContext context) {
@@ -109,6 +111,7 @@ abstract class ExpressionEvaluationContextPrepareParametersList extends Abstract
                                                      final ExpressionFunction<?, ExpressionEvaluationContext> function,
                                                      final ExpressionEvaluationContext context) {
         this.valuesList = values;
+        this.parameters = function.parameters();
 
         this.function = function;
         this.convert = function.kinds()
@@ -128,12 +131,30 @@ abstract class ExpressionEvaluationContextPrepareParametersList extends Abstract
     @Override
     public final Object get(final int index) {
         if (MISSING == this.values[index]) {
-            this.values[index] = prepareAndConvert(index);
+            final List<ExpressionFunctionParameter<?>> parameters = this.parameters;
+            final int count = parameters.size();
+
+            final ExpressionFunctionParameter<?> parameter;
+
+            if (index < count) {
+                parameter = parameters.get(index);
+            } else {
+                parameter = parameters.get(count - 1);
+                if (parameter.cardinality() != ExpressionFunctionParameterCardinality.VARIABLE) {
+                    throw new ArrayIndexOutOfBoundsException("Unknown parameter " + index + " expected only " + count);
+                }
+            }
+
+            this.values[index] = this.prepareAndConvert(
+                    this.valuesList.get(index),
+                    parameter
+            );
         }
         return this.values[index];
     }
 
-    abstract Object prepareAndConvert(final int index);
+    abstract Object prepareAndConvert(final Object value,
+                                      final ExpressionFunctionParameter<?> parameter);
 
     /**
      * A flag will be true when the {@link ExpressionFunctionKind#CONVERT_PARAMETERS} is present.
@@ -145,6 +166,11 @@ abstract class ExpressionEvaluationContextPrepareParametersList extends Abstract
      * parameters if at all.
      */
     final ExpressionFunction<?, ExpressionEvaluationContext> function;
+
+    /**
+     * The parameters for this function.
+     */
+    final List<ExpressionFunctionParameter<?>> parameters;
 
     /**
      * {@link ExpressionEvaluationContext context} used to resolve references and evaluate parameters to values.
