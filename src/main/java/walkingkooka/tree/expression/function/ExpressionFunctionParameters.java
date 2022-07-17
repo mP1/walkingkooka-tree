@@ -51,8 +51,8 @@ abstract class ExpressionFunctionParameters<T, C extends Context & ConverterCont
     }
 
     @Override
-    public final List<ExpressionFunctionParameter<?>> parameters() {
-        return this.function.parameters();
+    public final List<ExpressionFunctionParameter<?>> parameters(final int count) {
+        return this.function.parameters(count);
     }
 
     @Override

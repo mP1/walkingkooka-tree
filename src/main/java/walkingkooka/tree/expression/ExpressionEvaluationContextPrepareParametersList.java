@@ -110,8 +110,10 @@ abstract class ExpressionEvaluationContextPrepareParametersList extends Abstract
     ExpressionEvaluationContextPrepareParametersList(final List<Object> values,
                                                      final ExpressionFunction<?, ExpressionEvaluationContext> function,
                                                      final ExpressionEvaluationContext context) {
+        final int count = values.size();
+
         this.valuesList = values;
-        this.parameters = function.parameters();
+        this.parameters = function.parameters(count);
 
         this.function = function;
         this.convert = function.kinds()
@@ -119,7 +121,7 @@ abstract class ExpressionEvaluationContextPrepareParametersList extends Abstract
 
         this.context = context;
 
-        this.values = new Object[values.size()];
+        this.values = new Object[count];
         Arrays.fill(this.values, MISSING);
     }
 

@@ -204,7 +204,7 @@ public final class BasicExpressionEvaluationContextTest implements ClassTesting2
                             }
 
                             @Override
-                            public List<ExpressionFunctionParameter<?>> parameters() {
+                            public List<ExpressionFunctionParameter<?>> parameters(final int count) {
                                 return ExpressionFunctionParameter.EMPTY;
                             }
 
@@ -428,7 +428,7 @@ public final class BasicExpressionEvaluationContextTest implements ClassTesting2
                                         }
 
                                         @Override
-                                        public List<ExpressionFunctionParameter<?>> parameters() {
+                                        public List<ExpressionFunctionParameter<?>> parameters(final int count) {
                                             return ExpressionFunctionParameter.EMPTY;
                                         }
 

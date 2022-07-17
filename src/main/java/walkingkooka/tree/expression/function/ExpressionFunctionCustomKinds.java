@@ -85,8 +85,8 @@ final class ExpressionFunctionCustomKinds<T, C extends Context & ConverterContex
     }
 
     @Override
-    public List<ExpressionFunctionParameter<?>> parameters() {
-        return this.function.parameters();
+    public List<ExpressionFunctionParameter<?>> parameters(final int count) {
+        return this.function.parameters(count);
     }
 
     @Override

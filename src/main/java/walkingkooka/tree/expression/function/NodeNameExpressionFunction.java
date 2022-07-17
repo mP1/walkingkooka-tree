@@ -71,7 +71,7 @@ final class NodeNameExpressionFunction<C extends Context & ConverterContext & Ex
     private final static FunctionExpressionName NAME = FunctionExpressionName.with("name");
 
     @Override
-    public List<ExpressionFunctionParameter<?>> parameters() {
+    public List<ExpressionFunctionParameter<?>> parameters(final int count) {
         return PARAMETERS;
     }
 

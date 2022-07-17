@@ -73,7 +73,7 @@ final class ExpressionNumberFunctionExpressionFunction<C extends Context & Conve
     private final ExpressionNumberFunction function;
 
     @Override
-    public List<ExpressionFunctionParameter<?>> parameters() {
+    public List<ExpressionFunctionParameter<?>> parameters(final int count) {
         return PARAMETERS;
     }
 

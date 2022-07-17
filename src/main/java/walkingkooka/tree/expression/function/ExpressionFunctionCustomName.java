@@ -87,8 +87,8 @@ final class ExpressionFunctionCustomName<T, C extends Context & ConverterContext
     private final FunctionExpressionName name;
 
     @Override
-    public List<ExpressionFunctionParameter<?>> parameters() {
-        return this.function.parameters();
+    public List<ExpressionFunctionParameter<?>> parameters(final int count) {
+        return this.function.parameters(count);
     }
 
     @Override

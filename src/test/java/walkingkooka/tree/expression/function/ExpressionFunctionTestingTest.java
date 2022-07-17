@@ -274,7 +274,7 @@ public final class ExpressionFunctionTestingTest implements ClassTesting<Express
             public FakeExpressionFunction<Void, FakeExpressionEvaluationContext> createBiFunction() {
                 return new FakeExpressionFunction<>() {
                     @Override
-                    public List<ExpressionFunctionParameter<?>> parameters() {
+                    public List<ExpressionFunctionParameter<?>> parameters(final int count) {
                         return Lists.of(
                                 ExpressionFunctionParameter.BOOLEAN,
                                 ExpressionFunctionParameter.CHARACTER,
@@ -307,7 +307,7 @@ public final class ExpressionFunctionTestingTest implements ClassTesting<Express
                 public FakeExpressionFunction<Void, FakeExpressionEvaluationContext> createBiFunction() {
                     return new FakeExpressionFunction<>() {
                         @Override
-                        public List<ExpressionFunctionParameter<?>> parameters() {
+                        public List<ExpressionFunctionParameter<?>> parameters(final int count) {
                             return Lists.of(
                                     ExpressionFunctionParameter.BOOLEAN,
                                     ExpressionFunctionParameter.CHARACTER,
@@ -344,7 +344,7 @@ public final class ExpressionFunctionTestingTest implements ClassTesting<Express
             public FakeExpressionFunction<Void, FakeExpressionEvaluationContext> createBiFunction() {
                 return new FakeExpressionFunction<>() {
                     @Override
-                    public List<ExpressionFunctionParameter<?>> parameters() {
+                    public List<ExpressionFunctionParameter<?>> parameters(final int count) {
                         return Lists.of(
                                 ExpressionFunctionParameterName.BOOLEAN.required(Boolean.class),
                                 ExpressionFunctionParameterName.CHARACTER.optional(Character.class)
@@ -376,7 +376,7 @@ public final class ExpressionFunctionTestingTest implements ClassTesting<Express
                 public FakeExpressionFunction<Void, FakeExpressionEvaluationContext> createBiFunction() {
                     return new FakeExpressionFunction<>() {
                         @Override
-                        public List<ExpressionFunctionParameter<?>> parameters() {
+                        public List<ExpressionFunctionParameter<?>> parameters(final int count) {
                             return Lists.of(
                                     ExpressionFunctionParameterName.BOOLEAN.required(Boolean.class),
                                     ExpressionFunctionParameterName.CHARACTER.optional(Character.class),
@@ -413,7 +413,7 @@ public final class ExpressionFunctionTestingTest implements ClassTesting<Express
             public FakeExpressionFunction<Void, FakeExpressionEvaluationContext> createBiFunction() {
                 return new FakeExpressionFunction<>() {
                     @Override
-                    public List<ExpressionFunctionParameter<?>> parameters() {
+                    public List<ExpressionFunctionParameter<?>> parameters(final int count) {
                         return Lists.of(
                                 ExpressionFunctionParameterName.BOOLEAN.required(Boolean.class),
                                 ExpressionFunctionParameterName.CHARACTER.variable(Character.class)
@@ -445,7 +445,7 @@ public final class ExpressionFunctionTestingTest implements ClassTesting<Express
                 public FakeExpressionFunction<Void, FakeExpressionEvaluationContext> createBiFunction() {
                     return new FakeExpressionFunction<>() {
                         @Override
-                        public List<ExpressionFunctionParameter<?>> parameters() {
+                        public List<ExpressionFunctionParameter<?>> parameters(final int count) {
                             return Lists.of(
                                     ExpressionFunctionParameterName.BOOLEAN.required(Boolean.class),
                                     ExpressionFunctionParameterName.CHARACTER.variable(Character.class),

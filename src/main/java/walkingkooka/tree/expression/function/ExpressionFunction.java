@@ -48,7 +48,7 @@ public interface ExpressionFunction<T, C extends Context & ConverterContext & Ex
     /**
      * Returns meta info about the parameters for this function.
      */
-    List<ExpressionFunctionParameter<?>> parameters();
+    List<ExpressionFunctionParameter<?>> parameters(int count);
 
     /**
      * Checks the given parameter values match the expected count exactly. Less or more parameters will result in a
@@ -60,7 +60,8 @@ public interface ExpressionFunction<T, C extends Context & ConverterContext & Ex
 
         ExpressionFunctionParameterCardinality last = null;
 
-        for (final ExpressionFunctionParameter<?> functionParameter : this.parameters()) {
+        final int count = parameters.size();
+        for (final ExpressionFunctionParameter<?> functionParameter : this.parameters(count)) {
             final ExpressionFunctionParameterCardinality cardinality = functionParameter.cardinality();
             min += cardinality.min;
             max += cardinality.max;
@@ -71,7 +72,6 @@ public interface ExpressionFunction<T, C extends Context & ConverterContext & Ex
             max = Integer.MAX_VALUE;
         }
 
-        final int count = parameters.size();
         if (count < min) {
             throw new IllegalArgumentException("Missing parameters, got " + count + " expected " + min);
         }

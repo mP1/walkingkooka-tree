@@ -48,7 +48,7 @@ final class ExpressionEvaluationContextPrepareParametersListFlattened extends Ex
     private static List<Object> flatten(final List<Object> values,
                                         final ExpressionFunction<?, ExpressionEvaluationContext> function,
                                         final ExpressionEvaluationContext context) {
-        final ExpressionFunctionParameter<?> parameter = function.parameters()
+        final ExpressionFunctionParameter<?> parameter = function.parameters(values.size())
                 .get(0);
         final ExpressionFunctionParameterCardinality cardinality = parameter.cardinality();
         if (ExpressionFunctionParameterCardinality.VARIABLE != cardinality) {
