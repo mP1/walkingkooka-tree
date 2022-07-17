@@ -150,7 +150,7 @@ public final class ExpressionFunctionTest implements ClassTesting<ExpressionFunc
                                  final ExpressionFunctionParameter<?>... parameters) {
         new FakeExpressionFunction<Void, FakeExpressionEvaluationContext>() {
             @Override
-            public List<ExpressionFunctionParameter<?>> parameters() {
+            public List<ExpressionFunctionParameter<?>> parameters(final int count) {
                 return Lists.of(parameters);
             }
         }.checkParameterCount(Collections.nCopies(count, null));
@@ -222,7 +222,7 @@ public final class ExpressionFunctionTest implements ClassTesting<ExpressionFunc
         this.parametersGetAndCheck(
                 new FakeExpressionFunction<Void, ExpressionEvaluationContext>() {
                     @Override
-                    public List<ExpressionFunctionParameter<?>> parameters() {
+                    public List<ExpressionFunctionParameter<?>> parameters(final int count) {
                         return parameters;
                     }
                 },
@@ -236,7 +236,7 @@ public final class ExpressionFunctionTest implements ClassTesting<ExpressionFunc
                                        final ExpressionFunctionParameter<?> parameter) {
         this.checkEquals(
                 parameter,
-                function.parameters().get(index),
+                function.parameters(0).get(index),
                 "function.parameters().get(" + index + ")"
         );
     }

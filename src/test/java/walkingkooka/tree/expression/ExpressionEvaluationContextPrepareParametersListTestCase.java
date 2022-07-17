@@ -104,7 +104,7 @@ public abstract class ExpressionEvaluationContextPrepareParametersListTestCase<T
         return new FakeExpressionFunction<>() {
 
             @Override
-            public List<ExpressionFunctionParameter<?>> parameters() {
+            public List<ExpressionFunctionParameter<?>> parameters(final int count) {
                 return parameters;
             }
 

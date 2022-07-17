@@ -61,7 +61,7 @@ public final class ExpressionFunctionParametersMapperTest extends ExpressionFunc
         }
 
         @Override
-        public List<ExpressionFunctionParameter<?>> parameters() {
+        public List<ExpressionFunctionParameter<?>> parameters(final int count) {
             return Lists.of(
                     ExpressionFunctionParameterName.with("parameter1").required(String.class)
             );

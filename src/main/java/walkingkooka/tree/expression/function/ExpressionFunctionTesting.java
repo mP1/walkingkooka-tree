@@ -75,7 +75,8 @@ public interface ExpressionFunctionTesting<F extends ExpressionFunction<V, C>, V
     @Test
     default void testParameterNamesUnique() {
         final F function = this.createBiFunction();
-        final List<ExpressionFunctionParameter<?>> parameters = function.parameters();
+        final List<ExpressionFunctionParameter<?>> parameters = function.parameters(0);
+
         this.checkEquals(
                 parameters.stream()
                         .map(ExpressionFunctionParameter::name)
@@ -90,7 +91,8 @@ public interface ExpressionFunctionTesting<F extends ExpressionFunction<V, C>, V
 
     @Test
     default void testParametersOptionalNotBeforeRequired() {
-        final List<ExpressionFunctionParameter<?>> parameters = this.createBiFunction().parameters();
+        final List<ExpressionFunctionParameter<?>> parameters = this.createBiFunction()
+                .parameters(0);
 
         ExpressionFunctionParameter<?> previous = null;
 
@@ -116,7 +118,7 @@ public interface ExpressionFunctionTesting<F extends ExpressionFunction<V, C>, V
     @Test
     default void testParametersOnlyLastMayBeVariable() {
         final List<ExpressionFunctionParameter<?>> parameters = this.createBiFunction()
-                .parameters();
+                .parameters(0);
 
         final int secondLast = Math.max(0, parameters.size() - 1);
 

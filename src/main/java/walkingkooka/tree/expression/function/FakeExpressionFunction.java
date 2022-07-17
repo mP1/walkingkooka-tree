@@ -44,7 +44,7 @@ public class FakeExpressionFunction<T, C extends Context & ConverterContext & Ex
     }
 
     @Override
-    public List<ExpressionFunctionParameter<?>> parameters() {
+    public List<ExpressionFunctionParameter<?>> parameters(final int count) {
         throw new UnsupportedOperationException();
     }
 

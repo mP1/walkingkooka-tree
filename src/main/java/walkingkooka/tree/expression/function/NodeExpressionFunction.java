@@ -75,7 +75,7 @@ final class NodeExpressionFunction<N extends Node<N, NAME, ANAME, AVALUE>,
     private final static FunctionExpressionName NAME = FunctionExpressionName.with("node");
 
     @Override
-    public List<ExpressionFunctionParameter<?>> parameters() {
+    public List<ExpressionFunctionParameter<?>> parameters(final int count) {
         return PARAMETERS;
     }
 
