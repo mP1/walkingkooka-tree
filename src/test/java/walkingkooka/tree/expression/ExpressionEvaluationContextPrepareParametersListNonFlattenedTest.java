@@ -39,13 +39,13 @@ public final class ExpressionEvaluationContextPrepareParametersListNonFlattenedT
         final Object element1 = 111;
         final Object element2 = Expression.value("222");
 
-        final List<Object> parameters = Lists.of(
+        final List<Object> values = Lists.of(
                 element1,
                 element2
         );
         final ExpressionEvaluationContextPrepareParametersListNonFlattened list = Cast.to(
                 ExpressionEvaluationContextPrepareParametersList.with(
-                        parameters,
+                        values,
                         this.function(
                                 ExpressionFunctionKind.CONVERT_PARAMETERS
                         ),
@@ -61,13 +61,13 @@ public final class ExpressionEvaluationContextPrepareParametersListNonFlattenedT
         final Object element1 = 111;
         final Object element2 = "222";
 
-        final List<Object> parameters = Lists.of(
+        final List<Object> values = Lists.of(
                 element1,
                 element2
         );
         final ExpressionEvaluationContextPrepareParametersListNonFlattened list = Cast.to(
                 ExpressionEvaluationContextPrepareParametersList.with(
-                        parameters,
+                        values,
                         this.function(ExpressionFunctionKind.EVALUATE_PARAMETERS),
                         ExpressionEvaluationContexts.fake()
                 )
@@ -86,13 +86,13 @@ public final class ExpressionEvaluationContextPrepareParametersListNonFlattenedT
         final Object element1 = 111;
         final Object element2 = "222";
 
-        final List<Object> parameters = Lists.of(
+        final List<Object> values = Lists.of(
                 element1,
                 element2
         );
         final ExpressionEvaluationContextPrepareParametersListNonFlattened list = Cast.to(
                 ExpressionEvaluationContextPrepareParametersList.with(
-                        parameters,
+                        values,
                         this.function(
                                 ExpressionFunctionKind.CONVERT_PARAMETERS
                         ),
@@ -110,12 +110,12 @@ public final class ExpressionEvaluationContextPrepareParametersListNonFlattenedT
         final Expression element1 = Expression.value(111);
         final Expression element2 = Expression.value("222");
 
-        final List<Object> parameters = Lists.of(
+        final List<Object> values = Lists.of(
                 element1,
                 element2
         );
         final ExpressionEvaluationContextPrepareParametersListNonFlattened list = Cast.to(ExpressionEvaluationContextPrepareParametersList.with(
-                        parameters,
+                        values,
                         this.function(
                                 ExpressionFunctionKind.CONVERT_PARAMETERS
                         ),
@@ -133,13 +133,13 @@ public final class ExpressionEvaluationContextPrepareParametersListNonFlattenedT
         final Object element1 = 111;
         final Object element2 = "222";
 
-        final List<Object> parameters = Lists.of(
+        final List<Object> values = Lists.of(
                 element1,
                 element2
         );
         final ExpressionEvaluationContextPrepareParametersListNonFlattened list = Cast.to(
                 ExpressionEvaluationContextPrepareParametersList.with(
-                        parameters,
+                        values,
                         this.function(
                                 ExpressionFunctionKind.CONVERT_PARAMETERS,
                                 ExpressionFunctionKind.EVALUATE_PARAMETERS
@@ -158,13 +158,13 @@ public final class ExpressionEvaluationContextPrepareParametersListNonFlattenedT
         final ValueExpression<?> element1 = Expression.value(111);
         final ValueExpression<?> element2 = Expression.value("222");
 
-        final List<Object> parameters = Lists.of(
+        final List<Object> values = Lists.of(
                 element1,
                 element2
         );
         final ExpressionEvaluationContextPrepareParametersListNonFlattened list = Cast.to(
                 ExpressionEvaluationContextPrepareParametersList.with(
-                        parameters,
+                        values,
                         this.function(
                                 ExpressionFunctionKind.CONVERT_PARAMETERS,
                                 ExpressionFunctionKind.EVALUATE_PARAMETERS
@@ -183,13 +183,13 @@ public final class ExpressionEvaluationContextPrepareParametersListNonFlattenedT
         final Object element1 = 111;
         final Object element2 = "222";
 
-        final List<Object> parameters = Lists.of(
+        final List<Object> values = Lists.of(
                 element1,
                 element2
         );
         final ExpressionEvaluationContextPrepareParametersListNonFlattened list = Cast.to(
                 ExpressionEvaluationContextPrepareParametersList.with(
-                        parameters,
+                        values,
                         this.function(
                                 ExpressionFunctionKind.CONVERT_PARAMETERS,
                                 ExpressionFunctionKind.EVALUATE_PARAMETERS
@@ -208,13 +208,13 @@ public final class ExpressionEvaluationContextPrepareParametersListNonFlattenedT
         final Object element1 = 111;
         final Object element2 = "222";
 
-        final List<Object> parameters = Lists.of(
+        final List<Object> values = Lists.of(
                 element1,
                 element2
         );
         final ExpressionEvaluationContextPrepareParametersListNonFlattened list = Cast.to(
                 ExpressionEvaluationContextPrepareParametersList.with(
-                        parameters,
+                        values,
                         this.function(
                                 ExpressionFunctionKind.CONVERT_PARAMETERS,
                                 ExpressionFunctionKind.EVALUATE_PARAMETERS
@@ -237,13 +237,13 @@ public final class ExpressionEvaluationContextPrepareParametersListNonFlattenedT
         final ValueExpression<?> value1 = Expression.value(111);
         final ValueExpression<?> element2 = Expression.value("222");
 
-        final List<Object> parameters = Lists.of(
+        final List<Object> values = Lists.of(
                 element1,
                 element2
         );
         final ExpressionEvaluationContextPrepareParametersListNonFlattened list = Cast.to(
                 ExpressionEvaluationContextPrepareParametersList.with(
-                        parameters,
+                        values,
                         this.function(
                                 ExpressionFunctionKind.CONVERT_PARAMETERS,
                                 ExpressionFunctionKind.RESOLVE_REFERENCES
@@ -276,13 +276,13 @@ public final class ExpressionEvaluationContextPrepareParametersListNonFlattenedT
         final ValueExpression<?> value1 = Expression.value(111);
         final ValueExpression<?> element2 = Expression.value("222");
 
-        final List<Object> parameters = Lists.of(
+        final List<Object> values = Lists.of(
                 element1,
                 element2
         );
         final ExpressionEvaluationContextPrepareParametersListNonFlattened list = Cast.to(
                 ExpressionEvaluationContextPrepareParametersList.with(
-                        parameters,
+                        values,
                         this.function(
                                 ExpressionFunctionKind.CONVERT_PARAMETERS,
                                 ExpressionFunctionKind.RESOLVE_REFERENCES
@@ -324,13 +324,13 @@ public final class ExpressionEvaluationContextPrepareParametersListNonFlattenedT
         final ValueExpression<?> value1 = Expression.value(111);
         final ValueExpression<?> element2 = Expression.value("222");
 
-        final List<Object> parameters = Lists.of(
+        final List<Object> values = Lists.of(
                 element1,
                 element2
         );
         final ExpressionEvaluationContextPrepareParametersListNonFlattened list = Cast.to(
                 ExpressionEvaluationContextPrepareParametersList.with(
-                        parameters,
+                        values,
                         this.function(
                                 ExpressionFunctionKind.CONVERT_PARAMETERS,
                                 ExpressionFunctionKind.EVALUATE_PARAMETERS,
@@ -364,13 +364,13 @@ public final class ExpressionEvaluationContextPrepareParametersListNonFlattenedT
         final ValueExpression<?> value1 = Expression.value(111);
         final ValueExpression<?> element2 = Expression.value("222");
 
-        final List<Object> parameters = Lists.of(
+        final List<Object> values = Lists.of(
                 element1,
                 element2
         );
         final ExpressionEvaluationContextPrepareParametersListNonFlattened list = Cast.to(
                 ExpressionEvaluationContextPrepareParametersList.with(
-                        parameters,
+                        values,
                         this.function(
                                 ExpressionFunctionKind.CONVERT_PARAMETERS,
                                 ExpressionFunctionKind.EVALUATE_PARAMETERS,
@@ -403,13 +403,13 @@ public final class ExpressionEvaluationContextPrepareParametersListNonFlattenedT
 
     @Test
     public void testParameterValueNotConverted() {
-        final List<Object> parameters = Lists.of(
+        final List<Object> values = Lists.of(
                 "111",
                 "222"
         );
         final ExpressionEvaluationContextPrepareParametersListNonFlattened list = Cast.to(
                 ExpressionEvaluationContextPrepareParametersList.with(
-                        parameters,
+                        values,
                         this.function(ExpressionFunctionKind.EVALUATE_PARAMETERS),
                         ExpressionEvaluationContexts.fake()
                 )
@@ -422,13 +422,13 @@ public final class ExpressionEvaluationContextPrepareParametersListNonFlattenedT
 
     @Test
     public void testParameterValueConverted() {
-        final List<Object> parameters = Lists.of(
+        final List<Object> values = Lists.of(
                 "111",
                 "222"
         );
         final ExpressionEvaluationContextPrepareParametersListNonFlattened list = Cast.to(
                 ExpressionEvaluationContextPrepareParametersList.with(
-                        parameters,
+                        values,
                         this.function(
                                 ExpressionFunctionKind.CONVERT_PARAMETERS
                         ),
@@ -450,13 +450,13 @@ public final class ExpressionEvaluationContextPrepareParametersListNonFlattenedT
 
     @Test
     public void testParameterValueConvertedCached() {
-        final List<Object> parameters = Lists.of(
+        final List<Object> values = Lists.of(
                 "111",
                 "222"
         );
         final ExpressionEvaluationContextPrepareParametersListNonFlattened list = Cast.to(
                 ExpressionEvaluationContextPrepareParametersList.with(
-                        parameters,
+                        values,
                         this.function(
                                 ExpressionFunctionKind.CONVERT_PARAMETERS
                         ),

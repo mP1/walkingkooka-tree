@@ -38,34 +38,34 @@ import java.util.Set;
  */
 abstract class ExpressionEvaluationContextPrepareParametersList extends AbstractList<Object> {
 
-    static List<Object> with(final List<Object> parameters,
+    static List<Object> with(final List<Object> values,
                              final ExpressionFunction<?, ExpressionEvaluationContext> function,
                              final ExpressionEvaluationContext context) {
-        Objects.requireNonNull(parameters, "parameters");
+        Objects.requireNonNull(values, "values");
         Objects.requireNonNull(function, "function");
         Objects.requireNonNull(context, "context");
 
         final Set<ExpressionFunctionKind> kinds = function.kinds();
         return kinds.isEmpty() ?
-                parameters :
+                values :
                 kinds.contains(ExpressionFunctionKind.FLATTEN) ?
                         ExpressionEvaluationContextPrepareParametersListFlattened.with(
-                                parameters,
+                                values,
                                 function,
                                 context
                         ) :
                         ExpressionEvaluationContextPrepareParametersListNonFlattened.with(
-                                parameters,
+                                values,
                                 function,
                                 context
                         );
     }
 
-    static Object prepareParameter(final Object parameterValue,
-                                   final ExpressionFunction<?, ExpressionEvaluationContext> function,
-                                   final ExpressionEvaluationContext context) {
+    static Object prepareValue(final Object value,
+                               final ExpressionFunction<?, ExpressionEvaluationContext> function,
+                               final ExpressionEvaluationContext context) {
         final Set<ExpressionFunctionKind> kinds = function.kinds();
-        Object result = parameterValue;
+        Object result = value;
 
         if (result instanceof Expression) {
             if (kinds.contains(ExpressionFunctionKind.EVALUATE_PARAMETERS)) {
@@ -89,9 +89,9 @@ abstract class ExpressionEvaluationContextPrepareParametersList extends Abstract
         return result;
     }
 
-    private static Object toReferenceOrValue(final Object parameter,
+    private static Object toReferenceOrValue(final Object value,
                                              final ExpressionEvaluationContext context) {
-        final Expression expression = (Expression) parameter;
+        final Expression expression = (Expression) value;
 
         Object result;
         try {
@@ -105,10 +105,10 @@ abstract class ExpressionEvaluationContextPrepareParametersList extends Abstract
     /**
      * Private ctor
      */
-    ExpressionEvaluationContextPrepareParametersList(final List<Object> parameters,
+    ExpressionEvaluationContextPrepareParametersList(final List<Object> values,
                                                      final ExpressionFunction<?, ExpressionEvaluationContext> function,
                                                      final ExpressionEvaluationContext context) {
-        this.parametersList = parameters;
+        this.valuesList = values;
 
         this.function = function;
         this.convert = function.kinds()
@@ -116,8 +116,8 @@ abstract class ExpressionEvaluationContextPrepareParametersList extends Abstract
 
         this.context = context;
 
-        this.parameters = new Object[parameters.size()];
-        Arrays.fill(this.parameters, MISSING);
+        this.values = new Object[values.size()];
+        Arrays.fill(this.values, MISSING);
     }
 
     private final static Object MISSING = new Object();
@@ -127,10 +127,10 @@ abstract class ExpressionEvaluationContextPrepareParametersList extends Abstract
      */
     @Override
     public final Object get(final int index) {
-        if (MISSING == this.parameters[index]) {
-            this.parameters[index] = prepareAndConvert(index);
+        if (MISSING == this.values[index]) {
+            this.values[index] = prepareAndConvert(index);
         }
-        return this.parameters[index];
+        return this.values[index];
     }
 
     abstract Object prepareAndConvert(final int index);
@@ -153,22 +153,22 @@ abstract class ExpressionEvaluationContextPrepareParametersList extends Abstract
 
     @Override
     public final int size() {
-        return this.parameters.length;
+        return this.values.length;
     }
 
     /**
      * The original unprepared parameter values.
      */
-    final List<Object> parametersList;
+    final List<Object> valuesList;
 
     /**
      * A copy of the original parameters, as an array, where elements are overwritten as values are evaluated or
      * references resolved.
      */
-    private final Object[] parameters;
+    private final Object[] values;
 
     @Override
     public final String toString() {
-        return this.parametersList.toString();
+        return this.valuesList.toString();
     }
 }

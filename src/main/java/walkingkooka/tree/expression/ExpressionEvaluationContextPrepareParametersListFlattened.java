@@ -24,7 +24,6 @@ import walkingkooka.tree.expression.function.ExpressionFunctionParameter;
 import walkingkooka.tree.expression.function.ExpressionFunctionParameterCardinality;
 
 import java.util.List;
-import java.util.Objects;
 
 /**
  * A partially lazy list, note values are evaluated and references resolved if necessary but the convert to the actual
@@ -32,16 +31,12 @@ import java.util.Objects;
  */
 final class ExpressionEvaluationContextPrepareParametersListFlattened extends ExpressionEvaluationContextPrepareParametersList {
 
-    static ExpressionEvaluationContextPrepareParametersListFlattened with(final List<Object> parameters,
+    static ExpressionEvaluationContextPrepareParametersListFlattened with(final List<Object> values,
                                                                           final ExpressionFunction<?, ExpressionEvaluationContext> function,
                                                                           final ExpressionEvaluationContext context) {
-        Objects.requireNonNull(parameters, "parameters");
-        Objects.requireNonNull(function, "function");
-        Objects.requireNonNull(context, "context");
-
         return new ExpressionEvaluationContextPrepareParametersListFlattened(
                 flatten(
-                        parameters,
+                        values,
                         function,
                         context
                 ),
@@ -50,7 +45,7 @@ final class ExpressionEvaluationContextPrepareParametersListFlattened extends Ex
         );
     }
 
-    private static List<Object> flatten(final List<Object> parameters,
+    private static List<Object> flatten(final List<Object> values,
                                         final ExpressionFunction<?, ExpressionEvaluationContext> function,
                                         final ExpressionEvaluationContext context) {
         final ExpressionFunctionParameter<?> parameter = function.parameter(0);
@@ -59,53 +54,53 @@ final class ExpressionEvaluationContextPrepareParametersListFlattened extends Ex
             throw new IllegalStateException("Function " + function + " has " + ExpressionFunctionKind.FLATTEN + " should only have a single parameter");
         }
 
-        final List<Object> parameterValues = Lists.array();
+        final List<Object> copy = Lists.array();
 
-        for (final Object parameterValue : parameters) {
-            prepareParameterAndFlatten(
-                    parameterValue,
-                    parameterValues,
+        for (final Object value : values) {
+            prepareValueAndFlatten(
+                    value,
+                    copy,
                     parameter,
                     function,
                     context
             );
         }
 
-        return Lists.immutable(parameterValues);
+        return Lists.immutable(copy);
     }
 
-    private static void prepareParameterAndFlatten(final Object parameterValue,
-                                                   final List<Object> parametersValues,
-                                                   final ExpressionFunctionParameter<?> parameter,
-                                                   final ExpressionFunction<?, ExpressionEvaluationContext> function,
-                                                   final ExpressionEvaluationContext context) {
-        final Object prepared = prepareParameter(
-                parameterValue,
+    private static void prepareValueAndFlatten(final Object value,
+                                               final List<Object> values,
+                                               final ExpressionFunctionParameter<?> parameter,
+                                               final ExpressionFunction<?, ExpressionEvaluationContext> function,
+                                               final ExpressionEvaluationContext context) {
+        final Object prepared = prepareValue(
+                value,
                 function,
                 context
         );
         if (prepared instanceof List) {
-            prepareParameterAndFlatten(
+            prepareValueAndFlatten(
                     (List<?>) prepared,
-                    parametersValues,
+                    values,
                     parameter,
                     function,
                     context
             );
         } else {
-            parametersValues.add(
+            values.add(
                     prepared
             );
         }
     }
 
-    private static void prepareParameterAndFlatten(final List<?> unflattenedParameterValues,
-                                                   final List<Object> flattenParametersValues,
-                                                   final ExpressionFunctionParameter<?> parameter,
-                                                   final ExpressionFunction<?, ExpressionEvaluationContext> function,
-                                                   final ExpressionEvaluationContext context) {
+    private static void prepareValueAndFlatten(final List<?> unflattenedParameterValues,
+                                               final List<Object> flattenParametersValues,
+                                               final ExpressionFunctionParameter<?> parameter,
+                                               final ExpressionFunction<?, ExpressionEvaluationContext> function,
+                                               final ExpressionEvaluationContext context) {
         for (final Object parameterValue : unflattenedParameterValues) {
-            prepareParameterAndFlatten(
+            prepareValueAndFlatten(
                     parameterValue,
                     flattenParametersValues,
                     parameter,
@@ -130,7 +125,7 @@ final class ExpressionEvaluationContextPrepareParametersListFlattened extends Ex
 
         Object result;
         try {
-            final Object value = this.parametersList.get(index);
+            final Object value = this.valuesList.get(index);
 
             result = this.convert ?
                     context.prepareParameter(
