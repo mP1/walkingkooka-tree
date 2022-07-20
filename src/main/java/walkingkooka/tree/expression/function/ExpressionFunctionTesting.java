@@ -134,6 +134,41 @@ public interface ExpressionFunctionTesting<F extends ExpressionFunction<V, C>, V
     }
 
     @Test
+    default void testParametersOnlyLastMayHaveFlatten() {
+        final List<ExpressionFunctionParameter<?>> parameters = this.createBiFunction()
+                .parameters(0);
+
+        final int secondLast = Math.max(0, parameters.size() - 1);
+
+        for (int i = 0; i < secondLast; i++) {
+            final ExpressionFunctionParameter<?> parameter = parameters.get(i);
+
+            this.checkEquals(
+                    false,
+                    parameter.kinds().contains(ExpressionFunctionParameterKind.FLATTEN),
+                    () -> "non last parameter has flatten=" + parameter
+            );
+        }
+    }
+
+    @Test
+    default void testParametersFlattenMustBeVariable() {
+        final List<ExpressionFunctionParameter<?>> parameters = this.createBiFunction()
+                .parameters(0);
+        if (parameters.size() > 0) {
+            final ExpressionFunctionParameter last = parameters.get(parameters.size() - 1);
+
+            if (last.kinds().contains(ExpressionFunctionParameterKind.FLATTEN)) {
+                this.checkEquals(
+                        ExpressionFunctionParameterCardinality.VARIABLE,
+                        last.cardinality(),
+                        () -> "last parameter has " + ExpressionFunctionParameterKind.FLATTEN + " but is not " + ExpressionFunctionParameterCardinality.VARIABLE + " " + last
+                );
+            }
+        }
+    }
+
+    @Test
     default void testMapParametersWithNullFunction() {
         assertThrows(
                 NullPointerException.class,

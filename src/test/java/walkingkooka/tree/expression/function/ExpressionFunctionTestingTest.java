@@ -20,6 +20,7 @@ package walkingkooka.tree.expression.function;
 import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.collect.list.Lists;
+import walkingkooka.collect.set.Sets;
 import walkingkooka.reflect.ClassTesting;
 import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.tree.expression.Expression;
@@ -470,6 +471,151 @@ public final class ExpressionFunctionTestingTest implements ClassTesting<Express
                     throw new UnsupportedOperationException();
                 }
             }.testParametersOnlyLastMayBeVariable();
+        } catch (final AssertionError expected) {
+            fail = true;
+        }
+
+        this.checkEquals(true, fail);
+    }
+
+    // testParametersOnlyLastMayHaveFlatten..............................................................................
+
+    @Test
+    public void testParametersOnlyLastMayHaveFlatten() {
+        new ExpressionFunctionTesting<FakeExpressionFunction<Void, FakeExpressionEvaluationContext>, Void, FakeExpressionEvaluationContext>() {
+
+            @Override
+            public FakeExpressionFunction<Void, FakeExpressionEvaluationContext> createBiFunction() {
+                return new FakeExpressionFunction<>() {
+                    @Override
+                    public List<ExpressionFunctionParameter<?>> parameters(final int count) {
+                        return Lists.of(
+                                ExpressionFunctionParameterName.BOOLEAN.required(Boolean.class),
+                                ExpressionFunctionParameterName.CHARACTER.variable(Character.class)
+                                        .setKinds(ExpressionFunctionParameterKind.CONVERT_EVALUATE_RESOLVE_REFERENCES)
+                        );
+                    }
+                };
+            }
+
+            @Override
+            public FakeExpressionEvaluationContext createContext() {
+                throw new UnsupportedOperationException();
+            }
+
+            @Override
+            public Class<FakeExpressionFunction<Void, FakeExpressionEvaluationContext>> type() {
+                throw new UnsupportedOperationException();
+            }
+        }.testParametersOnlyLastMayHaveFlatten();
+    }
+
+    @Test
+    public void testParametersOnlyLastMayHaveFlattenFails() {
+        boolean fail = false;
+
+        try {
+            new ExpressionFunctionTesting<FakeExpressionFunction<Void, FakeExpressionEvaluationContext>, Void, FakeExpressionEvaluationContext>() {
+
+                @Override
+                public FakeExpressionFunction<Void, FakeExpressionEvaluationContext> createBiFunction() {
+                    return new FakeExpressionFunction<>() {
+                        @Override
+                        public List<ExpressionFunctionParameter<?>> parameters(final int count) {
+                            return Lists.of(
+                                    ExpressionFunctionParameterName.BOOLEAN.required(Boolean.class),
+                                    ExpressionFunctionParameterName.CHARACTER.variable(Character.class)
+                                            .setKinds(
+                                                    Sets.of(ExpressionFunctionParameterKind.FLATTEN)
+                                            ),
+                                    ExpressionFunctionParameterName.DATE.required(LocalDate.class)
+                            );
+                        }
+                    };
+                }
+
+                @Override
+                public FakeExpressionEvaluationContext createContext() {
+                    throw new UnsupportedOperationException();
+                }
+
+                @Override
+                public Class<FakeExpressionFunction<Void, FakeExpressionEvaluationContext>> type() {
+                    throw new UnsupportedOperationException();
+                }
+            }.testParametersOnlyLastMayHaveFlatten();
+        } catch (final AssertionError expected) {
+            fail = true;
+        }
+
+        this.checkEquals(true, fail);
+    }
+
+    // testParametersFlattenMustBeVariable..............................................................................
+
+    @Test
+    public void testParametersFlattenMustBeVariable() {
+        new ExpressionFunctionTesting<FakeExpressionFunction<Void, FakeExpressionEvaluationContext>, Void, FakeExpressionEvaluationContext>() {
+
+            @Override
+            public FakeExpressionFunction<Void, FakeExpressionEvaluationContext> createBiFunction() {
+                return new FakeExpressionFunction<>() {
+                    @Override
+                    public List<ExpressionFunctionParameter<?>> parameters(final int count) {
+                        return Lists.of(
+                                ExpressionFunctionParameterName.BOOLEAN.required(Boolean.class),
+                                ExpressionFunctionParameterName.CHARACTER.variable(Character.class)
+                                        .setKinds(ExpressionFunctionParameterKind.CONVERT_EVALUATE_RESOLVE_REFERENCES)
+                        );
+                    }
+                };
+            }
+
+            @Override
+            public FakeExpressionEvaluationContext createContext() {
+                throw new UnsupportedOperationException();
+            }
+
+            @Override
+            public Class<FakeExpressionFunction<Void, FakeExpressionEvaluationContext>> type() {
+                throw new UnsupportedOperationException();
+            }
+        }.testParametersFlattenMustBeVariable();
+    }
+
+    @Test
+    public void testParametersFlattenMustBeVariableFails() {
+        boolean fail = false;
+
+        try {
+            new ExpressionFunctionTesting<FakeExpressionFunction<Void, FakeExpressionEvaluationContext>, Void, FakeExpressionEvaluationContext>() {
+
+                @Override
+                public FakeExpressionFunction<Void, FakeExpressionEvaluationContext> createBiFunction() {
+                    return new FakeExpressionFunction<>() {
+                        @Override
+                        public List<ExpressionFunctionParameter<?>> parameters(final int count) {
+                            return Lists.of(
+                                    ExpressionFunctionParameterName.BOOLEAN.required(Boolean.class),
+                                    ExpressionFunctionParameterName.CHARACTER.required(Character.class)
+                                            .setKinds(
+                                                    Sets.of(ExpressionFunctionParameterKind.FLATTEN)
+                                            )
+                            );
+                        }
+                    };
+                }
+
+                @Override
+                public FakeExpressionEvaluationContext createContext() {
+                    throw new UnsupportedOperationException();
+                }
+
+                @Override
+                public Class<FakeExpressionFunction<Void, FakeExpressionEvaluationContext>> type() {
+                    throw new UnsupportedOperationException();
+                }
+            }.testParametersFlattenMustBeVariable();
         } catch (final AssertionError expected) {
             fail = true;
         }
