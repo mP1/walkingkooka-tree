@@ -42,8 +42,8 @@ public interface ExpressionFunction<T, C extends Context & ConverterContext & Ex
     /**
      * Updates ALL parameters with the given {@link ExpressionFunctionParameterKind}
      */
-    static List<ExEpressionFunctionParameter<?>> setKinds(final List<ExpressionFunctionParameter<?>> parameters,
-                                                          final Set<ExpressionFunctionParameterKind> kinds) {
+    static List<ExpressionFunctionParameter<?>> setKinds(final List<ExpressionFunctionParameter<?>> parameters,
+                                                         final Set<ExpressionFunctionParameterKind> kinds) {
         Objects.requireNonNull(parameters, "parameters");
         Objects.requireNonNull(kinds, "kinds");
 
