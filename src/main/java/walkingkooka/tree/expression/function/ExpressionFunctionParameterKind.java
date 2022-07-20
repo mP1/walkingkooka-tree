@@ -58,9 +58,9 @@ public enum ExpressionFunctionParameterKind {
         return "@" + this.name();
     }
 
-    public final static Set<ExpressionFunctionParameterKind> EVALUATE_RESOLVE_REFERENCES = Sets.of(
-            EVALUATE,
-            RESOLVE_REFERENCES
+    public final static Set<ExpressionFunctionParameterKind> CONVERT_EVALUATE = Sets.of(
+            CONVERT,
+            EVALUATE
     );
 
     public final static Set<ExpressionFunctionParameterKind> CONVERT_EVALUATE_RESOLVE_REFERENCES = Sets.of(
@@ -73,6 +73,11 @@ public enum ExpressionFunctionParameterKind {
             CONVERT,
             EVALUATE,
             FLATTEN,
+            RESOLVE_REFERENCES
+    );
+
+    public final static Set<ExpressionFunctionParameterKind> EVALUATE_RESOLVE_REFERENCES = Sets.of(
+            EVALUATE,
             RESOLVE_REFERENCES
     );
 }
