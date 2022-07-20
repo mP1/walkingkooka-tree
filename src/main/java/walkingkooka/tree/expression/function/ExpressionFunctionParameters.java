@@ -25,7 +25,6 @@ import walkingkooka.tree.expression.FunctionExpressionName;
 
 import java.util.List;
 import java.util.Objects;
-import java.util.Set;
 
 /**
  * Wraps an {@link ExpressionFunction} only the apply method remains to implemented by sub-classes.
@@ -58,11 +57,6 @@ abstract class ExpressionFunctionParameters<T, C extends Context & ConverterCont
     @Override
     public final Class<T> returnType() {
         return this.function.returnType();
-    }
-
-    @Override
-    public final Set<ExpressionFunctionKind> kinds() {
-        return this.function.kinds();
     }
 
     /**

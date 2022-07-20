@@ -24,9 +24,7 @@ import walkingkooka.tree.expression.ExpressionNumberContext;
 import walkingkooka.tree.expression.ExpressionPurityContext;
 import walkingkooka.tree.expression.FunctionExpressionName;
 
-import java.util.EnumSet;
 import java.util.List;
-import java.util.Set;
 
 /**
  * A function that returns {@link Object#getClass()#getName()} of the first parameter.
@@ -74,7 +72,9 @@ final class TypeNameExpressionFunction<C extends Context & ConverterContext & Ex
         return PARAMETERS;
     }
 
-    private final static ExpressionFunctionParameter<Object> PARAMETER = ExpressionFunctionParameterName.with("parameter").required(Object.class);
+    private final static ExpressionFunctionParameter<Object> PARAMETER = ExpressionFunctionParameterName.VALUE
+            .required(Object.class)
+            .setKinds(ExpressionFunctionParameterKind.EVALUATE_RESOLVE_REFERENCES);
 
     private final static List<ExpressionFunctionParameter<?>> PARAMETERS = ExpressionFunctionParameter.list(PARAMETER);
 
@@ -82,16 +82,6 @@ final class TypeNameExpressionFunction<C extends Context & ConverterContext & Ex
     public Class<String> returnType() {
         return String.class;
     }
-
-    @Override
-    public Set<ExpressionFunctionKind> kinds() {
-        return KINDS;
-    }
-
-    private final Set<ExpressionFunctionKind> KINDS = EnumSet.of(
-            ExpressionFunctionKind.EVALUATE_PARAMETERS,
-            ExpressionFunctionKind.RESOLVE_REFERENCES
-    );
 
     @Override
     public boolean isPure(final ExpressionPurityContext context) {

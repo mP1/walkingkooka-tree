@@ -19,6 +19,7 @@ package walkingkooka.tree.expression.function;
 
 import walkingkooka.Cast;
 import walkingkooka.collect.list.Lists;
+import walkingkooka.collect.set.Sets;
 import walkingkooka.naming.HasName;
 import walkingkooka.tree.expression.ExpressionEvaluationContext;
 import walkingkooka.tree.expression.ExpressionNumber;
@@ -27,17 +28,29 @@ import walkingkooka.tree.expression.ExpressionReference;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
-import java.util.Iterator;
+import java.util.EnumSet;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
-import java.util.function.Consumer;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 /**
  * Captures an individual parameter to a @link ExpressionFunction}.
  */
 public final class ExpressionFunctionParameter<T> implements HasName<ExpressionFunctionParameterName> {
+
+    /**
+     * Type parameters for types that are not generic and have NO type parameters.
+     */
+    public final static List<Class<?>> NO_TYPE_PARAMETERS = Lists.empty();
+
+    /**
+     * No {@link ExpressionFunctionParameterKind}.
+     */
+    public final static Set<ExpressionFunctionParameterKind> NO_KINDS = Sets.empty();
+
+    // order important otherwise NO_KINDS will be null when ExpressionFunctionParameter are initialized.
 
     public final static List<ExpressionFunctionParameter<?>> EMPTY = Lists.empty();
 
@@ -62,11 +75,6 @@ public final class ExpressionFunctionParameter<T> implements HasName<ExpressionF
     public final static ExpressionFunctionParameter<Object> VALUE = ExpressionFunctionParameterName.VALUE.required(Object.class);
 
     /**
-     * Type parameters for types that are not generic and have NO type parameters.
-     */
-    public final static List<Class<?>> NO_TYPE_PARAMETERS = Lists.empty();
-
-    /**
      * Helper that creates a read only list of the given parameters.
      */
     public static List<ExpressionFunctionParameter<?>> list(final ExpressionFunctionParameter<?>... parameters) {
@@ -77,22 +85,31 @@ public final class ExpressionFunctionParameter<T> implements HasName<ExpressionF
     static <T> ExpressionFunctionParameter<T> with(final ExpressionFunctionParameterName name,
                                                    final Class<T> type,
                                                    final List<Class<?>> typeParameters,
-                                                   final ExpressionFunctionParameterCardinality cardinality) {
+                                                   final ExpressionFunctionParameterCardinality cardinality,
+                                                   final Set<ExpressionFunctionParameterKind> kinds) {
         Objects.requireNonNull(name, "name");
         Objects.requireNonNull(type, "type");
         Objects.requireNonNull(cardinality, "cardinality");
 
-        return new ExpressionFunctionParameter<>(name, type, cardinality, typeParameters);
+        return new ExpressionFunctionParameter<>(
+                name,
+                type,
+                cardinality,
+                typeParameters,
+                kinds
+        );
     }
 
     private ExpressionFunctionParameter(final ExpressionFunctionParameterName name,
                                         final Class<T> type,
                                         final ExpressionFunctionParameterCardinality cardinality,
-                                        final List<Class<?>> typeParameters) {
+                                        final List<Class<?>> typeParameters,
+                                        final Set<ExpressionFunctionParameterKind> kinds) {
         this.name = name;
         this.type = type;
         this.cardinality = cardinality;
         this.typeParameters = typeParameters;
+        this.kinds = kinds;
     }
 
     @Override
@@ -125,10 +142,11 @@ public final class ExpressionFunctionParameter<T> implements HasName<ExpressionF
         return this.typeParameters.equals(typeParameters) ?
                 this :
                 new ExpressionFunctionParameter<>(
-                        name,
-                        type,
-                        cardinality,
-                        typeParameters
+                        this.name,
+                        this.type,
+                        this.cardinality,
+                        typeParameters,
+                        this.kinds
                 );
     }
 
@@ -150,11 +168,41 @@ public final class ExpressionFunctionParameter<T> implements HasName<ExpressionF
                         this.name,
                         this.type,
                         cardinality,
-                        this.typeParameters
+                        this.typeParameters,
+                        this.kinds
                 );
     }
 
     private final ExpressionFunctionParameterCardinality cardinality;
+
+    /**
+     * Returns the{@link ExpressionFunctionParameterKind} for this parameter.
+     */
+    public Set<ExpressionFunctionParameterKind> kinds() {
+        return this.kinds;
+    }
+
+    /**
+     * Returns a {@link ExpressionFunctionParameter} with the given {@link ExpressionFunctionParameterKind}.
+     */
+    public ExpressionFunctionParameter<T> setKinds(final Set<ExpressionFunctionParameterKind> kinds) {
+        Objects.requireNonNull(kinds, "kinds");
+
+        final Set<ExpressionFunctionParameterKind> copy = kinds.isEmpty() ?
+                Sets.empty() :
+                EnumSet.copyOf(kinds);
+        return this.kinds.equals(copy) ?
+                this :
+                new ExpressionFunctionParameter<>(
+                        this.name,
+                        this.type,
+                        this.cardinality,
+                        this.typeParameters,
+                        Sets.readOnly(copy)
+                );
+    }
+
+    private final Set<ExpressionFunctionParameterKind> kinds;
 
     /**
      * Gets the parameter at index or uses the default
@@ -202,86 +250,6 @@ public final class ExpressionFunctionParameter<T> implements HasName<ExpressionF
     }
 
     /**
-     * Gets the variable values starting at the given index flattening any Lists which may include {@link ExpressionReference} references.
-     * If references contain lists or references these are flatten as well.
-     */
-    public <C extends ExpressionEvaluationContext> List<T> getVariableAndFlatten(final List<Object> parameters,
-                                                                                 final int index,
-                                                                                 final ExpressionFunction<?, C> function,
-                                                                                 final C context) {
-        this.cardinality.getVariable(this);
-
-        return index >= parameters.size() ?
-                Lists.empty() :
-                Cast.to(
-                        flatten(
-                                parameters.subList(
-                                        index,
-                                        parameters.size()
-                                ).iterator(),
-                                function,
-                                context
-                        )
-                );
-    }
-
-    private <C extends ExpressionEvaluationContext> List<T> flatten(final Iterator<Object> parameters,
-                                                                    final ExpressionFunction<?, C> function,
-                                                                    final C context) {
-        final List<T> values = Lists.array();
-
-        flatten0(
-                parameters,
-                (e) -> values.add((T) e),
-                function.kinds()
-                        .contains(ExpressionFunctionKind.RESOLVE_REFERENCES),
-                context
-        );
-
-        return values;
-    }
-
-    private <TT, C extends ExpressionEvaluationContext> void flatten0(final Iterator<Object> parameters,
-                                                                      final Consumer<TT> values,
-                                                                      final boolean resolveReferences,
-                                                                      final C context) {
-        while (parameters.hasNext()) {
-            this.flatten1(
-                    parameters.next(),
-                    values,
-                    resolveReferences,
-                    context
-            );
-        }
-    }
-
-    private <TT, C extends ExpressionEvaluationContext> void flatten1(final Object parameter,
-                                                                      final Consumer<TT> values,
-                                                                      final boolean resolveReferences,
-                                                                      final C context) {
-        if (resolveReferences && parameter instanceof ExpressionReference) {
-            this.flatten1(
-                    context.referenceOrFail((ExpressionReference) parameter),
-                    values,
-                    resolveReferences,
-                    context
-            );
-        } else {
-            if (parameter instanceof Iterable) {
-                final Iterable<Object> iterable = (Iterable<Object>) parameter;
-                this.flatten0(
-                        iterable.iterator(),
-                        values,
-                        resolveReferences,
-                        context
-                );
-            } else {
-                values.accept((TT) parameter);
-            }
-        }
-    }
-
-    /**
      * Converts the given parameter value to match the required type of this parameter.
      */
     public T convertOrFail(final Object value,
@@ -323,29 +291,43 @@ public final class ExpressionFunctionParameter<T> implements HasName<ExpressionF
                 this.name,
                 this.type,
                 this.typeParameters,
-                this.cardinality
+                this.cardinality,
+                this.kinds
         );
     }
 
     @Override
     public boolean equals(final Object other) {
-        return this == other || other instanceof ExpressionFunctionParameter && this.equals0((ExpressionFunctionParameter<?>) other);
+        return this == other ||
+                other instanceof ExpressionFunctionParameter && this.equals0((ExpressionFunctionParameter<?>) other);
     }
 
     private boolean equals0(final ExpressionFunctionParameter<?> other) {
         return this.name.equals(other.name) &&
                 this.type.equals(other.type) &&
                 this.typeParameters.equals(other.typeParameters) &&
-                this.cardinality == other.cardinality;
+                this.cardinality == other.cardinality &&
+                this.kinds.equals(other.kinds);
     }
 
     @Override
     public String toString() {
-        return this.type.getName() +
+        return this.toStringKinds() +
+                this.type.getName() +
                 this.toStringTypeParameters() +
                 " " +
                 this.name +
                 this.cardinality.parameterToString;
+    }
+
+    private String toStringKinds() {
+        final Set<ExpressionFunctionParameterKind> kinds = this.kinds();
+
+        return kinds.isEmpty() ?
+                "" :
+                kinds.stream()
+                        .map(ExpressionFunctionParameterKind::parameterToString)
+                        .collect(Collectors.joining(", ", "", " "));
     }
 
     private String toStringTypeParameters() {

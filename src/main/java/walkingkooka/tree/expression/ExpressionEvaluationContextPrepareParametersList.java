@@ -17,10 +17,9 @@
 
 package walkingkooka.tree.expression;
 
-import walkingkooka.tree.expression.function.ExpressionFunction;
-import walkingkooka.tree.expression.function.ExpressionFunctionKind;
 import walkingkooka.tree.expression.function.ExpressionFunctionParameter;
 import walkingkooka.tree.expression.function.ExpressionFunctionParameterCardinality;
+import walkingkooka.tree.expression.function.ExpressionFunctionParameterKind;
 
 import java.util.AbstractList;
 import java.util.Arrays;
@@ -31,108 +30,80 @@ import java.util.Set;
 /**
  * Wraps the {@link List} of parameters values and performs several actions lazily for each parameter.
  * <ul>
- * <li>Evaluate {@link Expression} if {@link ExpressionFunctionKind#EVALUATE_PARAMETERS}</li>
- * <li>Resolve {@link ReferenceExpression} if {@link ExpressionFunctionKind#RESOLVE_REFERENCES}</li>
+ * <li>Evaluate {@link Expression} if {@link ExpressionFunctionParameterKind#EVALUATE}</li>
+ * <li>Resolve {@link ReferenceExpression} if {@link ExpressionFunctionParameterKind#RESOLVE_REFERENCES}</li>
  * <li>Convert values to the {@link ExpressionFunctionParameter#type()}</li>
  * </ul>
  * The above list is only performed once for each parameter and cached for future fetches.
  */
 abstract class ExpressionEvaluationContextPrepareParametersList extends AbstractList<Object> {
 
-    static List<Object> with(final List<Object> values,
-                             final ExpressionFunction<?, ExpressionEvaluationContext> function,
+    static List<Object> with(final List<ExpressionFunctionParameter<?>> parameters,
+                             final List<Object> values,
                              final ExpressionEvaluationContext context) {
+        Objects.requireNonNull(parameters, "parameters");
         Objects.requireNonNull(values, "values");
-        Objects.requireNonNull(function, "function");
         Objects.requireNonNull(context, "context");
 
-        final Set<ExpressionFunctionKind> kinds = function.kinds();
-        return kinds.isEmpty() ?
+        return parameters.isEmpty() ?
                 values :
-                kinds.contains(ExpressionFunctionKind.FLATTEN) ?
-                        ExpressionEvaluationContextPrepareParametersListFlattened.with(
-                                values,
-                                function,
-                                context
-                        ) :
-                        ExpressionEvaluationContextPrepareParametersListNonFlattened.with(
-                                values,
-                                function,
-                                context
-                        );
-    }
-
-    // Note the value is not converted to the parameter type.
-    static Object prepareValue(final Object value,
-                               final ExpressionFunction<?, ExpressionEvaluationContext> function,
-                               final ExpressionEvaluationContext context) {
-        final Set<ExpressionFunctionKind> kinds = function.kinds();
-        Object result = value;
-
-        if (result instanceof Expression) {
-            if (kinds.contains(ExpressionFunctionKind.EVALUATE_PARAMETERS)) {
-                result = toReferenceOrValue(result, context);
-            }
-        }
-        if (result instanceof ExpressionReference) {
-            if (kinds.contains(ExpressionFunctionKind.RESOLVE_REFERENCES)) {
-                try {
-                    result = context.referenceOrFail((ExpressionReference) result);
-                } catch (final RuntimeException cause) {
-                    result = context.handleException(cause);
-                }
-
-                if (result instanceof Expression && kinds.contains(ExpressionFunctionKind.EVALUATE_PARAMETERS)) {
-                    result = toReferenceOrValue(result, context);
-                }
-            }
-        }
-
-        return result;
-    }
-
-    private static Object toReferenceOrValue(final Object value,
-                                             final ExpressionEvaluationContext context) {
-        final Expression expression = (Expression) value;
-
-        Object result;
-        try {
-            result = expression.toReferenceOrValue(context);
-        } catch (final RuntimeException cause) {
-            result = context.handleException(cause);
-        }
-        return result;
+                withNotEmpty(
+                        parameters,
+                        values,
+                        context
+                );
     }
 
     /**
-     * Private ctor
+     * Factory that tests if the last parameter is {@link ExpressionFunctionParameterKind#FLATTEN} and creates
+     * the appropriate sub-class.
      */
-    ExpressionEvaluationContextPrepareParametersList(final List<Object> values,
-                                                     final ExpressionFunction<?, ExpressionEvaluationContext> function,
+    private static List<Object> withNotEmpty(final List<ExpressionFunctionParameter<?>> parameters,
+                                             final List<Object> values,
+                                             final ExpressionEvaluationContext context) {
+        final int count = parameters.size();
+        final ExpressionFunctionParameter<?> last = parameters.get(count - 1);
+
+        return count >= values.size() && last.kinds().contains(ExpressionFunctionParameterKind.FLATTEN) ?
+                ExpressionEvaluationContextPrepareParametersListFlattened.withFlattened(
+                        parameters,
+                        values,
+                        count - 1,
+                        last,
+                        context
+                ) :
+                ExpressionEvaluationContextPrepareParametersListNonFlattened.withNonFlattened(
+                        parameters,
+                        values,
+                        values.size(),
+                        context
+                );
+    }
+
+    /**
+     * Private package ctor to limit sub classing.
+     */
+    ExpressionEvaluationContextPrepareParametersList(final List<ExpressionFunctionParameter<?>> parameters,
+                                                     final List<Object> values,
+                                                     final int preparedValuesCount,
                                                      final ExpressionEvaluationContext context) {
-        final int count = values.size();
-
-        this.valuesList = values;
-        this.parameters = function.parameters(count);
-
-        this.function = function;
-        this.convert = function.kinds()
-                .contains(ExpressionFunctionKind.CONVERT_PARAMETERS);
-
+        this.parameters = parameters;
+        this.values = values;
         this.context = context;
 
-        this.values = new Object[count];
-        Arrays.fill(this.values, MISSING);
+        this.preparedValues = preparedValues(preparedValuesCount);
     }
 
-    private final static Object MISSING = new Object();
+    static Object[] preparedValues(final int count) {
+        final Object[] prepared = new Object[count];
+        Arrays.fill(prepared, MISSING);
+        return prepared;
+    }
 
-    /**
-     * Lazily with and convert the requested parameter to the {@link ExpressionFunctionParameter#type()}
-     */
-    @Override
-    public final Object get(final int index) {
-        if (MISSING == this.values[index]) {
+    final Object getPrepareIfNecessary(final int index) {
+        Object preparedValue = this.preparedValues[index];
+
+        if (MISSING == preparedValue) {
             final List<ExpressionFunctionParameter<?>> parameters = this.parameters;
             final int count = parameters.size();
 
@@ -147,27 +118,90 @@ abstract class ExpressionEvaluationContextPrepareParametersList extends Abstract
                 }
             }
 
-            this.values[index] = this.prepareAndConvert(
-                    this.valuesList.get(index),
-                    parameter
+            preparedValue = prepareAndConvert(
+                    parameter,
+                    this.values.get(index)
             );
+            this.preparedValues[index] = preparedValue;
         }
-        return this.values[index];
+        return preparedValue;
     }
 
-    abstract Object prepareAndConvert(final Object value,
-                                      final ExpressionFunctionParameter<?> parameter);
+    final Object prepareValue(final ExpressionFunctionParameter<?> parameter,
+                              final Object value) {
+        final ExpressionEvaluationContext context = this.context;
+        final Set<ExpressionFunctionParameterKind> kinds = parameter.kinds();
+        Object result = value;
+
+        int i = 0;
+        int j;
+        do {
+            j = i;
+
+            if (result instanceof Expression && kinds.contains(ExpressionFunctionParameterKind.EVALUATE)) {
+                final Expression expression = (Expression) result;
+
+                Object result1;
+                try {
+                    result1 = expression.toReferenceOrValue(context);
+                } catch (final RuntimeException cause) {
+                    result1 = context.handleException(cause);
+                }
+                result = result1;
+                i++;
+            }
+            if (result instanceof ExpressionReference && kinds.contains(ExpressionFunctionParameterKind.RESOLVE_REFERENCES)) {
+                result = context.referenceOrFail((ExpressionReference) result);
+                i++;
+            }
+
+            if (i > 20) {
+                break;
+            }
+        } while (i != j);
+
+        return result;
+    }
+
+    final Object prepareAndConvert(final ExpressionFunctionParameter<?> parameter,
+                                   final Object value) {
+        Object result;
+
+        final ExpressionEvaluationContext context = this.context;
+        try {
+            final Object prepared = prepareValue(
+                    parameter,
+                    value
+            );
+
+            result = parameter.kinds()
+                    .contains(ExpressionFunctionParameterKind.CONVERT) ?
+                    context.prepareParameter(
+                            parameter,
+                            prepared
+                    ) :
+                    prepared;
+        } catch (final RuntimeException exception) {
+            result = context.handleException(exception);
+        }
+
+        return result;
+    }
 
     /**
-     * A flag will be true when the {@link ExpressionFunctionKind#CONVERT_PARAMETERS} is present.
+     * Dummy placeholder that appears in {@link #preparedValues} and indicates the value has not be prepared and cached.
      */
-    final boolean convert;
+    final static Object MISSING = new Object();
 
     /**
-     * The function these parameters belong too. The function will provide numerous parameters about how to with the
-     * parameters if at all.
+     * The original unprepared parameter values.
      */
-    final ExpressionFunction<?, ExpressionEvaluationContext> function;
+    final List<Object> values;
+
+    /**
+     * A cache of all the values after any additional processing due to {@link ExpressionFunctionParameterKind}.
+     */
+    final Object[] preparedValues;
 
     /**
      * The parameters for this function.
@@ -178,25 +212,4 @@ abstract class ExpressionEvaluationContextPrepareParametersList extends Abstract
      * {@link ExpressionEvaluationContext context} used to resolve references and evaluate parameters to values.
      */
     final ExpressionEvaluationContext context;
-
-    @Override
-    public final int size() {
-        return this.values.length;
-    }
-
-    /**
-     * The original unprepared parameter values.
-     */
-    final List<Object> valuesList;
-
-    /**
-     * A copy of the original parameters, as an array, where elements are overwritten as values are evaluated or
-     * references resolved.
-     */
-    private final Object[] values;
-
-    @Override
-    public final String toString() {
-        return this.valuesList.toString();
-    }
 }

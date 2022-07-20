@@ -17,29 +17,30 @@
 
 package walkingkooka.tree.expression;
 
-import walkingkooka.tree.expression.function.ExpressionFunction;
-import walkingkooka.tree.expression.function.ExpressionFunctionKind;
 import walkingkooka.tree.expression.function.ExpressionFunctionParameter;
+import walkingkooka.tree.expression.function.ExpressionFunctionParameterKind;
 
 import java.util.List;
 
 /**
  * A lazy {@link List} of the original parameter values, performing the following if they are enabled for this function.
  * <ul>
- * <li>Evaluate {@link Expression} if {@link ExpressionFunctionKind#EVALUATE_PARAMETERS}</li>
- * <li>Resolve {@link ReferenceExpression} if {@link ExpressionFunctionKind#RESOLVE_REFERENCES}</li>
+ * <li>Evaluate {@link Expression} if {@link ExpressionFunctionParameterKind#EVALUATE}</li>
+ * <li>Resolve {@link ReferenceExpression} if {@link ExpressionFunctionParameterKind#RESOLVE_REFERENCES}</li>
  * <li>Convert values to the {@link ExpressionFunctionParameter#type()}</li>
  * </ul>
  * The above list is only performed once for each parameter and cached for future fetches.
  */
 final class ExpressionEvaluationContextPrepareParametersListNonFlattened extends ExpressionEvaluationContextPrepareParametersList {
 
-    static ExpressionEvaluationContextPrepareParametersListNonFlattened with(final List<Object> values,
-                                                                             final ExpressionFunction<?, ExpressionEvaluationContext> function,
-                                                                             final ExpressionEvaluationContext context) {
+    static ExpressionEvaluationContextPrepareParametersListNonFlattened withNonFlattened(final List<ExpressionFunctionParameter<?>> parameters,
+                                                                                         final List<Object> values,
+                                                                                         final int preparedValuesCount,
+                                                                                         final ExpressionEvaluationContext context) {
         return new ExpressionEvaluationContextPrepareParametersListNonFlattened(
+                parameters,
                 values,
-                function,
+                preparedValuesCount,
                 context
         );
     }
@@ -47,40 +48,25 @@ final class ExpressionEvaluationContextPrepareParametersListNonFlattened extends
     /**
      * Private ctor
      */
-    private ExpressionEvaluationContextPrepareParametersListNonFlattened(final List<Object> values,
-                                                                         final ExpressionFunction<?, ExpressionEvaluationContext> function,
+    private ExpressionEvaluationContextPrepareParametersListNonFlattened(final List<ExpressionFunctionParameter<?>> parameters,
+                                                                         final List<Object> values,
+                                                                         final int preparedValuesCount,
                                                                          final ExpressionEvaluationContext context) {
         super(
+                parameters,
                 values,
-                function,
+                preparedValuesCount,
                 context
         );
     }
 
     @Override
-    Object prepareAndConvert(final Object value,
-                             final ExpressionFunctionParameter<?> parameter) {
-        final ExpressionEvaluationContext context = this.context;
+    public Object get(final int index) {
+        return this.getPrepareIfNecessary(index);
+    }
 
-        Object result;
-
-        try {
-            final Object prepared = prepareValue(
-                    value,
-                    this.function,
-                    context
-            );
-
-            result = this.convert ?
-                    context.prepareParameter(
-                            parameter,
-                            prepared
-                    ) :
-                    prepared;
-        } catch (final RuntimeException exception) {
-            result = context.handleException(exception);
-        }
-
-        return result;
+    @Override
+    public int size() {
+        return this.preparedValues.length;
     }
 }

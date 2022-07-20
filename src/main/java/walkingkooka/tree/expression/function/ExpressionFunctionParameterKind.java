@@ -17,19 +17,21 @@
 
 package walkingkooka.tree.expression.function;
 
+import walkingkooka.collect.set.Sets;
 import walkingkooka.tree.expression.FunctionExpressionName;
 
 import java.util.List;
+import java.util.Set;
 
 /**
- * Customises the execution of a {@link ExpressionFunction}.
+ * Customises the preparation of a {@link ExpressionFunctionParameter} value.
  */
-public enum ExpressionFunctionKind {
+public enum ExpressionFunctionParameterKind {
 
     /**
      * All parameters are converted to their declared type.
      */
-    CONVERT_PARAMETERS,
+    CONVERT,
 
     /**
      * Indicates that any parameters in {@link walkingkooka.tree.expression.Expression} form be evaluated into java
@@ -37,7 +39,7 @@ public enum ExpressionFunctionKind {
      * cases all functions will return true, but for cases such as Excels isError it may be desired to catch any thrown
      * exceptions and substitute an error object of some kind.
      */
-    EVALUATE_PARAMETERS,
+    EVALUATE,
 
     /**
      * Flatten expands any lists.
@@ -49,5 +51,28 @@ public enum ExpressionFunctionKind {
      * their actual non {@link walkingkooka.tree.expression.Expression} value.
      * This is only honoured when {@link ExpressionFunctionContext#evaluate(FunctionExpressionName, List)} is used.
      */
-    RESOLVE_REFERENCES
+    RESOLVE_REFERENCES;
+
+    // See ExpressionFunctionParameter#toString
+    final String parameterToString() {
+        return "@" + this.name();
+    }
+
+    public final static Set<ExpressionFunctionParameterKind> EVALUATE_RESOLVE_REFERENCES = Sets.of(
+            EVALUATE,
+            RESOLVE_REFERENCES
+    );
+
+    public final static Set<ExpressionFunctionParameterKind> CONVERT_EVALUATE_RESOLVE_REFERENCES = Sets.of(
+            CONVERT,
+            EVALUATE,
+            RESOLVE_REFERENCES
+    );
+
+    public final static Set<ExpressionFunctionParameterKind> CONVERT_EVALUATE_FLATTEN_RESOLVE_REFERENCES = Sets.of(
+            CONVERT,
+            EVALUATE,
+            FLATTEN,
+            RESOLVE_REFERENCES
+    );
 }

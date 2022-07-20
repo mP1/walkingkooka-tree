@@ -26,7 +26,6 @@ import walkingkooka.tree.expression.FunctionExpressionName;
 
 import java.util.List;
 import java.util.Objects;
-import java.util.Set;
 
 /**
  * An {@link ExpressionFunction} that returns a different {@link FunctionExpressionName}.
@@ -94,11 +93,6 @@ final class ExpressionFunctionCustomName<T, C extends Context & ConverterContext
     @Override
     public Class<T> returnType() {
         return this.function.returnType();
-    }
-
-    @Override
-    public Set<ExpressionFunctionKind> kinds() {
-        return this.function.kinds();
     }
 
     @Override

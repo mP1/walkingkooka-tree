@@ -141,7 +141,8 @@ public final class ExpressionFunctionParameterName implements Name,
                 this,
                 type,
                 ExpressionFunctionParameter.NO_TYPE_PARAMETERS,
-                cardinality
+                cardinality,
+                ExpressionFunctionParameter.NO_KINDS
         );
     }
 
