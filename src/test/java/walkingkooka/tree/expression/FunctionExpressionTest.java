@@ -20,20 +20,17 @@ package walkingkooka.tree.expression;
 import org.junit.jupiter.api.Test;
 import walkingkooka.Either;
 import walkingkooka.collect.list.Lists;
-import walkingkooka.collect.set.Sets;
 import walkingkooka.naming.Names;
 import walkingkooka.naming.StringName;
 import walkingkooka.tree.expression.function.ExpressionFunction;
-import walkingkooka.tree.expression.function.ExpressionFunctionKind;
+import walkingkooka.tree.expression.function.ExpressionFunctionParameter;
 import walkingkooka.tree.expression.function.FakeExpressionFunction;
 import walkingkooka.tree.select.parser.NodeSelectorAttributeName;
 import walkingkooka.visit.Visiting;
 
 import java.math.MathContext;
-import java.util.EnumSet;
 import java.util.List;
 import java.util.Objects;
-import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -125,11 +122,6 @@ public final class FunctionExpressionTest extends VariableExpressionTestCase<Fun
                                                         final ExpressionEvaluationContext context) {
                                         checkEquals(parameters, p);
                                         return parameters;
-                                    }
-
-                                    @Override
-                                    public Set<ExpressionFunctionKind> kinds() {
-                                        return Sets.empty();
                                     }
                                 };
                             }
@@ -239,7 +231,7 @@ public final class FunctionExpressionTest extends VariableExpressionTestCase<Fun
             public ExpressionFunction<?, ExpressionEvaluationContext> function(final FunctionExpressionName name) {
                 checkEquals(name("fx"), name, "function name");
 
-                return new FakeExpressionFunction<>() {
+                return new FakeExpressionFunction<Object, ExpressionEvaluationContext>() {
                     @Override
                     public Object apply(final List<Object> parameters,
                                         final ExpressionEvaluationContext context) {
@@ -247,14 +239,9 @@ public final class FunctionExpressionTest extends VariableExpressionTestCase<Fun
                     }
 
                     @Override
-                    public Set<ExpressionFunctionKind> kinds() {
-                        return KINDS;
+                    public List<ExpressionFunctionParameter<?>> parameters(final int count) {
+                        throw new UnsupportedOperationException();
                     }
-
-                    private final Set<ExpressionFunctionKind> KINDS = EnumSet.of(
-                            ExpressionFunctionKind.EVALUATE_PARAMETERS,
-                            ExpressionFunctionKind.RESOLVE_REFERENCES
-                    );
                 };
             }
 

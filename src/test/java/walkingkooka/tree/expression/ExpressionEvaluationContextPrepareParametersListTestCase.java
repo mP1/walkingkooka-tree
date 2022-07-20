@@ -17,70 +17,42 @@
 
 package walkingkooka.tree.expression;
 
-import walkingkooka.Cast;
 import walkingkooka.collect.list.ListTesting;
-import walkingkooka.collect.list.Lists;
+import walkingkooka.collect.map.Maps;
 import walkingkooka.collect.set.Sets;
 import walkingkooka.reflect.ClassTesting;
 import walkingkooka.reflect.JavaVisibility;
-import walkingkooka.tree.expression.function.ExpressionFunction;
-import walkingkooka.tree.expression.function.ExpressionFunctionKind;
 import walkingkooka.tree.expression.function.ExpressionFunctionParameter;
+import walkingkooka.tree.expression.function.ExpressionFunctionParameterKind;
 import walkingkooka.tree.expression.function.ExpressionFunctionParameterName;
-import walkingkooka.tree.expression.function.FakeExpressionFunction;
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.Set;
+import java.util.Map;
+import java.util.Optional;
 
 public abstract class ExpressionEvaluationContextPrepareParametersListTestCase<T extends ExpressionEvaluationContextPrepareParametersList> implements ClassTesting<T>,
         ListTesting {
 
-    ExpressionEvaluationContextPrepareParametersListTestCase() {
-        super();
-    }
+    final static ExpressionFunctionParameter<Integer> REQUIRED = ExpressionFunctionParameterName.with("required-integer")
+            .required(Integer.class);
 
-    final static ExpressionFunctionParameter<Integer> VARIABLE = ExpressionFunctionParameterName.with("integer")
-            .variable(Integer.class);
+    final static ExpressionFunctionParameter<Long> OPTIONAL = ExpressionFunctionParameterName.with("optional-long")
+            .optional(Long.class);
 
-    final static ExpressionEvaluationContext CONTEXT = new FakeExpressionEvaluationContext() {
+    final static ExpressionFunctionParameter<Double> VARIABLE = ExpressionFunctionParameterName.with("variable-double")
+            .variable(Double.class);
 
-        @Override
-        public <T> T convertOrFail(final Object value,
-                                   final Class<T> target) {
-            return target.cast(value);
-        }
-
-        @Override
-        public <TT> TT prepareParameter(final ExpressionFunctionParameter<TT> parameter,
-                                        final Object value) {
-            return Cast.to(value);
-        }
-    };
-
-    final static ExpressionEvaluationContext CONTEXT_PARSE_INT = new FakeExpressionEvaluationContext() {
-
-        @Override
-        public <T> T convertOrFail(final Object value,
-                                   final Class<T> target) {
-            return Cast.to(
-                    target.isInstance(value) ?
-                            target.cast(value) :
-                            Integer.parseInt((String) value)
+    final static ExpressionFunctionParameter<?> FLATTEN = ExpressionFunctionParameterName.with("flatten")
+            .variable(Object.class)
+            .setKinds(
+                    Sets.of(
+                            ExpressionFunctionParameterKind.FLATTEN)
             );
-        }
 
-        @Override
-        public <TT> TT prepareParameter(final ExpressionFunctionParameter<TT> parameter,
-                                        final Object value) {
-            return Cast.to(Integer.parseInt((String) value));
-        }
+    final static ExpressionNumberKind EXPRESSION_NUMBER_KIND = ExpressionNumberKind.DOUBLE;
 
-        @Override
-        public Object handleException(final RuntimeException exception) {
-            return "@@@" + exception.getMessage();
-        }
-    };
+    final static ExpressionNumber EXPRESSION_NUMBER = EXPRESSION_NUMBER_KIND.create(999);
+
+    final static Expression EXPRESSION = Expression.value(EXPRESSION_NUMBER);
 
     final static ExpressionReference REFERENCE = new ExpressionReference() {
         @Override
@@ -89,33 +61,86 @@ public abstract class ExpressionEvaluationContextPrepareParametersListTestCase<T
         }
     };
 
-    final ExpressionFunction<Void, ExpressionEvaluationContext> function(final ExpressionFunctionKind... kinds) {
-        return this.function(
-                Lists.of(
-                        ExpressionFunctionParameterName.with("parameters")
-                                .variable(Object.class)
-                ),
-                kinds
-        );
+    ExpressionEvaluationContextPrepareParametersListTestCase() {
+        super();
     }
 
-    final ExpressionFunction<Void, ExpressionEvaluationContext> function(final List<ExpressionFunctionParameter<?>> parameters,
-                                                                         final ExpressionFunctionKind... kinds) {
-        return new FakeExpressionFunction<>() {
+    final ExpressionEvaluationContext createContextWithReference(final ExpressionReference reference,
+                                                                 final Object value) {
+        return new FakeExpressionEvaluationContext() {
 
             @Override
-            public List<ExpressionFunctionParameter<?>> parameters(final int count) {
-                return parameters;
+            public Optional<Object> reference(final ExpressionReference r) {
+                return Optional.ofNullable(
+                        reference.equals(r) ?
+                                value :
+                                null
+                );
             }
 
             @Override
-            public Set<ExpressionFunctionKind> kinds() {
-                return Sets.of(kinds);
+            public Object handleException(final RuntimeException exception) {
+                return "@@@" + exception.getMessage();
             }
 
             @Override
             public String toString() {
-                return "parameters: " + parameters + " kinds: " + Arrays.toString(kinds);
+                return REFERENCE + "->" + value;
+            }
+        };
+    }
+
+    final ExpressionEvaluationContext createContextWhichConverts(final Object from,
+                                                                 final Object to) {
+        return this.createContextWhichConverts(
+                Maps.of(from, to)
+        );
+    }
+
+    final ExpressionEvaluationContext createContextWhichConverts(final Map<Object, Object> conversions) {
+        return new FakeExpressionEvaluationContext() {
+
+            @Override
+            public <T> T prepareParameter(final ExpressionFunctionParameter<T> parameter,
+                                          final Object value) {
+                return this.convertOrFail(value, parameter.type());
+            }
+
+            @Override
+            public <T> T convertOrFail(final Object value,
+                                       final Class<T> target) {
+                final Object converted = conversions.get(value);
+                if (null == converted) {
+                    throw new UnsupportedOperationException("Unexpected convert from " + value + " to " + target.getName());
+                }
+                return target.cast(converted);
+            }
+
+            @Override
+            public String toString() {
+                return conversions.toString();
+            }
+        };
+    }
+
+    final ExpressionEvaluationContext createContextWhichConvertFails() {
+        return new FakeExpressionEvaluationContext() {
+
+            @Override
+            public <T> T prepareParameter(final ExpressionFunctionParameter<T> parameter,
+                                          final Object value) {
+                return this.convertOrFail(value, parameter.type());
+            }
+
+            @Override
+            public <T> T convertOrFail(final Object value,
+                                       final Class<T> target) {
+                throw new UnsupportedOperationException("Unable to convert " + value + " to " + target.getSimpleName());
+            }
+
+            @Override
+            public Object handleException(final RuntimeException exception) {
+                return "@@@" + exception.getMessage();
             }
         };
     }

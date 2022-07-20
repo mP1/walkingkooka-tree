@@ -24,7 +24,6 @@ import walkingkooka.tree.expression.ExpressionPurityContext;
 import walkingkooka.tree.expression.FunctionExpressionName;
 
 import java.util.List;
-import java.util.Set;
 
 public class FakeExpressionFunction<T, C extends Context & ConverterContext & ExpressionNumberContext> implements ExpressionFunction<T, C> {
     @Override
@@ -50,11 +49,6 @@ public class FakeExpressionFunction<T, C extends Context & ConverterContext & Ex
 
     @Override
     public Class<T> returnType() {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public Set<ExpressionFunctionKind> kinds() {
         throw new UnsupportedOperationException();
     }
 }

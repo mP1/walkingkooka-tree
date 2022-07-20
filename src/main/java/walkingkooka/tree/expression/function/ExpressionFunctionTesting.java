@@ -180,40 +180,42 @@ public interface ExpressionFunctionTesting<F extends ExpressionFunction<V, C>, V
                                                                                                       final List<Object> parameters,
                                                                                                       final CC context,
                                                                                                       final RR result) {
-        for (final ExpressionFunctionKind kind : function.kinds()) {
-            switch (kind) {
-                case EVALUATE_PARAMETERS:
-                    this.checkEquals(
-                            Lists.empty(),
-                            parameters.stream()
-                                    .filter(Expression.class::isInstance)
-                                    .collect(Collectors.toList()
-                                    ),
-                            () -> "Should not include parameter(s) of type " + Expression.class.getName()
-                    );
-                    break;
-                case FLATTEN:
-                    this.checkEquals(
-                            Lists.empty(),
-                            parameters.stream()
-                                    .filter(List.class::isInstance)
-                                    .collect(Collectors.toList()
-                                    ),
-                            () -> "Should not include parameter(s) of type " + List.class.getName()
-                    );
-                    break;
-                case RESOLVE_REFERENCES:
-                    this.checkEquals(
-                            Lists.empty(),
-                            parameters.stream()
-                                    .filter(ExpressionReference.class::isInstance)
-                                    .collect(Collectors.toList()
-                                    ),
-                            () -> "Should not include parameter(s) of type " + ExpressionReference.class.getName()
-                    );
-                    break;
-                default:
-                    break;
+        for (final ExpressionFunctionParameter<?> parameter : function.parameters(parameters.size())) {
+            for (final ExpressionFunctionParameterKind kind : parameter.kinds()) {
+                switch (kind) {
+                    case EVALUATE:
+                        this.checkEquals(
+                                Lists.empty(),
+                                parameters.stream()
+                                        .filter(Expression.class::isInstance)
+                                        .collect(Collectors.toList()
+                                        ),
+                                () -> "Should not include parameter(s) of type " + Expression.class.getName()
+                        );
+                        break;
+                    case FLATTEN:
+                        this.checkEquals(
+                                Lists.empty(),
+                                parameters.stream()
+                                        .filter(List.class::isInstance)
+                                        .collect(Collectors.toList()
+                                        ),
+                                () -> "Should not include parameter(s) of type " + List.class.getName()
+                        );
+                        break;
+                    case RESOLVE_REFERENCES:
+                        this.checkEquals(
+                                Lists.empty(),
+                                parameters.stream()
+                                        .filter(ExpressionReference.class::isInstance)
+                                        .collect(Collectors.toList()
+                                        ),
+                                () -> "Should not include parameter(s) of type " + ExpressionReference.class.getName()
+                        );
+                        break;
+                    default:
+                        break;
+                }
             }
         }
 

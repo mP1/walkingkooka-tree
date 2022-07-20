@@ -20,7 +20,6 @@ package walkingkooka.tree.expression.function;
 import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.collect.list.Lists;
-import walkingkooka.collect.set.Sets;
 import walkingkooka.reflect.ClassTesting;
 import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.tree.expression.Expression;
@@ -105,7 +104,7 @@ public final class ExpressionFunctionTestingTest implements ClassTesting<Express
     @Test
     public void testApplyEvaluateExpressionParameterExpressionFails() {
         this.applyFails(
-                EnumSet.of(ExpressionFunctionKind.EVALUATE_PARAMETERS),
+                EnumSet.of(ExpressionFunctionParameterKind.EVALUATE),
                 Lists.of(
                         Expression.value(1)
                 ),
@@ -116,7 +115,7 @@ public final class ExpressionFunctionTestingTest implements ClassTesting<Express
     @Test
     public void testApplyFlattenParameterListFails() {
         this.applyFails(
-                EnumSet.of(ExpressionFunctionKind.FLATTEN),
+                EnumSet.of(ExpressionFunctionParameterKind.FLATTEN),
                 Lists.of(
                         Lists.empty()
                 ),
@@ -127,7 +126,7 @@ public final class ExpressionFunctionTestingTest implements ClassTesting<Express
     @Test
     public void testApplyResolveReferenceParameterReferenceFails() {
         this.applyFails(
-                EnumSet.of(ExpressionFunctionKind.RESOLVE_REFERENCES),
+                EnumSet.of(ExpressionFunctionParameterKind.RESOLVE_REFERENCES),
                 Lists.of(
                         REFERENCE
                 ),
@@ -135,7 +134,7 @@ public final class ExpressionFunctionTestingTest implements ClassTesting<Express
         );
     }
 
-    private void applyFails(final Set<ExpressionFunctionKind> kinds,
+    private void applyFails(final Set<ExpressionFunctionParameterKind> kinds,
                             final List<Object> parameters,
                             final String message) {
         final AssertionError thrown = assertThrows(
@@ -143,8 +142,12 @@ public final class ExpressionFunctionTestingTest implements ClassTesting<Express
                 () -> TESTING.applyAndCheck2(
                         new FakeExpressionFunction<>() {
                             @Override
-                            public Set<ExpressionFunctionKind> kinds() {
-                                return kinds;
+                            public List<ExpressionFunctionParameter<?>> parameters(final int count) {
+                                return Lists.of(
+                                        ExpressionFunctionParameterName.with("test")
+                                                .required(Object.class)
+                                                .setKinds(kinds)
+                                );
                             }
                         },
                         parameters,
@@ -257,9 +260,11 @@ public final class ExpressionFunctionTestingTest implements ClassTesting<Express
                         .collect(Collectors.joining());
             }
 
-            @Override
-            public Set<ExpressionFunctionKind> kinds() {
-                return Sets.empty();
+            public List<ExpressionFunctionParameter<?>> parameters(final int count) {
+                return Lists.of(
+                        ExpressionFunctionParameterName.with("string")
+                                .variable(String.class)
+                );
             }
         };
     }

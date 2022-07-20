@@ -20,13 +20,11 @@ package walkingkooka.tree.expression.function;
 import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.collect.list.Lists;
-import walkingkooka.collect.set.Sets;
 import walkingkooka.tree.expression.ExpressionEvaluationContext;
 import walkingkooka.tree.expression.ExpressionPurityContext;
 import walkingkooka.tree.expression.FunctionExpressionName;
 
 import java.util.List;
-import java.util.Set;
 import java.util.function.BiFunction;
 import java.util.stream.Collectors;
 
@@ -63,13 +61,9 @@ public final class ExpressionFunctionParametersMapperTest extends ExpressionFunc
         @Override
         public List<ExpressionFunctionParameter<?>> parameters(final int count) {
             return Lists.of(
-                    ExpressionFunctionParameterName.with("parameter1").required(String.class)
+                    ExpressionFunctionParameterName.with("parameter1")
+                            .required(String.class)
             );
-        }
-
-        @Override
-        public Set<ExpressionFunctionKind> kinds() {
-            return Sets.empty();
         }
     };
 

@@ -17,12 +17,12 @@
 
 package walkingkooka.tree.expression;
 
+import walkingkooka.Cast;
 import walkingkooka.collect.list.Lists;
-import walkingkooka.tree.expression.function.ExpressionFunction;
-import walkingkooka.tree.expression.function.ExpressionFunctionKind;
 import walkingkooka.tree.expression.function.ExpressionFunctionParameter;
-import walkingkooka.tree.expression.function.ExpressionFunctionParameterCardinality;
 
+import java.util.Collection;
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -31,112 +31,144 @@ import java.util.List;
  */
 final class ExpressionEvaluationContextPrepareParametersListFlattened extends ExpressionEvaluationContextPrepareParametersList {
 
-    static ExpressionEvaluationContextPrepareParametersListFlattened with(final List<Object> values,
-                                                                          final ExpressionFunction<?, ExpressionEvaluationContext> function,
-                                                                          final ExpressionEvaluationContext context) {
+    static ExpressionEvaluationContextPrepareParametersListFlattened withFlattened(final List<ExpressionFunctionParameter<?>> parameters,
+                                                                                   final List<Object> values,
+                                                                                   final int preparedValuesCount,
+                                                                                   final ExpressionFunctionParameter last,
+                                                                                   final ExpressionEvaluationContext context) {
         return new ExpressionEvaluationContextPrepareParametersListFlattened(
-                flatten(
-                        values,
-                        function,
-                        context
-                ),
-                function,
+                parameters,
+                values,
+                preparedValuesCount,
+                last,
                 context
         );
-    }
-
-    private static List<Object> flatten(final List<Object> values,
-                                        final ExpressionFunction<?, ExpressionEvaluationContext> function,
-                                        final ExpressionEvaluationContext context) {
-        final ExpressionFunctionParameter<?> parameter = function.parameters(values.size())
-                .get(0);
-        final ExpressionFunctionParameterCardinality cardinality = parameter.cardinality();
-        if (ExpressionFunctionParameterCardinality.VARIABLE != cardinality) {
-            throw new IllegalStateException("Function " + function + " has " + ExpressionFunctionKind.FLATTEN + " should only have a single parameter");
-        }
-
-        final List<Object> copy = Lists.array();
-
-        for (final Object value : values) {
-            prepareValueAndFlatten(
-                    value,
-                    copy,
-                    parameter,
-                    function,
-                    context
-            );
-        }
-
-        return Lists.immutable(copy);
-    }
-
-    private static void prepareValueAndFlatten(final Object value,
-                                               final List<Object> values,
-                                               final ExpressionFunctionParameter<?> parameter,
-                                               final ExpressionFunction<?, ExpressionEvaluationContext> function,
-                                               final ExpressionEvaluationContext context) {
-        final Object prepared = prepareValue(
-                value,
-                function,
-                context
-        );
-        if (prepared instanceof List) {
-            prepareValueAndFlatten(
-                    (List<?>) prepared,
-                    values,
-                    parameter,
-                    function,
-                    context
-            );
-        } else {
-            values.add(
-                    prepared
-            );
-        }
-    }
-
-    private static void prepareValueAndFlatten(final List<?> unflattenedParameterValues,
-                                               final List<Object> flattenParametersValues,
-                                               final ExpressionFunctionParameter<?> parameter,
-                                               final ExpressionFunction<?, ExpressionEvaluationContext> function,
-                                               final ExpressionEvaluationContext context) {
-        for (final Object parameterValue : unflattenedParameterValues) {
-            prepareValueAndFlatten(
-                    parameterValue,
-                    flattenParametersValues,
-                    parameter,
-                    function,
-                    context
-            );
-        }
     }
 
     /**
      * Private ctor
      */
-    private ExpressionEvaluationContextPrepareParametersListFlattened(final List<Object> parameters,
-                                                                      final ExpressionFunction<?, ExpressionEvaluationContext> function,
+    private ExpressionEvaluationContextPrepareParametersListFlattened(final List<ExpressionFunctionParameter<?>> parameters,
+                                                                      final List<Object> values,
+                                                                      final int preparedValuesCount,
+                                                                      final ExpressionFunctionParameter<?> last,
                                                                       final ExpressionEvaluationContext context) {
-        super(parameters, function, context);
+        super(
+                parameters,
+                values,
+                preparedValuesCount,
+                context
+        );
+
+        this.last = last;
     }
 
     @Override
-    Object prepareAndConvert(final Object value,
-                             final ExpressionFunctionParameter<?> parameter) {
-        final ExpressionEvaluationContext context = this.context;
+    public Object get(final int index) {
+        final int last = this.preparedValues.length;
 
-        Object result;
-        try {
-            result = this.convert ?
-                    context.prepareParameter(
-                            parameter,
-                            value
-                    ) :
-                    value;
-        } catch (final RuntimeException cause) {
-            result = context.handleException(cause);
+        return index < last ?
+                this.getPrepareIfNecessary(index) :
+                this.getFlattenIfNecessary(index, index - last);
+    }
+
+    /**
+     * Lazily flatten the values belonging to the last parameter, and convert on demand the individual element being fetched.
+     */
+    private Object getFlattenIfNecessary(final int index,
+                                         final int filteredIndex) {
+        Object preparedValue;
+
+        final Object[] converted = this.convertedFlattenValues;
+        if (null == converted) {
+            this.flatten();
+            final ExpressionFunctionParameter<?> parameter = this.last;
+
+            preparedValue = prepareAndConvert(
+                    parameter,
+                    flattenValues.get(filteredIndex)
+            );
+
+            this.convertedFlattenValues[filteredIndex] = preparedValue;
+        } else {
+            preparedValue = converted[filteredIndex];
+
+            if (MISSING == preparedValue) {
+                final ExpressionFunctionParameter<?> parameter = this.last;
+
+                preparedValue = prepareAndConvert(
+                        parameter,
+                        flattenValues.get(filteredIndex)
+                );
+
+                this.convertedFlattenValues[filteredIndex] = preparedValue;
+            }
+        }
+        return preparedValue;
+    }
+
+    // @VisibleForTesting
+    List<Object> flattenIfNecessary() {
+        if (null == this.flattenValues) {
+            this.flatten();
         }
 
-        return result;
+        return this.flattenValues;
+    }
+
+    private void flatten() {
+        final List<Object> flattenValues = Lists.array();
+
+        this.flatten0(
+                this.values.subList(
+                        this.preparedValues.length,
+                        this.values.size()
+                ).iterator(),
+                flattenValues
+        );
+
+        this.convertedFlattenValues = preparedValues(flattenValues.size());
+        this.flattenValues = flattenValues;
+    }
+
+    private void flatten0(final Iterator<Object> values,
+                          final Collection<Object> flattenValues) {
+        while (values.hasNext()) {
+            final Object value = prepareValue(
+                    this.last,
+                    values.next()
+            );
+            if (value instanceof Collection) {
+                final Collection<Object> collection = Cast.to(value);
+                this.flatten0(
+                        collection.iterator(),
+                        flattenValues
+                );
+                continue;
+            } else {
+                flattenValues.add(value);
+            }
+        }
+    }
+
+    /**
+     * The last parameter being flattened.
+     */
+    private final ExpressionFunctionParameter<?> last;
+
+    private List<Object> flattenValues;
+
+    /**
+     * A cache of the converted values from {@link #flattenValues}.
+     */
+    private Object[] convertedFlattenValues;
+
+    @Override
+    public int size() {
+        return this.preparedValues.length + this.flattenIfNecessary().size();
+    }
+
+    public String toString() {
+        return "@@@";
     }
 }

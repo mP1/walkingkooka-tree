@@ -18,6 +18,7 @@
 package walkingkooka.tree.expression.function;
 
 import walkingkooka.Context;
+import walkingkooka.collect.list.Lists;
 import walkingkooka.convert.ConverterContext;
 import walkingkooka.naming.HasName;
 import walkingkooka.tree.expression.ExpressionNumberContext;
@@ -29,6 +30,7 @@ import java.util.Objects;
 import java.util.Set;
 import java.util.function.BiFunction;
 import java.util.function.BiPredicate;
+import java.util.stream.Collectors;
 
 /**
  * Basic contract for a function within a {@link walkingkooka.tree.expression.ExpressionEvaluationContext}
@@ -36,6 +38,21 @@ import java.util.function.BiPredicate;
 public interface ExpressionFunction<T, C extends Context & ConverterContext & ExpressionNumberContext> extends BiFunction<List<Object>, C, T>,
         ExpressionPurity,
         HasName<FunctionExpressionName> {
+
+    /**
+     * Updates ALL parameters with the given {@link ExpressionFunctionParameterKind}
+     */
+    static List<ExpressionFunctionParameter<?>> setKinds(final List<ExpressionFunctionParameter<?>> parameters,
+                                                         final Set<ExpressionFunctionParameterKind> kinds) {
+        Objects.requireNonNull(parameters, "parameters");
+        Objects.requireNonNull(kinds, "kinds");
+
+        return Lists.immutable(
+                parameters.stream()
+                        .map(p -> p.setKinds(kinds))
+                        .collect(Collectors.toList())
+        );
+    }
 
     /**
      * Gives this {@link ExpressionFunction} a new name.
@@ -86,18 +103,6 @@ public interface ExpressionFunction<T, C extends Context & ConverterContext & Ex
      * @return The return type of this function
      */
     Class<T> returnType();
-
-    /**
-     * Meta customisations for this {@link ExpressionFunction}
-     */
-    Set<ExpressionFunctionKind> kinds();
-
-    /**
-     * Wraps this function if necessary so that it returns the given {@link ExpressionFunctionKind}.
-     */
-    default ExpressionFunction<T, C> setKinds(final Set<ExpressionFunctionKind> kinds) {
-        return ExpressionFunctionCustomKinds.with(this, kinds);
-    }
 
     /**
      * Returns a ne {@link ExpressionFunction} that adds the parameter mapper before this function.

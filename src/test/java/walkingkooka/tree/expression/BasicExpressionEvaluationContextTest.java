@@ -22,7 +22,6 @@ import walkingkooka.Cast;
 import walkingkooka.Either;
 import walkingkooka.ToStringTesting;
 import walkingkooka.collect.list.Lists;
-import walkingkooka.collect.set.Sets;
 import walkingkooka.convert.ConverterContext;
 import walkingkooka.convert.ConverterContexts;
 import walkingkooka.convert.Converters;
@@ -34,8 +33,8 @@ import walkingkooka.reflect.ClassTesting2;
 import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.text.CaseSensitivity;
 import walkingkooka.tree.expression.function.ExpressionFunction;
-import walkingkooka.tree.expression.function.ExpressionFunctionKind;
 import walkingkooka.tree.expression.function.ExpressionFunctionParameter;
+import walkingkooka.tree.expression.function.ExpressionFunctionParameterName;
 import walkingkooka.tree.expression.function.FakeExpressionFunction;
 import walkingkooka.tree.expression.function.UnknownExpressionFunctionException;
 
@@ -43,7 +42,6 @@ import java.math.MathContext;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
-import java.util.Set;
 import java.util.function.Function;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -206,11 +204,6 @@ public final class BasicExpressionEvaluationContextTest implements ClassTesting2
                             @Override
                             public List<ExpressionFunctionParameter<?>> parameters(final int count) {
                                 return ExpressionFunctionParameter.EMPTY;
-                            }
-
-                            @Override
-                            public Set<ExpressionFunctionKind> kinds() {
-                                return Sets.empty();
                             }
 
                             @Override
@@ -431,10 +424,6 @@ public final class BasicExpressionEvaluationContextTest implements ClassTesting2
                                         public List<ExpressionFunctionParameter<?>> parameters(final int count) {
                                             return ExpressionFunctionParameter.EMPTY;
                                         }
-
-                                        public Set<ExpressionFunctionKind> kinds() {
-                                            return Sets.empty();
-                                        }
                                     };
                                 },
                                 (r) -> "@@@" + r.getMessage(),
@@ -630,13 +619,15 @@ public final class BasicExpressionEvaluationContextTest implements ClassTesting2
                 }
 
                 @Override
-                public boolean isPure(final ExpressionPurityContext context) {
-                    return pure;
+                public List<ExpressionFunctionParameter<?>> parameters(final int count) {
+                    return Lists.of(
+                            ExpressionFunctionParameterName.VALUE.required(Object.class)
+                    );
                 }
 
                 @Override
-                public Set<ExpressionFunctionKind> kinds() {
-                    return Sets.empty();
+                public boolean isPure(final ExpressionPurityContext context) {
+                    return pure;
                 }
             };
         };

@@ -49,8 +49,8 @@ import walkingkooka.tree.expression.ExpressionReference;
 import walkingkooka.tree.expression.FunctionExpressionName;
 import walkingkooka.tree.expression.ValueExpression;
 import walkingkooka.tree.expression.function.ExpressionFunction;
-import walkingkooka.tree.expression.function.ExpressionFunctionKind;
 import walkingkooka.tree.expression.function.ExpressionFunctionParameter;
+import walkingkooka.tree.expression.function.ExpressionFunctionParameterKind;
 import walkingkooka.tree.expression.function.ExpressionFunctionParameterName;
 import walkingkooka.tree.expression.function.FakeExpressionFunction;
 import walkingkooka.tree.select.parser.NodeSelectorExpressionParserToken;
@@ -61,7 +61,6 @@ import walkingkooka.tree.select.parser.NodeSelectorParsers;
 import java.math.BigDecimal;
 import java.math.MathContext;
 import java.util.Collection;
-import java.util.EnumSet;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -1976,21 +1975,22 @@ public final class NodeSelectorNodeSelectorParserTokenVisitorTest implements Nod
                     }
 
                     private ExpressionNumberConverterContext converterContext() {
-                        return ExpressionNumberConverterContexts.basic(new Converter<>() {
-                                                                           @Override
-                                                                           public boolean canConvert(final Object value,
-                                                                                                     final Class<?> type,
-                                                                                                     final ExpressionNumberConverterContext context) {
-                                                                               return true;
-                                                                           }
+                        return ExpressionNumberConverterContexts.basic(
+                                new Converter<>() {
+                                    @Override
+                                    public boolean canConvert(final Object value,
+                                                              final Class<?> type,
+                                                              final ExpressionNumberConverterContext context) {
+                                        return true;
+                                    }
 
-                                                                           @Override
-                                                                           public <T> Either<T, String> convert(final Object value,
-                                                                                                                final Class<T> type,
-                                                                                                                final ExpressionNumberConverterContext context) {
-                                                                               return convert0(value, type);
-                                                                           }
-                                                                       },
+                                    @Override
+                                    public <T> Either<T, String> convert(final Object value,
+                                                                         final Class<T> type,
+                                                                         final ExpressionNumberConverterContext context) {
+                                        return convert0(value, type);
+                                    }
+                                },
                                 ConverterContexts.basic(
                                         Converters.fake(),
                                         DateTimeContexts.fake(),
@@ -2016,18 +2016,11 @@ public final class NodeSelectorNodeSelectorParserTokenVisitorTest implements Nod
             return Lists.of(
                     ExpressionFunctionParameterName.with("parameters")
                             .variable(Object.class)
+                            .setKinds(
+                                    ExpressionFunctionParameterKind.CONVERT_EVALUATE_FLATTEN_RESOLVE_REFERENCES
+                            )
             );
         }
-
-        @Override
-        public Set<ExpressionFunctionKind> kinds() {
-            return KINDS;
-        }
-
-        private final Set<ExpressionFunctionKind> KINDS = EnumSet.of(
-                ExpressionFunctionKind.EVALUATE_PARAMETERS,
-                ExpressionFunctionKind.RESOLVE_REFERENCES
-        );
     }
 
     private Set<String> names(final Collection<TestNode> nodes) {

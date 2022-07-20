@@ -19,9 +19,9 @@ package walkingkooka.tree.expression;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.collect.list.Lists;
+import walkingkooka.collect.map.Maps;
 import walkingkooka.collect.set.Sets;
-import walkingkooka.tree.expression.function.ExpressionFunctionKind;
-import walkingkooka.tree.expression.function.FakeExpressionFunction;
+import walkingkooka.tree.expression.function.ExpressionFunctionParameterKind;
 
 import java.util.List;
 import java.util.Set;
@@ -30,52 +30,105 @@ import static org.junit.jupiter.api.Assertions.assertSame;
 
 public final class ExpressionEvaluationContextPrepareParametersListTest extends ExpressionEvaluationContextPrepareParametersListTestCase<ExpressionEvaluationContextPrepareParametersList> {
 
+    private final static Set<ExpressionFunctionParameterKind> CONVERT = Sets.of(
+            ExpressionFunctionParameterKind.CONVERT
+    );
+
     @Test
-    public void testEmptyKinds() {
-        final List<Object> values = Lists.of(1, 2, 3);
+    public void testEmpty() {
+        final List<Object> values = Lists.empty();
 
         assertSame(
                 values,
                 ExpressionEvaluationContextPrepareParametersList.with(
+                        Lists.empty(),
                         values,
-                        new FakeExpressionFunction<>() {
-                            @Override
-                            public Set<ExpressionFunctionKind> kinds() {
-                                return Sets.empty();
-                            }
-                        },
-                        ExpressionEvaluationContexts.fake())
+                        ExpressionEvaluationContexts.fake()
+                )
         );
     }
 
     @Test
-    public void testPrepareParametersReferenceNotFound() {
-        final Object handled = "context.handleException -> **Handled**";
+    public void testGetVariable() {
+        final List<Object> list = ExpressionEvaluationContextPrepareParametersList.with(
+                Lists.of(
+                        VARIABLE
+                ),
+                Lists.of(
+                        100,
+                        200
+                ),
+                ExpressionEvaluationContexts.fake()
+        );
+        this.getAndCheck(list, 0, 100);
+        this.getAndCheck(list, 1, 200);
+        this.sizeAndCheck(list, 2);
+    }
 
-        this.checkEquals(
-                handled,
-                ExpressionEvaluationContextPrepareParametersList.prepareValue(
-                        new ExpressionReference() {
-                            @Override
-                            public String toString() {
-                                return "reference-not-found";
-                            }
-                        },
-                        new FakeExpressionFunction<>() {
-                            @Override
-                            public Set<ExpressionFunctionKind> kinds() {
-                                return Sets.of(ExpressionFunctionKind.RESOLVE_REFERENCES);
-                            }
-                        },
-                        new FakeExpressionEvaluationContext() {
-
-                            @Override
-                            public Object handleException(final RuntimeException exception) {
-                                return handled;
-                            }
-                        }
+    @Test
+    public void testNotEmptyNotFlattenSomeConverted() {
+        final List<Object> list = ExpressionEvaluationContextPrepareParametersList.with(
+                Lists.of(
+                        REQUIRED.setKinds(CONVERT),
+                        OPTIONAL
+                ),
+                Lists.of(
+                        "Ten",
+                        "Twenty"
+                ),
+                this.createContextWhichConverts(
+                        "Ten", 10
                 )
         );
+        this.getAndCheck(list, 0, 10);
+        this.getAndCheck(list, 1, "Twenty");
+        this.sizeAndCheck(list, 2);
+    }
+
+    @Test
+    public void testNotEmptyNotFlatten() {
+        final List<Object> list = ExpressionEvaluationContextPrepareParametersList.with(
+                Lists.of(
+                        REQUIRED.setKinds(CONVERT),
+                        OPTIONAL.setKinds(CONVERT)
+                ),
+                Lists.of(
+                        "Ten",
+                        "Twenty"
+                ),
+                this.createContextWhichConverts(
+                        Maps.of(
+                                "Ten", 10,
+                                "Twenty", 20L
+                        )
+                )
+        );
+        this.getAndCheck(list, 0, 10);
+        this.getAndCheck(list, 1, 20L);
+        this.sizeAndCheck(list, 2);
+    }
+
+    @Test
+    public void testNotEmptyFlatten() {
+        final List<Object> list = ExpressionEvaluationContextPrepareParametersList.with(
+                Lists.of(
+                        REQUIRED.setKinds(CONVERT),
+                        FLATTEN.setKinds(CONVERT)
+                ),
+                Lists.of(
+                        "Ten",
+                        "Twenty"
+                ),
+                this.createContextWhichConverts(
+                        Maps.of(
+                                "Ten", 10,
+                                "Twenty", 20
+                        )
+                )
+        );
+        this.getAndCheck(list, 0, 10);
+        this.getAndCheck(list, 1, 20);
+        this.sizeAndCheck(list, 2);
     }
 
     @Override

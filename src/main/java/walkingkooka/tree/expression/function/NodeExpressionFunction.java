@@ -25,9 +25,7 @@ import walkingkooka.tree.expression.ExpressionPurityContext;
 import walkingkooka.tree.expression.FunctionExpressionName;
 import walkingkooka.tree.select.NodeSelectorExpressionEvaluationContext;
 
-import java.util.EnumSet;
 import java.util.List;
-import java.util.Set;
 
 /**
  * Returns the current {@link Node} which is fetched from {@link NodeSelectorExpressionEvaluationContext#node()}
@@ -85,16 +83,6 @@ final class NodeExpressionFunction<N extends Node<N, NAME, ANAME, AVALUE>,
     public Class<N> returnType() {
         return Cast.to(Node.class);
     }
-
-    @Override
-    public Set<ExpressionFunctionKind> kinds() {
-        return KINDS;
-    }
-
-    private final Set<ExpressionFunctionKind> KINDS = EnumSet.of(
-            ExpressionFunctionKind.EVALUATE_PARAMETERS,
-            ExpressionFunctionKind.RESOLVE_REFERENCES
-    );
 
     @Override
     public boolean isPure(final ExpressionPurityContext context) {

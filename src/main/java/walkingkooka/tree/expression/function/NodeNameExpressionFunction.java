@@ -25,9 +25,7 @@ import walkingkooka.tree.expression.ExpressionNumberContext;
 import walkingkooka.tree.expression.ExpressionPurityContext;
 import walkingkooka.tree.expression.FunctionExpressionName;
 
-import java.util.EnumSet;
 import java.util.List;
-import java.util.Set;
 
 /**
  * A non standard function that returns {@link Node#name()}. It assumes the {@link Node} is the first parameter.
@@ -76,7 +74,8 @@ final class NodeNameExpressionFunction<C extends Context & ConverterContext & Ex
     }
 
     private final static ExpressionFunctionParameter<Node> NODE = ExpressionFunctionParameterName.with("node")
-            .required(Node.class);
+            .required(Node.class)
+            .setKinds(ExpressionFunctionParameterKind.EVALUATE_RESOLVE_REFERENCES);
 
     private final static List<ExpressionFunctionParameter<?>> PARAMETERS = ExpressionFunctionParameter.list(NODE);
 
@@ -84,16 +83,6 @@ final class NodeNameExpressionFunction<C extends Context & ConverterContext & Ex
     public Class<String> returnType() {
         return String.class;
     }
-
-    @Override
-    public Set<ExpressionFunctionKind> kinds() {
-        return KINDS;
-    }
-
-    private final Set<ExpressionFunctionKind> KINDS = EnumSet.of(
-            ExpressionFunctionKind.EVALUATE_PARAMETERS,
-            ExpressionFunctionKind.RESOLVE_REFERENCES
-    );
 
     @Override
     public boolean isPure(final ExpressionPurityContext context) {
