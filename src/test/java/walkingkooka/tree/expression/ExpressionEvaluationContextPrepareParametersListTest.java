@@ -112,6 +112,28 @@ public final class ExpressionEvaluationContextPrepareParametersListTest extends 
     public void testNotEmptyFlatten() {
         final List<Object> list = ExpressionEvaluationContextPrepareParametersList.with(
                 Lists.of(
+                        FLATTEN.setKinds(CONVERT)
+                ),
+                Lists.of(
+                        "Ten",
+                        "Twenty"
+                ),
+                this.createContextWhichConverts(
+                        Maps.of(
+                                "Ten", 10,
+                                "Twenty", 20
+                        )
+                )
+        );
+        this.getAndCheck(list, 0, 10);
+        this.getAndCheck(list, 1, 20);
+        this.sizeAndCheck(list, 2);
+    }
+
+    @Test
+    public void testNotEmptyFlatten2() {
+        final List<Object> list = ExpressionEvaluationContextPrepareParametersList.with(
+                Lists.of(
                         REQUIRED.setKinds(CONVERT),
                         FLATTEN.setKinds(CONVERT)
                 ),
