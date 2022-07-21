@@ -49,9 +49,15 @@ abstract class ExpressionEvaluationContextPrepareParametersList extends Abstract
                 values :
                 withNotEmpty(
                         parameters,
-                        values,
+                        unwrap(values),
                         context
                 );
+    }
+
+    private static List<Object> unwrap(final List<Object> values) {
+        return values instanceof ExpressionEvaluationContextPrepareParametersList ?
+                ((ExpressionEvaluationContextPrepareParametersList) values).values :
+                values;
     }
 
     /**
