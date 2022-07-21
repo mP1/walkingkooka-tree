@@ -153,6 +153,31 @@ public final class ExpressionEvaluationContextPrepareParametersListTest extends 
         this.sizeAndCheck(list, 2);
     }
 
+    @Test
+    public void testUnwrapNotEmpty() {
+        final List<Object> list = ExpressionEvaluationContextPrepareParametersList.with(
+                Lists.of(
+                        REQUIRED.setKinds(CONVERT)
+                ),
+                ExpressionEvaluationContextPrepareParametersList.with(
+                        Lists.of(
+                                REQUIRED.setKinds(CONVERT)
+                        ),
+                        Lists.of(
+                                "Ten"
+                        ),
+                        ExpressionEvaluationContexts.fake()
+                ),
+                this.createContextWhichConverts(
+                        Maps.of(
+                                "Ten", 10
+                        )
+                )
+        );
+        this.getAndCheck(list, 0, 10);
+        this.sizeAndCheck(list, 1);
+    }
+
     @Override
     public Class<ExpressionEvaluationContextPrepareParametersList> type() {
         return ExpressionEvaluationContextPrepareParametersList.class;
