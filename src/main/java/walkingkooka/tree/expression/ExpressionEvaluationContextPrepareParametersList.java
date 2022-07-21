@@ -64,7 +64,7 @@ abstract class ExpressionEvaluationContextPrepareParametersList extends Abstract
         final int count = parameters.size();
         final ExpressionFunctionParameter<?> last = parameters.get(count - 1);
 
-        return count >= values.size() && last.kinds().contains(ExpressionFunctionParameterKind.FLATTEN) ?
+        return last.kinds().contains(ExpressionFunctionParameterKind.FLATTEN) ?
                 ExpressionEvaluationContextPrepareParametersListFlattened.withFlattened(
                         parameters,
                         values,
