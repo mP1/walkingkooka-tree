@@ -54,6 +54,7 @@ abstract class ExpressionEvaluationContextPrepareParametersList extends Abstract
                 );
     }
 
+    @SuppressWarnings("lgtm[java/abstract-to-concrete-cast]")
     private static List<Object> unwrap(final List<Object> values) {
         return values instanceof ExpressionEvaluationContextPrepareParametersList ?
                 ((ExpressionEvaluationContextPrepareParametersList) values).values :
