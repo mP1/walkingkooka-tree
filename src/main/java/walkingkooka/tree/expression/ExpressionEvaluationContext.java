@@ -72,7 +72,7 @@ public interface ExpressionEvaluationContext extends Context,
      * </ul>
      * The above list is only performed once for each parameter and cached for future fetches.
      */
-    default List<Object> prepareParameters(final ExpressionFunction<?, ExpressionEvaluationContext> function,
+    default List<Object> prepareParameters(final ExpressionFunction<?, ? extends ExpressionEvaluationContext> function,
                                            final List<Object> parameters) {
         return ExpressionEvaluationContextPrepareParametersList.with(
                 function.parameters(parameters.size()),
