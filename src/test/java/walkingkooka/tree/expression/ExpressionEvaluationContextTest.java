@@ -18,11 +18,16 @@
 package walkingkooka.tree.expression;
 
 import org.junit.jupiter.api.Test;
+import walkingkooka.collect.list.Lists;
 import walkingkooka.reflect.ClassTesting;
 import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.text.CharSequences;
+import walkingkooka.tree.expression.function.ExpressionFunction;
+import walkingkooka.tree.expression.function.ExpressionFunctions;
 
 import java.util.Optional;
+
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class ExpressionEvaluationContextTest implements ClassTesting<ExpressionEvaluationContext> {
 
@@ -149,6 +154,20 @@ public final class ExpressionEvaluationContextTest implements ClassTesting<Expre
                 context.evaluateIfNecessary(value),
                 () -> "evaluateIfNecessary " + CharSequences.quoteIfChars(value)
         );
+    }
+
+    @Test
+    public void testPrepareParameters() {
+        final ExpressionFunction<Void, FakeExpressionEvaluationContext> function = ExpressionFunctions.fake();
+
+        assertThrows(UnsupportedOperationException.class,
+                () -> {
+                    ExpressionEvaluationContexts.fake()
+                            .prepareParameters(
+                                    function,
+                                    Lists.empty()
+                            );
+                });
     }
 
     @Override
