@@ -162,7 +162,8 @@ public final class ExpressionFunctionsTest implements PublicStaticHelperTesting<
 
         final Set<String> methods = Arrays.stream(ExpressionFunctions.class.getDeclaredMethods())
                 .filter(m -> m.getReturnType() == ExpressionFunction.class)
-                .filter(m -> !(m.getName().equals("fake") || m.getName().equals("expressionNumberFunction")))
+                .filter(m -> m.getParameterCount() == 0)
+                .filter(m -> !(m.getName().equals("fake")))
                 .map(Method::getName)
                 .collect(Collectors.toCollection(Sets::sorted));
         this.checkEquals(methods.size(),

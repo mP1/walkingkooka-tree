@@ -29,12 +29,15 @@ import walkingkooka.tree.expression.ExpressionNumberFunction;
 import walkingkooka.tree.expression.FunctionExpressionName;
 import walkingkooka.tree.select.NodeSelectorExpressionEvaluationContext;
 
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
+import java.util.function.BiFunction;
 import java.util.function.Consumer;
 import java.util.function.Function;
+import java.util.function.IntFunction;
 
 /**
  * Collection of static factory methods for numerous {@link ExpressionFunction}.
@@ -72,6 +75,23 @@ public final class ExpressionFunctions implements PublicStaticHelper {
                 nodeName(),
                 typeName()
         ).forEach(consumer);
+    }
+
+    /**
+     * {@see BasicExpressionFunction}
+     */
+    public static <T, C extends ExpressionEvaluationContext> ExpressionFunction<T, C> basic(final FunctionExpressionName name,
+                                                                                            final boolean pure,
+                                                                                            final IntFunction<List<ExpressionFunctionParameter<?>>> parameters,
+                                                                                            final Class<T> returnType,
+                                                                                            final BiFunction<List<Object>, C, T> biFunction) {
+        return BasicExpressionFunction.with(
+                name,
+                pure,
+                parameters,
+                returnType,
+                biFunction
+        );
     }
 
     /**
