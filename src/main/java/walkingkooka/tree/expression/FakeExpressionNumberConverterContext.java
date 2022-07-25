@@ -17,15 +17,9 @@
 
 package walkingkooka.tree.expression;
 
-import walkingkooka.convert.Converter;
 import walkingkooka.convert.FakeConverterContext;
 
 public class FakeExpressionNumberConverterContext extends FakeConverterContext implements ExpressionNumberConverterContext {
-
-    @Override
-    public Converter<ExpressionNumberConverterContext> converter() {
-        throw new UnsupportedOperationException();
-    }
 
     @Override
     public ExpressionNumberKind expressionNumberKind() {
