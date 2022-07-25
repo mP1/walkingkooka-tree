@@ -21,7 +21,6 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.ToStringTesting;
 import walkingkooka.convert.Converter;
 import walkingkooka.convert.ConverterContext;
-import walkingkooka.convert.ConverterContextTesting;
 import walkingkooka.convert.ConverterContexts;
 import walkingkooka.convert.Converters;
 import walkingkooka.datetime.DateTimeContexts;
@@ -34,7 +33,7 @@ import java.util.Locale;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class BasicExpressionNumberConverterContextTest implements ConverterContextTesting<BasicExpressionNumberConverterContext>,
+public final class BasicExpressionNumberConverterContextTest implements ExpressionNumberConverterContextTesting<BasicExpressionNumberConverterContext>,
         ToStringTesting<BasicExpressionNumberConverterContext> {
 
     private final static ExpressionNumberKind KIND = ExpressionNumberKind.DEFAULT;
