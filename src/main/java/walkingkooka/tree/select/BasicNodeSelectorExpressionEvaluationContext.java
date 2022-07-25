@@ -19,12 +19,14 @@ package walkingkooka.tree.select;
 
 import walkingkooka.Cast;
 import walkingkooka.Either;
+import walkingkooka.convert.Converter;
 import walkingkooka.naming.Name;
 import walkingkooka.text.CaseSensitivity;
 import walkingkooka.tree.Node;
 import walkingkooka.tree.expression.Expression;
 import walkingkooka.tree.expression.ExpressionEvaluationContext;
 import walkingkooka.tree.expression.ExpressionNumber;
+import walkingkooka.tree.expression.ExpressionNumberConverterContext;
 import walkingkooka.tree.expression.ExpressionNumberKind;
 import walkingkooka.tree.expression.ExpressionReference;
 import walkingkooka.tree.expression.FunctionExpressionName;
@@ -174,6 +176,11 @@ final class BasicNodeSelectorExpressionEvaluationContext<N extends Node<N, NAME,
     @Override
     public <T> Either<T, String> convert(final Object value, final Class<T> type) {
         return this.context.convert(value, type);
+    }
+
+    @Override
+    public Converter<ExpressionNumberConverterContext> converter() {
+        return this.context.converter();
     }
 
     // DateTimeContext.................................................................................................

@@ -18,6 +18,7 @@
 package walkingkooka.tree.expression;
 
 import walkingkooka.Either;
+import walkingkooka.convert.Converter;
 import walkingkooka.convert.ConverterContext;
 import walkingkooka.text.CaseSensitivity;
 import walkingkooka.tree.expression.function.ExpressionFunction;
@@ -215,6 +216,11 @@ final class BasicExpressionEvaluationContext implements ExpressionEvaluationCont
     public <T> Either<T, String> convert(final Object value,
                                          final Class<T> target) {
         return this.converterContext.convert(value, target);
+    }
+
+    @Override
+    public Converter<ExpressionNumberConverterContext> converter() {
+        throw new UnsupportedOperationException();
     }
 
     private final ConverterContext converterContext;

@@ -19,6 +19,7 @@ package walkingkooka.tree.expression;
 
 import walkingkooka.Either;
 import walkingkooka.collect.set.Sets;
+import walkingkooka.convert.Converter;
 import walkingkooka.text.CaseSensitivity;
 import walkingkooka.tree.expression.function.ExpressionFunction;
 import walkingkooka.tree.expression.function.ExpressionFunctionParameter;
@@ -238,6 +239,11 @@ final class CycleDetectingExpressionEvaluationContext implements ExpressionEvalu
     public <T> Either<T, String> convert(final Object from,
                                          final Class<T> type) {
         return this.context.convert(from, type);
+    }
+
+    @Override
+    public Converter<ExpressionNumberConverterContext> converter() {
+        return this.context.converter();
     }
 
     // Strings..........................................................................................................

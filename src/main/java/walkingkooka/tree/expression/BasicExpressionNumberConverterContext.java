@@ -61,6 +61,11 @@ final class BasicExpressionNumberConverterContext implements ExpressionNumberCon
         return this.converter.convert(value, target, this);
     }
 
+    @Override
+    public Converter<ExpressionNumberConverterContext> converter() {
+        return this.converter;
+    }
+
     private final Converter<ExpressionNumberConverterContext> converter;
 
     @Override
