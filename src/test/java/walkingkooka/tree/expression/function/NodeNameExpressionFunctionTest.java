@@ -75,6 +75,11 @@ public final class NodeNameExpressionFunctionTest implements ClassTesting2<NodeN
     }
 
     @Override
+    public int minimumParameterCount() {
+        return 0;
+    }
+
+    @Override
     public Class<NodeNameExpressionFunction<ExpressionEvaluationContext>> type() {
         return Cast.to(NodeNameExpressionFunction.class);
     }

@@ -139,6 +139,11 @@ public final class ExpressionNumberFunctionExpressionFunctionTest implements Exp
     }
 
     @Override
+    public int minimumParameterCount() {
+        return 0;
+    }
+
+    @Override
     public FakeExpressionEvaluationContext createContext() {
         return new FakeExpressionEvaluationContext() {
             @Override

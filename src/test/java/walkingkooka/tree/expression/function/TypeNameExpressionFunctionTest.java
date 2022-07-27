@@ -57,6 +57,11 @@ public final class TypeNameExpressionFunctionTest implements ClassTesting2<TypeN
     }
 
     @Override
+    public int minimumParameterCount() {
+        return 0;
+    }
+
+    @Override
     public Class<TypeNameExpressionFunction<ExpressionEvaluationContext>> type() {
         return Cast.to(TypeNameExpressionFunction.class);
     }

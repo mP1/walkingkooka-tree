@@ -126,6 +126,11 @@ public final class ExpressionFunctionParametersMapperTest extends ExpressionFunc
     }
 
     @Override
+    public int minimumParameterCount() {
+        return 1;
+    }
+
+    @Override
     public Class<ExpressionFunctionParametersMapper<Object, ExpressionEvaluationContext>> type() {
         return Cast.to(ExpressionFunctionParametersMapper.class);
     }

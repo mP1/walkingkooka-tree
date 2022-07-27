@@ -75,7 +75,7 @@ public interface ExpressionFunctionTesting<F extends ExpressionFunction<V, C>, V
     @Test
     default void testParameterNamesUnique() {
         final F function = this.createBiFunction();
-        final List<ExpressionFunctionParameter<?>> parameters = function.parameters(0);
+        final List<ExpressionFunctionParameter<?>> parameters = function.parameters(this.minimumParameterCount());
 
         this.checkEquals(
                 parameters.stream()
@@ -92,7 +92,7 @@ public interface ExpressionFunctionTesting<F extends ExpressionFunction<V, C>, V
     @Test
     default void testParametersOptionalNotBeforeRequired() {
         final List<ExpressionFunctionParameter<?>> parameters = this.createBiFunction()
-                .parameters(0);
+                .parameters(this.minimumParameterCount());
 
         ExpressionFunctionParameter<?> previous = null;
 
@@ -118,7 +118,7 @@ public interface ExpressionFunctionTesting<F extends ExpressionFunction<V, C>, V
     @Test
     default void testParametersOnlyLastMayBeVariable() {
         final List<ExpressionFunctionParameter<?>> parameters = this.createBiFunction()
-                .parameters(0);
+                .parameters(this.minimumParameterCount());
 
         final int secondLast = Math.max(0, parameters.size() - 1);
 
@@ -136,7 +136,7 @@ public interface ExpressionFunctionTesting<F extends ExpressionFunction<V, C>, V
     @Test
     default void testParametersOnlyLastMayHaveFlatten() {
         final List<ExpressionFunctionParameter<?>> parameters = this.createBiFunction()
-                .parameters(0);
+                .parameters(this.minimumParameterCount());
 
         final int secondLast = Math.max(0, parameters.size() - 1);
 
@@ -154,7 +154,7 @@ public interface ExpressionFunctionTesting<F extends ExpressionFunction<V, C>, V
     @Test
     default void testParametersFlattenMustBeVariable() {
         final List<ExpressionFunctionParameter<?>> parameters = this.createBiFunction()
-                .parameters(0);
+                .parameters(this.minimumParameterCount());
         if (parameters.size() > 0) {
             final ExpressionFunctionParameter last = parameters.get(parameters.size() - 1);
 
@@ -275,6 +275,11 @@ public interface ExpressionFunctionTesting<F extends ExpressionFunction<V, C>, V
     default ExpressionNumberKind expressionNumberKind() {
         return ExpressionNumberKind.DEFAULT;
     }
+
+    /**
+     * This value must be a valid parameter count and is used in numerous tests when testing parameters.
+     */
+    int minimumParameterCount();
 
     // TypeNameTesting..................................................................................................
 

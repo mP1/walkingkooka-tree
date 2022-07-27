@@ -85,6 +85,11 @@ public final class ExpressionFunctionCustomNameTest extends ExpressionFunctionTe
     }
 
     @Override
+    public int minimumParameterCount() {
+        return 0;
+    }
+
+    @Override
     public Class<ExpressionFunctionCustomName<String, ExpressionEvaluationContext>> type() {
         return Cast.to(ExpressionFunctionCustomName.class);
     }
