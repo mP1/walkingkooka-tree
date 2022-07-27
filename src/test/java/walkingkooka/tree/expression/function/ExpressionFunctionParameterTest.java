@@ -137,26 +137,17 @@ public final class ExpressionFunctionParameterTest implements HashCodeEqualsDefi
                 different
         );
 
-        this.checkEquals(
-                parameter.name(),
-                different.name(),
-                "name"
-        );
-        this.checkEquals(
-                parameter.type(),
-                different.type(),
-                "type"
-        );
-        this.checkEquals(
-                cardinality,
-                different.cardinality(),
-                "cardinality"
-        );
-        this.checkEquals(
-                parameter.typeParameters(),
-                different.typeParameters(),
-                "typeParameters"
-        );
+        this.checkName(different);
+        this.checkType(different);
+        this.checkTypeParameters(different);
+        this.checkCardinality(different, cardinality);
+        this.checkKinds(different);
+
+        this.checkName(parameter);
+        this.checkType(parameter);
+        this.checkTypeParameters(parameter);
+        this.checkCardinality(parameter);
+        this.checkKinds(parameter);
     }
 
     // setTypeParameters................................................................................................
@@ -191,9 +182,11 @@ public final class ExpressionFunctionParameterTest implements HashCodeEqualsDefi
 
     @Test
     public void testSetTypeParameterDifferent() {
+        final Class<List> type = List.class;
+
         final ExpressionFunctionParameter<List<String>> parameter = ExpressionFunctionParameter.with(
                 NAME,
-                Cast.to(List.class),
+                Cast.to(type),
                 ExpressionFunctionParameter.NO_TYPE_PARAMETERS,
                 CARDINALITY,
                 KINDS
@@ -203,11 +196,17 @@ public final class ExpressionFunctionParameterTest implements HashCodeEqualsDefi
         final ExpressionFunctionParameter<List<String>> different = parameter.setTypeParameters(typeParameters);
         assertNotSame(parameter, different);
 
-        this.checkEquals(parameter.name(), different.name(), "name");
-        this.checkEquals(parameter.type(), different.type(), "type");
-        this.checkEquals(typeParameters, different.typeParameters(), "typeParameters");
-        this.checkEquals(parameter.cardinality(), different.cardinality(), "cardinality");
-        this.checkEquals(parameter.kinds(), different.kinds(), "kinds");
+        this.checkName(different);
+        this.checkType(different, type);
+        this.checkTypeParameters(different, typeParameters);
+        this.checkCardinality(different);
+        this.checkKinds(different);
+
+        this.checkName(parameter);
+        this.checkType(parameter, type);
+        this.checkTypeParameters(parameter);
+        this.checkCardinality(parameter);
+        this.checkKinds(parameter);
     }
 
     // setKinds................................................................................................
@@ -245,9 +244,11 @@ public final class ExpressionFunctionParameterTest implements HashCodeEqualsDefi
 
     @Test
     public void testSetKindsDifferent() {
+        final Class<List> type = List.class;
+
         final ExpressionFunctionParameter<List<String>> parameter = ExpressionFunctionParameter.with(
                 NAME,
-                Cast.to(List.class),
+                Cast.to(type),
                 ExpressionFunctionParameter.NO_TYPE_PARAMETERS,
                 CARDINALITY,
                 KINDS
@@ -260,11 +261,17 @@ public final class ExpressionFunctionParameterTest implements HashCodeEqualsDefi
         final ExpressionFunctionParameter<List<String>> different = parameter.setKinds(kinds);
         assertNotSame(parameter, different);
 
-        this.checkEquals(different.name(), parameter.name(), "name");
-        this.checkEquals(different.type(), parameter.type(), "type");
-        this.checkEquals(different.typeParameters(), parameter.typeParameters(), "typeParameters");
-        this.checkEquals(different.cardinality(), parameter.cardinality(), "cardinality");
-        this.checkEquals(different.kinds(), kinds, "kinds");
+        this.checkName(different);
+        this.checkType(different, type);
+        this.checkTypeParameters(different);
+        this.checkCardinality(different);
+        this.checkKinds(different, kinds);
+
+        this.checkName(parameter);
+        this.checkType(parameter, type);
+        this.checkTypeParameters(parameter);
+        this.checkCardinality(parameter);
+        this.checkKinds(parameter);
     }
 
     // get.............................................................................................................
@@ -691,6 +698,86 @@ public final class ExpressionFunctionParameterTest implements HashCodeEqualsDefi
         }
 
         this.checkNotEquals(0, i, "constant count");
+    }
+
+    private void checkName(final ExpressionFunctionParameter<?> parameter) {
+        this.checkName(
+                parameter,
+                NAME
+        );
+    }
+
+    private void checkName(final ExpressionFunctionParameter<?> parameter,
+                           final ExpressionFunctionParameterName name) {
+        this.checkEquals(
+                parameter.name(),
+                name,
+                "name"
+        );
+    }
+
+    private void checkType(final ExpressionFunctionParameter<?> parameter) {
+        this.checkType(
+                parameter,
+                TYPE
+        );
+    }
+
+    private void checkType(final ExpressionFunctionParameter<?> parameter,
+                           final Class<?> type) {
+        this.checkEquals(
+                parameter.type(),
+                type,
+                "type"
+        );
+    }
+
+    private void checkTypeParameters(final ExpressionFunctionParameter<?> parameter) {
+        this.checkTypeParameters(
+                parameter,
+                TYPE_PARAMETERS
+        );
+    }
+
+    private void checkTypeParameters(final ExpressionFunctionParameter<?> parameter,
+                                     final List<Class<?>> typeParameters) {
+        this.checkEquals(
+                parameter.typeParameters(),
+                typeParameters,
+                "typeParameters"
+        );
+    }
+
+    private void checkCardinality(final ExpressionFunctionParameter<?> parameter) {
+        this.checkCardinality(
+                parameter,
+                CARDINALITY
+        );
+    }
+
+    private void checkCardinality(final ExpressionFunctionParameter<?> parameter,
+                                  final ExpressionFunctionParameterCardinality cardinality) {
+        this.checkEquals(
+                parameter.cardinality(),
+                cardinality,
+                "cardinality"
+        );
+    }
+
+    private void checkKinds(final ExpressionFunctionParameter<?> parameter) {
+        this.checkKinds(
+                parameter,
+                KINDS
+        );
+    }
+
+    private void checkKinds(final ExpressionFunctionParameter<?> parameter,
+                            final Set<ExpressionFunctionParameterKind> kinds) {
+        this.checkEquals(
+                parameter.kinds(),
+                kinds,
+                "kinds"
+        );
     }
 
     // ClassTesting.....................................................................................................
