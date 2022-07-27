@@ -131,6 +131,11 @@ public final class BasicExpressionFunctionTest implements ExpressionFunctionTest
     }
 
     @Override
+    public int minimumParameterCount() {
+        return 0;
+    }
+
+    @Override
     public Class<BasicExpressionFunction<String, FakeExpressionEvaluationContext>> type() {
         return Cast.to(BasicExpressionFunction.class);
     }

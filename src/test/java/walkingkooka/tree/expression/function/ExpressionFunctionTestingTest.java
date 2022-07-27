@@ -44,18 +44,23 @@ public final class ExpressionFunctionTestingTest implements ClassTesting<Express
     private final ExpressionFunctionTesting<ExpressionFunction<Object, ExpressionEvaluationContext>, Object, ExpressionEvaluationContext> TESTING = new ExpressionFunctionTesting<>() {
 
         @Override
-        public Class<ExpressionFunction<Object, ExpressionEvaluationContext>> type() {
-            throw new UnsupportedOperationException();
-        }
-
-        @Override
         public ExpressionFunction<Object, ExpressionEvaluationContext> createBiFunction() {
             return ExpressionFunctionTestingTest.this.stringConcatParameters();
         }
 
         @Override
+        public int minimumParameterCount() {
+            return 0;
+        }
+
+        @Override
         public ExpressionEvaluationContext createContext() {
             return ExpressionFunctionTestingTest.this.createContext();
+        }
+
+        @Override
+        public Class<ExpressionFunction<Object, ExpressionEvaluationContext>> type() {
+            throw new UnsupportedOperationException();
         }
     };
 
@@ -76,11 +81,6 @@ public final class ExpressionFunctionTestingTest implements ClassTesting<Express
         new ExpressionFunctionTesting<ExpressionFunction<Object, ExpressionEvaluationContext>, Object, ExpressionEvaluationContext>() {
 
             @Override
-            public Class<ExpressionFunction<Object, ExpressionEvaluationContext>> type() {
-                throw new UnsupportedOperationException();
-            }
-
-            @Override
             public ExpressionFunction<Object, ExpressionEvaluationContext> createBiFunction() {
                 return new FakeExpressionFunction<>() {
                     @Override
@@ -94,8 +94,18 @@ public final class ExpressionFunctionTestingTest implements ClassTesting<Express
             }
 
             @Override
+            public int minimumParameterCount() {
+                return 1;
+            }
+
+            @Override
             public ExpressionEvaluationContext createContext() {
                 return CONTEXT;
+            }
+
+            @Override
+            public Class<ExpressionFunction<Object, ExpressionEvaluationContext>> type() {
+                throw new UnsupportedOperationException();
             }
         }.applyAndCheck(parameters, expected);
     }
@@ -526,12 +536,17 @@ public final class ExpressionFunctionTestingTest implements ClassTesting<Express
     abstract class TestExpressionFunctionTesting implements ExpressionFunctionTesting<FakeExpressionFunction<Void, FakeExpressionEvaluationContext>, Void, FakeExpressionEvaluationContext> {
 
         @Override
-        public FakeExpressionEvaluationContext createContext() {
+        public final int minimumParameterCount() {
+            return 0;
+        }
+
+        @Override
+        public final FakeExpressionEvaluationContext createContext() {
             throw new UnsupportedOperationException();
         }
 
         @Override
-        public Class<FakeExpressionFunction<Void, FakeExpressionEvaluationContext>> type() {
+        public final Class<FakeExpressionFunction<Void, FakeExpressionEvaluationContext>> type() {
             throw new UnsupportedOperationException();
         }
     }

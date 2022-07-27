@@ -129,6 +129,11 @@ public final class ExpressionFunctionParametersFilterTest extends ExpressionFunc
     }
 
     @Override
+    public int minimumParameterCount() {
+        return 1;
+    }
+
+    @Override
     public Class<ExpressionFunctionParametersFilter<Object, ExpressionEvaluationContext>> type() {
         return Cast.to(ExpressionFunctionParametersFilter.class);
     }
