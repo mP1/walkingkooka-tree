@@ -117,6 +117,23 @@ public final class ExpressionFunctionParameter<T> implements HasName<ExpressionF
         return this.name;
     }
 
+    /**
+     * Would be setter that returns a {@link ExpressionFunctionParameter} with the given {@link ExpressionFunctionParameterName}.
+     */
+    public ExpressionFunctionParameter<T> setName(final ExpressionFunctionParameterName name) {
+        Objects.requireNonNull(name, "name");
+
+        return this.name.equals(name) ?
+                this :
+                new ExpressionFunctionParameter<T>(
+                        name,
+                        this.type,
+                        this.cardinality,
+                        this.typeParameters,
+                        this.kinds
+                );
+    }
+
     private final ExpressionFunctionParameterName name;
 
     public Class<T> type() {

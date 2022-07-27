@@ -106,6 +106,44 @@ public final class ExpressionFunctionParameterTest implements HashCodeEqualsDefi
         );
     }
 
+    // setName.........................................................................................................
+
+    @Test
+    public void testSetNameWithNullFails() {
+        assertThrows(
+                NullPointerException.class,
+                () -> this.createObject().setName(null)
+        );
+    }
+
+    @Test
+    public void testSetNameWithSame() {
+        final ExpressionFunctionParameter<?> parameter = this.createObject();
+        final ExpressionFunctionParameterName name = parameter.name();
+        assertSame(parameter, parameter.setName(name));
+    }
+
+    @Test
+    public void testSetNameWithDifferent() {
+        final ExpressionFunctionParameter<?> parameter = this.createObject();
+        final ExpressionFunctionParameterName name = ExpressionFunctionParameterName.with("different123");
+
+        final ExpressionFunctionParameter<?> different = parameter.setName(name);
+        assertNotSame(parameter, different);
+
+        this.checkName(different, name);
+        this.checkType(different);
+        this.checkTypeParameters(different);
+        this.checkCardinality(different);
+        this.checkKinds(different);
+
+        this.checkName(parameter);
+        this.checkType(parameter);
+        this.checkTypeParameters(parameter);
+        this.checkCardinality(parameter);
+        this.checkKinds(parameter);
+    }
+
     // setCardinality...................................................................................................
 
     @Test
