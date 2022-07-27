@@ -274,7 +274,7 @@ public final class ExpressionFunctionTestingTest implements ClassTesting<Express
 
     @Test
     public void testTestParameterNamesUnique() {
-        new ExpressionFunctionTesting<FakeExpressionFunction<Void, FakeExpressionEvaluationContext>, Void, FakeExpressionEvaluationContext>() {
+        new TestExpressionFunctionTesting() {
 
             @Override
             public FakeExpressionFunction<Void, FakeExpressionEvaluationContext> createBiFunction() {
@@ -289,16 +289,6 @@ public final class ExpressionFunctionTestingTest implements ClassTesting<Express
                     }
                 };
             }
-
-            @Override
-            public FakeExpressionEvaluationContext createContext() {
-                throw new UnsupportedOperationException();
-            }
-
-            @Override
-            public Class<FakeExpressionFunction<Void, FakeExpressionEvaluationContext>> type() {
-                throw new UnsupportedOperationException();
-            }
         }.testParameterNamesUnique();
     }
 
@@ -307,7 +297,7 @@ public final class ExpressionFunctionTestingTest implements ClassTesting<Express
         boolean fail = false;
 
         try {
-            new ExpressionFunctionTesting<FakeExpressionFunction<Void, FakeExpressionEvaluationContext>, Void, FakeExpressionEvaluationContext>() {
+            new TestExpressionFunctionTesting() {
 
                 @Override
                 public FakeExpressionFunction<Void, FakeExpressionEvaluationContext> createBiFunction() {
@@ -322,16 +312,6 @@ public final class ExpressionFunctionTestingTest implements ClassTesting<Express
                         }
                     };
                 }
-
-                @Override
-                public FakeExpressionEvaluationContext createContext() {
-                    throw new UnsupportedOperationException();
-                }
-
-                @Override
-                public Class<FakeExpressionFunction<Void, FakeExpressionEvaluationContext>> type() {
-                    throw new UnsupportedOperationException();
-                }
             }.testParameterNamesUnique();
         } catch (final AssertionError expected) {
             fail = true;
@@ -344,7 +324,7 @@ public final class ExpressionFunctionTestingTest implements ClassTesting<Express
 
     @Test
     public void testParametersOptionalNotBeforeRequired() {
-        new ExpressionFunctionTesting<FakeExpressionFunction<Void, FakeExpressionEvaluationContext>, Void, FakeExpressionEvaluationContext>() {
+        new TestExpressionFunctionTesting() {
 
             @Override
             public FakeExpressionFunction<Void, FakeExpressionEvaluationContext> createBiFunction() {
@@ -358,16 +338,6 @@ public final class ExpressionFunctionTestingTest implements ClassTesting<Express
                     }
                 };
             }
-
-            @Override
-            public FakeExpressionEvaluationContext createContext() {
-                throw new UnsupportedOperationException();
-            }
-
-            @Override
-            public Class<FakeExpressionFunction<Void, FakeExpressionEvaluationContext>> type() {
-                throw new UnsupportedOperationException();
-            }
         }.testParametersOptionalNotBeforeRequired();
     }
 
@@ -376,7 +346,7 @@ public final class ExpressionFunctionTestingTest implements ClassTesting<Express
         boolean fail = false;
 
         try {
-            new ExpressionFunctionTesting<FakeExpressionFunction<Void, FakeExpressionEvaluationContext>, Void, FakeExpressionEvaluationContext>() {
+            new TestExpressionFunctionTesting() {
 
                 @Override
                 public FakeExpressionFunction<Void, FakeExpressionEvaluationContext> createBiFunction() {
@@ -391,16 +361,6 @@ public final class ExpressionFunctionTestingTest implements ClassTesting<Express
                         }
                     };
                 }
-
-                @Override
-                public FakeExpressionEvaluationContext createContext() {
-                    throw new UnsupportedOperationException();
-                }
-
-                @Override
-                public Class<FakeExpressionFunction<Void, FakeExpressionEvaluationContext>> type() {
-                    throw new UnsupportedOperationException();
-                }
             }.testParametersOptionalNotBeforeRequired();
         } catch (final AssertionError expected) {
             fail = true;
@@ -413,7 +373,7 @@ public final class ExpressionFunctionTestingTest implements ClassTesting<Express
 
     @Test
     public void testParametersOnlyLastMayBeVariable() {
-        new ExpressionFunctionTesting<FakeExpressionFunction<Void, FakeExpressionEvaluationContext>, Void, FakeExpressionEvaluationContext>() {
+        new TestExpressionFunctionTesting() {
 
             @Override
             public FakeExpressionFunction<Void, FakeExpressionEvaluationContext> createBiFunction() {
@@ -427,16 +387,6 @@ public final class ExpressionFunctionTestingTest implements ClassTesting<Express
                     }
                 };
             }
-
-            @Override
-            public FakeExpressionEvaluationContext createContext() {
-                throw new UnsupportedOperationException();
-            }
-
-            @Override
-            public Class<FakeExpressionFunction<Void, FakeExpressionEvaluationContext>> type() {
-                throw new UnsupportedOperationException();
-            }
         }.testParametersOnlyLastMayBeVariable();
     }
 
@@ -445,7 +395,7 @@ public final class ExpressionFunctionTestingTest implements ClassTesting<Express
         boolean fail = false;
 
         try {
-            new ExpressionFunctionTesting<FakeExpressionFunction<Void, FakeExpressionEvaluationContext>, Void, FakeExpressionEvaluationContext>() {
+            new TestExpressionFunctionTesting() {
 
                 @Override
                 public FakeExpressionFunction<Void, FakeExpressionEvaluationContext> createBiFunction() {
@@ -460,16 +410,6 @@ public final class ExpressionFunctionTestingTest implements ClassTesting<Express
                         }
                     };
                 }
-
-                @Override
-                public FakeExpressionEvaluationContext createContext() {
-                    throw new UnsupportedOperationException();
-                }
-
-                @Override
-                public Class<FakeExpressionFunction<Void, FakeExpressionEvaluationContext>> type() {
-                    throw new UnsupportedOperationException();
-                }
             }.testParametersOnlyLastMayBeVariable();
         } catch (final AssertionError expected) {
             fail = true;
@@ -482,7 +422,7 @@ public final class ExpressionFunctionTestingTest implements ClassTesting<Express
 
     @Test
     public void testParametersOnlyLastMayHaveFlatten() {
-        new ExpressionFunctionTesting<FakeExpressionFunction<Void, FakeExpressionEvaluationContext>, Void, FakeExpressionEvaluationContext>() {
+        new TestExpressionFunctionTesting() {
 
             @Override
             public FakeExpressionFunction<Void, FakeExpressionEvaluationContext> createBiFunction() {
@@ -497,16 +437,6 @@ public final class ExpressionFunctionTestingTest implements ClassTesting<Express
                     }
                 };
             }
-
-            @Override
-            public FakeExpressionEvaluationContext createContext() {
-                throw new UnsupportedOperationException();
-            }
-
-            @Override
-            public Class<FakeExpressionFunction<Void, FakeExpressionEvaluationContext>> type() {
-                throw new UnsupportedOperationException();
-            }
         }.testParametersOnlyLastMayHaveFlatten();
     }
 
@@ -515,7 +445,7 @@ public final class ExpressionFunctionTestingTest implements ClassTesting<Express
         boolean fail = false;
 
         try {
-            new ExpressionFunctionTesting<FakeExpressionFunction<Void, FakeExpressionEvaluationContext>, Void, FakeExpressionEvaluationContext>() {
+            new TestExpressionFunctionTesting() {
 
                 @Override
                 public FakeExpressionFunction<Void, FakeExpressionEvaluationContext> createBiFunction() {
@@ -533,16 +463,6 @@ public final class ExpressionFunctionTestingTest implements ClassTesting<Express
                         }
                     };
                 }
-
-                @Override
-                public FakeExpressionEvaluationContext createContext() {
-                    throw new UnsupportedOperationException();
-                }
-
-                @Override
-                public Class<FakeExpressionFunction<Void, FakeExpressionEvaluationContext>> type() {
-                    throw new UnsupportedOperationException();
-                }
             }.testParametersOnlyLastMayHaveFlatten();
         } catch (final AssertionError expected) {
             fail = true;
@@ -555,7 +475,7 @@ public final class ExpressionFunctionTestingTest implements ClassTesting<Express
 
     @Test
     public void testParametersFlattenMustBeVariable() {
-        new ExpressionFunctionTesting<FakeExpressionFunction<Void, FakeExpressionEvaluationContext>, Void, FakeExpressionEvaluationContext>() {
+        new TestExpressionFunctionTesting() {
 
             @Override
             public FakeExpressionFunction<Void, FakeExpressionEvaluationContext> createBiFunction() {
@@ -570,16 +490,6 @@ public final class ExpressionFunctionTestingTest implements ClassTesting<Express
                     }
                 };
             }
-
-            @Override
-            public FakeExpressionEvaluationContext createContext() {
-                throw new UnsupportedOperationException();
-            }
-
-            @Override
-            public Class<FakeExpressionFunction<Void, FakeExpressionEvaluationContext>> type() {
-                throw new UnsupportedOperationException();
-            }
         }.testParametersFlattenMustBeVariable();
     }
 
@@ -588,7 +498,7 @@ public final class ExpressionFunctionTestingTest implements ClassTesting<Express
         boolean fail = false;
 
         try {
-            new ExpressionFunctionTesting<FakeExpressionFunction<Void, FakeExpressionEvaluationContext>, Void, FakeExpressionEvaluationContext>() {
+            new TestExpressionFunctionTesting() {
 
                 @Override
                 public FakeExpressionFunction<Void, FakeExpressionEvaluationContext> createBiFunction() {
@@ -605,22 +515,25 @@ public final class ExpressionFunctionTestingTest implements ClassTesting<Express
                         }
                     };
                 }
-
-                @Override
-                public FakeExpressionEvaluationContext createContext() {
-                    throw new UnsupportedOperationException();
-                }
-
-                @Override
-                public Class<FakeExpressionFunction<Void, FakeExpressionEvaluationContext>> type() {
-                    throw new UnsupportedOperationException();
-                }
             }.testParametersFlattenMustBeVariable();
         } catch (final AssertionError expected) {
             fail = true;
         }
 
         this.checkEquals(true, fail);
+    }
+
+    abstract class TestExpressionFunctionTesting implements ExpressionFunctionTesting<FakeExpressionFunction<Void, FakeExpressionEvaluationContext>, Void, FakeExpressionEvaluationContext> {
+
+        @Override
+        public FakeExpressionEvaluationContext createContext() {
+            throw new UnsupportedOperationException();
+        }
+
+        @Override
+        public Class<FakeExpressionFunction<Void, FakeExpressionEvaluationContext>> type() {
+            throw new UnsupportedOperationException();
+        }
     }
 
     private ExpressionEvaluationContext createContext() {
