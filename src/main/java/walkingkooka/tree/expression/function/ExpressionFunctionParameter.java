@@ -222,7 +222,9 @@ public final class ExpressionFunctionParameter<T> implements HasName<ExpressionF
     private final Set<ExpressionFunctionParameterKind> kinds;
 
     /**
-     * Gets the parameter at index or uses the default
+     * Gets the parameter at index or uses the default.
+     * <br>
+     * Note the index is not validated against the correct position of this parameter within the parameter list.
      */
     public Optional<T> get(final List<Object> parameters,
                            final int index) {
@@ -235,6 +237,8 @@ public final class ExpressionFunctionParameter<T> implements HasName<ExpressionF
 
     /**
      * Gets the parameter at index or fails and also complains if it is the wrong type.
+     * <br>
+     * Note the index is not validated against the correct position of this parameter within the parameter list.
      */
     public T getOrFail(final List<Object> parameters,
                        final int index) {
@@ -256,6 +260,8 @@ public final class ExpressionFunctionParameter<T> implements HasName<ExpressionF
 
     /**
      * Gets the variable values starting at the given index.
+     * <br>
+     * Note the index is not validated against the correct position of this parameter within the parameter list.
      */
     public List<T> getVariable(final List<Object> parameters,
                                final int index) {
