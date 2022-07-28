@@ -161,10 +161,6 @@ abstract class ExpressionEvaluationContextPrepareParametersList extends Abstract
                 result = context.referenceOrFail((ExpressionReference) result);
                 i++;
             }
-
-            if (i > 20) {
-                break;
-            }
         } while (i != j);
 
         return result;
