@@ -130,7 +130,21 @@ public final class ExpressionNumberFunctionExpressionFunctionTest implements Exp
 
     @Test
     public void testToString() {
-        this.toStringAndCheck(this.createBiFunction(), NAME.toString());
+        this.toStringAndCheck(
+                this.createBiFunction(),
+                NAME.get().toString()
+        );
+    }
+
+    @Test
+    public void testToStringAnonymous() {
+        this.toStringAndCheck(
+                ExpressionNumberFunctionExpressionFunction.with(
+                        Optional.empty(),
+                        FUNCTION
+                ),
+                ExpressionFunction.ANONYMOUS
+        );
     }
 
     @Override

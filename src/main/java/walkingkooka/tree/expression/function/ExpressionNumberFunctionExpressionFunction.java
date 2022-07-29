@@ -98,6 +98,8 @@ final class ExpressionNumberFunctionExpressionFunction<C extends Context & Conve
 
     @Override
     public String toString() {
-        return this.name().toString();
+        return this.name()
+                .map(FunctionExpressionName::value)
+                .orElse(ANONYMOUS);
     }
 }
