@@ -23,6 +23,7 @@ import walkingkooka.tree.expression.FunctionExpressionName;
 
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.function.BiFunction;
 import java.util.function.IntFunction;
 
@@ -32,7 +33,7 @@ import java.util.function.IntFunction;
  */
 final class BasicExpressionFunction<T, C extends ExpressionEvaluationContext> implements ExpressionFunction<T, C> {
 
-    static <T, C extends ExpressionEvaluationContext> BasicExpressionFunction<T, C> with(final FunctionExpressionName name,
+    static <T, C extends ExpressionEvaluationContext> BasicExpressionFunction<T, C> with(final Optional<FunctionExpressionName> name,
                                                                                          final boolean pure,
                                                                                          final IntFunction<List<ExpressionFunctionParameter<?>>> parameters,
                                                                                          final Class<T> returnType,
@@ -46,7 +47,7 @@ final class BasicExpressionFunction<T, C extends ExpressionEvaluationContext> im
         );
     }
 
-    private BasicExpressionFunction(final FunctionExpressionName name,
+    private BasicExpressionFunction(final Optional<FunctionExpressionName> name,
                                     final boolean pure,
                                     final IntFunction<List<ExpressionFunctionParameter<?>>> parameters,
                                     final Class<T> returnType,
@@ -59,11 +60,11 @@ final class BasicExpressionFunction<T, C extends ExpressionEvaluationContext> im
     }
 
     @Override
-    public FunctionExpressionName name() {
+    public Optional<FunctionExpressionName> name() {
         return this.name;
     }
 
-    private final FunctionExpressionName name;
+    private final Optional<FunctionExpressionName> name;
 
     @Override
     public boolean isPure(final ExpressionPurityContext context) {
@@ -121,6 +122,8 @@ final class BasicExpressionFunction<T, C extends ExpressionEvaluationContext> im
 
     @Override
     public String toString() {
-        return this.name().toString();
+        return this.name()
+                .map(FunctionExpressionName::value)
+                .orElse(ANONYMOUS);
     }
 }

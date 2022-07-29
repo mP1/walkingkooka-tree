@@ -25,6 +25,7 @@ import walkingkooka.tree.expression.ExpressionPurityContext;
 import walkingkooka.tree.expression.FunctionExpressionName;
 
 import java.util.List;
+import java.util.Optional;
 
 /**
  * A function that returns {@link Object#getClass()#getName()} of the first parameter.
@@ -51,11 +52,13 @@ final class TypeNameExpressionFunction<C extends Context & ConverterContext & Ex
     }
 
     @Override
-    public FunctionExpressionName name() {
+    public Optional<FunctionExpressionName> name() {
         return NAME;
     }
 
-    private final static FunctionExpressionName NAME = FunctionExpressionName.with("typeName");
+    private final static Optional<FunctionExpressionName> NAME = Optional.of(
+            FunctionExpressionName.with("typeName")
+    );
 
     @Override
     public String apply(final List<Object> parameters,
@@ -90,6 +93,8 @@ final class TypeNameExpressionFunction<C extends Context & ConverterContext & Ex
 
     @Override
     public String toString() {
-        return this.name().toString();
+        return this.name()
+                .get()
+                .toString();
     }
 }

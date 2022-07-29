@@ -49,7 +49,11 @@ final class BasicNodeSelectorContextFunction implements Function<FunctionExpress
     }
 
     private void register(final ExpressionFunction<?, ?> function) {
-        this.nameToFunction.put(function.name(), function);
+        this.nameToFunction.put(
+                function.name()
+                        .orElseThrow(() -> new IllegalStateException("Missing function name")),
+                function
+        );
     }
 
     @Override

@@ -24,6 +24,7 @@ import walkingkooka.tree.expression.FakeExpressionEvaluationContext;
 import walkingkooka.tree.expression.FunctionExpressionName;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.function.BiFunction;
 import java.util.function.IntFunction;
 
@@ -31,7 +32,10 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class BasicExpressionFunctionTest implements ExpressionFunctionTesting<BasicExpressionFunction<String, FakeExpressionEvaluationContext>, String, FakeExpressionEvaluationContext> {
 
-    private final static FunctionExpressionName NAME = FunctionExpressionName.with("test123");
+    private final static Optional<FunctionExpressionName> NAME = Optional.of(
+            FunctionExpressionName.with("test123")
+    );
+
     private final static boolean PURE = true;
 
     private final static ExpressionFunctionParameter<String> PARAMETER = ExpressionFunctionParameterName.with("param-0").variable(String.class);
@@ -87,25 +91,20 @@ public final class BasicExpressionFunctionTest implements ExpressionFunctionTest
         );
     }
 
-    private void withFails(final FunctionExpressionName name,
+    private void withFails(final Optional<FunctionExpressionName> name,
                            final boolean pure,
                            final IntFunction<List<ExpressionFunctionParameter<?>>> parameters,
                            final Class<String> returnType,
                            final BiFunction<List<Object>, FakeExpressionEvaluationContext, String> biFunction) {
         assertThrows(
                 NullPointerException.class,
-                () -> BasicExpressionFunction.with(name, pure, parameters, returnType, biFunction)
-        );
-    }
-
-    @Override
-    public BasicExpressionFunction<String, FakeExpressionEvaluationContext> createBiFunction() {
-        return BasicExpressionFunction.with(
-                NAME,
-                PURE,
-                PARAMETERS,
-                RETURN,
-                BIF
+                () -> BasicExpressionFunction.with(
+                        name,
+                        pure,
+                        parameters,
+                        returnType,
+                        biFunction
+                )
         );
     }
 
@@ -121,7 +120,28 @@ public final class BasicExpressionFunctionTest implements ExpressionFunctionTest
     public void testToString() {
         this.toStringAndCheck(
                 this.createBiFunction(),
-                NAME.toString()
+                NAME.get()
+                        .toString()
+        );
+    }
+
+    @Test
+    public void testToStringAnonymous() {
+        this.toStringAndCheck(
+                this.createBiFunction()
+                        .setName(Optional.empty()),
+                "<anonymous>"
+        );
+    }
+
+    @Override
+    public BasicExpressionFunction<String, FakeExpressionEvaluationContext> createBiFunction() {
+        return BasicExpressionFunction.with(
+                NAME,
+                PURE,
+                PARAMETERS,
+                RETURN,
+                BIF
         );
     }
 

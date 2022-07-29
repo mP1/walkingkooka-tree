@@ -32,6 +32,7 @@ import walkingkooka.tree.expression.FunctionExpressionName;
 import java.math.BigDecimal;
 import java.math.MathContext;
 import java.math.RoundingMode;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -39,7 +40,9 @@ public final class ExpressionNumberFunctionExpressionFunctionTest implements Exp
         ExpressionPurityTesting,
         ToStringTesting<ExpressionNumberFunctionExpressionFunction<FakeExpressionEvaluationContext>> {
 
-    private final static FunctionExpressionName NAME = FunctionExpressionName.with("test");
+    private final static Optional<FunctionExpressionName> NAME = Optional.of(
+            FunctionExpressionName.with("test")
+    );
 
     private final static ExpressionNumberKind KIND = ExpressionNumberKind.DOUBLE;
 

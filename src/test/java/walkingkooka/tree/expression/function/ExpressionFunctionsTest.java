@@ -52,20 +52,84 @@ public final class ExpressionFunctionsTest implements PublicStaticHelperTesting<
         assertThrows(
                 NullPointerException.class,
                 () -> {
-                    ExpressionFunctions.lookup(Sets.empty(), null);
+                    ExpressionFunctions.lookup(
+                            Sets.empty(),
+                            null
+                    );
                 }
         );
     }
 
     @Test
+    public void testLookupIncludesAnonymousFunctionFails() {
+        final IllegalArgumentException thrown = assertThrows(
+                IllegalArgumentException.class,
+                () ->
+                        ExpressionFunctions.lookup(
+                                Sets.of(
+                                        functionWithName(null)
+                                ),
+                                CaseSensitivity.SENSITIVE
+                        )
+        );
+        this.checkEquals(
+                "Anonymous function encountered",
+                thrown.getMessage(),
+                "message"
+        );
+    }
+
+    @Test
+    public void testLookupNullDuplicateFunctionNameFails() {
+        final IllegalArgumentException thrown = assertThrows(
+                IllegalArgumentException.class,
+                () -> {
+                    ExpressionFunctions.lookup(
+                            Sets.of(
+                                    functionWithName("duplicate123"),
+                                    functionWithName("duplicate123")
+                            ),
+                            CaseSensitivity.SENSITIVE
+                    );
+                }
+        );
+        this.checkEquals(
+                "Duplicate function \"duplicate123\"",
+                thrown.getMessage(),
+                "message"
+        );
+    }
+
+    @Test
+    public void testLookupNullDuplicateFunctionNameCaseInsensitiveFails() {
+        final IllegalArgumentException thrown = assertThrows(
+                IllegalArgumentException.class,
+                () -> {
+                    ExpressionFunctions.lookup(
+                            Sets.of(
+                                    functionWithName("duplicate123"),
+                                    functionWithName("DUPLICATE123")
+                            ),
+                            CaseSensitivity.INSENSITIVE
+                    );
+                }
+        );
+        this.checkEquals(
+                "Duplicate function \"DUPLICATE123\"",
+                thrown.getMessage(),
+                "message"
+        );
+    }
+
+    @Test
     public void testLookupCaseSensitive() {
-        final ExpressionFunction<Void, ExpressionEvaluationContext> function = function("test-1");
+        final ExpressionFunction<Void, ExpressionEvaluationContext> function = functionWithName("test-1");
 
         final Function<FunctionExpressionName, Optional<ExpressionFunction<?, ExpressionEvaluationContext>>> lookup =
                 ExpressionFunctions.lookup(
                         Sets.of(
                                 function,
-                                function("test-function-2")
+                                functionWithName("test-functionWithName-2")
                         ),
                         CaseSensitivity.SENSITIVE
                 );
@@ -81,13 +145,13 @@ public final class ExpressionFunctionsTest implements PublicStaticHelperTesting<
 
     @Test
     public void testLookupCaseSensitiveWrongCaseNotFound() {
-        final ExpressionFunction<Void, ExpressionEvaluationContext> function = function("test-1");
+        final ExpressionFunction<Void, ExpressionEvaluationContext> function = functionWithName("test-1");
 
         final Function<FunctionExpressionName, Optional<ExpressionFunction<?, ExpressionEvaluationContext>>> lookup =
                 ExpressionFunctions.lookup(
                         Sets.of(
                                 function,
-                                function("test-function-2")
+                                functionWithName("test-functionWithName-2")
                         ),
                         CaseSensitivity.SENSITIVE
                 );
@@ -101,13 +165,13 @@ public final class ExpressionFunctionsTest implements PublicStaticHelperTesting<
 
     @Test
     public void testLookupCaseInsensitiveWrongCase() {
-        final ExpressionFunction<Void, ExpressionEvaluationContext> function = function("test-function-1");
+        final ExpressionFunction<Void, ExpressionEvaluationContext> function = functionWithName("test-functionWithName-1");
 
         final Function<FunctionExpressionName, Optional<ExpressionFunction<?, ExpressionEvaluationContext>>> lookup =
                 ExpressionFunctions.lookup(
                         Sets.of(
                                 function,
-                                function("test-function-2")
+                                functionWithName("test-functionWithName-2")
                         ),
                         CaseSensitivity.INSENSITIVE
                 );
@@ -116,36 +180,37 @@ public final class ExpressionFunctionsTest implements PublicStaticHelperTesting<
                         function
                 ),
                 lookup.apply(
-                        FunctionExpressionName.with("TEST-function-1")
+                        FunctionExpressionName.with("TEST-functionWithName-1")
                 )
         );
     }
 
     @Test
     public void testLookupCaseInsensitiveNotFound() {
-        final ExpressionFunction<Void, ExpressionEvaluationContext> function = function("test-function-1");
+        final ExpressionFunction<Void, ExpressionEvaluationContext> function = functionWithName("test-functionWithName-1");
 
         final Function<FunctionExpressionName, Optional<ExpressionFunction<?, ExpressionEvaluationContext>>> lookup =
                 ExpressionFunctions.lookup(
                         Sets.of(
                                 function,
-                                function("test-function-2")
+                                functionWithName("test-functionWithName-2")
                         ),
                         CaseSensitivity.INSENSITIVE
                 );
         this.checkEquals(
                 Optional.empty(),
                 lookup.apply(
-                        FunctionExpressionName.with("TEST-function-unknown")
+                        FunctionExpressionName.with("TEST-functionWithName-unknown")
                 )
         );
     }
 
-    private static ExpressionFunction<Void, ExpressionEvaluationContext> function(final String name) {
+    private static ExpressionFunction<Void, ExpressionEvaluationContext> functionWithName(final String name) {
         return new FakeExpressionFunction<>() {
             @Override
-            public FunctionExpressionName name() {
-                return FunctionExpressionName.with(name);
+            public Optional<FunctionExpressionName> name() {
+                return Optional.ofNullable(name)
+                        .map(FunctionExpressionName::with);
             }
 
             @Override
@@ -158,7 +223,13 @@ public final class ExpressionFunctionsTest implements PublicStaticHelperTesting<
     @Test
     public void testVisit() {
         final Set<FunctionExpressionName> names = Sets.sorted();
-        ExpressionFunctions.visit((e) -> names.add(e.name()));
+
+        ExpressionFunctions.visit(
+                (e) -> names.add(
+                        e.name()
+                                .orElseThrow(() -> new IllegalStateException("function must have a name"))
+                )
+        );
 
         final Set<String> methods = Arrays.stream(ExpressionFunctions.class.getDeclaredMethods())
                 .filter(m -> m.getReturnType() == ExpressionFunction.class)
@@ -166,10 +237,20 @@ public final class ExpressionFunctionsTest implements PublicStaticHelperTesting<
                 .filter(m -> !(m.getName().equals("fake")))
                 .map(Method::getName)
                 .collect(Collectors.toCollection(Sets::sorted));
-        this.checkEquals(methods.size(),
+
+        this.checkEquals(
+                methods.size(),
                 names.size(),
-                () -> methods.toString());
-        this.checkEquals(true, names.contains(ExpressionFunctions.typeName().name()));
+                () -> methods.toString()
+        );
+        this.checkEquals(
+                true,
+                names.contains(
+                        ExpressionFunctions.typeName()
+                                .name()
+                                .get()
+                )
+        );
     }
 
     @Test

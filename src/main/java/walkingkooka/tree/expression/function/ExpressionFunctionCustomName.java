@@ -26,6 +26,7 @@ import walkingkooka.tree.expression.FunctionExpressionName;
 
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 
 /**
  * An {@link ExpressionFunction} that returns a different {@link FunctionExpressionName}.
@@ -36,7 +37,7 @@ final class ExpressionFunctionCustomName<T, C extends Context & ConverterContext
      * Factory called by {@link ExpressionFunction#setName}
      */
     static <T, C extends Context & ConverterContext & ExpressionNumberContext> ExpressionFunction<T, C> with(final ExpressionFunction<T, C> function,
-                                                                                                             final FunctionExpressionName name) {
+                                                                                                             final Optional<FunctionExpressionName> name) {
         Objects.requireNonNull(function, "function");
         Objects.requireNonNull(name, "name");
 
@@ -51,7 +52,7 @@ final class ExpressionFunctionCustomName<T, C extends Context & ConverterContext
      * Handles the special case not preventing double wrapping a {@link ExpressionFunctionCustomName}.
      */
     static <T, C extends Context & ConverterContext & ExpressionNumberContext> ExpressionFunction<T, C> unwrap(final ExpressionFunctionCustomName<T, C> function,
-                                                                                                               final FunctionExpressionName name) {
+                                                                                                               final Optional<FunctionExpressionName> name) {
         return new ExpressionFunctionCustomName<>(function.function, name);
     }
 
@@ -59,7 +60,7 @@ final class ExpressionFunctionCustomName<T, C extends Context & ConverterContext
      * Private ctor use factory.
      */
     private ExpressionFunctionCustomName(final ExpressionFunction<T, C> function,
-                                         final FunctionExpressionName name) {
+                                         final Optional<FunctionExpressionName> name) {
         super();
         this.function = function;
         this.name = name;
@@ -79,11 +80,11 @@ final class ExpressionFunctionCustomName<T, C extends Context & ConverterContext
     private final ExpressionFunction<T, C> function;
 
     @Override
-    public FunctionExpressionName name() {
+    public Optional<FunctionExpressionName> name() {
         return this.name;
     }
 
-    private final FunctionExpressionName name;
+    private final Optional<FunctionExpressionName> name;
 
     @Override
     public List<ExpressionFunctionParameter<?>> parameters(final int count) {
@@ -97,6 +98,8 @@ final class ExpressionFunctionCustomName<T, C extends Context & ConverterContext
 
     @Override
     public String toString() {
-        return this.name().toString();
+        return this.name()
+                .map(FunctionExpressionName::value)
+                .orElse(ANONYMOUS);
     }
 }

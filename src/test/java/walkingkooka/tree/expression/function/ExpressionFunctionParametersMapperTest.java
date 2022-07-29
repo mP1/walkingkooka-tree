@@ -25,6 +25,7 @@ import walkingkooka.tree.expression.ExpressionPurityContext;
 import walkingkooka.tree.expression.FunctionExpressionName;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.function.BiFunction;
 import java.util.stream.Collectors;
 
@@ -54,7 +55,7 @@ public final class ExpressionFunctionParametersMapperTest extends ExpressionFunc
         }
 
         @Override
-        public FunctionExpressionName name() {
+        public Optional<FunctionExpressionName> name() {
             return NAME;
         }
 
@@ -67,7 +68,9 @@ public final class ExpressionFunctionParametersMapperTest extends ExpressionFunc
         }
     };
 
-    private final static FunctionExpressionName NAME = FunctionExpressionName.with("custom-function");
+    private final static Optional<FunctionExpressionName> NAME = Optional.of(
+            FunctionExpressionName.with("custom-function")
+    );
 
     @Test
     public void testWithNullMapperFails() {

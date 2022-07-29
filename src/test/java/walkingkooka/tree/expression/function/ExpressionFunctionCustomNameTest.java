@@ -24,6 +24,7 @@ import walkingkooka.tree.expression.ExpressionEvaluationContext;
 import walkingkooka.tree.expression.FunctionExpressionName;
 
 import java.util.List;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertNotSame;
 import static org.junit.jupiter.api.Assertions.assertSame;
@@ -31,7 +32,9 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class ExpressionFunctionCustomNameTest extends ExpressionFunctionTestCase<ExpressionFunctionCustomName<String, ExpressionEvaluationContext>, String> {
 
-    private final static FunctionExpressionName NAME = FunctionExpressionName.with("Custom");
+    private final static Optional<FunctionExpressionName> NAME = Optional.of(
+            FunctionExpressionName.with("Custom")
+    );
 
     @Test
     public void testWithNullFunctionFails() {
@@ -60,7 +63,9 @@ public final class ExpressionFunctionCustomNameTest extends ExpressionFunctionTe
     @Test
     public void testSetNameDifferent() {
         final ExpressionFunctionCustomName<String, ExpressionEvaluationContext> function = this.createBiFunction();
-        final FunctionExpressionName different = FunctionExpressionName.with("different");
+        final Optional<FunctionExpressionName> different = Optional.of(
+                FunctionExpressionName.with("different")
+        );
         final ExpressionFunction<String, ExpressionEvaluationContext> differentFunction = function.setName(different);
 
         assertNotSame(function, differentFunction);
@@ -72,7 +77,11 @@ public final class ExpressionFunctionCustomNameTest extends ExpressionFunctionTe
 
     @Test
     public void testToString() {
-        this.toStringAndCheck(this.createBiFunction(), NAME.toString());
+        this.toStringAndCheck(
+                this.createBiFunction(),
+                NAME.get()
+                        .toString()
+        );
     }
 
     @Override

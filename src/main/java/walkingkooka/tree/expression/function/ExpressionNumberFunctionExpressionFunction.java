@@ -27,6 +27,7 @@ import walkingkooka.tree.expression.FunctionExpressionName;
 
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 
 /**
  * An {@link ExpressionFunction} that delegates all calls to a {@link ExpressionNumberFunction}. A single {@link ExpressionNumber}
@@ -34,7 +35,7 @@ import java.util.Objects;
  */
 final class ExpressionNumberFunctionExpressionFunction<C extends Context & ConverterContext & ExpressionNumberContext> implements ExpressionFunction<ExpressionNumber, C> {
 
-    static <C extends Context & ConverterContext & ExpressionNumberContext> ExpressionNumberFunctionExpressionFunction<C> with(final FunctionExpressionName name,
+    static <C extends Context & ConverterContext & ExpressionNumberContext> ExpressionNumberFunctionExpressionFunction<C> with(final Optional<FunctionExpressionName> name,
                                                                                                                                final ExpressionNumberFunction function) {
         Objects.requireNonNull(name, "name");
         Objects.requireNonNull(function, "function");
@@ -42,7 +43,7 @@ final class ExpressionNumberFunctionExpressionFunction<C extends Context & Conve
         return new ExpressionNumberFunctionExpressionFunction<>(name, function);
     }
 
-    private ExpressionNumberFunctionExpressionFunction(final FunctionExpressionName name,
+    private ExpressionNumberFunctionExpressionFunction(final Optional<FunctionExpressionName> name,
                                                        final ExpressionNumberFunction function) {
         super();
         this.name = name;
@@ -50,11 +51,11 @@ final class ExpressionNumberFunctionExpressionFunction<C extends Context & Conve
     }
 
     @Override
-    public FunctionExpressionName name() {
+    public Optional<FunctionExpressionName> name() {
         return this.name;
     }
 
-    private final FunctionExpressionName name;
+    private final Optional<FunctionExpressionName> name;
 
     @Override
     public ExpressionNumber apply(final List<Object> parameters,

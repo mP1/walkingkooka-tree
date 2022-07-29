@@ -24,6 +24,7 @@ import walkingkooka.tree.expression.ExpressionPurityContext;
 import walkingkooka.tree.expression.FunctionExpressionName;
 
 import java.util.List;
+import java.util.Optional;
 
 public class FakeExpressionFunction<T, C extends Context & ConverterContext & ExpressionNumberContext> implements ExpressionFunction<T, C> {
     @Override
@@ -38,7 +39,7 @@ public class FakeExpressionFunction<T, C extends Context & ConverterContext & Ex
     }
 
     @Override
-    public FunctionExpressionName name() {
+    public Optional<FunctionExpressionName> name() {
         throw new UnsupportedOperationException();
     }
 
