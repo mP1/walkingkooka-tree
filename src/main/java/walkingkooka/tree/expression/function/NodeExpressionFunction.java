@@ -26,6 +26,7 @@ import walkingkooka.tree.expression.FunctionExpressionName;
 import walkingkooka.tree.select.NodeSelectorExpressionEvaluationContext;
 
 import java.util.List;
+import java.util.Optional;
 
 /**
  * Returns the current {@link Node} which is fetched from {@link NodeSelectorExpressionEvaluationContext#node()}
@@ -66,11 +67,13 @@ final class NodeExpressionFunction<N extends Node<N, NAME, ANAME, AVALUE>,
     }
 
     @Override
-    public FunctionExpressionName name() {
+    public Optional<FunctionExpressionName> name() {
         return NAME;
     }
 
-    private final static FunctionExpressionName NAME = FunctionExpressionName.with("node");
+    private final static Optional<FunctionExpressionName> NAME = Optional.of(
+            FunctionExpressionName.with("node")
+    );
 
     @Override
     public List<ExpressionFunctionParameter<?>> parameters(final int count) {
@@ -91,6 +94,8 @@ final class NodeExpressionFunction<N extends Node<N, NAME, ANAME, AVALUE>,
 
     @Override
     public String toString() {
-        return this.name().toString();
+        return this.name()
+                .get()
+                .toString();
     }
 }

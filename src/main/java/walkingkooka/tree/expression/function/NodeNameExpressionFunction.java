@@ -26,6 +26,7 @@ import walkingkooka.tree.expression.ExpressionPurityContext;
 import walkingkooka.tree.expression.FunctionExpressionName;
 
 import java.util.List;
+import java.util.Optional;
 
 /**
  * A non standard function that returns {@link Node#name()}. It assumes the {@link Node} is the first parameter.
@@ -62,11 +63,13 @@ final class NodeNameExpressionFunction<C extends Context & ConverterContext & Ex
     }
 
     @Override
-    public FunctionExpressionName name() {
+    public Optional<FunctionExpressionName> name() {
         return NAME;
     }
 
-    private final static FunctionExpressionName NAME = FunctionExpressionName.with("name");
+    private final static Optional<FunctionExpressionName> NAME = Optional.of(
+            FunctionExpressionName.with("name")
+    );
 
     @Override
     public List<ExpressionFunctionParameter<?>> parameters(final int count) {
@@ -91,6 +94,8 @@ final class NodeNameExpressionFunction<C extends Context & ConverterContext & Ex
 
     @Override
     public String toString() {
-        return this.name().toString();
+        return this.name()
+                .get()
+                .toString();
     }
 }

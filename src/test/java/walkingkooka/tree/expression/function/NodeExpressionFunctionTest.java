@@ -52,7 +52,10 @@ public final class NodeExpressionFunctionTest implements ClassTesting2<NodeExpre
 
     @Test
     public void testToString() {
-        this.toStringAndCheck(this.createBiFunction(), "node");
+        this.toStringAndCheck(
+                this.createBiFunction(),
+                "node"
+        );
     }
 
     @Override

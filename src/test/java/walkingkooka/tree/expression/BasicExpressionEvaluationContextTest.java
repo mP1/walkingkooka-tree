@@ -197,8 +197,8 @@ public final class BasicExpressionEvaluationContextTest implements ClassTesting2
                 this.createContext(
                         (n) -> new FakeExpressionFunction<>() {
                             @Override
-                            public FunctionExpressionName name() {
-                                return name;
+                            public Optional<FunctionExpressionName> name() {
+                                return Optional.of(name);
                             }
 
                             @Override
@@ -406,43 +406,41 @@ public final class BasicExpressionEvaluationContextTest implements ClassTesting2
 
         this.evaluateAndCheck(
                 BasicExpressionEvaluationContext.with(
-                                kind,
-                                (n) -> {
-                                    return new FakeExpressionFunction<>() {
-                                        @Override
-                                        public Object apply(final List<Object> objects,
-                                                            final ExpressionEvaluationContext context) {
-                                            throw new UnsupportedOperationException("Thrown123");
-                                        }
+                        kind,
+                        (n) -> new FakeExpressionFunction<>() {
+                            @Override
+                            public Object apply(final List<Object> objects,
+                                                final ExpressionEvaluationContext context) {
+                                throw new UnsupportedOperationException("Thrown123");
+                            }
 
-                                        @Override
-                                        public FunctionExpressionName name() {
-                                            return name;
-                                        }
+                            @Override
+                            public Optional<FunctionExpressionName> name() {
+                                return Optional.of(name);
+                            }
 
-                                        @Override
-                                        public List<ExpressionFunctionParameter<?>> parameters(final int count) {
-                                            return ExpressionFunctionParameter.EMPTY;
-                                        }
-                                    };
-                                },
-                                (r) -> "@@@" + r.getMessage(),
-                                (r) -> {
-                                    throw new UnsupportedOperationException();
-                                },
-                                (r) -> {
-                                    throw new UnsupportedOperationException();
-                                },
-                                CASE_SENSITIVITY,
-                                new FakeConverterContext() {
-                                    @Override
-                                    public <T> Either<T, String> convert(final Object value,
-                                                                         final Class<T> target) {
-                                        return Cast.to(
-                                                Either.left(value)
-                                        );
-                                    }
-                                }
+                            @Override
+                            public List<ExpressionFunctionParameter<?>> parameters(final int count) {
+                                return ExpressionFunctionParameter.EMPTY;
+                            }
+                        },
+                        (r) -> "@@@" + r.getMessage(),
+                        (r) -> {
+                            throw new UnsupportedOperationException();
+                        },
+                        (r) -> {
+                            throw new UnsupportedOperationException();
+                        },
+                        CASE_SENSITIVITY,
+                        new FakeConverterContext() {
+                            @Override
+                            public <T> Either<T, String> convert(final Object value,
+                                                                 final Class<T> target) {
+                                return Cast.to(
+                                        Either.left(value)
+                                );
+                            }
+                        }
                 ),
                 name,
                 Lists.empty(),
