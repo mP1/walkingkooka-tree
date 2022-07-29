@@ -28,6 +28,8 @@ import java.util.Optional;
 import java.util.function.BiFunction;
 import java.util.function.IntFunction;
 
+import static org.junit.jupiter.api.Assertions.assertNotSame;
+import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class BasicExpressionFunctionTest implements ExpressionFunctionTesting<BasicExpressionFunction<String, FakeExpressionEvaluationContext>, String, FakeExpressionEvaluationContext> {
@@ -106,6 +108,25 @@ public final class BasicExpressionFunctionTest implements ExpressionFunctionTest
                         biFunction
                 )
         );
+    }
+
+    @Test
+    public void testSetNameSame() {
+        final BasicExpressionFunction<String, FakeExpressionEvaluationContext> function = this.createBiFunction();
+        assertSame(function, function.setName(NAME));
+    }
+
+    @Test
+    public void testSetNameDifferent() {
+        final BasicExpressionFunction<String, FakeExpressionEvaluationContext> function = this.createBiFunction();
+        final Optional<FunctionExpressionName> different = Optional.of(
+                FunctionExpressionName.with("different")
+        );
+        final ExpressionFunction<String, FakeExpressionEvaluationContext> differentFunction = function.setName(different);
+
+        assertNotSame(function, differentFunction);
+        assertSame(different, differentFunction.name());
+        this.checkEquals(NAME, function.name());
     }
 
     @Test

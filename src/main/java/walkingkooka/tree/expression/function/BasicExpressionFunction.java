@@ -64,6 +64,21 @@ final class BasicExpressionFunction<T, C extends ExpressionEvaluationContext> im
         return this.name;
     }
 
+    @Override
+    public ExpressionFunction<T, C> setName(final Optional<FunctionExpressionName> name) {
+        Objects.requireNonNull(name, "name");
+
+        return this.name().equals(name) ?
+                this :
+                new BasicExpressionFunction(
+                        name,
+                        this.pure,
+                        this.parameters,
+                        this.returnType,
+                        this.biFunction
+                );
+    }
+
     private final Optional<FunctionExpressionName> name;
 
     @Override
