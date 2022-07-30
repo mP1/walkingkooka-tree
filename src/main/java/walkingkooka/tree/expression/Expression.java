@@ -86,8 +86,12 @@ public abstract class Expression implements Node<Expression, FunctionExpressionN
     /**
      * {@see FunctionExpression}
      */
-    public static FunctionExpression function(final FunctionExpressionName name, final List<Expression> expressions) {
-        return FunctionExpression.with(name, expressions);
+    public static FunctionExpression function(final FunctionExpressionName name,
+                                              final List<Expression> parameters) {
+        return FunctionExpression.with(
+                name,
+                parameters
+        );
     }
 
     /**

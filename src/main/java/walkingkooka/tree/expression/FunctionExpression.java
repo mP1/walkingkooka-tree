@@ -31,18 +31,18 @@ public final class FunctionExpression extends VariableExpression {
     /**
      * Creates a new {@link FunctionExpression}
      */
-    static FunctionExpression with(final FunctionExpressionName name, final List<Expression> expressions) {
+    static FunctionExpression with(final FunctionExpressionName name, final List<Expression> parameters) {
         Objects.requireNonNull(name, "name");
-        Objects.requireNonNull(expressions, "expressions");
+        Objects.requireNonNull(parameters, "parameters");
 
-        return new FunctionExpression(NO_INDEX, name, expressions);
+        return new FunctionExpression(NO_INDEX, name, parameters);
     }
 
     /**
      * Private ctor
      */
-    private FunctionExpression(final int index, FunctionExpressionName name, final List<Expression> expressions) {
-        super(index, expressions);
+    private FunctionExpression(final int index, FunctionExpressionName name, final List<Expression> parameters) {
+        super(index, parameters);
         this.name = name;
     }
 
@@ -160,9 +160,9 @@ public final class FunctionExpression extends VariableExpression {
         b.append(this.name());
         b.append('(');
 
-        final List<Expression> expressions = this.value();
-        int last = expressions.size() - 1;
-        for (final Expression parameter : expressions) {
+        final List<Expression> parameters = this.value();
+        int last = parameters.size() - 1;
+        for (final Expression parameter : parameters) {
             parameter.toString0(b);
             last--;
             if (last >= 0) {
