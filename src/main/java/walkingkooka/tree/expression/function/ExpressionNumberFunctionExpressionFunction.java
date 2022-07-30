@@ -83,10 +83,6 @@ final class ExpressionNumberFunctionExpressionFunction<C extends Context & Conve
 
     private final static List<ExpressionFunctionParameter<?>> PARAMETERS = ExpressionFunctionParameter.list(NUMBER);
 
-    public boolean lsLastParameterVariable() {
-        return false;
-    }
-
     @Override
     public Class<ExpressionNumber> returnType() {
         return ExpressionNumber.class;
