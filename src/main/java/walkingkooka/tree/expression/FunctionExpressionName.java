@@ -25,7 +25,7 @@ import walkingkooka.text.CaseSensitivity;
 import walkingkooka.text.CharSequences;
 
 /**
- * The name of an {@link FunctionExpression}.
+ * The name of an {@link NamedFunctionExpression}.
  */
 public final class FunctionExpressionName implements Name,
         Comparable<FunctionExpressionName> {

@@ -73,7 +73,7 @@ final class ExpressionFunctionParametersFilter<T, C extends Context & ConverterC
     }
 
     /**
-     * The function that preprocesses parameters before calling the wrapped function
+     * The namedFunction that preprocesses parameters before calling the wrapped namedFunction
      */
     private final BiPredicate<Object, C> filter;
 

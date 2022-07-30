@@ -17,7 +17,7 @@
 package walkingkooka.tree.select.parser;
 
 /**
- * Holds a function name.
+ * Holds a namedFunction name.
  */
 public final class NodeSelectorFunctionNameParserToken extends NodeSelectorNonSymbolParserToken<NodeSelectorFunctionName> {
 

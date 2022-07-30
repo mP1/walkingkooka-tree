@@ -155,6 +155,16 @@ public class FakeExpressionVisitor extends ExpressionVisitor implements Fake {
     }
 
     @Override
+    protected Visiting startVisit(final NamedFunctionExpression node) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    protected void endVisit(final NamedFunctionExpression node) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
     protected Visiting startVisit(final NegativeExpression node) {
         throw new UnsupportedOperationException();
     }

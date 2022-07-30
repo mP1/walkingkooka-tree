@@ -29,7 +29,7 @@ import java.util.List;
 import java.util.Optional;
 
 /**
- * A non standard function that returns {@link Node#name()}. It assumes the {@link Node} is the first parameter.
+ * A non standard namedFunction that returns {@link Node#name()}. It assumes the {@link Node} is the first parameter.
  */
 final class NodeNameExpressionFunction<C extends Context & ConverterContext & ExpressionNumberContext> implements ExpressionFunction<String, C> {
 

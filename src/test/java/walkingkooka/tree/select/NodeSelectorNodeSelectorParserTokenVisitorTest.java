@@ -783,7 +783,7 @@ public final class NodeSelectorNodeSelectorParserTokenVisitorTest implements Nod
                 leaf2);
     }
 
-    // function: position().......................................................................................
+    // namedFunction: position().......................................................................................
 
     @Test
     public void testWildcardExpressionPosition() {
@@ -1517,7 +1517,7 @@ public final class NodeSelectorNodeSelectorParserTokenVisitorTest implements Nod
                 branch1);
     }
 
-    // function: boolean().......................................................................................
+    // namedFunction: boolean().......................................................................................
 
     @Test
     public void testWildcardExpressionBooleanTrue() {
@@ -1582,7 +1582,7 @@ public final class NodeSelectorNodeSelectorParserTokenVisitorTest implements Nod
                 child);
     }
 
-    // function: name.......................................................................................
+    // namedFunction: name.......................................................................................
 
     @Test
     public void testWildcardExpressionCurrentNodeName() {
@@ -1617,7 +1617,7 @@ public final class NodeSelectorNodeSelectorParserTokenVisitorTest implements Nod
                 leaf1, leaf2);
     }
 
-    // function: number().......................................................................................
+    // namedFunction: number().......................................................................................
 
     @Test
     public void testDescendantsOrSelfExpressionNumberPredicate() {
@@ -1630,7 +1630,7 @@ public final class NodeSelectorNodeSelectorParserTokenVisitorTest implements Nod
                 root, leaf);
     }
 
-    // function: true().......................................................................................
+    // namedFunction: true().......................................................................................
 
     @Test
     public void testExpressionStartsWithNameNodeEqualsTrueEvaluate() {
@@ -1661,7 +1661,7 @@ public final class NodeSelectorNodeSelectorParserTokenVisitorTest implements Nod
                 child);
     }
 
-    // function: false().......................................................................................
+    // namedFunction: false().......................................................................................
 
     @Test
     public void testExpressionStartsWithNameNodeEqualsFalseEvaluate() {
@@ -1918,7 +1918,7 @@ public final class NodeSelectorNodeSelectorParserTokenVisitorTest implements Nod
                                 default:
                                     return Cast.to(NodeSelectorContexts.basicFunctions()
                                             .apply(n)
-                                            .orElseThrow(() -> new IllegalArgumentException(("Unknown function \"" + n + "\""))));
+                                            .orElseThrow(() -> new IllegalArgumentException(("Unknown namedFunction \"" + n + "\""))));
                             }
                         };
                     }
@@ -2061,7 +2061,7 @@ public final class NodeSelectorNodeSelectorParserTokenVisitorTest implements Nod
     }
 
     private Expression function(final String name, final Expression... arguments) {
-        return Expression.function(FunctionExpressionName.with(name), Lists.of(arguments));
+        return Expression.namedFunction(FunctionExpressionName.with(name), Lists.of(arguments));
     }
 
     private ValueExpression<ExpressionNumber> expressionNumberExpression(final int value) {

@@ -440,7 +440,7 @@ abstract public class NodeSelectorTestCase4<S extends NodeSelector<TestNode, Str
     private Function<FunctionExpressionName, ExpressionFunction<?, ExpressionEvaluationContext>> functions() {
         return (n) -> Cast.to(NodeSelectorContexts.basicFunctions()
                 .apply(n)
-                .orElseThrow(() -> new IllegalArgumentException("Unknown function " + n)));
+                .orElseThrow(() -> new IllegalArgumentException("Unknown namedFunction " + n)));
     }
 
     private Function<RuntimeException, Object> exceptionHandler() {

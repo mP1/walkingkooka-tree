@@ -66,7 +66,7 @@ public final class ExpressionFunctionParametersFilterTest extends ExpressionFunc
     };
 
     private final static Optional<FunctionExpressionName> NAME = Optional.of(
-            FunctionExpressionName.with("custom-function")
+            FunctionExpressionName.with("custom-namedFunction")
     );
 
     @Test

@@ -37,7 +37,7 @@ final public class NodeSelectorFunctionNameTest implements ClassTesting2<NodeSel
 
     @Override
     public String nameText() {
-        return "function-22";
+        return "namedFunction-22";
     }
 
     @Override
@@ -47,7 +47,7 @@ final public class NodeSelectorFunctionNameTest implements ClassTesting2<NodeSel
 
     @Override
     public String nameTextLess() {
-        return "function-1";
+        return "namedFunction-1";
     }
 
     @Override

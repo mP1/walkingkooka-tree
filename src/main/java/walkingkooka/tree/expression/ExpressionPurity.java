@@ -19,7 +19,7 @@ package walkingkooka.tree.expression;
 
 /**
  * Reports if the implementation is pure, that is given the same inputs returns the same output and is without side effects.
- * Note this ignores function result differences any {@link ExpressionEvaluationContext} changes.
+ * Note this ignores namedFunction result differences any {@link ExpressionEvaluationContext} changes.
  */
 public interface ExpressionPurity {
     boolean isPure(final ExpressionPurityContext context);

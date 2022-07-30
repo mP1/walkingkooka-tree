@@ -24,7 +24,7 @@ import walkingkooka.predicate.character.CharPredicates;
 import walkingkooka.tree.expression.ExpressionReference;
 
 /**
- * The {@link Name} of a function.
+ * The {@link Name} of a namedFunction.
  */
 final public class NodeSelectorFunctionName extends NodeSelectorNameValue
         implements ExpressionReference, Comparable<NodeSelectorFunctionName> {
@@ -42,7 +42,7 @@ final public class NodeSelectorFunctionName extends NodeSelectorNameValue
         CharPredicates.failIfNullOrEmptyOrInitialAndPartFalse(name, NodeSelectorFunctionName.class.getSimpleName(), INITIAL, PART);
 
         if (name.length() > MAX_LENGTH) {
-            throw new InvalidTextLengthException("function name", name, 0, MAX_LENGTH);
+            throw new InvalidTextLengthException("namedFunction name", name, 0, MAX_LENGTH);
         }
 
         return new NodeSelectorFunctionName(name);

@@ -247,12 +247,12 @@ public final class ExpressionNodeSelectorToStringExpressionVisitorTest implement
 
     @Test
     public void testFunctionWithArguments2() {
-        this.toStringAndCheck(Expression.function(
-                FunctionExpressionName.with("fx"),
-                Lists.of(
-                        Expression.value(ExpressionNumberKind.DEFAULT.one()),
-                        Expression.value(ExpressionNumberKind.DEFAULT.create(2.5))
-                )),
+        this.toStringAndCheck(Expression.namedFunction(
+                        FunctionExpressionName.with("fx"),
+                        Lists.of(
+                                Expression.value(ExpressionNumberKind.DEFAULT.one()),
+                                Expression.value(ExpressionNumberKind.DEFAULT.create(2.5))
+                        )),
                 "fx(1,2.5)");
     }
 

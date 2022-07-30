@@ -84,17 +84,6 @@ public abstract class Expression implements Node<Expression, FunctionExpressionN
     }
 
     /**
-     * {@see FunctionExpression}
-     */
-    public static FunctionExpression function(final FunctionExpressionName name,
-                                              final List<Expression> parameters) {
-        return FunctionExpression.with(
-                name,
-                parameters
-        );
-    }
-
-    /**
      * {@see GreaterThanExpression}
      */
     public static GreaterThanExpression greaterThan(final Expression left, final Expression right) {
@@ -134,6 +123,17 @@ public abstract class Expression implements Node<Expression, FunctionExpressionN
      */
     public static MultiplyExpression multiply(final Expression left, final Expression right) {
         return MultiplyExpression.with(left, right);
+    }
+
+    /**
+     * {@see NamedFunctionExpression}
+     */
+    public static NamedFunctionExpression namedFunction(final FunctionExpressionName name,
+                                                        final List<Expression> parameters) {
+        return NamedFunctionExpression.with(
+                name,
+                parameters
+        );
     }
 
     /**
@@ -317,13 +317,6 @@ public abstract class Expression implements Node<Expression, FunctionExpressionN
     }
 
     /**
-     * Only {@link FunctionExpression} returns true
-     */
-    public final boolean isFunction() {
-        return this instanceof FunctionExpression;
-    }
-
-    /**
      * Only {@link GreaterThanExpression} returns true
      */
     public final boolean isGreaterThan() {
@@ -370,6 +363,13 @@ public abstract class Expression implements Node<Expression, FunctionExpressionN
      */
     public final boolean isMultiply() {
         return this instanceof MultiplyExpression;
+    }
+
+    /**
+     * Only {@link NamedFunctionExpression} returns true
+     */
+    public final boolean isNamedFunction() {
+        return this instanceof NamedFunctionExpression;
     }
 
     /**

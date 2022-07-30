@@ -51,7 +51,7 @@ final class BasicNodeSelectorContextFunction implements Function<FunctionExpress
     private void register(final ExpressionFunction<?, ?> function) {
         this.nameToFunction.put(
                 function.name()
-                        .orElseThrow(() -> new IllegalStateException("Missing function name")),
+                        .orElseThrow(() -> new IllegalStateException("Missing namedFunction name")),
                 function
         );
     }
@@ -62,7 +62,7 @@ final class BasicNodeSelectorContextFunction implements Function<FunctionExpress
     }
 
     /**
-     * Provides a lookup by {@link FunctionExpressionName function name} to the actual function.
+     * Provides a lookup by {@link FunctionExpressionName namedFunction name} to the actual namedFunction.
      */
     private final Map<FunctionExpressionName, ExpressionFunction<?, ?>> nameToFunction;
 
