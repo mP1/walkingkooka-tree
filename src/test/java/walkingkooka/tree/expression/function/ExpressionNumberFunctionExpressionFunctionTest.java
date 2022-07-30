@@ -112,14 +112,6 @@ public final class ExpressionNumberFunctionExpressionFunctionTest implements Exp
     }
 
     @Test
-    public void testIsLastParameterVariable() {
-        this.checkEquals(
-                false,
-                this.createBiFunction().lsLastParameterVariable()
-        );
-    }
-
-    @Test
     public void testIsPure() {
         this.isPureAndCheck(
                 this.createBiFunction(),
