@@ -30,8 +30,9 @@ import java.util.Objects;
 import java.util.Optional;
 
 /**
- * An {@link ExpressionFunction} that delegates all calls to a {@link ExpressionNumberFunction}. A single {@link ExpressionNumber}
- * parameter is required and only accepted.
+ * An {@link ExpressionFunction} that handles unwrapping a single {@link ExpressionNumber} parameter.
+ * The {@link ExpressionNumber} value type ({@link java.math.BigDecimal} or {@link double} is then used to call one of the two {@link ExpressionNumberFunction} overloads.
+ * The {@link Number} result is then rewrapped back into an {@link ExpressionNumber} and becomes the result of this {@link ExpressionFunction}.
  */
 final class ExpressionNumberFunctionExpressionFunction<C extends Context & ConverterContext & ExpressionNumberContext> implements ExpressionFunction<ExpressionNumber, C> {
 
