@@ -17,9 +17,8 @@
 
 package walkingkooka.tree.expression.function;
 
+import walkingkooka.tree.expression.ExpressionEvaluationContext;
 import walkingkooka.tree.expression.ExpressionNumber;
-import walkingkooka.tree.expression.ExpressionNumberContext;
-import walkingkooka.tree.expression.ExpressionNumberConverterContext;
 import walkingkooka.tree.expression.ExpressionNumberFunction;
 import walkingkooka.tree.expression.ExpressionPurityContext;
 import walkingkooka.tree.expression.FunctionExpressionName;
@@ -33,10 +32,10 @@ import java.util.Optional;
  * The {@link ExpressionNumber} value type ({@link java.math.BigDecimal} or {@link double} is then used to call one of the two {@link ExpressionNumberFunction} overloads.
  * The {@link Number} result is then rewrapped back into an {@link ExpressionNumber} and becomes the result of this {@link ExpressionFunction}.
  */
-final class ExpressionNumberFunctionExpressionFunction<C extends ExpressionNumberContext & ExpressionNumberConverterContext> implements ExpressionFunction<ExpressionNumber, C> {
+final class ExpressionNumberFunctionExpressionFunction<C extends ExpressionEvaluationContext> implements ExpressionFunction<ExpressionNumber, C> {
 
-    static <C extends ExpressionNumberContext & ExpressionNumberConverterContext> ExpressionNumberFunctionExpressionFunction<C> with(final Optional<FunctionExpressionName> name,
-                                                                                                                                     final ExpressionNumberFunction function) {
+    static <C extends ExpressionEvaluationContext> ExpressionNumberFunctionExpressionFunction<C> with(final Optional<FunctionExpressionName> name,
+                                                                                                      final ExpressionNumberFunction function) {
         Objects.requireNonNull(name, "name");
         Objects.requireNonNull(function, "function");
 
