@@ -37,7 +37,7 @@ final class ExpressionNumberFunctionExpressionFunction<C extends ExpressionEvalu
     static <C extends ExpressionEvaluationContext> ExpressionNumberFunctionExpressionFunction<C> with(final Optional<FunctionExpressionName> name,
                                                                                                       final ExpressionNumberFunction function) {
         Objects.requireNonNull(name, "name");
-        Objects.requireNonNull(function, "function");
+        Objects.requireNonNull(function, "namedFunction");
 
         return new ExpressionNumberFunctionExpressionFunction<>(name, function);
     }

@@ -82,7 +82,7 @@ public interface ExpressionEvaluationContext extends Context,
     }
 
     /**
-     * This method is called with each parameter and value pair, prior to invoking the function.
+     * This method is called with each parameter and value pair, prior to invoking the namedFunction.
      * <br>
      * This provides an opportunity to convert the value to the required parameter type if the language requires such
      * semantics.
@@ -96,7 +96,7 @@ public interface ExpressionEvaluationContext extends Context,
     List<Object> NO_PARAMETERS = Lists.empty();
 
     /**
-     * Locates a function with the given name and then executes it with the provided parameter values.
+     * Locates a namedFunction with the given name and then executes it with the provided parameter values.
      */
     Object evaluate(final FunctionExpressionName name, final List<Object> parameters);
 

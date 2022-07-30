@@ -91,7 +91,7 @@ final class BasicNodeSelectorExpressionEvaluationContext<N extends Node<N, NAME,
 
     private final N node;
 
-    // function.........................................................................................................
+    // namedFunction.........................................................................................................
 
     @Override
     public ExpressionFunction<?, ExpressionEvaluationContext> function(final FunctionExpressionName name) {
@@ -110,7 +110,7 @@ final class BasicNodeSelectorExpressionEvaluationContext<N extends Node<N, NAME,
     }
 
     /**
-     * Before invoking the function identified by the given {@link FunctionExpressionName} parameters are resolved
+     * Before invoking the namedFunction identified by the given {@link FunctionExpressionName} parameters are resolved
      */
     @Override
     public Object evaluate(final FunctionExpressionName name,

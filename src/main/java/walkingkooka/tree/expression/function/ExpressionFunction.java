@@ -34,14 +34,14 @@ import java.util.function.BiPredicate;
 import java.util.stream.Collectors;
 
 /**
- * Basic contract for a function within a {@link walkingkooka.tree.expression.ExpressionEvaluationContext}
+ * Basic contract for a namedFunction within a {@link walkingkooka.tree.expression.ExpressionEvaluationContext}
  */
 public interface ExpressionFunction<T, C extends Context & ConverterContext & ExpressionNumberContext> extends BiFunction<List<Object>, C, T>,
         ExpressionPurity,
         HasOptionalName<FunctionExpressionName> {
 
     /**
-     * The default name for a function without any name, often used by {@link #toString()}.
+     * The default name for a namedFunction without any name, often used by {@link #toString()}.
      */
     String ANONYMOUS = "<anonymous>";
 
@@ -69,7 +69,7 @@ public interface ExpressionFunction<T, C extends Context & ConverterContext & Ex
     }
 
     /**
-     * Returns meta info about the parameters for this function.
+     * Returns meta info about the parameters for this namedFunction.
      */
     List<ExpressionFunctionParameter<?>> parameters(int count);
 
@@ -104,14 +104,14 @@ public interface ExpressionFunction<T, C extends Context & ConverterContext & Ex
     }
 
     /**
-     * The return type of this function
+     * The return type of this namedFunction
      *
-     * @return The return type of this function
+     * @return The return type of this namedFunction
      */
     Class<T> returnType();
 
     /**
-     * Returns a ne {@link ExpressionFunction} that adds the parameter mapper before this function.
+     * Returns a ne {@link ExpressionFunction} that adds the parameter mapper before this namedFunction.
      */
     default ExpressionFunction<T, C> mapParameters(final BiFunction<List<Object>, C, List<Object>> mapper) {
         return ExpressionFunctionParametersMapper.with(mapper, this);

@@ -86,14 +86,6 @@ public abstract class ExpressionVisitor extends Visitor<Expression> {
         // nop
     }
 
-    protected Visiting startVisit(final FunctionExpression node) {
-        return Visiting.CONTINUE;
-    }
-
-    protected void endVisit(final FunctionExpression node) {
-        // nop
-    }
-
     protected Visiting startVisit(final GreaterThanExpression node) {
         return Visiting.CONTINUE;
     }
@@ -147,6 +139,14 @@ public abstract class ExpressionVisitor extends Visitor<Expression> {
     }
 
     protected void endVisit(final MultiplyExpression node) {
+        // nop
+    }
+
+    protected Visiting startVisit(final NamedFunctionExpression node) {
+        return Visiting.CONTINUE;
+    }
+
+    protected void endVisit(final NamedFunctionExpression node) {
         // nop
     }
 

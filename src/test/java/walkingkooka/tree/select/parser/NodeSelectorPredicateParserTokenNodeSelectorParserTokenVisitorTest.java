@@ -39,7 +39,7 @@ public final class NodeSelectorPredicateParserTokenNodeSelectorParserTokenVisito
 
         final NodeSelectorException thrown = assertThrows(NodeSelectorException.class, () -> new NodeSelectorPredicateParserTokenNodeSelectorParserTokenVisitor(Predicates.never())
                 .accept(token));
-        checkMessage(thrown, "Unknown function \"zyx\" in \"xyz\"");
+        checkMessage(thrown, "Unknown namedFunction \"zyx\" in \"xyz\"");
     }
 
     @Override

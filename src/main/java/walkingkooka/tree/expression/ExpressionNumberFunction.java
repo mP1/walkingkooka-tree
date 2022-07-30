@@ -25,7 +25,7 @@ import java.math.MathContext;
 import java.util.Optional;
 
 /**
- * A function that may be applied to a {@link ExpressionNumber}. The appropriate method is called depending on the
+ * A namedFunction that may be applied to a {@link ExpressionNumber}. The appropriate method is called depending on the
  * {@link ExpressionNumberKind}.
  */
 public interface ExpressionNumberFunction {
@@ -37,7 +37,7 @@ public interface ExpressionNumberFunction {
     /**
      * Factory that creates a {@link ExpressionFunction} with the provided name that accepts a single ExpressionNumber, maps that
      * with this {@link ExpressionNumberFunction} and returns a {@link ExpressionNumber}.
-     * This function does not handle lists or var args.
+     * This namedFunction does not handle lists or var args.
      */
     default <C extends ExpressionEvaluationContext> ExpressionFunction<ExpressionNumber, C> function(final Optional<FunctionExpressionName> name) {
         return ExpressionFunctions.expressionNumberFunction(

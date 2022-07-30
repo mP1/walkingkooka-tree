@@ -25,7 +25,6 @@ import walkingkooka.tree.expression.DivideExpression;
 import walkingkooka.tree.expression.EqualsExpression;
 import walkingkooka.tree.expression.Expression;
 import walkingkooka.tree.expression.ExpressionVisitor;
-import walkingkooka.tree.expression.FunctionExpression;
 import walkingkooka.tree.expression.GreaterThanEqualsExpression;
 import walkingkooka.tree.expression.GreaterThanExpression;
 import walkingkooka.tree.expression.LessThanEqualsExpression;
@@ -33,6 +32,7 @@ import walkingkooka.tree.expression.LessThanExpression;
 import walkingkooka.tree.expression.ListExpression;
 import walkingkooka.tree.expression.ModuloExpression;
 import walkingkooka.tree.expression.MultiplyExpression;
+import walkingkooka.tree.expression.NamedFunctionExpression;
 import walkingkooka.tree.expression.NegativeExpression;
 import walkingkooka.tree.expression.NotEqualsExpression;
 import walkingkooka.tree.expression.NotExpression;
@@ -92,11 +92,6 @@ final class NodeSelectorExpressionExpressionVisitor<N extends Node<N, NAME, ANAM
     }
 
     @Override
-    protected Visiting startVisit(final FunctionExpression node) {
-        return Visiting.SKIP;
-    }
-
-    @Override
     protected Visiting startVisit(final GreaterThanExpression node) {
         return Visiting.SKIP;
     }
@@ -128,6 +123,11 @@ final class NodeSelectorExpressionExpressionVisitor<N extends Node<N, NAME, ANAM
 
     @Override
     protected Visiting startVisit(final MultiplyExpression node) {
+        return Visiting.SKIP;
+    }
+
+    @Override
+    protected Visiting startVisit(final NamedFunctionExpression node) {
         return Visiting.SKIP;
     }
 

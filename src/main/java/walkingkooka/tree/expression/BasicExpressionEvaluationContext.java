@@ -33,7 +33,7 @@ import java.util.function.Function;
 
 /**
  * An {@link ExpressionEvaluationContext} delegates to helpers or constants for each method.
- * Note that function parameters have any {@link Expression} & {@link ExpressionReference} evaluated to values and
+ * Note that namedFunction parameters have any {@link Expression} & {@link ExpressionReference} evaluated to values and
  * values are also converted to the parameter's type.
  * This is useful for languages or environments that have auto converting of value semantics, think Javascript.
  */

@@ -34,7 +34,7 @@ import java.util.function.Predicate;
 
 /**
  * This {@link NodeSelectorParserTokenVisitor} translates a {@link NodeSelectorPredicateParserToken} into a {@link Expression} equivalent.
- * A support {@link walkingkooka.tree.expression.ExpressionEvaluationContext} will provide function to definition and attribute to value lookups.
+ * A support {@link walkingkooka.tree.expression.ExpressionEvaluationContext} will provide namedFunction to definition and attribute to value lookups.
  */
 final class NodeSelectorPredicateParserTokenNodeSelectorParserTokenVisitor extends NodeSelectorParserTokenVisitor {
 
@@ -113,10 +113,10 @@ final class NodeSelectorPredicateParserTokenNodeSelectorParserTokenVisitor exten
     protected void endVisit(final NodeSelectorFunctionParserToken token) {
         final FunctionExpressionName functionName = FunctionExpressionName.with(token.functionName().value());
         if (!this.functions.test(functionName)) {
-            throw new NodeSelectorException("Unknown function " + CharSequences.quoteAndEscape(functionName.value()) + " in " + CharSequences.quoteAndEscape(token.toString()));
+            throw new NodeSelectorException("Unknown namedFunction " + CharSequences.quoteAndEscape(functionName.value()) + " in " + CharSequences.quoteAndEscape(token.toString()));
         }
 
-        final Expression function = Expression.function(
+        final Expression function = Expression.namedFunction(
                 functionName,
                 this.children.subList(1, this.children.size()));
         this.exit();

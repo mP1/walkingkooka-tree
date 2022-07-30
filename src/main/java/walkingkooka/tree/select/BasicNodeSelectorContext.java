@@ -127,7 +127,7 @@ final class BasicNodeSelectorContext<N extends Node<N, NAME, ANAME, AVALUE>, NAM
     private final Function<NodeSelectorContext<N, NAME, ANAME, AVALUE>, ExpressionEvaluationContext> expressionEvaluationContext;
 
     /**
-     * The current {@link Node} which is also becomes the first argument for all function invocations.
+     * The current {@link Node} which is also becomes the first argument for all namedFunction invocations.
      */
     private N current;
 

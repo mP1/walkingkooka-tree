@@ -48,7 +48,7 @@ public interface ExpressionEvaluationContextTesting<C extends ExpressionEvaluati
         assertThrows(
                 UnknownExpressionFunctionException.class,
                 () -> this.createContext()
-                        .evaluate(Expression.function(FunctionExpressionName.with("unknown-function-123"), Expression.NO_CHILDREN)
+                        .evaluate(Expression.namedFunction(FunctionExpressionName.with("unknown-namedFunction-123"), Expression.NO_CHILDREN)
                         )
         );
     }
@@ -161,7 +161,7 @@ public interface ExpressionEvaluationContextTesting<C extends ExpressionEvaluati
     }
 
     default FunctionExpressionName unknownFunctionName() {
-        return FunctionExpressionName.with("unknown-function-123");
+        return FunctionExpressionName.with("unknown-namedFunction-123");
     }
 
     default C createCanConvert() {

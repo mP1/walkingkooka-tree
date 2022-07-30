@@ -46,8 +46,8 @@ import java.util.function.IntFunction;
 public final class ExpressionFunctions implements PublicStaticHelper {
 
     /**
-     * Returns a function that may or may not be case-sensitive when performing function name lookups.
-     * If the {@link Set} includes an anonymous function (where {@link ExpressionFunction#name() returns @link Optional#empty()}.
+     * Returns a namedFunction that may or may not be case-sensitive when performing namedFunction name lookups.
+     * If the {@link Set} includes an anonymous namedFunction (where {@link ExpressionFunction#name() returns @link Optional#empty()}.
      */
     public static <C extends ExpressionEvaluationContext> Function<FunctionExpressionName, Optional<ExpressionFunction<?, C>>> lookup(final Set<ExpressionFunction<?, C>> functions,
                                                                                                                                       final CaseSensitivity caseSensitivity) {
@@ -57,13 +57,13 @@ public final class ExpressionFunctions implements PublicStaticHelper {
 
         for (final ExpressionFunction<?, C> function : functions) {
             final String name = function.name()
-                    .orElseThrow(() -> new IllegalArgumentException("Anonymous function encountered"))
+                    .orElseThrow(() -> new IllegalArgumentException("Anonymous namedFunction encountered"))
                     .value();
             if (null != nameToFunctions.put(
                     name,
                     function
             )) {
-                throw new IllegalArgumentException("Duplicate function " + CharSequences.quote(name));
+                throw new IllegalArgumentException("Duplicate namedFunction " + CharSequences.quote(name));
             }
             ;
         }
@@ -78,7 +78,7 @@ public final class ExpressionFunctions implements PublicStaticHelper {
     }
 
     /**
-     * Visit all {@link ExpressionFunction functions}. Note this does not include the {@link #fake() fake function}
+     * Visit all {@link ExpressionFunction functions}. Note this does not include the {@link #fake() fake namedFunction}
      */
     public static void visit(final Consumer<ExpressionFunction<?, ?>> consumer) {
         Lists.of(

@@ -23,7 +23,7 @@ import walkingkooka.visit.Visiting;
 import java.util.List;
 
 /**
- * Holds a unary negative token with an argument such as a number or function.
+ * Holds a unary negative token with an argument such as a number or namedFunction.
  */
 public final class NodeSelectorNegativeParserToken extends NodeSelectorParentParserToken<NodeSelectorNegativeParserToken> {
 

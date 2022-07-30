@@ -73,7 +73,7 @@ public final class ExpressionFunctionsTest implements PublicStaticHelperTesting<
                         )
         );
         this.checkEquals(
-                "Anonymous function encountered",
+                "Anonymous namedFunction encountered",
                 thrown.getMessage(),
                 "message"
         );
@@ -94,7 +94,7 @@ public final class ExpressionFunctionsTest implements PublicStaticHelperTesting<
                 }
         );
         this.checkEquals(
-                "Duplicate function \"duplicate123\"",
+                "Duplicate namedFunction \"duplicate123\"",
                 thrown.getMessage(),
                 "message"
         );
@@ -115,7 +115,7 @@ public final class ExpressionFunctionsTest implements PublicStaticHelperTesting<
                 }
         );
         this.checkEquals(
-                "Duplicate function \"DUPLICATE123\"",
+                "Duplicate namedFunction \"DUPLICATE123\"",
                 thrown.getMessage(),
                 "message"
         );
@@ -227,7 +227,7 @@ public final class ExpressionFunctionsTest implements PublicStaticHelperTesting<
         ExpressionFunctions.visit(
                 (e) -> names.add(
                         e.name()
-                                .orElseThrow(() -> new IllegalStateException("function must have a name"))
+                                .orElseThrow(() -> new IllegalStateException("namedFunction must have a name"))
                 )
         );
 

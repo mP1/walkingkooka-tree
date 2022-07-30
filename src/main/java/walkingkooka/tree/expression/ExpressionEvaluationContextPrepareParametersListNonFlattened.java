@@ -23,7 +23,7 @@ import walkingkooka.tree.expression.function.ExpressionFunctionParameterKind;
 import java.util.List;
 
 /**
- * A lazy {@link List} of the original parameter values, performing the following if they are enabled for this function.
+ * A lazy {@link List} of the original parameter values, performing the following if they are enabled for this namedFunction.
  * <ul>
  * <li>Evaluate {@link Expression} if {@link ExpressionFunctionParameterKind#EVALUATE}</li>
  * <li>Resolve {@link ReferenceExpression} if {@link ExpressionFunctionParameterKind#RESOLVE_REFERENCES}</li>

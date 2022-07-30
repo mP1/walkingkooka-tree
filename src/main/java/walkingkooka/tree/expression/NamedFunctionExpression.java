@@ -24,31 +24,31 @@ import java.util.List;
 import java.util.Objects;
 
 /**
- * Represents a function with zero or more parameters.
+ * Represents a named namedFunction with zero or more parameters.
  */
-public final class FunctionExpression extends VariableExpression {
+public final class NamedFunctionExpression extends VariableExpression {
 
     /**
-     * Creates a new {@link FunctionExpression}
+     * Creates a new {@link NamedFunctionExpression}
      */
-    static FunctionExpression with(final FunctionExpressionName name, final List<Expression> parameters) {
+    static NamedFunctionExpression with(final FunctionExpressionName name, final List<Expression> parameters) {
         Objects.requireNonNull(name, "name");
         Objects.requireNonNull(parameters, "parameters");
 
-        return new FunctionExpression(NO_INDEX, name, parameters);
+        return new NamedFunctionExpression(NO_INDEX, name, parameters);
     }
 
     /**
      * Private ctor
      */
-    private FunctionExpression(final int index, FunctionExpressionName name, final List<Expression> parameters) {
+    private NamedFunctionExpression(final int index, FunctionExpressionName name, final List<Expression> parameters) {
         super(index, parameters);
         this.name = name;
     }
 
     @Override
     ParentExpression replace0(final int index, final List<Expression> children) {
-        return new FunctionExpression(index, this.name, children);
+        return new NamedFunctionExpression(index, this.name, children);
     }
 
     @Override
@@ -58,15 +58,15 @@ public final class FunctionExpression extends VariableExpression {
 
     private final FunctionExpressionName name;
 
-    public FunctionExpression setName(final FunctionExpressionName name) {
+    public NamedFunctionExpression setName(final FunctionExpressionName name) {
         Objects.requireNonNull(name, "name");
         return this.name().equals(name) ?
                 this :
-                new FunctionExpression(this.index, name, this.value());
+                new NamedFunctionExpression(this.index, name, this.value());
     }
 
     @Override
-    public FunctionExpression removeParent() {
+    public NamedFunctionExpression removeParent() {
         return this.removeParent0().cast();
     }
 

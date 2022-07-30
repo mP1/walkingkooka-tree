@@ -25,7 +25,6 @@ import walkingkooka.tree.expression.EqualsExpression;
 import walkingkooka.tree.expression.Expression;
 import walkingkooka.tree.expression.ExpressionNumber;
 import walkingkooka.tree.expression.ExpressionVisitor;
-import walkingkooka.tree.expression.FunctionExpression;
 import walkingkooka.tree.expression.FunctionExpressionName;
 import walkingkooka.tree.expression.GreaterThanEqualsExpression;
 import walkingkooka.tree.expression.GreaterThanExpression;
@@ -34,6 +33,7 @@ import walkingkooka.tree.expression.LessThanExpression;
 import walkingkooka.tree.expression.ListExpression;
 import walkingkooka.tree.expression.ModuloExpression;
 import walkingkooka.tree.expression.MultiplyExpression;
+import walkingkooka.tree.expression.NamedFunctionExpression;
 import walkingkooka.tree.expression.NegativeExpression;
 import walkingkooka.tree.expression.NotEqualsExpression;
 import walkingkooka.tree.expression.NotExpression;
@@ -54,7 +54,7 @@ import java.util.List;
 /**
  * A {@link ExpressionVisitor} that turns a {@link Expression} into a xpath expression string.
  * It assumes that all {@link walkingkooka.tree.expression.ExpressionReference} are attributes,
- * some values such as {@link java.time.LocalDate} become function calls with a string literal.
+ * some values such as {@link java.time.LocalDate} become namedFunction calls with a string literal.
  */
 final class ExpressionNodeSelectorToStringExpressionVisitor extends ExpressionVisitor {
 
@@ -127,11 +127,6 @@ final class ExpressionNodeSelectorToStringExpressionVisitor extends ExpressionVi
     }
 
     @Override
-    protected Visiting startVisit(final FunctionExpression node) {
-        return this.function(node.name().value(), node.children());
-    }
-
-    @Override
     protected Visiting startVisit(final GreaterThanExpression node) {
         return this.binary(node.left(), ">", node.right());
     }
@@ -170,6 +165,11 @@ final class ExpressionNodeSelectorToStringExpressionVisitor extends ExpressionVi
     @Override
     protected Visiting startVisit(final MultiplyExpression node) {
         return this.binary(node.left(), "*", node.right());
+    }
+
+    @Override
+    protected Visiting startVisit(final NamedFunctionExpression node) {
+        return this.function(node.name().value(), node.children());
     }
 
     @Override

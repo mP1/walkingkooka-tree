@@ -45,7 +45,7 @@ public final class ExpressionFunctionParametersMapperTest extends ExpressionFunc
         public Object apply(final List<Object> parameters,
                             final ExpressionEvaluationContext context) {
             return parameters.stream()
-                    .map(p -> p.toString() + "-function")
+                    .map(p -> p.toString() + "-namedFunction")
                     .collect(Collectors.joining(","));
         }
 
@@ -69,7 +69,7 @@ public final class ExpressionFunctionParametersMapperTest extends ExpressionFunc
     };
 
     private final static Optional<FunctionExpressionName> NAME = Optional.of(
-            FunctionExpressionName.with("custom-function")
+            FunctionExpressionName.with("custom-namedFunction")
     );
 
     @Test
@@ -86,7 +86,7 @@ public final class ExpressionFunctionParametersMapperTest extends ExpressionFunc
     public void testApply() {
         this.applyAndCheck(Lists.of("param-1", "param-2", 3),
                 this.createContext(),
-                "PARAM-1-function,PARAM-2-function,3-function");
+                "PARAM-1-namedFunction,PARAM-2-namedFunction,3-namedFunction");
     }
 
     @Test
@@ -113,7 +113,7 @@ public final class ExpressionFunctionParametersMapperTest extends ExpressionFunc
         this.applyAndCheck(function2,
                 Lists.of("param-1", "param-2", 3),
                 this.createContext(),
-                "PARAM-1-A-function,PARAM-2-A-function,3-A-function");
+                "PARAM-1-A-namedFunction,PARAM-2-A-namedFunction,3-A-namedFunction");
     }
 
     @Test

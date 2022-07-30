@@ -35,11 +35,11 @@ import java.util.Objects;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class FunctionExpressionTest extends VariableExpressionTestCase<FunctionExpression> {
+public final class NamedFunctionExpressionTest extends VariableExpressionTestCase<NamedFunctionExpression> {
 
     @Test
     public void testWithNullNameFails() {
-        assertThrows(NullPointerException.class, () -> FunctionExpression.with(null, this.children()));
+        assertThrows(NullPointerException.class, () -> NamedFunctionExpression.with(null, this.children()));
     }
 
     @Test
@@ -49,15 +49,15 @@ public final class FunctionExpressionTest extends VariableExpressionTestCase<Fun
 
     @Test
     public void testSetNameSame() {
-        final FunctionExpression node = this.createExpression();
+        final NamedFunctionExpression node = this.createExpression();
         assertSame(node, node.setName(node.name()));
     }
 
     @Test
     public void testSetNameDifferent() {
-        final FunctionExpression node = this.createExpression();
+        final NamedFunctionExpression node = this.createExpression();
         final FunctionExpressionName differentName = name("different-name");
-        final FunctionExpression different = node.setName(differentName);
+        final NamedFunctionExpression different = node.setName(differentName);
         this.checkEquals(differentName, different.name(), "name");
         this.checkChildren(different, node.children());
     }
@@ -92,14 +92,14 @@ public final class FunctionExpressionTest extends VariableExpressionTestCase<Fun
 
     // toValue.........................................................................................................
 
-    private final static FunctionExpressionName FUNCTION_NAME = FunctionExpressionName.with("test-function");
+    private final static FunctionExpressionName FUNCTION_NAME = FunctionExpressionName.with("test-namedFunction");
 
     @Test
     public void testToValueRequiresEvaluatedParametersFalse() {
         final StringName attribute = Names.string("attribute123");
         final ExpressionReference reference = NodeSelectorAttributeName.with(attribute.value());
 
-        final FunctionExpression function = Expression.function(
+        final NamedFunctionExpression function = Expression.namedFunction(
                 FUNCTION_NAME,
                 Lists.of(
                         Expression.value("1"),
@@ -114,7 +114,7 @@ public final class FunctionExpressionTest extends VariableExpressionTestCase<Fun
                         new FakeExpressionEvaluationContext() {
                             @Override
                             public ExpressionFunction<?, ExpressionEvaluationContext> function(final FunctionExpressionName name) {
-                                checkEquals(FUNCTION_NAME, name, "function name");
+                                checkEquals(FUNCTION_NAME, name, "namedFunction name");
                                 return new FakeExpressionFunction<>() {
 
                                     @Override
@@ -145,7 +145,7 @@ public final class FunctionExpressionTest extends VariableExpressionTestCase<Fun
         final StringBuilder b = new StringBuilder();
         final List<Expression> visited = Lists.array();
 
-        final FunctionExpression function = this.createExpression();
+        final NamedFunctionExpression function = this.createExpression();
         final Expression text1 = function.children().get(0);
         final Expression text2 = function.children().get(1);
         final Expression text3 = function.children().get(2);
@@ -165,7 +165,7 @@ public final class FunctionExpressionTest extends VariableExpressionTestCase<Fun
             }
 
             @Override
-            protected Visiting startVisit(final FunctionExpression t) {
+            protected Visiting startVisit(final NamedFunctionExpression t) {
                 assertSame(function, t);
                 b.append("3");
                 visited.add(t);
@@ -173,7 +173,7 @@ public final class FunctionExpressionTest extends VariableExpressionTestCase<Fun
             }
 
             @Override
-            protected void endVisit(final FunctionExpression t) {
+            protected void endVisit(final NamedFunctionExpression t) {
                 assertSame(function, t);
                 b.append("4");
                 visited.add(t);
@@ -229,7 +229,7 @@ public final class FunctionExpressionTest extends VariableExpressionTestCase<Fun
         return new FakeExpressionEvaluationContext() {
             @Override
             public ExpressionFunction<?, ExpressionEvaluationContext> function(final FunctionExpressionName name) {
-                checkEquals(name("fx"), name, "function name");
+                checkEquals(name("fx"), name, "namedFunction name");
 
                 return new FakeExpressionFunction<Object, ExpressionEvaluationContext>() {
                     @Override
@@ -272,8 +272,8 @@ public final class FunctionExpressionTest extends VariableExpressionTestCase<Fun
     }
 
     @Override
-    FunctionExpression createExpression(final List<Expression> children) {
-        return FunctionExpression.with(this.name(), children);
+    NamedFunctionExpression createExpression(final List<Expression> children) {
+        return NamedFunctionExpression.with(this.name(), children);
     }
 
     private FunctionExpressionName name() {
@@ -285,7 +285,7 @@ public final class FunctionExpressionTest extends VariableExpressionTestCase<Fun
     }
 
     @Override
-    Class<FunctionExpression> expressionType() {
-        return FunctionExpression.class;
+    Class<NamedFunctionExpression> expressionType() {
+        return NamedFunctionExpression.class;
     }
 }

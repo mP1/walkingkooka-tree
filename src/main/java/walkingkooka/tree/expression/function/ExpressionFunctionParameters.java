@@ -33,7 +33,7 @@ import java.util.Optional;
 abstract class ExpressionFunctionParameters<T, C extends Context & ConverterContext & ExpressionNumberContext> implements ExpressionFunction<T, C> {
 
     static void checkFunction(final ExpressionFunction<?, ?> function) {
-        Objects.requireNonNull(function, "function");
+        Objects.requireNonNull(function, "namedFunction");
     }
 
     ExpressionFunctionParameters(final ExpressionFunction<T, C> function) {
@@ -61,7 +61,7 @@ abstract class ExpressionFunctionParameters<T, C extends Context & ConverterCont
     }
 
     /**
-     * The wrapped function
+     * The wrapped namedFunction
      */
     final ExpressionFunction<T, C> function;
 
