@@ -35,12 +35,12 @@ import java.math.MathContext;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class ExpressionNumberToExpressionNumberConverterTest implements ConverterTesting2<ExpressionNumberToExpressionNumberConverter<ExpressionNumberConverterContext>, ExpressionNumberConverterContext>,
-        ToStringTesting<ExpressionNumberToExpressionNumberConverter<ExpressionNumberConverterContext>> {
+public final class ExpressionNumberToConverterTest implements ConverterTesting2<ExpressionNumberToConverter<ExpressionNumberConverterContext>, ExpressionNumberConverterContext>,
+        ToStringTesting<ExpressionNumberToConverter<ExpressionNumberConverterContext>> {
 
     @Test
     public void testWithNullConverterFails() {
-        assertThrows(NullPointerException.class, () -> ExpressionNumberToExpressionNumberConverter.with(null));
+        assertThrows(NullPointerException.class, () -> ExpressionNumberToConverter.with(null));
     }
 
     @Test
@@ -246,7 +246,7 @@ public final class ExpressionNumberToExpressionNumberConverterTest implements Co
     @Test
     public void testExpressionNumberValueDifferentType() {
         this.convertFails(
-                ExpressionNumberToExpressionNumberConverter.with(Converters.simple()),
+                ExpressionNumberToConverter.with(Converters.simple()),
                 ExpressionNumberKind.DEFAULT.one(),
                 this.getClass()
         );
@@ -254,7 +254,7 @@ public final class ExpressionNumberToExpressionNumberConverterTest implements Co
 
     @Test
     public void testNotExpressionNumber() {
-        this.convertFails(ExpressionNumberToExpressionNumberConverter.with(Converters.simple()),
+        this.convertFails(ExpressionNumberToConverter.with(Converters.simple()),
                 this,
                 ExpressionNumber.class);
     }
@@ -263,7 +263,7 @@ public final class ExpressionNumberToExpressionNumberConverterTest implements Co
 
     @Test
     public void testToString() {
-        this.toStringAndCheck(ExpressionNumberToExpressionNumberConverter.with(Converters.fake()
+        this.toStringAndCheck(ExpressionNumberToConverter.with(Converters.fake()
                         .setToString("Custom")
                         .cast(ExpressionNumberConverterContext.class)),
                 "Custom|" + ExpressionNumber.class.getSimpleName());
@@ -272,8 +272,8 @@ public final class ExpressionNumberToExpressionNumberConverterTest implements Co
     // helpers..........................................................................................................
 
     @Override
-    public ExpressionNumberToExpressionNumberConverter<ExpressionNumberConverterContext> createConverter() {
-        return ExpressionNumberToExpressionNumberConverter.with(
+    public ExpressionNumberToConverter<ExpressionNumberConverterContext> createConverter() {
+        return ExpressionNumberToConverter.with(
                 Converters.numberNumber()
         );
     }
@@ -296,8 +296,8 @@ public final class ExpressionNumberToExpressionNumberConverterTest implements Co
     }
 
     @Override
-    public Class<ExpressionNumberToExpressionNumberConverter<ExpressionNumberConverterContext>> type() {
-        return Cast.to(ExpressionNumberToExpressionNumberConverter.class);
+    public Class<ExpressionNumberToConverter<ExpressionNumberConverterContext>> type() {
+        return Cast.to(ExpressionNumberToConverter.class);
     }
 
     @Override
