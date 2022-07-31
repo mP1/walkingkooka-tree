@@ -96,7 +96,7 @@ public interface ExpressionEvaluationContext extends Context,
     List<Object> NO_PARAMETERS = Lists.empty();
 
     /**
-     * Locates a namedFunction with the given name and then executes it with the provided parameter values.
+     * Locates a {@link ExpressionFunction} with the given {@link FunctionExpressionName} and then executes it with the provided parameter values.
      */
     Object evaluate(final FunctionExpressionName name, final List<Object> parameters);
 
