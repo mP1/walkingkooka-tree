@@ -236,33 +236,38 @@ public final class ExpressionNodeSelectorToStringExpressionVisitorTest implement
     }
 
     @Test
-    public void testFunction() {
+    public void testNamedFunction() {
         this.parseAndStringExpressionCheck("fx()");
     }
 
     @Test
-    public void testFunctionWithArguments() {
+    public void testNamedFunctionWithArguments() {
         this.parseAndStringExpressionCheck("fx(1,2)");
     }
 
     @Test
-    public void testFunctionWithArguments2() {
-        this.toStringAndCheck(Expression.namedFunction(
-                        FunctionExpressionName.with("fx"),
+    public void testNamedFunctionWithArguments2() {
+        this.toStringAndCheck(
+                Expression.call(
+                        Expression.namedFunction(
+                                FunctionExpressionName.with("fx")
+                        ),
                         Lists.of(
                                 Expression.value(ExpressionNumberKind.DEFAULT.one()),
                                 Expression.value(ExpressionNumberKind.DEFAULT.create(2.5))
-                        )),
-                "fx(1,2.5)");
+                        )
+                ),
+                "fx(1,2.5)"
+        );
     }
 
     @Test
-    public void testFunctionStartsWithStringLiteral() {
+    public void testNamedFunctionStartsWithStringLiteral() {
         this.parseAndStringExpressionCheck("string-length(\"abc\")");
     }
 
     @Test
-    public void testNestedFunctions() {
+    public void testNestedNamedFunctions() {
         this.parseAndStringExpressionCheck("sum(\"abc\",random(2,skip(3)))");
     }
 

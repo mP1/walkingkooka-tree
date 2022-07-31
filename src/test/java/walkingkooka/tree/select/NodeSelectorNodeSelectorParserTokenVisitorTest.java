@@ -2060,8 +2060,12 @@ public final class NodeSelectorNodeSelectorParserTokenVisitorTest implements Nod
         return Names.string("DEF456");
     }
 
-    private Expression function(final String name, final Expression... arguments) {
-        return Expression.namedFunction(FunctionExpressionName.with(name), Lists.of(arguments));
+    private Expression function(final String name,
+                                final Expression... parameters) {
+        return Expression.call(
+                Expression.namedFunction(FunctionExpressionName.with(name)),
+                Lists.of(parameters)
+        );
     }
 
     private ValueExpression<ExpressionNumber> expressionNumberExpression(final int value) {
