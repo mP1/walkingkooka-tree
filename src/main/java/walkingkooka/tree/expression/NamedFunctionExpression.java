@@ -24,7 +24,7 @@ import java.util.List;
 import java.util.Objects;
 
 /**
- * Represents a named namedFunction with zero or more parameters.
+ * Represents a named {@link walkingkooka.tree.expression.function.ExpressionFunction} with zero or more parameters.
  */
 public final class NamedFunctionExpression extends VariableExpression {
 
