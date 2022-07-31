@@ -29,9 +29,9 @@ import java.util.function.DoubleUnaryOperator;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class LambasExpressionNumberFunctionTest implements ExpressionNumberFunctionTesting<LambasExpressionNumberFunction>,
-        ClassTesting<LambasExpressionNumberFunction>,
-        ToStringTesting<LambasExpressionNumberFunction> {
+public final class LambdasExpressionNumberFunctionTest implements ExpressionNumberFunctionTesting<LambdasExpressionNumberFunction>,
+        ClassTesting<LambdasExpressionNumberFunction>,
+        ToStringTesting<LambdasExpressionNumberFunction> {
 
     private final static BiFunction<BigDecimal, MathContext, BigDecimal> BIG_DECIMAL = (b, c) -> b.multiply(BigDecimal.TEN);
     private final static DoubleUnaryOperator DOUBLE = (d) -> d * 3;
@@ -40,7 +40,7 @@ public final class LambasExpressionNumberFunctionTest implements ExpressionNumbe
     public void testWithNullBigDecimalFails() {
         assertThrows(
                 NullPointerException.class,
-                () -> LambasExpressionNumberFunction.with(null, DOUBLE)
+                () -> LambdasExpressionNumberFunction.with(null, DOUBLE)
         );
     }
 
@@ -48,7 +48,7 @@ public final class LambasExpressionNumberFunctionTest implements ExpressionNumbe
     public void testWithNullDoubleFails() {
         assertThrows(
                 NullPointerException.class,
-                () -> LambasExpressionNumberFunction.with(BIG_DECIMAL, null)
+                () -> LambdasExpressionNumberFunction.with(BIG_DECIMAL, null)
         );
     }
 
@@ -75,13 +75,13 @@ public final class LambasExpressionNumberFunctionTest implements ExpressionNumbe
     }
 
     @Override
-    public LambasExpressionNumberFunction createExpressionNumberFunction() {
-        return LambasExpressionNumberFunction.with(BIG_DECIMAL, DOUBLE);
+    public LambdasExpressionNumberFunction createExpressionNumberFunction() {
+        return LambdasExpressionNumberFunction.with(BIG_DECIMAL, DOUBLE);
     }
 
     @Override
-    public Class<LambasExpressionNumberFunction> type() {
-        return LambasExpressionNumberFunction.class;
+    public Class<LambdasExpressionNumberFunction> type() {
+        return LambdasExpressionNumberFunction.class;
     }
 
     @Override
