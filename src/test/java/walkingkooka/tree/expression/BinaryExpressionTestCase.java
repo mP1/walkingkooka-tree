@@ -101,13 +101,6 @@ public abstract class BinaryExpressionTestCase<N extends BinaryExpression> exten
     }
 
     @Test
-    public final void testToString() {
-        this.checkEquals(this.expectedToString(), this.createExpression().toString());
-    }
-
-    abstract String expectedToString();
-
-    @Test
     public final void testEqualsDifferentChildren() {
         this.checkNotEquals(this.createExpression(), this.createExpression(differentLeft(), differentRight()));
     }
