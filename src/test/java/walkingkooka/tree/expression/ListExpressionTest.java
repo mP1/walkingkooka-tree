@@ -132,7 +132,10 @@ public final class ListExpressionTest extends VariableExpressionTestCase<ListExp
 
     @Test
     public void testToString() {
-        this.checkEquals("[\"child-111\",\"child-222\",\"child-333\"]", this.createExpression().toString());
+        this.toStringAndCheck(
+                this.createExpression(),
+                "[\"child-111\",\"child-222\",\"child-333\"]"
+        );
     }
 
     @Override

@@ -58,4 +58,16 @@ public abstract class ParentFixedExpressionTestCase<N extends ParentFixedExpress
                 true
         );
     }
+
+    // toString.........................................................................................................
+
+    @Test
+    public final void testToString() {
+        this.toStringAndCheck(
+                this.createExpression(),
+                this.expectedToString()
+        );
+    }
+
+    abstract String expectedToString();
 }

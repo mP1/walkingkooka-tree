@@ -91,13 +91,6 @@ public abstract class UnaryExpressionTestCase<N extends UnaryExpression> extends
         this.checkNotEquals(this.createExpression(), this.createExpression(differentChild()));
     }
 
-    @Test
-    public final void testToString() {
-        this.toStringAndCheck(this.createExpression(), this.expectedToString());
-    }
-
-    abstract String expectedToString();
-
     @Override
     final N createExpression() {
         return this.createExpression(this.child());

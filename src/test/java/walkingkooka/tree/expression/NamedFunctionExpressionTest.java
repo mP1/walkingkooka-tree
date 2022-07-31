@@ -268,7 +268,10 @@ public final class NamedFunctionExpressionTest extends VariableExpressionTestCas
 
     @Test
     public void testToString() {
-        this.checkEquals("fx(\"child-111\",\"child-222\",\"child-333\")", this.createExpression().toString());
+        this.toStringAndCheck(
+                this.createExpression(),
+                "fx(\"child-111\",\"child-222\",\"child-333\")"
+        );
     }
 
     @Override
