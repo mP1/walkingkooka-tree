@@ -34,11 +34,11 @@ public final class ExpressionNumberFunctions implements PublicStaticHelper {
     }
 
     /**
-     * {@see LambasExpressionNumberFunction}
+     * {@see LambdasExpressionNumberFunction}
      */
     public static ExpressionNumberFunction lambdas(final BiFunction<BigDecimal, MathContext, BigDecimal> bigDecimal,
                                                    final DoubleUnaryOperator doubleFunction) {
-        return LambasExpressionNumberFunction.with(bigDecimal, doubleFunction);
+        return LambdasExpressionNumberFunction.with(bigDecimal, doubleFunction);
     }
 
     /**

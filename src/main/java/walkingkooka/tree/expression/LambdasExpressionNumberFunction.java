@@ -26,18 +26,18 @@ import java.util.function.DoubleUnaryOperator;
 /**
  * A @link ExpressionNumberFunction} that is typically created using two lambdas and delegates to the right at runtime.
  */
-final class LambasExpressionNumberFunction implements ExpressionNumberFunction {
+final class LambdasExpressionNumberFunction implements ExpressionNumberFunction {
 
-    static LambasExpressionNumberFunction with(final BiFunction<BigDecimal, MathContext, BigDecimal> bigDecimal,
-                                               final DoubleUnaryOperator doubleFunction) {
+    static LambdasExpressionNumberFunction with(final BiFunction<BigDecimal, MathContext, BigDecimal> bigDecimal,
+                                                final DoubleUnaryOperator doubleFunction) {
         Objects.requireNonNull(bigDecimal, "bigDecimal");
         Objects.requireNonNull(doubleFunction, "doubleFunction");
 
-        return new LambasExpressionNumberFunction(bigDecimal, doubleFunction);
+        return new LambdasExpressionNumberFunction(bigDecimal, doubleFunction);
     }
 
-    public LambasExpressionNumberFunction(final BiFunction<BigDecimal, MathContext, BigDecimal> bigDecimal,
-                                          final DoubleUnaryOperator doubleFunction) {
+    public LambdasExpressionNumberFunction(final BiFunction<BigDecimal, MathContext, BigDecimal> bigDecimal,
+                                           final DoubleUnaryOperator doubleFunction) {
         this.bigDecimal = bigDecimal;
         this.doubleFunction = doubleFunction;
     }
