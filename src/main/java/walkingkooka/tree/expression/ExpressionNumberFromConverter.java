@@ -26,21 +26,21 @@ import java.util.Objects;
  * A {@link Converter} that adds support for converting {@link ExpressionNumber} to a target type by passing
  * the value from the {@link ExpressionNumber} to an intermediate {@link Converter}.
  */
-final class ExpressionNumberFromExpressionNumberNumberConverter<C extends ExpressionNumberConverterContext> implements Converter<C> {
+final class ExpressionNumberFromConverter<C extends ExpressionNumberConverterContext> implements Converter<C> {
 
     /**
      * Wraps another {@link Converter}, which will receive the actual value of the {@link ExpressionNumber}.
      */
-    static <C extends ExpressionNumberConverterContext> ExpressionNumberFromExpressionNumberNumberConverter<C> with(final Converter<C> converter) {
+    static <C extends ExpressionNumberConverterContext> ExpressionNumberFromConverter<C> with(final Converter<C> converter) {
         Objects.requireNonNull(converter, "converter");
 
-        return new ExpressionNumberFromExpressionNumberNumberConverter<>(converter);
+        return new ExpressionNumberFromConverter<>(converter);
     }
 
     /**
      * Use factory
      */
-    private ExpressionNumberFromExpressionNumberNumberConverter(final Converter<C> converter) {
+    private ExpressionNumberFromConverter(final Converter<C> converter) {
         super();
         this.converter = converter;
     }
