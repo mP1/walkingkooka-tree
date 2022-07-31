@@ -30,21 +30,21 @@ import java.util.Objects;
  * and then the ExpressionNumber created. To convert {@link Number} to {@link ExpressionNumber} the wrapped
  * converter should probably be {@link Converters#numberNumber()}.
  */
-final class ExpressionNumberToExpressionNumberConverter<C extends ExpressionNumberConverterContext> implements Converter<C> {
+final class ExpressionNumberToConverter<C extends ExpressionNumberConverterContext> implements Converter<C> {
 
     /**
-     * Factory that creates a new {@link ExpressionNumberToExpressionNumberConverter}. This should only be called by {@link ExpressionNumber#toConverter(Converter)}.
+     * Factory that creates a new {@link ExpressionNumberToConverter}. This should only be called by {@link ExpressionNumber#toConverter(Converter)}.
      */
-    static <C extends ExpressionNumberConverterContext> ExpressionNumberToExpressionNumberConverter<C> with(final Converter<C> converter) {
+    static <C extends ExpressionNumberConverterContext> ExpressionNumberToConverter<C> with(final Converter<C> converter) {
         Objects.requireNonNull(converter, "converter");
 
-        return new ExpressionNumberToExpressionNumberConverter<>(converter);
+        return new ExpressionNumberToConverter<>(converter);
     }
 
     /**
      * Private ctor use factory
      */
-    private ExpressionNumberToExpressionNumberConverter(final Converter<C> converter) {
+    private ExpressionNumberToConverter(final Converter<C> converter) {
         super();
         this.converter = converter;
     }
