@@ -428,11 +428,18 @@ public final class NodeSelectorToStringBuilderTest implements ClassTesting2<Node
     public void testNameExpressionFunction() {
         final NodeSelectorToStringBuilder b = NodeSelectorToStringBuilder.empty();
         b.name(abc1());
-        b.expression(Expression.namedFunction(
-                FunctionExpressionName.with("def2"),
-                Lists.of(expressionNumber(3))
-        ));
-        this.buildAndCheck(b, "abc1[def2(3)]");
+        b.expression(
+                Expression.call(
+                        Expression.namedFunction(
+                                FunctionExpressionName.with("def2")
+                        ),
+                        Lists.of(
+                                expressionNumber(33),
+                                expressionNumber(44)
+                        )
+                )
+        );
+        this.buildAndCheck(b, "abc1[def2(33,44)]");
     }
 
     @Test

@@ -535,7 +535,19 @@ final public class ExpressionNodeSelectorTest extends
 
     private Expression expression() {
         return Expression.equalsExpression(
-                Expression.namedFunction(FunctionExpressionName.with("name"), Lists.of(Expression.namedFunction(FunctionExpressionName.with("node"), Expression.NO_CHILDREN))),
+                Expression.call(
+                        Expression.namedFunction(
+                                FunctionExpressionName.with("name")
+                        ),
+                        Lists.of(
+                                Expression.call(
+                                        Expression.namedFunction(
+                                                FunctionExpressionName.with("node")
+                                        ),
+                                        Expression.NO_CHILDREN
+                                )
+                        )
+                ),
                 Expression.value("self")
         );
     }

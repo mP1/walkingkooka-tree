@@ -116,9 +116,12 @@ final class NodeSelectorPredicateParserTokenNodeSelectorParserTokenVisitor exten
             throw new NodeSelectorException("Unknown namedFunction " + CharSequences.quoteAndEscape(functionName.value()) + " in " + CharSequences.quoteAndEscape(token.toString()));
         }
 
-        final Expression function = Expression.namedFunction(
-                functionName,
-                this.children.subList(1, this.children.size()));
+        final List<Expression> children = this.children;
+        final Expression function = Expression.call(
+                Expression.namedFunction(functionName),
+                children.subList(1, children.size())
+        );
+
         this.exit();
         this.add(function, token);
     }

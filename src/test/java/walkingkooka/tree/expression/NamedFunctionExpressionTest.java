@@ -18,250 +18,59 @@
 package walkingkooka.tree.expression;
 
 import org.junit.jupiter.api.Test;
-import walkingkooka.Either;
-import walkingkooka.collect.list.Lists;
-import walkingkooka.naming.Names;
-import walkingkooka.naming.StringName;
-import walkingkooka.tree.expression.function.ExpressionFunction;
-import walkingkooka.tree.expression.function.ExpressionFunctionParameter;
-import walkingkooka.tree.expression.function.FakeExpressionFunction;
-import walkingkooka.tree.select.parser.NodeSelectorAttributeName;
+import walkingkooka.Cast;
 import walkingkooka.visit.Visiting;
 
-import java.math.MathContext;
-import java.util.List;
-import java.util.Objects;
-
 import static org.junit.jupiter.api.Assertions.assertSame;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class NamedFunctionExpressionTest extends VariableExpressionTestCase<NamedFunctionExpression> {
+public final class NamedFunctionExpressionTest extends LeafExpressionTestCase<NamedFunctionExpression, FunctionExpressionName> {
 
-    @Test
-    public void testWithNullNameFails() {
-        assertThrows(NullPointerException.class, () -> NamedFunctionExpression.with(null, this.children()));
-    }
-
-    @Test
-    public void testSetNameNullFails() {
-        assertThrows(NullPointerException.class, () -> this.createExpression().setName(null));
-    }
-
-    @Test
-    public void testSetNameSame() {
-        final NamedFunctionExpression node = this.createExpression();
-        assertSame(node, node.setName(node.name()));
-    }
-
-    @Test
-    public void testSetNameDifferent() {
-        final NamedFunctionExpression node = this.createExpression();
-        final FunctionExpressionName differentName = name("different-name");
-        final NamedFunctionExpression different = node.setName(differentName);
-        this.checkEquals(differentName, different.name(), "name");
-        this.checkChildren(different, node.children());
-    }
-
-    // ExpressionPurity.................................................................................................
-
-    @Test
-    public void testIsPureTrue() {
-        this.isPureAndCheck2(true);
-    }
-
-    @Test
-    public void testIsPureFalse() {
-        this.isPureAndCheck2(false);
-    }
-
-    private void isPureAndCheck2(final boolean pure) {
-        final FunctionExpressionName name = this.name();
-
-        this.isPureAndCheck(
-                this.createExpression(),
-                new ExpressionPurityContext() {
-                    @Override
-                    public boolean isPure(final FunctionExpressionName n) {
-                        checkEquals(name, n, "name");
-                        return pure;
-                    }
-                },
-                pure
-        );
-    }
-
-    // toValue.........................................................................................................
-
-    private final static FunctionExpressionName FUNCTION_NAME = FunctionExpressionName.with("test-namedFunction");
-
-    @Test
-    public void testToValueRequiresEvaluatedParametersFalse() {
-        final StringName attribute = Names.string("attribute123");
-        final ExpressionReference reference = NodeSelectorAttributeName.with(attribute.value());
-
-        final NamedFunctionExpression function = Expression.namedFunction(
-                FUNCTION_NAME,
-                Lists.of(
-                        Expression.value("1"),
-                        Expression.reference(reference)
-                )
-        );
-        final List<Expression> parameters = function.value();
-
-        this.checkEquals(
-                parameters,
-                function.toValue(
-                        new FakeExpressionEvaluationContext() {
-                            @Override
-                            public ExpressionFunction<?, ExpressionEvaluationContext> function(final FunctionExpressionName name) {
-                                checkEquals(FUNCTION_NAME, name, "namedFunction name");
-                                return new FakeExpressionFunction<>() {
-
-                                    @Override
-                                    public Object apply(final List<Object> p,
-                                                        final ExpressionEvaluationContext context) {
-                                        checkEquals(parameters, p);
-                                        return parameters;
-                                    }
-                                };
-                            }
-
-                            public Object evaluate(final FunctionExpressionName name, final List<Object> parameters) {
-                                Objects.requireNonNull(name, "name");
-                                Objects.requireNonNull(parameters, "parameters");
-
-                                return this.function(name)
-                                        .apply(parameters, this);
-                            }
-                        }
-                )
-        );
-    }
-
-    // accept..........................................................................................................
+    private final static String NAME = "test-function-123";
 
     @Test
     public void testAccept() {
         final StringBuilder b = new StringBuilder();
-        final List<Expression> visited = Lists.array();
-
-        final NamedFunctionExpression function = this.createExpression();
-        final Expression text1 = function.children().get(0);
-        final Expression text2 = function.children().get(1);
-        final Expression text3 = function.children().get(2);
+        final NamedFunctionExpression node = this.createExpression();
 
         new FakeExpressionVisitor() {
             @Override
             protected Visiting startVisit(final Expression n) {
+                assertSame(node, n);
                 b.append("1");
-                visited.add(n);
                 return Visiting.CONTINUE;
             }
 
             @Override
             protected void endVisit(final Expression n) {
+                assertSame(node, n);
                 b.append("2");
-                visited.add(n);
             }
 
             @Override
-            protected Visiting startVisit(final NamedFunctionExpression t) {
-                assertSame(function, t);
+            protected void visit(final NamedFunctionExpression n) {
+                assertSame(node, n);
                 b.append("3");
-                visited.add(t);
-                return Visiting.CONTINUE;
             }
-
-            @Override
-            protected void endVisit(final NamedFunctionExpression t) {
-                assertSame(function, t);
-                b.append("4");
-                visited.add(t);
-            }
-
-            @Override
-            protected void visit(final ValueExpression<?> t) {
-                b.append("5");
-                visited.add(t);
-            }
-        }.accept(function);
-        this.checkEquals("1315215215242", b.toString());
-        this.checkEquals(Lists.of(function, function,
-                        text1, text1, text1,
-                        text2, text2, text2,
-                        text3, text3, text3,
-                        function, function),
-                visited,
-                "visited");
+        }.accept(node);
+        this.checkEquals("132", b.toString());
     }
 
     // Evaluation ...................................................................................................
 
     @Test
-    public void testToBooleanFalse() {
-        this.evaluateAndCheckBoolean(this.createExpression(), this.context("false"), false);
-    }
-
-    @Test
     public void testToBooleanTrue() {
-        this.evaluateAndCheckBoolean(this.createExpression(), this.context("true"), true);
-    }
-
-    @Test
-    public void testToExpressionNumber() {
-        this.evaluateAndCheckExpressionNumber(this.createExpression(),
-                this.context("123"),
-                expressionNumberValue(123));
+        this.evaluateAndCheckBoolean(
+                this.createExpression(),
+                true
+        );
     }
 
     @Test
     public void testToText() {
         this.evaluateAndCheckText(
                 this.createExpression(),
-                this.context("123"),
-                "123"
+                NAME
         );
-    }
-
-    private ExpressionEvaluationContext context(final String functionValue) {
-        final ExpressionEvaluationContext context = context();
-
-        return new FakeExpressionEvaluationContext() {
-            @Override
-            public ExpressionFunction<?, ExpressionEvaluationContext> function(final FunctionExpressionName name) {
-                checkEquals(name("fx"), name, "namedFunction name");
-
-                return new FakeExpressionFunction<Object, ExpressionEvaluationContext>() {
-                    @Override
-                    public Object apply(final List<Object> parameters,
-                                        final ExpressionEvaluationContext context) {
-                        return functionValue;
-                    }
-
-                    @Override
-                    public List<ExpressionFunctionParameter<?>> parameters(final int count) {
-                        throw new UnsupportedOperationException();
-                    }
-                };
-            }
-
-            @Override
-            public Object evaluate(final FunctionExpressionName name,
-                                   final List<Object> parameters) {
-                return this.function(name)
-                        .apply(parameters, this);
-            }
-
-            @Override
-            public MathContext mathContext() {
-                return context.mathContext();
-            }
-
-            @Override
-            public <T> Either<T, String> convert(final Object value, final Class<T> target) {
-                return context.convert(value, target);
-            }
-        };
     }
 
     // ToString ...................................................................................................
@@ -270,25 +79,27 @@ public final class NamedFunctionExpressionTest extends VariableExpressionTestCas
     public void testToString() {
         this.toStringAndCheck(
                 this.createExpression(),
-                "fx(\"child-111\",\"child-222\",\"child-333\")"
+                NAME
         );
     }
 
     @Override
-    NamedFunctionExpression createExpression(final List<Expression> children) {
-        return NamedFunctionExpression.with(this.name(), children);
+    NamedFunctionExpression createExpression(final FunctionExpressionName value) {
+        return NamedFunctionExpression.with(value);
     }
 
-    private FunctionExpressionName name() {
-        return this.name("fx");
+    @Override
+    FunctionExpressionName value() {
+        return FunctionExpressionName.with(NAME);
     }
 
-    private FunctionExpressionName name(final String name) {
-        return FunctionExpressionName.with(name);
+    @Override
+    FunctionExpressionName differentValue() {
+        return FunctionExpressionName.with("test-different");
     }
 
     @Override
     Class<NamedFunctionExpression> expressionType() {
-        return NamedFunctionExpression.class;
+        return Cast.to(NamedFunctionExpression.class);
     }
 }

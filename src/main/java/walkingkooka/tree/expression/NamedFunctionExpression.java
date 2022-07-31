@@ -17,52 +17,30 @@
 
 package walkingkooka.tree.expression;
 
-import walkingkooka.Cast;
-import walkingkooka.visit.Visiting;
-
-import java.util.List;
 import java.util.Objects;
 
 /**
- * Represents a named {@link walkingkooka.tree.expression.function.ExpressionFunction} with zero or more parameters.
+ * Holds a value which may or may not be null.
  */
-public final class NamedFunctionExpression extends VariableExpression {
+final public class NamedFunctionExpression extends LeafExpression<FunctionExpressionName> {
 
-    /**
-     * Creates a new {@link NamedFunctionExpression}
-     */
-    static NamedFunctionExpression with(final FunctionExpressionName name, final List<Expression> parameters) {
-        Objects.requireNonNull(name, "name");
-        Objects.requireNonNull(parameters, "parameters");
+    public final static FunctionExpressionName NAME = FunctionExpressionName.fromClass(NamedFunctionExpression.class);
 
-        return new NamedFunctionExpression(NO_INDEX, name, parameters);
+    static <V> NamedFunctionExpression with(final FunctionExpressionName name) {
+        return new NamedFunctionExpression(NO_INDEX, name);
     }
 
     /**
      * Private ctor
      */
-    private NamedFunctionExpression(final int index, FunctionExpressionName name, final List<Expression> parameters) {
-        super(index, parameters);
-        this.name = name;
-    }
-
-    @Override
-    ParentExpression replace0(final int index, final List<Expression> children) {
-        return new NamedFunctionExpression(index, this.name, children);
+    private NamedFunctionExpression(final int index,
+                                    final FunctionExpressionName name) {
+        super(index, name);
     }
 
     @Override
     public FunctionExpressionName name() {
-        return this.name;
-    }
-
-    private final FunctionExpressionName name;
-
-    public NamedFunctionExpression setName(final FunctionExpressionName name) {
-        Objects.requireNonNull(name, "name");
-        return this.name().equals(name) ?
-                this :
-                new NamedFunctionExpression(this.index, name, this.value());
+        return NAME;
     }
 
     @Override
@@ -70,106 +48,87 @@ public final class NamedFunctionExpression extends VariableExpression {
         return this.removeParent0().cast();
     }
 
-    @Override
-    public Expression setChildren(final List<Expression> children) {
-        return this.setChildren0(children).cast();
+    public NamedFunctionExpression setValue(final FunctionExpressionName value) {
+        return Objects.equals(this.value(), value) ?
+                (NamedFunctionExpression) this :
+                this.replaceValue(value);
     }
 
-    // Value.........................................................................................................
-
-    @Override
-    public List<Expression> value() {
-        return this.children();
+    private NamedFunctionExpression replaceValue(final FunctionExpressionName value) {
+        return this.replace1(this.index, value)
+                .replaceChild(this.parent())
+                .cast();
     }
 
-    // ExpressionPurity.................................................................................................
+    @Override
+    public NamedFunctionExpression replace(final int index) {
+        return this.replace1(
+                index,
+                this.value()
+        );
+    }
+
+    private NamedFunctionExpression replace1(final int index,
+                                             final FunctionExpressionName value) {
+        return new NamedFunctionExpression(index, value);
+    }
 
     @Override
     public boolean isPure(final ExpressionPurityContext context) {
-        return context.isPure(this.name()) &&
-                this.isPureChildren(context);
+        return context.isPure(this.value());
     }
 
-    // Visitor.........................................................................................................
+    // visitor..........................................................................................................
 
     @Override
     public void accept(final ExpressionVisitor visitor) {
-        if (Visiting.CONTINUE == visitor.startVisit(this)) {
-            this.acceptValues(visitor);
-        }
-        visitor.endVisit(this);
+        visitor.visit(this);
     }
 
-    // evaluation .....................................................................................................
+    // toXXX............................................................................................................
 
     @Override
     public boolean toBoolean(final ExpressionEvaluationContext context) {
-        return this.executeFunction(context, Boolean.class);
+        return context.convertOrFail(
+                this.value(),
+                Boolean.class
+        );
     }
 
     @Override
     public ExpressionNumber toExpressionNumber(final ExpressionEvaluationContext context) {
-        return this.executeFunction(context, ExpressionNumber.class);
+        return context.convertOrFail(
+                this.value(),
+                ExpressionNumber.class
+        );
+    }
+
+    @Override
+    public Object toReferenceOrValue(final ExpressionEvaluationContext context) {
+        return this.toValue(context);
+    }
+
+    // ExpressionEvaluationContext......................................................................................
+
+    @Override
+    public FunctionExpressionName toValue(final ExpressionEvaluationContext context) {
+        return this.value();
     }
 
     @Override
     public String toString(final ExpressionEvaluationContext context) {
-        return this.executeFunction(context, String.class);
+        return context.convertOrFail(this.value(), String.class);
+    }
+
+    // Object ..........................................................................................................
+
+    @Override
+    boolean canBeEqual(final Object other) {
+        return other instanceof NamedFunctionExpression;
     }
 
     @Override
-    public Object toValue(final ExpressionEvaluationContext context) {
-        return this.executeFunction(context);
-    }
-
-    private <T> T executeFunction(final ExpressionEvaluationContext context,
-                                  final Class<T> target) {
-        return context.convertOrFail(
-                this.executeFunction(context),
-                target
-        );
-    }
-
-    private Object executeFunction(final ExpressionEvaluationContext context) {
-        return this.executeFunction0(
-                this.value(),
-                context
-        );
-    }
-
-    /**
-     * Delegates to the given context.
-     */
-    private Object executeFunction0(final List<Expression> parameters,
-                                    final ExpressionEvaluationContext context) {
-        return context.evaluate(
-                this.name(),
-                Cast.to(parameters)
-        );
-    }
-
-    // Object.........................................................................................................
-
-    @Override
-    boolean equalsIgnoringParentAndChildren(final Expression other) {
-        return this.name.equals(other.name());
-    }
-
-    @Override
-    void toString0(StringBuilder b) {
-        b.append(this.name());
-        b.append('(');
-
-        final List<Expression> parameters = this.value();
-        int last = parameters.size() - 1;
-        for (final Expression parameter : parameters) {
-            parameter.toString0(b);
-            last--;
-            if (last >= 0) {
-                b.append(',');
-            }
-        }
-
-        b.append(')');
+    void toString0(final StringBuilder b) {
+        b.append(this.value);
     }
 }

@@ -35,6 +35,11 @@ public class FakeExpressionVisitor extends ExpressionVisitor implements Fake {
     }
 
     @Override
+    protected void visit(final NamedFunctionExpression node) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
     protected void visit(final ReferenceExpression node) {
         throw new UnsupportedOperationException();
     }
@@ -61,6 +66,16 @@ public class FakeExpressionVisitor extends ExpressionVisitor implements Fake {
 
     @Override
     protected void endVisit(final AndExpression node) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    protected Visiting startVisit(final CallExpression node) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    protected void endVisit(final CallExpression node) {
         throw new UnsupportedOperationException();
     }
 
@@ -151,16 +166,6 @@ public class FakeExpressionVisitor extends ExpressionVisitor implements Fake {
 
     @Override
     protected void endVisit(final MultiplyExpression node) {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    protected Visiting startVisit(final NamedFunctionExpression node) {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    protected void endVisit(final NamedFunctionExpression node) {
         throw new UnsupportedOperationException();
     }
 

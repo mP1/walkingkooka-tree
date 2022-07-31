@@ -48,7 +48,13 @@ public interface ExpressionEvaluationContextTesting<C extends ExpressionEvaluati
         assertThrows(
                 UnknownExpressionFunctionException.class,
                 () -> this.createContext()
-                        .evaluate(Expression.namedFunction(FunctionExpressionName.with("unknown-namedFunction-123"), Expression.NO_CHILDREN)
+                        .evaluate(
+                                Expression.call(
+                                        Expression.namedFunction(
+                                                FunctionExpressionName.with("unknown-namedFunction-123")
+                                        ),
+                                        Expression.NO_CHILDREN
+                                )
                         )
         );
     }

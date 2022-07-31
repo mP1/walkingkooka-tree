@@ -20,6 +20,7 @@ package walkingkooka.tree.select;
 import walkingkooka.text.CharSequences;
 import walkingkooka.tree.expression.AddExpression;
 import walkingkooka.tree.expression.AndExpression;
+import walkingkooka.tree.expression.CallExpression;
 import walkingkooka.tree.expression.DivideExpression;
 import walkingkooka.tree.expression.EqualsExpression;
 import walkingkooka.tree.expression.Expression;
@@ -70,6 +71,11 @@ final class ExpressionNodeSelectorToStringExpressionVisitor extends ExpressionVi
     }
 
     @Override
+    protected void visit(final NamedFunctionExpression node) {
+        this.append(node.value().value());
+    }
+
+    @Override
     protected void visit(final ReferenceExpression node) {
         this.append("@" + node); // must be an attribute
     }
@@ -114,6 +120,22 @@ final class ExpressionNodeSelectorToStringExpressionVisitor extends ExpressionVi
     @Override
     protected Visiting startVisit(final AndExpression node) {
         return this.binary(node.left(), " and ", node.right());
+    }
+
+    @Override
+    protected Visiting startVisit(final CallExpression node) {
+        final Expression callable = node.callable();
+        if (!callable.isNamedFunction()) {
+            throw new IllegalArgumentException("Only named functions callables supported " + callable);
+        }
+
+        final NamedFunctionExpression namedFunctionExpression = (NamedFunctionExpression) callable;
+
+        return this.function(
+                namedFunctionExpression.value()
+                        .value(),
+                node.value()
+        );
     }
 
     @Override
@@ -165,11 +187,6 @@ final class ExpressionNodeSelectorToStringExpressionVisitor extends ExpressionVi
     @Override
     protected Visiting startVisit(final MultiplyExpression node) {
         return this.binary(node.left(), "*", node.right());
-    }
-
-    @Override
-    protected Visiting startVisit(final NamedFunctionExpression node) {
-        return this.function(node.name().value(), node.children());
     }
 
     @Override

@@ -70,6 +70,17 @@ public abstract class Expression implements Node<Expression, FunctionExpressionN
     }
 
     /**
+     * {@see CallExpression}
+     */
+    public static CallExpression call(final Expression callable,
+                                      final List<Expression> parameters) {
+        return CallExpression.with(
+                callable,
+                parameters
+        );
+    }
+
+    /**
      * {@see DivideExpression}
      */
     public static DivideExpression divide(final Expression left, final Expression right) {
@@ -128,11 +139,9 @@ public abstract class Expression implements Node<Expression, FunctionExpressionN
     /**
      * {@see NamedFunctionExpression}
      */
-    public static NamedFunctionExpression namedFunction(final FunctionExpressionName name,
-                                                        final List<Expression> parameters) {
+    public static NamedFunctionExpression namedFunction(final FunctionExpressionName name) {
         return NamedFunctionExpression.with(
-                name,
-                parameters
+                name
         );
     }
 
@@ -300,6 +309,13 @@ public abstract class Expression implements Node<Expression, FunctionExpressionN
      */
     public final boolean isAnd() {
         return this instanceof AndExpression;
+    }
+
+    /**
+     * Only {@link CallExpression} returns true
+     */
+    public final boolean isCall() {
+        return this instanceof CallExpression;
     }
 
     /**

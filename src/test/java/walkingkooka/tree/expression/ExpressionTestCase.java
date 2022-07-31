@@ -385,6 +385,7 @@ public abstract class ExpressionTestCase<N extends Expression> implements TreePr
                         ExpressionNumber.fromConverter(Converters.numberString((c) -> new DecimalFormat("#.###"))),
                         // string ->
                         Converters.<String, Boolean, ExpressionNumberConverterContext>mapper(v -> v instanceof String, Predicate.isEqual(Boolean.class), Boolean::valueOf),
+                        Converters.<FunctionExpressionName, Boolean, ExpressionNumberConverterContext>mapper(v -> v instanceof FunctionExpressionName, Predicate.isEqual(Boolean.class), (i) -> true),
                         stringLocalDate,
                         stringLocalDateTime,
                         stringLocalTime,

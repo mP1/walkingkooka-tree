@@ -70,6 +70,14 @@ public abstract class ExpressionVisitor extends Visitor<Expression> {
         // nop
     }
 
+    protected Visiting startVisit(final CallExpression node) {
+        return Visiting.CONTINUE;
+    }
+
+    protected void endVisit(final CallExpression node) {
+        // nop
+    }
+
     protected Visiting startVisit(final DivideExpression node) {
         return Visiting.CONTINUE;
     }
@@ -142,12 +150,7 @@ public abstract class ExpressionVisitor extends Visitor<Expression> {
         // nop
     }
 
-    protected Visiting startVisit(final NamedFunctionExpression node) {
-        return Visiting.CONTINUE;
-    }
-
-    protected void endVisit(final NamedFunctionExpression node) {
-        // nop
+    protected void visit(final NamedFunctionExpression node) {
     }
 
     protected Visiting startVisit(final NegativeExpression node) {
