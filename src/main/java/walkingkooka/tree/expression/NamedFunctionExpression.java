@@ -53,7 +53,7 @@ final public class NamedFunctionExpression extends LeafExpression<FunctionExpres
 
     public NamedFunctionExpression setValue(final FunctionExpressionName value) {
         return Objects.equals(this.value(), value) ?
-                (NamedFunctionExpression) this :
+                this :
                 this.replaceValue(value);
     }
 
