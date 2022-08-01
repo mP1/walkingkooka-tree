@@ -20,7 +20,10 @@ package walkingkooka.tree.expression;
 import java.util.Objects;
 
 /**
- * Holds a value which may or may not be null.
+ * A handle to a function identified by the given {@link FunctionExpressionName}.
+ * <br>
+ * Identifying the {@link walkingkooka.tree.expression.function.ExpressionFunction} is performed by the {@link ExpressionEvaluationContext}
+ * during the evaluate phase.
  */
 final public class NamedFunctionExpression extends LeafExpression<FunctionExpressionName> {
 
