@@ -177,10 +177,10 @@ public final class BasicExpressionEvaluationContextTest implements ClassTesting2
         );
     }
 
-    // evaluate namedFunction...............................................................................................
+    // evaluateFunction.................................................................................................
 
     @Test
-    public void testEvaluate() {
+    public void testEvaluateFunction() {
         this.evaluateAndCheck(
                 this.functionName(),
                 this.parameters(),
@@ -189,11 +189,11 @@ public final class BasicExpressionEvaluationContextTest implements ClassTesting2
     }
 
     @Test
-    public void testEvaluateThrownHandled() {
+    public void testEvaluateFunctionThrownHandled() {
         final String error = "**ERROR**";
         final FunctionExpressionName name = FunctionExpressionName.with("throws");
 
-        this.evaluateAndCheck(
+        this.evaluateFunctionAndCheck(
                 this.createContext(
                         (n) -> new FakeExpressionFunction<>() {
                             @Override
@@ -404,7 +404,7 @@ public final class BasicExpressionEvaluationContextTest implements ClassTesting2
 
         final FunctionExpressionName name = FunctionExpressionName.with("test123");
 
-        this.evaluateAndCheck(
+        this.evaluateFunctionAndCheck(
                 BasicExpressionEvaluationContext.with(
                         kind,
                         (n) -> new FakeExpressionFunction<>() {

@@ -98,7 +98,7 @@ public interface ExpressionEvaluationContext extends Context,
     /**
      * Locates a {@link ExpressionFunction} with the given {@link FunctionExpressionName} and then executes it with the provided parameter values.
      */
-    Object evaluate(final FunctionExpressionName name, final List<Object> parameters);
+    Object evaluateFunction(final FunctionExpressionName name, final List<Object> parameters);
 
     /**
      * Receives all {@link RuntimeException} thrown by a {@link ExpressionFunction} or {@link Expression}.
@@ -110,7 +110,7 @@ public interface ExpressionEvaluationContext extends Context,
      * <br>
      * This should be called whenever an {@link RuntimeException} is thrown by
      * <ul>
-     *     <li>{@link #evaluate(FunctionExpressionName, List)} throws</li>
+     *     <li>{@link #evaluateFunction(FunctionExpressionName, List)} throws</li>
      *     <li>{@link #prepareParameter(ExpressionFunctionParameter, Object)} throws</li>
      * </ul>
      */
