@@ -18,9 +18,7 @@
 package walkingkooka.tree.expression.function;
 
 import walkingkooka.Cast;
-import walkingkooka.Context;
-import walkingkooka.convert.ConverterContext;
-import walkingkooka.tree.expression.ExpressionNumberContext;
+import walkingkooka.tree.expression.ExpressionEvaluationContext;
 import walkingkooka.tree.expression.ExpressionPurityContext;
 import walkingkooka.tree.expression.FunctionExpressionName;
 
@@ -31,13 +29,13 @@ import java.util.Optional;
 /**
  * An {@link ExpressionFunction} that returns a different {@link FunctionExpressionName}.
  */
-final class ExpressionFunctionCustomName<T, C extends Context & ConverterContext & ExpressionNumberContext> implements ExpressionFunction<T, C> {
+final class ExpressionFunctionCustomName<T, C extends ExpressionEvaluationContext> implements ExpressionFunction<T, C> {
 
     /**
      * Factory called by {@link ExpressionFunction#setName}
      */
-    static <T, C extends Context & ConverterContext & ExpressionNumberContext> ExpressionFunction<T, C> with(final ExpressionFunction<T, C> function,
-                                                                                                             final Optional<FunctionExpressionName> name) {
+    static <T, C extends ExpressionEvaluationContext> ExpressionFunction<T, C> with(final ExpressionFunction<T, C> function,
+                                                                                    final Optional<FunctionExpressionName> name) {
         Objects.requireNonNull(function, "namedFunction");
         Objects.requireNonNull(name, "name");
 
@@ -51,8 +49,8 @@ final class ExpressionFunctionCustomName<T, C extends Context & ConverterContext
     /**
      * Handles the special case not preventing double wrapping a {@link ExpressionFunctionCustomName}.
      */
-    static <T, C extends Context & ConverterContext & ExpressionNumberContext> ExpressionFunction<T, C> unwrap(final ExpressionFunctionCustomName<T, C> function,
-                                                                                                               final Optional<FunctionExpressionName> name) {
+    static <T, C extends ExpressionEvaluationContext> ExpressionFunction<T, C> unwrap(final ExpressionFunctionCustomName<T, C> function,
+                                                                                      final Optional<FunctionExpressionName> name) {
         return new ExpressionFunctionCustomName<>(function.function, name);
     }
 

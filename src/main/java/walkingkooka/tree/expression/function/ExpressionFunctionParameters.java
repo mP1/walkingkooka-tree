@@ -17,9 +17,7 @@
 
 package walkingkooka.tree.expression.function;
 
-import walkingkooka.Context;
-import walkingkooka.convert.ConverterContext;
-import walkingkooka.tree.expression.ExpressionNumberContext;
+import walkingkooka.tree.expression.ExpressionEvaluationContext;
 import walkingkooka.tree.expression.ExpressionPurityContext;
 import walkingkooka.tree.expression.FunctionExpressionName;
 
@@ -30,7 +28,7 @@ import java.util.Optional;
 /**
  * Wraps an {@link ExpressionFunction} only the apply method remains to implemented by sub-classes.
  */
-abstract class ExpressionFunctionParameters<T, C extends Context & ConverterContext & ExpressionNumberContext> implements ExpressionFunction<T, C> {
+abstract class ExpressionFunctionParameters<T, C extends ExpressionEvaluationContext> implements ExpressionFunction<T, C> {
 
     static void checkFunction(final ExpressionFunction<?, ?> function) {
         Objects.requireNonNull(function, "namedFunction");
