@@ -102,7 +102,7 @@ public interface ExpressionEvaluationContextTesting<C extends ExpressionEvaluati
         assertThrows(
                 NullPointerException.class,
                 () -> this.createContext()
-                        .evaluate(
+                        .evaluateFunction(
                                 null,
                                 ExpressionEvaluationContext.NO_PARAMETERS
                         )
@@ -114,7 +114,7 @@ public interface ExpressionEvaluationContextTesting<C extends ExpressionEvaluati
         assertThrows(
                 UnknownExpressionFunctionException.class,
                 () -> this.createContext()
-                        .evaluate(
+                        .evaluateFunction(
                                 this.unknownFunctionName(),
                                 ExpressionEvaluationContext.NO_PARAMETERS
                         )
@@ -126,7 +126,7 @@ public interface ExpressionEvaluationContextTesting<C extends ExpressionEvaluati
         assertThrows(
                 NullPointerException.class,
                 () -> this.createContext()
-                        .evaluate(
+                        .evaluateFunction(
                                 FunctionExpressionName.with("sum"),
                                 null
                         )
@@ -146,7 +146,7 @@ public interface ExpressionEvaluationContextTesting<C extends ExpressionEvaluati
                                   final List<Object> parameters,
                                   final Object expected) {
 
-        this.evaluateAndCheck(
+        this.evaluateFunctionAndCheck(
                 this.createContext(),
                 name,
                 parameters,
@@ -154,14 +154,14 @@ public interface ExpressionEvaluationContextTesting<C extends ExpressionEvaluati
         );
     }
 
-    default void evaluateAndCheck(final C context,
-                                  final FunctionExpressionName name,
-                                  final List<Object> parameters,
-                                  final Object expected) {
+    default void evaluateFunctionAndCheck(final C context,
+                                          final FunctionExpressionName name,
+                                          final List<Object> parameters,
+                                          final Object expected) {
 
         this.checkEquals(
                 expected,
-                context.evaluate(name, parameters),
+                context.evaluateFunction(name, parameters),
                 () -> "evaluate " + name + " " + parameters
         );
     }

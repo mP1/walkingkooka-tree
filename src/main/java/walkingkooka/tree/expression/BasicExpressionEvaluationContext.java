@@ -255,8 +255,8 @@ final class BasicExpressionEvaluationContext implements ExpressionEvaluationCont
     }
 
     @Override
-    public Object evaluate(final FunctionExpressionName name,
-                           final List<Object> parameters) {
+    public Object evaluateFunction(final FunctionExpressionName name,
+                                   final List<Object> parameters) {
         Object result;
 
         try {

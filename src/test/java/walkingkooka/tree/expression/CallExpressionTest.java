@@ -142,7 +142,7 @@ public final class CallExpressionTest extends VariableExpressionTestCase<CallExp
                                 };
                             }
 
-                            public Object evaluate(final FunctionExpressionName name, final List<Object> parameters) {
+                            public Object evaluateFunction(final FunctionExpressionName name, final List<Object> parameters) {
                                 Objects.requireNonNull(name, "name");
                                 Objects.requireNonNull(parameters, "parameters");
 
@@ -282,8 +282,8 @@ public final class CallExpressionTest extends VariableExpressionTestCase<CallExp
             }
 
             @Override
-            public Object evaluate(final FunctionExpressionName name,
-                                   final List<Object> parameters) {
+            public Object evaluateFunction(final FunctionExpressionName name,
+                                           final List<Object> parameters) {
                 return this.function(name)
                         .apply(parameters, this);
             }
