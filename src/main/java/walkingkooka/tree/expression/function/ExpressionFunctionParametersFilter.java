@@ -18,8 +18,7 @@
 package walkingkooka.tree.expression.function;
 
 import walkingkooka.Context;
-import walkingkooka.convert.ConverterContext;
-import walkingkooka.tree.expression.ExpressionNumberContext;
+import walkingkooka.tree.expression.ExpressionEvaluationContext;
 
 import java.util.List;
 import java.util.Objects;
@@ -29,10 +28,10 @@ import java.util.stream.Collectors;
 /**
  * Wraps an {@link ExpressionFunction} and applies a {@link java.util.function.Function} on the paraneters before calling the wrapped.
  */
-final class ExpressionFunctionParametersFilter<T, C extends Context & ConverterContext & ExpressionNumberContext> extends ExpressionFunctionParameters<T, C> {
+final class ExpressionFunctionParametersFilter<T, C extends ExpressionEvaluationContext> extends ExpressionFunctionParameters<T, C> {
 
-    static <T, C extends Context & ConverterContext & ExpressionNumberContext> ExpressionFunctionParametersFilter<T, C> with(final BiPredicate<Object, C> filter,
-                                                                                                                             final ExpressionFunction<T, C> function) {
+    static <T, C extends ExpressionEvaluationContext> ExpressionFunctionParametersFilter<T, C> with(final BiPredicate<Object, C> filter,
+                                                                                                    final ExpressionFunction<T, C> function) {
         checkFilter(filter);
         checkFunction(function);
 

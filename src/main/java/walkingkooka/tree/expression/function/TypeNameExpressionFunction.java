@@ -18,9 +18,7 @@
 package walkingkooka.tree.expression.function;
 
 import walkingkooka.Cast;
-import walkingkooka.Context;
-import walkingkooka.convert.ConverterContext;
-import walkingkooka.tree.expression.ExpressionNumberContext;
+import walkingkooka.tree.expression.ExpressionEvaluationContext;
 import walkingkooka.tree.expression.ExpressionPurityContext;
 import walkingkooka.tree.expression.FunctionExpressionName;
 
@@ -30,12 +28,12 @@ import java.util.Optional;
 /**
  * A namedFunction that returns {@link Object#getClass()#getName()} of the first parameter.
  */
-final class TypeNameExpressionFunction<C extends Context & ConverterContext & ExpressionNumberContext> implements ExpressionFunction<String, C> {
+final class TypeNameExpressionFunction<C extends ExpressionEvaluationContext> implements ExpressionFunction<String, C> {
 
     /**
      * Instance getter.
      */
-    static <C extends Context & ConverterContext & ExpressionNumberContext> TypeNameExpressionFunction<C> instance() {
+    static <C extends ExpressionEvaluationContext> TypeNameExpressionFunction<C> instance() {
         return Cast.to(INSTANCE);
     }
 
