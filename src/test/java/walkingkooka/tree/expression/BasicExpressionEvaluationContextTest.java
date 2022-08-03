@@ -181,7 +181,7 @@ public final class BasicExpressionEvaluationContextTest implements ClassTesting2
 
     @Test
     public void testEvaluateFunction() {
-        this.evaluateAndCheck(
+        this.evaluateFunctionAndCheck(
                 this.functionName(),
                 this.parameters(),
                 this.functionValue()
