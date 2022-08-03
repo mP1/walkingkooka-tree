@@ -94,6 +94,11 @@ final class BasicNodeSelectorExpressionEvaluationContext<N extends Node<N, NAME,
     // namedFunction.........................................................................................................
 
     @Override
+    public ExpressionEvaluationContext context(final Function<ExpressionReference, Optional<Object>> scoped) {
+        throw new UnsupportedOperationException("Scoped variables not supported");
+    }
+
+    @Override
     public ExpressionFunction<?, ExpressionEvaluationContext> function(final FunctionExpressionName name) {
         return this.context.function(name);
     }

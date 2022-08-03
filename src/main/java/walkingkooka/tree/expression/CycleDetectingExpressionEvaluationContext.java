@@ -30,6 +30,7 @@ import java.util.Locale;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
+import java.util.function.Function;
 
 /**
  * Wraps another {@link ExpressionEvaluationContext} delegating all methods except for a guard within
@@ -58,6 +59,11 @@ final class CycleDetectingExpressionEvaluationContext implements ExpressionEvalu
     @Override
     public boolean isPure(final FunctionExpressionName name) {
         return this.context.isPure(name);
+    }
+
+    @Override
+    public ExpressionEvaluationContext context(final Function<ExpressionReference, Optional<Object>> resolver) {
+        return this.context.context(resolver);
     }
 
     @Override

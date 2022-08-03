@@ -24,6 +24,7 @@ import walkingkooka.tree.expression.function.ExpressionFunctionParameter;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.function.Function;
 
 public class FakeExpressionEvaluationContext extends FakeExpressionNumberConverterContext implements ExpressionEvaluationContext {
 
@@ -33,6 +34,11 @@ public class FakeExpressionEvaluationContext extends FakeExpressionNumberConvert
 
     @Override
     public CaseSensitivity caseSensitivity() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public ExpressionEvaluationContext context(final Function<ExpressionReference, Optional<Object>> scoped) {
         throw new UnsupportedOperationException();
     }
 

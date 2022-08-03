@@ -26,6 +26,7 @@ import walkingkooka.tree.expression.function.ExpressionFunctionParameterKind;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.function.Function;
 
 /**
  * A {@link Context} that travels during any expression evaluation.
@@ -34,6 +35,11 @@ public interface ExpressionEvaluationContext extends Context,
         ExpressionNumberConverterContext,
         ExpressionNumberContext,
         ExpressionPurityContext {
+
+    /**
+     * Factory that returns a {@link ExpressionEvaluationContext} of the same type with the given scoped variables.
+     */
+    ExpressionEvaluationContext context(final Function<ExpressionReference, Optional<Object>> scoped);
 
     /**
      * If the value is a reference or expression resolve or evaluate.
