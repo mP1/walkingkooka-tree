@@ -237,6 +237,11 @@ final class BasicExpressionEvaluationContext implements ExpressionEvaluationCont
     // functions........................................................................................................
 
     @Override
+    public ExpressionEvaluationContext context(final Function<ExpressionReference, Optional<Object>> resolver) {
+        throw new UnsupportedOperationException("https://github.com/mP1/walkingkooka-tree/issues/599");
+    }
+
+    @Override
     public ExpressionFunction<?, ExpressionEvaluationContext> function(final FunctionExpressionName name) {
         return this.functions.apply(name);
     }
