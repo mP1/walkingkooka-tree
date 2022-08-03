@@ -98,7 +98,7 @@ public interface ExpressionEvaluationContextTesting<C extends ExpressionEvaluati
 
 
     @Test
-    default void testEvaluateNullFunctionNameFails() {
+    default void testEvaluateFunctionNullFunctionNameFails() {
         assertThrows(
                 NullPointerException.class,
                 () -> this.createContext()
@@ -110,7 +110,7 @@ public interface ExpressionEvaluationContextTesting<C extends ExpressionEvaluati
     }
 
     @Test
-    default void testEvaluateUnknownFunctionNameFails() {
+    default void testEvaluateFunctionUnknownFunctionNameFails() {
         assertThrows(
                 UnknownExpressionFunctionException.class,
                 () -> this.createContext()
@@ -142,9 +142,9 @@ public interface ExpressionEvaluationContextTesting<C extends ExpressionEvaluati
         );
     }
 
-    default void evaluateAndCheck(final FunctionExpressionName name,
-                                  final List<Object> parameters,
-                                  final Object expected) {
+    default void evaluateFunctionAndCheck(final FunctionExpressionName name,
+                                          final List<Object> parameters,
+                                          final Object expected) {
 
         this.evaluateFunctionAndCheck(
                 this.createContext(),
