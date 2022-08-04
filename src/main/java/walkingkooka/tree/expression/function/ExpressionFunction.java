@@ -49,6 +49,11 @@ public interface ExpressionFunction<T, C extends ExpressionEvaluationContext> ex
     String ANONYMOUS = "<anonymous>";
 
     /**
+     * No parameter values, useful when wishing to execute a function with no values.
+     */
+    List<Object> NO_PARAMETER_VALUES = Lists.empty();
+
+    /**
      * Updates ALL parameters with the given {@link ExpressionFunctionParameterKind}
      */
     static List<ExpressionFunctionParameter<?>> setKinds(final List<ExpressionFunctionParameter<?>> parameters,
