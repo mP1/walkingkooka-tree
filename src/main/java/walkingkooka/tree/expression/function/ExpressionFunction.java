@@ -39,6 +39,11 @@ public interface ExpressionFunction<T, C extends ExpressionEvaluationContext> ex
         HasOptionalName<FunctionExpressionName> {
 
     /**
+     * Constant that holds the {@link FunctionExpressionName} for anonymous functions.
+     */
+    Optional<FunctionExpressionName> ANONYMOUS_NAME = Optional.empty();
+
+    /**
      * The default name for a namedFunction without any name, often used by {@link #toString()}.
      */
     String ANONYMOUS = "<anonymous>";
