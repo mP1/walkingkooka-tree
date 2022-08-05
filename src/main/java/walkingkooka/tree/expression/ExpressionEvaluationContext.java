@@ -74,12 +74,10 @@ public interface ExpressionEvaluationContext extends Context,
      * Creates a lambda {@link ExpressionFunction}, the given parameters become scoped variables when the
      * {@link Expression} is executed.
      */
-    default <TT, CC extends ExpressionEvaluationContext> ExpressionFunction<TT, CC> lambdaFunction(final boolean pure,
-                                                                                                   final List<ExpressionFunctionParameter<?>> parameters,
+    default <TT, CC extends ExpressionEvaluationContext> ExpressionFunction<TT, CC> lambdaFunction(final List<ExpressionFunctionParameter<?>> parameters,
                                                                                                    final Class<TT> returnType,
                                                                                                    final Expression expression) {
         return ExpressionFunctions.lambda(
-                pure,
                 parameters,
                 returnType,
                 expression

@@ -38,8 +38,6 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 public class LambdaExpressionFunctionTest implements ExpressionFunctionTesting<LambdaExpressionFunction<String, FakeExpressionEvaluationContext>, String, FakeExpressionEvaluationContext>,
         ToStringTesting<LambdaExpressionFunction<String, FakeExpressionEvaluationContext>> {
 
-    private final static boolean PURE = true;
-
     private final static List<ExpressionFunctionParameter<?>> PARAMETERS = Lists.of(
             ExpressionFunctionParameterName.with("x")
                     .required(Object.class),
@@ -78,7 +76,6 @@ public class LambdaExpressionFunctionTest implements ExpressionFunctionTesting<L
     @Test
     public void testWithNullParametersFails() {
         this.withFails(
-                PURE,
                 null,
                 RETURN_TYPE,
                 EXPRESSION
@@ -88,7 +85,6 @@ public class LambdaExpressionFunctionTest implements ExpressionFunctionTesting<L
     @Test
     public void testWithNullReturnTypeFails() {
         this.withFails(
-                PURE,
                 PARAMETERS,
                 null,
                 EXPRESSION
@@ -98,21 +94,18 @@ public class LambdaExpressionFunctionTest implements ExpressionFunctionTesting<L
     @Test
     public void testWithNullExpressionFails() {
         this.withFails(
-                PURE,
                 PARAMETERS,
                 RETURN_TYPE,
                 null
         );
     }
 
-    private void withFails(final boolean pure,
-                           final List<ExpressionFunctionParameter<?>> parameters,
+    private void withFails(final List<ExpressionFunctionParameter<?>> parameters,
                            final Class<String> returnType,
                            final Expression expression) {
         assertThrows(
                 NullPointerException.class,
                 () -> LambdaExpressionFunction.with(
-                        pure,
                         parameters,
                         returnType,
                         expression
@@ -161,7 +154,6 @@ public class LambdaExpressionFunctionTest implements ExpressionFunctionTesting<L
     @Override
     public LambdaExpressionFunction<String, FakeExpressionEvaluationContext> createBiFunction() {
         return LambdaExpressionFunction.with(
-                PURE,
                 PARAMETERS,
                 RETURN_TYPE,
                 EXPRESSION

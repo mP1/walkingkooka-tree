@@ -163,8 +163,6 @@ public final class ExpressionEvaluationContextTest implements ClassTesting<Expre
 
     // lambdaFunction..................................................................................................
 
-    private final static boolean PURE = true;
-
     private final static List<ExpressionFunctionParameter<?>> PARAMETERS = Lists.empty();
 
     private final static Class<Void> RETURN_TYPE = Void.class;
@@ -174,7 +172,6 @@ public final class ExpressionEvaluationContextTest implements ClassTesting<Expre
     @Test
     public void testLambdaFunctionNullParametersFails() {
         this.lambdaFunctionFails(
-                PURE,
                 null,
                 RETURN_TYPE,
                 EXPRESSION
@@ -184,7 +181,6 @@ public final class ExpressionEvaluationContextTest implements ClassTesting<Expre
     @Test
     public void testLambdaFunctionNullReturnTypeFails() {
         this.lambdaFunctionFails(
-                PURE,
                 PARAMETERS,
                 null,
                 EXPRESSION
@@ -194,22 +190,19 @@ public final class ExpressionEvaluationContextTest implements ClassTesting<Expre
     @Test
     public void testLambdaFunctionNullExpressionFails() {
         this.lambdaFunctionFails(
-                PURE,
                 PARAMETERS,
                 RETURN_TYPE,
                 null
         );
     }
 
-    private void lambdaFunctionFails(final boolean pure,
-                                     final List<ExpressionFunctionParameter<?>> parameters,
+    private void lambdaFunctionFails(final List<ExpressionFunctionParameter<?>> parameters,
                                      final Class<?> returnType,
                                      final Expression expression) {
         assertThrows(
                 NullPointerException.class,
                 () -> new FakeExpressionEvaluationContext()
                         .lambdaFunction(
-                                pure,
                                 parameters,
                                 returnType,
                                 expression
@@ -267,7 +260,6 @@ public final class ExpressionEvaluationContextTest implements ClassTesting<Expre
             }
         };
         final ExpressionFunction<ExpressionNumber, FakeExpressionEvaluationContext> function = context.lambdaFunction(
-                true, // pure
                 Lists.of(
                         ExpressionFunctionParameterName.with("x")
                                 .required(ExpressionNumber.class),
