@@ -24,6 +24,7 @@ import walkingkooka.reflect.PublicStaticHelper;
 import walkingkooka.text.CaseSensitivity;
 import walkingkooka.text.CharSequences;
 import walkingkooka.tree.Node;
+import walkingkooka.tree.expression.Expression;
 import walkingkooka.tree.expression.ExpressionEvaluationContext;
 import walkingkooka.tree.expression.ExpressionNumber;
 import walkingkooka.tree.expression.ExpressionNumberFunction;
@@ -131,13 +132,13 @@ public final class ExpressionFunctions implements PublicStaticHelper {
     public static <T, C extends ExpressionEvaluationContext> ExpressionFunction<T, C> lambda(final boolean pure,
                                                                                              final List<ExpressionFunctionParameter<?>> parameters,
                                                                                              final Class<T> returnType,
-                                                                                             final Function<C, T> function,
+                                                                                             final Expression expression,
                                                                                              final BiPredicate<ExpressionFunctionParameterName, ExpressionReference> parameterMatcher) {
         return LambdaExpressionFunction.with(
                 pure,
                 parameters,
                 returnType,
-                function,
+                expression,
                 parameterMatcher
         );
     }
