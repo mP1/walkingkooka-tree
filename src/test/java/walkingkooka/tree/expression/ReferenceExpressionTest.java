@@ -138,7 +138,7 @@ public final class ReferenceExpressionTest extends LeafExpressionTestCase<Refere
         private final String name;
 
         @Override
-        public boolean test(final ExpressionFunctionParameterName parameterName) {
+        public boolean testParameterName(final ExpressionFunctionParameterName parameterName) {
             throw new UnsupportedOperationException();
         }
 

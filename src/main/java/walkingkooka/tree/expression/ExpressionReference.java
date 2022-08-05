@@ -24,5 +24,5 @@ public interface ExpressionReference {
     /**
      * Tests if the given {@link ExpressionFunctionParameterName} is equal to this {@link ExpressionReference}.
      */
-    boolean test(final ExpressionFunctionParameterName parameterName);
+    boolean testParameterName(final ExpressionFunctionParameterName parameterName);
 }

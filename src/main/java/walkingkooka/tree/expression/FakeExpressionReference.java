@@ -22,7 +22,7 @@ import walkingkooka.tree.expression.function.ExpressionFunctionParameterName;
 public class FakeExpressionReference implements ExpressionReference {
 
     @Override
-    public boolean test(final ExpressionFunctionParameterName parameterName) {
+    public boolean testParameterName(final ExpressionFunctionParameterName parameterName) {
         throw new UnsupportedOperationException();
     }
 }
