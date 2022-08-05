@@ -57,7 +57,7 @@ final public class NodeSelectorAttributeName extends NodeSelectorNameValue imple
     }
 
     @Override
-    public boolean test(final ExpressionFunctionParameterName parameterName) {
+    public boolean testParameterName(final ExpressionFunctionParameterName parameterName) {
         return this.value().equals(parameterName.value());
     }
 
