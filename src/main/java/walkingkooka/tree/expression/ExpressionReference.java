@@ -19,13 +19,10 @@ package walkingkooka.tree.expression;
 
 import walkingkooka.tree.expression.function.ExpressionFunctionParameterName;
 
-import java.util.function.Predicate;
-
-public interface ExpressionReference extends Predicate<ExpressionFunctionParameterName> {
+public interface ExpressionReference {
 
     /**
      * Tests if the given {@link ExpressionFunctionParameterName} is equal to this {@link ExpressionReference}.
      */
-    @Override
     boolean test(final ExpressionFunctionParameterName parameterName);
 }
