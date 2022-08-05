@@ -28,7 +28,6 @@ import walkingkooka.tree.expression.Expression;
 import walkingkooka.tree.expression.ExpressionEvaluationContext;
 import walkingkooka.tree.expression.ExpressionNumber;
 import walkingkooka.tree.expression.ExpressionNumberFunction;
-import walkingkooka.tree.expression.ExpressionReference;
 import walkingkooka.tree.expression.FunctionExpressionName;
 import walkingkooka.tree.select.NodeSelectorExpressionEvaluationContext;
 
@@ -38,7 +37,6 @@ import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
 import java.util.function.BiFunction;
-import java.util.function.BiPredicate;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.IntFunction;
@@ -132,14 +130,12 @@ public final class ExpressionFunctions implements PublicStaticHelper {
     public static <T, C extends ExpressionEvaluationContext> ExpressionFunction<T, C> lambda(final boolean pure,
                                                                                              final List<ExpressionFunctionParameter<?>> parameters,
                                                                                              final Class<T> returnType,
-                                                                                             final Expression expression,
-                                                                                             final BiPredicate<ExpressionFunctionParameterName, ExpressionReference> parameterMatcher) {
+                                                                                             final Expression expression) {
         return LambdaExpressionFunction.with(
                 pure,
                 parameters,
                 returnType,
-                expression,
-                parameterMatcher
+                expression
         );
     }
 
