@@ -33,8 +33,7 @@ import java.util.function.Function;
  */
 final class LambdaExpressionFunction<T, C extends ExpressionEvaluationContext> implements ExpressionFunction<T, C> {
 
-    static <T, C extends ExpressionEvaluationContext> LambdaExpressionFunction<T, C> with(final boolean pure,
-                                                                                          final List<ExpressionFunctionParameter<?>> parameters,
+    static <T, C extends ExpressionEvaluationContext> LambdaExpressionFunction<T, C> with(final List<ExpressionFunctionParameter<?>> parameters,
                                                                                           final Class<T> returnType,
                                                                                           final Expression expression) {
         Objects.requireNonNull(parameters, "parameters");
@@ -42,18 +41,15 @@ final class LambdaExpressionFunction<T, C extends ExpressionEvaluationContext> i
         Objects.requireNonNull(expression, "expression");
 
         return new LambdaExpressionFunction<>(
-                pure,
                 Lists.immutable(parameters),
                 returnType,
                 expression
         );
     }
 
-    public LambdaExpressionFunction(final boolean pure,
-                                    final List<ExpressionFunctionParameter<?>> parameters,
+    public LambdaExpressionFunction(final List<ExpressionFunctionParameter<?>> parameters,
                                     final Class<T> returnType,
                                     final Expression expression) {
-        this.pure = pure;
         this.parameters = parameters;
         this.returnType = returnType;
         this.expression = expression;
@@ -66,10 +62,8 @@ final class LambdaExpressionFunction<T, C extends ExpressionEvaluationContext> i
 
     @Override
     public boolean isPure(final ExpressionPurityContext context) {
-        return this.pure;
+        return this.expression.isPure(context);
     }
-
-    private final boolean pure;
 
     @Override
     public List<ExpressionFunctionParameter<?>> parameters(final int count) {
