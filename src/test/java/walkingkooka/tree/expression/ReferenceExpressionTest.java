@@ -19,7 +19,6 @@ package walkingkooka.tree.expression;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.Either;
-import walkingkooka.tree.expression.function.ExpressionFunctionParameterName;
 import walkingkooka.visit.Visiting;
 
 import java.math.MathContext;
@@ -128,7 +127,7 @@ public final class ReferenceExpressionTest extends LeafExpressionTestCase<Refere
         return new TestExpressionReference("different-namedFunction");
     }
 
-    private static class TestExpressionReference implements ExpressionReference {
+    private static class TestExpressionReference extends FakeExpressionReference {
 
         TestExpressionReference(final String name) {
             super();
@@ -136,11 +135,6 @@ public final class ReferenceExpressionTest extends LeafExpressionTestCase<Refere
         }
 
         private final String name;
-
-        @Override
-        public boolean testParameterName(final ExpressionFunctionParameterName parameterName) {
-            throw new UnsupportedOperationException();
-        }
 
         @Override
         public int hashCode() {
