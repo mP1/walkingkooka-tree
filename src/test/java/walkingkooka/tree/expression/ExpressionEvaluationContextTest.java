@@ -18,14 +18,19 @@
 package walkingkooka.tree.expression;
 
 import org.junit.jupiter.api.Test;
+import walkingkooka.Either;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.reflect.ClassTesting;
 import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.text.CharSequences;
 import walkingkooka.tree.expression.function.ExpressionFunction;
+import walkingkooka.tree.expression.function.ExpressionFunctionParameter;
+import walkingkooka.tree.expression.function.ExpressionFunctionParameterName;
 import walkingkooka.tree.expression.function.ExpressionFunctions;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.function.Function;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -155,6 +160,165 @@ public final class ExpressionEvaluationContextTest implements ClassTesting<Expre
                 () -> "evaluateIfNecessary " + CharSequences.quoteIfChars(value)
         );
     }
+
+    // lambdaFunction..................................................................................................
+
+    private final static boolean PURE = true;
+
+    private final static List<ExpressionFunctionParameter<?>> PARAMETERS = Lists.empty();
+
+    private final static Class<Void> RETURN_TYPE = Void.class;
+
+    private final static Expression EXPRESSION = Expression.value(123);
+
+    @Test
+    public void testLambdaFunctionNullParametersFails() {
+        this.lambdaFunctionFails(
+                PURE,
+                null,
+                RETURN_TYPE,
+                EXPRESSION
+        );
+    }
+
+    @Test
+    public void testLambdaFunctionNullReturnTypeFails() {
+        this.lambdaFunctionFails(
+                PURE,
+                PARAMETERS,
+                null,
+                EXPRESSION
+        );
+    }
+
+    @Test
+    public void testLambdaFunctionNullExpressionFails() {
+        this.lambdaFunctionFails(
+                PURE,
+                PARAMETERS,
+                RETURN_TYPE,
+                null
+        );
+    }
+
+    private void lambdaFunctionFails(final boolean pure,
+                                     final List<ExpressionFunctionParameter<?>> parameters,
+                                     final Class<?> returnType,
+                                     final Expression expression) {
+        assertThrows(
+                NullPointerException.class,
+                () -> new FakeExpressionEvaluationContext()
+                        .lambdaFunction(
+                                pure,
+                                parameters,
+                                returnType,
+                                expression
+                        )
+        );
+    }
+
+    @Test
+    public void testLambdaFunction() {
+        final FakeExpressionEvaluationContext context = new FakeExpressionEvaluationContext() {
+            @Override
+            public ExpressionEvaluationContext context(final Function<ExpressionReference, Optional<Object>> scoped) {
+                return new FakeExpressionEvaluationContext() {
+
+                    @Override
+                    public <T> Either<T, String> convert(final Object value,
+                                                         final Class<T> target) {
+                        return this.successfulConversion(
+                                ExpressionNumberKind.DOUBLE.create((Number) value),
+                                target
+                        );
+                    }
+
+                    @Override
+                    public Object evaluate(final Expression expression) {
+                        return expression.toValue(this);
+                    }
+
+                    @Override
+                    public boolean isText(final Object value) {
+                        return false;
+                    }
+
+                    @Override
+                    public Object referenceOrFail(final ExpressionReference reference) {
+                        switch (reference.toString()) {
+                            case "x":
+                                return 10;
+                            case "y":
+                                return 20;
+                            default:
+                                throw new UnsupportedOperationException("Unknown reference " + reference);
+                        }
+                    }
+                };
+            }
+
+            @Override
+            public <T> Either<T, String> convert(final Object value,
+                                                 final Class<T> target) {
+                return this.successfulConversion(
+                        target.cast(value),
+                        target
+                );
+            }
+        };
+        final ExpressionFunction<ExpressionNumber, FakeExpressionEvaluationContext> function = context.lambdaFunction(
+                true, // pure
+                Lists.of(
+                        ExpressionFunctionParameterName.with("x")
+                                .required(ExpressionNumber.class),
+                        ExpressionFunctionParameterName.with("y")
+                                .required(ExpressionNumber.class)
+                ),
+                ExpressionNumber.class,
+                Expression.add(
+                        Expression.reference(
+                                new FakeExpressionReference() {
+                                    @Override
+                                    public boolean testParameterName(final ExpressionFunctionParameterName parameterName) {
+                                        return "x".equals(parameterName.value());
+                                    }
+
+                                    @Override
+                                    public String toString() {
+                                        return "x";
+                                    }
+                                }
+                        ),
+                        Expression.reference(
+                                new FakeExpressionReference() {
+                                    @Override
+                                    public boolean testParameterName(final ExpressionFunctionParameterName parameterName) {
+                                        return "y".equals(parameterName.value());
+                                    }
+
+                                    @Override
+                                    public String toString() {
+                                        return "y";
+                                    }
+                                }
+                        )
+                )
+        );
+
+        this.checkEquals(
+                ExpressionNumberKind.DOUBLE.create(30),
+                function.apply(
+                        Lists.of(
+                                10,
+                                20
+                        ),
+                        context
+                ),
+                () -> "10+20"
+        );
+    }
+
+    // prepareParameters...............................................................................................
 
     @Test
     public void testPrepareParameters() {

@@ -23,6 +23,7 @@ import walkingkooka.text.CaseSensitivity;
 import walkingkooka.tree.expression.function.ExpressionFunction;
 import walkingkooka.tree.expression.function.ExpressionFunctionParameter;
 import walkingkooka.tree.expression.function.ExpressionFunctionParameterKind;
+import walkingkooka.tree.expression.function.ExpressionFunctions;
 
 import java.util.List;
 import java.util.Optional;
@@ -68,6 +69,22 @@ public interface ExpressionEvaluationContext extends Context,
      * Returns the {@link ExpressionFunction} with the given {@link FunctionExpressionName}.
      */
     ExpressionFunction<?, ExpressionEvaluationContext> function(final FunctionExpressionName name);
+
+    /**
+     * Creates a lambda {@link ExpressionFunction}, the given parameters become scoped variables when the
+     * {@link Expression} is executed.
+     */
+    default <TT, CC extends ExpressionEvaluationContext> ExpressionFunction<TT, CC> lambdaFunction(final boolean pure,
+                                                                                                   final List<ExpressionFunctionParameter<?>> parameters,
+                                                                                                   final Class<TT> returnType,
+                                                                                                   final Expression expression) {
+        return ExpressionFunctions.lambda(
+                pure,
+                parameters,
+                returnType,
+                expression
+        );
+    }
 
     /**
      * Wraps the {@link List} of parameters values and performs several actions lazily for each parameter.
