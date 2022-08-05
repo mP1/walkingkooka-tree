@@ -19,8 +19,12 @@ package walkingkooka.tree.expression.function;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
+import walkingkooka.Either;
 import walkingkooka.ToStringTesting;
 import walkingkooka.collect.list.Lists;
+import walkingkooka.tree.expression.Expression;
+import walkingkooka.tree.expression.ExpressionNumber;
+import walkingkooka.tree.expression.ExpressionNumberKind;
 import walkingkooka.tree.expression.ExpressionReference;
 import walkingkooka.tree.expression.FakeExpressionEvaluationContext;
 
@@ -38,9 +42,9 @@ public class LambdaExpressionFunctionTest implements ExpressionFunctionTesting<L
 
     private final static List<ExpressionFunctionParameter<?>> PARAMETERS = Lists.of(
             ExpressionFunctionParameterName.with("x")
-                    .required(String.class),
+                    .required(Object.class),
             ExpressionFunctionParameterName.with("y")
-                    .required(String.class)
+                    .required(Object.class)
     );
     private final Class<String> RETURN_TYPE = String.class;
 
@@ -55,11 +59,10 @@ public class LambdaExpressionFunctionTest implements ExpressionFunctionTesting<L
         };
     }
 
-    private final static Function<FakeExpressionEvaluationContext, String> FUNCTION = (c) -> "x=" + c.referenceOrFail(
-            var("x")
-    ) +
-            ",y=" +
-            c.referenceOrFail(var("y"));
+    private static Expression EXPRESSION = Expression.add(
+            Expression.reference(var("x")),
+            Expression.reference(var("y"))
+    );
 
     @Override
     public int minimumParameterCount() {
@@ -74,7 +77,7 @@ public class LambdaExpressionFunctionTest implements ExpressionFunctionTesting<L
                 PURE,
                 null,
                 RETURN_TYPE,
-                FUNCTION,
+                EXPRESSION,
                 PARAMETERS_MATCHER
         );
     }
@@ -85,13 +88,13 @@ public class LambdaExpressionFunctionTest implements ExpressionFunctionTesting<L
                 PURE,
                 PARAMETERS,
                 null,
-                FUNCTION,
+                EXPRESSION,
                 PARAMETERS_MATCHER
         );
     }
 
     @Test
-    public void testWithNullFunctionFails() {
+    public void testWithNullExpressionFails() {
         this.withFails(
                 PURE,
                 PARAMETERS,
@@ -107,7 +110,7 @@ public class LambdaExpressionFunctionTest implements ExpressionFunctionTesting<L
                 PURE,
                 PARAMETERS,
                 RETURN_TYPE,
-                FUNCTION,
+                EXPRESSION,
                 null
         );
     }
@@ -115,7 +118,7 @@ public class LambdaExpressionFunctionTest implements ExpressionFunctionTesting<L
     private void withFails(final boolean pure,
                            final List<ExpressionFunctionParameter<?>> parameters,
                            final Class<String> returnType,
-                           final Function<FakeExpressionEvaluationContext, String> function,
+                           final Expression expression,
                            final BiPredicate<ExpressionFunctionParameterName, ExpressionReference> parameterMatcher) {
         assertThrows(
                 NullPointerException.class,
@@ -123,7 +126,7 @@ public class LambdaExpressionFunctionTest implements ExpressionFunctionTesting<L
                         pure,
                         parameters,
                         returnType,
-                        function,
+                        expression,
                         parameterMatcher
                 )
         );
@@ -143,7 +146,7 @@ public class LambdaExpressionFunctionTest implements ExpressionFunctionTesting<L
     public void testApply() {
         this.applyAndCheck(
                 Lists.of(10, 20),
-                "x=10,y=20"
+                "String30"
         );
     }
 
@@ -151,7 +154,7 @@ public class LambdaExpressionFunctionTest implements ExpressionFunctionTesting<L
     public void testApply2() {
         this.applyAndCheck(
                 Lists.of(100, 200),
-                "x=100,y=200"
+                "String300"
         );
     }
 
@@ -173,7 +176,7 @@ public class LambdaExpressionFunctionTest implements ExpressionFunctionTesting<L
                 PURE,
                 PARAMETERS,
                 RETURN_TYPE,
-                FUNCTION,
+                EXPRESSION,
                 PARAMETERS_MATCHER
         );
     }
@@ -181,14 +184,47 @@ public class LambdaExpressionFunctionTest implements ExpressionFunctionTesting<L
     @Override
     public FakeExpressionEvaluationContext createContext() {
         return new FakeExpressionEvaluationContext() {
+
             @Override
             public FakeExpressionEvaluationContext context(final Function<ExpressionReference, Optional<Object>> scoped) {
                 return new FakeExpressionEvaluationContext() {
+
+                    @Override
+                    public <T> Either<T, String> convert(final Object value,
+                                                         final Class<T> target) {
+                        checkEquals(ExpressionNumber.class, target, "target");
+
+                        return this.successfulConversion(
+                                ExpressionNumberKind.DOUBLE.create((Number) value),
+                                target
+                        );
+                    }
+
+                    @Override
+                    public Object evaluate(final Expression expression) {
+                        return expression.toValue(this);
+                    }
+
+                    public boolean isText(final Object value) {
+                        return value instanceof String;
+                    }
+
                     @Override
                     public Optional<Object> reference(final ExpressionReference reference) {
                         return scoped.apply(reference);
                     }
                 };
+            }
+
+            @Override
+            public <T> Either<T, String> convert(final Object value,
+                                                 final Class<T> target) {
+                checkEquals(String.class, target, "target");
+
+                return this.successfulConversion(
+                        "String" + value,
+                        target
+                );
             }
         };
     }
