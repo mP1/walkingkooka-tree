@@ -31,7 +31,6 @@ import walkingkooka.tree.expression.FakeExpressionReference;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.function.BiPredicate;
 import java.util.function.Function;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -49,13 +48,17 @@ public class LambdaExpressionFunctionTest implements ExpressionFunctionTesting<L
     );
     private final Class<String> RETURN_TYPE = String.class;
 
-    private final static BiPredicate<ExpressionFunctionParameterName, ExpressionReference> PARAMETERS_MATCHER = (p, r) -> p.value().equals(r.toString());
-
-    private static ExpressionReference var(final String toString) {
+    private static ExpressionReference var(final String name) {
         return new FakeExpressionReference() {
+
+            @Override
+            public boolean testParameterName(final ExpressionFunctionParameterName parameterName) {
+                return name.equals(parameterName.value());
+            }
+
             @Override
             public String toString() {
-                return toString;
+                return name;
             }
         };
     }
@@ -78,8 +81,7 @@ public class LambdaExpressionFunctionTest implements ExpressionFunctionTesting<L
                 PURE,
                 null,
                 RETURN_TYPE,
-                EXPRESSION,
-                PARAMETERS_MATCHER
+                EXPRESSION
         );
     }
 
@@ -89,8 +91,7 @@ public class LambdaExpressionFunctionTest implements ExpressionFunctionTesting<L
                 PURE,
                 PARAMETERS,
                 null,
-                EXPRESSION,
-                PARAMETERS_MATCHER
+                EXPRESSION
         );
     }
 
@@ -100,18 +101,6 @@ public class LambdaExpressionFunctionTest implements ExpressionFunctionTesting<L
                 PURE,
                 PARAMETERS,
                 RETURN_TYPE,
-                null,
-                PARAMETERS_MATCHER
-        );
-    }
-
-    @Test
-    public void testWithNullParameterMatcherFails() {
-        this.withFails(
-                PURE,
-                PARAMETERS,
-                RETURN_TYPE,
-                EXPRESSION,
                 null
         );
     }
@@ -119,16 +108,14 @@ public class LambdaExpressionFunctionTest implements ExpressionFunctionTesting<L
     private void withFails(final boolean pure,
                            final List<ExpressionFunctionParameter<?>> parameters,
                            final Class<String> returnType,
-                           final Expression expression,
-                           final BiPredicate<ExpressionFunctionParameterName, ExpressionReference> parameterMatcher) {
+                           final Expression expression) {
         assertThrows(
                 NullPointerException.class,
                 () -> LambdaExpressionFunction.with(
                         pure,
                         parameters,
                         returnType,
-                        expression,
-                        parameterMatcher
+                        expression
                 )
         );
     }
@@ -177,8 +164,7 @@ public class LambdaExpressionFunctionTest implements ExpressionFunctionTesting<L
                 PURE,
                 PARAMETERS,
                 RETURN_TYPE,
-                EXPRESSION,
-                PARAMETERS_MATCHER
+                EXPRESSION
         );
     }
 

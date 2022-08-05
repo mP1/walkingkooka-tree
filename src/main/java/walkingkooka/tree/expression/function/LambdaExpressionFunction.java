@@ -21,13 +21,11 @@ import walkingkooka.collect.list.Lists;
 import walkingkooka.tree.expression.Expression;
 import walkingkooka.tree.expression.ExpressionEvaluationContext;
 import walkingkooka.tree.expression.ExpressionPurityContext;
-import walkingkooka.tree.expression.ExpressionReference;
 import walkingkooka.tree.expression.FunctionExpressionName;
 
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
-import java.util.function.BiPredicate;
 import java.util.function.Function;
 
 /**
@@ -38,32 +36,27 @@ final class LambdaExpressionFunction<T, C extends ExpressionEvaluationContext> i
     static <T, C extends ExpressionEvaluationContext> LambdaExpressionFunction<T, C> with(final boolean pure,
                                                                                           final List<ExpressionFunctionParameter<?>> parameters,
                                                                                           final Class<T> returnType,
-                                                                                          final Expression expression,
-                                                                                          final BiPredicate<ExpressionFunctionParameterName, ExpressionReference> parameterMatcher) {
+                                                                                          final Expression expression) {
         Objects.requireNonNull(parameters, "parameters");
         Objects.requireNonNull(returnType, "returnType");
         Objects.requireNonNull(expression, "expression");
-        Objects.requireNonNull(parameterMatcher, "parameterMatcher");
 
         return new LambdaExpressionFunction<>(
                 pure,
                 Lists.immutable(parameters),
                 returnType,
-                expression,
-                parameterMatcher
+                expression
         );
     }
 
     public LambdaExpressionFunction(final boolean pure,
                                     final List<ExpressionFunctionParameter<?>> parameters,
                                     final Class<T> returnType,
-                                    final Expression expression,
-                                    final BiPredicate<ExpressionFunctionParameterName, ExpressionReference> parameterMatcher) {
+                                    final Expression expression) {
         this.pure = pure;
         this.parameters = parameters;
         this.returnType = returnType;
         this.expression = expression;
-        this.parameterMatcher = parameterMatcher;
     }
 
     @Override
@@ -104,19 +97,12 @@ final class LambdaExpressionFunction<T, C extends ExpressionEvaluationContext> i
                 context.context(
                         LambdaExpressionFunctionExpressionEvaluationContextContextFunction.with(
                                 this.parameters,
-                                values,
-                                this.parameterMatcher
+                                values
                         )
                 ).evaluate(this.expression),
                 this.returnType
         );
     }
-
-    /**
-     * Used to match an {@link ExpressionReference} to an {@link ExpressionFunctionParameterName}, like testing
-     * a label against a parameter-name.
-     */
-    private final BiPredicate<ExpressionFunctionParameterName, ExpressionReference> parameterMatcher;
 
     /**
      * The {@link Function} that will be executed.

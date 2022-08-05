@@ -21,7 +21,6 @@ import walkingkooka.tree.expression.ExpressionReference;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.function.BiPredicate;
 import java.util.function.Function;
 
 /**
@@ -31,35 +30,28 @@ import java.util.function.Function;
 final class LambdaExpressionFunctionExpressionEvaluationContextContextFunction implements Function<ExpressionReference, Optional<Object>> {
 
     static LambdaExpressionFunctionExpressionEvaluationContextContextFunction with(final List<ExpressionFunctionParameter<?>> parameters,
-                                                                                   final List<Object> values,
-                                                                                   final BiPredicate<ExpressionFunctionParameterName, ExpressionReference> parameterMatcher) {
+                                                                                   final List<Object> values) {
         return new LambdaExpressionFunctionExpressionEvaluationContextContextFunction(
                 parameters,
-                values,
-                parameterMatcher
+                values
         );
     }
 
     private LambdaExpressionFunctionExpressionEvaluationContextContextFunction(final List<ExpressionFunctionParameter<?>> parameters,
-                                                                               final List<Object> values,
-                                                                               final BiPredicate<ExpressionFunctionParameterName, ExpressionReference> parameterMatcher) {
+                                                                               final List<Object> values) {
         this.parameters = parameters;
         this.values = values;
-        this.parameterMatcher = parameterMatcher;
     }
 
     @Override
     public Optional<Object> apply(final ExpressionReference reference) {
         Object value = null;
 
-        final BiPredicate<ExpressionFunctionParameterName, ExpressionReference> parameterMatcher = this.parameterMatcher;
-
         int i = 0;
 
         for (final ExpressionFunctionParameter<?> parameter : this.parameters) {
-            if (parameterMatcher.test(
-                    parameter.name(),
-                    reference
+            if (reference.testParameterName(
+                    parameter.name()
             )) {
                 value = this.values.get(i); // TODO need to special case null being returned here.
                 break;
@@ -79,12 +71,6 @@ final class LambdaExpressionFunctionExpressionEvaluationContextContextFunction i
      * The values to the lambda function when executed.
      */
     private final List<Object> values;
-
-    /**
-     * This is used to match {@link ExpressionReference} with a {@link ExpressionFunctionParameterName},
-     * eg matching only a spreadsheet label with a parameter name.
-     */
-    private final BiPredicate<ExpressionFunctionParameterName, ExpressionReference> parameterMatcher;
 
     @Override
     public String toString() {
