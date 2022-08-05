@@ -28,6 +28,7 @@ import walkingkooka.tree.expression.ExpressionEvaluationContext;
 import walkingkooka.tree.expression.ExpressionEvaluationContexts;
 import walkingkooka.tree.expression.ExpressionReference;
 import walkingkooka.tree.expression.FakeExpressionEvaluationContext;
+import walkingkooka.tree.expression.FakeExpressionReference;
 
 import java.time.LocalDate;
 import java.util.EnumSet;
@@ -64,7 +65,7 @@ public final class ExpressionFunctionTestingTest implements ClassTesting<Express
         }
     };
 
-    private final static ExpressionReference REFERENCE = new ExpressionReference() {
+    private final static ExpressionReference REFERENCE = new FakeExpressionReference() {
         @Override
         public String toString() {
             return "ExpressionReference123";

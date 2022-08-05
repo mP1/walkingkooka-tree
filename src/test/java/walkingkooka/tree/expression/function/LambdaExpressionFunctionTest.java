@@ -27,6 +27,7 @@ import walkingkooka.tree.expression.ExpressionNumber;
 import walkingkooka.tree.expression.ExpressionNumberKind;
 import walkingkooka.tree.expression.ExpressionReference;
 import walkingkooka.tree.expression.FakeExpressionEvaluationContext;
+import walkingkooka.tree.expression.FakeExpressionReference;
 
 import java.util.List;
 import java.util.Optional;
@@ -51,7 +52,7 @@ public class LambdaExpressionFunctionTest implements ExpressionFunctionTesting<L
     private final static BiPredicate<ExpressionFunctionParameterName, ExpressionReference> PARAMETERS_MATCHER = (p, r) -> p.value().equals(r.toString());
 
     private static ExpressionReference var(final String toString) {
-        return new ExpressionReference() {
+        return new FakeExpressionReference() {
             @Override
             public String toString() {
                 return toString;

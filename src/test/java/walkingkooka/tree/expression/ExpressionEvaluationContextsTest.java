@@ -27,7 +27,7 @@ public class ExpressionEvaluationContextsTest implements PublicStaticHelperTesti
 
     @Test
     public void testReferenceNotFound() {
-        final ExpressionReference reference = new ExpressionReference() {
+        final ExpressionReference reference = new FakeExpressionReference() {
             @Override
             public String toString() {
                 return "Reference123";

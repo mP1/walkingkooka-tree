@@ -54,7 +54,7 @@ public abstract class ExpressionEvaluationContextPrepareParametersListTestCase<T
 
     final static Expression EXPRESSION = Expression.value(EXPRESSION_NUMBER);
 
-    final static ExpressionReference REFERENCE = new ExpressionReference() {
+    final static ExpressionReference REFERENCE = new FakeExpressionReference() {
         @Override
         public String toString() {
             return "*reference*";

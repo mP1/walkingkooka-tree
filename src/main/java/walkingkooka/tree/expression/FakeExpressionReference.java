@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 Miroslav Pokorny (github.com/mP1)
+ * Copyright 2020 Miroslav Pokorny (github.com/mP1)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,13 +19,10 @@ package walkingkooka.tree.expression;
 
 import walkingkooka.tree.expression.function.ExpressionFunctionParameterName;
 
-import java.util.function.Predicate;
+public class FakeExpressionReference implements ExpressionReference {
 
-public interface ExpressionReference extends Predicate<ExpressionFunctionParameterName> {
-
-    /**
-     * Tests if the given {@link ExpressionFunctionParameterName} is equal to this {@link ExpressionReference}.
-     */
     @Override
-    boolean test(final ExpressionFunctionParameterName parameterName);
+    public boolean test(final ExpressionFunctionParameterName parameterName) {
+        throw new UnsupportedOperationException();
+    }
 }
