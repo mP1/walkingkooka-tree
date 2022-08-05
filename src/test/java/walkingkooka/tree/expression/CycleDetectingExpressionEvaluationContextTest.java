@@ -53,7 +53,7 @@ public final class CycleDetectingExpressionEvaluationContextTest implements Clas
     private final static ExpressionReference C3 = reference("C3");
 
     private static ExpressionReference reference(final String label) {
-        return new ExpressionReference() {
+        return new FakeExpressionReference() {
             @Override
             public String toString() {
                 return label;

@@ -22,6 +22,7 @@ import walkingkooka.naming.Name;
 import walkingkooka.predicate.character.CharPredicate;
 import walkingkooka.predicate.character.CharPredicates;
 import walkingkooka.tree.expression.ExpressionReference;
+import walkingkooka.tree.expression.function.ExpressionFunctionParameterName;
 
 /**
  * The {@link Name} of an attribute.
@@ -53,6 +54,11 @@ final public class NodeSelectorAttributeName extends NodeSelectorNameValue imple
      */
     private NodeSelectorAttributeName(final String name) {
         super(name);
+    }
+
+    @Override
+    public boolean test(final ExpressionFunctionParameterName parameterName) {
+        return this.value().equals(parameterName.value());
     }
 
     @Override

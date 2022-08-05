@@ -52,7 +52,7 @@ public final class BasicExpressionEvaluationContextTest implements ClassTesting2
 
     private final static ExpressionNumberKind KIND = ExpressionNumberKind.DEFAULT;
 
-    private final static ExpressionReference REFERENCE = new ExpressionReference() {
+    private final static ExpressionReference REFERENCE = new FakeExpressionReference() {
     };
 
     private final static Object REFERENCE_VALUE = "*123*";

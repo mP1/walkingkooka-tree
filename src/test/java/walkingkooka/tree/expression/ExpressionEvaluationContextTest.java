@@ -89,7 +89,7 @@ public final class ExpressionEvaluationContextTest implements ClassTesting<Expre
 
     @Test
     public void testEvaluateIfNecessaryReference() {
-        final ExpressionReference input = new ExpressionReference() {
+        final ExpressionReference input = new FakeExpressionReference() {
             @Override
             public String toString() {
                 return "Variable123";
@@ -115,7 +115,7 @@ public final class ExpressionEvaluationContextTest implements ClassTesting<Expre
 
     @Test
     public void testEvaluateIfNecessaryReferenceToExpressionToValue() {
-        final ExpressionReference input = new ExpressionReference() {
+        final ExpressionReference input = new FakeExpressionReference() {
             @Override
             public String toString() {
                 return "Variable123";
