@@ -20,6 +20,8 @@ package walkingkooka.tree.expression;
 import org.junit.jupiter.api.Test;
 import walkingkooka.convert.CanConvertTesting;
 import walkingkooka.text.printer.TreePrintableTesting;
+import walkingkooka.tree.expression.function.ExpressionFunction;
+import walkingkooka.tree.expression.function.ExpressionFunctions;
 import walkingkooka.tree.expression.function.UnknownExpressionFunctionException;
 
 import java.util.List;
@@ -110,24 +112,12 @@ public interface ExpressionEvaluationContextTesting<C extends ExpressionEvaluati
     }
 
     @Test
-    default void testEvaluateFunctionUnknownFunctionNameFails() {
-        assertThrows(
-                UnknownExpressionFunctionException.class,
-                () -> this.createContext()
-                        .evaluateFunction(
-                                this.unknownFunctionName(),
-                                ExpressionEvaluationContext.NO_PARAMETERS
-                        )
-        );
-    }
-
-    @Test
     default void testEvaluateFunctionNullParametersFails() {
         assertThrows(
                 NullPointerException.class,
                 () -> this.createContext()
                         .evaluateFunction(
-                                FunctionExpressionName.with("sum"),
+                                ExpressionFunctions.fake(),
                                 null
                         )
         );
@@ -142,27 +132,26 @@ public interface ExpressionEvaluationContextTesting<C extends ExpressionEvaluati
         );
     }
 
-    default void evaluateFunctionAndCheck(final FunctionExpressionName name,
-                                          final List<Object> parameters,
-                                          final Object expected) {
+    default <T> void evaluateFunctionAndCheck(final ExpressionFunction<T, C> function,
+                                              final List<Object> parameters,
+                                              final T expected) {
 
         this.evaluateFunctionAndCheck(
                 this.createContext(),
-                name,
+                function,
                 parameters,
                 expected
         );
     }
 
-    default void evaluateFunctionAndCheck(final C context,
-                                          final FunctionExpressionName name,
-                                          final List<Object> parameters,
-                                          final Object expected) {
-
+    default <T> void evaluateFunctionAndCheck(final C context,
+                                              final ExpressionFunction<T, C> function,
+                                              final List<Object> parameters,
+                                              final T expected) {
         this.checkEquals(
                 expected,
-                context.evaluateFunction(name, parameters),
-                () -> "evaluate " + name + " " + parameters
+                context.evaluateFunction(function, parameters),
+                () -> "evaluate " + function + " " + parameters
         );
     }
 

@@ -117,9 +117,10 @@ public interface ExpressionEvaluationContext extends Context,
     List<Object> NO_PARAMETERS = Lists.empty();
 
     /**
-     * Locates a {@link ExpressionFunction} with the given {@link FunctionExpressionName} and then executes it with the provided parameter values.
+     * Executes the given {@link ExpressionFunction} with the parameters, and also handles any exception.
      */
-    Object evaluateFunction(final FunctionExpressionName name, final List<Object> parameters);
+    Object evaluateFunction(final ExpressionFunction<?, ? extends ExpressionEvaluationContext> function,
+                            final List<Object> parameters);
 
     /**
      * Receives all {@link RuntimeException} thrown by a {@link ExpressionFunction} or {@link Expression}.
@@ -131,7 +132,7 @@ public interface ExpressionEvaluationContext extends Context,
      * <br>
      * This should be called whenever an {@link RuntimeException} is thrown by
      * <ul>
-     *     <li>{@link #evaluateFunction(FunctionExpressionName, List)} throws</li>
+     *     <li>{@link #evaluateFunction(ExpressionFunction, List)} throws</li>
      *     <li>{@link #prepareParameter(ExpressionFunctionParameter, Object)} throws</li>
      * </ul>
      */
