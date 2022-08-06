@@ -43,10 +43,19 @@ abstract class VariableExpression extends ParentExpression implements Value<List
         }
     }
 
+    // evaluation.......................................................................................................
+
+    @Override final Object call(final List<Expression> parameters,
+                                final ExpressionEvaluationContext context) {
+        return this.callRequiringNoParameters(
+                parameters,
+                context
+        );
+    }
+
     // Object........................................................................................................
 
-    @Override
-    final boolean canBeEqual(final Object other) {
+    @Override final boolean canBeEqual(final Object other) {
         return other instanceof VariableExpression;
     }
 }

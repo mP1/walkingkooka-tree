@@ -110,6 +110,14 @@ public abstract class ExpressionVisitor extends Visitor<Expression> {
         // nop
     }
 
+    protected Visiting startVisit(final LambdaFunctionExpression node) {
+        return Visiting.CONTINUE;
+    }
+
+    protected void endVisit(final LambdaFunctionExpression node) {
+        // nop
+    }
+
     protected Visiting startVisit(final LessThanExpression node) {
         return Visiting.CONTINUE;
     }

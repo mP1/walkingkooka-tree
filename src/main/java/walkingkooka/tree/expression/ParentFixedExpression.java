@@ -50,10 +50,6 @@ abstract class ParentFixedExpression extends ParentExpression {
         throw new UnsupportedOperationException();
     }
 
-    @Override final boolean equalsIgnoringParentAndChildren(final Expression other) {
-        return true; // no other properties name already tested.
-    }
-
     // ExpressionPurity.................................................................................................
 
     @Override

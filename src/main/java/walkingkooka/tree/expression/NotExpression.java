@@ -73,6 +73,15 @@ public final class NotExpression extends UnaryExpression {
     // evaluation .....................................................................................................
 
     @Override
+    Object call(final List<Expression> parameters,
+                final ExpressionEvaluationContext context) {
+        return this.callRequiringNoParameters(
+                parameters,
+                context
+        );
+    }
+
+    @Override
     public boolean toBoolean(final ExpressionEvaluationContext context) {
         return context.convertOrFail(this.toExpressionNumber(context), Boolean.class);
     }
@@ -87,11 +96,21 @@ public final class NotExpression extends UnaryExpression {
         return context.convertOrFail(this.toExpressionNumber(context), String.class);
     }
 
+    @Override
+    public Number toValue(final ExpressionEvaluationContext context) {
+        return this.toExpressionNumber(context);
+    }
+
     // Object ....................................................................................................
 
     @Override
     boolean canBeEqual(final Object other) {
         return other instanceof NotExpression;
+    }
+
+    @Override
+    boolean equalsIgnoringParentAndChildren(final Expression other) {
+        return true; // no other properties name already tested.
     }
 
     @Override

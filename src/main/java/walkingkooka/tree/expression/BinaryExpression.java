@@ -78,6 +78,18 @@ abstract class BinaryExpression extends ParentFixedExpression {
 
     // Evaluation ...................................................................................................
 
+    /**
+     * {@link BinaryExpression} sub classes should not receive any call parameters, the values are actually already
+     * children.
+     */
+    @Override final Object call(final List<Expression> parameters,
+                                final ExpressionEvaluationContext context) {
+        return this.callRequiringNoParameters(
+                parameters,
+                context
+        );
+    }
+
     @Override
     public final boolean toBoolean(final ExpressionEvaluationContext context) {
         return this.apply(context)
@@ -112,6 +124,10 @@ abstract class BinaryExpression extends ParentFixedExpression {
                               final ExpressionEvaluationContext context);
 
     // Object........................................................................................................
+
+    @Override final boolean equalsIgnoringParentAndChildren(final Expression other) {
+        return true; // no other properties name already tested.
+    }
 
     final void toString0(final StringBuilder b) {
         this.left().toString0(b);
