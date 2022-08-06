@@ -122,7 +122,7 @@ public final class CallExpression extends VariableExpression {
 
     @Override
     public boolean toBoolean(final ExpressionEvaluationContext context) {
-        return this.executeFunction(
+        return this.executeFunctionAndConvert(
                 context,
                 Boolean.class
         );
@@ -130,7 +130,7 @@ public final class CallExpression extends VariableExpression {
 
     @Override
     public ExpressionNumber toExpressionNumber(final ExpressionEvaluationContext context) {
-        return this.executeFunction(
+        return this.executeFunctionAndConvert(
                 context,
                 ExpressionNumber.class
         );
@@ -138,7 +138,7 @@ public final class CallExpression extends VariableExpression {
 
     @Override
     public String toString(final ExpressionEvaluationContext context) {
-        return this.executeFunction(
+        return this.executeFunctionAndConvert(
                 context,
                 String.class
         );
@@ -146,34 +146,18 @@ public final class CallExpression extends VariableExpression {
 
     @Override
     public Object toValue(final ExpressionEvaluationContext context) {
-        return this.executeFunction(context);
+        return this.callable()
+                .call(
+                        this.value(),
+                        context
+                );
     }
 
-    private <T> T executeFunction(final ExpressionEvaluationContext context,
-                                  final Class<T> target) {
+    private <T> T executeFunctionAndConvert(final ExpressionEvaluationContext context,
+                                            final Class<T> target) {
         return context.convertOrFail(
-                this.executeFunction(context),
+                this.toValue(context),
                 target
-        );
-    }
-
-    private Object executeFunction(final ExpressionEvaluationContext context) {
-        return this.executeFunction0(
-                this.value(),
-                context
-        );
-    }
-
-    /**
-     * Currently only supports a {@link NamedFunctionExpression} as the callable.
-     */
-    private Object executeFunction0(final List<Expression> parameters,
-                                    final ExpressionEvaluationContext context) {
-        final NamedFunctionExpression callable = (NamedFunctionExpression) this.callable();
-
-        return context.evaluateFunction(
-                context.function(callable.value()),
-                Cast.to(parameters)
         );
     }
 

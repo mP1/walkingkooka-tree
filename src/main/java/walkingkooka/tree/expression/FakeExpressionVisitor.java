@@ -120,6 +120,16 @@ public class FakeExpressionVisitor extends ExpressionVisitor implements Fake {
     }
 
     @Override
+    protected Visiting startVisit(final LambdaFunctionExpression node) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    protected void endVisit(final LambdaFunctionExpression node) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
     protected Visiting startVisit(final LessThanExpression node) {
         throw new UnsupportedOperationException();
     }

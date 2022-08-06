@@ -17,6 +17,7 @@
 
 package walkingkooka.tree.expression;
 
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -83,6 +84,15 @@ public final class ReferenceExpression extends LeafExpression<ExpressionReferenc
     }
 
     // evaluation .....................................................................................................
+
+    @Override
+    Object call(final List<Expression> parameters,
+                final ExpressionEvaluationContext context) {
+        return this.callRequiringNoParameters(
+                parameters,
+                context
+        );
+    }
 
     @Override
     public boolean toBoolean(final ExpressionEvaluationContext context) {

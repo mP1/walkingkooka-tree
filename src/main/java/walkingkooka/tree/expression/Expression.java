@@ -24,6 +24,7 @@ import walkingkooka.naming.Name;
 import walkingkooka.text.printer.IndentingPrinter;
 import walkingkooka.text.printer.TreePrintable;
 import walkingkooka.tree.Node;
+import walkingkooka.tree.expression.function.ExpressionFunctionParameter;
 import walkingkooka.tree.select.NodeSelector;
 import walkingkooka.tree.select.parser.NodeSelectorExpressionParserToken;
 
@@ -106,6 +107,17 @@ public abstract class Expression implements Node<Expression, FunctionExpressionN
      */
     public static GreaterThanEqualsExpression greaterThanEquals(final Expression left, final Expression right) {
         return GreaterThanEqualsExpression.with(left, right);
+    }
+
+    /**
+     * {@see LambdaFunctionExpression}
+     */
+    public static LambdaFunctionExpression lambdaFunction(final List<ExpressionFunctionParameter<?>> parameters,
+                                                          final Expression value) {
+        return LambdaFunctionExpression.with(
+                parameters,
+                value
+        );
     }
 
     /**
@@ -347,6 +359,13 @@ public abstract class Expression implements Node<Expression, FunctionExpressionN
     }
 
     /**
+     * Only {@link LambdaFunctionExpression} returns true
+     */
+    public final boolean isLambdaFunction() {
+        return this instanceof LambdaFunctionExpression;
+    }
+
+    /**
      * Only {@link LessThanExpression} returns true
      */
     public final boolean isLessThan() {
@@ -462,6 +481,28 @@ public abstract class Expression implements Node<Expression, FunctionExpressionN
     abstract void accept(final ExpressionVisitor visitor);
 
     // Eval................................................................................................................
+
+    /**
+     * Called by {@link CallExpression#toValue(ExpressionEvaluationContext)}.
+     */
+    abstract Object call(final List<Expression> parameters,
+                         final ExpressionEvaluationContext context);
+
+    /**
+     * All {@link Expression} that are not a lambda or named function will invoke this, verifying no parameters.
+     */
+    final Object callRequiringNoParameters(final List<Expression> parameters,
+                                           final ExpressionEvaluationContext context) {
+        this.checkNoParameters(parameters);
+        return this.toValue(context);
+    }
+
+    final void checkNoParameters(final List<Expression> parameters) {
+        final int count = parameters.size();
+        if (count > 0) {
+            throw new IllegalArgumentException("Expected no parameters but got " + count);
+        }
+    }
 
     /**
      * Evaluates this node as a boolean

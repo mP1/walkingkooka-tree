@@ -65,11 +65,4 @@ abstract class UnaryExpression extends ParentFixedExpression implements Value<Ex
     final void acceptValues(final ExpressionVisitor visitor) {
         visitor.accept(this.value());
     }
-
-    // Evaluation...................................................................................................
-
-    @Override
-    public final Number toValue(final ExpressionEvaluationContext context) {
-        return this.toExpressionNumber(context);
-    }
 }

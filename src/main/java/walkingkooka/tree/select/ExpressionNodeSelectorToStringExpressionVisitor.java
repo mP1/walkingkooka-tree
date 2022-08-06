@@ -85,7 +85,7 @@ final class ExpressionNodeSelectorToStringExpressionVisitor extends ExpressionVi
         do {
             final Object value = node.value();
             if (value instanceof Boolean) {
-                this.function(value.toString());
+                this.namedFunction(value.toString());
                 break;
             }
             if (value instanceof String) {
@@ -97,15 +97,15 @@ final class ExpressionNodeSelectorToStringExpressionVisitor extends ExpressionVi
                 break;
             }
             if (value instanceof LocalDate) {
-                this.function("localDate", value.toString());
+                this.namedFunction("localDate", value.toString());
                 break;
             }
             if (value instanceof LocalDateTime) {
-                this.function("localDateTime", value.toString());
+                this.namedFunction("localDateTime", value.toString());
                 break;
             }
             if (value instanceof LocalTime) {
-                this.function("localTime", value.toString());
+                this.namedFunction("localTime", value.toString());
                 break;
             }
         } while (false);
@@ -131,7 +131,7 @@ final class ExpressionNodeSelectorToStringExpressionVisitor extends ExpressionVi
 
         final NamedFunctionExpression namedFunctionExpression = (NamedFunctionExpression) callable;
 
-        return this.function(
+        return this.namedFunction(
                 namedFunctionExpression.value()
                         .value(),
                 node.value()
@@ -202,7 +202,7 @@ final class ExpressionNodeSelectorToStringExpressionVisitor extends ExpressionVi
 
     @Override
     protected Visiting startVisit(final NotExpression node) {
-        return this.function("not", node.children());
+        return this.namedFunction("not", node.children());
     }
 
     @Override
@@ -212,7 +212,7 @@ final class ExpressionNodeSelectorToStringExpressionVisitor extends ExpressionVi
 
     @Override
     protected Visiting startVisit(final PowerExpression node) {
-        return this.function("pow", node.children());
+        return this.namedFunction("pow", node.children());
     }
 
     @Override
@@ -222,7 +222,7 @@ final class ExpressionNodeSelectorToStringExpressionVisitor extends ExpressionVi
 
     @Override
     protected Visiting startVisit(final XorExpression node) {
-        return this.function("xor", node.children());
+        return this.namedFunction("xor", node.children());
     }
 
     // helpers ........................................................................................................
@@ -236,13 +236,16 @@ final class ExpressionNodeSelectorToStringExpressionVisitor extends ExpressionVi
         return Visiting.SKIP;
     }
 
-    private Visiting function(final String functionName,
-                              final Expression... parameters) {
-        return this.function(functionName, Arrays.asList(parameters));
+    private Visiting namedFunction(final String functionName,
+                                   final Expression... parameters) {
+        return this.namedFunction(
+                functionName,
+                Arrays.asList(parameters)
+        );
     }
 
-    private Visiting function(final String functionName,
-                              final List<Expression> parameters) {
+    private Visiting namedFunction(final String functionName,
+                                   final List<Expression> parameters) {
         this.functionName(functionName);
         this.parametersBegin();
 
@@ -270,7 +273,7 @@ final class ExpressionNodeSelectorToStringExpressionVisitor extends ExpressionVi
         this.append(')');
     }
 
-    private void function(final String functionName, final String parameter) {
+    private void namedFunction(final String functionName, final String parameter) {
         this.functionName(functionName);
         this.parametersBegin();
         this.stringLiteral(parameter);

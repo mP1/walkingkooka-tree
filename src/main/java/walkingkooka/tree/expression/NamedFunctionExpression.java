@@ -17,6 +17,9 @@
 
 package walkingkooka.tree.expression;
 
+import walkingkooka.Cast;
+
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -89,6 +92,15 @@ final public class NamedFunctionExpression extends LeafExpression<FunctionExpres
     }
 
     // toXXX............................................................................................................
+
+    @Override
+    Object call(final List<Expression> parameters,
+                final ExpressionEvaluationContext context) {
+        return context.evaluateFunction(
+                context.function(this.value()),
+                Cast.to(parameters)
+        );
+    }
 
     @Override
     public boolean toBoolean(final ExpressionEvaluationContext context) {
