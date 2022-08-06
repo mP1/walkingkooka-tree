@@ -31,6 +31,7 @@ import walkingkooka.text.cursor.parser.BigIntegerParserToken;
 import walkingkooka.text.cursor.parser.ParserContexts;
 import walkingkooka.text.cursor.parser.Parsers;
 import walkingkooka.tree.expression.function.ExpressionFunction;
+import walkingkooka.tree.expression.function.ExpressionFunctions;
 import walkingkooka.tree.expression.function.UnknownExpressionFunctionException;
 
 import java.math.BigInteger;
@@ -77,13 +78,14 @@ public final class CycleDetectingExpressionEvaluationContextTest implements Clas
 
     @Test
     public void testEvaluateFunction() {
-        final FunctionExpressionName name = FunctionExpressionName.with("sum");
+        final ExpressionFunction<Object, CycleDetectingExpressionEvaluationContext> function = ExpressionFunctions.fake();
         final List<Object> parameters = Lists.of("param-1", "param-2");
 
         final CycleDetectingExpressionEvaluationContext context = this.createContext(new FakeExpressionEvaluationContext() {
             @Override
-            public Object evaluateFunction(final FunctionExpressionName n, final List<Object> p) {
-                assertSame(name, n, "name");
+            public Object evaluateFunction(final ExpressionFunction<?, ? extends ExpressionEvaluationContext> f,
+                                           final List<Object> p) {
+                assertSame(function, f, "function");
                 assertSame(parameters, p, "parameters");
 
                 return VALUE;
@@ -92,7 +94,7 @@ public final class CycleDetectingExpressionEvaluationContextTest implements Clas
 
         this.evaluateFunctionAndCheck(
                 context,
-                name,
+                function,
                 parameters,
                 VALUE
         );
@@ -353,15 +355,6 @@ public final class CycleDetectingExpressionEvaluationContextTest implements Clas
                     @Override
                     public Object evaluate(final Expression expression) {
                         return expression.toValue(this);
-                    }
-
-                    @Override
-                    public Object evaluateFunction(final FunctionExpressionName name,
-                                                   final List<Object> parameters) {
-                        Objects.requireNonNull(name, "name");
-                        Objects.requireNonNull(parameters, "parameters");
-
-                        throw new UnknownExpressionFunctionException(name);
                     }
 
                     @Override

@@ -115,16 +115,14 @@ final class BasicNodeSelectorExpressionEvaluationContext<N extends Node<N, NAME,
     }
 
     /**
-     * Before invoking the namedFunction identified by the given {@link FunctionExpressionName} parameters are resolved
+     * Before invoking the {@link ExpressionFunction} identified by the given {@link FunctionExpressionName} parameters are resolved
      */
     @Override
-    public Object evaluateFunction(final FunctionExpressionName name,
+    public Object evaluateFunction(final ExpressionFunction<?, ? extends ExpressionEvaluationContext> function,
                                    final List<Object> parameters) {
-        final ExpressionFunction<?, ExpressionEvaluationContext> function = this.function(name);
-
         return function.apply(
                 this.prepareParameters(function, parameters),
-                this
+                Cast.to(this)
         );
     }
 

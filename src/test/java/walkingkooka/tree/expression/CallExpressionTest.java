@@ -18,6 +18,7 @@
 package walkingkooka.tree.expression;
 
 import org.junit.jupiter.api.Test;
+import walkingkooka.Cast;
 import walkingkooka.Either;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.naming.Names;
@@ -30,7 +31,6 @@ import walkingkooka.visit.Visiting;
 
 import java.math.MathContext;
 import java.util.List;
-import java.util.Objects;
 
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -111,22 +111,22 @@ public final class CallExpressionTest extends VariableExpressionTestCase<CallExp
     private final static FunctionExpressionName FUNCTION_NAME = FunctionExpressionName.with("test-function");
 
     @Test
-    public void testToValueRequiresEvaluatedParametersFalse() {
+    public void testToValue() {
         final StringName attribute = Names.string("attribute123");
         final ExpressionReference reference = NodeSelectorAttributeName.with(attribute.value());
 
-        final CallExpression function = Expression.call(
+        final CallExpression call = Expression.call(
                 Expression.namedFunction(FUNCTION_NAME),
                 Lists.of(
                         Expression.value("1"),
                         Expression.reference(reference)
                 )
         );
-        final List<Expression> parameters = function.value();
+        final List<Expression> parameters = call.value();
 
         this.checkEquals(
                 parameters,
-                function.toValue(
+                call.toValue(
                         new FakeExpressionEvaluationContext() {
                             @Override
                             public ExpressionFunction<?, ExpressionEvaluationContext> function(final FunctionExpressionName name) {
@@ -142,12 +142,13 @@ public final class CallExpressionTest extends VariableExpressionTestCase<CallExp
                                 };
                             }
 
-                            public Object evaluateFunction(final FunctionExpressionName name, final List<Object> parameters) {
-                                Objects.requireNonNull(name, "name");
-                                Objects.requireNonNull(parameters, "parameters");
-
-                                return this.function(name)
-                                        .apply(parameters, this);
+                            @Override
+                            public Object evaluateFunction(final ExpressionFunction<?, ? extends ExpressionEvaluationContext> function,
+                                                           final List<Object> parameters) {
+                                return function.apply(
+                                        parameters,
+                                        Cast.to(this)
+                                );
                             }
                         }
                 )
@@ -282,10 +283,12 @@ public final class CallExpressionTest extends VariableExpressionTestCase<CallExp
             }
 
             @Override
-            public Object evaluateFunction(final FunctionExpressionName name,
+            public Object evaluateFunction(final ExpressionFunction<?, ? extends ExpressionEvaluationContext> function,
                                            final List<Object> parameters) {
-                return this.function(name)
-                        .apply(parameters, this);
+                return function.apply(
+                        parameters,
+                        Cast.to(this)
+                );
             }
 
             @Override

@@ -17,6 +17,7 @@
 
 package walkingkooka.tree.expression;
 
+import walkingkooka.Cast;
 import walkingkooka.Either;
 import walkingkooka.convert.ConverterContext;
 import walkingkooka.text.CaseSensitivity;
@@ -260,16 +261,14 @@ final class BasicExpressionEvaluationContext implements ExpressionEvaluationCont
     }
 
     @Override
-    public Object evaluateFunction(final FunctionExpressionName name,
+    public Object evaluateFunction(final ExpressionFunction<?, ? extends ExpressionEvaluationContext> function,
                                    final List<Object> parameters) {
         Object result;
 
         try {
-            final ExpressionFunction<?, ExpressionEvaluationContext> function = this.function(name);
-
             result = function.apply(
                     this.prepareParameters(function, parameters),
-                    this
+                    Cast.to(this)
             );
         } catch (final RuntimeException exception) {
             result = this.handleException(exception);

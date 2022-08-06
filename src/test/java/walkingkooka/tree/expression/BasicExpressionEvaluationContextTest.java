@@ -181,40 +181,55 @@ public final class BasicExpressionEvaluationContextTest implements ClassTesting2
 
     @Test
     public void testEvaluateFunction() {
+        final Object value = this.functionValue();
+
+        final ExpressionFunction<Object, BasicExpressionEvaluationContext> function = new FakeExpressionFunction<>() {
+
+            @Override
+            public List<ExpressionFunctionParameter<?>> parameters(final int count) {
+                return ExpressionFunctionParameter.EMPTY;
+            }
+
+            @Override
+            public Object apply(final List<Object> objects,
+                                final BasicExpressionEvaluationContext context) {
+                return value;
+            }
+        };
+
         this.evaluateFunctionAndCheck(
-                this.functionName(),
+                function,
                 this.parameters(),
-                this.functionValue()
+                value
         );
     }
 
     @Test
     public void testEvaluateFunctionThrownHandled() {
         final String error = "**ERROR**";
-        final FunctionExpressionName name = FunctionExpressionName.with("throws");
+
+        final ExpressionFunction<String, BasicExpressionEvaluationContext> function = new FakeExpressionFunction<>() {
+
+            @Override
+            public List<ExpressionFunctionParameter<?>> parameters(final int count) {
+                return ExpressionFunctionParameter.EMPTY;
+            }
+
+            @Override
+            public String apply(final List<Object> objects,
+                                final BasicExpressionEvaluationContext context) {
+                throw new UnsupportedOperationException(error);
+            }
+        };
 
         this.evaluateFunctionAndCheck(
                 this.createContext(
-                        (n) -> new FakeExpressionFunction<>() {
-                            @Override
-                            public Optional<FunctionExpressionName> name() {
-                                return Optional.of(name);
-                            }
-
-                            @Override
-                            public List<ExpressionFunctionParameter<?>> parameters(final int count) {
-                                return ExpressionFunctionParameter.EMPTY;
-                            }
-
-                            @Override
-                            public Object apply(final List<Object> objects,
-                                                final ExpressionEvaluationContext context) {
-                                throw new UnsupportedOperationException(error);
-                            }
+                        (n) -> {
+                            throw new UnsupportedOperationException();
                         },
                         (r) -> r.getMessage()
                 ),
-                name,
+                function,
                 ExpressionEvaluationContext.NO_PARAMETERS,
                 error
         );
@@ -402,27 +417,24 @@ public final class BasicExpressionEvaluationContextTest implements ClassTesting2
     public void testEvaluateFunctionThrowsExceptionTranslated() {
         final ExpressionNumberKind kind = ExpressionNumberKind.DOUBLE;
 
-        final FunctionExpressionName name = FunctionExpressionName.with("test123");
+        final ExpressionFunction<String, BasicExpressionEvaluationContext> function = new FakeExpressionFunction<>() {
+            @Override
+            public String apply(final List<Object> objects,
+                                final BasicExpressionEvaluationContext context) {
+                throw new UnsupportedOperationException("Thrown123");
+            }
+
+            @Override
+            public List<ExpressionFunctionParameter<?>> parameters(final int count) {
+                return ExpressionFunctionParameter.EMPTY;
+            }
+        };
 
         this.evaluateFunctionAndCheck(
                 BasicExpressionEvaluationContext.with(
                         kind,
-                        (n) -> new FakeExpressionFunction<>() {
-                            @Override
-                            public Object apply(final List<Object> objects,
-                                                final ExpressionEvaluationContext context) {
-                                throw new UnsupportedOperationException("Thrown123");
-                            }
-
-                            @Override
-                            public Optional<FunctionExpressionName> name() {
-                                return Optional.of(name);
-                            }
-
-                            @Override
-                            public List<ExpressionFunctionParameter<?>> parameters(final int count) {
-                                return ExpressionFunctionParameter.EMPTY;
-                            }
+                        (n) -> {
+                            throw new UnsupportedOperationException();
                         },
                         (r) -> "@@@" + r.getMessage(),
                         (r) -> {
@@ -442,7 +454,7 @@ public final class BasicExpressionEvaluationContextTest implements ClassTesting2
                             }
                         }
                 ),
-                name,
+                function,
                 Lists.empty(),
                 "@@@Thrown123"
         );

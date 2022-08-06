@@ -68,9 +68,11 @@ public class FakeExpressionEvaluationContext extends FakeExpressionNumberConvert
     }
 
     @Override
-    public Object evaluateFunction(final FunctionExpressionName name, final List<Object> parameters) {
-        Objects.requireNonNull(name, "name");
+    public Object evaluateFunction(final ExpressionFunction<?, ? extends ExpressionEvaluationContext> function,
+                                   final List<Object> parameters) {
+        Objects.requireNonNull(function, "function");
         Objects.requireNonNull(parameters, "parameters");
+
         throw new UnsupportedOperationException();
     }
 

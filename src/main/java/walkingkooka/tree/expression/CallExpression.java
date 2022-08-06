@@ -172,7 +172,7 @@ public final class CallExpression extends VariableExpression {
         final NamedFunctionExpression callable = (NamedFunctionExpression) this.callable();
 
         return context.evaluateFunction(
-                callable.value(),
+                context.function(callable.value()),
                 Cast.to(parameters)
         );
     }
