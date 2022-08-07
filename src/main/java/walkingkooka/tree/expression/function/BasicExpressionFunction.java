@@ -86,7 +86,7 @@ final class BasicExpressionFunction<T, C extends ExpressionEvaluationContext> im
         return this.pure;
     }
 
-    private boolean pure;
+    private final boolean pure;
 
     @Override
     public List<ExpressionFunctionParameter<?>> parameters(final int count) {
