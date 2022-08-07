@@ -61,7 +61,7 @@ public class LambdaExpressionFunctionTest implements ExpressionFunctionTesting<L
         };
     }
 
-    private static Expression EXPRESSION = Expression.add(
+    private static final Expression EXPRESSION = Expression.add(
             Expression.reference(var("x")),
             Expression.reference(var("y"))
     );
