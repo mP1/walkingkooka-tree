@@ -18,7 +18,6 @@
 package walkingkooka.tree.expression.function;
 
 import walkingkooka.collect.set.Sets;
-import walkingkooka.tree.expression.FunctionExpressionName;
 
 import java.util.List;
 import java.util.Set;
@@ -49,7 +48,7 @@ public enum ExpressionFunctionParameterKind {
     /**
      * Indicates that parameters that implement {@link walkingkooka.tree.expression.ExpressionReference} are resolved to
      * their actual non {@link walkingkooka.tree.expression.Expression} value.
-     * This is only honoured when {@link ExpressionFunctionContext#evaluate(FunctionExpressionName, List)} is used.
+     * This is only honoured when {@link walkingkooka.tree.expression.ExpressionEvaluationContext#evaluateFunction(ExpressionFunction, List)} is used.
      */
     RESOLVE_REFERENCES;
 
