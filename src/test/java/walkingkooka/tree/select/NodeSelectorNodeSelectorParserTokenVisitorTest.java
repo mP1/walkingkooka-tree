@@ -1858,7 +1858,7 @@ public final class NodeSelectorNodeSelectorParserTokenVisitorTest implements Nod
                                         @Override
                                         public Object apply(final List<Object> parameters,
                                                             final NodeSelectorExpressionEvaluationContext<TestNode, StringName, StringName, Object> context) {
-                                            return (Boolean) parameters.get(0);
+                                            return parameters.get(0);
                                         }
                                     };
                                 case "false":
