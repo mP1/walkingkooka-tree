@@ -82,21 +82,23 @@ public final class ExpressionFunctionParameter<T> implements HasName<ExpressionF
     }
 
     // @VisibleForTesting
-    static <T> ExpressionFunctionParameter<T> with(final ExpressionFunctionParameterName name,
-                                                   final Class<T> type,
-                                                   final List<Class<?>> typeParameters,
-                                                   final ExpressionFunctionParameterCardinality cardinality,
-                                                   final Set<ExpressionFunctionParameterKind> kinds) {
+    public static <T> ExpressionFunctionParameter<T> with(final ExpressionFunctionParameterName name,
+                                                          final Class<T> type,
+                                                          final List<Class<?>> typeParameters,
+                                                          final ExpressionFunctionParameterCardinality cardinality,
+                                                          final Set<ExpressionFunctionParameterKind> kinds) {
         Objects.requireNonNull(name, "name");
         Objects.requireNonNull(type, "type");
+        Objects.requireNonNull(typeParameters, "typeParameters");
         Objects.requireNonNull(cardinality, "cardinality");
+        Objects.requireNonNull(kinds, "kinds");
 
         return new ExpressionFunctionParameter<>(
                 name,
                 type,
                 cardinality,
-                typeParameters,
-                kinds
+                Lists.immutable(typeParameters),
+                Sets.immutable(kinds)
         );
     }
 
