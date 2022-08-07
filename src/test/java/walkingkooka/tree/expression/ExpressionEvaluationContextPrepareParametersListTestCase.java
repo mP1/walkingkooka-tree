@@ -101,14 +101,14 @@ public abstract class ExpressionEvaluationContextPrepareParametersListTestCase<T
         return new FakeExpressionEvaluationContext() {
 
             @Override
-            public <T> T prepareParameter(final ExpressionFunctionParameter<T> parameter,
-                                          final Object value) {
+            public <TT> TT prepareParameter(final ExpressionFunctionParameter<TT> parameter,
+                                            final Object value) {
                 return this.convertOrFail(value, parameter.type());
             }
 
             @Override
-            public <T> T convertOrFail(final Object value,
-                                       final Class<T> target) {
+            public <TT> TT convertOrFail(final Object value,
+                                         final Class<TT> target) {
                 final Object converted = conversions.get(value);
                 if (null == converted) {
                     throw new UnsupportedOperationException("Unexpected convert from " + value + " to " + target.getName());
@@ -127,14 +127,14 @@ public abstract class ExpressionEvaluationContextPrepareParametersListTestCase<T
         return new FakeExpressionEvaluationContext() {
 
             @Override
-            public <T> T prepareParameter(final ExpressionFunctionParameter<T> parameter,
-                                          final Object value) {
+            public <TT> TT prepareParameter(final ExpressionFunctionParameter<TT> parameter,
+                                            final Object value) {
                 return this.convertOrFail(value, parameter.type());
             }
 
             @Override
-            public <T> T convertOrFail(final Object value,
-                                       final Class<T> target) {
+            public <TT> TT convertOrFail(final Object value,
+                                         final Class<TT> target) {
                 throw new UnsupportedOperationException("Unable to convert " + value + " to " + target.getSimpleName());
             }
 
