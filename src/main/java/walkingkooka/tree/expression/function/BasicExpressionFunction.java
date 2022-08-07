@@ -70,7 +70,7 @@ final class BasicExpressionFunction<T, C extends ExpressionEvaluationContext> im
 
         return this.name().equals(name) ?
                 this :
-                new BasicExpressionFunction(
+                new BasicExpressionFunction<>(
                         name,
                         this.pure,
                         this.parameters,
