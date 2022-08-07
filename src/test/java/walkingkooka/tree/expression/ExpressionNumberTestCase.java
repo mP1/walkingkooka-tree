@@ -1237,7 +1237,7 @@ public abstract class ExpressionNumberTestCase<N extends ExpressionNumber> imple
     @Test
     public final void testIntValueDecimal() {
         this.checkEquals(
-                (int) 1,
+                1,
                 this.create(1.5).intValue()
         );
     }
