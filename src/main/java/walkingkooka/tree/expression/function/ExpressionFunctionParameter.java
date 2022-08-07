@@ -127,7 +127,7 @@ public final class ExpressionFunctionParameter<T> implements HasName<ExpressionF
 
         return this.name.equals(name) ?
                 this :
-                new ExpressionFunctionParameter<T>(
+                new ExpressionFunctionParameter<>(
                         name,
                         this.type,
                         this.cardinality,

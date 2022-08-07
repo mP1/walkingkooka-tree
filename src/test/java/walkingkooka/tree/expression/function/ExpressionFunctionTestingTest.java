@@ -79,7 +79,7 @@ public final class ExpressionFunctionTestingTest implements ClassTesting<Express
         final List<Object> parameters = Lists.of(true, 1, "***parameters3***");
         final Object expected = "**123**";
 
-        new ExpressionFunctionTesting<ExpressionFunction<Object, ExpressionEvaluationContext>, Object, ExpressionEvaluationContext>() {
+        new ExpressionFunctionTesting<>() {
 
             @Override
             public ExpressionFunction<Object, ExpressionEvaluationContext> createBiFunction() {
