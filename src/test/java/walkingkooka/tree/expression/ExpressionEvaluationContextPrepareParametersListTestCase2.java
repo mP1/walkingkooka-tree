@@ -178,8 +178,8 @@ public abstract class ExpressionEvaluationContextPrepareParametersListTestCase2<
                     }
 
                     @Override
-                    public <T> T convertOrFail(final Object value,
-                                               final Class<T> target) {
+                    public <TT> TT convertOrFail(final Object value,
+                                                 final Class<TT> target) {
                         return target.cast(value);
                     }
 
@@ -324,14 +324,14 @@ public abstract class ExpressionEvaluationContextPrepareParametersListTestCase2<
                 new FakeExpressionEvaluationContext() {
 
                     @Override
-                    public <T> T prepareParameter(final ExpressionFunctionParameter<T> parameter,
-                                                  final Object value) {
+                    public <TT> TT prepareParameter(final ExpressionFunctionParameter<TT> parameter,
+                                                    final Object value) {
                         return this.convertOrFail(value, parameter.type());
                     }
 
                     @Override
-                    public <T> T convertOrFail(final Object value,
-                                               final Class<T> target) {
+                    public <TT> TT convertOrFail(final Object value,
+                                                 final Class<TT> target) {
                         if (Double.valueOf(111.0).equals(value)) {
                             return Cast.to(value);
                         }
