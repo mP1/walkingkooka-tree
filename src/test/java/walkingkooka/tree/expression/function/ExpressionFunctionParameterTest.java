@@ -79,6 +79,17 @@ public final class ExpressionFunctionParameterTest implements HashCodeEqualsDefi
     }
 
     @Test
+    public void testWithNullTypeParametersFails() {
+        this.withNullFails(
+                NAME,
+                TYPE,
+                null,
+                CARDINALITY,
+                KINDS
+        );
+    }
+
+    @Test
     public void testWithNullCardinalityFails() {
         this.withNullFails(
                 NAME,
@@ -86,6 +97,17 @@ public final class ExpressionFunctionParameterTest implements HashCodeEqualsDefi
                 TYPE_PARAMETERS,
                 null,
                 KINDS
+        );
+    }
+
+    @Test
+    public void testWithNullKindsFails() {
+        this.withNullFails(
+                NAME,
+                TYPE,
+                TYPE_PARAMETERS,
+                CARDINALITY,
+                null
         );
     }
 
