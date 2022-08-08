@@ -232,7 +232,7 @@ public final class CallExpressionTest extends VariableExpressionTestCase<CallExp
     // Evaluation ...................................................................................................
 
     @Test
-    public void testToValueAddExpression() {
+    public void testEvaluateAddExpressionWithoutParameters() {
         this.evaluateAndCheckExpressionNumber(
                 CallExpression.with(
                         Expression.add(
@@ -269,7 +269,7 @@ public final class CallExpressionTest extends VariableExpressionTestCase<CallExp
     }
 
     @Test
-    public void testToValueLambdaExpressionNumber() {
+    public void testEvaluateLambdaExpressionNumber() {
         this.evaluateAndCheckExpressionNumber(
                 CallExpression.with(
                         this.lambdaFunction(),
@@ -355,7 +355,7 @@ public final class CallExpressionTest extends VariableExpressionTestCase<CallExp
     }
 
     @Test
-    public void testToBooleanNamedFunctionFalse() {
+    public void testEvaluateNamedFunctionBooleanFalse() {
         this.evaluateAndCheckBoolean(
                 this.createExpression(),
                 this.context("false"), false
@@ -363,7 +363,7 @@ public final class CallExpressionTest extends VariableExpressionTestCase<CallExp
     }
 
     @Test
-    public void testToBooleanNamedFunctionTrue() {
+    public void testEvaluateNamedFunctionBooleanTrue() {
         this.evaluateAndCheckBoolean(
                 this.createExpression(),
                 this.context("true"), true
@@ -371,7 +371,7 @@ public final class CallExpressionTest extends VariableExpressionTestCase<CallExp
     }
 
     @Test
-    public void testToNamedFunctionExpressionNumber() {
+    public void testEvaluateNamedFunctionExpressionNumber() {
         this.evaluateAndCheckExpressionNumber(
                 this.createExpression(),
                 this.context("123"),
@@ -379,7 +379,7 @@ public final class CallExpressionTest extends VariableExpressionTestCase<CallExp
     }
 
     @Test
-    public void testToNamedFunctionText() {
+    public void testEvaluateNamedFunctionText() {
         this.evaluateAndCheckText(
                 this.createExpression(),
                 this.context("123"),
@@ -458,8 +458,8 @@ public final class CallExpressionTest extends VariableExpressionTestCase<CallExp
                         parameter(y)
                 ),
                 Expression.add(
-                        this.referenceExpression("x"),
-                        this.referenceExpression("y")
+                        referenceExpression("x"),
+                        referenceExpression("y")
                 )
         );
     }
