@@ -32,7 +32,7 @@ final public class NamedFunctionExpression extends LeafExpression<FunctionExpres
 
     public final static FunctionExpressionName NAME = FunctionExpressionName.fromClass(NamedFunctionExpression.class);
 
-    static <V> NamedFunctionExpression with(final FunctionExpressionName name) {
+    static NamedFunctionExpression with(final FunctionExpressionName name) {
         return new NamedFunctionExpression(NO_INDEX, name);
     }
 
