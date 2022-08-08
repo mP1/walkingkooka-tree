@@ -449,41 +449,17 @@ public final class CallExpressionTest extends VariableExpressionTestCase<CallExp
     }
 
     private LambdaFunctionExpression lambdaFunction() {
+        final String x = "x";
+        final String y = "y";
+
         return Expression.lambdaFunction(
                 Lists.of(
-                        ExpressionFunctionParameterName.with("x")
-                                .required(ExpressionNumber.class)
-                                .setKinds(ExpressionFunctionParameterKind.EVALUATE_RESOLVE_REFERENCES),
-                        ExpressionFunctionParameterName.with("y")
-                                .required(ExpressionNumber.class)
-                                .setKinds(ExpressionFunctionParameterKind.EVALUATE_RESOLVE_REFERENCES)
+                        parameter(x),
+                        parameter(y)
                 ),
                 Expression.add(
-                        Expression.reference(
-                                new FakeExpressionReference() {
-                                    @Override
-                                    public boolean testParameterName(final ExpressionFunctionParameterName parameterName) {
-                                        return this.toString().equals(parameterName.value());
-                                    }
-
-                                    @Override
-                                    public String toString() {
-                                        return "x";
-                                    }
-                                }),
-                        Expression.reference(
-                                new FakeExpressionReference() {
-
-                                    @Override
-                                    public boolean testParameterName(final ExpressionFunctionParameterName parameterName) {
-                                        return this.toString().equals(parameterName.value());
-                                    }
-
-                                    @Override
-                                    public String toString() {
-                                        return "y";
-                                    }
-                                })
+                        this.referenceExpression("x"),
+                        this.referenceExpression("y")
                 )
         );
     }
@@ -495,6 +471,28 @@ public final class CallExpressionTest extends VariableExpressionTestCase<CallExp
     private NamedFunctionExpression namedFunction(final String name) {
         return Expression.namedFunction(
                 FunctionExpressionName.with(name)
+        );
+    }
+
+    private static ExpressionFunctionParameter<?> parameter(final String name) {
+        return ExpressionFunctionParameterName.with(name)
+                .required(ExpressionNumber.class)
+                .setKinds(ExpressionFunctionParameterKind.EVALUATE_RESOLVE_REFERENCES);
+    }
+
+    private static ReferenceExpression referenceExpression(final String name) {
+        return Expression.reference(
+                new FakeExpressionReference() {
+                    @Override
+                    public boolean testParameterName(final ExpressionFunctionParameterName parameterName) {
+                        return this.toString().equals(parameterName.value());
+                    }
+
+                    @Override
+                    public String toString() {
+                        return name;
+                    }
+                }
         );
     }
 
