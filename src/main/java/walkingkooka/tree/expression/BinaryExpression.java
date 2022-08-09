@@ -18,6 +18,7 @@
 package walkingkooka.tree.expression;
 
 import walkingkooka.collect.list.Lists;
+import walkingkooka.text.printer.IndentingPrinter;
 
 import java.util.List;
 import java.util.Objects;
@@ -122,6 +123,13 @@ abstract class BinaryExpression extends ParentFixedExpression {
     abstract Expression apply(final Object left,
                               final Object right,
                               final ExpressionEvaluationContext context);
+
+    // printTree.......................................................................................................
+
+    @Override
+    public final void printTree(final IndentingPrinter printer) {
+        this.printTreeTypeAndChildren(printer);
+    }
 
     // Object........................................................................................................
 

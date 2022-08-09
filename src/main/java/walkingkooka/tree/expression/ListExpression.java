@@ -17,6 +17,7 @@
 
 package walkingkooka.tree.expression;
 
+import walkingkooka.text.printer.IndentingPrinter;
 import walkingkooka.visit.Visiting;
 
 import java.util.List;
@@ -121,9 +122,16 @@ public final class ListExpression extends VariableExpression {
 
     private List<?> convertValues(final ExpressionEvaluationContext context) {
         return this.value()
-                        .stream()
-                        .map(v -> v.toValue(context))
-                        .collect(Collectors.toList());
+                .stream()
+                .map(v -> v.toValue(context))
+                .collect(Collectors.toList());
+    }
+
+    // printTree.......................................................................................................
+
+    @Override
+    public void printTree(final IndentingPrinter printer) {
+        this.printTreeTypeAndChildren(printer);
     }
 
     // Object.........................................................................................................

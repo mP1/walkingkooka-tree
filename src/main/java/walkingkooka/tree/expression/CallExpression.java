@@ -18,6 +18,7 @@
 package walkingkooka.tree.expression;
 
 import walkingkooka.Cast;
+import walkingkooka.text.printer.IndentingPrinter;
 import walkingkooka.visit.Visiting;
 
 import java.util.List;
@@ -159,6 +160,38 @@ public final class CallExpression extends VariableExpression {
                 this.toValue(context),
                 target
         );
+    }
+
+    // printTree.......................................................................................................
+
+    // Call
+    //   callable
+    //     NamedFunction someFunction
+    //   parameters
+    //     add
+    //       value: 1
+    //       value: 2
+    @Override
+    public void printTree(final IndentingPrinter printer) {
+        this.printTreeType(printer);
+
+        printer.indent();
+        printer.println("callable");
+        {
+            printer.indent();
+            this.callable().printTree(printer);
+            printer.outdent();
+        }
+        printer.outdent();
+
+        printer.indent();
+        printer.println("parameters");
+        {
+            printer.indent();
+            this.printTreeChildren(printer);
+            printer.outdent();
+        }
+        printer.outdent();
     }
 
     // Object.........................................................................................................
