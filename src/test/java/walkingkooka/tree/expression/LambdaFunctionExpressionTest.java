@@ -206,6 +206,22 @@ public final class LambdaFunctionExpressionTest extends UnaryExpressionTestCase<
         );
     }
 
+
+    // printTree.......................................................................................................
+
+    @Test
+    public void testPrintTree() {
+        this.treePrintAndCheck(
+                this.createExpression(),
+                "LambdaFunctionExpression\n" +
+                        "  parameters\n" +
+                        "    java.lang.Object x\n" +
+                        "    java.lang.Object y\n" +
+                        "  body\n" +
+                        "    ValueExpression \"child123\"\n"
+        );
+    }
+
     // equals.. ........................................................................................................
 
     @Test

@@ -17,6 +17,7 @@
 
 package walkingkooka.tree.expression;
 
+import walkingkooka.text.printer.IndentingPrinter;
 import walkingkooka.visit.Visiting;
 
 import java.util.List;
@@ -99,6 +100,13 @@ public final class NotExpression extends UnaryExpression {
     @Override
     public Number toValue(final ExpressionEvaluationContext context) {
         return this.toExpressionNumber(context);
+    }
+
+    // printTree.......................................................................................................
+
+    @Override
+    public void printTree(final IndentingPrinter printer) {
+        this.printTreeTypeAndChildren(printer);
     }
 
     // Object ....................................................................................................

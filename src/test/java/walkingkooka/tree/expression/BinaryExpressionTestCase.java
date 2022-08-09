@@ -100,6 +100,20 @@ public abstract class BinaryExpressionTestCase<N extends BinaryExpression> exten
         checkChildren(expression, this.children());
     }
 
+    // printTree........................................................................................................
+
+    @Test
+    public void testPrintTree() {
+        this.treePrintAndCheck(
+                this.createExpression(),
+                this.type().getSimpleName() + "\n" +
+                        "  ValueExpression \"left-123\"\n" +
+                        "  ValueExpression \"right-456\"\n"
+        );
+    }
+
+    // equals...........................................................................................................
+
     @Test
     public final void testEqualsDifferentChildren() {
         this.checkNotEquals(this.createExpression(), this.createExpression(differentLeft(), differentRight()));

@@ -19,6 +19,7 @@ package walkingkooka.tree.expression;
 
 import walkingkooka.Cast;
 import walkingkooka.collect.list.Lists;
+import walkingkooka.text.printer.IndentingPrinter;
 import walkingkooka.tree.expression.function.ExpressionFunction;
 import walkingkooka.tree.expression.function.ExpressionFunctionParameter;
 import walkingkooka.visit.Visiting;
@@ -149,6 +150,39 @@ public final class LambdaFunctionExpression extends UnaryExpression {
         return context.evaluate(
                 this.value()
         );
+    }
+
+    // printTree.......................................................................................................
+
+    // LambdaFunctionExpression
+    //  parameters
+    //    java.lang.Object x
+    //    java.lang.Object y
+    //  body
+    //    ValueExpression "child123"
+    @Override
+    public void printTree(final IndentingPrinter printer) {
+        this.printTreeType(printer);
+
+        printer.indent();
+        printer.println("parameters");
+        {
+            printer.indent();
+            for (final ExpressionFunctionParameter<?> child : this.parameters()) {
+                printer.println(child.toString());
+            }
+            printer.outdent();
+        }
+        printer.outdent();
+
+        printer.indent();
+        printer.println("body");
+        {
+            printer.indent();
+            this.value().printTree(printer);
+            printer.outdent();
+        }
+        printer.outdent();
     }
 
     // Object ..........................................................................................................

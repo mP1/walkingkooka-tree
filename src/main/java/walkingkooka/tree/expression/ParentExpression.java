@@ -19,6 +19,7 @@ package walkingkooka.tree.expression;
 
 import walkingkooka.collect.list.Lists;
 import walkingkooka.text.printer.IndentingPrinter;
+import walkingkooka.text.printer.TreePrintable;
 
 import java.util.List;
 import java.util.Objects;
@@ -118,15 +119,25 @@ abstract class ParentExpression extends Expression {
 
     // TreePrintable....................................................................................................
 
-    @Override
-    public final void printTree(final IndentingPrinter printer) {
+    /**
+     * Most sub-classes of {@link ParentExpression} only have children and no other properties, making this a perfect
+     * fit to printTree themselves.
+     */
+    final void printTreeTypeAndChildren(final IndentingPrinter printer) {
+        this.printTreeType(printer);
+        this.printTreeChildren(printer);
+    }
+
+    final void printTreeType(final IndentingPrinter printer) {
         printer.print(this.typeName());
         printer.println();
+    }
 
+    final void printTreeChildren(final IndentingPrinter printer) {
         printer.indent();
 
-        for (final Expression child : this.children()) {
-            child.printTree(printer);
+        for (final Object child : this.children()) {
+            TreePrintable.printTreeOrToString(child, printer);
         }
 
         printer.outdent();

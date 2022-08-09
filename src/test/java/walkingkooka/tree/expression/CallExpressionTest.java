@@ -430,6 +430,22 @@ public final class CallExpressionTest extends VariableExpressionTestCase<CallExp
         };
     }
 
+    // printTree........................................................................................................
+
+    @Test
+    public void testPrintTree() {
+        this.treePrintAndCheck(
+                this.createExpression(),
+                "CallExpression\n" +
+                        "  callable\n" +
+                        "    NamedFunctionExpression test-function\n" +
+                        "  parameters\n" +
+                        "      ValueExpression \"child-111\"\n" +
+                        "      ValueExpression \"child-222\"\n" +
+                        "      ValueExpression \"child-333\"\n"
+        );
+    }
+
     // ToString ...................................................................................................
 
     @Test
