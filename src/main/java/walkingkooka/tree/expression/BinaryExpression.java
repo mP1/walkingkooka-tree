@@ -19,6 +19,7 @@ package walkingkooka.tree.expression;
 
 import walkingkooka.collect.list.Lists;
 import walkingkooka.text.printer.IndentingPrinter;
+import walkingkooka.tree.expression.function.ExpressionFunction;
 
 import java.util.List;
 import java.util.Objects;
@@ -79,16 +80,9 @@ abstract class BinaryExpression extends ParentFixedExpression {
 
     // Evaluation ...................................................................................................
 
-    /**
-     * {@link BinaryExpression} sub classes should not receive any call parameters, the values are actually already
-     * children.
-     */
-    @Override final Object call(final List<Expression> parameters,
-                                final ExpressionEvaluationContext context) {
-        return this.callRequiringNoParameters(
-                parameters,
-                context
-        );
+    @Override
+    ExpressionFunction<?, ExpressionEvaluationContext> function(final ExpressionEvaluationContext context) {
+        return this.toValueFunction();
     }
 
     @Override

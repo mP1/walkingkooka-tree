@@ -17,7 +17,8 @@
 
 package walkingkooka.tree.expression;
 
-import java.util.List;
+import walkingkooka.tree.expression.function.ExpressionFunction;
+
 import java.util.Objects;
 
 /**
@@ -86,12 +87,8 @@ public final class ReferenceExpression extends LeafExpression<ExpressionReferenc
     // evaluation .....................................................................................................
 
     @Override
-    Object call(final List<Expression> parameters,
-                final ExpressionEvaluationContext context) {
-        return this.callRequiringNoParameters(
-                parameters,
-                context
-        );
+    ExpressionFunction<?, ExpressionEvaluationContext> function(final ExpressionEvaluationContext context) {
+        return this.toValueFunction();
     }
 
     @Override

@@ -24,6 +24,7 @@ import walkingkooka.naming.Name;
 import walkingkooka.text.printer.IndentingPrinter;
 import walkingkooka.text.printer.TreePrintable;
 import walkingkooka.tree.Node;
+import walkingkooka.tree.expression.function.ExpressionFunction;
 import walkingkooka.tree.expression.function.ExpressionFunctionParameter;
 import walkingkooka.tree.select.NodeSelector;
 import walkingkooka.tree.select.parser.NodeSelectorExpressionParserToken;
@@ -483,25 +484,15 @@ public abstract class Expression implements Node<Expression, FunctionExpressionN
     // Eval................................................................................................................
 
     /**
-     * Called by {@link CallExpression#toValue(ExpressionEvaluationContext)}.
+     * Prepares this {@link Expression} as a {@link ExpressionFunction} ready to be executed.
      */
-    abstract Object call(final List<Expression> parameters,
-                         final ExpressionEvaluationContext context);
+    abstract ExpressionFunction<?, ExpressionEvaluationContext> function(final ExpressionEvaluationContext context);
 
     /**
-     * All {@link Expression} that are not a lambda or named function will invoke this, verifying no parameters.
+     * Factory that returns a {@link ExpressionFunction} that expects no parameters and calls {@link Expression#toValue(ExpressionEvaluationContext)}.
      */
-    final Object callRequiringNoParameters(final List<Expression> parameters,
-                                           final ExpressionEvaluationContext context) {
-        this.checkNoParameters(parameters);
-        return this.toValue(context);
-    }
-
-    final void checkNoParameters(final List<Expression> parameters) {
-        final int count = parameters.size();
-        if (count > 0) {
-            throw new IllegalArgumentException("Expected no parameters but got " + count);
-        }
+    final ExpressionFunction<?, ExpressionEvaluationContext> toValueFunction() {
+        return ExpressionExpressionFunction.with(this);
     }
 
     /**
