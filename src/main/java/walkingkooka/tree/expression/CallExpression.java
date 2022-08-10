@@ -19,6 +19,7 @@ package walkingkooka.tree.expression;
 
 import walkingkooka.Cast;
 import walkingkooka.text.printer.IndentingPrinter;
+import walkingkooka.tree.expression.function.ExpressionFunction;
 import walkingkooka.visit.Visiting;
 
 import java.util.List;
@@ -122,6 +123,11 @@ public final class CallExpression extends VariableExpression {
     // evaluation .....................................................................................................
 
     @Override
+    ExpressionFunction<?, ExpressionEvaluationContext> function(final ExpressionEvaluationContext context) {
+        return CallExpressionExpressionFunction.with(this);
+    }
+
+    @Override
     public boolean toBoolean(final ExpressionEvaluationContext context) {
         return this.executeFunctionAndConvert(
                 context,
@@ -147,11 +153,11 @@ public final class CallExpression extends VariableExpression {
 
     @Override
     public Object toValue(final ExpressionEvaluationContext context) {
-        return this.callable()
-                .call(
-                        this.value(),
-                        context
-                );
+        return context.evaluateFunction(
+                this.callable()
+                        .function(context),
+                Cast.to(this.value())
+        );
     }
 
     private <T> T executeFunctionAndConvert(final ExpressionEvaluationContext context,

@@ -17,7 +17,6 @@
 
 package walkingkooka.tree.expression;
 
-import walkingkooka.Cast;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.text.printer.IndentingPrinter;
 import walkingkooka.tree.expression.function.ExpressionFunction;
@@ -112,18 +111,11 @@ public final class LambdaFunctionExpression extends UnaryExpression {
     // evaluation .....................................................................................................
 
     @Override
-    Object call(final List<Expression> parameters,
-                final ExpressionEvaluationContext context) {
-
-        final ExpressionFunction<?, ExpressionEvaluationContext> lambdaFunction = context.lambdaFunction(
+    ExpressionFunction<?, ExpressionEvaluationContext> function(final ExpressionEvaluationContext context) {
+        return context.lambdaFunction(
                 this.parameters,
                 Object.class,
                 this.value()
-        );
-
-        return context.evaluateFunction(
-                lambdaFunction,
-                Cast.to(parameters)
         );
     }
 

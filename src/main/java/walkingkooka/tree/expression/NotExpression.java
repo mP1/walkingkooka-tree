@@ -18,6 +18,7 @@
 package walkingkooka.tree.expression;
 
 import walkingkooka.text.printer.IndentingPrinter;
+import walkingkooka.tree.expression.function.ExpressionFunction;
 import walkingkooka.visit.Visiting;
 
 import java.util.List;
@@ -74,12 +75,8 @@ public final class NotExpression extends UnaryExpression {
     // evaluation .....................................................................................................
 
     @Override
-    Object call(final List<Expression> parameters,
-                final ExpressionEvaluationContext context) {
-        return this.callRequiringNoParameters(
-                parameters,
-                context
-        );
+    ExpressionFunction<?, ExpressionEvaluationContext> function(final ExpressionEvaluationContext context) {
+        return this.toValueFunction();
     }
 
     @Override

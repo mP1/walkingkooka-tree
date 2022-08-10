@@ -260,6 +260,15 @@ public final class CallExpressionTest extends VariableExpressionTestCase<CallExp
                     }
 
                     @Override
+                    public Object evaluateFunction(final ExpressionFunction<?, ? extends ExpressionEvaluationContext> function,
+                                                   final List<Object> parameters) {
+                        return function.apply(
+                                this.prepareParameters(function, parameters),
+                                Cast.to(this)
+                        );
+                    }
+
+                    @Override
                     public boolean isText(final Object value) {
                         return false;
                     }
@@ -387,6 +396,119 @@ public final class CallExpressionTest extends VariableExpressionTestCase<CallExp
         );
     }
 
+    @Test
+    public void testEvaluateNamedFunctionReturnExpressionFunctionAndCall() {
+        final int namedFunctionParameterValue = 999;
+
+        final Expression e = CallExpression.with(
+                CallExpression.with(
+                        this.namedFunction(),
+                        Lists.of(
+                                Expression.value(namedFunctionParameterValue)
+                        )
+                ),
+                Lists.of(
+                        Expression.value(expressionNumberValue(10)),
+                        Expression.value(expressionNumberValue(20))
+                )
+        );
+
+        this.evaluateAndCheckValue(
+                e,
+                new FakeExpressionEvaluationContext() {
+
+                    @Override
+                    public <T> Either<T, String> convert(final Object value,
+                                                         final Class<T> target) {
+                        return this.successfulConversion(
+                                target.cast(
+                                        EXPRESSION_NUMBER_KIND.create((Number) value)
+                                ),
+                                target
+                        );
+                    }
+
+                    @Override
+                    public Object evaluate(final Expression expression) {
+                        return expression.toValue(this);
+                    }
+
+                    @Override
+                    public Object evaluateFunction(final ExpressionFunction<?, ? extends ExpressionEvaluationContext> function,
+                                                   final List<Object> parametersValues) {
+                        return function.apply(
+                                this.prepareParameters(
+                                        function,
+                                        parametersValues
+                                ),
+                                Cast.to(this)
+                        );
+                    }
+
+                    @Override
+                    public ExpressionFunction<?, ExpressionEvaluationContext> function(final FunctionExpressionName name) {
+                        checkEquals(FUNCTION_NAME, name, "namedFunction name");
+
+                        return new FakeExpressionFunction<>() {
+
+                            @Override
+                            public List<ExpressionFunctionParameter<?>> parameters(final int count) {
+                                return Lists.of(a);
+                            }
+
+                            private final ExpressionFunctionParameter<ExpressionNumber> a = parameter("a");
+
+                            @Override
+                            public Object apply(final List<Object> parameters,
+                                                final ExpressionEvaluationContext context) {
+                                this.checkParameterCount(parameters);
+
+                                checkEquals(
+                                        namedFunctionParameterValue,
+                                        a.getOrFail(parameters, 0),
+                                        "a"
+                                );
+                                return new FakeExpressionFunction<>() {
+
+                                    @Override
+                                    public List<ExpressionFunctionParameter<?>> parameters(final int count) {
+                                        return Lists.of(
+                                                x,
+                                                y
+                                        );
+                                    }
+
+                                    private final ExpressionFunctionParameter<ExpressionNumber> x = parameter("x");
+                                    private final ExpressionFunctionParameter<ExpressionNumber> y = parameter("y");
+
+                                    @Override
+                                    public Object apply(final List<Object> parameters,
+                                                        final ExpressionEvaluationContext context) {
+                                        this.checkParameterCount(parameters);
+
+                                        final ExpressionNumber x = this.x.getOrFail(parameters, 0);
+                                        final ExpressionNumber y = this.y.getOrFail(parameters, 1);
+                                        return x.add(y, context);
+                                    }
+
+                                    @Override
+                                    public String toString() {
+                                        return "FUNCTION(x,y){return x+y;)";
+                                    }
+                                };
+                            }
+
+                            @Override
+                            public String toString() {
+                                return FUNCTION_NAME.toString();
+                            }
+                        };
+                    }
+                },
+                expressionNumberValue(30)
+        );
+    }
+
     private ExpressionEvaluationContext context(final String functionValue) {
         final ExpressionEvaluationContext context = context();
 
@@ -490,7 +612,7 @@ public final class CallExpressionTest extends VariableExpressionTestCase<CallExp
         );
     }
 
-    private static ExpressionFunctionParameter<?> parameter(final String name) {
+    private static ExpressionFunctionParameter<ExpressionNumber> parameter(final String name) {
         return ExpressionFunctionParameterName.with(name)
                 .required(ExpressionNumber.class)
                 .setKinds(ExpressionFunctionParameterKind.EVALUATE_RESOLVE_REFERENCES);

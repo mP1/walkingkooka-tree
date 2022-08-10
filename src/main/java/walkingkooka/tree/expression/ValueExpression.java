@@ -18,8 +18,8 @@
 package walkingkooka.tree.expression;
 
 import walkingkooka.text.CharSequences;
+import walkingkooka.tree.expression.function.ExpressionFunction;
 
-import java.util.List;
 import java.util.Objects;
 
 /**
@@ -83,12 +83,8 @@ final public class ValueExpression<V> extends LeafExpression<V> {
     // toXXX............................................................................................................
 
     @Override
-    Object call(final List<Expression> parameters,
-                final ExpressionEvaluationContext context) {
-        return this.callRequiringNoParameters(
-                parameters,
-                context
-        );
+    ExpressionFunction<?, ExpressionEvaluationContext> function(final ExpressionEvaluationContext context) {
+        return this.toValueFunction();
     }
 
     @Override
