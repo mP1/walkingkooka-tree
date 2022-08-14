@@ -28,6 +28,7 @@ import walkingkooka.tree.expression.function.ExpressionFunctions;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.Function;
+import java.util.function.Supplier;
 
 /**
  * A {@link Context} that travels during any expression evaluation.
@@ -40,7 +41,7 @@ public interface ExpressionEvaluationContext extends Context,
     /**
      * Factory that returns a {@link ExpressionEvaluationContext} of the same type with the given scoped variables.
      */
-    ExpressionEvaluationContext context(final Function<ExpressionReference, Optional<Object>> scoped);
+    ExpressionEvaluationContext context(final Function<ExpressionReference, Optional<Optional<Object>>> scoped);
 
     /**
      * If the value is a reference or expression resolve or evaluate.
@@ -141,7 +142,7 @@ public interface ExpressionEvaluationContext extends Context,
     /**
      * Locates the value or a {@link Expression} for the given {@link ExpressionReference}
      */
-    Optional<Object> reference(final ExpressionReference reference);
+    Optional<Optional<Object>> reference(final ExpressionReference reference);
 
     /**
      * Locates the value for the given {@link ExpressionReference} or throws a
@@ -149,9 +150,12 @@ public interface ExpressionEvaluationContext extends Context,
      */
     default Object referenceOrFail(final ExpressionReference reference) {
         Object result;
+
         try {
+            final Supplier<ExpressionEvaluationException> thrower = () -> this.referenceNotFound(reference);
             result = this.reference(reference)
-                    .orElseThrow(() -> this.referenceNotFound(reference));
+                    .orElseThrow(thrower)
+                    .orElseThrow(thrower);
         } catch (final RuntimeException exception) {
             result = this.handleException(exception);
         }
@@ -163,7 +167,8 @@ public interface ExpressionEvaluationContext extends Context,
      * Returns a {@link ExpressionEvaluationException} that captures the given {@link ExpressionReference} was not found.
      */
     default ExpressionEvaluationException referenceNotFound(final ExpressionReference reference) {
-        return ExpressionEvaluationContexts.referenceNotFound().apply(reference);
+        return ExpressionEvaluationContexts.referenceNotFound()
+                .apply(reference);
     }
 
     /**

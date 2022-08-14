@@ -159,10 +159,12 @@ public final class ReferenceExpressionTest extends LeafExpressionTestCase<Refere
         return new FakeExpressionEvaluationContext() {
 
             @Override
-            public Optional<Object> reference(final ExpressionReference reference) {
+            public Optional<Optional<Object>> reference(final ExpressionReference reference) {
                 checkEquals(value, reference, "reference");
                 return Optional.of(
-                        referenceText
+                        Optional.of(
+                                referenceText
+                        )
                 );
             }
 

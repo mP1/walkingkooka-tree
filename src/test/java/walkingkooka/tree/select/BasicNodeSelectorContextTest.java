@@ -200,7 +200,7 @@ public final class BasicNodeSelectorContextTest implements ClassTesting2<BasicNo
                 };
             }
 
-            private Function<ExpressionReference, Optional<Object>> references() {
+            private Function<ExpressionReference, Optional<Optional<Object>>> references() {
                 return (r) -> Optional.empty();
             }
 

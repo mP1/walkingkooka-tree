@@ -1923,7 +1923,7 @@ public final class NodeSelectorNodeSelectorParserTokenVisitorTest implements Nod
                         };
                     }
 
-                    private Function<ExpressionReference, Optional<Object>> references() {
+                    private Function<ExpressionReference, Optional<Optional<Object>>> references() {
                         return (r -> {
                             throw new UnsupportedOperationException();
                         });

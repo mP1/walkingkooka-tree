@@ -23,7 +23,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.function.Function;
 
-final class ExpressionEvaluationContextScopedReferencesFunction implements Function<ExpressionReference, Optional<Object>> {
+final class ExpressionEvaluationContextScopedReferencesFunction implements Function<ExpressionReference, Optional<Optional<Object>>> {
 
     static ExpressionEvaluationContextScopedReferencesFunction with(final List<ExpressionFunctionParameter<?>> parameters,
                                                                     final List<Object> values) {
@@ -40,15 +40,17 @@ final class ExpressionEvaluationContextScopedReferencesFunction implements Funct
     }
 
     @Override
-    public Optional<Object> apply(final ExpressionReference reference) {
-        Object value = null;
+    public Optional<Optional<Object>> apply(final ExpressionReference reference) {
+        Optional<Object> value = null;
 
         int i = 0;
         for (final ExpressionFunctionParameter<?> parameter : this.parameters) {
             if (reference.testParameterName(
                     parameter.name()
             )) {
-                value = this.values.get(i); // TODO need to special case null being returned here.
+                value = Optional.ofNullable(
+                        this.values.get(i)
+                );
                 break;
             }
             i++;

@@ -37,7 +37,7 @@ public final class NodeSelectorExpressionEvaluationContexts implements PublicSta
             NAME extends Name,
             ANAME extends Name,
             AVALUE> NodeSelectorExpressionEvaluationContext<N, NAME, ANAME, AVALUE> basic(final N node,
-                                                                                          final Function<Function<ExpressionReference, Optional<Object>>, ExpressionEvaluationContext> context) {
+                                                                                          final Function<Function<ExpressionReference, Optional<Optional<Object>>>, ExpressionEvaluationContext> context) {
         return BasicNodeSelectorExpressionEvaluationContext.with(node, context);
     }
 

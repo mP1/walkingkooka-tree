@@ -449,7 +449,7 @@ abstract public class NodeSelectorTestCase4<S extends NodeSelector<TestNode, Str
         };
     }
 
-    private Function<ExpressionReference, Optional<Object>> references() {
+    private Function<ExpressionReference, Optional<Optional<Object>>> references() {
         return (r -> {
             throw new UnsupportedOperationException();
         });

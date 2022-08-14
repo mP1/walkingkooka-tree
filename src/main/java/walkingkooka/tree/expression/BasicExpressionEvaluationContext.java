@@ -46,7 +46,7 @@ final class BasicExpressionEvaluationContext implements ExpressionEvaluationCont
     static BasicExpressionEvaluationContext with(final ExpressionNumberKind expressionNumberKind,
                                                  final Function<FunctionExpressionName, ExpressionFunction<?, ExpressionEvaluationContext>> functions,
                                                  final Function<RuntimeException, Object> exceptionHandler,
-                                                 final Function<ExpressionReference, Optional<Object>> references,
+                                                 final Function<ExpressionReference, Optional<Optional<Object>>> references,
                                                  final Function<ExpressionReference, ExpressionEvaluationException> referenceNotFound,
                                                  final CaseSensitivity caseSensitivity,
                                                  final ConverterContext converterContext) {
@@ -75,7 +75,7 @@ final class BasicExpressionEvaluationContext implements ExpressionEvaluationCont
     private BasicExpressionEvaluationContext(final ExpressionNumberKind expressionNumberKind,
                                              final Function<FunctionExpressionName, ExpressionFunction<?, ExpressionEvaluationContext>> functions,
                                              final Function<RuntimeException, Object> exceptionHandler,
-                                             final Function<ExpressionReference, Optional<Object>> references,
+                                             final Function<ExpressionReference, Optional<Optional<Object>>> references,
                                              final Function<ExpressionReference, ExpressionEvaluationException> referenceNotFound,
                                              final CaseSensitivity caseSensitivity,
                                              final ConverterContext converterContext) {
@@ -238,7 +238,7 @@ final class BasicExpressionEvaluationContext implements ExpressionEvaluationCont
     // functions........................................................................................................
 
     @Override
-    public ExpressionEvaluationContext context(final Function<ExpressionReference, Optional<Object>> resolver) {
+    public ExpressionEvaluationContext context(final Function<ExpressionReference, Optional<Optional<Object>>> resolver) {
         throw new UnsupportedOperationException("https://github.com/mP1/walkingkooka-tree/issues/599");
     }
 
@@ -285,11 +285,11 @@ final class BasicExpressionEvaluationContext implements ExpressionEvaluationCont
     private final Function<RuntimeException, Object> exceptionHandler;
 
     @Override
-    public Optional<Object> reference(final ExpressionReference reference) {
+    public Optional<Optional<Object>> reference(final ExpressionReference reference) {
         return this.references.apply(reference);
     }
 
-    private final Function<ExpressionReference, Optional<Object>> references;
+    private final Function<ExpressionReference, Optional<Optional<Object>>> references;
 
     @Override
     public ExpressionEvaluationException referenceNotFound(final ExpressionReference reference) {

@@ -67,7 +67,7 @@ final class BasicNodeSelectorExpressionEvaluationContext<N extends Node<N, NAME,
             ANAME extends Name,
             AVALUE>
     BasicNodeSelectorExpressionEvaluationContext<N, NAME, ANAME, AVALUE> with(final N node,
-                                                                              final Function<Function<ExpressionReference, Optional<Object>>, ExpressionEvaluationContext> context) {
+                                                                              final Function<Function<ExpressionReference, Optional<Optional<Object>>>, ExpressionEvaluationContext> context) {
         Objects.requireNonNull(node, "node");
         Objects.requireNonNull(context, "context");
 
@@ -78,10 +78,12 @@ final class BasicNodeSelectorExpressionEvaluationContext<N extends Node<N, NAME,
      * Private ctor use factory.
      */
     private BasicNodeSelectorExpressionEvaluationContext(final N node,
-                                                         final Function<Function<ExpressionReference, Optional<Object>>, ExpressionEvaluationContext> context) {
+                                                         final Function<Function<ExpressionReference, Optional<Optional<Object>>>, ExpressionEvaluationContext> context) {
         super();
         this.node = node;
-        this.context = context.apply(BasicNodeSelectorExpressionEvaluationContextReferenceFunction.with(this));
+        this.context = context.apply(
+                BasicNodeSelectorExpressionEvaluationContextReferenceFunction.with(this)
+        );
     }
 
     @Override
@@ -94,7 +96,7 @@ final class BasicNodeSelectorExpressionEvaluationContext<N extends Node<N, NAME,
     // namedFunction.........................................................................................................
 
     @Override
-    public ExpressionEvaluationContext context(final Function<ExpressionReference, Optional<Object>> scoped) {
+    public ExpressionEvaluationContext context(final Function<ExpressionReference, Optional<Optional<Object>>> scoped) {
         throw new UnsupportedOperationException("Scoped variables not supported");
     }
 
@@ -140,7 +142,7 @@ final class BasicNodeSelectorExpressionEvaluationContext<N extends Node<N, NAME,
      * The reference should be an attribute name, cast and find the owner attribute.
      */
     @Override
-    public Optional<Object> reference(final ExpressionReference reference) {
+    public Optional<Optional<Object>> reference(final ExpressionReference reference) {
         Objects.requireNonNull(reference, "reference");
 
         if (false == reference instanceof NodeSelectorAttributeName) {
@@ -149,15 +151,18 @@ final class BasicNodeSelectorExpressionEvaluationContext<N extends Node<N, NAME,
         final NodeSelectorAttributeName attributeName = Cast.to(reference);
         final String attributeNameString = attributeName.value();
 
-        final Optional<Object> attributeValue = this.node.attributes()
+        final Object attributeValue = this.node.attributes()
                 .entrySet()
                 .stream()
                 .filter(nameAndValue -> nameAndValue.getKey().value().equals(attributeNameString))
                 .map(e -> wrapIfNumber(e.getValue()))
-                .findFirst();
-        return attributeValue.isPresent() ?
-                attributeValue :
-                ABSENT;
+                .findFirst()
+                .orElse(ABSENT);
+        return Optional.of(
+                Optional.of(
+                        attributeValue
+                )
+        );
     }
 
     private Object wrapIfNumber(final Object value) {
@@ -167,7 +172,7 @@ final class BasicNodeSelectorExpressionEvaluationContext<N extends Node<N, NAME,
                 value;
     }
 
-    private final static Optional<Object> ABSENT = Optional.of("");
+    private final static Object ABSENT = "";
 
     @Override
     public boolean canConvert(final Object value, final Class<?> type) {

@@ -27,7 +27,7 @@ import java.util.function.Function;
  * A {@link Function} that handles translating {@link ExpressionReference} into possible values and is given to {@link walkingkooka.tree.expression.ExpressionEvaluationContext#context(Function)}
  * for that purpose.
  */
-final class LambdaExpressionFunctionExpressionEvaluationContextContextFunction implements Function<ExpressionReference, Optional<Object>> {
+final class LambdaExpressionFunctionExpressionEvaluationContextContextFunction implements Function<ExpressionReference, Optional<Optional<Object>>> {
 
     static LambdaExpressionFunctionExpressionEvaluationContextContextFunction with(final List<ExpressionFunctionParameter<?>> parameters,
                                                                                    final List<Object> values) {
@@ -44,8 +44,8 @@ final class LambdaExpressionFunctionExpressionEvaluationContextContextFunction i
     }
 
     @Override
-    public Optional<Object> apply(final ExpressionReference reference) {
-        Object value = null;
+    public Optional<Optional<Object>> apply(final ExpressionReference reference) {
+        Optional<Object> value = null;
 
         int i = 0;
 
@@ -53,7 +53,9 @@ final class LambdaExpressionFunctionExpressionEvaluationContextContextFunction i
             if (reference.testParameterName(
                     parameter.name()
             )) {
-                value = this.values.get(i); // TODO need to special case null being returned here.
+                value = Optional.ofNullable(
+                        this.values.get(i)
+                );
                 break;
             }
             i++;
