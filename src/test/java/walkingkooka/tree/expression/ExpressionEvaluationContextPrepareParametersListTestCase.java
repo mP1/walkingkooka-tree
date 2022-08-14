@@ -70,10 +70,10 @@ public abstract class ExpressionEvaluationContextPrepareParametersListTestCase<T
         return new FakeExpressionEvaluationContext() {
 
             @Override
-            public Optional<Object> reference(final ExpressionReference r) {
+            public Optional<Optional<Object>> reference(final ExpressionReference r) {
                 return Optional.ofNullable(
                         reference.equals(r) ?
-                                value :
+                                Optional.ofNullable(value) :
                                 null
                 );
             }

@@ -104,13 +104,15 @@ public final class ExpressionEvaluationContextTest implements ClassTesting<Expre
         this.evaluateIfNecessary(
                 new FakeExpressionEvaluationContext() {
                     @Override
-                    public Optional<Object> reference(final ExpressionReference reference) {
+                    public Optional<Optional<Object>> reference(final ExpressionReference reference) {
                         checkEquals(
                                 input,
                                 reference,
                                 "reference"
                         );
-                        return Optional.of(output);
+                        return Optional.of(
+                                Optional.of(output)
+                        );
                     }
                 },
                 input,
@@ -130,14 +132,16 @@ public final class ExpressionEvaluationContextTest implements ClassTesting<Expre
         this.evaluateIfNecessary(
                 new FakeExpressionEvaluationContext() {
                     @Override
-                    public Optional<Object> reference(final ExpressionReference reference) {
+                    public Optional<Optional<Object>> reference(final ExpressionReference reference) {
                         checkEquals(
                                 input,
                                 reference,
                                 "reference"
                         );
                         return Optional.of(
-                                Expression.value(output)
+                                Optional.of(
+                                        Expression.value(output)
+                                )
                         );
                     }
 
@@ -214,7 +218,7 @@ public final class ExpressionEvaluationContextTest implements ClassTesting<Expre
     public void testLambdaFunction() {
         final FakeExpressionEvaluationContext context = new FakeExpressionEvaluationContext() {
             @Override
-            public ExpressionEvaluationContext context(final Function<ExpressionReference, Optional<Object>> scoped) {
+            public ExpressionEvaluationContext context(final Function<ExpressionReference, Optional<Optional<Object>>> scoped) {
                 return new FakeExpressionEvaluationContext() {
 
                     @Override

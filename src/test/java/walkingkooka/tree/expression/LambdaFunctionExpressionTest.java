@@ -179,12 +179,16 @@ public final class LambdaFunctionExpressionTest extends UnaryExpressionTestCase<
                     }
 
                     @Override
-                    public Optional<Object> reference(final ExpressionReference reference) {
+                    public Optional<Optional<Object>> reference(final ExpressionReference reference) {
                         switch (reference.toString()) {
                             case "x":
-                                return Optional.of(10);
+                                return Optional.of(
+                                        Optional.of(10)
+                                );
                             case "y":
-                                return Optional.of(20);
+                                return Optional.of(
+                                        Optional.of(20)
+                                );
                             default:
                                 throw new IllegalArgumentException("Unknown reference: " + reference);
                         }

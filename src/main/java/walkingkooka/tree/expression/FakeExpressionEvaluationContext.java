@@ -38,7 +38,7 @@ public class FakeExpressionEvaluationContext extends FakeExpressionNumberConvert
     }
 
     @Override
-    public ExpressionEvaluationContext context(final Function<ExpressionReference, Optional<Object>> scoped) {
+    public ExpressionEvaluationContext context(final Function<ExpressionReference, Optional<Optional<Object>>> scoped) {
         throw new UnsupportedOperationException();
     }
 
@@ -87,8 +87,9 @@ public class FakeExpressionEvaluationContext extends FakeExpressionNumberConvert
     }
 
     @Override
-    public Optional<Object> reference(final ExpressionReference reference) {
+    public Optional<Optional<Object>> reference(final ExpressionReference reference) {
         Objects.requireNonNull(reference, "reference");
+
         throw new UnsupportedOperationException();
     }
 }

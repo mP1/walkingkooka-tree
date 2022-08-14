@@ -499,10 +499,13 @@ public final class ExpressionEvaluationContextPrepareParametersListFlattenedTest
                 new FakeExpressionEvaluationContext() {
 
                     @Override
-                    public Optional<Object> reference(final ExpressionReference reference) {
+                    public Optional<Optional<Object>> reference(final ExpressionReference reference) {
                         checkEquals(REFERENCE, reference);
+
                         return Optional.of(
-                                Expression.value("Twenty"
+                                Optional.of(
+                                        Expression.value("Twenty"
+                                        )
                                 )
                         );
                     }

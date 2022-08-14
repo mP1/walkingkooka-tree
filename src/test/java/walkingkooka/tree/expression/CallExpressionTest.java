@@ -290,7 +290,7 @@ public final class CallExpressionTest extends VariableExpressionTestCase<CallExp
                 new FakeExpressionEvaluationContext() {
 
                     @Override
-                    public ExpressionEvaluationContext context(final Function<ExpressionReference, Optional<Object>> scoped) {
+                    public ExpressionEvaluationContext context(final Function<ExpressionReference, Optional<Optional<Object>>> scoped) {
                         return new FakeExpressionEvaluationContext() {
 
                             @Override
@@ -315,7 +315,7 @@ public final class CallExpressionTest extends VariableExpressionTestCase<CallExp
                             }
 
                             @Override
-                            public Optional<Object> reference(final ExpressionReference reference) {
+                            public Optional<Optional<Object>> reference(final ExpressionReference reference) {
                                 return scoped.apply(reference);
                             }
                         };

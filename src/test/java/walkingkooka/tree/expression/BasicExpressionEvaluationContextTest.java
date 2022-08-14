@@ -483,7 +483,9 @@ public final class BasicExpressionEvaluationContextTest implements ClassTesting2
     @Test
     public void testReferences() {
         this.checkEquals(
-                Optional.of(REFERENCE_VALUE),
+                Optional.of(
+                        Optional.of(REFERENCE_VALUE)
+                ),
                 this.createContext()
                         .reference(REFERENCE)
         );
@@ -529,7 +531,7 @@ public final class BasicExpressionEvaluationContextTest implements ClassTesting2
     @Test
     public void testToString() {
         final Function<FunctionExpressionName, ExpressionFunction<?, ExpressionEvaluationContext>> functions = this.functions();
-        final Function<ExpressionReference, Optional<Object>> references = this.references();
+        final Function<ExpressionReference, Optional<Optional<Object>>> references = this.references();
         final Function<ExpressionReference, ExpressionEvaluationException> referenceNotFound = ExpressionEvaluationContexts.referenceNotFound();
         final ConverterContext converterContext = this.converterContext();
 
@@ -655,11 +657,14 @@ public final class BasicExpressionEvaluationContextTest implements ClassTesting2
         return "namedFunction-value-234";
     }
 
-    private Function<ExpressionReference, Optional<Object>> references() {
+    private Function<ExpressionReference, Optional<Optional<Object>>> references() {
         return (r -> {
             Objects.requireNonNull(r, "references");
             this.checkEquals(REFERENCE, r, "reference");
-            return Optional.of(REFERENCE_VALUE);
+
+            return Optional.of(
+                    Optional.of(REFERENCE_VALUE)
+            );
         });
     }
 

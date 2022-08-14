@@ -131,12 +131,19 @@ public final class CycleDetectingExpressionEvaluationContextTest implements Clas
                 new FakeExpressionEvaluationContext() {
 
                     @Override
-                    public Optional<Object> reference(final ExpressionReference reference) {
+                    public Optional<Optional<Object>> reference(final ExpressionReference reference) {
                         assertSame(A1, reference, "reference");
-                        return Optional.of(target);
+
+                        return Optional.of(
+                                Optional.of(target
+                                )
+                        );
                     }
                 });
-        assertSame(target, context.reference(A1).orElse(null));
+        this.checkEquals(
+                Optional.of(target),
+                context.reference(A1).orElse(null)
+        );
     }
 
     @Test
@@ -148,10 +155,12 @@ public final class CycleDetectingExpressionEvaluationContextTest implements Clas
                 new FakeExpressionEvaluationContext() {
 
                     @Override
-                    public Optional<Object> reference(final ExpressionReference reference) {
+                    public Optional<Optional<Object>> reference(final ExpressionReference reference) {
                         if (A1 == reference) {
                             return Optional.of(
-                                    target.value()
+                                    Optional.of(
+                                            target.value()
+                                    )
                             );
                         }
                         return this.unknownReference(reference);
@@ -179,8 +188,12 @@ public final class CycleDetectingExpressionEvaluationContextTest implements Clas
                 new FakeExpressionEvaluationContext() {
 
                     @Override
-                    public Optional<Object> reference(final ExpressionReference reference) {
-                        return Optional.of(this.reference0(reference));
+                    public Optional<Optional<Object>> reference(final ExpressionReference reference) {
+                        return Optional.of(
+                                Optional.of(
+                                        this.reference0(reference)
+                                )
+                        );
                     }
 
                     private Object reference0(final ExpressionReference reference) {
@@ -213,9 +226,11 @@ public final class CycleDetectingExpressionEvaluationContextTest implements Clas
                 new FakeExpressionEvaluationContext() {
 
                     @Override
-                    public Optional<Object> reference(final ExpressionReference reference) {
+                    public Optional<Optional<Object>> reference(final ExpressionReference reference) {
                         return Optional.of(
-                                this.reference0(reference)
+                                Optional.of(
+                                        this.reference0(reference)
+                                )
                         );
                     }
 
@@ -259,9 +274,11 @@ public final class CycleDetectingExpressionEvaluationContextTest implements Clas
                 new FakeExpressionEvaluationContext() {
 
                     @Override
-                    public Optional<Object> reference(final ExpressionReference reference) {
+                    public Optional<Optional<Object>> reference(final ExpressionReference reference) {
                         return Optional.of(
-                                this.reference0(reference)
+                                Optional.of(
+                                        this.reference0(reference)
+                                )
                         );
                     }
 

@@ -165,7 +165,7 @@ public class LambdaExpressionFunctionTest implements ExpressionFunctionTesting<L
         return new FakeExpressionEvaluationContext() {
 
             @Override
-            public FakeExpressionEvaluationContext context(final Function<ExpressionReference, Optional<Object>> scoped) {
+            public FakeExpressionEvaluationContext context(final Function<ExpressionReference, Optional<Optional<Object>>> scoped) {
                 return new FakeExpressionEvaluationContext() {
 
                     @Override
@@ -189,7 +189,7 @@ public class LambdaExpressionFunctionTest implements ExpressionFunctionTesting<L
                     }
 
                     @Override
-                    public Optional<Object> reference(final ExpressionReference reference) {
+                    public Optional<Optional<Object>> reference(final ExpressionReference reference) {
                         return scoped.apply(reference);
                     }
                 };

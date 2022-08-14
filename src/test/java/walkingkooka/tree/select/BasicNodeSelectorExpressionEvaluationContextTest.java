@@ -150,7 +150,7 @@ public final class BasicNodeSelectorExpressionEvaluationContextTest implements N
         };
     }
 
-    private Function<ExpressionReference, Optional<Object>> references() {
+    private Function<ExpressionReference, Optional<Optional<Object>>> references() {
         return (r -> {
             throw new UnsupportedOperationException();
         });

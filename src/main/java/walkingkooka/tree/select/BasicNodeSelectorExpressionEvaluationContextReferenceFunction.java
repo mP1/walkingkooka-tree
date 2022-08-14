@@ -30,7 +30,7 @@ import java.util.function.Function;
 final class BasicNodeSelectorExpressionEvaluationContextReferenceFunction<N extends Node<N, NAME, ANAME, AVALUE>,
         NAME extends Name,
         ANAME extends Name,
-        AVALUE> implements Function<ExpressionReference, Optional<Object>> {
+        AVALUE> implements Function<ExpressionReference, Optional<Optional<Object>>> {
 
     static <N extends Node<N, NAME, ANAME, AVALUE>,
             NAME extends Name,
@@ -46,7 +46,7 @@ final class BasicNodeSelectorExpressionEvaluationContextReferenceFunction<N exte
     }
 
     @Override
-    public Optional<Object> apply(final ExpressionReference reference) {
+    public Optional<Optional<Object>> apply(final ExpressionReference reference) {
         return context.reference(reference);
     }
 
