@@ -33,6 +33,7 @@ import walkingkooka.tree.expression.ExpressionEvaluationContexts;
 import walkingkooka.tree.expression.FakeExpressionEvaluationContext;
 
 import java.lang.reflect.Field;
+import java.util.Arrays;
 import java.util.EnumSet;
 import java.util.List;
 import java.util.Optional;
@@ -380,7 +381,7 @@ public final class ExpressionFunctionParameterTest implements HashCodeEqualsDefi
     }
 
     @Test
-    public void testGet() {
+    public void testGetNonNull() {
         final ExpressionFunctionParameter<Integer> parameter = ExpressionFunctionParameter.with(
                 NAME,
                 Integer.class,
@@ -389,13 +390,59 @@ public final class ExpressionFunctionParameterTest implements HashCodeEqualsDefi
                 KINDS
         );
         this.checkEquals(
-                Optional.of(100),
+                Optional.of(
+                        Optional.of(100)
+                ),
                 parameter.get(
                         List.of(
                                 100,
                                 "B"
                         ),
                         0
+                )
+        );
+    }
+
+    @Test
+    public void testGetNull() {
+        final ExpressionFunctionParameter<Integer> parameter = ExpressionFunctionParameter.with(
+                NAME,
+                Integer.class,
+                TYPE_PARAMETERS,
+                ExpressionFunctionParameterCardinality.OPTIONAL,
+                KINDS
+        );
+        this.checkEquals(
+                Optional.of(
+                        Optional.empty()
+                ),
+                parameter.get(
+                        Arrays.asList(
+                                null,
+                                "B"
+                        ),
+                        0
+                )
+        );
+    }
+
+    @Test
+    public void testGetAbsent() {
+        final ExpressionFunctionParameter<Integer> parameter = ExpressionFunctionParameter.with(
+                NAME,
+                Integer.class,
+                TYPE_PARAMETERS,
+                ExpressionFunctionParameterCardinality.OPTIONAL,
+                KINDS
+        );
+        this.checkEquals(
+                Optional.empty(),
+                parameter.get(
+                        List.of(
+                                100,
+                                "B"
+                        ),
+                        99
                 )
         );
     }
