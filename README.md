@@ -22,6 +22,72 @@ Before expanding on their utility consider the following
 - [Select](https://github.com/mP1/walkingkooka-tree/blob/master/src/main/java/walkingkooka/tree/select) A general
   purpose XPATH like execution system that works over many tree systems, unlike XPATH which only works with XML.
 
+## [Expression](https://github.com/mP1/walkingkooka-tree/tree/master/src/main/java/walkingkooka/tree/expression)
+
+Expression and its sub-classes may be used to represent a parsed AST, with a built-in execution with sensible / useful
+semantics.
+
+A brief summary of supported features include:
+
+- Delegating type coercion and checks to a user provided `EvaluationExpressionContext` to convert or fail.
+- Support for named and lambda functions, where named functions are located by
+  the `EvaluationExpressionContext#namedFunction`.
+- Prior to execution a function, the input parameters may be validated and possibly converted/coerced to the required
+  type.
+- The grammar of the language in text form is not known, and irrelevant to the execution phase of the AST.
+- If the default `Expression#toValue(ExpressionEvaluationContext)` is not right, create a sub-class
+  of `ExpressionVisitor`
+  and override all the visit methods to provide an alternative execution behaviour for each `Expression` sub-class type.
+
+Two interesting examples of the Expression system include:
+
+- The mini expression language used
+  by [select](https://github.com/mP1/walkingkooka-tree/blob/master/src/main/java/walkingkooka/tree/select). The Node
+  selector parser includes a visitor which converts its parser tokens into equivalent Expression.
+- The [spreadsheet](https://github.com/mP1/walkingkooka-spreadsheet) also uses Expressions to represent and execute a
+  spreadsheet formula.
+
+It should be possible (but I havent tried) to parse Javascript into an `Expression` and execute it with javascript
+runtime semantics.
+
+### [ExpressionEvaluationContext](https://github.com/mP1/walkingkooka-tree/blob/master/src/main/java/walkingkooka/tree/expression/ExpressionEvaluationContext.java)
+
+One considerable advantage of using this approach is that an `Expression` or `ExpressionFunction` can be assembled once
+without finalizing the desired locale or other similar user parameters. Re-using the same expressions/functions in a
+multi-user system with different parameters, simply means creating an appropriately
+customised `ExpressionEvaluationContext`.
+
+### [ExpressionFunction](https://github.com/mP1/walkingkooka-tree/blob/master/src/main/java/walkingkooka/tree/expression/function/ExpressionFunction.java)
+
+This interface makes it easy to insert a function located by name into an `Expression` AST. Numerous methods are
+provided with parallels to `java.lang.ref` including:
+
+- returnType()
+- parameters() provides a meta view of each individual parameter name, cardinality (including optional support), type
+  and other `Expression` execution semantics.
+- purity Useful to decide whether an expression or function needs re-evaluation, useful for big spreadsheets with lots
+  of cells to avoid a lot of costly and slow re-evaluation.
+
+Numerous projects are available focusing on grouping functions that perform a similar or related task:
+
+The following function project hold many generic functions.
+
+- [boolean](https://github.com/mP1/walkingkooka-tree-expression-function-boolean)
+- [datetime](https://github.com/mP1/walkingkooka-tree-expression-function-datetime)
+- [engineering](https://github.com/mP1/walkingkooka-tree-expression-function-engineering)
+- [net](https://github.com/mP1/walkingkooka-tree-expression-function-net)
+- [number](https://github.com/mP1/walkingkooka-tree-expression-function-number)
+- [number-trigonometry](https://github.com/mP1/walkingkooka-tree-expression-function-number-trigonometry)
+- [spreadsheet](https://github.com/mP1/walkingkooka-spreadsheet-expression-function)
+- [stat](https://github.com/mP1/walkingkooka-tree-expression-function-stat)
+- [string](https://github.com/mP1/walkingkooka-tree-expression-function-string)
+
+These last two projects require a `SpreadsheetExpressionEvaluationContext` which helps support numerous spreadsheet type
+requirements, like locating cell/label references, parsing spreadsheet formula expressions and more.
+
+- [walkingkooka-spreadsheet-expression-function](https://github.com/mP1/walkingkooka-spreadsheet-expression-function)
+- [walkingkooka-spreadsheet-server-expression-function](https://github.com/mP1/walkingkooka-spreadsheet-server-expression-function)
+
 ## [Node](https://github.com/mP1/walkingkooka-tree/blob/master/src/main/java/walkingkooka/tree/Node.java)
 
 This helps define a node within a tree or graph with emphasis for navigation in any direction, including branches,
@@ -75,73 +141,7 @@ Some interesting examples of a `select query` can include:
   such as file size are node attributes.
 - Queries can also be executed over JSON.
 
-## [Expression](https://github.com/mP1/walkingkooka-tree/tree/master/src/main/java/walkingkooka/tree/expression)
 
-Expressions is an AST that can be executed, with complete control over the type system and whether types may or may not
-be coerced or converted from one type to another, meaning it is possible to do the convenient or horrible depending on
-your point of view of type systems such as Javascript and its concept of truthiness, where objects can be converted to
-other types depending on context.
-
-Expressions themselves do not enforce any grammar the language in text form, parsing and the definition is a separate
-task, but visitors are available to convert between a Expression graph to another AST.
-
-Two interesting examples of the Expression system are
-
-- The mini expression language used
-  by [select](https://github.com/mP1/walkingkooka-tree/blob/master/src/main/java/walkingkooka/tree/select). The Node
-  selector parser includes a visitor which converts its parser tokens into equivalent Expression.
-- The [spreadsheet project](https://github.com/mP1/walkingkooka-spreadsheet) also uses Expressions to represent and
-  execute a spreadsheet formula.
-- An `Expression` is also a `Node` which means queries can also be executed over an expression.
-
-### [ExpressionEvaluationContext](https://github.com/mP1/walkingkooka-tree/blob/master/src/main/java/walkingkooka/tree/expression/ExpressionEvaluationException.java)
-
-One considerable advantage of using this approach is that `Expression` or `ExpressionFunction` can be assembled and kept
-unmodified while adjusting or changing the following properties to customise choices, or locale and more.
-
-A `Context` that captures locale sensitive values like the :
-
-- currency symbol
-- positive sign
-- negative sign
-- grouping separator
-- and much more.
-
-These are used by parsers when parsing text into numbers or formatters when formatting `ExpressionNumber` values to
-text.
-
-A `Context` that captures other numeric or computation related properties.
-
-- `ExpressionNumberKind` selects whether computations are done in `BigDecimal` or `double`.
-- `MathContext` when `BigDecimal` computations are active, controls `precision` and `Rounding`.
-
-A `Context` that also supports evaluating a function using its name and provided parameters.
-
-### [ExpressionFunction](https://github.com/mP1/walkingkooka-tree/blob/master/src/main/java/walkingkooka/tree/expression/function/ExpressionFunction.java)
-
-This interface makes it easy to insert a function located by name into an `Expression` AST.
-
-Numerous projects are available focusing on grouping functions that perform a similar or related task:
-
-More functions are available in other projects including:
-
-- [boolean](https://github.com/mP1/walkingkooka-tree-expression-function-boolean)
-- [datetime](https://github.com/mP1/walkingkooka-tree-expression-function-datetime)
-- [engineering](https://github.com/mP1/walkingkooka-tree-expression-function-engineering)
-- [net](https://github.com/mP1/walkingkooka-tree-expression-function-net)
-- [number](https://github.com/mP1/walkingkooka-tree-expression-function-number)
-- [number-trigonometry](https://github.com/mP1/walkingkooka-tree-expression-function-number-trigonometry)
-- [spreadsheet](https://github.com/mP1/walkingkooka-spreadsheet-expression-function)
-- [stat](https://github.com/mP1/walkingkooka-tree-expression-function-stat)
-- [string](https://github.com/mP1/walkingkooka-tree-expression-function-string)
-
-Many of these will be used to as the excel functions in
-the [spreadsheet project](https://github.com/mP1/walkingkooka-spreadsheet).
-
-### [ExpressionFunctionContext](https://github.com/mP1/walkingkooka-tree/blob/master/src/main/java/walkingkooka/tree/expression/function/ExpressionFunctionContext.java)
-
-Another `Context` that provides many of the properties and operations provided by `ExpressionEvaluationException` but
-with a `ExpressionFunction` focus.
 
 ### Visitors
 
