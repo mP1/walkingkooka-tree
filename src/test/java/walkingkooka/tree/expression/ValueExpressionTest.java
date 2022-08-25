@@ -19,11 +19,12 @@ package walkingkooka.tree.expression;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
+import walkingkooka.text.printer.TreePrintableTesting;
 import walkingkooka.visit.Visiting;
 
 import static org.junit.jupiter.api.Assertions.assertSame;
 
-public final class ValueExpressionTest extends LeafExpressionTestCase<ValueExpression<ExpressionNumber>, ExpressionNumber> {
+public final class ValueExpressionTest extends LeafExpressionTestCase<ValueExpression<ExpressionNumber>, ExpressionNumber> implements TreePrintableTesting {
 
     @Test
     public void testAccept() {
@@ -74,6 +75,32 @@ public final class ValueExpressionTest extends LeafExpressionTestCase<ValueExpre
     @Test
     public void testToText() {
         this.evaluateAndCheckText(this.createExpression(123), "123");
+    }
+
+    // printTree... ...................................................................................................
+
+    @Test
+    public void testPrintTreeNonNull() {
+        this.treePrintAndCheck(
+                ValueExpression.with(1),
+                "ValueExpression 1 (java.lang.Integer)\n"
+        );
+    }
+
+    @Test
+    public void testPrintTreeNonNullString() {
+        this.treePrintAndCheck(
+                ValueExpression.with("abc"),
+                "ValueExpression \"abc\" (java.lang.String)\n"
+        );
+    }
+
+    @Test
+    public void testPrintTreeNull() {
+        this.treePrintAndCheck(
+                ValueExpression.with(null),
+                "ValueExpression null\n"
+        );
     }
 
     // ToString ...................................................................................................

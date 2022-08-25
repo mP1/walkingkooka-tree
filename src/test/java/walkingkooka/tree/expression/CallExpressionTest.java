@@ -562,9 +562,9 @@ public final class CallExpressionTest extends VariableExpressionTestCase<CallExp
                         "  callable\n" +
                         "    NamedFunctionExpression test-function\n" +
                         "  parameters\n" +
-                        "      ValueExpression \"child-111\"\n" +
-                        "      ValueExpression \"child-222\"\n" +
-                        "      ValueExpression \"child-333\"\n"
+                        "      ValueExpression \"child-111\" (java.lang.String)\n" +
+                        "      ValueExpression \"child-222\" (java.lang.String)\n" +
+                        "      ValueExpression \"child-333\" (java.lang.String)\n"
         );
     }
 
