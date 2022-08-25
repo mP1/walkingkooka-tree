@@ -222,7 +222,7 @@ public final class LambdaFunctionExpressionTest extends UnaryExpressionTestCase<
                         "    java.lang.Object x\n" +
                         "    java.lang.Object y\n" +
                         "  body\n" +
-                        "    ValueExpression \"child123\"\n"
+                        "    ValueExpression \"child123\" (java.lang.String)\n"
         );
     }
 

@@ -67,7 +67,18 @@ abstract class LeafExpression<V> extends Expression implements Value<V> {
 
     @Override
     public final void printTree(final IndentingPrinter printer) {
-        printer.print(this.typeName() + " " + CharSequences.quoteIfChars(this.value()));
+        final Object value = this.value();
+
+        printer.print(this.typeName());
+        printer.print(" ");
+        printer.print(CharSequences.quoteIfChars(value));
+
+        if (!this.isNamedFunction() && null != value) {
+            printer.print(" (");
+            printer.print(value.getClass().getName());
+            printer.print(")");
+        }
+
         printer.println();
     }
 

@@ -103,12 +103,12 @@ public abstract class BinaryExpressionTestCase<N extends BinaryExpression> exten
     // printTree........................................................................................................
 
     @Test
-    public void testPrintTree() {
+    public final void testPrintTree() {
         this.treePrintAndCheck(
                 this.createExpression(),
                 this.type().getSimpleName() + "\n" +
-                        "  ValueExpression \"left-123\"\n" +
-                        "  ValueExpression \"right-456\"\n"
+                        "  ValueExpression \"left-123\" (java.lang.String)\n" +
+                        "  ValueExpression \"right-456\" (java.lang.String)\n"
         );
     }
 

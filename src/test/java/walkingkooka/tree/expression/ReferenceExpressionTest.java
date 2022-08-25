@@ -105,6 +105,16 @@ public final class ReferenceExpressionTest extends LeafExpressionTestCase<Refere
         this.evaluateAndCheckValue(this.createExpression(), this.context("123"), "123");
     }
 
+    // printTree... ...................................................................................................
+
+    @Test
+    public void testPrintTree() {
+        this.treePrintAndCheck(
+                this.createExpression(),
+                "ReferenceExpression a1 (walkingkooka.tree.expression.ReferenceExpressionTest$TestExpressionReference)\n"
+        );
+    }
+
     // ToString ...................................................................................................
 
     @Test

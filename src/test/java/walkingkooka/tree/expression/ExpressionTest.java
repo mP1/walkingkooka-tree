@@ -48,10 +48,10 @@ public final class ExpressionTest implements ClassTesting2<Expression> {
             printer.flush();
             this.checkEquals(
                     "AddExpression\n" +
-                            "  ValueExpression 1.5\n" +
+                            "  ValueExpression 1.5 (walkingkooka.tree.expression.ExpressionNumberDouble)\n" +
                             "  MultiplyExpression\n" +
-                            "    ValueExpression \"20\"\n" +
-                            "    ValueExpression true\n",
+                            "    ValueExpression \"20\" (java.lang.String)\n" +
+                            "    ValueExpression true (java.lang.Boolean)\n",
                     printed.toString()
             );
         }

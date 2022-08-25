@@ -73,6 +73,16 @@ public final class NamedFunctionExpressionTest extends LeafExpressionTestCase<Na
         );
     }
 
+    // printTree... ...................................................................................................
+
+    @Test
+    public void testPrintTree() {
+        this.treePrintAndCheck(
+                this.createExpression(),
+                "NamedFunctionExpression test-function-123\n"
+        );
+    }
+
     // ToString ...................................................................................................
 
     @Test
