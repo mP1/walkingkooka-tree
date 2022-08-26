@@ -380,6 +380,56 @@ public final class ExpressionFunctionTestingTest implements ClassTesting<Express
         this.checkEquals(true, fail);
     }
 
+    // testParametersIfConvertTypeNotObject.........................................................................................
+
+    @Test
+    public void testTestParametersIfConvertTypeNotObjectNonee() {
+        new TestExpressionFunctionTesting() {
+
+            @Override
+            public FakeExpressionFunction<Void, FakeExpressionEvaluationContext> createBiFunction() {
+                return new FakeExpressionFunction<>() {
+                    @Override
+                    public List<ExpressionFunctionParameter<?>> parameters(final int count) {
+                        return Lists.of(
+                                ExpressionFunctionParameter.BOOLEAN.setKinds(ExpressionFunctionParameterKind.CONVERT_EVALUATE),
+                                ExpressionFunctionParameter.CHARACTER.setKinds(ExpressionFunctionParameterKind.CONVERT_EVALUATE),
+                                ExpressionFunctionParameterName.with("object").required(Object.class)
+                        );
+                    }
+                };
+            }
+        }.testParametersIfConvertTypeNotObject();
+    }
+
+    @Test
+    public void testTestParametersIfConvertTypeNotObjectUniqueDuplicatesFail() {
+        boolean fail = false;
+
+        try {
+            new TestExpressionFunctionTesting() {
+
+                @Override
+                public FakeExpressionFunction<Void, FakeExpressionEvaluationContext> createBiFunction() {
+                    return new FakeExpressionFunction<>() {
+                        @Override
+                        public List<ExpressionFunctionParameter<?>> parameters(final int count) {
+                            return Lists.of(
+                                    ExpressionFunctionParameterName.with("object")
+                                            .required(Object.class)
+                                            .setKinds(ExpressionFunctionParameterKind.CONVERT_EVALUATE)
+                            );
+                        }
+                    };
+                }
+            }.testParametersIfConvertTypeNotObject();
+        } catch (final AssertionError expected) {
+            fail = true;
+        }
+
+        this.checkEquals(true, fail);
+    }
+
     // testParametersOnlyLastMayBeVariable..............................................................................
 
     @Test

@@ -114,6 +114,20 @@ public interface ExpressionFunctionTesting<F extends ExpressionFunction<V, C>, V
     }
 
     @Test
+    default void testParametersIfConvertTypeNotObject() {
+        final List<ExpressionFunctionParameter<?>> parameters = this.createBiFunction()
+                .parameters(this.minimumParameterCount());
+
+        this.checkEquals(
+                Lists.empty(),
+                parameters.stream()
+                        .filter(p -> p.kinds().contains(ExpressionFunctionParameterKind.CONVERT))
+                        .filter(p -> p.type() == Object.class)
+                        .collect(Collectors.toList())
+        );
+    }
+
+    @Test
     default void testParametersOnlyLastMayBeVariable() {
         final List<ExpressionFunctionParameter<?>> parameters = this.createBiFunction()
                 .parameters(this.minimumParameterCount());
