@@ -113,7 +113,7 @@ final class NodeSelectorPredicateParserTokenNodeSelectorParserTokenVisitor exten
     protected void endVisit(final NodeSelectorFunctionParserToken token) {
         final FunctionExpressionName functionName = FunctionExpressionName.with(token.functionName().value());
         if (!this.functions.test(functionName)) {
-            throw new NodeSelectorException("Unknown namedFunction " + CharSequences.quoteAndEscape(functionName.value()) + " in " + CharSequences.quoteAndEscape(token.toString()));
+            throw new NodeSelectorException("Unknown function " + CharSequences.quoteAndEscape(functionName.value()) + " in " + CharSequences.quoteAndEscape(token.toString()));
         }
 
         final List<Expression> children = this.children;

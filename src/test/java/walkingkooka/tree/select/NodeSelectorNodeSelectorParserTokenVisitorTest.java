@@ -1918,7 +1918,7 @@ public final class NodeSelectorNodeSelectorParserTokenVisitorTest implements Nod
                                 default:
                                     return Cast.to(NodeSelectorContexts.basicFunctions()
                                             .apply(n)
-                                            .orElseThrow(() -> new IllegalArgumentException(("Unknown namedFunction \"" + n + "\""))));
+                                            .orElseThrow(() -> new IllegalArgumentException(("Unknown function \"" + n + "\""))));
                             }
                         };
                     }

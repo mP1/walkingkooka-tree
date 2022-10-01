@@ -34,7 +34,7 @@ public class UnknownExpressionFunctionException extends ExpressionException {
 
     @Override
     public String getMessage() {
-        return "Unknown namedFunction " + CharSequences.quote(this.name().value());
+        return "Unknown function " + CharSequences.quote(this.name().value());
     }
 
     public final FunctionExpressionName name() {
