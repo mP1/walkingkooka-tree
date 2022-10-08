@@ -167,8 +167,4 @@ final class ExpressionEvaluationContextPrepareParametersListFlattened extends Ex
     public int size() {
         return this.preparedValues.length + this.flattenIfNecessary().size();
     }
-
-    public String toString() {
-        return "@@@";
-    }
 }
