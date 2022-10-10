@@ -31,6 +31,14 @@ public final class FunctionExpressionNameTest implements ClassTesting2<FunctionE
         this.createNameAndCheck("Error.Type");
     }
 
+    @Test
+    public void testNotFound() {
+        this.checkEquals(
+                "Function not found: \"abc123\"",
+                FunctionExpressionName.with("abc123").notFound()
+        );
+    }
+
     @Override
     public FunctionExpressionName createName(final String name) {
         return FunctionExpressionName.with(name);
