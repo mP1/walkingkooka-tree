@@ -32,10 +32,10 @@ public final class FunctionExpressionNameTest implements ClassTesting2<FunctionE
     }
 
     @Test
-    public void testNotFound() {
+    public void testNotFoundText() {
         this.checkEquals(
                 "Function not found: \"abc123\"",
-                FunctionExpressionName.with("abc123").notFound()
+                FunctionExpressionName.with("abc123").notFoundText()
         );
     }
 
