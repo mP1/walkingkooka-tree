@@ -71,7 +71,7 @@ public final class FunctionExpressionName implements Name,
     /**
      * Useful to report that a function was not found within an expression.
      */
-    public String notFound() {
+    public String notFoundText() {
         return "Function not found: " + CharSequences.quoteAndEscape(this.name);
     }
 
