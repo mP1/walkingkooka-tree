@@ -22,10 +22,10 @@ package walkingkooka.tree.select.parser;
 public final class NodeSelectorWhitespaceParserToken extends NodeSelectorNonBinaryOperandSymbolParserToken {
 
     static NodeSelectorWhitespaceParserToken with(final String value, final String text) {
-        checkValue(value);
-        checkTextNullOrEmpty(text);
-
-        return new NodeSelectorWhitespaceParserToken(value, text);
+        return new NodeSelectorWhitespaceParserToken(
+                checkValue(value),
+                checkTextNullOrEmpty(text)
+        );
     }
 
     private NodeSelectorWhitespaceParserToken(final String value, final String text) {

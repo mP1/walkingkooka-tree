@@ -454,13 +454,13 @@ public abstract class NodeSelectorParserToken implements ParserToken {
     }
 
     static List<ParserToken> copyAndCheckTokens(final List<ParserToken> tokens) {
-        Objects.requireNonNull(tokens, "tokens");
-
-        return Lists.immutable(tokens);
+        return Lists.immutable(
+                Objects.requireNonNull(tokens, "tokens")
+        );
     }
 
-    static void checkTextNullOrEmpty(final String text) {
-        CharSequences.failIfNullOrEmpty(text, "text");
+    static String checkTextNullOrEmpty(final String text) {
+        return CharSequences.failIfNullOrEmpty(text, "text");
     }
 
     static String checkTextNullOrWhitespace(final String text) {
