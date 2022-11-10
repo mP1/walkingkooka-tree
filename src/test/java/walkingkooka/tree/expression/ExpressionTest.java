@@ -42,7 +42,7 @@ public final class ExpressionTest implements ClassTesting2<Expression> {
 
         final StringBuilder printed = new StringBuilder();
 
-        try (final IndentingPrinter printer = Printers.stringBuilder(printed, LineEnding.NL).indenting(Indentation.with("  "))) {
+        try (final IndentingPrinter printer = Printers.stringBuilder(printed, LineEnding.NL).indenting(Indentation.SPACES2)) {
             expression.printTree(printer);
 
             printer.flush();
