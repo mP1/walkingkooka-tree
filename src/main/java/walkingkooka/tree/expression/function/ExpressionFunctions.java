@@ -66,7 +66,6 @@ public final class ExpressionFunctions implements PublicStaticHelper {
             )) {
                 throw new IllegalArgumentException("Duplicate namedFunction " + CharSequences.quote(name));
             }
-            ;
         }
 
         return (name) -> {
