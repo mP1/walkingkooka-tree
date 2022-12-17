@@ -73,9 +73,7 @@ public final class ExpressionNumberFunctionExpressionFunctionTest implements Exp
     public void testApplyZeroParametersFails() {
         assertThrows(
                 IllegalArgumentException.class,
-                () -> {
-                    this.apply2();
-                }
+                this::apply2
         );
     }
 

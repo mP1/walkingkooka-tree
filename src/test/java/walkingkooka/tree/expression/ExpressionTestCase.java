@@ -459,7 +459,7 @@ public abstract class ExpressionTestCase<N extends Expression> implements TreePr
         return Converters.booleanTrueFalse(
                 (t) -> t.getClass() == sourceType,
                 (t) -> t == Boolean.class,
-                (v) -> falseValue.equals(v),
+                falseValue::equals,
                 Boolean.FALSE,
                 Boolean.TRUE
         );

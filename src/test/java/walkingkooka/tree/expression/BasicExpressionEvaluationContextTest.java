@@ -227,7 +227,7 @@ public final class BasicExpressionEvaluationContextTest implements ClassTesting2
                         (n) -> {
                             throw new UnsupportedOperationException();
                         },
-                        (r) -> r.getMessage()
+                        Throwable::getMessage
                 ),
                 function,
                 ExpressionEvaluationContext.NO_PARAMETERS,

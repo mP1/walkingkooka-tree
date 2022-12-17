@@ -119,7 +119,7 @@ public class LambdaExpressionFunctionTest implements ExpressionFunctionTesting<L
     public void testApplyWrongParameterCountFails() {
         assertThrows(
                 IllegalArgumentException.class,
-                () -> this.apply2()
+                this::apply2
         );
     }
 
