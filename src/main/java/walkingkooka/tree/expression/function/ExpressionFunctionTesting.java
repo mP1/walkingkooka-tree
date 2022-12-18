@@ -94,8 +94,7 @@ public interface ExpressionFunctionTesting<F extends ExpressionFunction<V, C>, V
 
         ExpressionFunctionParameter<?> previous = null;
 
-        for (int i = 0; i < parameters.size(); i++) {
-            final ExpressionFunctionParameter<?> parameter = parameters.get(i);
+        for (final ExpressionFunctionParameter<?> parameter : parameters) {
             final ExpressionFunctionParameterCardinality current = parameter.cardinality();
             switch (current) {
                 case OPTIONAL:
