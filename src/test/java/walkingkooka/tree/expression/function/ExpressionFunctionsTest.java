@@ -241,7 +241,7 @@ public final class ExpressionFunctionsTest implements PublicStaticHelperTesting<
         this.checkEquals(
                 methods.size(),
                 names.size(),
-                () -> methods.toString()
+                methods::toString
         );
         this.checkEquals(
                 true,

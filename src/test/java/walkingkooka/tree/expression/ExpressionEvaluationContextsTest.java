@@ -40,14 +40,14 @@ public class ExpressionEvaluationContextsTest implements PublicStaticHelperTesti
         this.checkEquals(
                 reference,
                 thrown.expressionReference(),
-                () -> reference.toString()
+                reference::toString
         );
 
 
         this.checkEquals(
                 "Reference not found: Reference123",
                 thrown.getMessage(),
-                () -> reference.toString()
+                reference::toString
         );
     }
 
