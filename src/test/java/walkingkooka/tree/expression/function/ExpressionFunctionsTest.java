@@ -41,9 +41,7 @@ public final class ExpressionFunctionsTest implements PublicStaticHelperTesting<
     public void testLookupNullFunctionsFails() {
         assertThrows(
                 NullPointerException.class,
-                () -> {
-                    ExpressionFunctions.lookup(null, CaseSensitivity.SENSITIVE);
-                }
+                () -> ExpressionFunctions.lookup(null, CaseSensitivity.SENSITIVE)
         );
     }
 
@@ -51,12 +49,10 @@ public final class ExpressionFunctionsTest implements PublicStaticHelperTesting<
     public void testLookupNullCaseSensitiveFails() {
         assertThrows(
                 NullPointerException.class,
-                () -> {
-                    ExpressionFunctions.lookup(
-                            Sets.empty(),
-                            null
-                    );
-                }
+                () -> ExpressionFunctions.lookup(
+                        Sets.empty(),
+                        null
+                )
         );
     }
 
@@ -83,15 +79,13 @@ public final class ExpressionFunctionsTest implements PublicStaticHelperTesting<
     public void testLookupNullDuplicateFunctionNameFails() {
         final IllegalArgumentException thrown = assertThrows(
                 IllegalArgumentException.class,
-                () -> {
-                    ExpressionFunctions.lookup(
-                            Sets.of(
-                                    functionWithName("duplicate123"),
-                                    functionWithName("duplicate123")
-                            ),
-                            CaseSensitivity.SENSITIVE
-                    );
-                }
+                () -> ExpressionFunctions.lookup(
+                        Sets.of(
+                                functionWithName("duplicate123"),
+                                functionWithName("duplicate123")
+                        ),
+                        CaseSensitivity.SENSITIVE
+                )
         );
         this.checkEquals(
                 "Duplicate namedFunction \"duplicate123\"",
@@ -104,15 +98,13 @@ public final class ExpressionFunctionsTest implements PublicStaticHelperTesting<
     public void testLookupNullDuplicateFunctionNameCaseInsensitiveFails() {
         final IllegalArgumentException thrown = assertThrows(
                 IllegalArgumentException.class,
-                () -> {
-                    ExpressionFunctions.lookup(
-                            Sets.of(
-                                    functionWithName("duplicate123"),
-                                    functionWithName("DUPLICATE123")
-                            ),
-                            CaseSensitivity.INSENSITIVE
-                    );
-                }
+                () -> ExpressionFunctions.lookup(
+                        Sets.of(
+                                functionWithName("duplicate123"),
+                                functionWithName("DUPLICATE123")
+                        ),
+                        CaseSensitivity.INSENSITIVE
+                )
         );
         this.checkEquals(
                 "Duplicate namedFunction \"DUPLICATE123\"",

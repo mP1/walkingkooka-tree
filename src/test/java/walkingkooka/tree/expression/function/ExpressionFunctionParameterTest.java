@@ -369,14 +369,12 @@ public final class ExpressionFunctionParameterTest implements HashCodeEqualsDefi
         );
         assertThrows(
                 ClassCastException.class,
-                () -> {
-                    parameter.get(
-                            List.of(
-                                    "A"
-                            ),
-                            0
-                    );
-                }
+                () -> parameter.get(
+                        List.of(
+                                "A"
+                        ),
+                        0
+                )
         );
     }
 
@@ -460,14 +458,12 @@ public final class ExpressionFunctionParameterTest implements HashCodeEqualsDefi
         );
         assertThrows(
                 IndexOutOfBoundsException.class,
-                () -> {
-                    parameter.getOrFail(
-                            List.of(
-                                    1, 2
-                            ),
-                            2
-                    );
-                }
+                () -> parameter.getOrFail(
+                        List.of(
+                                1, 2
+                        ),
+                        2
+                )
         );
     }
 
@@ -483,14 +479,12 @@ public final class ExpressionFunctionParameterTest implements HashCodeEqualsDefi
         );
         assertThrows(
                 ClassCastException.class,
-                () -> {
-                    parameter.getOrFail(
-                            List.of(
-                                    "A"
-                            ),
-                            0
-                    );
-                }
+                () -> parameter.getOrFail(
+                        List.of(
+                                "A"
+                        ),
+                        0
+                )
         );
     }
 
@@ -591,15 +585,13 @@ public final class ExpressionFunctionParameterTest implements HashCodeEqualsDefi
     public void testConvertOrFailMissingListMissingTypeParameterFails() {
         assertThrows(
                 IllegalStateException.class,
-                () -> {
-                    ExpressionFunctionParameter.with(
-                            NAME,
-                            Cast.to(List.class),
-                            ExpressionFunctionParameter.NO_TYPE_PARAMETERS,
-                            CARDINALITY,
-                            KINDS
-                    ).convertOrFail(Lists.empty(), ExpressionEvaluationContexts.fake());
-                }
+                () -> ExpressionFunctionParameter.with(
+                        NAME,
+                        Cast.to(List.class),
+                        ExpressionFunctionParameter.NO_TYPE_PARAMETERS,
+                        CARDINALITY,
+                        KINDS
+                ).convertOrFail(Lists.empty(), ExpressionEvaluationContexts.fake())
         );
     }
 

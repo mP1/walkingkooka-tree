@@ -617,13 +617,11 @@ public final class ExpressionNumberKindTest implements ClassTesting<ExpressionNu
     private void randomBetweenLowerGreaterThanUpperFails(final ExpressionNumberKind kind) {
         assertThrows(
                 IllegalArgumentException.class,
-                () -> {
-                    kind.randomBetween(
-                            kind.create(5),
-                            kind.create(4),
-                            ExpressionNumberContexts.fake()
-                    );
-                }
+                () -> kind.randomBetween(
+                        kind.create(5),
+                        kind.create(4),
+                        ExpressionNumberContexts.fake()
+                )
         );
     }
 
