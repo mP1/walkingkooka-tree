@@ -63,9 +63,7 @@ public final class ExpressionNumberFunctionExpressionFunctionTest implements Exp
     public void testApplyNonExpressionNumberFails() {
         assertThrows(
                 ClassCastException.class,
-                () -> {
-                    this.apply2("String expected ExpressionNumber!");
-                }
+                () -> this.apply2("String expected ExpressionNumber!")
         );
     }
 
@@ -81,9 +79,7 @@ public final class ExpressionNumberFunctionExpressionFunctionTest implements Exp
     public void testApplyTwoParametersFails() {
         assertThrows(
                 IllegalArgumentException.class,
-                () -> {
-                    this.apply2(KIND.zero(), KIND.one());
-                }
+                () -> this.apply2(KIND.zero(), KIND.one())
         );
     }
 

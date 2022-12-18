@@ -320,14 +320,14 @@ public final class ExpressionEvaluationContextTest implements ClassTesting<Expre
     public void testPrepareParameters() {
         final ExpressionFunction<Void, FakeExpressionEvaluationContext> function = ExpressionFunctions.fake();
 
-        assertThrows(UnsupportedOperationException.class,
-                () -> {
-                    ExpressionEvaluationContexts.fake()
-                            .prepareParameters(
-                                    function,
-                                    Lists.empty()
-                            );
-                });
+        assertThrows(
+                UnsupportedOperationException.class,
+                () -> ExpressionEvaluationContexts.fake()
+                        .prepareParameters(
+                                function,
+                                Lists.empty()
+                        )
+        );
     }
 
     @Override
