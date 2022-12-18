@@ -400,5 +400,6 @@ public abstract class ExpressionEvaluationContextPrepareParametersListTestCase2<
             final ExpressionEvaluationContext context
     );
 
-    abstract void sizeAndCheck2(final List list, final int size);
+    abstract void sizeAndCheck2(final List<?> list,
+                                final int size);
 }

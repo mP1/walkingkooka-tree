@@ -36,7 +36,7 @@ final class AncestorNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NAME ex
         return Cast.to(INSTANCE);
     }
 
-    @SuppressWarnings("unchecked")
+    @SuppressWarnings({"unchecked", "rawtypes"})
     private final static AncestorNodeSelector INSTANCE = new AncestorNodeSelector(NodeSelector.terminal());
 
     /**

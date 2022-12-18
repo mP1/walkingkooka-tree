@@ -36,7 +36,8 @@ public final class ExpressionEvaluationContextPrepareParametersListNonFlattenedT
     }
 
     @Override
-    void sizeAndCheck2(final List list, final int size) {
+    void sizeAndCheck2(final List<?> list,
+                       final int size) {
         this.sizeAndCheck(list, size);
     }
 

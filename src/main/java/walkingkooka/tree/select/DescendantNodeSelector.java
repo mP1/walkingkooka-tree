@@ -37,7 +37,7 @@ final class DescendantNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NAME 
         return Cast.to(INSTANCE);
     }
 
-    @SuppressWarnings("unchecked")
+    @SuppressWarnings({"unchecked", "rawtypes"})
     private final static DescendantNodeSelector INSTANCE = new DescendantNodeSelector(NodeSelector.terminal());
 
     /**

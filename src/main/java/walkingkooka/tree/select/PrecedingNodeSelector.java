@@ -37,7 +37,7 @@ final class PrecedingNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NAME e
         return Cast.to(PrecedingNodeSelector.INSTANCE);
     }
 
-    @SuppressWarnings("unchecked")
+    @SuppressWarnings({"unchecked", "rawtypes"})
     private final static PrecedingNodeSelector INSTANCE = new PrecedingNodeSelector(NodeSelector.terminal());
 
     /**

@@ -243,7 +243,7 @@ public final class ExpressionFunctionParameterTest implements HashCodeEqualsDefi
 
     @Test
     public void testSetTypeParameterDifferent() {
-        final Class<List> type = List.class;
+        final Class<List<?>> type = Cast.to(List.class);
 
         final ExpressionFunctionParameter<List<String>> parameter = ExpressionFunctionParameter.with(
                 NAME,
@@ -305,7 +305,7 @@ public final class ExpressionFunctionParameterTest implements HashCodeEqualsDefi
 
     @Test
     public void testSetKindsDifferent() {
-        final Class<List> type = List.class;
+        final Class<List<?>> type = Cast.to(List.class);
 
         final ExpressionFunctionParameter<List<String>> parameter = ExpressionFunctionParameter.with(
                 NAME,
@@ -786,7 +786,7 @@ public final class ExpressionFunctionParameterTest implements HashCodeEqualsDefi
                 continue;
             }
 
-            final ExpressionFunctionParameter constant = (ExpressionFunctionParameter) field.get(null);
+            final ExpressionFunctionParameter<?> constant = (ExpressionFunctionParameter<?>) field.get(null);
             this.checkNotEquals(null, constant.name(), "name");
             this.checkNotEquals(null, constant.typeParameters(), " typeParameters");
             this.checkNotEquals(null, constant.kinds(), "kinds");

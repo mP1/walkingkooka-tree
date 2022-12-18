@@ -39,8 +39,8 @@ final class AbsoluteNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NAME ex
         return Cast.to(INSTANCE);
     }
 
-    @SuppressWarnings("unchecked")
-    private final static AbsoluteNodeSelector INSTANCE = new AbsoluteNodeSelector(NodeSelector.terminal());
+    @SuppressWarnings({"unchecked", "rawtypes"})
+    private final static AbsoluteNodeSelector<?, ?, ?, ?> INSTANCE = new AbsoluteNodeSelector(NodeSelector.terminal());
 
     /**
      * Private constructor

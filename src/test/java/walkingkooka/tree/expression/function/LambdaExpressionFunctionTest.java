@@ -209,7 +209,7 @@ public class LambdaExpressionFunctionTest implements ExpressionFunctionTesting<L
     }
 
     @Override
-    public Class type() {
+    public Class<LambdaExpressionFunction<String, FakeExpressionEvaluationContext>> type() {
         return Cast.to(LambdaExpressionFunction.class);
     }
 }
