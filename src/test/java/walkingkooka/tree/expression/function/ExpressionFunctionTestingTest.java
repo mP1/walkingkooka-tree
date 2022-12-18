@@ -584,7 +584,7 @@ public final class ExpressionFunctionTestingTest implements ClassTesting<Express
         this.checkEquals(true, fail);
     }
 
-    abstract class TestExpressionFunctionTesting implements ExpressionFunctionTesting<FakeExpressionFunction<Void, FakeExpressionEvaluationContext>, Void, FakeExpressionEvaluationContext> {
+    abstract static class TestExpressionFunctionTesting implements ExpressionFunctionTesting<FakeExpressionFunction<Void, FakeExpressionEvaluationContext>, Void, FakeExpressionEvaluationContext> {
 
         @Override
         public final int minimumParameterCount() {
