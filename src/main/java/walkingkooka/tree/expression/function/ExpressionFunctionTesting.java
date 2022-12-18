@@ -168,7 +168,9 @@ public interface ExpressionFunctionTesting<F extends ExpressionFunction<V, C>, V
         final List<ExpressionFunctionParameter<?>> parameters = this.createBiFunction()
                 .parameters(this.minimumParameterCount());
         if (parameters.size() > 0) {
-            final ExpressionFunctionParameter last = parameters.get(parameters.size() - 1);
+            final ExpressionFunctionParameter<?> last = parameters.get(
+                    parameters.size() - 1
+            );
 
             if (last.kinds().contains(ExpressionFunctionParameterKind.FLATTEN)) {
                 this.checkEquals(

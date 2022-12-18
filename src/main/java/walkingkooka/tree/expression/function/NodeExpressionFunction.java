@@ -51,6 +51,7 @@ final class NodeExpressionFunction<N extends Node<N, NAME, ANAME, AVALUE>,
     /**
      * Singleton
      */
+    @SuppressWarnings("rawtypes")
     private static final NodeExpressionFunction INSTANCE = new NodeExpressionFunction<>();
 
     /**

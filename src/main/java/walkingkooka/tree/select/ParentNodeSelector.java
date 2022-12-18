@@ -36,7 +36,7 @@ final class ParentNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NAME exte
         return Cast.to(ParentNodeSelector.INSTANCE);
     }
 
-    @SuppressWarnings("unchecked")
+    @SuppressWarnings({"unchecked", "rawtypes"})
     private final static ParentNodeSelector INSTANCE = new ParentNodeSelector(NodeSelector.terminal());
 
     /**

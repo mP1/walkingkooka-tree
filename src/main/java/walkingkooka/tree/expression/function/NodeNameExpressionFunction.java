@@ -74,6 +74,7 @@ final class NodeNameExpressionFunction<C extends ExpressionEvaluationContext> im
         return PARAMETERS;
     }
 
+    @SuppressWarnings("rawtypes")
     private final static ExpressionFunctionParameter<Node> NODE = ExpressionFunctionParameterName.with("node")
             .required(Node.class)
             .setKinds(ExpressionFunctionParameterKind.EVALUATE_RESOLVE_REFERENCES);

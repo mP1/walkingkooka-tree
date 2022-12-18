@@ -36,7 +36,7 @@ final class FirstChildNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NAME 
         return Cast.to(FirstChildNodeSelector.INSTANCE);
     }
 
-    @SuppressWarnings("unchecked")
+    @SuppressWarnings({"unchecked", "rawtypes"})
     private final static FirstChildNodeSelector INSTANCE = new FirstChildNodeSelector(NodeSelector.terminal());
 
     /**

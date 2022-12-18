@@ -37,7 +37,7 @@ final class DescendantOrSelfNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>,
         return Cast.to(INSTANCE);
     }
 
-    @SuppressWarnings("unchecked")
+    @SuppressWarnings({"unchecked", "rawtypes"})
     private final static DescendantOrSelfNodeSelector INSTANCE = new DescendantOrSelfNodeSelector(NodeSelector.terminal());
 
     /**

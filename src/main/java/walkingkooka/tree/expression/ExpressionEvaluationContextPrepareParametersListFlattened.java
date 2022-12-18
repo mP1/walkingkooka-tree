@@ -34,7 +34,7 @@ final class ExpressionEvaluationContextPrepareParametersListFlattened extends Ex
     static ExpressionEvaluationContextPrepareParametersListFlattened withFlattened(final List<ExpressionFunctionParameter<?>> parameters,
                                                                                    final List<Object> values,
                                                                                    final int preparedValuesCount,
-                                                                                   final ExpressionFunctionParameter last,
+                                                                                   final ExpressionFunctionParameter<?> last,
                                                                                    final ExpressionEvaluationContext context) {
         return new ExpressionEvaluationContextPrepareParametersListFlattened(
                 parameters,

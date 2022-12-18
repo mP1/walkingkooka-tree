@@ -575,7 +575,8 @@ public final class ExpressionEvaluationContextPrepareParametersListFlattenedTest
     }
 
     @Override
-    void sizeAndCheck2(final List list, final int size) {
+    void sizeAndCheck2(final List<?> list,
+                       final int size) {
         // nop
     }
 
