@@ -36,7 +36,7 @@ final class NodePointerIndexedChild<N extends Node<N, NAME, ?, ?>, NAME extends 
      */
     static <N extends Node<N, NAME, ?, ?>, NAME extends Name> NodePointerIndexedChild<N, NAME> with(final int index) {
         if (index < 0) {
-            throw new IllegalArgumentException("Invalid index " + index + " values should be greater or equal to 0");
+            throw new IndexOutOfBoundsException("Invalid index " + index + " values should be greater or equal to 0");
         }
 
         return new NodePointerIndexedChild<N, NAME>(index, absent());
