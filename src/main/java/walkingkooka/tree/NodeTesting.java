@@ -116,7 +116,10 @@ public interface NodeTesting<N extends Node<N, NAME, ANAME, AVALUE>,
     default void testSetChildIndexInvalidFails() {
         final N node = this.createNode();
 
-        assertThrows(IllegalArgumentException.class, () -> node.setChild(-1, node));
+        assertThrows(
+                IndexOutOfBoundsException.class,
+                () -> node.setChild(-1, node)
+        );
     }
 
     @Test

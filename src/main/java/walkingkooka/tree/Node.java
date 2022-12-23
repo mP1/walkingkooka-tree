@@ -113,7 +113,7 @@ public interface Node<N extends Node<N, NAME, ANAME, AVALUE>,
      */
     default N setChild(final int index, final N child) {
         if (index < 0) {
-            throw new IllegalArgumentException("Invalid index " + index + "=" + this);
+            throw new IndexOutOfBoundsException("Invalid index " + index + "=" + this);
         }
         Objects.requireNonNull(child, "child");
 

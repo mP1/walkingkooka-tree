@@ -54,7 +54,10 @@ public final class NodePointerTest implements ClassTesting2<NodePointer<TestNode
 
     @Test
     public void testIndexInvalidIndexFails() {
-        assertThrows(IllegalArgumentException.class, () -> NodePointer.indexed(-1, TestNode.class));
+        assertThrows(
+                IndexOutOfBoundsException.class,
+                () -> NodePointer.indexed(-1, TestNode.class)
+        );
     }
 
     @Test
@@ -64,8 +67,10 @@ public final class NodePointerTest implements ClassTesting2<NodePointer<TestNode
 
     @Test
     public void testIndexInvalidIndexFails2() {
-        assertThrows(IllegalArgumentException.class, () -> NodePointer.indexed(0, TestNode.class)
-                .indexed(-1));
+        assertThrows(
+                IndexOutOfBoundsException.class,
+                () -> NodePointer.indexed(0, TestNode.class).indexed(-1)
+        );
     }
 
     @Test
@@ -433,7 +438,10 @@ public final class NodePointerTest implements ClassTesting2<NodePointer<TestNode
 
     @Test
     public void testParseInvalidIndexFails() {
-        assertThrows(IllegalArgumentException.class, () -> NodePointer.parse("/abc/-99", NAME_FACTORY, TestNode.class));
+        assertThrows(
+                IndexOutOfBoundsException.class,
+                () -> NodePointer.parse("/abc/-99", NAME_FACTORY, TestNode.class)
+        );
     }
 
     @Test
