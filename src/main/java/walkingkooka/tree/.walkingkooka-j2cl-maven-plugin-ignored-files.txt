@@ -1,5 +1,0 @@
-*Testing.*
-*Testing2.*
-TestNode.*
-**/*Testing.*
-**/*Testing2.*

@@ -1,0 +1,3 @@
+**/TestNode.*
+**/*Testing.*
+**/*Testing2.*
