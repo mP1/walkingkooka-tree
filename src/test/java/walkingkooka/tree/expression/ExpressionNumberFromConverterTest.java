@@ -20,6 +20,7 @@ package walkingkooka.tree.expression;
 import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.ToStringTesting;
+import walkingkooka.convert.Converter;
 import walkingkooka.convert.ConverterContexts;
 import walkingkooka.convert.ConverterTesting2;
 import walkingkooka.convert.Converters;
@@ -113,8 +114,41 @@ public final class ExpressionNumberFromConverterTest implements ConverterTesting
     // convert to same...................................................................................................
 
     @Test
-    public void testDoubleToDouble() {
-        this.convertFails2(1.0);
+    public void testDoubleToDoubleDelegates() {
+        final Converter<ExpressionNumberConverterContext> converter = Converters.numberNumber();
+        this.convertAndCheck(
+                converter,
+                1.0,
+                Double.class,
+                1.0
+        );
+
+        this.convertAndCheck(
+                ExpressionNumberFromConverter.with(
+                        converter
+                ),
+                1.0,
+                Double.class,
+                1.0
+        );
+    }
+
+    @Test
+    public void testDoubleToDoubleDelegates2() {
+        final Converter<ExpressionNumberConverterContext> converter = Converters.never();
+        this.convertFails(
+                converter,
+                1.0,
+                Double.class
+        );
+
+        this.convertFails(
+                ExpressionNumberFromConverter.with(
+                        converter
+                ),
+                1.0,
+                Double.class
+        );
     }
 
     @Test

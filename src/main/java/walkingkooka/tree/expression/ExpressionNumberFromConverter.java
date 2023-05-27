@@ -26,7 +26,8 @@ import java.util.Objects;
  * A {@link Converter} that adds support for converting a {@link ExpressionNumber} to a target type by passing
  * the value from the {@link ExpressionNumber} to an intermediate {@link Converter}.
  * <br>
- * Note that requesting to convert a {@link Number} to its own type will fail.
+ * Note that requesting to convert a {@link Number} that is not a {@link ExpressionNumber} is delegated to the wrapped {@link Converter}.
+ * However requesting to convert a {@link ExpressionNumber} to a {@link ExpressionNumber} will fail.
  */
 final class ExpressionNumberFromConverter<C extends ExpressionNumberConverterContext> implements Converter<C> {
 
