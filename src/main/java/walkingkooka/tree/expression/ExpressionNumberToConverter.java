@@ -25,7 +25,7 @@ import walkingkooka.convert.Converters;
 import java.util.Objects;
 
 /**
- * A {@link Converter} that should wrap another {@link Converter} that converts anything to a Number.
+ * A {@link Converter} that should wrap another {@link Converter} that converts anything to a {@link Number}.
  * If the target is {@link ExpressionNumber} the wrapped will be used to convert the input value to a Number,
  * and then the ExpressionNumber created. To convert {@link Number} to {@link ExpressionNumber} the wrapped
  * converter should probably be {@link Converters#numberNumber()}.
@@ -55,9 +55,15 @@ final class ExpressionNumberToConverter<C extends ExpressionNumberConverterConte
     public boolean canConvert(final Object value,
                               final Class<?> type,
                               final C context) {
-        return (value instanceof ExpressionNumber && ExpressionNumber.class == type) ||
+        return (ExpressionNumber.is(value) && ExpressionNumber.class == type) ||
                 this.converterCanConvert(value, type, context) ||
-                (ExpressionNumber.isClass(type) && this.converterCanConvert(value, context.expressionNumberKind().numberType(), context));
+                (ExpressionNumber.isClass(type) &&
+                        this.converterCanConvert(
+                                value,
+                                context.expressionNumberKind().numberType(),
+                                context
+                        )
+                );
     }
 
     private boolean converterCanConvert(final Object value,
@@ -73,14 +79,19 @@ final class ExpressionNumberToConverter<C extends ExpressionNumberConverterConte
                                          final Class<T> type,
                                          final C context) {
 
-        return (value instanceof ExpressionNumber && ExpressionNumber.class == type) ?
+        return (ExpressionNumber.is(value) && ExpressionNumber.class == type) ?
                 this.successfulConversion(
-                        toExpressionNumber((ExpressionNumber) value, context),
+                        context.expressionNumberKind().create((Number) value),
                         type
                 ) :
-                this.converterCanConvert(value, type, context) ?
-                        this.converterConvert(value, type, context) :
-                        this.converterConvertAndCreateExpressionNumber(value, type, context);
+                (value instanceof ExpressionNumber && ExpressionNumber.class == type) ?
+                        this.successfulConversion(
+                                toExpressionNumber((ExpressionNumber) value, context),
+                                type
+                        ) :
+                        this.converterCanConvert(value, type, context) ?
+                                this.converterConvert(value, type, context) :
+                                this.converterConvertAndCreateExpressionNumber(value, type, context);
     }
 
     /**

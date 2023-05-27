@@ -94,11 +94,6 @@ public final class ExpressionNumberToConverterTest implements ConverterTesting2<
         this.convertFails2("123", BigDecimal.class);
     }
 
-    @Test
-    public void testExpressionNumberFails() {
-        this.convertFails2("123", ExpressionNumber.class);
-    }
-
     private void convertFails2(final String value,
                                final Class<?> type) {
         this.convertFails3(ExpressionNumberKind.BIG_DECIMAL, value, type);
@@ -183,8 +178,93 @@ public final class ExpressionNumberToConverterTest implements ConverterTesting2<
         this.convertAndCheck2(BigDecimal.valueOf(128.5));
     }
 
+    @Test
+    public void testBigDecimal2() {
+        this.convertAndCheck2(
+                ExpressionNumberToConverter.with(
+                        ExpressionNumberFromConverter.with(Converters.fake())
+                ),
+                BigDecimal.valueOf(128.5)
+        );
+    }
+
+    @Test
+    public void testBigDecimalToExpressionNumber() {
+        final ExpressionNumberKind kind = ExpressionNumberKind.BIG_DECIMAL;
+        final Number number = BigDecimal.valueOf(128.5);
+
+        this.convertAndCheck(
+                ExpressionNumberToConverter.with(
+                        ExpressionNumberFromConverter.with(Converters.fake())
+                ),
+                number,
+                ExpressionNumber.class,
+                this.createContext(kind),
+                kind.create(number)
+        );
+    }
+
+    @Test
+    public void testBigDecimalToExpressionNumber2() {
+        final ExpressionNumberKind kind = ExpressionNumberKind.DOUBLE;
+        final Number number = BigDecimal.valueOf(128.5);
+
+        this.convertAndCheck(
+                ExpressionNumberToConverter.with(
+                        ExpressionNumberFromConverter.with(Converters.fake())
+                ),
+                number,
+                ExpressionNumber.class,
+                this.createContext(kind),
+                kind.create(number)
+        );
+    }
+
+    @Test
+    public void testExpressionNumberWithDouble() {
+        this.convertAndCheck2(
+                ExpressionNumberKind.DOUBLE.create(1)
+        );
+    }
+
+    @Test
+    public void testExpressionNumberWithDouble2() {
+        this.convertAndCheck2(
+                ExpressionNumberToConverter.with(
+                        ExpressionNumberFromConverter.with(Converters.simple())
+                ),
+                ExpressionNumberKind.DOUBLE.create(1)
+        );
+    }
+
+    @Test
+    public void testExpressionNumberWithBigDecimal() {
+        this.convertAndCheck2(
+                ExpressionNumberKind.BIG_DECIMAL.create(1)
+        );
+    }
+
+    @Test
+    public void testExpressionNumberWithBigDecimal2() {
+        this.convertAndCheck2(
+                ExpressionNumberToConverter.with(
+                        ExpressionNumberFromConverter.with(Converters.simple())
+                ),
+                ExpressionNumberKind.BIG_DECIMAL.create(1)
+        );
+    }
+
     private <N extends Number> void convertAndCheck2(final N number) {
+        this.convertAndCheck2(
+                this.createConverter(),
+                number
+        );
+    }
+
+    private <N extends Number> void convertAndCheck2(final ExpressionNumberToConverter<ExpressionNumberConverterContext> converter,
+                                                     final N number) {
         this.convertAndCheck3(
+                converter,
                 ExpressionNumberKind.BIG_DECIMAL,
                 number,
                 ExpressionNumber.class,
@@ -192,6 +272,7 @@ public final class ExpressionNumberToConverterTest implements ConverterTesting2<
         );
 
         this.convertAndCheck3(
+                converter,
                 ExpressionNumberKind.DOUBLE,
                 number,
                 ExpressionNumber.class,
@@ -199,11 +280,13 @@ public final class ExpressionNumberToConverterTest implements ConverterTesting2<
         );
     }
 
-    private <N> void convertAndCheck3(final ExpressionNumberKind kind,
+    private <N> void convertAndCheck3(final Converter<ExpressionNumberConverterContext> converter,
+                                      final ExpressionNumberKind kind,
                                       final Object from,
                                       final Class<N> target,
                                       final N number) {
         this.convertAndCheck(
+                converter,
                 from,
                 target,
                 this.createContext(kind),
