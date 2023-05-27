@@ -110,6 +110,36 @@ public final class ExpressionNumberFromConverterTest implements ConverterTesting
                 expected);
     }
 
+    // convert to same...................................................................................................
+
+    @Test
+    public void testDoubleToDouble() {
+        this.convertFails2(1.0);
+    }
+
+    @Test
+    public void testExpressionNumberBigDecimalToExpressionNumber() {
+        this.convertFails2(
+                ExpressionNumberKind.BIG_DECIMAL.create(1)
+        );
+    }
+
+    @Test
+    public void testExpressionNumberDoubleToExpressionNumber() {
+        this.convertFails2(
+                ExpressionNumberKind.DOUBLE.create(1)
+        );
+    }
+
+    private void convertFails2(final Number number) {
+        this.convertFails(
+                number,
+                number.getClass()
+        );
+    }
+
+    // toString.........................................................................................................
+
     @Test
     public void testToString() {
         this.toStringAndCheck(this.createConverter(), "ExpressionNumber|DecimalFormat.getInstance");
