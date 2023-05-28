@@ -346,10 +346,12 @@ public final class ExpressionNumberToConverterTest implements ConverterTesting2<
 
     @Test
     public void testToString() {
-        this.toStringAndCheck(ExpressionNumberToConverter.with(Converters.fake()
+        this.toStringAndCheck(
+                ExpressionNumberToConverter.with(Converters.fake()
                         .setToString("Custom")
                         .cast(ExpressionNumberConverterContext.class)),
-                "Custom|" + ExpressionNumber.class.getSimpleName());
+                "Custom? " + ExpressionNumber.class.getSimpleName()
+        );
     }
 
     // helpers..........................................................................................................
