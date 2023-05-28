@@ -176,7 +176,10 @@ public final class ExpressionNumberFromConverterTest implements ConverterTesting
 
     @Test
     public void testToString() {
-        this.toStringAndCheck(this.createConverter(), "ExpressionNumber|DecimalFormat.getInstance");
+        this.toStringAndCheck(
+                this.createConverter(),
+                "ExpressionNumber? DecimalFormat.getInstance"
+        );
     }
 
     @Override
