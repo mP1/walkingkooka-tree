@@ -148,6 +148,6 @@ final class ExpressionNumberToConverter<C extends ExpressionNumberConverterConte
 
     @Override
     public String toString() {
-        return this.converter.toString() + "|" + ExpressionNumber.class.getSimpleName();
+        return this.converter.toString() + "? " + ExpressionNumber.class.getSimpleName();
     }
 }
