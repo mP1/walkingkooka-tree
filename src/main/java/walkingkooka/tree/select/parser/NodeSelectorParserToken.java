@@ -483,6 +483,16 @@ public abstract class NodeSelectorParserToken implements ParserToken {
 
     abstract Object value();
 
+    @Override
+    public final boolean isLeaf() {
+        return this instanceof NodeSelectorLeafParserToken;
+    }
+
+    @Override
+    public final boolean isParent() {
+        return this instanceof NodeSelectorParentParserToken;
+    }
+
     // isXXX............................................................................................................
 
     /**
