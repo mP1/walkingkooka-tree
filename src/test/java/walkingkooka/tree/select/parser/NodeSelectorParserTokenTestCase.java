@@ -382,7 +382,11 @@ public abstract class NodeSelectorParserTokenTestCase<T extends NodeSelectorPars
 
     @Override
     public final Predicate<String> isMethodIgnoreMethodFilter() {
-        return (m) -> m.equals("isNoise") || m.equals("isSymbol");
+        return (m) ->
+                m.equals("isLeaf") ||
+                        m.equals("isNoise") ||
+                        m.equals("isParent") ||
+                        m.equals("isSymbol");
     }
 
     @Override
