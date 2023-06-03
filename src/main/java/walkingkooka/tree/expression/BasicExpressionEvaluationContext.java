@@ -167,8 +167,8 @@ final class BasicExpressionEvaluationContext implements ExpressionEvaluationCont
     }
 
     @Override
-    public char groupingSeparator() {
-        return this.converterContext.groupingSeparator();
+    public char groupSeparator() {
+        return this.converterContext.groupSeparator();
     }
 
     @Override

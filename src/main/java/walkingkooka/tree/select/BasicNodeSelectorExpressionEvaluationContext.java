@@ -254,8 +254,8 @@ final class BasicNodeSelectorExpressionEvaluationContext<N extends Node<N, NAME,
     }
 
     @Override
-    public char groupingSeparator() {
-        return this.context.groupingSeparator();
+    public char groupSeparator() {
+        return this.context.groupSeparator();
     }
 
     @Override
