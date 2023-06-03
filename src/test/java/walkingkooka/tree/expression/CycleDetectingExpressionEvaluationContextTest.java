@@ -398,8 +398,8 @@ public final class CycleDetectingExpressionEvaluationContextTest implements Clas
                     }
 
                     @Override
-                    public char groupingSeparator() {
-                        return decimalNumberContext.groupingSeparator();
+                    public char groupSeparator() {
+                        return decimalNumberContext.groupSeparator();
                     }
 
                     @Override
@@ -444,8 +444,8 @@ public final class CycleDetectingExpressionEvaluationContextTest implements Clas
     }
 
     @Override
-    public char groupingSeparator() {
-        return this.decimalNumberContext().groupingSeparator();
+    public char groupSeparator() {
+        return this.decimalNumberContext().groupSeparator();
     }
 
     @Override

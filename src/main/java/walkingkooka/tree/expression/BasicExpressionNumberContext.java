@@ -64,8 +64,8 @@ final class BasicExpressionNumberContext implements ExpressionNumberContext {
     }
 
     @Override
-    public char groupingSeparator() {
-        return this.decimalNumberContext.groupingSeparator();
+    public char groupSeparator() {
+        return this.decimalNumberContext.groupSeparator();
     }
 
     @Override

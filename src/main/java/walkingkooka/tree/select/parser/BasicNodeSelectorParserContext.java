@@ -85,7 +85,7 @@ final class BasicNodeSelectorParserContext implements NodeSelectorParserContext 
     private final ExpressionNumberKind kind;
 
     @Override
-    public char groupingSeparator() {
+    public char groupSeparator() {
         throw new UnsupportedOperationException();
     }
 

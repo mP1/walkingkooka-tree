@@ -186,8 +186,8 @@ public final class BasicNodeSelectorExpressionEvaluationContextTest implements N
     }
 
     @Override
-    public char groupingSeparator() {
-        return this.decimalNumberContext().groupingSeparator();
+    public char groupSeparator() {
+        return this.decimalNumberContext().groupSeparator();
     }
 
     @Override

@@ -57,7 +57,7 @@ public final class BasicNodeSelectorParserContextTest implements ClassTesting2<B
     }
 
     @Override
-    public void testGroupingSeparator() {
+    public void testGroupSeparator() {
     }
 
     @Override
@@ -94,8 +94,8 @@ public final class BasicNodeSelectorParserContextTest implements ClassTesting2<B
     }
 
     @Override
-    public char groupingSeparator() {
-        return this.decimalNumberContext().groupingSeparator();
+    public char groupSeparator() {
+        return this.decimalNumberContext().groupSeparator();
     }
 
     @Override
