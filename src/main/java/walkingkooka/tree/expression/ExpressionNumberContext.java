@@ -18,9 +18,7 @@
 package walkingkooka.tree.expression;
 
 import walkingkooka.math.DecimalNumberContext;
-import walkingkooka.math.HasMathContext;
 
 public interface ExpressionNumberContext extends HasExpressionNumberKind,
-        HasMathContext,
         DecimalNumberContext {
 }
