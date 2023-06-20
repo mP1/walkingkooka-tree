@@ -19,5 +19,6 @@ package walkingkooka.tree.expression;
 
 import walkingkooka.convert.ConverterContext;
 
-public interface ExpressionNumberConverterContext extends ConverterContext, HasExpressionNumberKind {
+public interface ExpressionNumberConverterContext extends ConverterContext,
+        DateTimeExpressionNumberContext {
 }
