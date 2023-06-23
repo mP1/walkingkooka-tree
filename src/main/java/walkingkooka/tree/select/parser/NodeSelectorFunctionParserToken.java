@@ -62,6 +62,17 @@ public final class NodeSelectorFunctionParserToken extends NodeSelectorParentPar
 
     private final List<ParserToken> parameters;
 
+    // children.........................................................................................................
+
+    @Override
+    public NodeSelectorFunctionParserToken setChildren(final List<ParserToken> children) {
+        return ParserToken.parentSetChildren(
+                this,
+                children,
+                NodeSelectorFunctionParserToken::with
+        );
+    }
+
     // Visitor..........................................................................................................
 
     @Override

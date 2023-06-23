@@ -37,6 +37,17 @@ public final class NodeSelectorSubtractionParserToken extends NodeSelectorBinary
         super(value, text);
     }
 
+    // children.........................................................................................................
+
+    @Override
+    public NodeSelectorSubtractionParserToken setChildren(final List<ParserToken> children) {
+        return ParserToken.parentSetChildren(
+                this,
+                children,
+                NodeSelectorSubtractionParserToken::with
+        );
+    }
+
     // Visitor..........................................................................................................
 
     @Override

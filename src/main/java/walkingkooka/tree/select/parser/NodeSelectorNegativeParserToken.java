@@ -51,6 +51,17 @@ public final class NodeSelectorNegativeParserToken extends NodeSelectorParentPar
 
     private final NodeSelectorParserToken parameter;
 
+    // children.........................................................................................................
+
+    @Override
+    public NodeSelectorNegativeParserToken setChildren(final List<ParserToken> children) {
+        return ParserToken.parentSetChildren(
+                this,
+                children,
+                NodeSelectorNegativeParserToken::new
+        );
+    }
+
     // Visitor..........................................................................................................
 
     @Override

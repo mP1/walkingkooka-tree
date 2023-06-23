@@ -17,7 +17,9 @@
 package walkingkooka.tree.select.parser;
 
 import walkingkooka.Value;
+import walkingkooka.text.cursor.parser.ParserToken;
 
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -41,4 +43,14 @@ abstract class NodeSelectorLeafParserToken<T> extends NodeSelectorParserToken
     }
 
     final T value;
+
+    // children.........................................................................................................
+
+    @Override
+    public final ParserToken setChildren(final List<ParserToken> children) {
+        return ParserToken.leafSetChildren(
+                this,
+                children
+        );
+    }
 }

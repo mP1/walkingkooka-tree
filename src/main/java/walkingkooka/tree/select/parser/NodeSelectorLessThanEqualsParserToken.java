@@ -38,6 +38,17 @@ public final class NodeSelectorLessThanEqualsParserToken extends NodeSelectorBin
         super(value, text);
     }
 
+    // children.........................................................................................................
+
+    @Override
+    public NodeSelectorLessThanEqualsParserToken setChildren(final List<ParserToken> children) {
+        return ParserToken.parentSetChildren(
+                this,
+                children,
+                NodeSelectorLessThanEqualsParserToken::with
+        );
+    }
+
     // Visitor..........................................................................................................
 
     @Override

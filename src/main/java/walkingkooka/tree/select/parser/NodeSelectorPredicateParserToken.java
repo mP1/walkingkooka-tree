@@ -47,6 +47,17 @@ public final class NodeSelectorPredicateParserToken extends NodeSelectorParentPa
         return NodeSelectorPredicateParserTokenNodeSelectorParserTokenVisitor.toExpression(this, functions);
     }
 
+    // children.........................................................................................................
+
+    @Override
+    public NodeSelectorPredicateParserToken setChildren(final List<ParserToken> children) {
+        return ParserToken.parentSetChildren(
+                this,
+                children,
+                NodeSelectorPredicateParserToken::with
+        );
+    }
+
     // Visitor..........................................................................................................
 
     @Override

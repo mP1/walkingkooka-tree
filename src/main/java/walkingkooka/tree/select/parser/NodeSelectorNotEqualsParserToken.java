@@ -38,6 +38,17 @@ public final class NodeSelectorNotEqualsParserToken extends NodeSelectorBinaryPa
         super(value, text);
     }
 
+    // children.........................................................................................................
+
+    @Override
+    public NodeSelectorNotEqualsParserToken setChildren(final List<ParserToken> children) {
+        return ParserToken.parentSetChildren(
+                this,
+                children,
+                NodeSelectorNotEqualsParserToken::with
+        );
+    }
+
     // Visitor..........................................................................................................
 
     @Override

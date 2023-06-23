@@ -37,6 +37,17 @@ public final class NodeSelectorExpressionParserToken extends NodeSelectorParentP
         super(value, text);
     }
 
+    // children.........................................................................................................
+
+    @Override
+    public NodeSelectorExpressionParserToken setChildren(final List<ParserToken> children) {
+        return ParserToken.parentSetChildren(
+                this,
+                children,
+                NodeSelectorExpressionParserToken::new
+        );
+    }
+
     // Visitor..........................................................................................................
 
     @Override
