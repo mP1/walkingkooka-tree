@@ -38,6 +38,17 @@ public final class NodeSelectorGreaterThanParserToken extends NodeSelectorBinary
         super(value, text);
     }
 
+    // children.........................................................................................................
+
+    @Override
+    public NodeSelectorGreaterThanParserToken setChildren(final List<ParserToken> children) {
+        return ParserToken.parentSetChildren(
+                this,
+                children,
+                NodeSelectorGreaterThanParserToken::with
+        );
+    }
+
     // Visitor..........................................................................................................
 
     @Override

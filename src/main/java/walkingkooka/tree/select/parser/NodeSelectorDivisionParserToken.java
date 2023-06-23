@@ -37,6 +37,17 @@ public final class NodeSelectorDivisionParserToken extends NodeSelectorBinaryPar
         super(value, text);
     }
 
+    // children.........................................................................................................
+
+    @Override
+    public NodeSelectorDivisionParserToken setChildren(final List<ParserToken> children) {
+        return ParserToken.parentSetChildren(
+                this,
+                children,
+                NodeSelectorDivisionParserToken::with
+        );
+    }
+
     // Visitor..........................................................................................................
 
     @Override

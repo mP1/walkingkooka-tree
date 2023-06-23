@@ -37,6 +37,17 @@ public final class NodeSelectorMultiplicationParserToken extends NodeSelectorBin
         super(value, text);
     }
 
+    // children.........................................................................................................
+
+    @Override
+    public NodeSelectorMultiplicationParserToken setChildren(final List<ParserToken> children) {
+        return ParserToken.parentSetChildren(
+                this,
+                children,
+                NodeSelectorMultiplicationParserToken::with
+        );
+    }
+
     // Visitor..........................................................................................................
 
     @Override

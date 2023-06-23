@@ -53,6 +53,17 @@ public final class NodeSelectorAttributeParserToken extends NodeSelectorParentPa
 
     private final NodeSelectorAttributeName attributeName;
 
+    // children.........................................................................................................
+
+    @Override
+    public NodeSelectorAttributeParserToken setChildren(final List<ParserToken> children) {
+        return ParserToken.parentSetChildren(
+                this,
+                children,
+                NodeSelectorAttributeParserToken::with
+        );
+    }
+
     // Visitor..........................................................................................................
 
     @Override
