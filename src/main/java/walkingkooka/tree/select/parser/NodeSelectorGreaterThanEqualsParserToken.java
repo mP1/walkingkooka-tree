@@ -21,6 +21,7 @@ import walkingkooka.text.cursor.parser.ParserToken;
 import walkingkooka.visit.Visiting;
 
 import java.util.List;
+import java.util.function.Predicate;
 
 /**
  * Parser token that represents an greater than equals condition including parameters.
@@ -46,6 +47,17 @@ public final class NodeSelectorGreaterThanEqualsParserToken extends NodeSelector
                 this,
                 children,
                 NodeSelectorGreaterThanEqualsParserToken::with
+        );
+    }
+
+    // removeFirstIf....................................................................................................
+
+    @Override
+    public NodeSelectorGreaterThanEqualsParserToken removeFirstIf(final Predicate<ParserToken> predicate) {
+        return ParserToken.parentRemoveFirstIf(
+                this,
+                predicate,
+                NodeSelectorGreaterThanEqualsParserToken.class
         );
     }
 

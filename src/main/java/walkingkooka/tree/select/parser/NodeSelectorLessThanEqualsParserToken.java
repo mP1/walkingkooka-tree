@@ -21,6 +21,7 @@ import walkingkooka.text.cursor.parser.ParserToken;
 import walkingkooka.visit.Visiting;
 
 import java.util.List;
+import java.util.function.Predicate;
 
 /**
  * Parser token that represents an less than equals condition including parameters.
@@ -46,6 +47,17 @@ public final class NodeSelectorLessThanEqualsParserToken extends NodeSelectorBin
                 this,
                 children,
                 NodeSelectorLessThanEqualsParserToken::with
+        );
+    }
+
+    // removeFirstIf....................................................................................................
+
+    @Override
+    public NodeSelectorLessThanEqualsParserToken removeFirstIf(final Predicate<ParserToken> predicate) {
+        return ParserToken.parentRemoveFirstIf(
+                this,
+                predicate,
+                NodeSelectorLessThanEqualsParserToken.class
         );
     }
 

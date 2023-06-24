@@ -58,6 +58,17 @@ public final class NodeSelectorPredicateParserToken extends NodeSelectorParentPa
         );
     }
 
+    // removeFirstIf....................................................................................................
+
+    @Override
+    public NodeSelectorPredicateParserToken removeFirstIf(final Predicate<ParserToken> predicate) {
+        return ParserToken.parentRemoveFirstIf(
+                this,
+                predicate,
+                NodeSelectorPredicateParserToken.class
+        );
+    }
+
     // Visitor..........................................................................................................
 
     @Override

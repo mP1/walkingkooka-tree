@@ -20,6 +20,7 @@ import walkingkooka.text.cursor.parser.ParserToken;
 import walkingkooka.visit.Visiting;
 
 import java.util.List;
+import java.util.function.Predicate;
 
 /**
  * A group parser token.
@@ -45,6 +46,17 @@ public final class NodeSelectorGroupParserToken extends NodeSelectorParentParser
                 this,
                 children,
                 NodeSelectorGroupParserToken::with
+        );
+    }
+
+    // removeFirstIf....................................................................................................
+
+    @Override
+    public NodeSelectorGroupParserToken removeFirstIf(final Predicate<ParserToken> predicate) {
+        return ParserToken.parentRemoveFirstIf(
+                this,
+                predicate,
+                NodeSelectorGroupParserToken.class
         );
     }
 
