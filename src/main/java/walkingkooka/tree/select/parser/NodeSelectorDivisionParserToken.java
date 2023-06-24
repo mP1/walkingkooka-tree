@@ -20,6 +20,7 @@ import walkingkooka.text.cursor.parser.ParserToken;
 import walkingkooka.visit.Visiting;
 
 import java.util.List;
+import java.util.function.Predicate;
 
 /**
  * Holds a division
@@ -45,6 +46,17 @@ public final class NodeSelectorDivisionParserToken extends NodeSelectorBinaryPar
                 this,
                 children,
                 NodeSelectorDivisionParserToken::with
+        );
+    }
+
+    // removeFirstIf....................................................................................................
+
+    @Override
+    public NodeSelectorDivisionParserToken removeFirstIf(final Predicate<ParserToken> predicate) {
+        return ParserToken.parentRemoveFirstIf(
+                this,
+                predicate,
+                NodeSelectorDivisionParserToken.class
         );
     }
 

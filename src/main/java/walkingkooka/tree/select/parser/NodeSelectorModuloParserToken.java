@@ -20,6 +20,7 @@ import walkingkooka.text.cursor.parser.ParserToken;
 import walkingkooka.visit.Visiting;
 
 import java.util.List;
+import java.util.function.Predicate;
 
 /**
  * Holds an modulo operation
@@ -45,6 +46,17 @@ public final class NodeSelectorModuloParserToken extends NodeSelectorBinaryParse
                 this,
                 children,
                 NodeSelectorModuloParserToken::with
+        );
+    }
+
+    // removeFirstIf....................................................................................................
+
+    @Override
+    public NodeSelectorModuloParserToken removeFirstIf(final Predicate<ParserToken> predicate) {
+        return ParserToken.parentRemoveFirstIf(
+                this,
+                predicate,
+                NodeSelectorModuloParserToken.class
         );
     }
 

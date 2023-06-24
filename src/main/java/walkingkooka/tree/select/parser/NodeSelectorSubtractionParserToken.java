@@ -20,6 +20,7 @@ import walkingkooka.text.cursor.parser.ParserToken;
 import walkingkooka.visit.Visiting;
 
 import java.util.List;
+import java.util.function.Predicate;
 
 /**
  * Holds an subtract operation.
@@ -45,6 +46,17 @@ public final class NodeSelectorSubtractionParserToken extends NodeSelectorBinary
                 this,
                 children,
                 NodeSelectorSubtractionParserToken::with
+        );
+    }
+
+    // removeFirstIf....................................................................................................
+
+    @Override
+    public NodeSelectorSubtractionParserToken removeFirstIf(final Predicate<ParserToken> predicate) {
+        return ParserToken.parentRemoveFirstIf(
+                this,
+                predicate,
+                NodeSelectorSubtractionParserToken.class
         );
     }
 

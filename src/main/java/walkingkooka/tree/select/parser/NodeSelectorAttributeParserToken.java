@@ -20,6 +20,7 @@ import walkingkooka.text.cursor.parser.ParserToken;
 import walkingkooka.visit.Visiting;
 
 import java.util.List;
+import java.util.function.Predicate;
 
 /**
  * Container for an attribute reference holding its component.
@@ -61,6 +62,17 @@ public final class NodeSelectorAttributeParserToken extends NodeSelectorParentPa
                 this,
                 children,
                 NodeSelectorAttributeParserToken::with
+        );
+    }
+
+    // removeFirstIf....................................................................................................
+
+    @Override
+    public NodeSelectorAttributeParserToken removeFirstIf(final Predicate<ParserToken> predicate) {
+        return ParserToken.parentRemoveFirstIf(
+                this,
+                predicate,
+                NodeSelectorAttributeParserToken.class
         );
     }
 

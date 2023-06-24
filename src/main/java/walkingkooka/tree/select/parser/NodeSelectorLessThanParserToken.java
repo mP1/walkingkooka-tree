@@ -21,6 +21,7 @@ import walkingkooka.text.cursor.parser.ParserToken;
 import walkingkooka.visit.Visiting;
 
 import java.util.List;
+import java.util.function.Predicate;
 
 /**
  * Parser token that represents an less than condition including parameters.
@@ -46,6 +47,17 @@ public final class NodeSelectorLessThanParserToken extends NodeSelectorBinaryPar
                 this,
                 children,
                 NodeSelectorLessThanParserToken::with
+        );
+    }
+
+    // removeFirstIf....................................................................................................
+
+    @Override
+    public NodeSelectorLessThanParserToken removeFirstIf(final Predicate<ParserToken> predicate) {
+        return ParserToken.parentRemoveFirstIf(
+                this,
+                predicate,
+                NodeSelectorLessThanParserToken.class
         );
     }
 

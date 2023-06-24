@@ -21,6 +21,7 @@ import walkingkooka.text.cursor.parser.ParserToken;
 
 import java.util.List;
 import java.util.Objects;
+import java.util.function.Predicate;
 
 /**
  * Base class for a leaf token. A leaf has no further breakdown into more detailed tokens.
@@ -52,5 +53,13 @@ abstract class NodeSelectorLeafParserToken<T> extends NodeSelectorParserToken
                 this,
                 children
         );
+    }
+
+    // removeIf.........................................................................................................
+
+    @Override
+    public final ParserToken removeFirstIf(final Predicate<ParserToken> predicate) {
+        Objects.requireNonNull(predicate, "predicate");
+        return this;
     }
 }

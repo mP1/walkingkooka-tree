@@ -20,6 +20,7 @@ import walkingkooka.text.cursor.parser.ParserToken;
 import walkingkooka.visit.Visiting;
 
 import java.util.List;
+import java.util.function.Predicate;
 
 /**
  * A parser token that holds an entire namedFunction.
@@ -70,6 +71,17 @@ public final class NodeSelectorFunctionParserToken extends NodeSelectorParentPar
                 this,
                 children,
                 NodeSelectorFunctionParserToken::with
+        );
+    }
+
+    // removeFirstIf....................................................................................................
+
+    @Override
+    public NodeSelectorFunctionParserToken removeFirstIf(final Predicate<ParserToken> predicate) {
+        return ParserToken.parentRemoveFirstIf(
+                this,
+                predicate,
+                NodeSelectorFunctionParserToken.class
         );
     }
 

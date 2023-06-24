@@ -20,6 +20,7 @@ import walkingkooka.text.cursor.parser.ParserToken;
 import walkingkooka.visit.Visiting;
 
 import java.util.List;
+import java.util.function.Predicate;
 
 /**
  * Holds an addition
@@ -45,6 +46,17 @@ public final class NodeSelectorAdditionParserToken extends NodeSelectorBinaryPar
                 this,
                 children,
                 NodeSelectorAdditionParserToken::with
+        );
+    }
+
+    // removeFirstIf....................................................................................................
+
+    @Override
+    public NodeSelectorAdditionParserToken removeFirstIf(final Predicate<ParserToken> predicate) {
+        return ParserToken.parentRemoveFirstIf(
+                this,
+                predicate,
+                NodeSelectorAdditionParserToken.class
         );
     }
 
