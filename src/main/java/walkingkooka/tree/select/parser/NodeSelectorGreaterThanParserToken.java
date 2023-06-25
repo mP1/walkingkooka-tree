@@ -61,6 +61,17 @@ public final class NodeSelectorGreaterThanParserToken extends NodeSelectorBinary
         );
     }
 
+    // removeIf.........................................................................................................
+
+    @Override
+    public NodeSelectorGreaterThanParserToken removeIf(final Predicate<ParserToken> predicate) {
+        return ParserToken.parentRemoveIf(
+                this,
+                predicate,
+                NodeSelectorGreaterThanParserToken.class
+        );
+    }
+
     // Visitor..........................................................................................................
 
     @Override
