@@ -71,6 +71,19 @@ public final class NodeSelectorMultiplicationParserToken extends NodeSelectorBin
         );
     }
 
+    // replaceFirstIf...................................................................................................
+
+    @Override
+    public NodeSelectorMultiplicationParserToken replaceFirstIf(final Predicate<ParserToken> predicate,
+                                                                final ParserToken token) {
+        return ParserToken.replaceFirstIf(
+                this,
+                predicate,
+                token,
+                NodeSelectorMultiplicationParserToken.class
+        );
+    }
+
     // Visitor..........................................................................................................
 
     @Override
