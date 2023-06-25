@@ -72,6 +72,19 @@ public final class NodeSelectorEqualsParserToken extends NodeSelectorBinaryParse
         );
     }
 
+    // replaceFirstIf...................................................................................................
+
+    @Override
+    public NodeSelectorEqualsParserToken replaceFirstIf(final Predicate<ParserToken> predicate,
+                                                        final ParserToken token) {
+        return ParserToken.replaceFirstIf(
+                this,
+                predicate,
+                token,
+                NodeSelectorEqualsParserToken.class
+        );
+    }
+
     // Visitor..........................................................................................................
 
     @Override

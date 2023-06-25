@@ -16,6 +16,10 @@
  */
 package walkingkooka.tree.select.parser;
 
+import walkingkooka.text.cursor.parser.ParserToken;
+
+import java.util.function.Predicate;
+
 /**
  * Holds an last-child axis
  */
@@ -30,6 +34,19 @@ public final class NodeSelectorLastChildParserToken extends NodeSelectorNonSymbo
 
     private NodeSelectorLastChildParserToken(final String value, final String text) {
         super(value, text);
+    }
+
+    // replaceFirstIf...................................................................................................
+
+    @Override
+    public NodeSelectorLastChildParserToken replaceFirstIf(final Predicate<ParserToken> predicate,
+                                                           final ParserToken token) {
+        return ParserToken.replaceFirstIf(
+                this,
+                predicate,
+                token,
+                NodeSelectorLastChildParserToken.class
+        );
     }
 
     // Visitor..........................................................................................................

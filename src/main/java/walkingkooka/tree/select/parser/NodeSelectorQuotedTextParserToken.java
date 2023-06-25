@@ -16,6 +16,10 @@
  */
 package walkingkooka.tree.select.parser;
 
+import walkingkooka.text.cursor.parser.ParserToken;
+
+import java.util.function.Predicate;
+
 /**
  * Holds quoted text.
  */
@@ -30,6 +34,19 @@ public final class NodeSelectorQuotedTextParserToken extends NodeSelectorNonSymb
 
     private NodeSelectorQuotedTextParserToken(final String value, final String text) {
         super(value, text);
+    }
+
+    // replaceFirstIf...................................................................................................
+
+    @Override
+    public NodeSelectorQuotedTextParserToken replaceFirstIf(final Predicate<ParserToken> predicate,
+                                                            final ParserToken token) {
+        return ParserToken.replaceFirstIf(
+                this,
+                predicate,
+                token,
+                NodeSelectorQuotedTextParserToken.class
+        );
     }
 
     // Visitor..........................................................................................................

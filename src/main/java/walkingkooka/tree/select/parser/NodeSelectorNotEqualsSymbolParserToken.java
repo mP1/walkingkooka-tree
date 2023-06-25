@@ -19,6 +19,7 @@ package walkingkooka.tree.select.parser;
 import walkingkooka.text.cursor.parser.ParserToken;
 
 import java.util.List;
+import java.util.function.Predicate;
 
 /**
  * Represents a NE comparison parser token.
@@ -46,6 +47,19 @@ public final class NodeSelectorNotEqualsSymbolParserToken extends NodeSelectorSy
     @Override
     NodeSelectorBinaryParserToken<?> binaryOperand(final List<ParserToken> tokens, final String text) {
         return notEquals(tokens, text);
+    }
+
+    // replaceFirstIf...................................................................................................
+
+    @Override
+    public NodeSelectorNotEqualsSymbolParserToken replaceFirstIf(final Predicate<ParserToken> predicate,
+                                                                 final ParserToken token) {
+        return ParserToken.replaceFirstIf(
+                this,
+                predicate,
+                token,
+                NodeSelectorNotEqualsSymbolParserToken.class
+        );
     }
 
     // Visitor................................................................................................

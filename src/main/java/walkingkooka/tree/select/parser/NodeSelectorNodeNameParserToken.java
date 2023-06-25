@@ -16,6 +16,10 @@
  */
 package walkingkooka.tree.select.parser;
 
+import walkingkooka.text.cursor.parser.ParserToken;
+
+import java.util.function.Predicate;
+
 /**
  * Holds a namedFunction name.
  */
@@ -30,6 +34,19 @@ public final class NodeSelectorNodeNameParserToken extends NodeSelectorNonSymbol
 
     private NodeSelectorNodeNameParserToken(final NodeSelectorNodeName value, final String text) {
         super(value, text);
+    }
+
+    // replaceFirstIf...................................................................................................
+
+    @Override
+    public NodeSelectorNodeNameParserToken replaceFirstIf(final Predicate<ParserToken> predicate,
+                                                          final ParserToken token) {
+        return ParserToken.replaceFirstIf(
+                this,
+                predicate,
+                token,
+                NodeSelectorNodeNameParserToken.class
+        );
     }
 
     // Visitor..........................................................................................................

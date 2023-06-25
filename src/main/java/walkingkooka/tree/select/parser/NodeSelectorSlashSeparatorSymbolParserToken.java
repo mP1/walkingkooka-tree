@@ -16,6 +16,10 @@
  */
 package walkingkooka.tree.select.parser;
 
+import walkingkooka.text.cursor.parser.ParserToken;
+
+import java.util.function.Predicate;
+
 /**
  * Represents a slash which often separates components.
  */
@@ -30,6 +34,19 @@ public final class NodeSelectorSlashSeparatorSymbolParserToken extends NodeSelec
 
     private NodeSelectorSlashSeparatorSymbolParserToken(final String value, final String text) {
         super(value, text);
+    }
+
+    // replaceFirstIf...................................................................................................
+
+    @Override
+    public NodeSelectorSlashSeparatorSymbolParserToken replaceFirstIf(final Predicate<ParserToken> predicate,
+                                                                      final ParserToken token) {
+        return ParserToken.replaceFirstIf(
+                this,
+                predicate,
+                token,
+                NodeSelectorSlashSeparatorSymbolParserToken.class
+        );
     }
 
     // Visitor..........................................................................................................

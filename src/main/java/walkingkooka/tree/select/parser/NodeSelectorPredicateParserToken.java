@@ -80,6 +80,19 @@ public final class NodeSelectorPredicateParserToken extends NodeSelectorParentPa
         );
     }
 
+    // replaceFirstIf...................................................................................................
+
+    @Override
+    public NodeSelectorPredicateParserToken replaceFirstIf(final Predicate<ParserToken> predicate,
+                                                           final ParserToken token) {
+        return ParserToken.replaceFirstIf(
+                this,
+                predicate,
+                token,
+                NodeSelectorPredicateParserToken.class
+        );
+    }
+
     // Visitor..........................................................................................................
 
     @Override

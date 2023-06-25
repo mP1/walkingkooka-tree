@@ -71,6 +71,19 @@ public final class NodeSelectorGroupParserToken extends NodeSelectorParentParser
         );
     }
 
+    // replaceFirstIf...................................................................................................
+
+    @Override
+    public NodeSelectorGroupParserToken replaceFirstIf(final Predicate<ParserToken> predicate,
+                                                       final ParserToken token) {
+        return ParserToken.replaceFirstIf(
+                this,
+                predicate,
+                token,
+                NodeSelectorGroupParserToken.class
+        );
+    }
+
     // Visitor..........................................................................................................
 
     @Override
