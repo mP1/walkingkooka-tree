@@ -85,6 +85,17 @@ public final class NodeSelectorFunctionParserToken extends NodeSelectorParentPar
         );
     }
 
+    // removeIf.........................................................................................................
+
+    @Override
+    public NodeSelectorFunctionParserToken removeIf(final Predicate<ParserToken> predicate) {
+        return ParserToken.parentRemoveIf(
+                this,
+                predicate,
+                NodeSelectorFunctionParserToken.class
+        );
+    }
+
     // Visitor..........................................................................................................
 
     @Override

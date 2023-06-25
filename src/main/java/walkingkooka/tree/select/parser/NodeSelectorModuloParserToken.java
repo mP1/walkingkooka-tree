@@ -60,6 +60,17 @@ public final class NodeSelectorModuloParserToken extends NodeSelectorBinaryParse
         );
     }
 
+    // removeIf.........................................................................................................
+
+    @Override
+    public NodeSelectorModuloParserToken removeIf(final Predicate<ParserToken> predicate) {
+        return ParserToken.parentRemoveIf(
+                this,
+                predicate,
+                NodeSelectorModuloParserToken.class
+        );
+    }
+
     // Visitor..........................................................................................................
 
     @Override
