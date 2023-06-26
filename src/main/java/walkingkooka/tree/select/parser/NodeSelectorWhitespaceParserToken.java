@@ -49,6 +49,19 @@ public final class NodeSelectorWhitespaceParserToken extends NodeSelectorNonBina
         );
     }
 
+    // replaceIf........................................................................................................
+
+    @Override
+    public NodeSelectorWhitespaceParserToken replaceIf(final Predicate<ParserToken> predicate,
+                                                       final ParserToken token) {
+        return ParserToken.replaceIf(
+                this,
+                predicate,
+                token,
+                NodeSelectorWhitespaceParserToken.class
+        );
+    }
+
     // Visitor.........................................................................................................
 
     @Override

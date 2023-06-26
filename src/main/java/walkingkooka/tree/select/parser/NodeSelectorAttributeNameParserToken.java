@@ -49,6 +49,19 @@ public final class NodeSelectorAttributeNameParserToken extends NodeSelectorNonS
         );
     }
 
+    // replaceIf........................................................................................................
+
+    @Override
+    public NodeSelectorAttributeNameParserToken replaceIf(final Predicate<ParserToken> predicate,
+                                                          final ParserToken token) {
+        return ParserToken.replaceIf(
+                this,
+                predicate,
+                token,
+                NodeSelectorAttributeNameParserToken.class
+        );
+    }
+
     // Visitor..........................................................................................................
 
     @Override

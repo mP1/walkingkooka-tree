@@ -49,6 +49,19 @@ public final class NodeSelectorAtSignSymbolParserToken extends NodeSelectorNonBi
         );
     }
 
+    // replaceIf........................................................................................................
+
+    @Override
+    public NodeSelectorAtSignSymbolParserToken replaceIf(final Predicate<ParserToken> predicate,
+                                                         final ParserToken token) {
+        return ParserToken.replaceIf(
+                this,
+                predicate,
+                token,
+                NodeSelectorAtSignSymbolParserToken.class
+        );
+    }
+
     // Visitor.........................................................................................................
 
     @Override

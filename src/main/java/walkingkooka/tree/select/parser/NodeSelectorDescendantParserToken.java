@@ -49,6 +49,19 @@ public final class NodeSelectorDescendantParserToken extends NodeSelectorNonSymb
         );
     }
 
+    // replaceIf........................................................................................................
+
+    @Override
+    public NodeSelectorDescendantParserToken replaceIf(final Predicate<ParserToken> predicate,
+                                                       final ParserToken token) {
+        return ParserToken.replaceIf(
+                this,
+                predicate,
+                token,
+                NodeSelectorDescendantParserToken.class
+        );
+    }
+
     // Visitor..........................................................................................................
 
     @Override

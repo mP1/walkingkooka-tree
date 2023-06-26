@@ -49,6 +49,19 @@ public final class NodeSelectorChildParserToken extends NodeSelectorNonSymbolPar
         );
     }
 
+    // replaceIf........................................................................................................
+
+    @Override
+    public NodeSelectorChildParserToken replaceIf(final Predicate<ParserToken> predicate,
+                                                  final ParserToken token) {
+        return ParserToken.replaceIf(
+                this,
+                predicate,
+                token,
+                NodeSelectorChildParserToken.class
+        );
+    }
+
     // Visitor..........................................................................................................
 
     @Override

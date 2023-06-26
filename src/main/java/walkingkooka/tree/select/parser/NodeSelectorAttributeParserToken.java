@@ -100,6 +100,19 @@ public final class NodeSelectorAttributeParserToken extends NodeSelectorParentPa
         );
     }
 
+    // replaceIf........................................................................................................
+
+    @Override
+    public NodeSelectorAttributeParserToken replaceIf(final Predicate<ParserToken> predicate,
+                                                      final ParserToken token) {
+        return ParserToken.replaceIf(
+                this,
+                predicate,
+                token,
+                NodeSelectorAttributeParserToken.class
+        );
+    }
+
     // Visitor..........................................................................................................
 
     @Override

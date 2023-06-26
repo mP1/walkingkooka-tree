@@ -49,6 +49,19 @@ public final class NodeSelectorParameterSeparatorSymbolParserToken extends NodeS
         );
     }
 
+    // replaceIf........................................................................................................
+
+    @Override
+    public NodeSelectorParameterSeparatorSymbolParserToken replaceIf(final Predicate<ParserToken> predicate,
+                                                                     final ParserToken token) {
+        return ParserToken.replaceIf(
+                this,
+                predicate,
+                token,
+                NodeSelectorParameterSeparatorSymbolParserToken.class
+        );
+    }
+
     // Visitor.........................................................................................................
 
     @Override

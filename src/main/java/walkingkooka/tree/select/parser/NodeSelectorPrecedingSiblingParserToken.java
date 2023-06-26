@@ -48,6 +48,18 @@ public final class NodeSelectorPrecedingSiblingParserToken extends NodeSelectorN
                 NodeSelectorPrecedingSiblingParserToken.class
         );
     }
+    // replaceIf........................................................................................................
+
+    @Override
+    public NodeSelectorPrecedingSiblingParserToken replaceIf(final Predicate<ParserToken> predicate,
+                                                             final ParserToken token) {
+        return ParserToken.replaceIf(
+                this,
+                predicate,
+                token,
+                NodeSelectorPrecedingSiblingParserToken.class
+        );
+    }
 
     // Visitor..........................................................................................................
 

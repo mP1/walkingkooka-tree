@@ -49,6 +49,19 @@ public final class NodeSelectorParenthesisCloseSymbolParserToken extends NodeSel
         );
     }
 
+    // replaceIf........................................................................................................
+
+    @Override
+    public NodeSelectorParenthesisCloseSymbolParserToken replaceIf(final Predicate<ParserToken> predicate,
+                                                                   final ParserToken token) {
+        return ParserToken.replaceIf(
+                this,
+                predicate,
+                token,
+                NodeSelectorParenthesisCloseSymbolParserToken.class
+        );
+    }
+
     // Visitor..........................................................................................................
 
     @Override
