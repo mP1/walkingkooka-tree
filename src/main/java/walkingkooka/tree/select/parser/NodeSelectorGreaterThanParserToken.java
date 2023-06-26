@@ -85,6 +85,19 @@ public final class NodeSelectorGreaterThanParserToken extends NodeSelectorBinary
         );
     }
 
+    // replaceIf........................................................................................................
+
+    @Override
+    public NodeSelectorGreaterThanParserToken replaceIf(final Predicate<ParserToken> predicate,
+                                                        final ParserToken token) {
+        return ParserToken.replaceIf(
+                this,
+                predicate,
+                token,
+                NodeSelectorGreaterThanParserToken.class
+        );
+    }
+
     // Visitor..........................................................................................................
 
     @Override

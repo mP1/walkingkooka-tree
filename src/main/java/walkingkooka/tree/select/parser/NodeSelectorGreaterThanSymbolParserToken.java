@@ -62,6 +62,19 @@ public final class NodeSelectorGreaterThanSymbolParserToken extends NodeSelector
         );
     }
 
+    // replaceIf........................................................................................................
+
+    @Override
+    public NodeSelectorGreaterThanSymbolParserToken replaceIf(final Predicate<ParserToken> predicate,
+                                                              final ParserToken token) {
+        return ParserToken.replaceIf(
+                this,
+                predicate,
+                token,
+                NodeSelectorGreaterThanSymbolParserToken.class
+        );
+    }
+
     // Visitor................................................................................................
 
     @Override

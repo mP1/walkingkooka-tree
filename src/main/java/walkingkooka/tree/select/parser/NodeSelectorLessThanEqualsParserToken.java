@@ -85,6 +85,19 @@ public final class NodeSelectorLessThanEqualsParserToken extends NodeSelectorBin
         );
     }
 
+    // replaceIf........................................................................................................
+
+    @Override
+    public NodeSelectorLessThanEqualsParserToken replaceIf(final Predicate<ParserToken> predicate,
+                                                           final ParserToken token) {
+        return ParserToken.replaceIf(
+                this,
+                predicate,
+                token,
+                NodeSelectorLessThanEqualsParserToken.class
+        );
+    }
+
     // Visitor..........................................................................................................
 
     @Override

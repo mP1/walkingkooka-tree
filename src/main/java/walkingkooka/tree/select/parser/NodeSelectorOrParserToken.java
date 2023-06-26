@@ -84,6 +84,19 @@ public final class NodeSelectorOrParserToken extends NodeSelectorBinaryParserTok
         );
     }
 
+    // replaceIf........................................................................................................
+
+    @Override
+    public NodeSelectorOrParserToken replaceIf(final Predicate<ParserToken> predicate,
+                                               final ParserToken token) {
+        return ParserToken.replaceIf(
+                this,
+                predicate,
+                token,
+                NodeSelectorOrParserToken.class
+        );
+    }
+
     // Visitor..........................................................................................................
 
     @Override

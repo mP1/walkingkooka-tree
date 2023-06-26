@@ -49,6 +49,19 @@ public final class NodeSelectorBracketCloseSymbolParserToken extends NodeSelecto
         );
     }
 
+    // replaceIf........................................................................................................
+
+    @Override
+    public NodeSelectorBracketCloseSymbolParserToken replaceIf(final Predicate<ParserToken> predicate,
+                                                               final ParserToken token) {
+        return ParserToken.replaceIf(
+                this,
+                predicate,
+                token,
+                NodeSelectorBracketCloseSymbolParserToken.class
+        );
+    }
+
     // Visitor..........................................................................................................
 
     @Override

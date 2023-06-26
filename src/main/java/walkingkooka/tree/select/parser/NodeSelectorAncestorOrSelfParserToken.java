@@ -49,6 +49,19 @@ public final class NodeSelectorAncestorOrSelfParserToken extends NodeSelectorNon
         );
     }
 
+    // replaceIf........................................................................................................
+
+    @Override
+    public NodeSelectorAncestorOrSelfParserToken replaceIf(final Predicate<ParserToken> predicate,
+                                                           final ParserToken token) {
+        return ParserToken.replaceIf(
+                this,
+                predicate,
+                token,
+                NodeSelectorAncestorOrSelfParserToken.class
+        );
+    }
+
     // Visitor..........................................................................................................
 
     @Override

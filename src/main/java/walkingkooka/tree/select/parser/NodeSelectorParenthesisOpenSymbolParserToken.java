@@ -49,6 +49,19 @@ public final class NodeSelectorParenthesisOpenSymbolParserToken extends NodeSele
         );
     }
 
+    // replaceIf........................................................................................................
+
+    @Override
+    public NodeSelectorParenthesisOpenSymbolParserToken replaceIf(final Predicate<ParserToken> predicate,
+                                                                  final ParserToken token) {
+        return ParserToken.replaceIf(
+                this,
+                predicate,
+                token,
+                NodeSelectorParenthesisOpenSymbolParserToken.class
+        );
+    }
+
     // Visitor..........................................................................................................
 
     @Override

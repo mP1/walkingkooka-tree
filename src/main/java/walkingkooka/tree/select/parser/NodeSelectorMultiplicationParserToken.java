@@ -84,6 +84,19 @@ public final class NodeSelectorMultiplicationParserToken extends NodeSelectorBin
         );
     }
 
+    // replaceIf........................................................................................................
+
+    @Override
+    public NodeSelectorMultiplicationParserToken replaceIf(final Predicate<ParserToken> predicate,
+                                                           final ParserToken token) {
+        return ParserToken.replaceIf(
+                this,
+                predicate,
+                token,
+                NodeSelectorMultiplicationParserToken.class
+        );
+    }
+
     // Visitor..........................................................................................................
 
     @Override
