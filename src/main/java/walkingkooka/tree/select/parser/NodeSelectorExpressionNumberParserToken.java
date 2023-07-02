@@ -19,6 +19,7 @@ package walkingkooka.tree.select.parser;
 import walkingkooka.text.cursor.parser.ParserToken;
 import walkingkooka.tree.expression.ExpressionNumber;
 
+import java.util.Optional;
 import java.util.function.Predicate;
 
 /**
@@ -34,6 +35,17 @@ public final class NodeSelectorExpressionNumberParserToken extends NodeSelectorN
 
     private NodeSelectorExpressionNumberParserToken(final ExpressionNumber value, final String text) {
         super(value, text);
+    }
+
+    // removeFirstIf....................................................................................................
+
+    @Override
+    public Optional<NodeSelectorExpressionNumberParserToken> removeFirstIf(final Predicate<ParserToken> predicate) {
+        return ParserToken.removeFirstIfLeaf(
+                this,
+                predicate,
+                NodeSelectorExpressionNumberParserToken.class
+        );
     }
 
     // replaceFirstIf...................................................................................................

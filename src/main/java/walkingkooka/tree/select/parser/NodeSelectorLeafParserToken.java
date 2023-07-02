@@ -55,14 +55,6 @@ abstract class NodeSelectorLeafParserToken<T> extends NodeSelectorParserToken
         );
     }
 
-    // removeIf.........................................................................................................
-
-    @Override
-    public final ParserToken removeFirstIf(final Predicate<ParserToken> predicate) {
-        Objects.requireNonNull(predicate, "predicate");
-        return this;
-    }
-
     // removeIf....................................................................................................
 
     @Override
