@@ -61,6 +61,17 @@ public final class NodeSelectorEqualsSymbolParserToken extends NodeSelectorSymbo
         );
     }
 
+    // removeIf..........................................................................................................
+
+    @Override
+    public Optional<NodeSelectorEqualsSymbolParserToken> removeIf(final Predicate<ParserToken> predicate) {
+        return ParserToken.removeIfLeaf(
+                this,
+                predicate,
+                NodeSelectorEqualsSymbolParserToken.class
+        );
+    }
+
     // replaceFirstIf...................................................................................................
 
     @Override

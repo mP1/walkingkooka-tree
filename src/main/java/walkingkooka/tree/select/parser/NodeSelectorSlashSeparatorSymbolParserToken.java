@@ -37,6 +37,28 @@ public final class NodeSelectorSlashSeparatorSymbolParserToken extends NodeSelec
         super(value, text);
     }
 
+    // removeFirstIf....................................................................................................
+
+    @Override
+    public Optional<NodeSelectorSlashSeparatorSymbolParserToken> removeFirstIf(final Predicate<ParserToken> predicate) {
+        return ParserToken.removeFirstIfLeaf(
+                this,
+                predicate,
+                NodeSelectorSlashSeparatorSymbolParserToken.class
+        );
+    }
+
+    // removeIf.........................................................................................................
+
+    @Override
+    public Optional<NodeSelectorSlashSeparatorSymbolParserToken> removeIf(final Predicate<ParserToken> predicate) {
+        return ParserToken.removeIfLeaf(
+                this,
+                predicate,
+                NodeSelectorSlashSeparatorSymbolParserToken.class
+        );
+    }
+
     // replaceFirstIf...................................................................................................
 
     @Override
@@ -46,17 +68,6 @@ public final class NodeSelectorSlashSeparatorSymbolParserToken extends NodeSelec
                 this,
                 predicate,
                 token,
-                NodeSelectorSlashSeparatorSymbolParserToken.class
-        );
-    }
-
-    // removeFirstIf....................................................................................................
-
-    @Override
-    public Optional<NodeSelectorSlashSeparatorSymbolParserToken> removeFirstIf(final Predicate<ParserToken> predicate) {
-        return ParserToken.removeFirstIfLeaf(
-                this,
-                predicate,
                 NodeSelectorSlashSeparatorSymbolParserToken.class
         );
     }

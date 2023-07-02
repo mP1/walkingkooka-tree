@@ -37,6 +37,28 @@ public final class NodeSelectorBracketCloseSymbolParserToken extends NodeSelecto
         super(value, text);
     }
 
+    // removeFirstIf....................................................................................................
+
+    @Override
+    public Optional<NodeSelectorBracketCloseSymbolParserToken> removeFirstIf(final Predicate<ParserToken> predicate) {
+        return ParserToken.removeFirstIfLeaf(
+                this,
+                predicate,
+                NodeSelectorBracketCloseSymbolParserToken.class
+        );
+    }
+
+    // removeIf.........................................................................................................
+
+    @Override
+    public Optional<NodeSelectorBracketCloseSymbolParserToken> removeIf(final Predicate<ParserToken> predicate) {
+        return ParserToken.removeIfLeaf(
+                this,
+                predicate,
+                NodeSelectorBracketCloseSymbolParserToken.class
+        );
+    }
+
     // replaceFirstIf...................................................................................................
 
     @Override
@@ -46,17 +68,6 @@ public final class NodeSelectorBracketCloseSymbolParserToken extends NodeSelecto
                 this,
                 predicate,
                 token,
-                NodeSelectorBracketCloseSymbolParserToken.class
-        );
-    }
-
-    // removeFirstIf....................................................................................................
-
-    @Override
-    public Optional<NodeSelectorBracketCloseSymbolParserToken> removeFirstIf(final Predicate<ParserToken> predicate) {
-        return ParserToken.removeFirstIfLeaf(
-                this,
-                predicate,
                 NodeSelectorBracketCloseSymbolParserToken.class
         );
     }

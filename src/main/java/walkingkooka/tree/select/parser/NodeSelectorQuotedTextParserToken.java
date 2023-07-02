@@ -48,6 +48,17 @@ public final class NodeSelectorQuotedTextParserToken extends NodeSelectorNonSymb
         );
     }
 
+    // removeIf.........................................................................................................
+
+    @Override
+    public Optional<NodeSelectorQuotedTextParserToken> removeIf(final Predicate<ParserToken> predicate) {
+        return ParserToken.removeIfLeaf(
+                this,
+                predicate,
+                NodeSelectorQuotedTextParserToken.class
+        );
+    }
+
     // replaceFirstIf...................................................................................................
 
     @Override

@@ -36,6 +36,7 @@ public final class NodeSelectorWildcardParserToken extends NodeSelectorNonSymbol
     private NodeSelectorWildcardParserToken(final String value, final String text) {
         super(value, text);
     }
+
     // removeFirstIf....................................................................................................
 
     @Override
@@ -46,6 +47,18 @@ public final class NodeSelectorWildcardParserToken extends NodeSelectorNonSymbol
                 NodeSelectorWildcardParserToken.class
         );
     }
+
+    // removeIf.........................................................................................................
+
+    @Override
+    public Optional<NodeSelectorWildcardParserToken> removeIf(final Predicate<ParserToken> predicate) {
+        return ParserToken.removeIfLeaf(
+                this,
+                predicate,
+                NodeSelectorWildcardParserToken.class
+        );
+    }
+
     // replaceFirstIf...................................................................................................
 
     @Override

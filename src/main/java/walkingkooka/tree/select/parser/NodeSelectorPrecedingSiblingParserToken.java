@@ -47,6 +47,18 @@ public final class NodeSelectorPrecedingSiblingParserToken extends NodeSelectorN
                 NodeSelectorPrecedingSiblingParserToken.class
         );
     }
+
+    // removeIf.........................................................................................................
+
+    @Override
+    public Optional<NodeSelectorPrecedingSiblingParserToken> removeIf(final Predicate<ParserToken> predicate) {
+        return ParserToken.removeIfLeaf(
+                this,
+                predicate,
+                NodeSelectorPrecedingSiblingParserToken.class
+        );
+    }
+
     // replaceFirstIf...................................................................................................
 
     @Override
