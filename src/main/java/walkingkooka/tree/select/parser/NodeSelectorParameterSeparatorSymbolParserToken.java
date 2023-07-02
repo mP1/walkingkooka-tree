@@ -48,6 +48,17 @@ public final class NodeSelectorParameterSeparatorSymbolParserToken extends NodeS
         );
     }
 
+    // removeIf....................................................................................................
+
+    @Override
+    public Optional<NodeSelectorParameterSeparatorSymbolParserToken> removeIf(final Predicate<ParserToken> predicate) {
+        return ParserToken.removeIfLeaf(
+                this,
+                predicate,
+                NodeSelectorParameterSeparatorSymbolParserToken.class
+        );
+    }
+
     // replaceFirstIf...................................................................................................
 
     @Override

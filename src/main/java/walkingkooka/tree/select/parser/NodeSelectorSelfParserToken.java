@@ -43,6 +43,18 @@ public final class NodeSelectorSelfParserToken extends NodeSelectorNonSymbolPars
                 NodeSelectorSelfParserToken.class
         );
     }
+
+    // removeIf.........................................................................................................
+
+    @Override
+    public Optional<NodeSelectorSelfParserToken> removeIf(final Predicate<ParserToken> predicate) {
+        return ParserToken.removeIfLeaf(
+                this,
+                predicate,
+                NodeSelectorSelfParserToken.class
+        );
+    }
+
     // replaceFirstIf...................................................................................................
 
     @Override

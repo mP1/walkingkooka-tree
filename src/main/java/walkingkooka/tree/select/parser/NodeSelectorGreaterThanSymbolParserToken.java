@@ -61,6 +61,17 @@ public final class NodeSelectorGreaterThanSymbolParserToken extends NodeSelector
         );
     }
 
+    // removeIf.........................................................................................................
+
+    @Override
+    public Optional<NodeSelectorGreaterThanSymbolParserToken> removeIf(final Predicate<ParserToken> predicate) {
+        return ParserToken.removeIfLeaf(
+                this,
+                predicate,
+                NodeSelectorGreaterThanSymbolParserToken.class
+        );
+    }
+
     // replaceFirstIf...................................................................................................
 
     @Override

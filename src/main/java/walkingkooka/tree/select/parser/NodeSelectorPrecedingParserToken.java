@@ -48,6 +48,17 @@ public final class NodeSelectorPrecedingParserToken extends NodeSelectorNonSymbo
         );
     }
 
+    // removeIf........................................................................................................
+
+    @Override
+    public Optional<NodeSelectorPrecedingParserToken> removeIf(final Predicate<ParserToken> predicate) {
+        return ParserToken.removeIfLeaf(
+                this,
+                predicate,
+                NodeSelectorPrecedingParserToken.class
+        );
+    }
+
     // replaceFirstIf...................................................................................................
 
     @Override

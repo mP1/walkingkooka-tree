@@ -48,6 +48,17 @@ public final class NodeSelectorBracketOpenSymbolParserToken extends NodeSelector
         );
     }
 
+    // removeIf.........................................................................................................
+
+    @Override
+    public Optional<NodeSelectorBracketOpenSymbolParserToken> removeIf(final Predicate<ParserToken> predicate) {
+        return ParserToken.removeIfLeaf(
+                this,
+                predicate,
+                NodeSelectorBracketOpenSymbolParserToken.class
+        );
+    }
+
     // replaceFirstIf...................................................................................................
 
     @Override

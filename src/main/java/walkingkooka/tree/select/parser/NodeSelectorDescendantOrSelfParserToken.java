@@ -48,6 +48,17 @@ public final class NodeSelectorDescendantOrSelfParserToken extends NodeSelectorN
         );
     }
 
+    // removeIf.........................................................................................................
+
+    @Override
+    public Optional<NodeSelectorDescendantOrSelfParserToken> removeIf(final Predicate<ParserToken> predicate) {
+        return ParserToken.removeIfLeaf(
+                this,
+                predicate,
+                NodeSelectorDescendantOrSelfParserToken.class
+        );
+    }
+
     // replaceFirstIf...................................................................................................
 
     @Override

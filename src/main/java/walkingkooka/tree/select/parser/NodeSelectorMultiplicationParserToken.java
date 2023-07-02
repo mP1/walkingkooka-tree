@@ -64,7 +64,7 @@ public final class NodeSelectorMultiplicationParserToken extends NodeSelectorBin
     // removeIf.........................................................................................................
 
     @Override
-    public NodeSelectorMultiplicationParserToken removeIf(final Predicate<ParserToken> predicate) {
+    public Optional<NodeSelectorMultiplicationParserToken> removeIf(final Predicate<ParserToken> predicate) {
         return ParserToken.removeIfParent(
                 this,
                 predicate,

@@ -48,6 +48,17 @@ public final class NodeSelectorExpressionNumberParserToken extends NodeSelectorN
         );
     }
 
+    // removeIf.........................................................................................................
+
+    @Override
+    public Optional<NodeSelectorExpressionNumberParserToken> removeIf(final Predicate<ParserToken> predicate) {
+        return ParserToken.removeIfLeaf(
+                this,
+                predicate,
+                NodeSelectorExpressionNumberParserToken.class
+        );
+    }
+
     // replaceFirstIf...................................................................................................
 
     @Override

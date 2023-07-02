@@ -47,6 +47,17 @@ public final class NodeSelectorFirstChildParserToken extends NodeSelectorNonSymb
                 NodeSelectorFirstChildParserToken.class
         );
     }
+    
+    // removeIf.........................................................................................................
+
+    @Override
+    public Optional<NodeSelectorFirstChildParserToken> removeIf(final Predicate<ParserToken> predicate) {
+        return ParserToken.removeIfLeaf(
+                this,
+                predicate,
+                NodeSelectorFirstChildParserToken.class
+        );
+    }
 
     // replaceFirstIf...................................................................................................
 

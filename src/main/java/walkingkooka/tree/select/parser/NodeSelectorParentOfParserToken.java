@@ -45,6 +45,17 @@ public final class NodeSelectorParentOfParserToken extends NodeSelectorNonSymbol
         );
     }
 
+    // removeIf........................................................................................................
+
+    @Override
+    public Optional<NodeSelectorParentOfParserToken> removeIf(final Predicate<ParserToken> predicate) {
+        return ParserToken.removeIfLeaf(
+                this,
+                predicate,
+                NodeSelectorParentOfParserToken.class
+        );
+    }
+
     // replaceFirstIf...................................................................................................
 
     @Override
