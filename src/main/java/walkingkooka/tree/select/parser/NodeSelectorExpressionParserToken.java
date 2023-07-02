@@ -53,7 +53,7 @@ public final class NodeSelectorExpressionParserToken extends NodeSelectorParentP
 
     @Override
     public NodeSelectorExpressionParserToken removeFirstIf(final Predicate<ParserToken> predicate) {
-        return ParserToken.parentRemoveFirstIf(
+        return ParserToken.removeFirstIfParent(
                 this,
                 predicate,
                 NodeSelectorExpressionParserToken.class

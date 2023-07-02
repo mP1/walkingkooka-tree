@@ -67,7 +67,7 @@ public final class NodeSelectorNegativeParserToken extends NodeSelectorParentPar
 
     @Override
     public NodeSelectorNegativeParserToken removeFirstIf(final Predicate<ParserToken> predicate) {
-        return ParserToken.parentRemoveFirstIf(
+        return ParserToken.removeFirstIfParent(
                 this,
                 predicate,
                 NodeSelectorNegativeParserToken.class
