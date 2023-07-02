@@ -22,6 +22,7 @@ import walkingkooka.tree.expression.FunctionExpressionName;
 import walkingkooka.visit.Visiting;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.function.Predicate;
 
 /**
@@ -61,7 +62,7 @@ public final class NodeSelectorPredicateParserToken extends NodeSelectorParentPa
     // removeFirstIf....................................................................................................
 
     @Override
-    public NodeSelectorPredicateParserToken removeFirstIf(final Predicate<ParserToken> predicate) {
+    public Optional<NodeSelectorPredicateParserToken> removeFirstIf(final Predicate<ParserToken> predicate) {
         return ParserToken.removeFirstIfParent(
                 this,
                 predicate,

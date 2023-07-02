@@ -20,6 +20,7 @@ import walkingkooka.text.cursor.parser.ParserToken;
 import walkingkooka.visit.Visiting;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.function.Predicate;
 
 /**
@@ -77,7 +78,7 @@ public final class NodeSelectorFunctionParserToken extends NodeSelectorParentPar
     // removeFirstIf....................................................................................................
 
     @Override
-    public NodeSelectorFunctionParserToken removeFirstIf(final Predicate<ParserToken> predicate) {
+    public Optional<NodeSelectorFunctionParserToken> removeFirstIf(final Predicate<ParserToken> predicate) {
         return ParserToken.removeFirstIfParent(
                 this,
                 predicate,

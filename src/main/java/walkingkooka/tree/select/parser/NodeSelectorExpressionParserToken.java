@@ -20,6 +20,7 @@ import walkingkooka.text.cursor.parser.ParserToken;
 import walkingkooka.visit.Visiting;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.function.Predicate;
 
 /**
@@ -36,6 +37,12 @@ public final class NodeSelectorExpressionParserToken extends NodeSelectorParentP
     private NodeSelectorExpressionParserToken(final List<ParserToken> value,
                                               final String text) {
         super(value, text);
+
+        final List<ParserToken> without = ParserToken.filterWithoutNoise(value);
+        final int count = without.size();
+        if (count < 1) {
+            throw new IllegalArgumentException("Expected at least 1 token but got " + count + "=" + without);
+        }
     }
 
     // children.........................................................................................................
@@ -52,7 +59,7 @@ public final class NodeSelectorExpressionParserToken extends NodeSelectorParentP
     // removeFirstIf....................................................................................................
 
     @Override
-    public NodeSelectorExpressionParserToken removeFirstIf(final Predicate<ParserToken> predicate) {
+    public Optional<NodeSelectorExpressionParserToken> removeFirstIf(final Predicate<ParserToken> predicate) {
         return ParserToken.removeFirstIfParent(
                 this,
                 predicate,

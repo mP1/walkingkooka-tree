@@ -18,6 +18,7 @@ package walkingkooka.tree.select.parser;
 
 import walkingkooka.text.cursor.parser.ParserToken;
 
+import java.util.Optional;
 import java.util.function.Predicate;
 
 /**
@@ -34,6 +35,17 @@ public final class NodeSelectorAncestorOrSelfParserToken extends NodeSelectorNon
 
     private NodeSelectorAncestorOrSelfParserToken(final String value, final String text) {
         super(value, text);
+    }
+
+    // removeFirstIf....................................................................................................
+
+    @Override
+    public Optional<NodeSelectorAncestorOrSelfParserToken> removeFirstIf(final Predicate<ParserToken> predicate) {
+        return ParserToken.removeFirstIfLeaf(
+                this,
+                predicate,
+                NodeSelectorAncestorOrSelfParserToken.class
+        );
     }
 
     // replaceFirstIf...................................................................................................
