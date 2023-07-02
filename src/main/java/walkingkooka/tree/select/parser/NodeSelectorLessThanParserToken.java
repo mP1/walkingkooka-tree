@@ -66,7 +66,7 @@ public final class NodeSelectorLessThanParserToken extends NodeSelectorBinaryPar
 
     @Override
     public NodeSelectorLessThanParserToken removeIf(final Predicate<ParserToken> predicate) {
-        return ParserToken.parentRemoveIf(
+        return ParserToken.removeIfParent(
                 this,
                 predicate,
                 NodeSelectorLessThanParserToken.class

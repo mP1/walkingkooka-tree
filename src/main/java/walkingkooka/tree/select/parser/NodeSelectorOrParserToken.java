@@ -65,7 +65,7 @@ public final class NodeSelectorOrParserToken extends NodeSelectorBinaryParserTok
 
     @Override
     public NodeSelectorOrParserToken removeIf(final Predicate<ParserToken> predicate) {
-        return ParserToken.parentRemoveIf(
+        return ParserToken.removeIfParent(
                 this,
                 predicate,
                 NodeSelectorOrParserToken.class
