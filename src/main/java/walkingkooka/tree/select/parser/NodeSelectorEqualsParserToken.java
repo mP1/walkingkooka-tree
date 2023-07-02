@@ -54,7 +54,7 @@ public final class NodeSelectorEqualsParserToken extends NodeSelectorBinaryParse
 
     @Override
     public NodeSelectorEqualsParserToken removeFirstIf(final Predicate<ParserToken> predicate) {
-        return ParserToken.parentRemoveFirstIf(
+        return ParserToken.removeFirstIfParent(
                 this,
                 predicate,
                 NodeSelectorEqualsParserToken.class

@@ -54,7 +54,7 @@ public final class NodeSelectorGreaterThanParserToken extends NodeSelectorBinary
 
     @Override
     public NodeSelectorGreaterThanParserToken removeFirstIf(final Predicate<ParserToken> predicate) {
-        return ParserToken.parentRemoveFirstIf(
+        return ParserToken.removeFirstIfParent(
                 this,
                 predicate,
                 NodeSelectorGreaterThanParserToken.class
