@@ -17,7 +17,7 @@
 
 package walkingkooka.tree.expression;
 
-import walkingkooka.compare.ComparisonRelation;
+import walkingkooka.compare.CompareResult;
 import walkingkooka.visit.Visiting;
 
 import java.util.List;
@@ -70,8 +70,8 @@ public final class GreaterThanExpression extends BinaryComparisonExpression {
     // Evaluation .......................................................................................................
 
     @Override //
-    ComparisonRelation comparisonRelation() {
-        return ComparisonRelation.GT;
+    CompareResult compareResult() {
+        return CompareResult.GT;
     }
 
     // Object .........................................................................................................

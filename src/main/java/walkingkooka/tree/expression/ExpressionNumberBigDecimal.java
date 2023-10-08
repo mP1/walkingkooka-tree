@@ -18,7 +18,7 @@
 package walkingkooka.tree.expression;
 
 import ch.obermuhlner.math.big.BigDecimalMath;
-import walkingkooka.compare.ComparisonRelation;
+import walkingkooka.compare.CompareResult;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
@@ -415,7 +415,7 @@ final class ExpressionNumberBigDecimal extends ExpressionNumber {
     }
 
     private boolean equalsValue(final BigDecimal value) {
-        return ComparisonRelation.EQ.test(this.value.compareTo(value));
+        return CompareResult.EQ.test(this.value.compareTo(value));
     }
 
     // Comparable.......................................................................................................
