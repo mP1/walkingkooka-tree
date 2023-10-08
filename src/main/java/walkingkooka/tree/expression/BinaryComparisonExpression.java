@@ -18,7 +18,7 @@
 package walkingkooka.tree.expression;
 
 import walkingkooka.Cast;
-import walkingkooka.compare.ComparisonRelation;
+import walkingkooka.compare.CompareResult;
 
 /**
  * Base class for all comparison {@link BinaryExpression} nodes such as LT, GTE etc.
@@ -40,7 +40,7 @@ abstract class BinaryComparisonExpression extends BinaryExpression {
     final Expression apply(final Object left,
                            final Object right,
                            final ExpressionEvaluationContext context) {
-        final ComparisonRelation compare = this.comparisonRelation();
+        final CompareResult compare = this.compareResult();
 
         final Object result;
         if (context.isText(left)) {
@@ -69,7 +69,7 @@ abstract class BinaryComparisonExpression extends BinaryExpression {
     /**
      * The {@link String#compareTo(String)} honours {@link ExpressionEvaluationContext#caseSensitivity()}
      */
-    final boolean applyText(final ComparisonRelation compare,
+    final boolean applyText(final CompareResult compare,
                             final String left,
                             final String right,
                             final ExpressionEvaluationContext context) {
@@ -83,7 +83,7 @@ abstract class BinaryComparisonExpression extends BinaryExpression {
     /**
      * Handles all other non {@link String#compareTo(String)}. This assumes the two values are compare compatible.
      */
-    private <CC extends Comparable<CC>> boolean applyNonText(final ComparisonRelation compare,
+    private <CC extends Comparable<CC>> boolean applyNonText(final CompareResult compare,
                                                              final CC left,
                                                              final CC right) {
         return compare.test(
@@ -94,5 +94,5 @@ abstract class BinaryComparisonExpression extends BinaryExpression {
     /**
      * Converts the ternary result of a comparison into a boolean for this comparison reflect.
      */
-    abstract ComparisonRelation comparisonRelation();
+    abstract CompareResult compareResult();
 }

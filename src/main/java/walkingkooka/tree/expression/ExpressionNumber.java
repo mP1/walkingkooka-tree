@@ -17,7 +17,7 @@
 
 package walkingkooka.tree.expression;
 
-import walkingkooka.compare.ComparisonRelation;
+import walkingkooka.compare.CompareResult;
 import walkingkooka.convert.Converter;
 import walkingkooka.math.Maths;
 
@@ -316,37 +316,37 @@ public abstract class ExpressionNumber extends Number implements Comparable<Expr
     // equals..............................................................................................................
 
     public final boolean equals(final ExpressionNumber value) {
-        return ComparisonRelation.EQ.test(this.compareTo(value));
+        return CompareResult.EQ.test(this.compareTo(value));
     }
 
     // greaterThan..............................................................................................................
 
     public final boolean greaterThan(final ExpressionNumber value) {
-        return ComparisonRelation.GT.test(this.compareTo(value));
+        return CompareResult.GT.test(this.compareTo(value));
     }
 
     // greaterThanEquals..............................................................................................................
 
     public final boolean greaterThanEquals(final ExpressionNumber value) {
-        return ComparisonRelation.GTE.test(this.compareTo(value));
+        return CompareResult.GTE.test(this.compareTo(value));
     }
 
     // lessThan..............................................................................................................
 
     public final boolean lessThan(final ExpressionNumber value) {
-        return ComparisonRelation.LT.test(this.compareTo(value));
+        return CompareResult.LT.test(this.compareTo(value));
     }
 
     // lessThanEquals..............................................................................................................
 
     public final boolean lessThanEquals(final ExpressionNumber value) {
-        return ComparisonRelation.LTE.test(this.compareTo(value));
+        return CompareResult.LTE.test(this.compareTo(value));
     }
 
     // notEquals..............................................................................................................
 
     public final boolean notEquals(final ExpressionNumber value) {
-        return ComparisonRelation.NE.test(this.compareTo(value));
+        return CompareResult.NE.test(this.compareTo(value));
     }
 
     // toXXX............................................................................................................
@@ -373,7 +373,7 @@ public abstract class ExpressionNumber extends Number implements Comparable<Expr
     @Override
     public final boolean equals(final Object other) {
         return this == other ||
-                this.canBeEqual(other) && ComparisonRelation.EQ.test(this.compareTo((ExpressionNumber) other));
+                this.canBeEqual(other) && CompareResult.EQ.test(this.compareTo((ExpressionNumber) other));
     }
 
     abstract boolean canBeEqual(final Object other);
