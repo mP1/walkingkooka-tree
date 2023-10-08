@@ -22,7 +22,7 @@ import walkingkooka.visit.Visiting;
 
 import java.util.List;
 
-public final class LessThanExpression extends BinaryComparisonExpression {
+public final class LessThanExpression extends BinaryCompareExpression {
 
     public final static FunctionExpressionName NAME = FunctionExpressionName.fromClass(LessThanExpression.class);
 
