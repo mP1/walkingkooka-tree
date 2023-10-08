@@ -23,9 +23,9 @@ import walkingkooka.compare.CompareResult;
 /**
  * Base class for all comparison {@link BinaryExpression} nodes such as LT, GTE etc.
  */
-abstract class BinaryComparisonExpression extends BinaryExpression {
+abstract class BinaryCompareExpression extends BinaryExpression {
 
-    BinaryComparisonExpression(final int index, final Expression left, final Expression right) {
+    BinaryCompareExpression(final int index, final Expression left, final Expression right) {
         super(index, left, right);
     }
 

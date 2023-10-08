@@ -20,10 +20,10 @@ package walkingkooka.tree.expression;
 import walkingkooka.reflect.ClassTesting2;
 import walkingkooka.reflect.JavaVisibility;
 
-public final class BinaryComparisonExpressionTest implements ClassTesting2<BinaryComparisonExpression> {
+public final class BinaryCompareExpressionTest implements ClassTesting2<BinaryCompareExpression> {
     @Override
-    public Class<BinaryComparisonExpression> type() {
-        return BinaryComparisonExpression.class;
+    public Class<BinaryCompareExpression> type() {
+        return BinaryCompareExpression.class;
     }
 
     @Override
