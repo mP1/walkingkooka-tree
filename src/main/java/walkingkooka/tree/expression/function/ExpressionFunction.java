@@ -32,7 +32,7 @@ import java.util.function.BiPredicate;
 import java.util.stream.Collectors;
 
 /**
- * Basic contract for a namedFunction within a {@link walkingkooka.tree.expression.ExpressionEvaluationContext}
+ * Basic contract for a function within a {@link walkingkooka.tree.expression.ExpressionEvaluationContext}
  */
 public interface ExpressionFunction<T, C extends ExpressionEvaluationContext> extends BiFunction<List<Object>, C, T>,
         ExpressionPurity,
@@ -44,7 +44,7 @@ public interface ExpressionFunction<T, C extends ExpressionEvaluationContext> ex
     Optional<FunctionExpressionName> ANONYMOUS_NAME = Optional.empty();
 
     /**
-     * The default name for a namedFunction without any name, often used by {@link Object#toString()}.
+     * The default name for a function without any name, often used by {@link Object#toString()}.
      */
     String ANONYMOUS = "<anonymous>";
 
@@ -77,7 +77,7 @@ public interface ExpressionFunction<T, C extends ExpressionEvaluationContext> ex
     }
 
     /**
-     * Returns meta info about the parameters for this namedFunction.
+     * Returns meta info about the parameters for this function.
      */
     List<ExpressionFunctionParameter<?>> parameters(int count);
 
@@ -112,7 +112,7 @@ public interface ExpressionFunction<T, C extends ExpressionEvaluationContext> ex
     }
 
     /**
-     * The return type of this namedFunction
+     * The return type of this function
      */
     Class<T> returnType();
 
