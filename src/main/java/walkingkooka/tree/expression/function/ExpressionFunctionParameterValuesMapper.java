@@ -26,7 +26,7 @@ import java.util.function.BiFunction;
 /**
  * Wraps an {@link ExpressionFunction} and applies a {@link java.util.function.Function} on the parameters before calling the wrapped {@link ExpressionFunction}.
  */
-final class ExpressionFunctionParameterValuesMapper<T, C extends ExpressionEvaluationContext> extends ExpressionFunctionParameters<T, C> {
+final class ExpressionFunctionParameterValuesMapper<T, C extends ExpressionEvaluationContext> extends ExpressionFunctionParameterValues<T, C> {
 
     static <T, C extends ExpressionEvaluationContext> ExpressionFunctionParameterValuesMapper<T, C> with(final BiFunction<List<Object>, C, List<Object>> mapper,
                                                                                                          final ExpressionFunction<T, C> function) {
