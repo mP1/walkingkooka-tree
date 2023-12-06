@@ -63,7 +63,7 @@ final class ExpressionFunctionParameterValuesFilter<T, C extends ExpressionEvalu
      * Special cases that handles if the new filter is equal to the current.
      */
     @Override
-    public ExpressionFunction<T, C> filterParameters(final BiPredicate<Object, C> filter) {
+    public ExpressionFunction<T, C> filterParameterValues(final BiPredicate<Object, C> filter) {
         checkFilter(filter);
 
         return this.filter.equals(filter) ?
