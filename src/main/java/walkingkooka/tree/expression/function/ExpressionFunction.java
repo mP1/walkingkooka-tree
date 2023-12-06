@@ -44,7 +44,7 @@ public interface ExpressionFunction<T, C extends ExpressionEvaluationContext> ex
     Optional<FunctionExpressionName> ANONYMOUS_NAME = Optional.empty();
 
     /**
-     * The default name for a namedFunction without any name, often used by {@link #toString()}.
+     * The default name for a namedFunction without any name, often used by {@link Object#toString()}.
      */
     String ANONYMOUS = "<anonymous>";
 
@@ -113,13 +113,11 @@ public interface ExpressionFunction<T, C extends ExpressionEvaluationContext> ex
 
     /**
      * The return type of this namedFunction
-     *
-     * @return The return type of this namedFunction
      */
     Class<T> returnType();
 
     /**
-     * Returns a ne {@link ExpressionFunction} that adds the parameter mapper before this namedFunction.
+     * Returns a new {@link ExpressionFunction} that adds the parameter mapper before this namedFunction.
      */
     default ExpressionFunction<T, C> mapParameters(final BiFunction<List<Object>, C, List<Object>> mapper) {
         return ExpressionFunctionParametersMapper.with(mapper, this);
