@@ -26,12 +26,12 @@ import java.util.Objects;
 import java.util.Optional;
 
 /**
- * Wraps an {@link ExpressionFunction} only the apply method remains to implemented by sub-classes.
+ * A base class for several {@link ExpressionFunction} sub classes that delegates most methods but leaves a few abstract.
  */
 abstract class ExpressionFunctionParameterValues<T, C extends ExpressionEvaluationContext> implements ExpressionFunction<T, C> {
 
     static void checkFunction(final ExpressionFunction<?, ?> function) {
-        Objects.requireNonNull(function, "namedFunction");
+        Objects.requireNonNull(function, "function");
     }
 
     ExpressionFunctionParameterValues(final ExpressionFunction<T, C> function) {
@@ -59,7 +59,7 @@ abstract class ExpressionFunctionParameterValues<T, C extends ExpressionEvaluati
     }
 
     /**
-     * The wrapped namedFunction
+     * The wrapped function
      */
     final ExpressionFunction<T, C> function;
 
