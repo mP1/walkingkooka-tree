@@ -49,6 +49,11 @@ final class ExpressionFunctionParameterValuesFilter<T, C extends ExpressionEvalu
     }
 
     @Override
+    public List<ExpressionFunctionParameter<?>> parameters(final int count) {
+        return this.function.parameters(count);
+    }
+
+    @Override
     public T apply(final List<Object> parameters,
                    final C context) {
         return this.function.apply(

@@ -21,7 +21,6 @@ import walkingkooka.tree.expression.ExpressionEvaluationContext;
 import walkingkooka.tree.expression.ExpressionPurityContext;
 import walkingkooka.tree.expression.FunctionExpressionName;
 
-import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
@@ -46,11 +45,6 @@ abstract class ExpressionFunctionParameterValues<T, C extends ExpressionEvaluati
     @Override
     public final Optional<FunctionExpressionName> name() {
         return this.function.name();
-    }
-
-    @Override
-    public final List<ExpressionFunctionParameter<?>> parameters(final int count) {
-        return this.function.parameters(count);
     }
 
     @Override

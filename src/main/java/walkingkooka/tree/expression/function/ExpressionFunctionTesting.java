@@ -71,6 +71,26 @@ public interface ExpressionFunctionTesting<F extends ExpressionFunction<V, C>, V
     }
 
     @Test
+    default void testSetParametersNullFails() {
+        assertThrows(
+                NullPointerException.class,
+                () -> this.createBiFunction()
+                        .setParameters(null)
+        );
+    }
+
+    @Test
+    default void testSetParametersSame() {
+        final F function = this.createBiFunction();
+        assertSame(
+                function,
+                function.setParameters(
+                        function.parameters(0)
+                )
+        );
+    }
+    
+    @Test
     default void testParameterNamesUnique() {
         final F function = this.createBiFunction();
         final List<ExpressionFunctionParameter<?>> parameters = function.parameters(this.minimumParameterCount());
