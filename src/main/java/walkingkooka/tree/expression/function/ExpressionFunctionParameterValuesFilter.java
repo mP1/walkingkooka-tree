@@ -28,7 +28,7 @@ import java.util.stream.Collectors;
 /**
  * Wraps an {@link ExpressionFunction} and applies a {@link java.util.function.Function} on the paraneters before calling the wrapped.
  */
-final class ExpressionFunctionParameterValuesFilter<T, C extends ExpressionEvaluationContext> extends ExpressionFunctionParameters<T, C> {
+final class ExpressionFunctionParameterValuesFilter<T, C extends ExpressionEvaluationContext> extends ExpressionFunctionParameterValues<T, C> {
 
     static <T, C extends ExpressionEvaluationContext> ExpressionFunctionParameterValuesFilter<T, C> with(final BiPredicate<Object, C> filter,
                                                                                                          final ExpressionFunction<T, C> function) {

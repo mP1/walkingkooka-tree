@@ -28,13 +28,13 @@ import java.util.Optional;
 /**
  * Wraps an {@link ExpressionFunction} only the apply method remains to implemented by sub-classes.
  */
-abstract class ExpressionFunctionParameters<T, C extends ExpressionEvaluationContext> implements ExpressionFunction<T, C> {
+abstract class ExpressionFunctionParameterValues<T, C extends ExpressionEvaluationContext> implements ExpressionFunction<T, C> {
 
     static void checkFunction(final ExpressionFunction<?, ?> function) {
         Objects.requireNonNull(function, "namedFunction");
     }
 
-    ExpressionFunctionParameters(final ExpressionFunction<T, C> function) {
+    ExpressionFunctionParameterValues(final ExpressionFunction<T, C> function) {
         this.function = function;
     }
 

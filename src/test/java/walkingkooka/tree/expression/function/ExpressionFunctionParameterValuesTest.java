@@ -21,11 +21,11 @@ import walkingkooka.Cast;
 import walkingkooka.reflect.ClassTesting;
 import walkingkooka.reflect.JavaVisibility;
 
-public final class ExpressionFunctionParametersTest implements ClassTesting<ExpressionFunctionParameters<?, ?>> {
+public final class ExpressionFunctionParameterValuesTest implements ClassTesting<ExpressionFunctionParameterValues<?, ?>> {
 
     @Override
-    public Class<ExpressionFunctionParameters<?, ?>> type() {
-        return Cast.to(ExpressionFunctionParameters.class);
+    public Class<ExpressionFunctionParameterValues<?, ?>> type() {
+        return Cast.to(ExpressionFunctionParameterValues.class);
     }
 
     @Override
