@@ -28,22 +28,22 @@ import java.util.stream.Collectors;
 /**
  * Wraps an {@link ExpressionFunction} and applies a {@link java.util.function.Function} on the paraneters before calling the wrapped.
  */
-final class ExpressionFunctionParametersFilter<T, C extends ExpressionEvaluationContext> extends ExpressionFunctionParameters<T, C> {
+final class ExpressionFunctionParameterValuesFilter<T, C extends ExpressionEvaluationContext> extends ExpressionFunctionParameters<T, C> {
 
-    static <T, C extends ExpressionEvaluationContext> ExpressionFunctionParametersFilter<T, C> with(final BiPredicate<Object, C> filter,
-                                                                                                    final ExpressionFunction<T, C> function) {
+    static <T, C extends ExpressionEvaluationContext> ExpressionFunctionParameterValuesFilter<T, C> with(final BiPredicate<Object, C> filter,
+                                                                                                         final ExpressionFunction<T, C> function) {
         checkFilter(filter);
         checkFunction(function);
 
-        return new ExpressionFunctionParametersFilter<>(filter, function);
+        return new ExpressionFunctionParameterValuesFilter<>(filter, function);
     }
 
     private static void checkFilter(final BiPredicate<Object, ? extends Context> filter) {
         Objects.requireNonNull(filter, "filter");
     }
 
-    private ExpressionFunctionParametersFilter(final BiPredicate<Object, C> filter,
-                                               final ExpressionFunction<T, C> function) {
+    private ExpressionFunctionParameterValuesFilter(final BiPredicate<Object, C> filter,
+                                                    final ExpressionFunction<T, C> function) {
         super(function);
         this.filter = filter;
     }
@@ -68,7 +68,7 @@ final class ExpressionFunctionParametersFilter<T, C extends ExpressionEvaluation
 
         return this.filter.equals(filter) ?
                 this :
-                ExpressionFunctionParametersFilter.with(filter, this);
+                ExpressionFunctionParameterValuesFilter.with(filter, this);
     }
 
     /**
