@@ -128,6 +128,6 @@ public interface ExpressionFunction<T, C extends ExpressionEvaluationContext> ex
      * Returns a new {@link ExpressionFunction} that filters parameters using the given {@link BiPredicate}.
      */
     default ExpressionFunction<T, C> filterParameters(final BiPredicate<Object, C> filter) {
-        return ExpressionFunctionParametersFilter.with(filter, this);
+        return ExpressionFunctionParameterValuesFilter.with(filter, this);
     }
 }

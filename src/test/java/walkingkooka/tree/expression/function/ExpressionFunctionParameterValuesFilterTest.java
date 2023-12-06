@@ -32,7 +32,7 @@ import java.util.stream.Collectors;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class ExpressionFunctionParametersFilterTest extends ExpressionFunctionTestCase<ExpressionFunctionParametersFilter<Object, ExpressionEvaluationContext>, Object> {
+public final class ExpressionFunctionParameterValuesFilterTest extends ExpressionFunctionTestCase<ExpressionFunctionParameterValuesFilter<Object, ExpressionEvaluationContext>, Object> {
 
     private final static BiPredicate<Object, ExpressionEvaluationContext> FILTER = (p, c) -> p instanceof String;
 
@@ -73,7 +73,7 @@ public final class ExpressionFunctionParametersFilterTest extends ExpressionFunc
     public void testWithNullFilterFails() {
         assertThrows(
                 NullPointerException.class,
-                () -> ExpressionFunctionParametersFilter.with(null, FUNCTION)
+                () -> ExpressionFunctionParameterValuesFilter.with(null, FUNCTION)
         );
     }
 
@@ -81,7 +81,7 @@ public final class ExpressionFunctionParametersFilterTest extends ExpressionFunc
     public void testWithNullFunctionFails() {
         assertThrows(
                 NullPointerException.class,
-                () -> ExpressionFunctionParametersFilter.with(FILTER, null)
+                () -> ExpressionFunctionParameterValuesFilter.with(FILTER, null)
         );
     }
 
@@ -108,7 +108,7 @@ public final class ExpressionFunctionParametersFilterTest extends ExpressionFunc
 
     @Test
     public void testMapFilterSamePredicate() {
-        final ExpressionFunctionParametersFilter<Object, ExpressionEvaluationContext> function = this.createBiFunction();
+        final ExpressionFunctionParameterValuesFilter<Object, ExpressionEvaluationContext> function = this.createBiFunction();
 
         assertSame(function, function.filterParameters(FILTER));
     }
@@ -124,8 +124,8 @@ public final class ExpressionFunctionParametersFilterTest extends ExpressionFunc
     // helpers..........................................................................................................
 
     @Override
-    public ExpressionFunctionParametersFilter<Object, ExpressionEvaluationContext> createBiFunction() {
-        return ExpressionFunctionParametersFilter.with(
+    public ExpressionFunctionParameterValuesFilter<Object, ExpressionEvaluationContext> createBiFunction() {
+        return ExpressionFunctionParameterValuesFilter.with(
                 FILTER,
                 FUNCTION
         );
@@ -137,7 +137,7 @@ public final class ExpressionFunctionParametersFilterTest extends ExpressionFunc
     }
 
     @Override
-    public Class<ExpressionFunctionParametersFilter<Object, ExpressionEvaluationContext>> type() {
-        return Cast.to(ExpressionFunctionParametersFilter.class);
+    public Class<ExpressionFunctionParameterValuesFilter<Object, ExpressionEvaluationContext>> type() {
+        return Cast.to(ExpressionFunctionParameterValuesFilter.class);
     }
 }
