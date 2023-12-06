@@ -88,7 +88,7 @@ public final class ExpressionFunctionParameter<T> implements HasName<ExpressionF
                                                           final ExpressionFunctionParameterCardinality cardinality,
                                                           final Set<ExpressionFunctionParameterKind> kinds) {
         Objects.requireNonNull(name, "name");
-        Objects.requireNonNull(type, "type");
+        checkType(type);
         Objects.requireNonNull(typeParameters, "typeParameters");
         Objects.requireNonNull(cardinality, "cardinality");
         Objects.requireNonNull(kinds, "kinds");
@@ -100,6 +100,10 @@ public final class ExpressionFunctionParameter<T> implements HasName<ExpressionF
                 Lists.immutable(typeParameters),
                 Sets.immutable(kinds)
         );
+    }
+
+    private static <T> Class<T> checkType(final Class<T> type) {
+        return Objects.requireNonNull(type, "type");
     }
 
     private ExpressionFunctionParameter(final ExpressionFunctionParameterName name,
@@ -140,6 +144,25 @@ public final class ExpressionFunctionParameter<T> implements HasName<ExpressionF
 
     public Class<T> type() {
         return this.type;
+    }
+
+    /**
+     * Would be setter that returns a {@link ExpressionFunctionParameter} with the new type but copying all other properties.
+     * This is particularly useful when updating a {@link ExpressionFunction} parameters such as COUNT which initially has its parameters declared but Object but within a
+     * spreadsheet it needs all parameter values converted to a number.
+     */
+    public <TT> ExpressionFunctionParameter<TT> setType(final Class<TT> type) {
+        checkType(type);
+
+        return this.type.equals(type) ?
+                Cast.to(this) :
+                new ExpressionFunctionParameter<>(
+                        this.name,
+                        type,
+                        this.cardinality,
+                        this.typeParameters,
+                        this.kinds
+                );
     }
 
     private final Class<T> type;
