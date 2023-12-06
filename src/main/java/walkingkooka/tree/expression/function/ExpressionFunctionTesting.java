@@ -182,11 +182,11 @@ public interface ExpressionFunctionTesting<F extends ExpressionFunction<V, C>, V
     }
 
     @Test
-    default void testMapParametersWithNullFunction() {
+    default void testMapParameterValuesWithNullFunction() {
         assertThrows(
                 NullPointerException.class,
                 () -> this.createBiFunction()
-                        .mapParameters(null)
+                        .mapParameterValues(null)
         );
     }
 

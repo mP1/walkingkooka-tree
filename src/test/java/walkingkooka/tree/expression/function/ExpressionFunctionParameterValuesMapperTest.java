@@ -33,7 +33,7 @@ import static org.junit.jupiter.api.Assertions.assertNotSame;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class ExpressionFunctionParametersMapperTest extends ExpressionFunctionTestCase<ExpressionFunctionParametersMapper<Object, ExpressionEvaluationContext>, Object> {
+public final class ExpressionFunctionParameterValuesMapperTest extends ExpressionFunctionTestCase<ExpressionFunctionParameterValuesMapper<Object, ExpressionEvaluationContext>, Object> {
 
     private final static BiFunction<List<Object>, ExpressionEvaluationContext, List<Object>> MAPPER = (p, c) -> p.stream()
             .map(pp -> pp.toString().toUpperCase())
@@ -74,12 +74,12 @@ public final class ExpressionFunctionParametersMapperTest extends ExpressionFunc
 
     @Test
     public void testWithNullMapperFails() {
-        assertThrows(NullPointerException.class, () -> ExpressionFunctionParametersMapper.with(null, FUNCTION));
+        assertThrows(NullPointerException.class, () -> ExpressionFunctionParameterValuesMapper.with(null, FUNCTION));
     }
 
     @Test
     public void testWithNullFunctionFails() {
-        assertThrows(NullPointerException.class, () -> ExpressionFunctionParametersMapper.with(MAPPER, null));
+        assertThrows(NullPointerException.class, () -> ExpressionFunctionParameterValuesMapper.with(MAPPER, null));
     }
 
     @Test
@@ -96,18 +96,18 @@ public final class ExpressionFunctionParametersMapperTest extends ExpressionFunc
 
     @Test
     public void testMapSameFunction() {
-        final ExpressionFunctionParametersMapper<Object, ExpressionEvaluationContext> function = this.createBiFunction();
-        assertSame(function, function.mapParameters(MAPPER));
+        final ExpressionFunctionParameterValuesMapper<Object, ExpressionEvaluationContext> function = this.createBiFunction();
+        assertSame(function, function.mapParameterValues(MAPPER));
     }
 
     @Test
     public void testMapFunctionThenApply() {
-        final ExpressionFunctionParametersMapper<Object, ExpressionEvaluationContext> function = this.createBiFunction();
+        final ExpressionFunctionParameterValuesMapper<Object, ExpressionEvaluationContext> function = this.createBiFunction();
 
         final BiFunction<List<Object>, ExpressionEvaluationContext, List<Object>> mapper = (p, c) -> p.stream()
                 .map(pp -> pp.toString() + "-a")
                 .collect(Collectors.toList());
-        final ExpressionFunctionParametersMapper<Object, ExpressionEvaluationContext> function2 = Cast.to(function.mapParameters(mapper));
+        final ExpressionFunctionParameterValuesMapper<Object, ExpressionEvaluationContext> function2 = Cast.to(function.mapParameterValues(mapper));
         assertNotSame(function, function2);
 
         this.applyAndCheck(function2,
@@ -124,8 +124,8 @@ public final class ExpressionFunctionParametersMapperTest extends ExpressionFunc
     // helpers..........................................................................................................
 
     @Override
-    public ExpressionFunctionParametersMapper<Object, ExpressionEvaluationContext> createBiFunction() {
-        return ExpressionFunctionParametersMapper.with(MAPPER, FUNCTION);
+    public ExpressionFunctionParameterValuesMapper<Object, ExpressionEvaluationContext> createBiFunction() {
+        return ExpressionFunctionParameterValuesMapper.with(MAPPER, FUNCTION);
     }
 
     @Override
@@ -134,7 +134,7 @@ public final class ExpressionFunctionParametersMapperTest extends ExpressionFunc
     }
 
     @Override
-    public Class<ExpressionFunctionParametersMapper<Object, ExpressionEvaluationContext>> type() {
-        return Cast.to(ExpressionFunctionParametersMapper.class);
+    public Class<ExpressionFunctionParameterValuesMapper<Object, ExpressionEvaluationContext>> type() {
+        return Cast.to(ExpressionFunctionParameterValuesMapper.class);
     }
 }

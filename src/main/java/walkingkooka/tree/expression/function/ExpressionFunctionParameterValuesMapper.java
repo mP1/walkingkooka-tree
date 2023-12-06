@@ -26,18 +26,18 @@ import java.util.function.BiFunction;
 /**
  * Wraps an {@link ExpressionFunction} and applies a {@link java.util.function.Function} on the parameters before calling the wrapped {@link ExpressionFunction}.
  */
-final class ExpressionFunctionParametersMapper<T, C extends ExpressionEvaluationContext> extends ExpressionFunctionParameters<T, C> {
+final class ExpressionFunctionParameterValuesMapper<T, C extends ExpressionEvaluationContext> extends ExpressionFunctionParameters<T, C> {
 
-    static <T, C extends ExpressionEvaluationContext> ExpressionFunctionParametersMapper<T, C> with(final BiFunction<List<Object>, C, List<Object>> mapper,
-                                                                                                    final ExpressionFunction<T, C> function) {
+    static <T, C extends ExpressionEvaluationContext> ExpressionFunctionParameterValuesMapper<T, C> with(final BiFunction<List<Object>, C, List<Object>> mapper,
+                                                                                                         final ExpressionFunction<T, C> function) {
         Objects.requireNonNull(mapper, "mapper");
         checkFunction(function);
 
-        return new ExpressionFunctionParametersMapper<>(mapper, function);
+        return new ExpressionFunctionParameterValuesMapper<>(mapper, function);
     }
 
-    private ExpressionFunctionParametersMapper(final BiFunction<List<Object>, C, List<Object>> mapper,
-                                               final ExpressionFunction<T, C> function) {
+    private ExpressionFunctionParameterValuesMapper(final BiFunction<List<Object>, C, List<Object>> mapper,
+                                                    final ExpressionFunction<T, C> function) {
         super(function);
         this.mapper = mapper;
     }
@@ -58,10 +58,10 @@ final class ExpressionFunctionParametersMapper<T, C extends ExpressionEvaluation
      * Special cases that handles if the new mapper is equal to the current.
      */
     @Override
-    public ExpressionFunction<T, C> mapParameters(final BiFunction<List<Object>, C, List<Object>> mapper) {
+    public ExpressionFunction<T, C> mapParameterValues(final BiFunction<List<Object>, C, List<Object>> mapper) {
         return this.mapper.equals(mapper) ?
                 this :
-                ExpressionFunctionParametersMapper.with(mapper, this);
+                ExpressionFunctionParameterValuesMapper.with(mapper, this);
     }
 
     /**
