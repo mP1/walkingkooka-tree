@@ -28,26 +28,34 @@ import java.util.Set;
 public enum ExpressionFunctionParameterKind {
 
     /**
-     * All parameters are converted to their declared type.
+     * All parameters values must be converted to their declared type.
      */
     CONVERT,
 
     /**
-     * Indicates that any parameters in {@link walkingkooka.tree.expression.Expression} form be evaluated into java
-     * objects prior to invoking {@link ExpressionFunction#apply(Object, Object)}. For the vast majority of
-     * cases all functions will return true, but for cases such as Excels isError it may be desired to catch any thrown
-     * exceptions and substitute an error object of some kind.
+     * Indicates that any parameter value that are {@link walkingkooka.tree.expression.Expression} must be evaluated
+     * into a non {@link walkingkooka.tree.expression.Expression} value. For the vast majority of cases all functions
+     * will return true, but for cases such as Excels isError it may be desired to catch any thrown exceptions and
+     * substitute an error object of some kind.
      */
     EVALUATE,
 
     /**
-     * Flatten expands any lists.
+     * Flatten or expands any lists into a single list of values.
+     * <pre>
+     * 1
+     * list( 2, 3, 4)
+     * 5
+     *
+     * becomes
+     * 1, 2, 3, 4, 5
+     * </pre>
      */
     FLATTEN,
 
     /**
-     * Indicates that parameters that implement {@link walkingkooka.tree.expression.ExpressionReference} are resolved to
-     * their actual non {@link walkingkooka.tree.expression.Expression} value.
+     * Indicates that parameter values that implement {@link walkingkooka.tree.expression.ExpressionReference} are
+     * resolved to their actual non {@link walkingkooka.tree.expression.Expression} value.
      * This is only honoured when {@link walkingkooka.tree.expression.ExpressionEvaluationContext#evaluateFunction(ExpressionFunction, List)} is used.
      */
     RESOLVE_REFERENCES;
