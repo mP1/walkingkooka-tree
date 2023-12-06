@@ -117,10 +117,11 @@ public interface ExpressionFunction<T, C extends ExpressionEvaluationContext> ex
     Class<T> returnType();
 
     /**
-     * Returns a new {@link ExpressionFunction} that adds the parameter mapper before this namedFunction.
+     * Returns a new {@link ExpressionFunction} that adds the parameter mapper before this {@link ExpressionFunction#apply(Object, Object)}
+     * is called, but after parameter values are prepared.
      */
-    default ExpressionFunction<T, C> mapParameters(final BiFunction<List<Object>, C, List<Object>> mapper) {
-        return ExpressionFunctionParametersMapper.with(mapper, this);
+    default ExpressionFunction<T, C> mapParameterValues(final BiFunction<List<Object>, C, List<Object>> mapper) {
+        return ExpressionFunctionParameterValuesMapper.with(mapper, this);
     }
 
     /**
