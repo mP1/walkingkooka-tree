@@ -112,6 +112,22 @@ public interface ExpressionFunction<T, C extends ExpressionEvaluationContext> ex
     }
 
     /**
+     * Returns a {@link ExpressionFunction} with the given parameters.
+     */
+    default ExpressionFunction<T, C> setParameters(final List<ExpressionFunctionParameter<?>> parameters) {
+        Objects.requireNonNull(parameters, "parameters");
+
+        return parameters.equals(
+                this.parameters(parameters.size())
+        ) ?
+                this :
+                ExpressionFunctionParameterValuesParameters.with(
+                        parameters,
+                        this
+                );
+    }
+
+    /**
      * The return type of this function
      */
     Class<T> returnType();
