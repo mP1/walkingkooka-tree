@@ -90,7 +90,7 @@ public final class ExpressionFunctionParameter<T> implements HasName<ExpressionF
         checkName(name);
         checkType(type);
         checkTypeParameters(typeParameters);
-        Objects.requireNonNull(cardinality, "cardinality");
+        checkCardinality(cardinality);
         Objects.requireNonNull(kinds, "kinds");
 
         return new ExpressionFunctionParameter<>(
@@ -112,6 +112,10 @@ public final class ExpressionFunctionParameter<T> implements HasName<ExpressionF
 
     private static List<Class<?>> checkTypeParameters(final List<Class<?>> typeParameters) {
         return Objects.requireNonNull(typeParameters, "typeParameters");
+    }
+
+    private static ExpressionFunctionParameterCardinality checkCardinality(final ExpressionFunctionParameterCardinality cardinality) {
+        return Objects.requireNonNull(cardinality, "cardinality");
     }
 
     private ExpressionFunctionParameter(final ExpressionFunctionParameterName name,
@@ -210,7 +214,7 @@ public final class ExpressionFunctionParameter<T> implements HasName<ExpressionF
      * Would be setter that returns a {@link ExpressionFunctionParameter} with the given {@link ExpressionFunctionParameterCardinality}.
      */
     public ExpressionFunctionParameter<T> setCardinality(final ExpressionFunctionParameterCardinality cardinality) {
-        Objects.requireNonNull(cardinality, "cardinality");
+        checkCardinality(cardinality);
 
         return this.cardinality.equals(cardinality) ?
                 this :
