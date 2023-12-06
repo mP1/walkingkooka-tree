@@ -167,6 +167,46 @@ public final class ExpressionFunctionParameterTest implements HashCodeEqualsDefi
         this.checkKinds(parameter);
     }
 
+    // setType.........................................................................................................
+
+    @Test
+    public void testSetTypeWithNullFails() {
+        assertThrows(
+                NullPointerException.class,
+                () -> this.createObject().setType(null)
+        );
+    }
+
+    @Test
+    public void testSetTypeWithSame() {
+        final ExpressionFunctionParameter<?> parameter = this.createObject();
+        assertSame(
+                parameter,
+                parameter.setType(TYPE)
+        );
+    }
+
+    @Test
+    public void testSetTypeWithDifferent() {
+        final ExpressionFunctionParameter<?> parameter = this.createObject();
+        final Class<ExpressionFunctionParameterTest> type = ExpressionFunctionParameterTest.class;
+
+        final ExpressionFunctionParameter<?> different = parameter.setType(type);
+        assertNotSame(parameter, different);
+
+        this.checkName(different);
+        this.checkType(different, type);
+        this.checkTypeParameters(different);
+        this.checkCardinality(different);
+        this.checkKinds(different);
+
+        this.checkName(parameter);
+        this.checkType(parameter);
+        this.checkTypeParameters(parameter);
+        this.checkCardinality(parameter);
+        this.checkKinds(parameter);
+    }
+
     // setCardinality...................................................................................................
 
     @Test
