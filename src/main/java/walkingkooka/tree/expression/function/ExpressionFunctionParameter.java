@@ -87,7 +87,7 @@ public final class ExpressionFunctionParameter<T> implements HasName<ExpressionF
                                                           final List<Class<?>> typeParameters,
                                                           final ExpressionFunctionParameterCardinality cardinality,
                                                           final Set<ExpressionFunctionParameterKind> kinds) {
-        Objects.requireNonNull(name, "name");
+        checkName(name);
         checkType(type);
         Objects.requireNonNull(typeParameters, "typeParameters");
         Objects.requireNonNull(cardinality, "cardinality");
@@ -100,6 +100,10 @@ public final class ExpressionFunctionParameter<T> implements HasName<ExpressionF
                 Lists.immutable(typeParameters),
                 Sets.immutable(kinds)
         );
+    }
+
+    private static ExpressionFunctionParameterName checkName(final ExpressionFunctionParameterName name) {
+        return Objects.requireNonNull(name, "name");
     }
 
     private static <T> Class<T> checkType(final Class<T> type) {
@@ -127,7 +131,7 @@ public final class ExpressionFunctionParameter<T> implements HasName<ExpressionF
      * Would be setter that returns a {@link ExpressionFunctionParameter} with the given {@link ExpressionFunctionParameterName}.
      */
     public ExpressionFunctionParameter<T> setName(final ExpressionFunctionParameterName name) {
-        Objects.requireNonNull(name, "name");
+        checkName(name);
 
         return this.name.equals(name) ?
                 this :
