@@ -65,7 +65,7 @@ final class ExpressionFunctionParameterValuesMapper<T, C extends ExpressionEvalu
     }
 
     /**
-     * The namedFunction that preprocesses parameters before calling the wrapped namedFunction
+     * The {@link BiFunction} that is used to pre-process all parameter values before the wrapped {@link ExpressionFunction} is executed.
      */
     private final BiFunction<List<Object>, C, List<Object>> mapper;
 
