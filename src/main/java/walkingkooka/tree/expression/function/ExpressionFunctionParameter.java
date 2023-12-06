@@ -89,7 +89,7 @@ public final class ExpressionFunctionParameter<T> implements HasName<ExpressionF
                                                           final Set<ExpressionFunctionParameterKind> kinds) {
         checkName(name);
         checkType(type);
-        Objects.requireNonNull(typeParameters, "typeParameters");
+        checkTypeParameters(typeParameters);
         Objects.requireNonNull(cardinality, "cardinality");
         Objects.requireNonNull(kinds, "kinds");
 
@@ -108,6 +108,10 @@ public final class ExpressionFunctionParameter<T> implements HasName<ExpressionF
 
     private static <T> Class<T> checkType(final Class<T> type) {
         return Objects.requireNonNull(type, "type");
+    }
+
+    private static List<Class<?>> checkTypeParameters(final List<Class<?>> typeParameters) {
+        return Objects.requireNonNull(typeParameters, "typeParameters");
     }
 
     private ExpressionFunctionParameter(final ExpressionFunctionParameterName name,
@@ -179,7 +183,7 @@ public final class ExpressionFunctionParameter<T> implements HasName<ExpressionF
      * Sets the type parameter, this is intended to supply the type parameters for {@link List}.
      */
     public ExpressionFunctionParameter<T> setTypeParameters(final List<Class<?>> typeParameters) {
-        Objects.requireNonNull(typeParameters, "typeParameters");
+        checkTypeParameters(typeParameters);
 
         return this.setTypeParameters0(Lists.immutable(typeParameters));
     }
