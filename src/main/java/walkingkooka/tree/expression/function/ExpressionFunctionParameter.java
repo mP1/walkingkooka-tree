@@ -91,7 +91,7 @@ public final class ExpressionFunctionParameter<T> implements HasName<ExpressionF
         checkType(type);
         checkTypeParameters(typeParameters);
         checkCardinality(cardinality);
-        Objects.requireNonNull(kinds, "kinds");
+        checkKinds(kinds);
 
         return new ExpressionFunctionParameter<>(
                 name,
@@ -116,6 +116,10 @@ public final class ExpressionFunctionParameter<T> implements HasName<ExpressionF
 
     private static ExpressionFunctionParameterCardinality checkCardinality(final ExpressionFunctionParameterCardinality cardinality) {
         return Objects.requireNonNull(cardinality, "cardinality");
+    }
+
+    private static Set<ExpressionFunctionParameterKind> checkKinds(final Set<ExpressionFunctionParameterKind> kinds) {
+        return Objects.requireNonNull(kinds, "kinds");
     }
 
     private ExpressionFunctionParameter(final ExpressionFunctionParameterName name,
@@ -240,7 +244,7 @@ public final class ExpressionFunctionParameter<T> implements HasName<ExpressionF
      * Returns a {@link ExpressionFunctionParameter} with the given {@link ExpressionFunctionParameterKind}.
      */
     public ExpressionFunctionParameter<T> setKinds(final Set<ExpressionFunctionParameterKind> kinds) {
-        Objects.requireNonNull(kinds, "kinds");
+        checkKinds(kinds);
 
         final Set<ExpressionFunctionParameterKind> copy = kinds.isEmpty() ?
                 Sets.empty() :
