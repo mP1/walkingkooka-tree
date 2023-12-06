@@ -72,7 +72,7 @@ final class ExpressionFunctionParameterValuesFilter<T, C extends ExpressionEvalu
     }
 
     /**
-     * The namedFunction that preprocesses parameters before calling the wrapped namedFunction
+     * A {@link BiPredicate} that is used to filter parameter values during the prepare parameters phase before the actual wrapped {@link ExpressionFunction} is executed.
      */
     private final BiPredicate<Object, C> filter;
 
