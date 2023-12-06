@@ -107,10 +107,10 @@ public final class ExpressionFunctionParameterValuesFilterTest extends Expressio
     }
 
     @Test
-    public void testMapFilterSamePredicate() {
+    public void testFilterParameterValuesSamePredicate() {
         final ExpressionFunctionParameterValuesFilter<Object, ExpressionEvaluationContext> function = this.createBiFunction();
 
-        assertSame(function, function.filterParameters(FILTER));
+        assertSame(function, function.filterParameterValues(FILTER));
     }
 
     @Test
