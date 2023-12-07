@@ -80,9 +80,4 @@ final class ExpressionFunctionParameterValuesFilter<T, C extends ExpressionEvalu
      * A {@link BiPredicate} that is used to filter parameter values during the prepare parameters phase before the actual wrapped {@link ExpressionFunction} is executed.
      */
     private final BiPredicate<Object, C> filter;
-
-    @Override
-    public String toString() {
-        return this.function + "(" + this.filter + ")";
-    }
 }

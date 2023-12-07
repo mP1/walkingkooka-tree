@@ -58,5 +58,9 @@ abstract class ExpressionFunctionParameterValues<T, C extends ExpressionEvaluati
     final ExpressionFunction<T, C> function;
 
     @Override
-    public abstract String toString();
+    public final String toString() {
+        return this.name()
+                .map(FunctionExpressionName::toString)
+                .orElseGet(this.function::toString);
+    }
 }

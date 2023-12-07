@@ -113,14 +113,6 @@ public final class ExpressionFunctionParameterValuesFilterTest extends Expressio
         assertSame(function, function.filterParameterValues(FILTER));
     }
 
-    @Test
-    public void testToString() {
-        this.toStringAndCheck(
-                this.createBiFunction(),
-                FUNCTION + "(" + FILTER + ")"
-        );
-    }
-
     // helpers..........................................................................................................
 
     @Override

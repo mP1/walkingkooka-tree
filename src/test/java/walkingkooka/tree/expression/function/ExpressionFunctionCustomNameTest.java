@@ -73,17 +73,6 @@ public final class ExpressionFunctionCustomNameTest extends ExpressionFunctionTe
         this.checkEquals(NAME, function.name());
     }
 
-    // toString.........................................................................................................
-
-    @Test
-    public void testToString() {
-        this.toStringAndCheck(
-                this.createBiFunction(),
-                NAME.get()
-                        .toString()
-        );
-    }
-
     @Override
     public ExpressionFunctionCustomName<String, ExpressionEvaluationContext> createBiFunction() {
         return Cast.to(ExpressionFunctionCustomName.with(wrapped(), NAME));

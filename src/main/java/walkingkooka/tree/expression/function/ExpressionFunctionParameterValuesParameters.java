@@ -64,9 +64,4 @@ final class ExpressionFunctionParameterValuesParameters<T, C extends ExpressionE
      * The different/custom parameters definitions that will be used to preprocess parameter values before the wrapped {@link #function} is executed.
      */
     private final List<ExpressionFunctionParameter<?>> parameters;
-
-    @Override
-    public String toString() {
-        return this.function.toString();
-    }
 }
