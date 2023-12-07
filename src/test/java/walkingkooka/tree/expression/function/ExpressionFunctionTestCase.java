@@ -48,6 +48,18 @@ public abstract class ExpressionFunctionTestCase<F extends ExpressionFunction<T,
         );
     }
 
+    @Test
+    public final void testToString() {
+        final F function = this.createBiFunction();
+
+        this.toStringAndCheck(
+                function,
+                function.name()
+                        .get()
+                        .toString()
+        );
+    }
+
     @Override
     public ExpressionEvaluationContext createContext() {
         return ExpressionEvaluationContexts.fake();

@@ -73,9 +73,4 @@ final class ExpressionFunctionParameterValuesMapper<T, C extends ExpressionEvalu
      * The {@link BiFunction} that is used to pre-process all parameter values before the wrapped {@link ExpressionFunction} is executed.
      */
     private final BiFunction<List<Object>, C, List<Object>> mapper;
-
-    @Override
-    public String toString() {
-        return this.function + "(" + this.mapper + ")";
-    }
 }

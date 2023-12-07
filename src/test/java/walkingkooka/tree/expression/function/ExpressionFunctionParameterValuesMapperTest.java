@@ -116,11 +116,6 @@ public final class ExpressionFunctionParameterValuesMapperTest extends Expressio
                 "PARAM-1-A-namedFunction,PARAM-2-A-namedFunction,3-A-namedFunction");
     }
 
-    @Test
-    public void testToString() {
-        this.toStringAndCheck(this.createBiFunction(), FUNCTION + "(" + MAPPER + ")");
-    }
-
     // helpers..........................................................................................................
 
     @Override

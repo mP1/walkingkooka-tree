@@ -133,14 +133,6 @@ public final class ExpressionFunctionParameterValuesParametersTest extends Expre
         );
     }
 
-    @Test
-    public void testToString() {
-        this.toStringAndCheck(
-                this.createBiFunction(),
-                FUNCTION.toString()
-        );
-    }
-
     // helpers..........................................................................................................
 
     @Override
