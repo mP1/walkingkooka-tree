@@ -19,6 +19,7 @@ package walkingkooka.tree.select.parser;
 import walkingkooka.text.cursor.parser.ParserToken;
 
 import java.util.Optional;
+import java.util.function.Function;
 import java.util.function.Predicate;
 
 /**
@@ -63,11 +64,11 @@ public final class NodeSelectorWhitespaceParserToken extends NodeSelectorNonBina
 
     @Override
     public NodeSelectorWhitespaceParserToken replaceFirstIf(final Predicate<ParserToken> predicate,
-                                                            final ParserToken token) {
+                                                            final Function<ParserToken, ParserToken> mapper) {
         return ParserToken.replaceFirstIf(
                 this,
                 predicate,
-                token,
+                mapper,
                 NodeSelectorWhitespaceParserToken.class
         );
     }
@@ -76,11 +77,11 @@ public final class NodeSelectorWhitespaceParserToken extends NodeSelectorNonBina
 
     @Override
     public NodeSelectorWhitespaceParserToken replaceIf(final Predicate<ParserToken> predicate,
-                                                       final ParserToken token) {
+                                                       final Function<ParserToken, ParserToken> mapper) {
         return ParserToken.replaceIf(
                 this,
                 predicate,
-                token,
+                mapper,
                 NodeSelectorWhitespaceParserToken.class
         );
     }

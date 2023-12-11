@@ -20,6 +20,7 @@ import walkingkooka.text.cursor.parser.ParserToken;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.function.Function;
 import java.util.function.Predicate;
 
 /**
@@ -76,11 +77,11 @@ public final class NodeSelectorGreaterThanEqualsSymbolParserToken extends NodeSe
 
     @Override
     public NodeSelectorGreaterThanEqualsSymbolParserToken replaceFirstIf(final Predicate<ParserToken> predicate,
-                                                                         final ParserToken token) {
+                                                                         final Function<ParserToken, ParserToken> mapper) {
         return ParserToken.replaceFirstIf(
                 this,
                 predicate,
-                token,
+                mapper,
                 NodeSelectorGreaterThanEqualsSymbolParserToken.class
         );
     }
@@ -89,11 +90,11 @@ public final class NodeSelectorGreaterThanEqualsSymbolParserToken extends NodeSe
 
     @Override
     public NodeSelectorGreaterThanEqualsSymbolParserToken replaceIf(final Predicate<ParserToken> predicate,
-                                                                    final ParserToken token) {
+                                                                    final Function<ParserToken, ParserToken> mapper) {
         return ParserToken.replaceIf(
                 this,
                 predicate,
-                token,
+                mapper,
                 NodeSelectorGreaterThanEqualsSymbolParserToken.class
         );
     }
