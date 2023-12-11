@@ -23,6 +23,7 @@ import walkingkooka.visit.Visiting;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.function.Function;
 import java.util.function.Predicate;
 
 /**
@@ -85,11 +86,11 @@ public final class NodeSelectorPredicateParserToken extends NodeSelectorParentPa
 
     @Override
     public NodeSelectorPredicateParserToken replaceFirstIf(final Predicate<ParserToken> predicate,
-                                                           final ParserToken token) {
+                                                           final Function<ParserToken, ParserToken> mappern) {
         return ParserToken.replaceFirstIf(
                 this,
                 predicate,
-                token,
+                mappern,
                 NodeSelectorPredicateParserToken.class
         );
     }
@@ -98,11 +99,11 @@ public final class NodeSelectorPredicateParserToken extends NodeSelectorParentPa
 
     @Override
     public NodeSelectorPredicateParserToken replaceIf(final Predicate<ParserToken> predicate,
-                                                      final ParserToken token) {
+                                                      final Function<ParserToken, ParserToken> mapper) {
         return ParserToken.replaceIf(
                 this,
                 predicate,
-                token,
+                mapper,
                 NodeSelectorPredicateParserToken.class
         );
     }
