@@ -19,7 +19,6 @@ package walkingkooka.tree.select.parser;
 import walkingkooka.text.cursor.parser.ParserToken;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.function.Function;
 import java.util.function.Predicate;
 
@@ -49,28 +48,6 @@ public final class NodeSelectorEqualsSymbolParserToken extends NodeSelectorSymbo
     @Override
     NodeSelectorBinaryParserToken<?> binaryOperand(final List<ParserToken> tokens, final String text) {
         return equalsParserToken(tokens, text);
-    }
-
-    // removeFirstIf....................................................................................................
-
-    @Override
-    public Optional<NodeSelectorEqualsSymbolParserToken> removeFirstIf(final Predicate<ParserToken> predicate) {
-        return ParserToken.removeFirstIfLeaf(
-                this,
-                predicate,
-                NodeSelectorEqualsSymbolParserToken.class
-        );
-    }
-
-    // removeIf..........................................................................................................
-
-    @Override
-    public Optional<NodeSelectorEqualsSymbolParserToken> removeIf(final Predicate<ParserToken> predicate) {
-        return ParserToken.removeIfLeaf(
-                this,
-                predicate,
-                NodeSelectorEqualsSymbolParserToken.class
-        );
     }
 
     // replaceFirstIf...................................................................................................

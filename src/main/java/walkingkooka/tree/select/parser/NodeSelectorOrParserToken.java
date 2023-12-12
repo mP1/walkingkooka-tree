@@ -20,7 +20,6 @@ import walkingkooka.text.cursor.parser.ParserToken;
 import walkingkooka.visit.Visiting;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.function.Function;
 import java.util.function.Predicate;
 
@@ -48,28 +47,6 @@ public final class NodeSelectorOrParserToken extends NodeSelectorBinaryParserTok
                 this,
                 children,
                 NodeSelectorOrParserToken::with
-        );
-    }
-
-    // removeFirstIf....................................................................................................
-
-    @Override
-    public Optional<NodeSelectorOrParserToken> removeFirstIf(final Predicate<ParserToken> predicate) {
-        return ParserToken.removeFirstIfParent(
-                this,
-                predicate,
-                NodeSelectorOrParserToken.class
-        );
-    }
-
-    // removeIf.........................................................................................................
-
-    @Override
-    public Optional<NodeSelectorOrParserToken> removeIf(final Predicate<ParserToken> predicate) {
-        return ParserToken.removeIfParent(
-                this,
-                predicate,
-                NodeSelectorOrParserToken.class
         );
     }
 

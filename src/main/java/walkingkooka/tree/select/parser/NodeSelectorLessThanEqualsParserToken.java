@@ -21,7 +21,6 @@ import walkingkooka.text.cursor.parser.ParserToken;
 import walkingkooka.visit.Visiting;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.function.Function;
 import java.util.function.Predicate;
 
@@ -49,28 +48,6 @@ public final class NodeSelectorLessThanEqualsParserToken extends NodeSelectorBin
                 this,
                 children,
                 NodeSelectorLessThanEqualsParserToken::with
-        );
-    }
-
-    // removeFirstIf....................................................................................................
-
-    @Override
-    public Optional<NodeSelectorLessThanEqualsParserToken> removeFirstIf(final Predicate<ParserToken> predicate) {
-        return ParserToken.removeFirstIfParent(
-                this,
-                predicate,
-                NodeSelectorLessThanEqualsParserToken.class
-        );
-    }
-
-    // removeIf.........................................................................................................
-
-    @Override
-    public Optional<NodeSelectorLessThanEqualsParserToken> removeIf(final Predicate<ParserToken> predicate) {
-        return ParserToken.removeIfParent(
-                this,
-                predicate,
-                NodeSelectorLessThanEqualsParserToken.class
         );
     }
 
