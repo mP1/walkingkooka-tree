@@ -16,11 +16,6 @@
  */
 package walkingkooka.tree.select.parser;
 
-import walkingkooka.text.cursor.parser.ParserToken;
-
-import java.util.function.Function;
-import java.util.function.Predicate;
-
 /**
  * Holds an ancestor axis
  */
@@ -35,32 +30,6 @@ public final class NodeSelectorAncestorParserToken extends NodeSelectorNonSymbol
 
     private NodeSelectorAncestorParserToken(final String value, final String text) {
         super(value, text);
-    }
-
-    // replaceFirstIf...................................................................................................
-
-    @Override
-    public NodeSelectorAncestorParserToken replaceFirstIf(final Predicate<ParserToken> predicate,
-                                                          final Function<ParserToken, ParserToken> mapper) {
-        return ParserToken.replaceFirstIf(
-                this,
-                predicate,
-                mapper,
-                NodeSelectorAncestorParserToken.class
-        );
-    }
-
-    // replaceIf........................................................................................................
-
-    @Override
-    public NodeSelectorAncestorParserToken replaceIf(final Predicate<ParserToken> predicate,
-                                                     final Function<ParserToken, ParserToken> mapper) {
-        return ParserToken.replaceIf(
-                this,
-                predicate,
-                mapper,
-                NodeSelectorAncestorParserToken.class
-        );
     }
 
     // Visitor..........................................................................................................

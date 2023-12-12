@@ -20,8 +20,6 @@ import walkingkooka.text.cursor.parser.ParserToken;
 import walkingkooka.visit.Visiting;
 
 import java.util.List;
-import java.util.function.Function;
-import java.util.function.Predicate;
 
 /**
  * A parser token that holds an entire expression.
@@ -53,32 +51,6 @@ public final class NodeSelectorExpressionParserToken extends NodeSelectorParentP
                 this,
                 children,
                 NodeSelectorExpressionParserToken::new
-        );
-    }
-
-    // replaceFirstIf...................................................................................................
-
-    @Override
-    public NodeSelectorExpressionParserToken replaceFirstIf(final Predicate<ParserToken> predicate,
-                                                            final Function<ParserToken, ParserToken> mapper) {
-        return ParserToken.replaceFirstIf(
-                this,
-                predicate,
-                mapper,
-                NodeSelectorExpressionParserToken.class
-        );
-    }
-
-    // replaceIf........................................................................................................
-
-    @Override
-    public NodeSelectorExpressionParserToken replaceIf(final Predicate<ParserToken> predicate,
-                                                       final Function<ParserToken, ParserToken> mapper) {
-        return ParserToken.replaceIf(
-                this,
-                predicate,
-                mapper,
-                NodeSelectorExpressionParserToken.class
         );
     }
 

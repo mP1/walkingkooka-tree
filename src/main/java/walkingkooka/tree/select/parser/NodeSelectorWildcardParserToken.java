@@ -16,11 +16,6 @@
  */
 package walkingkooka.tree.select.parser;
 
-import walkingkooka.text.cursor.parser.ParserToken;
-
-import java.util.function.Function;
-import java.util.function.Predicate;
-
 /**
  * A token for "*"
  */
@@ -35,32 +30,6 @@ public final class NodeSelectorWildcardParserToken extends NodeSelectorNonSymbol
 
     private NodeSelectorWildcardParserToken(final String value, final String text) {
         super(value, text);
-    }
-
-    // replaceFirstIf...................................................................................................
-
-    @Override
-    public NodeSelectorWildcardParserToken replaceFirstIf(final Predicate<ParserToken> predicate,
-                                                          final Function<ParserToken, ParserToken> mapper) {
-        return ParserToken.replaceFirstIf(
-                this,
-                predicate,
-                mapper,
-                NodeSelectorWildcardParserToken.class
-        );
-    }
-
-    // replaceIf........................................................................................................
-
-    @Override
-    public NodeSelectorWildcardParserToken replaceIf(final Predicate<ParserToken> predicate,
-                                                     final Function<ParserToken, ParserToken> mapper) {
-        return ParserToken.replaceIf(
-                this,
-                predicate,
-                mapper,
-                NodeSelectorWildcardParserToken.class
-        );
     }
 
     // Visitor..........................................................................................................

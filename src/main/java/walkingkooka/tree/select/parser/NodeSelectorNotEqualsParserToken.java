@@ -21,8 +21,6 @@ import walkingkooka.text.cursor.parser.ParserToken;
 import walkingkooka.visit.Visiting;
 
 import java.util.List;
-import java.util.function.Function;
-import java.util.function.Predicate;
 
 /**
  * Parser token that represents an not equals condition including parameters.
@@ -48,32 +46,6 @@ public final class NodeSelectorNotEqualsParserToken extends NodeSelectorBinaryPa
                 this,
                 children,
                 NodeSelectorNotEqualsParserToken::with
-        );
-    }
-
-    // replaceFirstIf...................................................................................................
-
-    @Override
-    public NodeSelectorNotEqualsParserToken replaceFirstIf(final Predicate<ParserToken> predicate,
-                                                           final Function<ParserToken, ParserToken> mapper) {
-        return ParserToken.replaceFirstIf(
-                this,
-                predicate,
-                mapper,
-                NodeSelectorNotEqualsParserToken.class
-        );
-    }
-
-    // replaceIf........................................................................................................
-
-    @Override
-    public NodeSelectorNotEqualsParserToken replaceIf(final Predicate<ParserToken> predicate,
-                                                      final Function<ParserToken, ParserToken> mapper) {
-        return ParserToken.replaceIf(
-                this,
-                predicate,
-                mapper,
-                NodeSelectorNotEqualsParserToken.class
         );
     }
 

@@ -19,8 +19,6 @@ package walkingkooka.tree.select.parser;
 import walkingkooka.text.cursor.parser.ParserToken;
 
 import java.util.List;
-import java.util.function.Function;
-import java.util.function.Predicate;
 
 /**
  * Represents or symbol token.
@@ -48,32 +46,6 @@ public final class NodeSelectorOrSymbolParserToken extends NodeSelectorSymbolPar
     @Override
     NodeSelectorBinaryParserToken<?> binaryOperand(final List<ParserToken> tokens, final String text) {
         return or(tokens, text);
-    }
-
-    // replaceFirstIf...................................................................................................
-
-    @Override
-    public NodeSelectorOrSymbolParserToken replaceFirstIf(final Predicate<ParserToken> predicate,
-                                                          final Function<ParserToken, ParserToken> mapper) {
-        return ParserToken.replaceFirstIf(
-                this,
-                predicate,
-                mapper,
-                NodeSelectorOrSymbolParserToken.class
-        );
-    }
-
-    // replaceIf........................................................................................................
-
-    @Override
-    public NodeSelectorOrSymbolParserToken replaceIf(final Predicate<ParserToken> predicate,
-                                                     final Function<ParserToken, ParserToken> mapper) {
-        return ParserToken.replaceIf(
-                this,
-                predicate,
-                mapper,
-                NodeSelectorOrSymbolParserToken.class
-        );
     }
 
     // Visitor................................................................................................

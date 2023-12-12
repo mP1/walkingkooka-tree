@@ -20,8 +20,6 @@ import walkingkooka.text.cursor.parser.ParserToken;
 import walkingkooka.visit.Visiting;
 
 import java.util.List;
-import java.util.function.Function;
-import java.util.function.Predicate;
 
 /**
  * Holds an subtract operation.
@@ -47,32 +45,6 @@ public final class NodeSelectorSubtractionParserToken extends NodeSelectorBinary
                 this,
                 children,
                 NodeSelectorSubtractionParserToken::with
-        );
-    }
-
-    // replaceFirstIf...................................................................................................
-
-    @Override
-    public NodeSelectorSubtractionParserToken replaceFirstIf(final Predicate<ParserToken> predicate,
-                                                             final Function<ParserToken, ParserToken> mapper) {
-        return ParserToken.replaceFirstIf(
-                this,
-                predicate,
-                mapper,
-                NodeSelectorSubtractionParserToken.class
-        );
-    }
-
-    // replaceIf........................................................................................................
-
-    @Override
-    public NodeSelectorSubtractionParserToken replaceIf(final Predicate<ParserToken> predicate,
-                                                        final Function<ParserToken, ParserToken> mapper) {
-        return ParserToken.replaceIf(
-                this,
-                predicate,
-                mapper,
-                NodeSelectorSubtractionParserToken.class
         );
     }
 

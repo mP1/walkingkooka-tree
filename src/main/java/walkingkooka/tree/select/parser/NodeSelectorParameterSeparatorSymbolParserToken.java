@@ -16,11 +16,6 @@
  */
 package walkingkooka.tree.select.parser;
 
-import walkingkooka.text.cursor.parser.ParserToken;
-
-import java.util.function.Function;
-import java.util.function.Predicate;
-
 /**
  * Represents the separator between elements or key/value pairs belonging to arrays and objects.
  */
@@ -35,32 +30,6 @@ public final class NodeSelectorParameterSeparatorSymbolParserToken extends NodeS
 
     private NodeSelectorParameterSeparatorSymbolParserToken(final String value, final String text) {
         super(value, text);
-    }
-
-    // replaceFirstIf...................................................................................................
-
-    @Override
-    public NodeSelectorParameterSeparatorSymbolParserToken replaceFirstIf(final Predicate<ParserToken> predicate,
-                                                                          final Function<ParserToken, ParserToken> mapper) {
-        return ParserToken.replaceFirstIf(
-                this,
-                predicate,
-                mapper,
-                NodeSelectorParameterSeparatorSymbolParserToken.class
-        );
-    }
-
-    // replaceIf........................................................................................................
-
-    @Override
-    public NodeSelectorParameterSeparatorSymbolParserToken replaceIf(final Predicate<ParserToken> predicate,
-                                                                     final Function<ParserToken, ParserToken> mapper) {
-        return ParserToken.replaceIf(
-                this,
-                predicate,
-                mapper,
-                NodeSelectorParameterSeparatorSymbolParserToken.class
-        );
     }
 
     // Visitor.........................................................................................................

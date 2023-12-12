@@ -16,11 +16,6 @@
  */
 package walkingkooka.tree.select.parser;
 
-import walkingkooka.text.cursor.parser.ParserToken;
-
-import java.util.function.Function;
-import java.util.function.Predicate;
-
 /**
  * Represents a close object (parens) symbol token.
  */
@@ -35,32 +30,6 @@ public final class NodeSelectorParenthesisCloseSymbolParserToken extends NodeSel
 
     private NodeSelectorParenthesisCloseSymbolParserToken(final String value, final String text) {
         super(value, text);
-    }
-
-    // replaceFirstIf...................................................................................................
-
-    @Override
-    public NodeSelectorParenthesisCloseSymbolParserToken replaceFirstIf(final Predicate<ParserToken> predicate,
-                                                                        final Function<ParserToken, ParserToken> mapper) {
-        return ParserToken.replaceFirstIf(
-                this,
-                predicate,
-                mapper,
-                NodeSelectorParenthesisCloseSymbolParserToken.class
-        );
-    }
-
-    // replaceIf........................................................................................................
-
-    @Override
-    public NodeSelectorParenthesisCloseSymbolParserToken replaceIf(final Predicate<ParserToken> predicate,
-                                                                   final Function<ParserToken, ParserToken> mapper) {
-        return ParserToken.replaceIf(
-                this,
-                predicate,
-                mapper,
-                NodeSelectorParenthesisCloseSymbolParserToken.class
-        );
     }
 
     // Visitor..........................................................................................................
