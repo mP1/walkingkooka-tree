@@ -19,8 +19,6 @@ package walkingkooka.tree.select.parser;
 import walkingkooka.text.cursor.parser.ParserToken;
 
 import java.util.List;
-import java.util.function.Function;
-import java.util.function.Predicate;
 
 /**
  * Represents an equals sign parser token.
@@ -48,32 +46,6 @@ public final class NodeSelectorEqualsSymbolParserToken extends NodeSelectorSymbo
     @Override
     NodeSelectorBinaryParserToken<?> binaryOperand(final List<ParserToken> tokens, final String text) {
         return equalsParserToken(tokens, text);
-    }
-
-    // replaceFirstIf...................................................................................................
-
-    @Override
-    public NodeSelectorEqualsSymbolParserToken replaceFirstIf(final Predicate<ParserToken> predicate,
-                                                              final Function<ParserToken, ParserToken> mapper) {
-        return ParserToken.replaceFirstIf(
-                this,
-                predicate,
-                mapper,
-                NodeSelectorEqualsSymbolParserToken.class
-        );
-    }
-
-    // replaceIf........................................................................................................
-
-    @Override
-    public NodeSelectorEqualsSymbolParserToken replaceIf(final Predicate<ParserToken> predicate,
-                                                         final Function<ParserToken, ParserToken> mapper) {
-        return ParserToken.replaceIf(
-                this,
-                predicate,
-                mapper,
-                NodeSelectorEqualsSymbolParserToken.class
-        );
     }
 
     // Visitor................................................................................................

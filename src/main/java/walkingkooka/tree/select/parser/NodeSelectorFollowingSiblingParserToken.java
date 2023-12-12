@@ -16,11 +16,6 @@
  */
 package walkingkooka.tree.select.parser;
 
-import walkingkooka.text.cursor.parser.ParserToken;
-
-import java.util.function.Function;
-import java.util.function.Predicate;
-
 /**
  * Holds an following-sibling axis
  */
@@ -35,32 +30,6 @@ public final class NodeSelectorFollowingSiblingParserToken extends NodeSelectorN
 
     private NodeSelectorFollowingSiblingParserToken(final String value, final String text) {
         super(value, text);
-    }
-
-    // replaceFirstIf...................................................................................................
-
-    @Override
-    public NodeSelectorFollowingSiblingParserToken replaceFirstIf(final Predicate<ParserToken> predicate,
-                                                                  final Function<ParserToken, ParserToken> mapper) {
-        return ParserToken.replaceFirstIf(
-                this,
-                predicate,
-                mapper,
-                NodeSelectorFollowingSiblingParserToken.class
-        );
-    }
-
-    // replaceIf........................................................................................................
-
-    @Override
-    public NodeSelectorFollowingSiblingParserToken replaceIf(final Predicate<ParserToken> predicate,
-                                                             final Function<ParserToken, ParserToken> mapper) {
-        return ParserToken.replaceIf(
-                this,
-                predicate,
-                mapper,
-                NodeSelectorFollowingSiblingParserToken.class
-        );
     }
 
     // Visitor..........................................................................................................

@@ -16,11 +16,6 @@
  */
 package walkingkooka.tree.select.parser;
 
-import walkingkooka.text.cursor.parser.ParserToken;
-
-import java.util.function.Function;
-import java.util.function.Predicate;
-
 /**
  * Represents at sign symbol token that prefixes an attribute name.
  */
@@ -35,32 +30,6 @@ public final class NodeSelectorAtSignSymbolParserToken extends NodeSelectorNonBi
 
     private NodeSelectorAtSignSymbolParserToken(final String value, final String text) {
         super(value, text);
-    }
-
-    // replaceFirstIf...................................................................................................
-
-    @Override
-    public NodeSelectorAtSignSymbolParserToken replaceFirstIf(final Predicate<ParserToken> predicate,
-                                                              final Function<ParserToken, ParserToken> mapper) {
-        return ParserToken.replaceFirstIf(
-                this,
-                predicate,
-                mapper,
-                NodeSelectorAtSignSymbolParserToken.class
-        );
-    }
-
-    // replaceIf........................................................................................................
-
-    @Override
-    public NodeSelectorAtSignSymbolParserToken replaceIf(final Predicate<ParserToken> predicate,
-                                                         final Function<ParserToken, ParserToken> mapper) {
-        return ParserToken.replaceIf(
-                this,
-                predicate,
-                mapper,
-                NodeSelectorAtSignSymbolParserToken.class
-        );
     }
 
     // Visitor.........................................................................................................

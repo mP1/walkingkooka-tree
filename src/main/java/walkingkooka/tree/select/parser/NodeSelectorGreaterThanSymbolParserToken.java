@@ -19,8 +19,6 @@ package walkingkooka.tree.select.parser;
 import walkingkooka.text.cursor.parser.ParserToken;
 
 import java.util.List;
-import java.util.function.Function;
-import java.util.function.Predicate;
 
 /**
  * Represents a greater than equals sign in a comparison parser token.
@@ -48,32 +46,6 @@ public final class NodeSelectorGreaterThanSymbolParserToken extends NodeSelector
     @Override
     NodeSelectorBinaryParserToken<?> binaryOperand(final List<ParserToken> tokens, final String text) {
         return greaterThan(tokens, text);
-    }
-
-    // replaceFirstIf...................................................................................................
-
-    @Override
-    public NodeSelectorGreaterThanSymbolParserToken replaceFirstIf(final Predicate<ParserToken> predicate,
-                                                                   final Function<ParserToken, ParserToken> mapper) {
-        return ParserToken.replaceFirstIf(
-                this,
-                predicate,
-                mapper,
-                NodeSelectorGreaterThanSymbolParserToken.class
-        );
-    }
-
-    // replaceIf........................................................................................................
-
-    @Override
-    public NodeSelectorGreaterThanSymbolParserToken replaceIf(final Predicate<ParserToken> predicate,
-                                                              final Function<ParserToken, ParserToken> mapper) {
-        return ParserToken.replaceIf(
-                this,
-                predicate,
-                mapper,
-                NodeSelectorGreaterThanSymbolParserToken.class
-        );
     }
 
     // Visitor................................................................................................

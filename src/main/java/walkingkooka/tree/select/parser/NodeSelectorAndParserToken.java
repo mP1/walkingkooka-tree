@@ -20,8 +20,6 @@ import walkingkooka.text.cursor.parser.ParserToken;
 import walkingkooka.visit.Visiting;
 
 import java.util.List;
-import java.util.function.Function;
-import java.util.function.Predicate;
 
 /**
  * Holds two selectors joined by an AND.
@@ -46,32 +44,6 @@ public final class NodeSelectorAndParserToken extends NodeSelectorBinaryParserTo
                 this,
                 children,
                 NodeSelectorAndParserToken::with
-        );
-    }
-
-    // replaceFirstIf...................................................................................................
-
-    @Override
-    public NodeSelectorAndParserToken replaceFirstIf(final Predicate<ParserToken> predicate,
-                                                     final Function<ParserToken, ParserToken> mapper) {
-        return ParserToken.replaceFirstIf(
-                this,
-                predicate,
-                mapper,
-                NodeSelectorAndParserToken.class
-        );
-    }
-
-    // replaceIf........................................................................................................
-
-    @Override
-    public NodeSelectorAndParserToken replaceIf(final Predicate<ParserToken> predicate,
-                                                final Function<ParserToken, ParserToken> mapper) {
-        return ParserToken.replaceIf(
-                this,
-                predicate,
-                mapper,
-                NodeSelectorAndParserToken.class
         );
     }
 

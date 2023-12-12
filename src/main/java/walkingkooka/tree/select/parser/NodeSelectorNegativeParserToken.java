@@ -20,8 +20,6 @@ import walkingkooka.text.cursor.parser.ParserToken;
 import walkingkooka.visit.Visiting;
 
 import java.util.List;
-import java.util.function.Function;
-import java.util.function.Predicate;
 
 /**
  * Holds a unary negative token with an argument such as a number or namedFunction.
@@ -61,32 +59,6 @@ public final class NodeSelectorNegativeParserToken extends NodeSelectorParentPar
                 this,
                 children,
                 NodeSelectorNegativeParserToken::new
-        );
-    }
-
-    // replaceFirstIf...................................................................................................
-
-    @Override
-    public NodeSelectorNegativeParserToken replaceFirstIf(final Predicate<ParserToken> predicate,
-                                                          final Function<ParserToken, ParserToken> mapper) {
-        return ParserToken.replaceFirstIf(
-                this,
-                predicate,
-                mapper,
-                NodeSelectorNegativeParserToken.class
-        );
-    }
-
-    // replaceIf........................................................................................................
-
-    @Override
-    public NodeSelectorNegativeParserToken replaceIf(final Predicate<ParserToken> predicate,
-                                                     final Function<ParserToken, ParserToken> mapper) {
-        return ParserToken.replaceIf(
-                this,
-                predicate,
-                mapper,
-                NodeSelectorNegativeParserToken.class
         );
     }
 

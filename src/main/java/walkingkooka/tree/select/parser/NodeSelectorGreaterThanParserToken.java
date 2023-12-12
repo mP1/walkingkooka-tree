@@ -21,8 +21,6 @@ import walkingkooka.text.cursor.parser.ParserToken;
 import walkingkooka.visit.Visiting;
 
 import java.util.List;
-import java.util.function.Function;
-import java.util.function.Predicate;
 
 /**
  * Parser token that represents an greater than condition including parameters.
@@ -48,32 +46,6 @@ public final class NodeSelectorGreaterThanParserToken extends NodeSelectorBinary
                 this,
                 children,
                 NodeSelectorGreaterThanParserToken::with
-        );
-    }
-
-    // replaceFirstIf...................................................................................................
-
-    @Override
-    public NodeSelectorGreaterThanParserToken replaceFirstIf(final Predicate<ParserToken> predicate,
-                                                             final Function<ParserToken, ParserToken> mapper) {
-        return ParserToken.replaceFirstIf(
-                this,
-                predicate,
-                mapper,
-                NodeSelectorGreaterThanParserToken.class
-        );
-    }
-
-    // replaceIf........................................................................................................
-
-    @Override
-    public NodeSelectorGreaterThanParserToken replaceIf(final Predicate<ParserToken> predicate,
-                                                        final Function<ParserToken, ParserToken> mapper) {
-        return ParserToken.replaceIf(
-                this,
-                predicate,
-                mapper,
-                NodeSelectorGreaterThanParserToken.class
         );
     }
 

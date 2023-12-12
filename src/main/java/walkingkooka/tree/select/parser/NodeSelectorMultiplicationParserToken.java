@@ -20,8 +20,6 @@ import walkingkooka.text.cursor.parser.ParserToken;
 import walkingkooka.visit.Visiting;
 
 import java.util.List;
-import java.util.function.Function;
-import java.util.function.Predicate;
 
 /**
  * Holds an multiply
@@ -47,32 +45,6 @@ public final class NodeSelectorMultiplicationParserToken extends NodeSelectorBin
                 this,
                 children,
                 NodeSelectorMultiplicationParserToken::with
-        );
-    }
-
-    // replaceFirstIf...................................................................................................
-
-    @Override
-    public NodeSelectorMultiplicationParserToken replaceFirstIf(final Predicate<ParserToken> predicate,
-                                                                final Function<ParserToken, ParserToken> mapper) {
-        return ParserToken.replaceFirstIf(
-                this,
-                predicate,
-                mapper,
-                NodeSelectorMultiplicationParserToken.class
-        );
-    }
-
-    // replaceIf........................................................................................................
-
-    @Override
-    public NodeSelectorMultiplicationParserToken replaceIf(final Predicate<ParserToken> predicate,
-                                                           final Function<ParserToken, ParserToken> mapper) {
-        return ParserToken.replaceIf(
-                this,
-                predicate,
-                mapper,
-                NodeSelectorMultiplicationParserToken.class
         );
     }
 

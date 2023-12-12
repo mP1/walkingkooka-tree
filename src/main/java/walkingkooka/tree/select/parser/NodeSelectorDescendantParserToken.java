@@ -16,11 +16,6 @@
  */
 package walkingkooka.tree.select.parser;
 
-import walkingkooka.text.cursor.parser.ParserToken;
-
-import java.util.function.Function;
-import java.util.function.Predicate;
-
 /**
  * Holds a descendant selector.
  */
@@ -35,32 +30,6 @@ public final class NodeSelectorDescendantParserToken extends NodeSelectorNonSymb
 
     private NodeSelectorDescendantParserToken(final String value, final String text) {
         super(value, text);
-    }
-
-    // replaceFirstIf...................................................................................................
-
-    @Override
-    public NodeSelectorDescendantParserToken replaceFirstIf(final Predicate<ParserToken> predicate,
-                                                            final Function<ParserToken, ParserToken> mapper) {
-        return ParserToken.replaceFirstIf(
-                this,
-                predicate,
-                mapper,
-                NodeSelectorDescendantParserToken.class
-        );
-    }
-
-    // replaceIf........................................................................................................
-
-    @Override
-    public NodeSelectorDescendantParserToken replaceIf(final Predicate<ParserToken> predicate,
-                                                       final Function<ParserToken, ParserToken> mapper) {
-        return ParserToken.replaceIf(
-                this,
-                predicate,
-                mapper,
-                NodeSelectorDescendantParserToken.class
-        );
     }
 
     // Visitor..........................................................................................................

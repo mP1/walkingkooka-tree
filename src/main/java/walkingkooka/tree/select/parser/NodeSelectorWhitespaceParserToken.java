@@ -16,11 +16,6 @@
  */
 package walkingkooka.tree.select.parser;
 
-import walkingkooka.text.cursor.parser.ParserToken;
-
-import java.util.function.Function;
-import java.util.function.Predicate;
-
 /**
  * Holds the combination any whitespace that may appear within a selector.
  */
@@ -35,32 +30,6 @@ public final class NodeSelectorWhitespaceParserToken extends NodeSelectorNonBina
 
     private NodeSelectorWhitespaceParserToken(final String value, final String text) {
         super(value, text);
-    }
-
-    // replaceFirstIf...................................................................................................
-
-    @Override
-    public NodeSelectorWhitespaceParserToken replaceFirstIf(final Predicate<ParserToken> predicate,
-                                                            final Function<ParserToken, ParserToken> mapper) {
-        return ParserToken.replaceFirstIf(
-                this,
-                predicate,
-                mapper,
-                NodeSelectorWhitespaceParserToken.class
-        );
-    }
-
-    // replaceIf........................................................................................................
-
-    @Override
-    public NodeSelectorWhitespaceParserToken replaceIf(final Predicate<ParserToken> predicate,
-                                                       final Function<ParserToken, ParserToken> mapper) {
-        return ParserToken.replaceIf(
-                this,
-                predicate,
-                mapper,
-                NodeSelectorWhitespaceParserToken.class
-        );
     }
 
     // Visitor.........................................................................................................

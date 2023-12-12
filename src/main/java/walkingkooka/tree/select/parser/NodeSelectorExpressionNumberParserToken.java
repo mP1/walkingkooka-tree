@@ -16,11 +16,7 @@
  */
 package walkingkooka.tree.select.parser;
 
-import walkingkooka.text.cursor.parser.ParserToken;
 import walkingkooka.tree.expression.ExpressionNumber;
-
-import java.util.function.Function;
-import java.util.function.Predicate;
 
 /**
  * Holds a single decimal number.
@@ -35,32 +31,6 @@ public final class NodeSelectorExpressionNumberParserToken extends NodeSelectorN
 
     private NodeSelectorExpressionNumberParserToken(final ExpressionNumber value, final String text) {
         super(value, text);
-    }
-
-    // replaceFirstIf...................................................................................................
-
-    @Override
-    public NodeSelectorExpressionNumberParserToken replaceFirstIf(final Predicate<ParserToken> predicate,
-                                                                  final Function<ParserToken, ParserToken> mapper) {
-        return ParserToken.replaceFirstIf(
-                this,
-                predicate,
-                mapper,
-                NodeSelectorExpressionNumberParserToken.class
-        );
-    }
-
-    // replaceIf........................................................................................................
-
-    @Override
-    public NodeSelectorExpressionNumberParserToken replaceIf(final Predicate<ParserToken> predicate,
-                                                             final Function<ParserToken, ParserToken> mapper) {
-        return ParserToken.replaceIf(
-                this,
-                predicate,
-                mapper,
-                NodeSelectorExpressionNumberParserToken.class
-        );
     }
 
     // Visitor..........................................................................................................

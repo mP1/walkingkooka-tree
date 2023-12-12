@@ -16,11 +16,6 @@
  */
 package walkingkooka.tree.select.parser;
 
-import walkingkooka.text.cursor.parser.ParserToken;
-
-import java.util.function.Function;
-import java.util.function.Predicate;
-
 /**
  * Holds an attribute name.
  */
@@ -35,32 +30,6 @@ public final class NodeSelectorAttributeNameParserToken extends NodeSelectorNonS
 
     private NodeSelectorAttributeNameParserToken(final NodeSelectorAttributeName value, final String text) {
         super(value, text);
-    }
-
-    // replaceFirstIf...................................................................................................
-
-    @Override
-    public NodeSelectorAttributeNameParserToken replaceFirstIf(final Predicate<ParserToken> predicate,
-                                                               final Function<ParserToken, ParserToken> mapper) {
-        return ParserToken.replaceFirstIf(
-                this,
-                predicate,
-                mapper,
-                NodeSelectorAttributeNameParserToken.class
-        );
-    }
-
-    // replaceIf........................................................................................................
-
-    @Override
-    public NodeSelectorAttributeNameParserToken replaceIf(final Predicate<ParserToken> predicate,
-                                                          final Function<ParserToken, ParserToken> mapper) {
-        return ParserToken.replaceIf(
-                this,
-                predicate,
-                mapper,
-                NodeSelectorAttributeNameParserToken.class
-        );
     }
 
     // Visitor..........................................................................................................

@@ -16,11 +16,6 @@
  */
 package walkingkooka.tree.select.parser;
 
-import walkingkooka.text.cursor.parser.ParserToken;
-
-import java.util.function.Function;
-import java.util.function.Predicate;
-
 /**
  * Represents a predicate / close bracket symbol token.
  */
@@ -35,32 +30,6 @@ public final class NodeSelectorBracketCloseSymbolParserToken extends NodeSelecto
 
     private NodeSelectorBracketCloseSymbolParserToken(final String value, final String text) {
         super(value, text);
-    }
-
-    // replaceFirstIf...................................................................................................
-
-    @Override
-    public NodeSelectorBracketCloseSymbolParserToken replaceFirstIf(final Predicate<ParserToken> predicate,
-                                                                    final Function<ParserToken, ParserToken> mapper) {
-        return ParserToken.replaceFirstIf(
-                this,
-                predicate,
-                mapper,
-                NodeSelectorBracketCloseSymbolParserToken.class
-        );
-    }
-
-    // replaceIf........................................................................................................
-
-    @Override
-    public NodeSelectorBracketCloseSymbolParserToken replaceIf(final Predicate<ParserToken> predicate,
-                                                               final Function<ParserToken, ParserToken> mapper) {
-        return ParserToken.replaceIf(
-                this,
-                predicate,
-                mapper,
-                NodeSelectorBracketCloseSymbolParserToken.class
-        );
     }
 
     // Visitor..........................................................................................................
