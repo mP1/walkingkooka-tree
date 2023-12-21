@@ -113,6 +113,16 @@ public interface NodeTesting<N extends Node<N, NAME, ANAME, AVALUE>,
     }
 
     @Test
+    default void testSetChildrenWithNullFails() {
+        final N node = this.createNode();
+
+        assertThrows(
+                NullPointerException.class,
+                () -> node.setChildren(null)
+        );
+    }
+
+    @Test
     default void testSetChildIndexInvalidFails() {
         final N node = this.createNode();
 
