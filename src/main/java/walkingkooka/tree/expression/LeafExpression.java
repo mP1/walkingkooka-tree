@@ -56,7 +56,12 @@ abstract class LeafExpression<V> extends Expression implements Value<V> {
     @Override
     public final Expression setChildren(final List<Expression> children) {
         Objects.requireNonNull(children, "children");
-        throw new UnsupportedOperationException();
+
+        if(false == children.isEmpty()) {
+            throw new UnsupportedOperationException();
+        }
+
+        return this;
     }
 
     @Override final Expression setChild(final Expression newChild) {
