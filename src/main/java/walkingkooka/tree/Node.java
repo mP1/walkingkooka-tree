@@ -28,6 +28,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.function.Function;
+import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 /**
  * A node is part of a tree holding branches and leaves all of which are nodes.
@@ -133,6 +136,29 @@ public interface Node<N extends Node<N, NAME, ANAME, AVALUE>,
                 .findFirst()
                 .map(c -> this.replaceChild(c, child))
                 .orElse(this.appendChild(child));
+    }
+
+    /**
+     * Conditionally replaces any nodes that a matched by the {@link Predicate} and then mapped by the {@link Function mapper}.
+     */
+    default N replaceIf(final Predicate<N> predicate,
+                        final Function<N, N> mapper) {
+        Objects.requireNonNull(predicate, "predicate");
+        Objects.requireNonNull(mapper, "mapper");
+
+        N result = (N) this;
+        if (predicate.test(result)) {
+            result = mapper.apply(result);
+        } else {
+            result = result.setChildren(
+                    this.children()
+                            .stream()
+                            .map(n -> n.replaceIf(predicate, mapper))
+                            .collect(Collectors.toList())
+            );
+        }
+
+        return result;
     }
 
     /**

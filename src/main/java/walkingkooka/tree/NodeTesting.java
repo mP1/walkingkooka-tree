@@ -20,6 +20,7 @@ package walkingkooka.tree;
 import org.junit.jupiter.api.Test;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.naming.Name;
+import walkingkooka.predicate.Predicates;
 import walkingkooka.reflect.MethodAttributes;
 import walkingkooka.tree.select.NodeSelector;
 import walkingkooka.tree.select.NodeSelectorTesting;
@@ -30,6 +31,7 @@ import java.lang.reflect.Method;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
+import java.util.function.Function;
 import java.util.function.Predicate;
 
 import static org.junit.jupiter.api.Assertions.assertNotSame;
@@ -171,6 +173,58 @@ public interface NodeTesting<N extends Node<N, NAME, ANAME, AVALUE>,
         );
     }
 
+    // replaceIf........................................................................................................
+
+    @Test
+    default void testReplaceIfNullPredicateFails() {
+        final N node = this.createNode();
+
+        assertThrows(
+                NullPointerException.class,
+                () -> node.replaceIf(
+                        null,
+                        Function.identity() // mapper
+                )
+        );
+    }
+
+    @Test
+    default void testReplaceIfNullMapperFails() {
+        final N node = this.createNode();
+
+        assertThrows(
+                NullPointerException.class,
+                () -> node.replaceIf(
+                        Predicates.fake(),
+                        null // mapper
+                )
+        );
+    }
+
+    @Test
+    default void tetReplaceIfNeverPredicate() {
+        final N node = this.createNode();
+        assertSame(
+                node,
+                node.replaceIf(
+                        Predicates.never(),
+                        Function.identity()
+                )
+        );
+    }
+
+    @Test
+    default void tetReplaceIfIdentityMapper() {
+        final N node = this.createNode();
+        assertSame(
+                node,
+                node.replaceIf(
+                        Predicates.always(),
+                        Function.identity()
+                )
+        );
+    }
+
     @Test
     default void testPropertiesNeverReturnNull() throws Exception {
         this.allPropertiesNeverReturnNullCheck(this.createNode(),
@@ -230,6 +284,22 @@ public interface NodeTesting<N extends Node<N, NAME, ANAME, AVALUE>,
                 node.replace(replaceWith),
                 () -> node + " replace with " + replaceWith);
         this.checkEquals(result.pointer(), node.pointer(), () -> "pointer for\n" + node + "\n" + result);
+    }
+
+    // replaceIf........................................................................................................
+
+    default void replaceIfAndCheck(final N node,
+                                   final Predicate<N> predicate,
+                                   final Function<N, N> mapper,
+                                   final N result) {
+        this.checkEquals(
+                result,
+                node.replaceIf(
+                        predicate,
+                        mapper
+                ),
+                () -> node + " replaceIf " + predicate + " " + mapper
+        );
     }
 
     // appendChild......................................................................................................
