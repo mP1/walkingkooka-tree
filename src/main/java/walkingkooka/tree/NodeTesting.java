@@ -236,6 +236,8 @@ public interface NodeTesting<N extends Node<N, NAME, ANAME, AVALUE>,
         return newParent;
     }
 
+    // setChildren......................................................................................................
+
     @SuppressWarnings("unchecked")
     default N setChildrenAndCheck(final N parent,
                                   final N... children) {
