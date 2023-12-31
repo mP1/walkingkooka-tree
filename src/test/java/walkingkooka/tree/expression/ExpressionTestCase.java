@@ -34,6 +34,7 @@ import walkingkooka.reflect.IsMethodTesting;
 import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.reflect.PublicStaticFactoryTesting;
 import walkingkooka.text.CaseSensitivity;
+import walkingkooka.text.HasTextTesting;
 import walkingkooka.text.cursor.parser.DoubleParserToken;
 import walkingkooka.text.cursor.parser.LocalDateParserToken;
 import walkingkooka.text.cursor.parser.LocalDateTimeParserToken;
@@ -58,6 +59,7 @@ import java.util.function.Predicate;
 
 public abstract class ExpressionTestCase<N extends Expression> implements TreePrintableTesting,
         ClassTesting2<Expression>,
+        HasTextTesting,
         ExpressionPurityTesting,
         IsMethodTesting<N>,
         NodeTesting<Expression, FunctionExpressionName, Name, Object> {
@@ -80,6 +82,20 @@ public abstract class ExpressionTestCase<N extends Expression> implements TreePr
     public final void testSetSameAttributes() {
         // Ignored
     }
+
+    // HasText.........................................................................................................
+
+    @Test
+    public final void testText() {
+        final Expression expression = this.createExpression();
+
+        this.textAndCheck(
+                expression,
+                expression.toString()
+        );
+    }
+
+    // helper..........................................................................................................
 
     @Override
     public Expression createNode() {
