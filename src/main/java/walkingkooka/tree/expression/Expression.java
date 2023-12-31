@@ -21,6 +21,7 @@ import walkingkooka.Cast;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.naming.Name;
+import walkingkooka.text.HasText;
 import walkingkooka.text.printer.IndentingPrinter;
 import walkingkooka.text.printer.TreePrintable;
 import walkingkooka.tree.Node;
@@ -48,6 +49,7 @@ import java.util.function.Predicate;
  */
 public abstract class Expression implements Node<Expression, FunctionExpressionName, Name, Object>,
         ExpressionPurity,
+        HasText,
         TreePrintable {
 
     /**
@@ -597,6 +599,13 @@ public abstract class Expression implements Node<Expression, FunctionExpressionN
     }
 
     abstract void toString0(final StringBuilder b);
+
+    // HasText.. .......................................................................................................
+
+    @Override
+    public String text() {
+        return this.toString();
+    }
 
     // NodeSelector .......................................................................................................
 
