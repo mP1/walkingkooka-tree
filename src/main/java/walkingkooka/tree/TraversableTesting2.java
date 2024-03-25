@@ -107,6 +107,13 @@ public interface TraversableTesting2<T extends Traversable<T>>
         assertSame(value, value2, () -> traversable + " did not cache " + property);
     }
 
+    // CanBeEmptyTesting................................................................................................
+
+    @Override
+    default T createCanBeEmpty() {
+        return this.createObject();
+    }
+
     // HashcodeAndEqualityTesting.......................................................................................
 
     @Override
