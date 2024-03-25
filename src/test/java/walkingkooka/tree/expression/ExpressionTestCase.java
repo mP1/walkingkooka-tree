@@ -510,7 +510,10 @@ public abstract class ExpressionTestCase<N extends Expression> implements TreePr
 
     @Override
     public final Predicate<String> isMethodIgnoreMethodFilter() {
-        return (m) -> m.equals("isRoot") || m.equals("parentOrFail") || m.equals("isPure");
+        return (m) -> m.equals("isRoot") ||
+                m.equals("parentOrFail") ||
+                m.equals("isPure") ||
+                m.equals("isEmpty");
     }
 
     // ClassTestCase.........................................................................................
