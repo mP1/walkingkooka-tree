@@ -17,6 +17,7 @@
 
 package walkingkooka.tree;
 
+import walkingkooka.CanBeEmpty;
 import walkingkooka.Cast;
 
 import java.util.Iterator;
@@ -26,7 +27,7 @@ import java.util.Optional;
 /**
  * A {@link Traversable} is part of a tree holding branches and leaves all of which are traversables.
  */
-public interface Traversable<T extends Traversable<T>> {
+public interface Traversable<T extends Traversable<T>> extends CanBeEmpty {
 
     /**
      * Standard index response to indicate a unsuccessful scan of an item in a list.
@@ -155,5 +156,15 @@ public interface Traversable<T extends Traversable<T>> {
      */
     default Iterator<T> traversableIterator() {
         return TraversableIterator.with(Cast.to(this));
+    }
+
+    // CanBeEmpty.......................................................................................................
+
+    /**
+     * Returns true if the children is empty
+     */
+    @Override
+    default boolean isEmpty() {
+        return this.children().isEmpty();
     }
 }
