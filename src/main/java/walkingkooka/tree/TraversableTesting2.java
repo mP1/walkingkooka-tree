@@ -18,6 +18,7 @@
 package walkingkooka.tree;
 
 import org.junit.jupiter.api.Test;
+import walkingkooka.CanBeEmptyTesting;
 import walkingkooka.HashCodeEqualsDefinedTesting2;
 import walkingkooka.ToStringTesting;
 import walkingkooka.collect.list.Lists;
@@ -34,6 +35,7 @@ import static org.junit.jupiter.api.Assertions.assertSame;
  */
 public interface TraversableTesting2<T extends Traversable<T>>
         extends BeanPropertiesTesting,
+        CanBeEmptyTesting<T>,
         HashCodeEqualsDefinedTesting2<T>,
         ToStringTesting<T>,
         TraversableTesting,
