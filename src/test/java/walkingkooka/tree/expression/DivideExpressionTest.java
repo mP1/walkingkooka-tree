@@ -21,9 +21,11 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.visit.Visiting;
 
+import java.math.MathContext;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class DivideExpressionTest extends BinaryArithmeticExpressionTestCase2<DivideExpression> {
 
@@ -78,6 +80,37 @@ public final class DivideExpressionTest extends BinaryArithmeticExpressionTestCa
                         division, division),
                 visited,
                 "visited");
+    }
+
+    @Test
+    public void testEvaluateDivideByZeroBigDecimal() {
+        this.divideByZeroAndCheck(ExpressionNumberKind.BIG_DECIMAL);
+    }
+
+    @Test
+    public void testEvaluateDivideByZeroDouble() {
+        this.divideByZeroAndCheck(ExpressionNumberKind.DOUBLE);
+    }
+
+    private void divideByZeroAndCheck(final ExpressionNumberKind kind) {
+        final ExpressionEvaluationException thrown = assertThrows(
+                ExpressionEvaluationException.class,
+                () -> kind.one()
+                        .divide(
+                                kind.zero(),
+                                new FakeExpressionNumberContext() {
+                                    @Override
+                                    public MathContext mathContext() {
+                                        return MathContext.DECIMAL32;
+                                    }
+                                }
+                        )
+        );
+
+        this.checkEquals(
+                "Division by zero",
+                thrown.getMessage()
+        );
     }
 
     // toBoolean...............................................................................................
