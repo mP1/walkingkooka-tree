@@ -202,7 +202,7 @@ public interface NodeTesting<N extends Node<N, NAME, ANAME, AVALUE>,
     }
 
     @Test
-    default void tetReplaceIfNeverPredicate() {
+    default void testReplaceIfNeverPredicate() {
         final N node = this.createNode();
         assertSame(
                 node,
@@ -214,7 +214,7 @@ public interface NodeTesting<N extends Node<N, NAME, ANAME, AVALUE>,
     }
 
     @Test
-    default void tetReplaceIfIdentityMapper() {
+    default void testReplaceIfIdentityMapper() {
         final N node = this.createNode();
         assertSame(
                 node,
