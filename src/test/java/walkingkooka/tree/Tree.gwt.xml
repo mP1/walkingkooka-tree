@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<module>
-    <inherits name="walkingkooka.convert.Convert"/>
-    <inherits name="walkingkooka.text.cursor.parser.ebnf.Ebnf"/>
-
-    <source path=""/>
-</module>
