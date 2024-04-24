@@ -30,6 +30,9 @@ import walkingkooka.text.CharSequences;
 public final class FunctionExpressionName implements Name,
         Comparable<FunctionExpressionName> {
 
+    /**
+     * Factory that creates a new {@link FunctionExpressionName} after verifying the given characters are acceptable.
+     */
     public static FunctionExpressionName with(final String name) {
         CharPredicates.failIfNullOrEmptyOrInitialAndPartFalse(
                 name,
