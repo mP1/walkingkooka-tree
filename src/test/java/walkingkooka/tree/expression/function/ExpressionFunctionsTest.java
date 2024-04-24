@@ -69,7 +69,7 @@ public final class ExpressionFunctionsTest implements PublicStaticHelperTesting<
                         )
         );
         this.checkEquals(
-                "Anonymous namedFunction encountered",
+                "Anonymous functions are not supported",
                 thrown.getMessage(),
                 "message"
         );
@@ -88,7 +88,8 @@ public final class ExpressionFunctionsTest implements PublicStaticHelperTesting<
                 )
         );
         this.checkEquals(
-                "Duplicate namedFunction \"duplicate123\"",
+                "Duplicate f" +
+                        "unction \"duplicate123\"",
                 thrown.getMessage(),
                 "message"
         );
@@ -107,7 +108,7 @@ public final class ExpressionFunctionsTest implements PublicStaticHelperTesting<
                 )
         );
         this.checkEquals(
-                "Duplicate namedFunction \"DUPLICATE123\"",
+                "Duplicate function \"DUPLICATE123\"",
                 thrown.getMessage(),
                 "message"
         );

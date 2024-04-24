@@ -58,13 +58,13 @@ public final class ExpressionFunctions implements PublicStaticHelper {
 
         for (final ExpressionFunction<?, C> function : functions) {
             final String name = function.name()
-                    .orElseThrow(() -> new IllegalArgumentException("Anonymous namedFunction encountered"))
+                    .orElseThrow(() -> new IllegalArgumentException("Anonymous functions are not supported"))
                     .value();
             if (null != nameToFunctions.put(
                     name,
                     function
             )) {
-                throw new IllegalArgumentException("Duplicate namedFunction " + CharSequences.quote(name));
+                throw new IllegalArgumentException("Duplicate function " + CharSequences.quote(name));
             }
         }
 
