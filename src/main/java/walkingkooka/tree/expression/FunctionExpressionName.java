@@ -113,4 +113,6 @@ public final class FunctionExpressionName implements Name,
     }
 
     private final static CaseSensitivity CASE_SENSITIVITY = CaseSensitivity.SENSITIVE;
+
+    // Comparator.......................................................................................................
 }
