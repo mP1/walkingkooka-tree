@@ -24,6 +24,8 @@ import walkingkooka.predicate.character.CharPredicates;
 import walkingkooka.text.CaseSensitivity;
 import walkingkooka.text.CharSequences;
 
+import java.util.Comparator;
+
 /**
  * The name of an {@link NamedFunctionExpression}.
  */
@@ -118,4 +120,11 @@ public final class FunctionExpressionName implements Name,
     private final static CaseSensitivity CASE_SENSITIVITY = CaseSensitivity.SENSITIVE;
 
     // Comparator.......................................................................................................
+
+    /**
+     * {@see FunctionExpressionNameComparator}
+     */
+    public static Comparator<FunctionExpressionName> comparator(final CaseSensitivity caseSensitivity) {
+        return FunctionExpressionNameComparator.with(caseSensitivity);
+    }
 }

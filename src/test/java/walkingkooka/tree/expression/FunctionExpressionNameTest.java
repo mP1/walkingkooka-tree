@@ -18,10 +18,13 @@
 package walkingkooka.tree.expression;
 
 import org.junit.jupiter.api.Test;
+import walkingkooka.collect.list.Lists;
 import walkingkooka.naming.NameTesting2;
 import walkingkooka.reflect.ClassTesting2;
 import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.text.CaseSensitivity;
+
+import java.util.List;
 
 public final class FunctionExpressionNameTest implements ClassTesting2<FunctionExpressionName>,
         NameTesting2<FunctionExpressionName, FunctionExpressionName> {
@@ -36,6 +39,46 @@ public final class FunctionExpressionNameTest implements ClassTesting2<FunctionE
         this.checkEquals(
                 "Function not found: \"abc123\"",
                 FunctionExpressionName.with("abc123").notFoundText()
+        );
+    }
+
+    @Test
+    public void testComparatorCaseSensitive() {
+        final FunctionExpressionName name1 = FunctionExpressionName.with("abc");
+        final FunctionExpressionName name2 = FunctionExpressionName.with("def");
+        final FunctionExpressionName name3 = FunctionExpressionName.with("XYZ");
+
+        final List<FunctionExpressionName> sorted = Lists.array();
+        sorted.add(name1);
+        sorted.add(name2);
+        sorted.add(name3);
+        sorted.sort(FunctionExpressionName.comparator(CaseSensitivity.SENSITIVE));
+
+        this.checkEquals(
+                Lists.of(
+                        name3, name1, name2
+                ),
+                sorted
+        );
+    }
+
+    @Test
+    public void testComparatorCaseInsensitive() {
+        final FunctionExpressionName name1 = FunctionExpressionName.with("abc");
+        final FunctionExpressionName name2 = FunctionExpressionName.with("def");
+        final FunctionExpressionName name3 = FunctionExpressionName.with("XYZ");
+
+        final List<FunctionExpressionName> sorted = Lists.array();
+        sorted.add(name1);
+        sorted.add(name2);
+        sorted.add(name3);
+        sorted.sort(FunctionExpressionName.comparator(CaseSensitivity.INSENSITIVE));
+
+        this.checkEquals(
+                Lists.of(
+                        name1, name2, name3
+                ),
+                sorted
         );
     }
 
