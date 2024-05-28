@@ -94,7 +94,7 @@ final public class NamedFunctionExpression extends LeafExpression<FunctionExpres
 
     @Override
     ExpressionFunction<?, ExpressionEvaluationContext> function(final ExpressionEvaluationContext context) {
-        return context.function(this.value);
+        return context.expressionFunctionOrFail(this.value);
     }
 
     @Override

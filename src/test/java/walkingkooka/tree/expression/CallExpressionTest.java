@@ -133,17 +133,19 @@ public final class CallExpressionTest extends VariableExpressionTestCase<CallExp
                 call.toValue(
                         new FakeExpressionEvaluationContext() {
                             @Override
-                            public ExpressionFunction<?, ExpressionEvaluationContext> function(final FunctionExpressionName name) {
+                            public Optional<ExpressionFunction<?, ExpressionEvaluationContext>> expressionFunction(final FunctionExpressionName name) {
                                 checkEquals(FUNCTION_NAME, name, "namedFunction name");
-                                return new FakeExpressionFunction<>() {
+                                return Optional.of(
+                                        new FakeExpressionFunction<>() {
 
-                                    @Override
-                                    public Object apply(final List<Object> p,
-                                                        final ExpressionEvaluationContext context) {
-                                        checkEquals(parameters, p);
-                                        return parameters;
-                                    }
-                                };
+                                            @Override
+                                            public Object apply(final List<Object> p,
+                                                                final ExpressionEvaluationContext context) {
+                                                checkEquals(parameters, p);
+                                                return parameters;
+                                            }
+                                        }
+                                );
                             }
 
                             @Override
@@ -446,63 +448,65 @@ public final class CallExpressionTest extends VariableExpressionTestCase<CallExp
                     }
 
                     @Override
-                    public ExpressionFunction<?, ExpressionEvaluationContext> function(final FunctionExpressionName name) {
+                    public Optional<ExpressionFunction<?, ExpressionEvaluationContext>> expressionFunction(final FunctionExpressionName name) {
                         checkEquals(FUNCTION_NAME, name, "namedFunction name");
 
-                        return new FakeExpressionFunction<>() {
-
-                            @Override
-                            public List<ExpressionFunctionParameter<?>> parameters(final int count) {
-                                return Lists.of(a);
-                            }
-
-                            private final ExpressionFunctionParameter<ExpressionNumber> a = parameter("a");
-
-                            @Override
-                            public Object apply(final List<Object> parameters,
-                                                final ExpressionEvaluationContext context) {
-                                this.checkParameterCount(parameters);
-
-                                checkEquals(
-                                        namedFunctionParameterValue,
-                                        a.getOrFail(parameters, 0),
-                                        "a"
-                                );
-                                return new FakeExpressionFunction<>() {
+                        return Optional.of(
+                                new FakeExpressionFunction<>() {
 
                                     @Override
                                     public List<ExpressionFunctionParameter<?>> parameters(final int count) {
-                                        return Lists.of(
-                                                x,
-                                                y
-                                        );
+                                        return Lists.of(a);
                                     }
 
-                                    private final ExpressionFunctionParameter<ExpressionNumber> x = parameter("x");
-                                    private final ExpressionFunctionParameter<ExpressionNumber> y = parameter("y");
+                                    private final ExpressionFunctionParameter<ExpressionNumber> a = parameter("a");
 
                                     @Override
                                     public Object apply(final List<Object> parameters,
                                                         final ExpressionEvaluationContext context) {
                                         this.checkParameterCount(parameters);
 
-                                        final ExpressionNumber x = this.x.getOrFail(parameters, 0);
-                                        final ExpressionNumber y = this.y.getOrFail(parameters, 1);
-                                        return x.add(y, context);
+                                        checkEquals(
+                                                namedFunctionParameterValue,
+                                                a.getOrFail(parameters, 0),
+                                                "a"
+                                        );
+                                        return new FakeExpressionFunction<>() {
+
+                                            @Override
+                                            public List<ExpressionFunctionParameter<?>> parameters(final int count) {
+                                                return Lists.of(
+                                                        x,
+                                                        y
+                                                );
+                                            }
+
+                                            private final ExpressionFunctionParameter<ExpressionNumber> x = parameter("x");
+                                            private final ExpressionFunctionParameter<ExpressionNumber> y = parameter("y");
+
+                                            @Override
+                                            public Object apply(final List<Object> parameters,
+                                                                final ExpressionEvaluationContext context) {
+                                                this.checkParameterCount(parameters);
+
+                                                final ExpressionNumber x = this.x.getOrFail(parameters, 0);
+                                                final ExpressionNumber y = this.y.getOrFail(parameters, 1);
+                                                return x.add(y, context);
+                                            }
+
+                                            @Override
+                                            public String toString() {
+                                                return "FUNCTION(x,y){return x+y;)";
+                                            }
+                                        };
                                     }
 
                                     @Override
                                     public String toString() {
-                                        return "FUNCTION(x,y){return x+y;)";
+                                        return FUNCTION_NAME.toString();
                                     }
-                                };
-                            }
-
-                            @Override
-                            public String toString() {
-                                return FUNCTION_NAME.toString();
-                            }
-                        };
+                                }
+                        );
                     }
                 },
                 expressionNumberValue(30)
@@ -514,21 +518,24 @@ public final class CallExpressionTest extends VariableExpressionTestCase<CallExp
 
         return new FakeExpressionEvaluationContext() {
             @Override
-            public ExpressionFunction<?, ExpressionEvaluationContext> function(final FunctionExpressionName name) {
+            public Optional<ExpressionFunction<?, ExpressionEvaluationContext>> expressionFunction(final FunctionExpressionName name) {
                 checkEquals(FUNCTION_NAME, name, "namedFunction name");
 
-                return new FakeExpressionFunction<>() {
-                    @Override
-                    public Object apply(final List<Object> parameters,
-                                        final ExpressionEvaluationContext context) {
-                        return functionValue;
-                    }
+                return Optional.of(
 
-                    @Override
-                    public List<ExpressionFunctionParameter<?>> parameters(final int count) {
-                        throw new UnsupportedOperationException();
-                    }
-                };
+                        new FakeExpressionFunction<>() {
+                            @Override
+                            public Object apply(final List<Object> parameters,
+                                                final ExpressionEvaluationContext context) {
+                                return functionValue;
+                            }
+
+                            @Override
+                            public List<ExpressionFunctionParameter<?>> parameters(final int count) {
+                                throw new UnsupportedOperationException();
+                            }
+                        }
+                );
             }
 
             @Override
