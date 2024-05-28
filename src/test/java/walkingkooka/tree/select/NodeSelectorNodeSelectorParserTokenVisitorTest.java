@@ -1597,7 +1597,7 @@ public final class NodeSelectorNodeSelectorParserTokenVisitorTest implements Nod
     }
 
     @Test
-    public void testDescendantsOrSelfExpressionCurrentNodeNameEvaludate() {
+    public void testDescendantsOrSelfExpressionCurrentNodeNameEvaluate() {
         final TestNode leaf1 = node("leaf1");
         final TestNode branch1 = node("branch1", leaf1);
 
