@@ -530,7 +530,7 @@ public final class BasicExpressionEvaluationContextTest implements ClassTesting2
 
     @Test
     public void testToString() {
-        final Function<FunctionExpressionName, ExpressionFunction<?, ExpressionEvaluationContext>> functions = this.functions();
+        final Function<FunctionExpressionName, Optional<ExpressionFunction<?, ExpressionEvaluationContext>>> functions = this.functions();
         final Function<ExpressionReference, Optional<Optional<Object>>> references = this.references();
         final Function<ExpressionReference, ExpressionEvaluationException> referenceNotFound = ExpressionEvaluationContexts.referenceNotFound();
         final ConverterContext converterContext = this.converterContext();
@@ -595,7 +595,7 @@ public final class BasicExpressionEvaluationContextTest implements ClassTesting2
         );
     }
 
-    private BasicExpressionEvaluationContext createContext(final Function<FunctionExpressionName, ExpressionFunction<?, ExpressionEvaluationContext>> functions,
+    private BasicExpressionEvaluationContext createContext(final Function<FunctionExpressionName, Optional<ExpressionFunction<?, ExpressionEvaluationContext>>> functions,
                                                            final Function<RuntimeException, Object> exceptionHandler) {
         return BasicExpressionEvaluationContext.with(
                 KIND,
@@ -608,11 +608,11 @@ public final class BasicExpressionEvaluationContextTest implements ClassTesting2
         );
     }
 
-    private Function<FunctionExpressionName, ExpressionFunction<?, ExpressionEvaluationContext>> functions() {
+    private Function<FunctionExpressionName, Optional<ExpressionFunction<?, ExpressionEvaluationContext>>> functions() {
         return this.functions(true);
     }
 
-    private Function<FunctionExpressionName, ExpressionFunction<?, ExpressionEvaluationContext>> functions(final boolean pure) {
+    private Function<FunctionExpressionName, Optional<ExpressionFunction<?, ExpressionEvaluationContext>>> functions(final boolean pure) {
         return (functionName) -> {
             Objects.requireNonNull(functionName, "functionName");
 
@@ -620,28 +620,30 @@ public final class BasicExpressionEvaluationContextTest implements ClassTesting2
                 throw new UnknownExpressionFunctionException(functionName);
             }
 
-            return new FakeExpressionFunction<>() {
-                @Override
-                public Object apply(final List<Object> parameters,
-                                    final ExpressionEvaluationContext context) {
-                    Objects.requireNonNull(parameters, "parameters");
-                    Objects.requireNonNull(context, "context");
+            return Optional.of(
+                    new FakeExpressionFunction<>() {
+                        @Override
+                        public Object apply(final List<Object> parameters,
+                                            final ExpressionEvaluationContext context) {
+                            Objects.requireNonNull(parameters, "parameters");
+                            Objects.requireNonNull(context, "context");
 
-                    return BasicExpressionEvaluationContextTest.this.functionValue();
-                }
+                            return BasicExpressionEvaluationContextTest.this.functionValue();
+                        }
 
-                @Override
-                public List<ExpressionFunctionParameter<?>> parameters(final int count) {
-                    return Lists.of(
-                            ExpressionFunctionParameterName.VALUE.required(Object.class)
-                    );
-                }
+                        @Override
+                        public List<ExpressionFunctionParameter<?>> parameters(final int count) {
+                            return Lists.of(
+                                    ExpressionFunctionParameterName.VALUE.required(Object.class)
+                            );
+                        }
 
-                @Override
-                public boolean isPure(final ExpressionPurityContext context) {
-                    return pure;
-                }
-            };
+                        @Override
+                        public boolean isPure(final ExpressionPurityContext context) {
+                            return pure;
+                        }
+                    }
+            );
         };
     }
 

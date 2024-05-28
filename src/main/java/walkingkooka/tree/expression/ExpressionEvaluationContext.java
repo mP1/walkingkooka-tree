@@ -24,6 +24,7 @@ import walkingkooka.tree.expression.function.ExpressionFunction;
 import walkingkooka.tree.expression.function.ExpressionFunctionParameter;
 import walkingkooka.tree.expression.function.ExpressionFunctionParameterKind;
 import walkingkooka.tree.expression.function.ExpressionFunctions;
+import walkingkooka.tree.expression.function.UnknownExpressionFunctionException;
 
 import java.util.List;
 import java.util.Optional;
@@ -69,7 +70,16 @@ public interface ExpressionEvaluationContext extends Context,
     /**
      * Returns the {@link ExpressionFunction} with the given {@link FunctionExpressionName}.
      */
-    ExpressionFunction<?, ExpressionEvaluationContext> function(final FunctionExpressionName name);
+    Optional<ExpressionFunction<?, ExpressionEvaluationContext>> expressionFunction(final FunctionExpressionName name);
+
+    /**
+     * Helper that invokes {@link #expressionFunction(FunctionExpressionName)} and throws a {@link UnknownExpressionFunctionException}
+     * if none was found.
+     */
+    default ExpressionFunction<?, ExpressionEvaluationContext> expressionFunctionOrFail(final FunctionExpressionName name) {
+        return this.expressionFunction(name)
+                .orElseThrow(() -> new UnknownExpressionFunctionException(name));
+    }
 
     /**
      * Creates a lambda {@link ExpressionFunction}, the given parameters become scoped variables when the

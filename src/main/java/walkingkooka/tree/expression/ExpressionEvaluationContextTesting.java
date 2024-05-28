@@ -81,20 +81,20 @@ public interface ExpressionEvaluationContextTesting<C extends ExpressionEvaluati
     }
 
     @Test
-    default void testFunctionNullFunctionNameFails() {
+    default void testExpressionFunctionNullFunctionNameFails() {
         assertThrows(
                 NullPointerException.class,
                 () -> this.createContext()
-                        .function(null)
+                        .expressionFunctionOrFail(null)
         );
     }
 
     @Test
-    default void testFunctionUnknownFunctionNameFails() {
+    default void testExpressionFunctionUnknownFunctionNameFails() {
         assertThrows(
                 UnknownExpressionFunctionException.class,
                 () -> this.createContext()
-                        .function(this.unknownFunctionName())
+                        .expressionFunctionOrFail(this.unknownFunctionName())
         );
     }
 

@@ -1850,75 +1850,90 @@ public final class NodeSelectorNodeSelectorParserTokenVisitorTest implements Nod
                         );
                     }
 
-                    private Function<FunctionExpressionName, ExpressionFunction<?, NodeSelectorExpressionEvaluationContext<TestNode, StringName, StringName, Object>>> functions() {
+                    private Function<FunctionExpressionName, Optional<ExpressionFunction<?, NodeSelectorExpressionEvaluationContext<TestNode, StringName, StringName, Object>>>> functions() {
                         return (n) -> {
                             switch (n.value()) {
                                 case "boolean":
-                                    return new TestExpressionFunction() {
-                                        @Override
-                                        public Object apply(final List<Object> parameters,
-                                                            final NodeSelectorExpressionEvaluationContext<TestNode, StringName, StringName, Object> context) {
-                                            return parameters.get(0);
-                                        }
-                                    };
-                                case "false":
-                                    return new TestExpressionFunction() {
-                                        @Override
-                                        public Object apply(final List<Object> parameters,
-                                                            final NodeSelectorExpressionEvaluationContext<TestNode, StringName, StringName, Object> context) {
-                                            return false;
-                                        }
-                                    };
-                                case "node":
-                                    return new TestExpressionFunction() {
-                                        @Override
-                                        public Object apply(final List<Object> parameters,
-                                                            final NodeSelectorExpressionEvaluationContext<TestNode, StringName, StringName, Object> context) {
-                                            return context.node();
-                                        }
-                                    };
-                                case "number":
-                                    return new TestExpressionFunction() {
-                                        @Override
-                                        public Object apply(final List<Object> parameters,
-                                                            final NodeSelectorExpressionEvaluationContext<TestNode, StringName, StringName, Object> context) {
-                                            final Object parameter = parameters.get(0);
-                                            if (parameter instanceof String) {
-                                                return EXPRESSION_NUMBER_KIND.create(new BigDecimal((String) parameter));
+                                    return Optional.of(
+                                            new TestExpressionFunction() {
+                                                @Override
+                                                public Object apply(final List<Object> parameters,
+                                                                    final NodeSelectorExpressionEvaluationContext<TestNode, StringName, StringName, Object> context) {
+                                                    return parameters.get(0);
+                                                }
                                             }
-                                            return parameter;
-                                        }
-                                    };
+                                    );
+                                case "false":
+                                    return Optional.of(
+                                            new TestExpressionFunction() {
+                                                @Override
+                                                public Object apply(final List<Object> parameters,
+                                                                    final NodeSelectorExpressionEvaluationContext<TestNode, StringName, StringName, Object> context) {
+                                                    return false;
+                                                }
+                                            }
+                                    );
+                                case "node":
+                                    return Optional.of(
+                                            new TestExpressionFunction() {
+                                                @Override
+                                                public Object apply(final List<Object> parameters,
+                                                                    final NodeSelectorExpressionEvaluationContext<TestNode, StringName, StringName, Object> context) {
+                                                    return context.node();
+                                                }
+                                            }
+                                    );
+                                case "number":
+                                    return Optional.of(
+                                            new TestExpressionFunction() {
+                                                @Override
+                                                public Object apply(final List<Object> parameters,
+                                                                    final NodeSelectorExpressionEvaluationContext<TestNode, StringName, StringName, Object> context) {
+                                                    final Object parameter = parameters.get(0);
+                                                    if (parameter instanceof String) {
+                                                        return EXPRESSION_NUMBER_KIND.create(new BigDecimal((String) parameter));
+                                                    }
+                                                    return parameter;
+                                                }
+                                            }
+                                    );
                                 case "starts-with":
-                                    return new TestExpressionFunction() {
-                                        @Override
-                                        public Object apply(final List<Object> parameters,
-                                                            final NodeSelectorExpressionEvaluationContext<TestNode, StringName, StringName, Object> context) {
-                                            final String string = parameters.get(0).toString();
-                                            final String contains = parameters.get(1).toString();
-                                            return string.startsWith(contains);
-                                        }
-                                    };
+                                    return Optional.of(
+                                            new TestExpressionFunction() {
+                                                @Override
+                                                public Object apply(final List<Object> parameters,
+                                                                    final NodeSelectorExpressionEvaluationContext<TestNode, StringName, StringName, Object> context) {
+                                                    final String string = parameters.get(0).toString();
+                                                    final String contains = parameters.get(1).toString();
+                                                    return string.startsWith(contains);
+                                                }
+                                            }
+                                    );
                                 case "string-length":
-                                    return new TestExpressionFunction() {
-                                        @Override
-                                        public Object apply(final List<Object> parameters,
-                                                            final NodeSelectorExpressionEvaluationContext<TestNode, StringName, StringName, Object> context) {
-                                            return parameters.get(0).toString().length();
-                                        }
-                                    };
+                                    return Optional.of(
+                                            new TestExpressionFunction() {
+                                                @Override
+                                                public Object apply(final List<Object> parameters,
+                                                                    final NodeSelectorExpressionEvaluationContext<TestNode, StringName, StringName, Object> context) {
+                                                    return parameters.get(0).toString().length();
+                                                }
+                                            }
+                                    );
                                 case "true":
-                                    return new TestExpressionFunction() {
-                                        @Override
-                                        public Object apply(final List<Object> parameters,
-                                                            final NodeSelectorExpressionEvaluationContext<TestNode, StringName, StringName, Object> context) {
-                                            return true;
-                                        }
-                                    };
+                                    return Optional.of(
+                                            new TestExpressionFunction() {
+                                                @Override
+                                                public Object apply(final List<Object> parameters,
+                                                                    final NodeSelectorExpressionEvaluationContext<TestNode, StringName, StringName, Object> context) {
+                                                    return true;
+                                                }
+                                            }
+                                    );
                                 default:
-                                    return Cast.to(NodeSelectorContexts.basicFunctions()
-                                            .apply(n)
-                                            .orElseThrow(() -> new IllegalArgumentException(("Unknown function \"" + n + "\""))));
+                                    return Cast.to(
+                                            NodeSelectorContexts.basicFunctions()
+                                                    .apply(n)
+                                    );
                             }
                         };
                     }
