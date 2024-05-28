@@ -90,16 +90,6 @@ public interface ExpressionEvaluationContextTesting<C extends ExpressionEvaluati
     }
 
     @Test
-    default void testExpressionFunctionUnknownFunctionNameFails() {
-        assertThrows(
-                UnknownExpressionFunctionException.class,
-                () -> this.createContext()
-                        .expressionFunctionOrFail(this.unknownFunctionName())
-        );
-    }
-
-
-    @Test
     default void testEvaluateFunctionNullFunctionNameFails() {
         assertThrows(
                 NullPointerException.class,
@@ -153,10 +143,6 @@ public interface ExpressionEvaluationContextTesting<C extends ExpressionEvaluati
                 context.evaluateFunction(function, parameters),
                 () -> "evaluate " + function + " " + parameters
         );
-    }
-
-    default FunctionExpressionName unknownFunctionName() {
-        return FunctionExpressionName.with("unknown-namedFunction-123");
     }
 
     default C createCanConvert() {
