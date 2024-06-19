@@ -34,38 +34,35 @@ import java.util.Objects;
  * If the input is an {@link ExpressionNumber} and the target a {@link ExpressionNumber} no convert happens, the wrapped
  * {@link Converter} is never invoked.
  */
-final class ExpressionNumberToConverter<C extends ExpressionNumberConverterContext> implements Converter<C> {
+final class ExpressionNumberConverterTo<C extends ExpressionNumberConverterContext> extends ExpressionNumberConverter<C> {
 
     /**
-     * Factory that creates a new {@link ExpressionNumberToConverter}.
+     * Factory that creates a new {@link ExpressionNumberConverterTo}.
      * This should only be called by {@link ExpressionNumber#toConverter(Converter)}.
      */
-    static <C extends ExpressionNumberConverterContext> ExpressionNumberToConverter<C> with(final Converter<C> converter) {
+    static <C extends ExpressionNumberConverterContext> ExpressionNumberConverterTo<C> with(final Converter<C> converter) {
         Objects.requireNonNull(converter, "converter");
 
-        return converter instanceof ExpressionNumberToConverter ?
+        return converter instanceof ExpressionNumberConverterTo ?
                 Cast.to(converter) :
-                new ExpressionNumberToConverter<>(converter);
+                new ExpressionNumberConverterTo<>(converter);
     }
 
     /**
      * Private ctor use factory
      */
-    private ExpressionNumberToConverter(final Converter<C> converter) {
+    private ExpressionNumberConverterTo(final Converter<C> converter) {
         super();
         this.converter = converter;
     }
 
-    // canConvert........................................................................................................
-
-    @Override
-    public boolean canConvert(final Object value,
+    public boolean XcanConvert(final Object value,
                               final Class<?> type,
                               final C context) {
         return (ExpressionNumber.is(value) && ExpressionNumber.class == type) ||
-                this.converterCanConvert(value, type, context) ||
+                this.XconverterCanConvert(value, type, context) ||
                 (ExpressionNumber.isClass(type) &&
-                        this.converterCanConvert(
+                        this.XconverterCanConvert(
                                 value,
                                 context.expressionNumberKind().numberType(),
                                 context
@@ -73,55 +70,62 @@ final class ExpressionNumberToConverter<C extends ExpressionNumberConverterConte
                 );
     }
 
-    /**
-     * Queries if the wrapped {@link Converter} can convert the value to the target type which will be
-     * either {@link double} or {@link java.math.BigDecimal}.
-     */
-    private boolean converterCanConvert(final Object value,
+    private boolean XconverterCanConvert(final Object value,
                                         final Class<?> type,
                                         final C context) {
         return this.converter.canConvert(value, type, context);
     }
 
-    // convert..........................................................................................................
+    // canConvert.......................................................................................................
 
     @Override
-    public <T> Either<T, String> convert(final Object value,
-                                         final Class<T> type,
-                                         final C context) {
-
-        return (ExpressionNumber.is(value) && ExpressionNumber.class == type) ?
-                this.successfulConversion(
-                        context.expressionNumberKind().create((Number) value),
-                        type
-                ) :
-                (value instanceof ExpressionNumber && ExpressionNumber.class == type) ?
-                        this.successfulConversion(
-                                toExpressionNumber((ExpressionNumber) value, context),
-                                type
-                        ) :
-                        this.converterCanConvert(value, type, context) ?
-                                this.converterConvert(value, type, context) :
-                                this.converterConvertAndCreateExpressionNumber(value, type, context);
+    boolean canConvertExpressionNumber(final ExpressionNumber value,
+                                       final Class<?> type,
+                                       final C context) {
+        return this.canConvertNonExpressionNumber(
+                value,
+                context.expressionNumberKind()
+                        .numberType(),
+                context
+        );
     }
 
-    /**
-     * Performs a cast and updates the {@link ExpressionNumberKind} to match the context.
-     */
-    private static ExpressionNumber toExpressionNumber(final ExpressionNumber number,
-                                                       final ExpressionNumberConverterContext context) {
-        return number.setKind(context.expressionNumberKind());
+    @Override
+    boolean canConvertNonExpressionNumber(final Object value,
+                                          final Class<?> type,
+                                          final C context) {
+        final boolean typeIsExpressionNumber = ExpressionNumber.isClass(type);
+
+        return ExpressionNumber.is(value) && typeIsExpressionNumber ||
+                this.converter.canConvert(
+                        value,
+                        type,
+                        context
+                ) ||
+                typeIsExpressionNumber && this.converter.canConvert(
+                        value,
+                        context.expressionNumberKind().numberType(),
+                        context
+                );
     }
 
-    private <T> Either<T, String> converterConvert(final Object value,
-                                                   final Class<T> type,
-                                                   final C context) {
-        return this.converter.convert(value, type, context);
+    // convert..........................................................................................................
+
+    @Override //
+    <T> Either<T, String> convertExpressionNumber(final ExpressionNumber value,
+                                                  final Class<T> type,
+                                                  final C context) {
+        return this.convertNonExpressionNumber(
+                value.value(),
+                type,
+                context
+        );
     }
 
-    private <T> Either<T, String> converterConvertAndCreateExpressionNumber(final Object value,
-                                                                            final Class<T> type,
-                                                                            final C context) {
+    @Override//
+    <T> Either<T, String> convertNonExpressionNumber(final Object value,
+                                                     final Class<T> type,
+                                                     final C context) {
         final ExpressionNumberKind kind = context.expressionNumberKind();
 
         final Either<?, String> numberResult = this.converter.convert(
