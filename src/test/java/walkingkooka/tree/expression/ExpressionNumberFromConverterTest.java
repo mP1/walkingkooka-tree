@@ -41,80 +41,121 @@ public final class ExpressionNumberFromConverterTest implements ConverterTesting
 
     @Test
     public void testWithNullConverterFails() {
-        assertThrows(NullPointerException.class, () -> ExpressionNumberFromConverter.with(null));
+        assertThrows(
+                NullPointerException.class,
+                () -> ExpressionNumberFromConverter.with(null)
+        );
     }
 
     @Test
     public void testConvertFails() {
-        this.convertFails(true, String.class);
+        this.convertFails(
+                true,
+                String.class
+        );
     }
 
     @Test
-    public void testNull() {
-        this.convertAndCheck2(null, null);
+    public void testConvertNull() {
+        this.convertAndCheck2(
+                null,
+                null
+        );
     }
 
     @Test
-    public void testByte() {
-        this.convertAndCheck2((byte) 123, "123");
+    public void testConvertByte() {
+        this.convertAndCheck2(
+                (byte) 123,
+                "123"
+        );
     }
 
     @Test
-    public void testShort() {
-        this.convertAndCheck2((short) 123, "123");
+    public void testConvertShort() {
+        this.convertAndCheck2(
+                (short) 123,
+                "123"
+        );
     }
 
     @Test
-    public void testInteger() {
-        this.convertAndCheck2(123, "123");
+    public void testConvertInteger() {
+        this.convertAndCheck2(
+                123,
+                "123"
+        );
     }
 
     @Test
-    public void testLong() {
-        this.convertAndCheck2(123L, "123");
+    public void testConvertLong() {
+        this.convertAndCheck2(
+                123L,
+                "123"
+        );
     }
 
     @Test
-    public void testFloat() {
-        this.convertAndCheck2(128.5f, "128.5");
+    public void testConvertFloat() {
+        this.convertAndCheck2(
+                128.5f,
+                "128.5"
+        );
     }
 
     @Test
-    public void testDouble() {
-        this.convertAndCheck2(128.5, "128.5");
+    public void testConvertDouble() {
+        this.convertAndCheck2(
+                128.5,
+                "128.5"
+        );
     }
 
     @Test
-    public void testBigInteger() {
-        this.convertAndCheck2(BigInteger.valueOf(123), "123");
+    public void testConvertBigInteger() {
+        this.convertAndCheck2(
+                BigInteger.valueOf(123),
+                "123"
+        );
     }
 
     @Test
-    public void testBigDecimal() {
-        this.convertAndCheck2(BigDecimal.valueOf(128.5), "128.5");
+    public void testConvertBigDecimal() {
+        this.convertAndCheck2(
+                BigDecimal.valueOf(128.5),
+                "128.5"
+        );
     }
 
     @Test
-    public void testExpressionNumberBigDecimal() {
-        this.convertAndCheck2(ExpressionNumberKind.BIG_DECIMAL.create(BigDecimal.valueOf(128.5)), "128.5");
+    public void testConvertExpressionNumberBigDecimal() {
+        this.convertAndCheck2(
+                ExpressionNumberKind.BIG_DECIMAL.create(BigDecimal.valueOf(128.5)),
+                "128.5"
+        );
     }
 
     @Test
-    public void testExpressionNumberDouble() {
-        this.convertAndCheck2(ExpressionNumberKind.DOUBLE.create(128.5), "128.5");
+    public void testConvertExpressionNumberDouble() {
+        this.convertAndCheck2(
+                ExpressionNumberKind.DOUBLE.create(128.5
+                ),
+                "128.5");
     }
 
     private void convertAndCheck2(final Object value,
                                   final String expected) {
-        this.convertAndCheck(value,
+        this.convertAndCheck(
+                value,
                 String.class,
-                expected);
+                expected
+        );
     }
 
     // convert to same...................................................................................................
 
     @Test
-    public void testDoubleToDoubleDelegates() {
+    public void testConvertDoubleToDoubleDelegates() {
         final Converter<ExpressionNumberConverterContext> converter = Converters.numberNumber();
         this.convertAndCheck(
                 converter,
@@ -134,7 +175,7 @@ public final class ExpressionNumberFromConverterTest implements ConverterTesting
     }
 
     @Test
-    public void testDoubleToDoubleDelegates2() {
+    public void testConvertDoubleToDoubleDelegates2() {
         final Converter<ExpressionNumberConverterContext> converter = Converters.never();
         this.convertFails(
                 converter,
@@ -152,14 +193,14 @@ public final class ExpressionNumberFromConverterTest implements ConverterTesting
     }
 
     @Test
-    public void testExpressionNumberBigDecimalToExpressionNumber() {
+    public void testConvertExpressionNumberBigDecimalToExpressionNumber() {
         this.convertFails2(
                 ExpressionNumberKind.BIG_DECIMAL.create(1)
         );
     }
 
     @Test
-    public void testExpressionNumberDoubleToExpressionNumber() {
+    public void testConvertExpressionNumberDoubleToExpressionNumber() {
         this.convertFails2(
                 ExpressionNumberKind.DOUBLE.create(1)
         );
@@ -204,11 +245,14 @@ public final class ExpressionNumberFromConverterTest implements ConverterTesting
     }
 
     private ExpressionNumberConverterContext createContext(final ExpressionNumberKind kind) {
-        return ExpressionNumberConverterContexts.basic(Converters.fake(),
-                ConverterContexts.basic(Converters.fake(),
+        return ExpressionNumberConverterContexts.basic(
+                Converters.fake(),
+                ConverterContexts.basic(
+                        Converters.fake(),
                         DateTimeContexts.fake(),
                         DecimalNumberContexts.american(MathContext.DECIMAL32)),
-                kind);
+                kind
+        );
     }
 
     @Override
