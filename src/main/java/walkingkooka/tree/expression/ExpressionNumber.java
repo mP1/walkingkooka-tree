@@ -68,17 +68,17 @@ public abstract class ExpressionNumber extends Number implements Comparable<Expr
     }
 
     /**
-     * {@see ExpressionNumberFromConverter}
+     * {@see ExpressionNumberConverterFrom}
      */
     public static <C extends ExpressionNumberConverterContext> Converter<C> fromConverter(final Converter<C> converter) {
-        return ExpressionNumberFromConverter.with(converter);
+        return ExpressionNumberConverterFrom.with(converter);
     }
 
     /**
      * Adds support for converting numbers to another numbers or {@link ExpressionNumber}.
      */
     public static <C extends ExpressionNumberConverterContext> Converter<C> toConverter(final Converter<C> converter) {
-        return ExpressionNumberToConverter.with(converter);
+        return ExpressionNumberConverterTo.with(converter);
     }
 
     /**
