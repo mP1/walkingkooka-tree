@@ -33,6 +33,7 @@ import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.math.MathContext;
 
+import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class ExpressionNumberToConverterTest implements ConverterTesting2<ExpressionNumberToConverter<ExpressionNumberConverterContext>, ExpressionNumberConverterContext>,
@@ -42,6 +43,17 @@ public final class ExpressionNumberToConverterTest implements ConverterTesting2<
     public void testWithNullConverterFails() {
         assertThrows(NullPointerException.class, () -> ExpressionNumberToConverter.with(null));
     }
+
+    @Test
+    public void testWithExpressionNumberToConverter() {
+        final ExpressionNumberToConverter<ExpressionNumberConverterContext> converter = this.createConverter();
+        assertSame(
+                converter,
+                ExpressionNumberToConverter.with(converter)
+        );
+    }
+
+    // convert..........................................................................................................
 
     @Test
     public void testConvertersSimpleFails() {
