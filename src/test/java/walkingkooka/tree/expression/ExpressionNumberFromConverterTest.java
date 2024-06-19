@@ -34,6 +34,7 @@ import java.math.MathContext;
 import java.text.DecimalFormat;
 import java.util.function.Function;
 
+import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class ExpressionNumberFromConverterTest implements ConverterTesting2<ExpressionNumberFromConverter<ExpressionNumberConverterContext>, ExpressionNumberConverterContext>,
@@ -46,6 +47,17 @@ public final class ExpressionNumberFromConverterTest implements ConverterTesting
                 () -> ExpressionNumberFromConverter.with(null)
         );
     }
+
+    @Test
+    public void testWithExpressionNumberFromConverter() {
+        final ExpressionNumberFromConverter<ExpressionNumberConverterContext> converter = this.createConverter();
+        assertSame(
+                converter,
+                ExpressionNumberFromConverter.with(converter)
+        );
+    }
+
+    // convert..........................................................................................................
 
     @Test
     public void testConvertFails() {
