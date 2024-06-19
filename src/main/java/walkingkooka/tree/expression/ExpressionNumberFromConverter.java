@@ -17,6 +17,7 @@
 
 package walkingkooka.tree.expression;
 
+import walkingkooka.Cast;
 import walkingkooka.Either;
 import walkingkooka.convert.Converter;
 
@@ -31,11 +32,14 @@ final class ExpressionNumberFromConverter<C extends ExpressionNumberConverterCon
 
     /**
      * Wraps another {@link Converter}, which will receive the actual value of the {@link ExpressionNumber}.
+     * Note if the converter is already a {@link ExpressionNumberFromConverter} it will not be double wrapped.
      */
     static <C extends ExpressionNumberConverterContext> ExpressionNumberFromConverter<C> with(final Converter<C> converter) {
         Objects.requireNonNull(converter, "converter");
 
-        return new ExpressionNumberFromConverter<>(converter);
+        return converter instanceof ExpressionNumberFromConverter ?
+                Cast.to(converter) :
+                new ExpressionNumberFromConverter<>(converter);
     }
 
     /**
