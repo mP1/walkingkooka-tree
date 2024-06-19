@@ -155,42 +155,42 @@ public final class ExpressionNumberConverterToTest extends ExpressionNumberConve
 
     @Test
     public void testConvertByteToExpressionNumber() {
-        this.convertAndCheck2((byte) 123);
+        this.convertToExpressionNumberAndCheck((byte) 123);
     }
 
     @Test
     public void testConvertShortToExpressionNumber() {
-        this.convertAndCheck2((short) 123);
+        this.convertToExpressionNumberAndCheck((short) 123);
     }
 
     @Test
     public void testConvertIntegerToExpressionNumber() {
-        this.convertAndCheck2(123);
+        this.convertToExpressionNumberAndCheck(123);
     }
 
     @Test
     public void testConvertLongToExpressionNumber() {
-        this.convertAndCheck2(123L);
+        this.convertToExpressionNumberAndCheck(123L);
     }
 
     @Test
     public void testConvertFloatToExpressionNumber() {
-        this.convertAndCheck2(128.5f);
+        this.convertToExpressionNumberAndCheck(128.5f);
     }
 
     @Test
     public void testConvertDoubleToExpressionNumber() {
-        this.convertAndCheck2(128.5);
+        this.convertToExpressionNumberAndCheck(128.5);
     }
 
     @Test
     public void testConvertBigIntegerToExpressionNumber() {
-        this.convertAndCheck2(BigInteger.valueOf(123));
+        this.convertToExpressionNumberAndCheck(BigInteger.valueOf(123));
     }
 
     @Test
     public void testConvertBigDecimalToExpressionNumber() {
-        this.convertAndCheck2(BigDecimal.valueOf(128.5));
+        this.convertToExpressionNumberAndCheck(BigDecimal.valueOf(128.5));
     }
 
     @Test
@@ -219,16 +219,9 @@ public final class ExpressionNumberConverterToTest extends ExpressionNumberConve
         );
     }
 
-    private void convertAndCheck2(final Number number) {
-        this.convertAndCheck2(
-                this.createConverter(),
-                number
-        );
-    }
-
     @Test
     public void testConvertWithExpressionNumberConvertFromWithBigDecimalToExpressionNumber() {
-        this.convertAndCheck2(
+        this.convertToExpressionNumberAndCheck(
                 ExpressionNumberConverterTo.with(
                         ExpressionNumberConverterFrom.with(
                                 Converters.numberNumber()
@@ -238,9 +231,16 @@ public final class ExpressionNumberConverterToTest extends ExpressionNumberConve
         );
     }
 
-    private void convertAndCheck2(final ExpressionNumberConverterTo<ExpressionNumberConverterContext> converter,
-                                  final Number number) {
-        this.convertAndCheck3(
+    private void convertToExpressionNumberAndCheck(final Number number) {
+        this.convertToExpressionNumberAndCheck(
+                this.createConverter(),
+                number
+        );
+    }
+
+    private void convertToExpressionNumberAndCheck(final ExpressionNumberConverterTo<ExpressionNumberConverterContext> converter,
+                                                   final Number number) {
+        this.convertAndCheck2(
                 converter,
                 ExpressionNumberKind.BIG_DECIMAL,
                 number,
@@ -248,7 +248,7 @@ public final class ExpressionNumberConverterToTest extends ExpressionNumberConve
                 ExpressionNumberKind.BIG_DECIMAL.create(number)
         );
 
-        this.convertAndCheck3(
+        this.convertAndCheck2(
                 converter,
                 ExpressionNumberKind.DOUBLE,
                 number,
@@ -257,7 +257,149 @@ public final class ExpressionNumberConverterToTest extends ExpressionNumberConve
         );
     }
 
-    private <N> void convertAndCheck3(final Converter<ExpressionNumberConverterContext> converter,
+    // toBigDecimal.........................................................................................................
+
+    @Test
+    public void testConvertByteToBigDecimal() {
+        this.convertToBigDecimalAndCheck((byte) 123);
+    }
+
+    @Test
+    public void testConvertShortToBigDecimal() {
+        this.convertToBigDecimalAndCheck((short) 123);
+    }
+
+    @Test
+    public void testConvertIntegerToBigDecimal() {
+        this.convertToBigDecimalAndCheck(123);
+    }
+
+    @Test
+    public void testConvertLongToBigDecimal() {
+        this.convertToBigDecimalAndCheck(123L);
+    }
+
+    @Test
+    public void testConvertFloatToBigDecimal() {
+        this.convertToBigDecimalAndCheck(128.5f);
+    }
+
+    @Test
+    public void testConvertDoubleToBigDecimal() {
+        this.convertToBigDecimalAndCheck(128.5);
+    }
+
+    @Test
+    public void testConvertBigIntegerToBigDecimal() {
+        this.convertToBigDecimalAndCheck(BigInteger.valueOf(123));
+    }
+
+    @Test
+    public void testConvertBigDecimalToBigDecimal() {
+        this.convertToBigDecimalAndCheck(BigDecimal.valueOf(128.5));
+    }
+
+    private void convertToBigDecimalAndCheck(final Number number) {
+        this.convertToBigDecimalAndCheck(
+                this.createConverter(),
+                number
+        );
+    }
+
+    private void convertToBigDecimalAndCheck(final ExpressionNumberConverterTo<ExpressionNumberConverterContext> converter,
+                                             final Number number) {
+        final BigDecimal expected = ExpressionNumberKind.BIG_DECIMAL.create(number)
+                .bigDecimal();
+
+        this.convertAndCheck2(
+                converter,
+                ExpressionNumberKind.BIG_DECIMAL,
+                number,
+                BigDecimal.class,
+                expected
+        );
+
+        this.convertAndCheck2(
+                converter,
+                ExpressionNumberKind.DOUBLE,
+                number,
+                BigDecimal.class,
+                expected
+        );
+    }
+
+    // toDouble.........................................................................................................
+
+    @Test
+    public void testConvertByteToDouble() {
+        this.convertToDoubleAndCheck((byte) 123);
+    }
+
+    @Test
+    public void testConvertShortToDouble() {
+        this.convertToDoubleAndCheck((short) 123);
+    }
+
+    @Test
+    public void testConvertIntegerToDouble() {
+        this.convertToDoubleAndCheck(123);
+    }
+
+    @Test
+    public void testConvertLongToDouble() {
+        this.convertToDoubleAndCheck(123L);
+    }
+
+    @Test
+    public void testConvertFloatToDouble() {
+        this.convertToDoubleAndCheck(128.5f);
+    }
+
+    @Test
+    public void testConvertDoubleToDouble() {
+        this.convertToDoubleAndCheck(128.5);
+    }
+
+    @Test
+    public void testConvertBigIntegerToDouble() {
+        this.convertToDoubleAndCheck(BigInteger.valueOf(123));
+    }
+
+    @Test
+    public void testConvertBigDecimalToDouble() {
+        this.convertToDoubleAndCheck(BigDecimal.valueOf(128.5));
+    }
+
+    private void convertToDoubleAndCheck(final Number number) {
+        this.convertToDoubleAndCheck(
+                this.createConverter(),
+                number
+        );
+    }
+
+    private void convertToDoubleAndCheck(final ExpressionNumberConverterTo<ExpressionNumberConverterContext> converter,
+                                         final Number number) {
+        final double expected = ExpressionNumberKind.DOUBLE.create(number)
+                .doubleValue();
+
+        this.convertAndCheck2(
+                converter,
+                ExpressionNumberKind.BIG_DECIMAL,
+                number,
+                Double.class,
+                expected
+        );
+
+        this.convertAndCheck2(
+                converter,
+                ExpressionNumberKind.DOUBLE,
+                number,
+                Double.class,
+                expected
+        );
+    }
+
+    private <N> void convertAndCheck2(final Converter<ExpressionNumberConverterContext> converter,
                                       final ExpressionNumberKind kind,
                                       final Object from,
                                       final Class<N> target,
