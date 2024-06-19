@@ -154,54 +154,47 @@ public final class ExpressionNumberConverterToTest extends ExpressionNumberConve
     // ??? -> Number....................................................................................................
 
     @Test
-    public void testConvertByte() {
+    public void testConvertByteToExpressionNumber() {
         this.convertAndCheck2((byte) 123);
     }
 
     @Test
-    public void testConvertShort() {
+    public void testConvertShortToExpressionNumber() {
         this.convertAndCheck2((short) 123);
     }
 
     @Test
-    public void testConvertInteger() {
+    public void testConvertIntegerToExpressionNumber() {
         this.convertAndCheck2(123);
     }
 
     @Test
-    public void testConvertLong() {
+    public void testConvertLongToExpressionNumber() {
         this.convertAndCheck2(123L);
     }
 
     @Test
-    public void testConvertFloat() {
+    public void testConvertFloatToExpressionNumber() {
         this.convertAndCheck2(128.5f);
     }
 
     @Test
-    public void testConvertDouble() {
+    public void testConvertDoubleToExpressionNumber() {
         this.convertAndCheck2(128.5);
     }
 
     @Test
-    public void testConvertBigInteger() {
+    public void testConvertBigIntegerToExpressionNumber() {
         this.convertAndCheck2(BigInteger.valueOf(123));
     }
 
     @Test
-    public void testConvertBigDecimal() {
+    public void testConvertBigDecimalToExpressionNumber() {
         this.convertAndCheck2(BigDecimal.valueOf(128.5));
     }
 
     @Test
-    public void testConvertBigDecimal2() {
-        this.convertAndCheck2(
-                BigDecimal.valueOf(128.5)
-        );
-    }
-
-    @Test
-    public void testConvertBigDecimalToExpressionNumber() {
+    public void testConvertBigDecimalToExpressionNumber2() {
         final ExpressionNumberKind kind = ExpressionNumberKind.BIG_DECIMAL;
         final Number number = BigDecimal.valueOf(128.5);
 
@@ -214,7 +207,7 @@ public final class ExpressionNumberConverterToTest extends ExpressionNumberConve
     }
 
     @Test
-    public void testConvertBigDecimalToExpressionNumber2() {
+    public void testConvertBigDecimalToExpressionNumber3() {
         final ExpressionNumberKind kind = ExpressionNumberKind.DOUBLE;
         final Number number = BigDecimal.valueOf(128.5);
 
