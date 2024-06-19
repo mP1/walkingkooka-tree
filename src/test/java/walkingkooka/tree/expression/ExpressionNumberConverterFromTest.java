@@ -158,6 +158,85 @@ public final class ExpressionNumberConverterFromTest extends ExpressionNumberCon
         );
     }
 
+    // convert from ExpressionNumber....................................................................................
+
+    @Test
+    public void testConvertExpressionNumberToByte() {
+        this.convertFromExpressionNumberAndCheck(
+                (byte) 123
+        );
+    }
+
+    @Test
+    public void testConvertExpressionNumberToShort() {
+        this.convertFromExpressionNumberAndCheck(
+                (short) 123
+        );
+    }
+
+    @Test
+    public void testConvertExpressionNumberToInteger() {
+        this.convertFromExpressionNumberAndCheck(
+                123
+        );
+    }
+
+    @Test
+    public void testConvertExpressionNumberToLong() {
+        this.convertFromExpressionNumberAndCheck(
+                123L
+        );
+    }
+
+    @Test
+    public void testConvertExpressionNumberToFloat() {
+        this.convertFromExpressionNumberAndCheck(
+                123.5f
+        );
+    }
+
+    @Test
+    public void testConvertExpressionNumberToDouble() {
+        this.convertFromExpressionNumberAndCheck(
+                123.0
+        );
+    }
+
+    @Test
+    public void testConvertExpressionNumberToBigInteger() {
+        this.convertFromExpressionNumberAndCheck(
+                BigInteger.valueOf(123)
+        );
+    }
+
+    @Test
+    public void testConvertExpressionNumberToBigDecimal() {
+        this.convertFromExpressionNumberAndCheck(
+                BigDecimal.valueOf(123.5)
+        );
+    }
+
+    private void convertFromExpressionNumberAndCheck(final Number expected) {
+        final Converter<ExpressionNumberConverterContext> converter = ExpressionNumberConverterFrom.with(
+                Converters.numberNumber()
+        );
+
+        this.convertAndCheck(
+                converter,
+                ExpressionNumberKind.BIG_DECIMAL.create(expected),
+                Cast.to(expected.getClass()),
+                this.createContext(),
+                expected
+        );
+        this.convertAndCheck(
+                converter,
+                ExpressionNumberKind.DOUBLE.create(expected),
+                Cast.to(expected.getClass()),
+                this.createContext(),
+                expected
+        );
+    }
+
     // convert to same...................................................................................................
 
     @Test
