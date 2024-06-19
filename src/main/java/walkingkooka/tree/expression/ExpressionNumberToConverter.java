@@ -43,7 +43,9 @@ final class ExpressionNumberToConverter<C extends ExpressionNumberConverterConte
     static <C extends ExpressionNumberConverterContext> ExpressionNumberToConverter<C> with(final Converter<C> converter) {
         Objects.requireNonNull(converter, "converter");
 
-        return new ExpressionNumberToConverter<>(converter);
+        return converter instanceof ExpressionNumberToConverter ?
+                Cast.to(converter) :
+                new ExpressionNumberToConverter<>(converter);
     }
 
     /**
