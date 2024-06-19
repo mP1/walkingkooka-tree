@@ -20,20 +20,25 @@ package walkingkooka.tree.expression;
 import walkingkooka.Cast;
 import walkingkooka.Either;
 import walkingkooka.convert.Converter;
-import walkingkooka.convert.Converters;
 
 import java.util.Objects;
 
 /**
- * A {@link Converter} that should wrap another {@link Converter} that converts anything to a {@link Number}.
- * If the target is {@link ExpressionNumber} the wrapped will be used to convert the input value to a Number,
- * and then the ExpressionNumber created. To convert {@link Number} to {@link ExpressionNumber} the wrapped
- * converter should probably be {@link Converters#numberNumber()}.
+ * A {@link Converter} that supports converting values to a {@link ExpressionNumber} using an intermediary {@link Converter}.
+ * It is assumed the intermediary handles converting the value to a {@link Number} and if that was successful that number
+ * will be used to create a {@link ExpressionNumber}.
+ * <br>
+ * If the wrapped {@link Converter} cannot convert or convert fails then that result is returned and no {@link ExpressionNumber}
+ * is ever created.
+ * <br>
+ * If the input is an {@link ExpressionNumber} and the target a {@link ExpressionNumber} no convert happens, the wrapped
+ * {@link Converter} is never invoked.
  */
 final class ExpressionNumberToConverter<C extends ExpressionNumberConverterContext> implements Converter<C> {
 
     /**
-     * Factory that creates a new {@link ExpressionNumberToConverter}. This should only be called by {@link ExpressionNumber#toConverter(Converter)}.
+     * Factory that creates a new {@link ExpressionNumberToConverter}.
+     * This should only be called by {@link ExpressionNumber#toConverter(Converter)}.
      */
     static <C extends ExpressionNumberConverterContext> ExpressionNumberToConverter<C> with(final Converter<C> converter) {
         Objects.requireNonNull(converter, "converter");
@@ -66,6 +71,10 @@ final class ExpressionNumberToConverter<C extends ExpressionNumberConverterConte
                 );
     }
 
+    /**
+     * Queries if the wrapped {@link Converter} can convert the value to the target type which will be
+     * either {@link double} or {@link java.math.BigDecimal}.
+     */
     private boolean converterCanConvert(final Object value,
                                         final Class<?> type,
                                         final C context) {
