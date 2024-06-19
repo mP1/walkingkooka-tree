@@ -53,7 +53,7 @@ public final class ExpressionNumberConverterFromTest extends ExpressionNumberCon
     // convert..........................................................................................................
 
     @Test
-    public void testConvertFails() {
+    public void testConvertTrueToStringFails() {
         this.convertFails(
                 true,
                 String.class
@@ -61,80 +61,80 @@ public final class ExpressionNumberConverterFromTest extends ExpressionNumberCon
     }
 
     @Test
-    public void testConvertNull() {
-        this.convertAndCheck2(
+    public void testConvertNullToString() {
+        this.convertToStringAndCheck(
                 null,
                 null
         );
     }
 
     @Test
-    public void testConvertByte() {
-        this.convertAndCheck2(
+    public void testConvertByteToString() {
+        this.convertToStringAndCheck(
                 (byte) 123,
                 "123"
         );
     }
 
     @Test
-    public void testConvertShort() {
-        this.convertAndCheck2(
+    public void testConvertShortToString() {
+        this.convertToStringAndCheck(
                 (short) 123,
                 "123"
         );
     }
 
     @Test
-    public void testConvertInteger() {
-        this.convertAndCheck2(
+    public void testConvertIntegerToString() {
+        this.convertToStringAndCheck(
                 123,
                 "123"
         );
     }
 
     @Test
-    public void testConvertLong() {
-        this.convertAndCheck2(
+    public void testConvertLongToString() {
+        this.convertToStringAndCheck(
                 123L,
                 "123"
         );
     }
 
     @Test
-    public void testConvertFloat() {
-        this.convertAndCheck2(
+    public void testConvertFloatToString() {
+        this.convertToStringAndCheck(
                 128.5f,
                 "128.5"
         );
     }
 
     @Test
-    public void testConvertDouble() {
-        this.convertAndCheck2(
+    public void testConvertDoubleToString() {
+        this.convertToStringAndCheck(
                 128.5,
                 "128.5"
         );
     }
 
     @Test
-    public void testConvertBigInteger() {
-        this.convertAndCheck2(
+    public void testConvertBigIntegerToString() {
+        this.convertToStringAndCheck(
                 BigInteger.valueOf(123),
                 "123"
         );
     }
 
     @Test
-    public void testConvertBigDecimal() {
-        this.convertAndCheck2(
+    public void testConvertBigDecimalToString() {
+        this.convertToStringAndCheck(
                 BigDecimal.valueOf(128.5),
                 "128.5"
         );
     }
 
     @Test
-    public void testConvertExpressionNumberBigDecimal() {
-        this.convertAndCheck2(
+    public void testConvertExpressionNumberBigDecimalToString() {
+        this.convertToStringAndCheck(
                 ExpressionNumberKind.BIG_DECIMAL.create(BigDecimal.valueOf(128.5)),
                 "128.5"
         );
@@ -142,15 +142,16 @@ public final class ExpressionNumberConverterFromTest extends ExpressionNumberCon
 
     @Test
     public void testConvertExpressionNumberDouble() {
-        this.convertAndCheck2(
+        this.convertToStringAndCheck(
                 ExpressionNumberKind.DOUBLE.create(128.5
                 ),
                 "128.5");
     }
 
-    private void convertAndCheck2(final Object value,
-                                  final String expected) {
+    private void convertToStringAndCheck(final Object value,
+                                         final String expected) {
         this.convertAndCheck(
+
                 value,
                 String.class,
                 expected
@@ -209,18 +210,22 @@ public final class ExpressionNumberConverterFromTest extends ExpressionNumberCon
 
     @Override
     public ExpressionNumberConverterFrom<ExpressionNumberConverterContext> createConverter() {
-        return ExpressionNumberConverterFrom.with(Converters.numberString(new Function<>() {
-            @Override
-            public DecimalFormat apply(final DecimalNumberContext decimalNumberContext) {
-                return (DecimalFormat) DecimalFormat.getInstance();
-            }
+        return ExpressionNumberConverterFrom.with(
+                Converters.numberString(
+                        new Function<>() {
+                            @Override
+                            public DecimalFormat apply(final DecimalNumberContext decimalNumberContext) {
+                                return (DecimalFormat) DecimalFormat.getInstance();
+                            }
 
-            // want to override toString
-            @Override
-            public String toString() {
-                return "DecimalFormat.getInstance";
-            }
-        }));
+                            // want to override toString
+                            @Override
+                            public String toString() {
+                                return "DecimalFormat.getInstance";
+                            }
+                        }
+                )
+        );
     }
 
     @Override
