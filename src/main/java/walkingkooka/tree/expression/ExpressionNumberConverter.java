@@ -68,7 +68,7 @@ abstract class ExpressionNumberConverter<C extends ExpressionNumberConverterCont
                                                final Class<T> type,
                                                final C context) {
         return value instanceof ExpressionNumber ?
-                ExpressionNumber.isClass(type) ?
+                ExpressionNumber.isExpressionNumberAndNotNumber(type) ?
                         context.successfulConversion(
                                 value,
                                 type
