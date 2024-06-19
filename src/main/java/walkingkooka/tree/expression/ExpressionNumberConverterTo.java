@@ -106,6 +106,22 @@ final class ExpressionNumberConverterTo<C extends ExpressionNumberConverterConte
     <T> Either<T, String> convertNonExpressionNumber(final Object value,
                                                      final Class<T> type,
                                                      final C context) {
+        return ExpressionNumber.isExpressionNumberAndNotNumber(type) ?
+                this.convertNonExpressionNumberToExpressionNumber(
+                        value,
+                        type,
+                        context
+                ) :
+                this.convertNonExpressionNumberToNonExpressionNumber(
+                        value,
+                        type,
+                        context
+                );
+    }
+
+    private <T> Either<T, String> convertNonExpressionNumberToExpressionNumber(final Object value,
+                                                                               final Class<T> type,
+                                                                               final C context) {
         final ExpressionNumberKind kind = context.expressionNumberKind();
 
         final Either<?, String> numberResult = this.converter.convert(
@@ -115,11 +131,13 @@ final class ExpressionNumberConverterTo<C extends ExpressionNumberConverterConte
         );
 
         final Either<T, String> expressionNumberResult;
+
+        // wrap a successful number in a ExpressionNumber
         if (numberResult.isRight()) {
             expressionNumberResult = this.failConversion(value, type);
         } else {
             final Object numberResultValue = numberResult.leftValue();
-            if (null == numberResultValue || numberResultValue instanceof ExpressionNumber) {
+            if (null == numberResultValue) {
                 expressionNumberResult = Cast.to(numberResult);
             } else {
                 expressionNumberResult = this.successfulConversion(
@@ -129,6 +147,25 @@ final class ExpressionNumberConverterTo<C extends ExpressionNumberConverterConte
                         type
                 );
             }
+        }
+
+        return expressionNumberResult;
+    }
+
+    private <T> Either<T, String> convertNonExpressionNumberToNonExpressionNumber(final Object value,
+                                                                                  final Class<T> type,
+                                                                                  final C context) {
+        final Either<T, String> numberResult = this.converter.convert(
+                value,
+                type,
+                context
+        );
+
+        final Either<T, String> expressionNumberResult;
+        if (numberResult.isRight()) {
+            expressionNumberResult = this.failConversion(value, type);
+        } else {
+            expressionNumberResult = numberResult;
         }
 
         return expressionNumberResult;
