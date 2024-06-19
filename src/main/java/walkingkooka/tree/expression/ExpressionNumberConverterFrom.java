@@ -94,9 +94,11 @@ final class ExpressionNumberConverterFrom<C extends ExpressionNumberConverterCon
     <T> Either<T, String> convertNonExpressionNumber(final Object value,
                                                      final Class<T> type,
                                                      final C context) {
-        return (ExpressionNumber.is(value) && ExpressionNumber.class == type) ?
+        // short cut if value is Expression
+        return (ExpressionNumber.is(value) && ExpressionNumber.isExpressionNumberAndNotNumber(type)) ?
                 this.successfulConversion(
-                        context.expressionNumberKind().create((Number) value),
+                        context.expressionNumberKind()
+                                .create((Number) value),
                         type
                 ) :
                 this.converter.convert(
