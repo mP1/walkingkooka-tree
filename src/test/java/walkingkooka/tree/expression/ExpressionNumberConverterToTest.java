@@ -49,43 +49,67 @@ public final class ExpressionNumberConverterToTest extends ExpressionNumberConve
     // fails............................................................................................................
 
     @Test
-    public void testConvertByteFails() {
-        this.convertFails2("123", Byte.class);
+    public void testConvertStringToByteFails() {
+        this.convertFails2(
+                "123",
+                Byte.class
+        );
     }
 
     @Test
-    public void testConvertShortFails() {
-        this.convertFails2("123", Short.class);
+    public void testConvertStringToShortFails() {
+        this.convertFails2(
+                "123",
+                Short.class
+        );
     }
 
     @Test
-    public void testConvertIntegerFails() {
-        this.convertFails2("123", Integer.class);
+    public void testConvertStringToIntegerFails() {
+        this.convertFails2(
+                "123",
+                Integer.class
+        );
     }
 
     @Test
-    public void testConvertLongFails() {
-        this.convertFails2("123", Long.class);
+    public void testConvertStringToLongFails() {
+        this.convertFails2(
+                "123",
+                Long.class
+        );
     }
 
     @Test
-    public void testConvertFloatFails() {
-        this.convertFails2("123", Float.class);
+    public void testConvertStringToFloatFails() {
+        this.convertFails2(
+                "123",
+                Float.class
+        );
     }
 
     @Test
-    public void testConvertDoubleFails() {
-        this.convertFails2("123", Double.class);
+    public void testConvertStringToDoubleFails() {
+        this.convertFails2(
+                "123",
+                Double.class
+        );
     }
 
     @Test
-    public void testConvertBigIntegerFails() {
-        this.convertFails2("123", BigInteger.class);
+    public void testConvertStringToBigIntegerFails() {
+        this.convertFails2(
+                "123",
+                BigInteger.class
+        );
     }
 
     @Test
-    public void testConvertBigDecimalFails() {
-        this.convertFails2("123", BigDecimal.class);
+    public void testConvertStringToBigDecimalFails() {
+        this.convertFails2(
+                "123",
+                BigDecimal.class
+        );
     }
 
     private void convertFails2(final String value,
