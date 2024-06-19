@@ -56,26 +56,6 @@ final class ExpressionNumberConverterTo<C extends ExpressionNumberConverterConte
         this.converter = converter;
     }
 
-    public boolean XcanConvert(final Object value,
-                              final Class<?> type,
-                              final C context) {
-        return (ExpressionNumber.is(value) && ExpressionNumber.class == type) ||
-                this.XconverterCanConvert(value, type, context) ||
-                (ExpressionNumber.isClass(type) &&
-                        this.XconverterCanConvert(
-                                value,
-                                context.expressionNumberKind().numberType(),
-                                context
-                        )
-                );
-    }
-
-    private boolean XconverterCanConvert(final Object value,
-                                        final Class<?> type,
-                                        final C context) {
-        return this.converter.canConvert(value, type, context);
-    }
-
     // canConvert.......................................................................................................
 
     @Override
