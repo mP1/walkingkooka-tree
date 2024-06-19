@@ -24,10 +24,8 @@ import java.util.Objects;
 
 /**
  * A {@link Converter} that adds support for converting a {@link ExpressionNumber} to a target type by passing
- * the value from the {@link ExpressionNumber} to an intermediate {@link Converter}.
- * <br>
- * Note that requesting to convert a {@link Number} that is not a {@link ExpressionNumber} is delegated to the wrapped {@link Converter}.
- * However requesting to convert a {@link ExpressionNumber} to a {@link ExpressionNumber} will fail.
+ * the value from the {@link ExpressionNumber} to an intermediate {@link Converter}. For all other input value types
+ * the wrapped converter will be given the original input parameters including the value.
  */
 final class ExpressionNumberFromConverter<C extends ExpressionNumberConverterContext> implements Converter<C> {
 
@@ -49,7 +47,8 @@ final class ExpressionNumberFromConverter<C extends ExpressionNumberConverterCon
     }
 
     /**
-     * Only {@link ExpressionNumber} values and target type = JDK {@link Number} is supported.
+     * If the value is an {@link ExpressionNumber} then the wrapped converter will be tested if it supports
+     * {@link double} or {@link java.math.BigDecimal} for all other value types the wrapped convert is queried with the given value and target type.
      */
     @Override
     public boolean canConvert(final Object value,
@@ -62,14 +61,16 @@ final class ExpressionNumberFromConverter<C extends ExpressionNumberConverterCon
 
     /**
      * Asks the wrapped {@link Converter} if it can convert the {@link double} or {@link java.math.BigDecimal} value held
-     * by the {@link ExpressionNumber}.
+     * by the {@link ExpressionNumber} to the requested target type.
      */
     private boolean canConvertExpressionNumber(final ExpressionNumber value,
                                                final Class<?> type,
                                                final C context) {
-        return this.converter.canConvert(value.value(),
+        return this.converter.canConvert(
+                value.value(),
                 type,
-                context);
+                context
+        );
     }
 
 
@@ -82,6 +83,11 @@ final class ExpressionNumberFromConverter<C extends ExpressionNumberConverterCon
                 this.converter.convert(value, type, context);
     }
 
+    /**
+     * Handles the special case of the input value being a {@link ExpressionNumber}. The wrapped {@link double} or {@link java.math.BigDecimal}
+     * will be passed to the wrapped {@link Converter}. Rather than returning the original failed {@link Either} a new failed {@link Either} will
+     * be returned with the original {@link ExpressionNumber}.
+     */
     private <T> Either<T, String> convertExpressionNumber(final ExpressionNumber number,
                                                           final Class<T> type,
                                                           final C context) {
@@ -92,8 +98,8 @@ final class ExpressionNumberFromConverter<C extends ExpressionNumberConverterCon
     }
 
     /**
-     * The assumed {@link Converter} which takes a {@link Number} from a {@link ExpressionNumber} and converts to requested
-     * target target.
+     * The assumed {@link Converter} which takes a {@link Number} from a {@link ExpressionNumber} and converts to the requested
+     * target type.
      */
     private final Converter<C> converter;
 
