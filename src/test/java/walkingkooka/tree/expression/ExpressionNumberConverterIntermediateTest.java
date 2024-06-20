@@ -335,6 +335,55 @@ public final class ExpressionNumberConverterIntermediateTest implements Converte
         );
     }
 
+
+    @Test
+    public void testConvertNonExpressionNumberToExpressionNumberAndContextExpressionNumberKindBigDecimal() {
+        this.convertNonExpressionNumberToExpressionNumberAndCheck(ExpressionNumberKind.BIG_DECIMAL);
+    }
+
+    @Test
+    public void testConvertNonExpressionNumberToExpressionNumberAndContextExpressionNumberKindDouble() {
+        this.convertNonExpressionNumberToExpressionNumberAndCheck(ExpressionNumberKind.DOUBLE);
+    }
+
+    private void convertNonExpressionNumberToExpressionNumberAndCheck(final ExpressionNumberKind kind) {
+        final Integer input = 123;
+        final Class<ExpressionNumber> targetType = ExpressionNumber.class;
+        final ExpressionNumber expressionNumber = kind.create(input);
+
+        this.convertAndCheck(
+                ExpressionNumberConverterIntermediate.with(
+                        new Converter<>() {
+                            @Override
+                            public boolean canConvert(final Object value,
+                                                      final Class<?> type,
+                                                      final ExpressionNumberConverterContext context) {
+                                checkEquals(input, value);
+                                checkEquals(kind.numberType(), type);
+                                return true;
+                            }
+
+                            @Override
+                            public <T> Either<T, String> convert(final Object value,
+                                                                 final Class<T> type,
+                                                                 final ExpressionNumberConverterContext context) {
+                                checkEquals(input, value);
+                                checkEquals(kind.numberType(), type);
+                                return this.successfulConversion(
+                                        expressionNumber,
+                                        type
+                                );
+                            }
+                        },
+                        Converters.fake() // should be skipped because toExpressionConverter(1st) already returns ExpressionNumber
+                ),
+                input,
+                targetType,
+                this.createContext(kind),
+                expressionNumber
+        );
+    }
+
     // toString.........................................................................................................
 
     @Test

@@ -25,9 +25,14 @@ import java.util.Objects;
 
 /**
  * A {@link Converter} that takes two {@link Converter converters}.
+ * <br>
  * If the value is not a {@link ExpressionNumber} it will be given to the first converter which is expected to convert
- * the value to a {@link ExpressionNumber}. If the value is a {@link ExpressionNumber} it will be passed to the 2nd converter.
+ * the value to a {@link ExpressionNumber}.
+ * <br>
+ * If the value is a {@link ExpressionNumber} it will be passed to the 2nd converter.
  * The second converter will accept a {@link ExpressionNumber} and then attempt to convert that to the target type.
+ * <br>
+ * If the type is a {@link ExpressionNumber} the second #fromExpressionNumber will be skipped.
  * <br>
  * This converter is necessary to support a converter such as SpreadsheetNumberParsePattern#converter which
  * uses its own parser to convert a String -> ExpressionNumber and then a second Converter#numberNumber to convert
@@ -81,10 +86,12 @@ final class ExpressionNumberConverterIntermediate<C extends ExpressionNumberConv
 
         // if the first toExpressionNumber Converter was successful use pass the result value to the #fromExpressionNumber#canConvert.
         return asExpressionNumber.isLeft() &&
-                this.canConvertExpressionNumber(
-                        Cast.to(asExpressionNumber.leftValue()),
-                        type,
-                        context
+                (ExpressionNumber.isExpressionNumberAndNotNumber(type) ||
+                        this.canConvertExpressionNumber(
+                                Cast.to(asExpressionNumber.leftValue()),
+                                type,
+                                context
+                        )
                 );
     }
 
@@ -119,17 +126,21 @@ final class ExpressionNumberConverterIntermediate<C extends ExpressionNumberConv
 
         // if #toExpressionNumber converter was successful pass the value (a ExpressionNumber to #fromExpressionNumber to complete the convert.
         if (asExpressionNumber.isLeft()) {
-            result = this.convertExpressionNumber(
-                    Cast.to(asExpressionNumber.leftValue()),
-                    type,
-                    context
-            );
-            if (result.isRight()) {
-                // need to replace the fail message with one generated using the original value & type
-                result = this.failConversion(
-                        value,
-                        type
+            if (ExpressionNumber.isExpressionNumberAndNotNumber(type)) {
+                result = Cast.to(asExpressionNumber); // skip fromExpressionNumber already got ExpressionNumber
+            } else {
+                result = this.convertExpressionNumber(
+                        Cast.to(asExpressionNumber.leftValue()),
+                        type,
+                        context
                 );
+                if (result.isRight()) {
+                    // need to replace the fail message with one generated using the original value & type
+                    result = this.failConversion(
+                            value,
+                            type
+                    );
+                }
             }
         } else {
             // need to replace the fail message with one generated using the original value & type
