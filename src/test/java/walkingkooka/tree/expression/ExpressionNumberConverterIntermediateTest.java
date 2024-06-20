@@ -177,7 +177,7 @@ public final class ExpressionNumberConverterIntermediateTest implements Converte
                                                       final Class<?> type,
                                                       final ExpressionNumberConverterContext context) {
                                 checkEquals(input, value);
-                                checkEquals(kind.numberType(), type);
+                                checkEquals(ExpressionNumber.class, type);
                                 return true;
                             }
 
@@ -186,7 +186,7 @@ public final class ExpressionNumberConverterIntermediateTest implements Converte
                                                                  final Class<T> type,
                                                                  final ExpressionNumberConverterContext context) {
                                 checkEquals(input, value);
-                                checkEquals(kind.numberType(), type);
+                                checkEquals(ExpressionNumber.class, type);
                                 return Either.right("This message should not be returned to the caller");
                             }
                         },
@@ -222,7 +222,7 @@ public final class ExpressionNumberConverterIntermediateTest implements Converte
                                                       final Class<?> type,
                                                       final ExpressionNumberConverterContext context) {
                                 checkEquals(input, value);
-                                checkEquals(kind.numberType(), type);
+                                checkEquals(ExpressionNumber.class, type);
                                 return true;
                             }
 
@@ -231,7 +231,7 @@ public final class ExpressionNumberConverterIntermediateTest implements Converte
                                                                  final Class<T> type,
                                                                  final ExpressionNumberConverterContext context) {
                                 checkEquals(input, value);
-                                checkEquals(kind.numberType(), type);
+                                checkEquals(ExpressionNumber.class, type);
                                 return this.successfulConversion(
                                         expressionNumber,
                                         type
@@ -289,7 +289,7 @@ public final class ExpressionNumberConverterIntermediateTest implements Converte
                                                       final Class<?> type,
                                                       final ExpressionNumberConverterContext context) {
                                 checkEquals(input, value);
-                                checkEquals(kind.numberType(), type);
+                                checkEquals(ExpressionNumber.class, type);
                                 return true;
                             }
 
@@ -298,7 +298,7 @@ public final class ExpressionNumberConverterIntermediateTest implements Converte
                                                                  final Class<T> type,
                                                                  final ExpressionNumberConverterContext context) {
                                 checkEquals(input, value);
-                                checkEquals(kind.numberType(), type);
+                                checkEquals(ExpressionNumber.class, type);
                                 return this.successfulConversion(
                                         expressionNumber,
                                         type
@@ -359,7 +359,7 @@ public final class ExpressionNumberConverterIntermediateTest implements Converte
                                                       final Class<?> type,
                                                       final ExpressionNumberConverterContext context) {
                                 checkEquals(input, value);
-                                checkEquals(kind.numberType(), type);
+                                checkEquals(ExpressionNumber.class, type);
                                 return true;
                             }
 
@@ -368,7 +368,7 @@ public final class ExpressionNumberConverterIntermediateTest implements Converte
                                                                  final Class<T> type,
                                                                  final ExpressionNumberConverterContext context) {
                                 checkEquals(input, value);
-                                checkEquals(kind.numberType(), type);
+                                checkEquals(ExpressionNumber.class, type);
                                 return this.successfulConversion(
                                         expressionNumber,
                                         type

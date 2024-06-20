@@ -79,8 +79,7 @@ final class ExpressionNumberConverterIntermediate<C extends ExpressionNumberConv
         // need to convert value to ExpressionNumber.
         final Either<?, String> asExpressionNumber = this.toExpressionNumber.convert(
                 value,
-                context.expressionNumberKind()
-                        .numberType(),
+                ExpressionNumber.class,
                 context
         );
 
@@ -117,8 +116,7 @@ final class ExpressionNumberConverterIntermediate<C extends ExpressionNumberConv
         // need to convert value to ExpressionNumber.
         final Either<?, String> asExpressionNumber = this.toExpressionNumber.convert(
                 value,
-                context.expressionNumberKind()
-                        .numberType(),
+                ExpressionNumber.class,
                 context
         );
 
