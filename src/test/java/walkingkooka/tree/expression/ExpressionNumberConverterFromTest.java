@@ -19,6 +19,7 @@ package walkingkooka.tree.expression;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
+import walkingkooka.Either;
 import walkingkooka.convert.Converter;
 import walkingkooka.convert.Converters;
 import walkingkooka.math.DecimalNumberContext;
@@ -159,6 +160,33 @@ public final class ExpressionNumberConverterFromTest extends ExpressionNumberCon
     }
 
     // convert from ExpressionNumber....................................................................................
+
+    @Test
+    public void testConvertExpressionNumberWrappedConverterFails() {
+        this.convertFails(
+                ExpressionNumberConverterFrom.with(
+                        new Converter<ExpressionNumberConverterContext>() {
+                            @Override
+                            public boolean canConvert(final Object value,
+                                                      final Class<?> type,
+                                                      final ExpressionNumberConverterContext context) {
+                                return true; // want convert to fail.
+                            }
+
+                            @Override
+                            public <T> Either<T, String> convert(final Object value,
+                                                                 final Class<T> type,
+                                                                 final ExpressionNumberConverterContext context) {
+                                return Either.right("this message must be not be returned to user");
+                            }
+                        }
+                ),
+                ExpressionNumberKind.DEFAULT.one(),
+                String.class,
+                ExpressionNumberConverterContexts.fake(),
+                "Failed to convert 1 (walkingkooka.tree.expression.ExpressionNumberDouble) to java.lang.String"
+        );
+    }
 
     @Test
     public void testConvertExpressionNumberToByte() {
