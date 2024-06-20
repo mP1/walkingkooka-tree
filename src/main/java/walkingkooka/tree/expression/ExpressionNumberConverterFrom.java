@@ -84,6 +84,9 @@ final class ExpressionNumberConverterFrom<C extends ExpressionNumberConverterCon
                 value.value(),
                 type,
                 context
+        ).mapRight(
+                // need to replace message from #converter as it will mention the ExpressionNumber#value and not the ExpressionNumber itself.
+                oldFailMessage -> this.failConversion(value, type).rightValue()
         );
     }
 
