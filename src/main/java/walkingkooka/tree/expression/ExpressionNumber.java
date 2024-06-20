@@ -82,6 +82,17 @@ public abstract class ExpressionNumber extends Number implements Comparable<Expr
     }
 
     /**
+     * {@see ExpressionNumberConverterIntermediate}
+     */
+    public static <C extends ExpressionNumberConverterContext> Converter<C> intermediateConverter(final Converter<C> toExpressionNumber,
+                                                                                                  final Converter<C> toTarget) {
+        return ExpressionNumberConverterIntermediate.with(
+                toExpressionNumber,
+                toTarget
+        );
+    }
+
+    /**
      * Adds support for converting numbers to another numbers or {@link ExpressionNumber}.
      */
     public static <C extends ExpressionNumberConverterContext> Converter<C> toConverter(final Converter<C> converter) {
