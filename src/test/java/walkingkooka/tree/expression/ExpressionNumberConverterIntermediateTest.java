@@ -64,16 +64,16 @@ public final class ExpressionNumberConverterIntermediateTest implements Converte
     // input ExpressionNumber -> skips toExpressionNumber...............................................................
 
     @Test
-    public void testConvertExpressionNumberBigDecimalFails() {
-        this.convertExpressionNumberFails(ExpressionNumberKind.BIG_DECIMAL);
+    public void testConvertExpressionNumberBigDecimalToNonExpressionNumberAndToExpressionNumberConverterAndContextExpressionNumberKindBigDecimalFails() {
+        this.convertExpressionNumberBigDecimalToNonExpressionNumberAndToExpressionNumberConverterFails(ExpressionNumberKind.BIG_DECIMAL);
     }
 
     @Test
-    public void testConvertExpressionNumberDoubleFails() {
-        this.convertExpressionNumberFails(ExpressionNumberKind.DOUBLE);
+    public void testConvertExpressionNumberBigDecimalToNonExpressionNumberAndToExpressionNumberConverterAndContextExpressionNumberKindDoubleFails() {
+        this.convertExpressionNumberBigDecimalToNonExpressionNumberAndToExpressionNumberConverterFails(ExpressionNumberKind.DOUBLE);
     }
 
-    private void convertExpressionNumberFails(final ExpressionNumberKind kind) {
+    private void convertExpressionNumberBigDecimalToNonExpressionNumberAndToExpressionNumberConverterFails(final ExpressionNumberKind kind) {
         final ExpressionNumber expressionNumber = kind.create(123);
         final Class<String> targetType = String.class;
         final String failMessage = "Fail message 123";
@@ -107,16 +107,16 @@ public final class ExpressionNumberConverterIntermediateTest implements Converte
     }
 
     @Test
-    public void testConvertExpressionNumberBigDecimal() {
-        this.convertExpressionNumberAndCheck(ExpressionNumberKind.BIG_DECIMAL);
+    public void testConvertExpressionNumberToNonExpressionNumberAndContextExpressionNumberKindBigDecimal() {
+        this.convertExpressionNumberToNonExpressionNumberAndCheck(ExpressionNumberKind.BIG_DECIMAL);
     }
 
     @Test
-    public void testConvertExpressionNumberDouble() {
-        this.convertExpressionNumberAndCheck(ExpressionNumberKind.DOUBLE);
+    public void testConvertExpressionNumberToNonExpressionNumberAndContextExpressionNumberKindDouble() {
+        this.convertExpressionNumberToNonExpressionNumberAndCheck(ExpressionNumberKind.DOUBLE);
     }
 
-    private void convertExpressionNumberAndCheck(final ExpressionNumberKind kind) {
+    private void convertExpressionNumberToNonExpressionNumberAndCheck(final ExpressionNumberKind kind) {
         final ExpressionNumber expressionNumber = kind.create(123);
         final Class<Character> targetType = Character.class;
         final Character expected = '+';
@@ -156,16 +156,16 @@ public final class ExpressionNumberConverterIntermediateTest implements Converte
 
     // input NonExpressionNumber -> toExpressionNumber, fromExpressionNum ..............................................
     @Test
-    public void testConvertNonExpressionNumberToExpressionNumberConverterBigDecimalFails() {
-        this.convertNonExpressionNumberToExpressionNumberConverterFails(ExpressionNumberKind.BIG_DECIMAL);
+    public void testConvertNonExpressionNumberToNonExpressionNumberAndToExpressionNumberConverterAndContextExpressionNumberKindBigDecimalFails() {
+        this.convertNonExpressionNumberToNonExpressionNumberAndExpressionNumberConverterFails(ExpressionNumberKind.BIG_DECIMAL);
     }
 
     @Test
-    public void testConvertNonExpressionNumberToExpressionNumberConverterDoubleFails() {
-        this.convertNonExpressionNumberToExpressionNumberConverterFails(ExpressionNumberKind.DOUBLE);
+    public void testConvertNonExpressionNumberToNonExpressionNumberAndToExpressionNumberConverterAndContextExpressionNumberKindDoubleFails() {
+        this.convertNonExpressionNumberToNonExpressionNumberAndExpressionNumberConverterFails(ExpressionNumberKind.DOUBLE);
     }
 
-    private void convertNonExpressionNumberToExpressionNumberConverterFails(final ExpressionNumberKind kind) {
+    private void convertNonExpressionNumberToNonExpressionNumberAndExpressionNumberConverterFails(final ExpressionNumberKind kind) {
         final Integer input = 123;
         final Class<String> targetType = String.class;
 
@@ -201,15 +201,15 @@ public final class ExpressionNumberConverterIntermediateTest implements Converte
 
     @Test
     public void testConvertNonExpressionNumberFromExpressionNumberConverterBigDecimalFails() {
-        this.convertNonExpressionNumberToExpressionNumberConverterFails(ExpressionNumberKind.BIG_DECIMAL);
+        this.convertNonExpressionNumberAndFromExpressionNumberConverterFails(ExpressionNumberKind.BIG_DECIMAL);
     }
 
     @Test
     public void testConvertNonExpressionNumberFromExpressionNumberConverterDoubleFails() {
-        this.convertNonExpressionNumberFromExpressionNumberConverterFails(ExpressionNumberKind.DOUBLE);
+        this.convertNonExpressionNumberAndFromExpressionNumberConverterFails(ExpressionNumberKind.DOUBLE);
     }
 
-    private void convertNonExpressionNumberFromExpressionNumberConverterFails(final ExpressionNumberKind kind) {
+    private void convertNonExpressionNumberAndFromExpressionNumberConverterFails(final ExpressionNumberKind kind) {
         final Integer input = 123;
         final Class<String> targetType = String.class;
         final ExpressionNumber expressionNumber = kind.create(input);
@@ -266,16 +266,16 @@ public final class ExpressionNumberConverterIntermediateTest implements Converte
     }
 
     @Test
-    public void testConvertNonExpressionNumberContextBigDecimal() {
-        this.convertNonExpressionNumberAndCheck(ExpressionNumberKind.BIG_DECIMAL);
+    public void testConvertNonExpressionNumberToNonExpressionNumberAndContextExpressionNumberKindBigDecimal() {
+        this.convertNonExpressionNumberToNonExpressionNumberAndCheck(ExpressionNumberKind.BIG_DECIMAL);
     }
 
     @Test
-    public void testConvertNonExpressionNumberContextDouble() {
-        this.convertNonExpressionNumberAndCheck(ExpressionNumberKind.DOUBLE);
+    public void testConvertNonExpressionNumberToNonExpressionNumberAndContextExpressionNumberKindDouble() {
+        this.convertNonExpressionNumberToNonExpressionNumberAndCheck(ExpressionNumberKind.DOUBLE);
     }
 
-    private void convertNonExpressionNumberAndCheck(final ExpressionNumberKind kind) {
+    private void convertNonExpressionNumberToNonExpressionNumberAndCheck(final ExpressionNumberKind kind) {
         final Integer input = 123;
         final Class<String> targetType = String.class;
         final ExpressionNumber expressionNumber = kind.create(input);
