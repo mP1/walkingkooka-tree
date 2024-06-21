@@ -57,7 +57,7 @@ abstract class ParentExpression extends Expression {
         Objects.requireNonNull(children, "children");
 
         final List<Expression> copy = Lists.immutable(children);
-        return Lists.equals(this.children(), copy, (first, other) -> first.equalsIgnoringParentAndChildren(other) && first.equalsDescendants0(other)) ?
+        return Lists.equals(this.children(), copy, (first, other) -> first.equals(other)) ?
                 this :
                 this.replaceChildren(copy);
     }
@@ -65,8 +65,8 @@ abstract class ParentExpression extends Expression {
     @Override
     final Expression setChild(final Expression newChild) {
         final int index = newChild.index();
-        final Expression previous = this.children().get(index);
-        return previous.equalsIgnoringParentAndChildren(newChild) && previous.equalsDescendants(newChild) ?
+
+        return this.children().get(index).equals(newChild) ?
                 this :
                 this.replaceChild0(newChild, index);
     }
@@ -150,24 +150,8 @@ abstract class ParentExpression extends Expression {
         return this.children().hashCode();
     }
 
-    final boolean equalsDescendants0(final Expression other) {
-        return this.equalsDescendants1(other.children());
-    }
-
-    /**
-     * Only returns true if the descendants of this node and the given children are equal ignoring the parents.
-     */
-    private boolean equalsDescendants1(final List<Expression> otherChildren) {
-        final List<Expression> children = this.children();
-        final int count = children.size();
-        boolean equals = count == otherChildren.size();
-
-        if (equals) {
-            for (int i = 0; equals && i < count; i++) {
-                equals = children.get(i).equalsDescendants(otherChildren.get(i));
-            }
-        }
-
-        return equals;
+    @Override
+    final boolean equalsChildren(final Expression other) {
+        return this.children.equals(other.children());
     }
 }

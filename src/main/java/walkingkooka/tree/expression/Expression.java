@@ -551,43 +551,20 @@ public abstract class Expression implements Node<Expression, FunctionExpressionN
     abstract boolean canBeEqual(final Object other);
 
     private boolean equals0(final Expression other) {
-        return this.equalsAncestors(other) &&
-                this.equalsDescendants0(other);
+        return this.equalsIgnoringChildren(other) &&
+                this.equalsChildren(other);
     }
-
-    private boolean equalsAncestors(final Expression other) {
-        boolean result = this.equalsIgnoringParentAndChildren(other);
-
-        if (result) {
-            final Optional<Expression> parent = this.parent();
-            final Optional<Expression> otherParent = other.parent();
-            final boolean hasParent = parent.isPresent();
-            final boolean hasOtherParent = otherParent.isPresent();
-
-            if (hasParent) {
-                if (hasOtherParent) {
-                    result = parent.get().equalsAncestors(otherParent.get());
-                }
-            } else {
-                // result is only true if other is false
-                result = !hasOtherParent;
-            }
-        }
-
-        return result;
-    }
-
-    final boolean equalsDescendants(final Expression other) {
-        return this.equalsIgnoringParentAndChildren(other) &&
-                this.equalsDescendants0(other);
-    }
-
-    abstract boolean equalsDescendants0(final Expression other);
 
     /**
-     * Sub classes should do equals but ignore the parent and children properties.
+     * This method is only implemented by {@link LeafExpression} which returns true and {@link ParentExpression}
+     * which iterates over its children.
      */
-    abstract boolean equalsIgnoringParentAndChildren(final Expression other);
+    abstract boolean equalsChildren(final Expression other);
+
+    /**
+     * Sub classes should check other properties ignoring any children.
+     */
+    abstract boolean equalsIgnoringChildren(final Expression other);
 
     // Object .......................................................................................................
 
