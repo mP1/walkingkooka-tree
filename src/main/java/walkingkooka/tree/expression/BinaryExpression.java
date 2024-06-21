@@ -127,8 +127,9 @@ abstract class BinaryExpression extends ParentFixedExpression {
 
     // Object........................................................................................................
 
-    @Override final boolean equalsIgnoringParentAndChildren(final Expression other) {
-        return true; // no other properties name already tested.
+    @Override //
+    final boolean equalsIgnoringChildren(final Expression other) {
+        return true; // no other properties name was already tested.
     }
 
     final void toString0(final StringBuilder b) {

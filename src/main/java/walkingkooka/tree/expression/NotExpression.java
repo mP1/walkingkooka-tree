@@ -114,7 +114,7 @@ public final class NotExpression extends UnaryExpression {
     }
 
     @Override
-    boolean equalsIgnoringParentAndChildren(final Expression other) {
+    boolean equalsIgnoringChildren(final Expression other) {
         return true; // no other properties name already tested.
     }
 

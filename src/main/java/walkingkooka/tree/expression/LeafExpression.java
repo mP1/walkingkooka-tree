@@ -94,16 +94,18 @@ abstract class LeafExpression<V> extends Expression implements Value<V> {
         return Objects.hash(this.value);
     }
 
-    @Override final boolean equalsDescendants0(final Expression other) {
+    @Override //
+    final boolean equalsChildren(final Expression other) {
         return true;
     }
 
-    @Override final boolean equalsIgnoringParentAndChildren(final Expression other) {
+    @Override //
+    final boolean equalsIgnoringChildren(final Expression other) {
         return other instanceof LeafExpression &&
-                equalsIgnoringParentAndChildren0(Cast.to(other));
+                equalsChildren0(Cast.to(other));
     }
 
-    private boolean equalsIgnoringParentAndChildren0(final LeafExpression<?> other) {
+    private boolean equalsChildren0(final LeafExpression<?> other) {
         return this.value.equals(other.value);
     }
 }

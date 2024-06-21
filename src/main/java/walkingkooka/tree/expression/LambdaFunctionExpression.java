@@ -185,7 +185,7 @@ public final class LambdaFunctionExpression extends UnaryExpression {
     }
 
     @Override
-    boolean equalsIgnoringParentAndChildren(final Expression other) {
+    boolean equalsIgnoringChildren(final Expression other) {
         return this.equalsIgnoringParentAndChildren0((LambdaFunctionExpression) other);
     }
 

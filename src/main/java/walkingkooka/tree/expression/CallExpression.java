@@ -203,7 +203,7 @@ public final class CallExpression extends VariableExpression {
     // Object.........................................................................................................
 
     @Override
-    boolean equalsIgnoringParentAndChildren(final Expression other) {
+    boolean equalsIgnoringChildren(final Expression other) {
         return this.equalsIgnoringParentAndChildren0(Cast.to(other));
     }
 
