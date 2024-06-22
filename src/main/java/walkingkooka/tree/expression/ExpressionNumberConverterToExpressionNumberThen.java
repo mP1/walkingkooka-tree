@@ -38,21 +38,21 @@ import java.util.Objects;
  * uses its own parser to convert a String -> ExpressionNumber and then a second Converter#numberNumber to convert
  * that intermediate ExpressionNumber to the target Number type.
  */
-final class ExpressionNumberConverterIntermediate<C extends ExpressionNumberConverterContext> extends ExpressionNumberConverter<C> {
+final class ExpressionNumberConverterToExpressionNumberThen<C extends ExpressionNumberConverterContext> extends ExpressionNumberConverter<C> {
 
-    static <C extends ExpressionNumberConverterContext> ExpressionNumberConverterIntermediate<C> with(final Converter<C> toExpressionNumber,
-                                                                                                      final Converter<C> fromExpressionNumber) {
+    static <C extends ExpressionNumberConverterContext> ExpressionNumberConverterToExpressionNumberThen<C> with(final Converter<C> toExpressionNumber,
+                                                                                                                final Converter<C> fromExpressionNumber) {
         Objects.requireNonNull(toExpressionNumber, "toExpressionNumber");
         Objects.requireNonNull(fromExpressionNumber, "fromExpressionNumber");
 
-        return new ExpressionNumberConverterIntermediate<>(
+        return new ExpressionNumberConverterToExpressionNumberThen<>(
                 toExpressionNumber,
                 fromExpressionNumber
         );
     }
 
-    private ExpressionNumberConverterIntermediate(final Converter<C> toExpressionNumber,
-                                                  final Converter<C> fromExpressionNumber) {
+    private ExpressionNumberConverterToExpressionNumberThen(final Converter<C> toExpressionNumber,
+                                                            final Converter<C> fromExpressionNumber) {
         this.toExpressionNumber = toExpressionNumber;
         this.fromExpressionNumber = fromExpressionNumber;
     }
