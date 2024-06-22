@@ -1978,7 +1978,12 @@ public final class NodeSelectorNodeSelectorParserTokenVisitorTest implements Nod
                     }
 
                     private Either<Boolean, String> convertToBoolean(final Object value) {
-                        return Converters.truthyNumberBoolean().convert(value, Boolean.class, this.converterContext());
+                        return Converters.numberToBoolean()
+                                .convert(
+                                        value,
+                                        Boolean.class,
+                                        this.converterContext()
+                                );
                     }
 
                     private Either<String, String> convertToString(final Object value) {
