@@ -382,8 +382,8 @@ public abstract class ExpressionTestCase<N extends Expression> implements TreePr
                         Converters.localDateTimeString((c) -> DateTimeFormatter.ISO_LOCAL_DATE_TIME),
                         // localTime
                         toBoolean(LocalTime.class, LocalTime.ofNanoOfDay(0)),
-                        Converters.localTimeLocalDateTime(),
-                        ExpressionNumber.toConverter(Converters.localTimeNumber()),
+                        Converters.localTimeToLocalDateTime(),
+                        ExpressionNumber.toConverter(Converters.localTimeToNumber()),
                         Converters.localTimeString((c) -> DateTimeFormatter.ISO_LOCAL_TIME),
                         // ExpressionNumber ->),
                         ExpressionNumber.fromConverter(Converters.numberToNumber()),
