@@ -246,7 +246,7 @@ public final class ExpressionNumberConverterFromTest extends ExpressionNumberCon
 
     private void convertFromExpressionNumberAndCheck(final Number expected) {
         final Converter<ExpressionNumberConverterContext> converter = ExpressionNumberConverterFrom.with(
-                Converters.numberNumber()
+                Converters.numberToNumber()
         );
 
         this.convertAndCheck(
@@ -269,7 +269,7 @@ public final class ExpressionNumberConverterFromTest extends ExpressionNumberCon
 
     @Test
     public void testConvertDoubleToDoubleDelegates() {
-        final Converter<ExpressionNumberConverterContext> converter = Converters.numberNumber();
+        final Converter<ExpressionNumberConverterContext> converter = Converters.numberToNumber();
         this.convertAndCheck(
                 converter,
                 1.0,

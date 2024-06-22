@@ -386,14 +386,14 @@ public abstract class ExpressionTestCase<N extends Expression> implements TreePr
                         ExpressionNumber.toConverter(Converters.localTimeNumber()),
                         Converters.localTimeString((c) -> DateTimeFormatter.ISO_LOCAL_TIME),
                         // ExpressionNumber ->),
-                        ExpressionNumber.fromConverter(Converters.numberNumber()),
+                        ExpressionNumber.fromConverter(Converters.numberToNumber()),
                         ExpressionNumber.fromConverter(Converters.truthyNumberBoolean()),
                         ExpressionNumber.fromConverter(Converters.numberLocalDate(Converters.JAVA_EPOCH_OFFSET)),
                         ExpressionNumber.fromConverter(Converters.numberLocalDateTime(Converters.JAVA_EPOCH_OFFSET)),
                         ExpressionNumber.fromConverter(Converters.numberLocalTime()),
                         ExpressionNumber.fromConverter(Converters.numberString((c) -> new DecimalFormat("#.###"))),
                         // Number ->),
-                        ExpressionNumber.fromConverter(Converters.numberNumber()),
+                        ExpressionNumber.fromConverter(Converters.numberToNumber()),
                         ExpressionNumber.fromConverter(Converters.truthyNumberBoolean()),
                         ExpressionNumber.fromConverter(Converters.numberLocalDate(Converters.JAVA_EPOCH_OFFSET)),
                         ExpressionNumber.fromConverter(Converters.numberLocalDateTime(Converters.JAVA_EPOCH_OFFSET)),
@@ -412,7 +412,7 @@ public abstract class ExpressionTestCase<N extends Expression> implements TreePr
                         fromBoolean(LocalDate.class, Converters.numberLocalDate(Converters.JAVA_EPOCH_OFFSET)),
                         fromBoolean(LocalDateTime.class, Converters.numberLocalDateTime(Converters.JAVA_EPOCH_OFFSET)),
                         fromBoolean(LocalTime.class, Converters.numberLocalTime()),
-                        fromBoolean(ExpressionNumber.class, ExpressionNumber.toConverter(Converters.numberNumber()))
+                        fromBoolean(ExpressionNumber.class, ExpressionNumber.toConverter(Converters.numberToNumber()))
                 )
         );
 

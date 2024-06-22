@@ -37,7 +37,7 @@ public final class BasicExpressionNumberConverterContextTest implements Expressi
         ToStringTesting<BasicExpressionNumberConverterContext> {
 
     private final static ExpressionNumberKind KIND = ExpressionNumberKind.DEFAULT;
-    private final static Converter<ExpressionNumberConverterContext> CONVERTER = Converters.numberNumber();
+    private final static Converter<ExpressionNumberConverterContext> CONVERTER = Converters.numberToNumber();
 
     @Test
     public void testWithNullConverterFails() {
