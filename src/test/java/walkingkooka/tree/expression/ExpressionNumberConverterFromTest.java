@@ -318,7 +318,7 @@ public final class ExpressionNumberConverterFromTest extends ExpressionNumberCon
     @Override
     public ExpressionNumberConverterFrom<ExpressionNumberConverterContext> createConverter() {
         return ExpressionNumberConverterFrom.with(
-                Converters.numberString(
+                Converters.numberToString(
                         new Function<>() {
                             @Override
                             public DecimalFormat apply(final DecimalNumberContext decimalNumberContext) {
