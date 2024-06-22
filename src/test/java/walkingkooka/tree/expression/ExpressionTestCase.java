@@ -371,14 +371,14 @@ public abstract class ExpressionTestCase<N extends Expression> implements TreePr
                         },
                         // localDate ->
                         toBoolean(LocalDate.class, LocalDate.ofEpochDay(0)),
-                        Converters.localDateLocalDateTime(),
-                        ExpressionNumber.toConverter(Converters.localDateNumber(Converters.JAVA_EPOCH_OFFSET)),
+                        Converters.localDateToLocalDateTime(),
+                        ExpressionNumber.toConverter(Converters.localDateToNumber(Converters.JAVA_EPOCH_OFFSET)),
                         Converters.localDateString((c) -> DateTimeFormatter.ISO_LOCAL_DATE),
                         // localDateTime ->
                         toBoolean(LocalDateTime.class, LocalDateTime.ofEpochSecond(0, 0, ZoneOffset.UTC)),
-                        Converters.localDateTimeLocalDate(),
-                        Converters.localDateTimeLocalTime(),
-                        ExpressionNumber.toConverter(Converters.localDateTimeNumber(Converters.JAVA_EPOCH_OFFSET)),
+                        Converters.localDateTimeToLocalDate(),
+                        Converters.localDateTimeToLocalTime(),
+                        ExpressionNumber.toConverter(Converters.localDateTimeToNumber(Converters.JAVA_EPOCH_OFFSET)),
                         Converters.localDateTimeString((c) -> DateTimeFormatter.ISO_LOCAL_DATE_TIME),
                         // localTime
                         toBoolean(LocalTime.class, LocalTime.ofNanoOfDay(0)),
