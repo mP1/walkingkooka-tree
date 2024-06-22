@@ -223,7 +223,7 @@ public final class ExpressionNumberConverterToTest extends ExpressionNumberConve
     public void testConvertWithExpressionNumberConvertFromWithBigDecimalToExpressionNumber() {
         this.convertToExpressionNumberAndCheck(
                 ExpressionNumberConverterTo.with(
-                        ExpressionNumberConverterFrom.with(
+                        ExpressionNumberConverterNumberOrExpressionNumberTo.with(
                                 Converters.numberToNumber()
                         )
                 ),

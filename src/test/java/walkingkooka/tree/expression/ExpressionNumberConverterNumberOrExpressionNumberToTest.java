@@ -32,22 +32,22 @@ import java.util.function.Function;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class ExpressionNumberConverterFromTest extends ExpressionNumberConverterTestCase<ExpressionNumberConverterFrom<ExpressionNumberConverterContext>> {
+public final class ExpressionNumberConverterNumberOrExpressionNumberToTest extends ExpressionNumberConverterTestCase<ExpressionNumberConverterNumberOrExpressionNumberTo<ExpressionNumberConverterContext>> {
 
     @Test
     public void testWithNullConverterFails() {
         assertThrows(
                 NullPointerException.class,
-                () -> ExpressionNumberConverterFrom.with(null)
+                () -> ExpressionNumberConverterNumberOrExpressionNumberTo.with(null)
         );
     }
 
     @Test
     public void testWithExpressionNumberFromConverter() {
-        final ExpressionNumberConverterFrom<ExpressionNumberConverterContext> converter = this.createConverter();
+        final ExpressionNumberConverterNumberOrExpressionNumberTo<ExpressionNumberConverterContext> converter = this.createConverter();
         assertSame(
                 converter,
-                ExpressionNumberConverterFrom.with(converter)
+                ExpressionNumberConverterNumberOrExpressionNumberTo.with(converter)
         );
     }
 
@@ -164,7 +164,7 @@ public final class ExpressionNumberConverterFromTest extends ExpressionNumberCon
     @Test
     public void testConvertExpressionNumberWrappedConverterFails() {
         this.convertFails(
-                ExpressionNumberConverterFrom.with(
+                ExpressionNumberConverterNumberOrExpressionNumberTo.with(
                         new Converter<ExpressionNumberConverterContext>() {
                             @Override
                             public boolean canConvert(final Object value,
@@ -245,7 +245,7 @@ public final class ExpressionNumberConverterFromTest extends ExpressionNumberCon
     }
 
     private void convertFromExpressionNumberAndCheck(final Number expected) {
-        final Converter<ExpressionNumberConverterContext> converter = ExpressionNumberConverterFrom.with(
+        final Converter<ExpressionNumberConverterContext> converter = ExpressionNumberConverterNumberOrExpressionNumberTo.with(
                 Converters.numberToNumber()
         );
 
@@ -278,7 +278,7 @@ public final class ExpressionNumberConverterFromTest extends ExpressionNumberCon
         );
 
         this.convertAndCheck(
-                ExpressionNumberConverterFrom.with(
+                ExpressionNumberConverterNumberOrExpressionNumberTo.with(
                         converter
                 ),
                 1.0,
@@ -297,7 +297,7 @@ public final class ExpressionNumberConverterFromTest extends ExpressionNumberCon
         );
 
         this.convertFails(
-                ExpressionNumberConverterFrom.with(
+                ExpressionNumberConverterNumberOrExpressionNumberTo.with(
                         converter
                 ),
                 1.0,
@@ -316,8 +316,8 @@ public final class ExpressionNumberConverterFromTest extends ExpressionNumberCon
     }
 
     @Override
-    public ExpressionNumberConverterFrom<ExpressionNumberConverterContext> createConverter() {
-        return ExpressionNumberConverterFrom.with(
+    public ExpressionNumberConverterNumberOrExpressionNumberTo<ExpressionNumberConverterContext> createConverter() {
+        return ExpressionNumberConverterNumberOrExpressionNumberTo.with(
                 Converters.numberToString(
                         new Function<>() {
                             @Override
@@ -336,7 +336,7 @@ public final class ExpressionNumberConverterFromTest extends ExpressionNumberCon
     }
 
     @Override
-    public Class<ExpressionNumberConverterFrom<ExpressionNumberConverterContext>> type() {
-        return Cast.to(ExpressionNumberConverterFrom.class);
+    public Class<ExpressionNumberConverterNumberOrExpressionNumberTo<ExpressionNumberConverterContext>> type() {
+        return Cast.to(ExpressionNumberConverterNumberOrExpressionNumberTo.class);
     }
 }
