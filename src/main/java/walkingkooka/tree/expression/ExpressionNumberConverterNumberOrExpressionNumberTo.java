@@ -28,24 +28,24 @@ import java.util.Objects;
  * the value from the {@link ExpressionNumber} to an intermediate {@link Converter}. For all other input value types
  * the wrapped converter will be given the original input parameters including the value.
  */
-final class ExpressionNumberConverterFrom<C extends ExpressionNumberConverterContext> extends ExpressionNumberConverter<C> {
+final class ExpressionNumberConverterNumberOrExpressionNumberTo<C extends ExpressionNumberConverterContext> extends ExpressionNumberConverter<C> {
 
     /**
      * Wraps another {@link Converter}, which will receive the actual value of the {@link ExpressionNumber}.
-     * Note if the converter is already a {@link ExpressionNumberConverterFrom} it will not be double wrapped.
+     * Note if the converter is already a {@link ExpressionNumberConverterNumberOrExpressionNumberTo} it will not be double wrapped.
      */
-    static <C extends ExpressionNumberConverterContext> ExpressionNumberConverterFrom<C> with(final Converter<C> converter) {
+    static <C extends ExpressionNumberConverterContext> ExpressionNumberConverterNumberOrExpressionNumberTo<C> with(final Converter<C> converter) {
         Objects.requireNonNull(converter, "converter");
 
-        return converter instanceof ExpressionNumberConverterFrom ?
+        return converter instanceof ExpressionNumberConverterNumberOrExpressionNumberTo ?
                 Cast.to(converter) :
-                new ExpressionNumberConverterFrom<>(converter);
+                new ExpressionNumberConverterNumberOrExpressionNumberTo<>(converter);
     }
 
     /**
      * Use factory
      */
-    private ExpressionNumberConverterFrom(final Converter<C> converter) {
+    private ExpressionNumberConverterNumberOrExpressionNumberTo(final Converter<C> converter) {
         super();
         this.converter = converter;
     }
