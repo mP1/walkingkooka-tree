@@ -95,8 +95,8 @@ public abstract class ExpressionNumber extends Number implements Comparable<Expr
     /**
      * Adds support for converting numbers to another numbers or {@link ExpressionNumber}.
      */
-    public static <C extends ExpressionNumberConverterContext> Converter<C> toConverter(final Converter<C> converter) {
-        return ExpressionNumberConverterTo.with(converter);
+    public static <C extends ExpressionNumberConverterContext> Converter<C> toNumberOrExpressionNumber(final Converter<C> converter) {
+        return ExpressionNumberConverterToNumberOrExpressionNumber.with(converter);
     }
 
     /**

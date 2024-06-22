@@ -205,7 +205,7 @@ public final class BasicNodeSelectorContextTest implements ClassTesting2<BasicNo
             }
 
             private ExpressionNumberConverterContext converterContext() {
-                return ExpressionNumberConverterContexts.basic(ExpressionNumber.toConverter(Converters.fake()),
+                return ExpressionNumberConverterContexts.basic(ExpressionNumber.toNumberOrExpressionNumber(Converters.fake()),
                         ConverterContexts.basic(Converters.fake(),
                                 DateTimeContexts.fake(),
                                 DecimalNumberContexts.fake()), KIND);

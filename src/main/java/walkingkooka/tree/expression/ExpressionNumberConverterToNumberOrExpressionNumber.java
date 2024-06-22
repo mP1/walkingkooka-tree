@@ -34,24 +34,24 @@ import java.util.Objects;
  * If the input is an {@link ExpressionNumber} and the target a {@link ExpressionNumber} no convert happens, the wrapped
  * {@link Converter} is never invoked.
  */
-final class ExpressionNumberConverterTo<C extends ExpressionNumberConverterContext> extends ExpressionNumberConverter<C> {
+final class ExpressionNumberConverterToNumberOrExpressionNumber<C extends ExpressionNumberConverterContext> extends ExpressionNumberConverter<C> {
 
     /**
-     * Factory that creates a new {@link ExpressionNumberConverterTo}.
-     * This should only be called by {@link ExpressionNumber#toConverter(Converter)}.
+     * Factory that creates a new {@link ExpressionNumberConverterToNumberOrExpressionNumber}.
+     * This should only be called by {@link ExpressionNumber#toNumberOrExpressionNumber(Converter)}.
      */
-    static <C extends ExpressionNumberConverterContext> ExpressionNumberConverterTo<C> with(final Converter<C> converter) {
+    static <C extends ExpressionNumberConverterContext> ExpressionNumberConverterToNumberOrExpressionNumber<C> with(final Converter<C> converter) {
         Objects.requireNonNull(converter, "converter");
 
-        return converter instanceof ExpressionNumberConverterTo ?
+        return converter instanceof ExpressionNumberConverterToNumberOrExpressionNumber ?
                 Cast.to(converter) :
-                new ExpressionNumberConverterTo<>(converter);
+                new ExpressionNumberConverterToNumberOrExpressionNumber<>(converter);
     }
 
     /**
      * Private ctor use factory
      */
-    private ExpressionNumberConverterTo(final Converter<C> converter) {
+    private ExpressionNumberConverterToNumberOrExpressionNumber(final Converter<C> converter) {
         super();
         this.converter = converter;
     }

@@ -30,19 +30,19 @@ import java.math.BigInteger;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class ExpressionNumberConverterToTest extends ExpressionNumberConverterTestCase<ExpressionNumberConverterTo<ExpressionNumberConverterContext>> {
+public final class ExpressionNumberConverterToNumberOrExpressionNumberTest extends ExpressionNumberConverterTestCase<ExpressionNumberConverterToNumberOrExpressionNumber<ExpressionNumberConverterContext>> {
 
     @Test
     public void testWithNullConverterFails() {
-        assertThrows(NullPointerException.class, () -> ExpressionNumberConverterTo.with(null));
+        assertThrows(NullPointerException.class, () -> ExpressionNumberConverterToNumberOrExpressionNumber.with(null));
     }
 
     @Test
     public void testWithExpressionNumberToConverter() {
-        final ExpressionNumberConverterTo<ExpressionNumberConverterContext> converter = this.createConverter();
+        final ExpressionNumberConverterToNumberOrExpressionNumber<ExpressionNumberConverterContext> converter = this.createConverter();
         assertSame(
                 converter,
-                ExpressionNumberConverterTo.with(converter)
+                ExpressionNumberConverterToNumberOrExpressionNumber.with(converter)
         );
     }
 
@@ -121,7 +121,7 @@ public final class ExpressionNumberConverterToTest extends ExpressionNumberConve
     private void convertFails3(final ExpressionNumberKind kind,
                                final String value,
                                final Class<?> type) {
-        final Converter<ExpressionNumberConverterContext> converter = ExpressionNumber.toConverter(
+        final Converter<ExpressionNumberConverterContext> converter = ExpressionNumber.toNumberOrExpressionNumber(
                 new FakeConverter<>() {
                     @Override
                     public boolean canConvert(final Object value,
@@ -222,7 +222,7 @@ public final class ExpressionNumberConverterToTest extends ExpressionNumberConve
     @Test
     public void testConvertWithExpressionNumberConvertFromWithBigDecimalToExpressionNumber() {
         this.convertToExpressionNumberAndCheck(
-                ExpressionNumberConverterTo.with(
+                ExpressionNumberConverterToNumberOrExpressionNumber.with(
                         ExpressionNumberConverterNumberOrExpressionNumberTo.with(
                                 Converters.numberToNumber()
                         )
@@ -238,7 +238,7 @@ public final class ExpressionNumberConverterToTest extends ExpressionNumberConve
         );
     }
 
-    private void convertToExpressionNumberAndCheck(final ExpressionNumberConverterTo<ExpressionNumberConverterContext> converter,
+    private void convertToExpressionNumberAndCheck(final ExpressionNumberConverterToNumberOrExpressionNumber<ExpressionNumberConverterContext> converter,
                                                    final Number number) {
         this.convertAndCheck2(
                 converter,
@@ -306,7 +306,7 @@ public final class ExpressionNumberConverterToTest extends ExpressionNumberConve
         );
     }
 
-    private void convertToBigDecimalAndCheck(final ExpressionNumberConverterTo<ExpressionNumberConverterContext> converter,
+    private void convertToBigDecimalAndCheck(final ExpressionNumberConverterToNumberOrExpressionNumber<ExpressionNumberConverterContext> converter,
                                              final Number number) {
         final BigDecimal expected = ExpressionNumberKind.BIG_DECIMAL.create(number)
                 .bigDecimal();
@@ -377,7 +377,7 @@ public final class ExpressionNumberConverterToTest extends ExpressionNumberConve
         );
     }
 
-    private void convertToDoubleAndCheck(final ExpressionNumberConverterTo<ExpressionNumberConverterContext> converter,
+    private void convertToDoubleAndCheck(final ExpressionNumberConverterToNumberOrExpressionNumber<ExpressionNumberConverterContext> converter,
                                          final Number number) {
         final double expected = ExpressionNumberKind.DOUBLE.create(number)
                 .doubleValue();
@@ -418,7 +418,7 @@ public final class ExpressionNumberConverterToTest extends ExpressionNumberConve
     @Test
     public void testToString() {
         this.toStringAndCheck(
-                ExpressionNumberConverterTo.with(Converters.fake()
+                ExpressionNumberConverterToNumberOrExpressionNumber.with(Converters.fake()
                         .setToString("Custom")
                         .cast(ExpressionNumberConverterContext.class)),
                 "Custom? " + ExpressionNumber.class.getSimpleName()
@@ -428,14 +428,14 @@ public final class ExpressionNumberConverterToTest extends ExpressionNumberConve
     // helpers..........................................................................................................
 
     @Override
-    public ExpressionNumberConverterTo<ExpressionNumberConverterContext> createConverter() {
-        return ExpressionNumberConverterTo.with(
+    public ExpressionNumberConverterToNumberOrExpressionNumber<ExpressionNumberConverterContext> createConverter() {
+        return ExpressionNumberConverterToNumberOrExpressionNumber.with(
                 Converters.numberToNumber()
         );
     }
 
     @Override
-    public Class<ExpressionNumberConverterTo<ExpressionNumberConverterContext>> type() {
-        return Cast.to(ExpressionNumberConverterTo.class);
+    public Class<ExpressionNumberConverterToNumberOrExpressionNumber<ExpressionNumberConverterContext>> type() {
+        return Cast.to(ExpressionNumberConverterToNumberOrExpressionNumber.class);
     }
 }
