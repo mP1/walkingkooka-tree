@@ -372,18 +372,18 @@ public abstract class ExpressionTestCase<N extends Expression> implements TreePr
                         // localDate ->
                         toBoolean(LocalDate.class, LocalDate.ofEpochDay(0)),
                         Converters.localDateToLocalDateTime(),
-                        ExpressionNumber.toConverter(Converters.localDateToNumber(Converters.JAVA_EPOCH_OFFSET)),
+                        ExpressionNumber.toNumberOrExpressionNumber(Converters.localDateToNumber(Converters.JAVA_EPOCH_OFFSET)),
                         Converters.localDateToString((c) -> DateTimeFormatter.ISO_LOCAL_DATE),
                         // localDateTime ->
                         toBoolean(LocalDateTime.class, LocalDateTime.ofEpochSecond(0, 0, ZoneOffset.UTC)),
                         Converters.localDateTimeToLocalDate(),
                         Converters.localDateTimeToLocalTime(),
-                        ExpressionNumber.toConverter(Converters.localDateTimeToNumber(Converters.JAVA_EPOCH_OFFSET)),
+                        ExpressionNumber.toNumberOrExpressionNumber(Converters.localDateTimeToNumber(Converters.JAVA_EPOCH_OFFSET)),
                         Converters.localDateTimeToString((c) -> DateTimeFormatter.ISO_LOCAL_DATE_TIME),
                         // localTime
                         toBoolean(LocalTime.class, LocalTime.ofNanoOfDay(0)),
                         Converters.localTimeToLocalDateTime(),
-                        ExpressionNumber.toConverter(Converters.localTimeToNumber()),
+                        ExpressionNumber.toNumberOrExpressionNumber(Converters.localTimeToNumber()),
                         Converters.localTimeToString((c) -> DateTimeFormatter.ISO_LOCAL_TIME),
                         // ExpressionNumber ->),
                         ExpressionNumber.numberOrExpressionNumberTo(Converters.numberToNumber()),
@@ -405,14 +405,14 @@ public abstract class ExpressionTestCase<N extends Expression> implements TreePr
                         stringLocalDate,
                         stringLocalDateTime,
                         stringLocalTime,
-                        ExpressionNumber.toConverter(stringDouble),
+                        ExpressionNumber.toNumberOrExpressionNumber(stringDouble),
                         Converters.objectToString(),
                         // boolean ->
                         listToBoolean(),
                         fromBoolean(LocalDate.class, Converters.numberToLocalDate(Converters.JAVA_EPOCH_OFFSET)),
                         fromBoolean(LocalDateTime.class, Converters.numberToLocalDateTime(Converters.JAVA_EPOCH_OFFSET)),
                         fromBoolean(LocalTime.class, Converters.numberToLocalTime()),
-                        fromBoolean(ExpressionNumber.class, ExpressionNumber.toConverter(Converters.numberToNumber()))
+                        fromBoolean(ExpressionNumber.class, ExpressionNumber.toNumberOrExpressionNumber(Converters.numberToNumber()))
                 )
         );
 
