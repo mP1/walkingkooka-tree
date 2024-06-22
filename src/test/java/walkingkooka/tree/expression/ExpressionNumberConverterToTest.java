@@ -224,7 +224,7 @@ public final class ExpressionNumberConverterToTest extends ExpressionNumberConve
         this.convertToExpressionNumberAndCheck(
                 ExpressionNumberConverterTo.with(
                         ExpressionNumberConverterFrom.with(
-                                Converters.numberNumber()
+                                Converters.numberToNumber()
                         )
                 ),
                 BigDecimal.valueOf(123)
@@ -430,7 +430,7 @@ public final class ExpressionNumberConverterToTest extends ExpressionNumberConve
     @Override
     public ExpressionNumberConverterTo<ExpressionNumberConverterContext> createConverter() {
         return ExpressionNumberConverterTo.with(
-                Converters.numberNumber()
+                Converters.numberToNumber()
         );
     }
 

@@ -674,7 +674,7 @@ public final class BasicExpressionEvaluationContextTest implements ClassTesting2
         return ConverterContexts.basic(
                 Converters.collection(
                         Lists.of(
-                                Converters.numberNumber(),
+                                Converters.numberToNumber(),
                                 Converters.simple()
                         )
                 ),

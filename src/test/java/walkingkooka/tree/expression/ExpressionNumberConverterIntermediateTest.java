@@ -34,7 +34,7 @@ public final class ExpressionNumberConverterIntermediateTest implements Converte
     private final static String STRING_TO_EXPRESSION_NUMBER = "String->ExpressionNumber";
 
     private final static Converter<ExpressionNumberConverterContext> EXPRESSION_NUMBER_TO_NUMBER_CONVERTER = ExpressionNumber.fromConverter(
-            Converters.numberNumber()
+            Converters.numberToNumber()
     );
 
     // with..........................................................................................................

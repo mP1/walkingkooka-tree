@@ -158,7 +158,7 @@ public final class BasicNodeSelectorExpressionEvaluationContextTest implements N
 
     private ExpressionNumberConverterContext converterContext() {
         return ExpressionNumberConverterContexts.basic(
-                Converters.numberNumber(),
+                Converters.numberToNumber(),
                 ConverterContexts.basic(
                         Converters.fake(),
                         DateTimeContexts.fake(),
