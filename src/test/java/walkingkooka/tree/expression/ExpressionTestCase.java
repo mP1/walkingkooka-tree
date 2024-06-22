@@ -449,7 +449,7 @@ public abstract class ExpressionTestCase<N extends Expression> implements TreePr
      * Converts an empty list to false, and non empty list to true.
      */
     private static Converter<ExpressionNumberConverterContext> listToBoolean() {
-        return Converters.booleanTrueFalse(
+        return Converters.toBoolean(
                 (v) -> v instanceof List,
                 Predicates.is(Boolean.class),
                 (v) -> v.equals(Lists.empty()),
@@ -461,7 +461,7 @@ public abstract class ExpressionTestCase<N extends Expression> implements TreePr
     private <T> Converter<ExpressionNumberConverterContext> fromBoolean(final Class<T> targetType,
                                                                         final Converter<ExpressionNumberConverterContext> trueOrFalse) {
         final ExpressionNumberConverterContext context = this.converterContext();
-        return Converters.booleanTrueFalse(
+        return Converters.toBoolean(
                 (t) -> t instanceof Boolean,
                 (t) -> t == targetType,
                 Predicate.isEqual(Boolean.TRUE),
@@ -472,7 +472,7 @@ public abstract class ExpressionTestCase<N extends Expression> implements TreePr
 
     private static <S> Converter<ExpressionNumberConverterContext> toBoolean(final Class<S> sourceType,
                                                                              final S falseValue) {
-        return Converters.booleanTrueFalse(
+        return Converters.toBoolean(
                 (t) -> t.getClass() == sourceType,
                 (t) -> t == Boolean.class,
                 falseValue::equals,
