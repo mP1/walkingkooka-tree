@@ -128,7 +128,7 @@ public abstract class ExpressionTestCase<N extends Expression> implements TreePr
     }
 
     final LocalDate localDateValue(final long value) {
-        return Converters.numberLocalDate(Converters.JAVA_EPOCH_OFFSET)
+        return Converters.numberToLocalDate(Converters.JAVA_EPOCH_OFFSET)
                 .convertOrFail(value, LocalDate.class, this.converterContext());
     }
 
@@ -137,7 +137,7 @@ public abstract class ExpressionTestCase<N extends Expression> implements TreePr
     }
 
     final LocalDateTime localDateTimeValue(final double value) {
-        return Converters.numberLocalDateTime(Converters.JAVA_EPOCH_OFFSET)
+        return Converters.numberToLocalDateTime(Converters.JAVA_EPOCH_OFFSET)
                 .convertOrFail(value, LocalDateTime.class, this.converterContext());
     }
 
@@ -148,7 +148,7 @@ public abstract class ExpressionTestCase<N extends Expression> implements TreePr
     }
 
     final LocalTime localTimeValue(final long value) {
-        return Converters.numberLocalTime()
+        return Converters.numberToLocalTime()
                 .convertOrFail(value, LocalTime.class, this.converterContext());
     }
 
@@ -388,16 +388,16 @@ public abstract class ExpressionTestCase<N extends Expression> implements TreePr
                         // ExpressionNumber ->),
                         ExpressionNumber.fromConverter(Converters.numberToNumber()),
                         ExpressionNumber.fromConverter(Converters.truthyNumberBoolean()),
-                        ExpressionNumber.fromConverter(Converters.numberLocalDate(Converters.JAVA_EPOCH_OFFSET)),
-                        ExpressionNumber.fromConverter(Converters.numberLocalDateTime(Converters.JAVA_EPOCH_OFFSET)),
-                        ExpressionNumber.fromConverter(Converters.numberLocalTime()),
+                        ExpressionNumber.fromConverter(Converters.numberToLocalDate(Converters.JAVA_EPOCH_OFFSET)),
+                        ExpressionNumber.fromConverter(Converters.numberToLocalDateTime(Converters.JAVA_EPOCH_OFFSET)),
+                        ExpressionNumber.fromConverter(Converters.numberToLocalTime()),
                         ExpressionNumber.fromConverter(Converters.numberString((c) -> new DecimalFormat("#.###"))),
                         // Number ->),
                         ExpressionNumber.fromConverter(Converters.numberToNumber()),
                         ExpressionNumber.fromConverter(Converters.truthyNumberBoolean()),
-                        ExpressionNumber.fromConverter(Converters.numberLocalDate(Converters.JAVA_EPOCH_OFFSET)),
-                        ExpressionNumber.fromConverter(Converters.numberLocalDateTime(Converters.JAVA_EPOCH_OFFSET)),
-                        ExpressionNumber.fromConverter(Converters.numberLocalTime()),
+                        ExpressionNumber.fromConverter(Converters.numberToLocalDate(Converters.JAVA_EPOCH_OFFSET)),
+                        ExpressionNumber.fromConverter(Converters.numberToLocalDateTime(Converters.JAVA_EPOCH_OFFSET)),
+                        ExpressionNumber.fromConverter(Converters.numberToLocalTime()),
                         ExpressionNumber.fromConverter(Converters.numberString((c) -> new DecimalFormat("#.###"))),
                         // string ->
                         Converters.<String, Boolean, ExpressionNumberConverterContext>mapper(v -> v instanceof String, Predicate.isEqual(Boolean.class), Boolean::valueOf),
@@ -409,9 +409,9 @@ public abstract class ExpressionTestCase<N extends Expression> implements TreePr
                         Converters.objectString(),
                         // boolean ->
                         listToBoolean(),
-                        fromBoolean(LocalDate.class, Converters.numberLocalDate(Converters.JAVA_EPOCH_OFFSET)),
-                        fromBoolean(LocalDateTime.class, Converters.numberLocalDateTime(Converters.JAVA_EPOCH_OFFSET)),
-                        fromBoolean(LocalTime.class, Converters.numberLocalTime()),
+                        fromBoolean(LocalDate.class, Converters.numberToLocalDate(Converters.JAVA_EPOCH_OFFSET)),
+                        fromBoolean(LocalDateTime.class, Converters.numberToLocalDateTime(Converters.JAVA_EPOCH_OFFSET)),
+                        fromBoolean(LocalTime.class, Converters.numberToLocalTime()),
                         fromBoolean(ExpressionNumber.class, ExpressionNumber.toConverter(Converters.numberToNumber()))
                 )
         );
