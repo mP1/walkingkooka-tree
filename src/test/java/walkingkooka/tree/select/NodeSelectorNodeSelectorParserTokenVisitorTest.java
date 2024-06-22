@@ -1987,7 +1987,12 @@ public final class NodeSelectorNodeSelectorParserTokenVisitorTest implements Nod
                     }
 
                     private Either<String, String> convertToString(final Object value) {
-                        return Converters.objectString().convert(value, String.class, this.converterContext());
+                        return Converters.objectToString()
+                                .convert(
+                                        value,
+                                        String.class,
+                                        this.converterContext()
+                                );
                     }
 
                     private <T> Either<T, String> failConversion(final Object value, final Class<T> target) {

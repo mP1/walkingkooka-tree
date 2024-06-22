@@ -406,7 +406,7 @@ public abstract class ExpressionTestCase<N extends Expression> implements TreePr
                         stringLocalDateTime,
                         stringLocalTime,
                         ExpressionNumber.toConverter(stringDouble),
-                        Converters.objectString(),
+                        Converters.objectToString(),
                         // boolean ->
                         listToBoolean(),
                         fromBoolean(LocalDate.class, Converters.numberToLocalDate(Converters.JAVA_EPOCH_OFFSET)),
