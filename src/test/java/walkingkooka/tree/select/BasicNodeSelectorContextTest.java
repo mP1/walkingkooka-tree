@@ -32,9 +32,9 @@ import walkingkooka.tree.TestNode;
 import walkingkooka.tree.expression.Expression;
 import walkingkooka.tree.expression.ExpressionEvaluationContext;
 import walkingkooka.tree.expression.ExpressionEvaluationContexts;
-import walkingkooka.tree.expression.ExpressionNumber;
 import walkingkooka.tree.expression.ExpressionNumberConverterContext;
 import walkingkooka.tree.expression.ExpressionNumberConverterContexts;
+import walkingkooka.tree.expression.ExpressionNumberConverters;
 import walkingkooka.tree.expression.ExpressionNumberKind;
 import walkingkooka.tree.expression.ExpressionReference;
 import walkingkooka.tree.expression.FunctionExpressionName;
@@ -205,10 +205,17 @@ public final class BasicNodeSelectorContextTest implements ClassTesting2<BasicNo
             }
 
             private ExpressionNumberConverterContext converterContext() {
-                return ExpressionNumberConverterContexts.basic(ExpressionNumber.toNumberOrExpressionNumber(Converters.fake()),
-                        ConverterContexts.basic(Converters.fake(),
+                return ExpressionNumberConverterContexts.basic(
+                        ExpressionNumberConverters.toNumberOrExpressionNumber(
+                                Converters.fake()
+                        ),
+                        ConverterContexts.basic(
+                                Converters.fake(),
                                 DateTimeContexts.fake(),
-                                DecimalNumberContexts.fake()), KIND);
+                                DecimalNumberContexts.fake()
+                        ),
+                        KIND
+                );
             }
 
             public String toString() {

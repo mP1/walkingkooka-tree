@@ -121,7 +121,7 @@ public final class ExpressionNumberConverterToNumberOrExpressionNumberTest exten
     private void convertFails3(final ExpressionNumberKind kind,
                                final String value,
                                final Class<?> type) {
-        final Converter<ExpressionNumberConverterContext> converter = ExpressionNumber.toNumberOrExpressionNumber(
+        final Converter<ExpressionNumberConverterContext> converter = ExpressionNumberConverters.toNumberOrExpressionNumber(
                 new FakeConverter<>() {
                     @Override
                     public boolean canConvert(final Object value,

@@ -39,9 +39,9 @@ import walkingkooka.tree.TestNode;
 import walkingkooka.tree.expression.Expression;
 import walkingkooka.tree.expression.ExpressionEvaluationContext;
 import walkingkooka.tree.expression.ExpressionEvaluationContexts;
-import walkingkooka.tree.expression.ExpressionNumber;
 import walkingkooka.tree.expression.ExpressionNumberConverterContext;
 import walkingkooka.tree.expression.ExpressionNumberConverterContexts;
+import walkingkooka.tree.expression.ExpressionNumberConverters;
 import walkingkooka.tree.expression.ExpressionNumberKind;
 import walkingkooka.tree.expression.ExpressionReference;
 import walkingkooka.tree.expression.FunctionExpressionName;
@@ -460,10 +460,10 @@ abstract public class NodeSelectorTestCase4<S extends NodeSelector<TestNode, Str
         return Converters.collection(
                 Lists.of(
                         Converters.simple(),
-                        ExpressionNumber.numberOrExpressionNumberTo(Converters.numberToNumber()),
+                        ExpressionNumberConverters.numberOrExpressionNumberTo(Converters.numberToNumber()),
                         Converters.<String, Integer, ExpressionNumberConverterContext>mapper((t) -> t instanceof String, Predicates.is(Integer.class), Integer::parseInt),
                         Converters.mapper(t -> t instanceof Node, Predicates.is(Node.class), Function.identity()),
-                        ExpressionNumber.toNumberOrExpressionNumber(Converters.simple())
+                        ExpressionNumberConverters.toNumberOrExpressionNumber(Converters.simple())
                 )
         );
     }

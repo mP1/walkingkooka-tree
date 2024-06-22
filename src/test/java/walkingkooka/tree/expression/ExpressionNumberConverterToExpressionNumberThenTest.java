@@ -28,12 +28,12 @@ import walkingkooka.convert.FakeConverter;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class ExpressionNumberConverterIntermediateTest implements ConverterTesting2<ExpressionNumberConverterIntermediate<ExpressionNumberConverterContext>, ExpressionNumberConverterContext>,
-        ToStringTesting<ExpressionNumberConverterIntermediate<ExpressionNumberConverterContext>> {
+public final class ExpressionNumberConverterToExpressionNumberThenTest implements ConverterTesting2<ExpressionNumberConverterToExpressionNumberThen<ExpressionNumberConverterContext>, ExpressionNumberConverterContext>,
+        ToStringTesting<ExpressionNumberConverterToExpressionNumberThen<ExpressionNumberConverterContext>> {
 
     private final static String STRING_TO_EXPRESSION_NUMBER = "String->ExpressionNumber";
 
-    private final static Converter<ExpressionNumberConverterContext> EXPRESSION_NUMBER_TO_NUMBER_CONVERTER = ExpressionNumber.numberOrExpressionNumberTo(
+    private final static Converter<ExpressionNumberConverterContext> EXPRESSION_NUMBER_TO_NUMBER_CONVERTER = ExpressionNumberConverters.numberOrExpressionNumberTo(
             Converters.numberToNumber()
     );
 
@@ -43,7 +43,7 @@ public final class ExpressionNumberConverterIntermediateTest implements Converte
     public void testWithNullToExpressionNumberConverterFails() {
         assertThrows(
                 NullPointerException.class,
-                () -> ExpressionNumberConverterIntermediate.with(
+                () -> ExpressionNumberConverterToExpressionNumberThen.with(
                         null,
                         Converters.fake()
                 )
@@ -54,7 +54,7 @@ public final class ExpressionNumberConverterIntermediateTest implements Converte
     public void testWithNullFromExpressionNumberConverterFails() {
         assertThrows(
                 NullPointerException.class,
-                () -> ExpressionNumberConverterIntermediate.with(
+                () -> ExpressionNumberConverterToExpressionNumberThen.with(
                         Converters.fake(),
                         null
                 )
@@ -79,7 +79,7 @@ public final class ExpressionNumberConverterIntermediateTest implements Converte
         final String failMessage = "Fail message 123";
 
         this.convertFails(
-                ExpressionNumberConverterIntermediate.with(
+                ExpressionNumberConverterToExpressionNumberThen.with(
                         Converters.fake(), // should not be called as input is already ExpressionNumber
                         new Converter<>() {
                             @Override
@@ -122,7 +122,7 @@ public final class ExpressionNumberConverterIntermediateTest implements Converte
         final Character expected = '+';
 
         this.convertAndCheck(
-                ExpressionNumberConverterIntermediate.with(
+                ExpressionNumberConverterToExpressionNumberThen.with(
                         Converters.fake(), // should not be called as input is already ExpressionNumber
                         new Converter<>() {
                             @Override
@@ -170,7 +170,7 @@ public final class ExpressionNumberConverterIntermediateTest implements Converte
         final Class<String> targetType = String.class;
 
         this.convertFails(
-                ExpressionNumberConverterIntermediate.with(
+                ExpressionNumberConverterToExpressionNumberThen.with(
                         new Converter<>() {
                             @Override
                             public boolean canConvert(final Object value,
@@ -215,7 +215,7 @@ public final class ExpressionNumberConverterIntermediateTest implements Converte
         final ExpressionNumber expressionNumber = kind.create(input);
 
         this.convertFails(
-                ExpressionNumberConverterIntermediate.with(
+                ExpressionNumberConverterToExpressionNumberThen.with(
                         new Converter<>() {
                             @Override
                             public boolean canConvert(final Object value,
@@ -282,7 +282,7 @@ public final class ExpressionNumberConverterIntermediateTest implements Converte
         final String expected = "*EXPECTED 123*";
 
         this.convertAndCheck(
-                ExpressionNumberConverterIntermediate.with(
+                ExpressionNumberConverterToExpressionNumberThen.with(
                         new Converter<>() {
                             @Override
                             public boolean canConvert(final Object value,
@@ -352,7 +352,7 @@ public final class ExpressionNumberConverterIntermediateTest implements Converte
         final ExpressionNumber expressionNumber = kind.create(input);
 
         this.convertAndCheck(
-                ExpressionNumberConverterIntermediate.with(
+                ExpressionNumberConverterToExpressionNumberThen.with(
                         new Converter<>() {
                             @Override
                             public boolean canConvert(final Object value,
@@ -397,8 +397,8 @@ public final class ExpressionNumberConverterIntermediateTest implements Converte
     // helpers..........................................................................................................
 
     @Override
-    public ExpressionNumberConverterIntermediate<ExpressionNumberConverterContext> createConverter() {
-        return ExpressionNumberConverterIntermediate.with(
+    public ExpressionNumberConverterToExpressionNumberThen<ExpressionNumberConverterContext> createConverter() {
+        return ExpressionNumberConverterToExpressionNumberThen.with(
                 new FakeConverter<>() {
                     @Override
                     public boolean canConvert(final Object value,
@@ -474,8 +474,8 @@ public final class ExpressionNumberConverterIntermediateTest implements Converte
     // class............................................................................................................
 
     @Override
-    public Class<ExpressionNumberConverterIntermediate<ExpressionNumberConverterContext>> type() {
-        return Cast.to(ExpressionNumberConverterIntermediate.class);
+    public Class<ExpressionNumberConverterToExpressionNumberThen<ExpressionNumberConverterContext>> type() {
+        return Cast.to(ExpressionNumberConverterToExpressionNumberThen.class);
     }
 
     // type naming......................................................................................................
