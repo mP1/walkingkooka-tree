@@ -163,6 +163,6 @@ final class ExpressionNumberConverterToExpressionNumberThen<C extends Expression
 
     @Override
     public String toString() {
-        return this.toExpressionNumber + "->" + this.fromExpressionNumber;
+        return this.toExpressionNumber + " then " + this.fromExpressionNumber;
     }
 }
