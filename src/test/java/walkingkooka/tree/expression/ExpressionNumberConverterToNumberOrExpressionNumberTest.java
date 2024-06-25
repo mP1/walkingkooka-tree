@@ -421,7 +421,7 @@ public final class ExpressionNumberConverterToNumberOrExpressionNumberTest exten
                 ExpressionNumberConverterToNumberOrExpressionNumber.with(Converters.fake()
                         .setToString("Custom")
                         .cast(ExpressionNumberConverterContext.class)),
-                "Custom? " + ExpressionNumber.class.getSimpleName()
+                "Custom | " + ExpressionNumber.class.getSimpleName()
         );
     }
 

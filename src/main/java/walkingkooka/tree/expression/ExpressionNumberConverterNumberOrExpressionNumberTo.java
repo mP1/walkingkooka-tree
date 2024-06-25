@@ -119,6 +119,6 @@ final class ExpressionNumberConverterNumberOrExpressionNumberTo<C extends Expres
 
     @Override
     public String toString() {
-        return ExpressionNumber.class.getSimpleName() + "? " + this.converter;
+        return ExpressionNumber.class.getSimpleName() + " | " + this.converter;
     }
 }

@@ -311,7 +311,7 @@ public final class ExpressionNumberConverterNumberOrExpressionNumberToTest exten
     public void testToString() {
         this.toStringAndCheck(
                 this.createConverter(),
-                "ExpressionNumber? DecimalFormat.getInstance"
+                "ExpressionNumber | DecimalFormat Number to String"
         );
     }
 

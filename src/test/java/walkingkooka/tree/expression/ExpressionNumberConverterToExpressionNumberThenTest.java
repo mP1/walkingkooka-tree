@@ -31,7 +31,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 public final class ExpressionNumberConverterToExpressionNumberThenTest implements ConverterTesting2<ExpressionNumberConverterToExpressionNumberThen<ExpressionNumberConverterContext>, ExpressionNumberConverterContext>,
         ToStringTesting<ExpressionNumberConverterToExpressionNumberThen<ExpressionNumberConverterContext>> {
 
-    private final static String STRING_TO_EXPRESSION_NUMBER = "String->ExpressionNumber";
+    private final static String STRING_TO_EXPRESSION_NUMBER = "String to ExpressionNumber";
 
     private final static Converter<ExpressionNumberConverterContext> EXPRESSION_NUMBER_TO_NUMBER_CONVERTER = ExpressionNumberConverters.numberOrExpressionNumberTo(
             Converters.numberToNumber()
@@ -390,7 +390,7 @@ public final class ExpressionNumberConverterToExpressionNumberThenTest implement
     public void testToString() {
         this.toStringAndCheck(
                 this.createConverter(),
-                STRING_TO_EXPRESSION_NUMBER + "->" + EXPRESSION_NUMBER_TO_NUMBER_CONVERTER
+                STRING_TO_EXPRESSION_NUMBER + " then " + EXPRESSION_NUMBER_TO_NUMBER_CONVERTER
         );
     }
 
