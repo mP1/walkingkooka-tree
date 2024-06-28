@@ -38,7 +38,7 @@ final class ExpressionNumberConverterToNumberOrExpressionNumber<C extends Expres
 
     /**
      * Factory that creates a new {@link ExpressionNumberConverterToNumberOrExpressionNumber}.
-     * This should only be called by {@link ExpressionNumber#toNumberOrExpressionNumber(Converter)}.
+     * This should only be called by {@link ExpressionNumberConverters#toNumberOrExpressionNumber(Converter)}.
      */
     static <C extends ExpressionNumberConverterContext> ExpressionNumberConverterToNumberOrExpressionNumber<C> with(final Converter<C> converter) {
         Objects.requireNonNull(converter, "converter");
