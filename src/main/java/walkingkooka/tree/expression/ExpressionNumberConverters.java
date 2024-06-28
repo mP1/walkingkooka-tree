@@ -26,10 +26,10 @@ import walkingkooka.reflect.PublicStaticHelper;
 public final class ExpressionNumberConverters implements PublicStaticHelper {
 
     /**
-     * {@see ExpressionNumberConverterNumberOrExpressionNumberTo}
+     * {@see ExpressionNumberConverterNumberOrExpressionNumberToNumber}
      */
-    public static <C extends ExpressionNumberConverterContext> Converter<C> numberOrExpressionNumberTo(final Converter<C> converter) {
-        return ExpressionNumberConverterNumberOrExpressionNumberTo.with(converter);
+    public static <C extends ExpressionNumberConverterContext> Converter<C> numberOrExpressionNumberToNumber() {
+        return ExpressionNumberConverterNumberOrExpressionNumberToNumber.instance();
     }
 
     /**

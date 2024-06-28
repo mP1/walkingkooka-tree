@@ -460,7 +460,7 @@ abstract public class NodeSelectorTestCase4<S extends NodeSelector<TestNode, Str
         return Converters.collection(
                 Lists.of(
                         Converters.simple(),
-                        ExpressionNumberConverters.numberOrExpressionNumberTo(Converters.numberToNumber()),
+                        ExpressionNumberConverters.numberOrExpressionNumberToNumber(),
                         Converters.<String, Integer, ExpressionNumberConverterContext>mapper((t) -> t instanceof String, Predicates.is(Integer.class), Integer::parseInt),
                         Converters.mapper(t -> t instanceof Node, Predicates.is(Node.class), Function.identity()),
                         ExpressionNumberConverters.toNumberOrExpressionNumber(Converters.simple())

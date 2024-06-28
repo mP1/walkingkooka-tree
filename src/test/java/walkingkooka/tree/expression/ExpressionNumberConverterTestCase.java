@@ -43,20 +43,6 @@ public abstract class ExpressionNumberConverterTestCase<C extends ExpressionNumb
         );
     }
 
-    @Test
-    public final void testConvertExpressionNumberToExpressionNumberBigDecimal() {
-        this.convertAndCheck(
-                ExpressionNumberKind.BIG_DECIMAL.create(123.5)
-        );
-    }
-
-    @Test
-    public final void testConvertExpressionNumberToExpressionNumberDouble() {
-        this.convertAndCheck(
-                ExpressionNumberKind.DOUBLE.create(123.5)
-        );
-    }
-
     @Override
     public final ExpressionNumberConverterContext createContext() {
         return this.createContext(ExpressionNumberKind.DEFAULT);
