@@ -33,9 +33,11 @@ public final class ExpressionNumberConverterToExpressionNumberThenTest implement
 
     private final static String STRING_TO_EXPRESSION_NUMBER = "String to ExpressionNumber";
 
-    private final static Converter<ExpressionNumberConverterContext> EXPRESSION_NUMBER_TO_NUMBER_CONVERTER = ExpressionNumberConverters.numberOrExpressionNumberTo(
-            Converters.numberToNumber()
-    );
+    private final static Converter<ExpressionNumberConverterContext> EXPRESSION_NUMBER_TO_NUMBER_CONVERTER = ExpressionNumberConverters.numberOrExpressionNumberToNumber()
+            .to(
+                    Number.class,
+                    Converters.numberToNumber()
+            );
 
     // with..........................................................................................................
 
@@ -381,6 +383,22 @@ public final class ExpressionNumberConverterToExpressionNumberThenTest implement
                 targetType,
                 this.createContext(kind),
                 expressionNumber
+        );
+    }
+
+    // convertExpressionNumberToExpressionNumber........................................................................
+
+    @Test
+    public void testConvertExpressionNumberToExpressionNumberBigDecimal() {
+        this.convertAndCheck(
+                ExpressionNumberKind.BIG_DECIMAL.create(123.5)
+        );
+    }
+
+    @Test
+    public void testConvertExpressionNumberToExpressionNumberDouble() {
+        this.convertAndCheck(
+                ExpressionNumberKind.DOUBLE.create(123.5)
         );
     }
 

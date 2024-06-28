@@ -223,9 +223,11 @@ public final class ExpressionNumberConverterToNumberOrExpressionNumberTest exten
     public void testConvertWithExpressionNumberConvertFromWithBigDecimalToExpressionNumber() {
         this.convertToExpressionNumberAndCheck(
                 ExpressionNumberConverterToNumberOrExpressionNumber.with(
-                        ExpressionNumberConverterNumberOrExpressionNumberTo.with(
-                                Converters.numberToNumber()
-                        )
+                        ExpressionNumberConverterNumberOrExpressionNumberToNumber.instance()
+                                .to(
+                                        Number.class,
+                                        Converters.numberToNumber()
+                                )
                 ),
                 BigDecimal.valueOf(123)
         );
@@ -410,6 +412,22 @@ public final class ExpressionNumberConverterToNumberOrExpressionNumberTest exten
                 target,
                 this.createContext(kind),
                 number
+        );
+    }
+
+    // convertExpressionNumberToExpressionNumber........................................................................
+
+    @Test
+    public void testConvertExpressionNumberToExpressionNumberBigDecimal() {
+        this.convertAndCheck(
+                ExpressionNumberKind.BIG_DECIMAL.create(123.5)
+        );
+    }
+
+    @Test
+    public void testConvertExpressionNumberToExpressionNumberDouble() {
+        this.convertAndCheck(
+                ExpressionNumberKind.DOUBLE.create(123.5)
         );
     }
 

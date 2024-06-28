@@ -102,7 +102,12 @@ final class ExpressionNumberConverterToExpressionNumberThen<C extends Expression
                                                   final C context) {
         // skip the #toExpressionNumber converter and ask the #fromExpressionNumber
         // no need to correct or adjust the response fail messages as #fromExpressionNumber would have received the original inputs.
-        return this.fromExpressionNumber.convert(
+        return ExpressionNumber.isExpressionNumberAndNotNumber(type) ?
+                context.successfulConversion(
+                        value,
+                        type
+                ) :
+                this.fromExpressionNumber.convert(
                 value,
                 type,
                 context
