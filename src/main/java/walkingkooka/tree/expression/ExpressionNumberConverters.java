@@ -21,7 +21,7 @@ import walkingkooka.convert.Converter;
 import walkingkooka.reflect.PublicStaticHelper;
 
 /**
- * A collection of useful
+ * A collection of useful {@link Converter} involving {@link ExpressionNumber}.
  */
 public final class ExpressionNumberConverters implements PublicStaticHelper {
 
