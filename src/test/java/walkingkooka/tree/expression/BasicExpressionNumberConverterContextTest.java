@@ -71,6 +71,7 @@ public final class BasicExpressionNumberConverterContextTest implements Expressi
 
     private ConverterContext converterContext() {
         return ConverterContexts.basic(
+                Converters.JAVA_EPOCH_OFFSET, // dateOffset
                 Converters.fake(),
                 DateTimeContexts.locale(
                         Locale.forLanguageTag("EN-AU"),

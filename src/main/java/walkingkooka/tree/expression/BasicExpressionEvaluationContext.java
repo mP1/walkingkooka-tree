@@ -207,6 +207,11 @@ final class BasicExpressionEvaluationContext implements ExpressionEvaluationCont
     // Convert..........................................................................................................
 
     @Override
+    public long dateOffset() {
+        return this.converterContext.dateOffset();
+    }
+
+    @Override
     public boolean canConvert(final Object value,
                               final Class<?> type) {
         return this.converterContext.canConvert(value, type);

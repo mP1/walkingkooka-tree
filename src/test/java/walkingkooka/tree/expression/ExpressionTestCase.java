@@ -128,7 +128,7 @@ public abstract class ExpressionTestCase<N extends Expression> implements TreePr
     }
 
     final LocalDate localDateValue(final long value) {
-        return Converters.numberToLocalDate(Converters.JAVA_EPOCH_OFFSET)
+        return Converters.numberToLocalDate()
                 .convertOrFail(value, LocalDate.class, this.converterContext());
     }
 
@@ -137,7 +137,7 @@ public abstract class ExpressionTestCase<N extends Expression> implements TreePr
     }
 
     final LocalDateTime localDateTimeValue(final double value) {
-        return Converters.numberToLocalDateTime(Converters.JAVA_EPOCH_OFFSET)
+        return Converters.numberToLocalDateTime()
                 .convertOrFail(value, LocalDateTime.class, this.converterContext());
     }
 
@@ -304,7 +304,9 @@ public abstract class ExpressionTestCase<N extends Expression> implements TreePr
     private ExpressionNumberConverterContext converterContext() {
         return ExpressionNumberConverterContexts.basic(
                 Converters.simple(),
-                ConverterContexts.basic(Converters.fake(),
+                ConverterContexts.basic(
+                        Converters.JAVA_EPOCH_OFFSET,
+                        Converters.fake(),
                         DateTimeContexts.locale(
                                 Locale.ENGLISH,
                                 1900,
@@ -372,13 +374,13 @@ public abstract class ExpressionTestCase<N extends Expression> implements TreePr
                         // localDate ->
                         toBoolean(LocalDate.class, LocalDate.ofEpochDay(0)),
                         Converters.localDateToLocalDateTime(),
-                        ExpressionNumberConverters.toNumberOrExpressionNumber(Converters.localDateToNumber(Converters.JAVA_EPOCH_OFFSET)),
+                        ExpressionNumberConverters.toNumberOrExpressionNumber(Converters.localDateToNumber()),
                         Converters.localDateToString((c) -> DateTimeFormatter.ISO_LOCAL_DATE),
                         // localDateTime ->
                         toBoolean(LocalDateTime.class, LocalDateTime.ofEpochSecond(0, 0, ZoneOffset.UTC)),
                         Converters.localDateTimeToLocalDate(),
                         Converters.localDateTimeToLocalTime(),
-                        ExpressionNumberConverters.toNumberOrExpressionNumber(Converters.localDateTimeToNumber(Converters.JAVA_EPOCH_OFFSET)),
+                        ExpressionNumberConverters.toNumberOrExpressionNumber(Converters.localDateTimeToNumber()),
                         Converters.localDateTimeToString((c) -> DateTimeFormatter.ISO_LOCAL_DATE_TIME),
                         // localTime
                         toBoolean(LocalTime.class, LocalTime.ofNanoOfDay(0)),
@@ -388,15 +390,15 @@ public abstract class ExpressionTestCase<N extends Expression> implements TreePr
                         // ExpressionNumber ->,
                         ExpressionNumberConverters.numberOrExpressionNumberToNumber().to(Number.class, Converters.numberToNumber()),
                         ExpressionNumberConverters.numberOrExpressionNumberToNumber().to(Number.class, Converters.numberToBoolean()),
-                        ExpressionNumberConverters.numberOrExpressionNumberToNumber().to(Number.class, Converters.numberToLocalDate(Converters.JAVA_EPOCH_OFFSET)),
-                        ExpressionNumberConverters.numberOrExpressionNumberToNumber().to(Number.class, Converters.numberToLocalDateTime(Converters.JAVA_EPOCH_OFFSET)),
+                        ExpressionNumberConverters.numberOrExpressionNumberToNumber().to(Number.class, Converters.numberToLocalDate()),
+                        ExpressionNumberConverters.numberOrExpressionNumberToNumber().to(Number.class, Converters.numberToLocalDateTime()),
                         ExpressionNumberConverters.numberOrExpressionNumberToNumber().to(Number.class, Converters.numberToLocalTime()),
                         ExpressionNumberConverters.numberOrExpressionNumberToNumber().to(Number.class, Converters.numberToString((c) -> new DecimalFormat("#.###"))),
                         // Number ->,
                         ExpressionNumberConverters.numberOrExpressionNumberToNumber().to(Number.class, Converters.numberToNumber()),
                         ExpressionNumberConverters.numberOrExpressionNumberToNumber().to(Number.class, Converters.numberToBoolean()),
-                        ExpressionNumberConverters.numberOrExpressionNumberToNumber().to(Number.class, Converters.numberToLocalDate(Converters.JAVA_EPOCH_OFFSET)),
-                        ExpressionNumberConverters.numberOrExpressionNumberToNumber().to(Number.class, Converters.numberToLocalDateTime(Converters.JAVA_EPOCH_OFFSET)),
+                        ExpressionNumberConverters.numberOrExpressionNumberToNumber().to(Number.class, Converters.numberToLocalDate()),
+                        ExpressionNumberConverters.numberOrExpressionNumberToNumber().to(Number.class, Converters.numberToLocalDateTime()),
                         ExpressionNumberConverters.numberOrExpressionNumberToNumber().to(Number.class, Converters.numberToLocalTime()),
                         ExpressionNumberConverters.numberOrExpressionNumberToNumber().to(Number.class, Converters.numberToString((c) -> new DecimalFormat("#.###"))),
                         // string ->
@@ -409,8 +411,8 @@ public abstract class ExpressionTestCase<N extends Expression> implements TreePr
                         Converters.objectToString(),
                         // boolean ->
                         listToBoolean(),
-                        fromBoolean(LocalDate.class, Converters.numberToLocalDate(Converters.JAVA_EPOCH_OFFSET)),
-                        fromBoolean(LocalDateTime.class, Converters.numberToLocalDateTime(Converters.JAVA_EPOCH_OFFSET)),
+                        fromBoolean(LocalDate.class, Converters.numberToLocalDate()),
+                        fromBoolean(LocalDateTime.class, Converters.numberToLocalDateTime()),
                         fromBoolean(LocalTime.class, Converters.numberToLocalTime()),
                         fromBoolean(ExpressionNumber.class, ExpressionNumberConverters.toNumberOrExpressionNumber(Converters.numberToNumber()))
                 )

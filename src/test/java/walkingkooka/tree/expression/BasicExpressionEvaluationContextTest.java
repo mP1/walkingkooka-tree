@@ -672,6 +672,7 @@ public final class BasicExpressionEvaluationContextTest implements ClassTesting2
 
     private ConverterContext converterContext() {
         return ConverterContexts.basic(
+                Converters.JAVA_EPOCH_OFFSET, // dateOffset
                 Converters.collection(
                         Lists.of(
                                 Converters.numberToNumber(),

@@ -2017,9 +2017,11 @@ public final class NodeSelectorNodeSelectorParserTokenVisitorTest implements Nod
                                     }
                                 },
                                 ConverterContexts.basic(
+                                        Converters.JAVA_EPOCH_OFFSET, // dateOffset
                                         Converters.fake(),
                                         DateTimeContexts.fake(),
-                                        decimalNumberContext()),
+                                        decimalNumberContext()
+                                ),
                                 EXPRESSION_NUMBER_KIND);
                     }
                 });

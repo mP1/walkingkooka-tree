@@ -210,6 +210,7 @@ public final class BasicNodeSelectorContextTest implements ClassTesting2<BasicNo
                                 Converters.fake()
                         ),
                         ConverterContexts.basic(
+                                Converters.JAVA_EPOCH_OFFSET, // dateOffset
                                 Converters.fake(),
                                 DateTimeContexts.fake(),
                                 DecimalNumberContexts.fake()
