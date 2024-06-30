@@ -50,6 +50,11 @@ final class BasicExpressionNumberConverterContext implements ExpressionNumberCon
     }
 
     @Override
+    public long dateOffset() {
+        return this.context.dateOffset();
+    }
+
+    @Override
     public boolean canConvert(final Object value,
                               final Class<?> target) {
         return this.converter.canConvert(value, target, this);

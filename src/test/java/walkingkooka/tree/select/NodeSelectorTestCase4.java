@@ -471,9 +471,12 @@ abstract public class NodeSelectorTestCase4<S extends NodeSelector<TestNode, Str
     private ExpressionNumberConverterContext converterContext() {
         return ExpressionNumberConverterContexts.basic(
                 this.converter(),
-                ConverterContexts.basic(Converters.fake(),
+                ConverterContexts.basic(
+                        Converters.JAVA_EPOCH_OFFSET, // dateOffset
+                        Converters.fake(),
                         DateTimeContexts.fake(),
-                        DecimalNumberContexts.american(MathContext.DECIMAL32)),
+                        DecimalNumberContexts.american(MathContext.DECIMAL32)
+                ),
                 EXPRESSION_NUMBER_KIND);
     }
 

@@ -241,7 +241,12 @@ final class CycleDetectingExpressionEvaluationContext implements ExpressionEvalu
         return this.context.mathContext();
     }
 
-    // CanConvert................................................................................................
+    // CanConvert.....................................................................................................
+
+    @Override
+    public long dateOffset() {
+        return this.context.dateOffset();
+    }
 
     @Override
     public boolean canConvert(final Object from,

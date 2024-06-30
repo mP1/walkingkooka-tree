@@ -175,6 +175,11 @@ final class BasicNodeSelectorExpressionEvaluationContext<N extends Node<N, NAME,
     private final static Object ABSENT = "";
 
     @Override
+    public long dateOffset() {
+        return this.context.dateOffset();
+    }
+
+    @Override
     public boolean canConvert(final Object value, final Class<?> type) {
         return this.context.canConvert(value, type);
     }
