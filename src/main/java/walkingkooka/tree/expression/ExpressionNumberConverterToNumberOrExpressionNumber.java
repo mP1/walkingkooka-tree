@@ -184,6 +184,21 @@ final class ExpressionNumberConverterToNumberOrExpressionNumber<C extends Expres
     // Object...........................................................................................................
 
     @Override
+    public int hashCode() {
+        return this.converter.hashCode();
+    }
+
+    @Override
+    public boolean equals(final Object other) {
+        return this == other ||
+                other instanceof ExpressionNumberConverterToNumberOrExpressionNumber && this.equals0(Cast.to(other));
+    }
+
+    private boolean equals0(final ExpressionNumberConverterToNumberOrExpressionNumber<?> other) {
+        return this.converter.equals(other.converter);
+    }
+
+    @Override
     public String toString() {
         return this.converter.toString() + " | " + ExpressionNumber.class.getSimpleName();
     }
