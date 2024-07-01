@@ -20,6 +20,7 @@ package walkingkooka.tree.expression;
 import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.Either;
+import walkingkooka.HashCodeEqualsDefinedTesting2;
 import walkingkooka.convert.Converter;
 import walkingkooka.convert.Converters;
 import walkingkooka.convert.FakeConverter;
@@ -30,7 +31,8 @@ import java.math.BigInteger;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class ExpressionNumberConverterToNumberOrExpressionNumberTest extends ExpressionNumberConverterTestCase<ExpressionNumberConverterToNumberOrExpressionNumber<ExpressionNumberConverterContext>> {
+public final class ExpressionNumberConverterToNumberOrExpressionNumberTest extends ExpressionNumberConverterTestCase<ExpressionNumberConverterToNumberOrExpressionNumber<ExpressionNumberConverterContext>>
+        implements HashCodeEqualsDefinedTesting2<ExpressionNumberConverterToNumberOrExpressionNumber> {
 
     @Test
     public void testWithNullConverterFails() {
@@ -431,6 +433,13 @@ public final class ExpressionNumberConverterToNumberOrExpressionNumberTest exten
         );
     }
 
+    @Override
+    public ExpressionNumberConverterToNumberOrExpressionNumber<ExpressionNumberConverterContext> createConverter() {
+        return ExpressionNumberConverterToNumberOrExpressionNumber.with(
+                Converters.numberToNumber()
+        );
+    }
+
     // toString.........................................................................................................
 
     @Test
@@ -443,14 +452,25 @@ public final class ExpressionNumberConverterToNumberOrExpressionNumberTest exten
         );
     }
 
-    // helpers..........................................................................................................
+    // hashCode/equals..................................................................................................
+
+    @Test
+    public void testEqualsDifferentConverter() {
+        this.checkNotEquals(
+                ExpressionNumberConverterToNumberOrExpressionNumber.with(
+                        Converters.fake()
+                )
+        );
+    }
 
     @Override
-    public ExpressionNumberConverterToNumberOrExpressionNumber<ExpressionNumberConverterContext> createConverter() {
+    public ExpressionNumberConverterToNumberOrExpressionNumber<ExpressionNumberConverterContext> createObject() {
         return ExpressionNumberConverterToNumberOrExpressionNumber.with(
                 Converters.numberToNumber()
         );
     }
+
+    // Class............................................................................................................
 
     @Override
     public Class<ExpressionNumberConverterToNumberOrExpressionNumber<ExpressionNumberConverterContext>> type() {
