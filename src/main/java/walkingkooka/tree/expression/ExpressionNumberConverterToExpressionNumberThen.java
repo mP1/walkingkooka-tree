@@ -166,6 +166,27 @@ final class ExpressionNumberConverterToExpressionNumberThen<C extends Expression
      */
     private final Converter<C> fromExpressionNumber;
 
+    // Object...........................................................................................................
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(
+                this.toExpressionNumber,
+                this.fromExpressionNumber
+        );
+    }
+
+    @Override
+    public boolean equals(final Object other) {
+        return this == other ||
+                other instanceof ExpressionNumberConverterToExpressionNumberThen && this.equals0(Cast.to(other));
+    }
+
+    private boolean equals0(final ExpressionNumberConverterToExpressionNumberThen<?> other) {
+        return this.toExpressionNumber.equals(other.toExpressionNumber) &&
+                this.fromExpressionNumber.equals(other.fromExpressionNumber);
+    }
+
     @Override
     public String toString() {
         return this.toExpressionNumber + " then " + this.fromExpressionNumber;

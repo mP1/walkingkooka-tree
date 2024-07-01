@@ -20,6 +20,7 @@ package walkingkooka.tree.expression;
 import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.Either;
+import walkingkooka.HashCodeEqualsDefinedTesting2;
 import walkingkooka.ToStringTesting;
 import walkingkooka.convert.Converter;
 import walkingkooka.convert.ConverterTesting2;
@@ -29,6 +30,7 @@ import walkingkooka.convert.FakeConverter;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class ExpressionNumberConverterToExpressionNumberThenTest implements ConverterTesting2<ExpressionNumberConverterToExpressionNumberThen<ExpressionNumberConverterContext>, ExpressionNumberConverterContext>,
+        HashCodeEqualsDefinedTesting2<ExpressionNumberConverterToExpressionNumberThen<ExpressionNumberConverterContext>>,
         ToStringTesting<ExpressionNumberConverterToExpressionNumberThen<ExpressionNumberConverterContext>> {
 
     private final static String STRING_TO_EXPRESSION_NUMBER = "String to ExpressionNumber";
@@ -487,6 +489,40 @@ public final class ExpressionNumberConverterToExpressionNumberThenTest implement
                 return kind;
             }
         };
+    }
+
+    // hashCode/equals..................................................................................................
+
+    private final static Converter<ExpressionNumberConverterContext> FIRST = Converters.fake();
+
+    private final static Converter<ExpressionNumberConverterContext> SECOND = Converters.fake();
+
+    @Test
+    public void testEqualsDifferentToExpressionNumberConverter() {
+        this.checkNotEquals(
+                ExpressionNumberConverterToExpressionNumberThen.with(
+                        Converters.fake(),
+                        SECOND
+                )
+        );
+    }
+
+    @Test
+    public void testEqualsDifferentFromExpressionNumberConverter() {
+        this.checkNotEquals(
+                ExpressionNumberConverterToExpressionNumberThen.with(
+                        FIRST,
+                        Converters.fake()
+                )
+        );
+    }
+
+    @Override
+    public ExpressionNumberConverterToExpressionNumberThen<ExpressionNumberConverterContext> createObject() {
+        return ExpressionNumberConverterToExpressionNumberThen.with(
+                FIRST,
+                SECOND
+        );
     }
 
     // class............................................................................................................
