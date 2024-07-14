@@ -437,7 +437,7 @@ abstract public class NodeSelectorTestCase4<S extends NodeSelector<TestNode, Str
         );
     }
 
-    private Function<FunctionExpressionName, Optional<ExpressionFunction<?, ExpressionEvaluationContext>>> functions() {
+    private Function<FunctionExpressionName, ExpressionFunction<?, ExpressionEvaluationContext>> functions() {
         return (n) -> Cast.to(
                 NodeSelectorContexts.basicFunctions()
                 .apply(n)

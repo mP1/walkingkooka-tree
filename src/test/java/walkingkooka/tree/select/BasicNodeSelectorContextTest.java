@@ -194,7 +194,7 @@ public final class BasicNodeSelectorContextTest implements ClassTesting2<BasicNo
                 };
             }
 
-            private Function<FunctionExpressionName, Optional<ExpressionFunction<?, ExpressionEvaluationContext>>> functions() {
+            private Function<FunctionExpressionName, ExpressionFunction<?, ExpressionEvaluationContext>> functions() {
                 return (n) -> {
                     throw new UnsupportedOperationException();
                 };
