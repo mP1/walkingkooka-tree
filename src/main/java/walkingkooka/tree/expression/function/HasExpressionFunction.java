@@ -20,8 +20,6 @@ package walkingkooka.tree.expression.function;
 import walkingkooka.tree.expression.ExpressionEvaluationContext;
 import walkingkooka.tree.expression.FunctionExpressionName;
 
-import java.util.Optional;
-
 /**
  * Almost a provider that is able to supply {@link ExpressionFunction} given a {@link FunctionExpressionName}.
  * This interface is not intended to be implemented by user-code and only exists to provide {@link #expressionFunctionOrFail(FunctionExpressionName)}.
@@ -35,14 +33,5 @@ public interface HasExpressionFunction {
     /**
      * Returns the {@link ExpressionFunction} with the given {@link FunctionExpressionName}.
      */
-    Optional<ExpressionFunction<?, ExpressionEvaluationContext>> expressionFunction(final FunctionExpressionName name);
-
-    /**
-     * Helper that invokes {@link #expressionFunction(FunctionExpressionName)} and throws a {@link UnknownExpressionFunctionException}
-     * if none was found.
-     */
-    default ExpressionFunction<?, ExpressionEvaluationContext> expressionFunctionOrFail(final FunctionExpressionName name) {
-        return this.expressionFunction(name)
-                .orElseThrow(() -> new UnknownExpressionFunctionException(name));
-    }
+    ExpressionFunction<?, ExpressionEvaluationContext> expressionFunction(final FunctionExpressionName name);
 }

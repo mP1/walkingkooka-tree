@@ -143,7 +143,7 @@ public final class BasicNodeSelectorExpressionEvaluationContextTest implements N
         };
     }
 
-    private Function<FunctionExpressionName, Optional<ExpressionFunction<?, ExpressionEvaluationContext>>> functions() {
+    private Function<FunctionExpressionName, ExpressionFunction<?, ExpressionEvaluationContext>> functions() {
         return (n) -> {
             Objects.requireNonNull(n, "name");
             throw new UnknownExpressionFunctionException(n);

@@ -23,13 +23,12 @@ import walkingkooka.tree.expression.function.ExpressionFunction;
 import walkingkooka.tree.expression.function.ExpressionFunctions;
 
 import java.util.Map;
-import java.util.Optional;
 import java.util.function.Function;
 
 /**
  * A {@link Function} that knows all xpath functions present in {@link walkingkooka.tree.expression.function.ExpressionFunctions}.
  */
-final class BasicNodeSelectorContextFunction implements Function<FunctionExpressionName, Optional<ExpressionFunction<?, ?>>> {
+final class BasicNodeSelectorContextFunction implements Function<FunctionExpressionName, ExpressionFunction<?, ?>> {
 
     /**
      * Singleton
@@ -57,8 +56,12 @@ final class BasicNodeSelectorContextFunction implements Function<FunctionExpress
     }
 
     @Override
-    public Optional<ExpressionFunction<?, ?>> apply(final FunctionExpressionName name) {
-        return Optional.ofNullable(this.nameToFunction.get(name));
+    public ExpressionFunction<?, ?> apply(final FunctionExpressionName name) {
+        final ExpressionFunction<?, ?> function = this.nameToFunction.get(name);
+        if (null == function) {
+            throw new IllegalArgumentException("Unknown function " + name);
+        }
+        return function;
     }
 
     /**
