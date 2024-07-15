@@ -21,6 +21,7 @@ import walkingkooka.collect.map.Maps;
 import walkingkooka.tree.expression.FunctionExpressionName;
 import walkingkooka.tree.expression.function.ExpressionFunction;
 import walkingkooka.tree.expression.function.ExpressionFunctions;
+import walkingkooka.tree.expression.function.UnknownExpressionFunctionException;
 
 import java.util.Map;
 import java.util.function.Function;
@@ -59,7 +60,7 @@ final class BasicNodeSelectorContextFunction implements Function<FunctionExpress
     public ExpressionFunction<?, ?> apply(final FunctionExpressionName name) {
         final ExpressionFunction<?, ?> function = this.nameToFunction.get(name);
         if (null == function) {
-            throw new IllegalArgumentException("Unknown function " + name);
+            throw new UnknownExpressionFunctionException(name);
         }
         return function;
     }
