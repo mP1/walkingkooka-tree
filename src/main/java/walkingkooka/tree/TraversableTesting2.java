@@ -35,7 +35,7 @@ import static org.junit.jupiter.api.Assertions.assertSame;
  */
 public interface TraversableTesting2<T extends Traversable<T>>
         extends BeanPropertiesTesting,
-        CanBeEmptyTesting<T>,
+        CanBeEmptyTesting,
         HashCodeEqualsDefinedTesting2<T>,
         ToStringTesting<T>,
         TraversableTesting,
@@ -105,13 +105,6 @@ public interface TraversableTesting2<T extends Traversable<T>>
                                   final TT value,
                                   final TT value2) {
         assertSame(value, value2, () -> traversable + " did not cache " + property);
-    }
-
-    // CanBeEmptyTesting................................................................................................
-
-    @Override
-    default T createCanBeEmpty() {
-        return this.createObject();
     }
 
     // HashcodeAndEqualityTesting.......................................................................................
