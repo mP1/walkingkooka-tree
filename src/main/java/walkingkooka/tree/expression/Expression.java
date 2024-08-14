@@ -47,7 +47,7 @@ import java.util.function.Predicate;
  * The {@link Expression} system is used to provide the runtime expression evaluation for the xpath like implementation
  * and spreadsheet formula evaluation.
  */
-public abstract class Expression implements Node<Expression, FunctionExpressionName, Name, Object>,
+public abstract class Expression implements Node<Expression, ExpressionFunctionName, Name, Object>,
         ExpressionPurity,
         HasText,
         TreePrintable {
@@ -154,7 +154,7 @@ public abstract class Expression implements Node<Expression, FunctionExpressionN
     /**
      * {@see NamedFunctionExpression}
      */
-    public static NamedFunctionExpression namedFunction(final FunctionExpressionName name) {
+    public static NamedFunctionExpression namedFunction(final ExpressionFunctionName name) {
         return NamedFunctionExpression.with(
                 name
         );
@@ -589,24 +589,24 @@ public abstract class Expression implements Node<Expression, FunctionExpressionN
     /**
      * {@see NodeSelector#absolute}
      */
-    public static NodeSelector<Expression, FunctionExpressionName, Name, Object> absoluteNodeSelector() {
+    public static NodeSelector<Expression, ExpressionFunctionName, Name, Object> absoluteNodeSelector() {
         return NodeSelector.absolute();
     }
 
     /**
      * {@see NodeSelector#relative}
      */
-    public static NodeSelector<Expression, FunctionExpressionName, Name, Object> relativeNodeSelector() {
+    public static NodeSelector<Expression, ExpressionFunctionName, Name, Object> relativeNodeSelector() {
         return NodeSelector.relative();
     }
 
     /**
      * Creates a {@link NodeSelector} for {@link Expression} from a {@link NodeSelectorExpressionParserToken}.
      */
-    public static NodeSelector<Expression, FunctionExpressionName, Name, Object> nodeSelectorExpressionParserToken(final NodeSelectorExpressionParserToken token,
-                                                                                                                   final Predicate<FunctionExpressionName> functions) {
+    public static NodeSelector<Expression, ExpressionFunctionName, Name, Object> nodeSelectorExpressionParserToken(final NodeSelectorExpressionParserToken token,
+                                                                                                                   final Predicate<ExpressionFunctionName> functions) {
         return NodeSelector.parserToken(token,
-                n -> FunctionExpressionName.with(n.value()),
+                n -> ExpressionFunctionName.with(n.value()),
                 functions,
                 Expression.class);
     }

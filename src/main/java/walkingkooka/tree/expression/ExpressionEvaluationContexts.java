@@ -31,7 +31,7 @@ public final class ExpressionEvaluationContexts implements PublicStaticHelper {
      * {@see BasicExpressionEvaluationContext}
      */
     public static ExpressionEvaluationContext basic(final ExpressionNumberKind expressionNumberKind,
-                                                    final Function<FunctionExpressionName, ExpressionFunction<?, ExpressionEvaluationContext>> functions,
+                                                    final Function<ExpressionFunctionName, ExpressionFunction<?, ExpressionEvaluationContext>> functions,
                                                     final Function<RuntimeException, Object> exceptionHandler,
                                                     final Function<ExpressionReference, Optional<Optional<Object>>> references,
                                                     final Function<ExpressionReference, ExpressionEvaluationException> referenceNotFound,

@@ -21,13 +21,13 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.ToStringTesting;
 import walkingkooka.collect.list.Lists;
+import walkingkooka.tree.expression.ExpressionFunctionName;
 import walkingkooka.tree.expression.ExpressionNumber;
 import walkingkooka.tree.expression.ExpressionNumberFunction;
 import walkingkooka.tree.expression.ExpressionNumberKind;
 import walkingkooka.tree.expression.ExpressionPurityTesting;
 import walkingkooka.tree.expression.FakeExpressionEvaluationContext;
 import walkingkooka.tree.expression.FakeExpressionNumberFunction;
-import walkingkooka.tree.expression.FunctionExpressionName;
 
 import java.math.BigDecimal;
 import java.math.MathContext;
@@ -40,8 +40,8 @@ public final class ExpressionNumberFunctionExpressionFunctionTest implements Exp
         ExpressionPurityTesting,
         ToStringTesting<ExpressionNumberFunctionExpressionFunction<FakeExpressionEvaluationContext>> {
 
-    private final static Optional<FunctionExpressionName> NAME = Optional.of(
-            FunctionExpressionName.with("test")
+    private final static Optional<ExpressionFunctionName> NAME = Optional.of(
+            ExpressionFunctionName.with("test")
     );
 
     private final static ExpressionNumberKind KIND = ExpressionNumberKind.DOUBLE;

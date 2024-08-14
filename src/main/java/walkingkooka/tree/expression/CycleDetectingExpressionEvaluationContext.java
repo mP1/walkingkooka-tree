@@ -57,7 +57,7 @@ final class CycleDetectingExpressionEvaluationContext implements ExpressionEvalu
     }
 
     @Override
-    public boolean isPure(final FunctionExpressionName name) {
+    public boolean isPure(final ExpressionFunctionName name) {
         return this.context.isPure(name);
     }
 
@@ -67,7 +67,7 @@ final class CycleDetectingExpressionEvaluationContext implements ExpressionEvalu
     }
 
     @Override
-    public ExpressionFunction<?, ExpressionEvaluationContext> expressionFunction(final FunctionExpressionName name) {
+    public ExpressionFunction<?, ExpressionEvaluationContext> expressionFunction(final ExpressionFunctionName name) {
         return this.context.expressionFunction(name);
     }
 

@@ -26,7 +26,7 @@ import java.util.List;
  */
 public final class MultiplyExpression extends BinaryArithmeticExpression {
 
-    public final static FunctionExpressionName NAME = FunctionExpressionName.fromClass(MultiplyExpression.class);
+    public final static ExpressionFunctionName NAME = ExpressionFunctionName.fromClass(MultiplyExpression.class);
 
     public final static String SYMBOL = "*";
 
@@ -40,7 +40,7 @@ public final class MultiplyExpression extends BinaryArithmeticExpression {
     }
 
     @Override
-    public FunctionExpressionName name() {
+    public ExpressionFunctionName name() {
         return NAME;
     }
 

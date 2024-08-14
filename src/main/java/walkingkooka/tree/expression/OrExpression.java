@@ -26,7 +26,7 @@ import java.util.List;
  */
 public final class OrExpression extends BinaryLogicalExpression {
 
-    public final static FunctionExpressionName NAME = FunctionExpressionName.fromClass(OrExpression.class);
+    public final static ExpressionFunctionName NAME = ExpressionFunctionName.fromClass(OrExpression.class);
 
     public final static String SYMBOL = "|";
 
@@ -40,7 +40,7 @@ public final class OrExpression extends BinaryLogicalExpression {
     }
 
     @Override
-    public FunctionExpressionName name() {
+    public ExpressionFunctionName name() {
         return NAME;
     }
 

@@ -101,7 +101,7 @@ public final class CallExpressionTest extends VariableExpressionTestCase<CallExp
                 ),
                 new ExpressionPurityContext() {
                     @Override
-                    public boolean isPure(final FunctionExpressionName n) {
+                    public boolean isPure(final ExpressionFunctionName n) {
                         checkEquals(namedFunction.value(), n, "name");
                         return pure;
                     }
@@ -112,7 +112,7 @@ public final class CallExpressionTest extends VariableExpressionTestCase<CallExp
 
     // toValue.........................................................................................................
 
-    private final static FunctionExpressionName FUNCTION_NAME = FunctionExpressionName.with("test-function");
+    private final static ExpressionFunctionName FUNCTION_NAME = ExpressionFunctionName.with("test-function");
 
     @Test
     public void testToValue() {
@@ -133,7 +133,7 @@ public final class CallExpressionTest extends VariableExpressionTestCase<CallExp
                 call.toValue(
                         new FakeExpressionEvaluationContext() {
                             @Override
-                            public ExpressionFunction<?, ExpressionEvaluationContext> expressionFunction(final FunctionExpressionName name) {
+                            public ExpressionFunction<?, ExpressionEvaluationContext> expressionFunction(final ExpressionFunctionName name) {
                                 checkEquals(FUNCTION_NAME, name, "namedFunction name");
                                 return new FakeExpressionFunction<>() {
 
@@ -446,7 +446,7 @@ public final class CallExpressionTest extends VariableExpressionTestCase<CallExp
                     }
 
                     @Override
-                    public ExpressionFunction<?, ExpressionEvaluationContext> expressionFunction(final FunctionExpressionName name) {
+                    public ExpressionFunction<?, ExpressionEvaluationContext> expressionFunction(final ExpressionFunctionName name) {
                         checkEquals(FUNCTION_NAME, name, "namedFunction name");
 
                         return new FakeExpressionFunction<>() {
@@ -514,7 +514,7 @@ public final class CallExpressionTest extends VariableExpressionTestCase<CallExp
 
         return new FakeExpressionEvaluationContext() {
             @Override
-            public ExpressionFunction<?, ExpressionEvaluationContext> expressionFunction(final FunctionExpressionName name) {
+            public ExpressionFunction<?, ExpressionEvaluationContext> expressionFunction(final ExpressionFunctionName name) {
                 checkEquals(FUNCTION_NAME, name, "namedFunction name");
 
                 return new FakeExpressionFunction<>() {
@@ -608,7 +608,7 @@ public final class CallExpressionTest extends VariableExpressionTestCase<CallExp
 
     private NamedFunctionExpression namedFunction(final String name) {
         return Expression.namedFunction(
-                FunctionExpressionName.with(name)
+                ExpressionFunctionName.with(name)
         );
     }
 

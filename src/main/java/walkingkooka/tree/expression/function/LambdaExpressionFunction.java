@@ -20,8 +20,8 @@ package walkingkooka.tree.expression.function;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.tree.expression.Expression;
 import walkingkooka.tree.expression.ExpressionEvaluationContext;
+import walkingkooka.tree.expression.ExpressionFunctionName;
 import walkingkooka.tree.expression.ExpressionPurityContext;
-import walkingkooka.tree.expression.FunctionExpressionName;
 
 import java.util.List;
 import java.util.Objects;
@@ -56,7 +56,7 @@ final class LambdaExpressionFunction<T, C extends ExpressionEvaluationContext> i
     }
 
     @Override
-    public Optional<FunctionExpressionName> name() {
+    public Optional<ExpressionFunctionName> name() {
         return ANONYMOUS_NAME;
     }
 

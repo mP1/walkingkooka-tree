@@ -30,7 +30,7 @@ import java.util.Objects;
  */
 public final class CallExpression extends VariableExpression {
 
-    public final static FunctionExpressionName NAME = FunctionExpressionName.fromClass(CallExpression.class);
+    public final static ExpressionFunctionName NAME = ExpressionFunctionName.fromClass(CallExpression.class);
 
     /**
      * Creates a new {@link CallExpression}
@@ -54,7 +54,7 @@ public final class CallExpression extends VariableExpression {
     }
 
     @Override
-    public FunctionExpressionName name() {
+    public ExpressionFunctionName name() {
         return NAME;
     }
 

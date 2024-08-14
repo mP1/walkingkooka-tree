@@ -26,7 +26,7 @@ import java.util.Objects;
  */
 public final class ReferenceExpression extends LeafExpression<ExpressionReference> {
 
-    public final static FunctionExpressionName NAME = FunctionExpressionName.fromClass(ReferenceExpression.class);
+    public final static ExpressionFunctionName NAME = ExpressionFunctionName.fromClass(ReferenceExpression.class);
 
     static ReferenceExpression with(final ExpressionReference reference) {
         Objects.requireNonNull(reference, "reference");
@@ -39,7 +39,7 @@ public final class ReferenceExpression extends LeafExpression<ExpressionReferenc
     }
 
     @Override
-    public FunctionExpressionName name() {
+    public ExpressionFunctionName name() {
         return NAME;
     }
 

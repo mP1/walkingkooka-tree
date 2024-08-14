@@ -19,15 +19,15 @@ package walkingkooka.tree.expression.function;
 
 import walkingkooka.Cast;
 import walkingkooka.tree.expression.ExpressionEvaluationContext;
+import walkingkooka.tree.expression.ExpressionFunctionName;
 import walkingkooka.tree.expression.ExpressionPurityContext;
-import walkingkooka.tree.expression.FunctionExpressionName;
 
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
 /**
- * An {@link ExpressionFunction} that returns a different {@link FunctionExpressionName}.
+ * An {@link ExpressionFunction} that returns a different {@link ExpressionFunctionName}.
  */
 final class ExpressionFunctionCustomName<T, C extends ExpressionEvaluationContext> implements ExpressionFunction<T, C> {
 
@@ -35,7 +35,7 @@ final class ExpressionFunctionCustomName<T, C extends ExpressionEvaluationContex
      * Factory called by {@link ExpressionFunction#setName}
      */
     static <T, C extends ExpressionEvaluationContext> ExpressionFunction<T, C> with(final ExpressionFunction<T, C> function,
-                                                                                    final Optional<FunctionExpressionName> name) {
+                                                                                    final Optional<ExpressionFunctionName> name) {
         Objects.requireNonNull(function, "namedFunction");
         Objects.requireNonNull(name, "name");
 
@@ -50,7 +50,7 @@ final class ExpressionFunctionCustomName<T, C extends ExpressionEvaluationContex
      * Handles the special case not preventing double wrapping a {@link ExpressionFunctionCustomName}.
      */
     static <T, C extends ExpressionEvaluationContext> ExpressionFunction<T, C> unwrap(final ExpressionFunctionCustomName<T, C> function,
-                                                                                      final Optional<FunctionExpressionName> name) {
+                                                                                      final Optional<ExpressionFunctionName> name) {
         return new ExpressionFunctionCustomName<>(function.function, name);
     }
 
@@ -58,7 +58,7 @@ final class ExpressionFunctionCustomName<T, C extends ExpressionEvaluationContex
      * Private ctor use factory.
      */
     private ExpressionFunctionCustomName(final ExpressionFunction<T, C> function,
-                                         final Optional<FunctionExpressionName> name) {
+                                         final Optional<ExpressionFunctionName> name) {
         super();
         this.function = function;
         this.name = name;
@@ -78,11 +78,11 @@ final class ExpressionFunctionCustomName<T, C extends ExpressionEvaluationContex
     private final ExpressionFunction<T, C> function;
 
     @Override
-    public Optional<FunctionExpressionName> name() {
+    public Optional<ExpressionFunctionName> name() {
         return this.name;
     }
 
-    private final Optional<FunctionExpressionName> name;
+    private final Optional<ExpressionFunctionName> name;
 
     @Override
     public List<ExpressionFunctionParameter<?>> parameters(final int count) {
@@ -97,7 +97,7 @@ final class ExpressionFunctionCustomName<T, C extends ExpressionEvaluationContex
     @Override
     public String toString() {
         return this.name()
-                .map(FunctionExpressionName::value)
+                .map(ExpressionFunctionName::value)
                 .orElse(ANONYMOUS);
     }
 }

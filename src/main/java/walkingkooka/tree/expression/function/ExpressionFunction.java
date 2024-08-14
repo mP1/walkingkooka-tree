@@ -20,8 +20,8 @@ package walkingkooka.tree.expression.function;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.naming.HasOptionalName;
 import walkingkooka.tree.expression.ExpressionEvaluationContext;
+import walkingkooka.tree.expression.ExpressionFunctionName;
 import walkingkooka.tree.expression.ExpressionPurity;
-import walkingkooka.tree.expression.FunctionExpressionName;
 
 import java.util.List;
 import java.util.Objects;
@@ -36,12 +36,12 @@ import java.util.stream.Collectors;
  */
 public interface ExpressionFunction<T, C extends ExpressionEvaluationContext> extends BiFunction<List<Object>, C, T>,
         ExpressionPurity,
-        HasOptionalName<FunctionExpressionName> {
+        HasOptionalName<ExpressionFunctionName> {
 
     /**
-     * Constant that holds the {@link FunctionExpressionName} for anonymous functions.
+     * Constant that holds the {@link ExpressionFunctionName} for anonymous functions.
      */
-    Optional<FunctionExpressionName> ANONYMOUS_NAME = Optional.empty();
+    Optional<ExpressionFunctionName> ANONYMOUS_NAME = Optional.empty();
 
     /**
      * The default name for a function without any name, often used by {@link Object#toString()}.
@@ -71,7 +71,7 @@ public interface ExpressionFunction<T, C extends ExpressionEvaluationContext> ex
     /**
      * Gives this {@link ExpressionFunction} a new name.
      */
-    default ExpressionFunction<T, C> setName(final Optional<FunctionExpressionName> name) {
+    default ExpressionFunction<T, C> setName(final Optional<ExpressionFunctionName> name) {
         Objects.requireNonNull(name, "name");
         return ExpressionFunctionCustomName.with(this, name);
     }

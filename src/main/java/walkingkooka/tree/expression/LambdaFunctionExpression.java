@@ -31,7 +31,7 @@ import java.util.Objects;
  */
 public final class LambdaFunctionExpression extends UnaryExpression {
 
-    public final static FunctionExpressionName NAME = FunctionExpressionName.fromClass(LambdaFunctionExpression.class);
+    public final static ExpressionFunctionName NAME = ExpressionFunctionName.fromClass(LambdaFunctionExpression.class);
 
     static LambdaFunctionExpression with(final List<ExpressionFunctionParameter<?>> parameters,
                                          final Expression value) {
@@ -53,7 +53,7 @@ public final class LambdaFunctionExpression extends UnaryExpression {
     }
 
     @Override
-    public FunctionExpressionName name() {
+    public ExpressionFunctionName name() {
         return NAME;
     }
 

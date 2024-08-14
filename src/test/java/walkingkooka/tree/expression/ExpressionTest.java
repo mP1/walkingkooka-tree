@@ -27,7 +27,7 @@ import walkingkooka.text.printer.IndentingPrinter;
 import walkingkooka.text.printer.Printers;
 import walkingkooka.tree.NodeTesting;
 
-public final class ExpressionTest implements NodeTesting<Expression, FunctionExpressionName, Name, Object>,
+public final class ExpressionTest implements NodeTesting<Expression, ExpressionFunctionName, Name, Object>,
         ClassTesting<Expression> {
 
     @Override

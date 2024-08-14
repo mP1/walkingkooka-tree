@@ -62,7 +62,7 @@ public abstract class ExpressionTestCase<N extends Expression> implements TreePr
         HasTextTesting,
         ExpressionPurityTesting,
         IsMethodTesting<N>,
-        NodeTesting<Expression, FunctionExpressionName, Name, Object> {
+        NodeTesting<Expression, ExpressionFunctionName, Name, Object> {
 
     final static ExpressionNumberKind EXPRESSION_NUMBER_KIND = ExpressionNumberKind.DEFAULT;
 
@@ -403,7 +403,7 @@ public abstract class ExpressionTestCase<N extends Expression> implements TreePr
                         ExpressionNumberConverters.numberOrExpressionNumberToNumber().to(Number.class, Converters.numberToString((c) -> new DecimalFormat("#.###"))),
                         // string ->
                         Converters.<String, Boolean, ExpressionNumberConverterContext>mapper(v -> v instanceof String, Predicate.isEqual(Boolean.class), Boolean::valueOf),
-                        Converters.<FunctionExpressionName, Boolean, ExpressionNumberConverterContext>mapper(v -> v instanceof FunctionExpressionName, Predicate.isEqual(Boolean.class), (i) -> true),
+                        Converters.<ExpressionFunctionName, Boolean, ExpressionNumberConverterContext>mapper(v -> v instanceof ExpressionFunctionName, Predicate.isEqual(Boolean.class), (i) -> true),
                         stringLocalDate,
                         stringLocalDateTime,
                         stringLocalTime,

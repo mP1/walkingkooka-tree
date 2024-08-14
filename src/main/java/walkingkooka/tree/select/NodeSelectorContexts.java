@@ -20,7 +20,7 @@ import walkingkooka.naming.Name;
 import walkingkooka.reflect.PublicStaticHelper;
 import walkingkooka.tree.Node;
 import walkingkooka.tree.expression.ExpressionEvaluationContext;
-import walkingkooka.tree.expression.FunctionExpressionName;
+import walkingkooka.tree.expression.ExpressionFunctionName;
 import walkingkooka.tree.expression.function.ExpressionFunction;
 
 import java.util.function.BooleanSupplier;
@@ -54,7 +54,7 @@ public final class NodeSelectorContexts implements PublicStaticHelper {
     /**
      * {@see BasicNodeSelectorContextFunction}
      */
-    public static Function<FunctionExpressionName, ExpressionFunction<?, ?>> basicFunctions() {
+    public static Function<ExpressionFunctionName, ExpressionFunction<?, ?>> basicFunctions() {
         return BasicNodeSelectorContextFunction.INSTANCE;
     }
 

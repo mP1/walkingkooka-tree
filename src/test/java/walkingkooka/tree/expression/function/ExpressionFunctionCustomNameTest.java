@@ -21,7 +21,7 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.tree.expression.ExpressionEvaluationContext;
-import walkingkooka.tree.expression.FunctionExpressionName;
+import walkingkooka.tree.expression.ExpressionFunctionName;
 
 import java.util.List;
 import java.util.Optional;
@@ -32,8 +32,8 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class ExpressionFunctionCustomNameTest extends ExpressionFunctionTestCase<ExpressionFunctionCustomName<String, ExpressionEvaluationContext>, String> {
 
-    private final static Optional<FunctionExpressionName> NAME = Optional.of(
-            FunctionExpressionName.with("Custom")
+    private final static Optional<ExpressionFunctionName> NAME = Optional.of(
+            ExpressionFunctionName.with("Custom")
     );
 
     @Test
@@ -63,8 +63,8 @@ public final class ExpressionFunctionCustomNameTest extends ExpressionFunctionTe
     @Test
     public void testSetNameDifferent() {
         final ExpressionFunctionCustomName<String, ExpressionEvaluationContext> function = this.createBiFunction();
-        final Optional<FunctionExpressionName> different = Optional.of(
-                FunctionExpressionName.with("different")
+        final Optional<ExpressionFunctionName> different = Optional.of(
+                ExpressionFunctionName.with("different")
         );
         final ExpressionFunction<String, ExpressionEvaluationContext> differentFunction = function.setName(different);
 

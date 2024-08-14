@@ -28,5 +28,5 @@ public interface ExpressionPurityContext extends Context {
     /**
      * Tests if the identified {@link ExpressionFunction} is pure.
      */
-    boolean isPure(final FunctionExpressionName name);
+    boolean isPure(final ExpressionFunctionName name);
 }

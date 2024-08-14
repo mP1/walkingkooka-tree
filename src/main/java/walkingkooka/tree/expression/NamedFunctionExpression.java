@@ -22,16 +22,16 @@ import walkingkooka.tree.expression.function.ExpressionFunction;
 import java.util.Objects;
 
 /**
- * A handle to a function identified by the given {@link FunctionExpressionName}.
+ * A handle to a function identified by the given {@link ExpressionFunctionName}.
  * <br>
  * Identifying the {@link walkingkooka.tree.expression.function.ExpressionFunction} is performed by the {@link ExpressionEvaluationContext}
  * during the evaluate phase.
  */
-final public class NamedFunctionExpression extends LeafExpression<FunctionExpressionName> {
+final public class NamedFunctionExpression extends LeafExpression<ExpressionFunctionName> {
 
-    public final static FunctionExpressionName NAME = FunctionExpressionName.fromClass(NamedFunctionExpression.class);
+    public final static ExpressionFunctionName NAME = ExpressionFunctionName.fromClass(NamedFunctionExpression.class);
 
-    static NamedFunctionExpression with(final FunctionExpressionName name) {
+    static NamedFunctionExpression with(final ExpressionFunctionName name) {
         return new NamedFunctionExpression(NO_INDEX, name);
     }
 
@@ -39,12 +39,12 @@ final public class NamedFunctionExpression extends LeafExpression<FunctionExpres
      * Private ctor
      */
     private NamedFunctionExpression(final int index,
-                                    final FunctionExpressionName name) {
+                                    final ExpressionFunctionName name) {
         super(index, name);
     }
 
     @Override
-    public FunctionExpressionName name() {
+    public ExpressionFunctionName name() {
         return NAME;
     }
 
@@ -53,13 +53,13 @@ final public class NamedFunctionExpression extends LeafExpression<FunctionExpres
         return this.removeParent0().cast();
     }
 
-    public NamedFunctionExpression setValue(final FunctionExpressionName value) {
+    public NamedFunctionExpression setValue(final ExpressionFunctionName value) {
         return Objects.equals(this.value(), value) ?
                 this :
                 this.replaceValue(value);
     }
 
-    private NamedFunctionExpression replaceValue(final FunctionExpressionName value) {
+    private NamedFunctionExpression replaceValue(final ExpressionFunctionName value) {
         return this.replace1(this.index, value)
                 .replaceChild(this.parent())
                 .cast();
@@ -74,7 +74,7 @@ final public class NamedFunctionExpression extends LeafExpression<FunctionExpres
     }
 
     private NamedFunctionExpression replace1(final int index,
-                                             final FunctionExpressionName value) {
+                                             final ExpressionFunctionName value) {
         return new NamedFunctionExpression(index, value);
     }
 
@@ -121,7 +121,7 @@ final public class NamedFunctionExpression extends LeafExpression<FunctionExpres
     // ExpressionEvaluationContext......................................................................................
 
     @Override
-    public FunctionExpressionName toValue(final ExpressionEvaluationContext context) {
+    public ExpressionFunctionName toValue(final ExpressionEvaluationContext context) {
         return this.value();
     }
 

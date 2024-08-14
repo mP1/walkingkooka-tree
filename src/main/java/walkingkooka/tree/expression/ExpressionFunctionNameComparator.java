@@ -23,12 +23,12 @@ import walkingkooka.text.CaseSensitivity;
 import java.util.Comparator;
 import java.util.Objects;
 
-final class FunctionExpressionNameComparator implements Comparator<FunctionExpressionName> {
+final class ExpressionFunctionNameComparator implements Comparator<ExpressionFunctionName> {
 
-    static FunctionExpressionNameComparator with(final CaseSensitivity caseSensitivity) {
+    static ExpressionFunctionNameComparator with(final CaseSensitivity caseSensitivity) {
         Objects.requireNonNull(caseSensitivity, "caseSensitivity");
 
-        final FunctionExpressionNameComparator comparator;
+        final ExpressionFunctionNameComparator comparator;
 
         switch (caseSensitivity) {
             case SENSITIVE:
@@ -47,17 +47,17 @@ final class FunctionExpressionNameComparator implements Comparator<FunctionExpre
         return comparator;
     }
 
-    private final static FunctionExpressionNameComparator CASE_SENSITIVE = new FunctionExpressionNameComparator(CaseSensitivity.SENSITIVE);
+    private final static ExpressionFunctionNameComparator CASE_SENSITIVE = new ExpressionFunctionNameComparator(CaseSensitivity.SENSITIVE);
 
-    private final static FunctionExpressionNameComparator CASE_INSENSITIVE = new FunctionExpressionNameComparator(CaseSensitivity.INSENSITIVE);
+    private final static ExpressionFunctionNameComparator CASE_INSENSITIVE = new ExpressionFunctionNameComparator(CaseSensitivity.INSENSITIVE);
 
-    private FunctionExpressionNameComparator(final CaseSensitivity caseSensitivity) {
+    private ExpressionFunctionNameComparator(final CaseSensitivity caseSensitivity) {
         this.caseSensitivity = caseSensitivity;
     }
 
     @Override
-    public int compare(final FunctionExpressionName left,
-                       final FunctionExpressionName right) {
+    public int compare(final ExpressionFunctionName left,
+                       final ExpressionFunctionName right) {
         final CaseSensitivity caseSensitivity = this.caseSensitivity;
         return caseSensitivity.comparator()
                 .compare(
@@ -70,6 +70,6 @@ final class FunctionExpressionNameComparator implements Comparator<FunctionExpre
 
     @Override
     public String toString() {
-        return FunctionExpressionName.class.getSimpleName() + " CASE " + this.caseSensitivity;
+        return ExpressionFunctionName.class.getSimpleName() + " CASE " + this.caseSensitivity;
     }
 }

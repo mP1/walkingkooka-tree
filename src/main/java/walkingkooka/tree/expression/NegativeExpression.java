@@ -29,7 +29,7 @@ import java.util.Objects;
  */
 public final class NegativeExpression extends UnaryExpression {
 
-    public final static FunctionExpressionName NAME = FunctionExpressionName.fromClass(NegativeExpression.class);
+    public final static ExpressionFunctionName NAME = ExpressionFunctionName.fromClass(NegativeExpression.class);
 
     public final static String SYMBOL = "-";
 
@@ -43,7 +43,7 @@ public final class NegativeExpression extends UnaryExpression {
     }
 
     @Override
-    public FunctionExpressionName name() {
+    public ExpressionFunctionName name() {
         return NAME;
     }
 

@@ -26,7 +26,7 @@ import java.util.List;
  */
 public final class SubtractExpression extends BinaryArithmeticExpression {
 
-    public final static FunctionExpressionName NAME = FunctionExpressionName.fromClass(SubtractExpression.class);
+    public final static ExpressionFunctionName NAME = ExpressionFunctionName.fromClass(SubtractExpression.class);
 
     public final static String SYMBOL = "-";
 
@@ -40,7 +40,7 @@ public final class SubtractExpression extends BinaryArithmeticExpression {
     }
 
     @Override
-    public FunctionExpressionName name() {
+    public ExpressionFunctionName name() {
         return NAME;
     }
 

@@ -29,28 +29,28 @@ import java.util.Comparator;
 /**
  * The name of an {@link NamedFunctionExpression}.
  */
-public final class FunctionExpressionName implements Name,
-        Comparable<FunctionExpressionName> {
+public final class ExpressionFunctionName implements Name,
+        Comparable<ExpressionFunctionName> {
 
     /**
-     * Factory that creates a new {@link FunctionExpressionName} after verifying the given characters are acceptable.
+     * Factory that creates a new {@link ExpressionFunctionName} after verifying the given characters are acceptable.
      */
-    public static FunctionExpressionName with(final String name) {
+    public static ExpressionFunctionName with(final String name) {
         CharPredicates.failIfNullOrEmptyOrInitialAndPartFalse(
                 name,
                 "name",
                 INITIAL,
                 PART
         );
-        return new FunctionExpressionName(name);
+        return new ExpressionFunctionName(name);
     }
 
     private final static CharPredicate INITIAL = CharPredicates.letter();
     private final static CharPredicate PART = CharPredicates.letterOrDigit()
             .or(CharPredicates.any("-._"));
 
-    static FunctionExpressionName fromClass(final Class<? extends Expression> klass) {
-        return new FunctionExpressionName(
+    static ExpressionFunctionName fromClass(final Class<? extends Expression> klass) {
+        return new ExpressionFunctionName(
                 CharSequences.subSequence(
                         klass.getSimpleName(),
                         0,
@@ -62,7 +62,7 @@ public final class FunctionExpressionName implements Name,
     private final static int EXPRESSION_STRING_LENGTH = Expression.class.getSimpleName().length();
 
     // @VisibleForTesting
-    private FunctionExpressionName(final String name) {
+    private ExpressionFunctionName(final String name) {
         this.name = name;
     }
 
@@ -90,11 +90,11 @@ public final class FunctionExpressionName implements Name,
     @Override
     public boolean equals(final Object other) {
         return this == other ||
-                other instanceof FunctionExpressionName &&
+                other instanceof ExpressionFunctionName &&
                         this.equals0(Cast.to(other));
     }
 
-    private boolean equals0(final FunctionExpressionName other) {
+    private boolean equals0(final ExpressionFunctionName other) {
         return CASE_SENSITIVITY.equals(this.name, other.name);
     }
 
@@ -106,7 +106,7 @@ public final class FunctionExpressionName implements Name,
     // Comparable ...................................................................................................
 
     @Override
-    public int compareTo(final FunctionExpressionName other) {
+    public int compareTo(final ExpressionFunctionName other) {
         return CASE_SENSITIVITY.comparator().compare(this.name, other.name);
     }
 
@@ -122,9 +122,9 @@ public final class FunctionExpressionName implements Name,
     // Comparator.......................................................................................................
 
     /**
-     * {@see FunctionExpressionNameComparator}
+     * {@see ExpressionFunctionNameComparator}
      */
-    public static Comparator<FunctionExpressionName> comparator(final CaseSensitivity caseSensitivity) {
-        return FunctionExpressionNameComparator.with(caseSensitivity);
+    public static Comparator<ExpressionFunctionName> comparator(final CaseSensitivity caseSensitivity) {
+        return ExpressionFunctionNameComparator.with(caseSensitivity);
     }
 }

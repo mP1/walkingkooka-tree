@@ -53,7 +53,7 @@ public interface ExpressionEvaluationContextTesting<C extends ExpressionEvaluati
                         .evaluate(
                                 Expression.call(
                                         Expression.namedFunction(
-                                                FunctionExpressionName.with("unknown-namedFunction-123")
+                                                ExpressionFunctionName.with("unknown-namedFunction-123")
                                         ),
                                         Expression.NO_CHILDREN
                                 )

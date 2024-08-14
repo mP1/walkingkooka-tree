@@ -23,7 +23,7 @@ import walkingkooka.visit.Visiting;
 
 import static org.junit.jupiter.api.Assertions.assertSame;
 
-public final class NamedFunctionExpressionTest extends LeafExpressionTestCase<NamedFunctionExpression, FunctionExpressionName> {
+public final class NamedFunctionExpressionTest extends LeafExpressionTestCase<NamedFunctionExpression, ExpressionFunctionName> {
 
     private final static String NAME = "test-function-123";
 
@@ -94,18 +94,18 @@ public final class NamedFunctionExpressionTest extends LeafExpressionTestCase<Na
     }
 
     @Override
-    NamedFunctionExpression createExpression(final FunctionExpressionName value) {
+    NamedFunctionExpression createExpression(final ExpressionFunctionName value) {
         return NamedFunctionExpression.with(value);
     }
 
     @Override
-    FunctionExpressionName value() {
-        return FunctionExpressionName.with(NAME);
+    ExpressionFunctionName value() {
+        return ExpressionFunctionName.with(NAME);
     }
 
     @Override
-    FunctionExpressionName differentValue() {
-        return FunctionExpressionName.with("test-different");
+    ExpressionFunctionName differentValue() {
+        return ExpressionFunctionName.with("test-different");
     }
 
     @Override

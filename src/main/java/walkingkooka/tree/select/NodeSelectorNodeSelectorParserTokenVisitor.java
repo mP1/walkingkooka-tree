@@ -19,7 +19,7 @@ package walkingkooka.tree.select;
 
 import walkingkooka.naming.Name;
 import walkingkooka.tree.Node;
-import walkingkooka.tree.expression.FunctionExpressionName;
+import walkingkooka.tree.expression.ExpressionFunctionName;
 import walkingkooka.tree.select.parser.NodeSelectorAbsoluteParserToken;
 import walkingkooka.tree.select.parser.NodeSelectorAncestorOrSelfParserToken;
 import walkingkooka.tree.select.parser.NodeSelectorAncestorParserToken;
@@ -57,7 +57,7 @@ final class NodeSelectorNodeSelectorParserTokenVisitor<N extends Node<N, NAME, A
             NAME extends Name,
             ANAME extends Name, AVALUE> NodeSelector<N, NAME, ANAME, AVALUE> with(final NodeSelectorParserToken token,
                                                                                   final Function<NodeSelectorNodeName, NAME> nameFactory,
-                                                                                  final Predicate<FunctionExpressionName> functions,
+                                                                                  final Predicate<ExpressionFunctionName> functions,
                                                                                   final Class<N> node) {
         Objects.requireNonNull(token, "token");
         Objects.requireNonNull(nameFactory, "nameFactory");
@@ -74,7 +74,7 @@ final class NodeSelectorNodeSelectorParserTokenVisitor<N extends Node<N, NAME, A
      */
     // @VisibleForTesting
     NodeSelectorNodeSelectorParserTokenVisitor(final Function<NodeSelectorNodeName, NAME> nameFactory,
-                                               final Predicate<FunctionExpressionName> functions,
+                                               final Predicate<ExpressionFunctionName> functions,
                                                final Class<N> node) {
         super();
 
@@ -100,7 +100,7 @@ final class NodeSelectorNodeSelectorParserTokenVisitor<N extends Node<N, NAME, A
         return Visiting.SKIP;
     }
 
-    private final Predicate<FunctionExpressionName> functions;
+    private final Predicate<ExpressionFunctionName> functions;
 
 
     // Leaf tokens...........................................................................................

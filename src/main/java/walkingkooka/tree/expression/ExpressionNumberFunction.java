@@ -39,7 +39,7 @@ public interface ExpressionNumberFunction {
      * with this {@link ExpressionNumberFunction} and returns a {@link ExpressionNumber}.
      * This namedFunction does not handle lists or var args.
      */
-    default <C extends ExpressionEvaluationContext> ExpressionFunction<ExpressionNumber, C> function(final Optional<FunctionExpressionName> name) {
+    default <C extends ExpressionEvaluationContext> ExpressionFunction<ExpressionNumber, C> function(final Optional<ExpressionFunctionName> name) {
         return ExpressionFunctions.expressionNumberFunction(
                 name,
                 this

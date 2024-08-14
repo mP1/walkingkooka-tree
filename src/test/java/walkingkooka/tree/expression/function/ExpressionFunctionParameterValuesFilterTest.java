@@ -21,8 +21,8 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.tree.expression.ExpressionEvaluationContext;
+import walkingkooka.tree.expression.ExpressionFunctionName;
 import walkingkooka.tree.expression.ExpressionPurityContext;
-import walkingkooka.tree.expression.FunctionExpressionName;
 
 import java.util.List;
 import java.util.Optional;
@@ -52,7 +52,7 @@ public final class ExpressionFunctionParameterValuesFilterTest extends Expressio
         }
 
         @Override
-        public Optional<FunctionExpressionName> name() {
+        public Optional<ExpressionFunctionName> name() {
             return NAME;
         }
 
@@ -65,8 +65,8 @@ public final class ExpressionFunctionParameterValuesFilterTest extends Expressio
         }
     };
 
-    private final static Optional<FunctionExpressionName> NAME = Optional.of(
-            FunctionExpressionName.with("custom-namedFunction")
+    private final static Optional<ExpressionFunctionName> NAME = Optional.of(
+            ExpressionFunctionName.with("custom-namedFunction")
     );
 
     @Test

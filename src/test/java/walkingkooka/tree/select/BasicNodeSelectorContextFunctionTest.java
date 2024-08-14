@@ -19,12 +19,12 @@ package walkingkooka.tree.select;
 
 import walkingkooka.reflect.ClassTesting2;
 import walkingkooka.reflect.JavaVisibility;
-import walkingkooka.tree.expression.FunctionExpressionName;
+import walkingkooka.tree.expression.ExpressionFunctionName;
 import walkingkooka.tree.expression.function.ExpressionFunction;
 import walkingkooka.util.FunctionTesting;
 
 public final class BasicNodeSelectorContextFunctionTest implements ClassTesting2<BasicNodeSelectorContextFunction>,
-        FunctionTesting<BasicNodeSelectorContextFunction, FunctionExpressionName, ExpressionFunction<?, ?>> {
+        FunctionTesting<BasicNodeSelectorContextFunction, ExpressionFunctionName, ExpressionFunction<?, ?>> {
 
     @Override
     public BasicNodeSelectorContextFunction createFunction() {

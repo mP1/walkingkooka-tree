@@ -69,7 +69,7 @@ final class CallExpressionExpressionFunction implements ExpressionFunction<Objec
     }
 
     @Override
-    public Optional<FunctionExpressionName> name() {
+    public Optional<ExpressionFunctionName> name() {
         return Optional.empty();
     }
 

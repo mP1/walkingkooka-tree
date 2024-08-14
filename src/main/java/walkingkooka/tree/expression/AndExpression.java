@@ -23,7 +23,7 @@ import java.util.List;
 
 public final class AndExpression extends BinaryLogicalExpression {
 
-    public final static FunctionExpressionName NAME = FunctionExpressionName.fromClass(AndExpression.class);
+    public final static ExpressionFunctionName NAME = ExpressionFunctionName.fromClass(AndExpression.class);
 
     public final static String SYMBOL = "&";
 
@@ -37,7 +37,7 @@ public final class AndExpression extends BinaryLogicalExpression {
     }
 
     @Override
-    public FunctionExpressionName name() {
+    public ExpressionFunctionName name() {
         return NAME;
     }
 
