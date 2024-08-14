@@ -18,8 +18,8 @@
 package walkingkooka.tree.expression.function;
 
 import walkingkooka.tree.expression.ExpressionEvaluationContext;
+import walkingkooka.tree.expression.ExpressionFunctionName;
 import walkingkooka.tree.expression.ExpressionPurityContext;
-import walkingkooka.tree.expression.FunctionExpressionName;
 
 import java.util.List;
 import java.util.Objects;
@@ -33,7 +33,7 @@ import java.util.function.IntFunction;
  */
 final class BasicExpressionFunction<T, C extends ExpressionEvaluationContext> implements ExpressionFunction<T, C> {
 
-    static <T, C extends ExpressionEvaluationContext> BasicExpressionFunction<T, C> with(final Optional<FunctionExpressionName> name,
+    static <T, C extends ExpressionEvaluationContext> BasicExpressionFunction<T, C> with(final Optional<ExpressionFunctionName> name,
                                                                                          final boolean pure,
                                                                                          final IntFunction<List<ExpressionFunctionParameter<?>>> parameters,
                                                                                          final Class<T> returnType,
@@ -47,7 +47,7 @@ final class BasicExpressionFunction<T, C extends ExpressionEvaluationContext> im
         );
     }
 
-    private BasicExpressionFunction(final Optional<FunctionExpressionName> name,
+    private BasicExpressionFunction(final Optional<ExpressionFunctionName> name,
                                     final boolean pure,
                                     final IntFunction<List<ExpressionFunctionParameter<?>>> parameters,
                                     final Class<T> returnType,
@@ -60,12 +60,12 @@ final class BasicExpressionFunction<T, C extends ExpressionEvaluationContext> im
     }
 
     @Override
-    public Optional<FunctionExpressionName> name() {
+    public Optional<ExpressionFunctionName> name() {
         return this.name;
     }
 
     @Override
-    public ExpressionFunction<T, C> setName(final Optional<FunctionExpressionName> name) {
+    public ExpressionFunction<T, C> setName(final Optional<ExpressionFunctionName> name) {
         Objects.requireNonNull(name, "name");
 
         return this.name().equals(name) ?
@@ -79,7 +79,7 @@ final class BasicExpressionFunction<T, C extends ExpressionEvaluationContext> im
                 );
     }
 
-    private final Optional<FunctionExpressionName> name;
+    private final Optional<ExpressionFunctionName> name;
 
     @Override
     public boolean isPure(final ExpressionPurityContext context) {
@@ -138,7 +138,7 @@ final class BasicExpressionFunction<T, C extends ExpressionEvaluationContext> im
     @Override
     public String toString() {
         return this.name()
-                .map(FunctionExpressionName::value)
+                .map(ExpressionFunctionName::value)
                 .orElse(ANONYMOUS);
     }
 }

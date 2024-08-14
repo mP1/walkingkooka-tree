@@ -29,7 +29,7 @@ import java.util.Objects;
  */
 public final class NotExpression extends UnaryExpression {
 
-    public final static FunctionExpressionName NAME = FunctionExpressionName.fromClass(NotExpression.class);
+    public final static ExpressionFunctionName NAME = ExpressionFunctionName.fromClass(NotExpression.class);
 
     public final static String SYMBOL = "!";
 
@@ -43,7 +43,7 @@ public final class NotExpression extends UnaryExpression {
     }
 
     @Override
-    public FunctionExpressionName name() {
+    public ExpressionFunctionName name() {
         return NAME;
     }
 

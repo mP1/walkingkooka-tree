@@ -18,8 +18,8 @@
 package walkingkooka.tree.expression.function;
 
 import walkingkooka.tree.expression.ExpressionEvaluationContext;
+import walkingkooka.tree.expression.ExpressionFunctionName;
 import walkingkooka.tree.expression.ExpressionPurityContext;
-import walkingkooka.tree.expression.FunctionExpressionName;
 
 import java.util.Objects;
 import java.util.Optional;
@@ -43,7 +43,7 @@ abstract class ExpressionFunctionParameterValues<T, C extends ExpressionEvaluati
     }
 
     @Override
-    public final Optional<FunctionExpressionName> name() {
+    public final Optional<ExpressionFunctionName> name() {
         return this.function.name();
     }
 
@@ -60,7 +60,7 @@ abstract class ExpressionFunctionParameterValues<T, C extends ExpressionEvaluati
     @Override
     public final String toString() {
         return this.name()
-                .map(FunctionExpressionName::toString)
+                .map(ExpressionFunctionName::toString)
                 .orElseGet(this.function::toString);
     }
 }

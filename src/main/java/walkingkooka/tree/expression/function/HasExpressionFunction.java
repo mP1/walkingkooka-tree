@@ -18,11 +18,11 @@
 package walkingkooka.tree.expression.function;
 
 import walkingkooka.tree.expression.ExpressionEvaluationContext;
-import walkingkooka.tree.expression.FunctionExpressionName;
+import walkingkooka.tree.expression.ExpressionFunctionName;
 
 /**
- * Almost a provider that is able to supply {@link ExpressionFunction} given a {@link FunctionExpressionName}.
- * This interface is not intended to be implemented by user-code and only exists to provide {@link #expressionFunctionOrFail(FunctionExpressionName)}.
+ * Almost a provider that is able to supply {@link ExpressionFunction} given a {@link ExpressionFunctionName}.
+ * This interface is not intended to be implemented by user-code and only exists to provide {@link #expressionFunctionOrFail(ExpressionFunctionName)}.
  * <br>
  * A full featured provider is available at
  * <br>
@@ -31,7 +31,7 @@ import walkingkooka.tree.expression.FunctionExpressionName;
 public interface HasExpressionFunction {
 
     /**
-     * Returns the {@link ExpressionFunction} with the given {@link FunctionExpressionName}.
+     * Returns the {@link ExpressionFunction} with the given {@link ExpressionFunctionName}.
      */
-    ExpressionFunction<?, ExpressionEvaluationContext> expressionFunction(final FunctionExpressionName name);
+    ExpressionFunction<?, ExpressionEvaluationContext> expressionFunction(final ExpressionFunctionName name);
 }

@@ -25,8 +25,8 @@ import walkingkooka.naming.StringName;
 import walkingkooka.predicate.Predicates;
 import walkingkooka.tree.TestNode;
 import walkingkooka.tree.expression.Expression;
+import walkingkooka.tree.expression.ExpressionFunctionName;
 import walkingkooka.tree.expression.ExpressionNumberKind;
-import walkingkooka.tree.expression.FunctionExpressionName;
 import walkingkooka.visit.Visiting;
 
 import java.util.List;
@@ -537,12 +537,12 @@ final public class ExpressionNodeSelectorTest extends
         return Expression.equalsExpression(
                 Expression.call(
                         Expression.namedFunction(
-                                FunctionExpressionName.with("name")
+                                ExpressionFunctionName.with("name")
                         ),
                         Lists.of(
                                 Expression.call(
                                         Expression.namedFunction(
-                                                FunctionExpressionName.with("node")
+                                                ExpressionFunctionName.with("node")
                                         ),
                                         Expression.NO_CHILDREN
                                 )

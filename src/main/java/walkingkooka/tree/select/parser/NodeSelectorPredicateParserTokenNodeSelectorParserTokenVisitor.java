@@ -22,9 +22,9 @@ import walkingkooka.collect.stack.Stack;
 import walkingkooka.collect.stack.Stacks;
 import walkingkooka.text.CharSequences;
 import walkingkooka.tree.expression.Expression;
+import walkingkooka.tree.expression.ExpressionFunctionName;
 import walkingkooka.tree.expression.ExpressionNumberKind;
 import walkingkooka.tree.expression.ExpressionReference;
-import walkingkooka.tree.expression.FunctionExpressionName;
 import walkingkooka.tree.select.NodeSelectorException;
 import walkingkooka.visit.Visiting;
 
@@ -42,7 +42,7 @@ final class NodeSelectorPredicateParserTokenNodeSelectorParserTokenVisitor exten
      * Converts the contents of a predicate into a {@link Expression}.
      */
     static Expression toExpression(final NodeSelectorPredicateParserToken token,
-                                   final Predicate<FunctionExpressionName> functions) {
+                                   final Predicate<ExpressionFunctionName> functions) {
         final NodeSelectorPredicateParserTokenNodeSelectorParserTokenVisitor visitor = new NodeSelectorPredicateParserTokenNodeSelectorParserTokenVisitor(functions);
         token.accept(visitor);
 
@@ -59,7 +59,7 @@ final class NodeSelectorPredicateParserTokenNodeSelectorParserTokenVisitor exten
      * Private ctor use static method.
      */
     // @VisibleForTesting
-    NodeSelectorPredicateParserTokenNodeSelectorParserTokenVisitor(final Predicate<FunctionExpressionName> functions) {
+    NodeSelectorPredicateParserTokenNodeSelectorParserTokenVisitor(final Predicate<ExpressionFunctionName> functions) {
         super();
         this.functions = functions;
     }
@@ -111,7 +111,7 @@ final class NodeSelectorPredicateParserTokenNodeSelectorParserTokenVisitor exten
 
     @Override
     protected void endVisit(final NodeSelectorFunctionParserToken token) {
-        final FunctionExpressionName functionName = FunctionExpressionName.with(token.functionName().value());
+        final ExpressionFunctionName functionName = ExpressionFunctionName.with(token.functionName().value());
         if (!this.functions.test(functionName)) {
             throw new NodeSelectorException("Unknown function " + CharSequences.quoteAndEscape(functionName.value()) + " in " + CharSequences.quoteAndEscape(token.toString()));
         }
@@ -126,7 +126,7 @@ final class NodeSelectorPredicateParserTokenNodeSelectorParserTokenVisitor exten
         this.add(function, token);
     }
 
-    private final Predicate<FunctionExpressionName> functions;
+    private final Predicate<ExpressionFunctionName> functions;
 
     @Override
     protected Visiting startVisit(final NodeSelectorGreaterThanParserToken token) {

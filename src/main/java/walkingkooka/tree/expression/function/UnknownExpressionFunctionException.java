@@ -19,7 +19,7 @@ package walkingkooka.tree.expression.function;
 
 import walkingkooka.text.CharSequences;
 import walkingkooka.tree.expression.ExpressionException;
-import walkingkooka.tree.expression.FunctionExpressionName;
+import walkingkooka.tree.expression.ExpressionFunctionName;
 
 import java.util.Objects;
 
@@ -27,7 +27,7 @@ public class UnknownExpressionFunctionException extends ExpressionException {
 
     private static final long serialVersionUID = 1L;
 
-    public UnknownExpressionFunctionException(final FunctionExpressionName name) {
+    public UnknownExpressionFunctionException(final ExpressionFunctionName name) {
         super();
         this.name = Objects.requireNonNull(name, "name");
     }
@@ -37,9 +37,9 @@ public class UnknownExpressionFunctionException extends ExpressionException {
         return "Unknown function " + CharSequences.quote(this.name().value());
     }
 
-    public final FunctionExpressionName name() {
+    public final ExpressionFunctionName name() {
         return this.name;
     }
 
-    private final FunctionExpressionName name;
+    private final ExpressionFunctionName name;
 }

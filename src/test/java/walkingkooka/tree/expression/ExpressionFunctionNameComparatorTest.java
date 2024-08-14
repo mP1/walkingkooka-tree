@@ -24,91 +24,91 @@ import walkingkooka.text.CaseSensitivity;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class FunctionExpressionNameComparatorTest implements ComparatorTesting2<FunctionExpressionNameComparator, FunctionExpressionName> {
+public final class ExpressionFunctionNameComparatorTest implements ComparatorTesting2<ExpressionFunctionNameComparator, ExpressionFunctionName> {
 
     @Test
     public void testWithNullCaseSensitivityFails() {
         assertThrows(
                 NullPointerException.class,
-                () -> FunctionExpressionNameComparator.with(null)
+                () -> ExpressionFunctionNameComparator.with(null)
         );
     }
 
     @Test
     public void testWithSensitiveCached() {
         assertSame(
-                FunctionExpressionNameComparator.with(CaseSensitivity.SENSITIVE),
-                FunctionExpressionNameComparator.with(CaseSensitivity.SENSITIVE)
+                ExpressionFunctionNameComparator.with(CaseSensitivity.SENSITIVE),
+                ExpressionFunctionNameComparator.with(CaseSensitivity.SENSITIVE)
         );
     }
 
     @Test
     public void testWithInsensitiveCached() {
         assertSame(
-                FunctionExpressionNameComparator.with(CaseSensitivity.INSENSITIVE),
-                FunctionExpressionNameComparator.with(CaseSensitivity.INSENSITIVE)
+                ExpressionFunctionNameComparator.with(CaseSensitivity.INSENSITIVE),
+                ExpressionFunctionNameComparator.with(CaseSensitivity.INSENSITIVE)
         );
     }
 
     @Test
     public void testCompareEqualCaseSensitive() {
         this.compareAndCheckEquals(
-                FunctionExpressionNameComparator.with(CaseSensitivity.SENSITIVE),
-                FunctionExpressionName.with("hello"),
-                FunctionExpressionName.with("hello")
+                ExpressionFunctionNameComparator.with(CaseSensitivity.SENSITIVE),
+                ExpressionFunctionName.with("hello"),
+                ExpressionFunctionName.with("hello")
         );
     }
 
     @Test
     public void testCompareEqualCaseInsensitive() {
         this.compareAndCheckEquals(
-                FunctionExpressionNameComparator.with(CaseSensitivity.INSENSITIVE),
-                FunctionExpressionName.with("HELLO"),
-                FunctionExpressionName.with("hello")
+                ExpressionFunctionNameComparator.with(CaseSensitivity.INSENSITIVE),
+                ExpressionFunctionName.with("HELLO"),
+                ExpressionFunctionName.with("hello")
         );
     }
 
     @Test
     public void testCompareLessCaseSensitive() {
         this.compareAndCheckLess(
-                FunctionExpressionNameComparator.with(CaseSensitivity.SENSITIVE),
-                FunctionExpressionName.with("hello"),
-                FunctionExpressionName.with("xyz")
+                ExpressionFunctionNameComparator.with(CaseSensitivity.SENSITIVE),
+                ExpressionFunctionName.with("hello"),
+                ExpressionFunctionName.with("xyz")
         );
     }
 
     @Test
     public void testCompareLessCaseInsensitive() {
         this.compareAndCheckLess(
-                FunctionExpressionNameComparator.with(CaseSensitivity.INSENSITIVE),
-                FunctionExpressionName.with("hello"),
-                FunctionExpressionName.with("XYZ")
+                ExpressionFunctionNameComparator.with(CaseSensitivity.INSENSITIVE),
+                ExpressionFunctionName.with("hello"),
+                ExpressionFunctionName.with("XYZ")
         );
     }
 
     @Test
     public void testToStringSensitive() {
         this.toStringAndCheck(
-                FunctionExpressionNameComparator.with(CaseSensitivity.SENSITIVE),
-                "FunctionExpressionName CASE SENSITIVE"
+                ExpressionFunctionNameComparator.with(CaseSensitivity.SENSITIVE),
+                "ExpressionFunctionName CASE SENSITIVE"
         );
     }
 
     @Test
     public void testToStringInsensitive() {
         this.toStringAndCheck(
-                FunctionExpressionNameComparator.with(CaseSensitivity.INSENSITIVE),
-                "FunctionExpressionName CASE INSENSITIVE"
+                ExpressionFunctionNameComparator.with(CaseSensitivity.INSENSITIVE),
+                "ExpressionFunctionName CASE INSENSITIVE"
         );
     }
 
     @Override
-    public FunctionExpressionNameComparator createComparator() {
-        return FunctionExpressionNameComparator.with(CaseSensitivity.INSENSITIVE);
+    public ExpressionFunctionNameComparator createComparator() {
+        return ExpressionFunctionNameComparator.with(CaseSensitivity.INSENSITIVE);
     }
 
     @Override
-    public Class<FunctionExpressionNameComparator> type() {
-        return FunctionExpressionNameComparator.class;
+    public Class<ExpressionFunctionNameComparator> type() {
+        return ExpressionFunctionNameComparator.class;
     }
 }

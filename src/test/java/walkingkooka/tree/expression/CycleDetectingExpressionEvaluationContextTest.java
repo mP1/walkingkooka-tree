@@ -111,7 +111,7 @@ public final class CycleDetectingExpressionEvaluationContextTest implements Clas
     }
 
     private void isPureAndCheck2(final boolean pure) {
-        final FunctionExpressionName functionName = this.functionName();
+        final ExpressionFunctionName functionName = this.functionName();
         this.isPureAndCheck(
                 this.createContext(pure),
                 functionName,
@@ -119,8 +119,8 @@ public final class CycleDetectingExpressionEvaluationContextTest implements Clas
         );
     }
 
-    private FunctionExpressionName functionName() {
-        return FunctionExpressionName.with("function123");
+    private ExpressionFunctionName functionName() {
+        return ExpressionFunctionName.with("function123");
     }
 
     @Test
@@ -372,7 +372,7 @@ public final class CycleDetectingExpressionEvaluationContextTest implements Clas
                     }
 
                     @Override
-                    public ExpressionFunction<?, ExpressionEvaluationContext> expressionFunction(final FunctionExpressionName name) {
+                    public ExpressionFunction<?, ExpressionEvaluationContext> expressionFunction(final ExpressionFunctionName name) {
                         Objects.requireNonNull(name, "name");
                         throw new UnknownExpressionFunctionException(name);
                     }
@@ -383,7 +383,7 @@ public final class CycleDetectingExpressionEvaluationContextTest implements Clas
                     }
 
                     @Override
-                    public boolean isPure(final FunctionExpressionName name) {
+                    public boolean isPure(final ExpressionFunctionName name) {
                         Objects.requireNonNull(name, "name");
                         return pure;
                     }

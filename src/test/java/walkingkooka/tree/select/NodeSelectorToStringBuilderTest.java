@@ -26,9 +26,9 @@ import walkingkooka.predicate.Predicates;
 import walkingkooka.reflect.ClassTesting2;
 import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.tree.expression.Expression;
+import walkingkooka.tree.expression.ExpressionFunctionName;
 import walkingkooka.tree.expression.ExpressionNumber;
 import walkingkooka.tree.expression.ExpressionNumberKind;
-import walkingkooka.tree.expression.FunctionExpressionName;
 import walkingkooka.tree.expression.ValueExpression;
 
 import java.util.function.Predicate;
@@ -431,7 +431,7 @@ public final class NodeSelectorToStringBuilderTest implements ClassTesting2<Node
         b.expression(
                 Expression.call(
                         Expression.namedFunction(
-                                FunctionExpressionName.with("def2")
+                                ExpressionFunctionName.with("def2")
                         ),
                         Lists.of(
                                 expressionNumber(33),

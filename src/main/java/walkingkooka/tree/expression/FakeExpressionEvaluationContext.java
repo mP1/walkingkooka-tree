@@ -43,7 +43,7 @@ public class FakeExpressionEvaluationContext extends FakeExpressionNumberConvert
     }
 
     @Override
-    public ExpressionFunction<?, ExpressionEvaluationContext> expressionFunction(final FunctionExpressionName name) {
+    public ExpressionFunction<?, ExpressionEvaluationContext> expressionFunction(final ExpressionFunctionName name) {
         Objects.requireNonNull(name, "name");
         throw new UnsupportedOperationException();
     }
@@ -82,7 +82,7 @@ public class FakeExpressionEvaluationContext extends FakeExpressionNumberConvert
     }
 
     @Override
-    public boolean isPure(final FunctionExpressionName name) {
+    public boolean isPure(final ExpressionFunctionName name) {
         throw new UnsupportedOperationException();
     }
 

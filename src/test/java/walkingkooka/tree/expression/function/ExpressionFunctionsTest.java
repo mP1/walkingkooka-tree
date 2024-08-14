@@ -23,7 +23,7 @@ import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.reflect.PublicStaticHelperTesting;
 import walkingkooka.text.CaseSensitivity;
 import walkingkooka.tree.expression.ExpressionEvaluationContext;
-import walkingkooka.tree.expression.FunctionExpressionName;
+import walkingkooka.tree.expression.ExpressionFunctionName;
 
 import java.lang.reflect.Method;
 import java.math.MathContext;
@@ -118,7 +118,7 @@ public final class ExpressionFunctionsTest implements PublicStaticHelperTesting<
     public void testLookupCaseSensitive() {
         final ExpressionFunction<Void, ExpressionEvaluationContext> function = functionWithName("test-1");
 
-        final Function<FunctionExpressionName, Optional<ExpressionFunction<?, ExpressionEvaluationContext>>> lookup =
+        final Function<ExpressionFunctionName, Optional<ExpressionFunction<?, ExpressionEvaluationContext>>> lookup =
                 ExpressionFunctions.lookup(
                         Sets.of(
                                 function,
@@ -131,7 +131,7 @@ public final class ExpressionFunctionsTest implements PublicStaticHelperTesting<
                         function
                 ),
                 lookup.apply(
-                        FunctionExpressionName.with("test-1")
+                        ExpressionFunctionName.with("test-1")
                 )
         );
     }
@@ -140,7 +140,7 @@ public final class ExpressionFunctionsTest implements PublicStaticHelperTesting<
     public void testLookupCaseSensitiveWrongCaseNotFound() {
         final ExpressionFunction<Void, ExpressionEvaluationContext> function = functionWithName("test-1");
 
-        final Function<FunctionExpressionName, Optional<ExpressionFunction<?, ExpressionEvaluationContext>>> lookup =
+        final Function<ExpressionFunctionName, Optional<ExpressionFunction<?, ExpressionEvaluationContext>>> lookup =
                 ExpressionFunctions.lookup(
                         Sets.of(
                                 function,
@@ -151,7 +151,7 @@ public final class ExpressionFunctionsTest implements PublicStaticHelperTesting<
         this.checkEquals(
                 Optional.empty(),
                 lookup.apply(
-                        FunctionExpressionName.with("TEST-1")
+                        ExpressionFunctionName.with("TEST-1")
                 )
         );
     }
@@ -160,7 +160,7 @@ public final class ExpressionFunctionsTest implements PublicStaticHelperTesting<
     public void testLookupCaseInsensitiveWrongCase() {
         final ExpressionFunction<Void, ExpressionEvaluationContext> function = functionWithName("test-functionWithName-1");
 
-        final Function<FunctionExpressionName, Optional<ExpressionFunction<?, ExpressionEvaluationContext>>> lookup =
+        final Function<ExpressionFunctionName, Optional<ExpressionFunction<?, ExpressionEvaluationContext>>> lookup =
                 ExpressionFunctions.lookup(
                         Sets.of(
                                 function,
@@ -173,7 +173,7 @@ public final class ExpressionFunctionsTest implements PublicStaticHelperTesting<
                         function
                 ),
                 lookup.apply(
-                        FunctionExpressionName.with("TEST-functionWithName-1")
+                        ExpressionFunctionName.with("TEST-functionWithName-1")
                 )
         );
     }
@@ -182,7 +182,7 @@ public final class ExpressionFunctionsTest implements PublicStaticHelperTesting<
     public void testLookupCaseInsensitiveNotFound() {
         final ExpressionFunction<Void, ExpressionEvaluationContext> function = functionWithName("test-functionWithName-1");
 
-        final Function<FunctionExpressionName, Optional<ExpressionFunction<?, ExpressionEvaluationContext>>> lookup =
+        final Function<ExpressionFunctionName, Optional<ExpressionFunction<?, ExpressionEvaluationContext>>> lookup =
                 ExpressionFunctions.lookup(
                         Sets.of(
                                 function,
@@ -193,7 +193,7 @@ public final class ExpressionFunctionsTest implements PublicStaticHelperTesting<
         this.checkEquals(
                 Optional.empty(),
                 lookup.apply(
-                        FunctionExpressionName.with("TEST-functionWithName-unknown")
+                        ExpressionFunctionName.with("TEST-functionWithName-unknown")
                 )
         );
     }
@@ -201,9 +201,9 @@ public final class ExpressionFunctionsTest implements PublicStaticHelperTesting<
     private static ExpressionFunction<Void, ExpressionEvaluationContext> functionWithName(final String name) {
         return new FakeExpressionFunction<>() {
             @Override
-            public Optional<FunctionExpressionName> name() {
+            public Optional<ExpressionFunctionName> name() {
                 return Optional.ofNullable(name)
-                        .map(FunctionExpressionName::with);
+                        .map(ExpressionFunctionName::with);
             }
 
             @Override
@@ -215,7 +215,7 @@ public final class ExpressionFunctionsTest implements PublicStaticHelperTesting<
 
     @Test
     public void testVisit() {
-        final Set<FunctionExpressionName> names = Sets.sorted();
+        final Set<ExpressionFunctionName> names = Sets.sorted();
 
         ExpressionFunctions.visit(
                 (e) -> names.add(

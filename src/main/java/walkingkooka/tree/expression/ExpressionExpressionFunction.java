@@ -55,7 +55,7 @@ final class ExpressionExpressionFunction implements ExpressionFunction<Object, E
     }
 
     @Override
-    public Optional<FunctionExpressionName> name() {
+    public Optional<ExpressionFunctionName> name() {
         return Optional.empty();
     }
 

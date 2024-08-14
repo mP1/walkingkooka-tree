@@ -32,13 +32,13 @@ public interface ExpressionPurityContextTesting<C extends ExpressionPurityContex
         assertThrows(NullPointerException.class, () -> this.createContext().isPure(null));
     }
 
-    default void isPureAndCheck(final FunctionExpressionName name,
+    default void isPureAndCheck(final ExpressionFunctionName name,
                                 final boolean expected) {
         this.isPureAndCheck(this.createContext(), name, expected);
     }
 
     default void isPureAndCheck(final ExpressionPurityContext context,
-                                final FunctionExpressionName name,
+                                final ExpressionFunctionName name,
                                 final boolean expected) {
         this.checkEquals(
                 expected,

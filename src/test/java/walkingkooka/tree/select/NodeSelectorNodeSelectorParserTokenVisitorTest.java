@@ -41,12 +41,12 @@ import walkingkooka.text.cursor.parser.ParserReporters;
 import walkingkooka.tree.TestNode;
 import walkingkooka.tree.expression.Expression;
 import walkingkooka.tree.expression.ExpressionEvaluationContexts;
+import walkingkooka.tree.expression.ExpressionFunctionName;
 import walkingkooka.tree.expression.ExpressionNumber;
 import walkingkooka.tree.expression.ExpressionNumberConverterContext;
 import walkingkooka.tree.expression.ExpressionNumberConverterContexts;
 import walkingkooka.tree.expression.ExpressionNumberKind;
 import walkingkooka.tree.expression.ExpressionReference;
-import walkingkooka.tree.expression.FunctionExpressionName;
 import walkingkooka.tree.expression.ValueExpression;
 import walkingkooka.tree.expression.function.ExpressionFunction;
 import walkingkooka.tree.expression.function.ExpressionFunctionParameter;
@@ -1850,7 +1850,7 @@ public final class NodeSelectorNodeSelectorParserTokenVisitorTest implements Nod
                         );
                     }
 
-                    private Function<FunctionExpressionName, ExpressionFunction<?, NodeSelectorExpressionEvaluationContext<TestNode, StringName, StringName, Object>>> functions() {
+                    private Function<ExpressionFunctionName, ExpressionFunction<?, NodeSelectorExpressionEvaluationContext<TestNode, StringName, StringName, Object>>> functions() {
                         return (n) -> {
                             switch (n.value()) {
                                 case "boolean":
@@ -2076,7 +2076,7 @@ public final class NodeSelectorNodeSelectorParserTokenVisitorTest implements Nod
     private Expression function(final String name,
                                 final Expression... parameters) {
         return Expression.call(
-                Expression.namedFunction(FunctionExpressionName.with(name)),
+                Expression.namedFunction(ExpressionFunctionName.with(name)),
                 Lists.of(parameters)
         );
     }

@@ -24,7 +24,7 @@ import java.util.List;
 
 public final class LessThanEqualsExpression extends BinaryCompareExpression {
 
-    public final static FunctionExpressionName NAME = FunctionExpressionName.fromClass(LessThanEqualsExpression.class);
+    public final static ExpressionFunctionName NAME = ExpressionFunctionName.fromClass(LessThanEqualsExpression.class);
 
     public final static String SYMBOL = "<=";
 
@@ -38,7 +38,7 @@ public final class LessThanEqualsExpression extends BinaryCompareExpression {
     }
 
     @Override
-    public FunctionExpressionName name() {
+    public ExpressionFunctionName name() {
         return NAME;
     }
 

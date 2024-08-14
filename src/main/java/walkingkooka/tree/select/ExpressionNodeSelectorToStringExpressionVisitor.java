@@ -24,9 +24,9 @@ import walkingkooka.tree.expression.CallExpression;
 import walkingkooka.tree.expression.DivideExpression;
 import walkingkooka.tree.expression.EqualsExpression;
 import walkingkooka.tree.expression.Expression;
+import walkingkooka.tree.expression.ExpressionFunctionName;
 import walkingkooka.tree.expression.ExpressionNumber;
 import walkingkooka.tree.expression.ExpressionVisitor;
-import walkingkooka.tree.expression.FunctionExpressionName;
 import walkingkooka.tree.expression.GreaterThanEqualsExpression;
 import walkingkooka.tree.expression.GreaterThanExpression;
 import walkingkooka.tree.expression.LessThanEqualsExpression;
@@ -262,7 +262,7 @@ final class ExpressionNodeSelectorToStringExpressionVisitor extends ExpressionVi
     }
 
     private void functionName(final String functionName) {
-        this.append(FunctionExpressionName.with(functionName).value());
+        this.append(ExpressionFunctionName.with(functionName).value());
     }
 
     private void parametersBegin() {

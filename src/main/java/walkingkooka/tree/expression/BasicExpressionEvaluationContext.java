@@ -44,7 +44,7 @@ final class BasicExpressionEvaluationContext implements ExpressionEvaluationCont
      * Factory that creates a {@link BasicExpressionEvaluationContext}
      */
     static BasicExpressionEvaluationContext with(final ExpressionNumberKind expressionNumberKind,
-                                                 final Function<FunctionExpressionName, ExpressionFunction<?, ExpressionEvaluationContext>> functions,
+                                                 final Function<ExpressionFunctionName, ExpressionFunction<?, ExpressionEvaluationContext>> functions,
                                                  final Function<RuntimeException, Object> exceptionHandler,
                                                  final Function<ExpressionReference, Optional<Optional<Object>>> references,
                                                  final Function<ExpressionReference, ExpressionEvaluationException> referenceNotFound,
@@ -73,7 +73,7 @@ final class BasicExpressionEvaluationContext implements ExpressionEvaluationCont
      * Private ctor use factory
      */
     private BasicExpressionEvaluationContext(final ExpressionNumberKind expressionNumberKind,
-                                             final Function<FunctionExpressionName, ExpressionFunction<?, ExpressionEvaluationContext>> functions,
+                                             final Function<ExpressionFunctionName, ExpressionFunction<?, ExpressionEvaluationContext>> functions,
                                              final Function<RuntimeException, Object> exceptionHandler,
                                              final Function<ExpressionReference, Optional<Optional<Object>>> references,
                                              final Function<ExpressionReference, ExpressionEvaluationException> referenceNotFound,
@@ -248,14 +248,14 @@ final class BasicExpressionEvaluationContext implements ExpressionEvaluationCont
     }
 
     @Override
-    public ExpressionFunction<?, ExpressionEvaluationContext> expressionFunction(final FunctionExpressionName name) {
+    public ExpressionFunction<?, ExpressionEvaluationContext> expressionFunction(final ExpressionFunctionName name) {
         return this.functions.apply(name);
     }
 
-    private final Function<FunctionExpressionName, ExpressionFunction<?, ExpressionEvaluationContext>> functions;
+    private final Function<ExpressionFunctionName, ExpressionFunction<?, ExpressionEvaluationContext>> functions;
 
     @Override
-    public boolean isPure(final FunctionExpressionName name) {
+    public boolean isPure(final ExpressionFunctionName name) {
         return this.expressionFunction(name).isPure(this);
     }
 

@@ -23,8 +23,8 @@ import walkingkooka.text.CharacterConstant;
 import walkingkooka.tree.Node;
 import walkingkooka.tree.expression.Expression;
 import walkingkooka.tree.expression.ExpressionEvaluationContext;
+import walkingkooka.tree.expression.ExpressionFunctionName;
 import walkingkooka.tree.expression.ExpressionNumberConverterContext;
-import walkingkooka.tree.expression.FunctionExpressionName;
 import walkingkooka.tree.select.parser.NodeSelectorExpressionParserToken;
 import walkingkooka.tree.select.parser.NodeSelectorNodeName;
 import walkingkooka.tree.select.parser.NodeSelectorParserToken;
@@ -59,7 +59,7 @@ public abstract class NodeSelector<N extends Node<N, NAME, ANAME, AVALUE>,
             ANAME extends Name,
             AVALUE> NodeSelector<N, NAME, ANAME, AVALUE> parserToken(final NodeSelectorExpressionParserToken token,
                                                                      final Function<NodeSelectorNodeName, NAME> nameFactory,
-                                                                     final Predicate<FunctionExpressionName> functions,
+                                                                     final Predicate<ExpressionFunctionName> functions,
                                                                      final Class<N> nodeType) {
 
         return NodeSelectorNodeSelectorParserTokenVisitor.with(token, nameFactory, functions, nodeType);

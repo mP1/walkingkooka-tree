@@ -27,9 +27,9 @@ import walkingkooka.text.cursor.parser.ParserException;
 import walkingkooka.text.cursor.parser.ParserReporterException;
 import walkingkooka.text.cursor.parser.ParserReporters;
 import walkingkooka.tree.expression.Expression;
+import walkingkooka.tree.expression.ExpressionFunctionName;
 import walkingkooka.tree.expression.ExpressionNumberKind;
 import walkingkooka.tree.expression.ExpressionVisitorTesting;
-import walkingkooka.tree.expression.FunctionExpressionName;
 import walkingkooka.tree.select.parser.NodeSelectorParserContexts;
 import walkingkooka.tree.select.parser.NodeSelectorParsers;
 import walkingkooka.tree.select.parser.NodeSelectorPredicateParserToken;
@@ -250,7 +250,7 @@ public final class ExpressionNodeSelectorToStringExpressionVisitorTest implement
         this.toStringAndCheck(
                 Expression.call(
                         Expression.namedFunction(
-                                FunctionExpressionName.with("fx")
+                                ExpressionFunctionName.with("fx")
                         ),
                         Lists.of(
                                 Expression.value(ExpressionNumberKind.DEFAULT.one()),

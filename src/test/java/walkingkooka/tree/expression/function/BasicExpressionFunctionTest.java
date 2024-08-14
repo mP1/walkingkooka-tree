@@ -20,8 +20,8 @@ package walkingkooka.tree.expression.function;
 import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.collect.list.Lists;
+import walkingkooka.tree.expression.ExpressionFunctionName;
 import walkingkooka.tree.expression.FakeExpressionEvaluationContext;
-import walkingkooka.tree.expression.FunctionExpressionName;
 
 import java.util.List;
 import java.util.Optional;
@@ -34,8 +34,8 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class BasicExpressionFunctionTest implements ExpressionFunctionTesting<BasicExpressionFunction<String, FakeExpressionEvaluationContext>, String, FakeExpressionEvaluationContext> {
 
-    private final static Optional<FunctionExpressionName> NAME = Optional.of(
-            FunctionExpressionName.with("test123")
+    private final static Optional<ExpressionFunctionName> NAME = Optional.of(
+            ExpressionFunctionName.with("test123")
     );
 
     private final static boolean PURE = true;
@@ -93,7 +93,7 @@ public final class BasicExpressionFunctionTest implements ExpressionFunctionTest
         );
     }
 
-    private void withFails(final Optional<FunctionExpressionName> name,
+    private void withFails(final Optional<ExpressionFunctionName> name,
                            final boolean pure,
                            final IntFunction<List<ExpressionFunctionParameter<?>>> parameters,
                            final Class<String> returnType,
@@ -119,8 +119,8 @@ public final class BasicExpressionFunctionTest implements ExpressionFunctionTest
     @Test
     public void testSetNameDifferent() {
         final BasicExpressionFunction<String, FakeExpressionEvaluationContext> function = this.createBiFunction();
-        final Optional<FunctionExpressionName> different = Optional.of(
-                FunctionExpressionName.with("different")
+        final Optional<ExpressionFunctionName> different = Optional.of(
+                ExpressionFunctionName.with("different")
         );
         final ExpressionFunction<String, FakeExpressionEvaluationContext> differentFunction = function.setName(different);
 

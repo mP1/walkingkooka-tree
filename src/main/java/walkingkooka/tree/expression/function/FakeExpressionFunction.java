@@ -18,8 +18,8 @@
 package walkingkooka.tree.expression.function;
 
 import walkingkooka.tree.expression.ExpressionEvaluationContext;
+import walkingkooka.tree.expression.ExpressionFunctionName;
 import walkingkooka.tree.expression.ExpressionPurityContext;
-import walkingkooka.tree.expression.FunctionExpressionName;
 
 import java.util.List;
 import java.util.Optional;
@@ -37,7 +37,7 @@ public class FakeExpressionFunction<T, C extends ExpressionEvaluationContext> im
     }
 
     @Override
-    public Optional<FunctionExpressionName> name() {
+    public Optional<ExpressionFunctionName> name() {
         throw new UnsupportedOperationException();
     }
 

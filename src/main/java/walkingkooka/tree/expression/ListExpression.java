@@ -30,7 +30,7 @@ import java.util.stream.Collectors;
  */
 public final class ListExpression extends VariableExpression {
 
-    public final static FunctionExpressionName NAME = FunctionExpressionName.fromClass(ListExpression.class);
+    public final static ExpressionFunctionName NAME = ExpressionFunctionName.fromClass(ListExpression.class);
 
     /**
      * Creates a new {@link ListExpression}
@@ -50,7 +50,7 @@ public final class ListExpression extends VariableExpression {
     }
 
     @Override
-    public FunctionExpressionName name() {
+    public ExpressionFunctionName name() {
         return NAME;
     }
 

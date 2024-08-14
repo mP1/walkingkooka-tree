@@ -22,9 +22,9 @@ import walkingkooka.reflect.ClassTesting2;
 import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.tree.expression.ExpressionEvaluationContext;
 import walkingkooka.tree.expression.ExpressionEvaluationContexts;
+import walkingkooka.tree.expression.ExpressionFunctionName;
 import walkingkooka.tree.expression.ExpressionPurityContext;
 import walkingkooka.tree.expression.ExpressionPurityTesting;
-import walkingkooka.tree.expression.FunctionExpressionName;
 
 public abstract class ExpressionFunctionTestCase<F extends ExpressionFunction<T, ExpressionEvaluationContext>, T> implements ExpressionFunctionTesting<F, T, ExpressionEvaluationContext>,
         ExpressionPurityTesting,
@@ -40,7 +40,7 @@ public abstract class ExpressionFunctionTestCase<F extends ExpressionFunction<T,
                 this.createBiFunction(),
                 new ExpressionPurityContext() {
                     @Override
-                    public boolean isPure(final FunctionExpressionName name) {
+                    public boolean isPure(final ExpressionFunctionName name) {
                         throw new UnsupportedOperationException();
                     }
                 },

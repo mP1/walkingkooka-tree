@@ -18,10 +18,10 @@
 package walkingkooka.tree.expression.function;
 
 import walkingkooka.tree.expression.ExpressionEvaluationContext;
+import walkingkooka.tree.expression.ExpressionFunctionName;
 import walkingkooka.tree.expression.ExpressionNumber;
 import walkingkooka.tree.expression.ExpressionNumberFunction;
 import walkingkooka.tree.expression.ExpressionPurityContext;
-import walkingkooka.tree.expression.FunctionExpressionName;
 
 import java.util.List;
 import java.util.Objects;
@@ -34,7 +34,7 @@ import java.util.Optional;
  */
 final class ExpressionNumberFunctionExpressionFunction<C extends ExpressionEvaluationContext> implements ExpressionFunction<ExpressionNumber, C> {
 
-    static <C extends ExpressionEvaluationContext> ExpressionNumberFunctionExpressionFunction<C> with(final Optional<FunctionExpressionName> name,
+    static <C extends ExpressionEvaluationContext> ExpressionNumberFunctionExpressionFunction<C> with(final Optional<ExpressionFunctionName> name,
                                                                                                       final ExpressionNumberFunction function) {
         Objects.requireNonNull(name, "name");
         Objects.requireNonNull(function, "namedFunction");
@@ -42,7 +42,7 @@ final class ExpressionNumberFunctionExpressionFunction<C extends ExpressionEvalu
         return new ExpressionNumberFunctionExpressionFunction<>(name, function);
     }
 
-    private ExpressionNumberFunctionExpressionFunction(final Optional<FunctionExpressionName> name,
+    private ExpressionNumberFunctionExpressionFunction(final Optional<ExpressionFunctionName> name,
                                                        final ExpressionNumberFunction function) {
         super();
         this.name = name;
@@ -50,11 +50,11 @@ final class ExpressionNumberFunctionExpressionFunction<C extends ExpressionEvalu
     }
 
     @Override
-    public Optional<FunctionExpressionName> name() {
+    public Optional<ExpressionFunctionName> name() {
         return this.name;
     }
 
-    private final Optional<FunctionExpressionName> name;
+    private final Optional<ExpressionFunctionName> name;
 
     @Override
     public ExpressionNumber apply(final List<Object> parameters,
@@ -94,7 +94,7 @@ final class ExpressionNumberFunctionExpressionFunction<C extends ExpressionEvalu
     @Override
     public String toString() {
         return this.name()
-                .map(FunctionExpressionName::value)
+                .map(ExpressionFunctionName::value)
                 .orElse(ANONYMOUS);
     }
 }

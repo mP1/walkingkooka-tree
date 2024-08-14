@@ -26,8 +26,8 @@ import walkingkooka.text.CaseSensitivity;
 
 import java.util.List;
 
-public final class FunctionExpressionNameTest implements ClassTesting2<FunctionExpressionName>,
-        NameTesting2<FunctionExpressionName, FunctionExpressionName> {
+public final class ExpressionFunctionNameTest implements ClassTesting2<ExpressionFunctionName>,
+        NameTesting2<ExpressionFunctionName, ExpressionFunctionName> {
 
     @Test
     public void testErrorDotType() {
@@ -38,21 +38,21 @@ public final class FunctionExpressionNameTest implements ClassTesting2<FunctionE
     public void testNotFoundText() {
         this.checkEquals(
                 "Function not found: \"abc123\"",
-                FunctionExpressionName.with("abc123").notFoundText()
+                ExpressionFunctionName.with("abc123").notFoundText()
         );
     }
 
     @Test
     public void testComparatorCaseSensitive() {
-        final FunctionExpressionName name1 = FunctionExpressionName.with("abc");
-        final FunctionExpressionName name2 = FunctionExpressionName.with("def");
-        final FunctionExpressionName name3 = FunctionExpressionName.with("XYZ");
+        final ExpressionFunctionName name1 = ExpressionFunctionName.with("abc");
+        final ExpressionFunctionName name2 = ExpressionFunctionName.with("def");
+        final ExpressionFunctionName name3 = ExpressionFunctionName.with("XYZ");
 
-        final List<FunctionExpressionName> sorted = Lists.array();
+        final List<ExpressionFunctionName> sorted = Lists.array();
         sorted.add(name1);
         sorted.add(name2);
         sorted.add(name3);
-        sorted.sort(FunctionExpressionName.comparator(CaseSensitivity.SENSITIVE));
+        sorted.sort(ExpressionFunctionName.comparator(CaseSensitivity.SENSITIVE));
 
         this.checkEquals(
                 Lists.of(
@@ -64,15 +64,15 @@ public final class FunctionExpressionNameTest implements ClassTesting2<FunctionE
 
     @Test
     public void testComparatorCaseInsensitive() {
-        final FunctionExpressionName name1 = FunctionExpressionName.with("abc");
-        final FunctionExpressionName name2 = FunctionExpressionName.with("def");
-        final FunctionExpressionName name3 = FunctionExpressionName.with("XYZ");
+        final ExpressionFunctionName name1 = ExpressionFunctionName.with("abc");
+        final ExpressionFunctionName name2 = ExpressionFunctionName.with("def");
+        final ExpressionFunctionName name3 = ExpressionFunctionName.with("XYZ");
 
-        final List<FunctionExpressionName> sorted = Lists.array();
+        final List<ExpressionFunctionName> sorted = Lists.array();
         sorted.add(name1);
         sorted.add(name2);
         sorted.add(name3);
-        sorted.sort(FunctionExpressionName.comparator(CaseSensitivity.INSENSITIVE));
+        sorted.sort(ExpressionFunctionName.comparator(CaseSensitivity.INSENSITIVE));
 
         this.checkEquals(
                 Lists.of(
@@ -83,8 +83,8 @@ public final class FunctionExpressionNameTest implements ClassTesting2<FunctionE
     }
 
     @Override
-    public FunctionExpressionName createName(final String name) {
-        return FunctionExpressionName.with(name);
+    public ExpressionFunctionName createName(final String name) {
+        return ExpressionFunctionName.with(name);
     }
 
     @Override
@@ -130,8 +130,8 @@ public final class FunctionExpressionNameTest implements ClassTesting2<FunctionE
     }
 
     @Override
-    public Class<FunctionExpressionName> type() {
-        return FunctionExpressionName.class;
+    public Class<ExpressionFunctionName> type() {
+        return ExpressionFunctionName.class;
     }
 
     @Override

@@ -43,7 +43,7 @@ A context accompanies the evaluation of an `Expression` and provides context awa
 - Provides the preferred `ExpressionNumber` to use at evaluation time.
 - The context can provide for example locale aware values such as decimal point, current symbol and more.
 - Mapping
-  of [function names](https://github.com/mP1/walkingkooka-tree/tree/master/src/main/java/walkingkooka/tree/expression/FunctionExpressionName.java)
+  of [function names](https://github.com/mP1/walkingkooka-tree/tree/master/src/main/java/walkingkooka/tree/expression/ExpressionFunctionName.java)
   to
   a [function](https://github.com/mP1/walkingkooka-tree/tree/master/src/main/java/walkingkooka/tree/expression/function/ExpressionFunction.java)
 - Switching locales or function mappings and more make it possible to re-evaluate an `Expression` simply providing a

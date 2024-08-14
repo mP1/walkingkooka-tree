@@ -27,7 +27,7 @@ import java.util.Objects;
  */
 final public class ValueExpression<V> extends LeafExpression<V> {
 
-    public final static FunctionExpressionName NAME = FunctionExpressionName.fromClass(ValueExpression.class);
+    public final static ExpressionFunctionName NAME = ExpressionFunctionName.fromClass(ValueExpression.class);
 
     static <V> ValueExpression<V> with(final V value) {
         return new ValueExpression<>(NO_INDEX, value);
@@ -38,7 +38,7 @@ final public class ValueExpression<V> extends LeafExpression<V> {
     }
 
     @Override
-    public FunctionExpressionName name() {
+    public ExpressionFunctionName name() {
         return NAME;
     }
 
