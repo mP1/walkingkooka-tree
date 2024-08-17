@@ -33,6 +33,13 @@ public final class ExpressionNumberConverters implements PublicStaticHelper {
     }
 
     /**
+     * {@see NumberToNumberConverter}
+     */
+    public static <C extends ExpressionNumberConverterContext> Converter<C> numberToNumber() {
+        return NumberToNumberConverter.instance();
+    }
+
+    /**
      * {@see ExpressionNumberConverterToExpressionNumberThen}
      */
     public static <C extends ExpressionNumberConverterContext> Converter<C> toExpressionNumberThen(final Converter<C> toExpressionNumber,
