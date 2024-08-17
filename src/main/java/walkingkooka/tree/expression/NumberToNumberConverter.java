@@ -120,6 +120,6 @@ final class NumberToNumberConverter<C extends ExpressionNumberConverterContext> 
 
     @Override
     public String toString() {
-        return "number-to-number";
+        return "number to number";
     }
 }

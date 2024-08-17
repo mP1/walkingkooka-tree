@@ -186,7 +186,7 @@ public final class NumberToNumberConverterTest implements ConverterTesting2<Numb
     public void testToString() {
         this.toStringAndCheck(
                 NumberToNumberConverter.instance(),
-                "number-to-number"
+                "number to number"
         );
     }
 
