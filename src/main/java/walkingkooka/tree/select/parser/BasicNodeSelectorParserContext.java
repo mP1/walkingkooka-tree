@@ -18,18 +18,24 @@
 package walkingkooka.tree.select.parser;
 
 import walkingkooka.ToStringBuilder;
+import walkingkooka.datetime.DateTimeContext;
+import walkingkooka.datetime.DateTimeContextDelegator;
+import walkingkooka.datetime.DateTimeContexts;
+import walkingkooka.math.DecimalNumberContext;
+import walkingkooka.math.DecimalNumberContextDelegator;
+import walkingkooka.math.DecimalNumberContexts;
 import walkingkooka.tree.expression.ExpressionNumberKind;
 
 import java.math.MathContext;
-import java.time.LocalDateTime;
-import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
 
 /**
  * A {@link NodeSelectorParserContext} without any functionality.
  */
-final class BasicNodeSelectorParserContext implements NodeSelectorParserContext {
+final class BasicNodeSelectorParserContext implements NodeSelectorParserContext,
+        DateTimeContextDelegator,
+        DecimalNumberContextDelegator {
 
     /**
      * Creates a new {@link }
@@ -49,32 +55,15 @@ final class BasicNodeSelectorParserContext implements NodeSelectorParserContext 
                                            final MathContext mathContext) {
         super();
         this.kind = kind;
-        this.mathContext = mathContext;
-    }
-
-    @Override
-    public List<String> ampms() {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public String currencySymbol() {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public char decimalSeparator() {
-        return '.';
-    }
-
-    @Override
-    public int defaultYear() {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public String exponentSymbol() {
-        return "E";
+        this.dateTimeContext = DateTimeContexts.locale(
+                Locale.US,
+                1950, // defaultYear
+                50, // twoYear
+                () -> {
+                    throw new UnsupportedOperationException();
+                }
+        );
+        this.decimalNumberContext = DecimalNumberContexts.american(mathContext);
     }
 
     @Override
@@ -85,66 +74,27 @@ final class BasicNodeSelectorParserContext implements NodeSelectorParserContext 
     private final ExpressionNumberKind kind;
 
     @Override
-    public char groupSeparator() {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
     public Locale locale() {
-        throw new UnsupportedOperationException();
+        return this.dateTimeContext.locale();
     }
+
+    // DateTimeContextDelegator.........................................................................................
 
     @Override
-    public MathContext mathContext() {
-        return this.mathContext;
+    public DateTimeContext dateTimeContext() {
+        return this.dateTimeContext;
     }
 
-    private final MathContext mathContext;
+    private final DateTimeContext dateTimeContext;
 
-    @Override
-    public char negativeSign() {
-        return '-';
-    }
+    // DecimalNumberContextDelegator....................................................................................
 
     @Override
-    public List<String> monthNames() {
-        throw new UnsupportedOperationException();
+    public DecimalNumberContext decimalNumberContext() {
+        return this.decimalNumberContext;
     }
 
-    @Override
-    public List<String> monthNameAbbreviations() {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public LocalDateTime now() {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public char percentageSymbol() {
-        return '%';
-    }
-
-    @Override
-    public char positiveSign() {
-        return '+';
-    }
-
-    @Override
-    public int twoDigitYear() {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public List<String> weekDayNames() {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public List<String> weekDayNameAbbreviations() {
-        throw new UnsupportedOperationException();
-    }
+    private final DecimalNumberContext decimalNumberContext;
 
     @Override
     public String toString() {

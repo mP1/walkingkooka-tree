@@ -131,4 +131,11 @@ public final class BasicNodeSelectorParserContextTest implements ClassTesting2<B
     public JavaVisibility typeVisibility() {
         return JavaVisibility.PACKAGE_PRIVATE;
     }
+
+    // NodeSelectorParserContextTesting.................................................................................
+
+    @Override
+    public void testLocaleFails() {
+        throw new UnsupportedOperationException();
+    }
 }
