@@ -56,7 +56,7 @@ final class BasicNodeSelectorParserContext implements NodeSelectorParserContext,
         super();
         this.kind = kind;
         this.dateTimeContext = DateTimeContexts.locale(
-                Locale.US,
+                Locale.getDefault(),
                 1950, // defaultYear
                 50, // twoYear
                 () -> {
