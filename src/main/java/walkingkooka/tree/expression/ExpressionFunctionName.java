@@ -64,12 +64,15 @@ public final class ExpressionFunctionName implements Name,
                 CharSequences.subSequence(
                         klass.getSimpleName(),
                         0,
-                        -EXPRESSION_NAME_LENGTH
+                        -MAX_LENGTH
                 ).toString()
         );
     }
 
-    private final static int EXPRESSION_NAME_LENGTH = Expression.class.getSimpleName().length();
+    /**
+     * The maximum length of function names.
+     */
+    private final static int MAX_LENGTH = Expression.class.getSimpleName().length();
 
     // @VisibleForTesting
     private ExpressionFunctionName(final String name) {
