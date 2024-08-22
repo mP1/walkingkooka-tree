@@ -18,6 +18,7 @@
 package walkingkooka.tree.expression;
 
 import walkingkooka.Cast;
+import walkingkooka.InvalidTextLengthException;
 import walkingkooka.naming.Name;
 import walkingkooka.predicate.character.CharPredicate;
 import walkingkooka.predicate.character.CharPredicates;
@@ -72,6 +73,11 @@ public final class ExpressionFunctionName implements Name,
     private final static int EXPRESSION_STRING_LENGTH = Expression.class.getSimpleName().length();
 
     /**
+     * The minimum length of function names. Difficult to find minimum length using this constant for now.
+     */
+    public final static int MIN_LENGTH = 1;
+
+    /**
      * The maximum length of function names. Guessing this limit is the same as for named ranges (aka labels).
      */
     // https://support.microsoft.com/en-au/office/names-in-formulas-fc2935f9-115d-4bef-a370-3aa8bb4c91f1#:~:text=Name%20length%20A%20name%20can,and%20lowercase%20characters%20in%20names.
@@ -79,6 +85,15 @@ public final class ExpressionFunctionName implements Name,
 
     // @VisibleForTesting
     private ExpressionFunctionName(final String name) {
+        final int length = name.length();
+        if (length < MIN_LENGTH || length > MAX_LENGTH) {
+            throw new InvalidTextLengthException(
+                    "Function name",
+                    name,
+                    MIN_LENGTH,
+                    MAX_LENGTH
+            );
+        }
         this.name = name;
     }
 
