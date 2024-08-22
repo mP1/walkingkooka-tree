@@ -64,15 +64,18 @@ public final class ExpressionFunctionName implements Name,
                 CharSequences.subSequence(
                         klass.getSimpleName(),
                         0,
-                        -MAX_LENGTH
+                        -EXPRESSION_STRING_LENGTH
                 ).toString()
         );
     }
 
+    private final static int EXPRESSION_STRING_LENGTH = Expression.class.getSimpleName().length();
+
     /**
-     * The maximum length of function names.
+     * The maximum length of function names. Guessing this limit is the same as for named ranges (aka labels).
      */
-    public final static int MAX_LENGTH = Expression.class.getSimpleName().length();
+    // https://support.microsoft.com/en-au/office/names-in-formulas-fc2935f9-115d-4bef-a370-3aa8bb4c91f1#:~:text=Name%20length%20A%20name%20can,and%20lowercase%20characters%20in%20names.
+    public final static int MAX_LENGTH = 255;
 
     // @VisibleForTesting
     private ExpressionFunctionName(final String name) {
