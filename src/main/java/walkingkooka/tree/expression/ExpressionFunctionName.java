@@ -72,7 +72,7 @@ public final class ExpressionFunctionName implements Name,
     /**
      * The maximum length of function names.
      */
-    private final static int MAX_LENGTH = Expression.class.getSimpleName().length();
+    public final static int MAX_LENGTH = Expression.class.getSimpleName().length();
 
     // @VisibleForTesting
     private ExpressionFunctionName(final String name) {
