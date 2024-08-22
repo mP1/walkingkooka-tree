@@ -45,6 +45,16 @@ public final class ExpressionFunctionName implements Name,
         return new ExpressionFunctionName(name);
     }
 
+    /**
+     * Helper that may be used to test if a character is a valid function name at the given position.
+     */
+    public static boolean isChar(final int pos,
+                                 final char c) {
+        return 0 == pos ?
+                INITIAL.test(c) :
+                PART.test(c);
+    }
+
     private final static CharPredicate INITIAL = CharPredicates.letter();
     private final static CharPredicate PART = CharPredicates.letterOrDigit()
             .or(CharPredicates.any("-._"));
