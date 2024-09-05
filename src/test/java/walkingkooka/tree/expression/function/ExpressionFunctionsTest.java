@@ -19,6 +19,7 @@ package walkingkooka.tree.expression.function;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.collect.set.Sets;
+import walkingkooka.collect.set.SortedSets;
 import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.reflect.PublicStaticHelperTesting;
 import walkingkooka.text.CaseSensitivity;
@@ -215,7 +216,7 @@ public final class ExpressionFunctionsTest implements PublicStaticHelperTesting<
 
     @Test
     public void testVisit() {
-        final Set<ExpressionFunctionName> names = Sets.sorted();
+        final Set<ExpressionFunctionName> names = SortedSets.tree();
 
         ExpressionFunctions.visit(
                 (e) -> names.add(
@@ -229,7 +230,7 @@ public final class ExpressionFunctionsTest implements PublicStaticHelperTesting<
                 .filter(m -> m.getParameterCount() == 0)
                 .filter(m -> !(m.getName().equals("fake")))
                 .map(Method::getName)
-                .collect(Collectors.toCollection(Sets::sorted));
+                .collect(Collectors.toCollection(SortedSets::tree));
 
         this.checkEquals(
                 methods.size(),
