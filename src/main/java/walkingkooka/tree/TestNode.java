@@ -22,7 +22,7 @@ import org.junit.jupiter.api.Assertions;
 import walkingkooka.ToStringBuilder;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.Maps;
-import walkingkooka.collect.set.Sets;
+import walkingkooka.collect.set.SortedSets;
 import walkingkooka.naming.Names;
 import walkingkooka.naming.PathSeparator;
 import walkingkooka.naming.StringName;
@@ -91,7 +91,7 @@ public final class TestNode implements Node<TestNode, StringName, StringName, Ob
     /**
      * Used to keep track of all node names, preventing duplicates.
      */
-    private static final Set<String> names = Sets.sorted();
+    private static final Set<String> names = SortedSets.tree();
 
     /**
      * When true all new {@link TestNode#with(String, TestNode...)} names must be unique otherwise an assertion will fail.
