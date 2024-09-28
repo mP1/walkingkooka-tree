@@ -165,6 +165,6 @@ public final class ExpressionFunctionName implements Name,
     /**
      * A parser function that returns a {@link ExpressionFunctionName} if the text under the cursor could be parsed.
      */
-    public static BiFunction<TextCursor, ParserContext, Optional<ExpressionFunctionName>> PARSER = (t, c) -> PARSER2.parse(t, c)
+    public final static BiFunction<TextCursor, ParserContext, Optional<ExpressionFunctionName>> PARSER = (t, c) -> PARSER2.parse(t, c)
             .map(token -> with(token.text()));
 }
