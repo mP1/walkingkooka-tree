@@ -24,8 +24,14 @@ import walkingkooka.predicate.character.CharPredicate;
 import walkingkooka.predicate.character.CharPredicates;
 import walkingkooka.text.CaseSensitivity;
 import walkingkooka.text.CharSequences;
+import walkingkooka.text.cursor.TextCursor;
+import walkingkooka.text.cursor.parser.Parser;
+import walkingkooka.text.cursor.parser.ParserContext;
+import walkingkooka.text.cursor.parser.Parsers;
 
 import java.util.Comparator;
+import java.util.Optional;
+import java.util.function.BiFunction;
 
 /**
  * The name of an {@link NamedFunctionExpression}.
@@ -44,16 +50,6 @@ public final class ExpressionFunctionName implements Name,
                 PART
         );
         return new ExpressionFunctionName(name);
-    }
-
-    /**
-     * Helper that may be used to test if a character is a valid function name at the given position.
-     */
-    public static boolean isChar(final int pos,
-                                 final char c) {
-        return 0 == pos ?
-                INITIAL.test(c) :
-                PART.test(c);
     }
 
     private final static CharPredicate INITIAL = CharPredicates.letter();
@@ -158,4 +154,17 @@ public final class ExpressionFunctionName implements Name,
     public static Comparator<ExpressionFunctionName> comparator(final CaseSensitivity caseSensitivity) {
         return ExpressionFunctionNameComparator.with(caseSensitivity);
     }
+
+    private final static Parser<ParserContext> PARSER2 = Parsers.stringInitialAndPartCharPredicate(
+            INITIAL,
+            PART,
+            MIN_LENGTH,
+            MAX_LENGTH
+    );
+
+    /**
+     * A parser function that returns a {@link ExpressionFunctionName} if the text under the cursor could be parsed.
+     */
+    public static BiFunction<TextCursor, ParserContext, Optional<ExpressionFunctionName>> PARSER = (t, c) -> PARSER2.parse(t, c)
+            .map(token -> with(token.text()));
 }

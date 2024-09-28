@@ -23,8 +23,13 @@ import walkingkooka.naming.NameTesting2;
 import walkingkooka.reflect.ClassTesting2;
 import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.text.CaseSensitivity;
+import walkingkooka.text.cursor.TextCursor;
+import walkingkooka.text.cursor.TextCursorSavePoint;
+import walkingkooka.text.cursor.TextCursors;
+import walkingkooka.text.cursor.parser.ParserContexts;
 
 import java.util.List;
+import java.util.Optional;
 
 public final class ExpressionFunctionNameTest implements ClassTesting2<ExpressionFunctionName>,
         NameTesting2<ExpressionFunctionName, ExpressionFunctionName> {
@@ -128,6 +133,57 @@ public final class ExpressionFunctionNameTest implements ClassTesting2<Expressio
     public String possibleInvalidChars(final int position) {
         return NameTesting2.subtract(ASCII, this.possibleValidChars(position));
     }
+
+    // parser...........................................................................................................
+
+    @Test
+    public void testParseFails() {
+        final String text = " fails!";
+        this.parseAndCheck(
+                text,
+                Optional.empty(),
+                text
+        );
+    }
+
+    @Test
+    public void testParseSuccess() {
+        final String name = "Function123";
+        final String after = " after";
+
+        this.parseAndCheck(
+                name + after,
+                Optional.of(
+                        ExpressionFunctionName.with(name)
+                ),
+                after
+        );
+    }
+
+    private void parseAndCheck(final String text,
+                               final Optional<ExpressionFunctionName> expected,
+                               final String left) {
+        final TextCursor cursor = TextCursors.charSequence(text);
+
+        this.checkEquals(
+                expected,
+                ExpressionFunctionName.PARSER.apply(
+                        cursor,
+                        ParserContexts.fake()
+                )
+        );
+
+        final TextCursorSavePoint save = cursor.save();
+        cursor.end();
+
+        this.checkEquals(
+                left,
+                save.textBetween().toString(),
+                "cursor remaining text after parsing"
+        );
+    }
+
+    // class............................................................................................................
 
     @Override
     public Class<ExpressionFunctionName> type() {
