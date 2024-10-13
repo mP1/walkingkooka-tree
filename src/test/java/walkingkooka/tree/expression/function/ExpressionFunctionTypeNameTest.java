@@ -19,15 +19,14 @@ package walkingkooka.tree.expression.function;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
-import walkingkooka.reflect.ClassTesting2;
-import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.tree.expression.ExpressionEvaluationContext;
 import walkingkooka.tree.expression.ExpressionEvaluationContexts;
 
 import java.math.BigDecimal;
 
-public final class TypeNameExpressionFunctionTest implements ClassTesting2<TypeNameExpressionFunction<ExpressionEvaluationContext>>,
-        ExpressionFunctionTesting<TypeNameExpressionFunction<ExpressionEvaluationContext>, String, ExpressionEvaluationContext> {
+public final class ExpressionFunctionTypeNameTest extends ExpressionFunctionTestCase<ExpressionFunctionTypeName<ExpressionEvaluationContext>,
+        ExpressionEvaluationContext,
+        String> {
 
     @Test
     public void testBigDecimalParameter() {
@@ -46,14 +45,9 @@ public final class TypeNameExpressionFunctionTest implements ClassTesting2<TypeN
         return ExpressionEvaluationContexts.fake();
     }
 
-    @Test
-    public void testToString() {
-        this.toStringAndCheck(this.createBiFunction(), "typeName");
-    }
-
     @Override
-    public TypeNameExpressionFunction<ExpressionEvaluationContext> createBiFunction() {
-        return TypeNameExpressionFunction.instance();
+    public ExpressionFunctionTypeName<ExpressionEvaluationContext> createBiFunction() {
+        return ExpressionFunctionTypeName.instance();
     }
 
     @Override
@@ -61,13 +55,20 @@ public final class TypeNameExpressionFunctionTest implements ClassTesting2<TypeN
         return 0;
     }
 
-    @Override
-    public Class<TypeNameExpressionFunction<ExpressionEvaluationContext>> type() {
-        return Cast.to(TypeNameExpressionFunction.class);
+    // toString.........................................................................................................
+
+    @Test
+    public void testToString() {
+        this.toStringAndCheck(
+                this.createBiFunction(),
+                "typeName"
+        );
     }
 
+    // class............................................................................................................
+
     @Override
-    public JavaVisibility typeVisibility() {
-        return JavaVisibility.PACKAGE_PRIVATE;
+    public Class<ExpressionFunctionTypeName<ExpressionEvaluationContext>> type() {
+        return Cast.to(ExpressionFunctionTypeName.class);
     }
 }

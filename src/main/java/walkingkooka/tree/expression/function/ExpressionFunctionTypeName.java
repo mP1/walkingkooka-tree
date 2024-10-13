@@ -26,26 +26,26 @@ import java.util.List;
 import java.util.Optional;
 
 /**
- * A namedFunction that returns {@link Object#getClass()#getName()} of the first parameter.
+ * A function that returns {@link Object#getClass()#getName()} of the first parameter.
  */
-final class TypeNameExpressionFunction<C extends ExpressionEvaluationContext> implements ExpressionFunction<String, C> {
+final class ExpressionFunctionTypeName<C extends ExpressionEvaluationContext> implements ExpressionFunction<String, C> {
 
     /**
      * Instance getter.
      */
-    static <C extends ExpressionEvaluationContext> TypeNameExpressionFunction<C> instance() {
+    static <C extends ExpressionEvaluationContext> ExpressionFunctionTypeName<C> instance() {
         return Cast.to(INSTANCE);
     }
 
     /**
      * Singleton
      */
-    private static final TypeNameExpressionFunction<?> INSTANCE = new TypeNameExpressionFunction<>();
+    private static final ExpressionFunctionTypeName<?> INSTANCE = new ExpressionFunctionTypeName<>();
 
     /**
      * Private ctor
      */
-    private TypeNameExpressionFunction() {
+    private ExpressionFunctionTypeName() {
         super();
     }
 
