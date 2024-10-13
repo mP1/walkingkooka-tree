@@ -136,6 +136,19 @@ public final class ExpressionFunctionParameterValuesFilterTest extends Expressio
         return ExpressionEvaluationContexts.fake();
     }
 
+    // toString.........................................................................................................
+
+    @Test
+    public void testToString() {
+        this.toStringAndCheck(
+                this.createBiFunction(),
+                NAME.get()
+                        .toString()
+        );
+    }
+
+    // class............................................................................................................
+
     @Override
     public Class<ExpressionFunctionParameterValuesFilter<Object, ExpressionEvaluationContext>> type() {
         return Cast.to(ExpressionFunctionParameterValuesFilter.class);

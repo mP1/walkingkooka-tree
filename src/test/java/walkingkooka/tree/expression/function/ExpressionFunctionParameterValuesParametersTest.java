@@ -156,6 +156,19 @@ public final class ExpressionFunctionParameterValuesParametersTest extends Expre
         return ExpressionEvaluationContexts.fake();
     }
 
+    // toString.........................................................................................................
+
+    @Test
+    public void testToString() {
+        this.toStringAndCheck(
+                this.createBiFunction(),
+                NAME.get()
+                        .toString()
+        );
+    }
+
+    // class............................................................................................................
+
     @Override
     public Class<ExpressionFunctionParameterValuesParameters<Object, ExpressionEvaluationContext>> type() {
         return Cast.to(ExpressionFunctionParameterValuesParameters.class);
