@@ -19,14 +19,14 @@ package walkingkooka.tree.expression.function;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
-import walkingkooka.ToStringTesting;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.tree.expression.FakeExpressionEvaluationContext;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public class NullValueExpressionFunctionTest implements ExpressionFunctionTesting<NullValueExpressionFunction<FakeExpressionEvaluationContext>, Object, FakeExpressionEvaluationContext>,
-        ToStringTesting<NullValueExpressionFunction<FakeExpressionEvaluationContext>> {
+public class ExpressionFunctionNullValueTest extends ExpressionFunctionTestCase<ExpressionFunctionNullValue<FakeExpressionEvaluationContext>,
+        FakeExpressionEvaluationContext,
+        Object> {
 
     // apply............................................................................................................
 
@@ -46,21 +46,11 @@ public class NullValueExpressionFunctionTest implements ExpressionFunctionTestin
         );
     }
 
-    // toString..........................................................................................................
-
-    @Test
-    public void testToString() {
-        this.toStringAndCheck(
-                this.createBiFunction(),
-                "nullValue"
-        );
-    }
-
     // helpers..........................................................................................................
 
     @Override
-    public NullValueExpressionFunction<FakeExpressionEvaluationContext> createBiFunction() {
-        return NullValueExpressionFunction.instance();
+    public ExpressionFunctionNullValue<FakeExpressionEvaluationContext> createBiFunction() {
+        return ExpressionFunctionNullValue.instance();
     }
 
     @Override
@@ -73,10 +63,20 @@ public class NullValueExpressionFunctionTest implements ExpressionFunctionTestin
         return new FakeExpressionEvaluationContext();
     }
 
+    // toString..........................................................................................................
+
+    @Test
+    public void testToString() {
+        this.toStringAndCheck(
+                this.createBiFunction(),
+                "nullValue"
+        );
+    }
+
     // class............................................................................................................
 
     @Override
-    public Class<NullValueExpressionFunction<FakeExpressionEvaluationContext>> type() {
-        return Cast.to(NullValueExpressionFunction.class);
+    public Class<ExpressionFunctionNullValue<FakeExpressionEvaluationContext>> type() {
+        return Cast.to(ExpressionFunctionNullValue.class);
     }
 }
