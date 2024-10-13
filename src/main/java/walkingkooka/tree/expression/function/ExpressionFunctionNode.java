@@ -31,7 +31,7 @@ import java.util.Optional;
 /**
  * Returns the current {@link Node} which is fetched from {@link NodeSelectorExpressionEvaluationContext#node()}
  */
-final class NodeExpressionFunction<N extends Node<N, NAME, ANAME, AVALUE>,
+final class ExpressionFunctionNode<N extends Node<N, NAME, ANAME, AVALUE>,
         NAME extends Name,
         ANAME extends Name,
         AVALUE,
@@ -44,7 +44,7 @@ final class NodeExpressionFunction<N extends Node<N, NAME, ANAME, AVALUE>,
             NAME extends Name,
             ANAME extends Name,
             AVALUE,
-            C extends NodeSelectorExpressionEvaluationContext<N, NAME, ANAME, AVALUE>> NodeExpressionFunction<N, NAME, ANAME, AVALUE, C> instance() {
+            C extends NodeSelectorExpressionEvaluationContext<N, NAME, ANAME, AVALUE>> ExpressionFunctionNode<N, NAME, ANAME, AVALUE, C> instance() {
         return Cast.to(INSTANCE);
     }
 
@@ -52,12 +52,12 @@ final class NodeExpressionFunction<N extends Node<N, NAME, ANAME, AVALUE>,
      * Singleton
      */
     @SuppressWarnings("rawtypes")
-    private static final NodeExpressionFunction INSTANCE = new NodeExpressionFunction<>();
+    private static final ExpressionFunctionNode INSTANCE = new ExpressionFunctionNode<>();
 
     /**
      * Private ctor
      */
-    private NodeExpressionFunction() {
+    private ExpressionFunctionNode() {
         super();
     }
 
