@@ -27,26 +27,26 @@ import java.util.List;
 import java.util.Optional;
 
 /**
- * A non standard namedFunction that returns {@link Node#name()}. It assumes the {@link Node} is the first parameter.
+ * A non standard function that returns {@link Node#name()}. It assumes the {@link Node} is the first parameter.
  */
-final class NodeNameExpressionFunction<C extends ExpressionEvaluationContext> implements ExpressionFunction<String, C> {
+final class ExpressionFunctionNodeName<C extends ExpressionEvaluationContext> implements ExpressionFunction<String, C> {
 
     /**
      * Instance getter.
      */
-    static <C extends ExpressionEvaluationContext> NodeNameExpressionFunction<C> instance() {
+    static <C extends ExpressionEvaluationContext> ExpressionFunctionNodeName<C> instance() {
         return Cast.to(INSTANCE);
     }
 
     /**
      * Singleton
      */
-    private static final NodeNameExpressionFunction<?> INSTANCE = new NodeNameExpressionFunction<>();
+    private static final ExpressionFunctionNodeName<?> INSTANCE = new ExpressionFunctionNodeName<>();
 
     /**
      * Private ctor
      */
-    private NodeNameExpressionFunction() {
+    private ExpressionFunctionNodeName() {
         super();
     }
 
