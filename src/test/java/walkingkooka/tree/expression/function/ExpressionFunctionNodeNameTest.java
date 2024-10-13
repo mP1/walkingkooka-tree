@@ -22,15 +22,14 @@ import walkingkooka.Cast;
 import walkingkooka.Either;
 import walkingkooka.naming.Names;
 import walkingkooka.naming.StringName;
-import walkingkooka.reflect.ClassTesting2;
-import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.tree.FakeNode;
 import walkingkooka.tree.Node;
 import walkingkooka.tree.expression.ExpressionEvaluationContext;
 import walkingkooka.tree.expression.FakeExpressionEvaluationContext;
 
-public final class NodeNameExpressionFunctionTest implements ClassTesting2<NodeNameExpressionFunction<ExpressionEvaluationContext>>,
-        ExpressionFunctionTesting<NodeNameExpressionFunction<ExpressionEvaluationContext>, String, ExpressionEvaluationContext> {
+public final class ExpressionFunctionNodeNameTest extends ExpressionFunctionTestCase<ExpressionFunctionNodeName<ExpressionEvaluationContext>,
+        ExpressionEvaluationContext,
+        String> {
 
     private final static String NAME = "Abc123";
 
@@ -40,6 +39,24 @@ public final class NodeNameExpressionFunctionTest implements ClassTesting2<NodeN
                 parameters(new TestFakeNode()),
                 this.createContext(),
                 NAME);
+    }
+
+    final static class TestFakeNode extends FakeNode<TestFakeNode, StringName, StringName, Object> {
+
+        @Override
+        public StringName name() {
+            return Names.string(NAME);
+        }
+    }
+
+    @Override
+    public ExpressionFunctionNodeName<ExpressionEvaluationContext> createBiFunction() {
+        return ExpressionFunctionNodeName.instance();
+    }
+
+    @Override
+    public int minimumParameterCount() {
+        return 0;
     }
 
     @Override
@@ -56,36 +73,20 @@ public final class NodeNameExpressionFunctionTest implements ClassTesting2<NodeN
         };
     }
 
-    final static class TestFakeNode extends FakeNode<TestFakeNode, StringName, StringName, Object> {
-
-        @Override
-        public StringName name() {
-            return Names.string(NAME);
-        }
-    }
+    // toString.........................................................................................................
 
     @Test
     public void testToString() {
-        this.toStringAndCheck(this.createBiFunction(), "name");
+        this.toStringAndCheck(
+                this.createBiFunction(),
+                "name"
+        );
     }
 
-    @Override
-    public NodeNameExpressionFunction<ExpressionEvaluationContext> createBiFunction() {
-        return NodeNameExpressionFunction.instance();
-    }
+    // class............................................................................................................
 
     @Override
-    public int minimumParameterCount() {
-        return 0;
-    }
-
-    @Override
-    public Class<NodeNameExpressionFunction<ExpressionEvaluationContext>> type() {
-        return Cast.to(NodeNameExpressionFunction.class);
-    }
-
-    @Override
-    public JavaVisibility typeVisibility() {
-        return JavaVisibility.PACKAGE_PRIVATE;
+    public Class<ExpressionFunctionNodeName<ExpressionEvaluationContext>> type() {
+        return Cast.to(ExpressionFunctionNodeName.class);
     }
 }
