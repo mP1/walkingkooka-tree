@@ -138,14 +138,14 @@ public final class ExpressionFunctions implements PublicStaticHelper {
     }
 
     /**
-     * {@see NodeExpressionFunction}
+     * {@see ExpressionFunctionNode}
      */
     public static <N extends Node<N, NAME, ANAME, AVALUE>,
             NAME extends Name,
             ANAME extends Name,
             AVALUE,
             C extends NodeSelectorExpressionEvaluationContext<N, NAME, ANAME, AVALUE>> ExpressionFunction<N, C> node() {
-        return NodeExpressionFunction.instance();
+        return ExpressionFunctionNode.instance();
     }
 
     /**
