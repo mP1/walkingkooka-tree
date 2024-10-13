@@ -156,10 +156,10 @@ public final class ExpressionFunctions implements PublicStaticHelper {
     }
 
     /**
-     * {@see NullValueExpressionFunction}
+     * {@see ExpressionFunctionNullValue}
      */
     public static <C extends ExpressionEvaluationContext> ExpressionFunction<Object, C> nullValue() {
-        return NullValueExpressionFunction.instance();
+        return ExpressionFunctionNullValue.instance();
     }
 
     /**

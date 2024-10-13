@@ -28,18 +28,18 @@ import java.util.Optional;
 /**
  * A {@link ExpressionFunction} that always returns a null value.
  */
-final class NullValueExpressionFunction<C extends ExpressionEvaluationContext> implements ExpressionFunction<Object, C> {
+final class ExpressionFunctionNullValue<C extends ExpressionEvaluationContext> implements ExpressionFunction<Object, C> {
 
-    static <C extends ExpressionEvaluationContext> NullValueExpressionFunction<C> instance() {
+    static <C extends ExpressionEvaluationContext> ExpressionFunctionNullValue<C> instance() {
         return INSTANCE;
     }
 
     /**
      * Singleton
      */
-    private final static NullValueExpressionFunction INSTANCE = new NullValueExpressionFunction();
+    private final static ExpressionFunctionNullValue INSTANCE = new ExpressionFunctionNullValue();
 
-    private NullValueExpressionFunction() {
+    private ExpressionFunctionNullValue() {
     }
 
     @Override
