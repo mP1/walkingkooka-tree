@@ -21,6 +21,7 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.tree.expression.ExpressionEvaluationContext;
+import walkingkooka.tree.expression.ExpressionEvaluationContexts;
 import walkingkooka.tree.expression.ExpressionFunctionName;
 
 import java.util.List;
@@ -30,7 +31,9 @@ import static org.junit.jupiter.api.Assertions.assertNotSame;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class ExpressionFunctionCustomNameTest extends ExpressionFunctionTestCase<ExpressionFunctionCustomName<String, ExpressionEvaluationContext>, String> {
+public final class ExpressionFunctionCustomNameTest extends ExpressionFunctionTestCase<ExpressionFunctionCustomName<String, ExpressionEvaluationContext>,
+        ExpressionEvaluationContext,
+        String> {
 
     private final static Optional<ExpressionFunctionName> NAME = Optional.of(
             ExpressionFunctionName.with("Custom")
@@ -85,6 +88,11 @@ public final class ExpressionFunctionCustomNameTest extends ExpressionFunctionTe
     @Override
     public int minimumParameterCount() {
         return 0;
+    }
+
+    @Override
+    public ExpressionEvaluationContext createContext() {
+        return ExpressionEvaluationContexts.fake();
     }
 
     @Override
