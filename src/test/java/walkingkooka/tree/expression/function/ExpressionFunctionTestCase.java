@@ -43,19 +43,7 @@ public abstract class ExpressionFunctionTestCase<F extends ExpressionFunction<T,
                         throw new UnsupportedOperationException();
                     }
                 },
-                true
-        );
-    }
-
-    @Test
-    public final void testToString() {
-        final F function = this.createBiFunction();
-
-        this.toStringAndCheck(
-                function,
-                function.name()
-                        .get()
-                        .toString()
+                false == this instanceof ExpressionFunctionLambdaTest
         );
     }
 

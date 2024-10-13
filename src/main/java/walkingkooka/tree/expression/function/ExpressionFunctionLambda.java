@@ -31,25 +31,25 @@ import java.util.function.Function;
 /**
  * A {@link ExpressionFunction} that supports binding given parameter values using the parameter names to a {@link ExpressionEvaluationContext} before invoking a {@link Function}.
  */
-final class LambdaExpressionFunction<T, C extends ExpressionEvaluationContext> implements ExpressionFunction<T, C> {
+final class ExpressionFunctionLambda<T, C extends ExpressionEvaluationContext> implements ExpressionFunction<T, C> {
 
-    static <T, C extends ExpressionEvaluationContext> LambdaExpressionFunction<T, C> with(final List<ExpressionFunctionParameter<?>> parameters,
+    static <T, C extends ExpressionEvaluationContext> ExpressionFunctionLambda<T, C> with(final List<ExpressionFunctionParameter<?>> parameters,
                                                                                           final Class<T> returnType,
                                                                                           final Expression expression) {
         Objects.requireNonNull(parameters, "parameters");
         Objects.requireNonNull(returnType, "returnType");
         Objects.requireNonNull(expression, "expression");
 
-        return new LambdaExpressionFunction<>(
+        return new ExpressionFunctionLambda<>(
                 Lists.immutable(parameters),
                 returnType,
                 expression
         );
     }
 
-    public LambdaExpressionFunction(final List<ExpressionFunctionParameter<?>> parameters,
-                                    final Class<T> returnType,
-                                    final Expression expression) {
+    private ExpressionFunctionLambda(final List<ExpressionFunctionParameter<?>> parameters,
+                                     final Class<T> returnType,
+                                     final Expression expression) {
         this.parameters = parameters;
         this.returnType = returnType;
         this.expression = expression;
@@ -89,7 +89,7 @@ final class LambdaExpressionFunction<T, C extends ExpressionEvaluationContext> i
 
         return context.convertOrFail(
                 context.context(
-                        LambdaExpressionFunctionExpressionEvaluationContextContextFunction.with(
+                        ExpressionFunctionLambdaExpressionEvaluationContextFunction.with(
                                 this.parameters,
                                 values
                         )

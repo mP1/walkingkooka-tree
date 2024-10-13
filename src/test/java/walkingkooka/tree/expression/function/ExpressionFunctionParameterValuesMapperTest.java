@@ -119,8 +119,6 @@ public final class ExpressionFunctionParameterValuesMapperTest extends Expressio
                 "PARAM-1-A-namedFunction,PARAM-2-A-namedFunction,3-A-namedFunction");
     }
 
-    // helpers..........................................................................................................
-
     @Override
     public ExpressionFunctionParameterValuesMapper<Object, ExpressionEvaluationContext> createBiFunction() {
         return ExpressionFunctionParameterValuesMapper.with(MAPPER, FUNCTION);
@@ -135,6 +133,19 @@ public final class ExpressionFunctionParameterValuesMapperTest extends Expressio
     public ExpressionEvaluationContext createContext() {
         return ExpressionEvaluationContexts.fake();
     }
+
+    // toString.........................................................................................................
+
+    @Test
+    public void testToString() {
+        this.toStringAndCheck(
+                this.createBiFunction(),
+                NAME.get()
+                        .toString()
+        );
+    }
+
+    // class............................................................................................................
 
     @Override
     public Class<ExpressionFunctionParameterValuesMapper<Object, ExpressionEvaluationContext>> type() {

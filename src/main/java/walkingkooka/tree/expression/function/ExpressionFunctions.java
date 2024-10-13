@@ -125,12 +125,12 @@ public final class ExpressionFunctions implements PublicStaticHelper {
     }
 
     /**
-     * {@see LambdaExpressionFunction}
+     * {@see ExpressionFunctionLambda}
      */
     public static <T, C extends ExpressionEvaluationContext> ExpressionFunction<T, C> lambda(final List<ExpressionFunctionParameter<?>> parameters,
                                                                                              final Class<T> returnType,
                                                                                              final Expression expression) {
-        return LambdaExpressionFunction.with(
+        return ExpressionFunctionLambda.with(
                 parameters,
                 returnType,
                 expression

@@ -61,6 +61,14 @@ public final class ExpressionFunctionNodeTest extends ExpressionFunctionTestCase
         };
     }
 
+    @Test
+    public void testToString() {
+        this.toStringAndCheck(
+                this.createBiFunction(),
+                "node"
+        );
+    }
+
     // class............................................................................................................
 
     @Override

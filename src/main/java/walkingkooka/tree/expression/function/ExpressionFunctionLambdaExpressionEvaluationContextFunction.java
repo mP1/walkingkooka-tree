@@ -27,18 +27,18 @@ import java.util.function.Function;
  * A {@link Function} that handles translating {@link ExpressionReference} into possible values and is given to {@link walkingkooka.tree.expression.ExpressionEvaluationContext#context(Function)}
  * for that purpose.
  */
-final class LambdaExpressionFunctionExpressionEvaluationContextContextFunction implements Function<ExpressionReference, Optional<Optional<Object>>> {
+final class ExpressionFunctionLambdaExpressionEvaluationContextFunction implements Function<ExpressionReference, Optional<Optional<Object>>> {
 
-    static LambdaExpressionFunctionExpressionEvaluationContextContextFunction with(final List<ExpressionFunctionParameter<?>> parameters,
-                                                                                   final List<Object> values) {
-        return new LambdaExpressionFunctionExpressionEvaluationContextContextFunction(
+    static ExpressionFunctionLambdaExpressionEvaluationContextFunction with(final List<ExpressionFunctionParameter<?>> parameters,
+                                                                            final List<Object> values) {
+        return new ExpressionFunctionLambdaExpressionEvaluationContextFunction(
                 parameters,
                 values
         );
     }
 
-    private LambdaExpressionFunctionExpressionEvaluationContextContextFunction(final List<ExpressionFunctionParameter<?>> parameters,
-                                                                               final List<Object> values) {
+    private ExpressionFunctionLambdaExpressionEvaluationContextFunction(final List<ExpressionFunctionParameter<?>> parameters,
+                                                                        final List<Object> values) {
         this.parameters = parameters;
         this.values = values;
     }

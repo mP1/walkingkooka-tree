@@ -95,6 +95,19 @@ public final class ExpressionFunctionCustomNameTest extends ExpressionFunctionTe
         return ExpressionEvaluationContexts.fake();
     }
 
+    // toString.........................................................................................................
+
+    @Test
+    public void testToString() {
+        this.toStringAndCheck(
+                this.createBiFunction(),
+                NAME.get()
+                        .toString()
+        );
+    }
+
+    // class............................................................................................................
+
     @Override
     public Class<ExpressionFunctionCustomName<String, ExpressionEvaluationContext>> type() {
         return Cast.to(ExpressionFunctionCustomName.class);

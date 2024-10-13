@@ -20,11 +20,11 @@ package walkingkooka.tree.expression.function;
 import walkingkooka.reflect.ClassTesting;
 import walkingkooka.reflect.JavaVisibility;
 
-public final class LambdaExpressionFunctionExpressionEvaluationContextContextFunctionTest implements ClassTesting<LambdaExpressionFunctionExpressionEvaluationContextContextFunction> {
+public final class ExpressionFunctionLambdaExpressionEvaluationContextFunctionTest implements ClassTesting<ExpressionFunctionLambdaExpressionEvaluationContextFunction> {
 
     @Override
-    public Class<LambdaExpressionFunctionExpressionEvaluationContextContextFunction> type() {
-        return LambdaExpressionFunctionExpressionEvaluationContextContextFunction.class;
+    public Class<ExpressionFunctionLambdaExpressionEvaluationContextFunction> type() {
+        return ExpressionFunctionLambdaExpressionEvaluationContextFunction.class;
     }
 
     @Override

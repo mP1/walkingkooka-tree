@@ -20,7 +20,6 @@ package walkingkooka.tree.expression.function;
 import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.Either;
-import walkingkooka.ToStringTesting;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.tree.expression.Expression;
 import walkingkooka.tree.expression.ExpressionNumber;
@@ -35,8 +34,9 @@ import java.util.function.Function;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public class LambdaExpressionFunctionTest implements ExpressionFunctionTesting<LambdaExpressionFunction<String, FakeExpressionEvaluationContext>, String, FakeExpressionEvaluationContext>,
-        ToStringTesting<LambdaExpressionFunction<String, FakeExpressionEvaluationContext>> {
+public class ExpressionFunctionLambdaTest extends ExpressionFunctionTestCase<ExpressionFunctionLambda<String, FakeExpressionEvaluationContext>,
+        FakeExpressionEvaluationContext,
+        String> {
 
     private final static List<ExpressionFunctionParameter<?>> PARAMETERS = Lists.of(
             ExpressionFunctionParameterName.with("x")
@@ -65,11 +65,6 @@ public class LambdaExpressionFunctionTest implements ExpressionFunctionTesting<L
             Expression.reference(var("x")),
             Expression.reference(var("y"))
     );
-
-    @Override
-    public int minimumParameterCount() {
-        return 0;
-    }
 
     // with............................................................................................................
 
@@ -105,7 +100,7 @@ public class LambdaExpressionFunctionTest implements ExpressionFunctionTesting<L
                            final Expression expression) {
         assertThrows(
                 NullPointerException.class,
-                () -> LambdaExpressionFunction.with(
+                () -> ExpressionFunctionLambda.with(
                         parameters,
                         returnType,
                         expression
@@ -139,25 +134,20 @@ public class LambdaExpressionFunctionTest implements ExpressionFunctionTesting<L
         );
     }
 
-    // toString..........................................................................................................
-
-    @Test
-    public void testToString() {
-        this.toStringAndCheck(
-                this.createBiFunction(),
-                ExpressionFunction.ANONYMOUS
-        );
-    }
-
     // helpers..........................................................................................................
 
     @Override
-    public LambdaExpressionFunction<String, FakeExpressionEvaluationContext> createBiFunction() {
-        return LambdaExpressionFunction.with(
+    public ExpressionFunctionLambda<String, FakeExpressionEvaluationContext> createBiFunction() {
+        return ExpressionFunctionLambda.with(
                 PARAMETERS,
                 RETURN_TYPE,
                 EXPRESSION
         );
+    }
+
+    @Override
+    public int minimumParameterCount() {
+        return 0;
     }
 
     @Override
@@ -208,8 +198,20 @@ public class LambdaExpressionFunctionTest implements ExpressionFunctionTesting<L
         };
     }
 
+    // toString.........................................................................................................
+
+    @Test
+    public void testToString() {
+        this.toStringAndCheck(
+                this.createBiFunction(),
+                "<anonymous>"
+        );
+    }
+
+    // class............................................................................................................
+
     @Override
-    public Class<LambdaExpressionFunction<String, FakeExpressionEvaluationContext>> type() {
-        return Cast.to(LambdaExpressionFunction.class);
+    public Class<ExpressionFunctionLambda<String, FakeExpressionEvaluationContext>> type() {
+        return Cast.to(ExpressionFunctionLambda.class);
     }
 }
