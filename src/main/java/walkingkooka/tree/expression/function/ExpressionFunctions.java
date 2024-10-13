@@ -163,10 +163,10 @@ public final class ExpressionFunctions implements PublicStaticHelper {
     }
 
     /**
-     * {@see TypeNameExpressionFunction}
+     * {@see ExpressionFunctionTypeName}
      */
     public static <C extends ExpressionEvaluationContext> ExpressionFunction<String, C> typeName() {
-        return TypeNameExpressionFunction.instance();
+        return ExpressionFunctionTypeName.instance();
     }
 
     /**
