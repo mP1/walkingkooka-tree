@@ -21,6 +21,7 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.tree.expression.ExpressionEvaluationContext;
+import walkingkooka.tree.expression.ExpressionEvaluationContexts;
 import walkingkooka.tree.expression.ExpressionFunctionName;
 import walkingkooka.tree.expression.ExpressionPurityContext;
 
@@ -33,7 +34,9 @@ import static org.junit.jupiter.api.Assertions.assertNotSame;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class ExpressionFunctionParameterValuesMapperTest extends ExpressionFunctionTestCase<ExpressionFunctionParameterValuesMapper<Object, ExpressionEvaluationContext>, Object> {
+public final class ExpressionFunctionParameterValuesMapperTest extends ExpressionFunctionTestCase<ExpressionFunctionParameterValuesMapper<Object, ExpressionEvaluationContext>,
+        ExpressionEvaluationContext,
+        Object> {
 
     private final static BiFunction<List<Object>, ExpressionEvaluationContext, List<Object>> MAPPER = (p, c) -> p.stream()
             .map(pp -> pp.toString().toUpperCase())
@@ -126,6 +129,11 @@ public final class ExpressionFunctionParameterValuesMapperTest extends Expressio
     @Override
     public int minimumParameterCount() {
         return 1;
+    }
+
+    @Override
+    public ExpressionEvaluationContext createContext() {
+        return ExpressionEvaluationContexts.fake();
     }
 
     @Override

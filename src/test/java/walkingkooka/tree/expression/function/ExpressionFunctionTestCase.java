@@ -21,12 +21,11 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.reflect.ClassTesting2;
 import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.tree.expression.ExpressionEvaluationContext;
-import walkingkooka.tree.expression.ExpressionEvaluationContexts;
 import walkingkooka.tree.expression.ExpressionFunctionName;
 import walkingkooka.tree.expression.ExpressionPurityContext;
 import walkingkooka.tree.expression.ExpressionPurityTesting;
 
-public abstract class ExpressionFunctionTestCase<F extends ExpressionFunction<T, ExpressionEvaluationContext>, T> implements ExpressionFunctionTesting<F, T, ExpressionEvaluationContext>,
+public abstract class ExpressionFunctionTestCase<F extends ExpressionFunction<T, C>, C extends ExpressionEvaluationContext, T> implements ExpressionFunctionTesting<F, T, C>,
         ExpressionPurityTesting,
         ClassTesting2<F> {
 
@@ -58,11 +57,6 @@ public abstract class ExpressionFunctionTestCase<F extends ExpressionFunction<T,
                         .get()
                         .toString()
         );
-    }
-
-    @Override
-    public ExpressionEvaluationContext createContext() {
-        return ExpressionEvaluationContexts.fake();
     }
 
     @Override

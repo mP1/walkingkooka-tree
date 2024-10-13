@@ -21,6 +21,7 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.tree.expression.ExpressionEvaluationContext;
+import walkingkooka.tree.expression.ExpressionEvaluationContexts;
 import walkingkooka.tree.expression.ExpressionFunctionName;
 import walkingkooka.tree.expression.ExpressionPurityContext;
 
@@ -32,7 +33,9 @@ import java.util.stream.Collectors;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class ExpressionFunctionParameterValuesFilterTest extends ExpressionFunctionTestCase<ExpressionFunctionParameterValuesFilter<Object, ExpressionEvaluationContext>, Object> {
+public final class ExpressionFunctionParameterValuesFilterTest extends ExpressionFunctionTestCase<ExpressionFunctionParameterValuesFilter<Object, ExpressionEvaluationContext>,
+        ExpressionEvaluationContext,
+        Object> {
 
     private final static BiPredicate<Object, ExpressionEvaluationContext> FILTER = (p, c) -> p instanceof String;
 
@@ -126,6 +129,11 @@ public final class ExpressionFunctionParameterValuesFilterTest extends Expressio
     @Override
     public int minimumParameterCount() {
         return 1;
+    }
+
+    @Override
+    public ExpressionEvaluationContext createContext() {
+        return ExpressionEvaluationContexts.fake();
     }
 
     @Override
