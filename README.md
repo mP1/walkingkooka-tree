@@ -75,11 +75,10 @@ The following function project hold many generic functions.
 - [stat](https://github.com/mP1/walkingkooka-tree-expression-function-stat)
 - [string](https://github.com/mP1/walkingkooka-tree-expression-function-string)
 
-These last two projects require a `SpreadsheetExpressionEvaluationContext` which helps support numerous spreadsheet type
+These project below require a `SpreadsheetExpressionEvaluationContext` which helps support numerous spreadsheet type
 requirements, like locating cell/label references, parsing spreadsheet formula expressions and more.
 
 - [walkingkooka-spreadsheet-expression-function](https://github.com/mP1/walkingkooka-spreadsheet-expression-function)
-- [walkingkooka-spreadsheet-server-expression-function](https://github.com/mP1/walkingkooka-spreadsheet-server-expression-function)
 
 ## [Node](https://github.com/mP1/walkingkooka-tree/blob/master/src/main/java/walkingkooka/tree/Node.java)
 
