@@ -387,7 +387,8 @@ public abstract class NodeSelectorParserTokenTestCase<T extends NodeSelectorPars
                         m.equals("isNoise") ||
                         m.equals("isParent") ||
                         m.equals("isSymbol") ||
-                        m.equals("isEmpty");
+                        m.equals("isEmpty") ||
+                        m.equals("isNotEmpty");
     }
 
     @Override

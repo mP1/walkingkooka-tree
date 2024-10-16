@@ -77,7 +77,7 @@ final class TraversableIterator<T extends Traversable<T>> implements Iterator<T>
         T traversable = null;
 
         final Stack<T> stack = this.unprocessed;
-        if (false == stack.isEmpty()) {
+        if (stack.isNotEmpty()) {
             traversable = stack.peek();
             stack.pop();
 
