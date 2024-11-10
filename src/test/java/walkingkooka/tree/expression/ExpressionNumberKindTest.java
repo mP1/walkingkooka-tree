@@ -167,7 +167,7 @@ public final class ExpressionNumberKindTest implements ClassTesting<ExpressionNu
                 "",
                 2,
                 IllegalArgumentException.class,
-                "text is empty"
+                "Empty \"text\""
         );
     }
 
