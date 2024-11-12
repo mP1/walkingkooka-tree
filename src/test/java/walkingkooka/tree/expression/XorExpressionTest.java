@@ -25,7 +25,7 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertSame;
 
-public final class XorExpressionTest extends BinaryLogicalExpressionTestCase<XorExpression> {
+public final class XorExpressionTest extends LogicalExpressionTestCase<XorExpression> {
 
     @Test
     public void testAccept() {

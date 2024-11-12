@@ -26,9 +26,9 @@ package walkingkooka.tree.expression;
  * When the left is not boolean it will attempt to convert both the left and right to {@link ExpressionNumber} and invoke
  * {@link #applyExpressionNumber(ExpressionNumber, ExpressionNumber)}.
  */
-abstract class BinaryLogicalExpression extends BinaryExpression {
+abstract class LogicalExpression extends BinaryExpression {
 
-    BinaryLogicalExpression(final int index, final Expression left, final Expression right) {
+    LogicalExpression(final int index, final Expression left, final Expression right) {
         super(index, left, right);
     }
 

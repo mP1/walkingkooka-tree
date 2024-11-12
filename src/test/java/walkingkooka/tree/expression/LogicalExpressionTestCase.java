@@ -17,17 +17,9 @@
 
 package walkingkooka.tree.expression;
 
-import walkingkooka.reflect.ClassTesting2;
-import walkingkooka.reflect.JavaVisibility;
+public abstract class LogicalExpressionTestCase<N extends LogicalExpression> extends BinaryExpressionTestCase<N> {
 
-public final class BinaryLogicalExpressionTest implements ClassTesting2<BinaryLogicalExpression> {
-    @Override
-    public Class<BinaryLogicalExpression> type() {
-        return BinaryLogicalExpression.class;
-    }
-
-    @Override
-    public JavaVisibility typeVisibility() {
-        return JavaVisibility.PACKAGE_PRIVATE;
+    LogicalExpressionTestCase() {
+        super();
     }
 }

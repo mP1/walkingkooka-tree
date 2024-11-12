@@ -21,7 +21,7 @@ import walkingkooka.visit.Visiting;
 
 import java.util.List;
 
-public final class AndExpression extends BinaryLogicalExpression {
+public final class AndExpression extends LogicalExpression {
 
     public final static ExpressionFunctionName NAME = ExpressionFunctionName.fromClass(AndExpression.class);
 

@@ -24,7 +24,7 @@ import java.util.List;
 /**
  * A or expression.
  */
-public final class OrExpression extends BinaryLogicalExpression {
+public final class OrExpression extends LogicalExpression {
 
     public final static ExpressionFunctionName NAME = ExpressionFunctionName.fromClass(OrExpression.class);
 
