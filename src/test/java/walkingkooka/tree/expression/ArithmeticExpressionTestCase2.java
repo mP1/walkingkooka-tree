@@ -21,7 +21,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.fail;
 
-public abstract class BinaryArithmeticExpressionTestCase2<N extends BinaryArithmeticExpression> extends BinaryArithmeticExpressionTestCase<N> {
+public abstract class ArithmeticExpressionTestCase2<N extends ArithmeticExpression> extends ArithmeticExpressionTestCase<N> {
 
     // toText.....................................................................................
 

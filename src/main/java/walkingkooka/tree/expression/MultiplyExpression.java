@@ -24,7 +24,7 @@ import java.util.List;
 /**
  * A multiply expression.
  */
-public final class MultiplyExpression extends BinaryArithmeticExpression {
+public final class MultiplyExpression extends ArithmeticExpression {
 
     public final static ExpressionFunctionName NAME = ExpressionFunctionName.fromClass(MultiplyExpression.class);
 

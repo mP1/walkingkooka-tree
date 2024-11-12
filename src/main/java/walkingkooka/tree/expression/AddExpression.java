@@ -25,7 +25,7 @@ import java.util.Objects;
 /**
  * A addition expression.
  */
-public final class AddExpression extends BinaryArithmeticExpression {
+public final class AddExpression extends ArithmeticExpression {
 
     public final static ExpressionFunctionName NAME = ExpressionFunctionName.fromClass(AddExpression.class);
 
