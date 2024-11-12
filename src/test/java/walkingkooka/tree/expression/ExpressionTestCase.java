@@ -516,7 +516,8 @@ public abstract class ExpressionTestCase<N extends Expression> implements TreePr
                 m.equals("parentOrFail") ||
                 m.equals("isPure") ||
                 m.equals("isEmpty") ||
-                m.equals("isNotEmpty");
+                m.equals("isNotEmpty") ||
+                m.equals("isArithmetic");
     }
 
     // ClassTestCase.........................................................................................
