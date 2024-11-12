@@ -28,6 +28,6 @@ public final class LogicalExpressionTest implements ClassTesting2<LogicalExpress
 
     @Override
     public JavaVisibility typeVisibility() {
-        return JavaVisibility.PACKAGE_PRIVATE;
+        return JavaVisibility.PUBLIC;
     }
 }
