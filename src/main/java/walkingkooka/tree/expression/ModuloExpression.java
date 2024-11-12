@@ -24,7 +24,7 @@ import java.util.List;
 /**
  * A modulo expression.
  */
-public final class ModuloExpression extends BinaryArithmeticExpression {
+public final class ModuloExpression extends ArithmeticExpression {
 
     public final static ExpressionFunctionName NAME = ExpressionFunctionName.fromClass(ModuloExpression.class);
 

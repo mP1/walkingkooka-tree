@@ -17,17 +17,9 @@
 
 package walkingkooka.tree.expression;
 
-import walkingkooka.reflect.ClassTesting2;
-import walkingkooka.reflect.JavaVisibility;
+public abstract class ArithmeticExpressionTestCase<N extends ArithmeticExpression> extends BinaryExpressionTestCase<N> {
 
-public final class BinaryArithmeticExpressionTest implements ClassTesting2<BinaryArithmeticExpression> {
-    @Override
-    public Class<BinaryArithmeticExpression> type() {
-        return BinaryArithmeticExpression.class;
-    }
-
-    @Override
-    public JavaVisibility typeVisibility() {
-        return JavaVisibility.PACKAGE_PRIVATE;
+    ArithmeticExpressionTestCase() {
+        super();
     }
 }

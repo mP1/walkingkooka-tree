@@ -25,7 +25,7 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertSame;
 
-public final class AddExpressionTest extends BinaryArithmeticExpressionTestCase<AddExpression> {
+public final class AddExpressionTest extends ArithmeticExpressionTestCase<AddExpression> {
 
     @Test
     public void testAccept() {

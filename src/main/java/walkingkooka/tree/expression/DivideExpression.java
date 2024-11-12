@@ -24,7 +24,7 @@ import java.util.List;
 /**
  * A division expression.
  */
-public final class DivideExpression extends BinaryArithmeticExpression {
+public final class DivideExpression extends ArithmeticExpression {
 
     public final static ExpressionFunctionName NAME = ExpressionFunctionName.fromClass(DivideExpression.class);
 

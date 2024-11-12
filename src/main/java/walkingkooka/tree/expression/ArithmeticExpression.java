@@ -20,11 +20,11 @@ package walkingkooka.tree.expression;
 /**
  * Base class for all arithmetic {@link BinaryExpression} nodes such as addition, power etc.
  */
-abstract class BinaryArithmeticExpression extends BinaryExpression {
+abstract class ArithmeticExpression extends BinaryExpression {
 
-    BinaryArithmeticExpression(final int index,
-                               final Expression left,
-                               final Expression right) {
+    ArithmeticExpression(final int index,
+                         final Expression left,
+                         final Expression right) {
         super(index, left, right);
     }
 

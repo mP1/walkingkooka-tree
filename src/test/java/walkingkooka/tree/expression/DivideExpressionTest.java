@@ -27,7 +27,7 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class DivideExpressionTest extends BinaryArithmeticExpressionTestCase2<DivideExpression> {
+public final class DivideExpressionTest extends ArithmeticExpressionTestCase2<DivideExpression> {
 
     @Test
     public void testAccept() {

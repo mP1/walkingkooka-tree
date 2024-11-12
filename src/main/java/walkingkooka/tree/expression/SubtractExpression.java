@@ -24,7 +24,7 @@ import java.util.List;
 /**
  * A subtract expression.
  */
-public final class SubtractExpression extends BinaryArithmeticExpression {
+public final class SubtractExpression extends ArithmeticExpression {
 
     public final static ExpressionFunctionName NAME = ExpressionFunctionName.fromClass(SubtractExpression.class);
 

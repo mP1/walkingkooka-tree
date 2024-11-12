@@ -24,7 +24,7 @@ import java.util.List;
 /**
  * A power expression.
  */
-public final class PowerExpression extends BinaryArithmeticExpression {
+public final class PowerExpression extends ArithmeticExpression {
 
     public final static ExpressionFunctionName NAME = ExpressionFunctionName.fromClass(PowerExpression.class);
 
