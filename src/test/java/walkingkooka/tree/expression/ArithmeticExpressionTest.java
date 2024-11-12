@@ -28,6 +28,6 @@ public final class ArithmeticExpressionTest implements ClassTesting2<ArithmeticE
 
     @Override
     public JavaVisibility typeVisibility() {
-        return JavaVisibility.PACKAGE_PRIVATE;
+        return JavaVisibility.PUBLIC;
     }
 }
