@@ -327,6 +327,13 @@ public abstract class Expression implements Node<Expression, ExpressionFunctionN
     }
 
     /**
+     * Only {@link ArithmeticExpression} returns true
+     */
+    public final boolean isArithmetic() {
+        return this instanceof ArithmeticExpression;
+    }
+
+    /**
      * Only {@link CallExpression} returns true
      */
     public final boolean isCall() {
