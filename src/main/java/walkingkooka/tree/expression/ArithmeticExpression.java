@@ -20,7 +20,7 @@ package walkingkooka.tree.expression;
 /**
  * Base class for all arithmetic {@link BinaryExpression} nodes such as addition, power etc.
  */
-abstract class ArithmeticExpression extends BinaryExpression {
+abstract public class ArithmeticExpression extends BinaryExpression {
 
     ArithmeticExpression(final int index,
                          final Expression left,
