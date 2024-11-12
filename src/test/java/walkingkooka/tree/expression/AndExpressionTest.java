@@ -25,7 +25,7 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertSame;
 
-public final class AndExpressionTest extends BinaryLogicalExpressionTestCase<AndExpression> {
+public final class AndExpressionTest extends LogicalExpressionTestCase<AndExpression> {
 
     @Test
     public void testAccept() {

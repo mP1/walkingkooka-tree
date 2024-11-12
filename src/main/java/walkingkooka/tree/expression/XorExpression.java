@@ -24,7 +24,7 @@ import java.util.List;
 /**
  * A xor expression.
  */
-public final class XorExpression extends BinaryLogicalExpression {
+public final class XorExpression extends LogicalExpression {
 
     public final static ExpressionFunctionName NAME = ExpressionFunctionName.fromClass(XorExpression.class);
 
