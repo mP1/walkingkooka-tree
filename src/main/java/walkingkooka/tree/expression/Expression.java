@@ -404,6 +404,13 @@ public abstract class Expression implements Node<Expression, ExpressionFunctionN
     }
 
     /**
+     * Only {@link LogicalExpression} returns true
+     */
+    public final boolean isLogical() {
+        return this instanceof LogicalExpression;
+    }
+
+    /**
      * Only {@link ModuloExpression} returns true
      */
     public final boolean isModulo() {
