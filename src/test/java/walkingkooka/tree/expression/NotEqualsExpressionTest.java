@@ -25,7 +25,7 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertSame;
 
-public final class NotEqualsExpressionTest extends BinaryCompareExpressionTestCase<NotEqualsExpression> {
+public final class NotEqualsExpressionTest extends CompareExpressionTestCase<NotEqualsExpression> {
 
     @Test
     public void testAccept() {

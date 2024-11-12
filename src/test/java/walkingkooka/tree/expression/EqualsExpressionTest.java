@@ -25,7 +25,7 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertSame;
 
-public final class EqualsExpressionTest extends BinaryCompareExpressionTestCase<EqualsExpression> {
+public final class EqualsExpressionTest extends CompareExpressionTestCase<EqualsExpression> {
 
     @Test
     public void testAccept() {
