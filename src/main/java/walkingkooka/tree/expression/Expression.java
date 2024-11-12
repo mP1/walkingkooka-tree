@@ -341,6 +341,13 @@ public abstract class Expression implements Node<Expression, ExpressionFunctionN
     }
 
     /**
+     * Only {@link CompareExpression} returns true
+     */
+    public final boolean isCompare() {
+        return this instanceof CompareExpression;
+    }
+
+    /**
      * Only {@link DivideExpression} returns true
      */
     public final boolean isDivide() {
