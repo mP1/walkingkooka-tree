@@ -23,7 +23,7 @@ import walkingkooka.compare.CompareResult;
 /**
  * Base class for all comparison {@link BinaryExpression} nodes such as LT, GTE etc.
  */
-abstract class CompareExpression extends BinaryExpression {
+public abstract class CompareExpression extends BinaryExpression {
 
     CompareExpression(final int index, final Expression left, final Expression right) {
         super(index, left, right);

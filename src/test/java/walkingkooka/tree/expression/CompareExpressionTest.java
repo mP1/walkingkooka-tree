@@ -28,6 +28,6 @@ public final class CompareExpressionTest implements ClassTesting2<CompareExpress
 
     @Override
     public JavaVisibility typeVisibility() {
-        return JavaVisibility.PACKAGE_PRIVATE;
+        return JavaVisibility.PUBLIC;
     }
 }
