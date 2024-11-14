@@ -19,6 +19,7 @@ package walkingkooka.tree.expression.function;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
+import walkingkooka.HashCodeEqualsDefinedTesting2;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.tree.expression.ExpressionEvaluationContext;
 import walkingkooka.tree.expression.ExpressionEvaluationContexts;
@@ -33,7 +34,8 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class ExpressionFunctionCustomNameTest extends ExpressionFunctionTestCase<ExpressionFunctionCustomName<String, ExpressionEvaluationContext>,
         ExpressionEvaluationContext,
-        String> {
+        String>
+        implements HashCodeEqualsDefinedTesting2<ExpressionFunctionCustomName<String, ExpressionEvaluationContext>> {
 
     private final static Optional<ExpressionFunctionName> NAME = Optional.of(
             ExpressionFunctionName.with("Custom")
@@ -95,6 +97,58 @@ public final class ExpressionFunctionCustomNameTest extends ExpressionFunctionTe
         return ExpressionEvaluationContexts.fake();
     }
 
+    // hashcode/equals..................................................................................................
+
+    @Test
+    public void testEqualsDifferentName() {
+        final ExpressionFunction<String, ExpressionEvaluationContext> function = ExpressionFunctions.typeName();
+
+        this.checkNotEquals(
+                ExpressionFunctionCustomName.with(
+                        function,
+                        Optional.of(
+                                ExpressionFunctionName.with("abc")
+                        )
+                ),
+                ExpressionFunctionCustomName.with(
+                        function,
+                        Optional.of(
+                                ExpressionFunctionName.with("different")
+                        )
+                )
+        );
+    }
+
+    @Test
+    public void testEqualsDifferentFunction() {
+        this.checkNotEquals(
+                ExpressionFunctionCustomName.with(
+                        new FakeExpressionFunction() {
+
+                            @Override
+                            public Optional<ExpressionFunctionName> name() {
+                                return Optional.empty();
+                            }
+                        },
+                        NAME
+                ),
+                ExpressionFunctionCustomName.with(
+                        new FakeExpressionFunction() {
+
+                            @Override
+                            public Optional<ExpressionFunctionName> name() {
+                                return Optional.empty();
+                            }
+                        },
+                        NAME
+                )
+        );
+    }
+
+    @Override
+    public ExpressionFunctionCustomName<String, ExpressionEvaluationContext> createObject() {
+        return this.createBiFunction();
+    }
     // toString.........................................................................................................
 
     @Test
