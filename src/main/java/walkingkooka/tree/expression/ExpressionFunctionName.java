@@ -37,6 +37,8 @@ import java.util.function.BiFunction;
 /**
  * The name of an {@link NamedFunctionExpression}. Note initially {@link ExpressionFunctionName#caseSensitivity()} is
  * {@link CaseSensitivity#SENSITIVE}, and can be changed by calling {@link ExpressionFunctionName#setCaseSensitivity(CaseSensitivity)}.
+ * <br>
+ * Note that case-sensitivity is included in {@link #hashCode()} and {@link #equals(Object)}.
  */
 public final class ExpressionFunctionName implements Name,
         Comparable<ExpressionFunctionName> {
@@ -124,7 +126,11 @@ public final class ExpressionFunctionName implements Name,
 
     @Override
     public int hashCode() {
-        return this.caseSensitivity.hash(this.name);
+        final CaseSensitivity caseSensitivity = this.caseSensitivity;
+        return Objects.hash(
+                caseSensitivity.hash(this.name),
+                caseSensitivity
+        );
     }
 
     @Override
@@ -135,7 +141,9 @@ public final class ExpressionFunctionName implements Name,
     }
 
     private boolean equals0(final ExpressionFunctionName other) {
-        return this.caseSensitivity.equals(this.name, other.name);
+        final CaseSensitivity caseSensitivity = this.caseSensitivity;
+        return caseSensitivity.equals(this.name, other.name) &&
+                caseSensitivity == other.caseSensitivity;
     }
 
     @Override

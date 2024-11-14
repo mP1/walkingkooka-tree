@@ -98,6 +98,23 @@ public final class ExpressionFunctionNameTest implements ClassTesting2<Expressio
         );
     }
 
+    @Test
+    public void testEqualsDifferentCaseInsensitive() {
+        final ExpressionFunctionName name1 = ExpressionFunctionName.with("abc")
+                .setCaseSensitivity(CaseSensitivity.SENSITIVE);
+        final ExpressionFunctionName name2 = name1.setCaseSensitivity(CaseSensitivity.INSENSITIVE);
+
+        this.checkNotEquals(
+                name1,
+                name2
+        );
+
+        this.checkEquals(
+                name1,
+                name2.setCaseSensitivity(name1.caseSensitivity())
+        );
+    }
+
     @Override
     public ExpressionFunctionName createName(final String name) {
         return ExpressionFunctionName.with(name);
