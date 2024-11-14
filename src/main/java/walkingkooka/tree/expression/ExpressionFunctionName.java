@@ -30,14 +30,21 @@ import walkingkooka.text.cursor.parser.ParserContext;
 import walkingkooka.text.cursor.parser.Parsers;
 
 import java.util.Comparator;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.function.BiFunction;
 
 /**
- * The name of an {@link NamedFunctionExpression}.
+ * The name of an {@link NamedFunctionExpression}. Note initially {@link ExpressionFunctionName#caseSensitivity()} is
+ * {@link CaseSensitivity#SENSITIVE}, and can be changed by calling {@link ExpressionFunctionName#setCaseSensitivity(CaseSensitivity)}.
  */
 public final class ExpressionFunctionName implements Name,
         Comparable<ExpressionFunctionName> {
+
+    /**
+     * When initially created {@link ExpressionFunctionName#caseSensitivity} is {@link CaseSensitivity#SENSITIVE}.
+     */
+    public final static CaseSensitivity DEFAULT_CASE_SENSITIVITY = CaseSensitivity.SENSITIVE;
 
     /**
      * Factory that creates a new {@link ExpressionFunctionName} after verifying the given characters are acceptable.
@@ -49,7 +56,10 @@ public final class ExpressionFunctionName implements Name,
                 INITIAL,
                 PART
         );
-        return new ExpressionFunctionName(name);
+        return new ExpressionFunctionName(
+                name,
+                DEFAULT_CASE_SENSITIVITY
+        );
     }
 
     private final static CharPredicate INITIAL = CharPredicates.letter();
@@ -62,7 +72,8 @@ public final class ExpressionFunctionName implements Name,
                         klass.getSimpleName(),
                         0,
                         -EXPRESSION_STRING_LENGTH
-                ).toString()
+                ).toString(),
+                DEFAULT_CASE_SENSITIVITY
         );
     }
 
@@ -80,7 +91,8 @@ public final class ExpressionFunctionName implements Name,
     public final static int MAX_LENGTH = 255;
 
     // @VisibleForTesting
-    private ExpressionFunctionName(final String name) {
+    private ExpressionFunctionName(final String name,
+                                   final CaseSensitivity caseSensitivity) {
         final int length = name.length();
         if (length < MIN_LENGTH || length > MAX_LENGTH) {
             throw new InvalidTextLengthException(
@@ -91,6 +103,7 @@ public final class ExpressionFunctionName implements Name,
             );
         }
         this.name = name;
+        this.caseSensitivity = caseSensitivity;
     }
 
     @Override
@@ -111,7 +124,7 @@ public final class ExpressionFunctionName implements Name,
 
     @Override
     public int hashCode() {
-        return CASE_SENSITIVITY.hash(this.name);
+        return this.caseSensitivity.hash(this.name);
     }
 
     @Override
@@ -122,7 +135,7 @@ public final class ExpressionFunctionName implements Name,
     }
 
     private boolean equals0(final ExpressionFunctionName other) {
-        return CASE_SENSITIVITY.equals(this.name, other.name);
+        return this.caseSensitivity.equals(this.name, other.name);
     }
 
     @Override
@@ -134,17 +147,31 @@ public final class ExpressionFunctionName implements Name,
 
     @Override
     public int compareTo(final ExpressionFunctionName other) {
-        return CASE_SENSITIVITY.comparator().compare(this.name, other.name);
+        return this.caseSensitivity.comparator().compare(this.name, other.name);
     }
 
     // HasCaseSensitivity................................................................................................
 
     @Override
     public CaseSensitivity caseSensitivity() {
-        return CASE_SENSITIVITY;
+        return this.caseSensitivity;
     }
 
-    public final static CaseSensitivity CASE_SENSITIVITY = CaseSensitivity.SENSITIVE;
+    /**
+     * Would be setter that returns a {@link ExpressionFunctionName} with the given {@link CaseSensitivity}.
+     */
+    public ExpressionFunctionName setCaseSensitivity(final CaseSensitivity caseSensitivity) {
+        Objects.requireNonNull(caseSensitivity, "caseSensitivity");
+
+        return this.caseSensitivity.equals(caseSensitivity) ?
+                this :
+                new ExpressionFunctionName(
+                        this.name,
+                        caseSensitivity
+                );
+    }
+
+    private final CaseSensitivity caseSensitivity;
 
     // Comparator.......................................................................................................
 

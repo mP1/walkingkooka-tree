@@ -31,9 +31,20 @@ import walkingkooka.text.cursor.parser.ParserContexts;
 import java.util.List;
 import java.util.Optional;
 
+import static org.junit.jupiter.api.Assertions.assertNotSame;
+import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
 public final class ExpressionFunctionNameTest implements ClassTesting2<ExpressionFunctionName>,
         NameTesting2<ExpressionFunctionName, ExpressionFunctionName> {
 
+    // DEFAULT_CASE_SENSITIVITY.........................................................................................
+
+    @Test public void testDefaultCaseSensitivity() {
+        assertSame(CaseSensitivity.SENSITIVE, ExpressionFunctionName.DEFAULT_CASE_SENSITIVITY);
+    }
+
+    // name.............................................................................................................
     @Test
     public void testErrorDotType() {
         this.createNameAndCheck("Error.Type");
@@ -132,6 +143,61 @@ public final class ExpressionFunctionNameTest implements ClassTesting2<Expressio
     @Override
     public String possibleInvalidChars(final int position) {
         return NameTesting2.subtract(ASCII, this.possibleValidChars(position));
+    }
+
+    // setCaseSensitivity...............................................................................................
+
+    @Test
+    public void testSetCaseSensitivityWithNullFails() {
+        assertThrows(
+                NullPointerException.class,
+                () -> ExpressionFunctionName.with("Hello")
+                        .setCaseSensitivity(null)
+        );
+    }
+
+    @Test
+    public void testSetCaseSensitivityWithSame() {
+        final ExpressionFunctionName name = ExpressionFunctionName.with("Hello");
+
+        assertSame(
+                name,
+                name.setCaseSensitivity(name.caseSensitivity())
+        );
+    }
+
+    @Test
+    public void testSetCaseSensitivityWithDifferent() {
+        final ExpressionFunctionName name = ExpressionFunctionName.with("Hello");
+
+        final CaseSensitivity different = CaseSensitivity.INSENSITIVE;
+        final ExpressionFunctionName differentName = name.setCaseSensitivity(different);
+
+        assertNotSame(
+                name,
+                differentName
+        );
+
+        this.caseSensitivityAndCheck(
+                differentName,
+                different
+        );
+
+        {
+            final CaseSensitivity different2 = CaseSensitivity.SENSITIVE;
+            this.caseSensitivityAndCheck(
+                    differentName.setCaseSensitivity(different2),
+                    different2
+            );
+        }
+    }
+
+    private void caseSensitivityAndCheck(final ExpressionFunctionName name,
+                                         final CaseSensitivity expected) {
+        this.checkEquals(
+                expected,
+                name.caseSensitivity()
+        );
     }
 
     // parser...........................................................................................................
