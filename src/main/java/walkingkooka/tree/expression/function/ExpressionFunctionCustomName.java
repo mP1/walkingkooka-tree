@@ -94,6 +94,27 @@ final class ExpressionFunctionCustomName<T, C extends ExpressionEvaluationContex
         return this.function.returnType();
     }
 
+    // Object...........................................................................................................
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(
+                this.name,
+                this.function
+        );
+    }
+
+    @Override
+    public boolean equals(final Object other) {
+        return (this == other) ||
+                other instanceof ExpressionFunctionCustomName && this.equals0((ExpressionFunctionCustomName) other);
+    }
+
+    private boolean equals0(final ExpressionFunctionCustomName other) {
+        return this.name.equals(other.name) &&
+                this.function.equals(other.function);
+    }
+
     @Override
     public String toString() {
         return this.name()
