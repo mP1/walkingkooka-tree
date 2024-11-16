@@ -263,8 +263,8 @@ final class CycleDetectingExpressionEvaluationContext implements ExpressionEvalu
     // Strings..........................................................................................................
 
     @Override
-    public CaseSensitivity caseSensitivity() {
-        return this.context.caseSensitivity();
+    public CaseSensitivity stringEqualsCaseSensitivity() {
+        return this.context.stringEqualsCaseSensitivity();
     }
 
     @Override

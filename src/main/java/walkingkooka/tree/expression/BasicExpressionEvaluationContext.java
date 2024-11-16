@@ -48,14 +48,14 @@ final class BasicExpressionEvaluationContext implements ExpressionEvaluationCont
                                                  final Function<RuntimeException, Object> exceptionHandler,
                                                  final Function<ExpressionReference, Optional<Optional<Object>>> references,
                                                  final Function<ExpressionReference, ExpressionEvaluationException> referenceNotFound,
-                                                 final CaseSensitivity caseSensitivity,
+                                                 final CaseSensitivity stringEqualityCaseSensitivity,
                                                  final ConverterContext converterContext) {
         Objects.requireNonNull(expressionNumberKind, "expressionNumberKind");
         Objects.requireNonNull(functions, "functions");
         Objects.requireNonNull(exceptionHandler, "exceptionHandler");
         Objects.requireNonNull(references, "references");
         Objects.requireNonNull(referenceNotFound, "referenceNotFound");
-        Objects.requireNonNull(caseSensitivity, "caseSensitivity");
+        Objects.requireNonNull(stringEqualityCaseSensitivity, "stringEqualsCaseSensitivity");
         Objects.requireNonNull(converterContext, "converterContext");
 
         return new BasicExpressionEvaluationContext(
@@ -64,7 +64,7 @@ final class BasicExpressionEvaluationContext implements ExpressionEvaluationCont
                 exceptionHandler,
                 references,
                 referenceNotFound,
-                caseSensitivity,
+                stringEqualityCaseSensitivity,
                 converterContext
         );
     }
@@ -77,7 +77,7 @@ final class BasicExpressionEvaluationContext implements ExpressionEvaluationCont
                                              final Function<RuntimeException, Object> exceptionHandler,
                                              final Function<ExpressionReference, Optional<Optional<Object>>> references,
                                              final Function<ExpressionReference, ExpressionEvaluationException> referenceNotFound,
-                                             final CaseSensitivity caseSensitivity,
+                                             final CaseSensitivity stringEqualityCaseSensitivity,
                                              final ConverterContext converterContext) {
         super();
 
@@ -86,16 +86,16 @@ final class BasicExpressionEvaluationContext implements ExpressionEvaluationCont
         this.functions = functions;
         this.references = references;
         this.referenceNotFound = referenceNotFound;
-        this.caseSensitivity = caseSensitivity;
+        this.stringEqualityCaseSensitivity = stringEqualityCaseSensitivity;
         this.converterContext = converterContext;
     }
 
     @Override
-    public CaseSensitivity caseSensitivity() {
-        return this.caseSensitivity;
+    public CaseSensitivity stringEqualsCaseSensitivity() {
+        return this.stringEqualityCaseSensitivity;
     }
 
-    private final CaseSensitivity caseSensitivity;
+    private final CaseSensitivity stringEqualityCaseSensitivity;
 
     @Override
     public boolean isText(final Object value) {
@@ -316,7 +316,7 @@ final class BasicExpressionEvaluationContext implements ExpressionEvaluationCont
                 " " +
                 this.referenceNotFound +
                 " " +
-                this.caseSensitivity +
+                this.stringEqualityCaseSensitivity +
                 " " +
                 this.converterContext;
     }

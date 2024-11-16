@@ -26,7 +26,7 @@ import java.util.Objects;
 final class ExpressionFunctionNameComparator implements Comparator<ExpressionFunctionName> {
 
     static ExpressionFunctionNameComparator with(final CaseSensitivity caseSensitivity) {
-        Objects.requireNonNull(caseSensitivity, "caseSensitivity");
+        Objects.requireNonNull(caseSensitivity, "stringEqualsCaseSensitivity");
 
         final ExpressionFunctionNameComparator comparator;
 

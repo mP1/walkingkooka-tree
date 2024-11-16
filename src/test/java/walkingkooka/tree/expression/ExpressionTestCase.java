@@ -436,7 +436,7 @@ public abstract class ExpressionTestCase<N extends Expression> implements TreePr
             }
 
             @Override
-            public CaseSensitivity caseSensitivity() {
+            public CaseSensitivity stringEqualsCaseSensitivity() {
                 return CaseSensitivity.SENSITIVE;
             }
 
