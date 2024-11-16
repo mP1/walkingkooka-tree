@@ -289,8 +289,8 @@ final class BasicNodeSelectorExpressionEvaluationContext<N extends Node<N, NAME,
     }
 
     @Override
-    public CaseSensitivity caseSensitivity() {
-        return this.context.caseSensitivity();
+    public CaseSensitivity stringEqualsCaseSensitivity() {
+        return this.context.stringEqualsCaseSensitivity();
     }
 
     @Override

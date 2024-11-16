@@ -67,14 +67,14 @@ public abstract class CompareExpression extends BinaryExpression {
     }
 
     /**
-     * The {@link String#compareTo(String)} honours {@link ExpressionEvaluationContext#caseSensitivity()}
+     * The {@link String#compareTo(String)} honours {@link ExpressionEvaluationContext#stringEqualsCaseSensitivity()}
      */
     final boolean applyText(final CompareResult compare,
                             final String left,
                             final String right,
                             final ExpressionEvaluationContext context) {
         return compare.test(
-                context.caseSensitivity()
+                context.stringEqualsCaseSensitivity()
                         .comparator()
                         .compare(left, right)
         );

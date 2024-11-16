@@ -511,18 +511,18 @@ public final class BasicExpressionEvaluationContextTest implements ClassTesting2
     }
 
     @Test
-    public void testCaseSensitivity() {
+    public void testStringEqualsCaseSensitivity() {
         this.checkEquals(
                 CaseSensitivity.SENSITIVE,
-                this.createContext(CaseSensitivity.SENSITIVE).caseSensitivity()
+                this.createContext(CaseSensitivity.SENSITIVE).stringEqualsCaseSensitivity()
         );
     }
 
     @Test
-    public void testCaseSensitivity2() {
+    public void testStringEqualsCaseSensitivity2() {
         this.checkEquals(
                 CaseSensitivity.INSENSITIVE,
-                this.createContext(CaseSensitivity.INSENSITIVE).caseSensitivity()
+                this.createContext(CaseSensitivity.INSENSITIVE).stringEqualsCaseSensitivity()
         );
     }
 

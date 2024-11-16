@@ -111,9 +111,9 @@ public interface ExpressionEvaluationContextDelegator extends ExpressionEvaluati
     }
 
     @Override
-    default CaseSensitivity caseSensitivity() {
+    default CaseSensitivity stringEqualsCaseSensitivity() {
         return this.expressionEvaluationContext()
-                .caseSensitivity();
+                .stringEqualsCaseSensitivity();
     }
 
     ExpressionEvaluationContext expressionEvaluationContext();

@@ -175,7 +175,7 @@ public interface ExpressionEvaluationContext extends Context,
     boolean isText(final Object value);
 
     /**
-     * Controls whether equals or not equals tests are case sensitive for {@link String strings}
+     * Controls whether equals or not equals tests are case-sensitive for {@link String strings}
      */
-    CaseSensitivity caseSensitivity();
+    CaseSensitivity stringEqualsCaseSensitivity();
 }

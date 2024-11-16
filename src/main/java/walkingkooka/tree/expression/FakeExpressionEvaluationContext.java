@@ -33,7 +33,7 @@ public class FakeExpressionEvaluationContext extends FakeExpressionNumberConvert
     }
 
     @Override
-    public CaseSensitivity caseSensitivity() {
+    public CaseSensitivity stringEqualsCaseSensitivity() {
         throw new UnsupportedOperationException();
     }
 
