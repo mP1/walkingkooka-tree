@@ -206,9 +206,10 @@ final class NodeSelectorEbnfParserCombinatorSyntaxTreeTransformer implements Ebn
     /**
      * Special case for binary operators and operator priorities.
      */
-    private ParserToken concatenation(final ParserToken token, final ParserContext context) {
-        return ((SequenceParserToken) token)
-                .transform(NodeSelectorEbnfParserCombinatorSyntaxTreeTransformerBinaryOperatorTransformer.INSTANCE);
+    private ParserToken concatenation(final ParserToken token,
+                                      final ParserContext context) {
+        return token.cast(SequenceParserToken.class)
+                .binaryOperator(NodeSelectorEbnfParserCombinatorSyntaxTreeTransformerBinaryOperatorTransformer.INSTANCE);
     }
 
     @Override
