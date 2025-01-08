@@ -118,8 +118,8 @@ final class NodeSelectorPredicateParserTokenNodeSelectorParserTokenVisitor exten
 
         final List<Expression> children = this.children;
         final Expression function = Expression.call(
-                Expression.namedFunction(functionName),
-                children.subList(1, children.size())
+            Expression.namedFunction(functionName),
+            children.subList(1, children.size())
         );
 
         this.exit();
@@ -255,20 +255,20 @@ final class NodeSelectorPredicateParserTokenNodeSelectorParserTokenVisitor exten
     @Override
     protected void visit(final NodeSelectorExpressionNumberParserToken token) {
         this.add(
-                Expression.value(
-                        ExpressionNumberKind.DEFAULT.create(token.value())
-                ),
-                token
+            Expression.value(
+                ExpressionNumberKind.DEFAULT.create(token.value())
+            ),
+            token
         );
     }
 
     @Override
     protected void visit(final NodeSelectorQuotedTextParserToken token) {
         this.add(
-                Expression.value(
-                        token.value()
-                ),
-                token
+            Expression.value(
+                token.value()
+            ),
+            token
         );
     }
 

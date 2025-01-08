@@ -47,8 +47,8 @@ import java.util.function.Function;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class BasicExpressionEvaluationContextTest implements ClassTesting2<BasicExpressionEvaluationContext>,
-        ExpressionEvaluationContextTesting<BasicExpressionEvaluationContext>,
-        ToStringTesting<BasicExpressionEvaluationContext> {
+    ExpressionEvaluationContextTesting<BasicExpressionEvaluationContext>,
+    ToStringTesting<BasicExpressionEvaluationContext> {
 
     private final static ExpressionNumberKind KIND = ExpressionNumberKind.DEFAULT;
 
@@ -68,112 +68,112 @@ public final class BasicExpressionEvaluationContextTest implements ClassTesting2
     @Test
     public void testWithNullExpressionNumberKindFails() {
         assertThrows(
-                NullPointerException.class,
-                () -> BasicExpressionEvaluationContext.with(
-                        null,
-                        this.functions(),
-                        EXCEPTION_HANDLER,
-                        this.references(),
-                        ExpressionEvaluationContexts.referenceNotFound(),
-                        CASE_SENSITIVITY,
-                        this.converterContext()
-                )
+            NullPointerException.class,
+            () -> BasicExpressionEvaluationContext.with(
+                null,
+                this.functions(),
+                EXCEPTION_HANDLER,
+                this.references(),
+                ExpressionEvaluationContexts.referenceNotFound(),
+                CASE_SENSITIVITY,
+                this.converterContext()
+            )
         );
     }
 
     @Test
     public void testWithNullFunctionsFails() {
         assertThrows(
-                NullPointerException.class,
-                () -> BasicExpressionEvaluationContext.with(
-                        KIND,
-                        null,
-                        EXCEPTION_HANDLER,
-                        this.references(),
-                        ExpressionEvaluationContexts.referenceNotFound(),
-                        CASE_SENSITIVITY,
-                        this.converterContext()
-                )
+            NullPointerException.class,
+            () -> BasicExpressionEvaluationContext.with(
+                KIND,
+                null,
+                EXCEPTION_HANDLER,
+                this.references(),
+                ExpressionEvaluationContexts.referenceNotFound(),
+                CASE_SENSITIVITY,
+                this.converterContext()
+            )
         );
     }
 
     @Test
     public void testWithNullExceptionHandlerFails() {
         assertThrows(
-                NullPointerException.class,
-                () -> BasicExpressionEvaluationContext.with(
-                        KIND,
-                        this.functions(),
-                        null,
-                        this.references(),
-                        ExpressionEvaluationContexts.referenceNotFound(),
-                        CASE_SENSITIVITY,
-                        this.converterContext()
-                )
+            NullPointerException.class,
+            () -> BasicExpressionEvaluationContext.with(
+                KIND,
+                this.functions(),
+                null,
+                this.references(),
+                ExpressionEvaluationContexts.referenceNotFound(),
+                CASE_SENSITIVITY,
+                this.converterContext()
+            )
         );
     }
 
     @Test
     public void testWithNullReferencesFails() {
         assertThrows(
-                NullPointerException.class,
-                () -> BasicExpressionEvaluationContext.with(
-                        KIND,
-                        this.functions(),
-                        EXCEPTION_HANDLER,
-                        null,
-                        ExpressionEvaluationContexts.referenceNotFound(),
-                        CASE_SENSITIVITY,
-                        this.converterContext()
-                )
+            NullPointerException.class,
+            () -> BasicExpressionEvaluationContext.with(
+                KIND,
+                this.functions(),
+                EXCEPTION_HANDLER,
+                null,
+                ExpressionEvaluationContexts.referenceNotFound(),
+                CASE_SENSITIVITY,
+                this.converterContext()
+            )
         );
     }
 
     @Test
     public void testWithNullReferenceNotFoundFails() {
         assertThrows(
-                NullPointerException.class,
-                () -> BasicExpressionEvaluationContext.with(
-                        KIND,
-                        this.functions(),
-                        EXCEPTION_HANDLER,
-                        this.references(),
-                        null,
-                        CASE_SENSITIVITY,
-                        this.converterContext()
-                )
+            NullPointerException.class,
+            () -> BasicExpressionEvaluationContext.with(
+                KIND,
+                this.functions(),
+                EXCEPTION_HANDLER,
+                this.references(),
+                null,
+                CASE_SENSITIVITY,
+                this.converterContext()
+            )
         );
     }
 
     @Test
     public void testWithNullCaseSensitivityFails() {
         assertThrows(
-                NullPointerException.class,
-                () -> BasicExpressionEvaluationContext.with(
-                        KIND,
-                        this.functions(),
-                        EXCEPTION_HANDLER,
-                        this.references(),
-                        ExpressionEvaluationContexts.referenceNotFound(),
-                        null,
-                        this.converterContext()
-                )
+            NullPointerException.class,
+            () -> BasicExpressionEvaluationContext.with(
+                KIND,
+                this.functions(),
+                EXCEPTION_HANDLER,
+                this.references(),
+                ExpressionEvaluationContexts.referenceNotFound(),
+                null,
+                this.converterContext()
+            )
         );
     }
 
     @Test
     public void testWithNullConverterContextFails() {
         assertThrows(
-                NullPointerException.class,
-                () -> BasicExpressionEvaluationContext.with(
-                        KIND,
-                        this.functions(),
-                        EXCEPTION_HANDLER,
-                        this.references(),
-                        ExpressionEvaluationContexts.referenceNotFound(),
-                        CASE_SENSITIVITY,
-                        null
-                )
+            NullPointerException.class,
+            () -> BasicExpressionEvaluationContext.with(
+                KIND,
+                this.functions(),
+                EXCEPTION_HANDLER,
+                this.references(),
+                ExpressionEvaluationContexts.referenceNotFound(),
+                CASE_SENSITIVITY,
+                null
+            )
         );
     }
 
@@ -198,9 +198,9 @@ public final class BasicExpressionEvaluationContextTest implements ClassTesting2
         };
 
         this.evaluateFunctionAndCheck(
-                function,
-                this.parameters(),
-                value
+            function,
+            this.parameters(),
+            value
         );
     }
 
@@ -223,15 +223,15 @@ public final class BasicExpressionEvaluationContextTest implements ClassTesting2
         };
 
         this.evaluateFunctionAndCheck(
-                this.createContext(
-                        (n) -> {
-                            throw new UnsupportedOperationException();
-                        },
-                        Throwable::getMessage
-                ),
-                function,
-                ExpressionEvaluationContext.NO_PARAMETERS,
-                error
+            this.createContext(
+                (n) -> {
+                    throw new UnsupportedOperationException();
+                },
+                Throwable::getMessage
+            ),
+            function,
+            ExpressionEvaluationContext.NO_PARAMETERS,
+            error
         );
     }
 
@@ -249,8 +249,8 @@ public final class BasicExpressionEvaluationContextTest implements ClassTesting2
 
     private void evaluateAndCheck2(final boolean value) {
         this.evaluateAndCheck(
-                Expression.value(value),
-                value
+            Expression.value(value),
+            value
         );
     }
 
@@ -259,34 +259,34 @@ public final class BasicExpressionEvaluationContextTest implements ClassTesting2
         final ExpressionNumberKind kind = ExpressionNumberKind.DOUBLE;
 
         this.evaluateAndCheck(
-                BasicExpressionEvaluationContext.with(
-                        kind,
-                        (n) -> {
-                            throw new UnsupportedOperationException();
-                        },
-                        (r) -> "@@@" + r.getMessage(),
-                        (r) -> {
-                            throw new UnsupportedOperationException();
-                        },
-                        (r) -> {
-                            throw new UnsupportedOperationException();
-                        },
-                        CASE_SENSITIVITY,
-                        new FakeConverterContext() {
-                            @Override
-                            public <T> Either<T, String> convert(final Object value,
-                                                                 final Class<T> target) {
-                                return Cast.to(
-                                        Either.left(value)
-                                );
-                            }
-                        }
-                ),
-                Expression.divide(
-                        Expression.value(kind.one()),
-                        Expression.value(kind.zero())
-                ),
-                "@@@Division by zero"
+            BasicExpressionEvaluationContext.with(
+                kind,
+                (n) -> {
+                    throw new UnsupportedOperationException();
+                },
+                (r) -> "@@@" + r.getMessage(),
+                (r) -> {
+                    throw new UnsupportedOperationException();
+                },
+                (r) -> {
+                    throw new UnsupportedOperationException();
+                },
+                CASE_SENSITIVITY,
+                new FakeConverterContext() {
+                    @Override
+                    public <T> Either<T, String> convert(final Object value,
+                                                         final Class<T> target) {
+                        return Cast.to(
+                            Either.left(value)
+                        );
+                    }
+                }
+            ),
+            Expression.divide(
+                Expression.value(kind.one()),
+                Expression.value(kind.zero())
+            ),
+            "@@@Division by zero"
         );
     }
 
@@ -294,8 +294,8 @@ public final class BasicExpressionEvaluationContextTest implements ClassTesting2
     public void testEvaluateString() {
         final String value = "abc123";
         this.evaluateAndCheck(
-                Expression.value(value),
-                value
+            Expression.value(value),
+            value
         );
     }
 
@@ -304,40 +304,40 @@ public final class BasicExpressionEvaluationContextTest implements ClassTesting2
     @Test
     public void testEvaluateStringEqualsCaseSensitive() {
         this.evaluateStringEqualsAndCheck(
-                "abc",
-                "abc",
-                CaseSensitivity.SENSITIVE,
-                true
+            "abc",
+            "abc",
+            CaseSensitivity.SENSITIVE,
+            true
         );
     }
 
     @Test
     public void testEvaluateStringEqualsCaseSensitiveCaseDifferent() {
         this.evaluateStringEqualsAndCheck(
-                "abc",
-                "ABC",
-                CaseSensitivity.SENSITIVE,
-                false
+            "abc",
+            "ABC",
+            CaseSensitivity.SENSITIVE,
+            false
         );
     }
 
     @Test
     public void testEvaluateStringEqualsCaseInsensitiveCaseDifferent() {
         this.evaluateStringEqualsAndCheck(
-                "abc",
-                "ABC",
-                CaseSensitivity.INSENSITIVE,
-                true
+            "abc",
+            "ABC",
+            CaseSensitivity.INSENSITIVE,
+            true
         );
     }
 
     @Test
     public void testEvaluateStringEqualsCaseSensitiveDifferent() {
         this.evaluateStringEqualsAndCheck(
-                "abc",
-                "different",
-                CaseSensitivity.SENSITIVE,
-                false
+            "abc",
+            "different",
+            CaseSensitivity.SENSITIVE,
+            false
         );
     }
 
@@ -346,12 +346,12 @@ public final class BasicExpressionEvaluationContextTest implements ClassTesting2
                                               final CaseSensitivity caseSensitivity,
                                               final boolean expected) {
         this.evaluateAndCheck(
-                this.createContext(true, caseSensitivity),
-                Expression.equalsExpression(
-                        Expression.value(left),
-                        Expression.value(right)
-                ),
-                expected
+            this.createContext(true, caseSensitivity),
+            Expression.equalsExpression(
+                Expression.value(left),
+                Expression.value(right)
+            ),
+            expected
         );
     }
 
@@ -360,40 +360,40 @@ public final class BasicExpressionEvaluationContextTest implements ClassTesting2
     @Test
     public void testEvaluateStringNotEqualsCaseSensitive() {
         this.evaluateStringNotEqualsAndCheck(
-                "abc",
-                "abc",
-                CaseSensitivity.SENSITIVE,
-                false
+            "abc",
+            "abc",
+            CaseSensitivity.SENSITIVE,
+            false
         );
     }
 
     @Test
     public void testEvaluateStringNotEqualsCaseSensitiveCaseDifferent() {
         this.evaluateStringNotEqualsAndCheck(
-                "abc",
-                "ABC",
-                CaseSensitivity.SENSITIVE,
-                true
+            "abc",
+            "ABC",
+            CaseSensitivity.SENSITIVE,
+            true
         );
     }
 
     @Test
     public void testEvaluateStringNotEqualsCaseInsensitiveCaseDifferent() {
         this.evaluateStringNotEqualsAndCheck(
-                "abc",
-                "ABC",
-                CaseSensitivity.INSENSITIVE,
-                false
+            "abc",
+            "ABC",
+            CaseSensitivity.INSENSITIVE,
+            false
         );
     }
 
     @Test
     public void testEvaluateStringNotEqualsCaseSensitiveDifferent() {
         this.evaluateStringNotEqualsAndCheck(
-                "abc",
-                "different",
-                CaseSensitivity.SENSITIVE,
-                true
+            "abc",
+            "different",
+            CaseSensitivity.SENSITIVE,
+            true
         );
     }
 
@@ -402,12 +402,12 @@ public final class BasicExpressionEvaluationContextTest implements ClassTesting2
                                                  final CaseSensitivity stringNotEqualsCaseSensitivity,
                                                  final boolean expected) {
         this.evaluateAndCheck(
-                this.createContext(true, stringNotEqualsCaseSensitivity),
-                Expression.notEquals(
-                        Expression.value(left),
-                        Expression.value(right)
-                ),
-                expected
+            this.createContext(true, stringNotEqualsCaseSensitivity),
+            Expression.notEquals(
+                Expression.value(left),
+                Expression.value(right)
+            ),
+            expected
         );
     }
 
@@ -431,32 +431,32 @@ public final class BasicExpressionEvaluationContextTest implements ClassTesting2
         };
 
         this.evaluateFunctionAndCheck(
-                BasicExpressionEvaluationContext.with(
-                        kind,
-                        (n) -> {
-                            throw new UnsupportedOperationException();
-                        },
-                        (r) -> "@@@" + r.getMessage(),
-                        (r) -> {
-                            throw new UnsupportedOperationException();
-                        },
-                        (r) -> {
-                            throw new UnsupportedOperationException();
-                        },
-                        CASE_SENSITIVITY,
-                        new FakeConverterContext() {
-                            @Override
-                            public <T> Either<T, String> convert(final Object value,
-                                                                 final Class<T> target) {
-                                return Cast.to(
-                                        Either.left(value)
-                                );
-                            }
-                        }
-                ),
-                function,
-                Lists.empty(),
-                "@@@Thrown123"
+            BasicExpressionEvaluationContext.with(
+                kind,
+                (n) -> {
+                    throw new UnsupportedOperationException();
+                },
+                (r) -> "@@@" + r.getMessage(),
+                (r) -> {
+                    throw new UnsupportedOperationException();
+                },
+                (r) -> {
+                    throw new UnsupportedOperationException();
+                },
+                CASE_SENSITIVITY,
+                new FakeConverterContext() {
+                    @Override
+                    public <T> Either<T, String> convert(final Object value,
+                                                         final Class<T> target) {
+                        return Cast.to(
+                            Either.left(value)
+                        );
+                    }
+                }
+            ),
+            function,
+            Lists.empty(),
+            "@@@Thrown123"
         );
     }
 
@@ -474,34 +474,34 @@ public final class BasicExpressionEvaluationContextTest implements ClassTesting2
 
     private void isPureAndCheck2(final boolean pure) {
         this.isPureAndCheck(
-                this.createContext(pure, CASE_SENSITIVITY),
-                this.functionName(),
-                pure
+            this.createContext(pure, CASE_SENSITIVITY),
+            this.functionName(),
+            pure
         );
     }
 
     @Test
     public void testReferences() {
         this.checkEquals(
-                Optional.of(
-                        Optional.of(REFERENCE_VALUE)
-                ),
-                this.createContext()
-                        .reference(REFERENCE)
+            Optional.of(
+                Optional.of(REFERENCE_VALUE)
+            ),
+            this.createContext()
+                .reference(REFERENCE)
         );
     }
 
     @Test
     public void testReferenceNotFound() {
         final ExpressionEvaluationReferenceException thrown = (ExpressionEvaluationReferenceException) this.createContext()
-                .referenceNotFound(REFERENCE);
+            .referenceNotFound(REFERENCE);
         this.checkEquals(
-                REFERENCE,
-                thrown.expressionReference()
+            REFERENCE,
+            thrown.expressionReference()
         );
         this.checkEquals(
-                REFERENCE_NOT_FOUND_MESSAGE,
-                thrown.getMessage()
+            REFERENCE_NOT_FOUND_MESSAGE,
+            thrown.getMessage()
         );
     }
 
@@ -513,16 +513,16 @@ public final class BasicExpressionEvaluationContextTest implements ClassTesting2
     @Test
     public void testStringEqualsCaseSensitivity() {
         this.checkEquals(
-                CaseSensitivity.SENSITIVE,
-                this.createContext(CaseSensitivity.SENSITIVE).stringEqualsCaseSensitivity()
+            CaseSensitivity.SENSITIVE,
+            this.createContext(CaseSensitivity.SENSITIVE).stringEqualsCaseSensitivity()
         );
     }
 
     @Test
     public void testStringEqualsCaseSensitivity2() {
         this.checkEquals(
-                CaseSensitivity.INSENSITIVE,
-                this.createContext(CaseSensitivity.INSENSITIVE).stringEqualsCaseSensitivity()
+            CaseSensitivity.INSENSITIVE,
+            this.createContext(CaseSensitivity.INSENSITIVE).stringEqualsCaseSensitivity()
         );
     }
 
@@ -536,28 +536,28 @@ public final class BasicExpressionEvaluationContextTest implements ClassTesting2
         final ConverterContext converterContext = this.converterContext();
 
         this.toStringAndCheck(
-                BasicExpressionEvaluationContext.with(
-                        KIND,
-                        functions,
-                        EXCEPTION_HANDLER,
-                        references,
-                        referenceNotFound,
-                        CASE_SENSITIVITY,
-                        converterContext
-                ),
-                KIND +
-                        " " +
-                        functions +
-                        " " +
-                        EXCEPTION_HANDLER +
-                        " " +
-                        references +
-                        " " +
-                        referenceNotFound +
-                        " " +
-                        CASE_SENSITIVITY +
-                        " " +
-                        converterContext
+            BasicExpressionEvaluationContext.with(
+                KIND,
+                functions,
+                EXCEPTION_HANDLER,
+                references,
+                referenceNotFound,
+                CASE_SENSITIVITY,
+                converterContext
+            ),
+            KIND +
+                " " +
+                functions +
+                " " +
+                EXCEPTION_HANDLER +
+                " " +
+                references +
+                " " +
+                referenceNotFound +
+                " " +
+                CASE_SENSITIVITY +
+                " " +
+                converterContext
         );
     }
 
@@ -570,41 +570,41 @@ public final class BasicExpressionEvaluationContextTest implements ClassTesting2
 
     private BasicExpressionEvaluationContext createContext(final boolean pure) {
         return this.createContext(
-                pure,
-                CASE_SENSITIVITY
+            pure,
+            CASE_SENSITIVITY
         );
     }
 
     private BasicExpressionEvaluationContext createContext(final CaseSensitivity caseSensitivity) {
         return this.createContext(
-                true,
-                caseSensitivity
+            true,
+            caseSensitivity
         );
     }
 
     private BasicExpressionEvaluationContext createContext(final boolean pure,
                                                            final CaseSensitivity caseSensitivity) {
         return BasicExpressionEvaluationContext.with(
-                KIND,
-                this.functions(pure),
-                EXCEPTION_HANDLER,
-                this.references(),
-                (r) -> new ExpressionEvaluationReferenceException(REFERENCE_NOT_FOUND_MESSAGE, r),
-                caseSensitivity,
-                this.converterContext()
+            KIND,
+            this.functions(pure),
+            EXCEPTION_HANDLER,
+            this.references(),
+            (r) -> new ExpressionEvaluationReferenceException(REFERENCE_NOT_FOUND_MESSAGE, r),
+            caseSensitivity,
+            this.converterContext()
         );
     }
 
     private BasicExpressionEvaluationContext createContext(final Function<ExpressionFunctionName, ExpressionFunction<?, ExpressionEvaluationContext>> functions,
                                                            final Function<RuntimeException, Object> exceptionHandler) {
         return BasicExpressionEvaluationContext.with(
-                KIND,
-                functions,
-                exceptionHandler,
-                this.references(),
-                (r) -> new ExpressionEvaluationReferenceException(REFERENCE_NOT_FOUND_MESSAGE, r),
-                CASE_SENSITIVITY,
-                this.converterContext()
+            KIND,
+            functions,
+            exceptionHandler,
+            this.references(),
+            (r) -> new ExpressionEvaluationReferenceException(REFERENCE_NOT_FOUND_MESSAGE, r),
+            CASE_SENSITIVITY,
+            this.converterContext()
         );
     }
 
@@ -633,7 +633,7 @@ public final class BasicExpressionEvaluationContextTest implements ClassTesting2
                 @Override
                 public List<ExpressionFunctionParameter<?>> parameters(final int count) {
                     return Lists.of(
-                            ExpressionFunctionParameterName.VALUE.required(Object.class)
+                        ExpressionFunctionParameterName.VALUE.required(Object.class)
                     );
                 }
 
@@ -663,22 +663,22 @@ public final class BasicExpressionEvaluationContextTest implements ClassTesting2
             this.checkEquals(REFERENCE, r, "reference");
 
             return Optional.of(
-                    Optional.of(REFERENCE_VALUE)
+                Optional.of(REFERENCE_VALUE)
             );
         });
     }
 
     private ConverterContext converterContext() {
         return ConverterContexts.basic(
-                Converters.JAVA_EPOCH_OFFSET, // dateOffset
-                Converters.collection(
-                        Lists.of(
-                                Converters.numberToNumber(),
-                                Converters.simple()
-                        )
-                ),
-                DateTimeContexts.fake(),
-                DecimalNumberContexts.american(MathContext.DECIMAL32)
+            Converters.JAVA_EPOCH_OFFSET, // dateOffset
+            Converters.collection(
+                Lists.of(
+                    Converters.numberToNumber(),
+                    Converters.simple()
+                )
+            ),
+            DateTimeContexts.fake(),
+            DecimalNumberContexts.american(MathContext.DECIMAL32)
         );
     }
 

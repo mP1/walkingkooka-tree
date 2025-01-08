@@ -23,141 +23,141 @@ import walkingkooka.ToStringTesting;
 import walkingkooka.convert.ConverterTesting2;
 
 public final class NumberToNumberConverterTest implements ConverterTesting2<NumberToNumberConverter<FakeExpressionNumberConverterContext>, FakeExpressionNumberConverterContext>,
-        ToStringTesting<NumberToNumberConverter<FakeExpressionNumberConverterContext>> {
+    ToStringTesting<NumberToNumberConverter<FakeExpressionNumberConverterContext>> {
 
     private final static ExpressionNumberKind EXPRESSION_NUMBER_KIND = ExpressionNumberKind.BIG_DECIMAL;
 
     @Test
     public void testExpressionNumberBigDecimalToNonNumber() {
         this.convertFails(
-                ExpressionNumberKind.BIG_DECIMAL.create(123),
-                String.class
+            ExpressionNumberKind.BIG_DECIMAL.create(123),
+            String.class
         );
     }
 
     @Test
     public void testExpressionNumberDoubleToNonNumber() {
         this.convertFails(
-                ExpressionNumberKind.DOUBLE.create(123),
-                String.class
+            ExpressionNumberKind.DOUBLE.create(123),
+            String.class
         );
     }
 
     @Test
     public void testNumberToNonNumber() {
         this.convertFails(
-                123,
-                String.class
+            123,
+            String.class
         );
     }
 
     @Test
     public void testExpressionNumberBigDecimalToExpressionNumberBigDecimal() {
         this.convertAndCheck(
-                ExpressionNumberKind.BIG_DECIMAL.create(123)
+            ExpressionNumberKind.BIG_DECIMAL.create(123)
         );
     }
 
     @Test
     public void testExpressionNumberBigDecimalToExpressionNumberDouble() {
         this.convertAndCheck(
-                ExpressionNumberKind.BIG_DECIMAL.create(123),
-                ExpressionNumber.class,
-                this.createContext(ExpressionNumberKind.DOUBLE),
-                ExpressionNumberKind.DOUBLE.create(123)
+            ExpressionNumberKind.BIG_DECIMAL.create(123),
+            ExpressionNumber.class,
+            this.createContext(ExpressionNumberKind.DOUBLE),
+            ExpressionNumberKind.DOUBLE.create(123)
         );
     }
 
     @Test
     public void testExpressionNumberBigDecimalToInteger() {
         this.convertAndCheck(
-                ExpressionNumberKind.BIG_DECIMAL.create(123),
-                123
+            ExpressionNumberKind.BIG_DECIMAL.create(123),
+            123
         );
     }
 
     @Test
     public void testExpressionNumberBigDecimalToNumber() {
         this.convertAndCheck(
-                ExpressionNumberKind.BIG_DECIMAL.create(123),
-                Number.class
+            ExpressionNumberKind.BIG_DECIMAL.create(123),
+            Number.class
         );
     }
 
     @Test
     public void testExpressionNumberDoubleToExpressionNumberBigDecimal() {
         this.convertAndCheck(
-                ExpressionNumberKind.DOUBLE.create(123),
-                ExpressionNumber.class,
-                this.createContext(ExpressionNumberKind.BIG_DECIMAL),
-                ExpressionNumberKind.BIG_DECIMAL.create(123)
+            ExpressionNumberKind.DOUBLE.create(123),
+            ExpressionNumber.class,
+            this.createContext(ExpressionNumberKind.BIG_DECIMAL),
+            ExpressionNumberKind.BIG_DECIMAL.create(123)
         );
     }
 
     @Test
     public void testExpressionNumberDoubleToExpressionNumberDouble() {
         this.convertAndCheck(
-                ExpressionNumberKind.DOUBLE.create(123)
+            ExpressionNumberKind.DOUBLE.create(123)
         );
     }
 
     @Test
     public void testExpressionNumberDoubleToInteger() {
         this.convertAndCheck(
-                ExpressionNumberKind.DOUBLE.create(123),
-                123
+            ExpressionNumberKind.DOUBLE.create(123),
+            123
         );
     }
 
     @Test
     public void testExpressionNumberDoubleToNumber() {
         this.convertAndCheck(
-                ExpressionNumberKind.DOUBLE.create(123),
-                Number.class
+            ExpressionNumberKind.DOUBLE.create(123),
+            Number.class
         );
     }
 
     @Test
     public void testConvertIntegerToExpressionNumberBigDecimal() {
         this.convertAndCheck(
-                123,
-                ExpressionNumber.class,
-                this.createContext(ExpressionNumberKind.BIG_DECIMAL),
-                ExpressionNumberKind.BIG_DECIMAL.create(123)
+            123,
+            ExpressionNumber.class,
+            this.createContext(ExpressionNumberKind.BIG_DECIMAL),
+            ExpressionNumberKind.BIG_DECIMAL.create(123)
         );
     }
 
     @Test
     public void testConvertIntegerToExpressionNumberDouble() {
         this.convertAndCheck(
-                123,
-                ExpressionNumber.class,
-                this.createContext(ExpressionNumberKind.DOUBLE),
-                ExpressionNumberKind.DOUBLE.create(123)
+            123,
+            ExpressionNumber.class,
+            this.createContext(ExpressionNumberKind.DOUBLE),
+            ExpressionNumberKind.DOUBLE.create(123)
         );
     }
 
     @Test
     public void testConvertIntegerToInteger() {
         this.convertAndCheck(
-                123
+            123
         );
     }
 
     @Test
     public void testConvertIntegerToLong() {
         this.convertAndCheck(
-                123,
-                123L
+            123,
+            123L
         );
     }
 
     @Test
     public void testConvertIntegerToNumber() {
         this.convertAndCheck(
-                123,
-                Number.class,
-                123
+            123,
+            Number.class,
+            123
         );
     }
 
@@ -185,8 +185,8 @@ public final class NumberToNumberConverterTest implements ConverterTesting2<Numb
     @Test
     public void testToString() {
         this.toStringAndCheck(
-                NumberToNumberConverter.instance(),
-                "number to number"
+            NumberToNumberConverter.instance(),
+            "number to number"
         );
     }
 

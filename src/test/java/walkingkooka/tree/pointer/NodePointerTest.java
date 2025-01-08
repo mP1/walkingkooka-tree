@@ -37,8 +37,8 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public final class NodePointerTest implements ClassTesting2<NodePointer<TestNode, StringName>>,
-        ParseStringTesting<NodePointer<TestNode, StringName>>,
-        ToStringTesting<NodePointer<TestNode, StringName>> {
+    ParseStringTesting<NodePointer<TestNode, StringName>>,
+    ToStringTesting<NodePointer<TestNode, StringName>> {
 
     private final static StringName ABC = Names.string("abc");
     private final static StringName DEF = Names.string("def");
@@ -55,8 +55,8 @@ public final class NodePointerTest implements ClassTesting2<NodePointer<TestNode
     @Test
     public void testIndexInvalidIndexFails() {
         assertThrows(
-                IndexOutOfBoundsException.class,
-                () -> NodePointer.indexed(-1, TestNode.class)
+            IndexOutOfBoundsException.class,
+            () -> NodePointer.indexed(-1, TestNode.class)
         );
     }
 
@@ -68,8 +68,8 @@ public final class NodePointerTest implements ClassTesting2<NodePointer<TestNode
     @Test
     public void testIndexInvalidIndexFails2() {
         assertThrows(
-                IndexOutOfBoundsException.class,
-                () -> NodePointer.indexed(0, TestNode.class).indexed(-1)
+            IndexOutOfBoundsException.class,
+            () -> NodePointer.indexed(0, TestNode.class).indexed(-1)
         );
     }
 
@@ -86,7 +86,7 @@ public final class NodePointerTest implements ClassTesting2<NodePointer<TestNode
     @Test
     public void testNamedNullNameFails2() {
         assertThrows(NullPointerException.class, () -> NodePointer.named(ABC, TestNode.class)
-                .named(null));
+            .named(null));
     }
 
     // toString.......................................................................................................
@@ -94,104 +94,104 @@ public final class NodePointerTest implements ClassTesting2<NodePointer<TestNode
     @Test
     public void testToStringRelative() {
         this.toStringAndCheck(NodePointer.relative(1, TestNode.class),
-                "1");
+            "1");
     }
 
     @Test
     public void testToStringRelativeHash() {
         this.toStringAndCheck(NodePointer.relativeHash(1, TestNode.class),
-                "1#");
+            "1#");
     }
 
     @Test
     public void testToStringRelativeIndex() {
         this.toStringAndCheck(NodePointer.relative(1, TestNode.class)
-                        .indexed(23),
-                "1/23");
+                .indexed(23),
+            "1/23");
     }
 
     @Test
     public void testToStringRelativeNamed() {
         this.toStringAndCheck(NodePointer.relative(1, TestNode.class)
-                        .named(Names.string("abc")),
-                "1/abc");
+                .named(Names.string("abc")),
+            "1/abc");
     }
 
     @Test
     public void testToStringRelativeHashNamed() {
         this.toStringAndCheck(NodePointer.relativeHash(1, TestNode.class)
-                        .named(Names.string("abc")),
-                "1/abc");
+                .named(Names.string("abc")),
+            "1/abc");
     }
 
     @Test
     public void testToStringChildIndex() {
         this.toStringAndCheck(NodePointer.indexed(0, TestNode.class),
-                "/0");
+            "/0");
     }
 
     @Test
     public void testToStringChildNamed() {
         this.toStringAndCheck("/abc",
-                NodePointer.named(ABC, TestNode.class)
-                        .toString());
+            NodePointer.named(ABC, TestNode.class)
+                .toString());
     }
 
     @Test
     public void testToStringChildNamedChildIndex() {
         this.toStringAndCheck(NodePointer.named(ABC, TestNode.class)
-                        .indexed(0),
-                "/abc/0");
+                .indexed(0),
+            "/abc/0");
     }
 
     @Test
     public void testToStringChildNamedChildIndexX2() {
         this.toStringAndCheck(NodePointer.named(ABC, TestNode.class)
-                        .indexed(0)
-                        .indexed(1),
-                "/abc/0/1");
+                .indexed(0)
+                .indexed(1),
+            "/abc/0/1");
     }
 
     @Test
     public void testToStringChildIndexChildNamedChildIndex() {
         this.toStringAndCheck("/0/abc/1",
-                NodePointer.indexed(0, TestNode.class)
-                        .named(ABC)
-                        .indexed(1)
-                        .toString());
+            NodePointer.indexed(0, TestNode.class)
+                .named(ABC)
+                .indexed(1)
+                .toString());
     }
 
     @Test
     public void testToStringChildNamedChildNamed() {
         this.toStringAndCheck(NodePointer.named(ABC, TestNode.class)
-                        .named(DEF),
-                "/abc/def");
+                .named(DEF),
+            "/abc/def");
     }
 
     @Test
     public void testToStringChildNamedChildNamedChildNamed() {
         this.toStringAndCheck(NodePointer.named(ABC, TestNode.class)
-                        .named(DEF)
-                        .named(GHI),
-                "/abc/def/ghi");
+                .named(DEF)
+                .named(GHI),
+            "/abc/def/ghi");
     }
 
     @Test
     public void testToStringChildNamedChildNamedChildNamedChildNamed() {
         this.toStringAndCheck(NodePointer.named(ABC, TestNode.class)
-                        .named(DEF)
-                        .named(GHI)
-                        .named(JKL),
-                "/abc/def/ghi/jkl");
+                .named(DEF)
+                .named(GHI)
+                .named(JKL),
+            "/abc/def/ghi/jkl");
     }
 
     @Test
     public void testToStringChildIndexChildIndexChildIndexChildIndex() {
         this.toStringAndCheck(NodePointer.indexed(0, TestNode.class)
-                        .indexed(1)
-                        .indexed(2)
-                        .indexed(3),
-                "/0/1/2/3");
+                .indexed(1)
+                .indexed(2)
+                .indexed(3),
+            "/0/1/2/3");
     }
 
     // traverse.........................................................................................................
@@ -202,7 +202,7 @@ public final class NodePointerTest implements ClassTesting2<NodePointer<TestNode
         this.checkIsRelative(pointer);
 
         final TestNode root = TestNode.with("root")
-                .appendChild(TestNode.with("match"));
+            .appendChild(TestNode.with("match"));
         this.traverseFail(pointer, root);
     }
 
@@ -212,7 +212,7 @@ public final class NodePointerTest implements ClassTesting2<NodePointer<TestNode
         this.checkIsRelative(pointer);
 
         final TestNode root = TestNode.with("root")
-                .appendChild(TestNode.with("child"));
+            .appendChild(TestNode.with("child"));
         this.traverseAndCheck(pointer, root, root.toString());
     }
 
@@ -222,7 +222,7 @@ public final class NodePointerTest implements ClassTesting2<NodePointer<TestNode
         this.checkIsRelative(pointer);
 
         final TestNode root = TestNode.with("root")
-                .appendChild(TestNode.with("child"));
+            .appendChild(TestNode.with("child"));
         this.traverseAndCheck(pointer, root, root.toString());
     }
 
@@ -232,7 +232,7 @@ public final class NodePointerTest implements ClassTesting2<NodePointer<TestNode
         this.checkIsRelative(pointer);
 
         final TestNode root = TestNode.with("root")
-                .appendChild(TestNode.with("child"));
+            .appendChild(TestNode.with("child"));
         this.traverseAndCheck(pointer, root.child(0), root.toString());
     }
 
@@ -242,7 +242,7 @@ public final class NodePointerTest implements ClassTesting2<NodePointer<TestNode
         this.checkIsAbsolute(pointer);
 
         final TestNode root = TestNode.with("root")
-                .appendChild(TestNode.with("child"));
+            .appendChild(TestNode.with("child"));
         this.traverseFail(pointer, root);
     }
 
@@ -252,7 +252,7 @@ public final class NodePointerTest implements ClassTesting2<NodePointer<TestNode
         this.checkIsAbsolute(pointer);
 
         final TestNode root = TestNode.with("root")
-                .appendChild(TestNode.with("child"));
+            .appendChild(TestNode.with("child"));
         this.traverseFail(pointer, root);
     }
 
@@ -262,7 +262,7 @@ public final class NodePointerTest implements ClassTesting2<NodePointer<TestNode
         this.checkIsAbsolute(pointer);
 
         final TestNode root = TestNode.with("root")
-                .appendChild(TestNode.with("child"));
+            .appendChild(TestNode.with("child"));
         this.traverseFail(pointer, root);
     }
 
@@ -273,7 +273,7 @@ public final class NodePointerTest implements ClassTesting2<NodePointer<TestNode
 
         final TestNode zero = TestNode.with("match");
         final TestNode root = TestNode.with("root")
-                .appendChild(zero);
+            .appendChild(zero);
         this.traverseAndCheck(pointer, root, zero.toString());
     }
 
@@ -284,8 +284,8 @@ public final class NodePointerTest implements ClassTesting2<NodePointer<TestNode
 
         final TestNode one = TestNode.with("match");
         final TestNode root = TestNode.with("root")
-                .appendChild(TestNode.with("wrong"))
-                .appendChild(one);
+            .appendChild(TestNode.with("wrong"))
+            .appendChild(one);
         this.traverseAndCheck(pointer, root, one.toString());
     }
 
@@ -296,7 +296,7 @@ public final class NodePointerTest implements ClassTesting2<NodePointer<TestNode
 
         final TestNode abc = TestNode.with("abc");
         final TestNode root = TestNode.with("root")
-                .appendChild(abc);
+            .appendChild(abc);
         this.traverseAndCheck(pointer, root, abc.toString());
     }
 
@@ -307,86 +307,86 @@ public final class NodePointerTest implements ClassTesting2<NodePointer<TestNode
 
         final TestNode def = TestNode.with("def");
         final TestNode root = TestNode.with("root")
-                .appendChild(TestNode.with("abc"))
-                .appendChild(def);
+            .appendChild(TestNode.with("abc"))
+            .appendChild(def);
         this.traverseAndCheck(pointer, root, def.toString());
     }
 
     @Test
     public void testNamed3() {
         final NodePointer<TestNode, StringName> pointer = NodePointer.named(ABC, TestNode.class)
-                .named(DEF);
+            .named(DEF);
         this.checkIsAbsolute(pointer);
 
         final TestNode def = TestNode.with("def");
 
         final TestNode root = TestNode.with("root")
-                .appendChild(TestNode.with("abc", def));
+            .appendChild(TestNode.with("abc", def));
         this.traverseAndCheck(pointer, root, def.toString());
     }
 
     @Test
     public void testNamedLastAbsent() {
         final NodePointer<TestNode, StringName> pointer = NodePointer.named(ABC, TestNode.class)
-                .named(DEF)
-                .named(GHI);
+            .named(DEF)
+            .named(GHI);
         this.checkIsAbsolute(pointer);
 
         final TestNode root = TestNode.with("root")
-                .appendChild(TestNode.with("abc")
-                        .appendChild(TestNode.with("def")));
+            .appendChild(TestNode.with("abc")
+                .appendChild(TestNode.with("def")));
         this.traverseFail(pointer, root);
     }
 
     @Test
     public void testNamedLastAbsent2() {
         final NodePointer<TestNode, StringName> pointer = NodePointer.named(ABC, TestNode.class)
-                .named(GHI);
+            .named(GHI);
         this.checkIsAbsolute(pointer);
 
         final TestNode root = TestNode.with("root")
-                .appendChild(TestNode.with("abc").appendChild(TestNode.with("match")));
+            .appendChild(TestNode.with("abc").appendChild(TestNode.with("match")));
         this.traverseFail(pointer, root);
     }
 
     @Test
     public void testIndexLastAbsent() {
         final NodePointer<TestNode, StringName> pointer = NodePointer.indexed(0, TestNode.class)
-                .indexed(1)
-                .indexed(2);
+            .indexed(1)
+            .indexed(2);
         this.checkIsAbsolute(pointer);
 
         final TestNode root = TestNode.with("root")
-                .appendChild(TestNode.with("child")
-                        .appendChild(TestNode.with("wrong"))
-                        .appendChild(TestNode.with("def")));
+            .appendChild(TestNode.with("child")
+                .appendChild(TestNode.with("wrong"))
+                .appendChild(TestNode.with("def")));
         this.traverseFail(pointer, root);
     }
 
     @Test
     public void testIndexLastAbsent2() {
         final NodePointer<TestNode, StringName> pointer = NodePointer.indexed(0, TestNode.class)
-                .indexed(99);
+            .indexed(99);
         this.checkIsAbsolute(pointer);
 
         final TestNode root = TestNode.with("root")
-                .appendChild(TestNode.with("abc")
-                        .appendChild(TestNode.with("match")));
+            .appendChild(TestNode.with("abc")
+                .appendChild(TestNode.with("match")));
         this.traverseFail(pointer, root);
     }
 
     @Test
     public void testNestedArray() {
         final NodePointer<TestNode, StringName> pointer = NodePointer.indexed(0, TestNode.class)
-                .indexed(1);
+            .indexed(1);
         this.checkIsAbsolute(pointer);
 
         final TestNode match = TestNode.with("match1");
 
         final TestNode root = TestNode.with("root")
-                .appendChild(TestNode.with("child0")
-                        .appendChild(TestNode.with("wrong"))
-                        .appendChild(match));
+            .appendChild(TestNode.with("child0")
+                .appendChild(TestNode.with("wrong"))
+                .appendChild(match));
         this.traverseAndCheck(pointer, root, match.toString());
     }
 
@@ -398,33 +398,33 @@ public final class NodePointerTest implements ClassTesting2<NodePointer<TestNode
         final TestNode match = TestNode.with("match0");
 
         final TestNode root = TestNode.with("root")
-                .appendChild(match);
+            .appendChild(match);
         this.traverseAndCheck(pointer, root, match.toString());
     }
 
     @Test
     public void testIndexForObject2() {
         final NodePointer<TestNode, StringName> pointer = NodePointer.named(ABC, TestNode.class)
-                .indexed(0);
+            .indexed(0);
         this.checkIsAbsolute(pointer);
 
         final TestNode match = TestNode.with("name-abc-index-0");
 
         final TestNode root = TestNode.with("root")
-                .appendChild(TestNode.with("abc")
-                        .appendChild(match));
+            .appendChild(TestNode.with("abc")
+                .appendChild(match));
         this.traverseAndCheck(pointer, root, match.toString());
     }
 
     @Test
     public void testRelativeNestedArray() {
         final NodePointer<TestNode, StringName> pointer = NodePointer.relative(1, TestNode.class)
-                .indexed(2);
+            .indexed(2);
         this.checkIsRelative(pointer);
 
         final TestNode text = TestNode.with("match");
         final TestNode root = TestNode.with("root")
-                .appendChild(TestNode.with("child").appendChild(TestNode.with("wrong")).appendChild(TestNode.with("wrong2")).appendChild(text));
+            .appendChild(TestNode.with("child").appendChild(TestNode.with("wrong")).appendChild(TestNode.with("wrong2")).appendChild(text));
 
         this.traverseAndCheck(pointer, root.child(0).child(1), text.toString());
     }
@@ -439,8 +439,8 @@ public final class NodePointerTest implements ClassTesting2<NodePointer<TestNode
     @Test
     public void testParseInvalidIndexFails() {
         assertThrows(
-                IndexOutOfBoundsException.class,
-                () -> NodePointer.parse("/abc/-99", NAME_FACTORY, TestNode.class)
+            IndexOutOfBoundsException.class,
+            () -> NodePointer.parse("/abc/-99", NAME_FACTORY, TestNode.class)
         );
     }
 
@@ -475,7 +475,7 @@ public final class NodePointerTest implements ClassTesting2<NodePointer<TestNode
 
         final TestNode def = TestNode.with("match");
         final TestNode root = TestNode.with("root")
-                .appendChild(TestNode.with("child").appendChild(TestNode.with("wrong")).appendChild(def));
+            .appendChild(TestNode.with("child").appendChild(TestNode.with("wrong")).appendChild(def));
         this.traverseAndCheck(pointer, root, def.toString());
     }
 
@@ -486,8 +486,8 @@ public final class NodePointerTest implements ClassTesting2<NodePointer<TestNode
         final TestNode def = TestNode.with("def");
 
         final TestNode root = TestNode.with("root")
-                .appendChild(TestNode.with("abc")
-                        .appendChild(def));
+            .appendChild(TestNode.with("abc")
+                .appendChild(def));
         this.traverseAndCheck(pointer, root, def.toString());
     }
 
@@ -498,11 +498,11 @@ public final class NodePointerTest implements ClassTesting2<NodePointer<TestNode
         final TestNode match = TestNode.with("def");
 
         final TestNode root = TestNode.with("root")
-                .appendChild(TestNode.with("abc")
-                        .appendChild(TestNode.with("abc-index-0")
-                                .appendChild(match)
-                                .appendChild(TestNode.with("ghi-wrong")))
-                        .appendChild(TestNode.with("another")));
+            .appendChild(TestNode.with("abc")
+                .appendChild(TestNode.with("abc-index-0")
+                    .appendChild(match)
+                    .appendChild(TestNode.with("ghi-wrong")))
+                .appendChild(TestNode.with("another")));
         this.traverseAndCheck(pointer, root, match.toString());
     }
 
@@ -513,8 +513,8 @@ public final class NodePointerTest implements ClassTesting2<NodePointer<TestNode
         final TestNode match = TestNode.with("match");
 
         final TestNode root = TestNode.with("root")
-                .appendChild(TestNode.with("abc")
-                        .appendChild(match));
+            .appendChild(TestNode.with("abc")
+                .appendChild(match));
         this.traverseFail(pointer, root);
     }
 
@@ -525,8 +525,8 @@ public final class NodePointerTest implements ClassTesting2<NodePointer<TestNode
         final TestNode def = TestNode.with("def");
 
         final TestNode root = TestNode.with("root")
-                .appendChild(TestNode.with("abc")
-                        .appendChild(def));
+            .appendChild(TestNode.with("abc")
+                .appendChild(def));
         this.traverseFail(pointer, root);
     }
 
@@ -537,7 +537,7 @@ public final class NodePointerTest implements ClassTesting2<NodePointer<TestNode
         final TestNode match = TestNode.with("tilde~");
 
         final TestNode root = TestNode.with("root")
-                .appendChild(match);
+            .appendChild(match);
         this.traverseAndCheck(pointer, root, match.toString());
     }
 
@@ -545,14 +545,14 @@ public final class NodePointerTest implements ClassTesting2<NodePointer<TestNode
         final Optional<TestNode> result = pointer.traverse(root);
         this.checkNotEquals(Optional.empty(), result, () -> "The pointer " + CharSequences.quote(pointer.toString()) + " should have matched a node but failed,\n" + root);
         this.checkEquals(toString,
-                result.map(TestNode::toString).orElse(null),
-                () -> "The pointer " + CharSequences.quote(pointer.toString()) + " should have matched the node\n" + root);
+            result.map(TestNode::toString).orElse(null),
+            () -> "The pointer " + CharSequences.quote(pointer.toString()) + " should have matched the node\n" + root);
     }
 
     private void traverseFail(final NodePointer<TestNode, StringName> pointer, final TestNode root) {
         this.checkEquals(Optional.empty(),
-                pointer.traverse(root),
-                () -> "The pointer " + CharSequences.quote(pointer.toString()) + " should have matched nothing\n" + root);
+            pointer.traverse(root),
+            () -> "The pointer " + CharSequences.quote(pointer.toString()) + " should have matched nothing\n" + root);
     }
 
     private void checkIsAbsolute(final NodePointer<?, ?> pointer) {
@@ -583,8 +583,8 @@ public final class NodePointerTest implements ClassTesting2<NodePointer<TestNode
     public NodePointer<TestNode, StringName> parseString(final String pointer) {
         final NodePointer<TestNode, StringName> parsed = NodePointer.parse(pointer, NAME_FACTORY, TestNode.class);
         this.checkEquals(pointer,
-                parsed.toString(),
-                () -> "pointer.parse: " + CharSequences.quoteAndEscape(pointer));
+            parsed.toString(),
+            () -> "pointer.parse: " + CharSequences.quoteAndEscape(pointer));
         return parsed;
     }
 

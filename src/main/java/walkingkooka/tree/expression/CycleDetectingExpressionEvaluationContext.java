@@ -86,8 +86,8 @@ final class CycleDetectingExpressionEvaluationContext implements ExpressionEvalu
     public Object evaluateFunction(final ExpressionFunction<?, ? extends ExpressionEvaluationContext> function,
                                    final List<Object> parameters) {
         return this.context.evaluateFunction(
-                function,
-                parameters
+            function,
+            parameters
         );
     }
 
@@ -108,7 +108,7 @@ final class CycleDetectingExpressionEvaluationContext implements ExpressionEvalu
             final Optional<Optional<Object>> possibleValue = this.context.reference(reference);
             if (possibleValue.isPresent()) {
                 final Object value = possibleValue.get()
-                        .orElse(null);
+                    .orElse(null);
 
                 if (value instanceof ExpressionReference) {
                     this.cycleCheck((ExpressionReference) value, cycles);

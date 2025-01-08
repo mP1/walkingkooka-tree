@@ -46,19 +46,19 @@ abstract class ExpressionEvaluationContextPrepareParametersList extends Abstract
         Objects.requireNonNull(context, "context");
 
         return parameters.isEmpty() ?
-                values :
-                withNotEmpty(
-                        parameters,
-                        unwrap(values),
-                        context
-                );
+            values :
+            withNotEmpty(
+                parameters,
+                unwrap(values),
+                context
+            );
     }
 
     @SuppressWarnings("lgtm[java/abstract-to-concrete-cast]")
     private static List<Object> unwrap(final List<Object> values) {
         return values instanceof ExpressionEvaluationContextPrepareParametersList ?
-                ((ExpressionEvaluationContextPrepareParametersList) values).values :
-                values;
+            ((ExpressionEvaluationContextPrepareParametersList) values).values :
+            values;
     }
 
     /**
@@ -72,19 +72,19 @@ abstract class ExpressionEvaluationContextPrepareParametersList extends Abstract
         final ExpressionFunctionParameter<?> last = parameters.get(count - 1);
 
         return last.kinds().contains(ExpressionFunctionParameterKind.FLATTEN) ?
-                ExpressionEvaluationContextPrepareParametersListFlattened.withFlattened(
-                        parameters,
-                        values,
-                        count - 1,
-                        last,
-                        context
-                ) :
-                ExpressionEvaluationContextPrepareParametersListNonFlattened.withNonFlattened(
-                        parameters,
-                        values,
-                        values.size(),
-                        context
-                );
+            ExpressionEvaluationContextPrepareParametersListFlattened.withFlattened(
+                parameters,
+                values,
+                count - 1,
+                last,
+                context
+            ) :
+            ExpressionEvaluationContextPrepareParametersListNonFlattened.withNonFlattened(
+                parameters,
+                values,
+                values.size(),
+                context
+            );
     }
 
     /**
@@ -126,8 +126,8 @@ abstract class ExpressionEvaluationContextPrepareParametersList extends Abstract
             }
 
             preparedValue = prepareAndConvert(
-                    parameter,
-                    this.values.get(index)
+                parameter,
+                this.values.get(index)
             );
             this.preparedValues[index] = preparedValue;
         }
@@ -173,17 +173,17 @@ abstract class ExpressionEvaluationContextPrepareParametersList extends Abstract
         final ExpressionEvaluationContext context = this.context;
         try {
             final Object prepared = prepareValue(
-                    parameter,
-                    value
+                parameter,
+                value
             );
 
             result = parameter.kinds()
-                    .contains(ExpressionFunctionParameterKind.CONVERT) ?
-                    context.prepareParameter(
-                            parameter,
-                            prepared
-                    ) :
-                    prepared;
+                .contains(ExpressionFunctionParameterKind.CONVERT) ?
+                context.prepareParameter(
+                    parameter,
+                    prepared
+                ) :
+                prepared;
         } catch (final RuntimeException exception) {
             result = context.handleException(exception);
         }

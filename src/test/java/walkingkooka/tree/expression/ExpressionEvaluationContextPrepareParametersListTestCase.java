@@ -30,23 +30,23 @@ import java.util.Map;
 import java.util.Optional;
 
 public abstract class ExpressionEvaluationContextPrepareParametersListTestCase<T extends ExpressionEvaluationContextPrepareParametersList> implements ClassTesting<T>,
-        ListTesting {
+    ListTesting {
 
     final static ExpressionFunctionParameter<Integer> REQUIRED = ExpressionFunctionParameterName.with("required-integer")
-            .required(Integer.class);
+        .required(Integer.class);
 
     final static ExpressionFunctionParameter<Long> OPTIONAL = ExpressionFunctionParameterName.with("optional-long")
-            .optional(Long.class);
+        .optional(Long.class);
 
     final static ExpressionFunctionParameter<Double> VARIABLE = ExpressionFunctionParameterName.with("variable-double")
-            .variable(Double.class);
+        .variable(Double.class);
 
     final static ExpressionFunctionParameter<?> FLATTEN = ExpressionFunctionParameterName.with("flatten")
-            .variable(Object.class)
-            .setKinds(
-                    Sets.of(
-                            ExpressionFunctionParameterKind.FLATTEN)
-            );
+        .variable(Object.class)
+        .setKinds(
+            Sets.of(
+                ExpressionFunctionParameterKind.FLATTEN)
+        );
 
     final static ExpressionNumberKind EXPRESSION_NUMBER_KIND = ExpressionNumberKind.DOUBLE;
 
@@ -72,9 +72,9 @@ public abstract class ExpressionEvaluationContextPrepareParametersListTestCase<T
             @Override
             public Optional<Optional<Object>> reference(final ExpressionReference r) {
                 return Optional.ofNullable(
-                        reference.equals(r) ?
-                                Optional.ofNullable(value) :
-                                null
+                    reference.equals(r) ?
+                        Optional.ofNullable(value) :
+                        null
                 );
             }
 
@@ -93,7 +93,7 @@ public abstract class ExpressionEvaluationContextPrepareParametersListTestCase<T
     final ExpressionEvaluationContext createContextWhichConverts(final Object from,
                                                                  final Object to) {
         return this.createContextWhichConverts(
-                Maps.of(from, to)
+            Maps.of(from, to)
         );
     }
 

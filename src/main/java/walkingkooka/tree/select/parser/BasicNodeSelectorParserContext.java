@@ -34,8 +34,8 @@ import java.util.Objects;
  * A {@link NodeSelectorParserContext} without any functionality.
  */
 final class BasicNodeSelectorParserContext implements NodeSelectorParserContext,
-        DateTimeContextDelegator,
-        DecimalNumberContextDelegator {
+    DateTimeContextDelegator,
+    DecimalNumberContextDelegator {
 
     /**
      * Creates a new {@link }
@@ -46,8 +46,8 @@ final class BasicNodeSelectorParserContext implements NodeSelectorParserContext,
         Objects.requireNonNull(mathContext, "mathContext");
 
         return new BasicNodeSelectorParserContext(
-                kind,
-                mathContext
+            kind,
+            mathContext
         );
     }
 
@@ -56,12 +56,12 @@ final class BasicNodeSelectorParserContext implements NodeSelectorParserContext,
         super();
         this.kind = kind;
         this.dateTimeContext = DateTimeContexts.locale(
-                Locale.getDefault(),
-                1950, // defaultYear
-                50, // twoYear
-                () -> {
-                    throw new UnsupportedOperationException();
-                }
+            Locale.getDefault(),
+            1950, // defaultYear
+            50, // twoYear
+            () -> {
+                throw new UnsupportedOperationException();
+            }
         );
         this.decimalNumberContext = DecimalNumberContexts.american(mathContext);
     }
@@ -99,11 +99,11 @@ final class BasicNodeSelectorParserContext implements NodeSelectorParserContext,
     @Override
     public String toString() {
         return ToStringBuilder.empty()
-                .label("decimalSeparator").value(this.decimalSeparator())
-                .label("exponentSymbol").value(this.exponentSymbol())
-                .label("negativeSign").value(this.negativeSign())
-                .label("percentageSymbol").value(this.percentageSymbol())
-                .label("positiveSign").value(this.positiveSign())
-                .build();
+            .label("decimalSeparator").value(this.decimalSeparator())
+            .label("exponentSymbol").value(this.exponentSymbol())
+            .label("negativeSign").value(this.negativeSign())
+            .label("percentageSymbol").value(this.percentageSymbol())
+            .label("positiveSign").value(this.positiveSign())
+            .build();
     }
 }

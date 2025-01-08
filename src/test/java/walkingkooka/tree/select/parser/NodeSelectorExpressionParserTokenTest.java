@@ -77,10 +77,10 @@ public final class NodeSelectorExpressionParserTokenTest extends NodeSelectorPar
         }.accept(expression);
         this.checkEquals("1315242", b.toString());
         this.checkEquals(Lists.of(expression, expression,
-                        wildcard, wildcard, wildcard,
-                        expression, expression),
-                visited,
-                "visited");
+                wildcard, wildcard, wildcard,
+                expression, expression),
+            visited,
+            "visited");
     }
 
     @Override

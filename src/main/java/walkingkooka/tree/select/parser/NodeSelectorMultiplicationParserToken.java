@@ -29,7 +29,7 @@ public final class NodeSelectorMultiplicationParserToken extends NodeSelectorBin
     static NodeSelectorMultiplicationParserToken with(final List<ParserToken> value,
                                                       final String text) {
         return new NodeSelectorMultiplicationParserToken(copyAndCheckTokens(value),
-                checkTextNullOrWhitespace(text));
+            checkTextNullOrWhitespace(text));
     }
 
     private NodeSelectorMultiplicationParserToken(final List<ParserToken> value,
@@ -42,9 +42,9 @@ public final class NodeSelectorMultiplicationParserToken extends NodeSelectorBin
     @Override
     public NodeSelectorMultiplicationParserToken setChildren(final List<ParserToken> children) {
         return ParserToken.parentSetChildren(
-                this,
-                children,
-                NodeSelectorMultiplicationParserToken::with
+            this,
+            children,
+            NodeSelectorMultiplicationParserToken::with
         );
     }
 

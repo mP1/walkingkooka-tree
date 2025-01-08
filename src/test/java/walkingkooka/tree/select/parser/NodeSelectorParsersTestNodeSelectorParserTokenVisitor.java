@@ -464,8 +464,8 @@ final class NodeSelectorParsersTestNodeSelectorParserTokenVisitor extends NodeSe
                                                                                     final Function<String, N> nameFactory,
                                                                                     final BiFunction<N, String, T> parserTokenFactory) {
         this.add(parserTokenFactory.apply(
-                nameFactory.apply(token.value().value().toUpperCase()),
-                token.text().toUpperCase()));
+            nameFactory.apply(token.value().value().toUpperCase()),
+            token.text().toUpperCase()));
     }
 
     private void add(final NodeSelectorParserToken token) {

@@ -75,12 +75,12 @@ public final class ListExpressionTest extends VariableExpressionTestCase<ListExp
         }.accept(function);
         this.checkEquals("1315215215242", b.toString());
         this.checkEquals(Lists.of(function, function,
-                        text1, text1, text1,
-                        text2, text2, text2,
-                        text3, text3, text3,
-                        function, function),
-                visited,
-                "visited");
+                text1, text1, text1,
+                text2, text2, text2,
+                text3, text3, text3,
+                function, function),
+            visited,
+            "visited");
     }
 
     // ExpressionPurity.................................................................................................
@@ -88,9 +88,9 @@ public final class ListExpressionTest extends VariableExpressionTestCase<ListExp
     @Test
     public void testIsPureTrue() {
         this.isPureAndCheck(
-                this.createExpression(),
-                this.context(),
-                true
+            this.createExpression(),
+            this.context(),
+            true
         );
     }
 
@@ -133,8 +133,8 @@ public final class ListExpressionTest extends VariableExpressionTestCase<ListExp
     @Test
     public void testToString() {
         this.toStringAndCheck(
-                this.createExpression(),
-                "[\"child-111\",\"child-222\",\"child-333\"]"
+            this.createExpression(),
+            "[\"child-111\",\"child-222\",\"child-333\"]"
         );
     }
 

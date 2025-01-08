@@ -32,32 +32,32 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
  * Mixing testing interface for {@link ExpressionEvaluationContext}
  */
 public interface ExpressionEvaluationContextTesting<C extends ExpressionEvaluationContext> extends
-        CanConvertTesting<C>,
-        ExpressionNumberContextTesting<C>,
-        ExpressionPurityContextTesting<C>,
-        TreePrintableTesting {
+    CanConvertTesting<C>,
+    ExpressionNumberContextTesting<C>,
+    ExpressionPurityContextTesting<C>,
+    TreePrintableTesting {
 
     @Test
     default void testEvaluateNullExpressionFails() {
         assertThrows(
-                NullPointerException.class,
-                () -> this.createContext().evaluate(null)
+            NullPointerException.class,
+            () -> this.createContext().evaluate(null)
         );
     }
 
     @Test
     default void testEvaluateExpressionUnknownFunctionNameFails() {
         assertThrows(
-                UnknownExpressionFunctionException.class,
-                () -> this.createContext()
-                        .evaluate(
-                                Expression.call(
-                                        Expression.namedFunction(
-                                                ExpressionFunctionName.with("unknown-namedFunction-123")
-                                        ),
-                                        Expression.NO_CHILDREN
-                                )
-                        )
+            UnknownExpressionFunctionException.class,
+            () -> this.createContext()
+                .evaluate(
+                    Expression.call(
+                        Expression.namedFunction(
+                            ExpressionFunctionName.with("unknown-namedFunction-123")
+                        ),
+                        Expression.NO_CHILDREN
+                    )
+                )
         );
     }
 
@@ -70,55 +70,55 @@ public interface ExpressionEvaluationContextTesting<C extends ExpressionEvaluati
                                   final Expression expression,
                                   final Object value) {
         this.checkEquals(value,
-                context.evaluate(expression),
-                () -> "evaluate " + expression + " " + context);
+            context.evaluate(expression),
+            () -> "evaluate " + expression + " " + context);
     }
 
     default void toValueAndCheck(final Expression node, final ExpressionEvaluationContext context, final Object value) {
         this.checkEquals(value,
-                node.toValue(context),
-                () -> "Expression.toValue failed, node=" + node + " context=" + context);
+            node.toValue(context),
+            () -> "Expression.toValue failed, node=" + node + " context=" + context);
     }
 
     @Test
     default void testExpressionFunctionWithNullFunctionNameFails() {
         assertThrows(
-                NullPointerException.class,
-                () -> this.createContext()
-                        .expressionFunction(null)
+            NullPointerException.class,
+            () -> this.createContext()
+                .expressionFunction(null)
         );
     }
 
     @Test
     default void testEvaluateFunctionNullFunctionNameFails() {
         assertThrows(
-                NullPointerException.class,
-                () -> this.createContext()
-                        .evaluateFunction(
-                                null,
-                                ExpressionEvaluationContext.NO_PARAMETERS
-                        )
+            NullPointerException.class,
+            () -> this.createContext()
+                .evaluateFunction(
+                    null,
+                    ExpressionEvaluationContext.NO_PARAMETERS
+                )
         );
     }
 
     @Test
     default void testEvaluateFunctionNullParametersFails() {
         assertThrows(
-                NullPointerException.class,
-                () -> this.createContext()
-                        .evaluateFunction(
-                                ExpressionFunctions.fake(),
-                                null
-                        )
+            NullPointerException.class,
+            () -> this.createContext()
+                .evaluateFunction(
+                    ExpressionFunctions.fake(),
+                    null
+                )
         );
     }
 
     @Test
     default void testReferenceNullReferenceFails() {
         assertThrows(
-                NullPointerException.class,
-                () -> this.createContext()
-                        .reference(null)
+            NullPointerException.class,
+            () -> this.createContext()
+                .reference(null)
         );
     }
 
@@ -127,10 +127,10 @@ public interface ExpressionEvaluationContextTesting<C extends ExpressionEvaluati
                                               final T expected) {
 
         this.evaluateFunctionAndCheck(
-                this.createContext(),
-                function,
-                parameters,
-                expected
+            this.createContext(),
+            function,
+            parameters,
+            expected
         );
     }
 
@@ -139,9 +139,9 @@ public interface ExpressionEvaluationContextTesting<C extends ExpressionEvaluati
                                               final List<Object> parameters,
                                               final T expected) {
         this.checkEquals(
-                expected,
-                context.evaluateFunction(function, parameters),
-                () -> "evaluate " + function + " " + parameters
+            expected,
+            context.evaluateFunction(function, parameters),
+            () -> "evaluate " + function + " " + parameters
         );
     }
 

@@ -37,8 +37,7 @@ abstract class UnaryExpression extends ParentFixedExpression implements Value<Ex
         return this.children().get(0);
     }
 
-    @Override
-    final int expectedChildCount() {
+    @Override final int expectedChildCount() {
         return 1;
     }
 

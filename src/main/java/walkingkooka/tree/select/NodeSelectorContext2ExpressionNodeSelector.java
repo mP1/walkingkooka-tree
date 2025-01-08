@@ -26,7 +26,7 @@ import walkingkooka.tree.expression.Expression;
  * test numeric values against the current position of the current {@link Node}.
  */
 final class NodeSelectorContext2ExpressionNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NAME extends Name, ANAME extends Name, AVALUE>
-        extends NodeSelectorContext2<N, NAME, ANAME, AVALUE> {
+    extends NodeSelectorContext2<N, NAME, ANAME, AVALUE> {
 
     static <N extends Node<N, NAME, ANAME, AVALUE>, NAME extends Name, ANAME extends Name, AVALUE> NodeSelectorContext2ExpressionNodeSelector<N, NAME, ANAME, AVALUE> with(final NodeSelectorContext<N, NAME, ANAME, AVALUE> context) {
         return new NodeSelectorContext2ExpressionNodeSelector<>(context);
@@ -58,8 +58,8 @@ final class NodeSelectorContext2ExpressionNodeSelector<N extends Node<N, NAME, A
     boolean isNodeSelected(final Expression expression) {
         final Object value = this.evaluate(expression);
         boolean selected = Boolean.TRUE.equals(value);
-        if(false == selected && value instanceof Number) {
-            final Number number = (Number)value;
+        if (false == selected && value instanceof Number) {
+            final Number number = (Number) value;
             selected = number.intValue() == this.nodePosition();
         }
         this.position++;

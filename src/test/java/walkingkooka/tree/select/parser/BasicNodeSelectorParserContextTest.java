@@ -29,26 +29,26 @@ import java.math.MathContext;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class BasicNodeSelectorParserContextTest implements ClassTesting2<BasicNodeSelectorParserContext>,
-        NodeSelectorParserContextTesting<BasicNodeSelectorParserContext> {
+    NodeSelectorParserContextTesting<BasicNodeSelectorParserContext> {
 
     private final static ExpressionNumberKind KIND = ExpressionNumberKind.DEFAULT;
 
     @Test
     public void testWithNullKindFails() {
         assertThrows(
-                NullPointerException.class,
-                () -> BasicNodeSelectorParserContext.with(
-                        null,
-                        this.mathContext()
-                )
+            NullPointerException.class,
+            () -> BasicNodeSelectorParserContext.with(
+                null,
+                this.mathContext()
+            )
         );
     }
 
     @Test
     public void testWithNullMathContextFails() {
         assertThrows(
-                NullPointerException.class,
-                () -> BasicNodeSelectorParserContext.with(KIND, null)
+            NullPointerException.class,
+            () -> BasicNodeSelectorParserContext.with(KIND, null)
         );
     }
 
@@ -67,14 +67,14 @@ public final class BasicNodeSelectorParserContextTest implements ClassTesting2<B
     @Test
     public void testToString() {
         this.toStringAndCheck(this.createContext(),
-                "decimalSeparator='.' exponentSymbol=\"E\" negativeSign='-' percentageSymbol='%' positiveSign='+'");
+            "decimalSeparator='.' exponentSymbol=\"E\" negativeSign='-' percentageSymbol='%' positiveSign='+'");
     }
 
     @Override
     public BasicNodeSelectorParserContext createContext() {
         return BasicNodeSelectorParserContext.with(
-                ExpressionNumberKind.DEFAULT,
-                this.mathContext()
+            ExpressionNumberKind.DEFAULT,
+            this.mathContext()
         );
     }
 

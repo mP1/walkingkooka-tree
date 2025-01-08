@@ -36,19 +36,19 @@ public final class NodeSelectorContexts implements PublicStaticHelper {
      * {@see BasicNodeSelectorContext}
      */
     public static <N extends Node<N, NAME, ANAME, AVALUE>,
-            NAME extends Name,
-            ANAME extends Name,
-            AVALUE,
-            C extends ExpressionEvaluationContext> NodeSelectorContext<N, NAME, ANAME, AVALUE> basic(final BooleanSupplier finisher,
-                                                                                                     final Predicate<N> filter,
-                                                                                                     final Function<N, N> mapper,
-                                                                                                     final Function<NodeSelectorContext<N, NAME, ANAME, AVALUE>, C> expressionEvaluationContext,
-                                                                                                     final Class<N> nodeType) {
+        NAME extends Name,
+        ANAME extends Name,
+        AVALUE,
+        C extends ExpressionEvaluationContext> NodeSelectorContext<N, NAME, ANAME, AVALUE> basic(final BooleanSupplier finisher,
+                                                                                                 final Predicate<N> filter,
+                                                                                                 final Function<N, N> mapper,
+                                                                                                 final Function<NodeSelectorContext<N, NAME, ANAME, AVALUE>, C> expressionEvaluationContext,
+                                                                                                 final Class<N> nodeType) {
         return BasicNodeSelectorContext.with(finisher,
-                filter,
-                mapper,
-                expressionEvaluationContext,
-                nodeType);
+            filter,
+            mapper,
+            expressionEvaluationContext,
+            nodeType);
     }
 
     /**
@@ -62,9 +62,9 @@ public final class NodeSelectorContexts implements PublicStaticHelper {
      * {@see FakeNodeSelectorContext}
      */
     public static <N extends Node<N, NAME, ANAME, AVALUE>,
-            NAME extends Name,
-            ANAME extends Name,
-            AVALUE> NodeSelectorContext<N, NAME, ANAME, AVALUE> fake() {
+        NAME extends Name,
+        ANAME extends Name,
+        AVALUE> NodeSelectorContext<N, NAME, ANAME, AVALUE> fake() {
         return new FakeNodeSelectorContext<>();
     }
 

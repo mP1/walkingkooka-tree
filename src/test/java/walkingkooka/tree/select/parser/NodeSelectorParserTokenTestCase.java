@@ -33,8 +33,8 @@ import java.util.function.Predicate;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public abstract class NodeSelectorParserTokenTestCase<T extends NodeSelectorParserToken> implements ClassTesting2<T>,
-        IsMethodTesting<T>,
-        ParserTokenTesting<T> {
+    IsMethodTesting<T>,
+    ParserTokenTesting<T> {
 
     final ExpressionNumberKind EXPRESSION_NUMBER_KIND = ExpressionNumberKind.DEFAULT;
 
@@ -45,9 +45,9 @@ public abstract class NodeSelectorParserTokenTestCase<T extends NodeSelectorPars
     @Test
     public final void testPublicStaticFactoryMethod() {
         PublicStaticFactoryTesting.checkFactoryMethods(NodeSelectorParserToken.class,
-                NodeSelector.class.getSimpleName(),
-                ParserToken.class.getSimpleName(),
-                this.type());
+            NodeSelector.class.getSimpleName(),
+            ParserToken.class.getSimpleName(),
+            this.type());
     }
 
     @Test
@@ -383,12 +383,12 @@ public abstract class NodeSelectorParserTokenTestCase<T extends NodeSelectorPars
     @Override
     public final Predicate<String> isMethodIgnoreMethodFilter() {
         return (m) ->
-                m.equals("isLeaf") ||
-                        m.equals("isNoise") ||
-                        m.equals("isParent") ||
-                        m.equals("isSymbol") ||
-                        m.equals("isEmpty") ||
-                        m.equals("isNotEmpty");
+            m.equals("isLeaf") ||
+                m.equals("isNoise") ||
+                m.equals("isParent") ||
+                m.equals("isSymbol") ||
+                m.equals("isEmpty") ||
+                m.equals("isNotEmpty");
     }
 
     @Override

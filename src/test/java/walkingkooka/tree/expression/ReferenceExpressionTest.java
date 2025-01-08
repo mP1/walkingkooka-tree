@@ -72,9 +72,9 @@ public final class ReferenceExpressionTest extends LeafExpressionTestCase<Refere
     @Test
     public void testIsPureFalse() {
         this.isPureAndCheck(
-                this.createExpression(),
-                this.context(),
-                false
+            this.createExpression(),
+            this.context(),
+            false
         );
     }
 
@@ -110,8 +110,8 @@ public final class ReferenceExpressionTest extends LeafExpressionTestCase<Refere
     @Test
     public void testPrintTree() {
         this.treePrintAndCheck(
-                this.createExpression(),
-                "ReferenceExpression a1 (walkingkooka.tree.expression.ReferenceExpressionTest$TestExpressionReference)\n"
+            this.createExpression(),
+            "ReferenceExpression a1 (walkingkooka.tree.expression.ReferenceExpressionTest$TestExpressionReference)\n"
         );
     }
 
@@ -172,9 +172,9 @@ public final class ReferenceExpressionTest extends LeafExpressionTestCase<Refere
             public Optional<Optional<Object>> reference(final ExpressionReference reference) {
                 checkEquals(value, reference, "reference");
                 return Optional.of(
-                        Optional.of(
-                                referenceText
-                        )
+                    Optional.of(
+                        referenceText
+                    )
                 );
             }
 

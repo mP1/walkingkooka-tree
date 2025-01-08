@@ -39,11 +39,11 @@ final class BasicExpressionFunction<T, C extends ExpressionEvaluationContext> im
                                                                                          final Class<T> returnType,
                                                                                          final BiFunction<List<Object>, C, T> biFunction) {
         return new BasicExpressionFunction<>(
-                Objects.requireNonNull(name, "name"),
-                pure,
-                Objects.requireNonNull(parameters, "parameters"),
-                Objects.requireNonNull(returnType, "returnType"),
-                Objects.requireNonNull(biFunction, "biFunction")
+            Objects.requireNonNull(name, "name"),
+            pure,
+            Objects.requireNonNull(parameters, "parameters"),
+            Objects.requireNonNull(returnType, "returnType"),
+            Objects.requireNonNull(biFunction, "biFunction")
         );
     }
 
@@ -69,14 +69,14 @@ final class BasicExpressionFunction<T, C extends ExpressionEvaluationContext> im
         Objects.requireNonNull(name, "name");
 
         return this.name().equals(name) ?
-                this :
-                new BasicExpressionFunction<>(
-                        name,
-                        this.pure,
-                        this.parameters,
-                        this.returnType,
-                        this.biFunction
-                );
+            this :
+            new BasicExpressionFunction<>(
+                name,
+                this.pure,
+                this.parameters,
+                this.returnType,
+                this.biFunction
+            );
     }
 
     private final Optional<ExpressionFunctionName> name;
@@ -113,32 +113,32 @@ final class BasicExpressionFunction<T, C extends ExpressionEvaluationContext> im
     @Override
     public int hashCode() {
         return Objects.hash(
-                this.name,
-                this.pure,
-                this.parameters,
-                this.returnType,
-                this.biFunction
+            this.name,
+            this.pure,
+            this.parameters,
+            this.returnType,
+            this.biFunction
         );
     }
 
     @Override
     public boolean equals(final Object other) {
         return this == other ||
-                other instanceof BasicExpressionFunction && this.equals1((BasicExpressionFunction<?, ?>) other);
+            other instanceof BasicExpressionFunction && this.equals1((BasicExpressionFunction<?, ?>) other);
     }
 
     private boolean equals1(final BasicExpressionFunction<?, ?> other) {
         return this.name.equals(other.name) &&
-                this.pure == other.pure &&
-                this.parameters.equals(other.parameters) &&
-                this.returnType.equals(other.returnType) &&
-                this.biFunction.equals(other.biFunction);
+            this.pure == other.pure &&
+            this.parameters.equals(other.parameters) &&
+            this.returnType.equals(other.returnType) &&
+            this.biFunction.equals(other.biFunction);
     }
 
     @Override
     public String toString() {
         return this.name()
-                .map(ExpressionFunctionName::value)
-                .orElse(ANONYMOUS);
+            .map(ExpressionFunctionName::value)
+            .orElse(ANONYMOUS);
     }
 }

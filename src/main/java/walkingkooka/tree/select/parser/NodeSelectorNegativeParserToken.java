@@ -29,7 +29,7 @@ public final class NodeSelectorNegativeParserToken extends NodeSelectorParentPar
     static NodeSelectorNegativeParserToken with(final List<ParserToken> value,
                                                 final String text) {
         return new NodeSelectorNegativeParserToken(copyAndCheckTokens(value),
-                checkTextNullOrWhitespace(text));
+            checkTextNullOrWhitespace(text));
     }
 
     private NodeSelectorNegativeParserToken(final List<ParserToken> value,
@@ -56,9 +56,9 @@ public final class NodeSelectorNegativeParserToken extends NodeSelectorParentPar
     @Override
     public NodeSelectorNegativeParserToken setChildren(final List<ParserToken> children) {
         return ParserToken.parentSetChildren(
-                this,
-                children,
-                NodeSelectorNegativeParserToken::new
+            this,
+            children,
+            NodeSelectorNegativeParserToken::new
         );
     }
 

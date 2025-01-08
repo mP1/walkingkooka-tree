@@ -49,7 +49,7 @@ public final class ExpressionEvaluationContextTest implements ClassTesting<Expre
     @Test
     public void testEvaluateIfNecessaryExpressionNumber() {
         this.evaluateIfNecessary(
-                ExpressionNumberKind.BIG_DECIMAL.one()
+            ExpressionNumberKind.BIG_DECIMAL.one()
         );
     }
 
@@ -60,17 +60,17 @@ public final class ExpressionEvaluationContextTest implements ClassTesting<Expre
 
     private void evaluateIfNecessary(final Object value) {
         this.evaluateIfNecessary(
-                value,
-                value
+            value,
+            value
         );
     }
 
     private void evaluateIfNecessary(final Object value,
                                      final Object expected) {
         this.evaluateIfNecessary(
-                ExpressionEvaluationContexts.fake(),
-                value,
-                expected
+            ExpressionEvaluationContexts.fake(),
+            value,
+            expected
         );
     }
 
@@ -81,14 +81,14 @@ public final class ExpressionEvaluationContextTest implements ClassTesting<Expre
         final Expression input = Expression.value(output);
 
         this.evaluateIfNecessary(
-                new FakeExpressionEvaluationContext() {
-                    @Override
-                    public Object evaluate(final Expression expression) {
-                        return ValueExpression.class.cast(expression).value();
-                    }
-                },
-                input,
-                output
+            new FakeExpressionEvaluationContext() {
+                @Override
+                public Object evaluate(final Expression expression) {
+                    return ValueExpression.class.cast(expression).value();
+                }
+            },
+            input,
+            output
         );
     }
 
@@ -102,21 +102,21 @@ public final class ExpressionEvaluationContextTest implements ClassTesting<Expre
         };
         final Object output = "Xyz456";
         this.evaluateIfNecessary(
-                new FakeExpressionEvaluationContext() {
-                    @Override
-                    public Optional<Optional<Object>> reference(final ExpressionReference reference) {
-                        checkEquals(
-                                input,
-                                reference,
-                                "reference"
-                        );
-                        return Optional.of(
-                                Optional.of(output)
-                        );
-                    }
-                },
-                input,
-                output
+            new FakeExpressionEvaluationContext() {
+                @Override
+                public Optional<Optional<Object>> reference(final ExpressionReference reference) {
+                    checkEquals(
+                        input,
+                        reference,
+                        "reference"
+                    );
+                    return Optional.of(
+                        Optional.of(output)
+                    );
+                }
+            },
+            input,
+            output
         );
     }
 
@@ -130,28 +130,28 @@ public final class ExpressionEvaluationContextTest implements ClassTesting<Expre
         };
         final Object output = "Xyz456";
         this.evaluateIfNecessary(
-                new FakeExpressionEvaluationContext() {
-                    @Override
-                    public Optional<Optional<Object>> reference(final ExpressionReference reference) {
-                        checkEquals(
-                                input,
-                                reference,
-                                "reference"
-                        );
-                        return Optional.of(
-                                Optional.of(
-                                        Expression.value(output)
-                                )
-                        );
-                    }
+            new FakeExpressionEvaluationContext() {
+                @Override
+                public Optional<Optional<Object>> reference(final ExpressionReference reference) {
+                    checkEquals(
+                        input,
+                        reference,
+                        "reference"
+                    );
+                    return Optional.of(
+                        Optional.of(
+                            Expression.value(output)
+                        )
+                    );
+                }
 
-                    @Override
-                    public Object evaluate(final Expression expression) {
-                        return ValueExpression.class.cast(expression).value();
-                    }
-                },
-                input,
-                output
+                @Override
+                public Object evaluate(final Expression expression) {
+                    return ValueExpression.class.cast(expression).value();
+                }
+            },
+            input,
+            output
         );
     }
 
@@ -159,9 +159,9 @@ public final class ExpressionEvaluationContextTest implements ClassTesting<Expre
                                      final Object value,
                                      final Object expected) {
         this.checkEquals(
-                expected,
-                context.evaluateIfNecessary(value),
-                () -> "evaluateIfNecessary " + CharSequences.quoteIfChars(value)
+            expected,
+            context.evaluateIfNecessary(value),
+            () -> "evaluateIfNecessary " + CharSequences.quoteIfChars(value)
         );
     }
 
@@ -176,27 +176,27 @@ public final class ExpressionEvaluationContextTest implements ClassTesting<Expre
     @Test
     public void testLambdaFunctionNullParametersFails() {
         this.lambdaFunctionFails(
-                null,
-                RETURN_TYPE,
-                EXPRESSION
+            null,
+            RETURN_TYPE,
+            EXPRESSION
         );
     }
 
     @Test
     public void testLambdaFunctionNullReturnTypeFails() {
         this.lambdaFunctionFails(
-                PARAMETERS,
-                null,
-                EXPRESSION
+            PARAMETERS,
+            null,
+            EXPRESSION
         );
     }
 
     @Test
     public void testLambdaFunctionNullExpressionFails() {
         this.lambdaFunctionFails(
-                PARAMETERS,
-                RETURN_TYPE,
-                null
+            PARAMETERS,
+            RETURN_TYPE,
+            null
         );
     }
 
@@ -204,13 +204,13 @@ public final class ExpressionEvaluationContextTest implements ClassTesting<Expre
                                      final Class<?> returnType,
                                      final Expression expression) {
         assertThrows(
-                NullPointerException.class,
-                () -> new FakeExpressionEvaluationContext()
-                        .lambdaFunction(
-                                parameters,
-                                returnType,
-                                expression
-                        )
+            NullPointerException.class,
+            () -> new FakeExpressionEvaluationContext()
+                .lambdaFunction(
+                    parameters,
+                    returnType,
+                    expression
+                )
         );
     }
 
@@ -225,8 +225,8 @@ public final class ExpressionEvaluationContextTest implements ClassTesting<Expre
                     public <T> Either<T, String> convert(final Object value,
                                                          final Class<T> target) {
                         return this.successfulConversion(
-                                ExpressionNumberKind.DOUBLE.create((Number) value),
-                                target
+                            ExpressionNumberKind.DOUBLE.create((Number) value),
+                            target
                         );
                     }
 
@@ -258,59 +258,59 @@ public final class ExpressionEvaluationContextTest implements ClassTesting<Expre
             public <T> Either<T, String> convert(final Object value,
                                                  final Class<T> target) {
                 return this.successfulConversion(
-                        target.cast(value),
-                        target
+                    target.cast(value),
+                    target
                 );
             }
         };
         final ExpressionFunction<ExpressionNumber, FakeExpressionEvaluationContext> function = context.lambdaFunction(
-                Lists.of(
-                        ExpressionFunctionParameterName.with("x")
-                                .required(ExpressionNumber.class),
-                        ExpressionFunctionParameterName.with("y")
-                                .required(ExpressionNumber.class)
+            Lists.of(
+                ExpressionFunctionParameterName.with("x")
+                    .required(ExpressionNumber.class),
+                ExpressionFunctionParameterName.with("y")
+                    .required(ExpressionNumber.class)
+            ),
+            ExpressionNumber.class,
+            Expression.add(
+                Expression.reference(
+                    new FakeExpressionReference() {
+                        @Override
+                        public boolean testParameterName(final ExpressionFunctionParameterName parameterName) {
+                            return "x".equals(parameterName.value());
+                        }
+
+                        @Override
+                        public String toString() {
+                            return "x";
+                        }
+                    }
                 ),
-                ExpressionNumber.class,
-                Expression.add(
-                        Expression.reference(
-                                new FakeExpressionReference() {
-                                    @Override
-                                    public boolean testParameterName(final ExpressionFunctionParameterName parameterName) {
-                                        return "x".equals(parameterName.value());
-                                    }
+                Expression.reference(
+                    new FakeExpressionReference() {
+                        @Override
+                        public boolean testParameterName(final ExpressionFunctionParameterName parameterName) {
+                            return "y".equals(parameterName.value());
+                        }
 
-                                    @Override
-                                    public String toString() {
-                                        return "x";
-                                    }
-                                }
-                        ),
-                        Expression.reference(
-                                new FakeExpressionReference() {
-                                    @Override
-                                    public boolean testParameterName(final ExpressionFunctionParameterName parameterName) {
-                                        return "y".equals(parameterName.value());
-                                    }
-
-                                    @Override
-                                    public String toString() {
-                                        return "y";
-                                    }
-                                }
-                        )
+                        @Override
+                        public String toString() {
+                            return "y";
+                        }
+                    }
                 )
+            )
         );
 
         this.checkEquals(
-                ExpressionNumberKind.DOUBLE.create(30),
-                function.apply(
-                        Lists.of(
-                                10,
-                                20
-                        ),
-                        context
+            ExpressionNumberKind.DOUBLE.create(30),
+            function.apply(
+                Lists.of(
+                    10,
+                    20
                 ),
-                () -> "10+20"
+                context
+            ),
+            () -> "10+20"
         );
     }
 
@@ -321,12 +321,12 @@ public final class ExpressionEvaluationContextTest implements ClassTesting<Expre
         final ExpressionFunction<Void, FakeExpressionEvaluationContext> function = ExpressionFunctions.fake();
 
         assertThrows(
-                UnsupportedOperationException.class,
-                () -> ExpressionEvaluationContexts.fake()
-                        .prepareParameters(
-                                function,
-                                Lists.empty()
-                        )
+            UnsupportedOperationException.class,
+            () -> ExpressionEvaluationContexts.fake()
+                .prepareParameters(
+                    function,
+                    Lists.empty()
+                )
         );
     }
 

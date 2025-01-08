@@ -37,7 +37,7 @@ public abstract class LogicalExpression extends BinaryExpression {
     @Override
     public final Object toValue(final ExpressionEvaluationContext context) {
         return this.apply(context)
-                .toValue(context);
+            .toValue(context);
     }
 
     @Override final Expression apply(final Object left,
@@ -46,13 +46,13 @@ public abstract class LogicalExpression extends BinaryExpression {
         final Object result;
         if (left instanceof Boolean) {
             result = this.applyBoolean(
-                    context.convertOrFail(left, Boolean.class),
-                    context.convertOrFail(right, Boolean.class)
+                context.convertOrFail(left, Boolean.class),
+                context.convertOrFail(right, Boolean.class)
             );
         } else {
             result = this.applyExpressionNumber(
-                    context.convertOrFail(left, ExpressionNumber.class),
-                    context.convertOrFail(right, ExpressionNumber.class)
+                context.convertOrFail(left, ExpressionNumber.class),
+                context.convertOrFail(right, ExpressionNumber.class)
             );
         }
 

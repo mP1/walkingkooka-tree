@@ -28,10 +28,10 @@ public interface ExpressionNumberFunctionTesting<F extends ExpressionNumberFunct
                                        final MathContext context,
                                        final BigDecimal expected) {
         this.mapBigDecimalAndCheck(
-                this.createExpressionNumberFunction(),
-                value,
-                context,
-                expected
+            this.createExpressionNumberFunction(),
+            value,
+            context,
+            expected
         );
     }
 
@@ -40,18 +40,18 @@ public interface ExpressionNumberFunctionTesting<F extends ExpressionNumberFunct
                                        final MathContext context,
                                        final BigDecimal expected) {
         this.checkEquals(
-                expected,
-                function.mapBigDecimal(value, context),
-                () -> "mapBigDecimal " + value
+            expected,
+            function.mapBigDecimal(value, context),
+            () -> "mapBigDecimal " + value
         );
     }
 
     default void mapDoubleAndCheck(final double value,
                                    final double expected) {
         this.mapDoubleAndCheck(
-                this.createExpressionNumberFunction(),
-                value,
-                expected
+            this.createExpressionNumberFunction(),
+            value,
+            expected
         );
     }
 
@@ -59,9 +59,9 @@ public interface ExpressionNumberFunctionTesting<F extends ExpressionNumberFunct
                                    final double value,
                                    final double expected) {
         this.checkEquals(
-                expected,
-                function.mapDouble(value),
-                () -> "mapDouble " + value
+            expected,
+            function.mapDouble(value),
+            () -> "mapDouble " + value
         );
     }
 

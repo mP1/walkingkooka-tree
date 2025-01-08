@@ -23,9 +23,9 @@ import walkingkooka.tree.Node;
 import walkingkooka.tree.expression.Expression;
 
 public class FakeNodeSelectorContext<N extends Node<N, NAME, ANAME, AVALUE>,
-        NAME extends Name,
-        ANAME extends Name,
-        AVALUE> implements NodeSelectorContext<N, NAME, ANAME, AVALUE>, Fake {
+    NAME extends Name,
+    ANAME extends Name,
+    AVALUE> implements NodeSelectorContext<N, NAME, ANAME, AVALUE>, Fake {
 
     @Override
     public boolean isFinished() {

@@ -37,11 +37,11 @@ final class ExpressionEvaluationContextPrepareParametersListFlattened extends Ex
                                                                                    final ExpressionFunctionParameter<?> last,
                                                                                    final ExpressionEvaluationContext context) {
         return new ExpressionEvaluationContextPrepareParametersListFlattened(
-                parameters,
-                values,
-                preparedValuesCount,
-                last,
-                context
+            parameters,
+            values,
+            preparedValuesCount,
+            last,
+            context
         );
     }
 
@@ -54,10 +54,10 @@ final class ExpressionEvaluationContextPrepareParametersListFlattened extends Ex
                                                                       final ExpressionFunctionParameter<?> last,
                                                                       final ExpressionEvaluationContext context) {
         super(
-                parameters,
-                values,
-                preparedValuesCount,
-                context
+            parameters,
+            values,
+            preparedValuesCount,
+            context
         );
 
         this.last = last;
@@ -68,8 +68,8 @@ final class ExpressionEvaluationContextPrepareParametersListFlattened extends Ex
         final int last = this.preparedValues.length;
 
         return index < last ?
-                this.getPrepareIfNecessary(index) :
-                this.getFlattenIfNecessary(index, index - last);
+            this.getPrepareIfNecessary(index) :
+            this.getFlattenIfNecessary(index, index - last);
     }
 
     /**
@@ -85,8 +85,8 @@ final class ExpressionEvaluationContextPrepareParametersListFlattened extends Ex
             final ExpressionFunctionParameter<?> parameter = this.last;
 
             preparedValue = prepareAndConvert(
-                    parameter,
-                    flattenValues.get(filteredIndex)
+                parameter,
+                flattenValues.get(filteredIndex)
             );
 
             this.convertedFlattenValues[filteredIndex] = preparedValue;
@@ -97,8 +97,8 @@ final class ExpressionEvaluationContextPrepareParametersListFlattened extends Ex
                 final ExpressionFunctionParameter<?> parameter = this.last;
 
                 preparedValue = prepareAndConvert(
-                        parameter,
-                        flattenValues.get(filteredIndex)
+                    parameter,
+                    flattenValues.get(filteredIndex)
                 );
 
                 this.convertedFlattenValues[filteredIndex] = preparedValue;
@@ -120,11 +120,11 @@ final class ExpressionEvaluationContextPrepareParametersListFlattened extends Ex
         final List<Object> flattenValues = Lists.array();
 
         this.flatten0(
-                this.values.subList(
-                        this.preparedValues.length,
-                        this.values.size()
-                ).iterator(),
-                flattenValues
+            this.values.subList(
+                this.preparedValues.length,
+                this.values.size()
+            ).iterator(),
+            flattenValues
         );
 
         this.convertedFlattenValues = preparedValues(flattenValues.size());
@@ -135,14 +135,14 @@ final class ExpressionEvaluationContextPrepareParametersListFlattened extends Ex
                           final Collection<Object> flattenValues) {
         while (values.hasNext()) {
             final Object value = prepareValue(
-                    this.last,
-                    values.next()
+                this.last,
+                values.next()
             );
             if (value instanceof Collection) {
                 final Collection<Object> collection = Cast.to(value);
                 this.flatten0(
-                        collection.iterator(),
-                        flattenValues
+                    collection.iterator(),
+                    flattenValues
                 );
                 continue;
             } else {

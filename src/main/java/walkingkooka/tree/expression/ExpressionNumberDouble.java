@@ -70,7 +70,7 @@ final class ExpressionNumberDouble extends ExpressionNumber {
     public ExpressionNumber map(final ExpressionNumberFunction function,
                                 final MathContext context) {
         return this.setValue(
-                function.mapDouble(this.doubleValue())
+            function.mapDouble(this.doubleValue())
         );
     }
 
@@ -93,7 +93,7 @@ final class ExpressionNumberDouble extends ExpressionNumber {
     @Override
     public ExpressionNumber exp(final ExpressionNumberContext context) {
         return this.setValue(
-                Math.exp(this.value)
+            Math.exp(this.value)
         );
     }
 
@@ -109,7 +109,7 @@ final class ExpressionNumberDouble extends ExpressionNumber {
     @Override
     public ExpressionNumber ln(final ExpressionNumberContext context) {
         return this.setValueAndCheckPositive(
-                Math.log(this.value)
+            Math.log(this.value)
         );
     }
 
@@ -118,7 +118,7 @@ final class ExpressionNumberDouble extends ExpressionNumber {
     @Override
     public ExpressionNumber log10(final ExpressionNumberContext context) {
         return this.setValueAndCheckPositive(
-                Math.log10(this.value)
+            Math.log10(this.value)
         );
     }
 
@@ -149,10 +149,10 @@ final class ExpressionNumberDouble extends ExpressionNumber {
     @Override
     public ExpressionNumber round(final ExpressionNumberContext context) {
         return this.setValue(
-                Maths.round(
-                        this.value,
-                        context.mathContext().getRoundingMode()
-                )
+            Maths.round(
+                this.value,
+                context.mathContext().getRoundingMode()
+            )
         );
     }
 
@@ -182,14 +182,14 @@ final class ExpressionNumberDouble extends ExpressionNumber {
     ExpressionNumber max0(final ExpressionNumber value) {
         return this.setValue(Math.max(this.value, value.doubleValue()));
     }
-    
+
     // min..............................................................................................................
 
     @Override
     ExpressionNumber min0(final ExpressionNumber value) {
         return this.setValue(Math.min(this.value, value.doubleValue()));
     }
-    
+
     // modulo..............................................................................................................
 
     @Override
@@ -221,7 +221,7 @@ final class ExpressionNumberDouble extends ExpressionNumber {
         }
 
         return this.setValue(
-                sqrt
+            sqrt
         );
     }
 
@@ -244,7 +244,7 @@ final class ExpressionNumberDouble extends ExpressionNumber {
     @Override
     ExpressionNumber andNot0(final ExpressionNumber value) {
         return this.setValue(
-                this.longValue() & ~value.longValue()
+            this.longValue() & ~value.longValue()
         );
     }
 
@@ -332,13 +332,13 @@ final class ExpressionNumberDouble extends ExpressionNumber {
     @Override
     public BigInteger bigInteger() {
         return this.bigDecimal()
-                .toBigInteger();
+            .toBigInteger();
     }
 
     @Override
     public BigInteger bigIntegerExact() {
         return this.bigDecimal()
-                .toBigIntegerExact();
+            .toBigIntegerExact();
     }
 
     @Override
@@ -353,8 +353,8 @@ final class ExpressionNumberDouble extends ExpressionNumber {
      */
     private ExpressionNumber setValue(final double value) {
         return this.value == value ?
-                this :
-                new ExpressionNumberDouble(value);
+            this :
+            new ExpressionNumberDouble(value);
     }
 
     private final double value;

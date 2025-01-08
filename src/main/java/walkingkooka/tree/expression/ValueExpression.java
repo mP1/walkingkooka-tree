@@ -49,14 +49,14 @@ final public class ValueExpression<V> extends LeafExpression<V> {
 
     public <VV> ValueExpression<VV> setValue(final VV value) {
         return Objects.equals(this.value(), value) ?
-                (ValueExpression<VV>) this :
-                this.replaceValue(value);
+            (ValueExpression<VV>) this :
+            this.replaceValue(value);
     }
 
     private <VV> ValueExpression<VV> replaceValue(final VV value) {
         return this.replace1(this.index, value)
-                .replaceChild(this.parent())
-                .cast();
+            .replaceChild(this.parent())
+            .cast();
     }
 
     @Override

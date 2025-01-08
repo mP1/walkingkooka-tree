@@ -21,7 +21,7 @@ import walkingkooka.math.DecimalNumberContext;
 import walkingkooka.math.DecimalNumberContextDelegator;
 
 public interface ExpressionNumberContextDelegator extends ExpressionNumberContext,
-        DecimalNumberContextDelegator {
+    DecimalNumberContextDelegator {
 
     default DecimalNumberContext decimalNumberContext() {
         return this.expressionNumberContext();
@@ -30,7 +30,7 @@ public interface ExpressionNumberContextDelegator extends ExpressionNumberContex
     @Override
     default ExpressionNumberKind expressionNumberKind() {
         return this.expressionNumberContext()
-                .expressionNumberKind();
+            .expressionNumberKind();
     }
 
     ExpressionNumberContext expressionNumberContext();

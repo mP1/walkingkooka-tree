@@ -30,38 +30,38 @@ import walkingkooka.convert.FakeConverter;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class ExpressionNumberConverterToExpressionNumberThenTest implements ConverterTesting2<ExpressionNumberConverterToExpressionNumberThen<ExpressionNumberConverterContext>, ExpressionNumberConverterContext>,
-        HashCodeEqualsDefinedTesting2<ExpressionNumberConverterToExpressionNumberThen<ExpressionNumberConverterContext>>,
-        ToStringTesting<ExpressionNumberConverterToExpressionNumberThen<ExpressionNumberConverterContext>> {
+    HashCodeEqualsDefinedTesting2<ExpressionNumberConverterToExpressionNumberThen<ExpressionNumberConverterContext>>,
+    ToStringTesting<ExpressionNumberConverterToExpressionNumberThen<ExpressionNumberConverterContext>> {
 
     private final static String STRING_TO_EXPRESSION_NUMBER = "String to ExpressionNumber";
 
     private final static Converter<ExpressionNumberConverterContext> EXPRESSION_NUMBER_TO_NUMBER_CONVERTER = ExpressionNumberConverters.numberOrExpressionNumberToNumber()
-            .to(
-                    Number.class,
-                    Converters.numberToNumber()
-            );
+        .to(
+            Number.class,
+            Converters.numberToNumber()
+        );
 
     // with..........................................................................................................
 
     @Test
     public void testWithNullToExpressionNumberConverterFails() {
         assertThrows(
-                NullPointerException.class,
-                () -> ExpressionNumberConverterToExpressionNumberThen.with(
-                        null,
-                        Converters.fake()
-                )
+            NullPointerException.class,
+            () -> ExpressionNumberConverterToExpressionNumberThen.with(
+                null,
+                Converters.fake()
+            )
         );
     }
 
     @Test
     public void testWithNullFromExpressionNumberConverterFails() {
         assertThrows(
-                NullPointerException.class,
-                () -> ExpressionNumberConverterToExpressionNumberThen.with(
-                        Converters.fake(),
-                        null
-                )
+            NullPointerException.class,
+            () -> ExpressionNumberConverterToExpressionNumberThen.with(
+                Converters.fake(),
+                null
+            )
         );
     }
 
@@ -83,30 +83,30 @@ public final class ExpressionNumberConverterToExpressionNumberThenTest implement
         final String failMessage = "Fail message 123";
 
         this.convertFails(
-                ExpressionNumberConverterToExpressionNumberThen.with(
-                        Converters.fake(), // should not be called as input is already ExpressionNumber
-                        new Converter<>() {
-                            @Override
-                            public boolean canConvert(final Object value,
-                                                      final Class<?> type,
-                                                      final ExpressionNumberConverterContext context) {
-                                return true;
-                            }
+            ExpressionNumberConverterToExpressionNumberThen.with(
+                Converters.fake(), // should not be called as input is already ExpressionNumber
+                new Converter<>() {
+                    @Override
+                    public boolean canConvert(final Object value,
+                                              final Class<?> type,
+                                              final ExpressionNumberConverterContext context) {
+                        return true;
+                    }
 
-                            @Override
-                            public <T> Either<T, String> convert(final Object value,
-                                                                 final Class<T> type,
-                                                                 final ExpressionNumberConverterContext context) {
-                                checkEquals(expressionNumber, value);
-                                checkEquals(targetType, type);
-                                return Either.right(failMessage);
-                            }
-                        }
-                ),
-                expressionNumber,
-                targetType,
-                this.createContext(kind),
-                failMessage
+                    @Override
+                    public <T> Either<T, String> convert(final Object value,
+                                                         final Class<T> type,
+                                                         final ExpressionNumberConverterContext context) {
+                        checkEquals(expressionNumber, value);
+                        checkEquals(targetType, type);
+                        return Either.right(failMessage);
+                    }
+                }
+            ),
+            expressionNumber,
+            targetType,
+            this.createContext(kind),
+            failMessage
         );
     }
 
@@ -126,35 +126,35 @@ public final class ExpressionNumberConverterToExpressionNumberThenTest implement
         final Character expected = '+';
 
         this.convertAndCheck(
-                ExpressionNumberConverterToExpressionNumberThen.with(
-                        Converters.fake(), // should not be called as input is already ExpressionNumber
-                        new Converter<>() {
-                            @Override
-                            public boolean canConvert(final Object value,
-                                                      final Class<?> type,
-                                                      final ExpressionNumberConverterContext context) {
-                                checkEquals(expressionNumber, value);
-                                checkEquals(targetType, type);
-                                return true;
-                            }
+            ExpressionNumberConverterToExpressionNumberThen.with(
+                Converters.fake(), // should not be called as input is already ExpressionNumber
+                new Converter<>() {
+                    @Override
+                    public boolean canConvert(final Object value,
+                                              final Class<?> type,
+                                              final ExpressionNumberConverterContext context) {
+                        checkEquals(expressionNumber, value);
+                        checkEquals(targetType, type);
+                        return true;
+                    }
 
-                            @Override
-                            public <T> Either<T, String> convert(final Object value,
-                                                                 final Class<T> type,
-                                                                 final ExpressionNumberConverterContext context) {
-                                checkEquals(expressionNumber, value);
-                                checkEquals(targetType, type);
-                                return this.successfulConversion(
-                                        expected,
-                                        type
-                                );
-                            }
-                        }
-                ),
-                expressionNumber,
-                targetType,
-                this.createContext(kind),
-                expected
+                    @Override
+                    public <T> Either<T, String> convert(final Object value,
+                                                         final Class<T> type,
+                                                         final ExpressionNumberConverterContext context) {
+                        checkEquals(expressionNumber, value);
+                        checkEquals(targetType, type);
+                        return this.successfulConversion(
+                            expected,
+                            type
+                        );
+                    }
+                }
+            ),
+            expressionNumber,
+            targetType,
+            this.createContext(kind),
+            expected
         );
     }
 
@@ -174,32 +174,32 @@ public final class ExpressionNumberConverterToExpressionNumberThenTest implement
         final Class<String> targetType = String.class;
 
         this.convertFails(
-                ExpressionNumberConverterToExpressionNumberThen.with(
-                        new Converter<>() {
-                            @Override
-                            public boolean canConvert(final Object value,
-                                                      final Class<?> type,
-                                                      final ExpressionNumberConverterContext context) {
-                                checkEquals(input, value);
-                                checkEquals(ExpressionNumber.class, type);
-                                return true;
-                            }
+            ExpressionNumberConverterToExpressionNumberThen.with(
+                new Converter<>() {
+                    @Override
+                    public boolean canConvert(final Object value,
+                                              final Class<?> type,
+                                              final ExpressionNumberConverterContext context) {
+                        checkEquals(input, value);
+                        checkEquals(ExpressionNumber.class, type);
+                        return true;
+                    }
 
-                            @Override
-                            public <T> Either<T, String> convert(final Object value,
-                                                                 final Class<T> type,
-                                                                 final ExpressionNumberConverterContext context) {
-                                checkEquals(input, value);
-                                checkEquals(ExpressionNumber.class, type);
-                                return Either.right("This message should not be returned to the caller");
-                            }
-                        },
-                        Converters.fake()
-                ),
-                input,
-                targetType,
-                this.createContext(kind),
-                "Failed to convert 123 (java.lang.Integer) to java.lang.String"
+                    @Override
+                    public <T> Either<T, String> convert(final Object value,
+                                                         final Class<T> type,
+                                                         final ExpressionNumberConverterContext context) {
+                        checkEquals(input, value);
+                        checkEquals(ExpressionNumber.class, type);
+                        return Either.right("This message should not be returned to the caller");
+                    }
+                },
+                Converters.fake()
+            ),
+            input,
+            targetType,
+            this.createContext(kind),
+            "Failed to convert 123 (java.lang.Integer) to java.lang.String"
         );
     }
 
@@ -219,53 +219,53 @@ public final class ExpressionNumberConverterToExpressionNumberThenTest implement
         final ExpressionNumber expressionNumber = kind.create(input);
 
         this.convertFails(
-                ExpressionNumberConverterToExpressionNumberThen.with(
-                        new Converter<>() {
-                            @Override
-                            public boolean canConvert(final Object value,
-                                                      final Class<?> type,
-                                                      final ExpressionNumberConverterContext context) {
-                                checkEquals(input, value);
-                                checkEquals(ExpressionNumber.class, type);
-                                return true;
-                            }
+            ExpressionNumberConverterToExpressionNumberThen.with(
+                new Converter<>() {
+                    @Override
+                    public boolean canConvert(final Object value,
+                                              final Class<?> type,
+                                              final ExpressionNumberConverterContext context) {
+                        checkEquals(input, value);
+                        checkEquals(ExpressionNumber.class, type);
+                        return true;
+                    }
 
-                            @Override
-                            public <T> Either<T, String> convert(final Object value,
-                                                                 final Class<T> type,
-                                                                 final ExpressionNumberConverterContext context) {
-                                checkEquals(input, value);
-                                checkEquals(ExpressionNumber.class, type);
-                                return this.successfulConversion(
-                                        expressionNumber,
-                                        type
-                                );
-                            }
-                        },
-                        new Converter<>() {
-                            @Override
-                            public boolean canConvert(final Object value,
-                                                      final Class<?> type,
-                                                      final ExpressionNumberConverterContext context) {
-                                checkEquals(expressionNumber, value);
-                                checkEquals(targetType, type);
-                                return true;
-                            }
+                    @Override
+                    public <T> Either<T, String> convert(final Object value,
+                                                         final Class<T> type,
+                                                         final ExpressionNumberConverterContext context) {
+                        checkEquals(input, value);
+                        checkEquals(ExpressionNumber.class, type);
+                        return this.successfulConversion(
+                            expressionNumber,
+                            type
+                        );
+                    }
+                },
+                new Converter<>() {
+                    @Override
+                    public boolean canConvert(final Object value,
+                                              final Class<?> type,
+                                              final ExpressionNumberConverterContext context) {
+                        checkEquals(expressionNumber, value);
+                        checkEquals(targetType, type);
+                        return true;
+                    }
 
-                            @Override
-                            public <T> Either<T, String> convert(final Object value,
-                                                                 final Class<T> type,
-                                                                 final ExpressionNumberConverterContext context) {
-                                checkEquals(expressionNumber, value);
-                                checkEquals(targetType, type);
-                                return Either.right("This message should not be returned to the caller");
-                            }
-                        }
-                ),
-                input,
-                targetType,
-                this.createContext(kind),
-                "Failed to convert 123 (java.lang.Integer) to java.lang.String"
+                    @Override
+                    public <T> Either<T, String> convert(final Object value,
+                                                         final Class<T> type,
+                                                         final ExpressionNumberConverterContext context) {
+                        checkEquals(expressionNumber, value);
+                        checkEquals(targetType, type);
+                        return Either.right("This message should not be returned to the caller");
+                    }
+                }
+            ),
+            input,
+            targetType,
+            this.createContext(kind),
+            "Failed to convert 123 (java.lang.Integer) to java.lang.String"
         );
     }
 
@@ -286,56 +286,56 @@ public final class ExpressionNumberConverterToExpressionNumberThenTest implement
         final String expected = "*EXPECTED 123*";
 
         this.convertAndCheck(
-                ExpressionNumberConverterToExpressionNumberThen.with(
-                        new Converter<>() {
-                            @Override
-                            public boolean canConvert(final Object value,
-                                                      final Class<?> type,
-                                                      final ExpressionNumberConverterContext context) {
-                                checkEquals(input, value);
-                                checkEquals(ExpressionNumber.class, type);
-                                return true;
-                            }
+            ExpressionNumberConverterToExpressionNumberThen.with(
+                new Converter<>() {
+                    @Override
+                    public boolean canConvert(final Object value,
+                                              final Class<?> type,
+                                              final ExpressionNumberConverterContext context) {
+                        checkEquals(input, value);
+                        checkEquals(ExpressionNumber.class, type);
+                        return true;
+                    }
 
-                            @Override
-                            public <T> Either<T, String> convert(final Object value,
-                                                                 final Class<T> type,
-                                                                 final ExpressionNumberConverterContext context) {
-                                checkEquals(input, value);
-                                checkEquals(ExpressionNumber.class, type);
-                                return this.successfulConversion(
-                                        expressionNumber,
-                                        type
-                                );
-                            }
-                        },
-                        new Converter<>() {
-                            @Override
-                            public boolean canConvert(final Object value,
-                                                      final Class<?> type,
-                                                      final ExpressionNumberConverterContext context) {
-                                checkEquals(expressionNumber, value);
-                                checkEquals(targetType, type);
-                                return true;
-                            }
+                    @Override
+                    public <T> Either<T, String> convert(final Object value,
+                                                         final Class<T> type,
+                                                         final ExpressionNumberConverterContext context) {
+                        checkEquals(input, value);
+                        checkEquals(ExpressionNumber.class, type);
+                        return this.successfulConversion(
+                            expressionNumber,
+                            type
+                        );
+                    }
+                },
+                new Converter<>() {
+                    @Override
+                    public boolean canConvert(final Object value,
+                                              final Class<?> type,
+                                              final ExpressionNumberConverterContext context) {
+                        checkEquals(expressionNumber, value);
+                        checkEquals(targetType, type);
+                        return true;
+                    }
 
-                            @Override
-                            public <T> Either<T, String> convert(final Object value,
-                                                                 final Class<T> type,
-                                                                 final ExpressionNumberConverterContext context) {
-                                checkEquals(expressionNumber, value);
-                                checkEquals(targetType, type);
-                                return this.successfulConversion(
-                                        expected,
-                                        type
-                                );
-                            }
-                        }
-                ),
-                input,
-                targetType,
-                this.createContext(kind),
-                expected
+                    @Override
+                    public <T> Either<T, String> convert(final Object value,
+                                                         final Class<T> type,
+                                                         final ExpressionNumberConverterContext context) {
+                        checkEquals(expressionNumber, value);
+                        checkEquals(targetType, type);
+                        return this.successfulConversion(
+                            expected,
+                            type
+                        );
+                    }
+                }
+            ),
+            input,
+            targetType,
+            this.createContext(kind),
+            expected
         );
     }
 
@@ -356,35 +356,35 @@ public final class ExpressionNumberConverterToExpressionNumberThenTest implement
         final ExpressionNumber expressionNumber = kind.create(input);
 
         this.convertAndCheck(
-                ExpressionNumberConverterToExpressionNumberThen.with(
-                        new Converter<>() {
-                            @Override
-                            public boolean canConvert(final Object value,
-                                                      final Class<?> type,
-                                                      final ExpressionNumberConverterContext context) {
-                                checkEquals(input, value);
-                                checkEquals(ExpressionNumber.class, type);
-                                return true;
-                            }
+            ExpressionNumberConverterToExpressionNumberThen.with(
+                new Converter<>() {
+                    @Override
+                    public boolean canConvert(final Object value,
+                                              final Class<?> type,
+                                              final ExpressionNumberConverterContext context) {
+                        checkEquals(input, value);
+                        checkEquals(ExpressionNumber.class, type);
+                        return true;
+                    }
 
-                            @Override
-                            public <T> Either<T, String> convert(final Object value,
-                                                                 final Class<T> type,
-                                                                 final ExpressionNumberConverterContext context) {
-                                checkEquals(input, value);
-                                checkEquals(ExpressionNumber.class, type);
-                                return this.successfulConversion(
-                                        expressionNumber,
-                                        type
-                                );
-                            }
-                        },
-                        Converters.fake() // should be skipped because toExpressionConverter(1st) already returns ExpressionNumber
-                ),
-                input,
-                targetType,
-                this.createContext(kind),
-                expressionNumber
+                    @Override
+                    public <T> Either<T, String> convert(final Object value,
+                                                         final Class<T> type,
+                                                         final ExpressionNumberConverterContext context) {
+                        checkEquals(input, value);
+                        checkEquals(ExpressionNumber.class, type);
+                        return this.successfulConversion(
+                            expressionNumber,
+                            type
+                        );
+                    }
+                },
+                Converters.fake() // should be skipped because toExpressionConverter(1st) already returns ExpressionNumber
+            ),
+            input,
+            targetType,
+            this.createContext(kind),
+            expressionNumber
         );
     }
 
@@ -393,14 +393,14 @@ public final class ExpressionNumberConverterToExpressionNumberThenTest implement
     @Test
     public void testConvertExpressionNumberToExpressionNumberBigDecimal() {
         this.convertAndCheck(
-                ExpressionNumberKind.BIG_DECIMAL.create(123.5)
+            ExpressionNumberKind.BIG_DECIMAL.create(123.5)
         );
     }
 
     @Test
     public void testConvertExpressionNumberToExpressionNumberDouble() {
         this.convertAndCheck(
-                ExpressionNumberKind.DOUBLE.create(123.5)
+            ExpressionNumberKind.DOUBLE.create(123.5)
         );
     }
 
@@ -409,8 +409,8 @@ public final class ExpressionNumberConverterToExpressionNumberThenTest implement
     @Test
     public void testToString() {
         this.toStringAndCheck(
-                this.createConverter(),
-                STRING_TO_EXPRESSION_NUMBER + " then " + EXPRESSION_NUMBER_TO_NUMBER_CONVERTER
+            this.createConverter(),
+            STRING_TO_EXPRESSION_NUMBER + " then " + EXPRESSION_NUMBER_TO_NUMBER_CONVERTER
         );
     }
 
@@ -419,45 +419,45 @@ public final class ExpressionNumberConverterToExpressionNumberThenTest implement
     @Override
     public ExpressionNumberConverterToExpressionNumberThen<ExpressionNumberConverterContext> createConverter() {
         return ExpressionNumberConverterToExpressionNumberThen.with(
-                new FakeConverter<>() {
-                    @Override
-                    public boolean canConvert(final Object value,
-                                              final Class<?> type,
-                                              final ExpressionNumberConverterContext context) {
-                        return value instanceof String && ExpressionNumber.class == type ||
-                                ExpressionNumber.class.isInstance(value);
-                    }
+            new FakeConverter<>() {
+                @Override
+                public boolean canConvert(final Object value,
+                                          final Class<?> type,
+                                          final ExpressionNumberConverterContext context) {
+                    return value instanceof String && ExpressionNumber.class == type ||
+                        ExpressionNumber.class.isInstance(value);
+                }
 
-                    @Override
-                    public <T> Either<T, String> convert(final Object value,
-                                                         final Class<T> type,
-                                                         final ExpressionNumberConverterContext context) {
-                        return this.canConvert(
-                                value,
+                @Override
+                public <T> Either<T, String> convert(final Object value,
+                                                     final Class<T> type,
+                                                     final ExpressionNumberConverterContext context) {
+                    return this.canConvert(
+                        value,
+                        type,
+                        context
+                    ) ?
+                        type.isInstance(value) ?
+                            context.successfulConversion(
+                                type.cast(value),
+                                type
+                            ) :
+                            parseString(
+                                (String) value,
                                 type,
                                 context
-                        ) ?
-                                type.isInstance(value) ?
-                                        context.successfulConversion(
-                                                type.cast(value),
-                                                type
-                                        ) :
-                                        parseString(
-                                                (String) value,
-                                                type,
-                                                context
-                                        ) :
-                                context.failConversion(
-                                        value,
-                                        type
-                                );
-                    }
+                            ) :
+                        context.failConversion(
+                            value,
+                            type
+                        );
+                }
 
-                    public String toString() {
-                        return STRING_TO_EXPRESSION_NUMBER;
-                    }
-                },
-                EXPRESSION_NUMBER_TO_NUMBER_CONVERTER
+                public String toString() {
+                    return STRING_TO_EXPRESSION_NUMBER;
+                }
+            },
+            EXPRESSION_NUMBER_TO_NUMBER_CONVERTER
         );
     }
 
@@ -466,13 +466,13 @@ public final class ExpressionNumberConverterToExpressionNumberThenTest implement
                                               final ExpressionNumberConverterContext context) {
         try {
             return context.successfulConversion(
-                    context.expressionNumberKind().parse(value),
-                    type
+                context.expressionNumberKind().parse(value),
+                type
             );
         } catch (final Exception cause) {
             return context.failConversion(
-                    value,
-                    type
+                value,
+                type
             );
         }
     }
@@ -500,28 +500,28 @@ public final class ExpressionNumberConverterToExpressionNumberThenTest implement
     @Test
     public void testEqualsDifferentToExpressionNumberConverter() {
         this.checkNotEquals(
-                ExpressionNumberConverterToExpressionNumberThen.with(
-                        Converters.fake(),
-                        SECOND
-                )
+            ExpressionNumberConverterToExpressionNumberThen.with(
+                Converters.fake(),
+                SECOND
+            )
         );
     }
 
     @Test
     public void testEqualsDifferentFromExpressionNumberConverter() {
         this.checkNotEquals(
-                ExpressionNumberConverterToExpressionNumberThen.with(
-                        FIRST,
-                        Converters.fake()
-                )
+            ExpressionNumberConverterToExpressionNumberThen.with(
+                FIRST,
+                Converters.fake()
+            )
         );
     }
 
     @Override
     public ExpressionNumberConverterToExpressionNumberThen<ExpressionNumberConverterContext> createObject() {
         return ExpressionNumberConverterToExpressionNumberThen.with(
-                FIRST,
-                SECOND
+            FIRST,
+            SECOND
         );
     }
 

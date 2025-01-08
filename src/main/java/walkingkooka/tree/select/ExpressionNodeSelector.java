@@ -30,16 +30,16 @@ import java.util.Objects;
  * A {@link NodeSelector} that selects {@link Node nodes} depending on the result of executing the {@link Expression}.
  */
 final class ExpressionNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NAME extends Name, ANAME extends Name, AVALUE>
-        extends
-        NonTerminalNodeSelector<N, NAME, ANAME, AVALUE> {
+    extends
+    NonTerminalNodeSelector<N, NAME, ANAME, AVALUE> {
 
     /**
      * Type safe {@link ExpressionNodeSelector} factory
      */
     static <N extends Node<N, NAME, ANAME, AVALUE>,
-            NAME extends Name,
-            ANAME extends Name,
-            AVALUE>
+        NAME extends Name,
+        ANAME extends Name,
+        AVALUE>
     ExpressionNodeSelector<N, NAME, ANAME, AVALUE> with(final Expression expression) {
         Objects.requireNonNull(expression, "expression");
 

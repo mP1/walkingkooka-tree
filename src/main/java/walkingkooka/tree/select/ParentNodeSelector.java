@@ -26,8 +26,8 @@ import walkingkooka.visit.Visiting;
  * A {@link NodeSelector} that selects any non <code>null</code> parent of any given {@link Node}.
  */
 final class ParentNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NAME extends Name, ANAME extends Name, AVALUE>
-        extends
-        AxisNodeSelector<N, NAME, ANAME, AVALUE> {
+    extends
+    AxisNodeSelector<N, NAME, ANAME, AVALUE> {
 
     /**
      * Type safe {@link ParentNodeSelector} getter

@@ -30,41 +30,41 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertSame;
 
 final public class TerminalNodeSelectorTest
-        extends NodeSelectorTestCase4<TerminalNodeSelector<TestNode, StringName, StringName, Object>> {
+    extends NodeSelectorTestCase4<TerminalNodeSelector<TestNode, StringName, StringName, Object>> {
 
     @Test
     public void testFinishedTrue() {
         this.applyFinisherAndCheck(this.createSelector(),
-                TestNode.with("self"),
-                () -> true);
+            TestNode.with("self"),
+            () -> true);
     }
 
     @Test
     public void testFilterFalse() {
         this.applyFilterAndCheck(this.createSelector(),
-                TestNode.with("self"),
-                Predicates.never());
+            TestNode.with("self"),
+            Predicates.never());
     }
 
     @Test
     public void testFilterTrue() {
         final TestNode self = TestNode.with("self");
         this.applyFilterAndCheck(this.createSelector(),
-                self,
-                Predicates.always(),
-                self);
+            self,
+            Predicates.always(),
+            self);
     }
 
     @Test
     public void testMap() {
         final TestNode parent = TestNode.with("parent",
-                TestNode.with("child1"), TestNode.with("child2"), TestNode.with("child3"));
+            TestNode.with("child1"), TestNode.with("child2"), TestNode.with("child3"));
 
         TestNode.clear();
 
         this.acceptMapAndCheck(parent,
-                TestNode.with("parent*0",
-                        TestNode.with("child1"), TestNode.with("child2"), TestNode.with("child3")));
+            TestNode.with("parent*0",
+                TestNode.with("child1"), TestNode.with("child2"), TestNode.with("child3")));
     }
 
     // NodeSelectorVisitor............................................................................................
@@ -101,8 +101,8 @@ final public class TerminalNodeSelectorTest
         this.checkEquals("132", b.toString());
 
         this.checkEquals(Lists.of(selector, selector, selector),
-                visited,
-                "visited");
+            visited,
+            "visited");
     }
 
     // Object....................................................................................................

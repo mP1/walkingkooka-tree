@@ -45,20 +45,20 @@ public class JunitTest {
     public void testParseExpression() {
         final ExpressionNumberKind kind = ExpressionNumberKind.DEFAULT;
         final Parser<NodeSelectorParserContext> parser = NodeSelectorParsers.expression()
-                .orReport(ParserReporters.basic())
-                .cast();
+            .orReport(ParserReporters.basic())
+            .cast();
         final NodeSelectorParserContext context = NodeSelectorParserContexts.basic(
-                kind,
-                MathContext.DECIMAL32
+            kind,
+            MathContext.DECIMAL32
         );
         final NodeSelectorParserToken token = parser.parse(TextCursors.charSequence("/node123[45]"), context)
-                .get()
-                .cast(NodeSelectorParserToken.class);
+            .get()
+            .cast(NodeSelectorParserToken.class);
         Assert.assertEquals(NodeSelector.absolute()
-                        .named(Names.string("node123"))
-                        .expression(Expression.value(kind.create(45)))
-                        .toString(),
-                ParserToken.text(Lists.of(token))
+                .named(Names.string("node123"))
+                .expression(Expression.value(kind.create(45)))
+                .toString(),
+            ParserToken.text(Lists.of(token))
         );
     }
 
@@ -67,14 +67,14 @@ public class JunitTest {
     public void testExpressionFunctionParameterGetOrFail() {
         final ExpressionFunctionParameter<Integer> parameter = ExpressionFunctionParameterName.with("test123").required(Integer.class);
         Assert.assertEquals(
-                Integer.valueOf(100),
-                parameter.<Integer>getOrFail(
-                        Lists.of(
-                                100,
-                                "B"
-                        ),
-                        0
-                )
+            Integer.valueOf(100),
+            parameter.<Integer>getOrFail(
+                Lists.of(
+                    100,
+                    "B"
+                ),
+                0
+            )
         );
     }
 }

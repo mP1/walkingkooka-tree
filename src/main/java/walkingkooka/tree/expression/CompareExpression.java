@@ -45,10 +45,10 @@ public abstract class CompareExpression extends BinaryExpression {
         final Object result;
         if (context.isText(left)) {
             result = this.applyText(
-                    compare,
-                    context.convertOrFail(left, String.class),
-                    context.convertOrFail(right, String.class),
-                    context
+                compare,
+                context.convertOrFail(left, String.class),
+                context.convertOrFail(right, String.class),
+                context
             );
         } else {
             if (!(left instanceof Comparable)) {
@@ -57,9 +57,9 @@ public abstract class CompareExpression extends BinaryExpression {
 
             final Class<Comparable<?>> leftClass = Cast.to(left.getClass());
             result = this.applyNonText(
-                    compare,
-                    Cast.to(left),
-                    Cast.to(context.convertOrFail(right, leftClass))
+                compare,
+                Cast.to(left),
+                Cast.to(context.convertOrFail(right, leftClass))
             );
         }
 
@@ -74,9 +74,9 @@ public abstract class CompareExpression extends BinaryExpression {
                             final String right,
                             final ExpressionEvaluationContext context) {
         return compare.test(
-                context.stringEqualsCaseSensitivity()
-                        .comparator()
-                        .compare(left, right)
+            context.stringEqualsCaseSensitivity()
+                .comparator()
+                .compare(left, right)
         );
     }
 
@@ -87,7 +87,7 @@ public abstract class CompareExpression extends BinaryExpression {
                                                              final CC left,
                                                              final CC right) {
         return compare.test(
-                left.compareTo(right)
+            left.compareTo(right)
         );
     }
 

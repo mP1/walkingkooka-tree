@@ -35,10 +35,10 @@ import java.util.function.Supplier;
  * A {@link Context} that travels during any expression evaluation.
  */
 public interface ExpressionEvaluationContext extends Context,
-        ExpressionNumberConverterContext,
-        ExpressionNumberContext,
-        ExpressionPurityContext,
-        HasExpressionFunction {
+    ExpressionNumberConverterContext,
+    ExpressionNumberContext,
+    ExpressionPurityContext,
+    HasExpressionFunction {
 
     /**
      * Factory that returns a {@link ExpressionEvaluationContext} of the same type with the given scoped variables.
@@ -76,9 +76,9 @@ public interface ExpressionEvaluationContext extends Context,
                                                                                                    final Class<TT> returnType,
                                                                                                    final Expression expression) {
         return ExpressionFunctions.lambda(
-                parameters,
-                returnType,
-                expression
+            parameters,
+            returnType,
+            expression
         );
     }
 
@@ -94,9 +94,9 @@ public interface ExpressionEvaluationContext extends Context,
     default List<Object> prepareParameters(final ExpressionFunction<?, ? extends ExpressionEvaluationContext> function,
                                            final List<Object> parameters) {
         return ExpressionEvaluationContextPrepareParametersList.with(
-                function.parameters(parameters.size()),
-                parameters,
-                this
+            function.parameters(parameters.size()),
+            parameters,
+            this
         );
     }
 
@@ -151,8 +151,8 @@ public interface ExpressionEvaluationContext extends Context,
         try {
             final Supplier<ExpressionEvaluationException> thrower = () -> this.referenceNotFound(reference);
             result = this.reference(reference)
-                    .orElseThrow(thrower)
-                    .orElseThrow(thrower);
+                .orElseThrow(thrower)
+                .orElseThrow(thrower);
         } catch (final RuntimeException exception) {
             result = this.handleException(exception);
         }
@@ -165,7 +165,7 @@ public interface ExpressionEvaluationContext extends Context,
      */
     default ExpressionEvaluationException referenceNotFound(final ExpressionReference reference) {
         return ExpressionEvaluationContexts.referenceNotFound()
-                .apply(reference);
+            .apply(reference);
     }
 
     /**

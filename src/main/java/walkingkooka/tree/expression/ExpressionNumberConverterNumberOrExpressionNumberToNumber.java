@@ -62,14 +62,14 @@ final class ExpressionNumberConverterNumberOrExpressionNumberToNumber<C extends 
                                                   final Class<T> type,
                                                   final C context) {
         return Number.class == type ?
-                this.successfulConversion(
-                        value.value(),
-                        type
-                ) :
-                this.failConversion(
-                        value,
-                        type
-                );
+            this.successfulConversion(
+                value.value(),
+                type
+            ) :
+            this.failConversion(
+                value,
+                type
+            );
     }
 
     @Override //
@@ -78,14 +78,14 @@ final class ExpressionNumberConverterNumberOrExpressionNumberToNumber<C extends 
                                                      final C context) {
         // short cut if value is Expression
         return Number.class == type ?
-                this.successfulConversion(
-                        value,
-                        type
-                ) :
-                this.failConversion(
-                        value,
-                        type
-                );
+            this.successfulConversion(
+                value,
+                type
+            ) :
+            this.failConversion(
+                value,
+                type
+            );
     }
 
     @Override

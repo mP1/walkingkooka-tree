@@ -28,7 +28,7 @@ import walkingkooka.tree.expression.function.ExpressionFunctionParameterName;
  * The {@link Name} of a namedFunction.
  */
 final public class NodeSelectorFunctionName extends NodeSelectorNameValue
-        implements ExpressionReference, Comparable<NodeSelectorFunctionName> {
+    implements ExpressionReference, Comparable<NodeSelectorFunctionName> {
 
     final static CharPredicate INITIAL = CharPredicates.range('A', 'Z').or(CharPredicates.range('a', 'z'));
 

@@ -33,11 +33,11 @@ import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class ExpressionFunctionParameterValuesParametersTest extends ExpressionFunctionTestCase<ExpressionFunctionParameterValuesParameters<Object, ExpressionEvaluationContext>,
-        ExpressionEvaluationContext,
-        Object> {
+    ExpressionEvaluationContext,
+    Object> {
 
     private final static List<ExpressionFunctionParameter<?>> PARAMETERS = Lists.of(
-            ExpressionFunctionParameter.CHARACTER
+        ExpressionFunctionParameter.CHARACTER
     );
 
     private final static ExpressionFunction<Object, ExpressionEvaluationContext> FUNCTION = new FakeExpressionFunction<>() {
@@ -46,8 +46,8 @@ public final class ExpressionFunctionParameterValuesParametersTest extends Expre
         public Object apply(final List<Object> parameters,
                             final ExpressionEvaluationContext context) {
             return parameters.stream()
-                    .map(p -> p.toString().toUpperCase())
-                    .collect(Collectors.joining(","));
+                .map(p -> p.toString().toUpperCase())
+                .collect(Collectors.joining(","));
         }
 
         @Override
@@ -63,56 +63,56 @@ public final class ExpressionFunctionParameterValuesParametersTest extends Expre
         @Override
         public List<ExpressionFunctionParameter<?>> parameters(final int count) {
             return Lists.of(
-                    ExpressionFunctionParameterName.with("parameter1")
-                            .required(String.class)
+                ExpressionFunctionParameterName.with("parameter1")
+                    .required(String.class)
             );
         }
     };
 
     private final static Optional<ExpressionFunctionName> NAME = Optional.of(
-            ExpressionFunctionName.with("custom-namedFunction")
+        ExpressionFunctionName.with("custom-namedFunction")
     );
 
     @Test
     public void testWithNullParametersFails() {
         assertThrows(
-                NullPointerException.class,
-                () -> ExpressionFunctionParameterValuesParameters.with(
-                        null,
-                        FUNCTION
-                )
+            NullPointerException.class,
+            () -> ExpressionFunctionParameterValuesParameters.with(
+                null,
+                FUNCTION
+            )
         );
     }
 
     @Test
     public void testWithNullFunctionFails() {
         assertThrows(
-                NullPointerException.class,
-                () -> ExpressionFunctionParameterValuesParameters.with(
-                        PARAMETERS,
-                        null
-                )
+            NullPointerException.class,
+            () -> ExpressionFunctionParameterValuesParameters.with(
+                PARAMETERS,
+                null
+            )
         );
     }
 
     @Test
     public void testApply() {
         this.applyAndCheck(
-                Lists.of(
-                        "aaa", // toUpperCase()
-                        "bbb",
-                        3,
-                        "ddd"
-                ),
-                "AAA,BBB,3,DDD"
+            Lists.of(
+                "aaa", // toUpperCase()
+                "bbb",
+                3,
+                "ddd"
+            ),
+            "AAA,BBB,3,DDD"
         );
     }
 
     @Test
     public void testName() {
         this.checkEquals(
-                NAME,
-                this.createBiFunction().name()
+            NAME,
+            this.createBiFunction().name()
         );
     }
 
@@ -121,18 +121,18 @@ public final class ExpressionFunctionParameterValuesParametersTest extends Expre
         final ExpressionFunctionParameterValuesParameters<Object, ExpressionEvaluationContext> function = this.createBiFunction();
 
         assertSame(
-                function,
-                function.setParameters(
-                        PARAMETERS
-                )
+            function,
+            function.setParameters(
+                PARAMETERS
+            )
         );
     }
 
     @Test
     public void testParameters() {
         assertSame(
-                PARAMETERS,
-                this.createBiFunction().parameters(0)
+            PARAMETERS,
+            this.createBiFunction().parameters(0)
         );
     }
 
@@ -141,8 +141,8 @@ public final class ExpressionFunctionParameterValuesParametersTest extends Expre
     @Override
     public ExpressionFunctionParameterValuesParameters<Object, ExpressionEvaluationContext> createBiFunction() {
         return ExpressionFunctionParameterValuesParameters.with(
-                PARAMETERS,
-                FUNCTION
+            PARAMETERS,
+            FUNCTION
         );
     }
 
@@ -161,9 +161,9 @@ public final class ExpressionFunctionParameterValuesParametersTest extends Expre
     @Test
     public void testToString() {
         this.toStringAndCheck(
-                this.createBiFunction(),
-                NAME.get()
-                        .toString()
+            this.createBiFunction(),
+            NAME.get()
+                .toString()
         );
     }
 

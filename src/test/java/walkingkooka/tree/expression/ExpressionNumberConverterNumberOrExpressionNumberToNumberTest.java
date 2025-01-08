@@ -31,77 +31,77 @@ public final class ExpressionNumberConverterNumberOrExpressionNumberToNumberTest
     @Test
     public void testConvertExpressionNumberToByteFails() {
         this.convertFromExpressionNumberAndFails(
-                (byte) 123
+            (byte) 123
         );
     }
 
     @Test
     public void testConvertExpressionNumberToShortFails() {
         this.convertFromExpressionNumberAndFails(
-                (short) 123
+            (short) 123
         );
     }
 
     @Test
     public void testConvertExpressionNumberToIntegerFails() {
         this.convertFromExpressionNumberAndFails(
-                123
+            123
         );
     }
 
     @Test
     public void testConvertExpressionNumberToLongFails() {
         this.convertFromExpressionNumberAndFails(
-                123L
+            123L
         );
     }
 
     @Test
     public void testConvertExpressionNumberToFloatFails() {
         this.convertFromExpressionNumberAndFails(
-                123.5f
+            123.5f
         );
     }
 
     @Test
     public void testConvertExpressionNumberToDoubleFails() {
         this.convertFromExpressionNumberAndFails(
-                123.0
+            123.0
         );
     }
 
     @Test
     public void testConvertExpressionNumberToBigIntegerFails() {
         this.convertFromExpressionNumberAndFails(
-                BigInteger.valueOf(123)
+            BigInteger.valueOf(123)
         );
     }
 
     @Test
     public void testConvertExpressionNumberToBigDecimalFails() {
         this.convertFromExpressionNumberAndFails(
-                BigDecimal.valueOf(123.5)
+            BigDecimal.valueOf(123.5)
         );
     }
 
     @Test
     public void testConvertExpressionNumberToExpressionNumberBigDecimalFails() {
         this.convertFromExpressionNumberAndFails(
-                ExpressionNumberKind.BIG_DECIMAL.one()
+            ExpressionNumberKind.BIG_DECIMAL.one()
         );
     }
 
     @Test
     public void testConvertExpressionNumberToExpressionNumberDoubleFails() {
         this.convertFromExpressionNumberAndFails(
-                ExpressionNumberKind.DOUBLE.one()
+            ExpressionNumberKind.DOUBLE.one()
         );
     }
 
     private void convertFromExpressionNumberAndFails(final Number value) {
         this.convertFails(
-                value,
-                value.getClass()
+            value,
+            value.getClass()
         );
     }
 
@@ -110,65 +110,65 @@ public final class ExpressionNumberConverterNumberOrExpressionNumberToNumberTest
     @Test
     public void testConvertByteToNumber() {
         this.convertFromNumberToNumberAndCheck(
-                (byte) 123
+            (byte) 123
         );
     }
 
     @Test
     public void testConvertShortToNumber() {
         this.convertFromNumberToNumberAndCheck(
-                (short) 123
+            (short) 123
         );
     }
 
     @Test
     public void testConvertIntegerToNumber() {
         this.convertFromNumberToNumberAndCheck(
-                123
+            123
         );
     }
 
     @Test
     public void testConvertLongToNumber() {
         this.convertFromNumberToNumberAndCheck(
-                123L
+            123L
         );
     }
 
     @Test
     public void testConvertFloatToNumber() {
         this.convertFromNumberToNumberAndCheck(
-                123.5f
+            123.5f
         );
     }
 
     @Test
     public void testConvertDoubleToNumber() {
         this.convertFromNumberToNumberAndCheck(
-                123.0
+            123.0
         );
     }
 
     @Test
     public void testConvertBigIntegerToNumber() {
         this.convertFromNumberToNumberAndCheck(
-                BigInteger.valueOf(123)
+            BigInteger.valueOf(123)
         );
     }
 
     @Test
     public void testConvertBigDecimalToNumber() {
         this.convertFromNumberToNumberAndCheck(
-                BigDecimal.valueOf(123.5)
+            BigDecimal.valueOf(123.5)
         );
     }
 
     private void convertFromNumberToNumberAndCheck(final Number expected) {
         this.convertAndCheck(
-                expected,
-                Number.class,
-                this.createContext(),
-                expected
+            expected,
+            Number.class,
+            this.createContext(),
+            expected
         );
     }
 
@@ -177,9 +177,9 @@ public final class ExpressionNumberConverterNumberOrExpressionNumberToNumberTest
         final BigDecimal value = BigDecimal.ONE;
 
         this.convertAndCheck(
-                ExpressionNumberKind.BIG_DECIMAL.create(value),
-                Number.class,
-                value
+            ExpressionNumberKind.BIG_DECIMAL.create(value),
+            Number.class,
+            value
         );
     }
 
@@ -188,9 +188,9 @@ public final class ExpressionNumberConverterNumberOrExpressionNumberToNumberTest
         final double value = 1.5;
 
         this.convertAndCheck(
-                ExpressionNumberKind.DOUBLE.create(value),
-                Number.class,
-                value
+            ExpressionNumberKind.DOUBLE.create(value),
+            Number.class,
+            value
         );
     }
 
@@ -209,8 +209,8 @@ public final class ExpressionNumberConverterNumberOrExpressionNumberToNumberTest
     @Test
     public void testToString() {
         this.toStringAndCheck(
-                this.createConverter(),
-                "ExpressionNumber or Number to Number"
+            this.createConverter(),
+            "ExpressionNumber or Number to Number"
         );
     }
 }

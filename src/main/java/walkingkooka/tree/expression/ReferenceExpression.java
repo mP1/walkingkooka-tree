@@ -50,14 +50,14 @@ public final class ReferenceExpression extends LeafExpression<ExpressionReferenc
 
     public ReferenceExpression setValue(final ExpressionReference value) {
         return Objects.equals(this.value(), value) ?
-                this :
-                this.replaceValue(value);
+            this :
+            this.replaceValue(value);
     }
 
     private ReferenceExpression replaceValue(final ExpressionReference value) {
         return this.replace1(this.index, value)
-                .replaceChild(this.parent())
-                .cast();
+            .replaceChild(this.parent())
+            .cast();
     }
 
     @Override
@@ -120,8 +120,8 @@ public final class ReferenceExpression extends LeafExpression<ExpressionReferenc
     private <T> T toValueAndConvert(final ExpressionEvaluationContext context,
                                     final Class<T> type) {
         return context.convertOrFail(
-                context.referenceOrFail(this.value),
-                type
+            context.referenceOrFail(this.value),
+            type
         );
     }
 

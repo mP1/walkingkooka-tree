@@ -47,7 +47,7 @@ public abstract class ExpressionNumber extends Number implements Comparable<Expr
      */
     public static boolean isClass(final Class<?> value) {
         return (null != value && Maths.isNumberClass(value)) ||
-                isExpressionNumberAndNotNumber(value);
+            isExpressionNumberAndNotNumber(value);
     }
 
     /**
@@ -100,8 +100,8 @@ public abstract class ExpressionNumber extends Number implements Comparable<Expr
         Objects.requireNonNull(kind, "kind");
 
         return ExpressionNumberKind.BIG_DECIMAL == kind ?
-                this.setKindBigDecimal() :
-                this.setKindDouble();
+            this.setKindBigDecimal() :
+            this.setKindDouble();
     }
 
     abstract ExpressionNumberBigDecimal setKindBigDecimal();
@@ -195,10 +195,10 @@ public abstract class ExpressionNumber extends Number implements Comparable<Expr
     public final ExpressionNumber log(final ExpressionNumber base,
                                       final ExpressionNumberContext context) {
         return this.ln(context)
-                .divide(
-                        base.ln(context),
-                        context
-                );
+            .divide(
+                base.ln(context),
+                context
+            );
     }
 
     // max..............................................................................................................
@@ -220,7 +220,7 @@ public abstract class ExpressionNumber extends Number implements Comparable<Expr
     }
 
     abstract ExpressionNumber min0(final ExpressionNumber value);
-    
+
     // modulo..............................................................................................................
 
     public final ExpressionNumber modulo(final ExpressionNumber value, final ExpressionNumberContext context) {
@@ -365,7 +365,7 @@ public abstract class ExpressionNumber extends Number implements Comparable<Expr
     @Override
     public final boolean equals(final Object other) {
         return this == other ||
-                this.canBeEqual(other) && CompareResult.EQ.test(this.compareTo((ExpressionNumber) other));
+            this.canBeEqual(other) && CompareResult.EQ.test(this.compareTo((ExpressionNumber) other));
     }
 
     abstract boolean canBeEqual(final Object other);

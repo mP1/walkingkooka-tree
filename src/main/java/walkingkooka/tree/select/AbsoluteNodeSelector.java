@@ -29,8 +29,8 @@ import java.util.Objects;
  * A {@link NodeSelector} that begins the search at the root of the graph.
  */
 final class AbsoluteNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NAME extends Name, ANAME extends Name, AVALUE>
-        extends
-        AbsoluteOrAxisNodeSelector<N, NAME, ANAME, AVALUE> {
+    extends
+    AbsoluteOrAxisNodeSelector<N, NAME, ANAME, AVALUE> {
 
     /**
      * Type safe {@link AbsoluteNodeSelector} getter
@@ -53,10 +53,10 @@ final class AbsoluteNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NAME ex
     NodeSelector<N, NAME, ANAME, AVALUE> append1(final NodeSelector<N, NAME, ANAME, AVALUE> selector) {
         // no point appending a descending to a absolute, as it already is a absolute search start...
         return selector instanceof AbsoluteNodeSelector ?
-                this :
-                selector instanceof DescendantNodeSelector ?
-                        selector :
-                        new AbsoluteNodeSelector<>(selector);
+            this :
+            selector instanceof DescendantNodeSelector ?
+                selector :
+                new AbsoluteNodeSelector<>(selector);
     }
 
     @Override

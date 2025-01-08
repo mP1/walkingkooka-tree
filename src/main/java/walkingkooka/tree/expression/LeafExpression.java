@@ -57,7 +57,7 @@ abstract class LeafExpression<V> extends Expression implements Value<V> {
     public final Expression setChildren(final List<Expression> children) {
         Objects.requireNonNull(children, "children");
 
-        if(false == children.isEmpty()) {
+        if (false == children.isEmpty()) {
             throw new UnsupportedOperationException();
         }
 
@@ -102,7 +102,7 @@ abstract class LeafExpression<V> extends Expression implements Value<V> {
     @Override //
     final boolean equalsIgnoringChildren(final Expression other) {
         return other instanceof LeafExpression &&
-                equalsChildren0(Cast.to(other));
+            equalsChildren0(Cast.to(other));
     }
 
     private boolean equalsChildren0(final LeafExpression<?> other) {

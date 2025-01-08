@@ -31,9 +31,9 @@ import java.util.Iterator;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class TraversableIteratorTest implements ClassTesting2<TraversableIterator<TestNode>>,
-        IteratorTesting,
-        ToStringTesting<TraversableIterator<TestNode>>,
-        TypeNameTesting<TraversableIterator<TestNode>> {
+    IteratorTesting,
+    ToStringTesting<TraversableIterator<TestNode>>,
+    TypeNameTesting<TraversableIterator<TestNode>> {
 
     @BeforeEach
     public void beforeEachTest() {
@@ -50,40 +50,40 @@ public final class TraversableIteratorTest implements ClassTesting2<TraversableI
     @Test
     public void testOnlyChildrenNoSiblings() {
         final TestNode parent = TestNode.with("parent",
-                TestNode.with("child1"),
-                TestNode.with("child2"),
-                TestNode.with("child3"));
+            TestNode.with("child1"),
+            TestNode.with("child2"),
+            TestNode.with("child3"));
         this.iterateAndCheck(parent.traversableIterator(),
-                parent,
-                parent.child(0),
-                parent.child(1),
-                parent.child(2));
+            parent,
+            parent.child(0),
+            parent.child(1),
+            parent.child(2));
         this.iterateUsingHasNextAndCheck(parent.traversableIterator(),
-                parent,
-                parent.child(0),
-                parent.child(1),
-                parent.child(2));
+            parent,
+            parent.child(0),
+            parent.child(1),
+            parent.child(2));
     }
 
     @Test
     public void testOnlyChildrenNoSiblingsIgnoresParent() {
         final TestNode root = TestNode.with("root", TestNode.with("parent",
-                TestNode.with("child1"),
-                TestNode.with("child2"),
-                TestNode.with("child3")));
+            TestNode.with("child1"),
+            TestNode.with("child2"),
+            TestNode.with("child3")));
 
         final TestNode parent = root.child(0);
 
         this.iterateAndCheck(parent.traversableIterator(),
-                parent,
-                parent.child(0),
-                parent.child(1),
-                parent.child(2));
+            parent,
+            parent.child(0),
+            parent.child(1),
+            parent.child(2));
         this.iterateUsingHasNextAndCheck(parent.traversableIterator(),
-                parent,
-                parent.child(0),
-                parent.child(1),
-                parent.child(2));
+            parent,
+            parent.child(0),
+            parent.child(1),
+            parent.child(2));
     }
 
     @Test
@@ -98,15 +98,15 @@ public final class TraversableIteratorTest implements ClassTesting2<TraversableI
         TestNode.with("root", beforeSibling, parent, afterSibling);
 
         this.iterateAndCheck(parent.traversableIterator(),
-                parent,
-                parent.child(0),
-                parent.child(1),
-                parent.child(2));
+            parent,
+            parent.child(0),
+            parent.child(1),
+            parent.child(2));
         this.iterateUsingHasNextAndCheck(parent.traversableIterator(),
-                parent,
-                parent.child(0),
-                parent.child(1),
-                parent.child(2));
+            parent,
+            parent.child(0),
+            parent.child(1),
+            parent.child(2));
     }
 
     @Test
@@ -120,46 +120,46 @@ public final class TraversableIteratorTest implements ClassTesting2<TraversableI
     @Test
     public void testWithGrandChildren2() {
         final TestNode parent = TestNode.with("parent",
-                TestNode.with("child1", TestNode.with("grandChild1")),
-                TestNode.with("child2", TestNode.with("grandChild2")));
+            TestNode.with("child1", TestNode.with("grandChild1")),
+            TestNode.with("child2", TestNode.with("grandChild2")));
 
         this.iterateAndCheck(parent.traversableIterator(),
-                parent,
-                parent.child(0),
-                parent.child(0).child(0),
-                parent.child(1),
-                parent.child(1).child(0));
+            parent,
+            parent.child(0),
+            parent.child(0).child(0),
+            parent.child(1),
+            parent.child(1).child(0));
         this.iterateUsingHasNextAndCheck(parent.traversableIterator(),
-                parent,
-                parent.child(0),
-                parent.child(0).child(0),
-                parent.child(1),
-                parent.child(1).child(0));
+            parent,
+            parent.child(0),
+            parent.child(0).child(0),
+            parent.child(1),
+            parent.child(1).child(0));
     }
 
     @Test
     public void testWithGrandChildren3() {
         final TestNode parent = TestNode.with("parent",
-                TestNode.with("child1", TestNode.with("grandChild1A"), TestNode.with("grandChild1B")),
-                TestNode.with("child2", TestNode.with("grandChild2")),
-                TestNode.with("child3"));
+            TestNode.with("child1", TestNode.with("grandChild1A"), TestNode.with("grandChild1B")),
+            TestNode.with("child2", TestNode.with("grandChild2")),
+            TestNode.with("child3"));
 
         this.iterateAndCheck(parent.traversableIterator(),
-                parent,
-                parent.child(0),
-                parent.child(0).child(0),
-                parent.child(0).child(1),
-                parent.child(1),
-                parent.child(1).child(0),
-                parent.child(2));
+            parent,
+            parent.child(0),
+            parent.child(0).child(0),
+            parent.child(0).child(1),
+            parent.child(1),
+            parent.child(1).child(0),
+            parent.child(2));
         this.iterateUsingHasNextAndCheck(parent.traversableIterator(),
-                parent,
-                parent.child(0),
-                parent.child(0).child(0),
-                parent.child(0).child(1),
-                parent.child(1),
-                parent.child(1).child(0),
-                parent.child(2));
+            parent,
+            parent.child(0),
+            parent.child(0).child(0),
+            parent.child(0).child(1),
+            parent.child(1),
+            parent.child(1).child(0),
+            parent.child(2));
     }
 
     @Test

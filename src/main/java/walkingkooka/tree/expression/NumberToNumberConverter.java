@@ -46,10 +46,10 @@ final class NumberToNumberConverter<C extends ExpressionNumberConverterContext> 
                               final Class<?> type,
                               final C context) {
         return ExpressionNumber.is(value) &&
-                (
-                        ExpressionNumber.isClass(type) ||
-                                Number.class == type
-                );
+            (
+                ExpressionNumber.isClass(type) ||
+                    Number.class == type
+            );
     }
 
     @Override
@@ -60,8 +60,8 @@ final class NumberToNumberConverter<C extends ExpressionNumberConverterContext> 
 
         if (value.getClass() == type || Number.class == type) {
             result = this.successfulConversion(
-                    value,
-                    type
+                value,
+                type
             );
         } else {
             if (ExpressionNumber.is(value) && ExpressionNumber.isClass(type)) {
@@ -69,18 +69,18 @@ final class NumberToNumberConverter<C extends ExpressionNumberConverterContext> 
                     // Number -> Number
                     if (Maths.isNumberClass(type)) {
                         result = this.numberToNumber.convert(
-                                value,
-                                type,
-                                context
+                            value,
+                            type,
+                            context
                         );
                     } else {
                         // Number -> ExpressionNumber
                         result = this.successfulConversion(
-                                context.expressionNumberKind()
-                                        .create(
-                                                (Number) value
-                                        ),
-                                type
+                            context.expressionNumberKind()
+                                .create(
+                                    (Number) value
+                                ),
+                            type
                         );
                     }
 
@@ -90,25 +90,25 @@ final class NumberToNumberConverter<C extends ExpressionNumberConverterContext> 
                         final ExpressionNumber expressionNumber = (ExpressionNumber) value;
 
                         result = this.numberToNumber.convert(
-                                expressionNumber.value(),
-                                type,
-                                context
+                            expressionNumber.value(),
+                            type,
+                            context
                         );
                     } else {
                         // ExpressionNumber -> ExpressionNumber
                         result = this.successfulConversion(
-                                context.expressionNumberKind()
-                                        .create(
-                                                (Number) value
-                                        ),
-                                type
+                            context.expressionNumberKind()
+                                .create(
+                                    (Number) value
+                                ),
+                            type
                         );
                     }
                 }
             } else {
                 result = this.failConversion(
-                        value,
-                        type
+                    value,
+                    type
                 );
             }
         }

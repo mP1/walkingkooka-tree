@@ -89,8 +89,8 @@ final class NodePointerRelative<N extends Node<N, NAME, ?, ?>, NAME extends Name
     @Override
     N remove0(final N node) {
         return this.traverseOrFail(node)
-                .parentWithout()
-                .orElseThrow(() -> new NodePointerException("Unable to remove " + this + " from " + node));
+            .parentWithout()
+            .orElseThrow(() -> new NodePointerException("Unable to remove " + this + " from " + node));
     }
 
     // NodePointerVisitor.............................................................................................
@@ -122,7 +122,7 @@ final class NodePointerRelative<N extends Node<N, NAME, ?, ?>, NAME extends Name
 
     private boolean equals2(final NodePointerRelative<?, ?> other) {
         return this.ancestorCount == other.ancestorCount &&
-                this.hash == other.hash;
+            this.hash == other.hash;
     }
 
     @Override

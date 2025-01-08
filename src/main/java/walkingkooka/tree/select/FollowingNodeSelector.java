@@ -27,8 +27,8 @@ import walkingkooka.visit.Visiting;
  * siblings and their ancestors.
  */
 final class FollowingNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NAME extends Name, ANAME extends Name, AVALUE>
-        extends
-        AxisNodeSelector<N, NAME, ANAME, AVALUE> {
+    extends
+    AxisNodeSelector<N, NAME, ANAME, AVALUE> {
 
     /**
      * Type safe {@link FollowingNodeSelector} getter
@@ -51,8 +51,8 @@ final class FollowingNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NAME e
     NodeSelector<N, NAME, ANAME, AVALUE> append1(final NodeSelector<N, NAME, ANAME, AVALUE> selector) {
         // no point appending a following to another...
         return selector instanceof FollowingNodeSelector ?
-                this :
-                new FollowingNodeSelector<>(selector);
+            this :
+            new FollowingNodeSelector<>(selector);
     }
 
     @Override

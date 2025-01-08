@@ -30,8 +30,7 @@ abstract class VariableExpression extends ParentExpression implements Value<List
         super(index, expressions);
     }
 
-    @Override
-    final void replaceChildrenCheck(final List<Expression> children) {
+    @Override final void replaceChildrenCheck(final List<Expression> children) {
         // nothing to check
     }
 

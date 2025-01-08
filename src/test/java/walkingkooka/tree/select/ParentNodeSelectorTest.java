@@ -29,7 +29,7 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertSame;
 
 final public class ParentNodeSelectorTest extends
-        AxisNodeSelectorTestCase<ParentNodeSelector<TestNode, StringName, StringName, Object>> {
+    AxisNodeSelectorTestCase<ParentNodeSelector<TestNode, StringName, StringName, Object>> {
 
     @Test
     public void testParentRoot() {
@@ -75,21 +75,21 @@ final public class ParentNodeSelectorTest extends
     @Test
     public void testParentFilter() {
         final TestNode parent = TestNode.with("parent",
-                TestNode.with("child1"),
-                TestNode.with("child2"));
+            TestNode.with("child1"),
+            TestNode.with("child2"));
 
         this.applyFilterAndCheck(TestNode.relativeNodeSelector()
-                        .children()
-                        .parent(),
-                parent.child(0),
-                (n) -> !n.name().value().equals("parent"));
+                .children()
+                .parent(),
+            parent.child(0),
+            (n) -> !n.name().value().equals("parent"));
     }
 
     @Test
     public void testParentFinishedTrue() {
         this.applyFinisherAndCheck(this.createSelector(),
-                TestNode.with("parent", TestNode.with("child")).child(0),
-                () -> true);
+            TestNode.with("parent", TestNode.with("child")).child(0),
+            () -> true);
     }
 
     @Test
@@ -99,9 +99,9 @@ final public class ParentNodeSelectorTest extends
         final TestNode grandParent = TestNode.with("grandParent", parent);
 
         this.applyFinisherAndCheck(this.createSelector(),
-                grandParent.child(0).child(0), // child
-                1,
-                parent);
+            grandParent.child(0).child(0), // child
+            1,
+            parent);
     }
 
     @Test
@@ -111,9 +111,9 @@ final public class ParentNodeSelectorTest extends
         final TestNode grandParent = TestNode.with("grandParent", parent);
 
         this.applyFinisherAndCheck(this.createSelector(),
-                grandParent.child(0).child(0), // child
-                2,
-                parent);
+            grandParent.child(0).child(0), // child
+            2,
+            parent);
     }
 
     @Test
@@ -123,8 +123,8 @@ final public class ParentNodeSelectorTest extends
         TestNode.clear();
 
         this.acceptMapAndCheck(parent.child(0),
-                TestNode.with("parent*0", TestNode.with("child"))
-                        .child(0));
+            TestNode.with("parent*0", TestNode.with("child"))
+                .child(0));
     }
 
     @Test
@@ -186,10 +186,10 @@ final public class ParentNodeSelectorTest extends
         this.checkEquals("1315242", b.toString());
 
         this.checkEquals(Lists.of(selector, selector,
-                        next, next, next,
-                        selector, selector),
-                visited,
-                "visited");
+                next, next, next,
+                selector, selector),
+            visited,
+            "visited");
     }
 
     // Object.......................................................................................................

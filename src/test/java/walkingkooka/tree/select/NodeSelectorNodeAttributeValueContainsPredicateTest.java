@@ -25,7 +25,7 @@ import walkingkooka.tree.TestNode;
 import java.util.Collections;
 
 public class NodeSelectorNodeAttributeValueContainsPredicateTest
-        extends NodeSelectorNodeAttributeValuePredicateTestCase<NodeSelectorNodeAttributeValueContainsPredicate<TestNode, StringName, StringName, Object>> {
+    extends NodeSelectorNodeAttributeValuePredicateTestCase<NodeSelectorNodeAttributeValueContainsPredicate<TestNode, StringName, StringName, Object>> {
 
     @Test
     public void testContains() {

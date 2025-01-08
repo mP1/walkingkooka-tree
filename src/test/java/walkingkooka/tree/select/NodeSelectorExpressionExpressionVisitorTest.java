@@ -34,10 +34,10 @@ public final class NodeSelectorExpressionExpressionVisitorTest implements Expres
     @Test
     public void testAcceptExpressionIgnored() {
         this.acceptExpressionAndCheck(
-                Expression.add(
-                        number(1),
-                        number(2)
-                )
+            Expression.add(
+                number(1),
+                number(2)
+            )
         );
     }
 
@@ -54,24 +54,24 @@ public final class NodeSelectorExpressionExpressionVisitorTest implements Expres
     public void testAcceptExpressionBooleanTrue() {
         final NodeSelector<TestNode, StringName, StringName, Object> selector = this.selector();
         this.acceptExpressionAndCheck(selector,
-                Expression.value(true),
-                selector.setToString(selector + "[true()]"));
+            Expression.value(true),
+            selector.setToString(selector + "[true()]"));
     }
 
     private void acceptExpressionAndCheck(final Expression expression) {
         final NodeSelector<TestNode, StringName, StringName, Object> selector = this.selector();
 
         this.acceptExpressionAndCheck(selector,
-                expression,
-                selector.append(ExpressionNodeSelector.with(expression)));
+            expression,
+            selector.append(ExpressionNodeSelector.with(expression)));
     }
 
     private void acceptExpressionAndCheck(final NodeSelector<TestNode, StringName, StringName, Object> selector,
                                           final Expression expression,
                                           final NodeSelector<TestNode, StringName, StringName, Object> expected) {
         this.checkEquals(expected,
-                NodeSelectorExpressionExpressionVisitor.acceptExpression(expression, selector),
-                () -> "expression=" + expression + " selector: " + selector);
+            NodeSelectorExpressionExpressionVisitor.acceptExpression(expression, selector),
+            () -> "expression=" + expression + " selector: " + selector);
     }
 
     @Test
@@ -86,7 +86,7 @@ public final class NodeSelectorExpressionExpressionVisitorTest implements Expres
 
     private NodeSelector<TestNode, StringName, StringName, Object> selector() {
         return TestNode.relativeNodeSelector()
-                .named(Names.string("abc123"));
+            .named(Names.string("abc123"));
     }
 
     @Override

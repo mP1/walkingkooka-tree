@@ -73,11 +73,11 @@ public final class MultiplyExpressionTest extends ArithmeticExpressionTestCase2<
         }.accept(mul);
         this.checkEquals("1315215242", b.toString());
         this.checkEquals(Lists.of(mul, mul,
-                        text1, text1, text1,
-                        text2, text2, text2,
-                        mul, mul),
-                visited,
-                "visited");
+                text1, text1, text1,
+                text2, text2, text2,
+                mul, mul),
+            visited,
+            "visited");
     }
 
     // toBoolean...............................................................................................

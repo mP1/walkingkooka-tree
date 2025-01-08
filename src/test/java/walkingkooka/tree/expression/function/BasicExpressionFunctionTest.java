@@ -35,61 +35,61 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 public final class BasicExpressionFunctionTest implements ExpressionFunctionTesting<BasicExpressionFunction<String, FakeExpressionEvaluationContext>, String, FakeExpressionEvaluationContext> {
 
     private final static Optional<ExpressionFunctionName> NAME = Optional.of(
-            ExpressionFunctionName.with("test123")
+        ExpressionFunctionName.with("test123")
     );
 
     private final static boolean PURE = true;
 
     private final static ExpressionFunctionParameter<String> PARAMETER = ExpressionFunctionParameterName.with("param-0").variable(String.class);
     private final static IntFunction<List<ExpressionFunctionParameter<?>>> PARAMETERS = (n) -> Lists.of(
-            PARAMETER
+        PARAMETER
     );
     private final static Class<String> RETURN = String.class;
     private final static BiFunction<List<Object>, FakeExpressionEvaluationContext, String> BIF = (p, c) ->
-            PARAMETER.getVariable(p, 0)
-                    .toString();
+        PARAMETER.getVariable(p, 0)
+            .toString();
 
     @Test
     public void testWithNullNameFails() {
         this.withFails(
-                null,
-                PURE,
-                PARAMETERS,
-                RETURN,
-                BIF
+            null,
+            PURE,
+            PARAMETERS,
+            RETURN,
+            BIF
         );
     }
 
     @Test
     public void testWithNullParametersFails() {
         this.withFails(
-                NAME,
-                PURE,
-                null,
-                RETURN,
-                BIF
+            NAME,
+            PURE,
+            null,
+            RETURN,
+            BIF
         );
     }
 
     @Test
     public void testWithNullReturnTypeFails() {
         this.withFails(
-                NAME,
-                PURE,
-                PARAMETERS,
-                null,
-                BIF
+            NAME,
+            PURE,
+            PARAMETERS,
+            null,
+            BIF
         );
     }
 
     @Test
     public void testWithNullBiFFails() {
         this.withFails(
-                NAME,
-                PURE,
-                PARAMETERS,
-                RETURN,
-                null
+            NAME,
+            PURE,
+            PARAMETERS,
+            RETURN,
+            null
         );
     }
 
@@ -99,14 +99,14 @@ public final class BasicExpressionFunctionTest implements ExpressionFunctionTest
                            final Class<String> returnType,
                            final BiFunction<List<Object>, FakeExpressionEvaluationContext, String> biFunction) {
         assertThrows(
-                NullPointerException.class,
-                () -> BasicExpressionFunction.with(
-                        name,
-                        pure,
-                        parameters,
-                        returnType,
-                        biFunction
-                )
+            NullPointerException.class,
+            () -> BasicExpressionFunction.with(
+                name,
+                pure,
+                parameters,
+                returnType,
+                biFunction
+            )
         );
     }
 
@@ -120,7 +120,7 @@ public final class BasicExpressionFunctionTest implements ExpressionFunctionTest
     public void testSetNameDifferent() {
         final BasicExpressionFunction<String, FakeExpressionEvaluationContext> function = this.createBiFunction();
         final Optional<ExpressionFunctionName> different = Optional.of(
-                ExpressionFunctionName.with("different")
+            ExpressionFunctionName.with("different")
         );
         final ExpressionFunction<String, FakeExpressionEvaluationContext> differentFunction = function.setName(different);
 
@@ -132,37 +132,37 @@ public final class BasicExpressionFunctionTest implements ExpressionFunctionTest
     @Test
     public void testApply() {
         this.applyAndCheck(
-                Lists.of(1, 2.0),
-                "[1, 2.0]"
+            Lists.of(1, 2.0),
+            "[1, 2.0]"
         );
     }
 
     @Test
     public void testToString() {
         this.toStringAndCheck(
-                this.createBiFunction(),
-                NAME.get()
-                        .toString()
+            this.createBiFunction(),
+            NAME.get()
+                .toString()
         );
     }
 
     @Test
     public void testToStringAnonymous() {
         this.toStringAndCheck(
-                this.createBiFunction()
-                        .setName(Optional.empty()),
-                "<anonymous>"
+            this.createBiFunction()
+                .setName(Optional.empty()),
+            "<anonymous>"
         );
     }
 
     @Override
     public BasicExpressionFunction<String, FakeExpressionEvaluationContext> createBiFunction() {
         return BasicExpressionFunction.with(
-                NAME,
-                PURE,
-                PARAMETERS,
-                RETURN,
-                BIF
+            NAME,
+            PURE,
+            PARAMETERS,
+            RETURN,
+            BIF
         );
     }
 

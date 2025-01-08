@@ -58,17 +58,16 @@ abstract class ParentExpression extends Expression {
 
         final List<Expression> copy = Lists.immutable(children);
         return Lists.equals(this.children(), copy, (first, other) -> first.equals(other)) ?
-                this :
-                this.replaceChildren(copy);
+            this :
+            this.replaceChildren(copy);
     }
 
-    @Override
-    final Expression setChild(final Expression newChild) {
+    @Override final Expression setChild(final Expression newChild) {
         final int index = newChild.index();
 
         return this.children().get(index).equals(newChild) ?
-                this :
-                this.replaceChild0(newChild, index);
+            this :
+            this.replaceChild0(newChild, index);
     }
 
     private Expression replaceChild0(final Expression newChild, final int index) {
@@ -82,14 +81,13 @@ abstract class ParentExpression extends Expression {
     private ParentExpression replaceChildren(final List<Expression> children) {
         this.replaceChildrenCheck(children);
         return this.replace0(this.index, children)
-                .replaceChild(this.parent())
-                .cast();
+            .replaceChild(this.parent())
+            .cast();
     }
 
     abstract void replaceChildrenCheck(final List<Expression> children);
 
-    @Override
-    final Expression replace(final int index) {
+    @Override final Expression replace(final int index) {
         return this.replace0(index, this.children());
     }
 
@@ -150,8 +148,7 @@ abstract class ParentExpression extends Expression {
         return this.children().hashCode();
     }
 
-    @Override
-    final boolean equalsChildren(final Expression other) {
+    @Override final boolean equalsChildren(final Expression other) {
         return this.children.equals(other.children());
     }
 }

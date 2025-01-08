@@ -92,12 +92,12 @@ public final class NodeSelectorAdditionParserTokenTest extends NodeSelectorBinar
         }.accept(add);
         this.checkEquals("1315216217242", b.toString());
         this.checkEquals(Lists.<Object>of(add, add,
-                        nodeName, nodeName, nodeName,
-                        addSymbol, addSymbol, addSymbol,
-                        wildcard, wildcard, wildcard,
-                        add, add),
-                visited,
-                "visited");
+                nodeName, nodeName, nodeName,
+                addSymbol, addSymbol, addSymbol,
+                wildcard, wildcard, wildcard,
+                add, add),
+            visited,
+            "visited");
     }
 
     @Override

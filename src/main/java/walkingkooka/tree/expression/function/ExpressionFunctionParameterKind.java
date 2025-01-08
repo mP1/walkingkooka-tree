@@ -66,31 +66,31 @@ public enum ExpressionFunctionParameterKind {
     }
 
     public final static Set<ExpressionFunctionParameterKind> CONVERT_EVALUATE = Sets.of(
-            CONVERT,
-            EVALUATE
+        CONVERT,
+        EVALUATE
     );
 
     public final static Set<ExpressionFunctionParameterKind> CONVERT_EVALUATE_RESOLVE_REFERENCES = Sets.of(
-            CONVERT,
-            EVALUATE,
-            RESOLVE_REFERENCES
+        CONVERT,
+        EVALUATE,
+        RESOLVE_REFERENCES
     );
 
     public final static Set<ExpressionFunctionParameterKind> CONVERT_EVALUATE_FLATTEN_RESOLVE_REFERENCES = Sets.of(
-            CONVERT,
-            EVALUATE,
-            FLATTEN,
-            RESOLVE_REFERENCES
+        CONVERT,
+        EVALUATE,
+        FLATTEN,
+        RESOLVE_REFERENCES
     );
 
     public final static Set<ExpressionFunctionParameterKind> EVALUATE_FLATTEN_RESOLVE_REFERENCES = Sets.of(
-            EVALUATE,
-            FLATTEN,
-            RESOLVE_REFERENCES
+        EVALUATE,
+        FLATTEN,
+        RESOLVE_REFERENCES
     );
 
     public final static Set<ExpressionFunctionParameterKind> EVALUATE_RESOLVE_REFERENCES = Sets.of(
-            EVALUATE,
-            RESOLVE_REFERENCES
+        EVALUATE,
+        RESOLVE_REFERENCES
     );
 }

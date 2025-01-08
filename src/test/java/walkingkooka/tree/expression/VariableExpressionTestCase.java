@@ -93,9 +93,9 @@ public abstract class VariableExpressionTestCase<N extends VariableExpression> e
     @Test
     public void testIsPureTrue() {
         this.isPureAndCheck(
-                this.createExpression(),
-                this.context(),
-                true
+            this.createExpression(),
+            this.context(),
+            true
         );
     }
 
@@ -114,8 +114,7 @@ public abstract class VariableExpressionTestCase<N extends VariableExpression> e
 
     abstract N createExpression(final List<Expression> children);
 
-    @Override
-    final List<Expression> children() {
+    @Override final List<Expression> children() {
         return Lists.of(this.child1(), this.child2(), this.child3());
     }
 

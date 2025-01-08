@@ -92,12 +92,12 @@ public final class NodeSelectorAndParserTokenTest extends NodeSelectorBinaryPars
         }.accept(and);
         this.checkEquals("1315216217242", b.toString());
         this.checkEquals(Lists.<Object>of(and, and,
-                        nodeName, nodeName, nodeName,
-                        andSymbol, andSymbol, andSymbol,
-                        wildcard, wildcard, wildcard,
-                        and, and),
-                visited,
-                "visited");
+                nodeName, nodeName, nodeName,
+                andSymbol, andSymbol, andSymbol,
+                wildcard, wildcard, wildcard,
+                and, and),
+            visited,
+            "visited");
     }
 
     @Override

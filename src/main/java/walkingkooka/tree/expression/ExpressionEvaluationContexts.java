@@ -38,13 +38,13 @@ public final class ExpressionEvaluationContexts implements PublicStaticHelper {
                                                     final CaseSensitivity caseSensitivity,
                                                     final ConverterContext converterContext) {
         return BasicExpressionEvaluationContext.with(
-                expressionNumberKind,
-                functions,
-                exceptionHandler,
-                references,
-                referenceNotFound,
-                caseSensitivity,
-                converterContext
+            expressionNumberKind,
+            functions,
+            exceptionHandler,
+            references,
+            referenceNotFound,
+            caseSensitivity,
+            converterContext
         );
     }
 
@@ -67,8 +67,8 @@ public final class ExpressionEvaluationContexts implements PublicStaticHelper {
      */
     public static Function<ExpressionReference, ExpressionEvaluationException> referenceNotFound() {
         return (r) -> new ExpressionEvaluationReferenceException(
-                "Reference not found: " + r,
-                r
+            "Reference not found: " + r,
+            r
         );
     }
 

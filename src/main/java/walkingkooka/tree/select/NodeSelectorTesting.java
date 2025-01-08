@@ -30,9 +30,9 @@ import java.util.function.Consumer;
 import java.util.function.Function;
 
 public interface NodeSelectorTesting<N extends Node<N, NAME, ANAME, AVALUE>,
-        NAME extends Name,
-        ANAME extends Name,
-        AVALUE> extends Testing {
+    NAME extends Name,
+    ANAME extends Name,
+    AVALUE> extends Testing {
 
     N createNode();
 
@@ -42,9 +42,9 @@ public interface NodeSelectorTesting<N extends Node<N, NAME, ANAME, AVALUE>,
                                        final N... expected) {
         final List<N> selected = this.selectorApplyAndCollect(node, selector);
         this.checkEquals(
-                Sets.of(expected),
-                new LinkedHashSet<>(selected),
-                () -> "incorrect nodes selected, selector:\n" + selector
+            Sets.of(expected),
+            new LinkedHashSet<>(selected),
+            () -> "incorrect nodes selected, selector:\n" + selector
         );
     }
 
@@ -53,9 +53,9 @@ public interface NodeSelectorTesting<N extends Node<N, NAME, ANAME, AVALUE>,
                                             final int count) {
         final List<N> selected = this.selectorApplyAndCollect(node, selector);
         this.checkEquals(
-                count,
-                selected.size(),
-                () -> "incorrect number of matched node for selector\n" + selected
+            count,
+            selected.size(),
+            () -> "incorrect number of matched node for selector\n" + selected
         );
     }
 
@@ -63,10 +63,10 @@ public interface NodeSelectorTesting<N extends Node<N, NAME, ANAME, AVALUE>,
                                             final NodeSelector<N, NAME, ANAME, AVALUE> selector) {
         final Set<N> selected = Sets.ordered();
         selector.apply(node,
-                this.nodeSelectorContext(
-                        (n) -> {
-                        }, // ignore potentials
-                        selected::add)); // capture selecteds
+            this.nodeSelectorContext(
+                (n) -> {
+                }, // ignore potentials
+                selected::add)); // capture selecteds
 
         return new ArrayList<>(selected);
     }
@@ -109,30 +109,30 @@ public interface NodeSelectorTesting<N extends Node<N, NAME, ANAME, AVALUE>,
                                           final Function<N, N> mapper,
                                           final N expected) {
         this.checkEquals(
-                expected,
-                selector.apply(node, new FakeNodeSelectorContext<>() {
+            expected,
+            selector.apply(node, new FakeNodeSelectorContext<>() {
 
-                    @Override
-                    public boolean isFinished() {
-                        return false;
-                    }
+                @Override
+                public boolean isFinished() {
+                    return false;
+                }
 
-                    @Override
-                    public boolean test(final N node) {
-                        return true;
-                    }
+                @Override
+                public boolean test(final N node) {
+                    return true;
+                }
 
-                    @Override
-                    public N selected(final N node) {
-                        return mapper.apply(node);
-                    }
+                @Override
+                public N selected(final N node) {
+                    return mapper.apply(node);
+                }
 
-                    @Override
-                    public String toString() {
-                        return mapper.toString();
-                    }
-                }),
-                () -> "selector " + selector + " map failed"
+                @Override
+                public String toString() {
+                    return mapper.toString();
+                }
+            }),
+            () -> "selector " + selector + " map failed"
         );
     }
 }

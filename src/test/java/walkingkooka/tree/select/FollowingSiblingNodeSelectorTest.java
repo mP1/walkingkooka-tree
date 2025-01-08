@@ -30,7 +30,7 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertSame;
 
 final public class FollowingSiblingNodeSelectorTest extends
-        AxisNodeSelectorTestCase<FollowingSiblingNodeSelector<TestNode, StringName, StringName, Object>> {
+    AxisNodeSelectorTestCase<FollowingSiblingNodeSelector<TestNode, StringName, StringName, Object>> {
 
     @Test
     public void testFollowingSiblingRoot() {
@@ -128,8 +128,8 @@ final public class FollowingSiblingNodeSelectorTest extends
         final TestNode parent = TestNode.with("parent", preceding1, preceding2, self, following1, following2, following3);
 
         this.applyAndCheck(TestNode.relativeNodeSelector().followingSibling().named(following1.name()),
-                parent.child(2),
-                following1, following3);
+            parent.child(2),
+            following1, following3);
     }
 
     @Test
@@ -145,8 +145,8 @@ final public class FollowingSiblingNodeSelectorTest extends
         final TestNode parent = TestNode.with("parent", preceding1, preceding2, self, following1, following2, following3, following4);
 
         this.applyAndCheck(TestNode.relativeNodeSelector().followingSibling().attributeValueEquals(Names.string("a1"), "v1"),
-                parent.child(2),
-                following1, following2, following4);
+            parent.child(2),
+            following1, following2, following4);
     }
 
     @Test
@@ -160,10 +160,10 @@ final public class FollowingSiblingNodeSelectorTest extends
         final TestNode parent = TestNode.with("parent", preceding1, preceding2, self, following1, following2);
 
         this.applyFilterAndCheck(TestNode.relativeNodeSelector()
-                        .followingSibling(),
-                parent.child(2), // self!
-                (n) -> n.children().size() > 0,
-                following1);
+                .followingSibling(),
+            parent.child(2), // self!
+            (n) -> n.children().size() > 0,
+            following1);
     }
 
     @Test
@@ -179,8 +179,8 @@ final public class FollowingSiblingNodeSelectorTest extends
         final TestNode parent = TestNode.with("parent", preceding3, preceding2, preceding1, self, following1, following3);
 
         this.applyFinisherAndCheck(this.createSelector(),
-                parent.child(3), // self
-                0);
+            parent.child(3), // self
+            0);
     }
 
     @Test
@@ -196,9 +196,9 @@ final public class FollowingSiblingNodeSelectorTest extends
         final TestNode parent = TestNode.with("parent", preceding3, preceding2, preceding1, self, following1, following3);
 
         this.applyFinisherAndCheck(this.createSelector(),
-                parent.child(3), // self
-                1,
-                following1);
+            parent.child(3), // self
+            1,
+            following1);
     }
 
     @Test
@@ -214,47 +214,47 @@ final public class FollowingSiblingNodeSelectorTest extends
         final TestNode parent = TestNode.with("parent", preceding3, preceding2, preceding1, self, following1, following3);
 
         this.applyFinisherAndCheck(this.createSelector(),
-                parent.child(3), // self
-                2,
-                following1, following3);
+            parent.child(3), // self
+            2,
+            following1, following3);
     }
 
     @Test
     public void testFollowingSiblingMap() {
         final TestNode grandParent = TestNode.with("grand",
-                TestNode.with("parent1",
-                        TestNode.with("child1"), TestNode.with("child2")),
-                TestNode.with("parent2", TestNode.with("child3")),
-                TestNode.with("parent3", TestNode.with("child4")));
+            TestNode.with("parent1",
+                TestNode.with("child1"), TestNode.with("child2")),
+            TestNode.with("parent2", TestNode.with("child3")),
+            TestNode.with("parent3", TestNode.with("child4")));
 
         TestNode.clear();
 
         this.acceptMapAndCheck(grandParent.child(1),
-                TestNode.with("grand",
-                        TestNode.with("parent1",
-                                TestNode.with("child1"), TestNode.with("child2")),
-                        TestNode.with("parent2", TestNode.with("child3")),
-                        TestNode.with("parent3*0", TestNode.with("child4")))
-                        .child(1));
+            TestNode.with("grand",
+                    TestNode.with("parent1",
+                        TestNode.with("child1"), TestNode.with("child2")),
+                    TestNode.with("parent2", TestNode.with("child3")),
+                    TestNode.with("parent3*0", TestNode.with("child4")))
+                .child(1));
     }
 
     @Test
     public void testFollowingSiblingMapSeveralFollowingSiblings() {
         final TestNode grandParent = TestNode.with("grand",
-                TestNode.with("parent1",
-                        TestNode.with("child1"), TestNode.with("child2")),
-                TestNode.with("parent2", TestNode.with("child3")),
-                TestNode.with("parent3", TestNode.with("child4")));
+            TestNode.with("parent1",
+                TestNode.with("child1"), TestNode.with("child2")),
+            TestNode.with("parent2", TestNode.with("child3")),
+            TestNode.with("parent3", TestNode.with("child4")));
 
         TestNode.clear();
 
         this.acceptMapAndCheck(grandParent.child(0),
-                TestNode.with("grand",
-                        TestNode.with("parent1",
-                                TestNode.with("child1"), TestNode.with("child2")),
-                        TestNode.with("parent2*0", TestNode.with("child3")),
-                        TestNode.with("parent3*1", TestNode.with("child4")))
-                        .child(0));
+            TestNode.with("grand",
+                    TestNode.with("parent1",
+                        TestNode.with("child1"), TestNode.with("child2")),
+                    TestNode.with("parent2*0", TestNode.with("child3")),
+                    TestNode.with("parent3*1", TestNode.with("child4")))
+                .child(0));
     }
 
     @Test
@@ -312,10 +312,10 @@ final public class FollowingSiblingNodeSelectorTest extends
         this.checkEquals("1315242", b.toString());
 
         this.checkEquals(Lists.of(selector, selector,
-                        next, next, next,
-                        selector, selector),
-                visited,
-                "visited");
+                next, next, next,
+                selector, selector),
+            visited,
+            "visited");
     }
 
     // Object.......................................................................................................

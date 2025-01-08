@@ -25,9 +25,9 @@ import walkingkooka.visit.Visiting;
 import java.util.function.Predicate;
 
 public class FakeNodeSelectorVisitor<N extends Node<N, NAME, ANAME, AVALUE>,
-        NAME extends Name,
-        ANAME extends Name,
-        AVALUE> extends NodeSelectorVisitor<N, NAME, ANAME, AVALUE> {
+    NAME extends Name,
+    ANAME extends Name,
+    AVALUE> extends NodeSelectorVisitor<N, NAME, ANAME, AVALUE> {
 
     public FakeNodeSelectorVisitor() {
     }

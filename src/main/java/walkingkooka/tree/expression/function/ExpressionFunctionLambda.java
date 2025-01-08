@@ -41,9 +41,9 @@ final class ExpressionFunctionLambda<T, C extends ExpressionEvaluationContext> i
         Objects.requireNonNull(expression, "expression");
 
         return new ExpressionFunctionLambda<>(
-                Lists.immutable(parameters),
-                returnType,
-                expression
+            Lists.immutable(parameters),
+            returnType,
+            expression
         );
     }
 
@@ -88,13 +88,13 @@ final class ExpressionFunctionLambda<T, C extends ExpressionEvaluationContext> i
         this.checkParameterCount(values);
 
         return context.convertOrFail(
-                context.context(
-                        ExpressionFunctionLambdaExpressionEvaluationContextFunction.with(
-                                this.parameters,
-                                values
-                        )
-                ).evaluate(this.expression),
-                this.returnType
+            context.context(
+                ExpressionFunctionLambdaExpressionEvaluationContextFunction.with(
+                    this.parameters,
+                    values
+                )
+            ).evaluate(this.expression),
+            this.returnType
         );
     }
 

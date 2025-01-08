@@ -35,9 +35,9 @@ import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public abstract class ExpressionNumberTestCase<N extends ExpressionNumber> implements ClassTesting<N>,
-        ComparableTesting2<ExpressionNumber>,
-        IsMethodTesting<N>,
-        ToStringTesting<N> {
+    ComparableTesting2<ExpressionNumber>,
+    IsMethodTesting<N>,
+    ToStringTesting<N> {
 
     final static ExpressionNumberContext CONTEXT = createContext(MathContext.DECIMAL32);
 
@@ -65,8 +65,8 @@ public abstract class ExpressionNumberTestCase<N extends ExpressionNumber> imple
     @Test
     public final void testSetKindNullFails() {
         assertThrows(
-                NullPointerException.class,
-                () -> this.create().setKind(null)
+            NullPointerException.class,
+            () -> this.create().setKind(null)
         );
     }
 
@@ -84,33 +84,33 @@ public abstract class ExpressionNumberTestCase<N extends ExpressionNumber> imple
     @Test
     public final void testSignZero() {
         this.signAndCheck(
-                0,
-                ExpressionNumberSign.ZERO
+            0,
+            ExpressionNumberSign.ZERO
         );
     }
 
     @Test
     public final void testSignNegative() {
         this.signAndCheck(
-                -1,
-                ExpressionNumberSign.NEGATIVE
+            -1,
+            ExpressionNumberSign.NEGATIVE
         );
     }
 
     @Test
     public final void testSignPositive() {
         this.signAndCheck(
-                +1,
-                ExpressionNumberSign.POSITIVE
+            +1,
+            ExpressionNumberSign.POSITIVE
         );
     }
 
     private void signAndCheck(final double value,
                               final ExpressionNumberSign sign) {
         assertSame(
-                sign,
-                this.create(value).sign(),
-                () -> "sign of " + value
+            sign,
+            this.create(value).sign(),
+            () -> "sign of " + value
         );
     }
 
@@ -195,8 +195,8 @@ public abstract class ExpressionNumberTestCase<N extends ExpressionNumber> imple
     @Test
     public final void testLnNegativeFails() {
         assertThrows(
-                IllegalArgumentException.class,
-                () -> this.create(-1).ln(CONTEXT)
+            IllegalArgumentException.class,
+            () -> this.create(-1).ln(CONTEXT)
         );
     }
 
@@ -205,24 +205,24 @@ public abstract class ExpressionNumberTestCase<N extends ExpressionNumber> imple
     @Test
     public final void testLog16Base2() {
         this.checkEquals(
-                this.create(16)
-                        .log(
-                                this.create(2),
-                                CONTEXT
-                        ),
-                this.create(4)
+            this.create(16)
+                .log(
+                    this.create(2),
+                    CONTEXT
+                ),
+            this.create(4)
         );
     }
 
     @Test
     public final void testLog100Base10() {
         this.checkEquals(
-                this.create(100)
-                        .log(
-                                this.create(10),
-                                CONTEXT
-                        ),
-                this.create(2)
+            this.create(100)
+                .log(
+                    this.create(10),
+                    CONTEXT
+                ),
+            this.create(2)
         );
     }
 
@@ -231,16 +231,16 @@ public abstract class ExpressionNumberTestCase<N extends ExpressionNumber> imple
     @Test
     public final void testLog10NegativeFails() {
         assertThrows(
-                IllegalArgumentException.class,
-                () -> this.create(-1).log10(CONTEXT)
+            IllegalArgumentException.class,
+            () -> this.create(-1).log10(CONTEXT)
         );
     }
 
     @Test
     public final void testLog100() {
         this.checkEquals(
-                this.create(2),
-                this.create(100).log10(CONTEXT)
+            this.create(2),
+            this.create(100).log10(CONTEXT)
         );
     }
 
@@ -343,12 +343,12 @@ public abstract class ExpressionNumberTestCase<N extends ExpressionNumber> imple
         final N number = this.create(1.4);
 
         this.checkEquals(
-                number.round(
-                        createContext(
-                                new MathContext(0, RoundingMode.FLOOR)
-                        )
-                ),
-                this.create(1)
+            number.round(
+                createContext(
+                    new MathContext(0, RoundingMode.FLOOR)
+                )
+            ),
+            this.create(1)
         );
     }
 
@@ -357,12 +357,12 @@ public abstract class ExpressionNumberTestCase<N extends ExpressionNumber> imple
         final N number = this.create(1.4);
 
         this.checkEquals(
-                number.round(
-                        createContext(
-                                new MathContext(0, RoundingMode.CEILING)
-                        )
-                ),
-                this.create(2)
+            number.round(
+                createContext(
+                    new MathContext(0, RoundingMode.CEILING)
+                )
+            ),
+            this.create(2)
         );
     }
 
@@ -371,32 +371,32 @@ public abstract class ExpressionNumberTestCase<N extends ExpressionNumber> imple
     @Test
     public final void testSqrtNegativeFails() {
         assertThrows(
-                ExpressionEvaluationException.class,
-                () -> this.create(-1).sqrt(CONTEXT)
+            ExpressionEvaluationException.class,
+            () -> this.create(-1).sqrt(CONTEXT)
         );
     }
 
     @Test
     public final void testSqrtZero() {
         this.checkValue(
-                0,
-                this.create(0).sqrt(CONTEXT)
+            0,
+            this.create(0).sqrt(CONTEXT)
         );
     }
 
     @Test
     public final void testSqrtOne() {
         this.checkValue(
-                1,
-                this.create(1).sqrt(CONTEXT)
+            1,
+            this.create(1).sqrt(CONTEXT)
         );
     }
 
     @Test
     public final void testSqrtNine() {
         this.checkValue(
-                3,
-                this.create(9).sqrt(CONTEXT)
+            3,
+            this.create(9).sqrt(CONTEXT)
         );
     }
 
@@ -447,18 +447,18 @@ public abstract class ExpressionNumberTestCase<N extends ExpressionNumber> imple
     private void divideZeroAndFail(final int value) {
         final N number = this.create(value);
         final ExpressionEvaluationException thrown = assertThrows(
-                ExpressionEvaluationException.class,
-                () -> number.divide(this.create(0), CONTEXT)
+            ExpressionEvaluationException.class,
+            () -> number.divide(this.create(0), CONTEXT)
         );
         this.checkEquals(
-                "Division by zero",
-                thrown.getMessage(),
-                "message"
+            "Division by zero",
+            thrown.getMessage(),
+            "message"
         );
         this.checkEquals(
-                ArithmeticException.class,
-                thrown.getCause().getClass(),
-                () -> "cause class"
+            ArithmeticException.class,
+            thrown.getCause().getClass(),
+            () -> "cause class"
         );
     }
 
@@ -527,7 +527,7 @@ public abstract class ExpressionNumberTestCase<N extends ExpressionNumber> imple
         assertNotSame(number, different);
         this.checkValue(value, different);
     }
-    
+
     // min..............................................................................................................
 
     @Test
@@ -627,7 +627,7 @@ public abstract class ExpressionNumberTestCase<N extends ExpressionNumber> imple
         assertNotSame(number, different);
         this.checkValue(value * multiply, different);
     }
-    
+
     // power..............................................................................................................
 
     @Test
@@ -755,8 +755,8 @@ public abstract class ExpressionNumberTestCase<N extends ExpressionNumber> imple
 
         final N number = this.create(value);
         this.checkEquals(
-                this.create(0),
-                number.andNot(this.create(-1))
+            this.create(0),
+            number.andNot(this.create(-1))
         );
     }
 
@@ -766,8 +766,8 @@ public abstract class ExpressionNumberTestCase<N extends ExpressionNumber> imple
 
         final N number = this.create(value);
         this.checkEquals(
-                number,
-                number.andNot(this.create(0))
+            number,
+            number.andNot(this.create(0))
         );
     }
 
@@ -1137,16 +1137,16 @@ public abstract class ExpressionNumberTestCase<N extends ExpressionNumber> imple
     public final void testByteValue() {
         final byte value = 1;
         this.checkEquals(
-                value,
-                this.create(value).byteValue()
+            value,
+            this.create(value).byteValue()
         );
     }
 
     @Test
     public final void testByteValueDecimal() {
         this.checkEquals(
-                (byte) 1,
-                this.create(1.5).byteValue()
+            (byte) 1,
+            this.create(1.5).byteValue()
         );
     }
 
@@ -1156,24 +1156,24 @@ public abstract class ExpressionNumberTestCase<N extends ExpressionNumber> imple
     public final void testByteValueExact() {
         final byte value = 1;
         this.checkEquals(
-                value,
-                this.create(value).byteValueExact()
+            value,
+            this.create(value).byteValueExact()
         );
     }
 
     @Test
     public final void testByteValueExactFails() {
         assertThrows(
-                ArithmeticException.class,
-                () -> this.create(1.5).byteValueExact()
+            ArithmeticException.class,
+            () -> this.create(1.5).byteValueExact()
         );
     }
 
     @Test
     public final void testByteValueExactFails2() {
         assertThrows(
-                ArithmeticException.class,
-                () -> this.create(Short.MAX_VALUE).byteValueExact()
+            ArithmeticException.class,
+            () -> this.create(Short.MAX_VALUE).byteValueExact()
         );
     }
 
@@ -1183,16 +1183,16 @@ public abstract class ExpressionNumberTestCase<N extends ExpressionNumber> imple
     public final void testShortValue() {
         final short value = 1;
         this.checkEquals(
-                value,
-                this.create(value).shortValue()
+            value,
+            this.create(value).shortValue()
         );
     }
 
     @Test
     public final void testShortValueDecimal() {
         this.checkEquals(
-                (short) 1,
-                this.create(1.5).shortValue()
+            (short) 1,
+            this.create(1.5).shortValue()
         );
     }
 
@@ -1202,24 +1202,24 @@ public abstract class ExpressionNumberTestCase<N extends ExpressionNumber> imple
     public final void testShortValueExact() {
         final short value = 1;
         this.checkEquals(
-                value,
-                this.create(value).shortValueExact()
+            value,
+            this.create(value).shortValueExact()
         );
     }
 
     @Test
     public final void testShortValueExactFails() {
         assertThrows(
-                ArithmeticException.class,
-                () -> this.create(1.5).shortValueExact()
+            ArithmeticException.class,
+            () -> this.create(1.5).shortValueExact()
         );
     }
 
     @Test
     public final void testShortValueExactFails2() {
         assertThrows(
-                ArithmeticException.class,
-                () -> this.create(Integer.MAX_VALUE).shortValueExact()
+            ArithmeticException.class,
+            () -> this.create(Integer.MAX_VALUE).shortValueExact()
         );
     }
 
@@ -1229,16 +1229,16 @@ public abstract class ExpressionNumberTestCase<N extends ExpressionNumber> imple
     public final void testIntValue() {
         final int value = 1;
         this.checkEquals(
-                value,
-                this.create(value).intValue()
+            value,
+            this.create(value).intValue()
         );
     }
 
     @Test
     public final void testIntValueDecimal() {
         this.checkEquals(
-                1,
-                this.create(1.5).intValue()
+            1,
+            this.create(1.5).intValue()
         );
     }
 
@@ -1248,24 +1248,24 @@ public abstract class ExpressionNumberTestCase<N extends ExpressionNumber> imple
     public final void testIntValueExact() {
         final int value = 1;
         this.checkEquals(
-                value,
-                this.create(value).intValueExact()
+            value,
+            this.create(value).intValueExact()
         );
     }
 
     @Test
     public final void testIntValueExactFails() {
         assertThrows(
-                ArithmeticException.class,
-                () -> this.create(1.5).intValueExact()
+            ArithmeticException.class,
+            () -> this.create(1.5).intValueExact()
         );
     }
 
     @Test
     public final void testIntValueExactFails2() {
         assertThrows(
-                ArithmeticException.class,
-                () -> this.create(Long.MAX_VALUE).intValueExact()
+            ArithmeticException.class,
+            () -> this.create(Long.MAX_VALUE).intValueExact()
         );
     }
 
@@ -1275,16 +1275,16 @@ public abstract class ExpressionNumberTestCase<N extends ExpressionNumber> imple
     public final void testLongValue() {
         final long value = 1;
         this.checkEquals(
-                value,
-                this.create(value).longValue()
+            value,
+            this.create(value).longValue()
         );
     }
 
     @Test
     public final void testLongValueDecimal() {
         this.checkEquals(
-                (long) 1,
-                this.create(1.5).longValue()
+            (long) 1,
+            this.create(1.5).longValue()
         );
     }
 
@@ -1294,24 +1294,24 @@ public abstract class ExpressionNumberTestCase<N extends ExpressionNumber> imple
     public final void testLongValueExact() {
         final int value = 1;
         this.checkEquals(
-                (long) value,
-                this.create(value).longValueExact()
+            (long) value,
+            this.create(value).longValueExact()
         );
     }
 
     @Test
     public final void testLongValueExactFails() {
         assertThrows(
-                ArithmeticException.class,
-                () -> this.create(1.5).longValueExact()
+            ArithmeticException.class,
+            () -> this.create(1.5).longValueExact()
         );
     }
 
     @Test
     public final void testLongValueExactFails2() {
         assertThrows(
-                ArithmeticException.class,
-                () -> this.create(Double.MAX_VALUE).longValueExact()
+            ArithmeticException.class,
+            () -> this.create(Double.MAX_VALUE).longValueExact()
         );
     }
 
@@ -1321,8 +1321,8 @@ public abstract class ExpressionNumberTestCase<N extends ExpressionNumber> imple
     public final void testFloatValue() {
         final int value = 1;
         this.checkEquals(
-                (float) value,
-                this.create(value).floatValue()
+            (float) value,
+            this.create(value).floatValue()
         );
     }
 
@@ -1332,8 +1332,8 @@ public abstract class ExpressionNumberTestCase<N extends ExpressionNumber> imple
     public final void testDoubleValue() {
         final int value = 1;
         this.checkEquals(
-                (double) value,
-                this.create(value).doubleValue()
+            (double) value,
+            this.create(value).doubleValue()
         );
     }
 
@@ -1352,17 +1352,17 @@ public abstract class ExpressionNumberTestCase<N extends ExpressionNumber> imple
     public final void testBigIntegerExact() {
         final int value = 1;
         this.checkEquals(
-                BigInteger.valueOf(value),
-                this.create(value).bigIntegerExact()
+            BigInteger.valueOf(value),
+            this.create(value).bigIntegerExact()
         );
     }
 
     @Test
     public final void testBigIntegerExactDecimalFails() {
         assertThrows(
-                ArithmeticException.class,
-                () -> this.create(1.5)
-                        .bigIntegerExact()
+            ArithmeticException.class,
+            () -> this.create(1.5)
+                .bigIntegerExact()
         );
     }
 
@@ -1372,10 +1372,10 @@ public abstract class ExpressionNumberTestCase<N extends ExpressionNumber> imple
     public final void testBigDecimal() {
         final int value = 1;
         this.checkEquals(
-                BigDecimal.valueOf(value),
-                this.create(value)
-                        .bigDecimal()
-                        .setScale(0, RoundingMode.HALF_UP)
+            BigDecimal.valueOf(value),
+            this.create(value)
+                .bigDecimal()
+                .setScale(0, RoundingMode.HALF_UP)
         );
     }
 
@@ -1440,27 +1440,27 @@ public abstract class ExpressionNumberTestCase<N extends ExpressionNumber> imple
     @Test
     public final void testToStringWithBase2() {
         this.toStringWithBaseAndCheck(
-                0xF5,
-                2,
-                "11110101"
+            0xF5,
+            2,
+            "11110101"
         );
     }
 
     @Test
     public final void testToStringWithBase8() {
         this.toStringWithBaseAndCheck(
-                0777,
-                8,
-                "777"
+            0777,
+            8,
+            "777"
         );
     }
 
     @Test
     public final void testToStringWithBase16() {
         this.toStringWithBaseAndCheck(
-                0x1234FEDC,
-                16,
-                "1234fedc"
+            0x1234FEDC,
+            16,
+            "1234fedc"
         );
     }
 
@@ -1468,9 +1468,9 @@ public abstract class ExpressionNumberTestCase<N extends ExpressionNumber> imple
                                           final double base,
                                           final String toString) {
         this.checkEquals(
-                toString,
-                this.create(number).toStringWithBase(this.create(base)),
-                () -> "toStringWithBase " + number + " base=" + base
+            toString,
+            this.create(number).toStringWithBase(this.create(base)),
+            () -> "toStringWithBase " + number + " base=" + base
         );
     }
 

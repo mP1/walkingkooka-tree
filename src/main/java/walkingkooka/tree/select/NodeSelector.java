@@ -42,9 +42,9 @@ import java.util.stream.Stream;
  * A select maybe used to select zero or more nodes within a tree given a {@link Node}.
  */
 public abstract class NodeSelector<N extends Node<N, NAME, ANAME, AVALUE>,
-        NAME extends Name,
-        ANAME extends Name,
-        AVALUE> implements Visitable {
+    NAME extends Name,
+    ANAME extends Name,
+    AVALUE> implements Visitable {
 
     /**
      * Path separator
@@ -55,12 +55,12 @@ public abstract class NodeSelector<N extends Node<N, NAME, ANAME, AVALUE>,
      * Creates a {@link NodeSelector} from a {@link NodeSelectorParserToken}.
      */
     public static <N extends Node<N, NAME, ANAME, AVALUE>,
-            NAME extends Name,
-            ANAME extends Name,
-            AVALUE> NodeSelector<N, NAME, ANAME, AVALUE> parserToken(final NodeSelectorExpressionParserToken token,
-                                                                     final Function<NodeSelectorNodeName, NAME> nameFactory,
-                                                                     final Predicate<ExpressionFunctionName> functions,
-                                                                     final Class<N> nodeType) {
+        NAME extends Name,
+        ANAME extends Name,
+        AVALUE> NodeSelector<N, NAME, ANAME, AVALUE> parserToken(final NodeSelectorExpressionParserToken token,
+                                                                 final Function<NodeSelectorNodeName, NAME> nameFactory,
+                                                                 final Predicate<ExpressionFunctionName> functions,
+                                                                 final Class<N> nodeType) {
 
         return NodeSelectorNodeSelectorParserTokenVisitor.with(token, nameFactory, functions, nodeType);
     }
@@ -76,9 +76,9 @@ public abstract class NodeSelector<N extends Node<N, NAME, ANAME, AVALUE>,
      * Creates a {@link NodeSelector} that will begin with the root of the {@link Node}.
      */
     public static <N extends Node<N, NAME, ANAME, AVALUE>,
-            NAME extends Name,
-            ANAME extends Name,
-            AVALUE> NodeSelector<N, NAME, ANAME, AVALUE> absolute() {
+        NAME extends Name,
+        ANAME extends Name,
+        AVALUE> NodeSelector<N, NAME, ANAME, AVALUE> absolute() {
         return AbsoluteNodeSelector.get();
     }
 
@@ -86,9 +86,9 @@ public abstract class NodeSelector<N extends Node<N, NAME, ANAME, AVALUE>,
      * Creates a selector which matches any given {@link Node}.
      */
     public static <N extends Node<N, NAME, ANAME, AVALUE>,
-            NAME extends Name,
-            ANAME extends Name,
-            AVALUE> NodeSelector<N, NAME, ANAME, AVALUE> relative() {
+        NAME extends Name,
+        ANAME extends Name,
+        AVALUE> NodeSelector<N, NAME, ANAME, AVALUE> relative() {
         return TerminalNodeSelector.get();
     }
 
@@ -96,9 +96,9 @@ public abstract class NodeSelector<N extends Node<N, NAME, ANAME, AVALUE>,
      * Creates a {@link TerminalNodeSelector}.
      */
     static <N extends Node<N, NAME, ANAME, AVALUE>,
-            NAME extends Name,
-            ANAME extends Name,
-            AVALUE> NodeSelector<N, NAME, ANAME, AVALUE> terminal() {
+        NAME extends Name,
+        ANAME extends Name,
+        AVALUE> NodeSelector<N, NAME, ANAME, AVALUE> terminal() {
         return TerminalNodeSelector.get();
     }
 
@@ -270,8 +270,8 @@ public abstract class NodeSelector<N extends Node<N, NAME, ANAME, AVALUE>,
         Objects.requireNonNull(context, "context");
 
         return !context.isFinished() && context.test(node) ?
-                this.apply0(node, NodeSelectorContext2.all(context)) :
-                node;
+            this.apply0(node, NodeSelectorContext2.all(context)) :
+            node;
     }
 
     /**
@@ -386,10 +386,10 @@ public abstract class NodeSelector<N extends Node<N, NAME, ANAME, AVALUE>,
      */
     final N selectParent(final N node, final NodeSelectorContext2<N, NAME, ANAME, AVALUE> context) {
         return context.isFinished() ?
-                node :
-                node.parent()
-                        .map(parent -> this.testThenSelect(parent, context).children().get(node.index()))
-                        .orElse(node);
+            node :
+            node.parent()
+                .map(parent -> this.testThenSelect(parent, context).children().get(node.index()))
+                .orElse(node);
     }
 
     /**
@@ -397,8 +397,8 @@ public abstract class NodeSelector<N extends Node<N, NAME, ANAME, AVALUE>,
      */
     final N testThenSelect(final N node, final NodeSelectorContext2<N, NAME, ANAME, AVALUE> context) {
         return context.test(node) ?
-                this.select(node, context) :
-                node;
+            this.select(node, context) :
+            node;
     }
 
     /**
@@ -436,10 +436,10 @@ public abstract class NodeSelector<N extends Node<N, NAME, ANAME, AVALUE>,
                                                                                final Function<NodeSelectorContext<N, NAME, ANAME, AVALUE>, ExpressionEvaluationContext> expressionEvaluationContext,
                                                                                final Class<N> nodeType) {
         return PushableStreamConsumer.stream(
-                NodeSelectorStreamConsumerPushableStreamConsumer.with(node,
-                        this,
-                        expressionEvaluationContext,
-                        nodeType));
+            NodeSelectorStreamConsumerPushableStreamConsumer.with(node,
+                this,
+                expressionEvaluationContext,
+                nodeType));
     }
 
     // Object...........................................................................................................

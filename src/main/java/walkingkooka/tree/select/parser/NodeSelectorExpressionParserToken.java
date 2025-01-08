@@ -29,7 +29,7 @@ public final class NodeSelectorExpressionParserToken extends NodeSelectorParentP
     static NodeSelectorExpressionParserToken with(final List<ParserToken> value,
                                                   final String text) {
         return new NodeSelectorExpressionParserToken(copyAndCheckTokens(value),
-                checkTextNullOrWhitespace(text));
+            checkTextNullOrWhitespace(text));
     }
 
     private NodeSelectorExpressionParserToken(final List<ParserToken> value,
@@ -48,9 +48,9 @@ public final class NodeSelectorExpressionParserToken extends NodeSelectorParentP
     @Override
     public NodeSelectorExpressionParserToken setChildren(final List<ParserToken> children) {
         return ParserToken.parentSetChildren(
-                this,
-                children,
-                NodeSelectorExpressionParserToken::new
+            this,
+            children,
+            NodeSelectorExpressionParserToken::new
         );
     }
 

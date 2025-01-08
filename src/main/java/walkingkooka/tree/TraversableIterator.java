@@ -101,7 +101,7 @@ final class TraversableIterator<T extends Traversable<T>> implements Iterator<T>
             this.skipNextSibling = false;
         } else {
             traversable.nextSibling()
-                    .ifPresent(this.unprocessed::push);
+                .ifPresent(this.unprocessed::push);
         }
     }
 
@@ -117,9 +117,9 @@ final class TraversableIterator<T extends Traversable<T>> implements Iterator<T>
     @Override
     public String toString() {
         return null != this.next ?
-                this.next.toString() :
-                this.unprocessed.isEmpty() ?
-                        "???" :
-                        this.unprocessed.peek().toString();
+            this.next.toString() :
+            this.unprocessed.isEmpty() ?
+                "???" :
+                this.unprocessed.peek().toString();
     }
 }

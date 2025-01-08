@@ -27,8 +27,8 @@ import walkingkooka.visit.Visiting;
  * A {@link NodeSelector} that selects all the descendants or self of a given {@link Node} until all are visited.
  */
 final class DescendantOrSelfNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NAME extends Name, ANAME extends Name, AVALUE>
-        extends
-        AxisNodeSelector<N, NAME, ANAME, AVALUE> {
+    extends
+    AxisNodeSelector<N, NAME, ANAME, AVALUE> {
 
     /**
      * Type safe {@link DescendantOrSelfNodeSelector} getter
@@ -51,8 +51,8 @@ final class DescendantOrSelfNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>,
     NodeSelector<N, NAME, ANAME, AVALUE> append1(final NodeSelector<N, NAME, ANAME, AVALUE> selector) {
         // no point appending a descending to another...
         return selector instanceof DescendantOrSelfNodeSelector ?
-                this :
-                new DescendantOrSelfNodeSelector<>(selector);
+            this :
+            new DescendantOrSelfNodeSelector<>(selector);
     }
 
     @Override

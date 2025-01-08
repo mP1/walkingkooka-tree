@@ -26,8 +26,8 @@ import walkingkooka.visit.Visiting;
  * A {@link NodeSelector} that selects all the direct children of a given {@link Node}.
  */
 final class ChildrenNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NAME extends Name, ANAME extends Name, AVALUE>
-        extends
-        AxisNodeSelector<N, NAME, ANAME, AVALUE> {
+    extends
+    AxisNodeSelector<N, NAME, ANAME, AVALUE> {
 
     /**
      * Type safe {@link ChildrenNodeSelector} getter

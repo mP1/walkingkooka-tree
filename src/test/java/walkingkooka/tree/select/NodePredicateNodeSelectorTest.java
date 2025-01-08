@@ -34,7 +34,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 
 final public class NodePredicateNodeSelectorTest extends
-        NamedOrNodePredicateNodeSelectorTestCase<NodePredicateNodeSelector<TestNode, StringName, StringName, Object>> {
+    NamedOrNodePredicateNodeSelectorTestCase<NodePredicateNodeSelector<TestNode, StringName, StringName, Object>> {
 
     // constants
 
@@ -50,8 +50,8 @@ final public class NodePredicateNodeSelectorTest extends
     public void testPredicate() {
         final TestNode self = TestNode.with("self");
         this.applyAndCheck(this.createSelector2(),
-                self,
-                self);
+            self,
+            self);
     }
 
     @Test
@@ -62,8 +62,8 @@ final public class NodePredicateNodeSelectorTest extends
         final TestNode parent = TestNode.with("parent", siblingBefore, self, siblingAfter);
 
         this.applyAndCheck(this.createSelector2(),
-                parent.child(1),
-                self);
+            parent.child(1),
+            self);
     }
 
     @Test
@@ -78,8 +78,8 @@ final public class NodePredicateNodeSelectorTest extends
         final TestNode child2 = TestNode.with("child2", grand3, grand4, grand5);
 
         this.applyAndCheck(TestNode.absoluteNodeSelector().descendantOrSelf().attributeValueEquals(Names.string("a1"), "v1"),
-                TestNode.with("parent", child1, child2),
-                child1, grand1, grand4);
+            TestNode.with("parent", child1, child2),
+            child1, grand1, grand4);
     }
 
     @Test
@@ -89,8 +89,8 @@ final public class NodePredicateNodeSelectorTest extends
         final TestNode child1 = TestNode.with("child1", grand1, grand2).setAttributes(this.attributes("a1", "v1"));
 
         this.applyAndCheck(TestNode.relativeNodeSelector().attributeValueEquals(Names.string("a1"), "v1").children(),
-                child1,
-                grand1, grand2);
+            child1,
+            grand1, grand2);
     }
 
     @Test
@@ -105,8 +105,8 @@ final public class NodePredicateNodeSelectorTest extends
         final TestNode child2 = TestNode.with("child2", grand3, grand4, grand5);
 
         this.applyAndCheck(TestNode.relativeNodeSelector().descendantOrSelf().attributeValueEquals(Names.string("a1"), "v1").children(),
-                TestNode.with("parent", child1, child2),
-                grand1, grand2);
+            TestNode.with("parent", child1, child2),
+            grand1, grand2);
     }
 
     @Test
@@ -115,11 +115,11 @@ final public class NodePredicateNodeSelectorTest extends
         final TestNode child2 = nodeWithAttributes("child2", "a1", "v1");
 
         this.applyFilterAndCheck(TestNode.relativeNodeSelector()
-                        .children()
-                        .attributeValueEquals(Names.string("a1"), "v1"),
-                TestNode.with("parent", child1, child2),
-                (n) -> !n.name().value().equals("child2"), // ignores child2
-                child1);
+                .children()
+                .attributeValueEquals(Names.string("a1"), "v1"),
+            TestNode.with("parent", child1, child2),
+            (n) -> !n.name().value().equals("child2"), // ignores child2
+            child1);
     }
 
     @Test
@@ -129,9 +129,9 @@ final public class NodePredicateNodeSelectorTest extends
         TestNode.clear();
 
         this.acceptMapAndCheck(this.createSelector2(),
-                parent.child(0),
-                TestNode.with("parent", TestNode.with(MAGIC_VALUE + "*0"), TestNode.with("child"))
-                        .child(0));
+            parent.child(0),
+            TestNode.with("parent", TestNode.with(MAGIC_VALUE + "*0"), TestNode.with("child"))
+                .child(0));
     }
 
     private NodePredicateNodeSelector<TestNode, StringName, StringName, Object> createSelector2() {
@@ -193,10 +193,10 @@ final public class NodePredicateNodeSelectorTest extends
         this.checkEquals("1315242", b.toString());
 
         this.checkEquals(Lists.of(selector, selector,
-                        next, next, next,
-                        selector, selector),
-                visited,
-                "visited");
+                next, next, next,
+                selector, selector),
+            visited,
+            "visited");
     }
 
     // Object.......................................................................................................

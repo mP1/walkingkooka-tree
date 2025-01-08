@@ -455,7 +455,7 @@ public abstract class NodeSelectorParserToken implements ParserToken {
 
     static List<ParserToken> copyAndCheckTokens(final List<ParserToken> tokens) {
         return Lists.immutable(
-                Objects.requireNonNull(tokens, "tokens")
+            Objects.requireNonNull(tokens, "tokens")
         );
     }
 
@@ -977,15 +977,15 @@ public abstract class NodeSelectorParserToken implements ParserToken {
     @SuppressWarnings("EqualsWhichDoesntCheckParameterClass")
     public final boolean equals(final Object other) {
         return this == other ||
-                this.canBeEqual(other) &&
-                        this.equals0((NodeSelectorParserToken) other);
+            this.canBeEqual(other) &&
+                this.equals0((NodeSelectorParserToken) other);
     }
 
     abstract boolean canBeEqual(final Object other);
 
     private boolean equals0(final NodeSelectorParserToken other) {
         return this.text.equals(other.text) &&
-                this.value().equals(other.value());
+            this.value().equals(other.value());
     }
 
     @Override

@@ -32,8 +32,8 @@ final class ExpressionFunctionLambdaExpressionEvaluationContextFunction implemen
     static ExpressionFunctionLambdaExpressionEvaluationContextFunction with(final List<ExpressionFunctionParameter<?>> parameters,
                                                                             final List<Object> values) {
         return new ExpressionFunctionLambdaExpressionEvaluationContextFunction(
-                parameters,
-                values
+            parameters,
+            values
         );
     }
 
@@ -51,10 +51,10 @@ final class ExpressionFunctionLambdaExpressionEvaluationContextFunction implemen
 
         for (final ExpressionFunctionParameter<?> parameter : this.parameters) {
             if (reference.testParameterName(
-                    parameter.name()
+                parameter.name()
             )) {
                 value = Optional.ofNullable(
-                        this.values.get(i)
+                    this.values.get(i)
                 );
                 break;
             }

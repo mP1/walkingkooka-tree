@@ -41,9 +41,9 @@ public interface ExpressionPurityContextTesting<C extends ExpressionPurityContex
                                 final ExpressionFunctionName name,
                                 final boolean expected) {
         this.checkEquals(
-                expected,
-                context.isPure(name),
-                () -> "isPure " + name
+            expected,
+            context.isPure(name),
+            () -> "isPure " + name
         );
     }
 }

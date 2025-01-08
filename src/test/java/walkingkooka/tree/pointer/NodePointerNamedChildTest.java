@@ -43,37 +43,37 @@ public final class NodePointerNamedChildTest extends NodePointerTestCase2<NodePo
     @Test
     public void testAddUnknownPathFails() {
         this.addAndFail(NodePointer.named(A1_NAME, TestNode.class).appendToLast(NodePointerNamedChild.with(B2_NAME)),
-                TestNode.with("child"),
-                A1_NODE);
+            TestNode.with("child"),
+            A1_NODE);
     }
 
     @Test
     public void testAddUnknownPathFails2() {
         this.addAndFail(NodePointer.named(A1_NAME, TestNode.class).appendToLast(NodePointerIndexedChild.with(99)),
-                TestNode.with("child"),
-                A1_NODE);
+            TestNode.with("child"),
+            A1_NODE);
     }
 
     @Test
     public void testAddSameProperty() {
         final TestNode root = TestNode.with("root")
-                .appendChild(A1_NODE);
+            .appendChild(A1_NODE);
 
         this.addAndCheck(NodePointerNamedChild.with(A1_NAME),
-                root,
-                A1_NODE,
-                root);
+            root,
+            A1_NODE,
+            root);
     }
 
     @Test
     public void testAddNewProperty() {
         final TestNode root = TestNode.with("root")
-                .appendChild(A1_NODE);
+            .appendChild(A1_NODE);
 
         this.addAndCheck(NodePointerNamedChild.with(B2_NAME),
-                root,
-                B2_NODE,
-                root.appendChild(B2_NODE));
+            root,
+            B2_NODE,
+            root.appendChild(B2_NODE));
     }
 
     @Test
@@ -81,15 +81,15 @@ public final class NodePointerNamedChildTest extends NodePointerTestCase2<NodePo
         final TestNode oldB2 = TestNode.with("b2-old-value");
 
         final TestNode root = TestNode.with("root")
-                .appendChild(A1_NODE)
-                .appendChild(oldB2);
+            .appendChild(A1_NODE)
+            .appendChild(oldB2);
 
         final TestNode replacedB2 = TestNode.with("b2-replaced-value");
 
         this.addAndCheck(NodePointerNamedChild.with(B2_NAME),
-                root,
-                replacedB2,
-                root.appendChild(replacedB2));
+            root,
+            replacedB2,
+            root.appendChild(replacedB2));
     }
 
     // remove...........................................................................................................
@@ -97,36 +97,36 @@ public final class NodePointerNamedChildTest extends NodePointerTestCase2<NodePo
     @Test
     public void testRemoveUnknownPathFails() {
         this.removeAndFail(NodePointerNamedChild.with(A1_NAME),
-                TestNode.with("remove"));
+            TestNode.with("remove"));
     }
 
     @Test
     public void testRemoveUnknownPathFails2() {
         this.removeAndFail(NodePointerNamedChild.with(A1_NAME),
-                TestNode.with("root")
-                        .appendChild((B2_NODE)));
+            TestNode.with("root")
+                .appendChild((B2_NODE)));
     }
 
     @Test
     public void testRemoveChild() {
         this.removeAndCheck2(TestNode.with("root")
-                        .appendChild(A1_NODE),
-                A1_NAME);
+                .appendChild(A1_NODE),
+            A1_NAME);
     }
 
     @Test
     public void testRemoveChild2() {
         this.removeAndCheck2(TestNode.with("root")
-                        .appendChild(A1_NODE)
-                        .appendChild(B2_NODE),
-                B2_NAME);
+                .appendChild(A1_NODE)
+                .appendChild(B2_NODE),
+            B2_NAME);
     }
 
     private void removeAndCheck2(final TestNode node,
                                  final StringName name) {
         this.removeAndCheck(NodePointerNamedChild.with(name),
-                node,
-                node.removeChild(name));
+            node,
+            node.removeChild(name));
     }
 
     @Test
@@ -139,16 +139,16 @@ public final class NodePointerNamedChildTest extends NodePointerTestCase2<NodePo
     @Test
     public void testToStringWithSlash() {
         this.toStringAndCheck(
-                NodePointerNamedChild.with(Names.string("slash")),
-                "/slash"
+            NodePointerNamedChild.with(Names.string("slash")),
+            "/slash"
         );
     }
 
     @Test
     public void testToStringWithTilde() {
         this.toStringAndCheck(
-                NodePointerNamedChild.with(Names.string("tilde~")),
-                "/tilde~0"
+            NodePointerNamedChild.with(Names.string("tilde~")),
+            "/tilde~0"
         );
     }
 

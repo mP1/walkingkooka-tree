@@ -52,14 +52,14 @@ public final class ExpressionNumberBigDecimalTest extends ExpressionNumberTestCa
         final double value = 123;
 
         this.checkEquals(
-                ExpressionNumberKind.BIG_DECIMAL.create(value)
-                        .exp(CONTEXT),
-                ExpressionNumberKind.BIG_DECIMAL.create(
-                        BigDecimalMath.exp(
-                                new BigDecimal(value),
-                                CONTEXT.mathContext()
-                        )
+            ExpressionNumberKind.BIG_DECIMAL.create(value)
+                .exp(CONTEXT),
+            ExpressionNumberKind.BIG_DECIMAL.create(
+                BigDecimalMath.exp(
+                    new BigDecimal(value),
+                    CONTEXT.mathContext()
                 )
+            )
         );
     }
 
@@ -68,9 +68,9 @@ public final class ExpressionNumberBigDecimalTest extends ExpressionNumberTestCa
     @Test
     public void testLn() {
         this.checkEquals(
-                ExpressionNumberKind.BIG_DECIMAL.create(100)
-                        .ln(CONTEXT),
-                ExpressionNumberKind.BIG_DECIMAL.create(new BigDecimal("4.60517"))
+            ExpressionNumberKind.BIG_DECIMAL.create(100)
+                .ln(CONTEXT),
+            ExpressionNumberKind.BIG_DECIMAL.create(new BigDecimal("4.60517"))
         );
     }
 
@@ -81,19 +81,19 @@ public final class ExpressionNumberBigDecimalTest extends ExpressionNumberTestCa
     public void testMap() {
         for (final RoundingMode roundingMode : RoundingMode.values()) {
             this.checkEquals(
-                    ExpressionNumber.with(BigDecimal.valueOf(10 * 2)),
-                    ExpressionNumber.with(BigDecimal.TEN)
-                            .map(
-                                    new FakeExpressionNumberFunction() {
-                                        @Override
-                                        public BigDecimal mapBigDecimal(final BigDecimal value,
-                                                                        final MathContext c) {
-                                            assertSame(roundingMode, c.getRoundingMode());
-                                            return value.multiply(BigDecimal.valueOf(2));
-                                        }
-                                    },
-                                    new MathContext(32, roundingMode)
-                            )
+                ExpressionNumber.with(BigDecimal.valueOf(10 * 2)),
+                ExpressionNumber.with(BigDecimal.TEN)
+                    .map(
+                        new FakeExpressionNumberFunction() {
+                            @Override
+                            public BigDecimal mapBigDecimal(final BigDecimal value,
+                                                            final MathContext c) {
+                                assertSame(roundingMode, c.getRoundingMode());
+                                return value.multiply(BigDecimal.valueOf(2));
+                            }
+                        },
+                        new MathContext(32, roundingMode)
+                    )
             );
         }
     }
@@ -105,17 +105,17 @@ public final class ExpressionNumberBigDecimalTest extends ExpressionNumberTestCa
             final ExpressionNumber number = ExpressionNumber.with(BigDecimal.TEN);
 
             assertSame(
-                    number,
-                    number.map(
-                            new FakeExpressionNumberFunction() {
-                                @Override
-                                public BigDecimal mapBigDecimal(final BigDecimal value,
-                                                                final MathContext c) {
-                                    return value;
-                                }
-                            },
-                            new MathContext(32, roundingMode)
-                    )
+                number,
+                number.map(
+                    new FakeExpressionNumberFunction() {
+                        @Override
+                        public BigDecimal mapBigDecimal(final BigDecimal value,
+                                                        final MathContext c) {
+                            return value;
+                        }
+                    },
+                    new MathContext(32, roundingMode)
+                )
             );
         }
     }
@@ -147,25 +147,25 @@ public final class ExpressionNumberBigDecimalTest extends ExpressionNumberTestCa
     @Test
     public void testCompareBigDecimalEquals() {
         this.compareToAndCheckEquals(ExpressionNumberBigDecimal.withBigDecimal(BigDecimal.ONE),
-                ExpressionNumberBigDecimal.withBigDecimal(BigDecimal.ONE));
+            ExpressionNumberBigDecimal.withBigDecimal(BigDecimal.ONE));
     }
 
     @Test
     public void testCompareDoubleEquals() {
         this.compareToAndCheckEquals(ExpressionNumberDouble.withDouble(1),
-                ExpressionNumberDouble.withDouble(1));
+            ExpressionNumberDouble.withDouble(1));
     }
 
     @Test
     public void testCompareBigDecimalLess() {
         this.compareToAndCheckLess(ExpressionNumberBigDecimal.withBigDecimal(BigDecimal.ONE),
-                ExpressionNumberBigDecimal.withBigDecimal(BigDecimal.valueOf(2)));
+            ExpressionNumberBigDecimal.withBigDecimal(BigDecimal.valueOf(2)));
     }
 
     @Test
     public void testCompareDoubleLess() {
         this.compareToAndCheckLess(ExpressionNumberBigDecimal.withBigDecimal(BigDecimal.ONE),
-                ExpressionNumberDouble.withDouble(2));
+            ExpressionNumberDouble.withDouble(2));
     }
 
     // bigDecimal.......................................................................................................
@@ -223,9 +223,9 @@ public final class ExpressionNumberBigDecimalTest extends ExpressionNumberTestCa
     void checkValue0(final double value, final ExpressionNumberBigDecimal number) {
         final BigDecimal actual = number.bigDecimal();
         this.checkEquals(
-                BigDecimal.valueOf(value)
-                        .setScale(actual.scale(), RoundingMode.HALF_UP),
-                actual
+            BigDecimal.valueOf(value)
+                .setScale(actual.scale(), RoundingMode.HALF_UP),
+            actual
         );
     }
 

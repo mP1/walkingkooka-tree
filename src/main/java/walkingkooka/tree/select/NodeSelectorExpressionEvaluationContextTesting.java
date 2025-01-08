@@ -23,10 +23,10 @@ import walkingkooka.tree.Node;
 import walkingkooka.tree.expression.ExpressionEvaluationContextTesting;
 
 public interface NodeSelectorExpressionEvaluationContextTesting<C extends NodeSelectorExpressionEvaluationContext<N, NAME, ANAME, AVALUE>,
-        N extends Node<N, NAME, ANAME, AVALUE>,
-        NAME extends Name,
-        ANAME extends Name,
-        AVALUE> extends ExpressionEvaluationContextTesting<C> {
+    N extends Node<N, NAME, ANAME, AVALUE>,
+    NAME extends Name,
+    ANAME extends Name,
+    AVALUE> extends ExpressionEvaluationContextTesting<C> {
 
     @Test
     default void testNode() {

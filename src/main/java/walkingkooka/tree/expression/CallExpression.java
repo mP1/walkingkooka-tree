@@ -62,9 +62,9 @@ public final class CallExpression extends VariableExpression {
     ParentExpression replace0(final int index,
                               final List<Expression> children) {
         return new CallExpression(
-                index,
-                this.callable,
-                children
+            index,
+            this.callable,
+            children
         );
     }
 
@@ -80,8 +80,8 @@ public final class CallExpression extends VariableExpression {
     public CallExpression setCallable(final Expression callable) {
         Objects.requireNonNull(callable, "callable");
         return this.callable().equals(callable) ?
-                this :
-                new CallExpression(this.index, callable, this.value());
+            this :
+            new CallExpression(this.index, callable, this.value());
     }
 
     @Override
@@ -106,7 +106,7 @@ public final class CallExpression extends VariableExpression {
     @Override
     public boolean isPure(final ExpressionPurityContext context) {
         return this.callable().isPure(context) &&
-                this.isPureChildren(context);
+            this.isPureChildren(context);
     }
 
     // Visitor.........................................................................................................
@@ -130,41 +130,41 @@ public final class CallExpression extends VariableExpression {
     @Override
     public boolean toBoolean(final ExpressionEvaluationContext context) {
         return this.executeFunctionAndConvert(
-                context,
-                Boolean.class
+            context,
+            Boolean.class
         );
     }
 
     @Override
     public ExpressionNumber toExpressionNumber(final ExpressionEvaluationContext context) {
         return this.executeFunctionAndConvert(
-                context,
-                ExpressionNumber.class
+            context,
+            ExpressionNumber.class
         );
     }
 
     @Override
     public String toString(final ExpressionEvaluationContext context) {
         return this.executeFunctionAndConvert(
-                context,
-                String.class
+            context,
+            String.class
         );
     }
 
     @Override
     public Object toValue(final ExpressionEvaluationContext context) {
         return context.evaluateFunction(
-                this.callable()
-                        .function(context),
-                Cast.to(this.value())
+            this.callable()
+                .function(context),
+            Cast.to(this.value())
         );
     }
 
     private <T> T executeFunctionAndConvert(final ExpressionEvaluationContext context,
                                             final Class<T> target) {
         return context.convertOrFail(
-                this.toValue(context),
-                target
+            this.toValue(context),
+            target
         );
     }
 

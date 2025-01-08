@@ -25,7 +25,7 @@ import walkingkooka.tree.TestNode;
 import static org.junit.jupiter.api.Assertions.assertSame;
 
 public final class NodeSelectorContext2AllTest extends NodeSelectorContext2TestCase<NodeSelectorContext2All<TestNode, StringName, StringName, Object>,
-        TestNode, StringName, StringName, Object> {
+    TestNode, StringName, StringName, Object> {
 
     @Test
     public void testAll() {

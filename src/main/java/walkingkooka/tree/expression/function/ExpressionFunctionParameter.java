@@ -94,11 +94,11 @@ public final class ExpressionFunctionParameter<T> implements HasName<ExpressionF
         checkKinds(kinds);
 
         return new ExpressionFunctionParameter<>(
-                name,
-                type,
-                cardinality,
-                Lists.immutable(typeParameters),
-                Sets.immutable(kinds)
+            name,
+            type,
+            cardinality,
+            Lists.immutable(typeParameters),
+            Sets.immutable(kinds)
         );
     }
 
@@ -146,14 +146,14 @@ public final class ExpressionFunctionParameter<T> implements HasName<ExpressionF
         checkName(name);
 
         return this.name.equals(name) ?
-                this :
-                new ExpressionFunctionParameter<>(
-                        name,
-                        this.type,
-                        this.cardinality,
-                        this.typeParameters,
-                        this.kinds
-                );
+            this :
+            new ExpressionFunctionParameter<>(
+                name,
+                this.type,
+                this.cardinality,
+                this.typeParameters,
+                this.kinds
+            );
     }
 
     private final ExpressionFunctionParameterName name;
@@ -171,14 +171,14 @@ public final class ExpressionFunctionParameter<T> implements HasName<ExpressionF
         checkType(type);
 
         return this.type.equals(type) ?
-                Cast.to(this) :
-                new ExpressionFunctionParameter<>(
-                        this.name,
-                        type,
-                        this.cardinality,
-                        this.typeParameters,
-                        this.kinds
-                );
+            Cast.to(this) :
+            new ExpressionFunctionParameter<>(
+                this.name,
+                type,
+                this.cardinality,
+                this.typeParameters,
+                this.kinds
+            );
     }
 
     private final Class<T> type;
@@ -198,14 +198,14 @@ public final class ExpressionFunctionParameter<T> implements HasName<ExpressionF
 
     private ExpressionFunctionParameter<T> setTypeParameters0(final List<Class<?>> typeParameters) {
         return this.typeParameters.equals(typeParameters) ?
-                this :
-                new ExpressionFunctionParameter<>(
-                        this.name,
-                        this.type,
-                        this.cardinality,
-                        typeParameters,
-                        this.kinds
-                );
+            this :
+            new ExpressionFunctionParameter<>(
+                this.name,
+                this.type,
+                this.cardinality,
+                typeParameters,
+                this.kinds
+            );
     }
 
     private final List<Class<?>> typeParameters;
@@ -221,14 +221,14 @@ public final class ExpressionFunctionParameter<T> implements HasName<ExpressionF
         checkCardinality(cardinality);
 
         return this.cardinality.equals(cardinality) ?
-                this :
-                new ExpressionFunctionParameter<>(
-                        this.name,
-                        this.type,
-                        cardinality,
-                        this.typeParameters,
-                        this.kinds
-                );
+            this :
+            new ExpressionFunctionParameter<>(
+                this.name,
+                this.type,
+                cardinality,
+                this.typeParameters,
+                this.kinds
+            );
     }
 
     private final ExpressionFunctionParameterCardinality cardinality;
@@ -247,17 +247,17 @@ public final class ExpressionFunctionParameter<T> implements HasName<ExpressionF
         checkKinds(kinds);
 
         final Set<ExpressionFunctionParameterKind> copy = kinds.isEmpty() ?
-                Sets.empty() :
-                EnumSet.copyOf(kinds);
+            Sets.empty() :
+            EnumSet.copyOf(kinds);
         return this.kinds.equals(copy) ?
-                this :
-                new ExpressionFunctionParameter<>(
-                        this.name,
-                        this.type,
-                        this.cardinality,
-                        this.typeParameters,
-                        Sets.readOnly(copy)
-                );
+            this :
+            new ExpressionFunctionParameter<>(
+                this.name,
+                this.type,
+                this.cardinality,
+                this.typeParameters,
+                Sets.readOnly(copy)
+            );
     }
 
     private final Set<ExpressionFunctionParameterKind> kinds;
@@ -272,14 +272,14 @@ public final class ExpressionFunctionParameter<T> implements HasName<ExpressionF
         this.cardinality.get(this);
 
         return index >= parameters.size() ?
-                Optional.empty() :
-                Optional.of(
-                        Optional.ofNullable(
-                                Cast.to(
-                                        parameters.get(index)
-                                )
-                        )
-                );
+            Optional.empty() :
+            Optional.of(
+                Optional.ofNullable(
+                    Cast.to(
+                        parameters.get(index)
+                    )
+                )
+            );
     }
 
     /**
@@ -315,8 +315,8 @@ public final class ExpressionFunctionParameter<T> implements HasName<ExpressionF
         this.cardinality.getVariable(this);
 
         return index >= parameters.size() ?
-                Lists.empty() :
-                Cast.to(parameters.subList(index, parameters.size()));
+            Lists.empty() :
+            Cast.to(parameters.subList(index, parameters.size()));
     }
 
     /**
@@ -327,8 +327,8 @@ public final class ExpressionFunctionParameter<T> implements HasName<ExpressionF
         final Class<T> type = this.type();
         final boolean isList = type.equals(List.class);
         return isList ?
-                Cast.to(this.convertList((List<?>) value, context)) :
-                context.convertOrFail(value, type);
+            Cast.to(this.convertList((List<?>) value, context)) :
+            context.convertOrFail(value, type);
     }
 
     private List<?> convertList(final List<?> list,
@@ -348,9 +348,9 @@ public final class ExpressionFunctionParameter<T> implements HasName<ExpressionF
         }
 
         return Lists.immutable(
-                list.stream()
-                        .map(v -> context.convertOrFail(v, listType))
-                        .collect(Collectors.toList()));
+            list.stream()
+                .map(v -> context.convertOrFail(v, listType))
+                .collect(Collectors.toList()));
     }
 
     // Object...........................................................................................................
@@ -358,55 +358,55 @@ public final class ExpressionFunctionParameter<T> implements HasName<ExpressionF
     @Override
     public int hashCode() {
         return Objects.hash(
-                this.name,
-                this.type,
-                this.typeParameters,
-                this.cardinality,
-                this.kinds
+            this.name,
+            this.type,
+            this.typeParameters,
+            this.cardinality,
+            this.kinds
         );
     }
 
     @Override
     public boolean equals(final Object other) {
         return this == other ||
-                other instanceof ExpressionFunctionParameter && this.equals0((ExpressionFunctionParameter<?>) other);
+            other instanceof ExpressionFunctionParameter && this.equals0((ExpressionFunctionParameter<?>) other);
     }
 
     private boolean equals0(final ExpressionFunctionParameter<?> other) {
         return this.name.equals(other.name) &&
-                this.type.equals(other.type) &&
-                this.typeParameters.equals(other.typeParameters) &&
-                this.cardinality == other.cardinality &&
-                this.kinds.equals(other.kinds);
+            this.type.equals(other.type) &&
+            this.typeParameters.equals(other.typeParameters) &&
+            this.cardinality == other.cardinality &&
+            this.kinds.equals(other.kinds);
     }
 
     @Override
     public String toString() {
         return this.toStringKinds() +
-                this.type.getName() +
-                this.toStringTypeParameters() +
-                " " +
-                this.name +
-                this.cardinality.parameterToString;
+            this.type.getName() +
+            this.toStringTypeParameters() +
+            " " +
+            this.name +
+            this.cardinality.parameterToString;
     }
 
     private String toStringKinds() {
         final Set<ExpressionFunctionParameterKind> kinds = this.kinds();
 
         return kinds.isEmpty() ?
-                "" :
-                kinds.stream()
-                        .map(ExpressionFunctionParameterKind::parameterToString)
-                        .collect(Collectors.joining(", ", "", " "));
+            "" :
+            kinds.stream()
+                .map(ExpressionFunctionParameterKind::parameterToString)
+                .collect(Collectors.joining(", ", "", " "));
     }
 
     private String toStringTypeParameters() {
         final List<Class<?>> typeParameters = this.typeParameters();
 
         return typeParameters.isEmpty() ?
-                "" :
-                typeParameters.stream()
-                        .map(Class::getName)
-                        .collect(Collectors.joining(",", "<", ">"));
+            "" :
+            typeParameters.stream()
+                .map(Class::getName)
+                .collect(Collectors.joining(",", "<", ">"));
     }
 }

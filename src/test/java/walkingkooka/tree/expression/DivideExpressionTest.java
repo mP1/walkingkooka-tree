@@ -75,11 +75,11 @@ public final class DivideExpressionTest extends ArithmeticExpressionTestCase2<Di
         }.accept(division);
         this.checkEquals("1315215242", b.toString());
         this.checkEquals(Lists.of(division, division,
-                        text1, text1, text1,
-                        text2, text2, text2,
-                        division, division),
-                visited,
-                "visited");
+                text1, text1, text1,
+                text2, text2, text2,
+                division, division),
+            visited,
+            "visited");
     }
 
     @Test
@@ -94,22 +94,22 @@ public final class DivideExpressionTest extends ArithmeticExpressionTestCase2<Di
 
     private void divideByZeroAndCheck(final ExpressionNumberKind kind) {
         final ExpressionEvaluationException thrown = assertThrows(
-                ExpressionEvaluationException.class,
-                () -> kind.one()
-                        .divide(
-                                kind.zero(),
-                                new FakeExpressionNumberContext() {
-                                    @Override
-                                    public MathContext mathContext() {
-                                        return MathContext.DECIMAL32;
-                                    }
-                                }
-                        )
+            ExpressionEvaluationException.class,
+            () -> kind.one()
+                .divide(
+                    kind.zero(),
+                    new FakeExpressionNumberContext() {
+                        @Override
+                        public MathContext mathContext() {
+                            return MathContext.DECIMAL32;
+                        }
+                    }
+                )
         );
 
         this.checkEquals(
-                "Division by zero",
-                thrown.getMessage()
+            "Division by zero",
+            thrown.getMessage()
         );
     }
 

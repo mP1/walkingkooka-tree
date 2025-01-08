@@ -45,12 +45,12 @@ public enum ExpressionNumberSign {
     }
 
     private final static ExpressionNumber[] EXPRESSION_NUMBERS = new ExpressionNumber[]{
-            ExpressionNumberKind.BIG_DECIMAL.create(-1),
-            ExpressionNumberKind.BIG_DECIMAL.zero(),
-            ExpressionNumberKind.BIG_DECIMAL.create(+1),
-            ExpressionNumberKind.DOUBLE.create(-1),
-            ExpressionNumberKind.DOUBLE.zero(),
-            ExpressionNumberKind.DOUBLE.create(+1)
+        ExpressionNumberKind.BIG_DECIMAL.create(-1),
+        ExpressionNumberKind.BIG_DECIMAL.zero(),
+        ExpressionNumberKind.BIG_DECIMAL.create(+1),
+        ExpressionNumberKind.DOUBLE.create(-1),
+        ExpressionNumberKind.DOUBLE.zero(),
+        ExpressionNumberKind.DOUBLE.create(+1)
     };
 
     static ExpressionNumberSign pick(final BigDecimal bigDecimal) {
@@ -63,8 +63,8 @@ public enum ExpressionNumberSign {
 
     private static ExpressionNumberSign pick0(final int sign) {
         return sign == 0 ? ZERO :
-                sign < 0 ?
-                        NEGATIVE :
-                        POSITIVE;
+            sign < 0 ?
+                NEGATIVE :
+                POSITIVE;
     }
 }

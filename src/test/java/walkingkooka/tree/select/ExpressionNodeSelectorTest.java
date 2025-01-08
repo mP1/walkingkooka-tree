@@ -36,7 +36,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 
 final public class ExpressionNodeSelectorTest extends
-        NonTerminalNodeSelectorTestCase<ExpressionNodeSelector<TestNode, StringName, StringName, Object>> {
+    NonTerminalNodeSelectorTestCase<ExpressionNodeSelector<TestNode, StringName, StringName, Object>> {
 
     @Test
     public void testWithNullPredicateFails() {
@@ -46,19 +46,19 @@ final public class ExpressionNodeSelectorTest extends
     @Test
     public void testFinishedTrueChildren() {
         this.applyFinisherAndCheck(this.createSelector().children(),
-                TestNode.with("self"),
-                () -> true);
+            TestNode.with("self"),
+            () -> true);
     }
 
     @Test
     public void testAppendExpressionTrue() {
         final NodeSelector<TestNode, StringName, StringName, Object> selector = TestNode.relativeNodeSelector()
-                .children()
-                .expression(Expression.value(true));
+            .children()
+            .expression(Expression.value(true));
         this.checkEqualsAndHashCode(TestNode.relativeNodeSelector()
-                        .children()
-                        .setToString("child::*[true()]"),
-                selector);
+                .children()
+                .setToString("child::*[true()]"),
+            selector);
     }
 
     @Test
@@ -84,8 +84,8 @@ final public class ExpressionNodeSelectorTest extends
         final TestNode parent = TestNode.with("self", child1, child2);
 
         this.applyAndCheck(ExpressionNodeSelector.<TestNode, StringName, StringName, Object>with(Expression.value(true)).children(),
-                parent,
-                child1, child2);
+            parent,
+            child1, child2);
     }
 
     @SuppressWarnings("PointlessArithmeticExpression")
@@ -117,25 +117,25 @@ final public class ExpressionNodeSelectorTest extends
     private void childrenExpressionNumberPositionAndCheck(final long value,
                                                           final int childIndex) {
         this.childrenExpressionNumberPositionAndCheck(
-                Expression.value(
-                        ExpressionNumberKind.DEFAULT.create(value)
-                ),
-                childIndex
+            Expression.value(
+                ExpressionNumberKind.DEFAULT.create(value)
+            ),
+            childIndex
         );
     }
 
     private void childrenExpressionNumberPositionAndCheck(final Expression expression,
                                                           final int childIndex) {
         final TestNode parent = TestNode.with("parent",
-                TestNode.with("child1", TestNode.with("grandChild1")),
-                TestNode.with("child2", TestNode.with("grandChild2")),
-                TestNode.with("child3", TestNode.with("grandChild3")));
+            TestNode.with("child1", TestNode.with("grandChild1")),
+            TestNode.with("child2", TestNode.with("grandChild2")),
+            TestNode.with("child3", TestNode.with("grandChild3")));
 
         this.applyAndCheck(TestNode.relativeNodeSelector()
-                        .children()
-                        .expression(expression),
-                parent,
-                childIndex < 0 ? new TestNode[0] : new TestNode[]{parent.child(childIndex)});
+                .children()
+                .expression(expression),
+            parent,
+            childIndex < 0 ? new TestNode[0] : new TestNode[]{parent.child(childIndex)});
     }
 
     @Test
@@ -143,47 +143,47 @@ final public class ExpressionNodeSelectorTest extends
         TestNode.disableUniqueNameChecks();
 
         final TestNode parent = TestNode.with("parent",
-                nodeWithAttributes("child1", "A1", "V1"),
-                nodeWithAttributes("child2", "B2", "V2"),
-                nodeWithAttributes("child3", "B2", "V3"));
+            nodeWithAttributes("child1", "A1", "V1"),
+            nodeWithAttributes("child2", "B2", "V2"),
+            nodeWithAttributes("child3", "B2", "V3"));
 
         this.applyAndCheck(TestNode.relativeNodeSelector()
-                        .children()
-                        .expression(expressionNumber(2))
-                        .attributeValueStartsWith(Names.string("B2"), "V"),
-                parent,
-                parent.child(1));
+                .children()
+                .expression(expressionNumber(2))
+                .attributeValueStartsWith(Names.string("B2"), "V"),
+            parent,
+            parent.child(1));
     }
 
     @Test
     public void testChildrenExpressionFilter() {
         final TestNode parent = TestNode.with("parent",
-                nodeWithAttributes("child1", "A1", "V1"),
-                nodeWithAttributes("child2", "B2", "V2"),
-                nodeWithAttributes("child3", "B2", "V3"));
+            nodeWithAttributes("child1", "A1", "V1"),
+            nodeWithAttributes("child2", "B2", "V2"),
+            nodeWithAttributes("child3", "B2", "V3"));
 
         this.applyFilterAndCheck(TestNode.relativeNodeSelector()
-                        .children()
-                        .expression(expressionNumber(2))
-                        .attributeValueStartsWith(Names.string("B2"), "V"),
-                parent,
-                Predicates.never());
+                .children()
+                .expression(expressionNumber(2))
+                .attributeValueStartsWith(Names.string("B2"), "V"),
+            parent,
+            Predicates.never());
     }
 
     @Test
     public void testChildrenExpressionFilter2() {
         final TestNode parent = TestNode.with("parent",
-                nodeWithAttributes("child1", "A1", "V1"),
-                nodeWithAttributes("child2", "B2", "V2"),
-                nodeWithAttributes("child3", "B2", "V3"));
+            nodeWithAttributes("child1", "A1", "V1"),
+            nodeWithAttributes("child2", "B2", "V2"),
+            nodeWithAttributes("child3", "B2", "V3"));
 
         this.applyFilterAndCheck(TestNode.relativeNodeSelector()
-                        .children()
-                        .expression(expressionNumber(2))
-                        .attributeValueStartsWith(Names.string("B2"), "V"),
-                parent,
-                (n) -> !n.name().value().equals("child3"), // select parent, child1, child2, skip child3
-                parent.child(1)); // $child2
+                .children()
+                .expression(expressionNumber(2))
+                .attributeValueStartsWith(Names.string("B2"), "V"),
+            parent,
+            (n) -> !n.name().value().equals("child3"), // select parent, child1, child2, skip child3
+            parent.child(1)); // $child2
     }
 
     @Test
@@ -191,14 +191,14 @@ final public class ExpressionNodeSelectorTest extends
         final TestNode node = TestNode.with("node");
 
         this.acceptMapAndCheck(ExpressionNodeSelector.with(Expression.value(false)),
-                node);
+            node);
     }
 
     @Test
     public void testExpressionTrueMap() {
         this.acceptMapAndCheck(ExpressionNodeSelector.with(Expression.value(true)),
-                TestNode.with("node"),
-                TestNode.with("node*0"));
+            TestNode.with("node"),
+            TestNode.with("node*0"));
     }
 
     @Test
@@ -208,118 +208,118 @@ final public class ExpressionNodeSelectorTest extends
         TestNode.clear();
 
         this.acceptMapAndCheck(ExpressionNodeSelector.with(Expression.value(true)),
-                parent.child(0),
-                TestNode.with("parent", TestNode.with("child*0")).child(0));
+            parent.child(0),
+            TestNode.with("parent", TestNode.with("child*0")).child(0));
     }
 
     @Test
     public void testExpressionTrueIgnoresChildrenMap() {
         final TestNode parent = TestNode.with("parent",
-                TestNode.with("child",
-                        TestNode.with("grand-child1"), TestNode.with("grand-child2")));
+            TestNode.with("child",
+                TestNode.with("grand-child1"), TestNode.with("grand-child2")));
 
         TestNode.clear();
 
         this.acceptMapAndCheck(ExpressionNodeSelector.with(Expression.value(true)),
-                parent.child(0),
-                TestNode.with("parent",
-                                TestNode.with("child*0",
-                                        TestNode.with("grand-child1"), TestNode.with("grand-child2")))
-                        .child(0));
+            parent.child(0),
+            TestNode.with("parent",
+                    TestNode.with("child*0",
+                        TestNode.with("grand-child1"), TestNode.with("grand-child2")))
+                .child(0));
     }
 
     @Test
     public void testExpressionNumberNegativeMap() {
         this.acceptMapAndCheck(ExpressionNodeSelector.with(expressionNumber(-2)),
-                TestNode.with("node"));
+            TestNode.with("node"));
     }
 
     @Test
     public void testExpressionNumberOutOfRangeMap() {
         this.acceptMapAndCheck(ExpressionNodeSelector.with(expressionNumber(999)),
-                TestNode.with("node"));
+            TestNode.with("node"));
     }
 
     @Test
     public void testChildrenExpressionNumberInvalidMap() {
         final TestNode parent = TestNode.with("parent",
-                TestNode.with("child1"),
-                TestNode.with("child2"),
-                TestNode.with("child3"));
+            TestNode.with("child1"),
+            TestNode.with("child2"),
+            TestNode.with("child3"));
 
         TestNode.clear();
 
         this.acceptMapAndCheck(TestNode.relativeNodeSelector()
-                        .children()
-                        .expression(expressionNumber(99)),
-                parent,
-                parent);
+                .children()
+                .expression(expressionNumber(99)),
+            parent,
+            parent);
     }
 
     @Test
     public void testChildrenExpressionNumberMap() {
         final TestNode parent = TestNode.with("parent",
-                TestNode.with("child1"),
-                TestNode.with("child2"),
-                TestNode.with("child3"));
+            TestNode.with("child1"),
+            TestNode.with("child2"),
+            TestNode.with("child3"));
 
         TestNode.clear();
 
         //noinspection PointlessArithmeticExpression
         this.acceptMapAndCheck(TestNode.relativeNodeSelector()
-                        .children()
-                        .expression(expressionNumber(NodeSelector.INDEX_BIAS + 0)),
-                parent,
-                TestNode.with("parent", TestNode.with("child1*0"), TestNode.with("child2"), TestNode.with("child3")));
+                .children()
+                .expression(expressionNumber(NodeSelector.INDEX_BIAS + 0)),
+            parent,
+            TestNode.with("parent", TestNode.with("child1*0"), TestNode.with("child2"), TestNode.with("child3")));
     }
 
     @Test
     public void testChildrenExpressionNumberMap2() {
         final TestNode parent = TestNode.with("parent",
-                TestNode.with("child1"),
-                TestNode.with("child2"),
-                TestNode.with("child3"));
+            TestNode.with("child1"),
+            TestNode.with("child2"),
+            TestNode.with("child3"));
 
         TestNode.clear();
 
         this.acceptMapAndCheck(TestNode.relativeNodeSelector()
-                        .children()
-                        .expression(expressionNumber(NodeSelector.INDEX_BIAS + 1)),
-                parent,
-                TestNode.with("parent", TestNode.with("child1"), TestNode.with("child2*0"), TestNode.with("child3")));
+                .children()
+                .expression(expressionNumber(NodeSelector.INDEX_BIAS + 1)),
+            parent,
+            TestNode.with("parent", TestNode.with("child1"), TestNode.with("child2*0"), TestNode.with("child3")));
     }
 
     @Test
     public void testChildrenExpressionNumberMap3() {
         final TestNode parent = TestNode.with("parent",
-                TestNode.with("child1"),
-                TestNode.with("child2"),
-                TestNode.with("child3"));
+            TestNode.with("child1"),
+            TestNode.with("child2"),
+            TestNode.with("child3"));
 
         TestNode.clear();
 
         this.acceptMapAndCheck(TestNode.relativeNodeSelector()
-                        .children()
-                        .expression(expressionNumber(NodeSelector.INDEX_BIAS + 2)),
-                parent,
-                TestNode.with("parent", TestNode.with("child1"), TestNode.with("child2"), TestNode.with("child3*0")));
+                .children()
+                .expression(expressionNumber(NodeSelector.INDEX_BIAS + 2)),
+            parent,
+            TestNode.with("parent", TestNode.with("child1"), TestNode.with("child2"), TestNode.with("child3*0")));
     }
 
     @Test
     public void testChildrenExpressionTrueMap() {
         final TestNode parent = TestNode.with("parent",
-                TestNode.with("child1", TestNode.with("grandChildren1")),
-                TestNode.with("child2", TestNode.with("grandChildren2")),
-                TestNode.with("child3"));
+            TestNode.with("child1", TestNode.with("grandChildren1")),
+            TestNode.with("child2", TestNode.with("grandChildren2")),
+            TestNode.with("child3"));
 
         TestNode.clear();
 
         this.acceptMapAndCheck(TestNode.relativeNodeSelector().children().expression(Expression.value(true)),
-                parent,
-                TestNode.with("parent",
-                        TestNode.with("child1*0", TestNode.with("grandChildren1")),
-                        TestNode.with("child2*1", TestNode.with("grandChildren2")),
-                        TestNode.with("child3*2")));
+            parent,
+            TestNode.with("parent",
+                TestNode.with("child1*0", TestNode.with("grandChildren1")),
+                TestNode.with("child2*1", TestNode.with("grandChildren2")),
+                TestNode.with("child3*2")));
     }
 
     // /tr[1]/td[1]
@@ -328,30 +328,30 @@ final public class ExpressionNodeSelectorTest extends
         TestNode.disableUniqueNameChecks();
 
         final TestNode parent = TestNode.with("tbody",
-                TestNode.with("skip"),
-                TestNode.with("tr",
-                        TestNode.with("td", TestNode.with("div1"))
-                ),
-                TestNode.with("tr",
-                        TestNode.with("td", TestNode.with("div2"))
-                ));
+            TestNode.with("skip"),
+            TestNode.with("tr",
+                TestNode.with("td", TestNode.with("div1"))
+            ),
+            TestNode.with("tr",
+                TestNode.with("td", TestNode.with("div2"))
+            ));
 
         this.acceptMapAndCheck(TestNode.relativeNodeSelector()
-                        .children()
-                        .named(Names.string("tr"))
-                        .expression(expressionNumber(1))
-                        .children()
-                        .named(Names.string("td"))
-                        .expression(expressionNumber(1)),
-                parent,
-                TestNode.with("tbody",
-                        TestNode.with("skip"),
-                        TestNode.with("tr",
-                                TestNode.with("td*0", TestNode.with("div1"))
-                        ),
-                        TestNode.with("tr",
-                                TestNode.with("td", TestNode.with("div2"))
-                        )));
+                .children()
+                .named(Names.string("tr"))
+                .expression(expressionNumber(1))
+                .children()
+                .named(Names.string("td"))
+                .expression(expressionNumber(1)),
+            parent,
+            TestNode.with("tbody",
+                TestNode.with("skip"),
+                TestNode.with("tr",
+                    TestNode.with("td*0", TestNode.with("div1"))
+                ),
+                TestNode.with("tr",
+                    TestNode.with("td", TestNode.with("div2"))
+                )));
     }
 
     // /tr[1]/[2]
@@ -360,31 +360,31 @@ final public class ExpressionNodeSelectorTest extends
         TestNode.disableUniqueNameChecks();
 
         final TestNode parent = TestNode.with("tbody",
-                TestNode.with("tr",
-                        TestNode.with("td1"),
-                        TestNode.with("td2")
-                ),
-                TestNode.with("tr",
-                        TestNode.with("td3"),
-                        TestNode.with("td4")
-                ));
+            TestNode.with("tr",
+                TestNode.with("td1"),
+                TestNode.with("td2")
+            ),
+            TestNode.with("tr",
+                TestNode.with("td3"),
+                TestNode.with("td4")
+            ));
 
         this.acceptMapAndCheck(TestNode.relativeNodeSelector()
-                        .children()
-                        .named(Names.string("tr"))
-                        .expression(expressionNumber(1))
-                        .children()
-                        .expression(expressionNumber(2)),
-                parent,
-                TestNode.with("tbody",
-                        TestNode.with("tr",
-                                TestNode.with("td1"),
-                                TestNode.with("td2*0")
-                        ),
-                        TestNode.with("tr",
-                                TestNode.with("td3"),
-                                TestNode.with("td4")
-                        )));
+                .children()
+                .named(Names.string("tr"))
+                .expression(expressionNumber(1))
+                .children()
+                .expression(expressionNumber(2)),
+            parent,
+            TestNode.with("tbody",
+                TestNode.with("tr",
+                    TestNode.with("td1"),
+                    TestNode.with("td2*0")
+                ),
+                TestNode.with("tr",
+                    TestNode.with("td3"),
+                    TestNode.with("td4")
+                )));
     }
 
     // /tr[1]/*[2]
@@ -393,31 +393,31 @@ final public class ExpressionNodeSelectorTest extends
         TestNode.disableUniqueNameChecks();
 
         final TestNode parent = TestNode.with("tbody",
-                TestNode.with("tr",
-                        TestNode.with("td", TestNode.with("div1")),
-                        TestNode.with("td", TestNode.with("div2"))
-                ),
-                TestNode.with("tr",
-                        TestNode.with("td", TestNode.with("div3")),
-                        TestNode.with("td", TestNode.with("div4"))
-                ));
+            TestNode.with("tr",
+                TestNode.with("td", TestNode.with("div1")),
+                TestNode.with("td", TestNode.with("div2"))
+            ),
+            TestNode.with("tr",
+                TestNode.with("td", TestNode.with("div3")),
+                TestNode.with("td", TestNode.with("div4"))
+            ));
 
         this.acceptMapAndCheck(TestNode.relativeNodeSelector()
-                        .children()
-                        .named(Names.string("tr"))
-                        .expression(expressionNumber(2))
-                        .children()
-                        .expression(expressionNumber(2)),
-                parent,
-                TestNode.with("tbody",
-                        TestNode.with("tr",
-                                TestNode.with("td", TestNode.with("div1")),
-                                TestNode.with("td", TestNode.with("div2"))
-                        ),
-                        TestNode.with("tr",
-                                TestNode.with("td", TestNode.with("div3")),
-                                TestNode.with("td*0", TestNode.with("div4"))
-                        )));
+                .children()
+                .named(Names.string("tr"))
+                .expression(expressionNumber(2))
+                .children()
+                .expression(expressionNumber(2)),
+            parent,
+            TestNode.with("tbody",
+                TestNode.with("tr",
+                    TestNode.with("td", TestNode.with("div1")),
+                    TestNode.with("td", TestNode.with("div2"))
+                ),
+                TestNode.with("tr",
+                    TestNode.with("td", TestNode.with("div3")),
+                    TestNode.with("td*0", TestNode.with("div4"))
+                )));
     }
 
     // NodeSelectorVisitor............................................................................................
@@ -476,10 +476,10 @@ final public class ExpressionNodeSelectorTest extends
         this.checkEquals("1315242", b.toString());
 
         this.checkEquals(Lists.of(selector, selector,
-                        next, next, next,
-                        selector, selector),
-                visited,
-                "visited");
+                next, next, next,
+                selector, selector),
+            visited,
+            "visited");
     }
 
     // Object.......................................................................................................
@@ -492,39 +492,39 @@ final public class ExpressionNodeSelectorTest extends
     @Test
     public void testToStringChildrenExpressionTrue() {
         this.toStringAndCheck(TestNode.relativeNodeSelector()
-                        .children()
-                        .expression(Expression.value(true)),
-                "child::*[true()]");
+                .children()
+                .expression(Expression.value(true)),
+            "child::*[true()]");
     }
 
     @Test
     public void testToStringChildrenExpressionFalse() {
         this.toStringAndCheck(TestNode.relativeNodeSelector()
-                        .children()
-                        .expression(Expression.value(false)),
-                "child::*[false()]");
+                .children()
+                .expression(Expression.value(false)),
+            "child::*[false()]");
     }
 
     @Test
     public void testToStringChildrenNamedExpression() {
         this.toStringAndCheck(TestNode.relativeNodeSelector()
-                        .children()
-                        .named(Names.string("ABC"))
-                        .expression(Expression.value(true)),
-                "child::ABC[true()]");
+                .children()
+                .named(Names.string("ABC"))
+                .expression(Expression.value(true)),
+            "child::ABC[true()]");
     }
 
     @Test
     public void testToStringExpressionChildren() {
         this.toStringAndCheck(TestNode.relativeNodeSelector()
-                        .expression(expressionNumber(123))
-                        .firstChild(),
-                "*[123]/first-child::*");
+                .expression(expressionNumber(123))
+                .firstChild(),
+            "*[123]/first-child::*");
     }
 
     private Expression expressionNumber(final double value) {
         return Expression.value(
-                ExpressionNumberKind.DEFAULT.create(value)
+            ExpressionNumberKind.DEFAULT.create(value)
         );
     }
 
@@ -535,20 +535,20 @@ final public class ExpressionNodeSelectorTest extends
 
     private Expression expression() {
         return Expression.equalsExpression(
-                Expression.call(
-                        Expression.namedFunction(
-                                ExpressionFunctionName.with("name")
-                        ),
-                        Lists.of(
-                                Expression.call(
-                                        Expression.namedFunction(
-                                                ExpressionFunctionName.with("node")
-                                        ),
-                                        Expression.NO_CHILDREN
-                                )
-                        )
+            Expression.call(
+                Expression.namedFunction(
+                    ExpressionFunctionName.with("name")
                 ),
-                Expression.value("self")
+                Lists.of(
+                    Expression.call(
+                        Expression.namedFunction(
+                            ExpressionFunctionName.with("node")
+                        ),
+                        Expression.NO_CHILDREN
+                    )
+                )
+            ),
+            Expression.value("self")
         );
     }
 

@@ -59,13 +59,13 @@ final class BasicExpressionEvaluationContext implements ExpressionEvaluationCont
         Objects.requireNonNull(converterContext, "converterContext");
 
         return new BasicExpressionEvaluationContext(
-                expressionNumberKind,
-                functions,
-                exceptionHandler,
-                references,
-                referenceNotFound,
-                stringEqualityCaseSensitivity,
-                converterContext
+            expressionNumberKind,
+            functions,
+            exceptionHandler,
+            references,
+            referenceNotFound,
+            stringEqualityCaseSensitivity,
+            converterContext
         );
     }
 
@@ -272,8 +272,8 @@ final class BasicExpressionEvaluationContext implements ExpressionEvaluationCont
 
         try {
             result = function.apply(
-                    this.prepareParameters(function, parameters),
-                    Cast.to(this)
+                this.prepareParameters(function, parameters),
+                Cast.to(this)
             );
         } catch (final RuntimeException exception) {
             result = this.handleException(exception);
@@ -307,17 +307,17 @@ final class BasicExpressionEvaluationContext implements ExpressionEvaluationCont
     @Override
     public String toString() {
         return this.expressionNumberKind +
-                " " +
-                this.functions +
-                " " +
-                this.exceptionHandler +
-                " " +
-                this.references +
-                " " +
-                this.referenceNotFound +
-                " " +
-                this.stringEqualityCaseSensitivity +
-                " " +
-                this.converterContext;
+            " " +
+            this.functions +
+            " " +
+            this.exceptionHandler +
+            " " +
+            this.references +
+            " " +
+            this.referenceNotFound +
+            " " +
+            this.stringEqualityCaseSensitivity +
+            " " +
+            this.converterContext;
     }
 }

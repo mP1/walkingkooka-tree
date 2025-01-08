@@ -92,12 +92,12 @@ public final class NodeSelectorMultiplicationParserTokenTest extends NodeSelecto
         }.accept(multiply);
         this.checkEquals("1315216217242", b.toString());
         this.checkEquals(Lists.<Object>of(multiply, multiply,
-                        nodeName, nodeName, nodeName,
-                        multiplySymbol, multiplySymbol, multiplySymbol,
-                        wildcard, wildcard, wildcard,
-                        multiply, multiply),
-                visited,
-                "visited");
+                nodeName, nodeName, nodeName,
+                multiplySymbol, multiplySymbol, multiplySymbol,
+                wildcard, wildcard, wildcard,
+                multiply, multiply),
+            visited,
+            "visited");
     }
 
     @Override

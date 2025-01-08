@@ -52,8 +52,7 @@ abstract class BinaryExpression extends ParentFixedExpression {
         return 2;
     }
 
-    @Override
-    final BinaryExpression replace0(final int index, final List<Expression> children) {
+    @Override final BinaryExpression replace0(final int index, final List<Expression> children) {
         return replace1(index, children.get(0), children.get(1));
     }
 
@@ -88,26 +87,26 @@ abstract class BinaryExpression extends ParentFixedExpression {
     @Override
     public final boolean toBoolean(final ExpressionEvaluationContext context) {
         return this.apply(context)
-                .toBoolean(context);
+            .toBoolean(context);
     }
 
     @Override
     public final ExpressionNumber toExpressionNumber(final ExpressionEvaluationContext context) {
         return this.apply(context)
-                .toExpressionNumber(context);
+            .toExpressionNumber(context);
     }
 
     @Override
     public final String toString(final ExpressionEvaluationContext context) {
         return this.apply(context)
-                .toString(context);
+            .toString(context);
     }
 
     final Expression apply(final ExpressionEvaluationContext context) {
         return this.apply(
-                this.left().toValue(context),
-                this.right().toValue(context),
-                context
+            this.left().toValue(context),
+            this.right().toValue(context),
+            context
         );
     }
 

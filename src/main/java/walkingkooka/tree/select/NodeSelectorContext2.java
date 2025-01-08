@@ -30,9 +30,9 @@ abstract class NodeSelectorContext2<N extends Node<N, NAME, ANAME, AVALUE>, NAME
      * {@see AllNodeSelectorContext2}
      */
     static <N extends Node<N, NAME, ANAME, AVALUE>,
-            NAME extends Name,
-            ANAME extends Name,
-            AVALUE> NodeSelectorContext2<N, NAME, ANAME, AVALUE> all(final NodeSelectorContext<N, NAME, ANAME, AVALUE> context) {
+        NAME extends Name,
+        ANAME extends Name,
+        AVALUE> NodeSelectorContext2<N, NAME, ANAME, AVALUE> all(final NodeSelectorContext<N, NAME, ANAME, AVALUE> context) {
         return NodeSelectorContext2All.with(context);
     }
 
@@ -40,9 +40,9 @@ abstract class NodeSelectorContext2<N extends Node<N, NAME, ANAME, AVALUE>, NAME
      * {@see NodeSelectorContext2ExpressionNodeSelector}
      */
     static <N extends Node<N, NAME, ANAME, AVALUE>,
-            NAME extends Name,
-            ANAME extends Name,
-            AVALUE> NodeSelectorContext2ExpressionNodeSelector<N, NAME, ANAME, AVALUE> expression(final NodeSelectorContext<N, NAME, ANAME, AVALUE> context) {
+        NAME extends Name,
+        ANAME extends Name,
+        AVALUE> NodeSelectorContext2ExpressionNodeSelector<N, NAME, ANAME, AVALUE> expression(final NodeSelectorContext<N, NAME, ANAME, AVALUE> context) {
         return NodeSelectorContext2ExpressionNodeSelector.with(context);
     }
 

@@ -32,19 +32,19 @@ import java.util.Optional;
  * Returns the current {@link Node} which is fetched from {@link NodeSelectorExpressionEvaluationContext#node()}
  */
 final class ExpressionFunctionNode<N extends Node<N, NAME, ANAME, AVALUE>,
-        NAME extends Name,
-        ANAME extends Name,
-        AVALUE,
-        C extends NodeSelectorExpressionEvaluationContext<N, NAME, ANAME, AVALUE>> implements ExpressionFunction<N, C> {
+    NAME extends Name,
+    ANAME extends Name,
+    AVALUE,
+    C extends NodeSelectorExpressionEvaluationContext<N, NAME, ANAME, AVALUE>> implements ExpressionFunction<N, C> {
 
     /**
      * Instance getter.
      */
     static <N extends Node<N, NAME, ANAME, AVALUE>,
-            NAME extends Name,
-            ANAME extends Name,
-            AVALUE,
-            C extends NodeSelectorExpressionEvaluationContext<N, NAME, ANAME, AVALUE>> ExpressionFunctionNode<N, NAME, ANAME, AVALUE, C> instance() {
+        NAME extends Name,
+        ANAME extends Name,
+        AVALUE,
+        C extends NodeSelectorExpressionEvaluationContext<N, NAME, ANAME, AVALUE>> ExpressionFunctionNode<N, NAME, ANAME, AVALUE, C> instance() {
         return Cast.to(INSTANCE);
     }
 
@@ -73,7 +73,7 @@ final class ExpressionFunctionNode<N extends Node<N, NAME, ANAME, AVALUE>,
     }
 
     private final static Optional<ExpressionFunctionName> NAME = Optional.of(
-            ExpressionFunctionName.with("node")
+        ExpressionFunctionName.with("node")
     );
 
     @Override
@@ -96,7 +96,7 @@ final class ExpressionFunctionNode<N extends Node<N, NAME, ANAME, AVALUE>,
     @Override
     public String toString() {
         return this.name()
-                .get()
-                .toString();
+            .get()
+            .toString();
     }
 }

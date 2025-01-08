@@ -40,17 +40,17 @@ abstract class ExpressionNumberConverter<C extends ExpressionNumberConverterCont
                                     final Class<?> type,
                                     final C context) {
         return value instanceof ExpressionNumber ?
-                ExpressionNumber.isClass(type) || // ExpressionNumber to ExpressionNumber -> true
-                        this.canConvertExpressionNumber(
-                                (ExpressionNumber) value,
-                                type,
-                                context
-                        ) :
-                this.canConvertNonExpressionNumber(
-                        value,
-                        type,
-                        context
-                );
+            ExpressionNumber.isClass(type) || // ExpressionNumber to ExpressionNumber -> true
+                this.canConvertExpressionNumber(
+                    (ExpressionNumber) value,
+                    type,
+                    context
+                ) :
+            this.canConvertNonExpressionNumber(
+                value,
+                type,
+                context
+            );
     }
 
     abstract boolean canConvertExpressionNumber(final ExpressionNumber value,
@@ -68,16 +68,16 @@ abstract class ExpressionNumberConverter<C extends ExpressionNumberConverterCont
                                                final Class<T> type,
                                                final C context) {
         return value instanceof ExpressionNumber ?
-                this.convertExpressionNumber(
-                                (ExpressionNumber) value,
-                                type,
-                                context
-                ) :
-                this.convertNonExpressionNumber(
-                        value,
-                        type,
-                        context
-                );
+            this.convertExpressionNumber(
+                (ExpressionNumber) value,
+                type,
+                context
+            ) :
+            this.convertNonExpressionNumber(
+                value,
+                type,
+                context
+            );
     }
 
     /**

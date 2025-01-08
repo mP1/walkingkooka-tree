@@ -28,7 +28,7 @@ import walkingkooka.text.printer.Printers;
 import walkingkooka.tree.NodeTesting;
 
 public final class ExpressionTest implements NodeTesting<Expression, ExpressionFunctionName, Name, Object>,
-        ClassTesting<Expression> {
+    ClassTesting<Expression> {
 
     @Override
     public void testParentWithoutChild() {
@@ -53,20 +53,20 @@ public final class ExpressionTest implements NodeTesting<Expression, ExpressionF
         final Expression right = Expression.value(456);
 
         final Expression expression = Expression.add(
-                left,
-                right
+            left,
+            right
         );
 
         final Expression replacement = Expression.value(789);
 
         this.replaceIfAndCheck(
-                expression,
-                (e) -> e.equals(left),
-                (e) -> replacement,
-                Expression.add(
-                        replacement,
-                        right
-                )
+            expression,
+            (e) -> e.equals(left),
+            (e) -> replacement,
+            Expression.add(
+                replacement,
+                right
+            )
         );
     }
 
@@ -76,20 +76,20 @@ public final class ExpressionTest implements NodeTesting<Expression, ExpressionF
         final Expression right = Expression.value(456);
 
         final Expression expression = Expression.add(
-                left,
-                right
+            left,
+            right
         );
 
         final Expression replacement = Expression.value(789);
 
         this.replaceIfAndCheck(
-                expression,
-                (e) -> e.equals(right),
-                (e) -> replacement,
-                Expression.add(
-                        left,
-                        replacement
-                )
+            expression,
+            (e) -> e.equals(right),
+            (e) -> replacement,
+            Expression.add(
+                left,
+                replacement
+            )
         );
     }
 
@@ -99,24 +99,24 @@ public final class ExpressionTest implements NodeTesting<Expression, ExpressionF
         final Expression right = Expression.value(222);
 
         final Expression expression = Expression.add(
-                left,
-                right
+            left,
+            right
         );
 
         final Expression replacement1 = Expression.value(333);
         final Expression replacement2 = Expression.value(444);
 
         this.replaceIfAndCheck(
-                expression,
-                (e) -> e.equals(left) || e.equals(right),
-                (e) -> e.equals(left) ?
-                        replacement1 :
-                        e.equals(right) ? replacement2 :
-                                e,
-                Expression.add(
-                        replacement1,
-                        replacement2
-                )
+            expression,
+            (e) -> e.equals(left) || e.equals(right),
+            (e) -> e.equals(left) ?
+                replacement1 :
+                e.equals(right) ? replacement2 :
+                    e,
+            Expression.add(
+                replacement1,
+                replacement2
+            )
         );
     }
 
@@ -127,26 +127,26 @@ public final class ExpressionTest implements NodeTesting<Expression, ExpressionF
         final Expression grandChild2 = Expression.value(333);
 
         final Expression root = Expression.add(
-                child1,
-                Expression.add(
-                        grandChild1,
-                        grandChild2
-                )
+            child1,
+            Expression.add(
+                grandChild1,
+                grandChild2
+            )
         );
 
         final Expression replacement = Expression.value(444);
 
         this.replaceIfAndCheck(
-                root,
-                (e) -> e.equals(grandChild2),
-                (e) -> replacement,
+            root,
+            (e) -> e.equals(grandChild2),
+            (e) -> replacement,
+            Expression.add(
+                child1,
                 Expression.add(
-                        child1,
-                        Expression.add(
-                                grandChild1,
-                                replacement
-                        )
+                    grandChild1,
+                    replacement
                 )
+            )
         );
     }
 
@@ -157,31 +157,31 @@ public final class ExpressionTest implements NodeTesting<Expression, ExpressionF
         final Expression grandChild2 = Expression.value(333);
 
         final Expression root = Expression.add(
-                child1,
-                Expression.add(
-                        grandChild1,
-                        grandChild2
-                )
+            child1,
+            Expression.add(
+                grandChild1,
+                grandChild2
+            )
         );
 
         final Expression replacement1 = Expression.value(444);
         final Expression replacement2 = Expression.value(555);
 
         this.replaceIfAndCheck(
-                root,
-                (e) -> e.equals(child1) || e.equals(grandChild2),
-                (e) -> e.equals(child1) ?
-                        replacement1 :
-                        e.equals(grandChild2) ?
-                                replacement2 :
-                                e,
+            root,
+            (e) -> e.equals(child1) || e.equals(grandChild2),
+            (e) -> e.equals(child1) ?
+                replacement1 :
+                e.equals(grandChild2) ?
+                    replacement2 :
+                    e,
+            Expression.add(
+                replacement1,
                 Expression.add(
-                        replacement1,
-                        Expression.add(
-                                grandChild1,
-                                replacement2
-                        )
+                    grandChild1,
+                    replacement2
                 )
+            )
         );
     }
 
@@ -191,11 +191,11 @@ public final class ExpressionTest implements NodeTesting<Expression, ExpressionF
     public void testTreePrint() {
         final ExpressionNumberKind kind = ExpressionNumberKind.DOUBLE;
         final Expression expression = Expression.add(
-                Expression.value(kind.create(1.5)),
-                Expression.multiply(
-                        Expression.value("20"),
-                        Expression.value(true)
-                )
+            Expression.value(kind.create(1.5)),
+            Expression.multiply(
+                Expression.value("20"),
+                Expression.value(true)
+            )
         );
 
         final StringBuilder printed = new StringBuilder();
@@ -205,12 +205,12 @@ public final class ExpressionTest implements NodeTesting<Expression, ExpressionF
 
             printer.flush();
             this.checkEquals(
-                    "AddExpression\n" +
-                            "  ValueExpression 1.5 (walkingkooka.tree.expression.ExpressionNumberDouble)\n" +
-                            "  MultiplyExpression\n" +
-                            "    ValueExpression \"20\" (java.lang.String)\n" +
-                            "    ValueExpression true (java.lang.Boolean)\n",
-                    printed.toString()
+                "AddExpression\n" +
+                    "  ValueExpression 1.5 (walkingkooka.tree.expression.ExpressionNumberDouble)\n" +
+                    "  MultiplyExpression\n" +
+                    "    ValueExpression \"20\" (java.lang.String)\n" +
+                    "    ValueExpression true (java.lang.Boolean)\n",
+                printed.toString()
             );
         }
     }

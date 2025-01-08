@@ -64,42 +64,42 @@ public final class ExpressionNodeSelectorToStringExpressionVisitorTest implement
     @Test
     public void testExpressionNumber() {
         this.toStringAndCheck(
-                Expression.value(
-                        EXPRESSION_NUMBER_KIND.create(
-                                BigDecimal.valueOf(123.75)
-                        )
-                ),
-                "123.75"
+            Expression.value(
+                EXPRESSION_NUMBER_KIND.create(
+                    BigDecimal.valueOf(123.75)
+                )
+            ),
+            "123.75"
         );
     }
 
     @Test
     public void testLocalDate() {
         this.toStringAndCheck(
-                Expression.value(
-                        LocalDate.of(2000, 12, 31)
-                ),
-                "localDate(\"2000-12-31\")"
+            Expression.value(
+                LocalDate.of(2000, 12, 31)
+            ),
+            "localDate(\"2000-12-31\")"
         );
     }
 
     @Test
     public void testLocalDateTime() {
         this.toStringAndCheck(
-                Expression.value(
-                        LocalDateTime.of(2000, 12, 31, 12, 58, 59, 999)
-                ),
-                "localDateTime(\"2000-12-31T12:58:59.000000999\")"
+            Expression.value(
+                LocalDateTime.of(2000, 12, 31, 12, 58, 59, 999)
+            ),
+            "localDateTime(\"2000-12-31T12:58:59.000000999\")"
         );
     }
 
     @Test
     public void testLocalTime() {
         this.toStringAndCheck(
-                Expression.value(
-                        LocalTime.of(12, 58, 59, 999)
-                ),
-                "localTime(\"12:58:59.000000999\")"
+            Expression.value(
+                LocalTime.of(12, 58, 59, 999)
+            ),
+            "localTime(\"12:58:59.000000999\")"
         );
     }
 
@@ -111,16 +111,16 @@ public final class ExpressionNodeSelectorToStringExpressionVisitorTest implement
     @Test
     public void testString2() {
         this.toStringAndCheck(
-                Expression.value("abc"),
-                "\"abc\""
+            Expression.value("abc"),
+            "\"abc\""
         );
     }
 
     @Test
     public void testStringRequiresEscaping() {
         this.toStringAndCheck(
-                Expression.value("ab\tc"),
-                "\"ab\\tc\""
+            Expression.value("ab\tc"),
+            "\"ab\\tc\""
         );
     }
 
@@ -132,16 +132,16 @@ public final class ExpressionNodeSelectorToStringExpressionVisitorTest implement
     @Test
     public void testStringBooleanTrue() {
         this.toStringAndCheck(
-                Expression.value(true),
-                "true()"
+            Expression.value(true),
+            "true()"
         );
     }
 
     @Test
     public void testStringBooleanFalse() {
         this.toStringAndCheck(
-                Expression.value(false),
-                "false()"
+            Expression.value(false),
+            "false()"
         );
     }
 
@@ -218,20 +218,20 @@ public final class ExpressionNodeSelectorToStringExpressionVisitorTest implement
     @Test
     public void testNot2() {
         this.toStringAndCheck(
-                Expression.not(
-                        Expression.value(
-                                ExpressionNumberKind.DEFAULT.one()
-                        )
-                ),
-                "not(1)"
+            Expression.not(
+                Expression.value(
+                    ExpressionNumberKind.DEFAULT.one()
+                )
+            ),
+            "not(1)"
         );
     }
 
     @Test
     public void testList() {
         assertThrows(
-                ParserReporterException.class,
-                () -> this.parseOrFail("[1,\"abc\", 3]")
+            ParserReporterException.class,
+            () -> this.parseOrFail("[1,\"abc\", 3]")
         );
     }
 
@@ -248,16 +248,16 @@ public final class ExpressionNodeSelectorToStringExpressionVisitorTest implement
     @Test
     public void testNamedFunctionWithArguments2() {
         this.toStringAndCheck(
-                Expression.call(
-                        Expression.namedFunction(
-                                ExpressionFunctionName.with("fx")
-                        ),
-                        Lists.of(
-                                Expression.value(ExpressionNumberKind.DEFAULT.one()),
-                                Expression.value(ExpressionNumberKind.DEFAULT.create(2.5))
-                        )
+            Expression.call(
+                Expression.namedFunction(
+                    ExpressionFunctionName.with("fx")
                 ),
-                "fx(1,2.5)"
+                Lists.of(
+                    Expression.value(ExpressionNumberKind.DEFAULT.one()),
+                    Expression.value(ExpressionNumberKind.DEFAULT.create(2.5))
+                )
+            ),
+            "fx(1,2.5)"
         );
     }
 
@@ -287,30 +287,30 @@ public final class ExpressionNodeSelectorToStringExpressionVisitorTest implement
         final Expression expressionObject = parsed.toExpression(Predicates.always());
 
         this.checkEquals(expression,
-                ExpressionNodeSelectorToStringExpressionVisitor.toString(expressionObject),
-                () -> "Input expression: " + CharSequences.quoteAndEscape(expression) + "\n" + parsed + "\n" + expressionObject);
+            ExpressionNodeSelectorToStringExpressionVisitor.toString(expressionObject),
+            () -> "Input expression: " + CharSequences.quoteAndEscape(expression) + "\n" + parsed + "\n" + expressionObject);
     }
 
     private NodeSelectorPredicateParserToken parseOrFail(final String expression) {
         return NodeSelectorParsers.predicate()
-                .orReport(ParserReporters.basic())
-                .orFailIfCursorNotEmpty(ParserReporters.basic())
-                .parse(
-                        TextCursors.charSequence(expression),
-                        NodeSelectorParserContexts.basic(
-                                EXPRESSION_NUMBER_KIND,
-                                MathContext.DECIMAL32
-                        )
+            .orReport(ParserReporters.basic())
+            .orFailIfCursorNotEmpty(ParserReporters.basic())
+            .parse(
+                TextCursors.charSequence(expression),
+                NodeSelectorParserContexts.basic(
+                    EXPRESSION_NUMBER_KIND,
+                    MathContext.DECIMAL32
                 )
-                .orElseThrow(() -> new ParserException("Failed to parse " + CharSequences.quoteAndEscape(expression)))
-                .cast(NodeSelectorPredicateParserToken.class);
+            )
+            .orElseThrow(() -> new ParserException("Failed to parse " + CharSequences.quoteAndEscape(expression)))
+            .cast(NodeSelectorPredicateParserToken.class);
     }
 
     private void toStringAndCheck(final Expression node,
                                   final String expression) {
         this.checkEquals(expression,
-                ExpressionNodeSelectorToStringExpressionVisitor.toString(node),
-                () -> "Input expression: " + CharSequences.quoteAndEscape(expression) + "\n" + node);
+            ExpressionNodeSelectorToStringExpressionVisitor.toString(node),
+            () -> "Input expression: " + CharSequences.quoteAndEscape(expression) + "\n" + node);
     }
 
     @Override

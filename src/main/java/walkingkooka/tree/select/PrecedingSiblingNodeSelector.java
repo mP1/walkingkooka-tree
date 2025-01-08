@@ -26,7 +26,7 @@ import walkingkooka.visit.Visiting;
  * A {@link NodeSelector} that selects all the preceding siblings of a given {@link Node}.
  */
 final class PrecedingSiblingNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NAME extends Name, ANAME extends Name, AVALUE>
-        extends AxisNodeSelector<N, NAME, ANAME, AVALUE> {
+    extends AxisNodeSelector<N, NAME, ANAME, AVALUE> {
 
     /**
      * Type safe {@link PrecedingSiblingNodeSelector} getter
@@ -49,8 +49,8 @@ final class PrecedingSiblingNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>,
     NodeSelector<N, NAME, ANAME, AVALUE> append1(final NodeSelector<N, NAME, ANAME, AVALUE> selector) {
         // no point appending a preceedingSibling to another...
         return selector instanceof PrecedingSiblingNodeSelector ?
-                this :
-                new PrecedingSiblingNodeSelector<>(selector);
+            this :
+            new PrecedingSiblingNodeSelector<>(selector);
     }
 
     @Override

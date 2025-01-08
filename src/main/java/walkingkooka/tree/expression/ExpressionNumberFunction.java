@@ -41,8 +41,8 @@ public interface ExpressionNumberFunction {
      */
     default <C extends ExpressionEvaluationContext> ExpressionFunction<ExpressionNumber, C> function(final Optional<ExpressionFunctionName> name) {
         return ExpressionFunctions.expressionNumberFunction(
-                name,
-                this
+            name,
+            this
         );
     }
 }

@@ -22,9 +22,9 @@ import walkingkooka.tree.Node;
 import walkingkooka.tree.expression.FakeExpressionEvaluationContext;
 
 public class FakeNodeSelectorExpressionEvaluationContext<N extends Node<N, NAME, ANAME, AVALUE>,
-        NAME extends Name,
-        ANAME extends Name,
-        AVALUE> extends FakeExpressionEvaluationContext implements NodeSelectorExpressionEvaluationContext<N, NAME, ANAME, AVALUE> {
+    NAME extends Name,
+    ANAME extends Name,
+    AVALUE> extends FakeExpressionEvaluationContext implements NodeSelectorExpressionEvaluationContext<N, NAME, ANAME, AVALUE> {
 
     @Override
     public N node() {

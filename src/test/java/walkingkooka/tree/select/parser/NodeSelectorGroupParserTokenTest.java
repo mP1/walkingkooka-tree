@@ -93,10 +93,10 @@ public final class NodeSelectorGroupParserTokenTest extends NodeSelectorParentPa
         }.accept(expression);
         this.checkEquals("1315216217242", b.toString());
         this.checkEquals(Lists.of(expression, expression,
-                        open, open, open, number, number, number, close, close, close,
-                        expression, expression),
-                visited,
-                "visited");
+                open, open, open, number, number, number, close, close, close,
+                expression, expression),
+            visited,
+            "visited");
     }
 
     @Override

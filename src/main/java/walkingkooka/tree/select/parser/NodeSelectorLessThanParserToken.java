@@ -30,7 +30,7 @@ public final class NodeSelectorLessThanParserToken extends NodeSelectorBinaryPar
     static NodeSelectorLessThanParserToken with(final List<ParserToken> value,
                                                 final String text) {
         return new NodeSelectorLessThanParserToken(copyAndCheckTokens(value),
-                checkTextNullOrWhitespace(text));
+            checkTextNullOrWhitespace(text));
     }
 
     private NodeSelectorLessThanParserToken(final List<ParserToken> value,
@@ -43,9 +43,9 @@ public final class NodeSelectorLessThanParserToken extends NodeSelectorBinaryPar
     @Override
     public NodeSelectorLessThanParserToken setChildren(final List<ParserToken> children) {
         return ParserToken.parentSetChildren(
-                this,
-                children,
-                NodeSelectorLessThanParserToken::with
+            this,
+            children,
+            NodeSelectorLessThanParserToken::with
         );
     }
 

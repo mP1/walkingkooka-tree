@@ -44,8 +44,8 @@ import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class ExpressionFunctionParameterTest implements HashCodeEqualsDefinedTesting2<ExpressionFunctionParameter<String>>,
-        ConstantsTesting<ExpressionFunctionParameter<String>>,
-        ToStringTesting<ExpressionFunctionParameter<String>> {
+    ConstantsTesting<ExpressionFunctionParameter<String>>,
+    ToStringTesting<ExpressionFunctionParameter<String>> {
 
     private final static ExpressionFunctionParameterName NAME = ExpressionFunctionParameterName.with("name");
 
@@ -60,55 +60,55 @@ public final class ExpressionFunctionParameterTest implements HashCodeEqualsDefi
     @Test
     public void testWithNullNameFails() {
         this.withNullFails(
-                null,
-                TYPE,
-                TYPE_PARAMETERS,
-                CARDINALITY,
-                KINDS
+            null,
+            TYPE,
+            TYPE_PARAMETERS,
+            CARDINALITY,
+            KINDS
         );
     }
 
     @Test
     public void testWithNullTypeFails() {
         this.withNullFails(
-                NAME,
-                null,
-                TYPE_PARAMETERS,
-                CARDINALITY,
-                KINDS
+            NAME,
+            null,
+            TYPE_PARAMETERS,
+            CARDINALITY,
+            KINDS
         );
     }
 
     @Test
     public void testWithNullTypeParametersFails() {
         this.withNullFails(
-                NAME,
-                TYPE,
-                null,
-                CARDINALITY,
-                KINDS
+            NAME,
+            TYPE,
+            null,
+            CARDINALITY,
+            KINDS
         );
     }
 
     @Test
     public void testWithNullCardinalityFails() {
         this.withNullFails(
-                NAME,
-                TYPE,
-                TYPE_PARAMETERS,
-                null,
-                KINDS
+            NAME,
+            TYPE,
+            TYPE_PARAMETERS,
+            null,
+            KINDS
         );
     }
 
     @Test
     public void testWithNullKindsFails() {
         this.withNullFails(
-                NAME,
-                TYPE,
-                TYPE_PARAMETERS,
-                CARDINALITY,
-                null
+            NAME,
+            TYPE,
+            TYPE_PARAMETERS,
+            CARDINALITY,
+            null
         );
     }
 
@@ -118,14 +118,14 @@ public final class ExpressionFunctionParameterTest implements HashCodeEqualsDefi
                                final ExpressionFunctionParameterCardinality cardinality,
                                final Set<ExpressionFunctionParameterKind> kinds) {
         assertThrows(
-                NullPointerException.class,
-                () -> ExpressionFunctionParameter.with(
-                        name,
-                        type,
-                        typeParameters,
-                        cardinality,
-                        kinds
-                )
+            NullPointerException.class,
+            () -> ExpressionFunctionParameter.with(
+                name,
+                type,
+                typeParameters,
+                cardinality,
+                kinds
+            )
         );
     }
 
@@ -134,8 +134,8 @@ public final class ExpressionFunctionParameterTest implements HashCodeEqualsDefi
     @Test
     public void testSetNameWithNullFails() {
         assertThrows(
-                NullPointerException.class,
-                () -> this.createObject().setName(null)
+            NullPointerException.class,
+            () -> this.createObject().setName(null)
         );
     }
 
@@ -172,8 +172,8 @@ public final class ExpressionFunctionParameterTest implements HashCodeEqualsDefi
     @Test
     public void testSetTypeWithNullFails() {
         assertThrows(
-                NullPointerException.class,
-                () -> this.createObject().setType(null)
+            NullPointerException.class,
+            () -> this.createObject().setType(null)
         );
     }
 
@@ -181,8 +181,8 @@ public final class ExpressionFunctionParameterTest implements HashCodeEqualsDefi
     public void testSetTypeWithSame() {
         final ExpressionFunctionParameter<?> parameter = this.createObject();
         assertSame(
-                parameter,
-                parameter.setType(TYPE)
+            parameter,
+            parameter.setType(TYPE)
         );
     }
 
@@ -212,8 +212,8 @@ public final class ExpressionFunctionParameterTest implements HashCodeEqualsDefi
     @Test
     public void testSetCardinalityNullFails() {
         assertThrows(
-                NullPointerException.class,
-                () -> this.createObject().setCardinality(null)
+            NullPointerException.class,
+            () -> this.createObject().setCardinality(null)
         );
     }
 
@@ -221,8 +221,8 @@ public final class ExpressionFunctionParameterTest implements HashCodeEqualsDefi
     public void testSetCardinalitySame() {
         final ExpressionFunctionParameter<?> parameter = this.createObject();
         assertSame(
-                parameter,
-                parameter.setCardinality(parameter.cardinality())
+            parameter,
+            parameter.setCardinality(parameter.cardinality())
         );
     }
 
@@ -234,8 +234,8 @@ public final class ExpressionFunctionParameterTest implements HashCodeEqualsDefi
         final ExpressionFunctionParameter<?> different = parameter.setCardinality(cardinality);
 
         this.checkNotEquals(
-                parameter,
-                different
+            parameter,
+            different
         );
 
         this.checkName(different);
@@ -256,8 +256,8 @@ public final class ExpressionFunctionParameterTest implements HashCodeEqualsDefi
     @Test
     public void testSetTypeParametersNullFails() {
         assertThrows(
-                NullPointerException.class,
-                () -> this.createObject().setTypeParameters(null)
+            NullPointerException.class,
+            () -> this.createObject().setTypeParameters(null)
         );
     }
 
@@ -272,11 +272,11 @@ public final class ExpressionFunctionParameterTest implements HashCodeEqualsDefi
         final List<Class<?>> typeParameters = Lists.of(String.class);
 
         final ExpressionFunctionParameter<List<String>> parameter = ExpressionFunctionParameter.with(
-                NAME,
-                Cast.to(List.class),
-                typeParameters,
-                CARDINALITY,
-                KINDS
+            NAME,
+            Cast.to(List.class),
+            typeParameters,
+            CARDINALITY,
+            KINDS
         );
         assertSame(parameter, parameter.setTypeParameters(parameter.typeParameters()));
     }
@@ -286,11 +286,11 @@ public final class ExpressionFunctionParameterTest implements HashCodeEqualsDefi
         final Class<List<?>> type = Cast.to(List.class);
 
         final ExpressionFunctionParameter<List<String>> parameter = ExpressionFunctionParameter.with(
-                NAME,
-                Cast.to(type),
-                ExpressionFunctionParameter.NO_TYPE_PARAMETERS,
-                CARDINALITY,
-                KINDS
+            NAME,
+            Cast.to(type),
+            ExpressionFunctionParameter.NO_TYPE_PARAMETERS,
+            CARDINALITY,
+            KINDS
         );
 
         final List<Class<?>> typeParameters = Lists.of(String.class);
@@ -315,8 +315,8 @@ public final class ExpressionFunctionParameterTest implements HashCodeEqualsDefi
     @Test
     public void testSetKindsNullFails() {
         assertThrows(
-                NullPointerException.class,
-                () -> this.createObject().setKinds(null)
+            NullPointerException.class,
+            () -> this.createObject().setKinds(null)
         );
     }
 
@@ -329,16 +329,16 @@ public final class ExpressionFunctionParameterTest implements HashCodeEqualsDefi
     @Test
     public void testSetKindSame2() {
         final Set<ExpressionFunctionParameterKind> kinds = Sets.of(
-                ExpressionFunctionParameterKind.CONVERT,
-                ExpressionFunctionParameterKind.EVALUATE
+            ExpressionFunctionParameterKind.CONVERT,
+            ExpressionFunctionParameterKind.EVALUATE
         );
 
         final ExpressionFunctionParameter<List<String>> parameter = ExpressionFunctionParameter.with(
-                NAME,
-                Cast.to(List.class),
-                TYPE_PARAMETERS,
-                CARDINALITY,
-                kinds
+            NAME,
+            Cast.to(List.class),
+            TYPE_PARAMETERS,
+            CARDINALITY,
+            kinds
         );
         assertSame(parameter, parameter.setKinds(kinds));
     }
@@ -348,16 +348,16 @@ public final class ExpressionFunctionParameterTest implements HashCodeEqualsDefi
         final Class<List<?>> type = Cast.to(List.class);
 
         final ExpressionFunctionParameter<List<String>> parameter = ExpressionFunctionParameter.with(
-                NAME,
-                Cast.to(type),
-                ExpressionFunctionParameter.NO_TYPE_PARAMETERS,
-                CARDINALITY,
-                KINDS
+            NAME,
+            Cast.to(type),
+            ExpressionFunctionParameter.NO_TYPE_PARAMETERS,
+            CARDINALITY,
+            KINDS
         );
 
         final Set<ExpressionFunctionParameterKind> kinds = Sets.of(
-                ExpressionFunctionParameterKind.CONVERT,
-                ExpressionFunctionParameterKind.EVALUATE
+            ExpressionFunctionParameterKind.CONVERT,
+            ExpressionFunctionParameterKind.EVALUATE
         );
         final ExpressionFunctionParameter<List<String>> different = parameter.setKinds(kinds);
         assertNotSame(parameter, different);
@@ -380,20 +380,20 @@ public final class ExpressionFunctionParameterTest implements HashCodeEqualsDefi
     @Test
     public void testGetMissing() {
         final ExpressionFunctionParameter<Integer> parameter = ExpressionFunctionParameter.with(
-                NAME,
-                Integer.class,
-                TYPE_PARAMETERS,
-                ExpressionFunctionParameterCardinality.OPTIONAL,
-                KINDS
+            NAME,
+            Integer.class,
+            TYPE_PARAMETERS,
+            ExpressionFunctionParameterCardinality.OPTIONAL,
+            KINDS
         );
         this.checkEquals(
-                Optional.empty(),
-                parameter.get(
-                        List.of(
-                                100
-                        ),
-                        1
-                )
+            Optional.empty(),
+            parameter.get(
+                List.of(
+                    100
+                ),
+                1
+            )
         );
     }
 
@@ -401,87 +401,87 @@ public final class ExpressionFunctionParameterTest implements HashCodeEqualsDefi
     @Disabled("Need to emulate Class.cast")
     public void testGetWrongTypeFails() {
         final ExpressionFunctionParameter<Integer> parameter = ExpressionFunctionParameter.with(
-                NAME,
-                Integer.class,
-                TYPE_PARAMETERS,
-                ExpressionFunctionParameterCardinality.OPTIONAL,
-                KINDS
+            NAME,
+            Integer.class,
+            TYPE_PARAMETERS,
+            ExpressionFunctionParameterCardinality.OPTIONAL,
+            KINDS
         );
         assertThrows(
-                ClassCastException.class,
-                () -> parameter.get(
-                        List.of(
-                                "A"
-                        ),
-                        0
-                )
+            ClassCastException.class,
+            () -> parameter.get(
+                List.of(
+                    "A"
+                ),
+                0
+            )
         );
     }
 
     @Test
     public void testGetNonNull() {
         final ExpressionFunctionParameter<Integer> parameter = ExpressionFunctionParameter.with(
-                NAME,
-                Integer.class,
-                TYPE_PARAMETERS,
-                ExpressionFunctionParameterCardinality.OPTIONAL,
-                KINDS
+            NAME,
+            Integer.class,
+            TYPE_PARAMETERS,
+            ExpressionFunctionParameterCardinality.OPTIONAL,
+            KINDS
         );
         this.checkEquals(
-                Optional.of(
-                        Optional.of(100)
+            Optional.of(
+                Optional.of(100)
+            ),
+            parameter.get(
+                List.of(
+                    100,
+                    "B"
                 ),
-                parameter.get(
-                        List.of(
-                                100,
-                                "B"
-                        ),
-                        0
-                )
+                0
+            )
         );
     }
 
     @Test
     public void testGetNull() {
         final ExpressionFunctionParameter<Integer> parameter = ExpressionFunctionParameter.with(
-                NAME,
-                Integer.class,
-                TYPE_PARAMETERS,
-                ExpressionFunctionParameterCardinality.OPTIONAL,
-                KINDS
+            NAME,
+            Integer.class,
+            TYPE_PARAMETERS,
+            ExpressionFunctionParameterCardinality.OPTIONAL,
+            KINDS
         );
         this.checkEquals(
-                Optional.of(
-                        Optional.empty()
+            Optional.of(
+                Optional.empty()
+            ),
+            parameter.get(
+                Arrays.asList(
+                    null,
+                    "B"
                 ),
-                parameter.get(
-                        Arrays.asList(
-                                null,
-                                "B"
-                        ),
-                        0
-                )
+                0
+            )
         );
     }
 
     @Test
     public void testGetAbsent() {
         final ExpressionFunctionParameter<Integer> parameter = ExpressionFunctionParameter.with(
-                NAME,
-                Integer.class,
-                TYPE_PARAMETERS,
-                ExpressionFunctionParameterCardinality.OPTIONAL,
-                KINDS
+            NAME,
+            Integer.class,
+            TYPE_PARAMETERS,
+            ExpressionFunctionParameterCardinality.OPTIONAL,
+            KINDS
         );
         this.checkEquals(
-                Optional.empty(),
-                parameter.get(
-                        List.of(
-                                100,
-                                "B"
-                        ),
-                        99
-                )
+            Optional.empty(),
+            parameter.get(
+                List.of(
+                    100,
+                    "B"
+                ),
+                99
+            )
         );
     }
 
@@ -490,20 +490,20 @@ public final class ExpressionFunctionParameterTest implements HashCodeEqualsDefi
     @Test
     public void testGetOrFailMissingFails() {
         final ExpressionFunctionParameter<Integer> parameter = ExpressionFunctionParameter.with(
-                NAME,
-                Integer.class,
-                TYPE_PARAMETERS,
-                ExpressionFunctionParameterCardinality.REQUIRED,
-                KINDS
+            NAME,
+            Integer.class,
+            TYPE_PARAMETERS,
+            ExpressionFunctionParameterCardinality.REQUIRED,
+            KINDS
         );
         assertThrows(
-                IndexOutOfBoundsException.class,
-                () -> parameter.getOrFail(
-                        List.of(
-                                1, 2
-                        ),
-                        2
-                )
+            IndexOutOfBoundsException.class,
+            () -> parameter.getOrFail(
+                List.of(
+                    1, 2
+                ),
+                2
+            )
         );
     }
 
@@ -511,41 +511,41 @@ public final class ExpressionFunctionParameterTest implements HashCodeEqualsDefi
     @Disabled("Need to emulate Class.cast")
     public void testGetOrFailWrongTypeFails() {
         final ExpressionFunctionParameter<Integer> parameter = ExpressionFunctionParameter.with(
-                NAME,
-                Integer.class,
-                TYPE_PARAMETERS,
-                ExpressionFunctionParameterCardinality.REQUIRED,
-                KINDS
+            NAME,
+            Integer.class,
+            TYPE_PARAMETERS,
+            ExpressionFunctionParameterCardinality.REQUIRED,
+            KINDS
         );
         assertThrows(
-                ClassCastException.class,
-                () -> parameter.getOrFail(
-                        List.of(
-                                "A"
-                        ),
-                        0
-                )
+            ClassCastException.class,
+            () -> parameter.getOrFail(
+                List.of(
+                    "A"
+                ),
+                0
+            )
         );
     }
 
     @Test
     public void testGetOrFail() {
         final ExpressionFunctionParameter<Integer> parameter = ExpressionFunctionParameter.with(
-                NAME,
-                Integer.class,
-                TYPE_PARAMETERS,
-                ExpressionFunctionParameterCardinality.REQUIRED,
-                KINDS
+            NAME,
+            Integer.class,
+            TYPE_PARAMETERS,
+            ExpressionFunctionParameterCardinality.REQUIRED,
+            KINDS
         );
         this.checkEquals(
-                100,
-                parameter.getOrFail(
-                        List.of(
-                                100,
-                                "B"
-                        ),
-                        0
-                )
+            100,
+            parameter.getOrFail(
+                List.of(
+                    100,
+                    "B"
+                ),
+                0
+            )
         );
     }
 
@@ -554,68 +554,68 @@ public final class ExpressionFunctionParameterTest implements HashCodeEqualsDefi
     @Test
     public void testGetVariableNone() {
         final ExpressionFunctionParameter<Integer> parameter = ExpressionFunctionParameter.with(
-                NAME,
-                Integer.class,
-                TYPE_PARAMETERS,
-                ExpressionFunctionParameterCardinality.VARIABLE,
-                KINDS
+            NAME,
+            Integer.class,
+            TYPE_PARAMETERS,
+            ExpressionFunctionParameterCardinality.VARIABLE,
+            KINDS
         );
         this.checkEquals(
-                Lists.empty(),
-                parameter.getVariable(
-                        List.of(
-                                "Q"
-                        ),
-                        2
-                )
+            Lists.empty(),
+            parameter.getVariable(
+                List.of(
+                    "Q"
+                ),
+                2
+            )
         );
     }
 
     @Test
     public void testGetVariableOne() {
         final ExpressionFunctionParameter<Integer> parameter = ExpressionFunctionParameter.with(
-                NAME,
-                Integer.class,
-                TYPE_PARAMETERS,
-                ExpressionFunctionParameterCardinality.VARIABLE,
-                KINDS
+            NAME,
+            Integer.class,
+            TYPE_PARAMETERS,
+            ExpressionFunctionParameterCardinality.VARIABLE,
+            KINDS
         );
         this.checkEquals(
-                Lists.of(
-                        10
+            Lists.of(
+                10
+            ),
+            parameter.getVariable(
+                List.of(
+                    "FIRST",
+                    10
                 ),
-                parameter.getVariable(
-                        List.of(
-                                "FIRST",
-                                10
-                        ),
-                        1
-                )
+                1
+            )
         );
     }
 
     @Test
     public void testGetVariableMany() {
         final ExpressionFunctionParameter<Integer> parameter = ExpressionFunctionParameter.with(
-                NAME,
-                Integer.class,
-                TYPE_PARAMETERS,
-                ExpressionFunctionParameterCardinality.VARIABLE,
-                KINDS
+            NAME,
+            Integer.class,
+            TYPE_PARAMETERS,
+            ExpressionFunctionParameterCardinality.VARIABLE,
+            KINDS
         );
         this.checkEquals(
-                Lists.of(
-                        10, 20, 30
+            Lists.of(
+                10, 20, 30
+            ),
+            parameter.getVariable(
+                List.of(
+                    "FIRST",
+                    10,
+                    20,
+                    30
                 ),
-                parameter.getVariable(
-                        List.of(
-                                "FIRST",
-                                10,
-                                20,
-                                30
-                        ),
-                        1
-                )
+                1
+            )
         );
     }
 
@@ -624,52 +624,52 @@ public final class ExpressionFunctionParameterTest implements HashCodeEqualsDefi
     @Test
     public void testConvertOrFailMissingListMissingTypeParameterFails() {
         assertThrows(
-                IllegalStateException.class,
-                () -> ExpressionFunctionParameter.with(
-                        NAME,
-                        Cast.to(List.class),
-                        ExpressionFunctionParameter.NO_TYPE_PARAMETERS,
-                        CARDINALITY,
-                        KINDS
-                ).convertOrFail(Lists.empty(), ExpressionEvaluationContexts.fake())
+            IllegalStateException.class,
+            () -> ExpressionFunctionParameter.with(
+                NAME,
+                Cast.to(List.class),
+                ExpressionFunctionParameter.NO_TYPE_PARAMETERS,
+                CARDINALITY,
+                KINDS
+            ).convertOrFail(Lists.empty(), ExpressionEvaluationContexts.fake())
         );
     }
 
     @Test
     public void testConvertOrFail() {
         final ExpressionFunctionParameter<Integer> parameter = ExpressionFunctionParameter.with(
-                NAME,
-                Integer.class,
-                TYPE_PARAMETERS,
-                CARDINALITY,
-                KINDS
+            NAME,
+            Integer.class,
+            TYPE_PARAMETERS,
+            CARDINALITY,
+            KINDS
         );
 
         this.checkEquals(
-                12,
-                parameter.convertOrFail(
-                        "12",
-                        this.ExpressionEvaluationContext()
-                )
+            12,
+            parameter.convertOrFail(
+                "12",
+                this.ExpressionEvaluationContext()
+            )
         );
     }
 
     @Test
     public void testConvertOrFailList() {
         final ExpressionFunctionParameter<List<Integer>> parameter = ExpressionFunctionParameter.with(
-                NAME,
-                Cast.to(List.class),
-                List.of(Integer.class),
-                CARDINALITY,
-                KINDS
+            NAME,
+            Cast.to(List.class),
+            List.of(Integer.class),
+            CARDINALITY,
+            KINDS
         );
 
         this.checkEquals(
-                List.of(12, 34, 56),
-                parameter.convertOrFail(
-                        Lists.of("12", "34", "56"),
-                        this.ExpressionEvaluationContext()
-                )
+            List.of(12, 34, 56),
+            parameter.convertOrFail(
+                Lists.of("12", "34", "56"),
+                this.ExpressionEvaluationContext()
+            )
         );
     }
 
@@ -690,34 +690,34 @@ public final class ExpressionFunctionParameterTest implements HashCodeEqualsDefi
         final ExpressionFunctionParameter<Integer> integer = ExpressionFunctionParameterName.with("integer").required(Integer.class);
 
         this.checkEquals(
-                Lists.of(string, integer),
-                ExpressionFunctionParameter.list(string, integer)
+            Lists.of(string, integer),
+            ExpressionFunctionParameter.list(string, integer)
         );
     }
 
     @Test
     public void testDifferentName() {
         this.checkNotEquals(
-                ExpressionFunctionParameter.with(
-                        ExpressionFunctionParameterName.with("different"),
-                        TYPE,
-                        TYPE_PARAMETERS,
-                        CARDINALITY,
-                        KINDS
-                )
+            ExpressionFunctionParameter.with(
+                ExpressionFunctionParameterName.with("different"),
+                TYPE,
+                TYPE_PARAMETERS,
+                CARDINALITY,
+                KINDS
+            )
         );
     }
 
     @Test
     public void testDifferentType() {
         this.checkNotEquals(
-                ExpressionFunctionParameter.with(
-                        NAME,
-                        Integer.class,
-                        TYPE_PARAMETERS,
-                        CARDINALITY,
-                        KINDS
-                )
+            ExpressionFunctionParameter.with(
+                NAME,
+                Integer.class,
+                TYPE_PARAMETERS,
+                CARDINALITY,
+                KINDS
+            )
         );
     }
 
@@ -726,86 +726,86 @@ public final class ExpressionFunctionParameterTest implements HashCodeEqualsDefi
         assertNotSame(ExpressionFunctionParameterCardinality.OPTIONAL, CARDINALITY);
 
         this.checkNotEquals(
-                ExpressionFunctionParameter.with(
-                        NAME,
-                        Integer.class,
-                        TYPE_PARAMETERS,
-                        ExpressionFunctionParameterCardinality.OPTIONAL,
-                        KINDS
-                )
+            ExpressionFunctionParameter.with(
+                NAME,
+                Integer.class,
+                TYPE_PARAMETERS,
+                ExpressionFunctionParameterCardinality.OPTIONAL,
+                KINDS
+            )
         );
     }
 
     @Test
     public void testToStringRequired() {
         this.toStringAndCheck(
-                ExpressionFunctionParameter.with(
-                        NAME,
-                        TYPE,
-                        TYPE_PARAMETERS,
-                        ExpressionFunctionParameterCardinality.REQUIRED,
-                        KINDS
-                ),
-                "java.lang.String name"
+            ExpressionFunctionParameter.with(
+                NAME,
+                TYPE,
+                TYPE_PARAMETERS,
+                ExpressionFunctionParameterCardinality.REQUIRED,
+                KINDS
+            ),
+            "java.lang.String name"
         );
     }
 
     @Test
     public void testToStringOptional() {
         this.toStringAndCheck(
-                ExpressionFunctionParameter.with(
-                        NAME,
-                        TYPE,
-                        TYPE_PARAMETERS,
-                        ExpressionFunctionParameterCardinality.OPTIONAL,
-                        KINDS
-                ),
-                "java.lang.String name?"
+            ExpressionFunctionParameter.with(
+                NAME,
+                TYPE,
+                TYPE_PARAMETERS,
+                ExpressionFunctionParameterCardinality.OPTIONAL,
+                KINDS
+            ),
+            "java.lang.String name?"
         );
     }
 
     @Test
     public void testToStringVariable() {
         this.toStringAndCheck(
-                ExpressionFunctionParameter.with(
-                        NAME,
-                        TYPE,
-                        TYPE_PARAMETERS,
-                        ExpressionFunctionParameterCardinality.VARIABLE,
-                        KINDS
-                ),
-                "java.lang.String name*"
+            ExpressionFunctionParameter.with(
+                NAME,
+                TYPE,
+                TYPE_PARAMETERS,
+                ExpressionFunctionParameterCardinality.VARIABLE,
+                KINDS
+            ),
+            "java.lang.String name*"
         );
     }
 
     @Test
     public void testToStringWithTypeParameters() {
         this.toStringAndCheck(
-                ExpressionFunctionParameter.with(
-                        NAME,
-                        List.class,
-                        List.of(String.class),
-                        ExpressionFunctionParameterCardinality.REQUIRED,
-                        KINDS
-                ),
-                "java.util.List<java.lang.String> name"
+            ExpressionFunctionParameter.with(
+                NAME,
+                List.class,
+                List.of(String.class),
+                ExpressionFunctionParameterCardinality.REQUIRED,
+                KINDS
+            ),
+            "java.util.List<java.lang.String> name"
         );
     }
 
     @Test
     public void testToStringWithKinds() {
         this.toStringAndCheck(
-                ExpressionFunctionParameter.with(
-                        NAME,
-                        List.class,
-                        List.of(String.class),
-                        ExpressionFunctionParameterCardinality.REQUIRED,
-                        EnumSet.of(
-                                ExpressionFunctionParameterKind.CONVERT,
-                                ExpressionFunctionParameterKind.EVALUATE
-                        )
-                ),
-                "@CONVERT, @EVALUATE java.util.List<java.lang.String> name"
+            ExpressionFunctionParameter.with(
+                NAME,
+                List.class,
+                List.of(String.class),
+                ExpressionFunctionParameterCardinality.REQUIRED,
+                EnumSet.of(
+                    ExpressionFunctionParameterKind.CONVERT,
+                    ExpressionFunctionParameterKind.EVALUATE
+                )
+            ),
+            "@CONVERT, @EVALUATE java.util.List<java.lang.String> name"
         );
     }
 
@@ -841,81 +841,81 @@ public final class ExpressionFunctionParameterTest implements HashCodeEqualsDefi
 
     private void checkName(final ExpressionFunctionParameter<?> parameter) {
         this.checkName(
-                parameter,
-                NAME
+            parameter,
+            NAME
         );
     }
 
     private void checkName(final ExpressionFunctionParameter<?> parameter,
                            final ExpressionFunctionParameterName name) {
         this.checkEquals(
-                parameter.name(),
-                name,
-                "name"
+            parameter.name(),
+            name,
+            "name"
         );
     }
 
     private void checkType(final ExpressionFunctionParameter<?> parameter) {
         this.checkType(
-                parameter,
-                TYPE
+            parameter,
+            TYPE
         );
     }
 
     private void checkType(final ExpressionFunctionParameter<?> parameter,
                            final Class<?> type) {
         this.checkEquals(
-                parameter.type(),
-                type,
-                "type"
+            parameter.type(),
+            type,
+            "type"
         );
     }
 
     private void checkTypeParameters(final ExpressionFunctionParameter<?> parameter) {
         this.checkTypeParameters(
-                parameter,
-                TYPE_PARAMETERS
+            parameter,
+            TYPE_PARAMETERS
         );
     }
 
     private void checkTypeParameters(final ExpressionFunctionParameter<?> parameter,
                                      final List<Class<?>> typeParameters) {
         this.checkEquals(
-                parameter.typeParameters(),
-                typeParameters,
-                "typeParameters"
+            parameter.typeParameters(),
+            typeParameters,
+            "typeParameters"
         );
     }
 
     private void checkCardinality(final ExpressionFunctionParameter<?> parameter) {
         this.checkCardinality(
-                parameter,
-                CARDINALITY
+            parameter,
+            CARDINALITY
         );
     }
 
     private void checkCardinality(final ExpressionFunctionParameter<?> parameter,
                                   final ExpressionFunctionParameterCardinality cardinality) {
         this.checkEquals(
-                parameter.cardinality(),
-                cardinality,
-                "cardinality"
+            parameter.cardinality(),
+            cardinality,
+            "cardinality"
         );
     }
 
     private void checkKinds(final ExpressionFunctionParameter<?> parameter) {
         this.checkKinds(
-                parameter,
-                KINDS
+            parameter,
+            KINDS
         );
     }
 
     private void checkKinds(final ExpressionFunctionParameter<?> parameter,
                             final Set<ExpressionFunctionParameterKind> kinds) {
         this.checkEquals(
-                parameter.kinds(),
-                kinds,
-                "kinds"
+            parameter.kinds(),
+            kinds,
+            "kinds"
         );
     }
 
@@ -924,11 +924,11 @@ public final class ExpressionFunctionParameterTest implements HashCodeEqualsDefi
     @Override
     public ExpressionFunctionParameter<String> createObject() {
         return ExpressionFunctionParameter.with(
-                NAME,
-                TYPE,
-                TYPE_PARAMETERS,
-                CARDINALITY,
-                KINDS
+            NAME,
+            TYPE,
+            TYPE_PARAMETERS,
+            CARDINALITY,
+            KINDS
         );
     }
 

@@ -30,8 +30,8 @@ import java.util.function.DoubleUnaryOperator;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class LambdasExpressionNumberFunctionTest implements ExpressionNumberFunctionTesting<LambdasExpressionNumberFunction>,
-        ClassTesting<LambdasExpressionNumberFunction>,
-        ToStringTesting<LambdasExpressionNumberFunction> {
+    ClassTesting<LambdasExpressionNumberFunction>,
+    ToStringTesting<LambdasExpressionNumberFunction> {
 
     private final static BiFunction<BigDecimal, MathContext, BigDecimal> BIG_DECIMAL = (b, c) -> b.multiply(BigDecimal.TEN);
     private final static DoubleUnaryOperator DOUBLE = (d) -> d * 3;
@@ -39,33 +39,33 @@ public final class LambdasExpressionNumberFunctionTest implements ExpressionNumb
     @Test
     public void testWithNullBigDecimalFails() {
         assertThrows(
-                NullPointerException.class,
-                () -> LambdasExpressionNumberFunction.with(null, DOUBLE)
+            NullPointerException.class,
+            () -> LambdasExpressionNumberFunction.with(null, DOUBLE)
         );
     }
 
     @Test
     public void testWithNullDoubleFails() {
         assertThrows(
-                NullPointerException.class,
-                () -> LambdasExpressionNumberFunction.with(BIG_DECIMAL, null)
+            NullPointerException.class,
+            () -> LambdasExpressionNumberFunction.with(BIG_DECIMAL, null)
         );
     }
 
     @Test
     public void testMapBigDecimal() {
         this.mapBigDecimalAndCheck(
-                BigDecimal.valueOf(3),
-                MathContext.DECIMAL32,
-                BigDecimal.valueOf(3 * 10)
+            BigDecimal.valueOf(3),
+            MathContext.DECIMAL32,
+            BigDecimal.valueOf(3 * 10)
         );
     }
 
     @Test
     public void testMapDouble() {
         this.mapDoubleAndCheck(
-                5,
-                5 * 3
+            5,
+            5 * 3
         );
     }
 

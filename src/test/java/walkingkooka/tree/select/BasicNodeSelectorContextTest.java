@@ -48,57 +48,57 @@ import java.util.function.Predicate;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class BasicNodeSelectorContextTest implements ClassTesting2<BasicNodeSelectorContext<TestNode, StringName, StringName, Object>>,
-        NodeSelectorContextTesting<BasicNodeSelectorContext<TestNode, StringName, StringName, Object>,
-                TestNode,
-                StringName,
-                StringName,
-                Object> {
+    NodeSelectorContextTesting<BasicNodeSelectorContext<TestNode, StringName, StringName, Object>,
+        TestNode,
+        StringName,
+        StringName,
+        Object> {
 
     private final static ExpressionNumberKind KIND = ExpressionNumberKind.DEFAULT;
 
     @Test
     public void testWithNullFinisher() {
         assertThrows(NullPointerException.class, () -> BasicNodeSelectorContext.with(null,
-                this.predicate(),
-                this.mapper(),
-                this.expressionEvaluationContext(),
-                this.nodeType()));
+            this.predicate(),
+            this.mapper(),
+            this.expressionEvaluationContext(),
+            this.nodeType()));
     }
 
     @Test
     public void testWithNullFilter() {
         assertThrows(NullPointerException.class, () -> BasicNodeSelectorContext.with(this.finisher(),
-                null,
-                this.mapper(),
-                this.expressionEvaluationContext(),
-                this.nodeType()));
+            null,
+            this.mapper(),
+            this.expressionEvaluationContext(),
+            this.nodeType()));
     }
 
     @Test
     public void testWithNullSelectedFails() {
         assertThrows(NullPointerException.class, () -> BasicNodeSelectorContext.with(this.finisher(),
-                this.predicate(),
-                null,
-                this.expressionEvaluationContext(),
-                this.nodeType()));
+            this.predicate(),
+            null,
+            this.expressionEvaluationContext(),
+            this.nodeType()));
     }
 
     @Test
     public void testWithNullExpressionEvaluationContextFails() {
         assertThrows(NullPointerException.class, () -> BasicNodeSelectorContext.with(this.finisher(),
-                this.predicate(),
-                this.mapper(),
-                null,
-                this.nodeType()));
+            this.predicate(),
+            this.mapper(),
+            null,
+            this.nodeType()));
     }
 
     @Test
     public void testWithNullNodeTypeFails() {
         assertThrows(NullPointerException.class, () -> BasicNodeSelectorContext.with(this.finisher(),
-                this.predicate(),
-                this.mapper(),
-                this.expressionEvaluationContext(),
-                null));
+            this.predicate(),
+            this.mapper(),
+            this.expressionEvaluationContext(),
+            null));
     }
 
     @Test
@@ -107,11 +107,11 @@ public final class BasicNodeSelectorContextTest implements ClassTesting2<BasicNo
         final int number = 123;
 
         this.checkEquals(
-                KIND.create(number),
-                context.evaluate(
-                        Expression.value(KIND.create(number)
-                        )
+            KIND.create(number),
+            context.evaluate(
+                Expression.value(KIND.create(number)
                 )
+            )
         );
     }
 
@@ -122,13 +122,13 @@ public final class BasicNodeSelectorContextTest implements ClassTesting2<BasicNo
         final int right = 456;
 
         this.checkEquals(
-                KIND.create(left + right),
-                context.evaluate(
-                        Expression.add(
-                                Expression.value(KIND.create(left)),
-                                Expression.value(KIND.create(right))
-                        )
+            KIND.create(left + right),
+            context.evaluate(
+                Expression.add(
+                    Expression.value(KIND.create(left)),
+                    Expression.value(KIND.create(right))
                 )
+            )
         );
     }
 
@@ -144,7 +144,7 @@ public final class BasicNodeSelectorContextTest implements ClassTesting2<BasicNo
                 mapper,
                 expressionEvaluationContext,
                 this.nodeType()),
-                finisher + " " + filter + " " + mapper + " " + expressionEvaluationContext);
+            finisher + " " + filter + " " + mapper + " " + expressionEvaluationContext);
     }
 
     @Override
@@ -155,10 +155,10 @@ public final class BasicNodeSelectorContextTest implements ClassTesting2<BasicNo
     @Override
     public BasicNodeSelectorContext<TestNode, StringName, StringName, Object> createContext() {
         return BasicNodeSelectorContext.with(this.finisher(),
-                this.predicate(),
-                this.mapper(),
-                this.expressionEvaluationContext(),
-                this.nodeType());
+            this.predicate(),
+            this.mapper(),
+            this.expressionEvaluationContext(),
+            this.nodeType());
     }
 
     private BooleanSupplier finisher() {
@@ -178,13 +178,13 @@ public final class BasicNodeSelectorContextTest implements ClassTesting2<BasicNo
             @Override
             public ExpressionEvaluationContext apply(final NodeSelectorContext<TestNode, StringName, StringName, Object> context) {
                 return ExpressionEvaluationContexts.basic(
-                        KIND,
-                        this.functions(),
-                        this.exceptionHandler(),
-                        this.references(),
-                        ExpressionEvaluationContexts.referenceNotFound(),
-                        CaseSensitivity.SENSITIVE,
-                        this.converterContext()
+                    KIND,
+                    this.functions(),
+                    this.exceptionHandler(),
+                    this.references(),
+                    ExpressionEvaluationContexts.referenceNotFound(),
+                    CaseSensitivity.SENSITIVE,
+                    this.converterContext()
                 );
             }
 
@@ -206,16 +206,16 @@ public final class BasicNodeSelectorContextTest implements ClassTesting2<BasicNo
 
             private ExpressionNumberConverterContext converterContext() {
                 return ExpressionNumberConverterContexts.basic(
-                        ExpressionNumberConverters.toNumberOrExpressionNumber(
-                                Converters.fake()
-                        ),
-                        ConverterContexts.basic(
-                                Converters.JAVA_EPOCH_OFFSET, // dateOffset
-                                Converters.fake(),
-                                DateTimeContexts.fake(),
-                                DecimalNumberContexts.fake()
-                        ),
-                        KIND
+                    ExpressionNumberConverters.toNumberOrExpressionNumber(
+                        Converters.fake()
+                    ),
+                    ConverterContexts.basic(
+                        Converters.JAVA_EPOCH_OFFSET, // dateOffset
+                        Converters.fake(),
+                        DateTimeContexts.fake(),
+                        DecimalNumberContexts.fake()
+                    ),
+                    KIND
                 );
             }
 

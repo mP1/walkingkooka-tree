@@ -30,8 +30,8 @@ public final class ExpressionNumberConverterContexts implements PublicStaticHelp
                                                          final ConverterContext context,
                                                          final ExpressionNumberKind kind) {
         return BasicExpressionNumberConverterContext.with(converter,
-                context,
-                kind);
+            context,
+            kind);
     }
 
     /**

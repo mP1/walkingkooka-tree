@@ -74,10 +74,10 @@ final class ExpressionNumberBigDecimal extends ExpressionNumber {
     public ExpressionNumber map(final ExpressionNumberFunction function,
                                 final MathContext context) {
         return this.setValue(
-                function.mapBigDecimal(
-                        this.bigDecimal(),
-                        context
-                )
+            function.mapBigDecimal(
+                this.bigDecimal(),
+                context
+            )
         );
     }
 
@@ -93,7 +93,7 @@ final class ExpressionNumberBigDecimal extends ExpressionNumber {
     @Override
     public ExpressionNumber ceil(final ExpressionNumberContext context) {
         return this.setValue(
-                ceilBigDecimal(this.value)
+            ceilBigDecimal(this.value)
         );
     }
 
@@ -106,10 +106,10 @@ final class ExpressionNumberBigDecimal extends ExpressionNumber {
     @Override
     public ExpressionNumber exp(final ExpressionNumberContext context) {
         return this.setValue(
-                BigDecimalMath.exp(
-                        this.value,
-                        context.mathContext()
-                )
+            BigDecimalMath.exp(
+                this.value,
+                context.mathContext()
+            )
         );
     }
 
@@ -118,7 +118,7 @@ final class ExpressionNumberBigDecimal extends ExpressionNumber {
     @Override
     public ExpressionNumber floor(final ExpressionNumberContext context) {
         return this.setValue(
-                floorBigDecimal(this.value)
+            floorBigDecimal(this.value)
         );
     }
 
@@ -134,7 +134,7 @@ final class ExpressionNumberBigDecimal extends ExpressionNumber {
 
         try {
             return this.setValue(
-                    BigDecimalMath.log(value, context.mathContext())
+                BigDecimalMath.log(value, context.mathContext())
             );
         } catch (final ArithmeticException cause) {
             throw new IllegalArgumentException("Invalid value " + value + " < 0");
@@ -149,7 +149,7 @@ final class ExpressionNumberBigDecimal extends ExpressionNumber {
 
         try {
             return this.setValue(
-                    BigDecimalMath.log10(value, context.mathContext())
+                BigDecimalMath.log10(value, context.mathContext())
             );
         } catch (final ArithmeticException cause) {
             throw new IllegalArgumentException("Invalid value " + value + " < 0");
@@ -175,18 +175,18 @@ final class ExpressionNumberBigDecimal extends ExpressionNumber {
     @Override
     public ExpressionNumber round(final ExpressionNumberContext context) {
         return this.setValue(
-                roundBigDecimal(
-                        this.value,
-                        context.mathContext().getRoundingMode()
-                )
+            roundBigDecimal(
+                this.value,
+                context.mathContext().getRoundingMode()
+            )
         );
     }
 
     static BigDecimal roundBigDecimal(final BigDecimal value,
                                       final RoundingMode roundingMode) {
         return value.setScale(
-                0,
-                roundingMode
+            0,
+            roundingMode
         );
     }
 
@@ -202,9 +202,9 @@ final class ExpressionNumberBigDecimal extends ExpressionNumber {
     @Override
     ExpressionNumber divide0(final ExpressionNumber value, final ExpressionNumberContext context) {
         return this.setValue(
-                this.value.divide(value.bigDecimal(),
-                        context.mathContext()
-                )
+            this.value.divide(value.bigDecimal(),
+                context.mathContext()
+            )
         );
     }
 
@@ -214,14 +214,14 @@ final class ExpressionNumberBigDecimal extends ExpressionNumber {
     ExpressionNumber max0(final ExpressionNumber value) {
         return this.setValue(this.value.max(value.bigDecimal()));
     }
-    
+
     // min..............................................................................................................
 
     @Override
     ExpressionNumber min0(final ExpressionNumber value) {
         return this.setValue(this.value.min(value.bigDecimal()));
     }
-    
+
     // modulo..............................................................................................................
 
     @Override
@@ -249,10 +249,10 @@ final class ExpressionNumberBigDecimal extends ExpressionNumber {
     public ExpressionNumber sqrt(final ExpressionNumberContext context) {
         try {
             return this.setValue(
-                    BigDecimalMath.sqrt(
-                            this.value,
-                            context.mathContext()
-                    )
+                BigDecimalMath.sqrt(
+                    this.value,
+                    context.mathContext()
+                )
             );
         } catch (final ArithmeticException cause) {
             // cant wrap ArithmeticException which would make sqrt(-1) -> !DIV rather than !VALUE
@@ -272,10 +272,10 @@ final class ExpressionNumberBigDecimal extends ExpressionNumber {
     @Override
     ExpressionNumber and0(final ExpressionNumber value) {
         return this.setValue(
-                this.value.toBigInteger()
-                        .and(
-                                value.bigInteger()
-                        )
+            this.value.toBigInteger()
+                .and(
+                    value.bigInteger()
+                )
         );
     }
 
@@ -284,10 +284,10 @@ final class ExpressionNumberBigDecimal extends ExpressionNumber {
     @Override
     ExpressionNumber andNot0(final ExpressionNumber value) {
         return this.setValue(
-                this.value.toBigInteger()
-                        .andNot(
-                                value.bigInteger()
-                        )
+            this.value.toBigInteger()
+                .andNot(
+                    value.bigInteger()
+                )
         );
     }
 
@@ -296,10 +296,10 @@ final class ExpressionNumberBigDecimal extends ExpressionNumber {
     @Override
     ExpressionNumber or0(final ExpressionNumber value) {
         return this.setValue(
-                this.value.toBigInteger()
-                        .or(
-                                value.bigInteger()
-                        )
+            this.value.toBigInteger()
+                .or(
+                    value.bigInteger()
+                )
         );
     }
 
@@ -308,10 +308,10 @@ final class ExpressionNumberBigDecimal extends ExpressionNumber {
     @Override
     ExpressionNumber xor0(final ExpressionNumber value) {
         return this.setValue(
-                this.value.toBigInteger()
-                        .xor(
-                                value.bigInteger()
-                        )
+            this.value.toBigInteger()
+                .xor(
+                    value.bigInteger()
+                )
         );
     }
 
@@ -396,8 +396,8 @@ final class ExpressionNumberBigDecimal extends ExpressionNumber {
      */
     ExpressionNumber setValue(final BigDecimal value) {
         return this.equalsValue(value) ?
-                this :
-                new ExpressionNumberBigDecimal(value);
+            this :
+            new ExpressionNumberBigDecimal(value);
     }
 
     final BigDecimal value;

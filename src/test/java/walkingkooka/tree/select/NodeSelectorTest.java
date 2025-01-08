@@ -35,7 +35,7 @@ import java.util.function.Function;
 import java.util.stream.Stream;
 
 public final class NodeSelectorTest implements ClassTesting2<NodeSelector<TestNode, StringName, StringName, Object>>,
-        StreamTesting<Stream<TestNode>, TestNode> {
+    StreamTesting<Stream<TestNode>, TestNode> {
 
     @BeforeEach
     public void beforeEachTest() {
@@ -49,20 +49,20 @@ public final class NodeSelectorTest implements ClassTesting2<NodeSelector<TestNo
         TestNode.disableUniqueNameChecks();
 
         final TestNode root = TestNode.with("root",
-                TestNode.with("branch1", TestNode.with("leaf1")),
-                TestNode.with("branch2",
-                        TestNode.with("leaf2"),
-                        TestNode.with("leaf3")));
+            TestNode.with("branch1", TestNode.with("leaf1")),
+            TestNode.with("branch2",
+                TestNode.with("leaf2"),
+                TestNode.with("leaf3")));
 
         this.collectAndCheck(() -> this.stream(TestNode.absoluteNodeSelector()
-                        .descendantOrSelf(),
+                    .descendantOrSelf(),
                 root),
-                root,
-                root.child(0),
-                root.child(0).child(0),
-                root.child(1),
-                root.child(1).child(0), // leaf2
-                root.child(1).child(1)); // leaf3
+            root,
+            root.child(0),
+            root.child(0).child(0),
+            root.child(1),
+            root.child(1).child(0), // leaf2
+            root.child(1).child(1)); // leaf3
     }
 
     @Test
@@ -70,22 +70,22 @@ public final class NodeSelectorTest implements ClassTesting2<NodeSelector<TestNo
         TestNode.disableUniqueNameChecks();
 
         final TestNode root = TestNode.with("root",
-                TestNode.with("branch1", TestNode.with("leaf1")),
-                TestNode.with("branch2",
-                        TestNode.with("leaf2"),
-                        TestNode.with("leaf3")));
+            TestNode.with("branch1", TestNode.with("leaf1")),
+            TestNode.with("branch2",
+                TestNode.with("leaf2"),
+                TestNode.with("leaf3")));
 
         this.collectAndCheck(() -> this.stream(TestNode.absoluteNodeSelector()
                         .descendantOrSelf(),
-                root)
-                        .skip(1)
-                        .limit(2),
-                //root, skip 1
-                root.child(0), // branch1
-                root.child(0).child(0) // leaf1
-                //root.child(1),
-                //root.child(1).child(0), // leaf2
-                //root.child(1).child(1)
+                    root)
+                .skip(1)
+                .limit(2),
+            //root, skip 1
+            root.child(0), // branch1
+            root.child(0).child(0) // leaf1
+            //root.child(1),
+            //root.child(1).child(0), // leaf2
+            //root.child(1).child(1)
         ); // leaf3
     }
 
@@ -94,17 +94,17 @@ public final class NodeSelectorTest implements ClassTesting2<NodeSelector<TestNo
         TestNode.disableUniqueNameChecks();
 
         final TestNode root = TestNode.with("root",
-                TestNode.with("branch1", TestNode.with("leaf")),
-                TestNode.with("branch2",
-                        TestNode.with("skip"),
-                        TestNode.with("leaf")));
+            TestNode.with("branch1", TestNode.with("leaf")),
+            TestNode.with("branch2",
+                TestNode.with("skip"),
+                TestNode.with("leaf")));
 
         this.collectAndCheck(() -> this.stream(TestNode.absoluteNodeSelector()
-                        .descendantOrSelf()
-                        .named(Names.string("leaf")),
+                    .descendantOrSelf()
+                    .named(Names.string("leaf")),
                 root),
-                root.child(0).child(0),
-                root.child(1).child(1));
+            root.child(0).child(0),
+            root.child(1).child(1));
     }
 
     // StreamTesting.....................................................................................................
@@ -112,15 +112,15 @@ public final class NodeSelectorTest implements ClassTesting2<NodeSelector<TestNo
     @Override
     public Stream<TestNode> createStream() {
         return this.stream(TestNode.absoluteNodeSelector()
-                        .descendantOrSelf(),
-                ROOT);
+                .descendantOrSelf(),
+            ROOT);
     }
 
     private Stream<TestNode> stream(final NodeSelector<TestNode, StringName, StringName, Object> selector,
                                     final TestNode node) {
         return selector.stream(node,
             this.expressionEvaluationContext(),
-                TestNode.class);
+            TestNode.class);
     }
 
     private Function<NodeSelectorContext<TestNode, StringName, StringName, Object>, ExpressionEvaluationContext> expressionEvaluationContext() {
@@ -141,10 +141,10 @@ public final class NodeSelectorTest implements ClassTesting2<NodeSelector<TestNo
     }
 
     private final static TestNode ROOT = TestNode.with("root",
-            TestNode.with("branch1"),
-            TestNode.with("branch2",
-                    TestNode.with("leaf1"),
-                    TestNode.with("leaf2")));
+        TestNode.with("branch1"),
+        TestNode.with("branch2",
+            TestNode.with("leaf1"),
+            TestNode.with("leaf2")));
 
     // ClassTesting.....................................................................................................
 

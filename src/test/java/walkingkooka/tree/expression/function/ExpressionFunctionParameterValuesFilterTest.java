@@ -34,8 +34,8 @@ import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class ExpressionFunctionParameterValuesFilterTest extends ExpressionFunctionTestCase<ExpressionFunctionParameterValuesFilter<Object, ExpressionEvaluationContext>,
-        ExpressionEvaluationContext,
-        Object> {
+    ExpressionEvaluationContext,
+    Object> {
 
     private final static BiPredicate<Object, ExpressionEvaluationContext> FILTER = (p, c) -> p instanceof String;
 
@@ -45,8 +45,8 @@ public final class ExpressionFunctionParameterValuesFilterTest extends Expressio
         public Object apply(final List<Object> parameters,
                             final ExpressionEvaluationContext context) {
             return parameters.stream()
-                    .map(p -> p.toString().toUpperCase())
-                    .collect(Collectors.joining(","));
+                .map(p -> p.toString().toUpperCase())
+                .collect(Collectors.joining(","));
         }
 
         @Override
@@ -62,50 +62,50 @@ public final class ExpressionFunctionParameterValuesFilterTest extends Expressio
         @Override
         public List<ExpressionFunctionParameter<?>> parameters(final int count) {
             return Lists.of(
-                    ExpressionFunctionParameterName.with("parameter1")
-                            .required(String.class)
+                ExpressionFunctionParameterName.with("parameter1")
+                    .required(String.class)
             );
         }
     };
 
     private final static Optional<ExpressionFunctionName> NAME = Optional.of(
-            ExpressionFunctionName.with("custom-namedFunction")
+        ExpressionFunctionName.with("custom-namedFunction")
     );
 
     @Test
     public void testWithNullFilterFails() {
         assertThrows(
-                NullPointerException.class,
-                () -> ExpressionFunctionParameterValuesFilter.with(null, FUNCTION)
+            NullPointerException.class,
+            () -> ExpressionFunctionParameterValuesFilter.with(null, FUNCTION)
         );
     }
 
     @Test
     public void testWithNullFunctionFails() {
         assertThrows(
-                NullPointerException.class,
-                () -> ExpressionFunctionParameterValuesFilter.with(FILTER, null)
+            NullPointerException.class,
+            () -> ExpressionFunctionParameterValuesFilter.with(FILTER, null)
         );
     }
 
     @Test
     public void testApply() {
         this.applyAndCheck(
-                Lists.of(
-                        "aaa", // toUpperCase()
-                        "bbb",
-                        3, // removed!
-                        "ddd"
-                ),
-                "AAA,BBB,DDD"
+            Lists.of(
+                "aaa", // toUpperCase()
+                "bbb",
+                3, // removed!
+                "ddd"
+            ),
+            "AAA,BBB,DDD"
         );
     }
 
     @Test
     public void testName() {
         this.checkEquals(
-                NAME,
-                this.createBiFunction().name()
+            NAME,
+            this.createBiFunction().name()
         );
     }
 
@@ -121,8 +121,8 @@ public final class ExpressionFunctionParameterValuesFilterTest extends Expressio
     @Override
     public ExpressionFunctionParameterValuesFilter<Object, ExpressionEvaluationContext> createBiFunction() {
         return ExpressionFunctionParameterValuesFilter.with(
-                FILTER,
-                FUNCTION
+            FILTER,
+            FUNCTION
         );
     }
 
@@ -141,9 +141,9 @@ public final class ExpressionFunctionParameterValuesFilterTest extends Expressio
     @Test
     public void testToString() {
         this.toStringAndCheck(
-                this.createBiFunction(),
-                NAME.get()
-                        .toString()
+            this.createBiFunction(),
+            NAME.get()
+                .toString()
         );
     }
 

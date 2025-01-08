@@ -56,8 +56,8 @@ final class ExpressionFunctionNodeName<C extends ExpressionEvaluationContext> im
         this.checkParameterCount(parameters);
 
         return NODE.getOrFail(parameters, 0)
-                .name()
-                .value();
+            .name()
+            .value();
     }
 
     @Override
@@ -66,7 +66,7 @@ final class ExpressionFunctionNodeName<C extends ExpressionEvaluationContext> im
     }
 
     private final static Optional<ExpressionFunctionName> NAME = Optional.of(
-            ExpressionFunctionName.with("name")
+        ExpressionFunctionName.with("name")
     );
 
     @Override
@@ -76,8 +76,8 @@ final class ExpressionFunctionNodeName<C extends ExpressionEvaluationContext> im
 
     @SuppressWarnings("rawtypes")
     private final static ExpressionFunctionParameter<Node> NODE = ExpressionFunctionParameterName.with("node")
-            .required(Node.class)
-            .setKinds(ExpressionFunctionParameterKind.EVALUATE_RESOLVE_REFERENCES);
+        .required(Node.class)
+        .setKinds(ExpressionFunctionParameterKind.EVALUATE_RESOLVE_REFERENCES);
 
     private final static List<ExpressionFunctionParameter<?>> PARAMETERS = ExpressionFunctionParameter.list(NODE);
 
@@ -94,7 +94,7 @@ final class ExpressionFunctionNodeName<C extends ExpressionEvaluationContext> im
     @Override
     public String toString() {
         return this.name()
-                .get()
-                .toString();
+            .get()
+            .toString();
     }
 }

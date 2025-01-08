@@ -35,12 +35,12 @@ import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class ExpressionFunctionParameterValuesMapperTest extends ExpressionFunctionTestCase<ExpressionFunctionParameterValuesMapper<Object, ExpressionEvaluationContext>,
-        ExpressionEvaluationContext,
-        Object> {
+    ExpressionEvaluationContext,
+    Object> {
 
     private final static BiFunction<List<Object>, ExpressionEvaluationContext, List<Object>> MAPPER = (p, c) -> p.stream()
-            .map(pp -> pp.toString().toUpperCase())
-            .collect(Collectors.toList());
+        .map(pp -> pp.toString().toUpperCase())
+        .collect(Collectors.toList());
 
     private final static ExpressionFunction<Object, ExpressionEvaluationContext> FUNCTION = new FakeExpressionFunction<>() {
 
@@ -48,8 +48,8 @@ public final class ExpressionFunctionParameterValuesMapperTest extends Expressio
         public Object apply(final List<Object> parameters,
                             final ExpressionEvaluationContext context) {
             return parameters.stream()
-                    .map(p -> p.toString() + "-namedFunction")
-                    .collect(Collectors.joining(","));
+                .map(p -> p.toString() + "-namedFunction")
+                .collect(Collectors.joining(","));
         }
 
         @Override
@@ -65,14 +65,14 @@ public final class ExpressionFunctionParameterValuesMapperTest extends Expressio
         @Override
         public List<ExpressionFunctionParameter<?>> parameters(final int count) {
             return Lists.of(
-                    ExpressionFunctionParameterName.with("parameter1")
-                            .required(String.class)
+                ExpressionFunctionParameterName.with("parameter1")
+                    .required(String.class)
             );
         }
     };
 
     private final static Optional<ExpressionFunctionName> NAME = Optional.of(
-            ExpressionFunctionName.with("custom-namedFunction")
+        ExpressionFunctionName.with("custom-namedFunction")
     );
 
     @Test
@@ -88,8 +88,8 @@ public final class ExpressionFunctionParameterValuesMapperTest extends Expressio
     @Test
     public void testApply() {
         this.applyAndCheck(Lists.of("param-1", "param-2", 3),
-                this.createContext(),
-                "PARAM-1-namedFunction,PARAM-2-namedFunction,3-namedFunction");
+            this.createContext(),
+            "PARAM-1-namedFunction,PARAM-2-namedFunction,3-namedFunction");
     }
 
     @Test
@@ -108,15 +108,15 @@ public final class ExpressionFunctionParameterValuesMapperTest extends Expressio
         final ExpressionFunctionParameterValuesMapper<Object, ExpressionEvaluationContext> function = this.createBiFunction();
 
         final BiFunction<List<Object>, ExpressionEvaluationContext, List<Object>> mapper = (p, c) -> p.stream()
-                .map(pp -> pp.toString() + "-a")
-                .collect(Collectors.toList());
+            .map(pp -> pp.toString() + "-a")
+            .collect(Collectors.toList());
         final ExpressionFunctionParameterValuesMapper<Object, ExpressionEvaluationContext> function2 = Cast.to(function.mapParameterValues(mapper));
         assertNotSame(function, function2);
 
         this.applyAndCheck(function2,
-                Lists.of("param-1", "param-2", 3),
-                this.createContext(),
-                "PARAM-1-A-namedFunction,PARAM-2-A-namedFunction,3-A-namedFunction");
+            Lists.of("param-1", "param-2", 3),
+            this.createContext(),
+            "PARAM-1-A-namedFunction,PARAM-2-A-namedFunction,3-A-namedFunction");
     }
 
     @Override
@@ -139,9 +139,9 @@ public final class ExpressionFunctionParameterValuesMapperTest extends Expressio
     @Test
     public void testToString() {
         this.toStringAndCheck(
-                this.createBiFunction(),
-                NAME.get()
-                        .toString()
+            this.createBiFunction(),
+            NAME.get()
+                .toString()
         );
     }
 

@@ -85,8 +85,8 @@ public final class BasicNodeSelectorExpressionEvaluationContextTest implements N
 
     private void evaluateAndCheck2(final boolean value) {
         this.evaluateAndCheck(
-                Expression.value(value),
-                value
+            Expression.value(value),
+            value
         );
     }
 
@@ -94,8 +94,8 @@ public final class BasicNodeSelectorExpressionEvaluationContextTest implements N
     public void testEvaluateString() {
         final String value = "abc123";
         this.evaluateAndCheck(
-                Expression.value(value),
-                value
+            Expression.value(value),
+            value
         );
     }
 
@@ -109,12 +109,12 @@ public final class BasicNodeSelectorExpressionEvaluationContextTest implements N
         final String attribute = "attribute123";
         final String value = "value123";
         final TestNode node = TestNode.with("node123")
-                .setAttributes(Maps.of(Names.string(attribute), value));
+            .setAttributes(Maps.of(Names.string(attribute), value));
 
         this.checkEquals(
-                value,
-                this.createContext(node)
-                        .referenceOrFail(NodeSelectorAttributeName.with(attribute))
+            value,
+            this.createContext(node)
+                .referenceOrFail(NodeSelectorAttributeName.with(attribute))
         );
     }
 
@@ -125,16 +125,16 @@ public final class BasicNodeSelectorExpressionEvaluationContextTest implements N
 
     private BasicNodeSelectorExpressionEvaluationContext<TestNode, StringName, StringName, Object> createContext(final TestNode node) {
         return BasicNodeSelectorExpressionEvaluationContext.with(
-                node,
-                (r) -> ExpressionEvaluationContexts.basic(
-                        EXPRESSION_NUMBER_KIND,
-                        this.functions(),
-                        this.exceptionHandler(),
-                        this.references(),
-                        ExpressionEvaluationContexts.referenceNotFound(),
-                        CaseSensitivity.SENSITIVE,
-                        this.converterContext()
-                ));
+            node,
+            (r) -> ExpressionEvaluationContexts.basic(
+                EXPRESSION_NUMBER_KIND,
+                this.functions(),
+                this.exceptionHandler(),
+                this.references(),
+                ExpressionEvaluationContexts.referenceNotFound(),
+                CaseSensitivity.SENSITIVE,
+                this.converterContext()
+            ));
     }
 
     private Function<RuntimeException, Object> exceptionHandler() {
@@ -158,14 +158,14 @@ public final class BasicNodeSelectorExpressionEvaluationContextTest implements N
 
     private ExpressionNumberConverterContext converterContext() {
         return ExpressionNumberConverterContexts.basic(
-                Converters.numberToNumber(),
-                ConverterContexts.basic(
-                        Converters.JAVA_EPOCH_OFFSET, // dateOffset
-                        Converters.fake(),
-                        DateTimeContexts.fake(),
-                        decimalNumberContext()
-                ),
-                EXPRESSION_NUMBER_KIND
+            Converters.numberToNumber(),
+            ConverterContexts.basic(
+                Converters.JAVA_EPOCH_OFFSET, // dateOffset
+                Converters.fake(),
+                DateTimeContexts.fake(),
+                decimalNumberContext()
+            ),
+            EXPRESSION_NUMBER_KIND
         );
     }
 

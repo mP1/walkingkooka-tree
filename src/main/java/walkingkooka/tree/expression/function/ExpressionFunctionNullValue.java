@@ -48,7 +48,7 @@ final class ExpressionFunctionNullValue<C extends ExpressionEvaluationContext> i
     }
 
     private final static Optional<ExpressionFunctionName> NAME = Optional.of(
-            ExpressionFunctionName.with("nullValue")
+        ExpressionFunctionName.with("nullValue")
     );
 
     @Override
@@ -76,6 +76,6 @@ final class ExpressionFunctionNullValue<C extends ExpressionEvaluationContext> i
     @Override
     public String toString() {
         return NAME.get()
-                .toString();
+            .toString();
     }
 }

@@ -141,18 +141,18 @@ public final class NodeSelectorPredicateParserTokenTest extends NodeSelectorPare
         }.accept(predicate);
         this.checkEquals("13151721821921A21B21C21D26242", b.toString());
         this.checkEquals(Lists.<Object>of(predicate, predicate,
-                        function, function,
-                        functionName, functionName, functionName,
-                        parenOpen, parenOpen, parenOpen,
-                        atSign, atSign, atSign,
-                        attributeName, attributeName, attributeName,
-                        comma, comma, comma,
-                        quotedText, quotedText, quotedText,
-                        parenClose, parenClose, parenClose,
-                        function, function,
-                        predicate, predicate),
-                visited,
-                "visited");
+                function, function,
+                functionName, functionName, functionName,
+                parenOpen, parenOpen, parenOpen,
+                atSign, atSign, atSign,
+                attributeName, attributeName, attributeName,
+                comma, comma, comma,
+                quotedText, quotedText, quotedText,
+                parenClose, parenClose, parenClose,
+                function, function,
+                predicate, predicate),
+            visited,
+            "visited");
     }
 
     @Override

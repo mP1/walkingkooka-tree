@@ -29,7 +29,7 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertSame;
 
 final public class DescendantNodeSelectorTest extends
-        AxisNodeSelectorTestCase<DescendantNodeSelector<TestNode, StringName, StringName, Object>> {
+    AxisNodeSelectorTestCase<DescendantNodeSelector<TestNode, StringName, StringName, Object>> {
 
     @Test
     public void testDescendantChildless() {
@@ -98,8 +98,8 @@ final public class DescendantNodeSelectorTest extends
         final TestNode child2 = TestNode.with("match", grand3, grand4, grand5);
 
         this.applyAndCheck(TestNode.absoluteNodeSelector().descendant().named(child1.name()),
-                TestNode.with("parent", child1, child2),
-                child1, child2, grand5);
+            TestNode.with("parent", child1, child2),
+            child1, child2, grand5);
     }
 
     @Test
@@ -119,10 +119,10 @@ final public class DescendantNodeSelectorTest extends
         final TestNode child2 = TestNode.with("child2", TestNode.with("skip"), grand4);
 
         this.applyFilterAndCheck(TestNode.relativeNodeSelector()
-                        .descendant(),
-                TestNode.with("parent", child1, child2),
-                (n) -> !n.name().value().equals("skip"),
-                child1, grand1, grand3, child2, grand4);
+                .descendant(),
+            TestNode.with("parent", child1, child2),
+            (n) -> !n.name().value().equals("skip"),
+            child1, grand1, grand3, child2, grand4);
     }
 
     @Test
@@ -130,9 +130,9 @@ final public class DescendantNodeSelectorTest extends
         final TestNode child = TestNode.with("skip", TestNode.with("grand"));
 
         this.applyFilterAndCheck(TestNode.relativeNodeSelector()
-                        .descendant(),
-                TestNode.with("parent", child),
-                (n) -> !n.name().value().equals("skip"));
+                .descendant(),
+            TestNode.with("parent", child),
+            (n) -> !n.name().value().equals("skip"));
     }
 
     @Test
@@ -142,17 +142,17 @@ final public class DescendantNodeSelectorTest extends
         final TestNode child2 = TestNode.with("skip", TestNode.with("grand2"));
 
         this.applyFilterAndCheck(TestNode.relativeNodeSelector()
-                        .descendant(),
-                TestNode.with("parent", child1, child2),
-                (n) -> !n.name().value().equals("skip"),
-                child1, grand1);
+                .descendant(),
+            TestNode.with("parent", child1, child2),
+            (n) -> !n.name().value().equals("skip"),
+            child1, grand1);
     }
 
     @Test
     public void testDescendantFinishedTrue() {
         this.applyFinisherAndCheck(this.createSelector(),
-                TestNode.with("parent", TestNode.with("child")),
-                () -> true);
+            TestNode.with("parent", TestNode.with("child")),
+            () -> true);
     }
 
     @Test
@@ -163,9 +163,9 @@ final public class DescendantNodeSelectorTest extends
         final TestNode parent = TestNode.with("parent", child1, child2);
 
         this.applyFinisherAndCheck(this.createSelector(),
-                parent,
-                1,
-                child1);
+            parent,
+            1,
+            child1);
     }
 
     @Test
@@ -176,42 +176,42 @@ final public class DescendantNodeSelectorTest extends
         final TestNode parent = TestNode.with("parent", child1, child2);
 
         this.applyFinisherAndCheck(this.createSelector(),
-                parent,
-                2,
-                child1, grandChild);
+            parent,
+            2,
+            child1, grandChild);
     }
 
     @Test
     public void testDescendantMap() {
         final TestNode grandParent = TestNode.with("grand",
-                TestNode.with("parent1",
-                        TestNode.with("child1"), TestNode.with("child2")),
-                TestNode.with("parent2", TestNode.with("child3")));
+            TestNode.with("parent1",
+                TestNode.with("child1"), TestNode.with("child2")),
+            TestNode.with("parent2", TestNode.with("child3")));
 
         TestNode.clear();
 
         this.acceptMapAndCheck(grandParent.child(0),
-                TestNode.with("grand",
-                        TestNode.with("parent1",
-                                TestNode.with("child1*0"), TestNode.with("child2*1")),
-                        TestNode.with("parent2", TestNode.with("child3")))
-                        .child(0));
+            TestNode.with("grand",
+                    TestNode.with("parent1",
+                        TestNode.with("child1*0"), TestNode.with("child2*1")),
+                    TestNode.with("parent2", TestNode.with("child3")))
+                .child(0));
     }
 
     @Test
     public void testDescendantMap2() {
         final TestNode grandParent = TestNode.with("grand",
-                TestNode.with("parent1",
-                        TestNode.with("child1"), TestNode.with("child2")),
-                TestNode.with("parent2", TestNode.with("child3")));
+            TestNode.with("parent1",
+                TestNode.with("child1"), TestNode.with("child2")),
+            TestNode.with("parent2", TestNode.with("child3")));
 
         TestNode.clear();
 
         this.acceptMapAndCheck(grandParent,
-                TestNode.with("grand",
-                        TestNode.with("parent1*0",
-                                TestNode.with("child1*1"), TestNode.with("child2*2")),
-                        TestNode.with("parent2*3", TestNode.with("child3*4"))));
+            TestNode.with("grand",
+                TestNode.with("parent1*0",
+                    TestNode.with("child1*1"), TestNode.with("child2*2")),
+                TestNode.with("parent2*3", TestNode.with("child3*4"))));
     }
 
     // NodeSelectorVisitor............................................................................................
@@ -264,10 +264,10 @@ final public class DescendantNodeSelectorTest extends
         this.checkEquals("1315242", b.toString());
 
         this.checkEquals(Lists.of(selector, selector,
-                        next, next, next,
-                        selector, selector),
-                visited,
-                "visited");
+                next, next, next,
+                selector, selector),
+            visited,
+            "visited");
     }
 
     // Object....................................................................................................

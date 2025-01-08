@@ -51,8 +51,8 @@ abstract class NodeSelectorNameValue implements Name {
     @SuppressWarnings("EqualsWhichDoesntCheckParameterClass")
     public final boolean equals(final Object other) {
         return this == other ||
-                this.canBeEqual(other) &&
-                        this.equals0((NodeSelectorNameValue) other);
+            this.canBeEqual(other) &&
+                this.equals0((NodeSelectorNameValue) other);
     }
 
     abstract boolean canBeEqual(final Object other);

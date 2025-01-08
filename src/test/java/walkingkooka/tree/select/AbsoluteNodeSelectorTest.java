@@ -30,7 +30,7 @@ import java.util.function.Predicate;
 import static org.junit.jupiter.api.Assertions.assertSame;
 
 final public class AbsoluteNodeSelectorTest extends
-        AbsoluteOrAxisNodeSelectorTestCase<AbsoluteNodeSelector<TestNode, StringName, StringName, Object>> {
+    AbsoluteOrAxisNodeSelectorTestCase<AbsoluteNodeSelector<TestNode, StringName, StringName, Object>> {
 
     private final static Predicate<TestNode> PREDICATE = Predicates.customToString(Predicates.always(), "always");
 
@@ -43,8 +43,8 @@ final public class AbsoluteNodeSelectorTest extends
     @Test
     public void testAbsoluteFinishedTrueChildren() {
         this.applyFinisherAndCheck(this.createSelector().children(),
-                TestNode.with("self"),
-                () -> true);
+            TestNode.with("self"),
+            () -> true);
     }
 
     @Test
@@ -83,47 +83,47 @@ final public class AbsoluteNodeSelectorTest extends
     @Test
     public void testAbsoluteFilter() {
         final TestNode parent = TestNode.with("parent",
-                TestNode.with("child1"),
-                TestNode.with("child2"));
+            TestNode.with("child1"),
+            TestNode.with("child2"));
 
         this.applyFilterAndCheck(TestNode.relativeNodeSelector()
-                        .children()
-                        .parent(),
-                parent.child(0),
-                (n) -> false);
+                .children()
+                .parent(),
+            parent.child(0),
+            (n) -> false);
     }
 
     @Test
     public void testAbsoluteMap() {
         final TestNode grandParent = TestNode.with("grand",
-                TestNode.with("parent1",
-                        TestNode.with("child1"), TestNode.with("child2")),
-                TestNode.with("parent2", TestNode.with("child3")));
+            TestNode.with("parent1",
+                TestNode.with("child1"), TestNode.with("child2")),
+            TestNode.with("parent2", TestNode.with("child3")));
 
         TestNode.clear();
 
         this.acceptMapAndCheck(grandParent.child(1),
-                TestNode.with("grand*0",
-                        TestNode.with("parent1",
-                                TestNode.with("child1"), TestNode.with("child2")),
-                        TestNode.with("parent2", TestNode.with("child3")))
-                        .child(1));
+            TestNode.with("grand*0",
+                    TestNode.with("parent1",
+                        TestNode.with("child1"), TestNode.with("child2")),
+                    TestNode.with("parent2", TestNode.with("child3")))
+                .child(1));
     }
 
     @Test
     public void testAbsoluteMap2() {
         final TestNode grandParent = TestNode.with("grand",
-                TestNode.with("parent1",
-                        TestNode.with("child1"), TestNode.with("child2")),
-                TestNode.with("parent2", TestNode.with("child3")));
+            TestNode.with("parent1",
+                TestNode.with("child1"), TestNode.with("child2")),
+            TestNode.with("parent2", TestNode.with("child3")));
 
         TestNode.clear();
 
         this.acceptMapAndCheck(grandParent,
-                TestNode.with("grand*0",
-                        TestNode.with("parent1",
-                                TestNode.with("child1"), TestNode.with("child2")),
-                        TestNode.with("parent2", TestNode.with("child3"))));
+            TestNode.with("grand*0",
+                TestNode.with("parent1",
+                    TestNode.with("child1"), TestNode.with("child2")),
+                TestNode.with("parent2", TestNode.with("child3"))));
     }
 
     // NodeSelectorVisitor............................................................................................
@@ -176,10 +176,10 @@ final public class AbsoluteNodeSelectorTest extends
         this.checkEquals("1315242", b.toString());
 
         this.checkEquals(Lists.of(selector, selector,
-                        next, next, next,
-                        selector, selector),
-                visited,
-                "visited");
+                next, next, next,
+                selector, selector),
+            visited,
+            "visited");
     }
 
     // toString....................................................................................................

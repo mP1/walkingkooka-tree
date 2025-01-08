@@ -47,15 +47,15 @@ abstract public class ArithmeticExpression extends BinaryExpression {
 
         if (context.isText(left)) {
             result = this.applyText(
-                    context.convertOrFail(left, String.class),
-                    context.convertOrFail(right, String.class),
-                    context
+                context.convertOrFail(left, String.class),
+                context.convertOrFail(right, String.class),
+                context
             );
         } else {
             result = this.applyExpressionNumber(
-                    context.convertOrFail(left, ExpressionNumber.class),
-                    context.convertOrFail(right, ExpressionNumber.class),
-                    context
+                context.convertOrFail(left, ExpressionNumber.class),
+                context.convertOrFail(right, ExpressionNumber.class),
+                context
             );
         }
 

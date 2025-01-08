@@ -73,11 +73,11 @@ public final class LessThanExpressionTest extends CompareExpressionTestCase<Less
         }.accept(lt);
         this.checkEquals("1315215242", b.toString());
         this.checkEquals(Lists.of(lt, lt,
-                        text1, text1, text1,
-                        text2, text2, text2,
-                        lt, lt),
-                visited,
-                "visited");
+                text1, text1, text1,
+                text2, text2, text2,
+                lt, lt),
+            visited,
+            "visited");
     }
 
     // evaluate........ ................................................................................................

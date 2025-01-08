@@ -49,21 +49,21 @@ public final class NodePointerAppendTest extends NodePointerTestCase<NodePointer
         final TestNode add = TestNode.with("add");
 
         this.addAndCheck(this.createNodePointer(),
-                array,
-                add,
-                array.appendChild(add));
+            array,
+            add,
+            array.appendChild(add));
     }
 
     @Test
     public void testAdd2() {
         final TestNode array = TestNode.with("root")
-                .appendChild(TestNode.with("a1"));
+            .appendChild(TestNode.with("a1"));
         final TestNode add = TestNode.with("add");
 
         this.addAndCheck(this.createNodePointer(),
-                array,
-                add,
-                array.appendChild(add));
+            array,
+            add,
+            array.appendChild(add));
     }
 
     @Test

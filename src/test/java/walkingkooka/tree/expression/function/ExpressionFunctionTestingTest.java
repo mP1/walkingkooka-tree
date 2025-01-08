@@ -116,33 +116,33 @@ public final class ExpressionFunctionTestingTest implements ClassTesting<Express
     @Test
     public void testApplyEvaluateExpressionParameterExpressionFails() {
         this.applyFails(
-                EnumSet.of(ExpressionFunctionParameterKind.EVALUATE),
-                Lists.of(
-                        Expression.value(1)
-                ),
-                "Should not include parameter(s) of type walkingkooka.tree.expression.Expression ==> expected: <[]> but was: <[1]>"
+            EnumSet.of(ExpressionFunctionParameterKind.EVALUATE),
+            Lists.of(
+                Expression.value(1)
+            ),
+            "Should not include parameter(s) of type walkingkooka.tree.expression.Expression ==> expected: <[]> but was: <[1]>"
         );
     }
 
     @Test
     public void testApplyFlattenParameterListFails() {
         this.applyFails(
-                EnumSet.of(ExpressionFunctionParameterKind.FLATTEN),
-                Lists.of(
-                        Lists.empty()
-                ),
-                "Should not include parameter(s) of type java.util.List ==> expected: <[]> but was: <[[]]>"
+            EnumSet.of(ExpressionFunctionParameterKind.FLATTEN),
+            Lists.of(
+                Lists.empty()
+            ),
+            "Should not include parameter(s) of type java.util.List ==> expected: <[]> but was: <[[]]>"
         );
     }
 
     @Test
     public void testApplyResolveReferenceParameterReferenceFails() {
         this.applyFails(
-                EnumSet.of(ExpressionFunctionParameterKind.RESOLVE_REFERENCES),
-                Lists.of(
-                        REFERENCE
-                ),
-                "Should not include parameter(s) of type walkingkooka.tree.expression.ExpressionReference ==> expected: <[]> but was: <[ExpressionReference123]>"
+            EnumSet.of(ExpressionFunctionParameterKind.RESOLVE_REFERENCES),
+            Lists.of(
+                REFERENCE
+            ),
+            "Should not include parameter(s) of type walkingkooka.tree.expression.ExpressionReference ==> expected: <[]> but was: <[ExpressionReference123]>"
         );
     }
 
@@ -150,59 +150,59 @@ public final class ExpressionFunctionTestingTest implements ClassTesting<Express
                             final List<Object> parameters,
                             final String message) {
         final AssertionError thrown = assertThrows(
-                AssertionError.class,
-                () -> TESTING.applyAndCheck2(
-                        new FakeExpressionFunction<>() {
-                            @Override
-                            public List<ExpressionFunctionParameter<?>> parameters(final int count) {
-                                return Lists.of(
-                                        ExpressionFunctionParameterName.with("test")
-                                                .required(Object.class)
-                                                .setKinds(kinds)
-                                );
-                            }
-                        },
-                        parameters,
-                        ExpressionEvaluationContexts.fake()
-                )
+            AssertionError.class,
+            () -> TESTING.applyAndCheck2(
+                new FakeExpressionFunction<>() {
+                    @Override
+                    public List<ExpressionFunctionParameter<?>> parameters(final int count) {
+                        return Lists.of(
+                            ExpressionFunctionParameterName.with("test")
+                                .required(Object.class)
+                                .setKinds(kinds)
+                        );
+                    }
+                },
+                parameters,
+                ExpressionEvaluationContexts.fake()
+            )
         );
         this.checkEquals(
-                message,
-                thrown.getMessage(),
-                kinds + " " + parameters
+            message,
+            thrown.getMessage(),
+            kinds + " " + parameters
         );
     }
 
     @Test
     public void testApplyAndCheckWithExpressionParameter() {
         TESTING.applyAndCheck2(
-                this.stringConcatParameters(),
-                Lists.of(
-                        Expression.value(1)
-                ),
-                "1"
+            this.stringConcatParameters(),
+            Lists.of(
+                Expression.value(1)
+            ),
+            "1"
         );
     }
 
     @Test
     public void testApplyAndCheckWithListParameter() {
         TESTING.applyAndCheck2(
-                this.stringConcatParameters(),
-                Lists.of(
-                        Lists.empty()
-                ),
-                "[]"
+            this.stringConcatParameters(),
+            Lists.of(
+                Lists.empty()
+            ),
+            "[]"
         );
     }
 
     @Test
     public void testApplyAndCheckWithExpressionReferenceParameter() {
         TESTING.applyAndCheck2(
-                this.stringConcatParameters(),
-                Lists.of(
-                        REFERENCE
-                ),
-                REFERENCE.toString()
+            this.stringConcatParameters(),
+            Lists.of(
+                REFERENCE
+            ),
+            REFERENCE.toString()
         );
     }
 
@@ -217,8 +217,8 @@ public final class ExpressionFunctionTestingTest implements ClassTesting<Express
     @Test
     public void testApplyAndCheck2ListResult() {
         TESTING.applyAndCheck2(
-                Lists.of("hello", "2"),
-                "hello2"
+            Lists.of("hello", "2"),
+            "hello2"
         );
     }
 
@@ -228,8 +228,8 @@ public final class ExpressionFunctionTestingTest implements ClassTesting<Express
 
         try {
             TESTING.applyAndCheck2(
-                    Lists.of("hello", "2"),
-                    "fail!!"
+                Lists.of("hello", "2"),
+                "fail!!"
             );
         } catch (final Error cause) {
             fails = true;
@@ -240,9 +240,9 @@ public final class ExpressionFunctionTestingTest implements ClassTesting<Express
     @Test
     public void testApplyAndCheck2FunctionListResult() {
         TESTING.applyAndCheck2(
-                stringConcatParameters(),
-                Lists.of("hello", "2"),
-                "hello2"
+            stringConcatParameters(),
+            Lists.of("hello", "2"),
+            "hello2"
         );
     }
 
@@ -252,9 +252,9 @@ public final class ExpressionFunctionTestingTest implements ClassTesting<Express
 
         try {
             TESTING.applyAndCheck2(
-                    stringConcatParameters(),
-                    Lists.of("hello", "2"),
-                    "fail!!"
+                stringConcatParameters(),
+                Lists.of("hello", "2"),
+                "fail!!"
             );
         } catch (final Error cause) {
             fails = true;
@@ -268,14 +268,14 @@ public final class ExpressionFunctionTestingTest implements ClassTesting<Express
             public String apply(final List<Object> objects,
                                 final ExpressionEvaluationContext context) {
                 return objects.stream()
-                        .map(Object::toString)
-                        .collect(Collectors.joining());
+                    .map(Object::toString)
+                    .collect(Collectors.joining());
             }
 
             public List<ExpressionFunctionParameter<?>> parameters(final int count) {
                 return Lists.of(
-                        ExpressionFunctionParameterName.with("string")
-                                .variable(String.class)
+                    ExpressionFunctionParameterName.with("string")
+                        .variable(String.class)
                 );
             }
         };
@@ -293,9 +293,9 @@ public final class ExpressionFunctionTestingTest implements ClassTesting<Express
                     @Override
                     public List<ExpressionFunctionParameter<?>> parameters(final int count) {
                         return Lists.of(
-                                ExpressionFunctionParameter.BOOLEAN,
-                                ExpressionFunctionParameter.CHARACTER,
-                                ExpressionFunctionParameter.DATE
+                            ExpressionFunctionParameter.BOOLEAN,
+                            ExpressionFunctionParameter.CHARACTER,
+                            ExpressionFunctionParameter.DATE
                         );
                     }
                 };
@@ -316,9 +316,9 @@ public final class ExpressionFunctionTestingTest implements ClassTesting<Express
                         @Override
                         public List<ExpressionFunctionParameter<?>> parameters(final int count) {
                             return Lists.of(
-                                    ExpressionFunctionParameter.BOOLEAN,
-                                    ExpressionFunctionParameter.CHARACTER,
-                                    ExpressionFunctionParameter.BOOLEAN
+                                ExpressionFunctionParameter.BOOLEAN,
+                                ExpressionFunctionParameter.CHARACTER,
+                                ExpressionFunctionParameter.BOOLEAN
                             );
                         }
                     };
@@ -343,8 +343,8 @@ public final class ExpressionFunctionTestingTest implements ClassTesting<Express
                     @Override
                     public List<ExpressionFunctionParameter<?>> parameters(final int count) {
                         return Lists.of(
-                                ExpressionFunctionParameterName.BOOLEAN.required(Boolean.class),
-                                ExpressionFunctionParameterName.CHARACTER.optional(Character.class)
+                            ExpressionFunctionParameterName.BOOLEAN.required(Boolean.class),
+                            ExpressionFunctionParameterName.CHARACTER.optional(Character.class)
                         );
                     }
                 };
@@ -365,9 +365,9 @@ public final class ExpressionFunctionTestingTest implements ClassTesting<Express
                         @Override
                         public List<ExpressionFunctionParameter<?>> parameters(final int count) {
                             return Lists.of(
-                                    ExpressionFunctionParameterName.BOOLEAN.required(Boolean.class),
-                                    ExpressionFunctionParameterName.CHARACTER.optional(Character.class),
-                                    ExpressionFunctionParameterName.DATE.required(LocalDate.class)
+                                ExpressionFunctionParameterName.BOOLEAN.required(Boolean.class),
+                                ExpressionFunctionParameterName.CHARACTER.optional(Character.class),
+                                ExpressionFunctionParameterName.DATE.required(LocalDate.class)
                             );
                         }
                     };
@@ -392,9 +392,9 @@ public final class ExpressionFunctionTestingTest implements ClassTesting<Express
                     @Override
                     public List<ExpressionFunctionParameter<?>> parameters(final int count) {
                         return Lists.of(
-                                ExpressionFunctionParameter.BOOLEAN.setKinds(ExpressionFunctionParameterKind.CONVERT_EVALUATE),
-                                ExpressionFunctionParameter.CHARACTER.setKinds(ExpressionFunctionParameterKind.CONVERT_EVALUATE),
-                                ExpressionFunctionParameterName.with("object").required(Object.class)
+                            ExpressionFunctionParameter.BOOLEAN.setKinds(ExpressionFunctionParameterKind.CONVERT_EVALUATE),
+                            ExpressionFunctionParameter.CHARACTER.setKinds(ExpressionFunctionParameterKind.CONVERT_EVALUATE),
+                            ExpressionFunctionParameterName.with("object").required(Object.class)
                         );
                     }
                 };
@@ -415,9 +415,9 @@ public final class ExpressionFunctionTestingTest implements ClassTesting<Express
                         @Override
                         public List<ExpressionFunctionParameter<?>> parameters(final int count) {
                             return Lists.of(
-                                    ExpressionFunctionParameterName.with("object")
-                                            .required(Object.class)
-                                            .setKinds(ExpressionFunctionParameterKind.CONVERT_EVALUATE)
+                                ExpressionFunctionParameterName.with("object")
+                                    .required(Object.class)
+                                    .setKinds(ExpressionFunctionParameterKind.CONVERT_EVALUATE)
                             );
                         }
                     };
@@ -442,8 +442,8 @@ public final class ExpressionFunctionTestingTest implements ClassTesting<Express
                     @Override
                     public List<ExpressionFunctionParameter<?>> parameters(final int count) {
                         return Lists.of(
-                                ExpressionFunctionParameterName.BOOLEAN.required(Boolean.class),
-                                ExpressionFunctionParameterName.CHARACTER.variable(Character.class)
+                            ExpressionFunctionParameterName.BOOLEAN.required(Boolean.class),
+                            ExpressionFunctionParameterName.CHARACTER.variable(Character.class)
                         );
                     }
                 };
@@ -464,9 +464,9 @@ public final class ExpressionFunctionTestingTest implements ClassTesting<Express
                         @Override
                         public List<ExpressionFunctionParameter<?>> parameters(final int count) {
                             return Lists.of(
-                                    ExpressionFunctionParameterName.BOOLEAN.required(Boolean.class),
-                                    ExpressionFunctionParameterName.CHARACTER.variable(Character.class),
-                                    ExpressionFunctionParameterName.DATE.required(LocalDate.class)
+                                ExpressionFunctionParameterName.BOOLEAN.required(Boolean.class),
+                                ExpressionFunctionParameterName.CHARACTER.variable(Character.class),
+                                ExpressionFunctionParameterName.DATE.required(LocalDate.class)
                             );
                         }
                     };
@@ -491,9 +491,9 @@ public final class ExpressionFunctionTestingTest implements ClassTesting<Express
                     @Override
                     public List<ExpressionFunctionParameter<?>> parameters(final int count) {
                         return Lists.of(
-                                ExpressionFunctionParameterName.BOOLEAN.required(Boolean.class),
-                                ExpressionFunctionParameterName.CHARACTER.variable(Character.class)
-                                        .setKinds(ExpressionFunctionParameterKind.CONVERT_EVALUATE_RESOLVE_REFERENCES)
+                            ExpressionFunctionParameterName.BOOLEAN.required(Boolean.class),
+                            ExpressionFunctionParameterName.CHARACTER.variable(Character.class)
+                                .setKinds(ExpressionFunctionParameterKind.CONVERT_EVALUATE_RESOLVE_REFERENCES)
                         );
                     }
                 };
@@ -514,12 +514,12 @@ public final class ExpressionFunctionTestingTest implements ClassTesting<Express
                         @Override
                         public List<ExpressionFunctionParameter<?>> parameters(final int count) {
                             return Lists.of(
-                                    ExpressionFunctionParameterName.BOOLEAN.required(Boolean.class),
-                                    ExpressionFunctionParameterName.CHARACTER.variable(Character.class)
-                                            .setKinds(
-                                                    Sets.of(ExpressionFunctionParameterKind.FLATTEN)
-                                            ),
-                                    ExpressionFunctionParameterName.DATE.required(LocalDate.class)
+                                ExpressionFunctionParameterName.BOOLEAN.required(Boolean.class),
+                                ExpressionFunctionParameterName.CHARACTER.variable(Character.class)
+                                    .setKinds(
+                                        Sets.of(ExpressionFunctionParameterKind.FLATTEN)
+                                    ),
+                                ExpressionFunctionParameterName.DATE.required(LocalDate.class)
                             );
                         }
                     };
@@ -544,9 +544,9 @@ public final class ExpressionFunctionTestingTest implements ClassTesting<Express
                     @Override
                     public List<ExpressionFunctionParameter<?>> parameters(final int count) {
                         return Lists.of(
-                                ExpressionFunctionParameterName.BOOLEAN.required(Boolean.class),
-                                ExpressionFunctionParameterName.CHARACTER.variable(Character.class)
-                                        .setKinds(ExpressionFunctionParameterKind.CONVERT_EVALUATE_RESOLVE_REFERENCES)
+                            ExpressionFunctionParameterName.BOOLEAN.required(Boolean.class),
+                            ExpressionFunctionParameterName.CHARACTER.variable(Character.class)
+                                .setKinds(ExpressionFunctionParameterKind.CONVERT_EVALUATE_RESOLVE_REFERENCES)
                         );
                     }
                 };
@@ -567,11 +567,11 @@ public final class ExpressionFunctionTestingTest implements ClassTesting<Express
                         @Override
                         public List<ExpressionFunctionParameter<?>> parameters(final int count) {
                             return Lists.of(
-                                    ExpressionFunctionParameterName.BOOLEAN.required(Boolean.class),
-                                    ExpressionFunctionParameterName.CHARACTER.required(Character.class)
-                                            .setKinds(
-                                                    Sets.of(ExpressionFunctionParameterKind.FLATTEN)
-                                            )
+                                ExpressionFunctionParameterName.BOOLEAN.required(Boolean.class),
+                                ExpressionFunctionParameterName.CHARACTER.required(Character.class)
+                                    .setKinds(
+                                        Sets.of(ExpressionFunctionParameterKind.FLATTEN)
+                                    )
                             );
                         }
                     };

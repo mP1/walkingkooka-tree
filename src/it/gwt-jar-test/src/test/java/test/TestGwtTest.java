@@ -31,33 +31,33 @@ public class TestGwtTest extends GWTTestCase {
 
     public void testAssertEquals() {
         assertEquals(
-                1,
-                1
+            1,
+            1
         );
     }
 
     public void testParseExpression() {
         final ExpressionNumberKind kind = ExpressionNumberKind.DEFAULT;
         final Parser<NodeSelectorParserContext> parser = NodeSelectorParsers.expression()
-                .orReport(ParserReporters.basic())
-                .cast();
+            .orReport(ParserReporters.basic())
+            .cast();
         final NodeSelectorParserContext context = NodeSelectorParserContexts.basic(
-                kind,
-                MathContext.DECIMAL32
+            kind,
+            MathContext.DECIMAL32
         );
         final NodeSelectorParserToken token = parser.parse(
-                    TextCursors.charSequence("/node123[45]"),
-                    context
-                ).get()
-                .cast(NodeSelectorParserToken.class);
+                TextCursors.charSequence("/node123[45]"),
+                context
+            ).get()
+            .cast(NodeSelectorParserToken.class);
         assertEquals(
-                NodeSelector.absolute()
-                        .named(Names.string("node123"))
-                        .expression(Expression.value(kind.create(45)))
-                        .toString(),
-                ParserToken.text(
-                        Lists.of(token)
-                )
+            NodeSelector.absolute()
+                .named(Names.string("node123"))
+                .expression(Expression.value(kind.create(45)))
+                .toString(),
+            ParserToken.text(
+                Lists.of(token)
+            )
         );
     }
 }

@@ -73,11 +73,11 @@ public final class OrExpressionTest extends LogicalExpressionTestCase<OrExpressi
         }.accept(or);
         this.checkEquals("1517217262", b.toString());
         this.checkEquals(Lists.of(or, or,
-                        text1, text1, text1,
-                        text2, text2, text2,
-                        or, or),
-                visited,
-                "visited");
+                text1, text1, text1,
+                text2, text2, text2,
+                or, or),
+            visited,
+            "visited");
     }
 
     // toBoolean.....................................................................................

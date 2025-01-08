@@ -30,7 +30,7 @@ public abstract class NodePointerTestCase2<N extends NodePointer<TestNode, Strin
     @Test
     public void testNextAppend() {
         this.nextAndCheck(this.createNodePointer().append(),
-                NodePointerAppend.create());
+            NodePointerAppend.create());
     }
 
     // equals ..........................................................................................................
@@ -38,13 +38,13 @@ public abstract class NodePointerTestCase2<N extends NodePointer<TestNode, Strin
     @Test
     public final void testEqualsDifferentNext() {
         this.checkNotEquals(this.createObject().appendToLast(NodePointer.indexed(0, TestNode.class)),
-                this.createObject().appendToLast(NodePointer.indexed(99, TestNode.class)));
+            this.createObject().appendToLast(NodePointer.indexed(99, TestNode.class)));
     }
 
     @Test
     public final void testEqualsDifferentNext2() {
         this.checkNotEquals(this.createObject(),
-                this.createObject().appendToLast(NodePointer.indexed(99, TestNode.class)));
+            this.createObject().appendToLast(NodePointer.indexed(99, TestNode.class)));
     }
 
     @Test
@@ -52,6 +52,6 @@ public abstract class NodePointerTestCase2<N extends NodePointer<TestNode, Strin
         final NodePointer<TestNode, StringName> next = NodePointer.indexed(99, TestNode.class);
 
         this.checkEqualsAndHashCode(this.createObject().appendToLast(next),
-                this.createObject().appendToLast(next));
+            this.createObject().appendToLast(next));
     }
 }

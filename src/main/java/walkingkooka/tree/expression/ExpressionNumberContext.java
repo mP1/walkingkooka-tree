@@ -20,5 +20,5 @@ package walkingkooka.tree.expression;
 import walkingkooka.math.DecimalNumberContext;
 
 public interface ExpressionNumberContext extends HasExpressionNumberKind,
-        DecimalNumberContext {
+    DecimalNumberContext {
 }

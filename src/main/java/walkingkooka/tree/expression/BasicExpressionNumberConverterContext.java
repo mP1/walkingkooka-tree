@@ -37,8 +37,8 @@ final class BasicExpressionNumberConverterContext implements ExpressionNumberCon
         Objects.requireNonNull(kind, "kind");
 
         return new BasicExpressionNumberConverterContext(converter,
-                context,
-                kind);
+            context,
+            kind);
     }
 
     private BasicExpressionNumberConverterContext(final Converter<ExpressionNumberConverterContext> converter,
@@ -122,12 +122,12 @@ final class BasicExpressionNumberConverterContext implements ExpressionNumberCon
         return this.context.weekDayName(day);
     }
 
-    @Override 
+    @Override
     public List<String> weekDayNameAbbreviations() {
         return this.context.weekDayNameAbbreviations();
     }
 
-    @Override 
+    @Override
     public String weekDayNameAbbreviation(int day) {
         return this.context.weekDayNameAbbreviation(day);
     }
@@ -137,12 +137,12 @@ final class BasicExpressionNumberConverterContext implements ExpressionNumberCon
         return this.context.locale();
     }
 
-    @Override 
+    @Override
     public String currencySymbol() {
         return this.context.currencySymbol();
     }
 
-    @Override 
+    @Override
     public char decimalSeparator() {
         return this.context.decimalSeparator();
     }
@@ -172,7 +172,7 @@ final class BasicExpressionNumberConverterContext implements ExpressionNumberCon
         return this.context.positiveSign();
     }
 
-    @Override 
+    @Override
     public MathContext mathContext() {
         return this.context.mathContext();
     }

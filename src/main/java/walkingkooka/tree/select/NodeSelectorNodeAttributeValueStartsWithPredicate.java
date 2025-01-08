@@ -25,12 +25,12 @@ import walkingkooka.tree.Node;
  * A {@link java.util.function.Predicate} that returns true if an attribute value starts with the given test value.
  */
 final class NodeSelectorNodeAttributeValueStartsWithPredicate<N extends Node<N, NAME, ANAME, AVALUE>, NAME extends Name, ANAME extends Name, AVALUE>
-        extends NodeSelectorNodeAttributeValuePredicate<N, NAME, ANAME, AVALUE> {
+    extends NodeSelectorNodeAttributeValuePredicate<N, NAME, ANAME, AVALUE> {
 
     static <N extends Node<N, NAME, ANAME, AVALUE>,
-            NAME extends Name,
-            ANAME extends Name,
-            AVALUE>
+        NAME extends Name,
+        ANAME extends Name,
+        AVALUE>
     NodeSelectorNodeAttributeValueStartsWithPredicate<N, NAME, ANAME, AVALUE> with(final ANAME name, final AVALUE value) {
         return new NodeSelectorNodeAttributeValueStartsWithPredicate<>(name, value);
     }

@@ -53,9 +53,9 @@ public abstract class ParentFixedExpressionTestCase<N extends ParentFixedExpress
     @Test
     public void testIsPure() {
         this.isPureAndCheck(
-                this.createExpression(),
-                this.context(),
-                true
+            this.createExpression(),
+            this.context(),
+            true
         );
     }
 
@@ -64,8 +64,8 @@ public abstract class ParentFixedExpressionTestCase<N extends ParentFixedExpress
     @Test
     public final void testToString() {
         this.toStringAndCheck(
-                this.createExpression(),
-                this.expectedToString()
+            this.createExpression(),
+            this.expectedToString()
         );
     }
 

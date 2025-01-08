@@ -72,8 +72,8 @@ public abstract class NodePointer<N extends Node<N, NAME, ?, ?>, NAME extends Na
             try {
                 final int number = Integer.parseInt(component);
                 result = result.appendToLast(relative ?
-                        NodePointerRelative.with(number, hash) :
-                        indexed(number, nodeType));
+                    NodePointerRelative.with(number, hash) :
+                    indexed(number, nodeType));
             } catch (final NumberFormatException mustBeName) {
                 if (relative) {
                     throw new IllegalArgumentException("Relative pointer expected number but got=" + CharSequences.quote(pointer));
@@ -82,7 +82,7 @@ public abstract class NodePointer<N extends Node<N, NAME, ?, ?>, NAME extends Na
                     result = result.append();
                 } else {
                     final NAME name = nameFactory.apply(component.replace("~1", "/")
-                            .replace("~0", "~"));
+                        .replace("~0", "~"));
                     result = result.named(name);
                 }
             }
@@ -183,8 +183,8 @@ public abstract class NodePointer<N extends Node<N, NAME, ?, ?>, NAME extends Na
 
     final NodePointer<N, NAME> appendToLast0(final NodePointer<N, NAME> pointer) {
         return null == this.next ?
-                pointer :
-                this.next.appendToLast(pointer);
+            pointer :
+            this.next.appendToLast(pointer);
     }
 
     /**
@@ -247,8 +247,8 @@ public abstract class NodePointer<N extends Node<N, NAME, ?, ?>, NAME extends Na
             final N next = pointer.nextNodeOrNull(current);
             if (null == next) {
                 result = null == nextPointer ?
-                        pointer.add0(current, value)
-                        : null;
+                    pointer.add0(current, value)
+                    : null;
                 break;
             }
 
@@ -325,8 +325,8 @@ public abstract class NodePointer<N extends Node<N, NAME, ?, ?>, NAME extends Na
      */
     final N removeOrFail(final N node) {
         return this.traverseOrFail(node)
-                .parentWithout()
-                .orElseThrow(() -> new NodePointerException("Unable to remove " + this + " from " + node));
+            .parentWithout()
+            .orElseThrow(() -> new NodePointerException("Unable to remove " + this + " from " + node));
     }
 
     // NodePointerVisitor................................................................................
@@ -344,7 +344,7 @@ public abstract class NodePointer<N extends Node<N, NAME, ?, ?>, NAME extends Na
     }
 
     // Object...........................................................................................................
-    
+
     @Override
     public abstract int hashCode();
 
@@ -358,7 +358,7 @@ public abstract class NodePointer<N extends Node<N, NAME, ?, ?>, NAME extends Na
 
     private boolean equals0(final NodePointer<?, ?> other) {
         return this.equals1(other) &&
-                Objects.equals(this.next, other.next);
+            Objects.equals(this.next, other.next);
     }
 
     abstract boolean equals1(final NodePointer<?, ?> other);
