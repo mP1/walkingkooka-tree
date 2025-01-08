@@ -28,16 +28,16 @@ import java.util.Objects;
  * A {@link NodeSelector} that selects all the ancestors of a given {@link Node} until the root of the graph is reached.
  */
 final class NamedNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NAME extends Name, ANAME extends Name, AVALUE>
-        extends
-        NamedOrNodePredicateNodeSelector<N, NAME, ANAME, AVALUE> {
+    extends
+    NamedOrNodePredicateNodeSelector<N, NAME, ANAME, AVALUE> {
 
     /**
      * Type safe {@link NamedNodeSelector} factory
      */
     static <N extends Node<N, NAME, ANAME, AVALUE>,
-            NAME extends Name,
-            ANAME extends Name,
-            AVALUE> NamedNodeSelector<N, NAME, ANAME, AVALUE> with(final NAME name) {
+        NAME extends Name,
+        ANAME extends Name,
+        AVALUE> NamedNodeSelector<N, NAME, ANAME, AVALUE> with(final NAME name) {
         Objects.requireNonNull(name, "name");
 
         return new NamedNodeSelector<N, NAME, ANAME, AVALUE>(name, NodeSelector.terminal());
@@ -59,8 +59,8 @@ final class NamedNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NAME exten
     @Override
     N apply1(final N node, final NodeSelectorContext2<N, NAME, ANAME, AVALUE> context) {
         return this.name.equals(node.name()) ?
-                this.select(node, context) :
-                node;
+            this.select(node, context) :
+            node;
     }
 
     final NAME name;

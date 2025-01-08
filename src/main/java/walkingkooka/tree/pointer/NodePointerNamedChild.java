@@ -118,8 +118,8 @@ final class NodePointerNamedChild<N extends Node<N, NAME, ?, ?>, NAME extends Na
     void toString0(final StringBuilder b) {
         b.append(SEPARATOR.character());
         b.append(this.name.value()
-                .replace("~", "~0")
-                .replace("/", "~1")); // escape slash and tilde
+            .replace("~", "~0")
+            .replace("/", "~1")); // escape slash and tilde
     }
 
     @Override

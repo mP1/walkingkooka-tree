@@ -28,8 +28,8 @@ import java.util.Objects;
  * A {@link NodeSelector} that wraps another but contains a custom toString passed as a parameter.
  */
 final class CustomToStringNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NAME extends Name, ANAME extends Name, AVALUE>
-        extends
-        NodeSelector<N, NAME, ANAME, AVALUE> {
+    extends
+    NodeSelector<N, NAME, ANAME, AVALUE> {
 
     /**
      * Factory that wraps the given {@link NodeSelector} as necessary.
@@ -40,8 +40,8 @@ final class CustomToStringNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, N
 
         final String actual = selector.toString();
         return toString.equals(actual) ?
-                selector :
-                new CustomToStringNodeSelector<>(selector, toString);
+            selector :
+            new CustomToStringNodeSelector<>(selector, toString);
     }
 
     /**
@@ -111,7 +111,7 @@ final class CustomToStringNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, N
 
     private boolean equals0(final CustomToStringNodeSelector<?, ?, ?, ?> other) {
         return this.selector.equals(other.selector) &&
-                this.toString.equals(other.toString);
+            this.toString.equals(other.toString);
     }
 
     @Override

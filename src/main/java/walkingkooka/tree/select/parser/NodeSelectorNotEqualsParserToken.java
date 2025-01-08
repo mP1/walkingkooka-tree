@@ -30,7 +30,7 @@ public final class NodeSelectorNotEqualsParserToken extends NodeSelectorBinaryPa
     static NodeSelectorNotEqualsParserToken with(final List<ParserToken> value,
                                                  final String text) {
         return new NodeSelectorNotEqualsParserToken(copyAndCheckTokens(value),
-                checkTextNullOrWhitespace(text));
+            checkTextNullOrWhitespace(text));
     }
 
     private NodeSelectorNotEqualsParserToken(final List<ParserToken> value,
@@ -43,9 +43,9 @@ public final class NodeSelectorNotEqualsParserToken extends NodeSelectorBinaryPa
     @Override
     public NodeSelectorNotEqualsParserToken setChildren(final List<ParserToken> children) {
         return ParserToken.parentSetChildren(
-                this,
-                children,
-                NodeSelectorNotEqualsParserToken::with
+            this,
+            children,
+            NodeSelectorNotEqualsParserToken::with
         );
     }
 

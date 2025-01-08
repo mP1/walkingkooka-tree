@@ -31,24 +31,24 @@ import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class ExpressionFunctionParameterNameTest implements ClassTesting2<ExpressionFunctionParameterName>,
-        ConstantsTesting<ExpressionFunctionParameterName>,
-        NameTesting2<ExpressionFunctionParameterName, ExpressionFunctionParameterName> {
+    ConstantsTesting<ExpressionFunctionParameterName>,
+    NameTesting2<ExpressionFunctionParameterName, ExpressionFunctionParameterName> {
 
     @Test
     public void testWithNullFails() {
         assertThrows(
-                NullPointerException.class,
-                () -> ExpressionFunctionParameterName.with(null)
+            NullPointerException.class,
+            () -> ExpressionFunctionParameterName.with(null)
         );
     }
 
     @Test
     public void testWithBooleanConstantSingleton() {
         assertSame(
-                ExpressionFunctionParameterName.BOOLEAN,
-                ExpressionFunctionParameterName.with(
-                        ExpressionFunctionParameterName.BOOLEAN.value()
-                )
+            ExpressionFunctionParameterName.BOOLEAN,
+            ExpressionFunctionParameterName.with(
+                ExpressionFunctionParameterName.BOOLEAN.value()
+            )
         );
     }
 
@@ -143,8 +143,8 @@ public final class ExpressionFunctionParameterNameTest implements ClassTesting2<
     @Override
     public String possibleValidChars(final int position) {
         return 0 == position ?
-                ASCII_LETTERS :
-                ASCII_LETTERS_DIGITS + "-";
+            ASCII_LETTERS :
+            ASCII_LETTERS_DIGITS + "-";
     }
 
     @Override

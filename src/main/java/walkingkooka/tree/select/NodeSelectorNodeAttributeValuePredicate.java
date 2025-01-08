@@ -27,15 +27,15 @@ import java.util.Objects;
  * A base attribute that tests an existing attribute value with an expected value.
  */
 abstract class NodeSelectorNodeAttributeValuePredicate<N extends Node<N, NAME, ANAME, AVALUE>, NAME extends Name, ANAME extends Name, AVALUE>
-        implements java.util.function.Predicate<N> {
+    implements java.util.function.Predicate<N> {
 
     /**
      * {@see NodeSelectorNodeAttributeValueContainsPredicate}
      */
     static <N extends Node<N, NAME, ANAME, AVALUE>,
-            NAME extends Name,
-            ANAME extends Name,
-            AVALUE>
+        NAME extends Name,
+        ANAME extends Name,
+        AVALUE>
     NodeSelectorNodeAttributeValueContainsPredicate<N, NAME, ANAME, AVALUE> contains(final ANAME name, final AVALUE value) {
         return NodeSelectorNodeAttributeValueContainsPredicate.with(name, value);
     }
@@ -44,9 +44,9 @@ abstract class NodeSelectorNodeAttributeValuePredicate<N extends Node<N, NAME, A
      * {@see NodeSelectorNodeAttributeValueEndsWithPredicate}
      */
     static <N extends Node<N, NAME, ANAME, AVALUE>,
-            NAME extends Name,
-            ANAME extends Name,
-            AVALUE>
+        NAME extends Name,
+        ANAME extends Name,
+        AVALUE>
     NodeSelectorNodeAttributeValueEndsWithPredicate<N, NAME, ANAME, AVALUE> endsWith(final ANAME name, final AVALUE value) {
         return NodeSelectorNodeAttributeValueEndsWithPredicate.with(name, value);
     }
@@ -55,9 +55,9 @@ abstract class NodeSelectorNodeAttributeValuePredicate<N extends Node<N, NAME, A
      * {@see NodeSelectorNodeAttributeValueEqualsPredicate}
      */
     static <N extends Node<N, NAME, ANAME, AVALUE>,
-            NAME extends Name,
-            ANAME extends Name,
-            AVALUE>
+        NAME extends Name,
+        ANAME extends Name,
+        AVALUE>
     NodeSelectorNodeAttributeValueEqualsPredicate<N, NAME, ANAME, AVALUE> equalsPredicate(final ANAME name, final AVALUE value) {
         return NodeSelectorNodeAttributeValueEqualsPredicate.with(name, value);
     }
@@ -66,9 +66,9 @@ abstract class NodeSelectorNodeAttributeValuePredicate<N extends Node<N, NAME, A
      * {@see NodeSelectorNodeAttributeValueStartsWithPredicate}
      */
     static <N extends Node<N, NAME, ANAME, AVALUE>,
-            NAME extends Name,
-            ANAME extends Name,
-            AVALUE>
+        NAME extends Name,
+        ANAME extends Name,
+        AVALUE>
     NodeSelectorNodeAttributeValueStartsWithPredicate<N, NAME, ANAME, AVALUE> startsWith(final ANAME name, final AVALUE value) {
         return NodeSelectorNodeAttributeValueStartsWithPredicate.with(name, value);
     }

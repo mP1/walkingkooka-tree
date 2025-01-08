@@ -21,7 +21,7 @@ import walkingkooka.naming.StringName;
 import walkingkooka.tree.TestNode;
 
 public abstract class AbsoluteOrAxisNodeSelectorTestCase<S extends NodeSelector<TestNode, StringName, StringName, Object>>
-        extends NonTerminalNodeSelectorTestCase<S> {
+    extends NonTerminalNodeSelectorTestCase<S> {
 
     AbsoluteOrAxisNodeSelectorTestCase() {
         super();

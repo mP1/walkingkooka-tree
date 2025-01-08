@@ -36,12 +36,12 @@ import java.util.stream.Collectors;
  * A node is part of a tree holding branches and leaves all of which are nodes.
  */
 public interface Node<N extends Node<N, NAME, ANAME, AVALUE>,
-        NAME extends Name,
-        ANAME extends Name,
-        AVALUE>
-        extends HasName<NAME>,
-        Traversable<N>,
-        Visitable {
+    NAME extends Name,
+    ANAME extends Name,
+    AVALUE>
+    extends HasName<NAME>,
+    Traversable<N>,
+    Visitable {
 
     /**
      * Returns the name of this node.
@@ -88,7 +88,7 @@ public interface Node<N extends Node<N, NAME, ANAME, AVALUE>,
      */
     default Optional<N> parentWithout() {
         return this.parent()
-                .map(p -> p.removeChild(this.index()));
+            .map(p -> p.removeChild(this.index()));
     }
 
     /**
@@ -99,10 +99,10 @@ public interface Node<N extends Node<N, NAME, ANAME, AVALUE>,
 
         // early abort if $node is the same as this, this prevents failures in readonly Node.setChildren that throw UOE.
         return this.equals(node) ?
-                node :
-                this.parent()
-                        .map(p -> p.replaceChild(Cast.to(this), node).children().get(this.index()))
-                        .orElse(node.parent().map(Node::removeParent).orElse(node));
+            node :
+            this.parent()
+                .map(p -> p.replaceChild(Cast.to(this), node).children().get(this.index()))
+                .orElse(node.parent().map(Node::removeParent).orElse(node));
     }
 
     /**
@@ -131,11 +131,11 @@ public interface Node<N extends Node<N, NAME, ANAME, AVALUE>,
         Objects.requireNonNull(child, "child");
 
         return this.children()
-                .stream()
-                .filter(c -> c.name().equals(name))
-                .findFirst()
-                .map(c -> this.replaceChild(c, child))
-                .orElse(this.appendChild(child));
+            .stream()
+            .filter(c -> c.name().equals(name))
+            .findFirst()
+            .map(c -> this.replaceChild(c, child))
+            .orElse(this.appendChild(child));
     }
 
     /**
@@ -151,10 +151,10 @@ public interface Node<N extends Node<N, NAME, ANAME, AVALUE>,
             result = mapper.apply(result);
         } else {
             result = result.setChildren(
-                    this.children()
-                            .stream()
-                            .map(n -> n.replaceIf(predicate, mapper))
-                            .collect(Collectors.toList())
+                this.children()
+                    .stream()
+                    .map(n -> n.replaceIf(predicate, mapper))
+                    .collect(Collectors.toList())
             );
         }
 

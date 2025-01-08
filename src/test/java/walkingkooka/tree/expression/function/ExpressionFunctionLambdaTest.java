@@ -35,14 +35,14 @@ import java.util.function.Function;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class ExpressionFunctionLambdaTest extends ExpressionFunctionTestCase<ExpressionFunctionLambda<String, FakeExpressionEvaluationContext>,
-        FakeExpressionEvaluationContext,
-        String> {
+    FakeExpressionEvaluationContext,
+    String> {
 
     private final static List<ExpressionFunctionParameter<?>> PARAMETERS = Lists.of(
-            ExpressionFunctionParameterName.with("x")
-                    .required(Object.class),
-            ExpressionFunctionParameterName.with("y")
-                    .required(Object.class)
+        ExpressionFunctionParameterName.with("x")
+            .required(Object.class),
+        ExpressionFunctionParameterName.with("y")
+            .required(Object.class)
     );
     private final Class<String> RETURN_TYPE = String.class;
 
@@ -62,8 +62,8 @@ public class ExpressionFunctionLambdaTest extends ExpressionFunctionTestCase<Exp
     }
 
     private static final Expression EXPRESSION = Expression.add(
-            Expression.reference(var("x")),
-            Expression.reference(var("y"))
+        Expression.reference(var("x")),
+        Expression.reference(var("y"))
     );
 
     // with............................................................................................................
@@ -71,27 +71,27 @@ public class ExpressionFunctionLambdaTest extends ExpressionFunctionTestCase<Exp
     @Test
     public void testWithNullParametersFails() {
         this.withFails(
-                null,
-                RETURN_TYPE,
-                EXPRESSION
+            null,
+            RETURN_TYPE,
+            EXPRESSION
         );
     }
 
     @Test
     public void testWithNullReturnTypeFails() {
         this.withFails(
-                PARAMETERS,
-                null,
-                EXPRESSION
+            PARAMETERS,
+            null,
+            EXPRESSION
         );
     }
 
     @Test
     public void testWithNullExpressionFails() {
         this.withFails(
-                PARAMETERS,
-                RETURN_TYPE,
-                null
+            PARAMETERS,
+            RETURN_TYPE,
+            null
         );
     }
 
@@ -99,12 +99,12 @@ public class ExpressionFunctionLambdaTest extends ExpressionFunctionTestCase<Exp
                            final Class<String> returnType,
                            final Expression expression) {
         assertThrows(
-                NullPointerException.class,
-                () -> ExpressionFunctionLambda.with(
-                        parameters,
-                        returnType,
-                        expression
-                )
+            NullPointerException.class,
+            () -> ExpressionFunctionLambda.with(
+                parameters,
+                returnType,
+                expression
+            )
         );
     }
 
@@ -113,24 +113,24 @@ public class ExpressionFunctionLambdaTest extends ExpressionFunctionTestCase<Exp
     @Test
     public void testApplyWrongParameterCountFails() {
         assertThrows(
-                IllegalArgumentException.class,
-                this::apply2
+            IllegalArgumentException.class,
+            this::apply2
         );
     }
 
     @Test
     public void testApply() {
         this.applyAndCheck(
-                Lists.of(10, 20),
-                "String30"
+            Lists.of(10, 20),
+            "String30"
         );
     }
 
     @Test
     public void testApply2() {
         this.applyAndCheck(
-                Lists.of(100, 200),
-                "String300"
+            Lists.of(100, 200),
+            "String300"
         );
     }
 
@@ -139,9 +139,9 @@ public class ExpressionFunctionLambdaTest extends ExpressionFunctionTestCase<Exp
     @Override
     public ExpressionFunctionLambda<String, FakeExpressionEvaluationContext> createBiFunction() {
         return ExpressionFunctionLambda.with(
-                PARAMETERS,
-                RETURN_TYPE,
-                EXPRESSION
+            PARAMETERS,
+            RETURN_TYPE,
+            EXPRESSION
         );
     }
 
@@ -164,8 +164,8 @@ public class ExpressionFunctionLambdaTest extends ExpressionFunctionTestCase<Exp
                         checkEquals(ExpressionNumber.class, target, "target");
 
                         return this.successfulConversion(
-                                ExpressionNumberKind.DOUBLE.create((Number) value),
-                                target
+                            ExpressionNumberKind.DOUBLE.create((Number) value),
+                            target
                         );
                     }
 
@@ -191,8 +191,8 @@ public class ExpressionFunctionLambdaTest extends ExpressionFunctionTestCase<Exp
                 checkEquals(String.class, target, "target");
 
                 return this.successfulConversion(
-                        "String" + value,
-                        target
+                    "String" + value,
+                    target
                 );
             }
         };
@@ -203,8 +203,8 @@ public class ExpressionFunctionLambdaTest extends ExpressionFunctionTestCase<Exp
     @Test
     public void testToString() {
         this.toStringAndCheck(
-                this.createBiFunction(),
-                "<anonymous>"
+            this.createBiFunction(),
+            "<anonymous>"
         );
     }
 

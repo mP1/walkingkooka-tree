@@ -61,7 +61,7 @@ public interface Traversable<T extends Traversable<T>> extends CanBeEmpty {
      */
     default T parentOrFail() {
         return this.parent()
-                .orElseThrow(() -> new NodeException("Parent missing from " + this));
+            .orElseThrow(() -> new NodeException("Parent missing from " + this));
     }
 
     /**
@@ -136,8 +136,8 @@ public interface Traversable<T extends Traversable<T>> extends CanBeEmpty {
     default Optional<T> firstChild() {
         final List<T> children = this.children();
         return children.isEmpty() ?
-                Optional.empty() :
-                Optional.of(children.get(0));
+            Optional.empty() :
+            Optional.of(children.get(0));
     }
 
     /**
@@ -146,8 +146,8 @@ public interface Traversable<T extends Traversable<T>> extends CanBeEmpty {
     default Optional<T> lastChild() {
         final List<T> children = this.children();
         return children.isEmpty() ?
-                Optional.empty() :
-                Optional.of(children.get(children.size() - 1));
+            Optional.empty() :
+            Optional.of(children.get(children.size() - 1));
     }
 
 

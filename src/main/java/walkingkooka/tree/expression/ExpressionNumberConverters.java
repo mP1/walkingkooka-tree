@@ -45,8 +45,8 @@ public final class ExpressionNumberConverters implements PublicStaticHelper {
     public static <C extends ExpressionNumberConverterContext> Converter<C> toExpressionNumberThen(final Converter<C> toExpressionNumber,
                                                                                                    final Converter<C> toTarget) {
         return ExpressionNumberConverterToExpressionNumberThen.with(
-                toExpressionNumber,
-                toTarget
+            toExpressionNumber,
+            toTarget
         );
     }
 

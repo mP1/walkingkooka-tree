@@ -23,8 +23,8 @@ public final class NodeSelectorWhitespaceParserToken extends NodeSelectorNonBina
 
     static NodeSelectorWhitespaceParserToken with(final String value, final String text) {
         return new NodeSelectorWhitespaceParserToken(
-                checkValue(value),
-                checkTextNullOrEmpty(text)
+            checkValue(value),
+            checkTextNullOrEmpty(text)
         );
     }
 

@@ -25,7 +25,7 @@ import java.util.Map;
 import java.util.Optional;
 
 public class FakeNode<N extends Node<N, NAME, ANAME, AVALUE>, NAME extends Name, ANAME extends Name, AVALUE>
-        implements Node<N, NAME, ANAME, AVALUE>, Fake {
+    implements Node<N, NAME, ANAME, AVALUE>, Fake {
 
     @Override
     public NAME name() {

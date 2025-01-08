@@ -33,7 +33,7 @@ import java.util.function.Function;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class NodeSelectorStreamConsumerPushableStreamConsumerTest extends NodeSelectorTestCase2<NodeSelectorStreamConsumerPushableStreamConsumer<TestNode, StringName, StringName, Object>>
-        implements ToStringTesting<NodeSelectorStreamConsumerPushableStreamConsumer<TestNode, StringName, StringName, Object>> {
+    implements ToStringTesting<NodeSelectorStreamConsumerPushableStreamConsumer<TestNode, StringName, StringName, Object>> {
 
     @BeforeEach
     public void beforeEachTest() {
@@ -43,25 +43,25 @@ public final class NodeSelectorStreamConsumerPushableStreamConsumerTest extends 
     @Test
     public void testWithNullNodeFails() {
         assertThrows(NullPointerException.class, () -> NodeSelectorStreamConsumerPushableStreamConsumer.with(null,
-                this.selector(),
-                this.expressionEvaluationContext(),
-                this.nodeType()));
+            this.selector(),
+            this.expressionEvaluationContext(),
+            this.nodeType()));
     }
 
     @Test
     public void testWithNullExpressionEvaluationContextFails() {
         assertThrows(NullPointerException.class, () -> NodeSelectorStreamConsumerPushableStreamConsumer.with(this.node,
-                this.selector(),
-                null,
-                this.nodeType()));
+            this.selector(),
+            null,
+            this.nodeType()));
     }
 
     @Test
     public void testWithNullNodeTypeFails() {
         assertThrows(NullPointerException.class, () -> NodeSelectorStreamConsumerPushableStreamConsumer.with(this.node,
-                this.selector(),
-                this.expressionEvaluationContext(),
-                null));
+            this.selector(),
+            this.expressionEvaluationContext(),
+            null));
     }
 
     @Test
@@ -72,7 +72,7 @@ public final class NodeSelectorStreamConsumerPushableStreamConsumerTest extends 
                 selector,
                 this.expressionEvaluationContext(),
                 this.nodeType()),
-                selector.toString());
+            selector.toString());
     }
 
     private final TestNode node = TestNode.with("node");

@@ -25,19 +25,19 @@ import walkingkooka.tree.expression.ExpressionEvaluationContexts;
 import java.math.BigDecimal;
 
 public final class ExpressionFunctionTypeNameTest extends ExpressionFunctionTestCase<ExpressionFunctionTypeName<ExpressionEvaluationContext>,
-        ExpressionEvaluationContext,
-        String> {
+    ExpressionEvaluationContext,
+    String> {
 
     @Test
     public void testBigDecimalParameter() {
         this.applyAndCheck2(parameters(BigDecimal.valueOf(123.5)),
-                BigDecimal.class.getName());
+            BigDecimal.class.getName());
     }
 
     @Test
     public void testThisTestParameter() {
         this.applyAndCheck2(parameters(this),
-                this.getClass().getName());
+            this.getClass().getName());
     }
 
     @Override
@@ -60,8 +60,8 @@ public final class ExpressionFunctionTypeNameTest extends ExpressionFunctionTest
     @Test
     public void testToString() {
         this.toStringAndCheck(
-                this.createBiFunction(),
-                "typeName"
+            this.createBiFunction(),
+            "typeName"
         );
     }
 

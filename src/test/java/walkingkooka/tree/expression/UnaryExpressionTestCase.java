@@ -91,8 +91,7 @@ public abstract class UnaryExpressionTestCase<N extends UnaryExpression> extends
         this.checkNotEquals(this.createExpression(), this.createExpression(differentChild()));
     }
 
-    @Override
-    final N createExpression() {
+    @Override final N createExpression() {
         return this.createExpression(this.child());
     }
 
@@ -102,8 +101,7 @@ public abstract class UnaryExpressionTestCase<N extends UnaryExpression> extends
         return text(CHILD);
     }
 
-    @Override
-    final List<Expression> children() {
+    @Override final List<Expression> children() {
         return Lists.of(this.child());
     }
 

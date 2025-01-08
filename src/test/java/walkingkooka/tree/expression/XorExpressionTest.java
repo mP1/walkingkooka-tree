@@ -73,11 +73,11 @@ public final class XorExpressionTest extends LogicalExpressionTestCase<XorExpres
         }.accept(xor);
         this.checkEquals("1315215242", b.toString());
         this.checkEquals(Lists.of(xor, xor,
-                        text1, text1, text1,
-                        text2, text2, text2,
-                        xor, xor),
-                visited,
-                "visited");
+                text1, text1, text1,
+                text2, text2, text2,
+                xor, xor),
+            visited,
+            "visited");
     }
 
     // toBoolean.....................................................................................

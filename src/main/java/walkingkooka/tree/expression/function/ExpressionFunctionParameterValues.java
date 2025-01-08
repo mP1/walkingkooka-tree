@@ -60,7 +60,7 @@ abstract class ExpressionFunctionParameterValues<T, C extends ExpressionEvaluati
     @Override
     public final String toString() {
         return this.name()
-                .map(ExpressionFunctionName::toString)
-                .orElseGet(this.function::toString);
+            .map(ExpressionFunctionName::toString)
+            .orElseGet(this.function::toString);
     }
 }

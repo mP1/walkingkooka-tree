@@ -60,16 +60,16 @@ public final class NamedFunctionExpressionTest extends LeafExpressionTestCase<Na
     @Test
     public void testToBooleanTrue() {
         this.evaluateAndCheckBoolean(
-                this.createExpression(),
-                true
+            this.createExpression(),
+            true
         );
     }
 
     @Test
     public void testToText() {
         this.evaluateAndCheckText(
-                this.createExpression(),
-                NAME
+            this.createExpression(),
+            NAME
         );
     }
 
@@ -78,8 +78,8 @@ public final class NamedFunctionExpressionTest extends LeafExpressionTestCase<Na
     @Test
     public void testPrintTree() {
         this.treePrintAndCheck(
-                this.createExpression(),
-                "NamedFunctionExpression test-function-123\n"
+            this.createExpression(),
+            "NamedFunctionExpression test-function-123\n"
         );
     }
 
@@ -88,8 +88,8 @@ public final class NamedFunctionExpressionTest extends LeafExpressionTestCase<Na
     @Test
     public void testToString() {
         this.toStringAndCheck(
-                this.createExpression(),
-                NAME
+            this.createExpression(),
+            NAME
         );
     }
 

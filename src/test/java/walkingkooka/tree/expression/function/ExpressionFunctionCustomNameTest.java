@@ -33,12 +33,12 @@ import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class ExpressionFunctionCustomNameTest extends ExpressionFunctionTestCase<ExpressionFunctionCustomName<String, ExpressionEvaluationContext>,
-        ExpressionEvaluationContext,
-        String>
-        implements HashCodeEqualsDefinedTesting2<ExpressionFunctionCustomName<String, ExpressionEvaluationContext>> {
+    ExpressionEvaluationContext,
+    String>
+    implements HashCodeEqualsDefinedTesting2<ExpressionFunctionCustomName<String, ExpressionEvaluationContext>> {
 
     private final static Optional<ExpressionFunctionName> NAME = Optional.of(
-            ExpressionFunctionName.with("Custom")
+        ExpressionFunctionName.with("Custom")
     );
 
     @Test
@@ -56,7 +56,7 @@ public final class ExpressionFunctionCustomNameTest extends ExpressionFunctionTe
         final List<Object> parameters = Lists.of(this);
         final ExpressionEvaluationContext context = this.createContext();
         this.applyAndCheck(this.createBiFunction(), parameters, context,
-                this.wrapped().apply(parameters, context));
+            this.wrapped().apply(parameters, context));
     }
 
     @Test
@@ -69,7 +69,7 @@ public final class ExpressionFunctionCustomNameTest extends ExpressionFunctionTe
     public void testSetNameDifferent() {
         final ExpressionFunctionCustomName<String, ExpressionEvaluationContext> function = this.createBiFunction();
         final Optional<ExpressionFunctionName> different = Optional.of(
-                ExpressionFunctionName.with("different")
+            ExpressionFunctionName.with("different")
         );
         final ExpressionFunction<String, ExpressionEvaluationContext> differentFunction = function.setName(different);
 
@@ -104,44 +104,44 @@ public final class ExpressionFunctionCustomNameTest extends ExpressionFunctionTe
         final ExpressionFunction<String, ExpressionEvaluationContext> function = ExpressionFunctions.typeName();
 
         this.checkNotEquals(
-                ExpressionFunctionCustomName.with(
-                        function,
-                        Optional.of(
-                                ExpressionFunctionName.with("abc")
-                        )
-                ),
-                ExpressionFunctionCustomName.with(
-                        function,
-                        Optional.of(
-                                ExpressionFunctionName.with("different")
-                        )
+            ExpressionFunctionCustomName.with(
+                function,
+                Optional.of(
+                    ExpressionFunctionName.with("abc")
                 )
+            ),
+            ExpressionFunctionCustomName.with(
+                function,
+                Optional.of(
+                    ExpressionFunctionName.with("different")
+                )
+            )
         );
     }
 
     @Test
     public void testEqualsDifferentFunction() {
         this.checkNotEquals(
-                ExpressionFunctionCustomName.with(
-                        new FakeExpressionFunction() {
+            ExpressionFunctionCustomName.with(
+                new FakeExpressionFunction() {
 
-                            @Override
-                            public Optional<ExpressionFunctionName> name() {
-                                return Optional.empty();
-                            }
-                        },
-                        NAME
-                ),
-                ExpressionFunctionCustomName.with(
-                        new FakeExpressionFunction() {
+                    @Override
+                    public Optional<ExpressionFunctionName> name() {
+                        return Optional.empty();
+                    }
+                },
+                NAME
+            ),
+            ExpressionFunctionCustomName.with(
+                new FakeExpressionFunction() {
 
-                            @Override
-                            public Optional<ExpressionFunctionName> name() {
-                                return Optional.empty();
-                            }
-                        },
-                        NAME
-                )
+                    @Override
+                    public Optional<ExpressionFunctionName> name() {
+                        return Optional.empty();
+                    }
+                },
+                NAME
+            )
         );
     }
 
@@ -154,9 +154,9 @@ public final class ExpressionFunctionCustomNameTest extends ExpressionFunctionTe
     @Test
     public void testToString() {
         this.toStringAndCheck(
-                this.createBiFunction(),
-                NAME.get()
-                        .toString()
+            this.createBiFunction(),
+            NAME.get()
+                .toString()
         );
     }
 

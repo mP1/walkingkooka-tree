@@ -33,8 +33,8 @@ import java.util.Map;
 import java.util.Optional;
 
 public class TestNodeTest implements ClassTesting2<TestNode>,
-        ParentNodeTesting<TestNode, StringName, StringName, Object>,
-        ResourceTesting {
+    ParentNodeTesting<TestNode, StringName, StringName, Object>,
+    ResourceTesting {
 
     @BeforeEach
     public void beforeEachTest() {
@@ -200,22 +200,22 @@ public class TestNodeTest implements ClassTesting2<TestNode>,
         TestNode.clear();
 
         this.checkEquals(TestNode.with("root", TestNode.with("child2")),
-                root.setChild(0, child2));
+            root.setChild(0, child2));
     }
 
     @Test
     public void testSetChildIndex2() {
         final TestNode child3 = TestNode.with("child3");
         final TestNode root = TestNode.with("root",
-                TestNode.with("child1"),
-                TestNode.with("child2"));
+            TestNode.with("child1"),
+            TestNode.with("child2"));
 
         TestNode.clear();
 
         this.checkEquals(TestNode.with("root",
-                        TestNode.with("child1"),
-                        TestNode.with("child3")),
-                root.setChild(1, child3));
+                TestNode.with("child1"),
+                TestNode.with("child3")),
+            root.setChild(1, child3));
     }
 
     @Test
@@ -226,7 +226,7 @@ public class TestNodeTest implements ClassTesting2<TestNode>,
         TestNode.clear();
 
         this.checkEquals(TestNode.with("root", TestNode.with("child3"), TestNode.with("child2")),
-                root.setChild(Names.string("child1"), child3));
+            root.setChild(Names.string("child1"), child3));
     }
 
     @Test
@@ -237,7 +237,7 @@ public class TestNodeTest implements ClassTesting2<TestNode>,
         TestNode.clear();
 
         this.checkEquals(TestNode.with("root", TestNode.with("child1"), TestNode.with("child3")),
-                root.setChild(Names.string("child2"), child3));
+            root.setChild(Names.string("child2"), child3));
     }
 
     @Test
@@ -248,7 +248,7 @@ public class TestNodeTest implements ClassTesting2<TestNode>,
         TestNode.clear();
 
         this.checkEquals(TestNode.with("root", TestNode.with("child1"), TestNode.with("child2"), TestNode.with("child3")),
-                root.setChild(Names.string("unknown"), child3));
+            root.setChild(Names.string("unknown"), child3));
     }
 
     @Test
@@ -260,7 +260,7 @@ public class TestNodeTest implements ClassTesting2<TestNode>,
         final String parentToString = parent.toString();
 
         final TestNode parent2 = parent.setChildren(Lists.of(child2, child1))
-                .setChildren(Lists.of(child1, child2));
+            .setChildren(Lists.of(child1, child2));
         final String parent2ToString = parent2.toString();
 
         this.checkEquals(parentToString, parent2ToString);
@@ -281,7 +281,7 @@ public class TestNodeTest implements ClassTesting2<TestNode>,
         final String parent2ToString = parent2.toString();
 
         this.checkEquals(parentToString, parent2ToString
-                .replace("child3", "child2"));
+            .replace("child3", "child2"));
 
         this.parentWithoutAndCheck2(child1, child2, child3);
     }
@@ -289,26 +289,26 @@ public class TestNodeTest implements ClassTesting2<TestNode>,
     @Test
     public void testSetChildrenWithParent() {
         final TestNode grandParent = TestNode.with("grandParent",
-                TestNode.with("parent1",
-                        TestNode.with("child1"), TestNode.with("child2")
-                ),
-                TestNode.with("parent2",
-                        TestNode.with("child3"), TestNode.with("child4")
-                ));
+            TestNode.with("parent1",
+                TestNode.with("child1"), TestNode.with("child2")
+            ),
+            TestNode.with("parent2",
+                TestNode.with("child3"), TestNode.with("child4")
+            ));
 
         final TestNode child5 = TestNode.with("child5");
 
         TestNode.clear();
 
         this.checkEquals(TestNode.with("grandParent",
-                        TestNode.with("parent1",
-                                TestNode.with("child1"), TestNode.with("child2")
-                        ),
-                        TestNode.with("parent2",
-                                TestNode.with("child3"), child5)),
-                grandParent.child(1)
-                        .setChild(1, child5)
-                        .root());
+                TestNode.with("parent1",
+                    TestNode.with("child1"), TestNode.with("child2")
+                ),
+                TestNode.with("parent2",
+                    TestNode.with("child3"), child5)),
+            grandParent.child(1)
+                .setChild(1, child5)
+                .root());
 
         this.parentMissingCheck(child5);
     }
@@ -316,26 +316,26 @@ public class TestNodeTest implements ClassTesting2<TestNode>,
     @Test
     public void testSetAttributesWithParent() {
         final TestNode grandParent = TestNode.with("grandParent",
-                TestNode.with("parent1",
-                        TestNode.with("child1"), TestNode.with("child2")
-                ),
-                TestNode.with("parent2",
-                        TestNode.with("child3"), TestNode.with("child4")
-                ));
+            TestNode.with("parent1",
+                TestNode.with("child1"), TestNode.with("child2")
+            ),
+            TestNode.with("parent2",
+                TestNode.with("child3"), TestNode.with("child4")
+            ));
 
         TestNode.clear();
 
         final Map<StringName, Object> attributes = Maps.of(Names.string("attribute123"), "value456");
 
         this.checkEquals(TestNode.with("grandParent",
-                        TestNode.with("parent1",
-                                TestNode.with("child1"), TestNode.with("child2")
-                        ),
-                        TestNode.with("parent2",
-                                TestNode.with("child3"), TestNode.with("child4").setAttributes(attributes))),
-                grandParent.child(1).child(1)
-                        .setAttributes(attributes)
-                        .root());
+                TestNode.with("parent1",
+                    TestNode.with("child1"), TestNode.with("child2")
+                ),
+                TestNode.with("parent2",
+                    TestNode.with("child3"), TestNode.with("child4").setAttributes(attributes))),
+            grandParent.child(1).child(1)
+                .setAttributes(attributes)
+                .root());
     }
 
     @Test
@@ -395,8 +395,8 @@ public class TestNodeTest implements ClassTesting2<TestNode>,
         final NodePointer<TestNode, StringName> pointer = node.pointer();
 
         this.checkEquals(Optional.of(node),
-                pointer.traverse(node.root()),
-                "pointer returned wrong node");
+            pointer.traverse(node.root()),
+            "pointer returned wrong node");
     }
 
     @Override
@@ -438,7 +438,7 @@ public class TestNodeTest implements ClassTesting2<TestNode>,
 
     private void parentWithoutAndCheck2(final TestNode... nodes) {
         Arrays.stream(nodes)
-                .forEach(this::parentMissingCheck);
+            .forEach(this::parentMissingCheck);
     }
 
     @Override

@@ -34,7 +34,7 @@ import java.util.Locale;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class BasicExpressionNumberConverterContextTest implements ExpressionNumberConverterContextTesting<BasicExpressionNumberConverterContext>,
-        ToStringTesting<BasicExpressionNumberConverterContext> {
+    ToStringTesting<BasicExpressionNumberConverterContext> {
 
     private final static ExpressionNumberKind KIND = ExpressionNumberKind.DEFAULT;
     private final static Converter<ExpressionNumberConverterContext> CONVERTER = Converters.numberToNumber();
@@ -71,15 +71,15 @@ public final class BasicExpressionNumberConverterContextTest implements Expressi
 
     private ConverterContext converterContext() {
         return ConverterContexts.basic(
-                Converters.JAVA_EPOCH_OFFSET, // dateOffset
-                Converters.fake(),
-                DateTimeContexts.locale(
-                        Locale.forLanguageTag("EN-AU"),
-                        1900,
-                        20,
-                        LocalDateTime::now
-                ),
-                this.decimalNumberContext()
+            Converters.JAVA_EPOCH_OFFSET, // dateOffset
+            Converters.fake(),
+            DateTimeContexts.locale(
+                Locale.forLanguageTag("EN-AU"),
+                1900,
+                20,
+                LocalDateTime::now
+            ),
+            this.decimalNumberContext()
         );
     }
 

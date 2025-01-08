@@ -26,7 +26,7 @@ import java.util.Objects;
  * Base class for a leaf token. A leaf has no further breakdown into more detailed tokens.
  */
 abstract class NodeSelectorLeafParserToken<T> extends NodeSelectorParserToken
-        implements Value<T> {
+    implements Value<T> {
 
     static <T> T checkValue(final T value) {
         return Objects.requireNonNull(value, "value");
@@ -49,8 +49,8 @@ abstract class NodeSelectorLeafParserToken<T> extends NodeSelectorParserToken
     @Override
     public final ParserToken setChildren(final List<ParserToken> children) {
         return ParserToken.leafSetChildren(
-                this,
-                children
+            this,
+            children
         );
     }
 }

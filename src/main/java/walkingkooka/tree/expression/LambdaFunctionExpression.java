@@ -39,9 +39,9 @@ public final class LambdaFunctionExpression extends UnaryExpression {
         Objects.requireNonNull(value, "value");
 
         return new LambdaFunctionExpression(
-                NO_INDEX,
-                Lists.immutable(parameters),
-                value
+            NO_INDEX,
+            Lists.immutable(parameters),
+            value
         );
     }
 
@@ -71,9 +71,9 @@ public final class LambdaFunctionExpression extends UnaryExpression {
     LambdaFunctionExpression replace1(final int index,
                                       final Expression expression) {
         return new LambdaFunctionExpression(
-                index,
-                this.parameters,
-                expression
+            index,
+            this.parameters,
+            expression
         );
     }
 
@@ -88,12 +88,12 @@ public final class LambdaFunctionExpression extends UnaryExpression {
 
         final List<ExpressionFunctionParameter<?>> copy = Lists.immutable(parameters);
         return this.parameters.equals(copy) ?
-                this :
-                new LambdaFunctionExpression(
-                        index,
-                        parameters,
-                        this.value()
-                );
+            this :
+            new LambdaFunctionExpression(
+                index,
+                parameters,
+                this.value()
+            );
     }
 
     private final List<ExpressionFunctionParameter<?>> parameters;
@@ -113,34 +113,34 @@ public final class LambdaFunctionExpression extends UnaryExpression {
     @Override
     ExpressionFunction<?, ExpressionEvaluationContext> function(final ExpressionEvaluationContext context) {
         return context.lambdaFunction(
-                this.parameters,
-                Object.class,
-                this.value()
+            this.parameters,
+            Object.class,
+            this.value()
         );
     }
 
     @Override
     public boolean toBoolean(final ExpressionEvaluationContext context) {
         return this.value()
-                .toBoolean(context);
+            .toBoolean(context);
     }
 
     @Override
     public ExpressionNumber toExpressionNumber(final ExpressionEvaluationContext context) {
         return this.value()
-                .toExpressionNumber(context);
+            .toExpressionNumber(context);
     }
 
     @Override
     public String toString(final ExpressionEvaluationContext context) {
         return this.value()
-                .toString(context);
+            .toString(context);
     }
 
     @Override
     public Object toValue(final ExpressionEvaluationContext context) {
         return context.evaluate(
-                this.value()
+            this.value()
         );
     }
 
@@ -210,7 +210,7 @@ public final class LambdaFunctionExpression extends UnaryExpression {
         b.append(")->{");
 
         this.value()
-                .toString0(b);
+            .toString0(b);
         b.append('}');
     }
 }

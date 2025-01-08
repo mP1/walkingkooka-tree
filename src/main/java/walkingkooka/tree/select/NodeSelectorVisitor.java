@@ -30,9 +30,9 @@ import java.util.function.Predicate;
  * A {@link Visitor} for a {@link NodeSelector}
  */
 public abstract class NodeSelectorVisitor<N extends Node<N, NAME, ANAME, AVALUE>,
-        NAME extends Name,
-        ANAME extends Name,
-        AVALUE> extends Visitor<NodeSelector<N, NAME, ANAME, AVALUE>> {
+    NAME extends Name,
+    ANAME extends Name,
+    AVALUE> extends Visitor<NodeSelector<N, NAME, ANAME, AVALUE>> {
 
     protected NodeSelectorVisitor() {
         super();

@@ -30,7 +30,7 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertSame;
 
 final public class SelfNodeSelectorTest extends
-        AxisNodeSelectorTestCase<SelfNodeSelector<TestNode, StringName, StringName, Object>> {
+    AxisNodeSelectorTestCase<SelfNodeSelector<TestNode, StringName, StringName, Object>> {
 
     @Test
     public void testSelf() {
@@ -44,8 +44,8 @@ final public class SelfNodeSelectorTest extends
         final TestNode parent = TestNode.with("parent", child);
 
         this.applyAndCheck(selfAndDescendant(),
-                parent,
-                child);
+            parent,
+            child);
     }
 
     @Test
@@ -54,13 +54,13 @@ final public class SelfNodeSelectorTest extends
         final TestNode parent = TestNode.with("parent", child);
 
         this.applyAndCheck(selfAndDescendant(),
-                parent.child(0));
+            parent.child(0));
     }
 
     private static NodeSelector<TestNode, StringName, StringName, Object> selfAndDescendant() {
         return TestNode.relativeNodeSelector()
-                .self()
-                .descendant();
+            .self()
+            .descendant();
     }
 
     @Test
@@ -69,7 +69,7 @@ final public class SelfNodeSelectorTest extends
         final TestNode parent = TestNode.with("parent", child);
 
         this.applyAndCheck(selfAndNamed(),
-                parent);
+            parent);
     }
 
     @Test
@@ -78,21 +78,21 @@ final public class SelfNodeSelectorTest extends
         final TestNode parent = TestNode.with("parent", child);
 
         this.applyAndCheck(selfAndNamed(),
-                parent.child(0),
-                child);
+            parent.child(0),
+            child);
     }
 
     @Test
     public void testSelfFilter() {
         final TestNode parent = TestNode.with("parent",
-                TestNode.with("child1"),
-                TestNode.with("child2"));
+            TestNode.with("child1"),
+            TestNode.with("child2"));
 
         this.applyFilterAndCheck(TestNode.relativeNodeSelector()
-                        .children()
-                        .parent(),
-                parent,
-                (n) -> false);
+                .children()
+                .parent(),
+            parent,
+            (n) -> false);
     }
 
     @Test
@@ -102,13 +102,13 @@ final public class SelfNodeSelectorTest extends
         TestNode.clear();
 
         this.acceptMapAndCheck(parent,
-                TestNode.with("parent*0", TestNode.with("child")));
+            TestNode.with("parent*0", TestNode.with("child")));
     }
 
     private static NodeSelector<TestNode, StringName, StringName, Object> selfAndNamed() {
         return TestNode.relativeNodeSelector()
-                .self()
-                .named(Names.string("child"));
+            .self()
+            .named(Names.string("child"));
     }
 
     // NodeSelectorVisitor............................................................................................
@@ -161,10 +161,10 @@ final public class SelfNodeSelectorTest extends
         this.checkEquals("1315242", b.toString());
 
         this.checkEquals(Lists.of(selector, selector,
-                        next, next, next,
-                        selector, selector),
-                visited,
-                "visited");
+                next, next, next,
+                selector, selector),
+            visited,
+            "visited");
     }
 
     // Object....................................................................................................

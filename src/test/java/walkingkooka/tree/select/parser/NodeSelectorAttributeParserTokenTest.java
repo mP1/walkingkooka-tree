@@ -94,11 +94,11 @@ public final class NodeSelectorAttributeParserTokenTest extends NodeSelectorPare
 
         this.checkEquals("1315216242", b.toString());
         this.checkEquals(Lists.<Object>of(attribute, attribute,
-                        atSign, atSign, atSign,
-                        name, name, name,
-                        attribute, attribute),
-                visited,
-                "visited");
+                atSign, atSign, atSign,
+                name, name, name,
+                attribute, attribute),
+            visited,
+            "visited");
     }
 
     @Override

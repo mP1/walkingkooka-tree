@@ -44,8 +44,8 @@ final class ExpressionNumberConverterToNumberOrExpressionNumber<C extends Expres
         Objects.requireNonNull(converter, "converter");
 
         return converter instanceof ExpressionNumberConverterToNumberOrExpressionNumber ?
-                Cast.to(converter) :
-                new ExpressionNumberConverterToNumberOrExpressionNumber<>(converter);
+            Cast.to(converter) :
+            new ExpressionNumberConverterToNumberOrExpressionNumber<>(converter);
     }
 
     /**
@@ -63,10 +63,10 @@ final class ExpressionNumberConverterToNumberOrExpressionNumber<C extends Expres
                                        final Class<?> type,
                                        final C context) {
         return this.canConvertNonExpressionNumber(
-                value,
-                context.expressionNumberKind()
-                        .numberType(),
-                context
+            value,
+            context.expressionNumberKind()
+                .numberType(),
+            context
         );
     }
 
@@ -77,16 +77,16 @@ final class ExpressionNumberConverterToNumberOrExpressionNumber<C extends Expres
         final boolean typeIsExpressionNumber = ExpressionNumber.isClass(type);
 
         return ExpressionNumber.is(value) && typeIsExpressionNumber ||
-                this.converter.canConvert(
-                        value,
-                        type,
-                        context
-                ) ||
-                typeIsExpressionNumber && this.converter.canConvert(
-                        value,
-                        context.expressionNumberKind().numberType(),
-                        context
-                );
+            this.converter.canConvert(
+                value,
+                type,
+                context
+            ) ||
+            typeIsExpressionNumber && this.converter.canConvert(
+                value,
+                context.expressionNumberKind().numberType(),
+                context
+            );
     }
 
     // convert..........................................................................................................
@@ -96,15 +96,15 @@ final class ExpressionNumberConverterToNumberOrExpressionNumber<C extends Expres
                                                   final Class<T> type,
                                                   final C context) {
         return ExpressionNumber.isExpressionNumberAndNotNumber(type) ?
-                context.successfulConversion(
-                        value,
-                        type
-                ) :
-                this.convertNonExpressionNumber(
+            context.successfulConversion(
+                value,
+                type
+            ) :
+            this.convertNonExpressionNumber(
                 value.value(),
                 type,
                 context
-        );
+            );
     }
 
     @Override//
@@ -112,16 +112,16 @@ final class ExpressionNumberConverterToNumberOrExpressionNumber<C extends Expres
                                                      final Class<T> type,
                                                      final C context) {
         return ExpressionNumber.isExpressionNumberAndNotNumber(type) ?
-                this.convertNonExpressionNumberToExpressionNumber(
-                        value,
-                        type,
-                        context
-                ) :
-                this.convertNonExpressionNumberToNonExpressionNumber(
-                        value,
-                        type,
-                        context
-                );
+            this.convertNonExpressionNumberToExpressionNumber(
+                value,
+                type,
+                context
+            ) :
+            this.convertNonExpressionNumberToNonExpressionNumber(
+                value,
+                type,
+                context
+            );
     }
 
     private <T> Either<T, String> convertNonExpressionNumberToExpressionNumber(final Object value,
@@ -130,9 +130,9 @@ final class ExpressionNumberConverterToNumberOrExpressionNumber<C extends Expres
         final ExpressionNumberKind kind = context.expressionNumberKind();
 
         final Either<?, String> numberResult = this.converter.convert(
-                value,
-                kind.numberType(),
-                context
+            value,
+            kind.numberType(),
+            context
         );
 
         final Either<T, String> expressionNumberResult;
@@ -146,10 +146,10 @@ final class ExpressionNumberConverterToNumberOrExpressionNumber<C extends Expres
                 expressionNumberResult = Cast.to(numberResult);
             } else {
                 expressionNumberResult = this.successfulConversion(
-                        kind.create(
-                                (Number) numberResultValue
-                        ),
-                        type
+                    kind.create(
+                        (Number) numberResultValue
+                    ),
+                    type
                 );
             }
         }
@@ -161,9 +161,9 @@ final class ExpressionNumberConverterToNumberOrExpressionNumber<C extends Expres
                                                                                   final Class<T> type,
                                                                                   final C context) {
         final Either<T, String> numberResult = this.converter.convert(
-                value,
-                type,
-                context
+            value,
+            type,
+            context
         );
 
         final Either<T, String> expressionNumberResult;
@@ -191,7 +191,7 @@ final class ExpressionNumberConverterToNumberOrExpressionNumber<C extends Expres
     @Override
     public boolean equals(final Object other) {
         return this == other ||
-                other instanceof ExpressionNumberConverterToNumberOrExpressionNumber && this.equals0(Cast.to(other));
+            other instanceof ExpressionNumberConverterToNumberOrExpressionNumber && this.equals0(Cast.to(other));
     }
 
     private boolean equals0(final ExpressionNumberConverterToNumberOrExpressionNumber<?> other) {

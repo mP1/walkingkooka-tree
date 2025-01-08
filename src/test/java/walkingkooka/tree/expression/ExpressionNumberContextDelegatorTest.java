@@ -25,8 +25,8 @@ import java.math.MathContext;
 public class ExpressionNumberContextDelegatorTest implements ExpressionNumberContextTesting<TestExpressionNumberContextDelegator> {
 
     private final static ExpressionNumberContext EXPRESSION_NUMBER_CONTEXT = ExpressionNumberContexts.basic(
-            ExpressionNumberKind.BIG_DECIMAL,
-            DecimalNumberContexts.american(MathContext.DECIMAL32)
+        ExpressionNumberKind.BIG_DECIMAL,
+        DecimalNumberContexts.american(MathContext.DECIMAL32)
     );
 
     @Override

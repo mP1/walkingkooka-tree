@@ -46,7 +46,7 @@ final class CallExpressionExpressionFunction implements ExpressionFunction<Objec
     }
 
     private final static List<ExpressionFunctionParameter<?>> VALUES = Lists.of(
-            ExpressionFunctionParameterName.VALUE.variable(Object.class)
+        ExpressionFunctionParameterName.VALUE.variable(Object.class)
     );
 
     @Override
@@ -63,8 +63,8 @@ final class CallExpressionExpressionFunction implements ExpressionFunction<Objec
         }
 
         return context.evaluateFunction(
-                Cast.to(tryEvaluateFunction),
-                Cast.to(parameterValues)
+            Cast.to(tryEvaluateFunction),
+            Cast.to(parameterValues)
         );
     }
 

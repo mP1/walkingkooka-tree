@@ -21,7 +21,7 @@ import walkingkooka.convert.ConverterContext;
 import walkingkooka.convert.ConverterContextDelegator;
 
 public interface ExpressionNumberConverterContextDelegator extends ExpressionNumberConverterContext,
-        ConverterContextDelegator {
+    ConverterContextDelegator {
 
     @Override
     default ConverterContext converterContext() {
@@ -31,7 +31,7 @@ public interface ExpressionNumberConverterContextDelegator extends ExpressionNum
     @Override
     default ExpressionNumberKind expressionNumberKind() {
         return this.expressionNumberConverterContext()
-                .expressionNumberKind();
+            .expressionNumberKind();
     }
 
     ExpressionNumberConverterContext expressionNumberConverterContext();

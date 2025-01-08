@@ -92,12 +92,12 @@ public final class NodeSelectorDivisionParserTokenTest extends NodeSelectorBinar
         }.accept(division);
         this.checkEquals("1315216217242", b.toString());
         this.checkEquals(Lists.<Object>of(division, division,
-                        nodeName, nodeName, nodeName,
-                        divide, divide, divide,
-                        wildcard, wildcard, wildcard,
-                        division, division),
-                visited,
-                "visited");
+                nodeName, nodeName, nodeName,
+                divide, divide, divide,
+                wildcard, wildcard, wildcard,
+                division, division),
+            visited,
+            "visited");
     }
 
     @Override

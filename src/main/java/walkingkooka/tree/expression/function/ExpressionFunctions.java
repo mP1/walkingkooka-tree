@@ -58,11 +58,11 @@ public final class ExpressionFunctions implements PublicStaticHelper {
 
         for (final ExpressionFunction<?, C> function : functions) {
             final String name = function.name()
-                    .orElseThrow(() -> new IllegalArgumentException("Anonymous functions are not supported"))
-                    .value();
+                .orElseThrow(() -> new IllegalArgumentException("Anonymous functions are not supported"))
+                .value();
             if (null != nameToFunctions.put(
-                    name,
-                    function
+                name,
+                function
             )) {
                 throw new IllegalArgumentException("Duplicate function " + CharSequences.quote(name));
             }
@@ -72,7 +72,7 @@ public final class ExpressionFunctions implements PublicStaticHelper {
             Objects.requireNonNull(name, "name");
 
             return Optional.ofNullable(
-                    nameToFunctions.get(name.value())
+                nameToFunctions.get(name.value())
             );
         };
     }
@@ -82,10 +82,10 @@ public final class ExpressionFunctions implements PublicStaticHelper {
      */
     public static void visit(final Consumer<ExpressionFunction<?, ?>> consumer) {
         Lists.of(
-                node(),
-                nodeName(),
-                nullValue(),
-                typeName()
+            node(),
+            nodeName(),
+            nullValue(),
+            typeName()
         ).forEach(consumer);
     }
 
@@ -98,11 +98,11 @@ public final class ExpressionFunctions implements PublicStaticHelper {
                                                                                             final Class<T> returnType,
                                                                                             final BiFunction<List<Object>, C, T> biFunction) {
         return BasicExpressionFunction.with(
-                name,
-                pure,
-                parameters,
-                returnType,
-                biFunction
+            name,
+            pure,
+            parameters,
+            returnType,
+            biFunction
         );
     }
 
@@ -112,8 +112,8 @@ public final class ExpressionFunctions implements PublicStaticHelper {
     public static <C extends ExpressionEvaluationContext> ExpressionFunction<ExpressionNumber, C> expressionNumberFunction(final Optional<ExpressionFunctionName> name,
                                                                                                                            final ExpressionNumberFunction function) {
         return ExpressionNumberFunctionExpressionFunction.with(
-                name,
-                function
+            name,
+            function
         );
     }
 
@@ -131,9 +131,9 @@ public final class ExpressionFunctions implements PublicStaticHelper {
                                                                                              final Class<T> returnType,
                                                                                              final Expression expression) {
         return ExpressionFunctionLambda.with(
-                parameters,
-                returnType,
-                expression
+            parameters,
+            returnType,
+            expression
         );
     }
 
@@ -141,10 +141,10 @@ public final class ExpressionFunctions implements PublicStaticHelper {
      * {@see ExpressionFunctionNode}
      */
     public static <N extends Node<N, NAME, ANAME, AVALUE>,
-            NAME extends Name,
-            ANAME extends Name,
-            AVALUE,
-            C extends NodeSelectorExpressionEvaluationContext<N, NAME, ANAME, AVALUE>> ExpressionFunction<N, C> node() {
+        NAME extends Name,
+        ANAME extends Name,
+        AVALUE,
+        C extends NodeSelectorExpressionEvaluationContext<N, NAME, ANAME, AVALUE>> ExpressionFunction<N, C> node() {
         return ExpressionFunctionNode.instance();
     }
 

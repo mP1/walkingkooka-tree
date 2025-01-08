@@ -51,11 +51,10 @@ public abstract class LeafExpressionTestCase<N extends LeafExpression<V>, V> ext
 
         final Expression parent = Expression.not(node);
         this.checkEquals(node,
-                parent.children().get(0).removeParent());
+            parent.children().get(0).removeParent());
     }
 
-    @Override
-    final N createExpression() {
+    @Override final N createExpression() {
         return this.createExpression(this.value());
     }
 

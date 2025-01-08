@@ -36,7 +36,7 @@ import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class ExpressionFunctionNameTest implements ClassTesting2<ExpressionFunctionName>,
-        NameTesting2<ExpressionFunctionName, ExpressionFunctionName> {
+    NameTesting2<ExpressionFunctionName, ExpressionFunctionName> {
 
     // DEFAULT_CASE_SENSITIVITY.........................................................................................
 
@@ -53,8 +53,8 @@ public final class ExpressionFunctionNameTest implements ClassTesting2<Expressio
     @Test
     public void testNotFoundText() {
         this.checkEquals(
-                "Function not found: \"abc123\"",
-                ExpressionFunctionName.with("abc123").notFoundText()
+            "Function not found: \"abc123\"",
+            ExpressionFunctionName.with("abc123").notFoundText()
         );
     }
 
@@ -71,10 +71,10 @@ public final class ExpressionFunctionNameTest implements ClassTesting2<Expressio
         sorted.sort(ExpressionFunctionName.comparator(CaseSensitivity.SENSITIVE));
 
         this.checkEquals(
-                Lists.of(
-                        name3, name1, name2
-                ),
-                sorted
+            Lists.of(
+                name3, name1, name2
+            ),
+            sorted
         );
     }
 
@@ -91,27 +91,27 @@ public final class ExpressionFunctionNameTest implements ClassTesting2<Expressio
         sorted.sort(ExpressionFunctionName.comparator(CaseSensitivity.INSENSITIVE));
 
         this.checkEquals(
-                Lists.of(
-                        name1, name2, name3
-                ),
-                sorted
+            Lists.of(
+                name1, name2, name3
+            ),
+            sorted
         );
     }
 
     @Test
     public void testEqualsDifferentCaseInsensitive() {
         final ExpressionFunctionName name1 = ExpressionFunctionName.with("abc")
-                .setCaseSensitivity(CaseSensitivity.SENSITIVE);
+            .setCaseSensitivity(CaseSensitivity.SENSITIVE);
         final ExpressionFunctionName name2 = name1.setCaseSensitivity(CaseSensitivity.INSENSITIVE);
 
         this.checkNotEquals(
-                name1,
-                name2
+            name1,
+            name2
         );
 
         this.checkEquals(
-                name1,
-                name2.setCaseSensitivity(name1.caseSensitivity())
+            name1,
+            name2.setCaseSensitivity(name1.caseSensitivity())
         );
     }
 
@@ -153,8 +153,8 @@ public final class ExpressionFunctionNameTest implements ClassTesting2<Expressio
     @Override
     public String possibleValidChars(final int position) {
         return 0 == position ?
-                ASCII_LETTERS :
-                ASCII_LETTERS_DIGITS + "-._";
+            ASCII_LETTERS :
+            ASCII_LETTERS_DIGITS + "-._";
     }
 
     @Override
@@ -167,9 +167,9 @@ public final class ExpressionFunctionNameTest implements ClassTesting2<Expressio
     @Test
     public void testSetCaseSensitivityWithNullFails() {
         assertThrows(
-                NullPointerException.class,
-                () -> ExpressionFunctionName.with("Hello")
-                        .setCaseSensitivity(null)
+            NullPointerException.class,
+            () -> ExpressionFunctionName.with("Hello")
+                .setCaseSensitivity(null)
         );
     }
 
@@ -178,8 +178,8 @@ public final class ExpressionFunctionNameTest implements ClassTesting2<Expressio
         final ExpressionFunctionName name = ExpressionFunctionName.with("Hello");
 
         assertSame(
-                name,
-                name.setCaseSensitivity(name.caseSensitivity())
+            name,
+            name.setCaseSensitivity(name.caseSensitivity())
         );
     }
 
@@ -191,20 +191,20 @@ public final class ExpressionFunctionNameTest implements ClassTesting2<Expressio
         final ExpressionFunctionName differentName = name.setCaseSensitivity(different);
 
         assertNotSame(
-                name,
-                differentName
+            name,
+            differentName
         );
 
         this.caseSensitivityAndCheck(
-                differentName,
-                different
+            differentName,
+            different
         );
 
         {
             final CaseSensitivity different2 = CaseSensitivity.SENSITIVE;
             this.caseSensitivityAndCheck(
-                    differentName.setCaseSensitivity(different2),
-                    different2
+                differentName.setCaseSensitivity(different2),
+                different2
             );
         }
     }
@@ -212,8 +212,8 @@ public final class ExpressionFunctionNameTest implements ClassTesting2<Expressio
     private void caseSensitivityAndCheck(final ExpressionFunctionName name,
                                          final CaseSensitivity expected) {
         this.checkEquals(
-                expected,
-                name.caseSensitivity()
+            expected,
+            name.caseSensitivity()
         );
     }
 
@@ -223,9 +223,9 @@ public final class ExpressionFunctionNameTest implements ClassTesting2<Expressio
     public void testParseFails() {
         final String text = " fails!";
         this.parseAndCheck(
-                text,
-                Optional.empty(),
-                text
+            text,
+            Optional.empty(),
+            text
         );
     }
 
@@ -235,11 +235,11 @@ public final class ExpressionFunctionNameTest implements ClassTesting2<Expressio
         final String after = " after";
 
         this.parseAndCheck(
-                name + after,
-                Optional.of(
-                        ExpressionFunctionName.with(name)
-                ),
-                after
+            name + after,
+            Optional.of(
+                ExpressionFunctionName.with(name)
+            ),
+            after
         );
     }
 
@@ -249,20 +249,20 @@ public final class ExpressionFunctionNameTest implements ClassTesting2<Expressio
         final TextCursor cursor = TextCursors.charSequence(text);
 
         this.checkEquals(
-                expected,
-                ExpressionFunctionName.PARSER.apply(
-                        cursor,
-                        ParserContexts.fake()
-                )
+            expected,
+            ExpressionFunctionName.PARSER.apply(
+                cursor,
+                ParserContexts.fake()
+            )
         );
 
         final TextCursorSavePoint save = cursor.save();
         cursor.end();
 
         this.checkEquals(
-                left,
-                save.textBetween().toString(),
-                "cursor remaining text after parsing"
+            left,
+            save.textBetween().toString(),
+            "cursor remaining text after parsing"
         );
     }
 

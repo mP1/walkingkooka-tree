@@ -73,11 +73,11 @@ public final class PowerExpressionTest extends ArithmeticExpressionTestCase2<Pow
         }.accept(power);
         this.checkEquals("1315215242", b.toString());
         this.checkEquals(Lists.of(power, power,
-                        text1, text1, text1,
-                        text2, text2, text2,
-                        power, power),
-                visited,
-                "visited");
+                text1, text1, text1,
+                text2, text2, text2,
+                power, power),
+            visited,
+            "visited");
     }
 
     // toBoolean...............................................................................................

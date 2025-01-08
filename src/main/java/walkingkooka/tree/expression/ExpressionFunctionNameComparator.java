@@ -39,8 +39,8 @@ final class ExpressionFunctionNameComparator implements Comparator<ExpressionFun
                 break;
             default:
                 comparator = NeverError.unhandledEnum(
-                        caseSensitivity,
-                        CaseSensitivity.values()
+                    caseSensitivity,
+                    CaseSensitivity.values()
                 );
         }
 
@@ -60,10 +60,10 @@ final class ExpressionFunctionNameComparator implements Comparator<ExpressionFun
                        final ExpressionFunctionName right) {
         final CaseSensitivity caseSensitivity = this.caseSensitivity;
         return caseSensitivity.comparator()
-                .compare(
-                        left.value(),
-                        right.value()
-                );
+            .compare(
+                left.value(),
+                right.value()
+            );
     }
 
     private final CaseSensitivity caseSensitivity;

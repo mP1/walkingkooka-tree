@@ -26,8 +26,8 @@ import walkingkooka.visit.Visiting;
  * A {@link NodeSelector} that selects all the ancestors or self of a given {@link Node} until the root of the graph is reached.
  */
 final class AncestorOrSelfNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NAME extends Name, ANAME extends Name, AVALUE>
-        extends
-        AxisNodeSelector<N, NAME, ANAME, AVALUE> {
+    extends
+    AxisNodeSelector<N, NAME, ANAME, AVALUE> {
 
     /**
      * Type safe {@link AncestorOrSelfNodeSelector} getter
@@ -50,8 +50,8 @@ final class AncestorOrSelfNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, N
     NodeSelector<N, NAME, ANAME, AVALUE> append1(final NodeSelector<N, NAME, ANAME, AVALUE> selector) {
         // no point appending a ancestor to another...
         return selector instanceof AncestorOrSelfNodeSelector ?
-                this :
-                new AncestorOrSelfNodeSelector<>(selector);
+            this :
+            new AncestorOrSelfNodeSelector<>(selector);
     }
 
     @Override

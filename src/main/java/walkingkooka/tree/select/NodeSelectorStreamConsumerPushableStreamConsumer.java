@@ -33,27 +33,27 @@ import java.util.stream.Stream;
  * A {@link Consumer} given to {@link PushableStreamConsumer#stream(Consumer)} which will act as the final bridge between {@link NodeSelector} matches and a {@link Stream}.
  */
 final class NodeSelectorStreamConsumerPushableStreamConsumer<N extends Node<N, NAME, ANAME, AVALUE>,
-        NAME extends Name,
-        ANAME extends Name,
-        AVALUE> implements Consumer<PushableStreamConsumer<N>> {
+    NAME extends Name,
+    ANAME extends Name,
+    AVALUE> implements Consumer<PushableStreamConsumer<N>> {
 
     /**
      * Factory called by {@link NodeSelector#stream}.
      */
     static <N extends Node<N, NAME, ANAME, AVALUE>,
-            NAME extends Name,
-            ANAME extends Name,
-            AVALUE,
-            C extends ExpressionNumberConverterContext> NodeSelectorStreamConsumerPushableStreamConsumer<N, NAME, ANAME, AVALUE> with(final N node,
-                                                                                                                                      final NodeSelector<N, NAME, ANAME, AVALUE> selector,
-                                                                                                                                      final Function<NodeSelectorContext<N, NAME, ANAME, AVALUE>, ExpressionEvaluationContext> expressionEvaluationContext,
-                                                                                                                                      final Class<N> nodeType) {
+        NAME extends Name,
+        ANAME extends Name,
+        AVALUE,
+        C extends ExpressionNumberConverterContext> NodeSelectorStreamConsumerPushableStreamConsumer<N, NAME, ANAME, AVALUE> with(final N node,
+                                                                                                                                  final NodeSelector<N, NAME, ANAME, AVALUE> selector,
+                                                                                                                                  final Function<NodeSelectorContext<N, NAME, ANAME, AVALUE>, ExpressionEvaluationContext> expressionEvaluationContext,
+                                                                                                                                  final Class<N> nodeType) {
         Objects.requireNonNull(node, "node");
 
         return new NodeSelectorStreamConsumerPushableStreamConsumer<>(node,
-                selector,
-                expressionEvaluationContext,
-                nodeType);
+            selector,
+            expressionEvaluationContext,
+            nodeType);
     }
 
     /**
@@ -68,10 +68,10 @@ final class NodeSelectorStreamConsumerPushableStreamConsumer<N extends Node<N, N
         this.node = node;
 
         this.context = NodeSelectorContexts.basic(this::finisher,
-                Predicates.always(),
-                this::mapper,
-                expressionEvaluationContext,
-                nodeType);
+            Predicates.always(),
+            this::mapper,
+            expressionEvaluationContext,
+            nodeType);
     }
 
     /**

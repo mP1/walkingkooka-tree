@@ -37,11 +37,11 @@ import java.util.Optional;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class ExpressionNumberFunctionExpressionFunctionTest implements ExpressionFunctionTesting<ExpressionNumberFunctionExpressionFunction<FakeExpressionEvaluationContext>, ExpressionNumber, FakeExpressionEvaluationContext>,
-        ExpressionPurityTesting,
-        ToStringTesting<ExpressionNumberFunctionExpressionFunction<FakeExpressionEvaluationContext>> {
+    ExpressionPurityTesting,
+    ToStringTesting<ExpressionNumberFunctionExpressionFunction<FakeExpressionEvaluationContext>> {
 
     private final static Optional<ExpressionFunctionName> NAME = Optional.of(
-            ExpressionFunctionName.with("test")
+        ExpressionFunctionName.with("test")
     );
 
     private final static ExpressionNumberKind KIND = ExpressionNumberKind.DOUBLE;
@@ -62,24 +62,24 @@ public final class ExpressionNumberFunctionExpressionFunctionTest implements Exp
     @Test
     public void testApplyNonExpressionNumberFails() {
         assertThrows(
-                ClassCastException.class,
-                () -> this.apply2("String expected ExpressionNumber!")
+            ClassCastException.class,
+            () -> this.apply2("String expected ExpressionNumber!")
         );
     }
 
     @Test
     public void testApplyZeroParametersFails() {
         assertThrows(
-                IllegalArgumentException.class,
-                this::apply2
+            IllegalArgumentException.class,
+            this::apply2
         );
     }
 
     @Test
     public void testApplyTwoParametersFails() {
         assertThrows(
-                IllegalArgumentException.class,
-                () -> this.apply2(KIND.zero(), KIND.one())
+            IllegalArgumentException.class,
+            () -> this.apply2(KIND.zero(), KIND.one())
         );
     }
 
@@ -88,56 +88,56 @@ public final class ExpressionNumberFunctionExpressionFunctionTest implements Exp
         final ExpressionNumberKind kind = ExpressionNumberKind.BIG_DECIMAL;
 
         this.applyAndCheck2(
-                Lists.of(
-                        kind.create(4)
-                ),
-                kind.create(4 * 3)
+            Lists.of(
+                kind.create(4)
+            ),
+            kind.create(4 * 3)
         );
     }
 
     @Test
     public void testApplyDouble() {
         this.applyAndCheck2(
-                Lists.of(
-                        KIND.create(4)
-                ),
-                KIND.create(4 * 3)
+            Lists.of(
+                KIND.create(4)
+            ),
+            KIND.create(4 * 3)
         );
     }
 
     @Test
     public void testIsPure() {
         this.isPureAndCheck(
-                this.createBiFunction(),
-                null,
-                true
+            this.createBiFunction(),
+            null,
+            true
         );
     }
 
     @Test
     public void testToString() {
         this.toStringAndCheck(
-                this.createBiFunction(),
-                NAME.get().toString()
+            this.createBiFunction(),
+            NAME.get().toString()
         );
     }
 
     @Test
     public void testToStringAnonymous() {
         this.toStringAndCheck(
-                ExpressionNumberFunctionExpressionFunction.with(
-                        Optional.empty(),
-                        FUNCTION
-                ),
-                ExpressionFunction.ANONYMOUS
+            ExpressionNumberFunctionExpressionFunction.with(
+                Optional.empty(),
+                FUNCTION
+            ),
+            ExpressionFunction.ANONYMOUS
         );
     }
 
     @Override
     public ExpressionNumberFunctionExpressionFunction<FakeExpressionEvaluationContext> createBiFunction() {
         return ExpressionNumberFunctionExpressionFunction.with(
-                NAME,
-                FUNCTION
+            NAME,
+            FUNCTION
         );
     }
 

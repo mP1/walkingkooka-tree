@@ -32,7 +32,7 @@ import java.util.TreeMap;
  * by letters/numbers or dashes.
  */
 public final class ExpressionFunctionParameterName implements Name,
-        Comparable<ExpressionFunctionParameterName> {
+    Comparable<ExpressionFunctionParameterName> {
 
     private final static CharPredicate INITIAL = CharPredicates.letter();
     private final static CharPredicate PART = CharPredicates.letterOrDigit().or(CharPredicates.any("-"));
@@ -73,22 +73,22 @@ public final class ExpressionFunctionParameterName implements Name,
      */
     public static ExpressionFunctionParameterName with(final String name) {
         Objects.requireNonNull(
-                name,
-                "name"
+            name,
+            "name"
         );
 
         final ExpressionFunctionParameterName constant = CONSTANTS.get(name);
         return null != constant ?
-                constant :
-                create(name);
+            constant :
+            create(name);
     }
 
     private static ExpressionFunctionParameterName create(final String name) {
         CharPredicates.failIfNullOrEmptyOrInitialAndPartFalse(
-                name,
-                "name",
-                INITIAL,
-                PART
+            name,
+            "name",
+            INITIAL,
+            PART
         );
         return new ExpressionFunctionParameterName(name);
     }
@@ -110,8 +110,8 @@ public final class ExpressionFunctionParameterName implements Name,
      */
     public <T> ExpressionFunctionParameter<T> required(final Class<T> type) {
         return parameter(
-                type,
-                ExpressionFunctionParameterCardinality.REQUIRED
+            type,
+            ExpressionFunctionParameterCardinality.REQUIRED
         );
     }
 
@@ -120,8 +120,8 @@ public final class ExpressionFunctionParameterName implements Name,
      */
     public <T> ExpressionFunctionParameter<T> optional(final Class<T> type) {
         return parameter(
-                type,
-                ExpressionFunctionParameterCardinality.OPTIONAL
+            type,
+            ExpressionFunctionParameterCardinality.OPTIONAL
         );
     }
 
@@ -130,19 +130,19 @@ public final class ExpressionFunctionParameterName implements Name,
      */
     public <T> ExpressionFunctionParameter<T> variable(final Class<T> type) {
         return parameter(
-                type,
-                ExpressionFunctionParameterCardinality.VARIABLE
+            type,
+            ExpressionFunctionParameterCardinality.VARIABLE
         );
     }
 
     private <T> ExpressionFunctionParameter<T> parameter(final Class<T> type,
                                                          final ExpressionFunctionParameterCardinality cardinality) {
         return ExpressionFunctionParameter.with(
-                this,
-                type,
-                ExpressionFunctionParameter.NO_TYPE_PARAMETERS,
-                cardinality,
-                ExpressionFunctionParameter.NO_KINDS
+            this,
+            type,
+            ExpressionFunctionParameter.NO_TYPE_PARAMETERS,
+            cardinality,
+            ExpressionFunctionParameter.NO_KINDS
         );
     }
 
@@ -156,8 +156,8 @@ public final class ExpressionFunctionParameterName implements Name,
     @Override
     public boolean equals(final Object other) {
         return this == other ||
-                other instanceof ExpressionFunctionParameterName &&
-                        this.equals0(Cast.to(other));
+            other instanceof ExpressionFunctionParameterName &&
+                this.equals0(Cast.to(other));
     }
 
     private boolean equals0(final ExpressionFunctionParameterName other) {

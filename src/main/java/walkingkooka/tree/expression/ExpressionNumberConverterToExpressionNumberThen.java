@@ -46,8 +46,8 @@ final class ExpressionNumberConverterToExpressionNumberThen<C extends Expression
         Objects.requireNonNull(fromExpressionNumber, "fromExpressionNumber");
 
         return new ExpressionNumberConverterToExpressionNumberThen<>(
-                toExpressionNumber,
-                fromExpressionNumber
+            toExpressionNumber,
+            fromExpressionNumber
         );
     }
 
@@ -66,9 +66,9 @@ final class ExpressionNumberConverterToExpressionNumberThen<C extends Expression
         // first converter is unnecessary as input value is already an ExpressionNumber just need to verify second
         // converter can convert the ExpressionNumber to the target type.
         return this.fromExpressionNumber.canConvert(
-                value,
-                type,
-                context
+            value,
+            type,
+            context
         );
     }
 
@@ -78,20 +78,20 @@ final class ExpressionNumberConverterToExpressionNumberThen<C extends Expression
                                           final C context) {
         // need to convert value to ExpressionNumber.
         final Either<?, String> asExpressionNumber = this.toExpressionNumber.convert(
-                value,
-                ExpressionNumber.class,
-                context
+            value,
+            ExpressionNumber.class,
+            context
         );
 
         // if the first toExpressionNumber Converter was successful use pass the result value to the #fromExpressionNumber#canConvert.
         return asExpressionNumber.isLeft() &&
-                (ExpressionNumber.isExpressionNumberAndNotNumber(type) ||
-                        this.canConvertExpressionNumber(
-                                Cast.to(asExpressionNumber.leftValue()),
-                                type,
-                                context
-                        )
-                );
+            (ExpressionNumber.isExpressionNumberAndNotNumber(type) ||
+                this.canConvertExpressionNumber(
+                    Cast.to(asExpressionNumber.leftValue()),
+                    type,
+                    context
+                )
+            );
     }
 
     // convert..........................................................................................................
@@ -103,15 +103,15 @@ final class ExpressionNumberConverterToExpressionNumberThen<C extends Expression
         // skip the #toExpressionNumber converter and ask the #fromExpressionNumber
         // no need to correct or adjust the response fail messages as #fromExpressionNumber would have received the original inputs.
         return ExpressionNumber.isExpressionNumberAndNotNumber(type) ?
-                context.successfulConversion(
-                        value,
-                        type
-                ) :
-                this.fromExpressionNumber.convert(
+            context.successfulConversion(
+                value,
+                type
+            ) :
+            this.fromExpressionNumber.convert(
                 value,
                 type,
                 context
-        );
+            );
     }
 
     @Override //
@@ -120,9 +120,9 @@ final class ExpressionNumberConverterToExpressionNumberThen<C extends Expression
                                                      final C context) {
         // need to convert value to ExpressionNumber.
         final Either<?, String> asExpressionNumber = this.toExpressionNumber.convert(
-                value,
-                ExpressionNumber.class,
-                context
+            value,
+            ExpressionNumber.class,
+            context
         );
 
         Either<T, String> result;
@@ -133,23 +133,23 @@ final class ExpressionNumberConverterToExpressionNumberThen<C extends Expression
                 result = Cast.to(asExpressionNumber); // skip fromExpressionNumber already got ExpressionNumber
             } else {
                 result = this.convertExpressionNumber(
-                        Cast.to(asExpressionNumber.leftValue()),
-                        type,
-                        context
+                    Cast.to(asExpressionNumber.leftValue()),
+                    type,
+                    context
                 );
                 if (result.isRight()) {
                     // need to replace the fail message with one generated using the original value & type
                     result = this.failConversion(
-                            value,
-                            type
+                        value,
+                        type
                     );
                 }
             }
         } else {
             // need to replace the fail message with one generated using the original value & type
             result = this.failConversion(
-                    value,
-                    type
+                value,
+                type
             );
         }
 
@@ -171,20 +171,20 @@ final class ExpressionNumberConverterToExpressionNumberThen<C extends Expression
     @Override
     public int hashCode() {
         return Objects.hash(
-                this.toExpressionNumber,
-                this.fromExpressionNumber
+            this.toExpressionNumber,
+            this.fromExpressionNumber
         );
     }
 
     @Override
     public boolean equals(final Object other) {
         return this == other ||
-                other instanceof ExpressionNumberConverterToExpressionNumberThen && this.equals0(Cast.to(other));
+            other instanceof ExpressionNumberConverterToExpressionNumberThen && this.equals0(Cast.to(other));
     }
 
     private boolean equals0(final ExpressionNumberConverterToExpressionNumberThen<?> other) {
         return this.toExpressionNumber.equals(other.toExpressionNumber) &&
-                this.fromExpressionNumber.equals(other.fromExpressionNumber);
+            this.fromExpressionNumber.equals(other.fromExpressionNumber);
     }
 
     @Override

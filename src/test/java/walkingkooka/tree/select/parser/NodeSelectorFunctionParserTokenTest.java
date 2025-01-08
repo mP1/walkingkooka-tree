@@ -142,13 +142,13 @@ public final class NodeSelectorFunctionParserTokenTest extends NodeSelectorParen
         }.accept(function);
         this.checkEquals("1315216217218242", b.toString());
         this.checkEquals(Lists.<Object>of(function, function,
-                        functionName, functionName, functionName,
-                        parenOpen, parenOpen, parenOpen,
-                        quotedText, quotedText, quotedText,
-                        parenClose, parenClose, parenClose,
-                        function, function),
-                visited,
-                "visited");
+                functionName, functionName, functionName,
+                parenOpen, parenOpen, parenOpen,
+                quotedText, quotedText, quotedText,
+                parenClose, parenClose, parenClose,
+                function, function),
+            visited,
+            "visited");
     }
 
     @Override

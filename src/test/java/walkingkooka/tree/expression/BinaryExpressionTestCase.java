@@ -51,7 +51,7 @@ public abstract class BinaryExpressionTestCase<N extends BinaryExpression> exten
 
         final Expression parent = Expression.not(node);
         this.checkEquals(node,
-                parent.children().get(0).removeParent());
+            parent.children().get(0).removeParent());
     }
 
     @Test
@@ -105,10 +105,10 @@ public abstract class BinaryExpressionTestCase<N extends BinaryExpression> exten
     @Test
     public final void testPrintTree() {
         this.treePrintAndCheck(
-                this.createExpression(),
-                this.type().getSimpleName() + "\n" +
-                        "  ValueExpression \"left-123\" (java.lang.String)\n" +
-                        "  ValueExpression \"right-456\" (java.lang.String)\n"
+            this.createExpression(),
+            this.type().getSimpleName() + "\n" +
+                "  ValueExpression \"left-123\" (java.lang.String)\n" +
+                "  ValueExpression \"right-456\" (java.lang.String)\n"
         );
     }
 
@@ -126,8 +126,7 @@ public abstract class BinaryExpressionTestCase<N extends BinaryExpression> exten
 
     abstract N createExpression(final Expression left, final Expression right);
 
-    @Override
-    final List<Expression> children() {
+    @Override final List<Expression> children() {
         return Lists.of(this.left(), this.right());
     }
 

@@ -25,18 +25,18 @@ import walkingkooka.tree.select.FakeNodeSelectorExpressionEvaluationContext;
 import walkingkooka.tree.select.NodeSelectorExpressionEvaluationContext;
 
 public final class ExpressionFunctionNodeTest extends ExpressionFunctionTestCase<ExpressionFunctionNode<TestNode, StringName, StringName, Object, NodeSelectorExpressionEvaluationContext<TestNode, StringName, StringName, Object>>,
-        NodeSelectorExpressionEvaluationContext<TestNode, StringName, StringName, Object>,
-        TestNode> {
+    NodeSelectorExpressionEvaluationContext<TestNode, StringName, StringName, Object>,
+    TestNode> {
 
     private final static TestNode NODE = TestNode.with("test");
 
     @Test
     public void testExecuteFunction() {
         this.applyAndCheck2(
-                this.createBiFunction(),
-                parameters(),
-                this.createContext(),
-                NODE
+            this.createBiFunction(),
+            parameters(),
+            this.createContext(),
+            NODE
         );
     }
 
@@ -64,8 +64,8 @@ public final class ExpressionFunctionNodeTest extends ExpressionFunctionTestCase
     @Test
     public void testToString() {
         this.toStringAndCheck(
-                this.createBiFunction(),
-                "node"
+            this.createBiFunction(),
+            "node"
         );
     }
 

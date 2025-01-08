@@ -30,8 +30,8 @@ import java.util.function.Predicate;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public abstract class NodeSelectorNodeAttributeValuePredicateTestCase<N extends NodeSelectorNodeAttributeValuePredicate<TestNode, StringName, StringName, Object>>
-        extends NodeSelectorTestCase2<N>
-        implements PredicateTesting2<N, TestNode> {
+    extends NodeSelectorTestCase2<N>
+    implements PredicateTesting2<N, TestNode> {
 
     @BeforeEach
     public void beforeEachTest() {

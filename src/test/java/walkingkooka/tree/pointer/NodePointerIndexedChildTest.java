@@ -36,15 +36,15 @@ public final class NodePointerIndexedChildTest extends NodePointerTestCase2<Node
     @Test
     public void testAddUnknownPathFails() {
         this.addAndFail(NodePointer.indexed(1, TestNode.class).appendToLast(NodePointerIndexedChild.with(99)),
-                TestNode.with("name1"),
-                TestNode.with("value2"));
+            TestNode.with("name1"),
+            TestNode.with("value2"));
     }
 
     @Test
     public void testAddUnknownPathFails2() {
         this.addAndFail(NodePointer.indexed(1, TestNode.class).appendToLast(NodePointerIndexedChild.with(99)),
-                TestNode.with("name1"),
-                TestNode.with("value2"));
+            TestNode.with("name1"),
+            TestNode.with("value2"));
     }
 
     @Test
@@ -64,16 +64,16 @@ public final class NodePointerIndexedChildTest extends NodePointerTestCase2<Node
 
     private void addAndCheck2(final int index) {
         final TestNode root = TestNode.with("root")
-                .appendChild(TestNode.with("value-0a"))
-                .appendChild(TestNode.with("value-1b"))
-                .appendChild(TestNode.with("value-2c"));
+            .appendChild(TestNode.with("value-0a"))
+            .appendChild(TestNode.with("value-1b"))
+            .appendChild(TestNode.with("value-2c"));
 
         final TestNode add = TestNode.with("add");
 
         this.addAndCheck(NodePointerIndexedChild.with(index),
-                root,
-                add,
-                root.setChild(index, add));
+            root,
+            add,
+            root.setChild(index, add));
     }
 
     // remove...........................................................................................................
@@ -81,48 +81,48 @@ public final class NodePointerIndexedChildTest extends NodePointerTestCase2<Node
     @Test
     public void testRemoveUnknownPathFails() {
         this.removeAndFail(NodePointerIndexedChild.with(0),
-                TestNode.with("remove"));
+            TestNode.with("remove"));
     }
 
     @Test
     public void testRemoveUnknownPathFails2() {
         this.removeAndFail(NodePointerIndexedChild.with(1),
-                TestNode.with("root").appendChild(TestNode.with("a")));
+            TestNode.with("root").appendChild(TestNode.with("a")));
     }
 
     @Test
     public void testRemoveChildIndex0() {
         this.removeAndCheck2(TestNode.with("root")
-                        .appendChild(TestNode.with("a1"))
-                        .appendChild(TestNode.with("b2")),
-                0);
+                .appendChild(TestNode.with("a1"))
+                .appendChild(TestNode.with("b2")),
+            0);
 
     }
 
     @Test
     public void testRemoveChildIndex1() {
         this.removeAndCheck2(TestNode.with("root")
-                        .appendChild(TestNode.with("a1"))
-                        .appendChild(TestNode.with("b2")),
-                1);
+                .appendChild(TestNode.with("a1"))
+                .appendChild(TestNode.with("b2")),
+            1);
 
     }
 
     @Test
     public void testRemoveChildIndex2() {
         this.removeAndCheck2(TestNode.with("root")
-                        .appendChild(TestNode.with("a1"))
-                        .appendChild(TestNode.with("b2"))
-                        .appendChild(TestNode.with("c3")),
-                2);
+                .appendChild(TestNode.with("a1"))
+                .appendChild(TestNode.with("b2"))
+                .appendChild(TestNode.with("c3")),
+            2);
 
     }
 
     private void removeAndCheck2(final TestNode node,
                                  final int index) {
         this.removeAndCheck(NodePointerIndexedChild.with(index),
-                node,
-                node.removeChild(index));
+            node,
+            node.removeChild(index));
     }
 
     @Test

@@ -33,17 +33,17 @@ import java.util.function.Predicate;
  * A {@link NodeSelectorContext} that routes test and selected {@link Node} to a individual {@link Consumer}
  */
 final class BasicNodeSelectorContext<N extends Node<N, NAME, ANAME, AVALUE>, NAME extends Name, ANAME extends Name, AVALUE>
-        implements NodeSelectorContext<N, NAME, ANAME, AVALUE> {
+    implements NodeSelectorContext<N, NAME, ANAME, AVALUE> {
 
     static <N extends Node<N, NAME, ANAME, AVALUE>,
-            NAME extends Name,
-            ANAME extends Name,
-            AVALUE,
-            C extends ExpressionEvaluationContext> BasicNodeSelectorContext<N, NAME, ANAME, AVALUE> with(final BooleanSupplier finisher,
-                                                                                                              final Predicate<N> filter,
-                                                                                                              final Function<N, N> mapper,
-                                                                                                              final Function<NodeSelectorContext<N, NAME, ANAME, AVALUE>, C> expressionEvaluationContext,
-                                                                                                              final Class<N> nodeType) {
+        NAME extends Name,
+        ANAME extends Name,
+        AVALUE,
+        C extends ExpressionEvaluationContext> BasicNodeSelectorContext<N, NAME, ANAME, AVALUE> with(final BooleanSupplier finisher,
+                                                                                                     final Predicate<N> filter,
+                                                                                                     final Function<N, N> mapper,
+                                                                                                     final Function<NodeSelectorContext<N, NAME, ANAME, AVALUE>, C> expressionEvaluationContext,
+                                                                                                     final Class<N> nodeType) {
         Objects.requireNonNull(finisher, "finisher");
         Objects.requireNonNull(filter, "filter");
         Objects.requireNonNull(mapper, "mapper");
@@ -51,9 +51,9 @@ final class BasicNodeSelectorContext<N extends Node<N, NAME, ANAME, AVALUE>, NAM
         Objects.requireNonNull(nodeType, "nodeType");
 
         return new BasicNodeSelectorContext<>(finisher,
-                filter,
-                mapper,
-                Cast.to(expressionEvaluationContext));
+            filter,
+            mapper,
+            Cast.to(expressionEvaluationContext));
     }
 
     private BasicNodeSelectorContext(final BooleanSupplier finisher,
@@ -134,8 +134,8 @@ final class BasicNodeSelectorContext<N extends Node<N, NAME, ANAME, AVALUE>, NAM
     @Override
     public String toString() {
         return this.finisher + " " +
-                this.filter + " " +
-                this.mapper + " " +
-                this.expressionEvaluationContext;
+            this.filter + " " +
+            this.mapper + " " +
+            this.expressionEvaluationContext;
     }
 }

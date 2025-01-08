@@ -65,8 +65,8 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 abstract public class NodeSelectorTestCase4<S extends NodeSelector<TestNode, StringName, StringName, Object>> extends NodeSelectorTestCase3<S>
-        implements HashCodeEqualsDefinedTesting2<S>,
-        ToStringTesting<S> {
+    implements HashCodeEqualsDefinedTesting2<S>,
+    ToStringTesting<S> {
 
     final static ExpressionNumberKind EXPRESSION_NUMBER_KIND = ExpressionNumberKind.DEFAULT;
 
@@ -116,8 +116,8 @@ abstract public class NodeSelectorTestCase4<S extends NodeSelector<TestNode, Str
                                           final TestNode start,
                                           final TestNode... nodes) {
         this.applyAndCheck0(selector,
-                start,
-                nodeNames(nodes).toArray(new String[0]));
+            start,
+            nodeNames(nodes).toArray(new String[0]));
     }
 
     abstract void applyAndCheck0(final NodeSelector<TestNode, StringName, StringName, Object> selector,
@@ -130,13 +130,13 @@ abstract public class NodeSelectorTestCase4<S extends NodeSelector<TestNode, Str
         final Set<TestNode> potential = Sets.ordered();
         final Set<TestNode> selected = Sets.ordered();
         assertSame(start,
-                selector.apply(start,
-                        this.context(
-                                (n) -> {
-                                    potential.add(n);
-                                    return true;
-                                },
-                                selected::add)));
+            selector.apply(start,
+                this.context(
+                    (n) -> {
+                        potential.add(n);
+                        return true;
+                    },
+                    selected::add)));
         this.checkEquals(Lists.of(nodes), nodeNames(selected), () -> "Selector.apply\n" + start);
         this.checkNotEquals(Sets.empty(), potential, "potentials must not be empty");
         assertTrue(potential.contains(start), () -> "potentials must include initial node=" + potential);
@@ -148,9 +148,9 @@ abstract public class NodeSelectorTestCase4<S extends NodeSelector<TestNode, Str
                                      final TestNode start,
                                      final int selectCount) {
         this.applyFinisherAndCheck(selector,
-                start,
-                selectCount,
-                new String[0]);
+            start,
+            selectCount,
+            new String[0]);
     }
 
     final void applyFinisherAndCheck(final NodeSelector<TestNode, StringName, StringName, Object> selector,
@@ -159,14 +159,14 @@ abstract public class NodeSelectorTestCase4<S extends NodeSelector<TestNode, Str
                                      final TestNode... nodes) {
         final Set<TestNode> selected = Sets.ordered();
         assertSame(start,
-                selector.apply(start,
-                        this.context(this.finisher(selectCount, selected),
-                                Predicates.always(),
-                                selected::add)),
-                () -> "incorrect start node returned, selector: " + selector);
+            selector.apply(start,
+                this.context(this.finisher(selectCount, selected),
+                    Predicates.always(),
+                    selected::add)),
+            () -> "incorrect start node returned, selector: " + selector);
         this.checkEquals(nodeNames(nodes),
-                nodeNames(selected),
-                () -> "Selector.apply\n" + start);
+            nodeNames(selected),
+            () -> "Selector.apply\n" + start);
     }
 
     final void applyFinisherAndCheck(final NodeSelector<TestNode, StringName, StringName, Object> selector,
@@ -175,14 +175,14 @@ abstract public class NodeSelectorTestCase4<S extends NodeSelector<TestNode, Str
                                      final String... nodes) {
         final Set<TestNode> selected = Sets.ordered();
         assertSame(start,
-                selector.apply(start,
-                        this.context(this.finisher(selectCount, selected),
-                                Predicates.always(),
-                                selected::add)),
-                () -> "incorrect start node returned, selector: " + selector);
+            selector.apply(start,
+                this.context(this.finisher(selectCount, selected),
+                    Predicates.always(),
+                    selected::add)),
+            () -> "incorrect start node returned, selector: " + selector);
         this.checkEquals(Lists.of(nodes),
-                nodeNames(selected),
-                () -> "Selector.apply\n" + start);
+            nodeNames(selected),
+            () -> "Selector.apply\n" + start);
     }
 
     private BooleanSupplier finisher(final int selectCount, final Set<TestNode> selected) {
@@ -203,9 +203,9 @@ abstract public class NodeSelectorTestCase4<S extends NodeSelector<TestNode, Str
                                      final TestNode start,
                                      final BooleanSupplier finisher) {
         this.applyFinisherAndCheck(selector,
-                start,
-                finisher,
-                new String[0]);
+            start,
+            finisher,
+            new String[0]);
     }
 
     final void applyFinisherAndCheck(final NodeSelector<TestNode, StringName, StringName, Object> selector,
@@ -214,14 +214,14 @@ abstract public class NodeSelectorTestCase4<S extends NodeSelector<TestNode, Str
                                      final String... nodes) {
         final Set<TestNode> selected = Sets.ordered();
         assertSame(start,
-                selector.apply(start,
-                        this.context(finisher,
-                                Predicates.always(),
-                                selected::add)),
-                () -> "incorrect start node returned, selector: " + selector);
+            selector.apply(start,
+                this.context(finisher,
+                    Predicates.always(),
+                    selected::add)),
+            () -> "incorrect start node returned, selector: " + selector);
         this.checkEquals(Lists.of(nodes),
-                nodeNames(selected),
-                () -> "Selector.apply\n" + start);
+            nodeNames(selected),
+            () -> "Selector.apply\n" + start);
     }
 
     // applyFilterAndCheck............................................................................................
@@ -230,9 +230,9 @@ abstract public class NodeSelectorTestCase4<S extends NodeSelector<TestNode, Str
                                    final TestNode start,
                                    final Predicate<TestNode> filter) {
         this.applyFilterAndCheck(selector,
-                start,
-                filter,
-                new String[0]);
+            start,
+            filter,
+            new String[0]);
     }
 
     final void applyFilterAndCheck(final NodeSelector<TestNode, StringName, StringName, Object> selector,
@@ -241,12 +241,12 @@ abstract public class NodeSelectorTestCase4<S extends NodeSelector<TestNode, Str
                                    final TestNode... nodes) {
         final Set<TestNode> selected = Sets.ordered();
         assertSame(start,
-                selector.apply(start,
-                        this.context(filter,
-                                selected::add)));
+            selector.apply(start,
+                this.context(filter,
+                    selected::add)));
         this.checkEquals(nodeNames(nodes),
-                nodeNames(selected),
-                () -> "Selector.apply\n" + start);
+            nodeNames(selected),
+            () -> "Selector.apply\n" + start);
     }
 
     final void applyFilterAndCheck(final NodeSelector<TestNode, StringName, StringName, Object> selector,
@@ -255,12 +255,12 @@ abstract public class NodeSelectorTestCase4<S extends NodeSelector<TestNode, Str
                                    final String... nodes) {
         final Set<TestNode> selected = Sets.ordered();
         assertSame(start,
-                selector.apply(start,
-                        this.context(filter,
-                                selected::add)));
+            selector.apply(start,
+                this.context(filter,
+                    selected::add)));
         this.checkEquals(Lists.of(nodes),
-                nodeNames(selected),
-                () -> "Selector.apply\n" + start);
+            nodeNames(selected),
+            () -> "Selector.apply\n" + start);
     }
 
     private List<String> nodeNames(final TestNode... nodes) {
@@ -269,8 +269,8 @@ abstract public class NodeSelectorTestCase4<S extends NodeSelector<TestNode, Str
 
     private List<String> nodeNames(final Collection<TestNode> nodes) {
         return nodes.stream()
-                .map(n -> n.name().value())
-                .collect(Collectors.toList());
+            .map(n -> n.name().value())
+            .collect(Collectors.toList());
     }
 
     final void acceptMapAndCheck(final TestNode start) {
@@ -295,46 +295,46 @@ abstract public class NodeSelectorTestCase4<S extends NodeSelector<TestNode, Str
         final String startToString = start.toString();
 
         this.checkEquals(result,
-                selector.apply(start,
-                        this.context0(() -> false,
-                                Predicates.always(),
-                                new Function<>() {
-                                    @Override
-                                    public TestNode apply(final TestNode testNode) {
-                                        return TestNode.with(testNode.name().value() + "*" + this.i++)
-                                                .setChildren(testNode.children());
-                                    }
+            selector.apply(start,
+                this.context0(() -> false,
+                    Predicates.always(),
+                    new Function<>() {
+                        @Override
+                        public TestNode apply(final TestNode testNode) {
+                            return TestNode.with(testNode.name().value() + "*" + this.i++)
+                                .setChildren(testNode.children());
+                        }
 
-                                    private int i;
+                        private int i;
 
-                                    @Override
-                                    public String toString() {
-                                        return "mapper: next: " + i;
-                                    }
-                                })));
+                        @Override
+                        public String toString() {
+                            return "mapper: next: " + i;
+                        }
+                    })));
 
         this.checkEquals(startToString,
-                start.toString(),
-                "toString has changed for starting node, indicating it probably was mutated");
+            start.toString(),
+            "toString has changed for starting node, indicating it probably was mutated");
     }
 
     final NodeSelectorContext<TestNode, StringName, StringName, Object> context(final Predicate<TestNode> filter,
                                                                                 final Consumer<TestNode> selected) {
         return this.context(() -> false,
-                filter,
-                selected);
+            filter,
+            selected);
     }
 
     final NodeSelectorContext<TestNode, StringName, StringName, Object> context(final BooleanSupplier finisher,
                                                                                 final Predicate<TestNode> filter,
                                                                                 final Consumer<TestNode> selected) {
         return this.context0(finisher,
-                filter,
-                (n) -> {
-                    this.checkSelectCaller();
-                    selected.accept(n);
-                    return n;
-                });
+            filter,
+            (n) -> {
+                this.checkSelectCaller();
+                selected.accept(n);
+                return n;
+            });
     }
 
     /**
@@ -344,29 +344,29 @@ abstract public class NodeSelectorTestCase4<S extends NodeSelector<TestNode, Str
         final Class<?> caller = TerminalNodeSelector.class;
 
         this.checkEquals(Optional.of(caller.getSimpleName()),
-                Arrays.stream(Thread.currentThread().getStackTrace())
-                        .map(this::simpleClassName)
-                        .filter(c -> c.endsWith(NodeSelector.class.getSimpleName()))
-                        .findFirst(),
-                () -> "Expected callingNodeSelector to be " + caller.getName());
+            Arrays.stream(Thread.currentThread().getStackTrace())
+                .map(this::simpleClassName)
+                .filter(c -> c.endsWith(NodeSelector.class.getSimpleName()))
+                .findFirst(),
+            () -> "Expected callingNodeSelector to be " + caller.getName());
     }
 
     private String simpleClassName(final StackTraceElement element) {
         final String className = element.getClassName();
         final int dot = className.lastIndexOf('.');
         return -1 == dot ?
-                className :
-                className.substring(dot + 1);
+            className :
+            className.substring(dot + 1);
     }
 
     final NodeSelectorContext<TestNode, StringName, StringName, Object> context0(final BooleanSupplier finisher,
                                                                                  final Predicate<TestNode> filter,
                                                                                  final Function<TestNode, TestNode> mapper) {
         final NodeSelectorContext<TestNode, StringName, StringName, Object> context = NodeSelectorContexts.basic(finisher,
-                filter,
-                mapper,
-                this.nodeSelectorExpressionEvaluationContext(),
-                TestNode.class);
+            filter,
+            mapper,
+            this.nodeSelectorExpressionEvaluationContext(),
+            TestNode.class);
 
         return new NodeSelectorContext<>() {
             @Override
@@ -424,22 +424,22 @@ abstract public class NodeSelectorTestCase4<S extends NodeSelector<TestNode, Str
 
     final Function<NodeSelectorContext<TestNode, StringName, StringName, Object>, NodeSelectorExpressionEvaluationContext<TestNode, StringName, StringName, Object>> nodeSelectorExpressionEvaluationContext() {
         return (c) -> NodeSelectorExpressionEvaluationContexts.basic(
-                c.node(),
-                (r) -> ExpressionEvaluationContexts.basic(
-                        EXPRESSION_NUMBER_KIND,
-                        this.functions(),
-                        this.exceptionHandler(),
-                        this.references(),
-                        ExpressionEvaluationContexts.referenceNotFound(),
-                        CaseSensitivity.SENSITIVE,
-                        this.converterContext()
-                )
+            c.node(),
+            (r) -> ExpressionEvaluationContexts.basic(
+                EXPRESSION_NUMBER_KIND,
+                this.functions(),
+                this.exceptionHandler(),
+                this.references(),
+                ExpressionEvaluationContexts.referenceNotFound(),
+                CaseSensitivity.SENSITIVE,
+                this.converterContext()
+            )
         );
     }
 
     private Function<ExpressionFunctionName, ExpressionFunction<?, ExpressionEvaluationContext>> functions() {
         return (n) -> Cast.to(
-                NodeSelectorContexts.basicFunctions()
+            NodeSelectorContexts.basicFunctions()
                 .apply(n)
         );
     }
@@ -458,26 +458,26 @@ abstract public class NodeSelectorTestCase4<S extends NodeSelector<TestNode, Str
 
     private Converter<ExpressionNumberConverterContext> converter() {
         return Converters.collection(
-                Lists.of(
-                        Converters.simple(),
-                        ExpressionNumberConverters.numberOrExpressionNumberToNumber(),
-                        Converters.<String, Integer, ExpressionNumberConverterContext>mapper((t) -> t instanceof String, Predicates.is(Integer.class), Integer::parseInt),
-                        Converters.mapper(t -> t instanceof Node, Predicates.is(Node.class), Function.identity()),
-                        ExpressionNumberConverters.toNumberOrExpressionNumber(Converters.simple())
-                )
+            Lists.of(
+                Converters.simple(),
+                ExpressionNumberConverters.numberOrExpressionNumberToNumber(),
+                Converters.<String, Integer, ExpressionNumberConverterContext>mapper((t) -> t instanceof String, Predicates.is(Integer.class), Integer::parseInt),
+                Converters.mapper(t -> t instanceof Node, Predicates.is(Node.class), Function.identity()),
+                ExpressionNumberConverters.toNumberOrExpressionNumber(Converters.simple())
+            )
         );
     }
 
     private ExpressionNumberConverterContext converterContext() {
         return ExpressionNumberConverterContexts.basic(
-                this.converter(),
-                ConverterContexts.basic(
-                        Converters.JAVA_EPOCH_OFFSET, // dateOffset
-                        Converters.fake(),
-                        DateTimeContexts.fake(),
-                        DecimalNumberContexts.american(MathContext.DECIMAL32)
-                ),
-                EXPRESSION_NUMBER_KIND);
+            this.converter(),
+            ConverterContexts.basic(
+                Converters.JAVA_EPOCH_OFFSET, // dateOffset
+                Converters.fake(),
+                DateTimeContexts.fake(),
+                DecimalNumberContexts.american(MathContext.DECIMAL32)
+            ),
+            EXPRESSION_NUMBER_KIND);
     }
 
     // HashCodeEqualsDefinedTesting.....................................................................................

@@ -29,7 +29,7 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertSame;
 
 final public class DescendantOrSelfNodeSelectorTest extends
-        AxisNodeSelectorTestCase<DescendantOrSelfNodeSelector<TestNode, StringName, StringName, Object>> {
+    AxisNodeSelectorTestCase<DescendantOrSelfNodeSelector<TestNode, StringName, StringName, Object>> {
 
     @Test
     public void testDescendantOrSelfChildless() {
@@ -100,9 +100,9 @@ final public class DescendantOrSelfNodeSelectorTest extends
         final TestNode parent = TestNode.with("parent", child1, child2);
 
         this.applyFilterAndCheck(TestNode.relativeNodeSelector()
-                        .descendantOrSelf(),
-                parent,
-                (n) -> !n.name().value().equals("parent"));
+                .descendantOrSelf(),
+            parent,
+            (n) -> !n.name().value().equals("parent"));
     }
 
     @Test
@@ -117,17 +117,17 @@ final public class DescendantOrSelfNodeSelectorTest extends
         final TestNode parent = TestNode.with("parent", child1, child2);
 
         this.applyFilterAndCheck(TestNode.relativeNodeSelector()
-                        .descendantOrSelf(),
-                parent,
-                (n) -> !n.name().value().startsWith("skip"),
-                parent, child1, grand1, grand3, child2, grand4);
+                .descendantOrSelf(),
+            parent,
+            (n) -> !n.name().value().startsWith("skip"),
+            parent, child1, grand1, grand3, child2, grand4);
     }
 
     @Test
     public void testDescendantOrSelfFinishedTrue() {
         this.applyFinisherAndCheck(this.createSelector(),
-                TestNode.with("parent", TestNode.with("child")),
-                () -> true);
+            TestNode.with("parent", TestNode.with("child")),
+            () -> true);
     }
 
     @Test
@@ -138,9 +138,9 @@ final public class DescendantOrSelfNodeSelectorTest extends
         final TestNode parent = TestNode.with("parent", child1, child2);
 
         this.applyFinisherAndCheck(this.createSelector(),
-                parent,
-                1,
-                parent);
+            parent,
+            1,
+            parent);
     }
 
     @Test
@@ -151,42 +151,42 @@ final public class DescendantOrSelfNodeSelectorTest extends
         final TestNode parent = TestNode.with("parent", child1, child2);
 
         this.applyFinisherAndCheck(this.createSelector(),
-                parent,
-                3,
-                parent, child1, grandChild);
+            parent,
+            3,
+            parent, child1, grandChild);
     }
 
     @Test
     public void testDescendantOrSelfMap() {
         final TestNode grandParent = TestNode.with("grand",
-                TestNode.with("parent1",
-                        TestNode.with("child1"), TestNode.with("child2")),
-                TestNode.with("parent2", TestNode.with("child3")));
+            TestNode.with("parent1",
+                TestNode.with("child1"), TestNode.with("child2")),
+            TestNode.with("parent2", TestNode.with("child3")));
 
         TestNode.clear();
 
         this.acceptMapAndCheck(grandParent.child(0),
-                TestNode.with("grand",
-                        TestNode.with("parent1*0",
-                                TestNode.with("child1*1"), TestNode.with("child2*2")),
-                        TestNode.with("parent2", TestNode.with("child3")))
-                        .child(0));
+            TestNode.with("grand",
+                    TestNode.with("parent1*0",
+                        TestNode.with("child1*1"), TestNode.with("child2*2")),
+                    TestNode.with("parent2", TestNode.with("child3")))
+                .child(0));
     }
 
     @Test
     public void testDescendantOrSelfMap2() {
         final TestNode grandParent = TestNode.with("grand",
-                TestNode.with("parent1",
-                        TestNode.with("child1"), TestNode.with("child2")),
-                TestNode.with("parent2", TestNode.with("child3")));
+            TestNode.with("parent1",
+                TestNode.with("child1"), TestNode.with("child2")),
+            TestNode.with("parent2", TestNode.with("child3")));
 
         TestNode.clear();
 
         this.acceptMapAndCheck(grandParent,
-                TestNode.with("grand*0",
-                        TestNode.with("parent1*1",
-                                TestNode.with("child1*2"), TestNode.with("child2*3")),
-                        TestNode.with("parent2*4", TestNode.with("child3*5"))));
+            TestNode.with("grand*0",
+                TestNode.with("parent1*1",
+                    TestNode.with("child1*2"), TestNode.with("child2*3")),
+                TestNode.with("parent2*4", TestNode.with("child3*5"))));
     }
 
     // NodeSelectorVisitor............................................................................................
@@ -239,10 +239,10 @@ final public class DescendantOrSelfNodeSelectorTest extends
         this.checkEquals("1315242", b.toString());
 
         this.checkEquals(Lists.of(selector, selector,
-                        next, next, next,
-                        selector, selector),
-                visited,
-                "visited");
+                next, next, next,
+                selector, selector),
+            visited,
+            "visited");
     }
 
     // Object....................................................................................................

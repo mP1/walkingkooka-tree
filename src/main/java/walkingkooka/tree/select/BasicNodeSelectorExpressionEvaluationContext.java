@@ -54,18 +54,18 @@ import java.util.function.Function;
  * </ul>
  */
 final class BasicNodeSelectorExpressionEvaluationContext<N extends Node<N, NAME, ANAME, AVALUE>,
-        NAME extends Name,
-        ANAME extends Name,
-        AVALUE>
-        implements NodeSelectorExpressionEvaluationContext<N, NAME, ANAME, AVALUE> {
+    NAME extends Name,
+    ANAME extends Name,
+    AVALUE>
+    implements NodeSelectorExpressionEvaluationContext<N, NAME, ANAME, AVALUE> {
 
     /**
      * Factory that creates a new {@link BasicNodeSelectorExpressionEvaluationContext}, using the given {@link Node} as the context.
      */
     static <N extends Node<N, NAME, ANAME, AVALUE>,
-            NAME extends Name,
-            ANAME extends Name,
-            AVALUE>
+        NAME extends Name,
+        ANAME extends Name,
+        AVALUE>
     BasicNodeSelectorExpressionEvaluationContext<N, NAME, ANAME, AVALUE> with(final N node,
                                                                               final Function<Function<ExpressionReference, Optional<Optional<Object>>>, ExpressionEvaluationContext> context) {
         Objects.requireNonNull(node, "node");
@@ -82,7 +82,7 @@ final class BasicNodeSelectorExpressionEvaluationContext<N extends Node<N, NAME,
         super();
         this.node = node;
         this.context = context.apply(
-                BasicNodeSelectorExpressionEvaluationContextReferenceFunction.with(this)
+            BasicNodeSelectorExpressionEvaluationContextReferenceFunction.with(this)
         );
     }
 
@@ -123,8 +123,8 @@ final class BasicNodeSelectorExpressionEvaluationContext<N extends Node<N, NAME,
     public Object evaluateFunction(final ExpressionFunction<?, ? extends ExpressionEvaluationContext> function,
                                    final List<Object> parameters) {
         return function.apply(
-                this.prepareParameters(function, parameters),
-                Cast.to(this)
+            this.prepareParameters(function, parameters),
+            Cast.to(this)
         );
     }
 
@@ -152,24 +152,24 @@ final class BasicNodeSelectorExpressionEvaluationContext<N extends Node<N, NAME,
         final String attributeNameString = attributeName.value();
 
         final Object attributeValue = this.node.attributes()
-                .entrySet()
-                .stream()
-                .filter(nameAndValue -> nameAndValue.getKey().value().equals(attributeNameString))
-                .map(e -> wrapIfNumber(e.getValue()))
-                .findFirst()
-                .orElse(ABSENT);
+            .entrySet()
+            .stream()
+            .filter(nameAndValue -> nameAndValue.getKey().value().equals(attributeNameString))
+            .map(e -> wrapIfNumber(e.getValue()))
+            .findFirst()
+            .orElse(ABSENT);
         return Optional.of(
-                Optional.of(
-                        attributeValue
-                )
+            Optional.of(
+                attributeValue
+            )
         );
     }
 
     private Object wrapIfNumber(final Object value) {
         return ExpressionNumber.is(value) ?
-                this.expressionNumberKind()
-                        .create((Number) value) :
-                value;
+            this.expressionNumberKind()
+                .create((Number) value) :
+            value;
     }
 
     private final static Object ABSENT = "";

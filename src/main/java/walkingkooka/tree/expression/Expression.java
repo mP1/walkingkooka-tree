@@ -48,9 +48,9 @@ import java.util.function.Predicate;
  * and spreadsheet formula evaluation.
  */
 public abstract class Expression implements Node<Expression, ExpressionFunctionName, Name, Object>,
-        ExpressionPurity,
-        HasText,
-        TreePrintable {
+    ExpressionPurity,
+    HasText,
+    TreePrintable {
 
     /**
      * An empty list that holds no children.
@@ -79,8 +79,8 @@ public abstract class Expression implements Node<Expression, ExpressionFunctionN
     public static CallExpression call(final Expression callable,
                                       final List<Expression> parameters) {
         return CallExpression.with(
-                callable,
-                parameters
+            callable,
+            parameters
         );
     }
 
@@ -118,8 +118,8 @@ public abstract class Expression implements Node<Expression, ExpressionFunctionN
     public static LambdaFunctionExpression lambdaFunction(final List<ExpressionFunctionParameter<?>> parameters,
                                                           final Expression value) {
         return LambdaFunctionExpression.with(
-                parameters,
-                value
+            parameters,
+            value
         );
     }
 
@@ -156,7 +156,7 @@ public abstract class Expression implements Node<Expression, ExpressionFunctionN
      */
     public static NamedFunctionExpression namedFunction(final ExpressionFunctionName name) {
         return NamedFunctionExpression.with(
-                name
+            name
         );
     }
 
@@ -264,8 +264,8 @@ public abstract class Expression implements Node<Expression, ExpressionFunctionN
      */
     final Expression removeParent0() {
         return this.isRoot() ?
-                this :
-                this.replace(NO_INDEX);
+            this :
+            this.replace(NO_INDEX);
     }
 
     /**
@@ -280,11 +280,11 @@ public abstract class Expression implements Node<Expression, ExpressionFunctionN
      */
     final Expression replaceChild(final Optional<Expression> previousParent) {
         return previousParent.isPresent() ?
-                previousParent.get()
-                        .setChild(this)
-                        .children()
-                        .get(this.index()) :
-                this;
+            previousParent.get()
+                .setChild(this)
+                .children()
+                .get(this.index()) :
+            this;
     }
 
     // index........................................................................................................
@@ -565,15 +565,15 @@ public abstract class Expression implements Node<Expression, ExpressionFunctionN
     @SuppressWarnings("EqualsWhichDoesntCheckParameterClass")
     public final boolean equals(final Object other) {
         return this == other ||
-                this.canBeEqual(other) &&
-                        this.equals0(Cast.to(other));
+            this.canBeEqual(other) &&
+                this.equals0(Cast.to(other));
     }
 
     abstract boolean canBeEqual(final Object other);
 
     private boolean equals0(final Expression other) {
         return this.equalsIgnoringChildren(other) &&
-                this.equalsChildren(other);
+            this.equalsChildren(other);
     }
 
     /**
@@ -627,8 +627,8 @@ public abstract class Expression implements Node<Expression, ExpressionFunctionN
     public static NodeSelector<Expression, ExpressionFunctionName, Name, Object> nodeSelectorExpressionParserToken(final NodeSelectorExpressionParserToken token,
                                                                                                                    final Predicate<ExpressionFunctionName> functions) {
         return NodeSelector.parserToken(token,
-                n -> ExpressionFunctionName.with(n.value()),
-                functions,
-                Expression.class);
+            n -> ExpressionFunctionName.with(n.value()),
+            functions,
+            Expression.class);
     }
 }

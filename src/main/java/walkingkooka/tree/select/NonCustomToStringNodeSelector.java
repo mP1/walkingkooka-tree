@@ -24,8 +24,8 @@ import walkingkooka.tree.Node;
  * A base {@link NodeSelector} for all sub classes that are not {@link CustomToStringNodeSelector}.
  */
 abstract class NonCustomToStringNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NAME extends Name, ANAME extends Name, AVALUE>
-        extends
-        NodeSelector<N, NAME, ANAME, AVALUE> {
+    extends
+    NodeSelector<N, NAME, ANAME, AVALUE> {
 
     /**
      * Package private constructor to limit sub classing.

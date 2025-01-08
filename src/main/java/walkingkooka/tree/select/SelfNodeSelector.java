@@ -28,7 +28,7 @@ import java.util.List;
  * A {@link NodeSelector} that pushes any given {@link Node} to the {@link List}.
  */
 final class SelfNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NAME extends Name, ANAME extends Name, AVALUE>
-        extends AxisNodeSelector<N, NAME, ANAME, AVALUE> {
+    extends AxisNodeSelector<N, NAME, ANAME, AVALUE> {
 
     /**
      * Type safe {@link ChildrenNodeSelector} getter
@@ -51,8 +51,8 @@ final class SelfNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NAME extend
     NodeSelector<N, NAME, ANAME, AVALUE> append1(final NodeSelector<N, NAME, ANAME, AVALUE> selector) {
         // no point appending a self to another...
         return selector instanceof SelfNodeSelector ?
-                this :
-                new SelfNodeSelector<>(selector);
+            this :
+            new SelfNodeSelector<>(selector);
     }
 
     @Override

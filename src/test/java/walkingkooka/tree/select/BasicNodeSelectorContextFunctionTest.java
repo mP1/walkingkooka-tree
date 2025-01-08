@@ -24,7 +24,7 @@ import walkingkooka.tree.expression.function.ExpressionFunction;
 import walkingkooka.util.FunctionTesting;
 
 public final class BasicNodeSelectorContextFunctionTest implements ClassTesting2<BasicNodeSelectorContextFunction>,
-        FunctionTesting<BasicNodeSelectorContextFunction, ExpressionFunctionName, ExpressionFunction<?, ?>> {
+    FunctionTesting<BasicNodeSelectorContextFunction, ExpressionFunctionName, ExpressionFunction<?, ?>> {
 
     @Override
     public BasicNodeSelectorContextFunction createFunction() {

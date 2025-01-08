@@ -72,10 +72,10 @@ public final class NegativeExpressionTest extends UnaryExpressionTestCase<Negati
         }.accept(negative);
         this.checkEquals("1315242", b.toString());
         this.checkEquals(Lists.of(negative, negative,
-                        child, child, child,
-                        negative, negative),
-                visited,
-                "visited");
+                child, child, child,
+                negative, negative),
+            visited,
+            "visited");
     }
 
     // evaluate.....................................................................................

@@ -26,15 +26,15 @@ import walkingkooka.tree.TestNode;
 import walkingkooka.tree.expression.ExpressionNumberKind;
 
 public abstract class NodeSelectorContext2TestCase<C extends NodeSelectorContext<N, NAME, ANAME, AVALUE>,
-        N extends Node<N, NAME, ANAME, AVALUE>,
-        NAME extends Name,
-        ANAME extends Name,
-        AVALUE> implements NodeSelectorContextTesting<C,
-        N,
-        NAME,
-        ANAME,
-        AVALUE>,
-        ClassTesting2<C> {
+    N extends Node<N, NAME, ANAME, AVALUE>,
+    NAME extends Name,
+    ANAME extends Name,
+    AVALUE> implements NodeSelectorContextTesting<C,
+    N,
+    NAME,
+    ANAME,
+    AVALUE>,
+    ClassTesting2<C> {
 
     final static ExpressionNumberKind EXPRESSION_NUMBER_KIND = ExpressionNumberKind.DEFAULT;
 

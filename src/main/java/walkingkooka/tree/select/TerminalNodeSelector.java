@@ -26,8 +26,8 @@ import walkingkooka.tree.Node;
  * A {@link NodeSelector} that selects and does nothing.
  */
 final class TerminalNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NAME extends Name, ANAME extends Name, AVALUE>
-        extends
-        NonCustomToStringNodeSelector<N, NAME, ANAME, AVALUE> {
+    extends
+    NonCustomToStringNodeSelector<N, NAME, ANAME, AVALUE> {
 
     /**
      * Type safe {@link TerminalNodeSelector} getter
@@ -64,8 +64,8 @@ final class TerminalNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NAME ex
     @Override
     N apply1(final N node, final NodeSelectorContext2<N, NAME, ANAME, AVALUE> context) {
         return !context.isFinished() && context.test(node) ?
-                node.replace(context.selected(node)) :
-                node;
+            node.replace(context.selected(node)) :
+            node;
     }
 
     @Override

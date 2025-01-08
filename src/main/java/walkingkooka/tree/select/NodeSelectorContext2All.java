@@ -25,7 +25,7 @@ import walkingkooka.tree.expression.Expression;
  * The default {@link NodeSelectorContext2}.
  */
 final class NodeSelectorContext2All<N extends Node<N, NAME, ANAME, AVALUE>, NAME extends Name, ANAME extends Name, AVALUE>
-        extends NodeSelectorContext2<N, NAME, ANAME, AVALUE> {
+    extends NodeSelectorContext2<N, NAME, ANAME, AVALUE> {
 
     static <N extends Node<N, NAME, ANAME, AVALUE>, NAME extends Name, ANAME extends Name, AVALUE> NodeSelectorContext2All<N, NAME, ANAME, AVALUE> with(final NodeSelectorContext<N, NAME, ANAME, AVALUE> context) {
         return new NodeSelectorContext2All<>(context);

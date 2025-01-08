@@ -45,11 +45,11 @@ public final class ExpressionNumberDoubleTest extends ExpressionNumberTestCase<E
         final double value = 123;
 
         this.checkEquals(
-                ExpressionNumberKind.DOUBLE.create(value)
-                        .exp(CONTEXT),
-                ExpressionNumberKind.DOUBLE.create(
-                        Math.exp(value)
-                )
+            ExpressionNumberKind.DOUBLE.create(value)
+                .exp(CONTEXT),
+            ExpressionNumberKind.DOUBLE.create(
+                Math.exp(value)
+            )
         );
     }
 
@@ -60,9 +60,9 @@ public final class ExpressionNumberDoubleTest extends ExpressionNumberTestCase<E
         final double value = 100;
 
         this.checkEquals(
-                ExpressionNumberKind.DOUBLE.create(value)
-                        .ln(CONTEXT),
-                ExpressionNumberKind.DOUBLE.create(Math.log(value))
+            ExpressionNumberKind.DOUBLE.create(value)
+                .ln(CONTEXT),
+            ExpressionNumberKind.DOUBLE.create(Math.log(value))
         );
     }
 
@@ -73,17 +73,17 @@ public final class ExpressionNumberDoubleTest extends ExpressionNumberTestCase<E
     public void testMap() {
         for (final RoundingMode roundingMode : RoundingMode.values()) {
             this.checkEquals(
-                    ExpressionNumber.with(10.0 * 2),
-                    ExpressionNumber.with(10)
-                            .map(
-                                    new FakeExpressionNumberFunction() {
-                                        @Override
-                                        public double mapDouble(final double value) {
-                                            return value * 2;
-                                        }
-                                    },
-                                    new MathContext(32, roundingMode)
-                            )
+                ExpressionNumber.with(10.0 * 2),
+                ExpressionNumber.with(10)
+                    .map(
+                        new FakeExpressionNumberFunction() {
+                            @Override
+                            public double mapDouble(final double value) {
+                                return value * 2;
+                            }
+                        },
+                        new MathContext(32, roundingMode)
+                    )
             );
         }
     }
@@ -95,16 +95,16 @@ public final class ExpressionNumberDoubleTest extends ExpressionNumberTestCase<E
             final ExpressionNumber number = ExpressionNumber.with(10);
 
             assertSame(
-                    number,
-                    number.map(
-                            new FakeExpressionNumberFunction() {
-                                @Override
-                                public double mapDouble(final double value) {
-                                    return value;
-                                }
-                            },
-                            new MathContext(32, roundingMode)
-                    )
+                number,
+                number.map(
+                    new FakeExpressionNumberFunction() {
+                        @Override
+                        public double mapDouble(final double value) {
+                            return value;
+                        }
+                    },
+                    new MathContext(32, roundingMode)
+                )
             );
         }
     }
@@ -114,25 +114,25 @@ public final class ExpressionNumberDoubleTest extends ExpressionNumberTestCase<E
     @Test
     public void testCompareBigDecimalEquals() {
         this.compareToAndCheckEquals(ExpressionNumberDouble.withDouble(1),
-                ExpressionNumberBigDecimal.withBigDecimal(BigDecimal.ONE));
+            ExpressionNumberBigDecimal.withBigDecimal(BigDecimal.ONE));
     }
 
     @Test
     public void testCompareDoubleEquals() {
         this.compareToAndCheckEquals(ExpressionNumberDouble.withDouble(1),
-                ExpressionNumberDouble.withDouble(1));
+            ExpressionNumberDouble.withDouble(1));
     }
 
     @Test
     public void testCompareBigDecimalLess() {
         this.compareToAndCheckLess(ExpressionNumberDouble.withDouble(1),
-                ExpressionNumberBigDecimal.withBigDecimal(BigDecimal.valueOf(2)));
+            ExpressionNumberBigDecimal.withBigDecimal(BigDecimal.valueOf(2)));
     }
 
     @Test
     public void testCompareDoubleLess() {
         this.compareToAndCheckLess(ExpressionNumberDouble.withDouble(1),
-                ExpressionNumberDouble.withDouble(2));
+            ExpressionNumberDouble.withDouble(2));
     }
 
     // toString.........................................................................................................

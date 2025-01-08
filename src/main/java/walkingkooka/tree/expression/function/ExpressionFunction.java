@@ -35,8 +35,8 @@ import java.util.stream.Collectors;
  * Basic contract for a function within a {@link walkingkooka.tree.expression.ExpressionEvaluationContext}
  */
 public interface ExpressionFunction<T, C extends ExpressionEvaluationContext> extends BiFunction<List<Object>, C, T>,
-        ExpressionPurity,
-        HasOptionalName<ExpressionFunctionName> {
+    ExpressionPurity,
+    HasOptionalName<ExpressionFunctionName> {
 
     /**
      * Constant that holds the {@link ExpressionFunctionName} for anonymous functions.
@@ -62,9 +62,9 @@ public interface ExpressionFunction<T, C extends ExpressionEvaluationContext> ex
         Objects.requireNonNull(kinds, "kinds");
 
         return Lists.immutable(
-                parameters.stream()
-                        .map(p -> p.setKinds(kinds))
-                        .collect(Collectors.toList())
+            parameters.stream()
+                .map(p -> p.setKinds(kinds))
+                .collect(Collectors.toList())
         );
     }
 
@@ -118,13 +118,13 @@ public interface ExpressionFunction<T, C extends ExpressionEvaluationContext> ex
         Objects.requireNonNull(parameters, "parameters");
 
         return parameters.equals(
-                this.parameters(parameters.size())
+            this.parameters(parameters.size())
         ) ?
-                this :
-                ExpressionFunctionParameterValuesParameters.with(
-                        parameters,
-                        this
-                );
+            this :
+            ExpressionFunctionParameterValuesParameters.with(
+                parameters,
+                this
+            );
     }
 
     /**

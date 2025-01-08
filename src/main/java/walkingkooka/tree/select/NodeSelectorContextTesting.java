@@ -28,10 +28,10 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
  * Mixing testing interface for {@link NodeSelectorContext}
  */
 public interface NodeSelectorContextTesting<C extends NodeSelectorContext<N, NAME, ANAME, AVALUE>,
-        N extends Node<N, NAME, ANAME, AVALUE>,
-        NAME extends Name,
-        ANAME extends Name,
-        AVALUE> extends ContextTesting<C> {
+    N extends Node<N, NAME, ANAME, AVALUE>,
+    NAME extends Name,
+    ANAME extends Name,
+    AVALUE> extends ContextTesting<C> {
 
     @Test
     default void testEvaluateNullFails() {

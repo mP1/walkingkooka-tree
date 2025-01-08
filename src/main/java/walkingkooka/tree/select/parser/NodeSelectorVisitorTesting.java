@@ -24,11 +24,11 @@ import walkingkooka.tree.select.NodeSelectorVisitor;
 import walkingkooka.visit.VisitorTesting;
 
 public interface NodeSelectorVisitorTesting<V extends NodeSelectorVisitor<N, NAME, ANAME, AVALUE>,
-        N extends Node<N, NAME, ANAME, AVALUE>,
-        NAME extends Name,
-        ANAME extends Name,
-        AVALUE>
-        extends VisitorTesting<V, NodeSelector<N, NAME, ANAME, AVALUE>> {
+    N extends Node<N, NAME, ANAME, AVALUE>,
+    NAME extends Name,
+    ANAME extends Name,
+    AVALUE>
+    extends VisitorTesting<V, NodeSelector<N, NAME, ANAME, AVALUE>> {
 
     @Override
     default String typeNameSuffix() {

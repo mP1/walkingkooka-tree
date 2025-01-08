@@ -30,48 +30,48 @@ public final class ExpressionNumberSignTest implements ClassTesting<ExpressionNu
     @Test
     public void testBigDecimalZero() {
         assertSame(
-                ExpressionNumberSign.ZERO,
-                ExpressionNumberSign.pick(BigDecimal.ZERO)
+            ExpressionNumberSign.ZERO,
+            ExpressionNumberSign.pick(BigDecimal.ZERO)
         );
     }
 
     @Test
     public void testBigDecimalNegative() {
         assertSame(
-                ExpressionNumberSign.NEGATIVE,
-                ExpressionNumberSign.pick(BigDecimal.valueOf(-1))
+            ExpressionNumberSign.NEGATIVE,
+            ExpressionNumberSign.pick(BigDecimal.valueOf(-1))
         );
     }
 
     @Test
     public void testBigDecimalPositive() {
         assertSame(
-                ExpressionNumberSign.POSITIVE,
-                ExpressionNumberSign.pick(BigDecimal.ONE)
+            ExpressionNumberSign.POSITIVE,
+            ExpressionNumberSign.pick(BigDecimal.ONE)
         );
     }
 
     @Test
     public void testDoubleZero() {
         assertSame(
-                ExpressionNumberSign.ZERO,
-                ExpressionNumberSign.pick(0.0)
+            ExpressionNumberSign.ZERO,
+            ExpressionNumberSign.pick(0.0)
         );
     }
 
     @Test
     public void testDoubleNegative() {
         assertSame(
-                ExpressionNumberSign.NEGATIVE,
-                ExpressionNumberSign.pick(-1)
+            ExpressionNumberSign.NEGATIVE,
+            ExpressionNumberSign.pick(-1)
         );
     }
 
     @Test
     public void testDoublePositive() {
         assertSame(
-                ExpressionNumberSign.POSITIVE,
-                ExpressionNumberSign.pick(1)
+            ExpressionNumberSign.POSITIVE,
+            ExpressionNumberSign.pick(1)
         );
     }
 

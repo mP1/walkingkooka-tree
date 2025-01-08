@@ -30,8 +30,8 @@ public final class NodeSelectorParserContexts implements PublicStaticHelper {
     public static NodeSelectorParserContext basic(final ExpressionNumberKind kind,
                                                   final MathContext mathContext) {
         return BasicNodeSelectorParserContext.with(
-                kind,
-                mathContext
+            kind,
+            mathContext
         );
     }
 

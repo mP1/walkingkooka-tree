@@ -30,7 +30,7 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertSame;
 
 final public class AncestorNodeSelectorTest extends
-        AxisNodeSelectorTestCase<AncestorNodeSelector<TestNode, StringName, StringName, Object>> {
+    AxisNodeSelectorTestCase<AncestorNodeSelector<TestNode, StringName, StringName, Object>> {
 
     @Test
     public void testAncestorRoot() {
@@ -74,33 +74,33 @@ final public class AncestorNodeSelectorTest extends
     @Test
     public void testAncestorFilters() {
         final TestNode grandParent = TestNode.with("grandParent",
-                TestNode.with("parent",
-                        TestNode.with("child")));
+            TestNode.with("parent",
+                TestNode.with("child")));
 
         this.applyFilterAndCheck(TestNode.relativeNodeSelector()
-                        .ancestor(),
-                grandParent.child(0).child(0), // child
-                Predicates.never());
+                .ancestor(),
+            grandParent.child(0).child(0), // child
+            Predicates.never());
     }
 
     @Test
     public void testAncestorFilters2() {
         final TestNode grandParent = TestNode.with("grandParent",
-                TestNode.with("parent",
-                        TestNode.with("child")));
+            TestNode.with("parent",
+                TestNode.with("child")));
 
         this.applyFilterAndCheck(TestNode.relativeNodeSelector()
-                        .ancestor(),
-                grandParent.child(0).child(0), // child
-                (n) -> !n.name().value().startsWith("grandParent"),
-                "parent");
+                .ancestor(),
+            grandParent.child(0).child(0), // child
+            (n) -> !n.name().value().startsWith("grandParent"),
+            "parent");
     }
 
     @Test
     public void testAncestorFinishedTrue() {
         this.applyFinisherAndCheck(this.createSelector(),
-                TestNode.with("parent", TestNode.with("child")).child(0),
-                () -> true);
+            TestNode.with("parent", TestNode.with("child")).child(0),
+            () -> true);
     }
 
     @Test
@@ -110,26 +110,26 @@ final public class AncestorNodeSelectorTest extends
         final TestNode grandParent = TestNode.with("grandParent", parent);
 
         this.applyFinisherAndCheck(this.createSelector(),
-                grandParent.child(0).child(0),
-                1,
-                parent);
+            grandParent.child(0).child(0),
+            1,
+            parent);
     }
 
     @Test
     public void testAncestorMap() {
         final TestNode grandParent = TestNode.with("grand",
-                TestNode.with("parent1",
-                        TestNode.with("child1"), TestNode.with("child2")),
-                TestNode.with("parent2", TestNode.with("child3")));
+            TestNode.with("parent1",
+                TestNode.with("child1"), TestNode.with("child2")),
+            TestNode.with("parent2", TestNode.with("child3")));
 
         TestNode.clear();
 
         this.acceptMapAndCheck(grandParent.child(0).child(0),
-                TestNode.with("grand*1",
-                        TestNode.with("parent1*0",
-                                TestNode.with("child1"), TestNode.with("child2")),
-                        TestNode.with("parent2", TestNode.with("child3"))).child(0)
-                        .child(0));
+            TestNode.with("grand*1",
+                    TestNode.with("parent1*0",
+                        TestNode.with("child1"), TestNode.with("child2")),
+                    TestNode.with("parent2", TestNode.with("child3"))).child(0)
+                .child(0));
     }
 
     // NodeSelectorVisitor............................................................................................
@@ -182,10 +182,10 @@ final public class AncestorNodeSelectorTest extends
         this.checkEquals("1315242", b.toString());
 
         this.checkEquals(Lists.of(selector, selector,
-                        next, next, next,
-                        selector, selector),
-                visited,
-                "visited");
+                next, next, next,
+                selector, selector),
+            visited,
+            "visited");
     }
 
     // toString....................................................................................................

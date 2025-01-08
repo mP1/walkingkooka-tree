@@ -83,9 +83,9 @@ public final class TestNode implements Node<TestNode, StringName, StringName, Ob
         }
 
         return new TestNode(Names.string(name),
-                NO_PARENT,
-                copyChildren(Lists.of(children)),
-                Maps.empty());
+            NO_PARENT,
+            copyChildren(Lists.of(children)),
+            Maps.empty());
     }
 
     /**
@@ -138,8 +138,8 @@ public final class TestNode implements Node<TestNode, StringName, StringName, Ob
     @Override
     public TestNode removeParent() {
         return this.parent
-                .map(p -> new TestNode(this.name, NO_PARENT, copyChildren(children), this.attributes))
-                .orElse(this);
+            .map(p -> new TestNode(this.name, NO_PARENT, copyChildren(children), this.attributes))
+            .orElse(this);
     }
 
     @Override
@@ -159,9 +159,9 @@ public final class TestNode implements Node<TestNode, StringName, StringName, Ob
         Objects.requireNonNull(children, "children");
 
         return this.children.equals(children) ?
-                this :
-                new TestNode(this.name, NO_PARENT, copyChildren(children), this.attributes)
-                        .replace(this.parent, this.index);
+            this :
+            new TestNode(this.name, NO_PARENT, copyChildren(children), this.attributes)
+                .replace(this.parent, this.index);
     }
 
     public TestNode child(final int i) {
@@ -173,23 +173,23 @@ public final class TestNode implements Node<TestNode, StringName, StringName, Ob
      */
     private static List<TestNode> copyChildren(final List<TestNode> children) {
         return Lists.immutable(children.stream()
-                .map(TestNode::copy)
-                .collect(Collectors.toList())
+            .map(TestNode::copy)
+            .collect(Collectors.toList())
         );
     }
 
     private TestNode copy() {
         return new TestNode(this.name,
-                NO_PARENT,
-                copyChildren(this.children),
-                this.attributes);
+            NO_PARENT,
+            copyChildren(this.children),
+            this.attributes);
     }
 
     private final List<TestNode> children;
 
     private TestNode replace(final Optional<TestNode> previousParent, final int index) {
         return previousParent.map(p -> p.setChild(index, this).child(index))
-                .orElse(this);
+            .orElse(this);
     }
 
     /**
@@ -197,9 +197,9 @@ public final class TestNode implements Node<TestNode, StringName, StringName, Ob
      */
     public TestNode removeChild(final StringName name) {
         final List<TestNode> removed = this.children()
-                .stream()
-                .filter(c -> false == c.name().equals(name))
-                .collect(Collectors.toList());
+            .stream()
+            .filter(c -> false == c.name().equals(name))
+            .collect(Collectors.toList());
         if (removed.size() == this.children().size()) {
             throw new IllegalArgumentException("Child with name " + name + " missing");
         }
@@ -217,9 +217,9 @@ public final class TestNode implements Node<TestNode, StringName, StringName, Ob
 
         final Map<StringName, Object> copy = Maps.immutable(attributes);
         return this.attributes.equals(copy) ?
-                this :
-                new TestNode(this.name, NO_PARENT, copyChildren(this.children), copy)
-                        .replace(this.parent, this.index);
+            this :
+            new TestNode(this.name, NO_PARENT, copyChildren(this.children), copy)
+                .replace(this.parent, this.index);
     }
 
     private final Map<StringName, Object> attributes;
@@ -234,9 +234,9 @@ public final class TestNode implements Node<TestNode, StringName, StringName, Ob
 
     private boolean equals0(final TestNode other) {
         return this.name().equals(other.name()) &&
-                this.equalsParent(other.parent()) &&
-                this.equalsChildren(other.children()) &&
-                this.attributes().equals(other.attributes());
+            this.equalsParent(other.parent()) &&
+            this.equalsChildren(other.children()) &&
+            this.attributes().equals(other.attributes());
     }
 
     // check all properties, except for children of parent...
@@ -251,8 +251,8 @@ public final class TestNode implements Node<TestNode, StringName, StringName, Ob
 
                 // skip checking children...
                 equals = parent.name().equals(otherParent.name()) &&
-                        parent.equalsParent(otherParent.parent()) &&
-                        parent.attributes().equals(otherParent.attributes());
+                    parent.equalsParent(otherParent.parent()) &&
+                    parent.attributes().equals(otherParent.attributes());
             }
         } else {
             // both should have no parent.
@@ -283,8 +283,8 @@ public final class TestNode implements Node<TestNode, StringName, StringName, Ob
     // check all properties of children except for parent.
     private boolean equalsChild(final TestNode other) {
         return this.name().equals(other.name()) &&
-                this.equalsChildren(other.children()) &&
-                this.attributes().equals(other.attributes());
+            this.equalsChildren(other.children()) &&
+            this.attributes().equals(other.attributes());
     }
 
     @Override
@@ -318,8 +318,8 @@ public final class TestNode implements Node<TestNode, StringName, StringName, Ob
     public static NodeSelector<TestNode, StringName, StringName, Object> nodeSelectorExpressionParserToken(final NodeSelectorExpressionParserToken token,
                                                                                                            final Predicate<ExpressionFunctionName> functions) {
         return NodeSelector.parserToken(token,
-                n -> Names.string(n.value()),
-                functions,
-                TestNode.class);
+            n -> Names.string(n.value()),
+            functions,
+            TestNode.class);
     }
 }

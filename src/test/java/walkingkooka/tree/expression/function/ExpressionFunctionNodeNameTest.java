@@ -28,17 +28,17 @@ import walkingkooka.tree.expression.ExpressionEvaluationContext;
 import walkingkooka.tree.expression.FakeExpressionEvaluationContext;
 
 public final class ExpressionFunctionNodeNameTest extends ExpressionFunctionTestCase<ExpressionFunctionNodeName<ExpressionEvaluationContext>,
-        ExpressionEvaluationContext,
-        String> {
+    ExpressionEvaluationContext,
+    String> {
 
     private final static String NAME = "Abc123";
 
     @Test
     public void testExecuteFunction() {
         this.applyAndCheck2(this.createBiFunction(),
-                parameters(new TestFakeNode()),
-                this.createContext(),
-                NAME);
+            parameters(new TestFakeNode()),
+            this.createContext(),
+            NAME);
     }
 
     final static class TestFakeNode extends FakeNode<TestFakeNode, StringName, StringName, Object> {
@@ -78,8 +78,8 @@ public final class ExpressionFunctionNodeNameTest extends ExpressionFunctionTest
     @Test
     public void testToString() {
         this.toStringAndCheck(
-                this.createBiFunction(),
-                "name"
+            this.createBiFunction(),
+            "name"
         );
     }
 

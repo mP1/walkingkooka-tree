@@ -45,49 +45,49 @@ public final class ExpressionEvaluationContextDelegatorTest implements Expressio
     @Override
     public String currencySymbol() {
         return new TestExpressionEvaluationContextDelegator()
-                .currencySymbol();
+            .currencySymbol();
     }
 
     @Override
     public char decimalSeparator() {
         return new TestExpressionEvaluationContextDelegator()
-                .decimalSeparator();
+            .decimalSeparator();
     }
 
     @Override
     public String exponentSymbol() {
         return new TestExpressionEvaluationContextDelegator()
-                .exponentSymbol();
+            .exponentSymbol();
     }
 
     @Override
     public char groupSeparator() {
         return new TestExpressionEvaluationContextDelegator()
-                .groupSeparator();
+            .groupSeparator();
     }
 
     @Override
     public MathContext mathContext() {
         return new TestExpressionEvaluationContextDelegator()
-                .mathContext();
+            .mathContext();
     }
 
     @Override
     public char negativeSign() {
         return new TestExpressionEvaluationContextDelegator()
-                .negativeSign();
+            .negativeSign();
     }
 
     @Override
     public char percentageSymbol() {
         return new TestExpressionEvaluationContextDelegator()
-                .percentageSymbol();
+            .percentageSymbol();
     }
 
     @Override
     public char positiveSign() {
         return new TestExpressionEvaluationContextDelegator()
-                .positiveSign();
+            .positiveSign();
     }
 
     // class............................................................................................................
@@ -102,32 +102,32 @@ public final class ExpressionEvaluationContextDelegatorTest implements Expressio
         @Override
         public ExpressionEvaluationContext expressionEvaluationContext() {
             return ExpressionEvaluationContexts.basic(
-                    ExpressionNumberKind.BIG_DECIMAL,
-                    (fn) -> {
-                        Objects.requireNonNull(fn, "fn");
-                        throw new UnsupportedOperationException();
-                    },
-                    (rr) -> {
-                        Objects.requireNonNull(rr, "rr");
-                        throw rr;
-                    },
-                    (ref) -> {
-                        Objects.requireNonNull(ref, "ref");
-                        throw new UnsupportedOperationException();
-                    },
-                    ExpressionEvaluationContexts.referenceNotFound(),
-                    CaseSensitivity.SENSITIVE,
-                    ConverterContexts.basic(
-                            0,
-                            Converters.fake(),
-                            DateTimeContexts.locale(
-                                    Locale.ENGLISH,
-                                    1900,
-                                    50,
-                                    LocalDateTime::now
-                            ),
-                            DecimalNumberContexts.american(MathContext.DECIMAL32)
-                    )
+                ExpressionNumberKind.BIG_DECIMAL,
+                (fn) -> {
+                    Objects.requireNonNull(fn, "fn");
+                    throw new UnsupportedOperationException();
+                },
+                (rr) -> {
+                    Objects.requireNonNull(rr, "rr");
+                    throw rr;
+                },
+                (ref) -> {
+                    Objects.requireNonNull(ref, "ref");
+                    throw new UnsupportedOperationException();
+                },
+                ExpressionEvaluationContexts.referenceNotFound(),
+                CaseSensitivity.SENSITIVE,
+                ConverterContexts.basic(
+                    0,
+                    Converters.fake(),
+                    DateTimeContexts.locale(
+                        Locale.ENGLISH,
+                        1900,
+                        50,
+                        LocalDateTime::now
+                    ),
+                    DecimalNumberContexts.american(MathContext.DECIMAL32)
+                )
             );
         }
 

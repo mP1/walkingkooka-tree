@@ -31,7 +31,7 @@ import static org.junit.jupiter.api.Assertions.assertSame;
 public final class ExpressionEvaluationContextPrepareParametersListTest extends ExpressionEvaluationContextPrepareParametersListTestCase<ExpressionEvaluationContextPrepareParametersList> {
 
     private final static Set<ExpressionFunctionParameterKind> CONVERT = Sets.of(
-            ExpressionFunctionParameterKind.CONVERT
+        ExpressionFunctionParameterKind.CONVERT
     );
 
     @Test
@@ -39,26 +39,26 @@ public final class ExpressionEvaluationContextPrepareParametersListTest extends 
         final List<Object> values = Lists.empty();
 
         assertSame(
+            values,
+            ExpressionEvaluationContextPrepareParametersList.with(
+                Lists.empty(),
                 values,
-                ExpressionEvaluationContextPrepareParametersList.with(
-                        Lists.empty(),
-                        values,
-                        ExpressionEvaluationContexts.fake()
-                )
+                ExpressionEvaluationContexts.fake()
+            )
         );
     }
 
     @Test
     public void testGetVariable() {
         final List<Object> list = ExpressionEvaluationContextPrepareParametersList.with(
-                Lists.of(
-                        VARIABLE
-                ),
-                Lists.of(
-                        100,
-                        200
-                ),
-                ExpressionEvaluationContexts.fake()
+            Lists.of(
+                VARIABLE
+            ),
+            Lists.of(
+                100,
+                200
+            ),
+            ExpressionEvaluationContexts.fake()
         );
         this.getAndCheck(list, 0, 100);
         this.getAndCheck(list, 1, 200);
@@ -68,17 +68,17 @@ public final class ExpressionEvaluationContextPrepareParametersListTest extends 
     @Test
     public void testNotEmptyNotFlattenSomeConverted() {
         final List<Object> list = ExpressionEvaluationContextPrepareParametersList.with(
-                Lists.of(
-                        REQUIRED.setKinds(CONVERT),
-                        OPTIONAL
-                ),
-                Lists.of(
-                        "Ten",
-                        "Twenty"
-                ),
-                this.createContextWhichConverts(
-                        "Ten", 10
-                )
+            Lists.of(
+                REQUIRED.setKinds(CONVERT),
+                OPTIONAL
+            ),
+            Lists.of(
+                "Ten",
+                "Twenty"
+            ),
+            this.createContextWhichConverts(
+                "Ten", 10
+            )
         );
         this.getAndCheck(list, 0, 10);
         this.getAndCheck(list, 1, "Twenty");
@@ -88,20 +88,20 @@ public final class ExpressionEvaluationContextPrepareParametersListTest extends 
     @Test
     public void testNotEmptyNotFlatten() {
         final List<Object> list = ExpressionEvaluationContextPrepareParametersList.with(
-                Lists.of(
-                        REQUIRED.setKinds(CONVERT),
-                        OPTIONAL.setKinds(CONVERT)
-                ),
-                Lists.of(
-                        "Ten",
-                        "Twenty"
-                ),
-                this.createContextWhichConverts(
-                        Maps.of(
-                                "Ten", 10,
-                                "Twenty", 20L
-                        )
+            Lists.of(
+                REQUIRED.setKinds(CONVERT),
+                OPTIONAL.setKinds(CONVERT)
+            ),
+            Lists.of(
+                "Ten",
+                "Twenty"
+            ),
+            this.createContextWhichConverts(
+                Maps.of(
+                    "Ten", 10,
+                    "Twenty", 20L
                 )
+            )
         );
         this.getAndCheck(list, 0, 10);
         this.getAndCheck(list, 1, 20L);
@@ -111,19 +111,19 @@ public final class ExpressionEvaluationContextPrepareParametersListTest extends 
     @Test
     public void testNotEmptyFlatten() {
         final List<Object> list = ExpressionEvaluationContextPrepareParametersList.with(
-                Lists.of(
-                        FLATTEN.setKinds(CONVERT)
-                ),
-                Lists.of(
-                        "Ten",
-                        "Twenty"
-                ),
-                this.createContextWhichConverts(
-                        Maps.of(
-                                "Ten", 10,
-                                "Twenty", 20
-                        )
+            Lists.of(
+                FLATTEN.setKinds(CONVERT)
+            ),
+            Lists.of(
+                "Ten",
+                "Twenty"
+            ),
+            this.createContextWhichConverts(
+                Maps.of(
+                    "Ten", 10,
+                    "Twenty", 20
                 )
+            )
         );
         this.getAndCheck(list, 0, 10);
         this.getAndCheck(list, 1, 20);
@@ -133,20 +133,20 @@ public final class ExpressionEvaluationContextPrepareParametersListTest extends 
     @Test
     public void testNotEmptyFlatten2() {
         final List<Object> list = ExpressionEvaluationContextPrepareParametersList.with(
-                Lists.of(
-                        REQUIRED.setKinds(CONVERT),
-                        FLATTEN.setKinds(CONVERT)
-                ),
-                Lists.of(
-                        "Ten",
-                        "Twenty"
-                ),
-                this.createContextWhichConverts(
-                        Maps.of(
-                                "Ten", 10,
-                                "Twenty", 20
-                        )
+            Lists.of(
+                REQUIRED.setKinds(CONVERT),
+                FLATTEN.setKinds(CONVERT)
+            ),
+            Lists.of(
+                "Ten",
+                "Twenty"
+            ),
+            this.createContextWhichConverts(
+                Maps.of(
+                    "Ten", 10,
+                    "Twenty", 20
                 )
+            )
         );
         this.getAndCheck(list, 0, 10);
         this.getAndCheck(list, 1, 20);
@@ -156,23 +156,23 @@ public final class ExpressionEvaluationContextPrepareParametersListTest extends 
     @Test
     public void testUnwrapNotEmpty() {
         final List<Object> list = ExpressionEvaluationContextPrepareParametersList.with(
+            Lists.of(
+                REQUIRED.setKinds(CONVERT)
+            ),
+            ExpressionEvaluationContextPrepareParametersList.with(
                 Lists.of(
-                        REQUIRED.setKinds(CONVERT)
+                    REQUIRED.setKinds(CONVERT)
                 ),
-                ExpressionEvaluationContextPrepareParametersList.with(
-                        Lists.of(
-                                REQUIRED.setKinds(CONVERT)
-                        ),
-                        Lists.of(
-                                "Ten"
-                        ),
-                        ExpressionEvaluationContexts.fake()
+                Lists.of(
+                    "Ten"
                 ),
-                this.createContextWhichConverts(
-                        Maps.of(
-                                "Ten", 10
-                        )
+                ExpressionEvaluationContexts.fake()
+            ),
+            this.createContextWhichConverts(
+                Maps.of(
+                    "Ten", 10
                 )
+            )
         );
         this.getAndCheck(list, 0, 10);
         this.sizeAndCheck(list, 1);

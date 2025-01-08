@@ -40,24 +40,24 @@ import static org.junit.jupiter.api.Assertions.fail;
  * Mixing interface that provides methods to test a {@link ExpressionFunction}
  */
 public interface ExpressionFunctionTesting<F extends ExpressionFunction<V, C>, V, C extends ExpressionEvaluationContext>
-        extends BiFunctionTesting<F, List<Object>, C, V>,
-        ExpressionPurityTesting,
-        TypeNameTesting<F> {
+    extends BiFunctionTesting<F, List<Object>, C, V>,
+    ExpressionPurityTesting,
+    TypeNameTesting<F> {
 
     @Test
     default void testName() {
         checkNotEquals(
-                null,
-                this.createBiFunction().name()
+            null,
+            this.createBiFunction().name()
         );
     }
 
     @Test
     default void testSetNameNullFails() {
         assertThrows(
-                NullPointerException.class,
-                () -> this.createBiFunction()
-                        .setName(null)
+            NullPointerException.class,
+            () -> this.createBiFunction()
+                .setName(null)
         );
     }
 
@@ -65,17 +65,17 @@ public interface ExpressionFunctionTesting<F extends ExpressionFunction<V, C>, V
     default void testSetNameSame() {
         final F function = this.createBiFunction();
         assertSame(
-                function,
-                function.setName(function.name())
+            function,
+            function.setName(function.name())
         );
     }
 
     @Test
     default void testSetParametersNullFails() {
         assertThrows(
-                NullPointerException.class,
-                () -> this.createBiFunction()
-                        .setParameters(null)
+            NullPointerException.class,
+            () -> this.createBiFunction()
+                .setParameters(null)
         );
     }
 
@@ -83,34 +83,34 @@ public interface ExpressionFunctionTesting<F extends ExpressionFunction<V, C>, V
     default void testSetParametersSame() {
         final F function = this.createBiFunction();
         assertSame(
-                function,
-                function.setParameters(
-                        function.parameters(0)
-                )
+            function,
+            function.setParameters(
+                function.parameters(0)
+            )
         );
     }
-    
+
     @Test
     default void testParameterNamesUnique() {
         final F function = this.createBiFunction();
         final List<ExpressionFunctionParameter<?>> parameters = function.parameters(this.minimumParameterCount());
 
         this.checkEquals(
-                parameters.stream()
-                        .map(ExpressionFunctionParameter::name)
-                        .distinct()
-                        .collect(Collectors.toList()),
-                parameters.stream()
-                        .map(ExpressionFunctionParameter::name)
-                        .collect(Collectors.toList()),
-                "parameters includes duplicate parameter names"
+            parameters.stream()
+                .map(ExpressionFunctionParameter::name)
+                .distinct()
+                .collect(Collectors.toList()),
+            parameters.stream()
+                .map(ExpressionFunctionParameter::name)
+                .collect(Collectors.toList()),
+            "parameters includes duplicate parameter names"
         );
     }
 
     @Test
     default void testParametersOptionalNotBeforeRequired() {
         final List<ExpressionFunctionParameter<?>> parameters = this.createBiFunction()
-                .parameters(this.minimumParameterCount());
+            .parameters(this.minimumParameterCount());
 
         ExpressionFunctionParameter<?> previous = null;
 
@@ -135,21 +135,21 @@ public interface ExpressionFunctionTesting<F extends ExpressionFunction<V, C>, V
     @Test
     default void testParametersIfConvertTypeNotObject() {
         final List<ExpressionFunctionParameter<?>> parameters = this.createBiFunction()
-                .parameters(this.minimumParameterCount());
+            .parameters(this.minimumParameterCount());
 
         this.checkEquals(
-                Lists.empty(),
-                parameters.stream()
-                        .filter(p -> p.kinds().contains(ExpressionFunctionParameterKind.CONVERT))
-                        .filter(p -> p.type() == Object.class)
-                        .collect(Collectors.toList())
+            Lists.empty(),
+            parameters.stream()
+                .filter(p -> p.kinds().contains(ExpressionFunctionParameterKind.CONVERT))
+                .filter(p -> p.type() == Object.class)
+                .collect(Collectors.toList())
         );
     }
 
     @Test
     default void testParametersOnlyLastMayBeVariable() {
         final List<ExpressionFunctionParameter<?>> parameters = this.createBiFunction()
-                .parameters(this.minimumParameterCount());
+            .parameters(this.minimumParameterCount());
 
         final int secondLast = Math.max(0, parameters.size() - 1);
 
@@ -157,9 +157,9 @@ public interface ExpressionFunctionTesting<F extends ExpressionFunction<V, C>, V
             final ExpressionFunctionParameter<?> parameter = parameters.get(i);
 
             this.checkNotEquals(
-                    ExpressionFunctionParameterCardinality.VARIABLE,
-                    parameter.cardinality(),
-                    () -> "non last parameter is variable=" + parameter
+                ExpressionFunctionParameterCardinality.VARIABLE,
+                parameter.cardinality(),
+                () -> "non last parameter is variable=" + parameter
             );
         }
     }
@@ -167,7 +167,7 @@ public interface ExpressionFunctionTesting<F extends ExpressionFunction<V, C>, V
     @Test
     default void testParametersOnlyLastMayHaveFlatten() {
         final List<ExpressionFunctionParameter<?>> parameters = this.createBiFunction()
-                .parameters(this.minimumParameterCount());
+            .parameters(this.minimumParameterCount());
 
         final int secondLast = Math.max(0, parameters.size() - 1);
 
@@ -175,9 +175,9 @@ public interface ExpressionFunctionTesting<F extends ExpressionFunction<V, C>, V
             final ExpressionFunctionParameter<?> parameter = parameters.get(i);
 
             this.checkEquals(
-                    false,
-                    parameter.kinds().contains(ExpressionFunctionParameterKind.FLATTEN),
-                    () -> "non last parameter has flatten=" + parameter
+                false,
+                parameter.kinds().contains(ExpressionFunctionParameterKind.FLATTEN),
+                () -> "non last parameter has flatten=" + parameter
             );
         }
     }
@@ -185,17 +185,17 @@ public interface ExpressionFunctionTesting<F extends ExpressionFunction<V, C>, V
     @Test
     default void testParametersFlattenMustBeVariable() {
         final List<ExpressionFunctionParameter<?>> parameters = this.createBiFunction()
-                .parameters(this.minimumParameterCount());
+            .parameters(this.minimumParameterCount());
         if (parameters.size() > 0) {
             final ExpressionFunctionParameter<?> last = parameters.get(
-                    parameters.size() - 1
+                parameters.size() - 1
             );
 
             if (last.kinds().contains(ExpressionFunctionParameterKind.FLATTEN)) {
                 this.checkEquals(
-                        ExpressionFunctionParameterCardinality.VARIABLE,
-                        last.cardinality(),
-                        () -> "last parameter has " + ExpressionFunctionParameterKind.FLATTEN + " but is not " + ExpressionFunctionParameterCardinality.VARIABLE + " " + last
+                    ExpressionFunctionParameterCardinality.VARIABLE,
+                    last.cardinality(),
+                    () -> "last parameter has " + ExpressionFunctionParameterKind.FLATTEN + " but is not " + ExpressionFunctionParameterCardinality.VARIABLE + " " + last
                 );
             }
         }
@@ -204,9 +204,9 @@ public interface ExpressionFunctionTesting<F extends ExpressionFunction<V, C>, V
     @Test
     default void testMapParameterValuesWithNullFunction() {
         assertThrows(
-                NullPointerException.class,
-                () -> this.createBiFunction()
-                        .mapParameterValues(null)
+            NullPointerException.class,
+            () -> this.createBiFunction()
+                .mapParameterValues(null)
         );
     }
 
@@ -215,26 +215,26 @@ public interface ExpressionFunctionTesting<F extends ExpressionFunction<V, C>, V
     default void applyAndCheck(final List<Object> parameters,
                                final V expected) {
         this.applyAndCheck(
-                parameters,
-                this.createContext(),
-                expected
+            parameters,
+            this.createContext(),
+            expected
         );
     }
 
     default V apply2(final Object... parameters) {
         return this.createBiFunction()
-                .apply(
-                        parameters(parameters),
-                        this.createContext()
-                );
+            .apply(
+                parameters(parameters),
+                this.createContext()
+            );
     }
 
     default void applyAndCheck2(final List<Object> parameters,
                                 final V result) {
         this.applyAndCheck2(
-                this.createBiFunction(),
-                parameters,
-                result
+            this.createBiFunction(),
+            parameters,
+            result
         );
     }
 
@@ -253,32 +253,32 @@ public interface ExpressionFunctionTesting<F extends ExpressionFunction<V, C>, V
                 switch (kind) {
                     case EVALUATE:
                         this.checkEquals(
-                                Lists.empty(),
-                                parameters.stream()
-                                        .filter(Expression.class::isInstance)
-                                        .collect(Collectors.toList()
-                                        ),
-                                () -> "Should not include parameter(s) of type " + Expression.class.getName()
+                            Lists.empty(),
+                            parameters.stream()
+                                .filter(Expression.class::isInstance)
+                                .collect(Collectors.toList()
+                                ),
+                            () -> "Should not include parameter(s) of type " + Expression.class.getName()
                         );
                         break;
                     case FLATTEN:
                         this.checkEquals(
-                                Lists.empty(),
-                                parameters.stream()
-                                        .filter(List.class::isInstance)
-                                        .collect(Collectors.toList()
-                                        ),
-                                () -> "Should not include parameter(s) of type " + List.class.getName()
+                            Lists.empty(),
+                            parameters.stream()
+                                .filter(List.class::isInstance)
+                                .collect(Collectors.toList()
+                                ),
+                            () -> "Should not include parameter(s) of type " + List.class.getName()
                         );
                         break;
                     case RESOLVE_REFERENCES:
                         this.checkEquals(
-                                Lists.empty(),
-                                parameters.stream()
-                                        .filter(ExpressionReference.class::isInstance)
-                                        .collect(Collectors.toList()
-                                        ),
-                                () -> "Should not include parameter(s) of type " + ExpressionReference.class.getName()
+                            Lists.empty(),
+                            parameters.stream()
+                                .filter(ExpressionReference.class::isInstance)
+                                .collect(Collectors.toList()
+                                ),
+                            () -> "Should not include parameter(s) of type " + ExpressionReference.class.getName()
                         );
                         break;
                     default:
@@ -288,14 +288,14 @@ public interface ExpressionFunctionTesting<F extends ExpressionFunction<V, C>, V
         }
 
         this.checkEquals(
-                result,
-                function.apply(parameters, context),
-                () -> "Wrong result for " +
-                        function +
-                        " for params: " +
-                        parameters.stream()
-                                .map(CharSequences::quoteIfChars)
-                                .collect(Collectors.joining(", "))
+            result,
+            function.apply(parameters, context),
+            () -> "Wrong result for " +
+                function +
+                " for params: " +
+                parameters.stream()
+                    .map(CharSequences::quoteIfChars)
+                    .collect(Collectors.joining(", "))
         );
     }
 

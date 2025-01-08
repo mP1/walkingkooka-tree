@@ -73,10 +73,10 @@ public final class GreaterThanEqualsExpressionTest extends CompareExpressionTest
         }.accept(gte);
         this.checkEquals("1315215242", b.toString());
         this.checkEquals(Lists.of(gte, gte,
-                        text1, text1, text1,
-                        text2, text2, text2,
-                        gte, gte),
-                visited);
+                text1, text1, text1,
+                text2, text2, text2,
+                gte, gte),
+            visited);
     }
 
     // evaluate.........................................................................................................

@@ -132,9 +132,9 @@ final class ExpressionNodeSelectorToStringExpressionVisitor extends ExpressionVi
         final NamedFunctionExpression namedFunctionExpression = (NamedFunctionExpression) callable;
 
         return this.namedFunction(
-                namedFunctionExpression.value()
-                        .value(),
-                node.value()
+            namedFunctionExpression.value()
+                .value(),
+            node.value()
         );
     }
 
@@ -239,8 +239,8 @@ final class ExpressionNodeSelectorToStringExpressionVisitor extends ExpressionVi
     private Visiting namedFunction(final String functionName,
                                    final Expression... parameters) {
         return this.namedFunction(
-                functionName,
-                Arrays.asList(parameters)
+            functionName,
+            Arrays.asList(parameters)
         );
     }
 

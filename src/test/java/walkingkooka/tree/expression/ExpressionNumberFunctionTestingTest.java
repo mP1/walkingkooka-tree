@@ -39,17 +39,17 @@ public final class ExpressionNumberFunctionTestingTest implements Testing {
                     throw new UnsupportedOperationException();
                 }
             }.mapBigDecimalAndCheck(
-                    new FakeExpressionNumberFunction() {
-                        @Override
-                        public BigDecimal mapBigDecimal(final BigDecimal value,
-                                                        final MathContext c) {
-                            assertSame(context, c);
-                            return value.multiply(BigDecimal.TEN);
-                        }
-                    },
-                    BigDecimal.TEN,
-                    context,
-                    BigDecimal.valueOf(100)
+                new FakeExpressionNumberFunction() {
+                    @Override
+                    public BigDecimal mapBigDecimal(final BigDecimal value,
+                                                    final MathContext c) {
+                        assertSame(context, c);
+                        return value.multiply(BigDecimal.TEN);
+                    }
+                },
+                BigDecimal.TEN,
+                context,
+                BigDecimal.valueOf(100)
             );
         }
     }
@@ -65,16 +65,16 @@ public final class ExpressionNumberFunctionTestingTest implements Testing {
                     throw new UnsupportedOperationException();
                 }
             }.mapBigDecimalAndCheck(
-                    new FakeExpressionNumberFunction() {
-                        @Override
-                        public BigDecimal mapBigDecimal(final BigDecimal value,
-                                                        final MathContext c) {
-                            return value.multiply(BigDecimal.TEN);
-                        }
-                    },
-                    BigDecimal.TEN,
-                    new MathContext(32, RoundingMode.HALF_UP),
-                    BigDecimal.valueOf(-1)
+                new FakeExpressionNumberFunction() {
+                    @Override
+                    public BigDecimal mapBigDecimal(final BigDecimal value,
+                                                    final MathContext c) {
+                        return value.multiply(BigDecimal.TEN);
+                    }
+                },
+                BigDecimal.TEN,
+                new MathContext(32, RoundingMode.HALF_UP),
+                BigDecimal.valueOf(-1)
             );
             failed = false;
         } catch (final Throwable expected) {
@@ -91,14 +91,14 @@ public final class ExpressionNumberFunctionTestingTest implements Testing {
                 throw new UnsupportedOperationException();
             }
         }.mapDoubleAndCheck(
-                new FakeExpressionNumberFunction() {
-                    @Override
-                    public double mapDouble(final double value) {
-                        return value * 2;
-                    }
-                },
-                10.0,
-                20.0
+            new FakeExpressionNumberFunction() {
+                @Override
+                public double mapDouble(final double value) {
+                    return value * 2;
+                }
+            },
+            10.0,
+            20.0
         );
     }
 
@@ -113,14 +113,14 @@ public final class ExpressionNumberFunctionTestingTest implements Testing {
                     throw new UnsupportedOperationException();
                 }
             }.mapDoubleAndCheck(
-                    new FakeExpressionNumberFunction() {
-                        @Override
-                        public double mapDouble(final double value) {
-                            return value * 10;
-                        }
-                    },
-                    10.0,
-                    -1.0
+                new FakeExpressionNumberFunction() {
+                    @Override
+                    public double mapDouble(final double value) {
+                        return value * 10;
+                    }
+                },
+                10.0,
+                -1.0
             );
             failed = false;
         } catch (final Throwable expected) {

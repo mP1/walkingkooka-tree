@@ -55,21 +55,21 @@ final public class NamedFunctionExpression extends LeafExpression<ExpressionFunc
 
     public NamedFunctionExpression setValue(final ExpressionFunctionName value) {
         return Objects.equals(this.value(), value) ?
-                this :
-                this.replaceValue(value);
+            this :
+            this.replaceValue(value);
     }
 
     private NamedFunctionExpression replaceValue(final ExpressionFunctionName value) {
         return this.replace1(this.index, value)
-                .replaceChild(this.parent())
-                .cast();
+            .replaceChild(this.parent())
+            .cast();
     }
 
     @Override
     public NamedFunctionExpression replace(final int index) {
         return this.replace1(
-                index,
-                this.value()
+            index,
+            this.value()
         );
     }
 
@@ -100,16 +100,16 @@ final public class NamedFunctionExpression extends LeafExpression<ExpressionFunc
     @Override
     public boolean toBoolean(final ExpressionEvaluationContext context) {
         return context.convertOrFail(
-                this.value(),
-                Boolean.class
+            this.value(),
+            Boolean.class
         );
     }
 
     @Override
     public ExpressionNumber toExpressionNumber(final ExpressionEvaluationContext context) {
         return context.convertOrFail(
-                this.value(),
-                ExpressionNumber.class
+            this.value(),
+            ExpressionNumber.class
         );
     }
 

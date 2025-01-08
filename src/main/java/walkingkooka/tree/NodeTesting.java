@@ -42,47 +42,47 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
  * A mixin interface that contains tests and helpers to assist testing of {@link Node} implementations..
  */
 public interface NodeTesting<N extends Node<N, NAME, ANAME, AVALUE>,
-        NAME extends Name,
-        ANAME extends Name,
-        AVALUE>
-        extends
-        NodeSelectorTesting<N, NAME, ANAME, AVALUE>,
-        TraversableTesting2<N>,
-        VisitableTesting<N> {
+    NAME extends Name,
+    ANAME extends Name,
+    AVALUE>
+    extends
+    NodeSelectorTesting<N, NAME, ANAME, AVALUE>,
+    TraversableTesting2<N>,
+    VisitableTesting<N> {
 
     @Test
     default void testPublicStaticMethodAbsoluteNodeSelector() throws Exception {
         final Method method = Arrays.stream(this.type().getMethods())
-                .filter(MethodAttributes.STATIC::is)
-                .filter(m -> m.getReturnType() == NodeSelector.class)
-                .filter(m -> m.getName().equals("absoluteNodeSelector"))
-                .filter(m -> m.getParameterTypes().length == 0)
-                .findFirst()
-                .orElseThrow(() -> new AssertionError("Unable to find static method NodeSelector absoluteNodeSelector()"));
+            .filter(MethodAttributes.STATIC::is)
+            .filter(m -> m.getReturnType() == NodeSelector.class)
+            .filter(m -> m.getName().equals("absoluteNodeSelector"))
+            .filter(m -> m.getParameterTypes().length == 0)
+            .findFirst()
+            .orElseThrow(() -> new AssertionError("Unable to find static method NodeSelector absoluteNodeSelector()"));
         this.checkNotEquals(null, method.invoke(null));
     }
 
     @Test
     default void testPublicStaticMethodRelativeNodeSelector() throws Exception {
         final Method method = Arrays.stream(this.type().getMethods())
-                .filter(MethodAttributes.STATIC::is)
-                .filter(m -> m.getReturnType() == NodeSelector.class)
-                .filter(m -> m.getName().equals("relativeNodeSelector"))
-                .filter(m -> m.getParameterTypes().length == 0)
-                .findFirst()
-                .orElseThrow(() -> new AssertionError("Unable to find static method NodeSelector relativeNodeSelector()"));
+            .filter(MethodAttributes.STATIC::is)
+            .filter(m -> m.getReturnType() == NodeSelector.class)
+            .filter(m -> m.getName().equals("relativeNodeSelector"))
+            .filter(m -> m.getParameterTypes().length == 0)
+            .findFirst()
+            .orElseThrow(() -> new AssertionError("Unable to find static method NodeSelector relativeNodeSelector()"));
         this.checkNotEquals(null, method.invoke(null));
     }
 
     @Test
     default void testPublicStaticMethodNodeSelectorExpressionParserToken() {
         Arrays.stream(this.type().getMethods())
-                .filter(MethodAttributes.STATIC::is)
-                .filter(m -> m.getReturnType() == NodeSelector.class)
-                .filter(m -> m.getName().equals("nodeSelectorExpressionParserToken"))
-                .filter(m -> Arrays.equals(m.getParameterTypes(), new Object[]{NodeSelectorExpressionParserToken.class, Predicate.class}))
-                .findFirst()
-                .orElseThrow(() -> new AssertionError("Unable to find static method NodeSelector nodeSelectorExpressionParserToken(NodeSelectorExpressionParserToken, Predicate)"));
+            .filter(MethodAttributes.STATIC::is)
+            .filter(m -> m.getReturnType() == NodeSelector.class)
+            .filter(m -> m.getName().equals("nodeSelectorExpressionParserToken"))
+            .filter(m -> Arrays.equals(m.getParameterTypes(), new Object[]{NodeSelectorExpressionParserToken.class, Predicate.class}))
+            .findFirst()
+            .orElseThrow(() -> new AssertionError("Unable to find static method NodeSelector nodeSelectorExpressionParserToken(NodeSelectorExpressionParserToken, Predicate)"));
     }
 
     @Test
@@ -119,8 +119,8 @@ public interface NodeTesting<N extends Node<N, NAME, ANAME, AVALUE>,
         final N node = this.createNode();
 
         assertThrows(
-                NullPointerException.class,
-                () -> node.setChildren(null)
+            NullPointerException.class,
+            () -> node.setChildren(null)
         );
     }
 
@@ -129,8 +129,8 @@ public interface NodeTesting<N extends Node<N, NAME, ANAME, AVALUE>,
         final N node = this.createNode();
 
         assertThrows(
-                IndexOutOfBoundsException.class,
-                () -> node.setChild(-1, node)
+            IndexOutOfBoundsException.class,
+            () -> node.setChild(-1, node)
         );
     }
 
@@ -139,11 +139,11 @@ public interface NodeTesting<N extends Node<N, NAME, ANAME, AVALUE>,
         final N node = this.createNode();
 
         assertThrows(
-                NullPointerException.class,
-                () -> node.setChild(
-                        0,
-                        null
-                )
+            NullPointerException.class,
+            () -> node.setChild(
+                0,
+                null
+            )
         );
     }
 
@@ -152,11 +152,11 @@ public interface NodeTesting<N extends Node<N, NAME, ANAME, AVALUE>,
         final N node = this.createNode();
 
         assertThrows(
-                NullPointerException.class,
-                () -> node.setChild(
-                        null,
-                        node
-                )
+            NullPointerException.class,
+            () -> node.setChild(
+                null,
+                node
+            )
         );
     }
 
@@ -165,11 +165,11 @@ public interface NodeTesting<N extends Node<N, NAME, ANAME, AVALUE>,
         final N node = this.createNode();
 
         assertThrows(
-                NullPointerException.class,
-                () -> node.setChild(
-                        node.name(),
-                        null
-                )
+            NullPointerException.class,
+            () -> node.setChild(
+                node.name(),
+                null
+            )
         );
     }
 
@@ -180,11 +180,11 @@ public interface NodeTesting<N extends Node<N, NAME, ANAME, AVALUE>,
         final N node = this.createNode();
 
         assertThrows(
-                NullPointerException.class,
-                () -> node.replaceIf(
-                        null,
-                        Function.identity() // mapper
-                )
+            NullPointerException.class,
+            () -> node.replaceIf(
+                null,
+                Function.identity() // mapper
+            )
         );
     }
 
@@ -193,11 +193,11 @@ public interface NodeTesting<N extends Node<N, NAME, ANAME, AVALUE>,
         final N node = this.createNode();
 
         assertThrows(
-                NullPointerException.class,
-                () -> node.replaceIf(
-                        Predicates.fake(),
-                        null // mapper
-                )
+            NullPointerException.class,
+            () -> node.replaceIf(
+                Predicates.fake(),
+                null // mapper
+            )
         );
     }
 
@@ -205,11 +205,11 @@ public interface NodeTesting<N extends Node<N, NAME, ANAME, AVALUE>,
     default void testReplaceIfNeverPredicate() {
         final N node = this.createNode();
         assertSame(
-                node,
-                node.replaceIf(
-                        Predicates.never(),
-                        Function.identity()
-                )
+            node,
+            node.replaceIf(
+                Predicates.never(),
+                Function.identity()
+            )
         );
     }
 
@@ -217,18 +217,18 @@ public interface NodeTesting<N extends Node<N, NAME, ANAME, AVALUE>,
     default void testReplaceIfIdentityMapper() {
         final N node = this.createNode();
         assertSame(
-                node,
-                node.replaceIf(
-                        Predicates.always(),
-                        Function.identity()
-                )
+            node,
+            node.replaceIf(
+                Predicates.always(),
+                Function.identity()
+            )
         );
     }
 
     @Test
     default void testPropertiesNeverReturnNull() throws Exception {
         this.allPropertiesNeverReturnNullCheck(this.createNode(),
-                (m) -> m.getName().equals("parentOrFail") || m.getName().equals("removeParent"));
+            (m) -> m.getName().equals("parentOrFail") || m.getName().equals("removeParent"));
     }
 
     @Test
@@ -281,8 +281,8 @@ public interface NodeTesting<N extends Node<N, NAME, ANAME, AVALUE>,
 
     default void replaceAndCheck(final N node, final N replaceWith, final N result) {
         this.checkEquals(result,
-                node.replace(replaceWith),
-                () -> node + " replace with " + replaceWith);
+            node.replace(replaceWith),
+            () -> node + " replace with " + replaceWith);
         this.checkEquals(result.pointer(), node.pointer(), () -> "pointer for\n" + node + "\n" + result);
     }
 
@@ -293,12 +293,12 @@ public interface NodeTesting<N extends Node<N, NAME, ANAME, AVALUE>,
                                    final Function<N, N> mapper,
                                    final N result) {
         this.checkEquals(
-                result,
-                node.replaceIf(
-                        predicate,
-                        mapper
-                ),
-                () -> node + " replaceIf " + predicate + " " + mapper
+            result,
+            node.replaceIf(
+                predicate,
+                mapper
+            ),
+            () -> node + " replaceIf " + predicate + " " + mapper
         );
     }
 

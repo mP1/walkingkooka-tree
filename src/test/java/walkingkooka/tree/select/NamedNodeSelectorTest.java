@@ -31,7 +31,7 @@ import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 final public class NamedNodeSelectorTest extends
-        NamedOrNodePredicateNodeSelectorTestCase<NamedNodeSelector<TestNode, StringName, StringName, Object>> {
+    NamedOrNodePredicateNodeSelectorTestCase<NamedNodeSelector<TestNode, StringName, StringName, Object>> {
 
     @Test
     public void testWithNullNameFails() {
@@ -131,8 +131,8 @@ final public class NamedNodeSelectorTest extends
         final TestNode parent = TestNode.with("parent", child1, TestNode.with("skip"));
 
         this.applyAndCheck(TestNode.absoluteNodeSelector().children().named(child1.name()),
-                parent,
-                child1);
+            parent,
+            child1);
     }
 
     @Test
@@ -143,8 +143,8 @@ final public class NamedNodeSelectorTest extends
         final TestNode parent = TestNode.with("parent", TestNode.with("skip"), child2);
 
         this.applyAndCheck(TestNode.absoluteNodeSelector().children().named(child2.name()),
-                parent,
-                child2);
+            parent,
+            child2);
     }
 
     @Test
@@ -156,8 +156,8 @@ final public class NamedNodeSelectorTest extends
         final TestNode parent = TestNode.with("parent", child1, TestNode.with("skip"), child2);
 
         this.applyAndCheck(TestNode.absoluteNodeSelector().children().named(child2.name()),
-                parent,
-                child1, child2);
+            parent,
+            child1, child2);
     }
 
     @Test
@@ -168,9 +168,9 @@ final public class NamedNodeSelectorTest extends
         TestNode.clear();
 
         this.acceptMapAndCheck(TestNode.relativeNodeSelector().named(child1.name()),
-                parent.child(0),
-                TestNode.with("parent", TestNode.with(child1.name().value() + "*0"), TestNode.with("child"))
-                        .child(0));
+            parent.child(0),
+            TestNode.with("parent", TestNode.with(child1.name().value() + "*0"), TestNode.with("child"))
+                .child(0));
     }
 
     @Test
@@ -181,10 +181,10 @@ final public class NamedNodeSelectorTest extends
         TestNode.clear();
 
         this.acceptMapAndCheck(TestNode.absoluteNodeSelector().children().named(child.name()),
-                parent,
-                TestNode.with("parent",
-                        TestNode.with("child1*0", TestNode.with("grandChild")),
-                        TestNode.with("child2")));
+            parent,
+            TestNode.with("parent",
+                TestNode.with("child1*0", TestNode.with("grandChild")),
+                TestNode.with("child2")));
     }
 
     @Test
@@ -196,11 +196,11 @@ final public class NamedNodeSelectorTest extends
         final TestNode parent = TestNode.with("parent", child1, TestNode.with("skip"), child2);
 
         this.acceptMapAndCheck(TestNode.absoluteNodeSelector().children().named(child1.name()),
-                parent,
-                TestNode.with("parent",
-                        TestNode.with("child*0", TestNode.with("grandChild1")),
-                        TestNode.with("skip"),
-                        TestNode.with("child*1", TestNode.with("grandChild2"))));
+            parent,
+            TestNode.with("parent",
+                TestNode.with("child*0", TestNode.with("grandChild1")),
+                TestNode.with("skip"),
+                TestNode.with("child*1", TestNode.with("grandChild2"))));
     }
 
     @Test
@@ -263,10 +263,10 @@ final public class NamedNodeSelectorTest extends
         this.checkEquals("1315242", b.toString());
 
         this.checkEquals(Lists.of(selector, selector,
-                        next, next, next,
-                        selector, selector),
-                visited,
-                "visited");
+                next, next, next,
+                selector, selector),
+            visited,
+            "visited");
     }
 
     @Test
@@ -282,45 +282,45 @@ final public class NamedNodeSelectorTest extends
     @Test
     public void testToStringNamedAndPredicate() {
         this.toStringAndCheck(TestNode.relativeNodeSelector()
-                        .named(Names.string("ABC"))
-                        .attributeValueStartsWith(Names.string("DEF"), "V1"),
-                "ABC[starts-with(@DEF,\"V1\")]");
+                .named(Names.string("ABC"))
+                .attributeValueStartsWith(Names.string("DEF"), "V1"),
+            "ABC[starts-with(@DEF,\"V1\")]");
     }
 
     @Test
     public void testToStringChildrenNamed() {
         this.toStringAndCheck(TestNode.relativeNodeSelector()
-                        .children()
-                        .named(Names.string("ABC")),
-                "child::ABC");
+                .children()
+                .named(Names.string("ABC")),
+            "child::ABC");
     }
 
     @Test
     public void testToStringChildrenNamedAndPredicate() {
         this.toStringAndCheck(TestNode.relativeNodeSelector()
-                        .children()
-                        .named(Names.string("ABC"))
-                        .attributeValueStartsWith(Names.string("DEF"), "V1"),
-                "child::ABC[starts-with(@DEF,\"V1\")]");
+                .children()
+                .named(Names.string("ABC"))
+                .attributeValueStartsWith(Names.string("DEF"), "V1"),
+            "child::ABC[starts-with(@DEF,\"V1\")]");
     }
 
     @Test
     public void testToStringNamedChildrenNamed() {
         this.toStringAndCheck(TestNode.relativeNodeSelector()
-                        .named(Names.string("ABC"))
-                        .children()
-                        .named(Names.string("DEF")),
-                "ABC/child::DEF");
+                .named(Names.string("ABC"))
+                .children()
+                .named(Names.string("DEF")),
+            "ABC/child::DEF");
     }
 
     @Test
     public void testToStringChildrenNamedChildrenNamed() {
         this.toStringAndCheck(TestNode.relativeNodeSelector()
-                        .children()
-                        .named(Names.string("ABC"))
-                        .children()
-                        .named(Names.string("DEF")),
-                "child::ABC/child::DEF");
+                .children()
+                .named(Names.string("ABC"))
+                .children()
+                .named(Names.string("DEF")),
+            "child::ABC/child::DEF");
     }
 
     @Override

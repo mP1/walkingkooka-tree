@@ -85,11 +85,11 @@ public final class NodeSelectorNegativeParserTokenTest extends NodeSelectorParen
 
         this.checkEquals("1315216242", b.toString());
         this.checkEquals(Lists.<Object>of(negative, negative,
-                        minus, minus, minus,
-                        number, number, number,
-                        negative, negative),
-                visited,
-                "visited");
+                minus, minus, minus,
+                number, number, number,
+                negative, negative),
+            visited,
+            "visited");
     }
 
     @Override

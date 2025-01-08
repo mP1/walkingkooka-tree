@@ -29,76 +29,76 @@ public final class ExpressionFunctionNameComparatorTest implements ComparatorTes
     @Test
     public void testWithNullCaseSensitivityFails() {
         assertThrows(
-                NullPointerException.class,
-                () -> ExpressionFunctionNameComparator.with(null)
+            NullPointerException.class,
+            () -> ExpressionFunctionNameComparator.with(null)
         );
     }
 
     @Test
     public void testWithSensitiveCached() {
         assertSame(
-                ExpressionFunctionNameComparator.with(CaseSensitivity.SENSITIVE),
-                ExpressionFunctionNameComparator.with(CaseSensitivity.SENSITIVE)
+            ExpressionFunctionNameComparator.with(CaseSensitivity.SENSITIVE),
+            ExpressionFunctionNameComparator.with(CaseSensitivity.SENSITIVE)
         );
     }
 
     @Test
     public void testWithInsensitiveCached() {
         assertSame(
-                ExpressionFunctionNameComparator.with(CaseSensitivity.INSENSITIVE),
-                ExpressionFunctionNameComparator.with(CaseSensitivity.INSENSITIVE)
+            ExpressionFunctionNameComparator.with(CaseSensitivity.INSENSITIVE),
+            ExpressionFunctionNameComparator.with(CaseSensitivity.INSENSITIVE)
         );
     }
 
     @Test
     public void testCompareEqualCaseSensitive() {
         this.compareAndCheckEquals(
-                ExpressionFunctionNameComparator.with(CaseSensitivity.SENSITIVE),
-                ExpressionFunctionName.with("hello"),
-                ExpressionFunctionName.with("hello")
+            ExpressionFunctionNameComparator.with(CaseSensitivity.SENSITIVE),
+            ExpressionFunctionName.with("hello"),
+            ExpressionFunctionName.with("hello")
         );
     }
 
     @Test
     public void testCompareEqualCaseInsensitive() {
         this.compareAndCheckEquals(
-                ExpressionFunctionNameComparator.with(CaseSensitivity.INSENSITIVE),
-                ExpressionFunctionName.with("HELLO"),
-                ExpressionFunctionName.with("hello")
+            ExpressionFunctionNameComparator.with(CaseSensitivity.INSENSITIVE),
+            ExpressionFunctionName.with("HELLO"),
+            ExpressionFunctionName.with("hello")
         );
     }
 
     @Test
     public void testCompareLessCaseSensitive() {
         this.compareAndCheckLess(
-                ExpressionFunctionNameComparator.with(CaseSensitivity.SENSITIVE),
-                ExpressionFunctionName.with("hello"),
-                ExpressionFunctionName.with("xyz")
+            ExpressionFunctionNameComparator.with(CaseSensitivity.SENSITIVE),
+            ExpressionFunctionName.with("hello"),
+            ExpressionFunctionName.with("xyz")
         );
     }
 
     @Test
     public void testCompareLessCaseInsensitive() {
         this.compareAndCheckLess(
-                ExpressionFunctionNameComparator.with(CaseSensitivity.INSENSITIVE),
-                ExpressionFunctionName.with("hello"),
-                ExpressionFunctionName.with("XYZ")
+            ExpressionFunctionNameComparator.with(CaseSensitivity.INSENSITIVE),
+            ExpressionFunctionName.with("hello"),
+            ExpressionFunctionName.with("XYZ")
         );
     }
 
     @Test
     public void testToStringSensitive() {
         this.toStringAndCheck(
-                ExpressionFunctionNameComparator.with(CaseSensitivity.SENSITIVE),
-                "ExpressionFunctionName CASE SENSITIVE"
+            ExpressionFunctionNameComparator.with(CaseSensitivity.SENSITIVE),
+            "ExpressionFunctionName CASE SENSITIVE"
         );
     }
 
     @Test
     public void testToStringInsensitive() {
         this.toStringAndCheck(
-                ExpressionFunctionNameComparator.with(CaseSensitivity.INSENSITIVE),
-                "ExpressionFunctionName CASE INSENSITIVE"
+            ExpressionFunctionNameComparator.with(CaseSensitivity.INSENSITIVE),
+            "ExpressionFunctionName CASE INSENSITIVE"
         );
     }
 

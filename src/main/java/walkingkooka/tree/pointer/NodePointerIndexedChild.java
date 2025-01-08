@@ -61,8 +61,8 @@ final class NodePointerIndexedChild<N extends Node<N, NAME, ?, ?>, NAME extends 
     N nextNodeOrNull(final N node) {
         final List<N> children = node.children();
         return this.index < children.size() ?
-                children.get(this.index) :
-                null;
+            children.get(this.index) :
+            null;
     }
 
     @Override

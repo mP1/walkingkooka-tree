@@ -29,16 +29,16 @@ import walkingkooka.tree.select.NodeSelectorException;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class NodeSelectorPredicateParserTokenNodeSelectorParserTokenVisitorTest implements NodeSelectorParserTokenVisitorTesting<NodeSelectorPredicateParserTokenNodeSelectorParserTokenVisitor>,
-        ThrowableTesting {
+    ThrowableTesting {
 
     @Test
     public void testUnknownFunctionFails() {
         final NodeSelectorFunctionParserToken token = NodeSelectorParserToken.function(Lists.of(NodeSelectorParserToken.functionName(NodeSelectorFunctionName.with("zyx"), "xyz"),
                 NodeSelectorParserToken.expressionNumber(ExpressionNumberKind.DEFAULT.create(123), "123")),
-                "xyz");
+            "xyz");
 
         final NodeSelectorException thrown = assertThrows(NodeSelectorException.class, () -> new NodeSelectorPredicateParserTokenNodeSelectorParserTokenVisitor(Predicates.never())
-                .accept(token));
+            .accept(token));
         checkMessage(thrown, "Unknown function \"zyx\" in \"xyz\"");
     }
 

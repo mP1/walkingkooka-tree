@@ -73,11 +73,11 @@ public final class SubtractExpressionTest extends ArithmeticExpressionTestCase2<
         }.accept(sub);
         this.checkEquals("1315215242", b.toString());
         this.checkEquals(Lists.of(sub, sub,
-                        text1, text1, text1,
-                        text2, text2, text2,
-                        sub, sub),
-                visited,
-                "visited");
+                text1, text1, text1,
+                text2, text2, text2,
+                sub, sub),
+            visited,
+            "visited");
     }
 
     // toBoolean....................................................................................................

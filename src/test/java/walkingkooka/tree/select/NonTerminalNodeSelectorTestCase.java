@@ -32,7 +32,7 @@ import java.util.stream.Collectors;
 import static org.junit.jupiter.api.Assertions.assertSame;
 
 public abstract class NonTerminalNodeSelectorTestCase<S extends NodeSelector<TestNode, StringName, StringName, Object>>
-        extends NodeSelectorTestCase4<S> {
+    extends NodeSelectorTestCase4<S> {
 
     NonTerminalNodeSelectorTestCase() {
         super();
@@ -41,8 +41,8 @@ public abstract class NonTerminalNodeSelectorTestCase<S extends NodeSelector<Tes
     @Test
     public final void testFinishedTrue() {
         this.applyFinisherAndCheck(this.createSelector(),
-                TestNode.with("self"),
-                () -> true);
+            TestNode.with("self"),
+            () -> true);
     }
 
     @Test
@@ -62,13 +62,13 @@ public abstract class NonTerminalNodeSelectorTestCase<S extends NodeSelector<Tes
                                            final String[] nodes) {
         final Set<TestNode> selected = Sets.ordered();
         assertSame(start,
-                selector.apply(start,
-                        context(Predicates.always(),
-                                selected::add)));
+            selector.apply(start,
+                context(Predicates.always(),
+                    selected::add)));
         final List<String> selectedNames = selected
-                .stream()
-                .map(n -> n.name().value())
-                .collect(Collectors.toList());
+            .stream()
+            .map(n -> n.name().value())
+            .collect(Collectors.toList());
         this.checkEquals(Lists.of(nodes), selectedNames, "names of selected nodes");
     }
 

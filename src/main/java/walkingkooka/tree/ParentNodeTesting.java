@@ -31,11 +31,11 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
  * A mixin interface that contains tests and helpers to assist testing of {@link Node} with children implementations..
  */
 public interface ParentNodeTesting<N extends Node<N, NAME, ANAME, AVALUE>,
-        NAME extends Name,
-        ANAME extends Name,
-        AVALUE>
-        extends
-        NodeTesting<N, NAME, ANAME, AVALUE> {
+    NAME extends Name,
+    ANAME extends Name,
+    AVALUE>
+    extends
+    NodeTesting<N, NAME, ANAME, AVALUE> {
 
     @Test
     default void testParentWithoutRoot() {

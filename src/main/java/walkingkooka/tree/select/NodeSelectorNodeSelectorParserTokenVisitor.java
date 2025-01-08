@@ -51,22 +51,22 @@ import java.util.function.Predicate;
  * This {@link NodeSelectorParserTokenVisitor} helps convert a {@link NodeSelectorParserToken} into a {@link NodeSelector}.
  */
 final class NodeSelectorNodeSelectorParserTokenVisitor<N extends Node<N, NAME, ANAME, AVALUE>, NAME extends Name, ANAME extends Name, AVALUE>
-        extends NodeSelectorParserTokenVisitor {
+    extends NodeSelectorParserTokenVisitor {
 
     static <N extends Node<N, NAME, ANAME, AVALUE>,
-            NAME extends Name,
-            ANAME extends Name, AVALUE> NodeSelector<N, NAME, ANAME, AVALUE> with(final NodeSelectorParserToken token,
-                                                                                  final Function<NodeSelectorNodeName, NAME> nameFactory,
-                                                                                  final Predicate<ExpressionFunctionName> functions,
-                                                                                  final Class<N> node) {
+        NAME extends Name,
+        ANAME extends Name, AVALUE> NodeSelector<N, NAME, ANAME, AVALUE> with(final NodeSelectorParserToken token,
+                                                                              final Function<NodeSelectorNodeName, NAME> nameFactory,
+                                                                              final Predicate<ExpressionFunctionName> functions,
+                                                                              final Class<N> node) {
         Objects.requireNonNull(token, "token");
         Objects.requireNonNull(nameFactory, "nameFactory");
         Objects.requireNonNull(functions, "functions");
         Objects.requireNonNull(node, "node");
 
         return new NodeSelectorNodeSelectorParserTokenVisitor<>(nameFactory,
-                functions,
-                node).acceptAndComplete(token);
+            functions,
+            node).acceptAndComplete(token);
     }
 
     /**

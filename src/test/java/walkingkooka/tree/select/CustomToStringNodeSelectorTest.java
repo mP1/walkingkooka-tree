@@ -68,9 +68,9 @@ final public class CustomToStringNodeSelectorTest extends NodeSelectorTestCase4<
         final String toString = "abc123!";
 
         final CustomToStringNodeSelector<TestNode, StringName, StringName, Object> custom = Cast.to(TestNode.relativeNodeSelector()
-                .parent()
-                .setToString(toString)
-                .append(SelfNodeSelector.get()));
+            .parent()
+            .setToString(toString)
+            .append(SelfNodeSelector.get()));
         this.toStringAndCheck(custom.selector, "../.");
     }
 
@@ -78,23 +78,23 @@ final public class CustomToStringNodeSelectorTest extends NodeSelectorTestCase4<
     public void testAppendCustomToStringNodeSelector() {
         final String toString = "abc123!";
         final NodeSelector<TestNode, StringName, StringName, Object> custom = TestNode.relativeNodeSelector()
-                .self()
-                .setToString(toString);
+            .self()
+            .setToString(toString);
 
         final ParentNodeSelector<TestNode, StringName, StringName, Object> parent = Cast.to(TestNode.relativeNodeSelector()
-                .parent()
-                .append(custom));
+            .parent()
+            .append(custom));
         this.checkEquals(parent.next, custom);
     }
 
     @Test
     public void testMap() {
         final TestNode parent = TestNode.with("parent",
-                TestNode.with("child1"), TestNode.with("child2"), TestNode.with("child3"));
+            TestNode.with("child1"), TestNode.with("child2"), TestNode.with("child3"));
 
         this.acceptMapAndCheck(TestNode.relativeNodeSelector().firstChild().setToString(TOSTRING),
-                parent,
-                parent.setChild(0, TestNode.with("child1*0")));
+            parent,
+            parent.setChild(0, TestNode.with("child1*0")));
     }
 
     @Test
@@ -112,10 +112,10 @@ final public class CustomToStringNodeSelectorTest extends NodeSelectorTestCase4<
         final String toString = "abc123!";
 
         this.toStringAndCheck(TestNode.relativeNodeSelector()
-                        .parent()
-                        .setToString(toString)
-                        .append(SelfNodeSelector.get()),
-                toString);
+                .parent()
+                .setToString(toString)
+                .append(SelfNodeSelector.get()),
+            toString);
     }
 
     @Test
@@ -123,8 +123,8 @@ final public class CustomToStringNodeSelectorTest extends NodeSelectorTestCase4<
         final String toString = "abc123!";
 
         this.toStringAndCheck(TestNode.relativeNodeSelector()
-                .parent()
-                .append(TestNode.relativeNodeSelector().self().setToString(toString)), "../" + toString);
+            .parent()
+            .append(TestNode.relativeNodeSelector().self().setToString(toString)), "../" + toString);
     }
 
     // Object..........................................................................................................

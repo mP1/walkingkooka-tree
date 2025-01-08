@@ -40,10 +40,10 @@ final class ExpressionFunctionCustomName<T, C extends ExpressionEvaluationContex
         Objects.requireNonNull(name, "name");
 
         return function.name().equals(name) ?
-                function :
-                function instanceof ExpressionFunctionCustomName ?
-                        unwrap(Cast.to(function), name) :
-                        new ExpressionFunctionCustomName<>(function, name);
+            function :
+            function instanceof ExpressionFunctionCustomName ?
+                unwrap(Cast.to(function), name) :
+                new ExpressionFunctionCustomName<>(function, name);
     }
 
     /**
@@ -99,26 +99,26 @@ final class ExpressionFunctionCustomName<T, C extends ExpressionEvaluationContex
     @Override
     public int hashCode() {
         return Objects.hash(
-                this.name,
-                this.function
+            this.name,
+            this.function
         );
     }
 
     @Override
     public boolean equals(final Object other) {
         return (this == other) ||
-                other instanceof ExpressionFunctionCustomName && this.equals0((ExpressionFunctionCustomName) other);
+            other instanceof ExpressionFunctionCustomName && this.equals0((ExpressionFunctionCustomName) other);
     }
 
     private boolean equals0(final ExpressionFunctionCustomName other) {
         return this.name.equals(other.name) &&
-                this.function.equals(other.function);
+            this.function.equals(other.function);
     }
 
     @Override
     public String toString() {
         return this.name()
-                .map(ExpressionFunctionName::value)
-                .orElse(ANONYMOUS);
+            .map(ExpressionFunctionName::value)
+            .orElse(ANONYMOUS);
     }
 }

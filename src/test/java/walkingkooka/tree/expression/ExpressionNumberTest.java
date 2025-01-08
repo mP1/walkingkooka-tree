@@ -128,7 +128,7 @@ public final class ExpressionNumberTest implements ClassTesting<ExpressionNumber
         final Class<?> type = null != value ? value.getClass() : null;
         this.checkEquals(expected, ExpressionNumber.isClass(type));
     }
-    
+
     // with.............................................................................................................
 
     @Test
@@ -172,10 +172,10 @@ public final class ExpressionNumberTest implements ClassTesting<ExpressionNumber
     }
 
     private void withNumberAndCheck(final Number value) {
-        if(value instanceof BigInteger || value instanceof BigDecimal) {
+        if (value instanceof BigInteger || value instanceof BigDecimal) {
             final ExpressionNumber expressionNumber = ExpressionNumber.with(value instanceof BigDecimal ?
-                    (BigDecimal) value :
-                    new BigDecimal((BigInteger) value));
+                (BigDecimal) value :
+                new BigDecimal((BigInteger) value));
             this.checkEquals(ExpressionNumberBigDecimal.class, expressionNumber.getClass(), "type");
             this.checkEquals(value instanceof BigDecimal ? value : new BigDecimal((BigInteger) value), expressionNumber.bigDecimal(), "bigDecimal");
         } else {
@@ -190,104 +190,104 @@ public final class ExpressionNumberTest implements ClassTesting<ExpressionNumber
     @Test
     public void testIsExpressionNumberAndNotNumberWithByte() {
         this.isExpressionNumberAndNotNumber(
-                Byte.class,
-                false
+            Byte.class,
+            false
         );
     }
 
     @Test
     public void testIsExpressionNumberAndNotNumberWithShort() {
         this.isExpressionNumberAndNotNumber(
-                Short.class,
-                false
+            Short.class,
+            false
         );
     }
 
     @Test
     public void testIsExpressionNumberAndNotNumberWithInteger() {
         this.isExpressionNumberAndNotNumber(
-                Integer.class,
-                false
+            Integer.class,
+            false
         );
     }
 
     @Test
     public void testIsExpressionNumberAndNotNumberWithLong() {
         this.isExpressionNumberAndNotNumber(
-                Long.class,
-                false
+            Long.class,
+            false
         );
     }
 
     @Test
     public void testIsExpressionNumberAndNotNumberWithFloat() {
         this.isExpressionNumberAndNotNumber(
-                Float.class,
-                false
+            Float.class,
+            false
         );
     }
 
     @Test
     public void testIsExpressionNumberAndNotNumberWithDouble() {
         this.isExpressionNumberAndNotNumber(
-                Double.class,
-                false
+            Double.class,
+            false
         );
     }
 
     @Test
     public void testIsExpressionNumberAndNotNumberWithBigInteger() {
         this.isExpressionNumberAndNotNumber(
-                BigInteger.class,
-                false
+            BigInteger.class,
+            false
         );
     }
 
     @Test
     public void testIsExpressionNumberAndNotNumberWithBigDecimal() {
         this.isExpressionNumberAndNotNumber(
-                BigDecimal.class,
-                false
+            BigDecimal.class,
+            false
         );
     }
 
     @Test
     public void testIsExpressionNumberAndNotNumberWithNumber() {
         this.isExpressionNumberAndNotNumber(
-                Number.class,
-                false
+            Number.class,
+            false
         );
     }
 
     @Test
     public void testIsExpressionNumberAndNotNumberWithExpressionNumber() {
         this.isExpressionNumberAndNotNumber(
-                ExpressionNumber.class,
-                true
+            ExpressionNumber.class,
+            true
         );
     }
 
     @Test
     public void testIsExpressionNumberAndNotNumberWithExpressionNumberBigDecimal() {
         this.isExpressionNumberAndNotNumber(
-                ExpressionNumberBigDecimal.class,
-                true
+            ExpressionNumberBigDecimal.class,
+            true
         );
     }
 
     @Test
     public void testIsExpressionNumberAndNotNumberWithExpressionNumberDouble() {
         this.isExpressionNumberAndNotNumber(
-                ExpressionNumber.class,
-                true
+            ExpressionNumber.class,
+            true
         );
     }
 
     private void isExpressionNumberAndNotNumber(final Class<?> type,
                                                 final boolean expected) {
         this.checkEquals(
-                expected,
-                ExpressionNumber.isExpressionNumberAndNotNumber(type)
+            expected,
+            ExpressionNumber.isExpressionNumberAndNotNumber(type)
         );
     }
 

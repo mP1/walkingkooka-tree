@@ -28,14 +28,14 @@ import java.util.function.Function;
  * A {@link Function} or lambda with a nice {@link #toString()}.
  */
 final class BasicNodeSelectorExpressionEvaluationContextReferenceFunction<N extends Node<N, NAME, ANAME, AVALUE>,
-        NAME extends Name,
-        ANAME extends Name,
-        AVALUE> implements Function<ExpressionReference, Optional<Optional<Object>>> {
+    NAME extends Name,
+    ANAME extends Name,
+    AVALUE> implements Function<ExpressionReference, Optional<Optional<Object>>> {
 
     static <N extends Node<N, NAME, ANAME, AVALUE>,
-            NAME extends Name,
-            ANAME extends Name,
-            AVALUE>
+        NAME extends Name,
+        ANAME extends Name,
+        AVALUE>
     BasicNodeSelectorExpressionEvaluationContextReferenceFunction<N, NAME, ANAME, AVALUE> with(final BasicNodeSelectorExpressionEvaluationContext<N, NAME, ANAME, AVALUE> context) {
         return new BasicNodeSelectorExpressionEvaluationContextReferenceFunction<>(context);
     }

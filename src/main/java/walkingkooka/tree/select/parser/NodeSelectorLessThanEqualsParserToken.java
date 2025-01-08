@@ -30,7 +30,7 @@ public final class NodeSelectorLessThanEqualsParserToken extends NodeSelectorBin
     static NodeSelectorLessThanEqualsParserToken with(final List<ParserToken> value,
                                                       final String text) {
         return new NodeSelectorLessThanEqualsParserToken(copyAndCheckTokens(value),
-                checkTextNullOrWhitespace(text));
+            checkTextNullOrWhitespace(text));
     }
 
     private NodeSelectorLessThanEqualsParserToken(final List<ParserToken> value,
@@ -43,9 +43,9 @@ public final class NodeSelectorLessThanEqualsParserToken extends NodeSelectorBin
     @Override
     public NodeSelectorLessThanEqualsParserToken setChildren(final List<ParserToken> children) {
         return ParserToken.parentSetChildren(
-                this,
-                children,
-                NodeSelectorLessThanEqualsParserToken::with
+            this,
+            children,
+            NodeSelectorLessThanEqualsParserToken::with
         );
     }
 

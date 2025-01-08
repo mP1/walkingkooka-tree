@@ -67,7 +67,7 @@ final class NodeSelectorEbnfParserCombinatorSyntaxTreeTransformer implements Ebn
 
     private static List<ParserToken> clean(final SequenceParserToken token) {
         return token.flat()
-                .value();
+            .value();
     }
 
     private static ParserToken negative(final ParserToken token, final ParserContext context) {
@@ -79,17 +79,17 @@ final class NodeSelectorEbnfParserCombinatorSyntaxTreeTransformer implements Ebn
     private static ParserToken parent(final ParserToken token,
                                       final BiFunction<List<ParserToken>, String, ? extends NodeSelectorParentParserToken<?>> factory) {
         return factory.apply(token instanceof SequenceParserToken ?
-                        ((SequenceParserToken) token).value() :
-                        Lists.of(token),
-                token.text());
+                ((SequenceParserToken) token).value() :
+                Lists.of(token),
+            token.text());
     }
 
     // predicate .......................................................................................................
 
     private static ParserToken predicate(final ParserToken token, final ParserContext context) {
         return token instanceof SequenceParserToken ?
-                predicate0((SequenceParserToken) token) :
-                parent(token, NodeSelectorParserToken::predicate);
+            predicate0((SequenceParserToken) token) :
+            parent(token, NodeSelectorParserToken::predicate);
     }
 
     /**
@@ -209,7 +209,7 @@ final class NodeSelectorEbnfParserCombinatorSyntaxTreeTransformer implements Ebn
     private ParserToken concatenation(final ParserToken token,
                                       final ParserContext context) {
         return token.cast(SequenceParserToken.class)
-                .binaryOperator(NodeSelectorEbnfParserCombinatorSyntaxTreeTransformerBinaryOperatorTransformer.INSTANCE);
+            .binaryOperator(NodeSelectorEbnfParserCombinatorSyntaxTreeTransformerBinaryOperatorTransformer.INSTANCE);
     }
 
     @Override
@@ -227,16 +227,16 @@ final class NodeSelectorEbnfParserCombinatorSyntaxTreeTransformer implements Ebn
         final EbnfIdentifierName name = token.value();
         final BiFunction<ParserToken, ParserContext, ParserToken> transform = this.identiferToTransform.get(name);
         return null != transform ?
-                parser.transform(transform) :
-                this.requiredCheck(name, parser);
+            parser.transform(transform) :
+            this.requiredCheck(name, parser);
     }
 
     private final Map<EbnfIdentifierName, BiFunction<ParserToken, ParserContext, ParserToken>> identiferToTransform;
 
     private Parser<ParserContext> requiredCheck(final EbnfIdentifierName name, final Parser<ParserContext> parser) {
         return name.value().endsWith("REQUIRED") ?
-                parser.orReport(ParserReporters.basic()) :
-                parser; // leave as is...
+            parser.orReport(ParserReporters.basic()) :
+            parser; // leave as is...
     }
 
     @Override

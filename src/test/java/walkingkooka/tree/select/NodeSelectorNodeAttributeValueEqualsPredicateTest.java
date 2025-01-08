@@ -25,7 +25,7 @@ import walkingkooka.tree.TestNode;
 import java.util.Collections;
 
 public class NodeSelectorNodeAttributeValueEqualsPredicateTest
-        extends NodeSelectorNodeAttributeValuePredicateTestCase<NodeSelectorNodeAttributeValueEqualsPredicate<TestNode, StringName, StringName, Object>> {
+    extends NodeSelectorNodeAttributeValuePredicateTestCase<NodeSelectorNodeAttributeValueEqualsPredicate<TestNode, StringName, StringName, Object>> {
 
     @Test
     public void testEquals() {

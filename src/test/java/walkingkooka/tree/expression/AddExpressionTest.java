@@ -73,11 +73,11 @@ public final class AddExpressionTest extends ArithmeticExpressionTestCase<AddExp
         }.accept(addition);
         this.checkEquals("1315215242", b.toString());
         this.checkEquals(Lists.of(addition, addition,
-                        text1, text1, text1,
-                        text2, text2, text2,
-                        addition, addition),
-                visited,
-                "visited");
+                text1, text1, text1,
+                text2, text2, text2,
+                addition, addition),
+            visited,
+            "visited");
     }
 
     // toBoolean.....................................................................................

@@ -57,10 +57,10 @@ final class ExpressionFunctionParameterValuesFilter<T, C extends ExpressionEvalu
     public T apply(final List<Object> parameters,
                    final C context) {
         return this.function.apply(
-                parameters.stream()
-                        .filter(p -> this.filter.test(p, context))
-                        .collect(Collectors.toList()),
-                context
+            parameters.stream()
+                .filter(p -> this.filter.test(p, context))
+                .collect(Collectors.toList()),
+            context
         );
     }
 
@@ -72,8 +72,8 @@ final class ExpressionFunctionParameterValuesFilter<T, C extends ExpressionEvalu
         checkFilter(filter);
 
         return this.filter.equals(filter) ?
-                this :
-                ExpressionFunctionParameterValuesFilter.with(filter, this);
+            this :
+            ExpressionFunctionParameterValuesFilter.with(filter, this);
     }
 
     /**

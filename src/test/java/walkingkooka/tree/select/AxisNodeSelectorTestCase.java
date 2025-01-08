@@ -22,7 +22,7 @@ import walkingkooka.naming.StringName;
 import walkingkooka.tree.TestNode;
 
 public abstract class AxisNodeSelectorTestCase<S extends NodeSelector<TestNode, StringName, StringName, Object>>
-        extends AbsoluteOrAxisNodeSelectorTestCase<S> {
+    extends AbsoluteOrAxisNodeSelectorTestCase<S> {
 
     AxisNodeSelectorTestCase() {
         super();
@@ -31,7 +31,7 @@ public abstract class AxisNodeSelectorTestCase<S extends NodeSelector<TestNode, 
     @Test
     public final void testSelectorFinishedTrueChildren() {
         this.applyFinisherAndCheck(this.createSelector().children(),
-                TestNode.with("self"),
-                () -> true);
+            TestNode.with("self"),
+            () -> true);
     }
 }

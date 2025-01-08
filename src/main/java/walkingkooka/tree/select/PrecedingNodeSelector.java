@@ -27,8 +27,8 @@ import walkingkooka.visit.Visiting;
  * siblings and their ancestors.
  */
 final class PrecedingNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NAME extends Name, ANAME extends Name, AVALUE>
-        extends
-        AxisNodeSelector<N, NAME, ANAME, AVALUE> {
+    extends
+    AxisNodeSelector<N, NAME, ANAME, AVALUE> {
 
     /**
      * Type safe {@link PrecedingNodeSelector} getter
@@ -51,8 +51,8 @@ final class PrecedingNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NAME e
     NodeSelector<N, NAME, ANAME, AVALUE> append1(final NodeSelector<N, NAME, ANAME, AVALUE> selector) {
         // no point appending a preceeding to another...
         return selector instanceof PrecedingNodeSelector ?
-                this :
-                new PrecedingNodeSelector<>(selector);
+            this :
+            new PrecedingNodeSelector<>(selector);
     }
 
     @Override

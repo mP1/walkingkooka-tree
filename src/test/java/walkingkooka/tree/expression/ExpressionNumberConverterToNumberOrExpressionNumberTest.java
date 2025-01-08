@@ -32,7 +32,7 @@ import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class ExpressionNumberConverterToNumberOrExpressionNumberTest extends ExpressionNumberConverterTestCase<ExpressionNumberConverterToNumberOrExpressionNumber<ExpressionNumberConverterContext>>
-        implements HashCodeEqualsDefinedTesting2<ExpressionNumberConverterToNumberOrExpressionNumber> {
+    implements HashCodeEqualsDefinedTesting2<ExpressionNumberConverterToNumberOrExpressionNumber> {
 
     @Test
     public void testWithNullConverterFails() {
@@ -43,8 +43,8 @@ public final class ExpressionNumberConverterToNumberOrExpressionNumberTest exten
     public void testWithExpressionNumberToConverter() {
         final ExpressionNumberConverterToNumberOrExpressionNumber<ExpressionNumberConverterContext> converter = this.createConverter();
         assertSame(
-                converter,
-                ExpressionNumberConverterToNumberOrExpressionNumber.with(converter)
+            converter,
+            ExpressionNumberConverterToNumberOrExpressionNumber.with(converter)
         );
     }
 
@@ -53,64 +53,64 @@ public final class ExpressionNumberConverterToNumberOrExpressionNumberTest exten
     @Test
     public void testConvertStringToByteFails() {
         this.convertFails2(
-                "123",
-                Byte.class
+            "123",
+            Byte.class
         );
     }
 
     @Test
     public void testConvertStringToShortFails() {
         this.convertFails2(
-                "123",
-                Short.class
+            "123",
+            Short.class
         );
     }
 
     @Test
     public void testConvertStringToIntegerFails() {
         this.convertFails2(
-                "123",
-                Integer.class
+            "123",
+            Integer.class
         );
     }
 
     @Test
     public void testConvertStringToLongFails() {
         this.convertFails2(
-                "123",
-                Long.class
+            "123",
+            Long.class
         );
     }
 
     @Test
     public void testConvertStringToFloatFails() {
         this.convertFails2(
-                "123",
-                Float.class
+            "123",
+            Float.class
         );
     }
 
     @Test
     public void testConvertStringToDoubleFails() {
         this.convertFails2(
-                "123",
-                Double.class
+            "123",
+            Double.class
         );
     }
 
     @Test
     public void testConvertStringToBigIntegerFails() {
         this.convertFails2(
-                "123",
-                BigInteger.class
+            "123",
+            BigInteger.class
         );
     }
 
     @Test
     public void testConvertStringToBigDecimalFails() {
         this.convertFails2(
-                "123",
-                BigDecimal.class
+            "123",
+            BigDecimal.class
         );
     }
 
@@ -124,32 +124,32 @@ public final class ExpressionNumberConverterToNumberOrExpressionNumberTest exten
                                final String value,
                                final Class<?> type) {
         final Converter<ExpressionNumberConverterContext> converter = ExpressionNumberConverters.toNumberOrExpressionNumber(
-                new FakeConverter<>() {
-                    @Override
-                    public boolean canConvert(final Object value,
-                                              final Class<?> type,
-                                              final ExpressionNumberConverterContext context) {
-                        return false;
-                    }
+            new FakeConverter<>() {
+                @Override
+                public boolean canConvert(final Object value,
+                                          final Class<?> type,
+                                          final ExpressionNumberConverterContext context) {
+                    return false;
+                }
 
-                    @Override
-                    public <T> Either<T, String> convert(final Object value,
-                                                         final Class<T> type,
-                                                         final ExpressionNumberConverterContext context) {
-                        return this.failConversion(value, type);
-                    }
-                });
+                @Override
+                public <T> Either<T, String> convert(final Object value,
+                                                     final Class<T> type,
+                                                     final ExpressionNumberConverterContext context) {
+                    return this.failConversion(value, type);
+                }
+            });
         final ExpressionNumberConverterContext context = this.createContext(kind);
         this.checkEquals(
-                false,
-                converter.canConvert(value, type, context)
+            false,
+            converter.canConvert(value, type, context)
         );
 
         this.convertFails(
-                converter,
-                value,
-                type,
-                context
+            converter,
+            value,
+            type,
+            context
         );
     }
 
@@ -201,10 +201,10 @@ public final class ExpressionNumberConverterToNumberOrExpressionNumberTest exten
         final Number number = BigDecimal.valueOf(128.5);
 
         this.convertAndCheck(
-                number,
-                ExpressionNumber.class,
-                this.createContext(kind),
-                kind.create(number)
+            number,
+            ExpressionNumber.class,
+            this.createContext(kind),
+            kind.create(number)
         );
     }
 
@@ -214,50 +214,50 @@ public final class ExpressionNumberConverterToNumberOrExpressionNumberTest exten
         final Number number = BigDecimal.valueOf(128.5);
 
         this.convertAndCheck(
-                number,
-                ExpressionNumber.class,
-                this.createContext(kind),
-                kind.create(number)
+            number,
+            ExpressionNumber.class,
+            this.createContext(kind),
+            kind.create(number)
         );
     }
 
     @Test
     public void testConvertWithExpressionNumberConvertFromWithBigDecimalToExpressionNumber() {
         this.convertToExpressionNumberAndCheck(
-                ExpressionNumberConverterToNumberOrExpressionNumber.with(
-                        ExpressionNumberConverterNumberOrExpressionNumberToNumber.instance()
-                                .to(
-                                        Number.class,
-                                        Converters.numberToNumber()
-                                )
-                ),
-                BigDecimal.valueOf(123)
+            ExpressionNumberConverterToNumberOrExpressionNumber.with(
+                ExpressionNumberConverterNumberOrExpressionNumberToNumber.instance()
+                    .to(
+                        Number.class,
+                        Converters.numberToNumber()
+                    )
+            ),
+            BigDecimal.valueOf(123)
         );
     }
 
     private void convertToExpressionNumberAndCheck(final Number number) {
         this.convertToExpressionNumberAndCheck(
-                this.createConverter(),
-                number
+            this.createConverter(),
+            number
         );
     }
 
     private void convertToExpressionNumberAndCheck(final ExpressionNumberConverterToNumberOrExpressionNumber<ExpressionNumberConverterContext> converter,
                                                    final Number number) {
         this.convertAndCheck2(
-                converter,
-                ExpressionNumberKind.BIG_DECIMAL,
-                number,
-                ExpressionNumber.class,
-                ExpressionNumberKind.BIG_DECIMAL.create(number)
+            converter,
+            ExpressionNumberKind.BIG_DECIMAL,
+            number,
+            ExpressionNumber.class,
+            ExpressionNumberKind.BIG_DECIMAL.create(number)
         );
 
         this.convertAndCheck2(
-                converter,
-                ExpressionNumberKind.DOUBLE,
-                number,
-                ExpressionNumber.class,
-                ExpressionNumberKind.DOUBLE.create(number)
+            converter,
+            ExpressionNumberKind.DOUBLE,
+            number,
+            ExpressionNumber.class,
+            ExpressionNumberKind.DOUBLE.create(number)
         );
     }
 
@@ -305,30 +305,30 @@ public final class ExpressionNumberConverterToNumberOrExpressionNumberTest exten
 
     private void convertToBigDecimalAndCheck(final Number number) {
         this.convertToBigDecimalAndCheck(
-                this.createConverter(),
-                number
+            this.createConverter(),
+            number
         );
     }
 
     private void convertToBigDecimalAndCheck(final ExpressionNumberConverterToNumberOrExpressionNumber<ExpressionNumberConverterContext> converter,
                                              final Number number) {
         final BigDecimal expected = ExpressionNumberKind.BIG_DECIMAL.create(number)
-                .bigDecimal();
+            .bigDecimal();
 
         this.convertAndCheck2(
-                converter,
-                ExpressionNumberKind.BIG_DECIMAL,
-                number,
-                BigDecimal.class,
-                expected
+            converter,
+            ExpressionNumberKind.BIG_DECIMAL,
+            number,
+            BigDecimal.class,
+            expected
         );
 
         this.convertAndCheck2(
-                converter,
-                ExpressionNumberKind.DOUBLE,
-                number,
-                BigDecimal.class,
-                expected
+            converter,
+            ExpressionNumberKind.DOUBLE,
+            number,
+            BigDecimal.class,
+            expected
         );
     }
 
@@ -376,30 +376,30 @@ public final class ExpressionNumberConverterToNumberOrExpressionNumberTest exten
 
     private void convertToDoubleAndCheck(final Number number) {
         this.convertToDoubleAndCheck(
-                this.createConverter(),
-                number
+            this.createConverter(),
+            number
         );
     }
 
     private void convertToDoubleAndCheck(final ExpressionNumberConverterToNumberOrExpressionNumber<ExpressionNumberConverterContext> converter,
                                          final Number number) {
         final double expected = ExpressionNumberKind.DOUBLE.create(number)
-                .doubleValue();
+            .doubleValue();
 
         this.convertAndCheck2(
-                converter,
-                ExpressionNumberKind.BIG_DECIMAL,
-                number,
-                Double.class,
-                expected
+            converter,
+            ExpressionNumberKind.BIG_DECIMAL,
+            number,
+            Double.class,
+            expected
         );
 
         this.convertAndCheck2(
-                converter,
-                ExpressionNumberKind.DOUBLE,
-                number,
-                Double.class,
-                expected
+            converter,
+            ExpressionNumberKind.DOUBLE,
+            number,
+            Double.class,
+            expected
         );
     }
 
@@ -409,11 +409,11 @@ public final class ExpressionNumberConverterToNumberOrExpressionNumberTest exten
                                       final Class<N> target,
                                       final N number) {
         this.convertAndCheck(
-                converter,
-                from,
-                target,
-                this.createContext(kind),
-                number
+            converter,
+            from,
+            target,
+            this.createContext(kind),
+            number
         );
     }
 
@@ -422,21 +422,21 @@ public final class ExpressionNumberConverterToNumberOrExpressionNumberTest exten
     @Test
     public void testConvertExpressionNumberToExpressionNumberBigDecimal() {
         this.convertAndCheck(
-                ExpressionNumberKind.BIG_DECIMAL.create(123.5)
+            ExpressionNumberKind.BIG_DECIMAL.create(123.5)
         );
     }
 
     @Test
     public void testConvertExpressionNumberToExpressionNumberDouble() {
         this.convertAndCheck(
-                ExpressionNumberKind.DOUBLE.create(123.5)
+            ExpressionNumberKind.DOUBLE.create(123.5)
         );
     }
 
     @Override
     public ExpressionNumberConverterToNumberOrExpressionNumber<ExpressionNumberConverterContext> createConverter() {
         return ExpressionNumberConverterToNumberOrExpressionNumber.with(
-                Converters.numberToNumber()
+            Converters.numberToNumber()
         );
     }
 
@@ -445,10 +445,10 @@ public final class ExpressionNumberConverterToNumberOrExpressionNumberTest exten
     @Test
     public void testToString() {
         this.toStringAndCheck(
-                ExpressionNumberConverterToNumberOrExpressionNumber.with(Converters.fake()
-                        .setToString("Custom")
-                        .cast(ExpressionNumberConverterContext.class)),
-                "Custom | " + ExpressionNumber.class.getSimpleName()
+            ExpressionNumberConverterToNumberOrExpressionNumber.with(Converters.fake()
+                .setToString("Custom")
+                .cast(ExpressionNumberConverterContext.class)),
+            "Custom | " + ExpressionNumber.class.getSimpleName()
         );
     }
 
@@ -457,16 +457,16 @@ public final class ExpressionNumberConverterToNumberOrExpressionNumberTest exten
     @Test
     public void testEqualsDifferentConverter() {
         this.checkNotEquals(
-                ExpressionNumberConverterToNumberOrExpressionNumber.with(
-                        Converters.fake()
-                )
+            ExpressionNumberConverterToNumberOrExpressionNumber.with(
+                Converters.fake()
+            )
         );
     }
 
     @Override
     public ExpressionNumberConverterToNumberOrExpressionNumber<ExpressionNumberConverterContext> createObject() {
         return ExpressionNumberConverterToNumberOrExpressionNumber.with(
-                Converters.numberToNumber()
+            Converters.numberToNumber()
         );
     }
 

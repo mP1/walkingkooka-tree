@@ -25,24 +25,24 @@ import walkingkooka.tree.expression.FakeExpressionEvaluationContext;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class ExpressionFunctionNullValueTest extends ExpressionFunctionTestCase<ExpressionFunctionNullValue<FakeExpressionEvaluationContext>,
-        FakeExpressionEvaluationContext,
-        Object> {
+    FakeExpressionEvaluationContext,
+    Object> {
 
     // apply............................................................................................................
 
     @Test
     public void testApplyWrongParameterCountFails() {
         assertThrows(
-                IllegalArgumentException.class,
-                () -> this.apply2("A")
+            IllegalArgumentException.class,
+            () -> this.apply2("A")
         );
     }
 
     @Test
     public void testApply() {
         this.applyAndCheck(
-                Lists.empty(),
-                null
+            Lists.empty(),
+            null
         );
     }
 
@@ -68,8 +68,8 @@ public class ExpressionFunctionNullValueTest extends ExpressionFunctionTestCase<
     @Test
     public void testToString() {
         this.toStringAndCheck(
-                this.createBiFunction(),
-                "nullValue"
+            this.createBiFunction(),
+            "nullValue"
         );
     }
 

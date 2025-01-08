@@ -73,11 +73,11 @@ public final class AndExpressionTest extends LogicalExpressionTestCase<AndExpres
         }.accept(and);
         this.checkEquals("1315215242", b.toString());
         this.checkEquals(Lists.of(and, and,
-                        text1, text1, text1,
-                        text2, text2, text2,
-                        and, and),
-                visited,
-                "visited");
+                text1, text1, text1,
+                text2, text2, text2,
+                and, and),
+            visited,
+            "visited");
     }
 
     // toBoolean.....................................................................................

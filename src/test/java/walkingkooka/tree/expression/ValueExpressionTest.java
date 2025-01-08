@@ -82,24 +82,24 @@ public final class ValueExpressionTest extends LeafExpressionTestCase<ValueExpre
     @Test
     public void testPrintTreeNonNull() {
         this.treePrintAndCheck(
-                ValueExpression.with(1),
-                "ValueExpression 1 (java.lang.Integer)\n"
+            ValueExpression.with(1),
+            "ValueExpression 1 (java.lang.Integer)\n"
         );
     }
 
     @Test
     public void testPrintTreeNonNullString() {
         this.treePrintAndCheck(
-                ValueExpression.with("abc"),
-                "ValueExpression \"abc\" (java.lang.String)\n"
+            ValueExpression.with("abc"),
+            "ValueExpression \"abc\" (java.lang.String)\n"
         );
     }
 
     @Test
     public void testPrintTreeNull() {
         this.treePrintAndCheck(
-                ValueExpression.with(null),
-                "ValueExpression null\n"
+            ValueExpression.with(null),
+            "ValueExpression null\n"
         );
     }
 
@@ -117,7 +117,7 @@ public final class ValueExpressionTest extends LeafExpressionTestCase<ValueExpre
 
     private ValueExpression<ExpressionNumber> createExpression(final double value) {
         return this.createExpression(
-                this.expressionNumberValue(value)
+            this.expressionNumberValue(value)
         );
     }
 

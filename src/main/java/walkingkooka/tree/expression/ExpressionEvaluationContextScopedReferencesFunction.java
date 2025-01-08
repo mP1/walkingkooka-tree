@@ -28,8 +28,8 @@ final class ExpressionEvaluationContextScopedReferencesFunction implements Funct
     static ExpressionEvaluationContextScopedReferencesFunction with(final List<ExpressionFunctionParameter<?>> parameters,
                                                                     final List<Object> values) {
         return new ExpressionEvaluationContextScopedReferencesFunction(
-                parameters,
-                values
+            parameters,
+            values
         );
     }
 
@@ -46,10 +46,10 @@ final class ExpressionEvaluationContextScopedReferencesFunction implements Funct
         int i = 0;
         for (final ExpressionFunctionParameter<?> parameter : this.parameters) {
             if (reference.testParameterName(
-                    parameter.name()
+                parameter.name()
             )) {
                 value = Optional.ofNullable(
-                        this.values.get(i)
+                    this.values.get(i)
                 );
                 break;
             }

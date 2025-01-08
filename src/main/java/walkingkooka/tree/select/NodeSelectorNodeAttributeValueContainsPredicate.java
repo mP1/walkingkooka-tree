@@ -25,12 +25,12 @@ import walkingkooka.tree.Node;
  * A {@link java.util.function.Predicate} that returns true if the attribute contains the value in string form.
  */
 final class NodeSelectorNodeAttributeValueContainsPredicate<N extends Node<N, NAME, ANAME, AVALUE>, NAME extends Name, ANAME extends Name, AVALUE>
-        extends NodeSelectorNodeAttributeValuePredicate<N, NAME, ANAME, AVALUE> {
+    extends NodeSelectorNodeAttributeValuePredicate<N, NAME, ANAME, AVALUE> {
 
     static <N extends Node<N, NAME, ANAME, AVALUE>,
-            NAME extends Name,
-            ANAME extends Name,
-            AVALUE>
+        NAME extends Name,
+        ANAME extends Name,
+        AVALUE>
     NodeSelectorNodeAttributeValueContainsPredicate<N, NAME, ANAME, AVALUE> with(final ANAME name, final AVALUE value) {
         return new NodeSelectorNodeAttributeValueContainsPredicate<>(name, value);
     }

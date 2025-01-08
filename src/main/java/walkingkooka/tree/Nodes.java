@@ -27,8 +27,8 @@ import java.util.Optional;
 final public class Nodes implements PublicStaticHelper {
 
     public static <N extends Node<N, NAME, ANAME, AVALUE>,
-            NAME extends Name,
-            ANAME extends Name, AVALUE>
+        NAME extends Name,
+        ANAME extends Name, AVALUE>
     Node<N, NAME, ANAME, AVALUE> fake() {
         return new FakeNode<>();
     }
@@ -38,34 +38,34 @@ final public class Nodes implements PublicStaticHelper {
      * building a {@link NodePointer}.
      */
     static <N extends Node<N, NAME, ANAME, AVALUE>,
-            NAME extends Name,
-            ANAME extends Name,
-            AVALUE> NodePointer<N, NAME> pointer(final N node) {
+        NAME extends Name,
+        ANAME extends Name,
+        AVALUE> NodePointer<N, NAME> pointer(final N node) {
 
         return pointer0(node);
     }
 
     private static <N extends Node<N, NAME, ANAME, AVALUE>,
-            NAME extends Name,
-            ANAME extends Name,
-            AVALUE> NodePointer<N, NAME> pointer0(final N node) {
+        NAME extends Name,
+        ANAME extends Name,
+        AVALUE> NodePointer<N, NAME> pointer0(final N node) {
 
         final Optional<N> parent = node.parent();
         return parent.isPresent() ?
-                pointer1(parent.get(), node) :
-                walkingkooka.tree.pointer.NodePointer.any(Cast.to(node.getClass()));
+            pointer1(parent.get(), node) :
+            walkingkooka.tree.pointer.NodePointer.any(Cast.to(node.getClass()));
     }
 
     private static <N extends Node<N, NAME, ANAME, AVALUE>,
-            NAME extends Name,
-            ANAME extends Name,
-            AVALUE> NodePointer<N, NAME> pointer1(final N parent,
-                                                  final N node) {
+        NAME extends Name,
+        ANAME extends Name,
+        AVALUE> NodePointer<N, NAME> pointer1(final N parent,
+                                              final N node) {
 
         final NodePointer<N, NAME> back = pointer0(parent);
         return node.hasUniqueNameAmongstSiblings() ?
-                back.named(node.name()) :
-                back.indexed(node.index());
+            back.named(node.name()) :
+            back.indexed(node.index());
     }
 
     /**

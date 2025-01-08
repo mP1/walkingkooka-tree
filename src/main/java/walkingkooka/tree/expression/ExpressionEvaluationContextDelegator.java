@@ -29,7 +29,7 @@ import java.util.Optional;
 import java.util.function.Function;
 
 public interface ExpressionEvaluationContextDelegator extends ExpressionEvaluationContext,
-        ConverterContextDelegator {
+    ConverterContextDelegator {
 
     @Override
     default ConverterContext converterContext() {
@@ -51,69 +51,69 @@ public interface ExpressionEvaluationContextDelegator extends ExpressionEvaluati
     @Override
     default ExpressionNumberKind expressionNumberKind() {
         return this.expressionEvaluationContext()
-                .expressionNumberKind();
+            .expressionNumberKind();
     }
 
     @Override
     default ExpressionFunction<?, ExpressionEvaluationContext> expressionFunction(final ExpressionFunctionName name) {
         return this.expressionEvaluationContext()
-                .expressionFunction(name);
+            .expressionFunction(name);
     }
 
     @Override
     default ExpressionEvaluationContext context(final Function<ExpressionReference, Optional<Optional<Object>>> scoped) {
         return this.expressionEvaluationContext()
-                .context(scoped);
+            .context(scoped);
     }
 
     @Override
     default Object evaluate(final Expression expression) {
         return this.expressionEvaluationContext()
-                .evaluate(expression);
+            .evaluate(expression);
     }
 
     @Override
     default <T> T prepareParameter(final ExpressionFunctionParameter<T> parameter,
                                    final Object value) {
         return this.expressionEvaluationContext()
-                .prepareParameter(
-                        parameter,
-                        value
-                );
+            .prepareParameter(
+                parameter,
+                value
+            );
     }
 
     @Override
     default Object evaluateFunction(final ExpressionFunction<?, ? extends ExpressionEvaluationContext> function,
                                     final List<Object> parameters) {
         return this.expressionEvaluationContext()
-                .evaluateFunction(
-                        function,
-                        parameters
-                );
+            .evaluateFunction(
+                function,
+                parameters
+            );
     }
 
     @Override
     default Object handleException(final RuntimeException exception) {
         return this.expressionEvaluationContext()
-                .handleException(exception);
+            .handleException(exception);
     }
 
     @Override
     default Optional<Optional<Object>> reference(final ExpressionReference reference) {
         return this.expressionEvaluationContext()
-                .reference(reference);
+            .reference(reference);
     }
 
     @Override
     default boolean isText(final Object value) {
         return this.expressionEvaluationContext()
-                .isText(value);
+            .isText(value);
     }
 
     @Override
     default CaseSensitivity stringEqualsCaseSensitivity() {
         return this.expressionEvaluationContext()
-                .stringEqualsCaseSensitivity();
+            .stringEqualsCaseSensitivity();
     }
 
     ExpressionEvaluationContext expressionEvaluationContext();

@@ -72,10 +72,10 @@ public final class NotExpressionTest extends UnaryExpressionTestCase<NotExpressi
         }.accept(not);
         this.checkEquals("1315242", b.toString());
         this.checkEquals(Lists.of(not, not,
-                        child, child, child,
-                        not, not),
-                visited,
-                "visited");
+                child, child, child,
+                not, not),
+            visited,
+            "visited");
     }
 
     // evaluate.....................................................................................

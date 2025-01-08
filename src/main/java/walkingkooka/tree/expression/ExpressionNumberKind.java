@@ -32,23 +32,23 @@ import java.util.Objects;
  */
 public enum ExpressionNumberKind {
     BIG_DECIMAL(
-            ExpressionNumberBigDecimal.withBigDecimal(BigDecimal.ZERO),
-            ExpressionNumberBigDecimal.withBigDecimal(BigDecimal.ONE)
+        ExpressionNumberBigDecimal.withBigDecimal(BigDecimal.ZERO),
+        ExpressionNumberBigDecimal.withBigDecimal(BigDecimal.ONE)
     ) {
         @Override
         public ExpressionNumber create(final Number number) {
             return number instanceof ExpressionNumberBigDecimal ?
-                    (ExpressionNumberBigDecimal) number :
-                    number instanceof BigDecimal ? fromBigDecimal((BigDecimal) number) :
-                            number instanceof BigInteger ? fromBigDecimal(new BigDecimal((BigInteger) number)) :
-                                    number instanceof Long ? fromBigDecimal(new BigDecimal((Long) number)) :
-                                            fromBigDecimal(BigDecimal.valueOf(number.doubleValue()));
+                (ExpressionNumberBigDecimal) number :
+                number instanceof BigDecimal ? fromBigDecimal((BigDecimal) number) :
+                    number instanceof BigInteger ? fromBigDecimal(new BigDecimal((BigInteger) number)) :
+                        number instanceof Long ? fromBigDecimal(new BigDecimal((Long) number)) :
+                            fromBigDecimal(BigDecimal.valueOf(number.doubleValue()));
         }
 
         @Override
         public ExpressionNumber e(final ExpressionNumberContext context) {
             return this.create(
-                    BigDecimalMath.e(context.mathContext())
+                BigDecimalMath.e(context.mathContext())
             );
         }
 
@@ -69,7 +69,7 @@ public enum ExpressionNumberKind {
         @Override
         public ExpressionNumber pi(final ExpressionNumberContext context) {
             return this.create(
-                    BigDecimalMath.pi(context.mathContext())
+                BigDecimalMath.pi(context.mathContext())
             );
         }
 
@@ -91,13 +91,13 @@ public enum ExpressionNumberKind {
             }
 
             return this.create(
-                    ExpressionNumberBigDecimal.roundBigDecimal(
-                            bottom.add(
-                                    new BigDecimal(Math.random())
-                                            .multiply(top.subtract(bottom))
-                            ),
-                            RoundingMode.HALF_UP
-                    )
+                ExpressionNumberBigDecimal.roundBigDecimal(
+                    bottom.add(
+                        new BigDecimal(Math.random())
+                            .multiply(top.subtract(bottom))
+                    ),
+                    RoundingMode.HALF_UP
+                )
             );
         }
 
@@ -108,14 +108,14 @@ public enum ExpressionNumberKind {
     },
 
     DOUBLE(
-            ExpressionNumberDouble.withDouble(0),
-            ExpressionNumberDouble.withDouble(1)
+        ExpressionNumberDouble.withDouble(0),
+        ExpressionNumberDouble.withDouble(1)
     ) {
         @Override
         public ExpressionNumber create(final Number number) {
             return number instanceof ExpressionNumberDouble ?
-                    (ExpressionNumberDouble) number :
-                    fromDouble(number.doubleValue());
+                (ExpressionNumberDouble) number :
+                fromDouble(number.doubleValue());
         }
 
         @Override
@@ -163,7 +163,7 @@ public enum ExpressionNumberKind {
             }
 
             return this.create(
-                    (bottom + (long) (Math.random() * ((top - bottom))))
+                (bottom + (long) (Math.random() * ((top - bottom))))
             );
         }
 
@@ -259,15 +259,15 @@ public enum ExpressionNumberKind {
             }
 
             value = value.multiply(multiplier, context)
-                    .add(
-                            kind.create(charNumericValue),
-                            context
-                    );
+                .add(
+                    kind.create(charNumericValue),
+                    context
+                );
         }
 
         return negative ?
-                value.negate(context) :
-                value;
+            value.negate(context) :
+            value;
     }
 
     public abstract ExpressionNumber pi(final ExpressionNumberContext context);

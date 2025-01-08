@@ -32,9 +32,9 @@ import java.util.Optional;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public abstract class NodePointerTestCase<N extends NodePointer<TestNode, StringName>> implements ClassTesting2<N>,
-        HashCodeEqualsDefinedTesting2<N>,
-        ToStringTesting<N>,
-        TypeNameTesting<N> {
+    HashCodeEqualsDefinedTesting2<N>,
+    ToStringTesting<N>,
+    TypeNameTesting<N> {
 
     NodePointerTestCase() {
         super();
@@ -74,8 +74,8 @@ public abstract class NodePointerTestCase<N extends NodePointer<TestNode, String
     final void nextAndCheck(final NodePointer<TestNode, StringName> pointer,
                             final NodePointer<TestNode, StringName> next) {
         this.checkEquals(Optional.ofNullable(next),
-                pointer.next(),
-                () -> " next of " + pointer);
+            pointer.next(),
+            () -> " next of " + pointer);
     }
 
     abstract N createNodePointer();
@@ -90,8 +90,8 @@ public abstract class NodePointerTestCase<N extends NodePointer<TestNode, String
                            final TestNode add,
                            final TestNode result) {
         this.checkEquals(result,
-                pointer.add(base, add),
-                () -> pointer + " add to " + base + ", " + add);
+            pointer.add(base, add),
+            () -> pointer + " add to " + base + ", " + add);
     }
 
     final void addAndFail(final NodePointer<TestNode, StringName> pointer,
@@ -104,8 +104,8 @@ public abstract class NodePointerTestCase<N extends NodePointer<TestNode, String
                               final TestNode node,
                               final TestNode result) {
         this.checkEquals(result,
-                pointer.remove(node),
-                () -> pointer + " remove from " + node);
+            pointer.remove(node),
+            () -> pointer + " remove from " + node);
     }
 
     final void removeAndFail(final NodePointer<TestNode, StringName> pointer,

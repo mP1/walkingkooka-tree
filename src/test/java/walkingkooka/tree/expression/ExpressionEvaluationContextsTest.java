@@ -35,19 +35,19 @@ public class ExpressionEvaluationContextsTest implements PublicStaticHelperTesti
         };
 
         final ExpressionEvaluationReferenceException thrown = (ExpressionEvaluationReferenceException) ExpressionEvaluationContexts.referenceNotFound()
-                .apply(reference);
+            .apply(reference);
 
         this.checkEquals(
-                reference,
-                thrown.expressionReference(),
-                reference::toString
+            reference,
+            thrown.expressionReference(),
+            reference::toString
         );
 
 
         this.checkEquals(
-                "Reference not found: Reference123",
-                thrown.getMessage(),
-                reference::toString
+            "Reference not found: Reference123",
+            thrown.getMessage(),
+            reference::toString
         );
     }
 

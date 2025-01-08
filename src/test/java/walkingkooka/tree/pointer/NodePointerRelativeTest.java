@@ -64,14 +64,14 @@ public final class NodePointerRelativeTest extends NodePointerTestCase2<NodePoin
         final TestNode value = TestNode.with("added");
 
         final TestNode root = TestNode.with("root")
-                .appendChild(TestNode.with("first"))
-                .appendChild(TestNode.with("replaced"));
+            .appendChild(TestNode.with("first"))
+            .appendChild(TestNode.with("replaced"));
 
         this.addAndCheck(NodePointer.relative(0, TestNode.class)
-                        .appendToLast(NodePointerIndexedChild.with(1)),
-                root,
-                value,
-                root.setChild(1, value));
+                .appendToLast(NodePointerIndexedChild.with(1)),
+            root,
+            value,
+            root.setChild(1, value));
     }
 
     // remove...........................................................................................................
@@ -79,13 +79,13 @@ public final class NodePointerRelativeTest extends NodePointerTestCase2<NodePoin
     @Test
     public void testRemove() {
         final TestNode start = TestNode.with("object")
-                .appendChild(TestNode.with("first"))
-                .appendChild(TestNode.with("removed"));
+            .appendChild(TestNode.with("first"))
+            .appendChild(TestNode.with("removed"));
 
         this.removeAndCheck(NodePointer.relative(0, TestNode.class)
-                        .appendToLast(NodePointerIndexedChild.with(1)),
-                start,
-                start.removeChild(1));
+                .appendToLast(NodePointerIndexedChild.with(1)),
+            start,
+            start.removeChild(1));
     }
 
     // equals...........................................................................................................

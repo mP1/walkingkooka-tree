@@ -28,8 +28,8 @@ import walkingkooka.math.DecimalNumberContexts;
 import java.math.MathContext;
 
 public abstract class ExpressionNumberConverterTestCase<C extends ExpressionNumberConverter<ExpressionNumberConverterContext>>
-        implements ConverterTesting2<C, ExpressionNumberConverterContext>,
-        ToStringTesting<C> {
+    implements ConverterTesting2<C, ExpressionNumberConverterContext>,
+    ToStringTesting<C> {
 
     ExpressionNumberConverterTestCase() {
         super();
@@ -38,8 +38,8 @@ public abstract class ExpressionNumberConverterTestCase<C extends ExpressionNumb
     @Test
     public final void testConvertValueToSameValueTypeNotNumber() {
         this.convertFails(
-                "Hello",
-                String.class
+            "Hello",
+            String.class
         );
     }
 
@@ -50,14 +50,14 @@ public abstract class ExpressionNumberConverterTestCase<C extends ExpressionNumb
 
     final ExpressionNumberConverterContext createContext(final ExpressionNumberKind kind) {
         return ExpressionNumberConverterContexts.basic(
+            Converters.fake(),
+            ConverterContexts.basic(
+                Converters.JAVA_EPOCH_OFFSET, // dateOffset
                 Converters.fake(),
-                ConverterContexts.basic(
-                        Converters.JAVA_EPOCH_OFFSET, // dateOffset
-                        Converters.fake(),
-                        DateTimeContexts.fake(),
-                        DecimalNumberContexts.american(MathContext.DECIMAL32)
-                ),
-                kind
+                DateTimeContexts.fake(),
+                DecimalNumberContexts.american(MathContext.DECIMAL32)
+            ),
+            kind
         );
     }
 

@@ -122,15 +122,15 @@ public final class ListExpression extends VariableExpression {
     }
 
     private <T> T convertValues(final ExpressionEvaluationContext context,
-                                  final Class<T> target) {
+                                final Class<T> target) {
         return context.convertOrFail(this.convertValues(context), target);
     }
 
     private List<?> convertValues(final ExpressionEvaluationContext context) {
         return this.value()
-                .stream()
-                .map(v -> v.toValue(context))
-                .collect(Collectors.toList());
+            .stream()
+            .map(v -> v.toValue(context))
+            .collect(Collectors.toList());
     }
 
     // printTree.......................................................................................................

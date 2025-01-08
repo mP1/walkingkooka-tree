@@ -62,10 +62,10 @@ final class ExpressionNumberFunctionExpressionFunction<C extends ExpressionEvalu
         this.checkParameterCount(parameters);
 
         return NUMBER.getOrFail(parameters, 0)
-                .map(
-                        this.function,
-                        context.mathContext()
-                );
+            .map(
+                this.function,
+                context.mathContext()
+            );
     }
 
     private final ExpressionNumberFunction function;
@@ -76,8 +76,8 @@ final class ExpressionNumberFunctionExpressionFunction<C extends ExpressionEvalu
     }
 
     private final static ExpressionFunctionParameter<ExpressionNumber> NUMBER = ExpressionFunctionParameterName.with("number")
-            .required(ExpressionNumber.class)
-            .setKinds(ExpressionFunctionParameterKind.EVALUATE_RESOLVE_REFERENCES);
+        .required(ExpressionNumber.class)
+        .setKinds(ExpressionFunctionParameterKind.EVALUATE_RESOLVE_REFERENCES);
 
     private final static List<ExpressionFunctionParameter<?>> PARAMETERS = ExpressionFunctionParameter.list(NUMBER);
 
@@ -94,7 +94,7 @@ final class ExpressionNumberFunctionExpressionFunction<C extends ExpressionEvalu
     @Override
     public String toString() {
         return this.name()
-                .map(ExpressionFunctionName::value)
-                .orElse(ANONYMOUS);
+            .map(ExpressionFunctionName::value)
+            .orElse(ANONYMOUS);
     }
 }

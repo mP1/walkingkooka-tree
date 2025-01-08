@@ -37,49 +37,49 @@ public final class ExpressionNumberConverterContextDelegatorTest implements Expr
     @Override
     public String currencySymbol() {
         return new TestExpressionNumberConverterContextDelegator()
-                .currencySymbol();
+            .currencySymbol();
     }
 
     @Override
     public char decimalSeparator() {
         return new TestExpressionNumberConverterContextDelegator()
-                .decimalSeparator();
+            .decimalSeparator();
     }
 
     @Override
     public String exponentSymbol() {
         return new TestExpressionNumberConverterContextDelegator()
-                .exponentSymbol();
+            .exponentSymbol();
     }
 
     @Override
     public char groupSeparator() {
         return new TestExpressionNumberConverterContextDelegator()
-                .groupSeparator();
+            .groupSeparator();
     }
 
     @Override
     public MathContext mathContext() {
         return new TestExpressionNumberConverterContextDelegator()
-                .mathContext();
+            .mathContext();
     }
 
     @Override
     public char negativeSign() {
         return new TestExpressionNumberConverterContextDelegator()
-                .negativeSign();
+            .negativeSign();
     }
 
     @Override
     public char percentageSymbol() {
         return new TestExpressionNumberConverterContextDelegator()
-                .percentageSymbol();
+            .percentageSymbol();
     }
 
     @Override
     public char positiveSign() {
         return new TestExpressionNumberConverterContextDelegator()
-                .positiveSign();
+            .positiveSign();
     }
 
     // class............................................................................................................
@@ -94,19 +94,19 @@ public final class ExpressionNumberConverterContextDelegatorTest implements Expr
         @Override
         public ExpressionNumberConverterContext expressionNumberConverterContext() {
             return ExpressionNumberConverterContexts.basic(
-                    Converters.numberToBoolean(),
-                    ConverterContexts.basic(
-                            0,
-                            Converters.fake(),
-                            DateTimeContexts.locale(
-                                    Locale.ENGLISH,
-                                    1900,
-                                    50,
-                                    LocalDateTime::now
-                            ),
-                            DecimalNumberContexts.american(MathContext.DECIMAL32)
+                Converters.numberToBoolean(),
+                ConverterContexts.basic(
+                    0,
+                    Converters.fake(),
+                    DateTimeContexts.locale(
+                        Locale.ENGLISH,
+                        1900,
+                        50,
+                        LocalDateTime::now
                     ),
-                    ExpressionNumberKind.BIG_DECIMAL
+                    DecimalNumberContexts.american(MathContext.DECIMAL32)
+                ),
+                ExpressionNumberKind.BIG_DECIMAL
             );
         }
 

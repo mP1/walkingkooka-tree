@@ -24,17 +24,17 @@ import walkingkooka.text.HasTextOffset;
  * A mixin interface which provides a default implementation of {@link HasTextOffset#textOffset()}.
  */
 public interface TraversableHasTextOffset<T extends HasTextLength & HasTextOffset & Traversable<T>> extends HasTextLength,
-        HasTextOffset,
-        Traversable<T> {
+    HasTextOffset,
+    Traversable<T> {
 
     /**
      * A simple implementation of {@link HasTextOffset#textOffset()} which either queries the previous sibling or parent.
      */
     default int textOffset() {
         return this.previousSibling()
-                .map(p -> p.textOffset() + p.textLength())
-                .orElse(this.parent()
-                        .map(HasTextOffset::textOffset)
-                        .orElse(0));
+            .map(p -> p.textOffset() + p.textLength())
+            .orElse(this.parent()
+                .map(HasTextOffset::textOffset)
+                .orElse(0));
     }
 }

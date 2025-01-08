@@ -34,7 +34,7 @@ import walkingkooka.tree.expression.ValueExpression;
 import java.util.function.Predicate;
 
 public final class NodeSelectorToStringBuilderTest implements ClassTesting2<NodeSelectorToStringBuilder>,
-        BuilderTesting<NodeSelectorToStringBuilder, String> {
+    BuilderTesting<NodeSelectorToStringBuilder, String> {
 
     @Test
     public void testAxis() {
@@ -429,15 +429,15 @@ public final class NodeSelectorToStringBuilderTest implements ClassTesting2<Node
         final NodeSelectorToStringBuilder b = NodeSelectorToStringBuilder.empty();
         b.name(abc1());
         b.expression(
-                Expression.call(
-                        Expression.namedFunction(
-                                ExpressionFunctionName.with("def2")
-                        ),
-                        Lists.of(
-                                expressionNumber(33),
-                                expressionNumber(44)
-                        )
+            Expression.call(
+                Expression.namedFunction(
+                    ExpressionFunctionName.with("def2")
+                ),
+                Lists.of(
+                    expressionNumber(33),
+                    expressionNumber(44)
                 )
+            )
         );
         this.buildAndCheck(b, "abc1[def2(33,44)]");
     }
@@ -523,7 +523,7 @@ public final class NodeSelectorToStringBuilderTest implements ClassTesting2<Node
 
     private ValueExpression<ExpressionNumber> expressionNumber(final double value) {
         return Expression.value(
-                ExpressionNumberKind.DEFAULT.create(value)
+            ExpressionNumberKind.DEFAULT.create(value)
         );
     }
 

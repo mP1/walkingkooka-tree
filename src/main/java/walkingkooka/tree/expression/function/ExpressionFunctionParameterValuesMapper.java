@@ -51,11 +51,11 @@ final class ExpressionFunctionParameterValuesMapper<T, C extends ExpressionEvalu
     public T apply(final List<Object> parameters,
                    final C context) {
         return this.function.apply(
-                this.mapper.apply(
-                        parameters,
-                        context
-                ),
+            this.mapper.apply(
+                parameters,
                 context
+            ),
+            context
         );
     }
 
@@ -65,8 +65,8 @@ final class ExpressionFunctionParameterValuesMapper<T, C extends ExpressionEvalu
     @Override
     public ExpressionFunction<T, C> mapParameterValues(final BiFunction<List<Object>, C, List<Object>> mapper) {
         return this.mapper.equals(mapper) ?
-                this :
-                ExpressionFunctionParameterValuesMapper.with(mapper, this);
+            this :
+            ExpressionFunctionParameterValuesMapper.with(mapper, this);
     }
 
     /**

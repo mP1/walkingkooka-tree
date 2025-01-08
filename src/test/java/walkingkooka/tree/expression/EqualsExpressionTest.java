@@ -73,11 +73,11 @@ public final class EqualsExpressionTest extends CompareExpressionTestCase<Equals
         }.accept(equals);
         this.checkEquals("1315215242", b.toString());
         this.checkEquals(Lists.of(equals, equals,
-                        text1, text1, text1,
-                        text2, text2, text2,
-                        equals, equals),
-                visited,
-                "visited");
+                text1, text1, text1,
+                text2, text2, text2,
+                equals, equals),
+            visited,
+            "visited");
     }
 
     // ExpressionNumber.................................................................................................

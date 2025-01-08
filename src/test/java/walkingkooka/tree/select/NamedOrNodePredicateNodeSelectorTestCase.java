@@ -22,7 +22,7 @@ import walkingkooka.naming.StringName;
 import walkingkooka.tree.TestNode;
 
 public abstract class NamedOrNodePredicateNodeSelectorTestCase<S extends NamedOrNodePredicateNodeSelector<TestNode, StringName, StringName, Object>>
-        extends NonTerminalNodeSelectorTestCase<S> {
+    extends NonTerminalNodeSelectorTestCase<S> {
 
     NamedOrNodePredicateNodeSelectorTestCase() {
         super();
@@ -31,7 +31,7 @@ public abstract class NamedOrNodePredicateNodeSelectorTestCase<S extends NamedOr
     @Test
     public final void testFinishedTrueChildren() {
         this.applyFinisherAndCheck(this.createSelector().children(),
-                TestNode.with("self"),
-                () -> true);
+            TestNode.with("self"),
+            () -> true);
     }
 }

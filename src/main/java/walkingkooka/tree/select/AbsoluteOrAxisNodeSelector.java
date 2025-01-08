@@ -24,7 +24,7 @@ import walkingkooka.tree.Node;
  * Base class for both {@link AbsoluteNodeSelector} and {@link AxisNodeSelector}.
  */
 abstract class AbsoluteOrAxisNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NAME extends Name, ANAME extends Name, AVALUE>
-        extends NonTerminalNodeSelector<N, NAME, ANAME, AVALUE> {
+    extends NonTerminalNodeSelector<N, NAME, ANAME, AVALUE> {
 
     /**
      * Package private constructor

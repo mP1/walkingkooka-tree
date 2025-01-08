@@ -92,12 +92,12 @@ public final class NodeSelectorModuloParserTokenTest extends NodeSelectorBinaryP
         }.accept(modulo);
         this.checkEquals("1315216217242", b.toString());
         this.checkEquals(Lists.<Object>of(modulo, modulo,
-                        nodeName, nodeName, nodeName,
-                        moduloSymbol, moduloSymbol, moduloSymbol,
-                        wildcard, wildcard, wildcard,
-                        modulo, modulo),
-                visited,
-                "visited");
+                nodeName, nodeName, nodeName,
+                moduloSymbol, moduloSymbol, moduloSymbol,
+                wildcard, wildcard, wildcard,
+                modulo, modulo),
+            visited,
+            "visited");
     }
 
     @Override

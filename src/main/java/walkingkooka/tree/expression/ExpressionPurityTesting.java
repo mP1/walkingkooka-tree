@@ -31,11 +31,11 @@ public interface ExpressionPurityTesting extends Testing {
                                 final ExpressionPurityContext context,
                                 final boolean expected) {
         this.checkEquals(
-                expected,
-                purity.isPure(context),
-                () -> purity instanceof TreePrintable ?
-                        ((TreePrintable) purity).treeToString(Indentation.SPACES2, LineEnding.NL) :
-                        purity.toString()
+            expected,
+            purity.isPure(context),
+            () -> purity instanceof TreePrintable ?
+                ((TreePrintable) purity).treeToString(Indentation.SPACES2, LineEnding.NL) :
+                purity.toString()
         );
     }
 }

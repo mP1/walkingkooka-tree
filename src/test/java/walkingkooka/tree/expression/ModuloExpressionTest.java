@@ -73,11 +73,11 @@ public final class ModuloExpressionTest extends ArithmeticExpressionTestCase2<Mo
         }.accept(modulo);
         this.checkEquals("1315215242", b.toString());
         this.checkEquals(Lists.of(modulo, modulo,
-                        text1, text1, text1,
-                        text2, text2, text2,
-                        modulo, modulo),
-                visited,
-                "visited");
+                text1, text1, text1,
+                text2, text2, text2,
+                modulo, modulo),
+            visited,
+            "visited");
     }
 
     // toBoolean...............................................................................................

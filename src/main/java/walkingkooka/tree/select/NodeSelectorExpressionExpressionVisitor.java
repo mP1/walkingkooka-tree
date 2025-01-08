@@ -50,20 +50,20 @@ import java.util.function.Predicate;
  * in place of the actual {@link Expression}.
  */
 final class NodeSelectorExpressionExpressionVisitor<N extends Node<N, NAME, ANAME, AVALUE>,
-        NAME extends Name,
-        ANAME extends Name,
-        AVALUE> extends ExpressionVisitor {
+    NAME extends Name,
+    ANAME extends Name,
+    AVALUE> extends ExpressionVisitor {
 
     static <N extends Node<N, NAME, ANAME, AVALUE>,
-            NAME extends Name,
-            ANAME extends Name,
-            AVALUE> NodeSelector<N, NAME, ANAME, AVALUE> acceptExpression(final Expression expression,
-                                                                          final NodeSelector<N, NAME, ANAME, AVALUE> selector) {
+        NAME extends Name,
+        ANAME extends Name,
+        AVALUE> NodeSelector<N, NAME, ANAME, AVALUE> acceptExpression(final Expression expression,
+                                                                      final NodeSelector<N, NAME, ANAME, AVALUE> selector) {
         final NodeSelectorExpressionExpressionVisitor<N, NAME, ANAME, AVALUE> visitor = new NodeSelectorExpressionExpressionVisitor<>(selector);
         visitor.accept(expression);
         return visitor.addExpression ?
-                selector.append(ExpressionNodeSelector.with(expression)) :
-                visitor.selector;
+            selector.append(ExpressionNodeSelector.with(expression)) :
+            visitor.selector;
     }
 
     NodeSelectorExpressionExpressionVisitor(final NodeSelector<N, NAME, ANAME, AVALUE> selector) {

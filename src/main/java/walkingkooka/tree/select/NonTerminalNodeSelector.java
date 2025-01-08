@@ -28,7 +28,7 @@ import java.util.Optional;
  * Base class for all non logical selectors.
  */
 abstract class NonTerminalNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NAME extends Name, ANAME extends Name, AVALUE>
-        extends NonCustomToStringNodeSelector<N, NAME, ANAME, AVALUE> {
+    extends NonCustomToStringNodeSelector<N, NAME, ANAME, AVALUE> {
 
     NonTerminalNodeSelector(final NodeSelector<N, NAME, ANAME, AVALUE> next) {
         super();
@@ -48,7 +48,7 @@ abstract class NonTerminalNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, N
                         final N parent,
                         final NodeSelectorContext2<N, NAME, ANAME, AVALUE> context) {
         return node.map(child -> this.select(child, context).parentOrFail())
-                .orElse(parent);
+            .orElse(parent);
     }
 
     /**
@@ -87,7 +87,7 @@ abstract class NonTerminalNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, N
     @SuppressWarnings("EqualsWhichDoesntCheckParameterClass")
     public final boolean equals(final Object other) {
         return this == other ||
-                this.canBeEqual(other) && this.equals0(Cast.to(other));
+            this.canBeEqual(other) && this.equals0(Cast.to(other));
     }
 
     abstract boolean canBeEqual(final Object other);

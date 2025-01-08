@@ -29,16 +29,16 @@ import java.util.function.Predicate;
  * A {@link NodeSelector} that passes the current {@link Node} to the {@link Predicate}.
  */
 final class NodePredicateNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NAME extends Name, ANAME extends Name, AVALUE>
-        extends
-        NamedOrNodePredicateNodeSelector<N, NAME, ANAME, AVALUE> {
+    extends
+    NamedOrNodePredicateNodeSelector<N, NAME, ANAME, AVALUE> {
 
     /**
      * Type safe {@link NodePredicateNodeSelector} getter
      */
     static <N extends Node<N, NAME, ANAME, AVALUE>,
-            NAME extends Name,
-            ANAME extends Name,
-            AVALUE>
+        NAME extends Name,
+        ANAME extends Name,
+        AVALUE>
     NodePredicateNodeSelector<N, NAME, ANAME, AVALUE> with(final Predicate<N> predicate) {
         Objects.requireNonNull(predicate, "predicate");
 
@@ -63,8 +63,8 @@ final class NodePredicateNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NA
         context.setNode(node);
 
         return this.predicate.test(node) ?
-                this.select(node, context) :
-                node;
+            this.select(node, context) :
+            node;
     }
 
     private final Predicate<N> predicate;

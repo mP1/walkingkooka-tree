@@ -41,7 +41,7 @@ import java.util.function.BiFunction;
  * Note that case-sensitivity is included in {@link #hashCode()} and {@link #equals(Object)}.
  */
 public final class ExpressionFunctionName implements Name,
-        Comparable<ExpressionFunctionName> {
+    Comparable<ExpressionFunctionName> {
 
     /**
      * When initially created {@link ExpressionFunctionName#caseSensitivity} is {@link CaseSensitivity#SENSITIVE}.
@@ -53,29 +53,29 @@ public final class ExpressionFunctionName implements Name,
      */
     public static ExpressionFunctionName with(final String name) {
         CharPredicates.failIfNullOrEmptyOrInitialAndPartFalse(
-                name,
-                "name",
-                INITIAL,
-                PART
+            name,
+            "name",
+            INITIAL,
+            PART
         );
         return new ExpressionFunctionName(
-                name,
-                DEFAULT_CASE_SENSITIVITY
+            name,
+            DEFAULT_CASE_SENSITIVITY
         );
     }
 
     private final static CharPredicate INITIAL = CharPredicates.letter();
     private final static CharPredicate PART = CharPredicates.letterOrDigit()
-            .or(CharPredicates.any("-._"));
+        .or(CharPredicates.any("-._"));
 
     static ExpressionFunctionName fromClass(final Class<? extends Expression> klass) {
         return new ExpressionFunctionName(
-                CharSequences.subSequence(
-                        klass.getSimpleName(),
-                        0,
-                        -EXPRESSION_STRING_LENGTH
-                ).toString(),
-                DEFAULT_CASE_SENSITIVITY
+            CharSequences.subSequence(
+                klass.getSimpleName(),
+                0,
+                -EXPRESSION_STRING_LENGTH
+            ).toString(),
+            DEFAULT_CASE_SENSITIVITY
         );
     }
 
@@ -98,10 +98,10 @@ public final class ExpressionFunctionName implements Name,
         final int length = name.length();
         if (length < MIN_LENGTH || length > MAX_LENGTH) {
             throw new InvalidTextLengthException(
-                    "Function name",
-                    name,
-                    MIN_LENGTH,
-                    MAX_LENGTH
+                "Function name",
+                name,
+                MIN_LENGTH,
+                MAX_LENGTH
             );
         }
         this.name = name;
@@ -128,22 +128,22 @@ public final class ExpressionFunctionName implements Name,
     public int hashCode() {
         final CaseSensitivity caseSensitivity = this.caseSensitivity;
         return Objects.hash(
-                caseSensitivity.hash(this.name),
-                caseSensitivity
+            caseSensitivity.hash(this.name),
+            caseSensitivity
         );
     }
 
     @Override
     public boolean equals(final Object other) {
         return this == other ||
-                other instanceof ExpressionFunctionName &&
-                        this.equals0(Cast.to(other));
+            other instanceof ExpressionFunctionName &&
+                this.equals0(Cast.to(other));
     }
 
     private boolean equals0(final ExpressionFunctionName other) {
         final CaseSensitivity caseSensitivity = this.caseSensitivity;
         return caseSensitivity.equals(this.name, other.name) &&
-                caseSensitivity == other.caseSensitivity;
+            caseSensitivity == other.caseSensitivity;
     }
 
     @Override
@@ -172,11 +172,11 @@ public final class ExpressionFunctionName implements Name,
         Objects.requireNonNull(caseSensitivity, "caseSensitivity");
 
         return this.caseSensitivity.equals(caseSensitivity) ?
-                this :
-                new ExpressionFunctionName(
-                        this.name,
-                        caseSensitivity
-                );
+            this :
+            new ExpressionFunctionName(
+                this.name,
+                caseSensitivity
+            );
     }
 
     private final CaseSensitivity caseSensitivity;
@@ -191,15 +191,15 @@ public final class ExpressionFunctionName implements Name,
     }
 
     private final static Parser<ParserContext> PARSER2 = Parsers.stringInitialAndPartCharPredicate(
-            INITIAL,
-            PART,
-            MIN_LENGTH,
-            MAX_LENGTH
+        INITIAL,
+        PART,
+        MIN_LENGTH,
+        MAX_LENGTH
     );
 
     /**
      * A parser function that returns a {@link ExpressionFunctionName} if the text under the cursor could be parsed.
      */
     public final static BiFunction<TextCursor, ParserContext, Optional<ExpressionFunctionName>> PARSER = (t, c) -> PARSER2.parse(t, c)
-            .map(token -> with(token.text()));
+        .map(token -> with(token.text()));
 }

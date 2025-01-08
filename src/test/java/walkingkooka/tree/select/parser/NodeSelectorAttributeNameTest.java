@@ -23,7 +23,7 @@ import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.text.CaseSensitivity;
 
 final public class NodeSelectorAttributeNameTest implements ClassTesting2<NodeSelectorAttributeName>,
-        NameTesting2<NodeSelectorAttributeName, NodeSelectorAttributeName> {
+    NameTesting2<NodeSelectorAttributeName, NodeSelectorAttributeName> {
 
     @Override
     public NodeSelectorAttributeName createName(final String name) {
@@ -63,8 +63,8 @@ final public class NodeSelectorAttributeNameTest implements ClassTesting2<NodeSe
     @Override
     public String possibleValidChars(final int position) {
         return 0 == position ?
-                ASCII_LETTERS :
-                ASCII_LETTERS_DIGITS + "_";
+            ASCII_LETTERS :
+            ASCII_LETTERS_DIGITS + "_";
     }
 
     @Override

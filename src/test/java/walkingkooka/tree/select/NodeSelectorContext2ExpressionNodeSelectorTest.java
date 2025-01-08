@@ -31,7 +31,7 @@ import static org.junit.jupiter.api.Assertions.assertNotSame;
 import static org.junit.jupiter.api.Assertions.assertSame;
 
 public final class NodeSelectorContext2ExpressionNodeSelectorTest extends NodeSelectorContext2TestCase<NodeSelectorContext2ExpressionNodeSelector<TestNode, StringName, StringName, Object>,
-        TestNode, StringName, StringName, Object> {
+    TestNode, StringName, StringName, Object> {
 
     private final static int INDEX = 5;
 
@@ -81,34 +81,34 @@ public final class NodeSelectorContext2ExpressionNodeSelectorTest extends NodeSe
     }
 
     private void isNodeSelectedAndCheck(final Expression expression,
-                                          final boolean expected) {
+                                        final boolean expected) {
         this.checkEquals(expected,
-                this.createContext().isNodeSelected(expression),
-                () -> "expression: " + CharSequences.quoteIfChars(expression));
+            this.createContext().isNodeSelected(expression),
+            () -> "expression: " + CharSequences.quoteIfChars(expression));
     }
 
     @Test
     public void testIsNodeSelected() {
         final NodeSelectorContext2ExpressionNodeSelector<TestNode, StringName, StringName, Object> context = this.createContext();
         this.checkEquals(INDEX,
-                context.nodePosition(),
-                () -> "nodePosition in " + context);
+            context.nodePosition(),
+            () -> "nodePosition in " + context);
     }
 
     @Override
     public NodeSelectorContext2ExpressionNodeSelector<TestNode, StringName, StringName, Object> createContext() {
         final NodeSelectorContext2ExpressionNodeSelector<TestNode, StringName, StringName, Object> context = NodeSelectorContext2ExpressionNodeSelector.with(
-                new FakeNodeSelectorContext<TestNode, StringName, StringName, Object>() {
+            new FakeNodeSelectorContext<TestNode, StringName, StringName, Object>() {
 
-                    @Override
-                    public Object evaluate(final Expression expression) {
-                        Objects.requireNonNull(expression, "expression");
+                @Override
+                public Object evaluate(final Expression expression) {
+                    Objects.requireNonNull(expression, "expression");
 
-                        return expression.toValue(
-                                ExpressionEvaluationContexts.fake()
-                        );
-                    }
-                });
+                    return expression.toValue(
+                        ExpressionEvaluationContexts.fake()
+                    );
+                }
+            });
         context.position = INDEX;
         return context;
     }

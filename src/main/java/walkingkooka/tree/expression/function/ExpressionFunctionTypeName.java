@@ -55,7 +55,7 @@ final class ExpressionFunctionTypeName<C extends ExpressionEvaluationContext> im
     }
 
     private final static Optional<ExpressionFunctionName> NAME = Optional.of(
-            ExpressionFunctionName.with("typeName")
+        ExpressionFunctionName.with("typeName")
     );
 
     @Override
@@ -64,8 +64,8 @@ final class ExpressionFunctionTypeName<C extends ExpressionEvaluationContext> im
         this.checkParameterCount(parameters);
 
         return PARAMETER.getOrFail(parameters, 0)
-                .getClass()
-                .getName();
+            .getClass()
+            .getName();
     }
 
     @Override
@@ -74,8 +74,8 @@ final class ExpressionFunctionTypeName<C extends ExpressionEvaluationContext> im
     }
 
     private final static ExpressionFunctionParameter<Object> PARAMETER = ExpressionFunctionParameterName.VALUE
-            .required(Object.class)
-            .setKinds(ExpressionFunctionParameterKind.EVALUATE_RESOLVE_REFERENCES);
+        .required(Object.class)
+        .setKinds(ExpressionFunctionParameterKind.EVALUATE_RESOLVE_REFERENCES);
 
     private final static List<ExpressionFunctionParameter<?>> PARAMETERS = ExpressionFunctionParameter.list(PARAMETER);
 
@@ -92,7 +92,7 @@ final class ExpressionFunctionTypeName<C extends ExpressionEvaluationContext> im
     @Override
     public String toString() {
         return this.name()
-                .get()
-                .toString();
+            .get()
+            .toString();
     }
 }
