@@ -503,6 +503,41 @@ public final class BasicExpressionEvaluationContextTest implements ClassTesting2
         );
     }
 
+    // context..........................................................................................................
+
+    @Test
+    public void testContextWithGlobalReference() {
+        this.referenceAndCheck(
+            this.createContext()
+                .context(
+                    r -> Optional.empty() // no locals
+                ),
+            REFERENCE,
+            REFERENCE_VALUE
+        );
+    }
+
+    @Test
+    public void testContextWithLocalReference() {
+        final ExpressionReference reference = new FakeExpressionReference();
+        final String value = "*reference value*";
+
+        this.referenceAndCheck(
+            this.createContext()
+                .context(
+                    r -> r.equals(reference) ?
+                        Optional.of(
+                            Optional.of(value)
+                        ) :
+                        Optional.empty()
+                ),
+            reference,
+            value
+        );
+    }
+
+    // convert..........................................................................................................
+
     @Test
     public void testConvert() {
         this.convertAndCheck(123.0, Long.class, 123L);
