@@ -89,32 +89,27 @@ public final class ScopedExpressionEvaluationContextTest implements ExpressionEv
 
     @Test
     public void testReferenceWithUnknownReference() {
-        this.checkEquals(
-            Optional.empty(),
-            this.createContext()
-                .reference(new FakeExpressionReference())
+        this.referenceAndCheck(
+            this.createContext(),
+            new FakeExpressionReference()
         );
     }
 
     @Test
     public void testReferenceWithGlobalReference() {
-        this.checkEquals(
-            Optional.of(
-                Optional.of(GLOBAL_REFERENCE_VALUE)
-            ),
-            this.createContext()
-                .reference(GLOBAL_REFERENCE)
+        this.referenceAndCheck(
+            this.createContext(),
+            GLOBAL_REFERENCE,
+            GLOBAL_REFERENCE_VALUE
         );
     }
 
     @Test
     public void testReferenceWithLocalReference() {
-        this.checkEquals(
-            Optional.of(
-                Optional.of(LOCAL_REFERENCE_VALUE)
-            ),
-            this.createContext()
-                .reference(LOCAL_REFERENCE)
+        this.referenceAndCheck(
+            this.createContext(),
+            LOCAL_REFERENCE,
+            LOCAL_REFERENCE_VALUE
         );
     }
 
@@ -123,10 +118,7 @@ public final class ScopedExpressionEvaluationContextTest implements ExpressionEv
         final String value = "222";
         final ExpressionReference reference = new FakeExpressionReference();
 
-        this.checkEquals(
-            Optional.of(
-                Optional.of(value)
-            ),
+        this.referenceAndCheck(
             this.createContext()
                 .context(r ->
                     Optional.of(
@@ -136,7 +128,9 @@ public final class ScopedExpressionEvaluationContextTest implements ExpressionEv
                                 null
                         )
                     )
-                ).reference(reference)
+                ),
+            reference,
+            value
         );
     }
 

@@ -109,12 +109,17 @@ public final class BasicNodeSelectorExpressionEvaluationContextTest implements N
         final String attribute = "attribute123";
         final String value = "value123";
         final TestNode node = TestNode.with("node123")
-            .setAttributes(Maps.of(Names.string(attribute), value));
+            .setAttributes(
+                Maps.of(
+                    Names.string(attribute),
+                    value
+                )
+            );
 
-        this.checkEquals(
-            value,
-            this.createContext(node)
-                .referenceOrFail(NodeSelectorAttributeName.with(attribute))
+        this.referenceAndCheck(
+            this.createContext(node),
+            NodeSelectorAttributeName.with(attribute),
+            value
         );
     }
 
