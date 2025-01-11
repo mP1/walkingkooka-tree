@@ -157,6 +157,8 @@ final class BasicExpressionEvaluationContext implements ExpressionEvaluationCont
 
     @Override
     public Object evaluate(final Expression expression) {
+        Objects.requireNonNull(expression, "expression");
+
         Object result;
 
         try {
