@@ -20,12 +20,14 @@ package walkingkooka.tree.expression;
 import walkingkooka.Cast;
 import walkingkooka.Either;
 import walkingkooka.convert.ConverterContext;
+import walkingkooka.datetime.DateTimeContext;
+import walkingkooka.datetime.DateTimeContextDelegator;
+import walkingkooka.math.DecimalNumberContext;
+import walkingkooka.math.DecimalNumberContextDelegator;
 import walkingkooka.text.CaseSensitivity;
 import walkingkooka.tree.expression.function.ExpressionFunction;
 import walkingkooka.tree.expression.function.ExpressionFunctionParameter;
 
-import java.math.MathContext;
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
@@ -38,7 +40,9 @@ import java.util.function.Function;
  * values are also converted to the parameter's type.
  * This is useful for languages or environments that have auto converting of value semantics, think Javascript.
  */
-final class BasicExpressionEvaluationContext implements ExpressionEvaluationContext {
+final class BasicExpressionEvaluationContext implements ExpressionEvaluationContext,
+    DateTimeContextDelegator,
+    DecimalNumberContextDelegator {
 
     /**
      * Factory that creates a {@link BasicExpressionEvaluationContext}
@@ -102,107 +106,31 @@ final class BasicExpressionEvaluationContext implements ExpressionEvaluationCont
         return value instanceof Character || value instanceof CharSequence;
     }
 
-    // DateTimeContext.................................................................................................
-
-    @Override
-    public List<String> ampms() {
-        return this.converterContext.ampms();
-    }
-
-    @Override
-    public int defaultYear() {
-        return this.converterContext.defaultYear();
-    }
-
-    @Override
-    public List<String> monthNames() {
-        return this.converterContext.monthNames();
-    }
-
-    @Override
-    public List<String> monthNameAbbreviations() {
-        return this.converterContext.monthNameAbbreviations();
-    }
-
-    @Override
-    public LocalDateTime now() {
-        return this.converterContext.now();
-    }
-
-    @Override
-    public int twoToFourDigitYear(final int year) {
-        return this.converterContext.twoToFourDigitYear(year);
-    }
-
-    @Override
-    public int twoDigitYear() {
-        return this.converterContext.twoDigitYear();
-    }
-
-    @Override
-    public List<String> weekDayNames() {
-        return this.converterContext.weekDayNames();
-    }
-
-    @Override
-    public List<String> weekDayNameAbbreviations() {
-        return this.converterContext.weekDayNameAbbreviations();
-    }
-
-    // DecimalNumberContext............................................................................................
-
-    @Override
-    public String currencySymbol() {
-        return this.converterContext.currencySymbol();
-    }
-
-    @Override
-    public char decimalSeparator() {
-        return this.converterContext.decimalSeparator();
-    }
-
-    @Override
-    public String exponentSymbol() {
-        return this.converterContext.exponentSymbol();
-    }
-
-    @Override
-    public char groupSeparator() {
-        return this.converterContext.groupSeparator();
-    }
-
-    @Override
-    public char percentageSymbol() {
-        return this.converterContext.percentageSymbol();
-    }
-
-    @Override
-    public char negativeSign() {
-        return this.converterContext.negativeSign();
-    }
-
-    @Override
-    public char positiveSign() {
-        return this.converterContext.positiveSign();
-    }
-
-
-    @Override
-    public Locale locale() {
-        return this.converterContext.locale();
-    }
-
-    @Override
-    public MathContext mathContext() {
-        return this.converterContext.mathContext();
-    }
-
     @Override
     public ExpressionNumberKind expressionNumberKind() {
         return this.expressionNumberKind;
     }
 
     private final ExpressionNumberKind expressionNumberKind;
+
+    @Override
+    public Locale locale() {
+        return this.converterContext.locale();
+    }
+
+    // DateTimeContext.................................................................................................
+
+    @Override
+    public DateTimeContext dateTimeContext() {
+        return this.converterContext;
+    }
+
+    // DecimalNumberContext............................................................................................
+
+    @Override
+    public DecimalNumberContext decimalNumberContext() {
+        return this.converterContext;
+    }
 
     // Convert..........................................................................................................
 
