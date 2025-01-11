@@ -18,16 +18,22 @@
 package walkingkooka.tree.expression;
 
 import org.junit.jupiter.api.Test;
+import walkingkooka.collect.list.Lists;
+import walkingkooka.collect.set.Sets;
 import walkingkooka.convert.ConverterContexts;
 import walkingkooka.convert.Converters;
 import walkingkooka.datetime.DateTimeContexts;
 import walkingkooka.math.DecimalNumberContext;
 import walkingkooka.math.DecimalNumberContexts;
 import walkingkooka.text.CaseSensitivity;
+import walkingkooka.tree.expression.function.ExpressionFunctionParameter;
+import walkingkooka.tree.expression.function.ExpressionFunctionParameterCardinality;
 import walkingkooka.tree.expression.function.ExpressionFunctionParameterName;
+import walkingkooka.tree.expression.function.FakeExpressionFunction;
 
 import java.math.MathContext;
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
 import java.util.Optional;
@@ -132,6 +138,122 @@ public final class ScopedExpressionEvaluationContextTest implements ExpressionEv
             reference,
             value
         );
+    }
+
+    // evaluate.........................................................................................................
+
+    @Test
+    public void testEvaluateExpressionWithGlobalReference() {
+        this.evaluateAndCheck(
+            this.createContext(),
+            Expression.reference(GLOBAL_REFERENCE),
+            GLOBAL_REFERENCE_VALUE
+        );
+    }
+
+    @Test
+    public void testEvaluateExpressionWithLocalReference() {
+        this.evaluateAndCheck(
+            this.createContext(),
+            Expression.reference(LOCAL_REFERENCE),
+            LOCAL_REFERENCE_VALUE
+        );
+    }
+
+    @Test
+    public void testEvaluateExpressionWithUnknownReference() {
+        assertThrows(
+            ExpressionEvaluationReferenceException.class,
+            () -> this.createContext()
+                .evaluate(
+                    Expression.reference(new FakeExpressionReference())
+                )
+        );
+    }
+
+    // evaluateFunction.................................................................................................
+
+    @Test
+    public void testEvaluateFunctionWithGlobalReference() {
+        this.evaluateFunctionAndCheck(
+            this.createContext(),
+            new TestFunction() {
+
+                @Override
+                public Object apply(final List<Object> objects,
+                                    final ScopedExpressionEvaluationContext context) {
+                    return context.referenceOrFail(
+                        (ExpressionReference) objects.get(0)
+                    );
+                }
+            },
+            Lists.of(GLOBAL_REFERENCE),
+            GLOBAL_REFERENCE_VALUE
+        );
+    }
+
+    @Test
+    public void testEvaluateFunctionWithLocalReference() {
+        this.evaluateFunctionAndCheck(
+            this.createContext(),
+            new TestFunction() {
+
+                @Override
+                public Object apply(final List<Object> objects,
+                                    final ScopedExpressionEvaluationContext context) {
+                    return context.referenceOrFail(
+                        (ExpressionReference) objects.get(0)
+                    );
+                }
+            },
+            Lists.of(LOCAL_REFERENCE),
+            LOCAL_REFERENCE_VALUE
+        );
+    }
+
+    @Test
+    public void testEvaluateFunctionWithUnknownReference() {
+        final Object unknownDefault = "***UnknownDefault***";
+
+        this.evaluateFunctionAndCheck(
+            this.createContext(),
+            new TestFunction() {
+
+                @Override
+                public Object apply(final List<Object> objects,
+                                    final ScopedExpressionEvaluationContext context) {
+                    return context.reference(
+                            (ExpressionReference) objects.get(0)
+                        ).map(Optional::get)
+                        .orElse(
+                            unknownDefault
+                        );
+                }
+            },
+            Lists.of(new FakeExpressionReference()),
+            unknownDefault
+        );
+    }
+
+    abstract class TestFunction extends FakeExpressionFunction<Object, ScopedExpressionEvaluationContext> {
+
+        @Override
+        public abstract Object apply(final List<Object> objects, final ScopedExpressionEvaluationContext context);
+
+        @Override
+        public final List<ExpressionFunctionParameter<?>> parameters(final int count) {
+            checkEquals(1, count, "parameterCount");
+
+            return Lists.of(
+                ExpressionFunctionParameter.with(
+                    ExpressionFunctionParameterName.with("reference-parameter"),
+                    Object.class,
+                    Lists.empty(),
+                    ExpressionFunctionParameterCardinality.REQUIRED,
+                    Sets.empty()
+                )
+            );
+        }
     }
 
     // ExpressionEvaluationContext......................................................................................

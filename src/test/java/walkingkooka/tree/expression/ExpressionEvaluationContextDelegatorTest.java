@@ -23,9 +23,11 @@ import walkingkooka.datetime.DateTimeContexts;
 import walkingkooka.math.DecimalNumberContexts;
 import walkingkooka.text.CaseSensitivity;
 import walkingkooka.tree.expression.ExpressionEvaluationContextDelegatorTest.TestExpressionEvaluationContextDelegator;
+import walkingkooka.tree.expression.function.ExpressionFunction;
 
 import java.math.MathContext;
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
 import java.util.Optional;
@@ -104,6 +106,22 @@ public final class ExpressionEvaluationContextDelegatorTest implements Expressio
         @Override
         public Optional<Optional<Object>> reference(final ExpressionReference reference) {
             return this.expressionEvaluationContext().reference(reference);
+        }
+
+        @Override
+        public Object evaluate(final Expression expression) {
+            Objects.requireNonNull(expression, "expression");
+
+            return "evaluate->Test";
+        }
+
+        @Override
+        public Object evaluateFunction(final ExpressionFunction<?, ? extends ExpressionEvaluationContext> function,
+                                       final List<Object> parameters) {
+            Objects.requireNonNull(function, "function");
+            Objects.requireNonNull(parameters, "parameters");
+
+            return "evaluateFunction->Test";
         }
 
         @Override

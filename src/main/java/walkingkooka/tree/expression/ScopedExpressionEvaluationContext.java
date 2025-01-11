@@ -17,6 +17,10 @@
 
 package walkingkooka.tree.expression;
 
+import walkingkooka.Cast;
+import walkingkooka.tree.expression.function.ExpressionFunction;
+
+import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.function.Function;
@@ -63,6 +67,43 @@ final class ScopedExpressionEvaluationContext implements ExpressionEvaluationCon
     }
 
     private final Function<ExpressionReference, Optional<Optional<Object>>> referenceToValue;
+
+    // copied from BasicExpressionEvaluationContext
+    @Override
+    public Object evaluate(final Expression expression) {
+        Objects.requireNonNull(expression, "expression");
+
+        Object result;
+
+        try {
+            result = expression.toValue(this);
+        } catch (final RuntimeException exception) {
+            result = this.handleException(exception);
+        }
+
+        return result;
+    }
+
+    // copied from BasicExpressionEvaluationContext
+    @Override
+    public Object evaluateFunction(final ExpressionFunction<?, ? extends ExpressionEvaluationContext> function,
+                                   final List<Object> parameters) {
+        Objects.requireNonNull(function, "function");
+        Objects.requireNonNull(parameters, "parameters");
+
+        Object result;
+
+        try {
+            result = function.apply(
+                this.prepareParameters(function, parameters),
+                Cast.to(this)
+            );
+        } catch (final RuntimeException exception) {
+            result = this.handleException(exception);
+        }
+
+        return result;
+    }
 
     // ExpressionEvaluationContextDelegator.............................................................................
 
