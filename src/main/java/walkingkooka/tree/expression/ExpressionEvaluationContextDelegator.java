@@ -23,7 +23,6 @@ import walkingkooka.text.CaseSensitivity;
 import walkingkooka.tree.expression.function.ExpressionFunction;
 import walkingkooka.tree.expression.function.ExpressionFunctionParameter;
 
-import java.util.List;
 import java.util.Locale;
 import java.util.function.Function;
 
@@ -64,28 +63,12 @@ public interface ExpressionEvaluationContextDelegator extends ExpressionEvaluati
     }
 
     @Override
-    default Object evaluate(final Expression expression) {
-        return this.expressionEvaluationContext()
-            .evaluate(expression);
-    }
-
-    @Override
     default <T> T prepareParameter(final ExpressionFunctionParameter<T> parameter,
                                    final Object value) {
         return this.expressionEvaluationContext()
             .prepareParameter(
                 parameter,
                 value
-            );
-    }
-
-    @Override
-    default Object evaluateFunction(final ExpressionFunction<?, ? extends ExpressionEvaluationContext> function,
-                                    final List<Object> parameters) {
-        return this.expressionEvaluationContext()
-            .evaluateFunction(
-                function,
-                parameters
             );
     }
 

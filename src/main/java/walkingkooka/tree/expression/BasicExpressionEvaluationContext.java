@@ -155,6 +155,7 @@ final class BasicExpressionEvaluationContext implements ExpressionEvaluationCont
 
     // eval.............................................................................................................
 
+    // if changed copy to ScopedExpressionEvaluationContext#evaluate
     @Override
     public Object evaluate(final Expression expression) {
         Objects.requireNonNull(expression, "expression");
@@ -198,6 +199,7 @@ final class BasicExpressionEvaluationContext implements ExpressionEvaluationCont
         return parameter.convertOrFail(value, this);
     }
 
+    // if changed copy to ScopedExpressionEvaluationContext#evaluateFunction
     @Override
     public Object evaluateFunction(final ExpressionFunction<?, ? extends ExpressionEvaluationContext> function,
                                    final List<Object> parameters) {
