@@ -201,6 +201,9 @@ final class BasicExpressionEvaluationContext implements ExpressionEvaluationCont
     @Override
     public Object evaluateFunction(final ExpressionFunction<?, ? extends ExpressionEvaluationContext> function,
                                    final List<Object> parameters) {
+        Objects.requireNonNull(function, "function");
+        Objects.requireNonNull(parameters, "parameters");
+
         Object result;
 
         try {
