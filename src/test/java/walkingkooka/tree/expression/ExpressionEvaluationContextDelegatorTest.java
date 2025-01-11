@@ -29,6 +29,7 @@ import java.time.LocalDateTime;
 import java.util.Locale;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.function.Function;
 
 public final class ExpressionEvaluationContextDelegatorTest implements ExpressionEvaluationContextTesting<TestExpressionEvaluationContextDelegator> {
 
@@ -103,6 +104,11 @@ public final class ExpressionEvaluationContextDelegatorTest implements Expressio
         @Override
         public Optional<Optional<Object>> reference(final ExpressionReference reference) {
             return this.expressionEvaluationContext().reference(reference);
+        }
+
+        @Override
+        public ExpressionEvaluationContext context(final Function<ExpressionReference, Optional<Optional<Object>>> scoped) {
+            throw new UnsupportedOperationException();
         }
 
         @Override
