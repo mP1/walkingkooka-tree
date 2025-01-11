@@ -28,6 +28,7 @@ import java.math.MathContext;
 import java.time.LocalDateTime;
 import java.util.Locale;
 import java.util.Objects;
+import java.util.Optional;
 
 public final class ExpressionEvaluationContextDelegatorTest implements ExpressionEvaluationContextTesting<TestExpressionEvaluationContextDelegator> {
 
@@ -98,6 +99,11 @@ public final class ExpressionEvaluationContextDelegatorTest implements Expressio
     }
 
     static final class TestExpressionEvaluationContextDelegator implements ExpressionEvaluationContextDelegator {
+
+        @Override
+        public Optional<Optional<Object>> reference(ExpressionReference reference) {
+            return this.expressionEvaluationContext().reference(reference);
+        }
 
         @Override
         public ExpressionEvaluationContext expressionEvaluationContext() {
