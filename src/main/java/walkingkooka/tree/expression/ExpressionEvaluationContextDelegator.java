@@ -28,6 +28,9 @@ import java.util.Locale;
 import java.util.Optional;
 import java.util.function.Function;
 
+/**
+ * Delegates all {@link ExpressionEvaluationContext} except for {@link #reference(ExpressionReference)}.
+ */
 public interface ExpressionEvaluationContextDelegator extends ExpressionEvaluationContext,
     ConverterContextDelegator {
 
@@ -96,12 +99,6 @@ public interface ExpressionEvaluationContextDelegator extends ExpressionEvaluati
     default Object handleException(final RuntimeException exception) {
         return this.expressionEvaluationContext()
             .handleException(exception);
-    }
-
-    @Override
-    default Optional<Optional<Object>> reference(final ExpressionReference reference) {
-        return this.expressionEvaluationContext()
-            .reference(reference);
     }
 
     @Override
