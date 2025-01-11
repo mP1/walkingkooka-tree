@@ -37,6 +37,8 @@ public interface ExpressionEvaluationContextTesting<C extends ExpressionEvaluati
     ExpressionPurityContextTesting<C>,
     TreePrintableTesting {
 
+    // evaluate.........................................................................................................
+
     @Test
     default void testEvaluateNullExpressionFails() {
         assertThrows(
@@ -80,6 +82,8 @@ public interface ExpressionEvaluationContextTesting<C extends ExpressionEvaluati
             () -> "Expression.toValue failed, node=" + node + " context=" + context);
     }
 
+    // expressionFunction...............................................................................................
+
     @Test
     default void testExpressionFunctionWithNullFunctionNameFails() {
         assertThrows(
@@ -113,15 +117,6 @@ public interface ExpressionEvaluationContextTesting<C extends ExpressionEvaluati
         );
     }
 
-    @Test
-    default void testReferenceNullReferenceFails() {
-        assertThrows(
-            NullPointerException.class,
-            () -> this.createContext()
-                .reference(null)
-        );
-    }
-
     default <T> void evaluateFunctionAndCheck(final ExpressionFunction<T, C> function,
                                               final List<Object> parameters,
                                               final T expected) {
@@ -144,6 +139,19 @@ public interface ExpressionEvaluationContextTesting<C extends ExpressionEvaluati
             () -> "evaluate " + function + " " + parameters
         );
     }
+
+    // reference........................................................................................................
+
+    @Test
+    default void testReferenceNullReferenceFails() {
+        assertThrows(
+            NullPointerException.class,
+            () -> this.createContext()
+                .reference(null)
+        );
+    }
+
+    // ExpressionEvaluationContext......................................................................................
 
     @Override
     default C createCanConvert() {
