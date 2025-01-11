@@ -127,22 +127,22 @@ public final class CycleDetectingExpressionEvaluationContextTest implements Clas
     public void testReference() {
         final String target = "Text123";
 
-        final CycleDetectingExpressionEvaluationContext context = this.createContext(
-            new FakeExpressionEvaluationContext() {
+        this.referenceAndCheck(
+            this.createContext(
+                new FakeExpressionEvaluationContext() {
 
-                @Override
-                public Optional<Optional<Object>> reference(final ExpressionReference reference) {
-                    assertSame(A1, reference, "reference");
+                    @Override
+                    public Optional<Optional<Object>> reference(final ExpressionReference reference) {
+                        assertSame(A1, reference, "reference");
 
-                    return Optional.of(
-                        Optional.of(target
-                        )
-                    );
+                        return Optional.of(
+                            Optional.of(target)
+                        );
+                    }
                 }
-            });
-        this.checkEquals(
-            Optional.of(target),
-            context.reference(A1).orElse(null)
+            ),
+            A1,
+            target
         );
     }
 

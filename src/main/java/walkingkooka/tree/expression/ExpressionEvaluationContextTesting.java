@@ -25,6 +25,7 @@ import walkingkooka.tree.expression.function.ExpressionFunctions;
 import walkingkooka.tree.expression.function.UnknownExpressionFunctionException;
 
 import java.util.List;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -148,6 +149,45 @@ public interface ExpressionEvaluationContextTesting<C extends ExpressionEvaluati
             NullPointerException.class,
             () -> this.createContext()
                 .reference(null)
+        );
+    }
+
+    default void referenceAndCheck(final ExpressionEvaluationContext context,
+                                   final ExpressionReference reference) {
+        this.referenceAndCheck2(
+            context,
+            reference,
+            Optional.empty()
+        );
+    }
+
+    default void referenceAndCheck(final ExpressionEvaluationContext context,
+                                   final ExpressionReference reference,
+                                   final Object expected) {
+        this.referenceAndCheck(
+            context,
+            reference,
+            Optional.of(expected)
+        );
+    }
+
+    default void referenceAndCheck(final ExpressionEvaluationContext context,
+                                   final ExpressionReference reference,
+                                   final Optional<Object> expected) {
+        this.referenceAndCheck2(
+            context,
+            reference,
+            Optional.of(expected)
+        );
+    }
+
+    default void referenceAndCheck2(final ExpressionEvaluationContext context,
+                                    final ExpressionReference reference,
+                                    final Optional<Optional<Object>> expected) {
+        this.checkEquals(
+            expected,
+            context.reference(reference),
+            () -> "reference " + reference
         );
     }
 

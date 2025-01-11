@@ -482,12 +482,10 @@ public final class BasicExpressionEvaluationContextTest implements ClassTesting2
 
     @Test
     public void testReferences() {
-        this.checkEquals(
-            Optional.of(
-                Optional.of(REFERENCE_VALUE)
-            ),
-            this.createContext()
-                .reference(REFERENCE)
+        this.referenceAndCheck(
+            this.createContext(),
+            REFERENCE,
+            REFERENCE_VALUE
         );
     }
 
