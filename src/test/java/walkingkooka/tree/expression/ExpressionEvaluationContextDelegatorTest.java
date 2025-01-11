@@ -101,7 +101,7 @@ public final class ExpressionEvaluationContextDelegatorTest implements Expressio
     static final class TestExpressionEvaluationContextDelegator implements ExpressionEvaluationContextDelegator {
 
         @Override
-        public Optional<Optional<Object>> reference(ExpressionReference reference) {
+        public Optional<Optional<Object>> reference(final ExpressionReference reference) {
             return this.expressionEvaluationContext().reference(reference);
         }
 
