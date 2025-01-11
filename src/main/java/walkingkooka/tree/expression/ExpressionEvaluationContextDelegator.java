@@ -25,11 +25,11 @@ import walkingkooka.tree.expression.function.ExpressionFunctionParameter;
 
 import java.util.List;
 import java.util.Locale;
-import java.util.Optional;
 import java.util.function.Function;
 
 /**
- * Delegates all {@link ExpressionEvaluationContext} except for {@link #reference(ExpressionReference)}.
+ * Delegates all {@link ExpressionEvaluationContext} except for {@link #reference(ExpressionReference)} and
+ * {@link #context(Function)}.
  */
 public interface ExpressionEvaluationContextDelegator extends ExpressionEvaluationContext,
     ConverterContextDelegator {
@@ -61,12 +61,6 @@ public interface ExpressionEvaluationContextDelegator extends ExpressionEvaluati
     default ExpressionFunction<?, ExpressionEvaluationContext> expressionFunction(final ExpressionFunctionName name) {
         return this.expressionEvaluationContext()
             .expressionFunction(name);
-    }
-
-    @Override
-    default ExpressionEvaluationContext context(final Function<ExpressionReference, Optional<Optional<Object>>> scoped) {
-        return this.expressionEvaluationContext()
-            .context(scoped);
     }
 
     @Override
