@@ -170,7 +170,7 @@ public class ExpressionFunctionLambdaTest extends ExpressionFunctionTestCase<Exp
                     }
 
                     @Override
-                    public Object evaluate(final Expression expression) {
+                    public Object evaluateExpression(final Expression expression) {
                         return expression.toValue(this);
                     }
 

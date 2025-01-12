@@ -170,132 +170,193 @@ public abstract class ExpressionTestCase<N extends Expression> implements TreePr
         return value.toString(context());
     }
 
-    final void evaluateAndCheckBoolean(final Expression node, final boolean expected) {
-        this.evaluateAndCheckBoolean(node, context(), expected);
-    }
-
-    final void evaluateAndCheckBoolean(final Expression node, final ExpressionEvaluationContext context, final boolean expected) {
-        this.checkEquals(
-            expected,
-            node.toBoolean(context),
-            () -> "toBoolean of " + node + " failed"
+    final void toBooleanAndCheck(final Expression expression,
+                                 final boolean expected) {
+        this.toBooleanAndCheck(
+            expression,
+            context(),
+            expected
         );
     }
 
-    final void evaluateAndCheckExpressionNumber(final Expression node,
-                                                final double expected) {
-        this.evaluateAndCheckExpressionNumber(node, expressionNumberValue(expected));
-    }
-
-    final void evaluateAndCheckExpressionNumber(final Expression node,
-                                                final ExpressionNumber expected) {
-        this.evaluateAndCheckExpressionNumber(node, this.context(), expected);
-    }
-
-    final void evaluateAndCheckExpressionNumber(final Expression node,
-                                                final ExpressionEvaluationContext context,
-                                                final ExpressionNumber expected) {
+    final void toBooleanAndCheck(final Expression expression,
+                                 final ExpressionEvaluationContext context,
+                                 final boolean expected) {
         this.checkEquals(
             expected,
-            node.toExpressionNumber(context),
-            () -> "toExpressionNumber of " + node + " failed"
+            expression.toBoolean(context),
+            () -> "toBoolean of " + expression + " failed"
         );
     }
 
-    final void evaluateAndCheckLocalDate(final Expression node, final long expected) {
-        this.evaluateAndCheckLocalDate(node, this.localDateValue(expected));
+    final void toExpressionNumberAndCheck(final Expression expression,
+                                          final double expected) {
+        this.toExpressionNumberAndCheck(
+            expression,
+            expressionNumberValue(expected)
+        );
     }
 
-    final void evaluateAndCheckLocalDate(final Expression node, final LocalDate expected) {
-        this.evaluateAndCheckLocalDate(node, context(), expected);
+    final void toExpressionNumberAndCheck(final Expression expression,
+                                          final ExpressionNumber expected) {
+        this.toExpressionNumberAndCheck(
+            expression,
+            this.context(),
+            expected
+        );
     }
 
-    final void evaluateAndCheckLocalDate(final Expression node, final ExpressionEvaluationContext context, final LocalDate expected) {
+    final void toExpressionNumberAndCheck(final Expression expression,
+                                          final ExpressionEvaluationContext context,
+                                          final ExpressionNumber expected) {
+        this.checkEquals(
+            expected,
+            expression.toExpressionNumber(context),
+            () -> "toExpressionNumber of " + expression + " failed"
+        );
+    }
+
+    final void toExpressionNumberLocalDateCheck(final Expression expression,
+                                                final long expected) {
+        this.toExpressionNumberLocalDateCheck(
+            expression,
+            this.localDateValue(expected)
+        );
+    }
+
+    final void toExpressionNumberLocalDateCheck(final Expression expression,
+                                                final LocalDate expected) {
+        this.toExpressionNumberLocalDateAndCheck(
+            expression,
+            context(),
+            expected
+        );
+    }
+
+    final void toExpressionNumberLocalDateAndCheck(final Expression expression,
+                                                   final ExpressionEvaluationContext context,
+                                                   final LocalDate expected) {
         this.checkEquals(
             expected,
             context.convertOrFail(
-                node.toValue(context),
+                expression.toExpressionNumber(context),
                 LocalDate.class
             ),
-            () -> "toValue of " + node + " failed"
+            () -> "toExpressionNumber of " + expression + " failed"
         );
     }
 
-    final void evaluateAndCheckLocalDateTime(final Expression node, final double expected) {
-        this.evaluateAndCheckLocalDateTime(node, localDateTimeValue(expected));
+    final void toExpressionNumberLocalDateTimeCheck(final Expression expression,
+                                                    final double expected) {
+        this.toExpressionNumberLocalDateTimeCheck(
+            expression,
+            localDateTimeValue(expected)
+        );
     }
 
-    final void evaluateAndCheckLocalDateTime(final Expression node, final LocalDateTime expected) {
-        this.evaluateAndCheckLocalDateTime(node, context(), expected);
+    final void toExpressionNumberLocalDateTimeCheck(final Expression expression,
+                                                    final LocalDateTime expected) {
+        this.toExpressionNumberLocalDateTimeCheck(
+            expression,
+            this.context(),
+            expected
+        );
     }
 
-    final void evaluateAndCheckLocalDateTime(final Expression node, final ExpressionEvaluationContext context, final LocalDateTime expected) {
+    final void toExpressionNumberLocalDateTimeCheck(final Expression expression,
+                                                    final ExpressionEvaluationContext context,
+                                                    final LocalDateTime expected) {
         this.checkEquals(
             expected,
             context.convertOrFail(
-                node.toValue(context),
+                expression.toExpressionNumber(context),
                 LocalDateTime.class
             ),
-            () -> "toValue of " + node + " failed"
+            () -> "toExpressionNumber of " + expression + " failed"
         );
     }
 
-    final void evaluateAndCheckLocalTime(final Expression node, final long expected) {
-        this.evaluateAndCheckLocalTime(node, this.localTimeValue(expected));
+    final void toExpressionNumberLocalTimeCheck(final Expression expression,
+                                                final long expected) {
+        this.toExpressionNumberLocalTimeCheck(
+            expression,
+            this.localTimeValue(expected)
+        );
     }
 
-    final void evaluateAndCheckLocalTime(final Expression node, final LocalTime expected) {
-        this.evaluateAndCheckLocalTime(node, context(), expected);
+    final void toExpressionNumberLocalTimeCheck(final Expression expression,
+                                                final LocalTime expected) {
+        this.toExpressionNumberLocalTimeCheck(
+            expression,
+            context(),
+            expected
+        );
     }
 
-    final void evaluateAndCheckLocalTime(final Expression node, final ExpressionEvaluationContext context, final LocalTime expected) {
+    final void toExpressionNumberLocalTimeCheck(final Expression expression,
+                                                final ExpressionEvaluationContext context,
+                                                final LocalTime expected) {
         this.checkEquals(
             expected,
             context.convertOrFail(
-                node.toValue(context),
+                expression.toExpressionNumber(context),
                 LocalTime.class
             ),
-            () -> "toValue of " + node + " failed"
+            () -> "toExpressionNumber of " + expression + " failed"
         );
     }
 
-    final void evaluateAndCheckText(final Expression node, final String expected) {
-        this.evaluateAndCheckText(node, context(), expected);
+    final void toTextAndCheck(final Expression expression,
+                              final String expected) {
+        this.toTextAndCheck(
+            expression,
+            context(),
+            expected
+        );
     }
 
-    final void evaluateAndCheckText(final Expression node, final ExpressionEvaluationContext context, final String expected) {
+    final void toTextAndCheck(final Expression expression,
+                              final ExpressionEvaluationContext context,
+                              final String expected) {
         this.checkEquals(
             expected,
-            node.toString(context),
-            () -> "toText of " + node + " failed"
+            expression.toString(context),
+            () -> "toString of " + expression + " failed"
         );
     }
 
-    final void evaluateAndCheckValue(final Expression node, final Object expected) {
-        this.evaluateAndCheckValue(node, context(), expected);
+    final void toValueAndCheck(final Expression expression,
+                               final Object expected) {
+        this.toValueAndCheck(
+            expression,
+            context(),
+            expected
+        );
     }
 
-    final void evaluateAndCheckValue(final Expression node, final ExpressionEvaluationContext context, final Object expected) {
-        final Object value = node.toValue(context);
+    final void toValueAndCheck(final Expression expression,
+                               final ExpressionEvaluationContext context,
+                               final Object expected) {
+        final Object value = expression.toExpressionNumber(context);
         this.checkEquals(
             expected,
             value,
-            () -> "toValue of " + node + " failed"
+            () -> "toExpressionNumber of " + expression + " failed"
         );
 
-        if (false == node.isReference()) {
-            final Object referenceOrValue = node.toReferenceOrValue(context);
+        if (false == expression.isReference()) {
+            final Object referenceOrValue = expression.toReferenceOrValue(context);
             if (expected instanceof Comparable && referenceOrValue instanceof Comparable) {
                 this.checkEquals(
                     expected,
                     referenceOrValue,
-                    () -> "toReferenceOrValue of " + node + " failed"
+                    () -> "toReferenceOrValue of " + expression + " failed"
                 );
             } else {
                 this.checkEquals(
                     expected,
                     value,
-                    () -> "toReferenceOrValue of " + node + " failed"
+                    () -> "toReferenceOrValue of " + expression + " failed"
                 );
             }
         }

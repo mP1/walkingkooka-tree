@@ -83,49 +83,91 @@ public final class AndExpressionTest extends LogicalExpressionTestCase<AndExpres
     // toBoolean.....................................................................................
 
     @Test
-    public void testEvaluateToBooleanBooleanBooleanTrue() {
-        this.evaluateAndCheckBoolean(this.createExpression(booleanValue(true), booleanValue(true)), true);
+    public void testToBooleanBooleanBooleanTrue() {
+        this.toBooleanAndCheck(
+            this.createExpression(
+                booleanValue(true),
+                booleanValue(true)
+            ), true
+        );
     }
 
     @Test
-    public void testEvaluateToBooleanBooleanBooleanFalse() {
-        this.evaluateAndCheckBoolean(this.createExpression(booleanValue(true), booleanValue(false)), false);
+    public void testToBooleanBooleanBooleanFalse() {
+        this.toBooleanAndCheck(
+            this.createExpression(
+                booleanValue(true),
+                booleanValue(false)
+            ), false
+        );
     }
 
     @Test
-    public void testEvaluateToBooleanExpressionNumberExpressionNumberTrue() {
+    public void testToBooleanExpressionNumberExpressionNumberTrue() {
         // left & right == truthy expressionNumber
-        this.evaluateAndCheckBoolean(this.createExpression(expressionNumber(7), expressionNumber(3)), true);
+        this.toBooleanAndCheck(
+            this.createExpression(
+                expressionNumber(7),
+                expressionNumber(3)
+            ), true
+        );
     }
 
     @Test
-    public void testEvaluateToBooleanExpressionNumberExpressionNumberFalse() {
+    public void testToBooleanExpressionNumberExpressionNumberFalse() {
         // left & right == truthy expressionNumber
-        this.evaluateAndCheckBoolean(this.createExpression(expressionNumber(8), expressionNumber(3)), false);
+        this.toBooleanAndCheck(
+            this.createExpression(
+                expressionNumber(8),
+                expressionNumber(3)
+            ), false
+        );
     }
 
-    // toExpressionNumber.....................................................................................
+    // toExpressionNumber...............................................................................................
 
     @Test
-    public void testEvaluateToExpressionNumber() {
-        this.evaluateAndCheckExpressionNumber(this.createExpression(expressionNumber(6), expressionNumber(3)), 6 & 3);
+    public void testToExpressionNumber() {
+        this.toExpressionNumberAndCheck(
+            this.createExpression(
+                expressionNumber(6),
+                expressionNumber(3)
+            ), 6 & 3
+        );
     }
 
-    // toValue...............................................................................................
+    // toBoolean........................................................................................................
 
     @Test
-    public void testEvaluateToValueBooleanBooleanTrue() {
-        this.evaluateAndCheckValue(this.createExpression(booleanValue(true), booleanValue(true)), true);
+    public void testToBooleanBooleanTrue() {
+        this.toBooleanAndCheck(
+            this.createExpression(
+                booleanValue(true),
+                booleanValue(true)
+            ), true
+        );
     }
 
     @Test
-    public void testEvaluateToValueBooleanBooleanFalse() {
-        this.evaluateAndCheckValue(this.createExpression(booleanValue(true), booleanValue(false)), false);
+    public void testToBooleanBooleanFalse() {
+        this.toBooleanAndCheck(
+            this.createExpression(
+                booleanValue(true),
+                booleanValue(false)
+            ), false
+        );
     }
 
+    // toValue..........................................................................................................
+
     @Test
-    public void testEvaluateToValueExpressionNumberExpressionNumber() {
-        this.evaluateAndCheckValue(this.createExpression(expressionNumber(6), expressionNumber(3)), expressionNumberValue(6 & 3));
+    public void testToValueExpressionNumberExpressionNumber() {
+        this.toValueAndCheck(
+            this.createExpression(
+                expressionNumber(6),
+                expressionNumber(3)
+            ), expressionNumberValue(6 & 3)
+        );
     }
 
     @Override

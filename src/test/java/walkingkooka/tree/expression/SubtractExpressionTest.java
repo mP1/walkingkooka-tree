@@ -83,123 +83,223 @@ public final class SubtractExpressionTest extends ArithmeticExpressionTestCase2<
     // toBoolean....................................................................................................
 
     @Test
-    public void testEvaluateToBooleanTrue() {
+    public void testToBooleanTrue() {
         // left - right == truthy expressionNumber
-        this.evaluateAndCheckBoolean(this.createExpression(expressionNumber(12), expressionNumber(34)), true);
+        this.toBooleanAndCheck(
+            this.createExpression(
+                expressionNumber(12),
+                expressionNumber(34)
+            ), true
+        );
     }
 
     @Test
-    public void testEvaluateToBooleanFalse() {
+    public void testToBooleanFalse() {
         // left - right == truthy expressionNumber
-        this.evaluateAndCheckBoolean(this.createExpression(expressionNumber(12), expressionNumber(12)), false);
+        this.toBooleanAndCheck(
+            this.createExpression(
+                expressionNumber(12),
+                expressionNumber(12)
+            ), false
+        );
     }
 
     // toExpressionNumber....................................................................................................
 
     @Test
-    public void testEvaluateToExpressionNumberExpressionNumber() {
-        this.evaluateAndCheckExpressionNumber(this.createExpression(expressionNumber(12), expressionNumber(34.5)), 12 - 34.5);
+    public void testToExpressionNumberExpressionNumber() {
+        this.toExpressionNumberAndCheck(
+            this.createExpression(
+                expressionNumber(12),
+                expressionNumber(34.5)
+            ), 12 - 34.5
+        );
     }
 
     @Test
-    public void testEvaluateToExpressionNumberLocalDate() {
-        this.evaluateAndCheckExpressionNumber(this.createExpression(expressionNumber(12), localDate(34)), 12 - 34);
+    public void testToExpressionNumberLocalDate() {
+        this.toExpressionNumberAndCheck(
+            this.createExpression(
+                expressionNumber(12),
+                localDate(34)
+            ), 12 - 34
+        );
     }
 
     @Test
-    public void testEvaluateToExpressionNumberLocalDateTime() {
-        this.evaluateAndCheckExpressionNumber(this.createExpression(expressionNumber(12), localDateTime(34)), 12 - 34);
+    public void testToExpressionNumberLocalDateTime() {
+        this.toExpressionNumberAndCheck(
+            this.createExpression(
+                expressionNumber(12),
+                localDateTime(34)
+            ), 12 - 34
+        );
     }
 
     @Test
-    public void testEvaluateToExpressionNumberLocalTime() {
-        this.evaluateAndCheckExpressionNumber(this.createExpression(expressionNumber(12), localTime(34)), 12 - 34);
+    public void testToExpressionNumberLocalTime() {
+        this.toExpressionNumberAndCheck(
+            this.createExpression(
+                expressionNumber(12),
+                localTime(34)
+            ), 12 - 34
+        );
     }
 
     @Test
-    public void testEvaluateToExpressionNumberText() {
-        this.evaluateAndCheckExpressionNumber(this.createExpression(expressionNumber(12), text(34)), 12 - 34);
+    public void testToExpressionNumberText() {
+        this.toExpressionNumberAndCheck(
+            this.createExpression(
+                expressionNumber(12),
+                text(34)
+            ), 12 - 34
+        );
     }
 
-    // toLocalDate....................................................................................................
+    // toLocalDate.......................................................................................................
 
     @Test
-    public void testEvaluateToLocalDateExpressionNumber() {
-        this.evaluateAndCheckExpressionNumber(this.createExpression(localDate(12), expressionNumber(34)), 12L - 34L);
-    }
-
-    @Test
-    public void testEvaluateToLocalDateLocalDate() {
-        this.evaluateAndCheckExpressionNumber(this.createExpression(localDate(12), localDate(34)), 12L - 34L);
-    }
-
-    @Test
-    public void testEvaluateToLocalDateLocalDateTime() {
-        this.evaluateAndCheckExpressionNumber(this.createExpression(localDate(12), localDateTime(34)), 12L - 34L);
-    }
-
-    @Test
-    public void testEvaluateToLocalDateLocalTime() {
-        this.evaluateAndCheckExpressionNumber(this.createExpression(localDate(12), localTime(34)), 12L - 34L);
+    public void testExpressionNumberWithLocalDate() {
+        this.toExpressionNumberAndCheck(
+            this.createExpression(
+                localDate(12),
+                expressionNumber(34)
+            ), 12L - 34L
+        );
     }
 
     @Test
-    public void testEvaluateToLocalDateText() {
-        this.evaluateAndCheckExpressionNumber(this.createExpression(localDate(12), text(34)), 12L - 34L);
-    }
-
-    // toLocalDateTime....................................................................................................
-
-    @Test
-    public void testEvaluateToLocalDateTimeExpressionNumber() {
-        this.evaluateAndCheckExpressionNumber(this.createExpression(localDateTime(12), expressionNumber(34)), 12L - 34L);
-    }
-
-    @Test
-    public void testEvaluateToLocalDateTimeLocalDate() {
-        this.evaluateAndCheckExpressionNumber(this.createExpression(localDateTime(12), localDate(34)), 12L - 34L);
+    public void testToExpressionNumberLocalDateLocalDate() {
+        this.toExpressionNumberAndCheck(
+            this.createExpression(
+                localDate(12),
+                localDate(34)
+            ), 12L - 34L
+        );
     }
 
     @Test
-    public void testEvaluateToLocalDateTimeLocalDateTime() {
-        this.evaluateAndCheckExpressionNumber(this.createExpression(localDateTime(12), localDateTime(34)), 12L - 34L);
+    public void testToExpressionNumberLocalDateLocalDateTime() {
+        this.toExpressionNumberAndCheck(
+            this.createExpression(
+                localDate(12),
+                localDateTime(34)
+            ), 12L - 34L
+        );
     }
 
     @Test
-    public void testEvaluateToLocalDateTimeLocalTime() {
-        this.evaluateAndCheckExpressionNumber(this.createExpression(localDateTime(12), localTime(34)), 12L - 34L);
+    public void testToExpressionNumberLocalDateLocalTime() {
+        this.toExpressionNumberAndCheck(
+            this.createExpression(
+                localDate(12)
+                , localTime(34)
+            ), 12L - 34L
+        );
     }
 
     @Test
-    public void testEvaluateToLocalDateTimeText() {
-        this.evaluateAndCheckExpressionNumber(this.createExpression(localDateTime(12), text(34)), 12L - 34L);
+    public void testToExpressionNumberLocalDateText() {
+        this.toExpressionNumberAndCheck(
+            this.createExpression(
+                localDate(12),
+                text(34)
+            ), 12L - 34L
+        );
     }
 
-    // toLocalTime....................................................................................................
+    // toLocalDateTime..................................................................................................
 
     @Test
-    public void testEvaluateToLocalTimeExpressionNumber() {
-        this.evaluateAndCheckExpressionNumber(this.createExpression(localTime(12), expressionNumber(34)), 12L - 34L);
-    }
-
-    @Test
-    public void testEvaluateToLocalTimeLocalDate() {
-        this.evaluateAndCheckExpressionNumber(this.createExpression(localTime(12), localDate(34)), 12L - 34L);
-    }
-
-    @Test
-    public void testEvaluateToLocalTimeLocalDateTime() {
-        this.evaluateAndCheckExpressionNumber(this.createExpression(localTime(12), localDateTime(34)), 12L - 34L);
-    }
-
-    @Test
-    public void testEvaluateToLocalTimeLocalTime() {
-        this.evaluateAndCheckExpressionNumber(this.createExpression(localTime(12), localTime(34)), 12L - 34L);
+    public void testToExpressionNumberLocalDateTimeExpressionNumber() {
+        this.toExpressionNumberAndCheck(
+            this.createExpression(
+                localDateTime(12),
+                expressionNumber(34)
+            ), 12L - 34L
+        );
     }
 
     @Test
-    public void testEvaluateToLocalTimeText() {
-        this.evaluateAndCheckExpressionNumber(this.createExpression(localTime(12), text(34)), 12L - 34L);
+    public void testToExpressionNumberLocalDateTimeLocalDate() {
+        this.toExpressionNumberAndCheck(this.createExpression(localDateTime(12), localDate(34)), 12L - 34L);
+    }
+
+    @Test
+    public void testToExpressionNumberLocalDateTimeLocalDateTime() {
+        this.toExpressionNumberAndCheck(this.createExpression(localDateTime(12), localDateTime(34)), 12L - 34L);
+    }
+
+    @Test
+    public void testToExpressionNumberLocalDateTimeLocalTime() {
+        this.toExpressionNumberAndCheck(
+            this.createExpression(
+                localDateTime(12),
+                localTime(34)
+            ), 12L - 34L
+        );
+    }
+
+    @Test
+    public void testToExpressionNumberLocalDateTimeText() {
+        this.toExpressionNumberAndCheck(
+            this.createExpression(
+                localDateTime(12),
+                text(34)
+            ), 12L - 34L
+        );
+    }
+
+    // toLocalTime......................................................................................................
+
+    @Test
+    public void testToExpressionNumberLocalTimeExpressionNumber() {
+        this.toExpressionNumberAndCheck(
+            this.createExpression(
+                localTime(12),
+                expressionNumber(34)
+            ), 12L - 34L
+        );
+    }
+
+    @Test
+    public void testToExpressionNumberLocalTimeLocalDate() {
+        this.toExpressionNumberAndCheck(
+            this.createExpression(
+                localTime(12),
+                localDate(34)
+            ), 12L - 34L
+        );
+    }
+
+    @Test
+    public void testToExpressionNumberLocalTimeLocalDateTime() {
+        this.toExpressionNumberAndCheck(
+            this.createExpression(
+                localTime(12),
+                localDateTime(34)
+            ), 12L - 34L
+        );
+    }
+
+    @Test
+    public void testToExpressionNumberLocalTimeLocalTime() {
+        this.toExpressionNumberAndCheck(
+            this.createExpression(
+                localTime(12),
+                localTime(34)
+            ), 12L - 34L
+        );
+    }
+
+    @Test
+    public void testToExpressionNumberLocalTimeText() {
+        this.toExpressionNumberAndCheck(
+            this.createExpression(
+                localTime(12),
+                text(34)
+            ), 12L - 34L
+        );
     }
 
     @Override

@@ -109,7 +109,7 @@ public final class ExpressionEvaluationContextDelegatorTest implements Expressio
         }
 
         @Override
-        public Object evaluate(final Expression expression) {
+        public Object evaluateExpression(final Expression expression) {
             Objects.requireNonNull(expression, "expression");
 
             return "evaluate->Test";

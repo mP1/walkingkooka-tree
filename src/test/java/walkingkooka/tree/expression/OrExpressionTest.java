@@ -80,67 +80,123 @@ public final class OrExpressionTest extends LogicalExpressionTestCase<OrExpressi
             "visited");
     }
 
-    // toBoolean.....................................................................................
+    // toBoolean........................................................................................................
 
     @Test
-    public void testEvaluateToBooleanBooleanBooleanTrue() {
-        this.evaluateAndCheckBoolean(this.createExpression(booleanValue(false), booleanValue(true)), true);
+    public void testToBooleanBooleanBooleanTrue() {
+        this.toBooleanAndCheck(
+            this.createExpression(
+                booleanValue(false),
+                booleanValue(true)
+            ), true
+        );
     }
 
     @Test
-    public void testEvaluateToBooleanBooleanBooleanTrue2() {
-        this.evaluateAndCheckBoolean(this.createExpression(booleanValue(true), booleanValue(true)), true);
+    public void testToBooleanBooleanBooleanTrue2() {
+        this.toBooleanAndCheck(
+            this.createExpression(
+                booleanValue(true),
+                booleanValue(true)
+            ), true
+        );
     }
 
     @Test
-    public void testEvaluateToBooleanBooleanBooleanFalse() {
-        this.evaluateAndCheckBoolean(this.createExpression(booleanValue(false), booleanValue(false)), false);
+    public void testToBooleanBooleanBooleanFalse() {
+        this.toBooleanAndCheck(
+            this.createExpression(
+                booleanValue(false),
+                booleanValue(false)
+            ), false
+        );
     }
 
     @Test
-    public void testEvaluateToBooleanNumberNumberTrue() {
+    public void testToBooleanNumberNumberTrue() {
         // left & right == truthy expressionNumber
-        this.evaluateAndCheckBoolean(this.createExpression(expressionNumber(7), expressionNumber(3)), true);
+        this.toBooleanAndCheck(
+            this.createExpression(
+                expressionNumber(7),
+                expressionNumber(3)
+            ), true
+        );
     }
 
     @Test
-    public void testEvaluateToBooleanNumberNumberFalse() {
+    public void testToBooleanNumberNumberFalse() {
         // left & right == truthy expressionNumber
-        this.evaluateAndCheckBoolean(this.createExpression(expressionNumber(0), expressionNumber(0)), false);
+        this.toBooleanAndCheck(
+            this.createExpression(
+                expressionNumber(0),
+                expressionNumber(0)
+            ), false
+        );
     }
 
     @Test
-    public void testEvaluateToBooleanTrue() {
+    public void testToBooleanTrue() {
         // left | right == truthy expressionNumber
-        this.evaluateAndCheckBoolean(this.createExpression(expressionNumber(7), expressionNumber(3)), true);
+        this.toBooleanAndCheck(
+            this.createExpression(
+                expressionNumber(7),
+                expressionNumber(3)
+            ), true
+        );
     }
 
     @Test
-    public void testEvaluateToBooleanFalse() {
+    public void testToBooleanFalse() {
         // left | right == truthy expressionNumber
-        this.evaluateAndCheckBoolean(this.createExpression(expressionNumber(0), expressionNumber(0)), false);
+        this.toBooleanAndCheck(
+            this.createExpression(
+                expressionNumber(0),
+                expressionNumber(0)
+            ), false
+        );
     }
 
     // toValue...........................................................................................................
 
     @Test
-    public void testEvaluateToValueBooleanBooleanTrue() {
-        this.evaluateAndCheckValue(this.createExpression(booleanValue(false), booleanValue(true)), true);
+    public void testToBooleanBooleanTrue() {
+        this.toBooleanAndCheck(
+            this.createExpression(
+                booleanValue(false),
+                booleanValue(true)
+            ), true
+        );
     }
 
     @Test
-    public void testEvaluateToValueBooleanBooleanTrue2() {
-        this.evaluateAndCheckValue(this.createExpression(booleanValue(true), booleanValue(true)), true);
+    public void testToBooleanBooleanTrue2() {
+        this.toBooleanAndCheck(
+            this.createExpression(
+                booleanValue(true),
+                booleanValue(true)
+            ), true
+        );
     }
 
     @Test
-    public void testEvaluateToValueBooleanBooleanFalse() {
-        this.evaluateAndCheckValue(this.createExpression(booleanValue(false), booleanValue(false)), false);
+    public void testToBooleanBooleanFalse() {
+        this.toBooleanAndCheck(
+            this.createExpression(
+                booleanValue(false),
+                booleanValue(false)
+            ), false
+        );
     }
 
     @Test
-    public void testEvaluateToValue() {
-        this.evaluateAndCheckValue(this.createExpression(expressionNumber(6), expressionNumber(3)), expressionNumberValue(6 | 3));
+    public void testToValue() {
+        this.toValueAndCheck(
+            this.createExpression(
+                expressionNumber(6),
+                expressionNumber(3)
+            ),
+            expressionNumberValue(6 | 3)
+        );
     }
 
     @Override

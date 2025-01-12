@@ -68,9 +68,9 @@ public final class CycleDetectingExpressionEvaluationContextTest implements Clas
     }
 
     @Test
-    public void testEvaluateString() {
+    public void testEvaluateExpressionString() {
         final String value = "abc123";
-        this.evaluateAndCheck(
+        this.evaluateExpressionAndCheck(
             Expression.value(value),
             value
         );
@@ -378,7 +378,7 @@ public final class CycleDetectingExpressionEvaluationContextTest implements Clas
                 }
 
                 @Override
-                public Object evaluate(final Expression expression) {
+                public Object evaluateExpression(final Expression expression) {
                     return expression.toValue(this);
                 }
 

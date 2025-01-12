@@ -23,34 +23,59 @@ import static org.junit.jupiter.api.Assertions.fail;
 
 public abstract class ArithmeticExpressionTestCase2<N extends ArithmeticExpression> extends ArithmeticExpressionTestCase<N> {
 
-    // toText.....................................................................................
+    // toValue..........................................................................................................
 
     @Test
-    public final void testEvaluateToTextExpressionNumberFail() {
-        this.evaluate(this.createExpression(text(12), expressionNumber(34)));
+    public final void testToValueExpressionNumberFail() {
+        this.toValueFails(
+            this.createExpression(
+                text(12),
+                expressionNumber(34)
+            )
+        );
     }
 
     @Test
-    public final void testEvaluateToTextLocalDateFail() {
-        this.evaluate(this.createExpression(text(12), localDate(34)));
+    public final void testToValueLocalDateFail() {
+        this.toValueFails(
+            this.createExpression(
+                text(12),
+                localDate(34)
+            )
+        );
     }
 
     @Test
-    public final void testEvaluateToTextLocalDateTimeFail() {
-        this.evaluate(this.createExpression(text(12), localDateTime(34)));
+    public final void testToValueLocalDateTimeFail() {
+        this.toValueFails(
+            this.createExpression(
+                text(12),
+                localDateTime(34)
+            )
+        );
     }
 
     @Test
-    public final void testEvaluateToTextLocalTimeFail() {
-        this.evaluate(this.createExpression(text(12), localTime(34)));
+    public final void testToValueLocalTimeFail() {
+        this.toValueFails(
+            this.createExpression(
+                text(12),
+                localTime(34)
+            )
+        );
     }
 
     @Test
-    public final void testEvaluateToTextTextFail() {
-        this.evaluate(this.createExpression(text(12), text(34)));
+    public final void testToValueTextFail() {
+        this.toValueFails(
+            this.createExpression(
+                text(12),
+                text(34)
+            )
+        );
     }
 
-    private void evaluate(final Expression node) {
+    private void toValueFails(final Expression node) {
         try {
             node.toValue(context());
             fail("Evaluating " + node + " should have failed");

@@ -135,7 +135,7 @@ public final class LambdaFunctionExpressionTest extends UnaryExpressionTestCase<
 
     @Test
     public void testToValue() {
-        this.evaluateAndCheckValue(
+        this.toValueAndCheck(
             LambdaFunctionExpression.with(
                 PARAMETERS,
                 Expression.add(
@@ -169,7 +169,7 @@ public final class LambdaFunctionExpressionTest extends UnaryExpressionTestCase<
                 }
 
                 @Override
-                public Object evaluate(final Expression expression) {
+                public Object evaluateExpression(final Expression expression) {
                     return expression.toValue(this);
                 }
 
@@ -202,7 +202,7 @@ public final class LambdaFunctionExpressionTest extends UnaryExpressionTestCase<
     public void testToText() {
         final String text = "Hello123";
 
-        this.evaluateAndCheckText(
+        this.toTextAndCheck(
             this.createExpression(
                 Expression.value(text)
             ),

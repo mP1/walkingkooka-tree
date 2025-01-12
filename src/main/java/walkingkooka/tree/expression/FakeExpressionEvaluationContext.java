@@ -62,7 +62,7 @@ public class FakeExpressionEvaluationContext extends FakeExpressionNumberConvert
     }
 
     @Override
-    public Object evaluate(final Expression expression) {
+    public Object evaluateExpression(final Expression expression) {
         Objects.requireNonNull(expression, "expression");
         throw new UnsupportedOperationException();
     }
