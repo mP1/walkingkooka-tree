@@ -39,6 +39,7 @@ import java.math.MathContext;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.function.Function;
 
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -356,6 +357,11 @@ public final class CycleDetectingExpressionEvaluationContextTest implements Clas
     }
 
     @Override
+    public void testEnterScopeGivesDifferentInstance() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
     public CycleDetectingExpressionEvaluationContext createContext() {
         return this.createContext(true);
     }
@@ -386,6 +392,13 @@ public final class CycleDetectingExpressionEvaluationContextTest implements Clas
                 public boolean isPure(final ExpressionFunctionName name) {
                     Objects.requireNonNull(name, "name");
                     return pure;
+                }
+
+                @Override
+                public ExpressionEvaluationContext enterScope(final Function<ExpressionReference, Optional<Optional<Object>>> scoped) {
+                    Objects.requireNonNull(scoped, "scoped");
+
+                    throw new UnsupportedOperationException();
                 }
 
                 // DecimalNumberContext............................................................................

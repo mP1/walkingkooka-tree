@@ -155,7 +155,7 @@ public class ExpressionFunctionLambdaTest extends ExpressionFunctionTestCase<Exp
         return new FakeExpressionEvaluationContext() {
 
             @Override
-            public FakeExpressionEvaluationContext context(final Function<ExpressionReference, Optional<Optional<Object>>> scoped) {
+            public FakeExpressionEvaluationContext enterScope(final Function<ExpressionReference, Optional<Optional<Object>>> scoped) {
                 return new FakeExpressionEvaluationContext() {
 
                     @Override

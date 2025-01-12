@@ -124,6 +124,11 @@ public final class BasicNodeSelectorExpressionEvaluationContextTest implements N
     }
 
     @Override
+    public void testEnterScopeGivesDifferentInstance() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
     public BasicNodeSelectorExpressionEvaluationContext<TestNode, StringName, StringName, Object> createContext() {
         return this.createContext(TestNode.with("test-node-123"));
     }

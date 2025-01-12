@@ -41,6 +41,11 @@ public final class ExpressionEvaluationContextDelegatorTest implements Expressio
     }
 
     @Override
+    public void testEnterScopeGivesDifferentInstance() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
     public TestExpressionEvaluationContextDelegator createContext() {
         return new TestExpressionEvaluationContextDelegator();
     }
@@ -125,7 +130,9 @@ public final class ExpressionEvaluationContextDelegatorTest implements Expressio
         }
 
         @Override
-        public ExpressionEvaluationContext context(final Function<ExpressionReference, Optional<Optional<Object>>> scoped) {
+        public ExpressionEvaluationContext enterScope(final Function<ExpressionReference, Optional<Optional<Object>>> scoped) {
+            Objects.requireNonNull(scoped, "scoped");
+
             throw new UnsupportedOperationException();
         }
 

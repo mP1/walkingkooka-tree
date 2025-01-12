@@ -28,7 +28,7 @@ import java.util.function.Function;
 
 /**
  * Delegates all {@link ExpressionEvaluationContext} except for {@link #reference(ExpressionReference)} and
- * {@link #context(Function)}.
+ * {@link #addReferences(Function)}.
  */
 public interface ExpressionEvaluationContextDelegator extends ExpressionEvaluationContext,
     ConverterContextDelegator {

@@ -88,7 +88,7 @@ final class ExpressionFunctionLambda<T, C extends ExpressionEvaluationContext> i
         this.checkParameterCount(values);
 
         return context.convertOrFail(
-            context.context(
+            context.enterScope(
                 ExpressionFunctionLambdaExpressionEvaluationContextFunction.with(
                     this.parameters,
                     values

@@ -503,13 +503,13 @@ public final class BasicExpressionEvaluationContextTest implements ClassTesting2
         );
     }
 
-    // context..........................................................................................................
+    // enterScope.......................................................................................................
 
     @Test
-    public void testContextWithGlobalReference() {
+    public void testEnterScopeWithGlobalReference() {
         this.referenceAndCheck(
             this.createContext()
-                .context(
+                .enterScope(
                     r -> Optional.empty() // no locals
                 ),
             REFERENCE,
@@ -518,13 +518,13 @@ public final class BasicExpressionEvaluationContextTest implements ClassTesting2
     }
 
     @Test
-    public void testContextWithLocalReference() {
+    public void testEnterScopeWithLocalReference() {
         final ExpressionReference reference = new FakeExpressionReference();
         final String value = "*reference value*";
 
         this.referenceAndCheck(
             this.createContext()
-                .context(
+                .enterScope(
                     r -> r.equals(reference) ?
                         Optional.of(
                             Optional.of(value)

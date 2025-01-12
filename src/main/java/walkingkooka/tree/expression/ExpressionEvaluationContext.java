@@ -43,7 +43,7 @@ public interface ExpressionEvaluationContext extends Context,
     /**
      * Factory that returns a {@link ExpressionEvaluationContext} of the same type with the given scoped variables.
      */
-    ExpressionEvaluationContext context(final Function<ExpressionReference, Optional<Optional<Object>>> scoped);
+    ExpressionEvaluationContext enterScope(final Function<ExpressionReference, Optional<Optional<Object>>> scoped);
 
     /**
      * If the value is a reference or expression resolve or evaluate.
