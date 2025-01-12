@@ -235,20 +235,20 @@ public final class BasicExpressionEvaluationContextTest implements ClassTesting2
         );
     }
 
-    // evaluate expressions.............................................................................................
+    // evaluateExpression...............................................................................................
 
     @Test
-    public void testEvaluateTrue() {
-        this.evaluateAndCheck2(true);
+    public void testEvaluateExpressionTrue() {
+        this.evaluateExpressionAndCheck2(true);
     }
 
     @Test
-    public void testEvaluateFalse() {
-        this.evaluateAndCheck2(false);
+    public void testEvaluateExpressionFalse() {
+        this.evaluateExpressionAndCheck2(false);
     }
 
-    private void evaluateAndCheck2(final boolean value) {
-        this.evaluateAndCheck(
+    private void evaluateExpressionAndCheck2(final boolean value) {
+        this.evaluateExpressionAndCheck(
             Expression.value(value),
             value
         );
@@ -258,7 +258,7 @@ public final class BasicExpressionEvaluationContextTest implements ClassTesting2
     public void testEvaluateExpressionThrowsExceptionTranslated() {
         final ExpressionNumberKind kind = ExpressionNumberKind.DOUBLE;
 
-        this.evaluateAndCheck(
+        this.evaluateExpressionAndCheck(
             BasicExpressionEvaluationContext.with(
                 kind,
                 (n) -> {
@@ -291,9 +291,9 @@ public final class BasicExpressionEvaluationContextTest implements ClassTesting2
     }
 
     @Test
-    public void testEvaluateString() {
+    public void testEvaluateExpressionString() {
         final String value = "abc123";
-        this.evaluateAndCheck(
+        this.evaluateExpressionAndCheck(
             Expression.value(value),
             value
         );
@@ -302,8 +302,8 @@ public final class BasicExpressionEvaluationContextTest implements ClassTesting2
     // string equals....................................................................................................
 
     @Test
-    public void testEvaluateStringEqualsCaseSensitive() {
-        this.evaluateStringEqualsAndCheck(
+    public void testEvaluateExpressionStringEqualsCaseSensitive() {
+        this.evaluateExpressionStringEqualsAndCheck(
             "abc",
             "abc",
             CaseSensitivity.SENSITIVE,
@@ -312,8 +312,8 @@ public final class BasicExpressionEvaluationContextTest implements ClassTesting2
     }
 
     @Test
-    public void testEvaluateStringEqualsCaseSensitiveCaseDifferent() {
-        this.evaluateStringEqualsAndCheck(
+    public void testEvaluateExpressionStringEqualsCaseSensitiveCaseDifferent() {
+        this.evaluateExpressionStringEqualsAndCheck(
             "abc",
             "ABC",
             CaseSensitivity.SENSITIVE,
@@ -322,8 +322,8 @@ public final class BasicExpressionEvaluationContextTest implements ClassTesting2
     }
 
     @Test
-    public void testEvaluateStringEqualsCaseInsensitiveCaseDifferent() {
-        this.evaluateStringEqualsAndCheck(
+    public void testEvaluateExpressionStringEqualsCaseInsensitiveCaseDifferent() {
+        this.evaluateExpressionStringEqualsAndCheck(
             "abc",
             "ABC",
             CaseSensitivity.INSENSITIVE,
@@ -332,8 +332,8 @@ public final class BasicExpressionEvaluationContextTest implements ClassTesting2
     }
 
     @Test
-    public void testEvaluateStringEqualsCaseSensitiveDifferent() {
-        this.evaluateStringEqualsAndCheck(
+    public void testEvaluateExpressionStringEqualsCaseSensitiveDifferent() {
+        this.evaluateExpressionStringEqualsAndCheck(
             "abc",
             "different",
             CaseSensitivity.SENSITIVE,
@@ -341,11 +341,11 @@ public final class BasicExpressionEvaluationContextTest implements ClassTesting2
         );
     }
 
-    private void evaluateStringEqualsAndCheck(final String left,
-                                              final String right,
-                                              final CaseSensitivity caseSensitivity,
-                                              final boolean expected) {
-        this.evaluateAndCheck(
+    private void evaluateExpressionStringEqualsAndCheck(final String left,
+                                                        final String right,
+                                                        final CaseSensitivity caseSensitivity,
+                                                        final boolean expected) {
+        this.evaluateExpressionAndCheck(
             this.createContext(true, caseSensitivity),
             Expression.equalsExpression(
                 Expression.value(left),
@@ -355,11 +355,11 @@ public final class BasicExpressionEvaluationContextTest implements ClassTesting2
         );
     }
 
-    // string notEquals................................................................................................
+    // string notEquals.................................................................................................
 
     @Test
-    public void testEvaluateStringNotEqualsCaseSensitive() {
-        this.evaluateStringNotEqualsAndCheck(
+    public void testEvaluateExpressionStringNotEqualsCaseSensitive() {
+        this.evaluateExpressionStringNotEqualsAndCheck(
             "abc",
             "abc",
             CaseSensitivity.SENSITIVE,
@@ -368,8 +368,8 @@ public final class BasicExpressionEvaluationContextTest implements ClassTesting2
     }
 
     @Test
-    public void testEvaluateStringNotEqualsCaseSensitiveCaseDifferent() {
-        this.evaluateStringNotEqualsAndCheck(
+    public void testEvaluateExpressionStringNotEqualsCaseSensitiveCaseDifferent() {
+        this.evaluateExpressionStringNotEqualsAndCheck(
             "abc",
             "ABC",
             CaseSensitivity.SENSITIVE,
@@ -378,8 +378,8 @@ public final class BasicExpressionEvaluationContextTest implements ClassTesting2
     }
 
     @Test
-    public void testEvaluateStringNotEqualsCaseInsensitiveCaseDifferent() {
-        this.evaluateStringNotEqualsAndCheck(
+    public void testEvaluateExpressionStringNotEqualsCaseInsensitiveCaseDifferent() {
+        this.evaluateExpressionStringNotEqualsAndCheck(
             "abc",
             "ABC",
             CaseSensitivity.INSENSITIVE,
@@ -388,8 +388,8 @@ public final class BasicExpressionEvaluationContextTest implements ClassTesting2
     }
 
     @Test
-    public void testEvaluateStringNotEqualsCaseSensitiveDifferent() {
-        this.evaluateStringNotEqualsAndCheck(
+    public void testEvaluateExpressionStringNotEqualsCaseSensitiveDifferent() {
+        this.evaluateExpressionStringNotEqualsAndCheck(
             "abc",
             "different",
             CaseSensitivity.SENSITIVE,
@@ -397,11 +397,11 @@ public final class BasicExpressionEvaluationContextTest implements ClassTesting2
         );
     }
 
-    private void evaluateStringNotEqualsAndCheck(final String left,
-                                                 final String right,
-                                                 final CaseSensitivity stringNotEqualsCaseSensitivity,
-                                                 final boolean expected) {
-        this.evaluateAndCheck(
+    private void evaluateExpressionStringNotEqualsAndCheck(final String left,
+                                                           final String right,
+                                                           final CaseSensitivity stringNotEqualsCaseSensitivity,
+                                                           final boolean expected) {
+        this.evaluateExpressionAndCheck(
             this.createContext(true, stringNotEqualsCaseSensitivity),
             Expression.notEquals(
                 Expression.value(left),

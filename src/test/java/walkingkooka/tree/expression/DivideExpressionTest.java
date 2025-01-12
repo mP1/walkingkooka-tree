@@ -83,16 +83,16 @@ public final class DivideExpressionTest extends ArithmeticExpressionTestCase2<Di
     }
 
     @Test
-    public void testEvaluateDivideByZeroBigDecimal() {
-        this.divideByZeroAndCheck(ExpressionNumberKind.BIG_DECIMAL);
+    public void testEvaluateExpressionDivideByZeroBigDecimalFails() {
+        this.evaluateExpressionDivideByZeroFails(ExpressionNumberKind.BIG_DECIMAL);
     }
 
     @Test
-    public void testEvaluateDivideByZeroDouble() {
-        this.divideByZeroAndCheck(ExpressionNumberKind.DOUBLE);
+    public void testEvaluateExpressionDivideByZeroDoubleFails() {
+        this.evaluateExpressionDivideByZeroFails(ExpressionNumberKind.DOUBLE);
     }
 
-    private void divideByZeroAndCheck(final ExpressionNumberKind kind) {
+    private void evaluateExpressionDivideByZeroFails(final ExpressionNumberKind kind) {
         final ExpressionEvaluationException thrown = assertThrows(
             ExpressionEvaluationException.class,
             () -> kind.one()
@@ -113,25 +113,40 @@ public final class DivideExpressionTest extends ArithmeticExpressionTestCase2<Di
         );
     }
 
-    // toBoolean...............................................................................................
+    // toBoolean........................................................................................................
 
     @Test
-    public void testEvaluateToBooleanTrue() {
+    public void testToBooleanTrue() {
         // left / right == truthy expressionNumber
-        this.evaluateAndCheckBoolean(this.createExpression(expressionNumber(12), expressionNumber(34)), true);
+        this.toBooleanAndCheck(
+            this.createExpression(
+                expressionNumber(12),
+                expressionNumber(34)
+            ), true
+        );
     }
 
     @Test
-    public void testEvaluateToBooleanFalse() {
+    public void testToBooleanFalse() {
         // left / right == truthy expressionNumber
-        this.evaluateAndCheckBoolean(this.createExpression(expressionNumber(0), expressionNumber(-12)), false);
+        this.toBooleanAndCheck(
+            this.createExpression(
+                expressionNumber(0),
+                expressionNumber(-12)
+            ), false
+        );
     }
 
-    // toExpressionNumber.....................................................................................
+    // toExpressionNumber..............................................................................................
 
     @Test
-    public void testEvaluateToExpressionNumber() {
-        this.evaluateAndCheckExpressionNumber(this.createExpression(expressionNumber(60), expressionNumber(5)), expressionNumberValue(60.0 / 5));
+    public void testToExpressionNumber() {
+        this.toExpressionNumberAndCheck(
+            this.createExpression(
+                expressionNumber(60),
+                expressionNumber(5)
+            ), expressionNumberValue(60.0 / 5)
+        );
     }
 
     @Override

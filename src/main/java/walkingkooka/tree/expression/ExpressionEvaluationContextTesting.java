@@ -38,13 +38,13 @@ public interface ExpressionEvaluationContextTesting<C extends ExpressionEvaluati
     ExpressionPurityContextTesting<C>,
     TreePrintableTesting {
 
-    // evaluate.........................................................................................................
+    // evaluateExpression...............................................................................................
 
     @Test
-    default void testEvaluateNullExpressionFails() {
+    default void testEvaluateExpressionWithNullExpressionFails() {
         assertThrows(
             NullPointerException.class,
-            () -> this.createContext().evaluate(null)
+            () -> this.createContext().evaluateExpression(null)
         );
     }
 
@@ -53,7 +53,7 @@ public interface ExpressionEvaluationContextTesting<C extends ExpressionEvaluati
         assertThrows(
             UnknownExpressionFunctionException.class,
             () -> this.createContext()
-                .evaluate(
+                .evaluateExpression(
                     Expression.call(
                         Expression.namedFunction(
                             ExpressionFunctionName.with("unknown-namedFunction-123")
@@ -64,16 +64,16 @@ public interface ExpressionEvaluationContextTesting<C extends ExpressionEvaluati
         );
     }
 
-    default void evaluateAndCheck(final Expression expression,
-                                  final Object value) {
-        this.evaluateAndCheck(this.createContext(), expression, value);
+    default void evaluateExpressionAndCheck(final Expression expression,
+                                            final Object value) {
+        this.evaluateExpressionAndCheck(this.createContext(), expression, value);
     }
 
-    default void evaluateAndCheck(final C context,
-                                  final Expression expression,
-                                  final Object value) {
+    default void evaluateExpressionAndCheck(final C context,
+                                            final Expression expression,
+                                            final Object value) {
         this.checkEquals(value,
-            context.evaluate(expression),
+            context.evaluateExpression(expression),
             () -> "evaluate " + expression + " " + context);
     }
 

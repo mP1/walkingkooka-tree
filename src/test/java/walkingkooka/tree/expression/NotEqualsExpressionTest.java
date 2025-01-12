@@ -83,53 +83,93 @@ public final class NotEqualsExpressionTest extends CompareExpressionTestCase<Not
     // ExpressionNumber ................................................................................................
 
     @Test
-    public void testEvaluateToBooleanExpressionNumberExpressionNumber() {
+    public void testToBooleanExpressionNumberExpressionNumber() {
         // left ne right == truthy expressionNumber
-        this.evaluateAndCheckBoolean(this.createExpression(expressionNumber(12), expressionNumber(34)), true);
+        this.toBooleanAndCheck(
+            this.createExpression(
+                expressionNumber(12),
+                expressionNumber(34)
+            ), true
+        );
     }
 
     @Test
-    public void testEvaluateToBooleanExpressionNumberExpressionNumber2() {
+    public void testToBooleanExpressionNumberExpressionNumber2() {
         // left ne right == truthy expressionNumber
-        this.evaluateAndCheckBoolean(this.createExpression(expressionNumber(12), expressionNumber(12)), false);
+        this.toBooleanAndCheck(
+            this.createExpression(
+                expressionNumber(12),
+                expressionNumber(12)
+            ), false
+        );
     }
 
     @Test
-    public void testEvaluateToBooleanExpressionNumberText() {
+    public void testToBooleanExpressionNumberText() {
         // left ne right == truthy expressionNumber
-        this.evaluateAndCheckBoolean(this.createExpression(expressionNumber(12), text(34)), true);
+        this.toBooleanAndCheck(
+            this.createExpression(
+                expressionNumber(12),
+                text(34)
+            ), true
+        );
     }
 
     @Test
-    public void testEvaluateToBooleanExpressionNumberText2() {
+    public void testToBooleanExpressionNumberText2() {
         // left ne right == truthy expressionNumber
-        this.evaluateAndCheckBoolean(this.createExpression(expressionNumber(12), text(12)), false);
+        this.toBooleanAndCheck(
+            this.createExpression(
+                expressionNumber(12),
+                text(12)
+            ), false
+        );
     }
 
-    // Text ....................................................................................................
+    // Text ............................................................................................................
 
     @Test
-    public void testEvaluateToBooleanTextExpressionNumber() {
+    public void testToBooleanTextExpressionNumber() {
         // left ne right == truthy expressionNumber
-        this.evaluateAndCheckBoolean(this.createExpression(text(12), expressionNumber(34)), true);
-    }
-
-    @Test
-    public void testEvaluateToBooleanTextExpressionNumber2() {
-        // left ne right == truthy expressionNumber
-        this.evaluateAndCheckBoolean(this.createExpression(text(12), expressionNumber(12)), false);
-    }
-
-    @Test
-    public void testEvaluateToBooleanTextText() {
-        // left ne right == truthy expressionNumber
-        this.evaluateAndCheckBoolean(this.createExpression(text(12), text(34)), true);
+        this.toBooleanAndCheck(
+            this.createExpression(
+                text(12),
+                expressionNumber(34)
+            ), true
+        );
     }
 
     @Test
-    public void testEvaluateToBooleanTextText2() {
+    public void testToBooleanTextExpressionNumber2() {
         // left ne right == truthy expressionNumber
-        this.evaluateAndCheckBoolean(this.createExpression(text(12), text(12)), false);
+        this.toBooleanAndCheck(
+            this.createExpression(
+                text(12),
+                expressionNumber(12)
+            ), false
+        );
+    }
+
+    @Test
+    public void testToBooleanTextText() {
+        // left ne right == truthy expressionNumber
+        this.toBooleanAndCheck(
+            this.createExpression(
+                text(12),
+                text(34)
+            ), true
+        );
+    }
+
+    @Test
+    public void testToBooleanTextText2() {
+        // left ne right == truthy expressionNumber
+        this.toBooleanAndCheck(
+            this.createExpression(
+                text(12),
+                text(12)
+            ), false
+        );
     }
 
     @Override

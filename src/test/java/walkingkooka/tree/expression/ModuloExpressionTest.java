@@ -80,30 +80,50 @@ public final class ModuloExpressionTest extends ArithmeticExpressionTestCase2<Mo
             "visited");
     }
 
-    // toBoolean...............................................................................................
+    // toBoolean........................................................................................................
 
     @Test
-    public void testEvaluateToBooleanTrue() {
+    public void testToBooleanTrue() {
         // left % right == truthy expressionNumber
-        this.evaluateAndCheckBoolean(this.createExpression(expressionNumber(12), expressionNumber(34)), true);
+        this.toBooleanAndCheck(
+            this.createExpression(
+                expressionNumber(12),
+                expressionNumber(34)
+            ), true
+        );
     }
 
     @Test
-    public void testEvaluateToBooleanFalse() {
+    public void testToBooleanFalse() {
         // left % right == truthy expressionNumber
-        this.evaluateAndCheckBoolean(this.createExpression(expressionNumber(0), expressionNumber(9)), false);
+        this.toBooleanAndCheck(
+            this.createExpression(
+                expressionNumber(0),
+                expressionNumber(9)
+            ), false
+        );
     }
 
     // toExpressionNumber...............................................................................................
 
     @Test
-    public void testEvaluateToNumberNumber() {
-        this.evaluateAndCheckExpressionNumber(this.createExpression(expressionNumber(12), expressionNumber(34)), expressionNumberValue(12 % 34));
+    public void testToExpressionNumberNumberNumber() {
+        this.toExpressionNumberAndCheck(
+            this.createExpression(
+                expressionNumber(12),
+                expressionNumber(34)
+            ), expressionNumberValue(12 % 34)
+        );
     }
 
     @Test
-    public void testEvaluateToNumberText() {
-        this.evaluateAndCheckExpressionNumber(this.createExpression(expressionNumber(12), text(34)), expressionNumberValue(12 % 34));
+    public void testToExpressionNumber() {
+        this.toExpressionNumberAndCheck(
+            this.createExpression(
+                expressionNumber(12),
+                text(34)
+            ), expressionNumberValue(12 % 34)
+        );
     }
 
     @Override

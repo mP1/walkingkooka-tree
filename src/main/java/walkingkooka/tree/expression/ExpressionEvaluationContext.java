@@ -56,7 +56,7 @@ public interface ExpressionEvaluationContext extends Context,
                 result = this.referenceOrFail((ExpressionReference) result);
             }
             if (result instanceof Expression) {
-                result = this.evaluate((Expression) result);
+                result = this.evaluateExpression((Expression) result);
             }
         } while (result instanceof ExpressionReference || result instanceof Expression);
 
@@ -66,7 +66,7 @@ public interface ExpressionEvaluationContext extends Context,
     /**
      * Evaluate the given {@link Expression} returning the result/value.
      */
-    Object evaluate(final Expression expression);
+    Object evaluateExpression(final Expression expression);
 
     /**
      * Creates a lambda {@link ExpressionFunction}, the given parameters become scoped variables when the

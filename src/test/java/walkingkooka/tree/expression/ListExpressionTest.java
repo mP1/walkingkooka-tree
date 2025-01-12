@@ -97,24 +97,44 @@ public final class ListExpressionTest extends VariableExpressionTestCase<ListExp
     // Evaluation ...................................................................................................
 
     @Test
-    public void testEmptyToBooleanFalse() {
-        this.evaluateAndCheckBoolean(ListExpression.with(Lists.empty()), this.context(), false);
+    public void testToBooleanWithEmptyListFalse() {
+        this.toBooleanAndCheck(
+            ListExpression.with(
+                Lists.empty()
+            ),
+            this.context(),
+            false
+        );
     }
 
     @Test
-    public void testNotEmptyToBooleanTrue() {
-        this.evaluateAndCheckBoolean(this.createExpression(), this.context(), true);
+    public void testToBooleanWithNotEmptyListTrue() {
+        this.toBooleanAndCheck(
+            this.createExpression(),
+            this.context(),
+            true
+        );
     }
 
     @Test
     public void testToExpressionNumber() {
         final int value = 123;
-        this.evaluateAndCheckExpressionNumber(this.createExpression(), context(this.expressionNumberValue(value)), expressionNumberValue(value));
+        this.toExpressionNumberAndCheck(
+            this.createExpression(),
+            context(
+                this.expressionNumberValue(value)
+            ),
+            expressionNumberValue(value)
+        );
     }
 
     @Test
     public void testToText() {
-        this.evaluateAndCheckText(this.createExpression(), this.context(), "[child-111, child-222, child-333]");
+        this.toTextAndCheck(
+            this.createExpression(),
+            this.context(),
+            "[child-111, child-222, child-333]"
+        );
     }
 
     static ExpressionEvaluationContext context(final Object convertedValue) {

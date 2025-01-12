@@ -80,25 +80,40 @@ public final class MultiplyExpressionTest extends ArithmeticExpressionTestCase2<
             "visited");
     }
 
-    // toBoolean...............................................................................................
+    // toBoolean........................................................................................................
 
     @Test
-    public void testEvaluateToBooleanTrue() {
+    public void testToBooleanTrue() {
         // left * right == truthy expressionNumber
-        this.evaluateAndCheckBoolean(this.createExpression(expressionNumber(12), expressionNumber(34)), true);
+        this.toBooleanAndCheck(
+            this.createExpression(
+                expressionNumber(12),
+                expressionNumber(34)
+            ), true
+        );
     }
 
     @Test
-    public void testEvaluateToBooleanFalse() {
+    public void testToBooleanFalse() {
         // left * right == truthy expressionNumber
-        this.evaluateAndCheckBoolean(this.createExpression(expressionNumber(12), expressionNumber(0)), false);
+        this.toBooleanAndCheck(
+            this.createExpression(
+                expressionNumber(12),
+                expressionNumber(0)
+            ), false
+        );
     }
 
-    // toExpressionNumber.....................................................................................
+    // toExpressionNumber...............................................................................................
 
     @Test
-    public void testEvaluateToExpressionNumber() {
-        this.evaluateAndCheckExpressionNumber(this.createExpression(expressionNumber(12), expressionNumber(34)), expressionNumberValue(12 * 34));
+    public void testToExpressionNumber() {
+        this.toExpressionNumberAndCheck(
+            this.createExpression(
+                expressionNumber(12),
+                expressionNumber(34)
+            ), expressionNumberValue(12 * 34)
+        );
     }
 
     @Override

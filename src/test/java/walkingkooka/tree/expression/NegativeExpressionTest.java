@@ -78,12 +78,16 @@ public final class NegativeExpressionTest extends UnaryExpressionTestCase<Negati
             "visited");
     }
 
-    // evaluate.....................................................................................
+    // toExpressionNumber...............................................................................................
 
     @Test
-    public void testEvaluateToExpressionNumber() {
+    public void testToExpressionNumber() {
         final int value = 123;
-        this.evaluateAndCheckExpressionNumber(this.createExpression(expressionNumber(value)), -value);
+        this.toExpressionNumberAndCheck(
+            this.createExpression(
+                expressionNumber(value)
+            ), -value
+        );
     }
 
     @Override

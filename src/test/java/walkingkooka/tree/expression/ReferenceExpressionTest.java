@@ -82,27 +82,47 @@ public final class ReferenceExpressionTest extends LeafExpressionTestCase<Refere
 
     @Test
     public void testToBooleanFalse() {
-        this.evaluateAndCheckBoolean(this.createExpression(), this.context("false"), false);
+        this.toBooleanAndCheck(
+            this.createExpression(),
+            this.context("false"),
+            false
+        );
     }
 
     @Test
     public void testToBooleanTrue() {
-        this.evaluateAndCheckBoolean(this.createExpression(), this.context("true"), true);
+        this.toBooleanAndCheck(
+            this.createExpression(),
+            this.context("true"),
+            true
+        );
     }
 
     @Test
     public void testToExpressionNumber() {
-        this.evaluateAndCheckExpressionNumber(this.createExpression(), this.context("123"), expressionNumberValue(123));
+        this.toExpressionNumberAndCheck(
+            this.createExpression(),
+            this.context("123"),
+            expressionNumberValue(123)
+        );
     }
 
     @Test
     public void testToText() {
-        this.evaluateAndCheckText(this.createExpression(), this.context("123"), "123");
+        this.toTextAndCheck(
+            this.createExpression(),
+            this.context("123"),
+            "123"
+        );
     }
 
     @Test
     public void testToValue() {
-        this.evaluateAndCheckValue(this.createExpression(), this.context("123"), "123");
+        this.toTextAndCheck(
+            this.createExpression(),
+            this.context("123"),
+            "123"
+        );
     }
 
     // printTree... ...................................................................................................

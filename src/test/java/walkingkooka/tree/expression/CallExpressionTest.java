@@ -229,11 +229,11 @@ public final class CallExpressionTest extends VariableExpressionTestCase<CallExp
         );
     }
 
-    // Evaluation ...................................................................................................
+    // toExpressionNumber...............................................................................................
 
     @Test
-    public void testEvaluateAddExpressionWithoutParameters() {
-        this.evaluateAndCheckExpressionNumber(
+    public void testToExpressionNumberAddExpressionWithoutParameters() {
+        this.toExpressionNumberAndCheck(
             CallExpression.with(
                 Expression.add(
                     Expression.value(100),
@@ -255,7 +255,7 @@ public final class CallExpressionTest extends VariableExpressionTestCase<CallExp
                 }
 
                 @Override
-                public Object evaluate(final Expression expression) {
+                public Object evaluateExpression(final Expression expression) {
                     return expression.toValue(this);
                 }
 
@@ -278,8 +278,8 @@ public final class CallExpressionTest extends VariableExpressionTestCase<CallExp
     }
 
     @Test
-    public void testEvaluateLambdaExpressionNumber() {
-        this.evaluateAndCheckExpressionNumber(
+    public void toExpressionNumberLambdaExpressionNumber() {
+        this.toExpressionNumberAndCheck(
             CallExpression.with(
                 this.lambdaFunction(),
                 Lists.of(
@@ -305,7 +305,7 @@ public final class CallExpressionTest extends VariableExpressionTestCase<CallExp
                         }
 
                         @Override
-                        public Object evaluate(final Expression expression) {
+                        public Object evaluateExpression(final Expression expression) {
                             return expression.toValue(this);
                         }
 
@@ -333,7 +333,7 @@ public final class CallExpressionTest extends VariableExpressionTestCase<CallExp
                 }
 
                 @Override
-                public Object evaluate(final Expression expression) {
+                public Object evaluateExpression(final Expression expression) {
                     return expression.toValue(this);
                 }
 
@@ -364,32 +364,33 @@ public final class CallExpressionTest extends VariableExpressionTestCase<CallExp
     }
 
     @Test
-    public void testEvaluateNamedFunctionBooleanFalse() {
-        this.evaluateAndCheckBoolean(
+    public void testToBooleanWithNamedFunctionBooleanFalse() {
+        this.toBooleanAndCheck(
             this.createExpression(),
-            this.context("false"), false
+            this.context("false"),
+            false
         );
     }
 
     @Test
-    public void testEvaluateNamedFunctionBooleanTrue() {
-        this.evaluateAndCheckBoolean(
+    public void testToBooleanWithNamedFunctionBooleanTrue() {
+        this.toBooleanAndCheck(
             this.createExpression(),
             this.context("true"), true
         );
     }
 
     @Test
-    public void testEvaluateNamedFunctionExpressionNumber() {
-        this.evaluateAndCheckExpressionNumber(
+    public void testToBooleanWithNamedFunctionExpressionNumber() {
+        this.toExpressionNumberAndCheck(
             this.createExpression(),
             this.context("123"),
             expressionNumberValue(123));
     }
 
     @Test
-    public void testEvaluateNamedFunctionText() {
-        this.evaluateAndCheckText(
+    public void testToBooleanNamedFunctionText() {
+        this.toTextAndCheck(
             this.createExpression(),
             this.context("123"),
             "123"
@@ -397,7 +398,7 @@ public final class CallExpressionTest extends VariableExpressionTestCase<CallExp
     }
 
     @Test
-    public void testEvaluateNamedFunctionReturnExpressionFunctionAndCall() {
+    public void testEvaluateExpressionNamedFunctionReturnExpressionFunctionAndCall() {
         final int namedFunctionParameterValue = 999;
 
         final Expression e = CallExpression.with(
@@ -413,7 +414,7 @@ public final class CallExpressionTest extends VariableExpressionTestCase<CallExp
             )
         );
 
-        this.evaluateAndCheckValue(
+        this.toValueAndCheck(
             e,
             new FakeExpressionEvaluationContext() {
 
@@ -429,7 +430,7 @@ public final class CallExpressionTest extends VariableExpressionTestCase<CallExp
                 }
 
                 @Override
-                public Object evaluate(final Expression expression) {
+                public Object evaluateExpression(final Expression expression) {
                     return expression.toValue(this);
                 }
 

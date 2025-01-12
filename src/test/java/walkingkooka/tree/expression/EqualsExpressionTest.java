@@ -80,56 +80,96 @@ public final class EqualsExpressionTest extends CompareExpressionTestCase<Equals
             "visited");
     }
 
-    // ExpressionNumber.................................................................................................
+    // toBoolean........................................................................................................
 
     @Test
-    public void testEvaluateToBooleanExpressionNumberExpressionNumber() {
+    public void testToBooleanExpressionNumberExpressionNumber() {
         // left eq right == truthy expressionNumber
-        this.evaluateAndCheckBoolean(this.createExpression(expressionNumber(12), expressionNumber(34)), false);
+        this.toBooleanAndCheck(
+            this.createExpression(
+                expressionNumber(12),
+                expressionNumber(34)
+            ), false
+        );
     }
 
     @Test
-    public void testEvaluateToBooleanExpressionNumberExpressionNumber2() {
+    public void testToBooleanExpressionNumberExpressionNumber2() {
         // left eq right == truthy expressionNumber
-        this.evaluateAndCheckBoolean(this.createExpression(expressionNumber(12), expressionNumber(12)), true);
+        this.toBooleanAndCheck(
+            this.createExpression(
+                expressionNumber(12),
+                expressionNumber(12)
+            ), true
+        );
     }
 
     @Test
-    public void testEvaluateToBooleanExpressionNumberText() {
+    public void testToBooleanExpressionNumberText() {
         // left eq right == truthy expressionNumber
-        this.evaluateAndCheckBoolean(this.createExpression(expressionNumber(12), text(34)), false);
+        this.toBooleanAndCheck(
+            this.createExpression(
+                expressionNumber(12),
+                text(34)
+            ), false
+        );
     }
 
     @Test
-    public void testEvaluateToBooleanExpressionNumberText2() {
+    public void testToBooleanExpressionNumberText2() {
         // left eq right == truthy expressionNumber
-        this.evaluateAndCheckBoolean(this.createExpression(expressionNumber(12), text(12)), true);
+        this.toBooleanAndCheck(
+            this.createExpression(
+                expressionNumber(12),
+                text(12)
+            ), true
+        );
     }
 
     // Text.............................................................................................................
 
     @Test
-    public void testEvaluateToBooleanTextExpressionNumber() {
+    public void testToBooleanTextExpressionNumber() {
         // left eq right == truthy expressionNumber
-        this.evaluateAndCheckBoolean(this.createExpression(text(12), expressionNumber(34)), false);
+        this.toBooleanAndCheck(
+            this.createExpression(
+                text(12),
+                expressionNumber(34)
+            ), false
+        );
     }
 
     @Test
-    public void testEvaluateToBooleanTextExpressionNumber2() {
+    public void testToBooleanTextExpressionNumber2() {
         // left eq right == truthy expressionNumber
-        this.evaluateAndCheckBoolean(this.createExpression(text(12), expressionNumber(12)), true);
+        this.toBooleanAndCheck(
+            this.createExpression(
+                text(12),
+                expressionNumber(12)
+            ), true
+        );
     }
 
     @Test
-    public void testEvaluateToBooleanTextText() {
+    public void testToBooleanTextText() {
         // left eq right == truthy expressionNumber
-        this.evaluateAndCheckBoolean(this.createExpression(text(12), text(34)), false);
+        this.toBooleanAndCheck(
+            this.createExpression(
+                text(12),
+                text(34)
+            ), false
+        );
     }
 
     @Test
-    public void testEvaluateToBooleanTextText2() {
+    public void testToBooleanTextText2() {
         // left eq right == truthy expressionNumber
-        this.evaluateAndCheckBoolean(this.createExpression(text(12), text(12)), true);
+        this.toBooleanAndCheck(
+            this.createExpression(
+                text(12),
+                text(12)
+            ), true
+        );
     }
 
     @Override

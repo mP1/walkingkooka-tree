@@ -58,23 +58,35 @@ public final class ValueExpressionTest extends LeafExpressionTestCase<ValueExpre
 
     @Test
     public void testToBooleanFalse() {
-        this.evaluateAndCheckBoolean(this.createExpression(0), false);
+        this.toBooleanAndCheck(
+            this.createExpression(0),
+            false
+        );
     }
 
     @Test
     public void testToBooleanTrue() {
-        this.evaluateAndCheckBoolean(this.createExpression(1), true);
+        this.toBooleanAndCheck(
+            this.createExpression(1),
+            true
+        );
     }
 
     @Test
     public void testToExpressionNumber() {
         final ExpressionNumber value = this.expressionNumberValue(123);
-        this.evaluateAndCheckExpressionNumber(this.createExpression(value), value);
+        this.toExpressionNumberAndCheck(
+            this.createExpression(value),
+            value
+        );
     }
 
     @Test
     public void testToText() {
-        this.evaluateAndCheckText(this.createExpression(123), "123");
+        this.toTextAndCheck(
+            this.createExpression(123),
+            "123"
+        );
     }
 
     // printTree... ...................................................................................................

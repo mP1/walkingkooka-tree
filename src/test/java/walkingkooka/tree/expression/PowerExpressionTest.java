@@ -80,30 +80,50 @@ public final class PowerExpressionTest extends ArithmeticExpressionTestCase2<Pow
             "visited");
     }
 
-    // toBoolean...............................................................................................
+    // toBoolean.......................................................................................................
 
     @Test
-    public void testEvaluateToBooleanTrue() {
+    public void testToBooleanTrue() {
         // left ^^ right == truthy expressionNumber
-        this.evaluateAndCheckBoolean(this.createExpression(expressionNumber(2), expressionNumber(3)), true);
+        this.toBooleanAndCheck(
+            this.createExpression(
+                expressionNumber(2),
+                expressionNumber(3)
+            ), true
+        );
     }
 
     @Test
-    public void testEvaluateToBooleanFalse() {
+    public void testToBooleanFalse() {
         // left ^^ right == truthy expressionNumber
-        this.evaluateAndCheckBoolean(this.createExpression(expressionNumber(0), expressionNumber(3)), false);
+        this.toBooleanAndCheck(
+            this.createExpression(
+                expressionNumber(0),
+                expressionNumber(3)
+            ), false
+        );
     }
 
-    // toBigDecimal...............................................................................................
+    // toBigDecimal.....................................................................................................
 
     @Test
-    public void testEvaluateToExpressionNumber() {
-        this.evaluateAndCheckExpressionNumber(this.createExpression(expressionNumber(100), expressionNumber(0.5)), Math.pow(100, 0.5));
+    public void testToExpressionNumber() {
+        this.toExpressionNumberAndCheck(
+            this.createExpression(
+                expressionNumber(100),
+                expressionNumber(0.5)
+            ), Math.pow(100, 0.5)
+        );
     }
 
     @Test
-    public void testEvaluateToExpressionNumberText() {
-        this.evaluateAndCheckExpressionNumber(this.createExpression(expressionNumber(100), text(2)), (int) Math.pow(100, 2));
+    public void testToExpressionNumberText() {
+        this.toExpressionNumberAndCheck(
+            this.createExpression(
+                expressionNumber(100),
+                text(2)),
+            (int) Math.pow(100, 2)
+        );
     }
 
     @Override

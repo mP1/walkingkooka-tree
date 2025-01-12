@@ -83,7 +83,7 @@ public final class ExpressionEvaluationContextTest implements ClassTesting<Expre
         this.evaluateIfNecessary(
             new FakeExpressionEvaluationContext() {
                 @Override
-                public Object evaluate(final Expression expression) {
+                public Object evaluateExpression(final Expression expression) {
                     return ValueExpression.class.cast(expression).value();
                 }
             },
@@ -146,7 +146,7 @@ public final class ExpressionEvaluationContextTest implements ClassTesting<Expre
                 }
 
                 @Override
-                public Object evaluate(final Expression expression) {
+                public Object evaluateExpression(final Expression expression) {
                     return ValueExpression.class.cast(expression).value();
                 }
             },
@@ -231,7 +231,7 @@ public final class ExpressionEvaluationContextTest implements ClassTesting<Expre
                     }
 
                     @Override
-                    public Object evaluate(final Expression expression) {
+                    public Object evaluateExpression(final Expression expression) {
                         return expression.toValue(this);
                     }
 

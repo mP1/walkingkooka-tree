@@ -140,11 +140,11 @@ public final class ScopedExpressionEvaluationContextTest implements ExpressionEv
         );
     }
 
-    // evaluate.........................................................................................................
+    // evaluateExpression...............................................................................................
 
     @Test
     public void testEvaluateExpressionWithGlobalReference() {
-        this.evaluateAndCheck(
+        this.evaluateExpressionAndCheck(
             this.createContext(),
             Expression.reference(GLOBAL_REFERENCE),
             GLOBAL_REFERENCE_VALUE
@@ -153,7 +153,7 @@ public final class ScopedExpressionEvaluationContextTest implements ExpressionEv
 
     @Test
     public void testEvaluateExpressionWithLocalReference() {
-        this.evaluateAndCheck(
+        this.evaluateExpressionAndCheck(
             this.createContext(),
             Expression.reference(LOCAL_REFERENCE),
             LOCAL_REFERENCE_VALUE
@@ -165,7 +165,7 @@ public final class ScopedExpressionEvaluationContextTest implements ExpressionEv
         assertThrows(
             ExpressionEvaluationReferenceException.class,
             () -> this.createContext()
-                .evaluate(
+                .evaluateExpression(
                     Expression.reference(new FakeExpressionReference())
                 )
         );

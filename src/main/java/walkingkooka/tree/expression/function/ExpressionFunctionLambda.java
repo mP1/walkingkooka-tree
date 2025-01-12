@@ -93,7 +93,7 @@ final class ExpressionFunctionLambda<T, C extends ExpressionEvaluationContext> i
                     this.parameters,
                     values
                 )
-            ).evaluate(this.expression),
+            ).evaluateExpression(this.expression),
             this.returnType
         );
     }

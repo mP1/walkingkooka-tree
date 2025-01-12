@@ -157,7 +157,7 @@ final class BasicExpressionEvaluationContext implements ExpressionEvaluationCont
 
     // if changed copy to ScopedExpressionEvaluationContext#evaluate
     @Override
-    public Object evaluate(final Expression expression) {
+    public Object evaluateExpression(final Expression expression) {
         Objects.requireNonNull(expression, "expression");
 
         Object result;
