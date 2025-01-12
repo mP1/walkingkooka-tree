@@ -174,7 +174,7 @@ final class BasicExpressionEvaluationContext implements ExpressionEvaluationCont
     // functions........................................................................................................
 
     @Override
-    public ExpressionEvaluationContext context(final Function<ExpressionReference, Optional<Optional<Object>>> resolver) {
+    public ExpressionEvaluationContext enterScope(final Function<ExpressionReference, Optional<Optional<Object>>> resolver) {
         return ExpressionEvaluationContexts.scoped(
             resolver,
             this

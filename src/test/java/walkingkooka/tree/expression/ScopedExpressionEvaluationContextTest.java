@@ -126,7 +126,7 @@ public final class ScopedExpressionEvaluationContextTest implements ExpressionEv
 
         this.referenceAndCheck(
             this.createContext()
-                .context(r ->
+                .enterScope(r ->
                     Optional.of(
                         Optional.ofNullable(
                             r.equals(reference) ?

@@ -27,6 +27,7 @@ import walkingkooka.tree.expression.function.UnknownExpressionFunctionException;
 import java.util.List;
 import java.util.Optional;
 
+import static org.junit.jupiter.api.Assertions.assertNotSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 /**
@@ -37,6 +38,31 @@ public interface ExpressionEvaluationContextTesting<C extends ExpressionEvaluati
     ExpressionNumberContextTesting<C>,
     ExpressionPurityContextTesting<C>,
     TreePrintableTesting {
+
+    // enterScope.......................................................................................................
+
+    @Test
+    default void testEnterScopeWithNullFails() {
+        assertThrows(
+            NullPointerException.class,
+            () -> this.createContext()
+                .enterScope(null)
+        );
+    }
+
+    @Test
+    default void testEnterScopeGivesDifferentInstance() {
+        final C context = this.createContext();
+
+        assertNotSame(
+            context,
+            context.enterScope(
+                (n) -> {
+                    throw new UnsupportedOperationException();
+                }
+            )
+        );
+    }
 
     // evaluateExpression...............................................................................................
 

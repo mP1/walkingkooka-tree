@@ -218,7 +218,7 @@ public final class ExpressionEvaluationContextTest implements ClassTesting<Expre
     public void testLambdaFunction() {
         final FakeExpressionEvaluationContext context = new FakeExpressionEvaluationContext() {
             @Override
-            public ExpressionEvaluationContext context(final Function<ExpressionReference, Optional<Optional<Object>>> scoped) {
+            public ExpressionEvaluationContext enterScope(final Function<ExpressionReference, Optional<Optional<Object>>> scoped) {
                 return new FakeExpressionEvaluationContext() {
 
                     @Override
