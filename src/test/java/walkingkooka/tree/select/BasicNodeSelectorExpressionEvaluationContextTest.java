@@ -74,16 +74,16 @@ public final class BasicNodeSelectorExpressionEvaluationContextTest implements N
     }
 
     @Test
-    public void testEvaluateTrue() {
-        this.evaluateAndCheck2(true);
+    public void testEvaluateExpressionTrue() {
+        this.evaluateExpressionAndCheck2(true);
     }
 
     @Test
-    public void testEvaluateFalse() {
-        this.evaluateAndCheck2(false);
+    public void testEvaluateExpressionFalse() {
+        this.evaluateExpressionAndCheck2(false);
     }
 
-    private void evaluateAndCheck2(final boolean value) {
+    private void evaluateExpressionAndCheck2(final boolean value) {
         this.evaluateExpressionAndCheck(
             Expression.value(value),
             value
@@ -91,7 +91,7 @@ public final class BasicNodeSelectorExpressionEvaluationContextTest implements N
     }
 
     @Test
-    public void testEvaluateString() {
+    public void testEvaluateExpressionString() {
         final String value = "abc123";
         this.evaluateExpressionAndCheck(
             Expression.value(value),
