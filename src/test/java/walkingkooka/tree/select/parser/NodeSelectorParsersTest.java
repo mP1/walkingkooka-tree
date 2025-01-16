@@ -57,17 +57,29 @@ public final class NodeSelectorParsersTest implements ParserTesting2<Parser<Node
 
     @Test
     public void testDescendantSlashSlashFails() {
-        this.parseThrows2(descendantOrSelfSlashSlash());
+        this.parseThrows2(
+            descendantOrSelfSlashSlash(),
+            "Invalid character '/' at (1,1) expected ([(ABSOLUTE_AXIS_NODE_PREDICATE | DESCENDANTORSELFSLASHSLASH_AXIS_NODE_PREDICATE | PARENTDOTDOT_SELFDOT_SLASH_AXIS_NODE_PREDICATE)], [{(DESCENDANTORSELFSLASHSLASH_AXIS_NODE_PREDICATE | SLASH_PARENTDOTDOT_SELFDOT_SLASH_AXIS_NODE_PREDICATE | PARENTDOTDOT_SELFDOT_SLASH_AXIS_NODE_PREDICATE)}])"
+        );
     }
 
     @Test
     public void testNodeNameDescendantSlashSlashFails() {
-        this.parseThrows2(nodeName(), descendantOrSelfSlashSlash());
+        this.parseThrows2(
+            nodeName(),
+            descendantOrSelfSlashSlash(),
+            "Invalid character '/' at (6,1) expected (([(ABSOLUTE_AXIS_NODE_PREDICATE | DESCENDANTORSELFSLASHSLASH_AXIS_NODE_PREDICATE | PARENTDOTDOT_SELFDOT_SLASH_AXIS_NODE_PREDICATE)], [{(DESCENDANTORSELFSLASHSLASH_AXIS_NODE_PREDICATE | SLASH_PARENTDOTDOT_SELFDOT_SLASH_AXIS_NODE_PREDICATE | PARENTDOTDOT_SELFDOT_SLASH_AXIS_NODE_PREDICATE)}]) | ([(ABSOLUTE_AXIS_NODE_PREDICATE | DESCENDANTORSELFSLASHSLASH_AXIS_NODE_PREDICATE | PARENTDOTDOT_SELFDOT_SLASH_AXIS_NODE_PREDICATE)], [{(DESCENDANTORSELFSLASHSLASH_AXIS_NODE_PREDICATE | SLASH_PARENTDOTDOT_SELFDOT_SLASH_AXIS_NODE_PREDICATE | PARENTDOTDOT_SELFDOT_SLASH_AXIS_NODE_PREDICATE)}]) | Fail)"
+        );
     }
 
     @Test
     public void testNodeNameDescendantSlashSlashSlashFails() {
-        this.parseThrows2(nodeName(), descendantOrSelfSlashSlash(), slash());
+        this.parseThrows2(
+            nodeName(),
+            descendantOrSelfSlashSlash(),
+            slash(),
+            "Invalid character '/' at (6,1) expected (([(ABSOLUTE_AXIS_NODE_PREDICATE | DESCENDANTORSELFSLASHSLASH_AXIS_NODE_PREDICATE | PARENTDOTDOT_SELFDOT_SLASH_AXIS_NODE_PREDICATE)], [{(DESCENDANTORSELFSLASHSLASH_AXIS_NODE_PREDICATE | SLASH_PARENTDOTDOT_SELFDOT_SLASH_AXIS_NODE_PREDICATE | PARENTDOTDOT_SELFDOT_SLASH_AXIS_NODE_PREDICATE)}]) | ([(ABSOLUTE_AXIS_NODE_PREDICATE | DESCENDANTORSELFSLASHSLASH_AXIS_NODE_PREDICATE | PARENTDOTDOT_SELFDOT_SLASH_AXIS_NODE_PREDICATE)], [{(DESCENDANTORSELFSLASHSLASH_AXIS_NODE_PREDICATE | SLASH_PARENTDOTDOT_SELFDOT_SLASH_AXIS_NODE_PREDICATE | PARENTDOTDOT_SELFDOT_SLASH_AXIS_NODE_PREDICATE)}]) | Fail)"
+        );
     }
 
     @Test
@@ -177,7 +189,11 @@ public final class NodeSelectorParsersTest implements ParserTesting2<Parser<Node
 
     @Test
     public void testAbsoluteAncestorNodeNameMissingFails() {
-        this.parseThrows2(absolute(), ancestor());
+        this.parseThrows2(
+            absolute(),
+            ancestor(),
+            "Invalid character '/' at (1,1) expected ([(ABSOLUTE_AXIS_NODE_PREDICATE | DESCENDANTORSELFSLASHSLASH_AXIS_NODE_PREDICATE | PARENTDOTDOT_SELFDOT_SLASH_AXIS_NODE_PREDICATE)], [{(DESCENDANTORSELFSLASHSLASH_AXIS_NODE_PREDICATE | SLASH_PARENTDOTDOT_SELFDOT_SLASH_AXIS_NODE_PREDICATE | PARENTDOTDOT_SELFDOT_SLASH_AXIS_NODE_PREDICATE)}])"
+        );
     }
 
     @Test
@@ -1403,7 +1419,11 @@ public final class NodeSelectorParsersTest implements ParserTesting2<Parser<Node
 
     @Test
     public void testAbsoluteAncestorWildcardFails() {
-        this.parseThrows2(absolute(), ancestor());
+        this.parseThrows2(
+            absolute(),
+            ancestor(),
+            "Invalid character '/' at (1,1) expected ([(ABSOLUTE_AXIS_NODE_PREDICATE | DESCENDANTORSELFSLASHSLASH_AXIS_NODE_PREDICATE | PARENTDOTDOT_SELFDOT_SLASH_AXIS_NODE_PREDICATE)], [{(DESCENDANTORSELFSLASHSLASH_AXIS_NODE_PREDICATE | SLASH_PARENTDOTDOT_SELFDOT_SLASH_AXIS_NODE_PREDICATE | PARENTDOTDOT_SELFDOT_SLASH_AXIS_NODE_PREDICATE)}])"
+        );
     }
 
     @Test
@@ -1413,7 +1433,11 @@ public final class NodeSelectorParsersTest implements ParserTesting2<Parser<Node
 
     @Test
     public void testAbsoluteAncestorOrSelfWildcardFails() {
-        this.parseThrows2(absolute(), ancestorOrSelf());
+        this.parseThrows2(
+            absolute(),
+            ancestorOrSelf(),
+            "Invalid character '/' at (1,1) expected ([(ABSOLUTE_AXIS_NODE_PREDICATE | DESCENDANTORSELFSLASHSLASH_AXIS_NODE_PREDICATE | PARENTDOTDOT_SELFDOT_SLASH_AXIS_NODE_PREDICATE)], [{(DESCENDANTORSELFSLASHSLASH_AXIS_NODE_PREDICATE | SLASH_PARENTDOTDOT_SELFDOT_SLASH_AXIS_NODE_PREDICATE | PARENTDOTDOT_SELFDOT_SLASH_AXIS_NODE_PREDICATE)}])"
+        );
     }
 
     @Test
@@ -1480,25 +1504,34 @@ public final class NodeSelectorParsersTest implements ParserTesting2<Parser<Node
 
     @Test
     public void testIndexMissingNumberFails() {
-        this.parseThrows2(absolute(),
+        this.parseThrows2(
+            absolute(),
             wildcard(),
-            bracketOpen());
+            bracketOpen(),
+            "Invalid character '[' at (3,1) expected (([(ABSOLUTE_AXIS_NODE_PREDICATE | DESCENDANTORSELFSLASHSLASH_AXIS_NODE_PREDICATE | PARENTDOTDOT_SELFDOT_SLASH_AXIS_NODE_PREDICATE)], [{(DESCENDANTORSELFSLASHSLASH_AXIS_NODE_PREDICATE | SLASH_PARENTDOTDOT_SELFDOT_SLASH_AXIS_NODE_PREDICATE | PARENTDOTDOT_SELFDOT_SLASH_AXIS_NODE_PREDICATE)}]) | ([(ABSOLUTE_AXIS_NODE_PREDICATE | DESCENDANTORSELFSLASHSLASH_AXIS_NODE_PREDICATE | PARENTDOTDOT_SELFDOT_SLASH_AXIS_NODE_PREDICATE)], [{(DESCENDANTORSELFSLASHSLASH_AXIS_NODE_PREDICATE | SLASH_PARENTDOTDOT_SELFDOT_SLASH_AXIS_NODE_PREDICATE | PARENTDOTDOT_SELFDOT_SLASH_AXIS_NODE_PREDICATE)}]) | Fail)"
+        );
     }
 
     @Test
     public void testIndexMissingNumberFails2() {
-        this.parseThrows2(absolute(),
+        this.parseThrows2(
+            absolute(),
             wildcard(),
             bracketOpen(),
-            bracketClose());
+            bracketClose(),
+            "Invalid character '[' at (3,1) expected (([(ABSOLUTE_AXIS_NODE_PREDICATE | DESCENDANTORSELFSLASHSLASH_AXIS_NODE_PREDICATE | PARENTDOTDOT_SELFDOT_SLASH_AXIS_NODE_PREDICATE)], [{(DESCENDANTORSELFSLASHSLASH_AXIS_NODE_PREDICATE | SLASH_PARENTDOTDOT_SELFDOT_SLASH_AXIS_NODE_PREDICATE | PARENTDOTDOT_SELFDOT_SLASH_AXIS_NODE_PREDICATE)}]) | ([(ABSOLUTE_AXIS_NODE_PREDICATE | DESCENDANTORSELFSLASHSLASH_AXIS_NODE_PREDICATE | PARENTDOTDOT_SELFDOT_SLASH_AXIS_NODE_PREDICATE)], [{(DESCENDANTORSELFSLASHSLASH_AXIS_NODE_PREDICATE | SLASH_PARENTDOTDOT_SELFDOT_SLASH_AXIS_NODE_PREDICATE | PARENTDOTDOT_SELFDOT_SLASH_AXIS_NODE_PREDICATE)}]) | Fail)"
+        );
     }
 
     @Test
     public void testIndexMissingBracketCloseFailsDouble() {
-        this.parseThrows2(absolute(),
+        this.parseThrows2(
+            absolute(),
             wildcard(),
             bracketOpen(),
-            predicate(expressionNumber()));
+            predicate(expressionNumber()),
+            "Invalid character '[' at (3,1) expected (([(ABSOLUTE_AXIS_NODE_PREDICATE | DESCENDANTORSELFSLASHSLASH_AXIS_NODE_PREDICATE | PARENTDOTDOT_SELFDOT_SLASH_AXIS_NODE_PREDICATE)], [{(DESCENDANTORSELFSLASHSLASH_AXIS_NODE_PREDICATE | SLASH_PARENTDOTDOT_SELFDOT_SLASH_AXIS_NODE_PREDICATE | PARENTDOTDOT_SELFDOT_SLASH_AXIS_NODE_PREDICATE)}]) | ([(ABSOLUTE_AXIS_NODE_PREDICATE | DESCENDANTORSELFSLASHSLASH_AXIS_NODE_PREDICATE | PARENTDOTDOT_SELFDOT_SLASH_AXIS_NODE_PREDICATE)], [{(DESCENDANTORSELFSLASHSLASH_AXIS_NODE_PREDICATE | SLASH_PARENTDOTDOT_SELFDOT_SLASH_AXIS_NODE_PREDICATE | PARENTDOTDOT_SELFDOT_SLASH_AXIS_NODE_PREDICATE)}]) | Fail)"
+        );
     }
 
     @Test
@@ -1512,11 +1545,13 @@ public final class NodeSelectorParsersTest implements ParserTesting2<Parser<Node
     }
 
     private void absoluteWildcardBracketOpenIndexBracketClose() {
-        this.parseAndCheck2(absolute(),
+        this.parseAndCheck2(
+            absolute(),
             wildcard(),
             bracketOpen(),
             predicate(expressionNumber()),
-            bracketClose());
+            bracketClose()
+        );
     }
 
     @Test
@@ -1722,33 +1757,45 @@ public final class NodeSelectorParsersTest implements ParserTesting2<Parser<Node
 
     @Test
     public void testAndMissingRightFailsDouble() {
-        this.parseThrows2(absolute(),
+        this.parseThrows2(
+            absolute(),
             wildcard(),
             bracketOpen(),
             predicate(
                 expressionNumber(),
-                andSymbol()));
+                andSymbol()
+            ),
+            "Invalid character '[' at (3,1) expected (([(ABSOLUTE_AXIS_NODE_PREDICATE | DESCENDANTORSELFSLASHSLASH_AXIS_NODE_PREDICATE | PARENTDOTDOT_SELFDOT_SLASH_AXIS_NODE_PREDICATE)], [{(DESCENDANTORSELFSLASHSLASH_AXIS_NODE_PREDICATE | SLASH_PARENTDOTDOT_SELFDOT_SLASH_AXIS_NODE_PREDICATE | PARENTDOTDOT_SELFDOT_SLASH_AXIS_NODE_PREDICATE)}]) | ([(ABSOLUTE_AXIS_NODE_PREDICATE | DESCENDANTORSELFSLASHSLASH_AXIS_NODE_PREDICATE | PARENTDOTDOT_SELFDOT_SLASH_AXIS_NODE_PREDICATE)], [{(DESCENDANTORSELFSLASHSLASH_AXIS_NODE_PREDICATE | SLASH_PARENTDOTDOT_SELFDOT_SLASH_AXIS_NODE_PREDICATE | PARENTDOTDOT_SELFDOT_SLASH_AXIS_NODE_PREDICATE)}]) | Fail)"
+        );
     }
 
     @Test
     public void testAndMissingRightFails2Double() {
-        this.parseThrows2(absolute(),
+        this.parseThrows2(
+            absolute(),
             wildcard(),
             bracketOpen(),
             predicate(
                 expressionNumber(),
-                andSymbol()),
-            bracketClose());
+                andSymbol()
+            ),
+            bracketClose(),
+            "Invalid character '[' at (3,1) expected (([(ABSOLUTE_AXIS_NODE_PREDICATE | DESCENDANTORSELFSLASHSLASH_AXIS_NODE_PREDICATE | PARENTDOTDOT_SELFDOT_SLASH_AXIS_NODE_PREDICATE)], [{(DESCENDANTORSELFSLASHSLASH_AXIS_NODE_PREDICATE | SLASH_PARENTDOTDOT_SELFDOT_SLASH_AXIS_NODE_PREDICATE | PARENTDOTDOT_SELFDOT_SLASH_AXIS_NODE_PREDICATE)}]) | ([(ABSOLUTE_AXIS_NODE_PREDICATE | DESCENDANTORSELFSLASHSLASH_AXIS_NODE_PREDICATE | PARENTDOTDOT_SELFDOT_SLASH_AXIS_NODE_PREDICATE)], [{(DESCENDANTORSELFSLASHSLASH_AXIS_NODE_PREDICATE | SLASH_PARENTDOTDOT_SELFDOT_SLASH_AXIS_NODE_PREDICATE | PARENTDOTDOT_SELFDOT_SLASH_AXIS_NODE_PREDICATE)}]) | Fail)"
+        );
     }
 
     @Test
     public void testAndMissingBracketCloseFailsDouble() {
-        this.parseThrows2(absolute(),
+        this.parseThrows2(
+            absolute(),
             wildcard(),
             bracketOpen(),
             predicate(
                 expressionNumber(),
-                andSymbol()));
+                andSymbol()
+            ),
+            "Invalid character '[' at (3,1) expected (([(ABSOLUTE_AXIS_NODE_PREDICATE | DESCENDANTORSELFSLASHSLASH_AXIS_NODE_PREDICATE | PARENTDOTDOT_SELFDOT_SLASH_AXIS_NODE_PREDICATE)], [{(DESCENDANTORSELFSLASHSLASH_AXIS_NODE_PREDICATE | SLASH_PARENTDOTDOT_SELFDOT_SLASH_AXIS_NODE_PREDICATE | PARENTDOTDOT_SELFDOT_SLASH_AXIS_NODE_PREDICATE)}]) | ([(ABSOLUTE_AXIS_NODE_PREDICATE | DESCENDANTORSELFSLASHSLASH_AXIS_NODE_PREDICATE | PARENTDOTDOT_SELFDOT_SLASH_AXIS_NODE_PREDICATE)], [{(DESCENDANTORSELFSLASHSLASH_AXIS_NODE_PREDICATE | SLASH_PARENTDOTDOT_SELFDOT_SLASH_AXIS_NODE_PREDICATE | PARENTDOTDOT_SELFDOT_SLASH_AXIS_NODE_PREDICATE)}]) | Fail)"
+        );
     }
 
     @Test
@@ -1850,32 +1897,46 @@ public final class NodeSelectorParsersTest implements ParserTesting2<Parser<Node
 
     @Test
     public void testOrMissingRightFailsDouble() {
-        this.parseThrows2(absolute(),
+        this.parseThrows2(
+            absolute(),
             wildcard(),
             bracketOpen(),
-            predicate(expressionNumber(),
-                orSymbol()));
+            predicate(
+                expressionNumber(),
+                orSymbol()
+            ),
+            "Invalid character '[' at (3,1) expected (([(ABSOLUTE_AXIS_NODE_PREDICATE | DESCENDANTORSELFSLASHSLASH_AXIS_NODE_PREDICATE | PARENTDOTDOT_SELFDOT_SLASH_AXIS_NODE_PREDICATE)], [{(DESCENDANTORSELFSLASHSLASH_AXIS_NODE_PREDICATE | SLASH_PARENTDOTDOT_SELFDOT_SLASH_AXIS_NODE_PREDICATE | PARENTDOTDOT_SELFDOT_SLASH_AXIS_NODE_PREDICATE)}]) | ([(ABSOLUTE_AXIS_NODE_PREDICATE | DESCENDANTORSELFSLASHSLASH_AXIS_NODE_PREDICATE | PARENTDOTDOT_SELFDOT_SLASH_AXIS_NODE_PREDICATE)], [{(DESCENDANTORSELFSLASHSLASH_AXIS_NODE_PREDICATE | SLASH_PARENTDOTDOT_SELFDOT_SLASH_AXIS_NODE_PREDICATE | PARENTDOTDOT_SELFDOT_SLASH_AXIS_NODE_PREDICATE)}]) | Fail)"
+        );
     }
 
     @Test
     public void testOrMissingRightFails2Double() {
-        this.parseThrows2(absolute(),
+        this.parseThrows2(
+            absolute(),
             wildcard(),
             bracketOpen(),
-            predicate(expressionNumber(),
+            predicate(
+                expressionNumber(),
                 orSymbol()
             ),
-            bracketClose());
+            bracketClose(),
+            "Invalid character '[' at (3,1) expected (([(ABSOLUTE_AXIS_NODE_PREDICATE | DESCENDANTORSELFSLASHSLASH_AXIS_NODE_PREDICATE | PARENTDOTDOT_SELFDOT_SLASH_AXIS_NODE_PREDICATE)], [{(DESCENDANTORSELFSLASHSLASH_AXIS_NODE_PREDICATE | SLASH_PARENTDOTDOT_SELFDOT_SLASH_AXIS_NODE_PREDICATE | PARENTDOTDOT_SELFDOT_SLASH_AXIS_NODE_PREDICATE)}]) | ([(ABSOLUTE_AXIS_NODE_PREDICATE | DESCENDANTORSELFSLASHSLASH_AXIS_NODE_PREDICATE | PARENTDOTDOT_SELFDOT_SLASH_AXIS_NODE_PREDICATE)], [{(DESCENDANTORSELFSLASHSLASH_AXIS_NODE_PREDICATE | SLASH_PARENTDOTDOT_SELFDOT_SLASH_AXIS_NODE_PREDICATE | PARENTDOTDOT_SELFDOT_SLASH_AXIS_NODE_PREDICATE)}]) | Fail)"
+        );
     }
 
     @Test
     public void testOrMissingBracketCloseFailsBigDecimal() {
-        this.parseThrows2(absolute(),
+        this.parseThrows2(
+            absolute(),
             wildcard(),
             bracketOpen(),
-            predicate(expressionNumber(),
+            predicate(
+                expressionNumber(),
                 orSymbol(),
-                expressionNumber()));
+                expressionNumber()
+            ),
+            "Invalid character '[' at (3,1) expected (([(ABSOLUTE_AXIS_NODE_PREDICATE | DESCENDANTORSELFSLASHSLASH_AXIS_NODE_PREDICATE | PARENTDOTDOT_SELFDOT_SLASH_AXIS_NODE_PREDICATE)], [{(DESCENDANTORSELFSLASHSLASH_AXIS_NODE_PREDICATE | SLASH_PARENTDOTDOT_SELFDOT_SLASH_AXIS_NODE_PREDICATE | PARENTDOTDOT_SELFDOT_SLASH_AXIS_NODE_PREDICATE)}]) | ([(ABSOLUTE_AXIS_NODE_PREDICATE | DESCENDANTORSELFSLASHSLASH_AXIS_NODE_PREDICATE | PARENTDOTDOT_SELFDOT_SLASH_AXIS_NODE_PREDICATE)], [{(DESCENDANTORSELFSLASHSLASH_AXIS_NODE_PREDICATE | SLASH_PARENTDOTDOT_SELFDOT_SLASH_AXIS_NODE_PREDICATE | PARENTDOTDOT_SELFDOT_SLASH_AXIS_NODE_PREDICATE)}]) | Fail)"
+        );
     }
 
     @Test
@@ -2094,7 +2155,10 @@ public final class NodeSelectorParsersTest implements ParserTesting2<Parser<Node
 
     @Test
     public void testRelativeAncestorNodeNameMissingFails() {
-        this.parseThrows2(ancestor());
+        this.parseThrows2(
+            ancestor(),
+            "Invalid character 'a' at (1,1) expected ([(ABSOLUTE_AXIS_NODE_PREDICATE | DESCENDANTORSELFSLASHSLASH_AXIS_NODE_PREDICATE | PARENTDOTDOT_SELFDOT_SLASH_AXIS_NODE_PREDICATE)], [{(DESCENDANTORSELFSLASHSLASH_AXIS_NODE_PREDICATE | SLASH_PARENTDOTDOT_SELFDOT_SLASH_AXIS_NODE_PREDICATE | PARENTDOTDOT_SELFDOT_SLASH_AXIS_NODE_PREDICATE)}])"
+        );
     }
 
     @Test
@@ -2104,7 +2168,10 @@ public final class NodeSelectorParsersTest implements ParserTesting2<Parser<Node
 
     @Test
     public void testRelativeAncestorOrSelfNodeNameMissingFails() {
-        this.parseThrows2(ancestorOrSelf());
+        this.parseThrows2(
+            ancestorOrSelf(),
+            "Invalid character 'a' at (1,1) expected ([(ABSOLUTE_AXIS_NODE_PREDICATE | DESCENDANTORSELFSLASHSLASH_AXIS_NODE_PREDICATE | PARENTDOTDOT_SELFDOT_SLASH_AXIS_NODE_PREDICATE)], [{(DESCENDANTORSELFSLASHSLASH_AXIS_NODE_PREDICATE | SLASH_PARENTDOTDOT_SELFDOT_SLASH_AXIS_NODE_PREDICATE | PARENTDOTDOT_SELFDOT_SLASH_AXIS_NODE_PREDICATE)}])"
+        );
     }
 
     @Test
@@ -2119,7 +2186,10 @@ public final class NodeSelectorParsersTest implements ParserTesting2<Parser<Node
 
     @Test
     public void testRelativeDescendantNodeNameMissingFails() {
-        this.parseThrows2(descendant());
+        this.parseThrows2(
+            descendant(),
+            "Invalid character 'd' at (1,1) expected ([(ABSOLUTE_AXIS_NODE_PREDICATE | DESCENDANTORSELFSLASHSLASH_AXIS_NODE_PREDICATE | PARENTDOTDOT_SELFDOT_SLASH_AXIS_NODE_PREDICATE)], [{(DESCENDANTORSELFSLASHSLASH_AXIS_NODE_PREDICATE | SLASH_PARENTDOTDOT_SELFDOT_SLASH_AXIS_NODE_PREDICATE | PARENTDOTDOT_SELFDOT_SLASH_AXIS_NODE_PREDICATE)}])"
+        );
     }
 
     @Test
@@ -2129,7 +2199,10 @@ public final class NodeSelectorParsersTest implements ParserTesting2<Parser<Node
 
     @Test
     public void testRelativeDescendantOrSelfNodeNameMissingFails() {
-        this.parseThrows2(descendantOrSelf());
+        this.parseThrows2(
+            descendantOrSelf(),
+            "Invalid character 'd' at (1,1) expected ([(ABSOLUTE_AXIS_NODE_PREDICATE | DESCENDANTORSELFSLASHSLASH_AXIS_NODE_PREDICATE | PARENTDOTDOT_SELFDOT_SLASH_AXIS_NODE_PREDICATE)], [{(DESCENDANTORSELFSLASHSLASH_AXIS_NODE_PREDICATE | SLASH_PARENTDOTDOT_SELFDOT_SLASH_AXIS_NODE_PREDICATE | PARENTDOTDOT_SELFDOT_SLASH_AXIS_NODE_PREDICATE)}])"
+        );
     }
 
     @Test
@@ -2181,7 +2254,10 @@ public final class NodeSelectorParsersTest implements ParserTesting2<Parser<Node
 
     @Test
     public void testRelativeAncestorWildcardFails() {
-        this.parseThrows2(ancestor());
+        this.parseThrows2(
+            ancestor(),
+            "Invalid character 'a' at (1,1) expected ([(ABSOLUTE_AXIS_NODE_PREDICATE | DESCENDANTORSELFSLASHSLASH_AXIS_NODE_PREDICATE | PARENTDOTDOT_SELFDOT_SLASH_AXIS_NODE_PREDICATE)], [{(DESCENDANTORSELFSLASHSLASH_AXIS_NODE_PREDICATE | SLASH_PARENTDOTDOT_SELFDOT_SLASH_AXIS_NODE_PREDICATE | PARENTDOTDOT_SELFDOT_SLASH_AXIS_NODE_PREDICATE)}])"
+        );
     }
 
     @Test
@@ -2318,9 +2394,82 @@ public final class NodeSelectorParsersTest implements ParserTesting2<Parser<Node
         NodeSelectorPredicateParserToken predicate;
     }
 
-    private void parseThrows2(final NodeSelectorParserToken... tokens) {
-        this.parseThrows(this.createParser().orFailIfCursorNotEmpty(ParserReporters.basic()),
-            ParserToken.text(Lists.of(tokens)));
+    private void parseThrows2(final NodeSelectorParserToken token,
+                              final String expected) {
+        this.parseThrows2(
+            Lists.of(token),
+            expected
+        );
+    }
+
+    private void parseThrows2(final NodeSelectorParserToken token,
+                              final NodeSelectorParserToken token2,
+                              final String expected) {
+        this.parseThrows2(
+            Lists.of(
+                token,
+                token2
+            ),
+            expected
+        );
+    }
+
+    private void parseThrows2(final NodeSelectorParserToken token,
+                              final NodeSelectorParserToken token2,
+                              final NodeSelectorParserToken token3,
+                              final String expected) {
+        this.parseThrows2(
+            Lists.of(
+                token,
+                token2,
+                token3
+            ),
+            expected
+        );
+    }
+
+    private void parseThrows2(final NodeSelectorParserToken token,
+                              final NodeSelectorParserToken token2,
+                              final NodeSelectorParserToken token3,
+                              final NodeSelectorParserToken token4,
+                              final String expected) {
+        this.parseThrows2(
+            Lists.of(
+                token,
+                token2,
+                token3,
+                token4
+            ),
+            expected
+        );
+    }
+
+    private void parseThrows2(final NodeSelectorParserToken token,
+                              final NodeSelectorParserToken token2,
+                              final NodeSelectorParserToken token3,
+                              final NodeSelectorParserToken token4,
+                              final NodeSelectorParserToken token5,
+                              final String expected) {
+        this.parseThrows2(
+            Lists.of(
+                token,
+                token2,
+                token3,
+                token4,
+                token5
+            ),
+            expected
+        );
+    }
+
+    private void parseThrows2(final List<NodeSelectorParserToken> tokens,
+                              final String expected) {
+        this.parseThrows(
+            this.createParser()
+                .orFailIfCursorNotEmpty(ParserReporters.basic()),
+            ParserToken.text(tokens),
+            expected
+        );
     }
 
     // token factories...............................................................................
