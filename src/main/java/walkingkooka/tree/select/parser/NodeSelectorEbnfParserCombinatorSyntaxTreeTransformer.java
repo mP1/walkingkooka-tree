@@ -182,15 +182,15 @@ final class NodeSelectorEbnfParserCombinatorSyntaxTreeTransformer implements Ebn
     private NodeSelectorEbnfParserCombinatorSyntaxTreeTransformer() {
         super();
 
-        final Map<EbnfIdentifierName, BiFunction<ParserToken, ParserContext, ParserToken>> identiferToTransform = Maps.sorted();
-        identiferToTransform.put(ATTRIBUTE_IDENTIFIER, NodeSelectorEbnfParserCombinatorSyntaxTreeTransformer::attribute);
-        identiferToTransform.put(NodeSelectorParsers.EXPRESSION_IDENTIFIER, NodeSelectorEbnfParserCombinatorSyntaxTreeTransformer::expression);
-        identiferToTransform.put(FUNCTION_IDENTIFIER, NodeSelectorEbnfParserCombinatorSyntaxTreeTransformer::function);
-        identiferToTransform.put(GROUP_IDENTIFIER, NodeSelectorEbnfParserCombinatorSyntaxTreeTransformer::group);
-        identiferToTransform.put(NEGATIVE_IDENTIFIER, NodeSelectorEbnfParserCombinatorSyntaxTreeTransformer::negative);
-        identiferToTransform.put(PREDICATE_IDENTIFIER, NodeSelectorEbnfParserCombinatorSyntaxTreeTransformer::predicate);
+        final Map<EbnfIdentifierName, BiFunction<ParserToken, ParserContext, ParserToken>> identifierToTransform = Maps.sorted();
+        identifierToTransform.put(ATTRIBUTE_IDENTIFIER, NodeSelectorEbnfParserCombinatorSyntaxTreeTransformer::attribute);
+        identifierToTransform.put(NodeSelectorParsers.EXPRESSION_IDENTIFIER, NodeSelectorEbnfParserCombinatorSyntaxTreeTransformer::expression);
+        identifierToTransform.put(FUNCTION_IDENTIFIER, NodeSelectorEbnfParserCombinatorSyntaxTreeTransformer::function);
+        identifierToTransform.put(GROUP_IDENTIFIER, NodeSelectorEbnfParserCombinatorSyntaxTreeTransformer::group);
+        identifierToTransform.put(NEGATIVE_IDENTIFIER, NodeSelectorEbnfParserCombinatorSyntaxTreeTransformer::negative);
+        identifierToTransform.put(PREDICATE_IDENTIFIER, NodeSelectorEbnfParserCombinatorSyntaxTreeTransformer::predicate);
 
-        this.identiferToTransform = identiferToTransform;
+        this.identifierToTransform = identifierToTransform;
     }
 
     @Override
@@ -250,7 +250,7 @@ final class NodeSelectorEbnfParserCombinatorSyntaxTreeTransformer implements Ebn
         Parser<ParserContext> result = parser;
 
         // REMOVE and not GET to avoid double transforming $parser
-        final BiFunction<ParserToken, ParserContext, ParserToken> transformer = this.identiferToTransform.remove(name);
+        final BiFunction<ParserToken, ParserContext, ParserToken> transformer = this.identifierToTransform.remove(name);
         if (null != transformer) {
             result = parser.transform(transformer);
         }
@@ -261,7 +261,7 @@ final class NodeSelectorEbnfParserCombinatorSyntaxTreeTransformer implements Ebn
         );
     }
 
-    private final Map<EbnfIdentifierName, BiFunction<ParserToken, ParserContext, ParserToken>> identiferToTransform;
+    private final Map<EbnfIdentifierName, BiFunction<ParserToken, ParserContext, ParserToken>> identifierToTransform;
 
     private Parser<ParserContext> requiredCheck(final EbnfIdentifierName name, final Parser<ParserContext> parser) {
         return name.value().endsWith("REQUIRED") ?
