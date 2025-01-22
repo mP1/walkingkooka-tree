@@ -23,7 +23,6 @@ import walkingkooka.predicate.character.CharPredicate;
 import walkingkooka.predicate.character.CharPredicates;
 import walkingkooka.reflect.PublicStaticHelper;
 import walkingkooka.text.CaseSensitivity;
-import walkingkooka.text.CharSequences;
 import walkingkooka.text.cursor.parser.BigDecimalParserToken;
 import walkingkooka.text.cursor.parser.CharacterParserToken;
 import walkingkooka.text.cursor.parser.DoubleQuotedParserToken;
@@ -39,7 +38,6 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.function.BiFunction;
 import java.util.function.Function;
-import java.util.function.Supplier;
 
 public final class NodeSelectorParsers implements PublicStaticHelper {
 
@@ -401,7 +399,7 @@ public final class NodeSelectorParsers implements PublicStaticHelper {
         NodeSelectorWildcardParserToken.class);
 
     // NodeSelectorParsersGrammar.txt
-    private final static String FILENAME = "\"" + NodeSelectorParsers.class.getSimpleName() + "Grammar.txt\"";
+    private final static String FILENAME = NodeSelectorParsers.class.getSimpleName() + "Grammar.txt";
 
     private final static EbnfIdentifierName PREDICATE_IDENTIFIER = EbnfIdentifierName.with("PREDICATE");
 
@@ -416,32 +414,24 @@ public final class NodeSelectorParsers implements PublicStaticHelper {
             predicate(predefined);
             misc(predefined);
 
-            final Function<EbnfIdentifierName, Optional<Parser<ParserContext>>> parsers = EbnfParserToken.parseFile(
+            final Function<EbnfIdentifierName, Parser<ParserContext>> parsers = EbnfParserToken.parseFile(
                 new NodeSelectorParsersGrammarProvider().text(),
                 FILENAME
-            ).combinator(
+            ).combinatorForFile(
                 (n) -> Optional.ofNullable(
                     predefined.get(n)
                 ),
-                NodeSelectorEbnfParserCombinatorSyntaxTreeTransformer.create()
+                NodeSelectorEbnfParserCombinatorSyntaxTreeTransformer.create(),
+                FILENAME
             );
 
-            EXPRESSION = parsers.apply(EXPRESSION_IDENTIFIER)
-                .orElseThrow(missingParser(EXPRESSION_IDENTIFIER))
-                .cast();
-            PREDICATE = parsers.apply(PREDICATE_IDENTIFIER)
-                .orElseThrow(missingParser(PREDICATE_IDENTIFIER))
-                .cast();
+            EXPRESSION = parsers.apply(EXPRESSION_IDENTIFIER).cast();
+            PREDICATE = parsers.apply(PREDICATE_IDENTIFIER).cast();
         } catch (final NodeSelectorParserException rethrow) {
             throw rethrow;
         } catch (final Exception cause) {
             throw new NodeSelectorParserException("Unable to read grammar in file " + FILENAME + ", message: " + cause.getMessage(), cause);
         }
-    }
-
-    // Missing parser EXPRESSION from NodeSelectorParserGrammar.txt
-    private static Supplier<IllegalStateException> missingParser(final EbnfIdentifierName name) {
-        return () -> new IllegalStateException("Missing parser " + CharSequences.quoteAndEscape(name.value()) + " from " + FILENAME);
     }
 
     /**
