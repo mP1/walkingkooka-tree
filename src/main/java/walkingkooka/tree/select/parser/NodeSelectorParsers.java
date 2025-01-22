@@ -24,20 +24,15 @@ import walkingkooka.predicate.character.CharPredicates;
 import walkingkooka.reflect.PublicStaticHelper;
 import walkingkooka.text.CaseSensitivity;
 import walkingkooka.text.CharSequences;
-import walkingkooka.text.cursor.TextCursor;
-import walkingkooka.text.cursor.TextCursors;
 import walkingkooka.text.cursor.parser.BigDecimalParserToken;
 import walkingkooka.text.cursor.parser.CharacterParserToken;
 import walkingkooka.text.cursor.parser.DoubleQuotedParserToken;
 import walkingkooka.text.cursor.parser.Parser;
 import walkingkooka.text.cursor.parser.ParserContext;
-import walkingkooka.text.cursor.parser.ParserReporters;
 import walkingkooka.text.cursor.parser.ParserToken;
 import walkingkooka.text.cursor.parser.Parsers;
 import walkingkooka.text.cursor.parser.StringParserToken;
-import walkingkooka.text.cursor.parser.ebnf.EbnfGrammarParserToken;
 import walkingkooka.text.cursor.parser.ebnf.EbnfIdentifierName;
-import walkingkooka.text.cursor.parser.ebnf.EbnfParserContexts;
 import walkingkooka.text.cursor.parser.ebnf.EbnfParserToken;
 
 import java.util.Map;
@@ -421,19 +416,15 @@ public final class NodeSelectorParsers implements PublicStaticHelper {
             predicate(predefined);
             misc(predefined);
 
-            final TextCursor grammarFile = TextCursors.charSequence(new NodeSelectorParsersGrammarProvider().text());
-
-            final Function<EbnfIdentifierName, Optional<Parser<ParserContext>>> parsers = EbnfParserToken.grammarParser()
-                .orFailIfCursorNotEmpty(ParserReporters.basic())
-                .parse(grammarFile, EbnfParserContexts.basic())
-                .orElseThrow(() -> new IllegalStateException("Unable to read grammar in file " + FILENAME))
-                .cast(EbnfGrammarParserToken.class)
-                .combinator(
-                    (n) -> Optional.ofNullable(
-                        predefined.get(n)
-                    ),
-                    NodeSelectorEbnfParserCombinatorSyntaxTreeTransformer.create()
-                );
+            final Function<EbnfIdentifierName, Optional<Parser<ParserContext>>> parsers = EbnfParserToken.parseFile(
+                new NodeSelectorParsersGrammarProvider().text(),
+                FILENAME
+            ).combinator(
+                (n) -> Optional.ofNullable(
+                    predefined.get(n)
+                ),
+                NodeSelectorEbnfParserCombinatorSyntaxTreeTransformer.create()
+            );
 
             EXPRESSION = parsers.apply(EXPRESSION_IDENTIFIER)
                 .orElseThrow(missingParser(EXPRESSION_IDENTIFIER))
