@@ -20,14 +20,14 @@ package walkingkooka.tree.select.parser;
 import walkingkooka.reflect.ClassTesting2;
 import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.text.cursor.parser.ParserContext;
-import walkingkooka.text.cursor.parser.ebnf.combinator.EbnfParserCombinatorSyntaxTreeTransformerTesting;
+import walkingkooka.text.cursor.parser.ebnf.combinator.EbnfParserCombinatorGrammarTransformerTesting;
 
-public final class NodeSelectorEbnfParserCombinatorSyntaxTreeTransformerTest implements ClassTesting2<NodeSelectorEbnfParserCombinatorSyntaxTreeTransformer>,
-    EbnfParserCombinatorSyntaxTreeTransformerTesting<NodeSelectorEbnfParserCombinatorSyntaxTreeTransformer, ParserContext> {
+public final class NodeSelectorEbnfParserCombinatorGrammarTransformerTest implements ClassTesting2<NodeSelectorEbnfParserCombinatorGrammarTransformer>,
+    EbnfParserCombinatorGrammarTransformerTesting<NodeSelectorEbnfParserCombinatorGrammarTransformer, ParserContext> {
 
     @Override
-    public Class<NodeSelectorEbnfParserCombinatorSyntaxTreeTransformer> type() {
-        return NodeSelectorEbnfParserCombinatorSyntaxTreeTransformer.class;
+    public Class<NodeSelectorEbnfParserCombinatorGrammarTransformer> type() {
+        return NodeSelectorEbnfParserCombinatorGrammarTransformer.class;
     }
 
     @Override

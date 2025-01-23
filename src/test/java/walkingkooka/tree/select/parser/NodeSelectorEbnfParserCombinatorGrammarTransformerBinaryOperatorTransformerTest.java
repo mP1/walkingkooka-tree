@@ -20,25 +20,25 @@ package walkingkooka.tree.select.parser;
 import org.junit.jupiter.api.Test;
 import walkingkooka.text.cursor.parser.BinaryOperatorTransformerTesting;
 
-public final class NodeSelectorEbnfParserCombinatorSyntaxTreeTransformerBinaryOperatorTransformerTest implements BinaryOperatorTransformerTesting<NodeSelectorEbnfParserCombinatorSyntaxTreeTransformerBinaryOperatorTransformer> {
+public final class NodeSelectorEbnfParserCombinatorGrammarTransformerBinaryOperatorTransformerTest implements BinaryOperatorTransformerTesting<NodeSelectorEbnfParserCombinatorGrammarTransformerBinaryOperatorTransformer> {
 
     @Test
     public void testToString() {
-        this.toStringAndCheck(this.createBinaryOperatorTransformer(), NodeSelectorEbnfParserCombinatorSyntaxTreeTransformer.class.getSimpleName());
+        this.toStringAndCheck(this.createBinaryOperatorTransformer(), NodeSelectorEbnfParserCombinatorGrammarTransformer.class.getSimpleName());
     }
 
     @Override
-    public NodeSelectorEbnfParserCombinatorSyntaxTreeTransformerBinaryOperatorTransformer createBinaryOperatorTransformer() {
-        return NodeSelectorEbnfParserCombinatorSyntaxTreeTransformerBinaryOperatorTransformer.INSTANCE;
+    public NodeSelectorEbnfParserCombinatorGrammarTransformerBinaryOperatorTransformer createBinaryOperatorTransformer() {
+        return NodeSelectorEbnfParserCombinatorGrammarTransformerBinaryOperatorTransformer.INSTANCE;
     }
 
     @Override
     public String typeNamePrefix() {
-        return NodeSelectorEbnfParserCombinatorSyntaxTreeTransformer.class.getSimpleName();
+        return NodeSelectorEbnfParserCombinatorGrammarTransformer.class.getSimpleName();
     }
 
     @Override
-    public Class<NodeSelectorEbnfParserCombinatorSyntaxTreeTransformerBinaryOperatorTransformer> type() {
-        return NodeSelectorEbnfParserCombinatorSyntaxTreeTransformerBinaryOperatorTransformer.class;
+    public Class<NodeSelectorEbnfParserCombinatorGrammarTransformerBinaryOperatorTransformer> type() {
+        return NodeSelectorEbnfParserCombinatorGrammarTransformerBinaryOperatorTransformer.class;
     }
 }

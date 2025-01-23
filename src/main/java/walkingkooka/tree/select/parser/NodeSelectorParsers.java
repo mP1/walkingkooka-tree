@@ -422,7 +422,7 @@ public final class NodeSelectorParsers implements PublicStaticHelper {
                 (n) -> Optional.ofNullable(
                     predefined.get(n)
                 ),
-                NodeSelectorEbnfParserCombinatorSyntaxTreeTransformer.create(),
+                NodeSelectorEbnfParserCombinatorGrammarTransformer.create(),
                 FILENAME
             );
 
