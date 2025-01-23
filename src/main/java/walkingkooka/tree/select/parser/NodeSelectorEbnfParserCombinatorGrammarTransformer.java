@@ -36,13 +36,13 @@ import walkingkooka.text.cursor.parser.ebnf.EbnfRangeParserToken;
 import walkingkooka.text.cursor.parser.ebnf.EbnfRepeatedParserToken;
 import walkingkooka.text.cursor.parser.ebnf.EbnfRuleParserToken;
 import walkingkooka.text.cursor.parser.ebnf.EbnfTerminalParserToken;
-import walkingkooka.text.cursor.parser.ebnf.combinator.EbnfParserCombinatorSyntaxTreeTransformer;
+import walkingkooka.text.cursor.parser.ebnf.combinator.EbnfParserCombinatorGrammarTransformer;
 
 import java.util.List;
 import java.util.Map;
 import java.util.function.BiFunction;
 
-final class NodeSelectorEbnfParserCombinatorSyntaxTreeTransformer implements EbnfParserCombinatorSyntaxTreeTransformer<ParserContext> {
+final class NodeSelectorEbnfParserCombinatorGrammarTransformer implements EbnfParserCombinatorGrammarTransformer<ParserContext> {
 
     private static ParserToken attribute(final ParserToken token, final ParserContext context) {
         return parent(token, NodeSelectorParserToken::attribute);
@@ -175,31 +175,22 @@ final class NodeSelectorEbnfParserCombinatorSyntaxTreeTransformer implements Ebn
 
     private static final EbnfIdentifierName PREDICATE_IDENTIFIER = EbnfIdentifierName.with("PREDICATE");
 
-    static NodeSelectorEbnfParserCombinatorSyntaxTreeTransformer create() {
-        return new NodeSelectorEbnfParserCombinatorSyntaxTreeTransformer();
+    static NodeSelectorEbnfParserCombinatorGrammarTransformer create() {
+        return new NodeSelectorEbnfParserCombinatorGrammarTransformer();
     }
 
-    private NodeSelectorEbnfParserCombinatorSyntaxTreeTransformer() {
+    private NodeSelectorEbnfParserCombinatorGrammarTransformer() {
         super();
 
         final Map<EbnfIdentifierName, BiFunction<ParserToken, ParserContext, ParserToken>> identifierToTransform = Maps.sorted();
-        identifierToTransform.put(ATTRIBUTE_IDENTIFIER, NodeSelectorEbnfParserCombinatorSyntaxTreeTransformer::attribute);
-        identifierToTransform.put(NodeSelectorParsers.EXPRESSION_IDENTIFIER, NodeSelectorEbnfParserCombinatorSyntaxTreeTransformer::expression);
-        identifierToTransform.put(FUNCTION_IDENTIFIER, NodeSelectorEbnfParserCombinatorSyntaxTreeTransformer::function);
-        identifierToTransform.put(GROUP_IDENTIFIER, NodeSelectorEbnfParserCombinatorSyntaxTreeTransformer::group);
-        identifierToTransform.put(NEGATIVE_IDENTIFIER, NodeSelectorEbnfParserCombinatorSyntaxTreeTransformer::negative);
-        identifierToTransform.put(PREDICATE_IDENTIFIER, NodeSelectorEbnfParserCombinatorSyntaxTreeTransformer::predicate);
+        identifierToTransform.put(ATTRIBUTE_IDENTIFIER, NodeSelectorEbnfParserCombinatorGrammarTransformer::attribute);
+        identifierToTransform.put(NodeSelectorParsers.EXPRESSION_IDENTIFIER, NodeSelectorEbnfParserCombinatorGrammarTransformer::expression);
+        identifierToTransform.put(FUNCTION_IDENTIFIER, NodeSelectorEbnfParserCombinatorGrammarTransformer::function);
+        identifierToTransform.put(GROUP_IDENTIFIER, NodeSelectorEbnfParserCombinatorGrammarTransformer::group);
+        identifierToTransform.put(NEGATIVE_IDENTIFIER, NodeSelectorEbnfParserCombinatorGrammarTransformer::negative);
+        identifierToTransform.put(PREDICATE_IDENTIFIER, NodeSelectorEbnfParserCombinatorGrammarTransformer::predicate);
 
         this.identifierToTransform = identifierToTransform;
-    }
-
-    @Override
-    public Parser<ParserContext> rule(final EbnfRuleParserToken token,
-                                      final Parser<ParserContext> parser) {
-        return this.transform(
-            token.identifier(),
-            parser
-        );
     }
 
     @Override
@@ -218,7 +209,7 @@ final class NodeSelectorEbnfParserCombinatorSyntaxTreeTransformer implements Ebn
     private ParserToken concatenation(final ParserToken token,
                                       final ParserContext context) {
         return token.cast(SequenceParserToken.class)
-            .binaryOperator(NodeSelectorEbnfParserCombinatorSyntaxTreeTransformerBinaryOperatorTransformer.INSTANCE);
+            .binaryOperator(NodeSelectorEbnfParserCombinatorGrammarTransformerBinaryOperatorTransformer.INSTANCE);
     }
 
     @Override
@@ -233,18 +224,51 @@ final class NodeSelectorEbnfParserCombinatorSyntaxTreeTransformer implements Ebn
 
     @Override
     public Parser<ParserContext> identifier(final EbnfIdentifierParserToken token, final Parser<ParserContext> parser) {
-        return this.transform(
+        return this.transformIdentifierIfNecessary(
             token,
             parser
         );
     }
 
+    @Override
+    public Parser<ParserContext> optional(final EbnfOptionalParserToken token, final Parser<ParserContext> parser) {
+        return parser;
+    }
+
+    @Override
+    public Parser<ParserContext> range(final EbnfRangeParserToken token,
+                                       final String beginText,
+                                       final String endText) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public Parser<ParserContext> repeated(final EbnfRepeatedParserToken token, final Parser<ParserContext> parser) {
+        return parser;
+    }
+
+    @Override
+    public Parser<ParserContext> rule(final EbnfRuleParserToken token,
+                                      final Parser<ParserContext> parser) {
+        return this.transformIdentifierIfNecessary(
+            token.identifier(),
+            parser
+        );
+    }
+
+    @Override
+    public Parser<ParserContext> terminal(final EbnfTerminalParserToken token, final Parser<ParserContext> parser) {
+        throw new UnsupportedOperationException(token.toString());
+    }
+
+    // identifier & rule................................................................................................
+
     /**
      * An {@link EbnfIdentifierName} can appear in a {@link EbnfRuleParserToken} or {@link EbnfIdentifierParserToken},
      * and to avoid problems, the transformer should only be applied to the first.
      */
-    private Parser<ParserContext> transform(final EbnfIdentifierParserToken identifierParserToken,
-                                            final Parser<ParserContext> parser) {
+    private Parser<ParserContext> transformIdentifierIfNecessary(final EbnfIdentifierParserToken identifierParserToken,
+                                                                 final Parser<ParserContext> parser) {
         final EbnfIdentifierName name = identifierParserToken.value();
 
         Parser<ParserContext> result = parser;
@@ -267,27 +291,5 @@ final class NodeSelectorEbnfParserCombinatorSyntaxTreeTransformer implements Ebn
         return name.value().endsWith("REQUIRED") ?
             parser.orReport(ParserReporters.basic()) :
             parser; // leave as is...
-    }
-
-    @Override
-    public Parser<ParserContext> optional(final EbnfOptionalParserToken token, final Parser<ParserContext> parser) {
-        return parser;
-    }
-
-    @Override
-    public Parser<ParserContext> range(final EbnfRangeParserToken token,
-                                       final String beginText,
-                                       final String endText) {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public Parser<ParserContext> repeated(final EbnfRepeatedParserToken token, final Parser<ParserContext> parser) {
-        return parser;
-    }
-
-    @Override
-    public Parser<ParserContext> terminal(final EbnfTerminalParserToken token, final Parser<ParserContext> parser) {
-        throw new UnsupportedOperationException(token.toString());
     }
 }
