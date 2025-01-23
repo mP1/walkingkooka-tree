@@ -385,7 +385,7 @@ public final class NodeSelectorParsers implements PublicStaticHelper {
         NodeSelectorSlashSeparatorSymbolParserToken.class);
 
     private static final EbnfIdentifierName WHITESPACE_IDENTIFIER = EbnfIdentifierName.with("WHITESPACE");
-    private final static Parser<ParserContext> WHITESPACE_PARSER = Parsers.<NodeSelectorParserContext>stringCharPredicate(CharPredicates.whitespace(), 1, Integer.MAX_VALUE)
+    private final static Parser<ParserContext> WHITESPACE_PARSER = Parsers.<NodeSelectorParserContext>charPredicateString(CharPredicates.whitespace(), 1, Integer.MAX_VALUE)
         .transform(NodeSelectorParsers::transformWhitespace)
         .setToString(NodeSelectorWhitespaceParserToken.class.getSimpleName())
         .cast();
