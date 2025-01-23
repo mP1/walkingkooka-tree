@@ -369,11 +369,12 @@ public final class NodeSelectorParsers implements PublicStaticHelper {
                                                                                                   final Function<String, N> nameFactory,
                                                                                                   final BiFunction<N, String, T> parserTokenFactory,
                                                                                                   final EbnfIdentifierName name) {
-        return Parsers.stringInitialAndPartCharPredicate(initial,
+        return Parsers.initialAndPartCharPredicateString(
+                initial,
                 CharPredicates.letterOrDigit().or(part),
                 1,
-                Integer.MAX_VALUE)
-            .transform(((stringParserToken, parserContext) -> parserTokenFactory.apply(nameFactory.apply(((StringParserToken) stringParserToken).value()), stringParserToken.text())))
+                Integer.MAX_VALUE
+            ).transform(((stringParserToken, parserContext) -> parserTokenFactory.apply(nameFactory.apply(((StringParserToken) stringParserToken).value()), stringParserToken.text())))
             .setToString(name.value())
             .cast();
     }

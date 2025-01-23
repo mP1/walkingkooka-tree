@@ -190,7 +190,7 @@ public final class ExpressionFunctionName implements Name,
         return ExpressionFunctionNameComparator.with(caseSensitivity);
     }
 
-    private final static Parser<ParserContext> PARSER2 = Parsers.stringInitialAndPartCharPredicate(
+    private final static Parser<ParserContext> PARSER2 = Parsers.initialAndPartCharPredicateString(
         INITIAL,
         PART,
         MIN_LENGTH,
