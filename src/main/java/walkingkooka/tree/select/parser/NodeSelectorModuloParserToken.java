@@ -57,11 +57,4 @@ public final class NodeSelectorModuloParserToken extends NodeSelectorBinaryParse
         }
         visitor.endVisit(this);
     }
-
-    // Object........................................................................................................
-
-    @Override
-    boolean canBeEqual(final Object other) {
-        return other instanceof NodeSelectorModuloParserToken;
-    }
 }

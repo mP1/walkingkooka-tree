@@ -58,11 +58,4 @@ public final class NodeSelectorGreaterThanEqualsParserToken extends NodeSelector
         }
         visitor.endVisit(this);
     }
-
-    // Object........................................................................................................
-
-    @Override
-    boolean canBeEqual(final Object other) {
-        return other instanceof NodeSelectorGreaterThanEqualsParserToken;
-    }
 }

@@ -38,11 +38,4 @@ public final class NodeSelectorAncestorOrSelfParserToken extends NodeSelectorNon
     public void accept(final NodeSelectorParserTokenVisitor visitor) {
         visitor.visit(this);
     }
-
-    // Object................................................................................................
-
-    @Override
-    boolean canBeEqual(final Object other) {
-        return other instanceof NodeSelectorAncestorOrSelfParserToken;
-    }
 }

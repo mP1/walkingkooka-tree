@@ -38,11 +38,4 @@ public final class NodeSelectorFunctionNameParserToken extends NodeSelectorNonSy
     public void accept(final NodeSelectorParserTokenVisitor visitor) {
         visitor.visit(this);
     }
-
-    // Object................................................................................................
-
-    @Override
-    boolean canBeEqual(final Object other) {
-        return other instanceof NodeSelectorFunctionNameParserToken;
-    }
 }
