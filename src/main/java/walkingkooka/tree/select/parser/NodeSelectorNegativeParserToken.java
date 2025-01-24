@@ -71,11 +71,4 @@ public final class NodeSelectorNegativeParserToken extends NodeSelectorParentPar
         }
         visitor.endVisit(this);
     }
-
-    // Object........................................................................................................
-
-    @Override
-    boolean canBeEqual(final Object other) {
-        return other instanceof NodeSelectorNegativeParserToken;
-    }
 }

@@ -57,11 +57,4 @@ public final class NodeSelectorSubtractionParserToken extends NodeSelectorBinary
         }
         visitor.endVisit(this);
     }
-
-    // Object........................................................................................................
-
-    @Override
-    boolean canBeEqual(final Object other) {
-        return other instanceof NodeSelectorSubtractionParserToken;
-    }
 }

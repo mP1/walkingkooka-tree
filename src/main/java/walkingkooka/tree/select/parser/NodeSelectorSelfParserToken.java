@@ -35,11 +35,4 @@ public final class NodeSelectorSelfParserToken extends NodeSelectorNonSymbolPars
     public void accept(final NodeSelectorParserTokenVisitor visitor) {
         visitor.visit(this);
     }
-
-    // Object................................................................................................
-
-    @Override
-    boolean canBeEqual(final Object other) {
-        return other instanceof NodeSelectorSelfParserToken;
-    }
 }

@@ -58,11 +58,4 @@ public final class NodeSelectorEqualsParserToken extends NodeSelectorBinaryParse
         }
         visitor.endVisit(this);
     }
-
-    // Object........................................................................................................
-
-    @Override
-    boolean canBeEqual(final Object other) {
-        return other instanceof NodeSelectorEqualsParserToken;
-    }
 }

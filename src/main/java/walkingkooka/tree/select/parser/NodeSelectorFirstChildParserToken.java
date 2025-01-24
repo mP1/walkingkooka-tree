@@ -38,11 +38,4 @@ public final class NodeSelectorFirstChildParserToken extends NodeSelectorNonSymb
     public void accept(final NodeSelectorParserTokenVisitor visitor) {
         visitor.visit(this);
     }
-
-    // Object................................................................................................
-
-    @Override
-    boolean canBeEqual(final Object other) {
-        return other instanceof NodeSelectorFirstChildParserToken;
-    }
 }

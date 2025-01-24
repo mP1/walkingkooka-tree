@@ -82,11 +82,4 @@ public final class NodeSelectorFunctionParserToken extends NodeSelectorParentPar
         }
         visitor.endVisit(this);
     }
-
-    // Object........................................................................................................
-
-    @Override
-    boolean canBeEqual(final Object other) {
-        return other instanceof NodeSelectorFunctionParserToken;
-    }
 }

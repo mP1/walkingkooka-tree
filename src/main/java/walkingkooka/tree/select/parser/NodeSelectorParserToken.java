@@ -974,14 +974,10 @@ public abstract class NodeSelectorParserToken implements ParserToken {
     }
 
     @Override
-    @SuppressWarnings("EqualsWhichDoesntCheckParameterClass")
     public final boolean equals(final Object other) {
         return this == other ||
-            this.canBeEqual(other) &&
-                this.equals0((NodeSelectorParserToken) other);
+            null != other && this.getClass() == other.getClass() && this.equals0((NodeSelectorParserToken) other);
     }
-
-    abstract boolean canBeEqual(final Object other);
 
     private boolean equals0(final NodeSelectorParserToken other) {
         return this.text.equals(other.text) &&

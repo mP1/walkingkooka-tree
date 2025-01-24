@@ -54,11 +54,4 @@ public final class NodeSelectorAndSymbolParserToken extends NodeSelectorSymbolPa
     public void accept(final NodeSelectorParserTokenVisitor visitor) {
         visitor.visit(this);
     }
-
-    // Object................................................................................................
-
-    @Override
-    boolean canBeEqual(final Object other) {
-        return other instanceof NodeSelectorAndSymbolParserToken;
-    }
 }
