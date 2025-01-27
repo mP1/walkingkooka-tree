@@ -24,7 +24,7 @@ import walkingkooka.predicate.Predicates;
 import walkingkooka.reflect.MethodAttributes;
 import walkingkooka.tree.select.NodeSelector;
 import walkingkooka.tree.select.NodeSelectorTesting;
-import walkingkooka.tree.select.parser.NodeSelectorExpressionParserToken;
+import walkingkooka.tree.select.parser.ExpressionNodeSelectorParserToken;
 import walkingkooka.visit.VisitableTesting;
 
 import java.lang.reflect.Method;
@@ -80,9 +80,9 @@ public interface NodeTesting<N extends Node<N, NAME, ANAME, AVALUE>,
             .filter(MethodAttributes.STATIC::is)
             .filter(m -> m.getReturnType() == NodeSelector.class)
             .filter(m -> m.getName().equals("nodeSelectorExpressionParserToken"))
-            .filter(m -> Arrays.equals(m.getParameterTypes(), new Object[]{NodeSelectorExpressionParserToken.class, Predicate.class}))
+            .filter(m -> Arrays.equals(m.getParameterTypes(), new Object[]{ExpressionNodeSelectorParserToken.class, Predicate.class}))
             .findFirst()
-            .orElseThrow(() -> new AssertionError("Unable to find static method NodeSelector nodeSelectorExpressionParserToken(NodeSelectorExpressionParserToken, Predicate)"));
+            .orElseThrow(() -> new AssertionError("Unable to find static method NodeSelector nodeSelectorExpressionParserToken(ExpressionNodeSelectorParserToken, Predicate)"));
     }
 
     @Test

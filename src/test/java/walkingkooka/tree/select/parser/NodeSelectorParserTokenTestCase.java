@@ -26,7 +26,6 @@ import walkingkooka.text.CharSequences;
 import walkingkooka.text.cursor.parser.ParserToken;
 import walkingkooka.text.cursor.parser.ParserTokenTesting;
 import walkingkooka.tree.expression.ExpressionNumberKind;
-import walkingkooka.tree.select.NodeSelector;
 
 import java.util.function.Predicate;
 
@@ -44,10 +43,12 @@ public abstract class NodeSelectorParserTokenTestCase<T extends NodeSelectorPars
 
     @Test
     public final void testPublicStaticFactoryMethod() {
-        PublicStaticFactoryTesting.checkFactoryMethods(NodeSelectorParserToken.class,
-            NodeSelector.class.getSimpleName(),
-            ParserToken.class.getSimpleName(),
-            this.type());
+        PublicStaticFactoryTesting.checkFactoryMethods(
+            NodeSelectorParserToken.class,
+            "",
+            NodeSelectorParserToken.class.getSimpleName(),
+            this.type()
+        );
     }
 
     @Test
@@ -67,7 +68,7 @@ public abstract class NodeSelectorParserTokenTestCase<T extends NodeSelectorPars
         return NodeSelectorParserToken.absolute("/", "/");
     }
 
-    final NodeSelectorAdditionParserToken addition(final NodeSelectorParserToken... tokens) {
+    final AdditionNodeSelectorParserToken addition(final NodeSelectorParserToken... tokens) {
         return NodeSelectorParserToken.addition(Lists.of(tokens), text(tokens));
     }
 
@@ -91,19 +92,19 @@ public abstract class NodeSelectorParserTokenTestCase<T extends NodeSelectorPars
         return NodeSelectorParserToken.atSignSymbol("@", "@");
     }
 
-    final NodeSelectorAttributeParserToken attribute(final NodeSelectorParserToken... tokens) {
+    final AttributeNodeSelectorParserToken attribute(final NodeSelectorParserToken... tokens) {
         return NodeSelectorParserToken.attribute(Lists.of(tokens), text(tokens));
     }
 
-    final NodeSelectorAttributeNameParserToken attributeName() {
+    final AttributeNameNodeSelectorParserToken attributeName() {
         return attributeName("attribute1");
     }
 
-    final NodeSelectorAttributeNameParserToken attributeName2() {
+    final AttributeNameNodeSelectorParserToken attributeName2() {
         return attributeName("attribute2");
     }
 
-    final NodeSelectorAttributeNameParserToken attributeName(final String name) {
+    final AttributeNameNodeSelectorParserToken attributeName(final String name) {
         return NodeSelectorParserToken.attributeName(NodeSelectorAttributeName.with(name), name);
     }
 
@@ -143,15 +144,15 @@ public abstract class NodeSelectorParserTokenTestCase<T extends NodeSelectorPars
         return NodeSelectorParserToken.division(Lists.of(tokens), text(tokens));
     }
 
-    final NodeSelectorEqualsParserToken equalsParserToken(final NodeSelectorParserToken... tokens) {
-        return NodeSelectorParserToken.equalsParserToken(Lists.of(tokens), text(tokens));
+    final EqualsNodeSelectorParserToken equalsNodeSelectorParserToken(final NodeSelectorParserToken... tokens) {
+        return NodeSelectorParserToken.equalsNodeSelectorParserToken(Lists.of(tokens), text(tokens));
     }
 
     final NodeSelectorParserToken equalsSymbol() {
         return NodeSelectorParserToken.equalsSymbol("=", "=");
     }
 
-    final NodeSelectorExpressionParserToken expression(final NodeSelectorParserToken... tokens) {
+    final ExpressionNodeSelectorParserToken expression(final NodeSelectorParserToken... tokens) {
         return NodeSelectorParserToken.expression(Lists.of(tokens), text(tokens));
     }
 
@@ -167,27 +168,27 @@ public abstract class NodeSelectorParserTokenTestCase<T extends NodeSelectorPars
         return NodeSelectorParserToken.followingSibling("following-sibling::", "following-sibling::");
     }
 
-    final NodeSelectorFunctionParserToken function(final NodeSelectorParserToken... tokens) {
+    final FunctionNodeSelectorParserToken function(final NodeSelectorParserToken... tokens) {
         return NodeSelectorParserToken.function(Lists.of(tokens), text(tokens));
     }
 
-    final NodeSelectorFunctionParserToken functionWithoutArguments() {
+    final FunctionNodeSelectorParserToken functionWithoutArguments() {
         return function(functionName(), parenthesisOpen(), parenthesisClose());
     }
 
-    final NodeSelectorFunctionParserToken functionWithArguments() {
+    final FunctionNodeSelectorParserToken functionWithArguments() {
         return function(functionName(), parenthesisOpen(), number(), comma(), quotedText(), parenthesisClose());
     }
 
-    final NodeSelectorFunctionNameParserToken functionName() {
+    final FunctionNameNodeSelectorParserToken functionName() {
         return functionName("contains");
     }
 
-    final NodeSelectorFunctionNameParserToken functionName(final String text) {
+    final FunctionNameNodeSelectorParserToken functionName(final String text) {
         return NodeSelectorParserToken.functionName(NodeSelectorFunctionName.with(text), text);
     }
 
-    final NodeSelectorGreaterThanParserToken greaterThan(final NodeSelectorParserToken... tokens) {
+    final GreaterThanNodeSelectorParserToken greaterThan(final NodeSelectorParserToken... tokens) {
         return NodeSelectorParserToken.greaterThan(Lists.of(tokens), text(tokens));
     }
 
@@ -195,7 +196,7 @@ public abstract class NodeSelectorParserTokenTestCase<T extends NodeSelectorPars
         return NodeSelectorParserToken.greaterThanSymbol(">", ">");
     }
 
-    final NodeSelectorGreaterThanEqualsParserToken greaterThanEquals(final NodeSelectorParserToken... tokens) {
+    final GreaterThanEqualsNodeSelectorParserToken greaterThanEquals(final NodeSelectorParserToken... tokens) {
         return NodeSelectorParserToken.greaterThanEquals(Lists.of(tokens), text(tokens));
     }
 
@@ -203,11 +204,11 @@ public abstract class NodeSelectorParserTokenTestCase<T extends NodeSelectorPars
         return NodeSelectorParserToken.greaterThanEqualsSymbol(">=", ">=");
     }
 
-    final NodeSelectorGroupParserToken group(final NodeSelectorParserToken... tokens) {
+    final GroupNodeSelectorParserToken group(final NodeSelectorParserToken... tokens) {
         return NodeSelectorParserToken.group(Lists.of(tokens), text(tokens));
     }
 
-    final NodeSelectorLessThanParserToken lessThan(final NodeSelectorParserToken... tokens) {
+    final LessThanNodeSelectorParserToken lessThan(final NodeSelectorParserToken... tokens) {
         return NodeSelectorParserToken.lessThan(Lists.of(tokens), text(tokens));
     }
 
@@ -215,7 +216,7 @@ public abstract class NodeSelectorParserTokenTestCase<T extends NodeSelectorPars
         return NodeSelectorParserToken.lessThanSymbol("<", "<");
     }
 
-    final NodeSelectorLessThanEqualsParserToken lessThanEquals(final NodeSelectorParserToken... tokens) {
+    final LessThanEqualsNodeSelectorParserToken lessThanEquals(final NodeSelectorParserToken... tokens) {
         return NodeSelectorParserToken.lessThanEquals(Lists.of(tokens), text(tokens));
     }
 
@@ -239,7 +240,7 @@ public abstract class NodeSelectorParserTokenTestCase<T extends NodeSelectorPars
         return NodeSelectorParserToken.moduloSymbol("mod", "mod");
     }
 
-    final NodeSelectorMultiplicationParserToken multiplication(final NodeSelectorParserToken... tokens) {
+    final MultiplicationNodeSelectorParserToken multiplication(final NodeSelectorParserToken... tokens) {
         return NodeSelectorParserToken.multiplication(Lists.of(tokens), text(tokens));
     }
 
@@ -247,7 +248,7 @@ public abstract class NodeSelectorParserTokenTestCase<T extends NodeSelectorPars
         return NodeSelectorParserToken.multiplySymbol("*", "*");
     }
 
-    final NodeSelectorNegativeParserToken negative(final NodeSelectorParserToken... tokens) {
+    final NegativeNodeSelectorParserToken negative(final NodeSelectorParserToken... tokens) {
         return NodeSelectorParserToken.negative(Lists.of(tokens), text(tokens));
     }
 
@@ -263,7 +264,7 @@ public abstract class NodeSelectorParserTokenTestCase<T extends NodeSelectorPars
         return NodeSelectorParserToken.nodeName(NodeSelectorNodeName.with(name), name);
     }
 
-    final NodeSelectorNotEqualsParserToken notEquals(final NodeSelectorParserToken... tokens) {
+    final NotEqualsNodeSelectorParserToken notEquals(final NodeSelectorParserToken... tokens) {
         return NodeSelectorParserToken.notEquals(Lists.of(tokens), text(tokens));
     }
 
@@ -283,7 +284,7 @@ public abstract class NodeSelectorParserTokenTestCase<T extends NodeSelectorPars
         return NodeSelectorParserToken.expressionNumber(EXPRESSION_NUMBER_KIND.create(value), String.valueOf(value));
     }
 
-    final NodeSelectorOrParserToken or(final NodeSelectorParserToken... tokens) {
+    final OrNodeSelectorParserToken or(final NodeSelectorParserToken... tokens) {
         return NodeSelectorParserToken.or(Lists.of(tokens), text(tokens));
     }
 
@@ -319,7 +320,7 @@ public abstract class NodeSelectorParserTokenTestCase<T extends NodeSelectorPars
         return NodeSelectorParserToken.precedingSibling("preceding-sibling::", "preceding-sibling::");
     }
 
-    final NodeSelectorPredicateParserToken predicate(final NodeSelectorParserToken... tokens) {
+    final PredicateNodeSelectorParserToken predicate(final NodeSelectorParserToken... tokens) {
         return NodeSelectorParserToken.predicate(Lists.of(tokens), text(tokens));
     }
 
@@ -347,7 +348,7 @@ public abstract class NodeSelectorParserTokenTestCase<T extends NodeSelectorPars
         return NodeSelectorParserToken.slashSeparatorSymbol("/", "/");
     }
 
-    final NodeSelectorSubtractionParserToken subtraction(final NodeSelectorParserToken... tokens) {
+    final SubtractionNodeSelectorParserToken subtraction(final NodeSelectorParserToken... tokens) {
         return NodeSelectorParserToken.subtraction(Lists.of(tokens), text(tokens));
     }
 
@@ -372,12 +373,12 @@ public abstract class NodeSelectorParserTokenTestCase<T extends NodeSelectorPars
 
     @Override
     public final String isMethodTypeNamePrefix() {
-        return NodeSelector.class.getSimpleName();
+        return "";
     }
 
     @Override
     public final String isMethodTypeNameSuffix() {
-        return ParserToken.class.getSimpleName();
+        return NodeSelectorParserToken.class.getSimpleName();
     }
 
     @Override
@@ -388,11 +389,19 @@ public abstract class NodeSelectorParserTokenTestCase<T extends NodeSelectorPars
                 m.equals("isParent") ||
                 m.equals("isSymbol") ||
                 m.equals("isEmpty") ||
-                m.equals("isNotEmpty");
+                m.equals("isNotEmpty"
+                );
     }
+
+    // class............................................................................................................
 
     @Override
     public final JavaVisibility typeVisibility() {
         return JavaVisibility.PUBLIC;
+    }
+
+    @Override
+    public final String typeNameSuffix() {
+        return NodeSelectorParserToken.class.getSimpleName();
     }
 }

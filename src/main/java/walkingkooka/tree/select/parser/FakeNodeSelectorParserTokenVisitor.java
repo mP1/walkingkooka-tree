@@ -27,382 +27,382 @@ public class FakeNodeSelectorParserTokenVisitor extends NodeSelectorParserTokenV
     }
 
     @Override
-    protected Visiting startVisit(final NodeSelectorAdditionParserToken token) {
+    protected Visiting startVisit(final AdditionNodeSelectorParserToken token) {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    protected void endVisit(final NodeSelectorAdditionParserToken token) {
+    protected void endVisit(final AdditionNodeSelectorParserToken token) {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    protected Visiting startVisit(final NodeSelectorAndParserToken token) {
+    protected Visiting startVisit(final AndNodeSelectorParserToken token) {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    protected void endVisit(final NodeSelectorAndParserToken token) {
+    protected void endVisit(final AndNodeSelectorParserToken token) {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    protected Visiting startVisit(final NodeSelectorAttributeParserToken token) {
+    protected Visiting startVisit(final AttributeNodeSelectorParserToken token) {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    protected void endVisit(final NodeSelectorAttributeParserToken token) {
+    protected void endVisit(final AttributeNodeSelectorParserToken token) {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    protected Visiting startVisit(final NodeSelectorDivisionParserToken token) {
+    protected Visiting startVisit(final DivisionNodeSelectorParserToken token) {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    protected void endVisit(final NodeSelectorDivisionParserToken token) {
+    protected void endVisit(final DivisionNodeSelectorParserToken token) {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    protected Visiting startVisit(final NodeSelectorEqualsParserToken token) {
+    protected Visiting startVisit(final EqualsNodeSelectorParserToken token) {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    protected void endVisit(final NodeSelectorEqualsParserToken token) {
+    protected void endVisit(final EqualsNodeSelectorParserToken token) {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    protected Visiting startVisit(final NodeSelectorExpressionParserToken token) {
+    protected Visiting startVisit(final ExpressionNodeSelectorParserToken token) {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    protected void endVisit(final NodeSelectorExpressionParserToken token) {
+    protected void endVisit(final ExpressionNodeSelectorParserToken token) {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    protected Visiting startVisit(final NodeSelectorFunctionParserToken token) {
+    protected Visiting startVisit(final FunctionNodeSelectorParserToken token) {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    protected void endVisit(final NodeSelectorFunctionParserToken token) {
+    protected void endVisit(final FunctionNodeSelectorParserToken token) {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    protected Visiting startVisit(final NodeSelectorGreaterThanParserToken token) {
+    protected Visiting startVisit(final GreaterThanNodeSelectorParserToken token) {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    protected void endVisit(final NodeSelectorGreaterThanParserToken token) {
+    protected void endVisit(final GreaterThanNodeSelectorParserToken token) {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    protected Visiting startVisit(final NodeSelectorGreaterThanEqualsParserToken token) {
+    protected Visiting startVisit(final GreaterThanEqualsNodeSelectorParserToken token) {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    protected void endVisit(final NodeSelectorGreaterThanEqualsParserToken token) {
+    protected void endVisit(final GreaterThanEqualsNodeSelectorParserToken token) {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    protected Visiting startVisit(final NodeSelectorGroupParserToken token) {
+    protected Visiting startVisit(final GroupNodeSelectorParserToken token) {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    protected void endVisit(final NodeSelectorGroupParserToken token) {
+    protected void endVisit(final GroupNodeSelectorParserToken token) {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    protected Visiting startVisit(final NodeSelectorLessThanParserToken token) {
+    protected Visiting startVisit(final LessThanNodeSelectorParserToken token) {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    protected void endVisit(final NodeSelectorLessThanParserToken token) {
+    protected void endVisit(final LessThanNodeSelectorParserToken token) {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    protected Visiting startVisit(final NodeSelectorLessThanEqualsParserToken token) {
+    protected Visiting startVisit(final LessThanEqualsNodeSelectorParserToken token) {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    protected void endVisit(final NodeSelectorLessThanEqualsParserToken token) {
+    protected void endVisit(final LessThanEqualsNodeSelectorParserToken token) {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    protected Visiting startVisit(final NodeSelectorModuloParserToken token) {
+    protected Visiting startVisit(final ModuloNodeSelectorParserToken token) {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    protected void endVisit(final NodeSelectorModuloParserToken token) {
+    protected void endVisit(final ModuloNodeSelectorParserToken token) {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    protected Visiting startVisit(final NodeSelectorMultiplicationParserToken token) {
+    protected Visiting startVisit(final MultiplicationNodeSelectorParserToken token) {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    protected void endVisit(final NodeSelectorMultiplicationParserToken token) {
+    protected void endVisit(final MultiplicationNodeSelectorParserToken token) {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    protected Visiting startVisit(final NodeSelectorNotEqualsParserToken token) {
+    protected Visiting startVisit(final NotEqualsNodeSelectorParserToken token) {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    protected void endVisit(final NodeSelectorNotEqualsParserToken token) {
+    protected void endVisit(final NotEqualsNodeSelectorParserToken token) {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    protected Visiting startVisit(final NodeSelectorOrParserToken token) {
+    protected Visiting startVisit(final OrNodeSelectorParserToken token) {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    protected void endVisit(final NodeSelectorOrParserToken token) {
+    protected void endVisit(final OrNodeSelectorParserToken token) {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    protected Visiting startVisit(final NodeSelectorPredicateParserToken token) {
+    protected Visiting startVisit(final PredicateNodeSelectorParserToken token) {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    protected void endVisit(final NodeSelectorPredicateParserToken token) {
+    protected void endVisit(final PredicateNodeSelectorParserToken token) {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    protected Visiting startVisit(final NodeSelectorSubtractionParserToken token) {
+    protected Visiting startVisit(final SubtractionNodeSelectorParserToken token) {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    protected void endVisit(final NodeSelectorSubtractionParserToken token) {
+    protected void endVisit(final SubtractionNodeSelectorParserToken token) {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    protected void visit(final NodeSelectorAbsoluteParserToken token) {
+    protected void visit(final AbsoluteNodeSelectorParserToken token) {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    protected void visit(final NodeSelectorAncestorParserToken token) {
+    protected void visit(final AncestorNodeSelectorParserToken token) {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    protected void visit(final NodeSelectorAncestorOrSelfParserToken token) {
+    protected void visit(final AncestorOrSelfNodeSelectorParserToken token) {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    protected void visit(final NodeSelectorAndSymbolParserToken token) {
+    protected void visit(final AndSymbolNodeSelectorParserToken token) {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    protected void visit(final NodeSelectorAtSignSymbolParserToken token) {
+    protected void visit(final AtSignSymbolNodeSelectorParserToken token) {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    protected void visit(final NodeSelectorAttributeNameParserToken token) {
+    protected void visit(final AttributeNameNodeSelectorParserToken token) {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    protected void visit(final NodeSelectorBracketOpenSymbolParserToken token) {
+    protected void visit(final BracketOpenSymbolNodeSelectorParserToken token) {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    protected void visit(final NodeSelectorBracketCloseSymbolParserToken token) {
+    protected void visit(final BracketCloseSymbolNodeSelectorParserToken token) {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    protected void visit(final NodeSelectorChildParserToken token) {
+    protected void visit(final ChildNodeSelectorParserToken token) {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    protected void visit(final NodeSelectorDescendantParserToken token) {
+    protected void visit(final DescendantNodeSelectorParserToken token) {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    protected void visit(final NodeSelectorDescendantOrSelfParserToken token) {
+    protected void visit(final DescendantOrSelfNodeSelectorParserToken token) {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    protected void visit(final NodeSelectorDivideSymbolParserToken token) {
+    protected void visit(final DivideSymbolNodeSelectorParserToken token) {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    protected void visit(final NodeSelectorEqualsSymbolParserToken token) {
+    protected void visit(final EqualsSymbolNodeSelectorParserToken token) {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    protected void visit(final NodeSelectorFirstChildParserToken token) {
+    protected void visit(final FirstChildNodeSelectorParserToken token) {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    protected void visit(final NodeSelectorFollowingParserToken token) {
+    protected void visit(final FollowingNodeSelectorParserToken token) {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    protected void visit(final NodeSelectorFollowingSiblingParserToken token) {
+    protected void visit(final FollowingSiblingNodeSelectorParserToken token) {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    protected void visit(final NodeSelectorFunctionNameParserToken token) {
+    protected void visit(final FunctionNameNodeSelectorParserToken token) {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    protected void visit(final NodeSelectorGreaterThanSymbolParserToken token) {
+    protected void visit(final GreaterThanSymbolNodeSelectorParserToken token) {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    protected void visit(final NodeSelectorGreaterThanEqualsSymbolParserToken token) {
+    protected void visit(final GreaterThanEqualsSymbolNodeSelectorParserToken token) {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    protected void visit(final NodeSelectorLastChildParserToken token) {
+    protected void visit(final LastChildNodeSelectorParserToken token) {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    protected void visit(final NodeSelectorLessThanSymbolParserToken token) {
+    protected void visit(final LessThanSymbolNodeSelectorParserToken token) {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    protected void visit(final NodeSelectorLessThanEqualsSymbolParserToken token) {
+    protected void visit(final LessThanEqualsSymbolNodeSelectorParserToken token) {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    protected void visit(final NodeSelectorMinusSymbolParserToken token) {
+    protected void visit(final MinusSymbolNodeSelectorParserToken token) {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    protected void visit(final NodeSelectorModuloSymbolParserToken token) {
+    protected void visit(final ModuloSymbolNodeSelectorParserToken token) {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    protected void visit(final NodeSelectorNodeNameParserToken token) {
+    protected void visit(final NodeNameNodeSelectorParserToken token) {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    protected void visit(final NodeSelectorNotEqualsSymbolParserToken token) {
+    protected void visit(final NotEqualsSymbolNodeSelectorParserToken token) {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    protected void visit(final NodeSelectorExpressionNumberParserToken token) {
+    protected void visit(final ExpressionNumberNodeSelectorParserToken token) {
         super.visit(token);
     }
 
     @Override
-    protected void visit(final NodeSelectorOrSymbolParserToken token) {
+    protected void visit(final OrSymbolNodeSelectorParserToken token) {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    protected void visit(final NodeSelectorParameterSeparatorSymbolParserToken token) {
+    protected void visit(final ParameterSeparatorSymbolNodeSelectorParserToken token) {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    protected void visit(final NodeSelectorParenthesisOpenSymbolParserToken token) {
+    protected void visit(final ParenthesisOpenSymbolNodeSelectorParserToken token) {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    protected void visit(final NodeSelectorParenthesisCloseSymbolParserToken token) {
+    protected void visit(final ParenthesisCloseSymbolNodeSelectorParserToken token) {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    protected void visit(final NodeSelectorParentOfParserToken token) {
+    protected void visit(final ParentOfNodeSelectorParserToken token) {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    protected void visit(final NodeSelectorPlusSymbolParserToken token) {
+    protected void visit(final PlusSymbolNodeSelectorParserToken token) {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    protected void visit(final NodeSelectorPrecedingParserToken token) {
+    protected void visit(final PrecedingNodeSelectorParserToken token) {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    protected void visit(final NodeSelectorPrecedingSiblingParserToken token) {
+    protected void visit(final PrecedingSiblingNodeSelectorParserToken token) {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    protected void visit(final NodeSelectorQuotedTextParserToken token) {
+    protected void visit(final QuotedTextNodeSelectorParserToken token) {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    protected void visit(final NodeSelectorSelfParserToken token) {
+    protected void visit(final SelfNodeSelectorParserToken token) {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    protected void visit(final NodeSelectorSlashSeparatorSymbolParserToken token) {
+    protected void visit(final SlashSeparatorSymbolNodeSelectorParserToken token) {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    protected void visit(final NodeSelectorWhitespaceParserToken token) {
+    protected void visit(final WhitespaceNodeSelectorParserToken token) {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    protected void visit(final NodeSelectorWildcardParserToken token) {
+    protected void visit(final WildcardNodeSelectorParserToken token) {
         throw new UnsupportedOperationException();
     }
 

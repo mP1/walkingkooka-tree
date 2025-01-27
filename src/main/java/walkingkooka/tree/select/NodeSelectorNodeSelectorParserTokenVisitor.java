@@ -20,27 +20,27 @@ package walkingkooka.tree.select;
 import walkingkooka.naming.Name;
 import walkingkooka.tree.Node;
 import walkingkooka.tree.expression.ExpressionFunctionName;
-import walkingkooka.tree.select.parser.NodeSelectorAbsoluteParserToken;
-import walkingkooka.tree.select.parser.NodeSelectorAncestorOrSelfParserToken;
-import walkingkooka.tree.select.parser.NodeSelectorAncestorParserToken;
-import walkingkooka.tree.select.parser.NodeSelectorChildParserToken;
-import walkingkooka.tree.select.parser.NodeSelectorDescendantOrSelfParserToken;
-import walkingkooka.tree.select.parser.NodeSelectorDescendantParserToken;
-import walkingkooka.tree.select.parser.NodeSelectorFirstChildParserToken;
-import walkingkooka.tree.select.parser.NodeSelectorFollowingParserToken;
-import walkingkooka.tree.select.parser.NodeSelectorFollowingSiblingParserToken;
-import walkingkooka.tree.select.parser.NodeSelectorLastChildParserToken;
+import walkingkooka.tree.select.parser.AbsoluteNodeSelectorParserToken;
+import walkingkooka.tree.select.parser.AncestorNodeSelectorParserToken;
+import walkingkooka.tree.select.parser.AncestorOrSelfNodeSelectorParserToken;
+import walkingkooka.tree.select.parser.ChildNodeSelectorParserToken;
+import walkingkooka.tree.select.parser.DescendantNodeSelectorParserToken;
+import walkingkooka.tree.select.parser.DescendantOrSelfNodeSelectorParserToken;
+import walkingkooka.tree.select.parser.FirstChildNodeSelectorParserToken;
+import walkingkooka.tree.select.parser.FollowingNodeSelectorParserToken;
+import walkingkooka.tree.select.parser.FollowingSiblingNodeSelectorParserToken;
+import walkingkooka.tree.select.parser.LastChildNodeSelectorParserToken;
+import walkingkooka.tree.select.parser.NodeNameNodeSelectorParserToken;
 import walkingkooka.tree.select.parser.NodeSelectorNodeName;
-import walkingkooka.tree.select.parser.NodeSelectorNodeNameParserToken;
-import walkingkooka.tree.select.parser.NodeSelectorParentOfParserToken;
 import walkingkooka.tree.select.parser.NodeSelectorParserToken;
 import walkingkooka.tree.select.parser.NodeSelectorParserTokenVisitor;
-import walkingkooka.tree.select.parser.NodeSelectorPrecedingParserToken;
-import walkingkooka.tree.select.parser.NodeSelectorPrecedingSiblingParserToken;
-import walkingkooka.tree.select.parser.NodeSelectorPredicateParserToken;
-import walkingkooka.tree.select.parser.NodeSelectorSelfParserToken;
-import walkingkooka.tree.select.parser.NodeSelectorSlashSeparatorSymbolParserToken;
-import walkingkooka.tree.select.parser.NodeSelectorWildcardParserToken;
+import walkingkooka.tree.select.parser.ParentOfNodeSelectorParserToken;
+import walkingkooka.tree.select.parser.PrecedingNodeSelectorParserToken;
+import walkingkooka.tree.select.parser.PrecedingSiblingNodeSelectorParserToken;
+import walkingkooka.tree.select.parser.PredicateNodeSelectorParserToken;
+import walkingkooka.tree.select.parser.SelfNodeSelectorParserToken;
+import walkingkooka.tree.select.parser.SlashSeparatorSymbolNodeSelectorParserToken;
+import walkingkooka.tree.select.parser.WildcardNodeSelectorParserToken;
 import walkingkooka.visit.Visiting;
 
 import java.util.Objects;
@@ -94,7 +94,7 @@ final class NodeSelectorNodeSelectorParserTokenVisitor<N extends Node<N, NAME, A
     }
 
     @Override
-    protected Visiting startVisit(final NodeSelectorPredicateParserToken token) {
+    protected Visiting startVisit(final PredicateNodeSelectorParserToken token) {
         this.childrenIfAxis();
         this.test(this.selector.expression(token.toExpression(this.functions)));
         return Visiting.SKIP;
@@ -106,89 +106,89 @@ final class NodeSelectorNodeSelectorParserTokenVisitor<N extends Node<N, NAME, A
     // Leaf tokens...........................................................................................
 
     @Override
-    protected void visit(final NodeSelectorSlashSeparatorSymbolParserToken token) {
+    protected void visit(final SlashSeparatorSymbolNodeSelectorParserToken token) {
         this.prepare();
     }
 
     @Override
-    protected void visit(final NodeSelectorAbsoluteParserToken token) {
+    protected void visit(final AbsoluteNodeSelectorParserToken token) {
         this.selector = NodeSelector.absolute();
         this.prepare();
     }
 
     @Override
-    protected void visit(final NodeSelectorAncestorParserToken token) {
+    protected void visit(final AncestorNodeSelectorParserToken token) {
         this.axis(this.selector.ancestor());
     }
 
     @Override
-    protected void visit(final NodeSelectorAncestorOrSelfParserToken token) {
+    protected void visit(final AncestorOrSelfNodeSelectorParserToken token) {
         this.axis(this.selector.ancestorOrSelf());
     }
 
     @Override
-    protected void visit(final NodeSelectorChildParserToken token) {
+    protected void visit(final ChildNodeSelectorParserToken token) {
         this.axis(this.selector.children());
     }
 
     @Override
-    protected void visit(final NodeSelectorDescendantParserToken token) {
+    protected void visit(final DescendantNodeSelectorParserToken token) {
         this.axis(this.selector.descendant());
     }
 
     @Override
-    protected void visit(final NodeSelectorDescendantOrSelfParserToken token) {
+    protected void visit(final DescendantOrSelfNodeSelectorParserToken token) {
         this.axis(this.selector.descendantOrSelf());
     }
 
     @Override
-    protected void visit(final NodeSelectorFirstChildParserToken token) {
+    protected void visit(final FirstChildNodeSelectorParserToken token) {
         this.axis(this.selector.firstChild());
     }
 
     @Override
-    protected void visit(final NodeSelectorFollowingParserToken token) {
+    protected void visit(final FollowingNodeSelectorParserToken token) {
         this.axis(this.selector.following());
     }
 
     @Override
-    protected void visit(final NodeSelectorFollowingSiblingParserToken token) {
+    protected void visit(final FollowingSiblingNodeSelectorParserToken token) {
         this.axis(this.selector.followingSibling());
     }
 
     @Override
-    protected void visit(final NodeSelectorLastChildParserToken token) {
+    protected void visit(final LastChildNodeSelectorParserToken token) {
         this.axis(this.selector.lastChild());
     }
 
     @Override
-    protected void visit(final NodeSelectorNodeNameParserToken token) {
+    protected void visit(final NodeNameNodeSelectorParserToken token) {
         this.childrenIfAxis();
         this.test(this.selector.named(this.nameFactory.apply(token.value())));
     }
 
     @Override
-    protected void visit(final NodeSelectorParentOfParserToken token) {
+    protected void visit(final ParentOfNodeSelectorParserToken token) {
         this.axis(this.selector.parent());
     }
 
     @Override
-    protected void visit(final NodeSelectorPrecedingParserToken token) {
+    protected void visit(final PrecedingNodeSelectorParserToken token) {
         this.axis(this.selector.preceding());
     }
 
     @Override
-    protected void visit(final NodeSelectorPrecedingSiblingParserToken token) {
+    protected void visit(final PrecedingSiblingNodeSelectorParserToken token) {
         this.axis(this.selector.precedingSibling());
     }
 
     @Override
-    protected void visit(final NodeSelectorSelfParserToken token) {
+    protected void visit(final SelfNodeSelectorParserToken token) {
         this.axis(this.selector.self());
     }
 
     @Override
-    protected void visit(final NodeSelectorWildcardParserToken token) {
+    protected void visit(final WildcardNodeSelectorParserToken token) {
         this.wildcard = this.axis;
     }
 

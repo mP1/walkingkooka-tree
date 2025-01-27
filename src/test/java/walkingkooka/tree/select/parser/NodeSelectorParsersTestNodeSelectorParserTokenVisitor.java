@@ -44,398 +44,398 @@ final class NodeSelectorParsersTestNodeSelectorParserTokenVisitor extends NodeSe
     }
 
     @Override
-    protected Visiting startVisit(final NodeSelectorAdditionParserToken token) {
+    protected Visiting startVisit(final AdditionNodeSelectorParserToken token) {
         return this.enter();
     }
 
     @Override
-    protected void endVisit(final NodeSelectorAdditionParserToken token) {
+    protected void endVisit(final AdditionNodeSelectorParserToken token) {
         this.exit(NodeSelectorParserToken::addition);
     }
 
     @Override
-    protected Visiting startVisit(final NodeSelectorAndParserToken token) {
+    protected Visiting startVisit(final AndNodeSelectorParserToken token) {
         return this.enter();
     }
 
     @Override
-    protected void endVisit(final NodeSelectorAndParserToken token) {
+    protected void endVisit(final AndNodeSelectorParserToken token) {
         this.exit(NodeSelectorParserToken::and);
     }
 
     @Override
-    protected Visiting startVisit(final NodeSelectorAttributeParserToken token) {
+    protected Visiting startVisit(final AttributeNodeSelectorParserToken token) {
         return this.enter();
     }
 
     @Override
-    protected void endVisit(final NodeSelectorAttributeParserToken token) {
+    protected void endVisit(final AttributeNodeSelectorParserToken token) {
         this.exit(NodeSelectorParserToken::attribute);
     }
 
     @Override
-    protected Visiting startVisit(final NodeSelectorDivisionParserToken token) {
+    protected Visiting startVisit(final DivisionNodeSelectorParserToken token) {
         return this.enter();
     }
 
     @Override
-    protected void endVisit(final NodeSelectorDivisionParserToken token) {
+    protected void endVisit(final DivisionNodeSelectorParserToken token) {
         this.exit(NodeSelectorParserToken::division);
     }
 
     @Override
-    protected Visiting startVisit(final NodeSelectorEqualsParserToken token) {
+    protected Visiting startVisit(final EqualsNodeSelectorParserToken token) {
         return this.enter();
     }
 
     @Override
-    protected void endVisit(final NodeSelectorEqualsParserToken token) {
-        this.exit(NodeSelectorParserToken::equalsParserToken);
+    protected void endVisit(final EqualsNodeSelectorParserToken token) {
+        this.exit(NodeSelectorParserToken::equalsNodeSelectorParserToken);
     }
 
     @Override
-    protected Visiting startVisit(final NodeSelectorExpressionParserToken token) {
+    protected Visiting startVisit(final ExpressionNodeSelectorParserToken token) {
         return this.enter();
     }
 
     @Override
-    protected void endVisit(final NodeSelectorExpressionParserToken token) {
+    protected void endVisit(final ExpressionNodeSelectorParserToken token) {
         this.exit(NodeSelectorParserToken::expression);
     }
 
     @Override
-    protected Visiting startVisit(final NodeSelectorFunctionParserToken token) {
+    protected Visiting startVisit(final FunctionNodeSelectorParserToken token) {
         return this.enter();
     }
 
     @Override
-    protected void endVisit(final NodeSelectorFunctionParserToken token) {
+    protected void endVisit(final FunctionNodeSelectorParserToken token) {
         this.exit(NodeSelectorParserToken::function);
     }
 
     @Override
-    protected Visiting startVisit(final NodeSelectorGreaterThanParserToken token) {
+    protected Visiting startVisit(final GreaterThanNodeSelectorParserToken token) {
         return this.enter();
     }
 
     @Override
-    protected void endVisit(final NodeSelectorGreaterThanParserToken token) {
+    protected void endVisit(final GreaterThanNodeSelectorParserToken token) {
         this.exit(NodeSelectorParserToken::greaterThan);
     }
 
     @Override
-    protected Visiting startVisit(final NodeSelectorGreaterThanEqualsParserToken token) {
+    protected Visiting startVisit(final GreaterThanEqualsNodeSelectorParserToken token) {
         return this.enter();
     }
 
     @Override
-    protected void endVisit(final NodeSelectorGreaterThanEqualsParserToken token) {
+    protected void endVisit(final GreaterThanEqualsNodeSelectorParserToken token) {
         this.exit(NodeSelectorParserToken::greaterThanEquals);
     }
 
     @Override
-    protected Visiting startVisit(final NodeSelectorGroupParserToken token) {
+    protected Visiting startVisit(final GroupNodeSelectorParserToken token) {
         return this.enter();
     }
 
     @Override
-    protected void endVisit(final NodeSelectorGroupParserToken token) {
+    protected void endVisit(final GroupNodeSelectorParserToken token) {
         this.exit(NodeSelectorParserToken::group);
     }
 
     @Override
-    protected Visiting startVisit(final NodeSelectorLessThanParserToken token) {
+    protected Visiting startVisit(final LessThanNodeSelectorParserToken token) {
         return this.enter();
     }
 
     @Override
-    protected void endVisit(final NodeSelectorLessThanParserToken token) {
+    protected void endVisit(final LessThanNodeSelectorParserToken token) {
         this.exit(NodeSelectorParserToken::lessThan);
     }
 
     @Override
-    protected Visiting startVisit(final NodeSelectorLessThanEqualsParserToken token) {
+    protected Visiting startVisit(final LessThanEqualsNodeSelectorParserToken token) {
         return this.enter();
     }
 
     @Override
-    protected void endVisit(final NodeSelectorLessThanEqualsParserToken token) {
+    protected void endVisit(final LessThanEqualsNodeSelectorParserToken token) {
         this.exit(NodeSelectorParserToken::lessThanEquals);
     }
 
     @Override
-    protected Visiting startVisit(final NodeSelectorNotEqualsParserToken token) {
+    protected Visiting startVisit(final NotEqualsNodeSelectorParserToken token) {
         return this.enter();
     }
 
     @Override
-    protected Visiting startVisit(final NodeSelectorModuloParserToken token) {
+    protected Visiting startVisit(final ModuloNodeSelectorParserToken token) {
         return this.enter();
     }
 
     @Override
-    protected void endVisit(final NodeSelectorModuloParserToken token) {
+    protected void endVisit(final ModuloNodeSelectorParserToken token) {
         this.exit(NodeSelectorParserToken::modulo);
     }
 
     @Override
-    protected Visiting startVisit(final NodeSelectorMultiplicationParserToken token) {
+    protected Visiting startVisit(final MultiplicationNodeSelectorParserToken token) {
         return this.enter();
     }
 
     @Override
-    protected void endVisit(final NodeSelectorMultiplicationParserToken token) {
+    protected void endVisit(final MultiplicationNodeSelectorParserToken token) {
         this.exit(NodeSelectorParserToken::multiplication);
     }
 
     @Override
-    protected Visiting startVisit(final NodeSelectorNegativeParserToken token) {
+    protected Visiting startVisit(final NegativeNodeSelectorParserToken token) {
         this.enter();
         return super.startVisit(token);
     }
 
     @Override
-    protected void endVisit(final NodeSelectorNegativeParserToken token) {
+    protected void endVisit(final NegativeNodeSelectorParserToken token) {
         this.exit(NodeSelectorParserToken::negative);
     }
 
     @Override
-    protected void endVisit(final NodeSelectorNotEqualsParserToken token) {
+    protected void endVisit(final NotEqualsNodeSelectorParserToken token) {
         this.exit(NodeSelectorParserToken::notEquals);
     }
 
     @Override
-    protected Visiting startVisit(final NodeSelectorOrParserToken token) {
+    protected Visiting startVisit(final OrNodeSelectorParserToken token) {
         return this.enter();
     }
 
     @Override
-    protected void endVisit(final NodeSelectorOrParserToken token) {
+    protected void endVisit(final OrNodeSelectorParserToken token) {
         this.exit(NodeSelectorParserToken::or);
     }
 
     @Override
-    protected Visiting startVisit(final NodeSelectorPredicateParserToken token) {
+    protected Visiting startVisit(final PredicateNodeSelectorParserToken token) {
         return this.enter();
     }
 
     @Override
-    protected void endVisit(final NodeSelectorPredicateParserToken token) {
+    protected void endVisit(final PredicateNodeSelectorParserToken token) {
         this.exit(NodeSelectorParserToken::predicate);
     }
 
     @Override
-    protected Visiting startVisit(final NodeSelectorSubtractionParserToken token) {
+    protected Visiting startVisit(final SubtractionNodeSelectorParserToken token) {
         return this.enter();
     }
 
     @Override
-    protected void endVisit(final NodeSelectorSubtractionParserToken token) {
+    protected void endVisit(final SubtractionNodeSelectorParserToken token) {
         this.exit(NodeSelectorParserToken::subtraction);
     }
 
     @Override
-    protected void visit(final NodeSelectorAbsoluteParserToken token) {
+    protected void visit(final AbsoluteNodeSelectorParserToken token) {
         this.add(token, NodeSelectorParserToken::absolute);
     }
 
     @Override
-    protected void visit(final NodeSelectorAncestorParserToken token) {
+    protected void visit(final AncestorNodeSelectorParserToken token) {
         this.add(token, NodeSelectorParserToken::ancestor);
     }
 
     @Override
-    protected void visit(final NodeSelectorAncestorOrSelfParserToken token) {
+    protected void visit(final AncestorOrSelfNodeSelectorParserToken token) {
         this.add(token, NodeSelectorParserToken::ancestorOrSelf);
     }
 
     @Override
-    protected void visit(final NodeSelectorAndSymbolParserToken token) {
+    protected void visit(final AndSymbolNodeSelectorParserToken token) {
         this.add(token, NodeSelectorParserToken::andSymbol);
     }
 
     @Override
-    protected void visit(final NodeSelectorAtSignSymbolParserToken token) {
+    protected void visit(final AtSignSymbolNodeSelectorParserToken token) {
         this.add(token);
     }
 
     @Override
-    protected void visit(final NodeSelectorAttributeNameParserToken token) {
+    protected void visit(final AttributeNameNodeSelectorParserToken token) {
         this.addName(token, NodeSelectorAttributeName::with, NodeSelectorParserToken::attributeName);
     }
 
     @Override
-    protected void visit(final NodeSelectorBracketOpenSymbolParserToken token) {
+    protected void visit(final BracketOpenSymbolNodeSelectorParserToken token) {
         this.add(token);
     }
 
     @Override
-    protected void visit(final NodeSelectorBracketCloseSymbolParserToken token) {
+    protected void visit(final BracketCloseSymbolNodeSelectorParserToken token) {
         this.add(token);
     }
 
     @Override
-    protected void visit(final NodeSelectorChildParserToken token) {
+    protected void visit(final ChildNodeSelectorParserToken token) {
         this.add(token, NodeSelectorParserToken::child);
     }
 
     @Override
-    protected void visit(final NodeSelectorDescendantParserToken token) {
+    protected void visit(final DescendantNodeSelectorParserToken token) {
         this.add(token, NodeSelectorParserToken::descendant);
     }
 
     @Override
-    protected void visit(final NodeSelectorDescendantOrSelfParserToken token) {
+    protected void visit(final DescendantOrSelfNodeSelectorParserToken token) {
         this.add(token, NodeSelectorParserToken::descendantOrSelf);
     }
 
     @Override
-    protected void visit(final NodeSelectorDivideSymbolParserToken token) {
+    protected void visit(final DivideSymbolNodeSelectorParserToken token) {
         this.add(token);
     }
 
     @Override
-    protected void visit(final NodeSelectorEqualsSymbolParserToken token) {
+    protected void visit(final EqualsSymbolNodeSelectorParserToken token) {
         this.add(token);
     }
 
     @Override
-    protected void visit(final NodeSelectorFirstChildParserToken token) {
+    protected void visit(final FirstChildNodeSelectorParserToken token) {
         this.add(token, NodeSelectorParserToken::firstChild);
     }
 
     @Override
-    protected void visit(final NodeSelectorFollowingParserToken token) {
+    protected void visit(final FollowingNodeSelectorParserToken token) {
         this.add(token, NodeSelectorParserToken::following);
     }
 
     @Override
-    protected void visit(final NodeSelectorFollowingSiblingParserToken token) {
+    protected void visit(final FollowingSiblingNodeSelectorParserToken token) {
         this.add(token, NodeSelectorParserToken::followingSibling);
     }
 
     @Override
-    protected void visit(final NodeSelectorFunctionNameParserToken token) {
+    protected void visit(final FunctionNameNodeSelectorParserToken token) {
         this.addName(token, NodeSelectorFunctionName::with, NodeSelectorParserToken::functionName);
     }
 
     @Override
-    protected void visit(final NodeSelectorGreaterThanSymbolParserToken token) {
+    protected void visit(final GreaterThanSymbolNodeSelectorParserToken token) {
         this.add(token);
     }
 
     @Override
-    protected void visit(final NodeSelectorGreaterThanEqualsSymbolParserToken token) {
+    protected void visit(final GreaterThanEqualsSymbolNodeSelectorParserToken token) {
         this.add(token);
     }
 
     @Override
-    protected void visit(final NodeSelectorLessThanSymbolParserToken token) {
+    protected void visit(final LessThanSymbolNodeSelectorParserToken token) {
         this.add(token);
     }
 
     @Override
-    protected void visit(final NodeSelectorLessThanEqualsSymbolParserToken token) {
+    protected void visit(final LessThanEqualsSymbolNodeSelectorParserToken token) {
         this.add(token);
     }
 
     @Override
-    protected void visit(final NodeSelectorLastChildParserToken token) {
+    protected void visit(final LastChildNodeSelectorParserToken token) {
         this.add(token, NodeSelectorParserToken::lastChild);
     }
 
     @Override
-    protected void visit(final NodeSelectorMinusSymbolParserToken token) {
+    protected void visit(final MinusSymbolNodeSelectorParserToken token) {
         this.add(token);
     }
 
     @Override
-    protected void visit(final NodeSelectorModuloSymbolParserToken token) {
+    protected void visit(final ModuloSymbolNodeSelectorParserToken token) {
         this.add(token);
     }
 
     @Override
-    protected void visit(final NodeSelectorMultiplySymbolParserToken token) {
+    protected void visit(final MultiplySymbolNodeSelectorParserToken token) {
         this.add(token);
     }
 
     @Override
-    protected void visit(final NodeSelectorNodeNameParserToken token) {
+    protected void visit(final NodeNameNodeSelectorParserToken token) {
         this.addName(token, NodeSelectorNodeName::with, NodeSelectorParserToken::nodeName);
     }
 
     @Override
-    protected void visit(final NodeSelectorNotEqualsSymbolParserToken token) {
+    protected void visit(final NotEqualsSymbolNodeSelectorParserToken token) {
         this.add(token);
     }
 
     @Override
-    protected void visit(final NodeSelectorExpressionNumberParserToken token) {
+    protected void visit(final ExpressionNumberNodeSelectorParserToken token) {
         this.add(token);
     }
 
     @Override
-    protected void visit(final NodeSelectorOrSymbolParserToken token) {
+    protected void visit(final OrSymbolNodeSelectorParserToken token) {
         this.add(token, NodeSelectorParserToken::orSymbol);
     }
 
     @Override
-    protected void visit(final NodeSelectorParameterSeparatorSymbolParserToken token) {
+    protected void visit(final ParameterSeparatorSymbolNodeSelectorParserToken token) {
         this.add(token, NodeSelectorParserToken::parameterSeparatorSymbol);
     }
 
     @Override
-    protected void visit(final NodeSelectorParenthesisOpenSymbolParserToken token) {
+    protected void visit(final ParenthesisOpenSymbolNodeSelectorParserToken token) {
         this.add(token);
     }
 
     @Override
-    protected void visit(final NodeSelectorParenthesisCloseSymbolParserToken token) {
+    protected void visit(final ParenthesisCloseSymbolNodeSelectorParserToken token) {
         this.add(token);
     }
 
     @Override
-    protected void visit(final NodeSelectorParentOfParserToken token) {
+    protected void visit(final ParentOfNodeSelectorParserToken token) {
         this.add(token, NodeSelectorParserToken::parentOf);
     }
 
     @Override
-    protected void visit(final NodeSelectorPlusSymbolParserToken token) {
+    protected void visit(final PlusSymbolNodeSelectorParserToken token) {
         this.add(token, NodeSelectorParserToken::plusSymbol);
     }
 
     @Override
-    protected void visit(final NodeSelectorPrecedingParserToken token) {
+    protected void visit(final PrecedingNodeSelectorParserToken token) {
         this.add(token, NodeSelectorParserToken::preceding);
     }
 
     @Override
-    protected void visit(final NodeSelectorPrecedingSiblingParserToken token) {
+    protected void visit(final PrecedingSiblingNodeSelectorParserToken token) {
         this.add(token, NodeSelectorParserToken::precedingSibling);
     }
 
     @Override
-    protected void visit(final NodeSelectorQuotedTextParserToken token) {
+    protected void visit(final QuotedTextNodeSelectorParserToken token) {
         this.add(token, NodeSelectorParserToken::quotedText);
     }
 
     @Override
-    protected void visit(final NodeSelectorSelfParserToken token) {
+    protected void visit(final SelfNodeSelectorParserToken token) {
         this.add(token, NodeSelectorParserToken::self);
     }
 
     @Override
-    protected void visit(final NodeSelectorSlashSeparatorSymbolParserToken token) {
+    protected void visit(final SlashSeparatorSymbolNodeSelectorParserToken token) {
         this.add(token);
     }
 
     @Override
-    protected void visit(final NodeSelectorWhitespaceParserToken token) {
+    protected void visit(final WhitespaceNodeSelectorParserToken token) {
         this.add(token);
     }
 
     @Override
-    protected void visit(final NodeSelectorWildcardParserToken token) {
+    protected void visit(final WildcardNodeSelectorParserToken token) {
         this.add(token);
     }
 
@@ -455,12 +455,12 @@ final class NodeSelectorParsersTestNodeSelectorParserTokenVisitor extends NodeSe
         this.add(factory.apply(children, ParserToken.text(children)));
     }
 
-    private <T extends NodeSelectorLeafParserToken<String>> void add(final T token,
+    private <T extends LeafNodeSelectorParserToken<String>> void add(final T token,
                                                                      final BiFunction<String, String, T> factory) {
         this.add(factory.apply(token.value().toUpperCase(), token.text().toUpperCase()));
     }
 
-    private <T extends NodeSelectorLeafParserToken<N>, N extends Name> void addName(final T token,
+    private <T extends LeafNodeSelectorParserToken<N>, N extends Name> void addName(final T token,
                                                                                     final Function<String, N> nameFactory,
                                                                                     final BiFunction<N, String, T> parserTokenFactory) {
         this.add(parserTokenFactory.apply(
