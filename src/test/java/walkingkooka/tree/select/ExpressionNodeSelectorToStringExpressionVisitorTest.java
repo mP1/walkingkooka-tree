@@ -32,7 +32,7 @@ import walkingkooka.tree.expression.ExpressionNumberKind;
 import walkingkooka.tree.expression.ExpressionVisitorTesting;
 import walkingkooka.tree.select.parser.NodeSelectorParserContexts;
 import walkingkooka.tree.select.parser.NodeSelectorParsers;
-import walkingkooka.tree.select.parser.NodeSelectorPredicateParserToken;
+import walkingkooka.tree.select.parser.PredicateNodeSelectorParserToken;
 
 import java.math.BigDecimal;
 import java.math.MathContext;
@@ -282,7 +282,7 @@ public final class ExpressionNodeSelectorToStringExpressionVisitorTest implement
     }
 
     private void parseAndStringExpressionCheck(final String expression) {
-        final NodeSelectorPredicateParserToken parsed = parseOrFail(expression);
+        final PredicateNodeSelectorParserToken parsed = parseOrFail(expression);
 
         final Expression expressionObject = parsed.toExpression(Predicates.always());
 
@@ -291,7 +291,7 @@ public final class ExpressionNodeSelectorToStringExpressionVisitorTest implement
             () -> "Input expression: " + CharSequences.quoteAndEscape(expression) + "\n" + parsed + "\n" + expressionObject);
     }
 
-    private NodeSelectorPredicateParserToken parseOrFail(final String expression) {
+    private PredicateNodeSelectorParserToken parseOrFail(final String expression) {
         return NodeSelectorParsers.predicate()
             .orReport(ParserReporters.basic())
             .orFailIfCursorNotEmpty(ParserReporters.basic())
@@ -303,7 +303,7 @@ public final class ExpressionNodeSelectorToStringExpressionVisitorTest implement
                 )
             )
             .orElseThrow(() -> new ParserException("Failed to parse " + CharSequences.quoteAndEscape(expression)))
-            .cast(NodeSelectorPredicateParserToken.class);
+            .cast(PredicateNodeSelectorParserToken.class);
     }
 
     private void toStringAndCheck(final Expression node,

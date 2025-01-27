@@ -28,7 +28,7 @@ import walkingkooka.tree.Node;
 import walkingkooka.tree.expression.function.ExpressionFunction;
 import walkingkooka.tree.expression.function.ExpressionFunctionParameter;
 import walkingkooka.tree.select.NodeSelector;
-import walkingkooka.tree.select.parser.NodeSelectorExpressionParserToken;
+import walkingkooka.tree.select.parser.ExpressionNodeSelectorParserToken;
 
 import java.util.List;
 import java.util.Map;
@@ -622,9 +622,9 @@ public abstract class Expression implements Node<Expression, ExpressionFunctionN
     }
 
     /**
-     * Creates a {@link NodeSelector} for {@link Expression} from a {@link NodeSelectorExpressionParserToken}.
+     * Creates a {@link NodeSelector} for {@link Expression} from a {@link ExpressionNodeSelectorParserToken}.
      */
-    public static NodeSelector<Expression, ExpressionFunctionName, Name, Object> nodeSelectorExpressionParserToken(final NodeSelectorExpressionParserToken token,
+    public static NodeSelector<Expression, ExpressionFunctionName, Name, Object> nodeSelectorExpressionParserToken(final ExpressionNodeSelectorParserToken token,
                                                                                                                    final Predicate<ExpressionFunctionName> functions) {
         return NodeSelector.parserToken(token,
             n -> ExpressionFunctionName.with(n.value()),

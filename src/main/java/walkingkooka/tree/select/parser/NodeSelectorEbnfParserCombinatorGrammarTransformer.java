@@ -78,7 +78,7 @@ final class NodeSelectorEbnfParserCombinatorGrammarTransformer implements EbnfPa
     private static final EbnfIdentifierName NEGATIVE_IDENTIFIER = EbnfIdentifierName.with("NEGATIVE");
 
     private static ParserToken parent(final ParserToken token,
-                                      final BiFunction<List<ParserToken>, String, ? extends NodeSelectorParentParserToken<?>> factory) {
+                                      final BiFunction<List<ParserToken>, String, ? extends ParentNodeSelectorParserToken<?>> factory) {
         return factory.apply(token instanceof SequenceParserToken ?
                 ((SequenceParserToken) token).value() :
                 Lists.of(token),
@@ -94,7 +94,7 @@ final class NodeSelectorEbnfParserCombinatorGrammarTransformer implements EbnfPa
     }
 
     /**
-     * Handles grouping of AND and OR sub expressions before creating the enclosing {@link NodeSelectorPredicateParserToken}.
+     * Handles grouping of AND and OR sub expressions before creating the enclosing {@link PredicateNodeSelectorParserToken}.
      */
     private static ParserToken predicate0(final SequenceParserToken sequenceParserToken) {
         final List<ParserToken> all = Lists.array();
@@ -114,7 +114,7 @@ final class NodeSelectorEbnfParserCombinatorGrammarTransformer implements EbnfPa
                     break;
                 case AND:
                     if (andSymbol || orSymbol) {
-                        final NodeSelectorAndParserToken and = and(tokens);
+                        final AndNodeSelectorParserToken and = and(tokens);
                         tokens.clear();
                         tokens.add(and);
                     }
@@ -124,7 +124,7 @@ final class NodeSelectorEbnfParserCombinatorGrammarTransformer implements EbnfPa
                     break;
                 case OR:
                     if (andSymbol || orSymbol) {
-                        final NodeSelectorOrParserToken or = or(tokens);
+                        final OrNodeSelectorParserToken or = or(tokens);
                         tokens.clear();
                         tokens.add(or);
                     }
@@ -165,11 +165,11 @@ final class NodeSelectorEbnfParserCombinatorGrammarTransformer implements EbnfPa
     private final static int AND = PREDICATE + 1;
     private final static int OR = AND + 1;
 
-    private static NodeSelectorAndParserToken and(final List<ParserToken> tokens) {
+    private static AndNodeSelectorParserToken and(final List<ParserToken> tokens) {
         return NodeSelectorParserToken.and(tokens, ParserToken.text(tokens));
     }
 
-    private static NodeSelectorOrParserToken or(final List<ParserToken> tokens) {
+    private static OrNodeSelectorParserToken or(final List<ParserToken> tokens) {
         return NodeSelectorParserToken.or(tokens, ParserToken.text(tokens));
     }
 

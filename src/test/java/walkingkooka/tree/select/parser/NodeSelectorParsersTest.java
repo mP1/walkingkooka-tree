@@ -2899,10 +2899,10 @@ public final class NodeSelectorParsersTest implements ParserTesting2<Parser<Node
             text,
             "");
 
-        // if the expression has a NodeSelectorPredicateParserToken convert it to text and try parse back
+        // if the expression has a PredicateNodeSelectorParserToken convert it to text and try parse back
         final TestNodeSelectorParserTokenVisitor visitor = new TestNodeSelectorParserTokenVisitor();
         visitor.accept(token);
-        final NodeSelectorPredicateParserToken predicate = visitor.predicate;
+        final PredicateNodeSelectorParserToken predicate = visitor.predicate;
 
         if (null != predicate) {
             final String predicateText = predicate.text();
@@ -2918,12 +2918,12 @@ public final class NodeSelectorParsersTest implements ParserTesting2<Parser<Node
 
     static class TestNodeSelectorParserTokenVisitor extends NodeSelectorParserTokenVisitor {
         @Override
-        protected Visiting startVisit(final NodeSelectorPredicateParserToken token) {
+        protected Visiting startVisit(final PredicateNodeSelectorParserToken token) {
             this.predicate = token;
             return Visiting.SKIP;
         }
 
-        NodeSelectorPredicateParserToken predicate;
+        PredicateNodeSelectorParserToken predicate;
     }
 
     private void parseThrows2(final NodeSelectorParserToken token,
@@ -3087,7 +3087,7 @@ public final class NodeSelectorParsersTest implements ParserTesting2<Parser<Node
     }
 
     NodeSelectorParserToken equalsParserToken(final NodeSelectorParserToken... tokens) {
-        return NodeSelectorParserToken.equalsParserToken(Lists.of(tokens), text(tokens));
+        return NodeSelectorParserToken.equalsNodeSelectorParserToken(Lists.of(tokens), text(tokens));
     }
 
     NodeSelectorParserToken equalsSymbol() {
@@ -3226,7 +3226,7 @@ public final class NodeSelectorParsersTest implements ParserTesting2<Parser<Node
         return NodeSelectorParserToken.notEqualsSymbol("!=", "!=");
     }
 
-    NodeSelectorOrParserToken or(final NodeSelectorParserToken... tokens) {
+    OrNodeSelectorParserToken or(final NodeSelectorParserToken... tokens) {
         return NodeSelectorParserToken.or(Lists.of(tokens), text(tokens));
     }
 

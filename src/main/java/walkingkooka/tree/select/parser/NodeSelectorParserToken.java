@@ -34,423 +34,423 @@ import java.util.Objects;
 public abstract class NodeSelectorParserToken implements ParserToken {
 
     /**
-     * {@see NodeSelectorAbsoluteParserToken}
+     * {@see AbsoluteNodeSelectorParserToken}
      */
-    public static NodeSelectorAbsoluteParserToken absolute(final String value, final String text) {
-        return NodeSelectorAbsoluteParserToken.with(value, text);
+    public static AbsoluteNodeSelectorParserToken absolute(final String value, final String text) {
+        return AbsoluteNodeSelectorParserToken.with(value, text);
     }
 
     /**
-     * {@see NodeSelectorAdditionParserToken}
+     * {@see AdditionNodeSelectorParserToken}
      */
-    public static NodeSelectorAdditionParserToken addition(final List<ParserToken> value, final String text) {
-        return NodeSelectorAdditionParserToken.with(value, text);
+    public static AdditionNodeSelectorParserToken addition(final List<ParserToken> value, final String text) {
+        return AdditionNodeSelectorParserToken.with(value, text);
     }
 
     /**
-     * {@see NodeSelectorAncestorParserToken}
+     * {@see AncestorNodeSelectorParserToken}
      */
-    public static NodeSelectorAncestorParserToken ancestor(final String value, final String text) {
-        return NodeSelectorAncestorParserToken.with(value, text);
+    public static AncestorNodeSelectorParserToken ancestor(final String value, final String text) {
+        return AncestorNodeSelectorParserToken.with(value, text);
     }
 
     /**
-     * {@see NodeSelectorAncestorOrSelfParserToken}
+     * {@see AncestorOrSelfNodeSelectorParserToken}
      */
-    public static NodeSelectorAncestorOrSelfParserToken ancestorOrSelf(final String value, final String text) {
-        return NodeSelectorAncestorOrSelfParserToken.with(value, text);
+    public static AncestorOrSelfNodeSelectorParserToken ancestorOrSelf(final String value, final String text) {
+        return AncestorOrSelfNodeSelectorParserToken.with(value, text);
     }
 
     /**
-     * {@see NodeSelectorAndParserToken}
+     * {@see AndNodeSelectorParserToken}
      */
-    public static NodeSelectorAndParserToken and(final List<ParserToken> value, final String text) {
-        return NodeSelectorAndParserToken.with(value, text);
+    public static AndNodeSelectorParserToken and(final List<ParserToken> value, final String text) {
+        return AndNodeSelectorParserToken.with(value, text);
     }
 
     /**
-     * {@see NodeSelectorAndSymbolParserToken}
+     * {@see AndSymbolNodeSelectorParserToken}
      */
-    public static NodeSelectorAndSymbolParserToken andSymbol(final String value, final String text) {
-        return NodeSelectorAndSymbolParserToken.with(value, text);
+    public static AndSymbolNodeSelectorParserToken andSymbol(final String value, final String text) {
+        return AndSymbolNodeSelectorParserToken.with(value, text);
     }
 
     /**
-     * {@see NodeSelectorAtSignSymbolParserToken}
+     * {@see AtSignSymbolNodeSelectorParserToken}
      */
-    public static NodeSelectorAtSignSymbolParserToken atSignSymbol(final String value, final String text) {
-        return NodeSelectorAtSignSymbolParserToken.with(value, text);
+    public static AtSignSymbolNodeSelectorParserToken atSignSymbol(final String value, final String text) {
+        return AtSignSymbolNodeSelectorParserToken.with(value, text);
     }
 
     /**
-     * {@see NodeSelectorAttributeParserToken}
+     * {@see AttributeNodeSelectorParserToken}
      */
-    public static NodeSelectorAttributeParserToken attribute(final List<ParserToken> value, final String text) {
-        return NodeSelectorAttributeParserToken.with(value, text);
+    public static AttributeNodeSelectorParserToken attribute(final List<ParserToken> value, final String text) {
+        return AttributeNodeSelectorParserToken.with(value, text);
     }
 
     /**
-     * {@see NodeSelectorAttributeNameParserToken}
+     * {@see AttributeNameNodeSelectorParserToken}
      */
-    public static NodeSelectorAttributeNameParserToken attributeName(final NodeSelectorAttributeName value, final String text) {
-        return NodeSelectorAttributeNameParserToken.with(value, text);
+    public static AttributeNameNodeSelectorParserToken attributeName(final NodeSelectorAttributeName value, final String text) {
+        return AttributeNameNodeSelectorParserToken.with(value, text);
     }
 
     /**
-     * {@see NodeSelectorBracketOpenSymbolParserToken}
+     * {@see BracketOpenSymbolNodeSelectorParserToken}
      */
-    public static NodeSelectorBracketOpenSymbolParserToken bracketOpenSymbol(final String value, final String text) {
-        return NodeSelectorBracketOpenSymbolParserToken.with(value, text);
+    public static BracketOpenSymbolNodeSelectorParserToken bracketOpenSymbol(final String value, final String text) {
+        return BracketOpenSymbolNodeSelectorParserToken.with(value, text);
     }
 
     /**
-     * {@see NodeSelectorBracketCloseSymbolParserToken}
+     * {@see BracketCloseSymbolNodeSelectorParserToken}
      */
-    public static NodeSelectorBracketCloseSymbolParserToken bracketCloseSymbol(final String value, final String text) {
-        return NodeSelectorBracketCloseSymbolParserToken.with(value, text);
+    public static BracketCloseSymbolNodeSelectorParserToken bracketCloseSymbol(final String value, final String text) {
+        return BracketCloseSymbolNodeSelectorParserToken.with(value, text);
     }
 
     /**
-     * {@see NodeSelectorChildParserToken}
+     * {@see ChildNodeSelectorParserToken}
      */
-    public static NodeSelectorChildParserToken child(final String value, final String text) {
-        return NodeSelectorChildParserToken.with(value, text);
+    public static ChildNodeSelectorParserToken child(final String value, final String text) {
+        return ChildNodeSelectorParserToken.with(value, text);
     }
 
     /**
-     * {@see NodeSelectorDescendantParserToken}
+     * {@see DescendantNodeSelectorParserToken}
      */
-    public static NodeSelectorDescendantParserToken descendant(final String value, final String text) {
-        return NodeSelectorDescendantParserToken.with(value, text);
+    public static DescendantNodeSelectorParserToken descendant(final String value, final String text) {
+        return DescendantNodeSelectorParserToken.with(value, text);
     }
 
     /**
-     * {@see NodeSelectorDescendantOrSelfParserToken}
+     * {@see DescendantOrSelfNodeSelectorParserToken}
      */
-    public static NodeSelectorDescendantOrSelfParserToken descendantOrSelf(final String value, final String text) {
-        return NodeSelectorDescendantOrSelfParserToken.with(value, text);
+    public static DescendantOrSelfNodeSelectorParserToken descendantOrSelf(final String value, final String text) {
+        return DescendantOrSelfNodeSelectorParserToken.with(value, text);
     }
 
     /**
-     * {@see NodeSelectorDivideSymbolParserToken}
+     * {@see DivideSymbolNodeSelectorParserToken}
      */
-    public static NodeSelectorDivideSymbolParserToken divideSymbol(final String value, final String text) {
-        return NodeSelectorDivideSymbolParserToken.with(value, text);
+    public static DivideSymbolNodeSelectorParserToken divideSymbol(final String value, final String text) {
+        return DivideSymbolNodeSelectorParserToken.with(value, text);
     }
 
     /**
-     * {@see NodeSelectorDivisionParserToken}
+     * {@see DivisionNodeSelectorParserToken}
      */
-    public static NodeSelectorDivisionParserToken division(final List<ParserToken> value, final String text) {
-        return NodeSelectorDivisionParserToken.with(value, text);
+    public static DivisionNodeSelectorParserToken division(final List<ParserToken> value, final String text) {
+        return DivisionNodeSelectorParserToken.with(value, text);
     }
 
     /**
-     * {@see NodeSelectorEqualsParserToken}
+     * {@see EqualsNodeSelectorParserToken}
      */
-    public static NodeSelectorEqualsParserToken equalsParserToken(final List<ParserToken> value, final String text) {
-        return NodeSelectorEqualsParserToken.with(value, text);
+    public static EqualsNodeSelectorParserToken equalsNodeSelectorParserToken(final List<ParserToken> value, final String text) {
+        return EqualsNodeSelectorParserToken.with(value, text);
     }
 
     /**
-     * {@see NodeSelectorEqualsSymbolParserToken}
+     * {@see EqualsSymbolNodeSelectorParserToken}
      */
-    public static NodeSelectorEqualsSymbolParserToken equalsSymbol(final String value, final String text) {
-        return NodeSelectorEqualsSymbolParserToken.with(value, text);
+    public static EqualsSymbolNodeSelectorParserToken equalsSymbol(final String value, final String text) {
+        return EqualsSymbolNodeSelectorParserToken.with(value, text);
     }
 
     /**
-     * {@see NodeSelectorExpressionParserToken}
+     * {@see ExpressionNodeSelectorParserToken}
      */
-    public static NodeSelectorExpressionParserToken expression(final List<ParserToken> value, final String text) {
-        return NodeSelectorExpressionParserToken.with(value, text);
+    public static ExpressionNodeSelectorParserToken expression(final List<ParserToken> value, final String text) {
+        return ExpressionNodeSelectorParserToken.with(value, text);
     }
 
     /**
-     * {@see NodeSelectorExpressionNumberParserToken}
+     * {@see ExpressionNumberNodeSelectorParserToken}
      */
-    public static NodeSelectorExpressionNumberParserToken expressionNumber(final ExpressionNumber value, final String text) {
-        return NodeSelectorExpressionNumberParserToken.with(value, text);
+    public static ExpressionNumberNodeSelectorParserToken expressionNumber(final ExpressionNumber value, final String text) {
+        return ExpressionNumberNodeSelectorParserToken.with(value, text);
     }
 
     /**
-     * {@see NodeSelectorFirstChildParserToken}
+     * {@see FirstChildNodeSelectorParserToken}
      */
-    public static NodeSelectorFirstChildParserToken firstChild(final String value, final String text) {
-        return NodeSelectorFirstChildParserToken.with(value, text);
+    public static FirstChildNodeSelectorParserToken firstChild(final String value, final String text) {
+        return FirstChildNodeSelectorParserToken.with(value, text);
     }
 
     /**
-     * {@see NodeSelectorFollowingParserToken}
+     * {@see FollowingNodeSelectorParserToken}
      */
-    public static NodeSelectorFollowingParserToken following(final String value, final String text) {
-        return NodeSelectorFollowingParserToken.with(value, text);
+    public static FollowingNodeSelectorParserToken following(final String value, final String text) {
+        return FollowingNodeSelectorParserToken.with(value, text);
     }
 
     /**
-     * {@see NodeSelectorFollowingSiblingParserToken}
+     * {@see FollowingSiblingNodeSelectorParserToken}
      */
-    public static NodeSelectorFollowingSiblingParserToken followingSibling(final String value, final String text) {
-        return NodeSelectorFollowingSiblingParserToken.with(value, text);
+    public static FollowingSiblingNodeSelectorParserToken followingSibling(final String value, final String text) {
+        return FollowingSiblingNodeSelectorParserToken.with(value, text);
     }
 
     /**
-     * {@see NodeSelectorFunctionParserToken}
+     * {@see FunctionNodeSelectorParserToken}
      */
-    public static NodeSelectorFunctionParserToken function(final List<ParserToken> value, final String text) {
-        return NodeSelectorFunctionParserToken.with(value, text);
+    public static FunctionNodeSelectorParserToken function(final List<ParserToken> value, final String text) {
+        return FunctionNodeSelectorParserToken.with(value, text);
     }
 
     /**
-     * {@see NodeSelectorFunctionNameParserToken}
+     * {@see FunctionNameNodeSelectorParserToken}
      */
-    public static NodeSelectorFunctionNameParserToken functionName(final NodeSelectorFunctionName value, final String text) {
-        return NodeSelectorFunctionNameParserToken.with(value, text);
+    public static FunctionNameNodeSelectorParserToken functionName(final NodeSelectorFunctionName value, final String text) {
+        return FunctionNameNodeSelectorParserToken.with(value, text);
     }
 
     /**
-     * {@see NodeSelectorGreaterThanParserToken}
+     * {@see GreaterThanNodeSelectorParserToken}
      */
-    public static NodeSelectorGreaterThanParserToken greaterThan(final List<ParserToken> value, final String text) {
-        return NodeSelectorGreaterThanParserToken.with(value, text);
+    public static GreaterThanNodeSelectorParserToken greaterThan(final List<ParserToken> value, final String text) {
+        return GreaterThanNodeSelectorParserToken.with(value, text);
     }
 
     /**
-     * {@see NodeSelectorGreaterThanSymbolParserToken}
+     * {@see GreaterThanSymbolNodeSelectorParserToken}
      */
-    public static NodeSelectorGreaterThanSymbolParserToken greaterThanSymbol(final String value, final String text) {
-        return NodeSelectorGreaterThanSymbolParserToken.with(value, text);
+    public static GreaterThanSymbolNodeSelectorParserToken greaterThanSymbol(final String value, final String text) {
+        return GreaterThanSymbolNodeSelectorParserToken.with(value, text);
     }
 
     /**
-     * {@see NodeSelectorGreaterThanEqualsParserToken}
+     * {@see GreaterThanEqualsNodeSelectorParserToken}
      */
-    public static NodeSelectorGreaterThanEqualsParserToken greaterThanEquals(final List<ParserToken> value, final String text) {
-        return NodeSelectorGreaterThanEqualsParserToken.with(value, text);
+    public static GreaterThanEqualsNodeSelectorParserToken greaterThanEquals(final List<ParserToken> value, final String text) {
+        return GreaterThanEqualsNodeSelectorParserToken.with(value, text);
     }
 
     /**
-     * {@see NodeSelectorGreaterThanEqualsSymbolParserToken}
+     * {@see GreaterThanEqualsSymbolNodeSelectorParserToken}
      */
-    public static NodeSelectorGreaterThanEqualsSymbolParserToken greaterThanEqualsSymbol(final String value, final String text) {
-        return NodeSelectorGreaterThanEqualsSymbolParserToken.with(value, text);
+    public static GreaterThanEqualsSymbolNodeSelectorParserToken greaterThanEqualsSymbol(final String value, final String text) {
+        return GreaterThanEqualsSymbolNodeSelectorParserToken.with(value, text);
     }
 
     /**
-     * {@see NodeSelectorGroupParserToken}
+     * {@see GroupNodeSelectorParserToken}
      */
-    public static NodeSelectorGroupParserToken group(final List<ParserToken> value, final String text) {
-        return NodeSelectorGroupParserToken.with(value, text);
+    public static GroupNodeSelectorParserToken group(final List<ParserToken> value, final String text) {
+        return GroupNodeSelectorParserToken.with(value, text);
     }
 
     /**
-     * {@see NodeSelectorLastChildParserToken}
+     * {@see LastChildNodeSelectorParserToken}
      */
-    public static NodeSelectorLastChildParserToken lastChild(final String value, final String text) {
-        return NodeSelectorLastChildParserToken.with(value, text);
+    public static LastChildNodeSelectorParserToken lastChild(final String value, final String text) {
+        return LastChildNodeSelectorParserToken.with(value, text);
     }
 
     /**
-     * {@see NodeSelectorLessThanParserToken}
+     * {@see LessThanNodeSelectorParserToken}
      */
-    public static NodeSelectorLessThanParserToken lessThan(final List<ParserToken> value, final String text) {
-        return NodeSelectorLessThanParserToken.with(value, text);
+    public static LessThanNodeSelectorParserToken lessThan(final List<ParserToken> value, final String text) {
+        return LessThanNodeSelectorParserToken.with(value, text);
     }
 
     /**
-     * {@see NodeSelectorLessThanSymbolParserToken}
+     * {@see LessThanSymbolNodeSelectorParserToken}
      */
-    public static NodeSelectorLessThanSymbolParserToken lessThanSymbol(final String value, final String text) {
-        return NodeSelectorLessThanSymbolParserToken.with(value, text);
+    public static LessThanSymbolNodeSelectorParserToken lessThanSymbol(final String value, final String text) {
+        return LessThanSymbolNodeSelectorParserToken.with(value, text);
     }
 
     /**
-     * {@see NodeSelectorLessThanEqualsParserToken}
+     * {@see LessThanEqualsNodeSelectorParserToken}
      */
-    public static NodeSelectorLessThanEqualsParserToken lessThanEquals(final List<ParserToken> value, final String text) {
-        return NodeSelectorLessThanEqualsParserToken.with(value, text);
+    public static LessThanEqualsNodeSelectorParserToken lessThanEquals(final List<ParserToken> value, final String text) {
+        return LessThanEqualsNodeSelectorParserToken.with(value, text);
     }
 
     /**
-     * {@see NodeSelectorLessThanEqualsSymbolParserToken}
+     * {@see LessThanEqualsSymbolNodeSelectorParserToken}
      */
-    public static NodeSelectorLessThanEqualsSymbolParserToken lessThanEqualsSymbol(final String value, final String text) {
-        return NodeSelectorLessThanEqualsSymbolParserToken.with(value, text);
+    public static LessThanEqualsSymbolNodeSelectorParserToken lessThanEqualsSymbol(final String value, final String text) {
+        return LessThanEqualsSymbolNodeSelectorParserToken.with(value, text);
     }
 
     /**
-     * {@see NodeSelectorMinusSymbolParserToken}
+     * {@see MinusSymbolNodeSelectorParserToken}
      */
-    public static NodeSelectorMinusSymbolParserToken minusSymbol(final String value, final String text) {
-        return NodeSelectorMinusSymbolParserToken.with(value, text);
+    public static MinusSymbolNodeSelectorParserToken minusSymbol(final String value, final String text) {
+        return MinusSymbolNodeSelectorParserToken.with(value, text);
     }
 
     /**
-     * {@see NodeSelectorModuloParserToken}
+     * {@see ModuloNodeSelectorParserToken}
      */
-    public static NodeSelectorModuloParserToken modulo(final List<ParserToken> value, final String text) {
-        return NodeSelectorModuloParserToken.with(value, text);
+    public static ModuloNodeSelectorParserToken modulo(final List<ParserToken> value, final String text) {
+        return ModuloNodeSelectorParserToken.with(value, text);
     }
 
     /**
-     * {@see NodeSelectorModuloSymbolParserToken}
+     * {@see ModuloSymbolNodeSelectorParserToken}
      */
-    public static NodeSelectorModuloSymbolParserToken moduloSymbol(final String value, final String text) {
-        return NodeSelectorModuloSymbolParserToken.with(value, text);
+    public static ModuloSymbolNodeSelectorParserToken moduloSymbol(final String value, final String text) {
+        return ModuloSymbolNodeSelectorParserToken.with(value, text);
     }
 
     /**
-     * {@see NodeSelectorMultiplicationParserToken}
+     * {@see MultiplicationNodeSelectorParserToken}
      */
-    public static NodeSelectorMultiplicationParserToken multiplication(final List<ParserToken> value, final String text) {
-        return NodeSelectorMultiplicationParserToken.with(value, text);
+    public static MultiplicationNodeSelectorParserToken multiplication(final List<ParserToken> value, final String text) {
+        return MultiplicationNodeSelectorParserToken.with(value, text);
     }
 
     /**
-     * {@see NodeSelectorMultiplySymbolParserToken}
+     * {@see MultiplySymbolNodeSelectorParserToken}
      */
-    public static NodeSelectorMultiplySymbolParserToken multiplySymbol(final String value, final String text) {
-        return NodeSelectorMultiplySymbolParserToken.with(value, text);
+    public static MultiplySymbolNodeSelectorParserToken multiplySymbol(final String value, final String text) {
+        return MultiplySymbolNodeSelectorParserToken.with(value, text);
     }
 
     /**
-     * {@see NodeSelectorNegativeParserToken}
+     * {@see NegativeNodeSelectorParserToken}
      */
-    public static NodeSelectorNegativeParserToken negative(final List<ParserToken> value, final String text) {
-        return NodeSelectorNegativeParserToken.with(value, text);
+    public static NegativeNodeSelectorParserToken negative(final List<ParserToken> value, final String text) {
+        return NegativeNodeSelectorParserToken.with(value, text);
     }
 
     /**
-     * {@see NodeSelectorNodeNameParserToken}
+     * {@see NodeNameNodeSelectorParserToken}
      */
-    public static NodeSelectorNodeNameParserToken nodeName(final NodeSelectorNodeName value, final String text) {
-        return NodeSelectorNodeNameParserToken.with(value, text);
+    public static NodeNameNodeSelectorParserToken nodeName(final NodeSelectorNodeName value, final String text) {
+        return NodeNameNodeSelectorParserToken.with(value, text);
     }
 
     /**
-     * {@see NodeSelectorNotEqualsParserToken}
+     * {@see NotEqualsNodeSelectorParserToken}
      */
-    public static NodeSelectorNotEqualsParserToken notEquals(final List<ParserToken> value, final String text) {
-        return NodeSelectorNotEqualsParserToken.with(value, text);
+    public static NotEqualsNodeSelectorParserToken notEquals(final List<ParserToken> value, final String text) {
+        return NotEqualsNodeSelectorParserToken.with(value, text);
     }
 
     /**
-     * {@see NodeSelectorNotEqualsSymbolParserToken}
+     * {@see NotEqualsSymbolNodeSelectorParserToken}
      */
-    public static NodeSelectorNotEqualsSymbolParserToken notEqualsSymbol(final String value, final String text) {
-        return NodeSelectorNotEqualsSymbolParserToken.with(value, text);
+    public static NotEqualsSymbolNodeSelectorParserToken notEqualsSymbol(final String value, final String text) {
+        return NotEqualsSymbolNodeSelectorParserToken.with(value, text);
     }
 
     /**
-     * {@see NodeSelectorOrParserToken}
+     * {@see OrNodeSelectorParserToken}
      */
-    public static NodeSelectorOrParserToken or(final List<ParserToken> value, final String text) {
-        return NodeSelectorOrParserToken.with(value, text);
+    public static OrNodeSelectorParserToken or(final List<ParserToken> value, final String text) {
+        return OrNodeSelectorParserToken.with(value, text);
     }
 
     /**
-     * {@see NodeSelectorOrSymbolParserToken}
+     * {@see OrSymbolNodeSelectorParserToken}
      */
-    public static NodeSelectorOrSymbolParserToken orSymbol(final String value, final String text) {
-        return NodeSelectorOrSymbolParserToken.with(value, text);
+    public static OrSymbolNodeSelectorParserToken orSymbol(final String value, final String text) {
+        return OrSymbolNodeSelectorParserToken.with(value, text);
     }
 
     /**
-     * {@see NodeSelectorParameterSeparatorSymbolParserToken}
+     * {@see ParameterSeparatorSymbolNodeSelectorParserToken}
      */
-    public static NodeSelectorParameterSeparatorSymbolParserToken parameterSeparatorSymbol(final String value, final String text) {
-        return NodeSelectorParameterSeparatorSymbolParserToken.with(value, text);
+    public static ParameterSeparatorSymbolNodeSelectorParserToken parameterSeparatorSymbol(final String value, final String text) {
+        return ParameterSeparatorSymbolNodeSelectorParserToken.with(value, text);
     }
 
     /**
-     * {@see NodeSelectorParenthesisOpenSymbolParserToken}
+     * {@see ParenthesisOpenSymbolNodeSelectorParserToken}
      */
-    public static NodeSelectorParenthesisOpenSymbolParserToken parenthesisOpenSymbol(final String value, final String text) {
-        return NodeSelectorParenthesisOpenSymbolParserToken.with(value, text);
+    public static ParenthesisOpenSymbolNodeSelectorParserToken parenthesisOpenSymbol(final String value, final String text) {
+        return ParenthesisOpenSymbolNodeSelectorParserToken.with(value, text);
     }
 
     /**
-     * {@see NodeSelectorParenthesisCloseSymbolParserToken}
+     * {@see ParenthesisCloseSymbolNodeSelectorParserToken}
      */
-    public static NodeSelectorParenthesisCloseSymbolParserToken parenthesisCloseSymbol(final String value, final String text) {
-        return NodeSelectorParenthesisCloseSymbolParserToken.with(value, text);
+    public static ParenthesisCloseSymbolNodeSelectorParserToken parenthesisCloseSymbol(final String value, final String text) {
+        return ParenthesisCloseSymbolNodeSelectorParserToken.with(value, text);
     }
 
     /**
-     * {@see NodeSelectorParentOfParserToken}
+     * {@see ParentOfNodeSelectorParserToken}
      */
-    public static NodeSelectorParentOfParserToken parentOf(final String value, final String text) {
-        return NodeSelectorParentOfParserToken.with(value, text);
+    public static ParentOfNodeSelectorParserToken parentOf(final String value, final String text) {
+        return ParentOfNodeSelectorParserToken.with(value, text);
     }
 
     /**
-     * {@see NodeSelectorPlusSymbolParserToken}
+     * {@see PlusSymbolNodeSelectorParserToken}
      */
-    public static NodeSelectorPlusSymbolParserToken plusSymbol(final String value, final String text) {
-        return NodeSelectorPlusSymbolParserToken.with(value, text);
+    public static PlusSymbolNodeSelectorParserToken plusSymbol(final String value, final String text) {
+        return PlusSymbolNodeSelectorParserToken.with(value, text);
     }
 
     /**
-     * {@see NodeSelectorPrecedingParserToken}
+     * {@see PrecedingNodeSelectorParserToken}
      */
-    public static NodeSelectorPrecedingParserToken preceding(final String value, final String text) {
-        return NodeSelectorPrecedingParserToken.with(value, text);
+    public static PrecedingNodeSelectorParserToken preceding(final String value, final String text) {
+        return PrecedingNodeSelectorParserToken.with(value, text);
     }
 
     /**
-     * {@see NodeSelectorPrecedingSiblingParserToken}
+     * {@see PrecedingSiblingNodeSelectorParserToken}
      */
-    public static NodeSelectorPrecedingSiblingParserToken precedingSibling(final String value, final String text) {
-        return NodeSelectorPrecedingSiblingParserToken.with(value, text);
+    public static PrecedingSiblingNodeSelectorParserToken precedingSibling(final String value, final String text) {
+        return PrecedingSiblingNodeSelectorParserToken.with(value, text);
     }
 
     /**
-     * {@see NodeSelectorPredicateParserToken}
+     * {@see PredicateNodeSelectorParserToken}
      */
-    public static NodeSelectorPredicateParserToken predicate(final List<ParserToken> value, final String text) {
-        return NodeSelectorPredicateParserToken.with(value, text);
+    public static PredicateNodeSelectorParserToken predicate(final List<ParserToken> value, final String text) {
+        return PredicateNodeSelectorParserToken.with(value, text);
     }
 
     /**
-     * {@see NodeSelectorQuotedTextParserToken}
+     * {@see QuotedTextNodeSelectorParserToken}
      */
-    public static NodeSelectorQuotedTextParserToken quotedText(final String value, final String text) {
-        return NodeSelectorQuotedTextParserToken.with(value, text);
+    public static QuotedTextNodeSelectorParserToken quotedText(final String value, final String text) {
+        return QuotedTextNodeSelectorParserToken.with(value, text);
     }
 
     /**
-     * {@see NodeSelectorSelfParserToken}
+     * {@see SelfNodeSelectorParserToken}
      */
-    public static NodeSelectorSelfParserToken self(final String value, final String text) {
-        return NodeSelectorSelfParserToken.with(value, text);
+    public static SelfNodeSelectorParserToken self(final String value, final String text) {
+        return SelfNodeSelectorParserToken.with(value, text);
     }
 
     /**
-     * {@see NodeSelectorSlashSeparatorSymbolParserToken}
+     * {@see SlashSeparatorSymbolNodeSelectorParserToken}
      */
-    public static NodeSelectorSlashSeparatorSymbolParserToken slashSeparatorSymbol(final String value, final String text) {
-        return NodeSelectorSlashSeparatorSymbolParserToken.with(value, text);
+    public static SlashSeparatorSymbolNodeSelectorParserToken slashSeparatorSymbol(final String value, final String text) {
+        return SlashSeparatorSymbolNodeSelectorParserToken.with(value, text);
     }
 
     /**
-     * {@see NodeSelectorSubtractionParserToken}
+     * {@see SubtractionNodeSelectorParserToken}
      */
-    public static NodeSelectorSubtractionParserToken subtraction(final List<ParserToken> value, final String text) {
-        return NodeSelectorSubtractionParserToken.with(value, text);
+    public static SubtractionNodeSelectorParserToken subtraction(final List<ParserToken> value, final String text) {
+        return SubtractionNodeSelectorParserToken.with(value, text);
     }
 
     /**
-     * {@see NodeSelectorWhitespaceParserToken}
+     * {@see WhitespaceNodeSelectorParserToken}
      */
-    public static NodeSelectorWhitespaceParserToken whitespace(final String value, final String text) {
-        return NodeSelectorWhitespaceParserToken.with(value, text);
+    public static WhitespaceNodeSelectorParserToken whitespace(final String value, final String text) {
+        return WhitespaceNodeSelectorParserToken.with(value, text);
     }
 
     /**
-     * {@see NodeSelectorWildcardParserToken}
+     * {@see WildcardNodeSelectorParserToken}
      */
-    public static NodeSelectorWildcardParserToken wildcard(final String value, final String text) {
-        return NodeSelectorWildcardParserToken.with(value, text);
+    public static WildcardNodeSelectorParserToken wildcard(final String value, final String text) {
+        return WildcardNodeSelectorParserToken.with(value, text);
     }
 
     static List<ParserToken> copyAndCheckTokens(final List<ParserToken> tokens) {
@@ -485,441 +485,441 @@ public abstract class NodeSelectorParserToken implements ParserToken {
 
     @Override
     public final boolean isLeaf() {
-        return this instanceof NodeSelectorLeafParserToken;
+        return this instanceof LeafNodeSelectorParserToken;
     }
 
     @Override
     public final boolean isParent() {
-        return this instanceof NodeSelectorParentParserToken;
+        return this instanceof ParentNodeSelectorParserToken;
     }
 
     // isXXX............................................................................................................
 
     /**
-     * Only {@link NodeSelectorAbsoluteParserToken} return true
+     * Only {@link AbsoluteNodeSelectorParserToken} return true
      */
     public final boolean isAbsolute() {
-        return this instanceof NodeSelectorAbsoluteParserToken;
+        return this instanceof AbsoluteNodeSelectorParserToken;
     }
 
     /**
-     * Only {@link NodeSelectorAdditionParserToken} return true
+     * Only {@link AdditionNodeSelectorParserToken} return true
      */
     public final boolean isAddition() {
-        return this instanceof NodeSelectorAdditionParserToken;
+        return this instanceof AdditionNodeSelectorParserToken;
     }
 
     /**
-     * Only {@link NodeSelectorAncestorParserToken} return true
+     * Only {@link AncestorNodeSelectorParserToken} return true
      */
     public final boolean isAncestor() {
-        return this instanceof NodeSelectorAncestorParserToken;
+        return this instanceof AncestorNodeSelectorParserToken;
     }
 
     /**
-     * Only {@link NodeSelectorAncestorOrSelfParserToken} return true
+     * Only {@link AncestorOrSelfNodeSelectorParserToken} return true
      */
     public final boolean isAncestorOrSelf() {
-        return this instanceof NodeSelectorAncestorOrSelfParserToken;
+        return this instanceof AncestorOrSelfNodeSelectorParserToken;
     }
 
     /**
-     * Only {@link NodeSelectorAndParserToken} return true
+     * Only {@link AndNodeSelectorParserToken} return true
      */
     public final boolean isAnd() {
-        return this instanceof NodeSelectorAndParserToken;
+        return this instanceof AndNodeSelectorParserToken;
     }
 
     /**
-     * Only {@link NodeSelectorAndSymbolParserToken} return true
+     * Only {@link AndSymbolNodeSelectorParserToken} return true
      */
     public final boolean isAndSymbol() {
-        return this instanceof NodeSelectorAndSymbolParserToken;
+        return this instanceof AndSymbolNodeSelectorParserToken;
     }
 
     /**
-     * Only {@link NodeSelectorAtSignSymbolParserToken} return true
+     * Only {@link AtSignSymbolNodeSelectorParserToken} return true
      */
     public final boolean isAtSignSymbol() {
-        return this instanceof NodeSelectorAtSignSymbolParserToken;
+        return this instanceof AtSignSymbolNodeSelectorParserToken;
     }
 
     /**
-     * Only {@link NodeSelectorAttributeParserToken} return true
+     * Only {@link AttributeNodeSelectorParserToken} return true
      */
     public final boolean isAttribute() {
-        return this instanceof NodeSelectorAttributeParserToken;
+        return this instanceof AttributeNodeSelectorParserToken;
     }
 
     /**
-     * Only {@link NodeSelectorAttributeNameParserToken} return true
+     * Only {@link AttributeNameNodeSelectorParserToken} return true
      */
     public final boolean isAttributeName() {
-        return this instanceof NodeSelectorAttributeNameParserToken;
+        return this instanceof AttributeNameNodeSelectorParserToken;
     }
 
     /**
-     * Only {@link NodeSelectorBracketOpenSymbolParserToken} return true
+     * Only {@link BracketOpenSymbolNodeSelectorParserToken} return true
      */
     public final boolean isBracketOpenSymbol() {
-        return this instanceof NodeSelectorBracketOpenSymbolParserToken;
+        return this instanceof BracketOpenSymbolNodeSelectorParserToken;
     }
 
     /**
-     * Only {@link NodeSelectorBracketCloseSymbolParserToken} return true
+     * Only {@link BracketCloseSymbolNodeSelectorParserToken} return true
      */
     public final boolean isBracketCloseSymbol() {
-        return this instanceof NodeSelectorBracketCloseSymbolParserToken;
+        return this instanceof BracketCloseSymbolNodeSelectorParserToken;
     }
 
     /**
-     * Only {@link NodeSelectorChildParserToken} return true
+     * Only {@link ChildNodeSelectorParserToken} return true
      */
     public final boolean isChild() {
-        return this instanceof NodeSelectorChildParserToken;
+        return this instanceof ChildNodeSelectorParserToken;
     }
 
     /**
-     * Only {@link NodeSelectorDescendantParserToken} return true
+     * Only {@link DescendantNodeSelectorParserToken} return true
      */
     public final boolean isDescendant() {
-        return this instanceof NodeSelectorDescendantParserToken;
+        return this instanceof DescendantNodeSelectorParserToken;
     }
 
     /**
-     * Only {@link NodeSelectorDescendantOrSelfParserToken} return true
+     * Only {@link DescendantOrSelfNodeSelectorParserToken} return true
      */
     public final boolean isDescendantOrSelf() {
-        return this instanceof NodeSelectorDescendantOrSelfParserToken;
+        return this instanceof DescendantOrSelfNodeSelectorParserToken;
     }
 
     /**
-     * Only {@link NodeSelectorDivideSymbolParserToken} return true
+     * Only {@link DivideSymbolNodeSelectorParserToken} return true
      */
     public final boolean isDivideSymbol() {
-        return this instanceof NodeSelectorDivideSymbolParserToken;
+        return this instanceof DivideSymbolNodeSelectorParserToken;
     }
 
     /**
-     * Only {@link NodeSelectorDivisionParserToken} return true
+     * Only {@link DivisionNodeSelectorParserToken} return true
      */
     public final boolean isDivision() {
-        return this instanceof NodeSelectorDivisionParserToken;
+        return this instanceof DivisionNodeSelectorParserToken;
     }
 
     /**
-     * Only {@link NodeSelectorEqualsParserToken} return true
+     * Only {@link EqualsNodeSelectorParserToken} return true
      */
     public final boolean isEquals() {
-        return this instanceof NodeSelectorEqualsParserToken;
+        return this instanceof EqualsNodeSelectorParserToken;
     }
 
     /**
-     * Only {@link NodeSelectorEqualsSymbolParserToken} return true
+     * Only {@link EqualsSymbolNodeSelectorParserToken} return true
      */
     public final boolean isEqualsSymbol() {
-        return this instanceof NodeSelectorEqualsSymbolParserToken;
+        return this instanceof EqualsSymbolNodeSelectorParserToken;
     }
 
     /**
-     * Only {@link NodeSelectorExpressionParserToken} return true
+     * Only {@link ExpressionNodeSelectorParserToken} return true
      */
     public final boolean isExpression() {
-        return this instanceof NodeSelectorExpressionParserToken;
+        return this instanceof ExpressionNodeSelectorParserToken;
     }
 
     /**
-     * Only {@link NodeSelectorExpressionNumberParserToken} return true
+     * Only {@link ExpressionNumberNodeSelectorParserToken} return true
      */
     public final boolean isExpressionNumber() {
-        return this instanceof NodeSelectorExpressionNumberParserToken;
+        return this instanceof ExpressionNumberNodeSelectorParserToken;
     }
 
     /**
-     * Only {@link NodeSelectorFirstChildParserToken} return true
+     * Only {@link FirstChildNodeSelectorParserToken} return true
      */
     public final boolean isFirstChild() {
-        return this instanceof NodeSelectorFirstChildParserToken;
+        return this instanceof FirstChildNodeSelectorParserToken;
     }
 
     /**
-     * Only {@link NodeSelectorFollowingParserToken} return true
+     * Only {@link FollowingNodeSelectorParserToken} return true
      */
     public final boolean isFollowing() {
-        return this instanceof NodeSelectorFollowingParserToken;
+        return this instanceof FollowingNodeSelectorParserToken;
     }
 
     /**
-     * Only {@link NodeSelectorFollowingSiblingParserToken} return true
+     * Only {@link FollowingSiblingNodeSelectorParserToken} return true
      */
     public final boolean isFollowingSibling() {
-        return this instanceof NodeSelectorFollowingSiblingParserToken;
+        return this instanceof FollowingSiblingNodeSelectorParserToken;
     }
 
     /**
-     * Only {@link NodeSelectorFunctionParserToken} return true
+     * Only {@link FunctionNodeSelectorParserToken} return true
      */
     public final boolean isFunction() {
-        return this instanceof NodeSelectorFunctionParserToken;
+        return this instanceof FunctionNodeSelectorParserToken;
     }
 
     /**
-     * Only {@link NodeSelectorFunctionNameParserToken} return true
+     * Only {@link FunctionNameNodeSelectorParserToken} return true
      */
     public final boolean isFunctionName() {
-        return this instanceof NodeSelectorFunctionNameParserToken;
+        return this instanceof FunctionNameNodeSelectorParserToken;
     }
 
     /**
-     * Only {@link NodeSelectorGreaterThanParserToken} return true
+     * Only {@link GreaterThanNodeSelectorParserToken} return true
      */
     public final boolean isGreaterThan() {
-        return this instanceof NodeSelectorGreaterThanParserToken;
+        return this instanceof GreaterThanNodeSelectorParserToken;
     }
 
     /**
-     * Only {@link NodeSelectorGreaterThanSymbolParserToken} return true
+     * Only {@link GreaterThanSymbolNodeSelectorParserToken} return true
      */
     public final boolean isGreaterThanSymbol() {
-        return this instanceof NodeSelectorGreaterThanSymbolParserToken;
+        return this instanceof GreaterThanSymbolNodeSelectorParserToken;
     }
 
     /**
-     * Only {@link NodeSelectorGreaterThanEqualsParserToken} return true
+     * Only {@link GreaterThanEqualsNodeSelectorParserToken} return true
      */
     public final boolean isGreaterThanEquals() {
-        return this instanceof NodeSelectorGreaterThanEqualsParserToken;
+        return this instanceof GreaterThanEqualsNodeSelectorParserToken;
     }
 
     /**
-     * Only {@link NodeSelectorGreaterThanEqualsSymbolParserToken} return true
+     * Only {@link GreaterThanEqualsSymbolNodeSelectorParserToken} return true
      */
     public final boolean isGreaterThanEqualsSymbol() {
-        return this instanceof NodeSelectorGreaterThanEqualsSymbolParserToken;
+        return this instanceof GreaterThanEqualsSymbolNodeSelectorParserToken;
     }
 
     /**
-     * Only {@link NodeSelectorGroupParserToken} return true
+     * Only {@link GroupNodeSelectorParserToken} return true
      */
     public final boolean isGroup() {
-        return this instanceof NodeSelectorGroupParserToken;
+        return this instanceof GroupNodeSelectorParserToken;
     }
 
     /**
-     * Only {@link NodeSelectorLastChildParserToken} return true
+     * Only {@link LastChildNodeSelectorParserToken} return true
      */
     public final boolean isLastChild() {
-        return this instanceof NodeSelectorLastChildParserToken;
+        return this instanceof LastChildNodeSelectorParserToken;
     }
 
     /**
-     * Only {@link NodeSelectorLessThanParserToken} return true
+     * Only {@link LessThanNodeSelectorParserToken} return true
      */
     public final boolean isLessThan() {
-        return this instanceof NodeSelectorLessThanParserToken;
+        return this instanceof LessThanNodeSelectorParserToken;
     }
 
     /**
-     * Only {@link NodeSelectorLessThanSymbolParserToken} return true
+     * Only {@link LessThanSymbolNodeSelectorParserToken} return true
      */
     public final boolean isLessThanSymbol() {
-        return this instanceof NodeSelectorLessThanSymbolParserToken;
+        return this instanceof LessThanSymbolNodeSelectorParserToken;
     }
 
     /**
-     * Only {@link NodeSelectorLessThanEqualsParserToken} return true
+     * Only {@link LessThanEqualsNodeSelectorParserToken} return true
      */
     public final boolean isLessThanEquals() {
-        return this instanceof NodeSelectorLessThanEqualsParserToken;
+        return this instanceof LessThanEqualsNodeSelectorParserToken;
     }
 
     /**
-     * Only {@link NodeSelectorLessThanEqualsSymbolParserToken} return true
+     * Only {@link LessThanEqualsSymbolNodeSelectorParserToken} return true
      */
     public final boolean isLessThanEqualsSymbol() {
-        return this instanceof NodeSelectorLessThanEqualsSymbolParserToken;
+        return this instanceof LessThanEqualsSymbolNodeSelectorParserToken;
     }
 
     /**
-     * Only {@link NodeSelectorMinusSymbolParserToken} return true
+     * Only {@link MinusSymbolNodeSelectorParserToken} return true
      */
     public final boolean isMinusSymbol() {
-        return this instanceof NodeSelectorMinusSymbolParserToken;
+        return this instanceof MinusSymbolNodeSelectorParserToken;
     }
 
     /**
-     * Only {@link NodeSelectorModuloParserToken} return true
+     * Only {@link ModuloNodeSelectorParserToken} return true
      */
     public final boolean isModulo() {
-        return this instanceof NodeSelectorModuloParserToken;
+        return this instanceof ModuloNodeSelectorParserToken;
     }
 
     /**
-     * Only {@link NodeSelectorModuloSymbolParserToken} return true
+     * Only {@link ModuloSymbolNodeSelectorParserToken} return true
      */
     public final boolean isModuloSymbol() {
-        return this instanceof NodeSelectorModuloSymbolParserToken;
+        return this instanceof ModuloSymbolNodeSelectorParserToken;
     }
 
     /**
-     * Only {@link NodeSelectorMultiplicationParserToken} return true
+     * Only {@link MultiplicationNodeSelectorParserToken} return true
      */
     public final boolean isMultiplication() {
-        return this instanceof NodeSelectorMultiplicationParserToken;
+        return this instanceof MultiplicationNodeSelectorParserToken;
     }
 
     /**
-     * Only {@link NodeSelectorMultiplySymbolParserToken} return true
+     * Only {@link MultiplySymbolNodeSelectorParserToken} return true
      */
     public final boolean isMultiplySymbol() {
-        return this instanceof NodeSelectorMultiplySymbolParserToken;
+        return this instanceof MultiplySymbolNodeSelectorParserToken;
     }
 
     /**
-     * Only {@link NodeSelectorNegativeParserToken} return true
+     * Only {@link NegativeNodeSelectorParserToken} return true
      */
     public final boolean isNegative() {
-        return this instanceof NodeSelectorNegativeParserToken;
+        return this instanceof NegativeNodeSelectorParserToken;
     }
 
     /**
-     * Only {@link NodeSelectorNodeNameParserToken} return true
+     * Only {@link NodeNameNodeSelectorParserToken} return true
      */
     public final boolean isNodeName() {
-        return this instanceof NodeSelectorNodeNameParserToken;
+        return this instanceof NodeNameNodeSelectorParserToken;
     }
 
     /**
-     * Only {@link NodeSelectorNotEqualsParserToken} return true
+     * Only {@link NotEqualsNodeSelectorParserToken} return true
      */
     public final boolean isNotEquals() {
-        return this instanceof NodeSelectorNotEqualsParserToken;
+        return this instanceof NotEqualsNodeSelectorParserToken;
     }
 
     /**
-     * Only {@link NodeSelectorNotEqualsSymbolParserToken} return true
+     * Only {@link NotEqualsSymbolNodeSelectorParserToken} return true
      */
     public final boolean isNotEqualsSymbol() {
-        return this instanceof NodeSelectorNotEqualsSymbolParserToken;
+        return this instanceof NotEqualsSymbolNodeSelectorParserToken;
     }
 
     /**
-     * Only {@link NodeSelectorOrParserToken} return true
+     * Only {@link OrNodeSelectorParserToken} return true
      */
     public final boolean isOr() {
-        return this instanceof NodeSelectorOrParserToken;
+        return this instanceof OrNodeSelectorParserToken;
     }
 
     /**
-     * Only {@link NodeSelectorOrSymbolParserToken} return true
+     * Only {@link OrSymbolNodeSelectorParserToken} return true
      */
     public final boolean isOrSymbol() {
-        return this instanceof NodeSelectorOrSymbolParserToken;
+        return this instanceof OrSymbolNodeSelectorParserToken;
     }
 
     /**
-     * Only {@link NodeSelectorParameterSeparatorSymbolParserToken} return true
+     * Only {@link ParameterSeparatorSymbolNodeSelectorParserToken} return true
      */
     public final boolean isParameterSeparatorSymbol() {
-        return this instanceof NodeSelectorParameterSeparatorSymbolParserToken;
+        return this instanceof ParameterSeparatorSymbolNodeSelectorParserToken;
     }
 
     /**
-     * Only {@link NodeSelectorParenthesisOpenSymbolParserToken} return true
+     * Only {@link ParenthesisOpenSymbolNodeSelectorParserToken} return true
      */
     public final boolean isParenthesisOpenSymbol() {
-        return this instanceof NodeSelectorParenthesisOpenSymbolParserToken;
+        return this instanceof ParenthesisOpenSymbolNodeSelectorParserToken;
     }
 
     /**
-     * Only {@link NodeSelectorParenthesisCloseSymbolParserToken} return true
+     * Only {@link ParenthesisCloseSymbolNodeSelectorParserToken} return true
      */
     public final boolean isParenthesisCloseSymbol() {
-        return this instanceof NodeSelectorParenthesisCloseSymbolParserToken;
+        return this instanceof ParenthesisCloseSymbolNodeSelectorParserToken;
     }
 
     /**
-     * Only {@link NodeSelectorParentOfParserToken} return true
+     * Only {@link ParentOfNodeSelectorParserToken} return true
      */
     public final boolean isParentOf() {
-        return this instanceof NodeSelectorParentOfParserToken;
+        return this instanceof ParentOfNodeSelectorParserToken;
     }
 
     /**
-     * Only {@link NodeSelectorPlusSymbolParserToken} return true
+     * Only {@link PlusSymbolNodeSelectorParserToken} return true
      */
     public final boolean isPlusSymbol() {
-        return this instanceof NodeSelectorPlusSymbolParserToken;
+        return this instanceof PlusSymbolNodeSelectorParserToken;
     }
 
     /**
-     * Only {@link NodeSelectorPrecedingParserToken} return true
+     * Only {@link PrecedingNodeSelectorParserToken} return true
      */
     public final boolean isPreceding() {
-        return this instanceof NodeSelectorPrecedingParserToken;
+        return this instanceof PrecedingNodeSelectorParserToken;
     }
 
     /**
-     * Only {@link NodeSelectorPrecedingSiblingParserToken} return true
+     * Only {@link PrecedingSiblingNodeSelectorParserToken} return true
      */
     public final boolean isPrecedingSibling() {
-        return this instanceof NodeSelectorPrecedingSiblingParserToken;
+        return this instanceof PrecedingSiblingNodeSelectorParserToken;
     }
 
     /**
-     * Only {@link NodeSelectorPredicateParserToken} return true
+     * Only {@link PredicateNodeSelectorParserToken} return true
      */
     public final boolean isPredicate() {
-        return this instanceof NodeSelectorPredicateParserToken;
+        return this instanceof PredicateNodeSelectorParserToken;
     }
 
     /**
-     * Only {@link NodeSelectorQuotedTextParserToken} return true
+     * Only {@link QuotedTextNodeSelectorParserToken} return true
      */
     public final boolean isQuotedText() {
-        return this instanceof NodeSelectorQuotedTextParserToken;
+        return this instanceof QuotedTextNodeSelectorParserToken;
     }
 
     /**
-     * Only {@link NodeSelectorSelfParserToken} return true
+     * Only {@link SelfNodeSelectorParserToken} return true
      */
     public final boolean isSelf() {
-        return this instanceof NodeSelectorSelfParserToken;
+        return this instanceof SelfNodeSelectorParserToken;
     }
 
     /**
-     * Only {@link NodeSelectorSlashSeparatorSymbolParserToken} return true
+     * Only {@link SlashSeparatorSymbolNodeSelectorParserToken} return true
      */
     public final boolean isSlashSeparatorSymbol() {
-        return this instanceof NodeSelectorSlashSeparatorSymbolParserToken;
+        return this instanceof SlashSeparatorSymbolNodeSelectorParserToken;
     }
 
     /**
-     * Only {@link NodeSelectorSubtractionParserToken} return true
+     * Only {@link SubtractionNodeSelectorParserToken} return true
      */
     public final boolean isSubtraction() {
-        return this instanceof NodeSelectorSubtractionParserToken;
+        return this instanceof SubtractionNodeSelectorParserToken;
     }
 
     /**
-     * Only {@link NodeSelectorSymbolParserToken} return true
+     * Only {@link SymbolNodeSelectorParserToken} return true
      */
     public final boolean isSymbol() {
-        return this instanceof NodeSelectorSymbolParserToken;
+        return this instanceof SymbolNodeSelectorParserToken;
     }
 
     /**
-     * Only {@link NodeSelectorWhitespaceParserToken} return true
+     * Only {@link WhitespaceNodeSelectorParserToken} return true
      */
     public final boolean isWhitespace() {
-        return this instanceof NodeSelectorWhitespaceParserToken;
+        return this instanceof WhitespaceNodeSelectorParserToken;
     }
 
     /**
-     * Only {@link NodeSelectorWildcardParserToken} return true
+     * Only {@link WildcardNodeSelectorParserToken} return true
      */
     public final boolean isWildcard() {
-        return this instanceof NodeSelectorWildcardParserToken;
+        return this instanceof WildcardNodeSelectorParserToken;
     }
 
     /**
@@ -943,9 +943,9 @@ public abstract class NodeSelectorParserToken implements ParserToken {
     final static int HIGHEST_PRIORITY = MOD_PRIORITY;
 
     /**
-     * Factory that creates the {@link NodeSelectorBinaryParserToken} sub class using the provided tokens and text.
+     * Factory that creates the {@link BinaryNodeSelectorParserToken} sub class using the provided tokens and text.
      */
-    abstract NodeSelectorBinaryParserToken<?> binaryOperand(final List<ParserToken> tokens, final String text);
+    abstract BinaryNodeSelectorParserToken<?> binaryOperand(final List<ParserToken> tokens, final String text);
 
     // Visitor ......................................................................................................
 

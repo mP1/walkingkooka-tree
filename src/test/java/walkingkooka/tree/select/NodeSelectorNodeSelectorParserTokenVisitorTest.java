@@ -53,7 +53,7 @@ import walkingkooka.tree.expression.function.ExpressionFunctionParameter;
 import walkingkooka.tree.expression.function.ExpressionFunctionParameterKind;
 import walkingkooka.tree.expression.function.ExpressionFunctionParameterName;
 import walkingkooka.tree.expression.function.FakeExpressionFunction;
-import walkingkooka.tree.select.parser.NodeSelectorExpressionParserToken;
+import walkingkooka.tree.select.parser.ExpressionNodeSelectorParserToken;
 import walkingkooka.tree.select.parser.NodeSelectorParserContexts;
 import walkingkooka.tree.select.parser.NodeSelectorParserTokenVisitorTesting;
 import walkingkooka.tree.select.parser.NodeSelectorParsers;
@@ -2047,7 +2047,7 @@ public final class NodeSelectorNodeSelectorParserTokenVisitorTest implements Nod
             TestNode.class);
     }
 
-    private NodeSelectorExpressionParserToken parseOrFail(final String expression) {
+    private ExpressionNodeSelectorParserToken parseOrFail(final String expression) {
         return NodeSelectorParsers.expression()
             .orFailIfCursorNotEmpty(ParserReporters.basic())
             .parse(TextCursors.charSequence(expression),
@@ -2057,7 +2057,7 @@ public final class NodeSelectorNodeSelectorParserTokenVisitorTest implements Nod
                 )
             )
             .orElseThrow(() -> new UnsupportedOperationException(expression))
-            .cast(NodeSelectorExpressionParserToken.class);
+            .cast(ExpressionNodeSelectorParserToken.class);
     }
 
     private DecimalNumberContext decimalNumberContext() {
