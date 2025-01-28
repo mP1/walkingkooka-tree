@@ -98,46 +98,43 @@ public interface Traversable<T extends Traversable<T>> extends CanBeEmpty {
      * Returns the previous sibling if one exists.
      */
     default Optional<T> previousSibling() {
-        Optional<T> result = Optional.empty();
-
-        final Optional<T> parent = this.parent();
-        if (parent.isPresent()) {
-            final List<T> children = parent.get().children();
-            final int index = this.index();
-            if (index > 0) {
-                result = Optional.of(children.get(index - 1));
-            }
-        }
-
-        return result;
+        return this.sibling(-1);
     }
 
     /**
      * Returns the next sibling if one exists.
      */
     default Optional<T> nextSibling() {
-        Optional<T> result = Optional.empty();
+        return this.sibling(+1);
+    }
 
-        final Optional<T> parent = this.parent();
-        if (parent.isPresent()) {
-            final List<T> children = parent.get().children();
-            final int index = this.index();
-            if (index + 1 < children.size()) {
-                result = Optional.of(children.get(index + 1));
-            }
+    /**
+     * Helper used by the ###Sibling methods, to verify this {@link Traversable} has a parent and then contains this
+     * child and retrieves the previous/next sibling.
+     */
+    private Optional<T> sibling(final int delta) {
+        T nextSibling = null;
+
+        final Optional<T> maybeParent = this.parent();
+        if (maybeParent.isPresent()) {
+            final Traversable<T> parent = maybeParent.get();
+            nextSibling = parent.child(
+                this.index() + delta
+            );
         }
 
-        return result;
+        return Optional.ofNullable(
+            nextSibling
+        );
     }
 
     /**
      * Returns the first child for the current {@link Traversable}.
      */
     default Optional<T> firstChild() {
-        final List<T> children = this.children();
-        return children.isEmpty() ?
-            Optional.empty() :
-            Optional.of(children.get(0));
+        return Optional.ofNullable(
+            this.child(0)
+        );
     }
 
     /**
@@ -145,11 +142,22 @@ public interface Traversable<T extends Traversable<T>> extends CanBeEmpty {
      */
     default Optional<T> lastChild() {
         final List<T> children = this.children();
-        return children.isEmpty() ?
-            Optional.empty() :
-            Optional.of(children.get(children.size() - 1));
+        return Optional.ofNullable(
+            this.child(
+                children.size() - 1
+            )
+        );
     }
 
+    /**
+     * Helper used by various sibling and child methods. If the index is out of range a null is returned.
+     */
+    private T child(final int index) {
+        final List<T> children = this.children();
+        return index >= 0 && index < children.size() ?
+            children.get(index) :
+            null;
+    }
 
     /**
      * An {@link Iterator} that walks starting at this {@link Traversable} depth first.
