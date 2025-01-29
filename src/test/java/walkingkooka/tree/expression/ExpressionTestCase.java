@@ -562,16 +562,6 @@ public abstract class ExpressionTestCase<N extends Expression> implements TreePr
     }
 
     @Override
-    public final String isMethodTypeNamePrefix() {
-        return "";
-    }
-
-    @Override
-    public final String isMethodTypeNameSuffix() {
-        return Expression.class.getSimpleName();
-    }
-
-    @Override
     public final Predicate<String> isMethodIgnoreMethodFilter() {
         return (m) -> m.equals("isRoot") ||
             m.equals("parentOrFail") ||
@@ -581,6 +571,15 @@ public abstract class ExpressionTestCase<N extends Expression> implements TreePr
             m.equals("isArithmetic") ||
             m.equals("isCompare") ||
             m.equals("isLogical");
+    }
+
+    @Override
+    public String toIsMethodName(final String typeName) {
+        return this.toIsMethodNameWithPrefixSuffix(
+            typeName,
+            "", // prefix
+            Expression.class.getSimpleName() // suffix
+        );
     }
 
     // ClassTestCase.........................................................................................

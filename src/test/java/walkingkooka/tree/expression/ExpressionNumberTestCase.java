@@ -1522,17 +1522,16 @@ public abstract class ExpressionNumberTestCase<N extends ExpressionNumber> imple
     }
 
     @Override
-    public final String isMethodTypeNamePrefix() {
-        return ExpressionNumber.class.getSimpleName();
-    }
-
-    @Override
-    public final String isMethodTypeNameSuffix() {
-        return "";
-    }
-
-    @Override
     public final Predicate<String> isMethodIgnoreMethodFilter() {
         return (s) -> false;
+    }
+
+    @Override
+    public String toIsMethodName(final String typeName) {
+        return this.toIsMethodNameWithPrefixSuffix(
+            typeName,
+            ExpressionNumber.class.getSimpleName(), // prefix
+            "" // suffix
+        );
     }
 }
