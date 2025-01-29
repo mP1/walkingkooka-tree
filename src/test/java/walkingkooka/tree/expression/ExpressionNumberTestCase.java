@@ -1527,7 +1527,7 @@ public abstract class ExpressionNumberTestCase<N extends ExpressionNumber> imple
     }
 
     @Override
-    public String toIsMethodName(final String typeName) {
+    public final String toIsMethodName(final String typeName) {
         return this.toIsMethodNameWithPrefixSuffix(
             typeName,
             ExpressionNumber.class.getSimpleName(), // prefix

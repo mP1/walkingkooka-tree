@@ -574,7 +574,7 @@ public abstract class ExpressionTestCase<N extends Expression> implements TreePr
     }
 
     @Override
-    public String toIsMethodName(final String typeName) {
+    public final String toIsMethodName(final String typeName) {
         return this.toIsMethodNameWithPrefixSuffix(
             typeName,
             "", // prefix
