@@ -372,16 +372,6 @@ public abstract class NodeSelectorParserTokenTestCase<T extends NodeSelectorPars
     }
 
     @Override
-    public final String isMethodTypeNamePrefix() {
-        return "";
-    }
-
-    @Override
-    public final String isMethodTypeNameSuffix() {
-        return NodeSelectorParserToken.class.getSimpleName();
-    }
-
-    @Override
     public final Predicate<String> isMethodIgnoreMethodFilter() {
         return (m) ->
             m.equals("isLeaf") ||
@@ -391,6 +381,15 @@ public abstract class NodeSelectorParserTokenTestCase<T extends NodeSelectorPars
                 m.equals("isEmpty") ||
                 m.equals("isNotEmpty"
                 );
+    }
+
+    @Override
+    public String toIsMethodName(final String typeName) {
+        return this.toIsMethodNameWithPrefixSuffix(
+            typeName,
+            "",
+            NodeSelectorParserToken.class.getSimpleName()
+        );
     }
 
     // class............................................................................................................
