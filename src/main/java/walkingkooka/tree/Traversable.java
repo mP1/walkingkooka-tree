@@ -98,33 +98,19 @@ public interface Traversable<T extends Traversable<T>> extends CanBeEmpty {
      * Returns the previous sibling if one exists.
      */
     default Optional<T> previousSibling() {
-        return this.sibling(-1);
+        return TraversableHelper.sibling(
+            this,
+            -1
+        );
     }
 
     /**
      * Returns the next sibling if one exists.
      */
     default Optional<T> nextSibling() {
-        return this.sibling(+1);
-    }
-
-    /**
-     * Helper used by the ###Sibling methods, to verify this {@link Traversable} has a parent and then contains this
-     * child and retrieves the previous/next sibling.
-     */
-    private Optional<T> sibling(final int delta) {
-        T nextSibling = null;
-
-        final Optional<T> maybeParent = this.parent();
-        if (maybeParent.isPresent()) {
-            final Traversable<T> parent = maybeParent.get();
-            nextSibling = parent.child(
-                this.index() + delta
-            );
-        }
-
-        return Optional.ofNullable(
-            nextSibling
+        return TraversableHelper.sibling(
+            this,
+            +1
         );
     }
 
@@ -133,7 +119,10 @@ public interface Traversable<T extends Traversable<T>> extends CanBeEmpty {
      */
     default Optional<T> firstChild() {
         return Optional.ofNullable(
-            this.child(0)
+            TraversableHelper.child(
+                this,
+                0
+            )
         );
     }
 
@@ -143,20 +132,11 @@ public interface Traversable<T extends Traversable<T>> extends CanBeEmpty {
     default Optional<T> lastChild() {
         final List<T> children = this.children();
         return Optional.ofNullable(
-            this.child(
+            TraversableHelper.child(
+                this,
                 children.size() - 1
             )
         );
-    }
-
-    /**
-     * Helper used by various sibling and child methods. If the index is out of range a null is returned.
-     */
-    private T child(final int index) {
-        final List<T> children = this.children();
-        return index >= 0 && index < children.size() ?
-            children.get(index) :
-            null;
     }
 
     /**
