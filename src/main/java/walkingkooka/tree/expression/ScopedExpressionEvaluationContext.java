@@ -70,22 +70,6 @@ final class ScopedExpressionEvaluationContext implements ExpressionEvaluationCon
 
     // copied from BasicExpressionEvaluationContext
     @Override
-    public Object evaluateExpression(final Expression expression) {
-        Objects.requireNonNull(expression, "expression");
-
-        Object result;
-
-        try {
-            result = expression.toValue(this);
-        } catch (final RuntimeException exception) {
-            result = this.handleException(exception);
-        }
-
-        return result;
-    }
-
-    // copied from BasicExpressionEvaluationContext
-    @Override
     public Object evaluateFunction(final ExpressionFunction<?, ? extends ExpressionEvaluationContext> function,
                                    final List<Object> parameters) {
         Objects.requireNonNull(function, "function");

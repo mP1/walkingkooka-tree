@@ -22,7 +22,6 @@ import walkingkooka.Either;
 import walkingkooka.naming.Name;
 import walkingkooka.text.CaseSensitivity;
 import walkingkooka.tree.Node;
-import walkingkooka.tree.expression.Expression;
 import walkingkooka.tree.expression.ExpressionEvaluationContext;
 import walkingkooka.tree.expression.ExpressionFunctionName;
 import walkingkooka.tree.expression.ExpressionNumber;
@@ -111,11 +110,6 @@ final class BasicNodeSelectorExpressionEvaluationContext<N extends Node<N, NAME,
     public <T> T prepareParameter(final ExpressionFunctionParameter<T> parameter,
                                   final Object value) {
         return this.context.prepareParameter(parameter, value);
-    }
-
-    @Override
-    public Object evaluateExpression(final Expression expression) {
-        return expression.toValue(this);
     }
 
     /**

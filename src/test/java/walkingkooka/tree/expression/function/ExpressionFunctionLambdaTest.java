@@ -169,11 +169,6 @@ public class ExpressionFunctionLambdaTest extends ExpressionFunctionTestCase<Exp
                         );
                     }
 
-                    @Override
-                    public Object evaluateExpression(final Expression expression) {
-                        return expression.toValue(this);
-                    }
-
                     public boolean isText(final Object value) {
                         return value instanceof String;
                     }

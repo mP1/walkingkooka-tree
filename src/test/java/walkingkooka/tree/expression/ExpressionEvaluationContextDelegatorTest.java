@@ -114,13 +114,6 @@ public final class ExpressionEvaluationContextDelegatorTest implements Expressio
         }
 
         @Override
-        public Object evaluateExpression(final Expression expression) {
-            Objects.requireNonNull(expression, "expression");
-
-            return "evaluate->Test";
-        }
-
-        @Override
         public Object evaluateFunction(final ExpressionFunction<?, ? extends ExpressionEvaluationContext> function,
                                        final List<Object> parameters) {
             Objects.requireNonNull(function, "function");
