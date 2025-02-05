@@ -169,6 +169,7 @@ public class ExpressionFunctionLambdaTest extends ExpressionFunctionTestCase<Exp
                         );
                     }
 
+                    @Override
                     public boolean isText(final Object value) {
                         return value instanceof String;
                     }
