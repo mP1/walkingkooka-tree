@@ -59,6 +59,13 @@ public final class BasicExpressionEvaluationContextTest implements ClassTesting2
 
     private final static String REFERENCE_NOT_FOUND_MESSAGE = "CustomMessage123";
 
+    private final static Function<ExpressionReference, ExpressionEvaluationException> REFERENCE_NOT_FOUND =
+        (r) ->
+            new ExpressionEvaluationReferenceException(
+                REFERENCE_NOT_FOUND_MESSAGE,
+                r
+            );
+
     private final static CaseSensitivity CASE_SENSITIVITY = CaseSensitivity.SENSITIVE;
 
     private final static Function<RuntimeException, Object> EXCEPTION_HANDLER = (r) -> {
@@ -480,14 +487,7 @@ public final class BasicExpressionEvaluationContextTest implements ClassTesting2
         );
     }
 
-    @Test
-    public void testReferences() {
-        this.referenceAndCheck(
-            this.createContext(),
-            REFERENCE,
-            REFERENCE_VALUE
-        );
-    }
+    // referencesNotFound...............................................................................................
 
     @Test
     public void testReferenceNotFound() {
@@ -500,6 +500,30 @@ public final class BasicExpressionEvaluationContextTest implements ClassTesting2
         this.checkEquals(
             REFERENCE_NOT_FOUND_MESSAGE,
             thrown.getMessage()
+        );
+    }
+
+    // reference........................................................................................................
+
+    @Test
+    public void testReference() {
+        this.referenceAndCheck(
+            this.createContext(),
+            REFERENCE,
+            REFERENCE_VALUE
+        );
+    }
+
+    @Test
+    public void testReferenceCycle() {
+        this.referenceAndCheck(
+            this.createContext(
+                (r) -> Optional.of(
+                    Optional.of(r)
+                )
+            ),
+            REFERENCE,
+            REFERENCE
         );
     }
 
@@ -622,7 +646,7 @@ public final class BasicExpressionEvaluationContextTest implements ClassTesting2
             this.functions(pure),
             EXCEPTION_HANDLER,
             this.references(),
-            (r) -> new ExpressionEvaluationReferenceException(REFERENCE_NOT_FOUND_MESSAGE, r),
+            REFERENCE_NOT_FOUND,
             caseSensitivity,
             this.converterContext()
         );
@@ -701,6 +725,20 @@ public final class BasicExpressionEvaluationContextTest implements ClassTesting2
         });
     }
 
+    private BasicExpressionEvaluationContext createContext(final Function<ExpressionReference, Optional<Optional<Object>>> references) {
+        return BasicExpressionEvaluationContext.with(
+            KIND,
+            (n) -> {
+                throw new UnsupportedOperationException();
+            },
+            EXCEPTION_HANDLER,
+            references,
+            REFERENCE_NOT_FOUND,
+            CASE_SENSITIVITY,
+            ConverterContexts.fake()
+        );
+    }
+
     private ConverterContext converterContext() {
         return ConverterContexts.basic(
             Converters.JAVA_EPOCH_OFFSET, // dateOffset
@@ -714,6 +752,8 @@ public final class BasicExpressionEvaluationContextTest implements ClassTesting2
             DecimalNumberContexts.american(MathContext.DECIMAL32)
         );
     }
+
+    // DecimalNumberContext.............................................................................................
 
     @Override
     public String currencySymbol() {
