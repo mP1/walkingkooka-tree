@@ -255,11 +255,6 @@ public final class CallExpressionTest extends VariableExpressionTestCase<CallExp
                 }
 
                 @Override
-                public Object evaluateExpression(final Expression expression) {
-                    return expression.toValue(this);
-                }
-
-                @Override
                 public Object evaluateFunction(final ExpressionFunction<?, ? extends ExpressionEvaluationContext> function,
                                                final List<Object> parameters) {
                     return function.apply(
@@ -305,11 +300,6 @@ public final class CallExpressionTest extends VariableExpressionTestCase<CallExp
                         }
 
                         @Override
-                        public Object evaluateExpression(final Expression expression) {
-                            return expression.toValue(this);
-                        }
-
-                        @Override
                         public boolean isText(final Object value) {
                             return false;
                         }
@@ -330,11 +320,6 @@ public final class CallExpressionTest extends VariableExpressionTestCase<CallExp
                         ),
                         target
                     );
-                }
-
-                @Override
-                public Object evaluateExpression(final Expression expression) {
-                    return expression.toValue(this);
                 }
 
                 @Override
@@ -427,11 +412,6 @@ public final class CallExpressionTest extends VariableExpressionTestCase<CallExp
                         ),
                         target
                     );
-                }
-
-                @Override
-                public Object evaluateExpression(final Expression expression) {
-                    return expression.toValue(this);
                 }
 
                 @Override

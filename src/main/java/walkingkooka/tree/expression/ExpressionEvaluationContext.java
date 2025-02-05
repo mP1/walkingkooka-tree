@@ -27,6 +27,7 @@ import walkingkooka.tree.expression.function.ExpressionFunctions;
 import walkingkooka.tree.expression.function.HasExpressionFunction;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.function.Function;
 import java.util.function.Supplier;
@@ -66,7 +67,19 @@ public interface ExpressionEvaluationContext extends Context,
     /**
      * Evaluate the given {@link Expression} returning the result/value.
      */
-    Object evaluateExpression(final Expression expression);
+    default Object evaluateExpression(final Expression expression) {
+        Objects.requireNonNull(expression, "expression");
+
+        Object result;
+
+        try {
+            result = expression.toValue(this);
+        } catch (final RuntimeException exception) {
+            result = this.handleException(exception);
+        }
+
+        return result;
+    }
 
     /**
      * Creates a lambda {@link ExpressionFunction}, the given parameters become scoped variables when the

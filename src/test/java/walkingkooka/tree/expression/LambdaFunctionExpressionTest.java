@@ -169,11 +169,6 @@ public final class LambdaFunctionExpressionTest extends UnaryExpressionTestCase<
                 }
 
                 @Override
-                public Object evaluateExpression(final Expression expression) {
-                    return expression.toValue(this);
-                }
-
-                @Override
                 public boolean isText(final Object value) {
                     return false;
                 }

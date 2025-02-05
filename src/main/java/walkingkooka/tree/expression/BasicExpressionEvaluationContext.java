@@ -153,24 +153,6 @@ final class BasicExpressionEvaluationContext implements ExpressionEvaluationCont
 
     private final ConverterContext converterContext;
 
-    // eval.............................................................................................................
-
-    // if changed copy to ScopedExpressionEvaluationContext#evaluate
-    @Override
-    public Object evaluateExpression(final Expression expression) {
-        Objects.requireNonNull(expression, "expression");
-
-        Object result;
-
-        try {
-            result = expression.toValue(this);
-        } catch (final RuntimeException exception) {
-            result = this.handleException(exception);
-        }
-
-        return result;
-    }
-
     // functions........................................................................................................
 
     @Override

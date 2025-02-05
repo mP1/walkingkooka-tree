@@ -384,11 +384,6 @@ public final class CycleDetectingExpressionEvaluationContextTest implements Clas
                 }
 
                 @Override
-                public Object evaluateExpression(final Expression expression) {
-                    return expression.toValue(this);
-                }
-
-                @Override
                 public boolean isPure(final ExpressionFunctionName name) {
                     Objects.requireNonNull(name, "name");
                     return pure;
