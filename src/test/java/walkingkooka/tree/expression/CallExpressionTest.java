@@ -143,16 +143,12 @@ public final class CallExpressionTest extends VariableExpressionTestCase<CallExp
                                 checkEquals(parameters, p);
                                 return parameters;
                             }
-                        };
-                    }
 
-                    @Override
-                    public Object evaluateFunction(final ExpressionFunction<?, ? extends ExpressionEvaluationContext> function,
-                                                   final List<Object> parameters) {
-                        return function.apply(
-                            parameters,
-                            Cast.to(this)
-                        );
+                            @Override
+                            public List<ExpressionFunctionParameter<?>> parameters(final int count) {
+                                return Lists.empty();
+                            }
+                        };
                     }
                 }
             )
@@ -255,15 +251,6 @@ public final class CallExpressionTest extends VariableExpressionTestCase<CallExp
                 }
 
                 @Override
-                public Object evaluateFunction(final ExpressionFunction<?, ? extends ExpressionEvaluationContext> function,
-                                               final List<Object> parameters) {
-                    return function.apply(
-                        this.prepareParameters(function, parameters),
-                        Cast.to(this)
-                    );
-                }
-
-                @Override
                 public boolean isText(final Object value) {
                     return false;
                 }
@@ -320,23 +307,6 @@ public final class CallExpressionTest extends VariableExpressionTestCase<CallExp
                         ),
                         target
                     );
-                }
-
-                @Override
-                public Object evaluateFunction(final ExpressionFunction<?, ? extends ExpressionEvaluationContext> function,
-                                               final List<Object> parameters) {
-                    Object result;
-
-                    try {
-                        result = function.apply(
-                            this.prepareParameters(function, parameters),
-                            Cast.to(this)
-                        );
-                    } catch (final RuntimeException exception) {
-                        result = this.handleException(exception);
-                    }
-
-                    return result;
                 }
 
                 @Override
@@ -411,18 +381,6 @@ public final class CallExpressionTest extends VariableExpressionTestCase<CallExp
                             EXPRESSION_NUMBER_KIND.create((Number) value)
                         ),
                         target
-                    );
-                }
-
-                @Override
-                public Object evaluateFunction(final ExpressionFunction<?, ? extends ExpressionEvaluationContext> function,
-                                               final List<Object> parametersValues) {
-                    return function.apply(
-                        this.prepareParameters(
-                            function,
-                            parametersValues
-                        ),
-                        Cast.to(this)
                     );
                 }
 

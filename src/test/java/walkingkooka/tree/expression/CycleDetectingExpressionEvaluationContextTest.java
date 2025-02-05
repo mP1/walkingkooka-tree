@@ -31,7 +31,8 @@ import walkingkooka.text.cursor.parser.BigIntegerParserToken;
 import walkingkooka.text.cursor.parser.ParserContexts;
 import walkingkooka.text.cursor.parser.Parsers;
 import walkingkooka.tree.expression.function.ExpressionFunction;
-import walkingkooka.tree.expression.function.ExpressionFunctions;
+import walkingkooka.tree.expression.function.ExpressionFunctionParameter;
+import walkingkooka.tree.expression.function.FakeExpressionFunction;
 import walkingkooka.tree.expression.function.UnknownExpressionFunctionException;
 
 import java.math.BigInteger;
@@ -79,19 +80,21 @@ public final class CycleDetectingExpressionEvaluationContextTest implements Clas
 
     @Test
     public void testEvaluateFunction() {
-        final ExpressionFunction<Object, CycleDetectingExpressionEvaluationContext> function = ExpressionFunctions.fake();
-        final List<Object> parameters = Lists.of("param-1", "param-2");
-
-        final CycleDetectingExpressionEvaluationContext context = this.createContext(new FakeExpressionEvaluationContext() {
+        final ExpressionFunction<Object, CycleDetectingExpressionEvaluationContext> function = new FakeExpressionFunction<>() {
             @Override
-            public Object evaluateFunction(final ExpressionFunction<?, ? extends ExpressionEvaluationContext> f,
-                                           final List<Object> p) {
-                assertSame(function, f, "function");
-                assertSame(parameters, p, "parameters");
+            public List<ExpressionFunctionParameter<?>> parameters(final int count) {
+                return Lists.empty();
+            }
 
+            @Override
+            public Object apply(final List<Object> parameters,
+                                final CycleDetectingExpressionEvaluationContext context) {
                 return VALUE;
             }
-        });
+        };
+        final List<Object> parameters = Lists.of("param-1", "param-2");
+
+        final CycleDetectingExpressionEvaluationContext context = this.createContext(ExpressionEvaluationContexts.fake());
 
         this.evaluateFunctionAndCheck(
             context,

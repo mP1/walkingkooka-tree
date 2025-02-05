@@ -17,7 +17,6 @@
 
 package walkingkooka.tree.expression;
 
-import walkingkooka.Cast;
 import walkingkooka.Either;
 import walkingkooka.convert.ConverterContext;
 import walkingkooka.datetime.DateTimeContext;
@@ -28,7 +27,6 @@ import walkingkooka.text.CaseSensitivity;
 import walkingkooka.tree.expression.function.ExpressionFunction;
 import walkingkooka.tree.expression.function.ExpressionFunctionParameter;
 
-import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
 import java.util.Optional;
@@ -179,27 +177,6 @@ final class BasicExpressionEvaluationContext implements ExpressionEvaluationCont
     public <T> T prepareParameter(final ExpressionFunctionParameter<T> parameter,
                                   final Object value) {
         return parameter.convertOrFail(value, this);
-    }
-
-    // if changed copy to ScopedExpressionEvaluationContext#evaluateFunction
-    @Override
-    public Object evaluateFunction(final ExpressionFunction<?, ? extends ExpressionEvaluationContext> function,
-                                   final List<Object> parameters) {
-        Objects.requireNonNull(function, "function");
-        Objects.requireNonNull(parameters, "parameters");
-
-        Object result;
-
-        try {
-            result = function.apply(
-                this.prepareParameters(function, parameters),
-                Cast.to(this)
-            );
-        } catch (final RuntimeException exception) {
-            result = this.handleException(exception);
-        }
-
-        return result;
     }
 
     @Override

@@ -112,18 +112,6 @@ final class BasicNodeSelectorExpressionEvaluationContext<N extends Node<N, NAME,
         return this.context.prepareParameter(parameter, value);
     }
 
-    /**
-     * Before invoking the {@link ExpressionFunction} identified by the given {@link ExpressionFunctionName} parameters are resolved
-     */
-    @Override
-    public Object evaluateFunction(final ExpressionFunction<?, ? extends ExpressionEvaluationContext> function,
-                                   final List<Object> parameters) {
-        return function.apply(
-            this.prepareParameters(function, parameters),
-            Cast.to(this)
-        );
-    }
-
     @Override
     public boolean isPure(final ExpressionFunctionName name) {
         return this.context.isPure(name);

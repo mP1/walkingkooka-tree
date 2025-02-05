@@ -21,7 +21,6 @@ import walkingkooka.text.CaseSensitivity;
 import walkingkooka.tree.expression.function.ExpressionFunction;
 import walkingkooka.tree.expression.function.ExpressionFunctionParameter;
 
-import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.function.Function;
@@ -57,15 +56,6 @@ public class FakeExpressionEvaluationContext extends FakeExpressionNumberConvert
     public <T> T prepareParameter(final ExpressionFunctionParameter<T> parameter,
                                   final Object value) {
         Objects.requireNonNull(parameter, "parameter");
-
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public Object evaluateFunction(final ExpressionFunction<?, ? extends ExpressionEvaluationContext> function,
-                                   final List<Object> parameters) {
-        Objects.requireNonNull(function, "function");
-        Objects.requireNonNull(parameters, "parameters");
 
         throw new UnsupportedOperationException();
     }
