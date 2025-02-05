@@ -330,6 +330,18 @@ public final class ExpressionEvaluationContextTest implements ClassTesting<Expre
         );
     }
 
+    // reference........................................................................................................
+
+    @Test
+    public void testReferenceNotFoundValueDifferentReferenceNullValue() {
+        this.checkNotEquals(
+            ExpressionEvaluationContext.REFERENCE_NOT_FOUND_VALUE,
+            ExpressionEvaluationContext.REFERENCE_NULL_VALUE
+        );
+    }
+
+    // class............................................................................................................
+
     @Override
     public Class<ExpressionEvaluationContext> type() {
         return ExpressionEvaluationContext.class;
