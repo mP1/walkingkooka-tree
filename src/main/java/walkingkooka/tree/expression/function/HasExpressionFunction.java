@@ -22,7 +22,7 @@ import walkingkooka.tree.expression.ExpressionFunctionName;
 
 /**
  * Almost a provider that is able to supply {@link ExpressionFunction} given a {@link ExpressionFunctionName}.
- * This interface is not intended to be implemented by user-code and only exists to provide {@link #expressionFunctionOrFail(ExpressionFunctionName)}.
+ * This interface is not intended to be implemented by user-code and only exists to provide {@link ExpressionEvaluationContext#expressionFunction(ExpressionFunctionName)}.
  * <br>
  * A full featured provider is available at
  * <br>
