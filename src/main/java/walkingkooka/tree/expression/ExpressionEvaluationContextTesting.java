@@ -103,10 +103,14 @@ public interface ExpressionEvaluationContextTesting<C extends ExpressionEvaluati
             () -> "evaluate " + expression + " " + context);
     }
 
-    default void toValueAndCheck(final Expression node, final ExpressionEvaluationContext context, final Object value) {
-        this.checkEquals(value,
+    default void toValueAndCheck(final Expression node,
+                                 final ExpressionEvaluationContext context,
+                                 final Object value) {
+        this.checkEquals(
+            value,
             node.toValue(context),
-            () -> "Expression.toValue failed, node=" + node + " context=" + context);
+            () -> "Expression.toValue failed, node=" + node + " context=" + context
+        );
     }
 
     // expressionFunction...............................................................................................
@@ -238,6 +242,8 @@ public interface ExpressionEvaluationContextTesting<C extends ExpressionEvaluati
     default C createCanConvert() {
         return this.createContext();
     }
+
+    // class............................................................................................................
 
     @Override
     default String typeNameSuffix() {
