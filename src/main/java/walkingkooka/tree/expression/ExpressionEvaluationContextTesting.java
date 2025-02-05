@@ -125,7 +125,7 @@ public interface ExpressionEvaluationContextTesting<C extends ExpressionEvaluati
     }
 
     @Test
-    default void testEvaluateFunctionNullFunctionNameFails() {
+    default void testEvaluateFunctionWithNullFunctionNameFails() {
         assertThrows(
             NullPointerException.class,
             () -> this.createContext()
@@ -137,7 +137,7 @@ public interface ExpressionEvaluationContextTesting<C extends ExpressionEvaluati
     }
 
     @Test
-    default void testEvaluateFunctionNullParametersFails() {
+    default void testEvaluateFunctionWithNullParametersFails() {
         assertThrows(
             NullPointerException.class,
             () -> this.createContext()
@@ -174,7 +174,7 @@ public interface ExpressionEvaluationContextTesting<C extends ExpressionEvaluati
     // reference........................................................................................................
 
     @Test
-    default void testReferenceNullReferenceFails() {
+    default void testReferenceWithNullReferenceFails() {
         assertThrows(
             NullPointerException.class,
             () -> this.createContext()
