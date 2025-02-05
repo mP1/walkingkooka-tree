@@ -24,7 +24,7 @@ import java.util.Optional;
 import java.util.function.Function;
 
 /**
- * A {@link Function} that handles translating {@link ExpressionReference} into possible values and is given to {@link walkingkooka.tree.expression.ExpressionEvaluationContext#context(Function)}
+ * A {@link Function} that handles translating {@link ExpressionReference} into possible values and is given to {@link walkingkooka.tree.expression.ExpressionEvaluationContext#enterScope(Function)} (Function)}
  * for that purpose.
  */
 final class ExpressionFunctionLambdaExpressionEvaluationContextFunction implements Function<ExpressionReference, Optional<Optional<Object>>> {
