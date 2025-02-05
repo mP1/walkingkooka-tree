@@ -17,6 +17,7 @@
 
 package walkingkooka.tree.expression;
 
+import walkingkooka.Cast;
 import walkingkooka.Context;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.text.CaseSensitivity;
@@ -130,8 +131,24 @@ public interface ExpressionEvaluationContext extends Context,
     /**
      * Executes the given {@link ExpressionFunction} with the parameters, and also handles any exception.
      */
-    Object evaluateFunction(final ExpressionFunction<?, ? extends ExpressionEvaluationContext> function,
-                            final List<Object> parameters);
+    default Object evaluateFunction(final ExpressionFunction<?, ? extends ExpressionEvaluationContext> function,
+                                    final List<Object> parameters) {
+        Objects.requireNonNull(function, "function");
+        Objects.requireNonNull(parameters, "parameters");
+
+        Object result;
+
+        try {
+            result = function.apply(
+                this.prepareParameters(function, parameters),
+                Cast.to(this)
+            );
+        } catch (final RuntimeException exception) {
+            result = this.handleException(exception);
+        }
+
+        return result;
+    }
 
     /**
      * Receives all {@link RuntimeException} thrown by a {@link ExpressionFunction} or {@link Expression}.
