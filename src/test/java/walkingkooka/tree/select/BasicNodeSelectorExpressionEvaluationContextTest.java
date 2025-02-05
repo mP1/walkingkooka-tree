@@ -100,7 +100,7 @@ public final class BasicNodeSelectorExpressionEvaluationContextTest implements N
     }
 
     @Override
-    public void testEvaluateFunctionNullParametersFails() {
+    public void testEvaluateFunctionWithNullParametersFails() {
         throw new UnsupportedOperationException();
     }
 
