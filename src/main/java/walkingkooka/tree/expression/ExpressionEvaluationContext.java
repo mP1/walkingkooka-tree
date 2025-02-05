@@ -137,6 +137,18 @@ public interface ExpressionEvaluationContext extends Context,
     Object handleException(final RuntimeException exception);
 
     /**
+     * A constant holding the value for a reference that was not found.
+     */
+    Optional<Optional<Object>> REFERENCE_NOT_FOUND_VALUE = Optional.empty();
+
+    /**
+     * A constant holding the value for a reference that has a null value.
+     */
+    Optional<Optional<Object>> REFERENCE_NULL_VALUE = Optional.of(
+        Optional.empty()
+    );
+
+    /**
      * Locates the value or a {@link Expression} for the given {@link ExpressionReference}.
      * <pre>
      *  var missingReference = Optional.empty();
