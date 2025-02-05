@@ -217,6 +217,21 @@ public interface ExpressionEvaluationContextTesting<C extends ExpressionEvaluati
         );
     }
 
+    default void referenceFails(final ExpressionEvaluationContext context,
+                                final ExpressionReference reference,
+                                final RuntimeException expected) {
+        final RuntimeException thrown = assertThrows(
+            expected.getClass(),
+            () -> context.reference(reference)
+        );
+
+        this.checkEquals(
+            expected.getClass(),
+            thrown.getMessage(),
+            () -> "reference " + reference
+        );
+    }
+
     // ExpressionEvaluationContext......................................................................................
 
     @Override
