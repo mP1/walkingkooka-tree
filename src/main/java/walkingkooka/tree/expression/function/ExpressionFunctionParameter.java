@@ -269,6 +269,8 @@ public final class ExpressionFunctionParameter<T> implements HasName<ExpressionF
      */
     public Optional<Optional<T>> get(final List<Object> parameters,
                                      final int index) {
+        Objects.requireNonNull(parameters, "parameters");
+
         this.cardinality.get(this);
 
         return index >= parameters.size() ?
@@ -289,6 +291,8 @@ public final class ExpressionFunctionParameter<T> implements HasName<ExpressionF
      */
     public T getOrFail(final List<Object> parameters,
                        final int index) {
+        Objects.requireNonNull(parameters, "parameters");
+
         this.cardinality.getOrFail(this);
 
         if (index >= parameters.size()) {
@@ -312,6 +316,8 @@ public final class ExpressionFunctionParameter<T> implements HasName<ExpressionF
      */
     public List<T> getVariable(final List<Object> parameters,
                                final int index) {
+        Objects.requireNonNull(parameters, "parameters");
+
         this.cardinality.getVariable(this);
 
         return index >= parameters.size() ?

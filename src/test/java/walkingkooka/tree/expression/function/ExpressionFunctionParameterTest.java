@@ -378,6 +378,24 @@ public final class ExpressionFunctionParameterTest implements HashCodeEqualsDefi
     // get.............................................................................................................
 
     @Test
+    public void testGetWithNullParametersFails() {
+        final ExpressionFunctionParameter<Integer> parameter = ExpressionFunctionParameter.with(
+            NAME,
+            Integer.class,
+            TYPE_PARAMETERS,
+            ExpressionFunctionParameterCardinality.OPTIONAL,
+            KINDS
+        );
+        assertThrows(
+            NullPointerException.class,
+            () -> parameter.get(
+                null,
+                0
+            )
+        );
+    }
+
+    @Test
     public void testGetMissing() {
         final ExpressionFunctionParameter<Integer> parameter = ExpressionFunctionParameter.with(
             NAME,
@@ -488,6 +506,24 @@ public final class ExpressionFunctionParameterTest implements HashCodeEqualsDefi
     // getOrFail.......................................................................................................
 
     @Test
+    public void testGetOrFailWithNullParametersFails() {
+        final ExpressionFunctionParameter<Integer> parameter = ExpressionFunctionParameter.with(
+            NAME,
+            Integer.class,
+            TYPE_PARAMETERS,
+            ExpressionFunctionParameterCardinality.REQUIRED,
+            KINDS
+        );
+        assertThrows(
+            NullPointerException.class,
+            () -> parameter.getOrFail(
+                null,
+                0
+            )
+        );
+    }
+
+    @Test
     public void testGetOrFailMissingFails() {
         final ExpressionFunctionParameter<Integer> parameter = ExpressionFunctionParameter.with(
             NAME,
@@ -550,6 +586,24 @@ public final class ExpressionFunctionParameterTest implements HashCodeEqualsDefi
     }
 
     // getVariable.......................................................................................................
+
+    @Test
+    public void testGetVariableWithNullParametersFails() {
+        final ExpressionFunctionParameter<Integer> parameter = ExpressionFunctionParameter.with(
+            NAME,
+            Integer.class,
+            TYPE_PARAMETERS,
+            ExpressionFunctionParameterCardinality.VARIABLE,
+            KINDS
+        );
+        assertThrows(
+            NullPointerException.class,
+            () -> parameter.getOrFail(
+                null,
+                0
+            )
+        );
+    }
 
     @Test
     public void testGetVariableNone() {
