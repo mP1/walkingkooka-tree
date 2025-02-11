@@ -17,6 +17,7 @@
 
 package walkingkooka.tree.select;
 
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
@@ -36,6 +37,12 @@ import java.util.stream.Stream;
 
 public final class NodeSelectorTest implements ClassTesting2<NodeSelector<TestNode, StringName, StringName, Object>>,
     StreamTesting<Stream<TestNode>, TestNode> {
+
+    // locally unnecessary but CI sometimes fails and this helps
+    @BeforeAll
+    public static void beforeAll() {
+        TestNode.clear();
+    }
 
     @BeforeEach
     public void beforeEachTest() {
