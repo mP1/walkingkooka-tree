@@ -36,7 +36,7 @@ final class NumberToNumberConverter<C extends ExpressionNumberConverterContext> 
         return Cast.to(INSTANCE);
     }
 
-    private final static NumberToNumberConverter INSTANCE = new NumberToNumberConverter();
+    private final static NumberToNumberConverter INSTANCE = new NumberToNumberConverter<>();
 
     private NumberToNumberConverter() {
     }

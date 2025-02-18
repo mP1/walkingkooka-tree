@@ -107,10 +107,10 @@ final class ExpressionFunctionCustomName<T, C extends ExpressionEvaluationContex
     @Override
     public boolean equals(final Object other) {
         return (this == other) ||
-            other instanceof ExpressionFunctionCustomName && this.equals0((ExpressionFunctionCustomName) other);
+            other instanceof ExpressionFunctionCustomName && this.equals0((ExpressionFunctionCustomName<?, ?>) other);
     }
 
-    private boolean equals0(final ExpressionFunctionCustomName other) {
+    private boolean equals0(final ExpressionFunctionCustomName<?, ?> other) {
         return this.name.equals(other.name) &&
             this.function.equals(other.function);
     }

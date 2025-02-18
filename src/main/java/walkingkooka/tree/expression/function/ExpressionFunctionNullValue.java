@@ -37,7 +37,7 @@ final class ExpressionFunctionNullValue<C extends ExpressionEvaluationContext> i
     /**
      * Singleton
      */
-    private final static ExpressionFunctionNullValue INSTANCE = new ExpressionFunctionNullValue();
+    private final static ExpressionFunctionNullValue INSTANCE = new ExpressionFunctionNullValue<>();
 
     private ExpressionFunctionNullValue() {
     }
