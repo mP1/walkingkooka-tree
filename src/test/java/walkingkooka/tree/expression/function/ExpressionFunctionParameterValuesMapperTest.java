@@ -93,6 +93,7 @@ public final class ExpressionFunctionParameterValuesMapperTest extends Expressio
     }
 
     @Test
+    @Override
     public void testName() {
         this.checkEquals(NAME, this.createBiFunction().name());
     }

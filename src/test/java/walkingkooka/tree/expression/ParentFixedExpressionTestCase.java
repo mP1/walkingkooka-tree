@@ -24,28 +24,48 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 public abstract class ParentFixedExpressionTestCase<N extends ParentFixedExpression> extends ParentExpressionTestCase<N> {
 
     @Test
+    @Override
     public void testAppendChild() {
-        assertThrows(UnsupportedOperationException.class, super::testAppendChild);
+        assertThrows(
+            UnsupportedOperationException.class,
+            super::testAppendChild
+        );
     }
 
     @Test
+    @Override
     public void testAppendChild2() {
-        assertThrows(UnsupportedOperationException.class, super::testAppendChild2);
+        assertThrows(
+            UnsupportedOperationException.class,
+            super::testAppendChild2
+        );
     }
 
     @Test
+    @Override
     public void testRemoveChildFirst() {
-        assertThrows(UnsupportedOperationException.class, super::testRemoveChildFirst);
+        assertThrows(
+            UnsupportedOperationException.class,
+            super::testRemoveChildFirst
+        );
     }
 
     @Test
+    @Override
     public void testRemoveChildLast() {
-        assertThrows(UnsupportedOperationException.class, super::testRemoveChildLast);
+        assertThrows(
+            UnsupportedOperationException.class,
+            super::testRemoveChildLast
+        );
     }
 
     @Test
+    @Override
     public void testParentWithoutChild() {
-        assertThrows(UnsupportedOperationException.class, super::testParentWithoutChild);
+        assertThrows(
+            UnsupportedOperationException.class,
+            super::testParentWithoutChild
+        );
     }
 
     // ExpressionPurity.................................................................................................

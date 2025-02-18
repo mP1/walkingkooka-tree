@@ -29,6 +29,7 @@ public abstract class ExpressionVisitor extends Visitor<Expression> {
 
     // Expression.......................................................................................................
 
+    @Override
     public final void accept(final Expression node) {
         Objects.requireNonNull(node, "node");
 

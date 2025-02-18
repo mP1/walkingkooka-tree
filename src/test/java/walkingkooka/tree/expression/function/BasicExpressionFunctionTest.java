@@ -111,6 +111,7 @@ public final class BasicExpressionFunctionTest implements ExpressionFunctionTest
     }
 
     @Test
+    @Override
     public void testSetNameSame() {
         final BasicExpressionFunction<String, FakeExpressionEvaluationContext> function = this.createBiFunction();
         assertSame(function, function.setName(NAME));

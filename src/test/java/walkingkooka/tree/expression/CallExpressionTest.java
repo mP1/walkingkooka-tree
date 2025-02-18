@@ -82,6 +82,7 @@ public final class CallExpressionTest extends VariableExpressionTestCase<CallExp
     // ExpressionPurity.................................................................................................
 
     @Test
+    @Override
     public void testIsPureTrue() {
         this.isPureAndCheck2(true);
     }

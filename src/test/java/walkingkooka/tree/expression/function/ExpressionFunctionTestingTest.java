@@ -272,6 +272,7 @@ public final class ExpressionFunctionTestingTest implements ClassTesting<Express
                     .collect(Collectors.joining());
             }
 
+            @Override
             public List<ExpressionFunctionParameter<?>> parameters(final int count) {
                 return Lists.of(
                     ExpressionFunctionParameterName.with("string")

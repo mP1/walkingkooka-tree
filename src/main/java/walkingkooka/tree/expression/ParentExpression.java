@@ -96,6 +96,7 @@ abstract class ParentExpression extends Expression {
     /**
      * Invokes {@link #toValue(ExpressionEvaluationContext)}.
      */
+    @Override
     public final Object toReferenceOrValue(final ExpressionEvaluationContext context) {
         return this.toValue(context);
     }

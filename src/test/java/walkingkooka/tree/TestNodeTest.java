@@ -135,6 +135,7 @@ public class TestNodeTest implements ClassTesting2<TestNode>,
     }
 
     @Test
+    @Override
     public void testParentWithoutRoot() {
         this.parentMissingCheck(TestNode.with("root"));
     }
@@ -161,6 +162,7 @@ public class TestNodeTest implements ClassTesting2<TestNode>,
     }
 
     @Test
+    @Override
     public void testRemoveParent() {
         final TestNode child1 = TestNode.with("child1");
         final TestNode child2 = TestNode.with("child2");

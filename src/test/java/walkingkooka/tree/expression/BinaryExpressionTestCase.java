@@ -70,6 +70,7 @@ public abstract class BinaryExpressionTestCase<N extends BinaryExpression> exten
     }
 
     @Test
+    @Override
     public final void testSetDifferentChildren() {
         final N expression = this.createExpression();
         final List<Expression> children = expression.children();

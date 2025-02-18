@@ -381,10 +381,12 @@ public abstract class NodeSelectorParserTokenVisitor extends ParserTokenVisitor 
 
     // ParserToken.......................................................................
 
+    @Override
     protected Visiting startVisit(final ParserToken token) {
         return Visiting.CONTINUE;
     }
 
+    @Override
     protected void endVisit(final ParserToken token) {
         // nop
     }

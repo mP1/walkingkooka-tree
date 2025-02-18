@@ -46,6 +46,7 @@ public interface Node<N extends Node<N, NAME, ANAME, AVALUE>,
     /**
      * Returns the name of this node.
      */
+    @Override
     NAME name();
 
     /**
@@ -70,6 +71,7 @@ public interface Node<N extends Node<N, NAME, ANAME, AVALUE>,
     /**
      * Helper that gets and complain if a parent is absent.
      */
+    @Override
     default N parentOrFail() {
         try {
             return Traversable.super.parentOrFail();

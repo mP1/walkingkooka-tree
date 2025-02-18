@@ -109,6 +109,7 @@ public final class ExpressionFunctionParameterValuesParametersTest extends Expre
     }
 
     @Test
+    @Override
     public void testName() {
         this.checkEquals(
             NAME,
@@ -117,6 +118,7 @@ public final class ExpressionFunctionParameterValuesParametersTest extends Expre
     }
 
     @Test
+    @Override
     public void testSetParametersSame() {
         final ExpressionFunctionParameterValuesParameters<Object, ExpressionEvaluationContext> function = this.createBiFunction();
 

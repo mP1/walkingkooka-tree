@@ -30,6 +30,7 @@ public abstract class NodePointerVisitor<N extends Node<N, NAME, ?, ?>, NAME ext
         super();
     }
 
+    @Override
     public final void accept(final NodePointer<N, NAME> node) {
         Objects.requireNonNull(node, "node");
         this.accept0(node);

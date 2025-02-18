@@ -315,6 +315,7 @@ public final class CycleDetectingExpressionEvaluationContextTest implements Clas
     }
 
     @Test
+    @Override
     public void testMathContext() {
         final MathContext mathContext = MathContext.DECIMAL32;
 
