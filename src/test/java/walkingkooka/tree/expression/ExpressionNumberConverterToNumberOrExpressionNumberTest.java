@@ -32,7 +32,7 @@ import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class ExpressionNumberConverterToNumberOrExpressionNumberTest extends ExpressionNumberConverterTestCase<ExpressionNumberConverterToNumberOrExpressionNumber<ExpressionNumberConverterContext>>
-    implements HashCodeEqualsDefinedTesting2<ExpressionNumberConverterToNumberOrExpressionNumber> {
+    implements HashCodeEqualsDefinedTesting2<ExpressionNumberConverterToNumberOrExpressionNumber<?>> {
 
     @Test
     public void testWithNullConverterFails() {

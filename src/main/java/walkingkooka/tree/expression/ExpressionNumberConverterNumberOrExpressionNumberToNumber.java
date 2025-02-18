@@ -30,7 +30,7 @@ final class ExpressionNumberConverterNumberOrExpressionNumberToNumber<C extends 
         return Cast.to(INSTANCE);
     }
 
-    private final static ExpressionNumberConverterNumberOrExpressionNumberToNumber<?> INSTANCE = new ExpressionNumberConverterNumberOrExpressionNumberToNumber();
+    private final static ExpressionNumberConverterNumberOrExpressionNumberToNumber<?> INSTANCE = new ExpressionNumberConverterNumberOrExpressionNumberToNumber<>();
 
     /**
      * Use factory
