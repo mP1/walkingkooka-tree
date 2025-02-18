@@ -148,11 +148,6 @@ public final class BasicNodeSelectorContextTest implements ClassTesting2<BasicNo
     }
 
     @Override
-    public String typeNameSuffix() {
-        return NodeSelectorContext.class.getSimpleName();
-    }
-
-    @Override
     public BasicNodeSelectorContext<TestNode, StringName, StringName, Object> createContext() {
         return BasicNodeSelectorContext.with(this.finisher(),
             this.predicate(),
