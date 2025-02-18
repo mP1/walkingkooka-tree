@@ -18,11 +18,7 @@
 package walkingkooka.tree;
 
 import org.junit.jupiter.api.Test;
-import walkingkooka.collect.list.Lists;
 import walkingkooka.naming.Name;
-
-import java.util.List;
-import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -40,25 +36,6 @@ public interface ParentNodeTesting<N extends Node<N, NAME, ANAME, AVALUE>,
     @Test
     default void testParentWithoutRoot() {
         this.parentMissingCheck(this.createNode().root());
-    }
-
-    @Test
-    @Override
-    default void testParentWithoutChild() {
-        final N parent = this.createNode();
-        final List<N> children = parent.children();
-        this.checkNotEquals(Lists.empty(), children, "expected at least 1 child");
-
-        this.parentMissingCheck(children.get(0), parent.removeChild(0));
-        this.parentMissingCheck(this.createNode());
-    }
-
-    @Test
-    @Override
-    default void testRootWithoutParent() {
-        final N node = this.createNode();
-        this.checkEquals(Optional.empty(), node.parent(), "node must have no parent");
-        assertSame(node, node.root());
     }
 
     @Test

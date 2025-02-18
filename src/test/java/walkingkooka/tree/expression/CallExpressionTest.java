@@ -463,11 +463,6 @@ public final class CallExpressionTest extends VariableExpressionTestCase<CallExp
                                         final ExpressionEvaluationContext context) {
                         return functionValue;
                     }
-
-                    @Override
-                    public List<ExpressionFunctionParameter<?>> parameters(final int count) {
-                        throw new UnsupportedOperationException();
-                    }
                 };
             }
 

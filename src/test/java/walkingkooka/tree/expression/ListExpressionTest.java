@@ -83,18 +83,6 @@ public final class ListExpressionTest extends VariableExpressionTestCase<ListExp
             "visited");
     }
 
-    // ExpressionPurity.................................................................................................
-
-    @Test
-    @Override
-    public void testIsPureTrue() {
-        this.isPureAndCheck(
-            this.createExpression(),
-            this.context(),
-            true
-        );
-    }
-
     // Evaluation ...................................................................................................
 
     @Test
