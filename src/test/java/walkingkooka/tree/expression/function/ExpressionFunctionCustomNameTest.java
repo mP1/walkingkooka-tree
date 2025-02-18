@@ -124,7 +124,7 @@ public final class ExpressionFunctionCustomNameTest extends ExpressionFunctionTe
     public void testEqualsDifferentFunction() {
         this.checkNotEquals(
             ExpressionFunctionCustomName.with(
-                new FakeExpressionFunction() {
+                new FakeExpressionFunction<>() {
 
                     @Override
                     public Optional<ExpressionFunctionName> name() {
@@ -134,7 +134,7 @@ public final class ExpressionFunctionCustomNameTest extends ExpressionFunctionTe
                 NAME
             ),
             ExpressionFunctionCustomName.with(
-                new FakeExpressionFunction() {
+                new FakeExpressionFunction<>() {
 
                     @Override
                     public Optional<ExpressionFunctionName> name() {
