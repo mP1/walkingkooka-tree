@@ -47,6 +47,7 @@ final class ExpressionExpressionFunction implements ExpressionFunction<Object, E
         return Object.class;
     }
 
+    @Override
     public Object apply(final List<Object> parameterValues,
                         final ExpressionEvaluationContext context) {
         this.parameters(parameterValues.size());

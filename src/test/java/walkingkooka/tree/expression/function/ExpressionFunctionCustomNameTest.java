@@ -60,6 +60,7 @@ public final class ExpressionFunctionCustomNameTest extends ExpressionFunctionTe
     }
 
     @Test
+    @Override
     public void testSetNameSame() {
         final ExpressionFunctionCustomName<String, ExpressionEvaluationContext> function = this.createBiFunction();
         assertSame(function, function.setName(NAME));

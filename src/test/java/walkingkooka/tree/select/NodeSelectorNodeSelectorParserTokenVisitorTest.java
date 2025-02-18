@@ -2021,6 +2021,7 @@ public final class NodeSelectorNodeSelectorParserTokenVisitorTest implements Nod
             super();
         }
 
+        @Override
         public abstract Object apply(final List<Object> parameters,
                                      final NodeSelectorExpressionEvaluationContext<TestNode, StringName, StringName, Object> context);
 

@@ -116,6 +116,7 @@ public final class TestNode implements Node<TestNode, StringName, StringName, Ob
         }
     }
 
+    @Override
     public StringName name() {
         return this.name;
     }

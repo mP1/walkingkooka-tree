@@ -72,6 +72,7 @@ final class NodePointerAny<N extends Node<N, NAME, ?, ?>, NAME extends Name> ext
 
     // NodePointerVisitor................................................................................
 
+    @Override
     void accept(final NodePointerVisitor<N, NAME> visitor) {
         visitor.visitAny(this);
     }

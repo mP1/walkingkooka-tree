@@ -904,6 +904,7 @@ public abstract class NodeSelectorParserToken implements ParserToken {
     /**
      * Only {@link SymbolNodeSelectorParserToken} return true
      */
+    @Override
     public final boolean isSymbol() {
         return this instanceof SymbolNodeSelectorParserToken;
     }
@@ -911,6 +912,7 @@ public abstract class NodeSelectorParserToken implements ParserToken {
     /**
      * Only {@link WhitespaceNodeSelectorParserToken} return true
      */
+    @Override
     public final boolean isWhitespace() {
         return this instanceof WhitespaceNodeSelectorParserToken;
     }

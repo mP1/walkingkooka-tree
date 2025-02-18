@@ -43,6 +43,7 @@ public interface ParentNodeTesting<N extends Node<N, NAME, ANAME, AVALUE>,
     }
 
     @Test
+    @Override
     default void testParentWithoutChild() {
         final N parent = this.createNode();
         final List<N> children = parent.children();
@@ -53,6 +54,7 @@ public interface ParentNodeTesting<N extends Node<N, NAME, ANAME, AVALUE>,
     }
 
     @Test
+    @Override
     default void testRootWithoutParent() {
         final N node = this.createNode();
         this.checkEquals(Optional.empty(), node.parent(), "node must have no parent");

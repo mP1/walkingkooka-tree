@@ -99,11 +99,13 @@ public final class NodePointerVisitorTest implements NodePointerVisitorTesting<F
                 b.append("2");
             }
 
+            @Override
             protected Visiting startVisitRelative(final NodePointer<TestNode, StringName> node) {
                 b.append("3");
                 return Visiting.CONTINUE;
             }
 
+            @Override
             protected void endVisitRelative(final NodePointer<TestNode, StringName> node) {
                 b.append("4");
                 // nop

@@ -23,6 +23,7 @@ import walkingkooka.math.DecimalNumberContextDelegator;
 public interface ExpressionNumberContextDelegator extends ExpressionNumberContext,
     DecimalNumberContextDelegator {
 
+    @Override
     default DecimalNumberContext decimalNumberContext() {
         return this.expressionNumberContext();
     }

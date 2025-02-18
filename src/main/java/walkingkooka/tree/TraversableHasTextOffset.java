@@ -30,6 +30,7 @@ public interface TraversableHasTextOffset<T extends HasTextLength & HasTextOffse
     /**
      * A simple implementation of {@link HasTextOffset#textOffset()} which either queries the previous sibling or parent.
      */
+    @Override
     default int textOffset() {
         return this.previousSibling()
             .map(p -> p.textOffset() + p.textLength())

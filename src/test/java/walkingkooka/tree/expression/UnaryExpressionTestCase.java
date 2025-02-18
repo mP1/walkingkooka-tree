@@ -48,6 +48,7 @@ public abstract class UnaryExpressionTestCase<N extends UnaryExpression> extends
     }
 
     @Test
+    @Override
     public final void testSetDifferentChildren() {
         final N expression = this.createExpression();
         final List<Expression> children = expression.children();
@@ -64,6 +65,7 @@ public abstract class UnaryExpressionTestCase<N extends UnaryExpression> extends
     }
 
     @Test
+    @Override
     public final void testReplaceChild() {
         final N expression = this.createExpression();
         final Expression replacement = this.differentChild();

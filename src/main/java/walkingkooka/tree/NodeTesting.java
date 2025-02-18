@@ -98,6 +98,7 @@ public interface NodeTesting<N extends Node<N, NAME, ANAME, AVALUE>,
     }
 
     @Test
+    @Override
     default void testParentWithoutChild() {
         final N parent = this.createNode();
         final List<N> children = parent.children();
@@ -108,6 +109,7 @@ public interface NodeTesting<N extends Node<N, NAME, ANAME, AVALUE>,
     }
 
     @Test
+    @Override
     default void testRootWithoutParent() {
         final N node = this.createNode();
         this.checkEquals(Optional.empty(), node.parent(), "node must have no parent");
@@ -226,6 +228,7 @@ public interface NodeTesting<N extends Node<N, NAME, ANAME, AVALUE>,
     }
 
     @Test
+    @Override
     default void testPropertiesNeverReturnNull() throws Exception {
         this.allPropertiesNeverReturnNullCheck(this.createNode(),
             (m) -> m.getName().equals("parentOrFail") || m.getName().equals("removeParent"));
@@ -237,7 +240,7 @@ public interface NodeTesting<N extends Node<N, NAME, ANAME, AVALUE>,
         assertSame(node, node.setAttributes(node.attributes()));
     }
 
-
+    @Override
     N createNode();
 
     @Override

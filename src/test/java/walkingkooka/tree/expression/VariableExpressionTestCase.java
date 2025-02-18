@@ -57,6 +57,7 @@ public abstract class VariableExpressionTestCase<N extends VariableExpression> e
     }
 
     @Test
+    @Override
     public final void testSetDifferentChildren() {
         final N expression = this.createExpression();
         final List<Expression> children = expression.children();

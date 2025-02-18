@@ -50,6 +50,7 @@ public abstract class NonTerminalNodeSelectorTestCase<S extends NodeSelector<Tes
         this.checkNotEquals(this.createSelector().parent());
     }
 
+    @Override//
     final void applyAndCheck0(final NodeSelector<TestNode, StringName, StringName, Object> selector,
                               final TestNode start,
                               final String... nodes) {

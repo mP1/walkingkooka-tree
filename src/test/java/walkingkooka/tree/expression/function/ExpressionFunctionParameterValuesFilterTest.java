@@ -102,6 +102,7 @@ public final class ExpressionFunctionParameterValuesFilterTest extends Expressio
     }
 
     @Test
+    @Override
     public void testName() {
         this.checkEquals(
             NAME,

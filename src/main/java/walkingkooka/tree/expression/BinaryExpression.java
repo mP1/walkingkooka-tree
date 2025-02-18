@@ -131,6 +131,7 @@ abstract class BinaryExpression extends ParentFixedExpression {
         return true; // no other properties name was already tested.
     }
 
+    @Override
     final void toString0(final StringBuilder b) {
         this.left().toString0(b);
         this.appendSymbol(b);
