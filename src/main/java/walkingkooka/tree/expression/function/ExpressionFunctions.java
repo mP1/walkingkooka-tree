@@ -84,7 +84,7 @@ public final class ExpressionFunctions implements PublicStaticHelper {
         Lists.of(
             node(),
             nodeName(),
-            nullValue(),
+            nullFunction(),
             typeName()
         ).forEach(consumer);
     }
@@ -156,10 +156,10 @@ public final class ExpressionFunctions implements PublicStaticHelper {
     }
 
     /**
-     * {@see ExpressionFunctionNullValue}
+     * {@see ExpressionFunctionNull}
      */
-    public static <C extends ExpressionEvaluationContext> ExpressionFunction<Object, C> nullValue() {
-        return ExpressionFunctionNullValue.instance();
+    public static <C extends ExpressionEvaluationContext> ExpressionFunction<Object, C> nullFunction() {
+        return ExpressionFunctionNull.instance();
     }
 
     /**
