@@ -28,18 +28,18 @@ import java.util.Optional;
 /**
  * A {@link ExpressionFunction} that always returns a null value.
  */
-final class ExpressionFunctionNullValue<C extends ExpressionEvaluationContext> implements ExpressionFunction<Object, C> {
+final class ExpressionFunctionNull<C extends ExpressionEvaluationContext> implements ExpressionFunction<Object, C> {
 
-    static <C extends ExpressionEvaluationContext> ExpressionFunctionNullValue<C> instance() {
+    static <C extends ExpressionEvaluationContext> ExpressionFunctionNull<C> instance() {
         return INSTANCE;
     }
 
     /**
      * Singleton
      */
-    private final static ExpressionFunctionNullValue INSTANCE = new ExpressionFunctionNullValue<>();
+    private final static ExpressionFunctionNull INSTANCE = new ExpressionFunctionNull<>();
 
-    private ExpressionFunctionNullValue() {
+    private ExpressionFunctionNull() {
     }
 
     @Override
@@ -48,7 +48,7 @@ final class ExpressionFunctionNullValue<C extends ExpressionEvaluationContext> i
     }
 
     private final static Optional<ExpressionFunctionName> NAME = Optional.of(
-        ExpressionFunctionName.with("nullValue")
+        ExpressionFunctionName.with("null")
     );
 
     @Override
