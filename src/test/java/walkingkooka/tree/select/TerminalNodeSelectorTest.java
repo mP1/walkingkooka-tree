@@ -92,7 +92,7 @@ final public class TerminalNodeSelectorTest
 
             @Override
             protected void visitTerminal(final NodeSelector<TestNode, StringName, StringName, Object> s) {
-                assertSame(s, s);
+                assertSame(selector, s);
                 b.append("3");
                 visited.add(s);
             }
