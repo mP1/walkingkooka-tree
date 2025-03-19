@@ -57,7 +57,11 @@ abstract class ParentExpression extends Expression {
         Objects.requireNonNull(children, "children");
 
         final List<Expression> copy = Lists.immutable(children);
-        return Lists.equals(this.children(), copy, (first, other) -> first.equals(other)) ?
+        return Lists.equals(
+            this.children(),
+            copy,
+            Expression::equals
+        ) ?
             this :
             this.replaceChildren(copy);
     }
