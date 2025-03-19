@@ -17,6 +17,7 @@
 
 package walkingkooka.tree.expression.function;
 
+import walkingkooka.Cast;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.tree.expression.ExpressionEvaluationContext;
 import walkingkooka.tree.expression.ExpressionFunctionName;
@@ -31,13 +32,13 @@ import java.util.Optional;
 final class ExpressionFunctionNull<C extends ExpressionEvaluationContext> implements ExpressionFunction<Object, C> {
 
     static <C extends ExpressionEvaluationContext> ExpressionFunctionNull<C> instance() {
-        return INSTANCE;
+        return Cast.to(INSTANCE);
     }
 
     /**
      * Singleton
      */
-    private final static ExpressionFunctionNull INSTANCE = new ExpressionFunctionNull<>();
+    private final static ExpressionFunctionNull<?> INSTANCE = new ExpressionFunctionNull<>();
 
     private ExpressionFunctionNull() {
     }
