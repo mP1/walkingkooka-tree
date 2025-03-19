@@ -21,7 +21,7 @@ import walkingkooka.Cast;
 import walkingkooka.naming.StringName;
 import walkingkooka.tree.TestNode;
 
-public final class NonTerminalNodeSelectorTest extends NodeSelectorTestCase3<NonTerminalNodeSelector<TestNode, StringName, StringName, Object>> {
+public final class NonTerminalNodeSelectorTest extends NodeSelectorTestCase2<NonTerminalNodeSelector<TestNode, StringName, StringName, Object>> {
     @Override
     public Class<NonTerminalNodeSelector<TestNode, StringName, StringName, Object>> type() {
         return Cast.to(NonTerminalNodeSelector.class);

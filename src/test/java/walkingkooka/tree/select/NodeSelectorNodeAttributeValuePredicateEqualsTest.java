@@ -24,31 +24,31 @@ import walkingkooka.tree.TestNode;
 
 import java.util.Collections;
 
-public class NodeSelectorNodeAttributeValueStartsWithPredicateTest
-    extends NodeSelectorNodeAttributeValuePredicateTestCase<NodeSelectorNodeAttributeValueStartsWithPredicate<TestNode, StringName, StringName, Object>> {
+public class NodeSelectorNodeAttributeValuePredicateEqualsTest
+    extends NodeSelectorNodeAttributeValuePredicateTestCase<NodeSelectorNodeAttributeValuePredicateEquals<TestNode, StringName, StringName, Object>> {
 
     @Test
-    public void testStartsWith() {
-        this.testTrue(TestNode.with("node").setAttributes(Collections.singletonMap(ATTRIBUTE_NAME1, VALUE + "!!!")));
+    public void testEquals() {
+        this.testTrue(TestNode.with("node").setAttributes(Collections.singletonMap(ATTRIBUTE_NAME1, VALUE)));
     }
 
     @Test
-    public void testWrongStartsWith() {
+    public void testUnequalValue() {
         this.testFalse(TestNode.with("node").setAttributes(Collections.singletonMap(ATTRIBUTE_NAME1, "!!!" + VALUE)));
     }
 
     @Test
     public void testToString() {
-        this.toStringAndCheck(this.createPredicate(), "starts-with(@attribute-1,\"123\")");
+        this.toStringAndCheck(this.createPredicate(), "@attribute-1=\"123\"");
     }
 
     @Override
-    NodeSelectorNodeAttributeValueStartsWithPredicate<TestNode, StringName, StringName, Object> createPredicate(final StringName name, final Object value) {
-        return NodeSelectorNodeAttributeValueStartsWithPredicate.with(name, value);
+    NodeSelectorNodeAttributeValuePredicateEquals<TestNode, StringName, StringName, Object> createPredicate(final StringName name, final Object value) {
+        return NodeSelectorNodeAttributeValuePredicateEquals.with(name, value);
     }
 
     @Override
-    public Class<NodeSelectorNodeAttributeValueStartsWithPredicate<TestNode, StringName, StringName, Object>> type() {
-        return Cast.to(NodeSelectorNodeAttributeValueStartsWithPredicate.class);
+    public Class<NodeSelectorNodeAttributeValuePredicateEquals<TestNode, StringName, StringName, Object>> type() {
+        return Cast.to(NodeSelectorNodeAttributeValuePredicateEquals.class);
     }
 }

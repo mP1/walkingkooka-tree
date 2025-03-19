@@ -32,7 +32,7 @@ import java.util.function.Function;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class NodeSelectorStreamConsumerPushableStreamConsumerTest extends NodeSelectorTestCase2<NodeSelectorStreamConsumerPushableStreamConsumer<TestNode, StringName, StringName, Object>>
+public final class NodeSelectorStreamConsumerPushableStreamConsumerTest extends NodeSelectorTestCase<NodeSelectorStreamConsumerPushableStreamConsumer<TestNode, StringName, StringName, Object>>
     implements ToStringTesting<NodeSelectorStreamConsumerPushableStreamConsumer<TestNode, StringName, StringName, Object>> {
 
     @BeforeEach
@@ -92,6 +92,11 @@ public final class NodeSelectorStreamConsumerPushableStreamConsumerTest extends 
     @Override
     public Class<NodeSelectorStreamConsumerPushableStreamConsumer<TestNode, StringName, StringName, Object>> type() {
         return Cast.to(NodeSelectorStreamConsumerPushableStreamConsumer.class);
+    }
+
+    @Override
+    public String typeNamePrefix() {
+        return NodeSelector.class.getSimpleName();
     }
 
     @Override

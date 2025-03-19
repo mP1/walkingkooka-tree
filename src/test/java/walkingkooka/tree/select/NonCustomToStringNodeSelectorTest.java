@@ -21,7 +21,7 @@ import walkingkooka.Cast;
 import walkingkooka.naming.StringName;
 import walkingkooka.tree.TestNode;
 
-public final class NonCustomToStringNodeSelectorTest extends NodeSelectorTestCase3<NonCustomToStringNodeSelector<TestNode, StringName, StringName, Object>> {
+public final class NonCustomToStringNodeSelectorTest extends NodeSelectorTestCase2<NonCustomToStringNodeSelector<TestNode, StringName, StringName, Object>> {
 
     // TypeNameTesting .........................................................................................
 

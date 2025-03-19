@@ -25,12 +25,11 @@ import walkingkooka.predicate.PredicateTesting2;
 import walkingkooka.tree.TestNode;
 
 import java.util.Collections;
-import java.util.function.Predicate;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public abstract class NodeSelectorNodeAttributeValuePredicateTestCase<N extends NodeSelectorNodeAttributeValuePredicate<TestNode, StringName, StringName, Object>>
-    extends NodeSelectorTestCase2<N>
+    extends NodeSelectorTestCase<N>
     implements PredicateTesting2<N, TestNode> {
 
     @BeforeEach
@@ -75,7 +74,12 @@ public abstract class NodeSelectorNodeAttributeValuePredicateTestCase<N extends 
     // TypeNameTesting .........................................................................................
 
     @Override
+    public final String typeNamePrefix() {
+        return NodeSelectorNodeAttributeValuePredicate.class.getSimpleName();
+    }
+
+    @Override
     public final String typeNameSuffix() {
-        return Predicate.class.getSimpleName();
+        return "";
     }
 }
