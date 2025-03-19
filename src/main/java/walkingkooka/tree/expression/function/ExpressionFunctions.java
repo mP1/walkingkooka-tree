@@ -107,6 +107,13 @@ public final class ExpressionFunctions implements PublicStaticHelper {
     }
 
     /**
+     * {@see ExpressionFunctionEval}
+     */
+    public static <C extends ExpressionEvaluationContext> ExpressionFunction<Object, C> eval(final Expression expression) {
+        return ExpressionFunctionEval.with(expression);
+    }
+
+    /**
      * {@see ExpressionNumberFunctionExpressionFunction}
      */
     public static <C extends ExpressionEvaluationContext> ExpressionFunction<ExpressionNumber, C> expressionNumberFunction(final Optional<ExpressionFunctionName> name,
