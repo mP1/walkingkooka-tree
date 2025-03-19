@@ -35,7 +35,8 @@ final class NodeSelectorNodeAttributeValueEndsWithPredicate<N extends Node<N, NA
         return new NodeSelectorNodeAttributeValueEndsWithPredicate<>(name, value);
     }
 
-    private NodeSelectorNodeAttributeValueEndsWithPredicate(ANAME name, AVALUE value) {
+    private NodeSelectorNodeAttributeValueEndsWithPredicate(final ANAME name,
+                                                            final AVALUE value) {
         super(name, value);
     }
 

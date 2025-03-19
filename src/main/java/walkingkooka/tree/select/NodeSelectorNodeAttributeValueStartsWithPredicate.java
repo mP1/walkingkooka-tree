@@ -35,7 +35,8 @@ final class NodeSelectorNodeAttributeValueStartsWithPredicate<N extends Node<N, 
         return new NodeSelectorNodeAttributeValueStartsWithPredicate<>(name, value);
     }
 
-    private NodeSelectorNodeAttributeValueStartsWithPredicate(ANAME name, AVALUE value) {
+    private NodeSelectorNodeAttributeValueStartsWithPredicate(final ANAME name,
+                                                              final AVALUE value) {
         super(name, value);
     }
 
