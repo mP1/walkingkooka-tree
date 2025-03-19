@@ -35,7 +35,8 @@ final class NodeSelectorNodeAttributeValueEqualsPredicate<N extends Node<N, NAME
         return new NodeSelectorNodeAttributeValueEqualsPredicate<>(name, value);
     }
 
-    private NodeSelectorNodeAttributeValueEqualsPredicate(ANAME name, AVALUE value) {
+    private NodeSelectorNodeAttributeValueEqualsPredicate(final ANAME name,
+                                                          final AVALUE value) {
         super(name, value);
     }
 

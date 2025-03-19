@@ -35,7 +35,8 @@ final class NodeSelectorNodeAttributeValueContainsPredicate<N extends Node<N, NA
         return new NodeSelectorNodeAttributeValueContainsPredicate<>(name, value);
     }
 
-    private NodeSelectorNodeAttributeValueContainsPredicate(ANAME name, AVALUE value) {
+    private NodeSelectorNodeAttributeValueContainsPredicate(final ANAME name,
+                                                            final AVALUE value) {
         super(name, value);
     }
 
