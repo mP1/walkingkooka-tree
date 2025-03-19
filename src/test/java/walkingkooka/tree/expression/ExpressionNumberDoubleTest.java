@@ -34,8 +34,14 @@ public final class ExpressionNumberDoubleTest extends ExpressionNumberTestCase<E
         final double value = 1.5;
         final ExpressionNumberDouble number = this.create(value);
         final ExpressionNumberBigDecimal different = (ExpressionNumberBigDecimal) number.setKind(ExpressionNumberKind.BIG_DECIMAL);
-        assertNotSame(number, different);
-        this.checkEquals(value, different.doubleValue());
+        assertNotSame(
+            number,
+            value
+        );
+        this.checkEquals(
+            value,
+            different.doubleValue()
+        );
     }
 
     // exp...............................................................................................................
