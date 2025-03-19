@@ -25,6 +25,11 @@ abstract public class NodeSelectorTestCase2<T> extends NodeSelectorTestCase<T> {
 
     @Override
     public final String typeNamePrefix() {
+        return "";
+    }
+
+    @Override
+    public final String typeNameSuffix() {
         return NodeSelector.class.getSimpleName();
     }
 }

@@ -24,8 +24,8 @@ import walkingkooka.tree.TestNode;
 
 import java.util.Collections;
 
-public class NodeSelectorNodeAttributeValueContainsPredicateTest
-    extends NodeSelectorNodeAttributeValuePredicateTestCase<NodeSelectorNodeAttributeValueContainsPredicate<TestNode, StringName, StringName, Object>> {
+public class NodeSelectorNodeAttributeValuePredicateContainsTest
+    extends NodeSelectorNodeAttributeValuePredicateTestCase<NodeSelectorNodeAttributeValuePredicateContains<TestNode, StringName, StringName, Object>> {
 
     @Test
     public void testContains() {
@@ -43,12 +43,12 @@ public class NodeSelectorNodeAttributeValueContainsPredicateTest
     }
 
     @Override
-    NodeSelectorNodeAttributeValueContainsPredicate<TestNode, StringName, StringName, Object> createPredicate(final StringName name, final Object value) {
-        return NodeSelectorNodeAttributeValueContainsPredicate.with(name, value);
+    NodeSelectorNodeAttributeValuePredicateContains<TestNode, StringName, StringName, Object> createPredicate(final StringName name, final Object value) {
+        return NodeSelectorNodeAttributeValuePredicateContains.with(name, value);
     }
 
     @Override
-    public Class<NodeSelectorNodeAttributeValueContainsPredicate<TestNode, StringName, StringName, Object>> type() {
-        return Cast.to(NodeSelectorNodeAttributeValueContainsPredicate.class);
+    public Class<NodeSelectorNodeAttributeValuePredicateContains<TestNode, StringName, StringName, Object>> type() {
+        return Cast.to(NodeSelectorNodeAttributeValuePredicateContains.class);
     }
 }

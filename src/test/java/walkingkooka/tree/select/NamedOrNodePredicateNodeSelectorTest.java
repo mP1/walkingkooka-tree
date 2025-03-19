@@ -21,7 +21,7 @@ import walkingkooka.Cast;
 import walkingkooka.naming.StringName;
 import walkingkooka.tree.TestNode;
 
-public final class NamedOrNodePredicateNodeSelectorTest extends NodeSelectorTestCase3<NamedOrNodePredicateNodeSelector<TestNode, StringName, StringName, Object>> {
+public final class NamedOrNodePredicateNodeSelectorTest extends NodeSelectorTestCase2<NamedOrNodePredicateNodeSelector<TestNode, StringName, StringName, Object>> {
 
     @Override
     public Class<NamedOrNodePredicateNodeSelector<TestNode, StringName, StringName, Object>> type() {

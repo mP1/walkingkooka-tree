@@ -22,38 +22,38 @@ import walkingkooka.text.CharSequences;
 import walkingkooka.tree.Node;
 
 /**
- * A {@link java.util.function.Predicate} that matches nodes that contain an attribute with a value.
+ * A {@link java.util.function.Predicate} that returns true if an attribute value starts with the given test value.
  */
-final class NodeSelectorNodeAttributeValueEqualsPredicate<N extends Node<N, NAME, ANAME, AVALUE>, NAME extends Name, ANAME extends Name, AVALUE>
+final class NodeSelectorNodeAttributeValuePredicateStartsWith<N extends Node<N, NAME, ANAME, AVALUE>, NAME extends Name, ANAME extends Name, AVALUE>
     extends NodeSelectorNodeAttributeValuePredicate<N, NAME, ANAME, AVALUE> {
 
     static <N extends Node<N, NAME, ANAME, AVALUE>,
         NAME extends Name,
         ANAME extends Name,
         AVALUE>
-    NodeSelectorNodeAttributeValueEqualsPredicate<N, NAME, ANAME, AVALUE> with(final ANAME name, final AVALUE value) {
-        return new NodeSelectorNodeAttributeValueEqualsPredicate<>(name, value);
+    NodeSelectorNodeAttributeValuePredicateStartsWith<N, NAME, ANAME, AVALUE> with(final ANAME name, final AVALUE value) {
+        return new NodeSelectorNodeAttributeValuePredicateStartsWith<>(name, value);
     }
 
-    private NodeSelectorNodeAttributeValueEqualsPredicate(final ANAME name,
-                                                          final AVALUE value) {
+    private NodeSelectorNodeAttributeValuePredicateStartsWith(final ANAME name,
+                                                              final AVALUE value) {
         super(name, value);
     }
 
     @Override
     boolean testNonAttributeValue(final AVALUE value,
                                   final AVALUE current) {
-        return current.equals(value);
+        return current.toString().startsWith(value.toString());
     }
 
     @Override
     boolean isSameType(final Object other) {
-        return other instanceof NodeSelectorNodeAttributeValueEqualsPredicate;
+        return other instanceof NodeSelectorNodeAttributeValuePredicateStartsWith;
     }
 
     @Override
     String toString0(final ANAME name, final AVALUE value) {
-        //[@for="xyz"]
-        return "@" + name.value() + "=" + CharSequences.quoteIfChars(value);
+        //[starts-with(@href, '/')]
+        return "starts-with(@" + name.value() + "," + CharSequences.quoteIfChars(value) + ")";
     }
 }

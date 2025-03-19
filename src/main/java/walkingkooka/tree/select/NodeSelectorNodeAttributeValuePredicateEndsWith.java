@@ -22,38 +22,38 @@ import walkingkooka.text.CharSequences;
 import walkingkooka.tree.Node;
 
 /**
- * A {@link java.util.function.Predicate} that returns true if an attribute value starts with the given test value.
+ * A {@link java.util.function.Predicate} that returns true if an attribute value ends with the given test value.
  */
-final class NodeSelectorNodeAttributeValueStartsWithPredicate<N extends Node<N, NAME, ANAME, AVALUE>, NAME extends Name, ANAME extends Name, AVALUE>
+final class NodeSelectorNodeAttributeValuePredicateEndsWith<N extends Node<N, NAME, ANAME, AVALUE>, NAME extends Name, ANAME extends Name, AVALUE>
     extends NodeSelectorNodeAttributeValuePredicate<N, NAME, ANAME, AVALUE> {
 
     static <N extends Node<N, NAME, ANAME, AVALUE>,
         NAME extends Name,
         ANAME extends Name,
         AVALUE>
-    NodeSelectorNodeAttributeValueStartsWithPredicate<N, NAME, ANAME, AVALUE> with(final ANAME name, final AVALUE value) {
-        return new NodeSelectorNodeAttributeValueStartsWithPredicate<>(name, value);
+    NodeSelectorNodeAttributeValuePredicateEndsWith<N, NAME, ANAME, AVALUE> with(final ANAME name, final AVALUE value) {
+        return new NodeSelectorNodeAttributeValuePredicateEndsWith<>(name, value);
     }
 
-    private NodeSelectorNodeAttributeValueStartsWithPredicate(final ANAME name,
-                                                              final AVALUE value) {
+    private NodeSelectorNodeAttributeValuePredicateEndsWith(final ANAME name,
+                                                            final AVALUE value) {
         super(name, value);
     }
 
     @Override
     boolean testNonAttributeValue(final AVALUE value,
-                                  final AVALUE current) {
-        return current.toString().startsWith(value.toString());
+                                  final AVALUE currentValue) {
+        return currentValue.toString().endsWith(value.toString());
     }
 
     @Override
     boolean isSameType(final Object other) {
-        return other instanceof NodeSelectorNodeAttributeValueStartsWithPredicate;
+        return other instanceof NodeSelectorNodeAttributeValuePredicateEndsWith;
     }
 
     @Override
     String toString0(final ANAME name, final AVALUE value) {
-        //[starts-with(@href, '/')]
-        return "starts-with(@" + name.value() + "," + CharSequences.quoteIfChars(value) + ")";
+        //[ends-with(@href, '/')]
+        return "ends-with(@" + name.value() + "," + CharSequences.quoteIfChars(value) + ")";
     }
 }

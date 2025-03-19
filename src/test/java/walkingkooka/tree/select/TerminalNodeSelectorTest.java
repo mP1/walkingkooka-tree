@@ -30,7 +30,7 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertSame;
 
 final public class TerminalNodeSelectorTest
-    extends NodeSelectorTestCase4<TerminalNodeSelector<TestNode, StringName, StringName, Object>> {
+    extends NodeSelectorTestCase3<TerminalNodeSelector<TestNode, StringName, StringName, Object>> {
 
     @Test
     public void testFinishedTrue() {

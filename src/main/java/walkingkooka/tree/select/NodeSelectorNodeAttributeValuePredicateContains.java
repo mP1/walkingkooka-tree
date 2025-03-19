@@ -24,18 +24,18 @@ import walkingkooka.tree.Node;
 /**
  * A {@link java.util.function.Predicate} that returns true if the attribute contains the value in string form.
  */
-final class NodeSelectorNodeAttributeValueContainsPredicate<N extends Node<N, NAME, ANAME, AVALUE>, NAME extends Name, ANAME extends Name, AVALUE>
+final class NodeSelectorNodeAttributeValuePredicateContains<N extends Node<N, NAME, ANAME, AVALUE>, NAME extends Name, ANAME extends Name, AVALUE>
     extends NodeSelectorNodeAttributeValuePredicate<N, NAME, ANAME, AVALUE> {
 
     static <N extends Node<N, NAME, ANAME, AVALUE>,
         NAME extends Name,
         ANAME extends Name,
         AVALUE>
-    NodeSelectorNodeAttributeValueContainsPredicate<N, NAME, ANAME, AVALUE> with(final ANAME name, final AVALUE value) {
-        return new NodeSelectorNodeAttributeValueContainsPredicate<>(name, value);
+    NodeSelectorNodeAttributeValuePredicateContains<N, NAME, ANAME, AVALUE> with(final ANAME name, final AVALUE value) {
+        return new NodeSelectorNodeAttributeValuePredicateContains<>(name, value);
     }
 
-    private NodeSelectorNodeAttributeValueContainsPredicate(final ANAME name,
+    private NodeSelectorNodeAttributeValuePredicateContains(final ANAME name,
                                                             final AVALUE value) {
         super(name, value);
     }
@@ -48,7 +48,7 @@ final class NodeSelectorNodeAttributeValueContainsPredicate<N extends Node<N, NA
 
     @Override
     boolean isSameType(final Object other) {
-        return other instanceof NodeSelectorNodeAttributeValueContainsPredicate;
+        return other instanceof NodeSelectorNodeAttributeValuePredicateContains;
     }
 
     @Override

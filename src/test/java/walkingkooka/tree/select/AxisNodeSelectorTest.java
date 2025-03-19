@@ -21,7 +21,7 @@ import walkingkooka.Cast;
 import walkingkooka.naming.StringName;
 import walkingkooka.tree.TestNode;
 
-public final class AxisNodeSelectorTest extends NodeSelectorTestCase3<AxisNodeSelector<TestNode, StringName, StringName, Object>> {
+public final class AxisNodeSelectorTest extends NodeSelectorTestCase2<AxisNodeSelector<TestNode, StringName, StringName, Object>> {
     @Override
     public Class<AxisNodeSelector<TestNode, StringName, StringName, Object>> type() {
         return Cast.to(AxisNodeSelector.class);
