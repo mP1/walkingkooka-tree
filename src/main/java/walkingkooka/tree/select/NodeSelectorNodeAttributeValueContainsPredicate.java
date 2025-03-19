@@ -40,7 +40,8 @@ final class NodeSelectorNodeAttributeValueContainsPredicate<N extends Node<N, NA
     }
 
     @Override
-    boolean test0(final AVALUE value, final AVALUE current) {
+    boolean testNonAttributeValue(final AVALUE value,
+                                  final AVALUE current) {
         return current.toString().contains(value.toString());
     }
 

@@ -89,11 +89,16 @@ abstract class NodeSelectorNodeAttributeValuePredicate<N extends Node<N, NAME, A
 
     @Override
     public final boolean test(final N node) {
-        final AVALUE current = node.attributes().get(this.name);
-        return null != current && this.test0(this.value, current);
+        return null != node && this.testAttribute(node);
     }
 
-    abstract boolean test0(final AVALUE value, final AVALUE current);
+    private boolean testAttribute(final N node) {
+        final AVALUE current = node.attributes().get(this.name);
+        return null != current && this.testNonAttributeValue(this.value, current);
+    }
+
+    abstract boolean testNonAttributeValue(final AVALUE value,
+                                           final AVALUE current);
 
     @Override
     public final int hashCode() {

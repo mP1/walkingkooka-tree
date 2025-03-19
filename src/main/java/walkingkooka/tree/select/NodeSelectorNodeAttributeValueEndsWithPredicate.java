@@ -40,7 +40,8 @@ final class NodeSelectorNodeAttributeValueEndsWithPredicate<N extends Node<N, NA
     }
 
     @Override
-    boolean test0(final AVALUE value, final AVALUE currentValue) {
+    boolean testNonAttributeValue(final AVALUE value,
+                                  final AVALUE currentValue) {
         return currentValue.toString().endsWith(value.toString());
     }
 

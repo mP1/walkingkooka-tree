@@ -40,7 +40,8 @@ final class NodeSelectorNodeAttributeValueEqualsPredicate<N extends Node<N, NAME
     }
 
     @Override
-    boolean test0(final AVALUE value, final AVALUE current) {
+    boolean testNonAttributeValue(final AVALUE value,
+                                  final AVALUE current) {
         return current.equals(value);
     }
 
