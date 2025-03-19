@@ -30,7 +30,7 @@ public final class ExpressionNumberDoubleTest extends ExpressionNumberTestCase<E
 
     @Override
     @Test
-    public void setKindDifferent() {
+    public void testSetKindDifferent() {
         final double value = 1.5;
         final ExpressionNumberDouble number = this.create(value);
         final ExpressionNumberBigDecimal different = (ExpressionNumberBigDecimal) number.setKind(ExpressionNumberKind.BIG_DECIMAL);
