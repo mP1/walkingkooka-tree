@@ -77,7 +77,7 @@ public abstract class ExpressionNumberTestCase<N extends ExpressionNumber> imple
     }
 
     @Test
-    public abstract void setKindDifferent();
+    public abstract void testSetKindDifferent();
 
     // sign............................................................................................................
 
