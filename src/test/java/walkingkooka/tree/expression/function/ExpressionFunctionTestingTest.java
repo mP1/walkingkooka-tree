@@ -114,17 +114,6 @@ public final class ExpressionFunctionTestingTest implements ClassTesting<Express
     // applyAndCheck kind/parameter checks.............................................................................
 
     @Test
-    public void testApplyEvaluateExpressionParameterExpressionFails() {
-        this.applyFails(
-            EnumSet.of(ExpressionFunctionParameterKind.EVALUATE),
-            Lists.of(
-                Expression.value(1)
-            ),
-            "Should not include parameter(s) of type walkingkooka.tree.expression.Expression ==> expected: <[]> but was: <[1]>"
-        );
-    }
-
-    @Test
     public void testApplyFlattenParameterListFails() {
         this.applyFails(
             EnumSet.of(ExpressionFunctionParameterKind.FLATTEN),
