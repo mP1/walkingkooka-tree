@@ -22,7 +22,6 @@ import walkingkooka.NeverError;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.reflect.TypeNameTesting;
 import walkingkooka.text.CharSequences;
-import walkingkooka.tree.expression.Expression;
 import walkingkooka.tree.expression.ExpressionEvaluationContext;
 import walkingkooka.tree.expression.ExpressionNumberKind;
 import walkingkooka.tree.expression.ExpressionPurityTesting;
@@ -251,16 +250,6 @@ public interface ExpressionFunctionTesting<F extends ExpressionFunction<V, C>, V
         for (final ExpressionFunctionParameter<?> parameter : function.parameters(parameters.size())) {
             for (final ExpressionFunctionParameterKind kind : parameter.kinds()) {
                 switch (kind) {
-                    case EVALUATE:
-                        this.checkEquals(
-                            Lists.empty(),
-                            parameters.stream()
-                                .filter(Expression.class::isInstance)
-                                .collect(Collectors.toList()
-                                ),
-                            () -> "Should not include parameter(s) of type " + Expression.class.getName()
-                        );
-                        break;
                     case FLATTEN:
                         this.checkEquals(
                             Lists.empty(),
