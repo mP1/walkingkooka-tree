@@ -277,8 +277,9 @@ public final class ExpressionFunctionParameter<T> implements HasName<ExpressionF
             Optional.empty() :
             Optional.of(
                 Optional.ofNullable(
-                    Cast.to(
-                        parameters.get(index)
+                    ExpressionFunctionParameterCast.cast(
+                        parameters.get(index),
+                        this
                     )
                 )
             );
@@ -301,9 +302,10 @@ public final class ExpressionFunctionParameter<T> implements HasName<ExpressionF
 
         final Object value = parameters.get(index);
         try {
-            // https://github.com/mP1/walkingkooka-tree/issues/307
-            // Emulate Class.cast
-            return Cast.to(value);
+            return ExpressionFunctionParameterCast.cast(
+                value,
+                this
+            );
         } catch (final ClassCastException cast) {
             throw new ClassCastException("Parameter " + this.name() + " of wrong type " + value.getClass().getName() + " expected " + this.type());
         }
