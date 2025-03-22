@@ -18,6 +18,7 @@
 package walkingkooka.tree.expression.function;
 
 import javaemul.internal.annotations.GwtIncompatible;
+import walkingkooka.text.CharSequences;
 
 // https://github.com/mP1/walkingkooka-tree/issues/307
 // Emulate Class.cast
@@ -26,7 +27,21 @@ class ExpressionFunctionParameterCast extends ExpressionFunctionParameterCastGwt
     @GwtIncompatible
     static <T> T cast(final Object value,
                       final ExpressionFunctionParameter<T> parameter) {
-        return parameter.type()
-            .cast(value);
+        final Class<T> type = parameter.type();
+        if (null != value && false == type.isInstance(value)) {
+            // Invalid parameter "name" value "Actual" expected "Expected".
+            throw new ClassCastException(
+                "Parameter " +
+                    CharSequences.quoteAndEscape(
+                        parameter.name()
+                            .value()
+                    ) +
+                    ": Invalid type " +
+                    value.getClass().getName() +
+                    " expected " +
+                    type.getName()
+            );
+        }
+        return type.cast(value);
     }
 }
