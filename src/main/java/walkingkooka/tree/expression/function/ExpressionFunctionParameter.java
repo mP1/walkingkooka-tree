@@ -300,15 +300,10 @@ public final class ExpressionFunctionParameter<T> implements HasName<ExpressionF
             throw new IndexOutOfBoundsException("Required parameter " + this.name() + " missing");
         }
 
-        final Object value = parameters.get(index);
-        try {
-            return ExpressionFunctionParameterCast.cast(
-                value,
-                this
-            );
-        } catch (final ClassCastException cast) {
-            throw new ClassCastException("Parameter " + this.name() + " of wrong type " + value.getClass().getName() + " expected " + this.type());
-        }
+        return ExpressionFunctionParameterCast.cast(
+            parameters.get(index),
+            this
+        );
     }
 
     /**
