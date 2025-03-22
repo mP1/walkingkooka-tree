@@ -355,7 +355,7 @@ public final class CallExpressionTest extends VariableExpressionTestCase<CallExp
 
     @Test
     public void testEvaluateExpressionNamedFunctionReturnExpressionFunctionAndCall() {
-        final int namedFunctionParameterValue = 999;
+        final ExpressionNumber namedFunctionParameterValue = EXPRESSION_NUMBER_KIND.create(999);
 
         final Expression e = CallExpression.with(
             CallExpression.with(
