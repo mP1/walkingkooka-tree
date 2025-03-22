@@ -17,12 +17,10 @@
 
 package walkingkooka.tree.expression.function;
 
-import javaemul.internal.annotations.GwtIncompatible;
 import walkingkooka.Cast;
 
 public class ExpressionFunctionParameterCastGwt {
 
-    @GwtIncompatible
     static <T> T cast(final Object value,
                       final ExpressionFunctionParameter<T> parameter) {
         return Cast.to(value);
