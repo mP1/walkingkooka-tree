@@ -36,6 +36,7 @@ import walkingkooka.reflect.PublicStaticFactoryTesting;
 import walkingkooka.text.CaseSensitivity;
 import walkingkooka.text.HasTextTesting;
 import walkingkooka.text.cursor.parser.DoubleParserToken;
+import walkingkooka.text.cursor.parser.InvalidCharacterExceptionFactory;
 import walkingkooka.text.cursor.parser.LocalDateParserToken;
 import walkingkooka.text.cursor.parser.LocalDateTimeParserToken;
 import walkingkooka.text.cursor.parser.LocalTimeParserToken;
@@ -381,7 +382,11 @@ public abstract class ExpressionTestCase<N extends Expression> implements TreePr
     }
 
     ExpressionEvaluationContext context() {
-        final Function<ExpressionNumberConverterContext, ParserContext> parserContext = (c) -> ParserContexts.basic(c, c);
+        final Function<ExpressionNumberConverterContext, ParserContext> parserContext = (c) -> ParserContexts.basic(
+            InvalidCharacterExceptionFactory.POSITION,
+            c,
+            c
+        );
 
         final Converter<ExpressionNumberConverterContext> stringDouble = Converters.parser(
             Double.class,

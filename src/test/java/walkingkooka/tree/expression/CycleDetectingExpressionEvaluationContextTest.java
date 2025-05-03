@@ -28,6 +28,7 @@ import walkingkooka.math.DecimalNumberContexts;
 import walkingkooka.reflect.ClassTesting2;
 import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.text.cursor.parser.BigIntegerParserToken;
+import walkingkooka.text.cursor.parser.InvalidCharacterExceptionFactory;
 import walkingkooka.text.cursor.parser.ParserContexts;
 import walkingkooka.text.cursor.parser.Parsers;
 import walkingkooka.tree.expression.function.ExpressionFunction;
@@ -339,7 +340,11 @@ public final class CycleDetectingExpressionEvaluationContextTest implements Clas
                     return Converters.parser(
                             BigInteger.class,
                             Parsers.bigInteger(10),
-                            (c) -> ParserContexts.basic(c, c),
+                            (c) -> ParserContexts.basic(
+                                InvalidCharacterExceptionFactory.POSITION,
+                                c,
+                                c
+                            ),
                             (t, c) -> t.cast(BigIntegerParserToken.class).value()
                         )
                         .convert(value,
