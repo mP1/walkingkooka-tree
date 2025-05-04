@@ -37,9 +37,15 @@ public final class PredicateNodeSelectorParserTokenNodeSelectorParserTokenVisito
                 NodeSelectorParserToken.expressionNumber(ExpressionNumberKind.DEFAULT.create(123), "123")),
             "xyz");
 
-        final NodeSelectorException thrown = assertThrows(NodeSelectorException.class, () -> new PredicateNodeSelectorParserTokenNodeSelectorParserTokenVisitor(Predicates.never())
-            .accept(token));
-        checkMessage(thrown, "Unknown function \"zyx\" in \"xyz\"");
+        final NodeSelectorException thrown = assertThrows(
+            NodeSelectorException.class,
+            () -> new PredicateNodeSelectorParserTokenNodeSelectorParserTokenVisitor(Predicates.never())
+                .accept(token)
+        );
+        checkMessage(
+            thrown,
+            "Unknown function \"zyx\""
+        );
     }
 
     @Override
