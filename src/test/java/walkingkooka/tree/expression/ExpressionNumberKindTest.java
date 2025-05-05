@@ -229,7 +229,7 @@ public final class ExpressionNumberKindTest implements ClassTesting<ExpressionNu
             "12",
             2,
             InvalidCharacterException.class,
-            "Invalid character '2' at 1 in \"12\""
+            "Invalid character '2' at 1"
         );
     }
 
@@ -240,7 +240,7 @@ public final class ExpressionNumberKindTest implements ClassTesting<ExpressionNu
             "11-",
             2,
             InvalidCharacterException.class,
-            "Invalid character '-' at 2 in \"11-\""
+            "Invalid character '-' at 2"
         );
     }
 

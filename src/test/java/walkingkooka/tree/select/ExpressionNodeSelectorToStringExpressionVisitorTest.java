@@ -18,13 +18,13 @@
 package walkingkooka.tree.select;
 
 import org.junit.jupiter.api.Test;
+import walkingkooka.InvalidCharacterException;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.predicate.Predicates;
 import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.text.CharSequences;
 import walkingkooka.text.cursor.TextCursors;
 import walkingkooka.text.cursor.parser.ParserException;
-import walkingkooka.text.cursor.parser.ParserReporterException;
 import walkingkooka.text.cursor.parser.ParserReporters;
 import walkingkooka.tree.expression.Expression;
 import walkingkooka.tree.expression.ExpressionFunctionName;
@@ -230,7 +230,7 @@ public final class ExpressionNodeSelectorToStringExpressionVisitorTest implement
     @Test
     public void testList() {
         assertThrows(
-            ParserReporterException.class,
+            InvalidCharacterException.class,
             () -> this.parseOrFail("[1,\"abc\", 3]")
         );
     }

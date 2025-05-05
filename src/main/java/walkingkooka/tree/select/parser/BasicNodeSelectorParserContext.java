@@ -80,7 +80,7 @@ final class BasicNodeSelectorParserContext implements NodeSelectorParserContext,
     @Override
     public InvalidCharacterException invalidCharacterException(final Parser<?> parser,
                                                                final TextCursor cursor) {
-        return InvalidCharacterExceptionFactory.POSITION.apply(
+        return InvalidCharacterExceptionFactory.POSITION_EXPECTED.apply(
             parser,
             cursor
         );
