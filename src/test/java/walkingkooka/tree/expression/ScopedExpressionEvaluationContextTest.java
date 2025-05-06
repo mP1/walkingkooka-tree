@@ -23,6 +23,7 @@ import walkingkooka.collect.set.Sets;
 import walkingkooka.convert.ConverterContexts;
 import walkingkooka.convert.Converters;
 import walkingkooka.datetime.DateTimeContexts;
+import walkingkooka.datetime.DateTimeSymbols;
 import walkingkooka.math.DecimalNumberContext;
 import walkingkooka.math.DecimalNumberContexts;
 import walkingkooka.text.CaseSensitivity;
@@ -32,6 +33,7 @@ import walkingkooka.tree.expression.function.ExpressionFunctionParameterName;
 import walkingkooka.tree.expression.function.FakeExpressionFunction;
 
 import java.math.MathContext;
+import java.text.DateFormatSymbols;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Locale;
@@ -265,6 +267,8 @@ public final class ScopedExpressionEvaluationContextTest implements ExpressionEv
 
     @Override
     public ScopedExpressionEvaluationContext createContext() {
+        final Locale locale = Locale.ENGLISH;
+
         return ScopedExpressionEvaluationContext.with(
             REFERENCE_TO_VALUE,
             ExpressionEvaluationContexts.basic(
@@ -289,8 +293,11 @@ public final class ScopedExpressionEvaluationContextTest implements ExpressionEv
                 ConverterContexts.basic(
                     0,
                     Converters.fake(),
-                    DateTimeContexts.locale(
-                        Locale.ENGLISH,
+                    DateTimeContexts.basic(
+                        DateTimeSymbols.fromDateFormatSymbols(
+                            new DateFormatSymbols(locale)
+                        ),
+                        locale,
                         1900,
                         50,
                         LocalDateTime::now

@@ -24,10 +24,12 @@ import walkingkooka.convert.ConverterContext;
 import walkingkooka.convert.ConverterContexts;
 import walkingkooka.convert.Converters;
 import walkingkooka.datetime.DateTimeContexts;
+import walkingkooka.datetime.DateTimeSymbols;
 import walkingkooka.math.DecimalNumberContext;
 import walkingkooka.math.DecimalNumberContexts;
 
 import java.math.MathContext;
+import java.text.DateFormatSymbols;
 import java.time.LocalDateTime;
 import java.util.Locale;
 
@@ -70,11 +72,16 @@ public final class BasicExpressionNumberConverterContextTest implements Expressi
     }
 
     private ConverterContext converterContext() {
+        final Locale locale = Locale.forLanguageTag("EN-AU");
+
         return ConverterContexts.basic(
             Converters.JAVA_EPOCH_OFFSET, // dateOffset
             Converters.fake(),
-            DateTimeContexts.locale(
-                Locale.forLanguageTag("EN-AU"),
+            DateTimeContexts.basic(
+                DateTimeSymbols.fromDateFormatSymbols(
+                    new DateFormatSymbols(locale)
+                ),
+                locale,
                 1900,
                 20,
                 LocalDateTime::now

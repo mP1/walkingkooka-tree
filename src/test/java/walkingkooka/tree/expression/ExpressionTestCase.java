@@ -26,6 +26,7 @@ import walkingkooka.convert.ConverterContexts;
 import walkingkooka.convert.Converters;
 import walkingkooka.convert.FakeConverter;
 import walkingkooka.datetime.DateTimeContexts;
+import walkingkooka.datetime.DateTimeSymbols;
 import walkingkooka.math.DecimalNumberContexts;
 import walkingkooka.naming.Name;
 import walkingkooka.predicate.Predicates;
@@ -47,6 +48,7 @@ import walkingkooka.text.printer.TreePrintableTesting;
 import walkingkooka.tree.NodeTesting;
 
 import java.math.MathContext;
+import java.text.DateFormatSymbols;
 import java.text.DecimalFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -364,13 +366,18 @@ public abstract class ExpressionTestCase<N extends Expression> implements TreePr
     }
 
     private ExpressionNumberConverterContext converterContext() {
+        final Locale locale = Locale.ENGLISH;
+
         return ExpressionNumberConverterContexts.basic(
             Converters.simple(),
             ConverterContexts.basic(
                 Converters.JAVA_EPOCH_OFFSET,
                 Converters.fake(),
-                DateTimeContexts.locale(
-                    Locale.ENGLISH,
+                DateTimeContexts.basic(
+                    DateTimeSymbols.fromDateFormatSymbols(
+                        new DateFormatSymbols(locale)
+                    ),
+                    locale,
                     1900,
                     20,
                     LocalDateTime::now

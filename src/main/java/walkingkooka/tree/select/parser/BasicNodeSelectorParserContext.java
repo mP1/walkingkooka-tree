@@ -22,6 +22,7 @@ import walkingkooka.ToStringBuilder;
 import walkingkooka.datetime.DateTimeContext;
 import walkingkooka.datetime.DateTimeContextDelegator;
 import walkingkooka.datetime.DateTimeContexts;
+import walkingkooka.datetime.DateTimeSymbols;
 import walkingkooka.math.DecimalNumberContext;
 import walkingkooka.math.DecimalNumberContextDelegator;
 import walkingkooka.math.DecimalNumberContexts;
@@ -31,6 +32,7 @@ import walkingkooka.text.cursor.parser.Parser;
 import walkingkooka.tree.expression.ExpressionNumberKind;
 
 import java.math.MathContext;
+import java.text.DateFormatSymbols;
 import java.util.Locale;
 import java.util.Objects;
 
@@ -58,9 +60,14 @@ final class BasicNodeSelectorParserContext implements NodeSelectorParserContext,
     private BasicNodeSelectorParserContext(final ExpressionNumberKind kind,
                                            final MathContext mathContext) {
         super();
+        final Locale locale = Locale.getDefault();
+
         this.kind = kind;
-        this.dateTimeContext = DateTimeContexts.locale(
-            Locale.getDefault(),
+        this.dateTimeContext = DateTimeContexts.basic(
+            DateTimeSymbols.fromDateFormatSymbols(
+                new DateFormatSymbols(locale)
+            ),
+            locale,
             1950, // defaultYear
             50, // twoYear
             () -> {
