@@ -20,10 +20,12 @@ package walkingkooka.tree.expression;
 import walkingkooka.convert.ConverterContexts;
 import walkingkooka.convert.Converters;
 import walkingkooka.datetime.DateTimeContexts;
+import walkingkooka.datetime.DateTimeSymbols;
 import walkingkooka.math.DecimalNumberContexts;
 import walkingkooka.tree.expression.ExpressionNumberConverterContextDelegatorTest.TestExpressionNumberConverterContextDelegator;
 
 import java.math.MathContext;
+import java.text.DateFormatSymbols;
 import java.time.LocalDateTime;
 import java.util.Locale;
 
@@ -93,13 +95,18 @@ public final class ExpressionNumberConverterContextDelegatorTest implements Expr
 
         @Override
         public ExpressionNumberConverterContext expressionNumberConverterContext() {
+            final Locale locale = Locale.ENGLISH;
+
             return ExpressionNumberConverterContexts.basic(
                 Converters.numberToBoolean(),
                 ConverterContexts.basic(
                     0,
                     Converters.fake(),
-                    DateTimeContexts.locale(
-                        Locale.ENGLISH,
+                    DateTimeContexts.basic(
+                        DateTimeSymbols.fromDateFormatSymbols(
+                            new DateFormatSymbols(locale)
+                        ),
+                        locale,
                         1900,
                         50,
                         LocalDateTime::now

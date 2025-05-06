@@ -20,11 +20,13 @@ package walkingkooka.tree.expression;
 import walkingkooka.convert.ConverterContexts;
 import walkingkooka.convert.Converters;
 import walkingkooka.datetime.DateTimeContexts;
+import walkingkooka.datetime.DateTimeSymbols;
 import walkingkooka.math.DecimalNumberContexts;
 import walkingkooka.text.CaseSensitivity;
 import walkingkooka.tree.expression.ExpressionEvaluationContextDelegatorTest.TestExpressionEvaluationContextDelegator;
 
 import java.math.MathContext;
+import java.text.DateFormatSymbols;
 import java.time.LocalDateTime;
 import java.util.Locale;
 import java.util.Objects;
@@ -120,6 +122,8 @@ public final class ExpressionEvaluationContextDelegatorTest implements Expressio
 
         @Override
         public ExpressionEvaluationContext expressionEvaluationContext() {
+            final Locale locale = Locale.ENGLISH;
+
             return ExpressionEvaluationContexts.basic(
                 ExpressionNumberKind.BIG_DECIMAL,
                 (fn) -> {
@@ -139,8 +143,11 @@ public final class ExpressionEvaluationContextDelegatorTest implements Expressio
                 ConverterContexts.basic(
                     0,
                     Converters.fake(),
-                    DateTimeContexts.locale(
-                        Locale.ENGLISH,
+                    DateTimeContexts.basic(
+                        DateTimeSymbols.fromDateFormatSymbols(
+                            new DateFormatSymbols(locale)
+                        ),
+                        locale,
                         1900,
                         50,
                         LocalDateTime::now
