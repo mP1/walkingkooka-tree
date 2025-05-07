@@ -52,14 +52,13 @@ public final class ExpressionFunctionName implements Name,
      * Factory that creates a new {@link ExpressionFunctionName} after verifying the given characters are acceptable.
      */
     public static ExpressionFunctionName with(final String name) {
-        CharPredicates.failIfNullOrEmptyOrInitialAndPartFalse(
-            name,
-            "name",
-            INITIAL,
-            PART
-        );
         return new ExpressionFunctionName(
-            name,
+            CharPredicates.failIfNullOrEmptyOrInitialAndPartFalse(
+                name,
+                "name",
+                INITIAL,
+                PART
+            ),
             DEFAULT_CASE_SENSITIVITY
         );
     }

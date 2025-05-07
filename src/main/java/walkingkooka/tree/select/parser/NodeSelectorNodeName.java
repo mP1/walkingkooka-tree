@@ -37,7 +37,12 @@ final public class NodeSelectorNodeName extends NodeSelectorNameValue implements
      * Factory that creates a {@link NodeSelectorNodeName}
      */
     public static NodeSelectorNodeName with(final String name) {
-        CharPredicates.failIfNullOrEmptyOrInitialAndPartFalse(name, NodeSelectorNodeName.class.getSimpleName(), INITIAL, PART);
+        CharPredicates.failIfNullOrEmptyOrInitialAndPartFalse(
+            name,
+            NodeSelectorNodeName.class.getSimpleName(),
+            INITIAL,
+            PART
+        );
 
         if (name.length() > MAX_LENGTH) {
             throw new InvalidTextLengthException("NodeName", name, 0, MAX_LENGTH);

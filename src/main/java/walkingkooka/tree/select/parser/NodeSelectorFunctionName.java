@@ -40,7 +40,12 @@ final public class NodeSelectorFunctionName extends NodeSelectorNameValue
      * Factory that creates a {@link NodeSelectorFunctionName}
      */
     public static NodeSelectorFunctionName with(final String name) {
-        CharPredicates.failIfNullOrEmptyOrInitialAndPartFalse(name, NodeSelectorFunctionName.class.getSimpleName(), INITIAL, PART);
+        CharPredicates.failIfNullOrEmptyOrInitialAndPartFalse(
+            name,
+            NodeSelectorFunctionName.class.getSimpleName(),
+            INITIAL,
+            PART
+        );
 
         if (name.length() > MAX_LENGTH) {
             throw new InvalidTextLengthException("namedFunction name", name, 0, MAX_LENGTH);

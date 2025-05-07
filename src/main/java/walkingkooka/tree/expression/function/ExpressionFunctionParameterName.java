@@ -84,13 +84,14 @@ public final class ExpressionFunctionParameterName implements Name,
     }
 
     private static ExpressionFunctionParameterName create(final String name) {
-        CharPredicates.failIfNullOrEmptyOrInitialAndPartFalse(
-            name,
-            "name",
-            INITIAL,
-            PART
+        return new ExpressionFunctionParameterName(
+            CharPredicates.failIfNullOrEmptyOrInitialAndPartFalse(
+                name,
+                "name",
+                INITIAL,
+                PART
+            )
         );
-        return new ExpressionFunctionParameterName(name);
     }
 
     // @VisibleForTesting
