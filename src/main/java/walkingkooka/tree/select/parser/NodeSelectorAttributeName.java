@@ -40,7 +40,12 @@ final public class NodeSelectorAttributeName extends NodeSelectorNameValue imple
      * Factory that creates a {@link NodeSelectorAttributeName}
      */
     public static NodeSelectorAttributeName with(final String name) {
-        CharPredicates.failIfNullOrEmptyOrInitialAndPartFalse(name, NodeSelectorAttributeName.class.getSimpleName(), INITIAL, PART);
+        CharPredicates.failIfNullOrEmptyOrInitialAndPartFalse(
+            name,
+            NodeSelectorAttributeName.class.getSimpleName(),
+            INITIAL,
+            PART
+        );
 
         if (name.length() > MAX_LENGTH) {
             throw new InvalidTextLengthException("attribute name", name, 0, MAX_LENGTH);
