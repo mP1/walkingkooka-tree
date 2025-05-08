@@ -77,6 +77,11 @@ public interface ExpressionFunction<T, C extends ExpressionEvaluationContext> ex
     }
 
     /**
+     * Constant useful when a function expects no parameters.
+     */
+    List<ExpressionFunctionParameter<?>> NO_PARAMETERS = Lists.empty();
+
+    /**
      * Returns meta info about the parameters for this function.
      */
     List<ExpressionFunctionParameter<?>> parameters(int count);
