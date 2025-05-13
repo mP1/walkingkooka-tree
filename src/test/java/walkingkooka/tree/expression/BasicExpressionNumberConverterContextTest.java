@@ -26,6 +26,7 @@ import walkingkooka.convert.Converters;
 import walkingkooka.datetime.DateTimeContexts;
 import walkingkooka.datetime.DateTimeSymbols;
 import walkingkooka.math.DecimalNumberContext;
+import walkingkooka.math.DecimalNumberContextDelegator;
 import walkingkooka.math.DecimalNumberContexts;
 
 import java.math.MathContext;
@@ -36,7 +37,8 @@ import java.util.Locale;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class BasicExpressionNumberConverterContextTest implements ExpressionNumberConverterContextTesting<BasicExpressionNumberConverterContext>,
-    ToStringTesting<BasicExpressionNumberConverterContext> {
+    ToStringTesting<BasicExpressionNumberConverterContext>,
+    DecimalNumberContextDelegator {
 
     private final static ExpressionNumberKind KIND = ExpressionNumberKind.DEFAULT;
     private final static Converter<ExpressionNumberConverterContext> CONVERTER = Converters.numberToNumber();
@@ -90,49 +92,19 @@ public final class BasicExpressionNumberConverterContextTest implements Expressi
         );
     }
 
-    private DecimalNumberContext decimalNumberContext() {
-        return DecimalNumberContexts.american(MathContext.DECIMAL32);
-    }
+    // DecimalNumberContext.............................................................................................
 
     @Override
-    public String currencySymbol() {
-        return this.decimalNumberContext().currencySymbol();
-    }
-
-    @Override
-    public char decimalSeparator() {
-        return this.decimalNumberContext().decimalSeparator();
-    }
-
-    @Override
-    public String exponentSymbol() {
-        return this.decimalNumberContext().exponentSymbol();
-    }
-
-    @Override
-    public char groupSeparator() {
-        return this.decimalNumberContext().groupSeparator();
+    public DecimalNumberContext decimalNumberContext() {
+        return DecimalNumberContexts.american(this.mathContext());
     }
 
     @Override
     public MathContext mathContext() {
-        return this.decimalNumberContext().mathContext();
+        return MathContext.DECIMAL32;
     }
 
-    @Override
-    public char negativeSign() {
-        return this.decimalNumberContext().negativeSign();
-    }
-
-    @Override
-    public char percentSymbol() {
-        return this.decimalNumberContext().percentSymbol();
-    }
-
-    @Override
-    public char positiveSign() {
-        return this.decimalNumberContext().positiveSign();
-    }
+    // class............................................................................................................
 
     @Override
     public Class<BasicExpressionNumberConverterContext> type() {

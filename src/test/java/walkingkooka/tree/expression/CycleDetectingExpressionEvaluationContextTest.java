@@ -24,6 +24,7 @@ import walkingkooka.convert.ConverterContexts;
 import walkingkooka.convert.Converters;
 import walkingkooka.datetime.DateTimeContexts;
 import walkingkooka.math.DecimalNumberContext;
+import walkingkooka.math.DecimalNumberContextDelegator;
 import walkingkooka.math.DecimalNumberContexts;
 import walkingkooka.reflect.ClassTesting2;
 import walkingkooka.reflect.JavaVisibility;
@@ -48,7 +49,8 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.fail;
 
 public final class CycleDetectingExpressionEvaluationContextTest implements ClassTesting2<CycleDetectingExpressionEvaluationContext>,
-    ExpressionEvaluationContextTesting<CycleDetectingExpressionEvaluationContext> {
+    ExpressionEvaluationContextTesting<CycleDetectingExpressionEvaluationContext>,
+    DecimalNumberContextDelegator {
 
     private final static String VALUE = "text123";
 
@@ -405,7 +407,7 @@ public final class CycleDetectingExpressionEvaluationContextTest implements Clas
                     throw new UnsupportedOperationException();
                 }
 
-                // DecimalNumberContext............................................................................
+                // DecimalNumberContext.................................................................................
 
                 @Override
                 public String currencySymbol() {
@@ -428,6 +430,21 @@ public final class CycleDetectingExpressionEvaluationContextTest implements Clas
                 }
 
                 @Override
+                public String infinitySymbol() {
+                    return decimalNumberContext.infinitySymbol();
+                }
+
+                @Override
+                public char monetaryDecimalSeparator() {
+                    return decimalNumberContext.monetaryDecimalSeparator();
+                }
+
+                @Override
+                public String nanSymbol() {
+                    return decimalNumberContext.nanSymbol();
+                }
+
+                @Override
                 public char negativeSign() {
                     return decimalNumberContext.negativeSign();
                 }
@@ -438,8 +455,18 @@ public final class CycleDetectingExpressionEvaluationContextTest implements Clas
                 }
 
                 @Override
+                public char permillSymbol() {
+                    return decimalNumberContext.permillSymbol();
+                }
+
+                @Override
                 public char positiveSign() {
                     return decimalNumberContext.positiveSign();
+                }
+
+                @Override
+                public char zeroDigit() {
+                    return decimalNumberContext.zeroDigit();
                 }
             }
         );
@@ -453,48 +480,16 @@ public final class CycleDetectingExpressionEvaluationContextTest implements Clas
         return Expression.value(VALUE);
     }
 
-    @Override
-    public String currencySymbol() {
-        return this.decimalNumberContext().currencySymbol();
-    }
+    // DecimalNumberContextDelegator....................................................................................
 
     @Override
-    public char decimalSeparator() {
-        return this.decimalNumberContext().decimalSeparator();
-    }
-
-    @Override
-    public String exponentSymbol() {
-        return this.decimalNumberContext().exponentSymbol();
-    }
-
-    @Override
-    public char groupSeparator() {
-        return this.decimalNumberContext().groupSeparator();
+    public DecimalNumberContext decimalNumberContext() {
+        return DecimalNumberContexts.american(this.mathContext());
     }
 
     @Override
     public MathContext mathContext() {
-        return this.decimalNumberContext().mathContext();
-    }
-
-    @Override
-    public char negativeSign() {
-        return this.decimalNumberContext().negativeSign();
-    }
-
-    @Override
-    public char percentSymbol() {
-        return this.decimalNumberContext().percentSymbol();
-    }
-
-    @Override
-    public char positiveSign() {
-        return this.decimalNumberContext().positiveSign();
-    }
-
-    private DecimalNumberContext decimalNumberContext() {
-        return DecimalNumberContexts.american(MathContext.DECIMAL32);
+        return MathContext.DECIMAL32;
     }
 
     // ClassTesting.....................................................................................................

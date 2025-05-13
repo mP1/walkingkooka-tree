@@ -20,14 +20,16 @@ package walkingkooka.tree.expression;
 import walkingkooka.Either;
 import walkingkooka.convert.Converter;
 import walkingkooka.convert.ConverterContext;
+import walkingkooka.math.DecimalNumberContext;
+import walkingkooka.math.DecimalNumberContextDelegator;
 
-import java.math.MathContext;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
 
-final class BasicExpressionNumberConverterContext implements ExpressionNumberConverterContext {
+final class BasicExpressionNumberConverterContext implements ExpressionNumberConverterContext,
+    DecimalNumberContextDelegator {
 
     static BasicExpressionNumberConverterContext with(final Converter<ExpressionNumberConverterContext> converter,
                                                       final ConverterContext context,
@@ -138,43 +140,8 @@ final class BasicExpressionNumberConverterContext implements ExpressionNumberCon
     }
 
     @Override
-    public String currencySymbol() {
-        return this.context.currencySymbol();
-    }
-
-    @Override
-    public char decimalSeparator() {
-        return this.context.decimalSeparator();
-    }
-
-    @Override
-    public String exponentSymbol() {
-        return this.context.exponentSymbol();
-    }
-
-    @Override
-    public char groupSeparator() {
-        return this.context.groupSeparator();
-    }
-
-    @Override
-    public char percentSymbol() {
-        return this.context.percentSymbol();
-    }
-
-    @Override
-    public char negativeSign() {
-        return this.context.negativeSign();
-    }
-
-    @Override
-    public char positiveSign() {
-        return this.context.positiveSign();
-    }
-
-    @Override
-    public MathContext mathContext() {
-        return this.context.mathContext();
+    public DecimalNumberContext decimalNumberContext() {
+        return this.context;
     }
 
     private final ConverterContext context;

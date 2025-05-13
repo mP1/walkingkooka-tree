@@ -21,6 +21,8 @@ import walkingkooka.convert.ConverterContexts;
 import walkingkooka.convert.Converters;
 import walkingkooka.datetime.DateTimeContexts;
 import walkingkooka.datetime.DateTimeSymbols;
+import walkingkooka.math.DecimalNumberContext;
+import walkingkooka.math.DecimalNumberContextDelegator;
 import walkingkooka.math.DecimalNumberContexts;
 import walkingkooka.text.CaseSensitivity;
 import walkingkooka.tree.expression.ExpressionEvaluationContextDelegatorTest.TestExpressionEvaluationContextDelegator;
@@ -33,7 +35,8 @@ import java.util.Objects;
 import java.util.Optional;
 import java.util.function.Function;
 
-public final class ExpressionEvaluationContextDelegatorTest implements ExpressionEvaluationContextTesting<TestExpressionEvaluationContextDelegator> {
+public final class ExpressionEvaluationContextDelegatorTest implements ExpressionEvaluationContextTesting<TestExpressionEvaluationContextDelegator>,
+    DecimalNumberContextDelegator {
 
     @Override
     public void testEvaluateExpressionUnknownFunctionNameFails() {
@@ -50,30 +53,7 @@ public final class ExpressionEvaluationContextDelegatorTest implements Expressio
         return new TestExpressionEvaluationContextDelegator();
     }
 
-
-    @Override
-    public String currencySymbol() {
-        return new TestExpressionEvaluationContextDelegator()
-            .currencySymbol();
-    }
-
-    @Override
-    public char decimalSeparator() {
-        return new TestExpressionEvaluationContextDelegator()
-            .decimalSeparator();
-    }
-
-    @Override
-    public String exponentSymbol() {
-        return new TestExpressionEvaluationContextDelegator()
-            .exponentSymbol();
-    }
-
-    @Override
-    public char groupSeparator() {
-        return new TestExpressionEvaluationContextDelegator()
-            .groupSeparator();
-    }
+    // DecimalNumberContextDelegator....................................................................................
 
     @Override
     public MathContext mathContext() {
@@ -82,21 +62,8 @@ public final class ExpressionEvaluationContextDelegatorTest implements Expressio
     }
 
     @Override
-    public char negativeSign() {
-        return new TestExpressionEvaluationContextDelegator()
-            .negativeSign();
-    }
-
-    @Override
-    public char percentSymbol() {
-        return new TestExpressionEvaluationContextDelegator()
-            .percentSymbol();
-    }
-
-    @Override
-    public char positiveSign() {
-        return new TestExpressionEvaluationContextDelegator()
-            .positiveSign();
+    public DecimalNumberContext decimalNumberContext() {
+        return new TestExpressionEvaluationContextDelegator();
     }
 
     // class............................................................................................................
