@@ -433,8 +433,8 @@ public final class CycleDetectingExpressionEvaluationContextTest implements Clas
                 }
 
                 @Override
-                public char percentageSymbol() {
-                    return decimalNumberContext.percentageSymbol();
+                public char percentSymbol() {
+                    return decimalNumberContext.percentSymbol();
                 }
 
                 @Override
@@ -484,8 +484,8 @@ public final class CycleDetectingExpressionEvaluationContextTest implements Clas
     }
 
     @Override
-    public char percentageSymbol() {
-        return this.decimalNumberContext().percentageSymbol();
+    public char percentSymbol() {
+        return this.decimalNumberContext().percentSymbol();
     }
 
     @Override

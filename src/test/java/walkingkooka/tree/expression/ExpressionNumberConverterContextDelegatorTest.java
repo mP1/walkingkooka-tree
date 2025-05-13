@@ -73,9 +73,9 @@ public final class ExpressionNumberConverterContextDelegatorTest implements Expr
     }
 
     @Override
-    public char percentageSymbol() {
+    public char percentSymbol() {
         return new TestExpressionNumberConverterContextDelegator()
-            .percentageSymbol();
+            .percentSymbol();
     }
 
     @Override

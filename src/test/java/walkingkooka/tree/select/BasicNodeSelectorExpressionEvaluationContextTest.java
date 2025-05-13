@@ -212,8 +212,8 @@ public final class BasicNodeSelectorExpressionEvaluationContextTest implements N
     }
 
     @Override
-    public char percentageSymbol() {
-        return this.decimalNumberContext().percentageSymbol();
+    public char percentSymbol() {
+        return this.decimalNumberContext().percentSymbol();
     }
 
     @Override

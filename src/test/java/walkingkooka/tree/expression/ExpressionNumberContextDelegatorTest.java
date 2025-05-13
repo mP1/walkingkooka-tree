@@ -60,8 +60,8 @@ public class ExpressionNumberContextDelegatorTest implements ExpressionNumberCon
     }
 
     @Override
-    public char percentageSymbol() {
-        return EXPRESSION_NUMBER_CONTEXT.percentageSymbol();
+    public char percentSymbol() {
+        return EXPRESSION_NUMBER_CONTEXT.percentSymbol();
     }
 
     @Override

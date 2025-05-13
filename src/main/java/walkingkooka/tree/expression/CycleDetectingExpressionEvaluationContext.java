@@ -203,8 +203,8 @@ final class CycleDetectingExpressionEvaluationContext implements ExpressionEvalu
     }
 
     @Override
-    public char percentageSymbol() {
-        return this.context.percentageSymbol();
+    public char percentSymbol() {
+        return this.context.percentSymbol();
     }
 
     @Override

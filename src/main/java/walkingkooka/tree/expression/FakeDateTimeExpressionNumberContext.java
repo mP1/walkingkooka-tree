@@ -43,7 +43,7 @@ public class FakeDateTimeExpressionNumberContext extends FakeDateTimeContext imp
     }
 
     @Override
-    public char percentageSymbol() {
+    public char percentSymbol() {
         throw new UnsupportedOperationException();
     }
 
