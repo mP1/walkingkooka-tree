@@ -88,9 +88,9 @@ public final class ExpressionEvaluationContextDelegatorTest implements Expressio
     }
 
     @Override
-    public char percentageSymbol() {
+    public char percentSymbol() {
         return new TestExpressionEvaluationContextDelegator()
-            .percentageSymbol();
+            .percentSymbol();
     }
 
     @Override

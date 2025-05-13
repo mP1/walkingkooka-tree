@@ -248,8 +248,8 @@ final class BasicNodeSelectorExpressionEvaluationContext<N extends Node<N, NAME,
     }
 
     @Override
-    public char percentageSymbol() {
-        return this.context.percentageSymbol();
+    public char percentSymbol() {
+        return this.context.percentSymbol();
     }
 
     @Override
