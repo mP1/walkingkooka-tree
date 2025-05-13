@@ -19,6 +19,8 @@ package walkingkooka.tree.select;
 
 import walkingkooka.Cast;
 import walkingkooka.Either;
+import walkingkooka.math.DecimalNumberContext;
+import walkingkooka.math.DecimalNumberContextDelegator;
 import walkingkooka.naming.Name;
 import walkingkooka.text.CaseSensitivity;
 import walkingkooka.tree.Node;
@@ -56,7 +58,8 @@ final class BasicNodeSelectorExpressionEvaluationContext<N extends Node<N, NAME,
     NAME extends Name,
     ANAME extends Name,
     AVALUE>
-    implements NodeSelectorExpressionEvaluationContext<N, NAME, ANAME, AVALUE> {
+    implements NodeSelectorExpressionEvaluationContext<N, NAME, ANAME, AVALUE>,
+    DecimalNumberContextDelegator {
 
     /**
      * Factory that creates a new {@link BasicNodeSelectorExpressionEvaluationContext}, using the given {@link Node} as the context.
@@ -223,43 +226,8 @@ final class BasicNodeSelectorExpressionEvaluationContext<N extends Node<N, NAME,
     // DecimalNumberContext............................................................................................
 
     @Override
-    public String currencySymbol() {
-        return this.context.currencySymbol();
-    }
-
-    @Override
-    public char decimalSeparator() {
-        return this.context.decimalSeparator();
-    }
-
-    @Override
-    public String exponentSymbol() {
-        return this.context.exponentSymbol();
-    }
-
-    @Override
     public ExpressionNumberKind expressionNumberKind() {
         return this.context.expressionNumberKind();
-    }
-
-    @Override
-    public char groupSeparator() {
-        return this.context.groupSeparator();
-    }
-
-    @Override
-    public char percentSymbol() {
-        return this.context.percentSymbol();
-    }
-
-    @Override
-    public char negativeSign() {
-        return this.context.negativeSign();
-    }
-
-    @Override
-    public char positiveSign() {
-        return this.context.positiveSign();
     }
 
     @Override
@@ -270,6 +238,11 @@ final class BasicNodeSelectorExpressionEvaluationContext<N extends Node<N, NAME,
     @Override
     public MathContext mathContext() {
         return this.context.mathContext();
+    }
+
+    @Override
+    public DecimalNumberContext decimalNumberContext() {
+        return this.context;
     }
 
     @Override

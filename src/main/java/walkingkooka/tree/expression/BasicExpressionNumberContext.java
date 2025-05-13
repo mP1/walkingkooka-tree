@@ -18,12 +18,14 @@
 package walkingkooka.tree.expression;
 
 import walkingkooka.math.DecimalNumberContext;
+import walkingkooka.math.DecimalNumberContextDelegator;
 
 import java.math.MathContext;
 import java.util.Locale;
 import java.util.Objects;
 
-final class BasicExpressionNumberContext implements ExpressionNumberContext {
+final class BasicExpressionNumberContext implements ExpressionNumberContext,
+    DecimalNumberContextDelegator {
 
     static BasicExpressionNumberContext with(final ExpressionNumberKind expressionNumberKind,
                                              final DecimalNumberContext decimalNumberContext) {
@@ -46,41 +48,11 @@ final class BasicExpressionNumberContext implements ExpressionNumberContext {
 
     private final ExpressionNumberKind expressionNumberKind;
 
-    // DecimalNumberContext............................................................................................
+    // DecimalNumberContextDelegator....................................................................................
 
     @Override
-    public String currencySymbol() {
-        return this.decimalNumberContext.currencySymbol();
-    }
-
-    @Override
-    public char decimalSeparator() {
-        return this.decimalNumberContext.decimalSeparator();
-    }
-
-    @Override
-    public String exponentSymbol() {
-        return this.decimalNumberContext.exponentSymbol();
-    }
-
-    @Override
-    public char groupSeparator() {
-        return this.decimalNumberContext.groupSeparator();
-    }
-
-    @Override
-    public char percentSymbol() {
-        return this.decimalNumberContext.percentSymbol();
-    }
-
-    @Override
-    public char negativeSign() {
-        return this.decimalNumberContext.negativeSign();
-    }
-
-    @Override
-    public char positiveSign() {
-        return this.decimalNumberContext.positiveSign();
+    public DecimalNumberContext decimalNumberContext() {
+        return this.decimalNumberContext;
     }
 
     @Override

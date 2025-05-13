@@ -25,6 +25,7 @@ import walkingkooka.convert.Converters;
 import walkingkooka.datetime.DateTimeContexts;
 import walkingkooka.datetime.DateTimeSymbols;
 import walkingkooka.math.DecimalNumberContext;
+import walkingkooka.math.DecimalNumberContextDelegator;
 import walkingkooka.math.DecimalNumberContexts;
 import walkingkooka.text.CaseSensitivity;
 import walkingkooka.tree.expression.function.ExpressionFunctionParameter;
@@ -43,7 +44,8 @@ import java.util.function.Function;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class ScopedExpressionEvaluationContextTest implements ExpressionEvaluationContextTesting<ScopedExpressionEvaluationContext> {
+public final class ScopedExpressionEvaluationContextTest implements ExpressionEvaluationContextTesting<ScopedExpressionEvaluationContext>,
+    DecimalNumberContextDelegator {
 
     private final static ExpressionReference LOCAL_REFERENCE = new ExpressionReference() {
         @Override
@@ -308,24 +310,11 @@ public final class ScopedExpressionEvaluationContextTest implements ExpressionEv
         );
     }
 
-    @Override
-    public String currencySymbol() {
-        return DECIMAL_NUMBER_CONTEXT.currencySymbol();
-    }
+    // DecimalNumberContextDelegator....................................................................................
 
     @Override
-    public char decimalSeparator() {
-        return DECIMAL_NUMBER_CONTEXT.decimalSeparator();
-    }
-
-    @Override
-    public String exponentSymbol() {
-        return DECIMAL_NUMBER_CONTEXT.exponentSymbol();
-    }
-
-    @Override
-    public char groupSeparator() {
-        return DECIMAL_NUMBER_CONTEXT.groupSeparator();
+    public DecimalNumberContext decimalNumberContext() {
+        return DECIMAL_NUMBER_CONTEXT;
     }
 
     @Override
@@ -333,20 +322,6 @@ public final class ScopedExpressionEvaluationContextTest implements ExpressionEv
         return DECIMAL_NUMBER_CONTEXT.mathContext();
     }
 
-    @Override
-    public char negativeSign() {
-        return DECIMAL_NUMBER_CONTEXT.negativeSign();
-    }
-
-    @Override
-    public char percentSymbol() {
-        return DECIMAL_NUMBER_CONTEXT.percentSymbol();
-    }
-
-    @Override
-    public char positiveSign() {
-        return DECIMAL_NUMBER_CONTEXT.positiveSign();
-    }
 
     private final static DecimalNumberContext DECIMAL_NUMBER_CONTEXT = DecimalNumberContexts.american(MathContext.DECIMAL32);
 

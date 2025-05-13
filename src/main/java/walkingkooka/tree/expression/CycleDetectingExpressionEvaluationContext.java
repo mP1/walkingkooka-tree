@@ -19,6 +19,8 @@ package walkingkooka.tree.expression;
 
 import walkingkooka.Either;
 import walkingkooka.collect.set.Sets;
+import walkingkooka.math.DecimalNumberContext;
+import walkingkooka.math.DecimalNumberContextDelegator;
 import walkingkooka.text.CaseSensitivity;
 import walkingkooka.tree.expression.function.ExpressionFunction;
 import walkingkooka.tree.expression.function.ExpressionFunctionParameter;
@@ -37,7 +39,8 @@ import java.util.function.Function;
  * {@link #reference(ExpressionReference)} to detect cycles between resolving a {@link ExpressionReference} to a
  * {@link Expression}, even indirectly.<br>
  */
-final class CycleDetectingExpressionEvaluationContext implements ExpressionEvaluationContext {
+final class CycleDetectingExpressionEvaluationContext implements ExpressionEvaluationContext,
+    DecimalNumberContextDelegator {
 
     /**
      * Factory that creates a new {@link CycleDetectingExpressionEvaluationContext}.
@@ -178,43 +181,8 @@ final class CycleDetectingExpressionEvaluationContext implements ExpressionEvalu
     // DecimalNumberContext.............................................................................................
 
     @Override
-    public String currencySymbol() {
-        return this.context.currencySymbol();
-    }
-
-    @Override
-    public char decimalSeparator() {
-        return this.context.decimalSeparator();
-    }
-
-    @Override
-    public String exponentSymbol() {
-        return this.context.exponentSymbol();
-    }
-
-    @Override
     public ExpressionNumberKind expressionNumberKind() {
         return this.context.expressionNumberKind();
-    }
-
-    @Override
-    public char groupSeparator() {
-        return this.context.groupSeparator();
-    }
-
-    @Override
-    public char percentSymbol() {
-        return this.context.percentSymbol();
-    }
-
-    @Override
-    public char negativeSign() {
-        return this.context.negativeSign();
-    }
-
-    @Override
-    public char positiveSign() {
-        return this.context.positiveSign();
     }
 
     @Override
@@ -227,7 +195,14 @@ final class CycleDetectingExpressionEvaluationContext implements ExpressionEvalu
         return this.context.mathContext();
     }
 
-    // CanConvert.....................................................................................................
+    // DecimalNumberContextDelegator....................................................................................
+
+    @Override
+    public DecimalNumberContext decimalNumberContext() {
+        return this.context;
+    }
+
+    // CanConvert.......................................................................................................
 
     @Override
     public long dateOffset() {

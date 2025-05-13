@@ -21,6 +21,8 @@ import walkingkooka.convert.ConverterContexts;
 import walkingkooka.convert.Converters;
 import walkingkooka.datetime.DateTimeContexts;
 import walkingkooka.datetime.DateTimeSymbols;
+import walkingkooka.math.DecimalNumberContext;
+import walkingkooka.math.DecimalNumberContextDelegator;
 import walkingkooka.math.DecimalNumberContexts;
 import walkingkooka.tree.expression.ExpressionNumberConverterContextDelegatorTest.TestExpressionNumberConverterContextDelegator;
 
@@ -29,60 +31,27 @@ import java.text.DateFormatSymbols;
 import java.time.LocalDateTime;
 import java.util.Locale;
 
-public final class ExpressionNumberConverterContextDelegatorTest implements ExpressionNumberConverterContextTesting<TestExpressionNumberConverterContextDelegator> {
+public final class ExpressionNumberConverterContextDelegatorTest implements ExpressionNumberConverterContextTesting<TestExpressionNumberConverterContextDelegator>,
+    DecimalNumberContextDelegator {
 
     @Override
     public TestExpressionNumberConverterContextDelegator createContext() {
         return new TestExpressionNumberConverterContextDelegator();
     }
 
-    @Override
-    public String currencySymbol() {
-        return new TestExpressionNumberConverterContextDelegator()
-            .currencySymbol();
-    }
+    // DecimalNumberContextDelegator....................................................................................
 
     @Override
-    public char decimalSeparator() {
-        return new TestExpressionNumberConverterContextDelegator()
-            .decimalSeparator();
-    }
-
-    @Override
-    public String exponentSymbol() {
-        return new TestExpressionNumberConverterContextDelegator()
-            .exponentSymbol();
-    }
-
-    @Override
-    public char groupSeparator() {
-        return new TestExpressionNumberConverterContextDelegator()
-            .groupSeparator();
+    public DecimalNumberContext decimalNumberContext() {
+        return DECIMAL_CONTEXT;
     }
 
     @Override
     public MathContext mathContext() {
-        return new TestExpressionNumberConverterContextDelegator()
-            .mathContext();
+        return MathContext.DECIMAL32;
     }
 
-    @Override
-    public char negativeSign() {
-        return new TestExpressionNumberConverterContextDelegator()
-            .negativeSign();
-    }
-
-    @Override
-    public char percentSymbol() {
-        return new TestExpressionNumberConverterContextDelegator()
-            .percentSymbol();
-    }
-
-    @Override
-    public char positiveSign() {
-        return new TestExpressionNumberConverterContextDelegator()
-            .positiveSign();
-    }
+    private final static DecimalNumberContext DECIMAL_CONTEXT = DecimalNumberContexts.american(MathContext.DECIMAL32);
 
     // class............................................................................................................
 
@@ -111,7 +80,7 @@ public final class ExpressionNumberConverterContextDelegatorTest implements Expr
                         50,
                         LocalDateTime::now
                     ),
-                    DecimalNumberContexts.american(MathContext.DECIMAL32)
+                    DECIMAL_CONTEXT
                 ),
                 ExpressionNumberKind.BIG_DECIMAL
             );

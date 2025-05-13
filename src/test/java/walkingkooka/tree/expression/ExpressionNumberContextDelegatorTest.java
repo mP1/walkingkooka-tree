@@ -17,12 +17,15 @@
 
 package walkingkooka.tree.expression;
 
+import walkingkooka.math.DecimalNumberContext;
+import walkingkooka.math.DecimalNumberContextDelegator;
 import walkingkooka.math.DecimalNumberContexts;
 import walkingkooka.tree.expression.ExpressionNumberContextDelegatorTest.TestExpressionNumberContextDelegator;
 
 import java.math.MathContext;
 
-public class ExpressionNumberContextDelegatorTest implements ExpressionNumberContextTesting<TestExpressionNumberContextDelegator> {
+public class ExpressionNumberContextDelegatorTest implements ExpressionNumberContextTesting<TestExpressionNumberContextDelegator>,
+    DecimalNumberContextDelegator {
 
     private final static ExpressionNumberContext EXPRESSION_NUMBER_CONTEXT = ExpressionNumberContexts.basic(
         ExpressionNumberKind.BIG_DECIMAL,
@@ -30,48 +33,18 @@ public class ExpressionNumberContextDelegatorTest implements ExpressionNumberCon
     );
 
     @Override
-    public String currencySymbol() {
-        return EXPRESSION_NUMBER_CONTEXT.currencySymbol();
+    public TestExpressionNumberContextDelegator createContext() {
+        return new TestExpressionNumberContextDelegator();
     }
 
     @Override
-    public char decimalSeparator() {
-        return EXPRESSION_NUMBER_CONTEXT.decimalSeparator();
-    }
-
-    @Override
-    public String exponentSymbol() {
-        return EXPRESSION_NUMBER_CONTEXT.exponentSymbol();
-    }
-
-    @Override
-    public char groupSeparator() {
-        return EXPRESSION_NUMBER_CONTEXT.groupSeparator();
+    public DecimalNumberContext decimalNumberContext() {
+        return EXPRESSION_NUMBER_CONTEXT;
     }
 
     @Override
     public MathContext mathContext() {
-        return EXPRESSION_NUMBER_CONTEXT.mathContext();
-    }
-
-    @Override
-    public char negativeSign() {
-        return EXPRESSION_NUMBER_CONTEXT.negativeSign();
-    }
-
-    @Override
-    public char percentSymbol() {
-        return EXPRESSION_NUMBER_CONTEXT.percentSymbol();
-    }
-
-    @Override
-    public char positiveSign() {
-        return EXPRESSION_NUMBER_CONTEXT.positiveSign();
-    }
-
-    @Override
-    public TestExpressionNumberContextDelegator createContext() {
-        return new TestExpressionNumberContextDelegator();
+        return MathContext.DECIMAL32;
     }
 
     static final class TestExpressionNumberContextDelegator implements ExpressionNumberContextDelegator {
