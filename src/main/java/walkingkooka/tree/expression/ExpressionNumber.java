@@ -17,6 +17,7 @@
 
 package walkingkooka.tree.expression;
 
+import walkingkooka.Value;
 import walkingkooka.compare.CompareResult;
 import walkingkooka.math.Maths;
 
@@ -31,7 +32,8 @@ import java.util.Objects;
  * Note that the result is always the same type, adding a double with a BigDecimal always returns the left(this) type and
  * does not widen or narrow the right parameter.
  */
-public abstract class ExpressionNumber extends Number implements Comparable<ExpressionNumber> {
+public abstract class ExpressionNumber extends Number implements Comparable<ExpressionNumber>,
+    Value<Number> {
 
     private static final long serialVersionUID = 0L;
 
@@ -110,7 +112,8 @@ public abstract class ExpressionNumber extends Number implements Comparable<Expr
 
     // value............................................................................................................
 
-    abstract Object value();
+    @Override
+    public abstract Number value();
 
     // sign.............................................................................................................
 
