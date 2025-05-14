@@ -19,6 +19,8 @@ package walkingkooka.tree.select;
 
 import walkingkooka.Cast;
 import walkingkooka.Either;
+import walkingkooka.datetime.DateTimeContext;
+import walkingkooka.datetime.DateTimeContextDelegator;
 import walkingkooka.math.DecimalNumberContext;
 import walkingkooka.math.DecimalNumberContextDelegator;
 import walkingkooka.naming.Name;
@@ -33,8 +35,7 @@ import walkingkooka.tree.expression.function.ExpressionFunction;
 import walkingkooka.tree.expression.function.ExpressionFunctionParameter;
 import walkingkooka.tree.select.parser.NodeSelectorAttributeName;
 
-import java.time.LocalDateTime;
-import java.util.List;
+import java.util.Locale;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.function.Function;
@@ -57,6 +58,7 @@ final class BasicNodeSelectorExpressionEvaluationContext<N extends Node<N, NAME,
     ANAME extends Name,
     AVALUE>
     implements NodeSelectorExpressionEvaluationContext<N, NAME, ANAME, AVALUE>,
+    DateTimeContextDelegator,
     DecimalNumberContextDelegator {
 
     /**
@@ -174,51 +176,16 @@ final class BasicNodeSelectorExpressionEvaluationContext<N extends Node<N, NAME,
         return this.context.convert(value, type);
     }
 
-    // DateTimeContext.................................................................................................
+    // DateTimeContextDelegator.........................................................................................
 
     @Override
-    public List<String> ampms() {
-        return this.context.ampms();
+    public DateTimeContext dateTimeContext() {
+        return this.context;
     }
 
     @Override
-    public int defaultYear() {
-        return this.context.defaultYear();
-    }
-
-    @Override
-    public List<String> monthNames() {
-        return this.context.monthNames();
-    }
-
-    @Override
-    public List<String> monthNameAbbreviations() {
-        return this.context.monthNameAbbreviations();
-    }
-
-    @Override
-    public LocalDateTime now() {
-        return this.context.now();
-    }
-
-    @Override
-    public int twoToFourDigitYear(final int year) {
-        return this.context.twoToFourDigitYear(year);
-    }
-
-    @Override
-    public int twoDigitYear() {
-        return this.context.twoDigitYear();
-    }
-
-    @Override
-    public List<String> weekDayNames() {
-        return this.context.weekDayNames();
-    }
-
-    @Override
-    public List<String> weekDayNameAbbreviations() {
-        return this.context.weekDayNameAbbreviations();
+    public Locale locale() {
+        return this.context.locale();
     }
 
     // DecimalNumberContext............................................................................................
