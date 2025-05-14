@@ -15,11 +15,12 @@
  *
  */
 
-package walkingkooka.tree.expression;
+package walkingkooka.tree.expression.convert;
 
 import walkingkooka.Cast;
 import walkingkooka.Either;
 import walkingkooka.convert.Converter;
+import walkingkooka.tree.expression.ExpressionNumber;
 
 /**
  * A {@link Converter} that supports converting a {@link Number} or {@link ExpressionNumber} to a {@link Number}.

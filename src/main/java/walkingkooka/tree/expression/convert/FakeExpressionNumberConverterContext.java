@@ -15,9 +15,10 @@
  *
  */
 
-package walkingkooka.tree.expression;
+package walkingkooka.tree.expression.convert;
 
 import walkingkooka.convert.FakeConverterContext;
+import walkingkooka.tree.expression.ExpressionNumberKind;
 
 public class FakeExpressionNumberConverterContext extends FakeConverterContext implements ExpressionNumberConverterContext {
 

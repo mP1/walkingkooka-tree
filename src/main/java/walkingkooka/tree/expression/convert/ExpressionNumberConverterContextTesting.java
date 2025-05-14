@@ -15,21 +15,9 @@
  *
  */
 
-package walkingkooka.tree.expression;
+package walkingkooka.tree.expression.convert;
 
-import walkingkooka.Cast;
-import walkingkooka.reflect.ClassTesting;
-import walkingkooka.reflect.JavaVisibility;
+import walkingkooka.convert.ConverterContextTesting;
 
-public final class ExpressionNumberConverterTest implements ClassTesting<ExpressionNumberConverter<?>> {
-
-    @Override
-    public Class<ExpressionNumberConverter<?>> type() {
-        return Cast.to(ExpressionNumberConverter.class);
-    }
-
-    @Override
-    public JavaVisibility typeVisibility() {
-        return JavaVisibility.PACKAGE_PRIVATE;
-    }
+public interface ExpressionNumberConverterContextTesting<C extends ExpressionNumberConverterContext> extends ConverterContextTesting<C> {
 }

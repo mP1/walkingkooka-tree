@@ -55,8 +55,10 @@ public abstract class ExpressionNumber extends Number implements Comparable<Expr
     /**
      * Tests if the value is a {@link ExpressionNumber} and not a {@link Number}
      */
-    static boolean isExpressionNumberAndNotNumber(final Class<?> value) {
-        return value == ExpressionNumber.class || value == ExpressionNumberBigDecimal.class || value == ExpressionNumberDouble.class;
+    public static boolean isExpressionNumberAndNotNumber(final Class<?> value) {
+        return value == ExpressionNumber.class ||
+            value == ExpressionNumberBigDecimal.class ||
+            value == ExpressionNumberDouble.class;
     }
 
     /**
