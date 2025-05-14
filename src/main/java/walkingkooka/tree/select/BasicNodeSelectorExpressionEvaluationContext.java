@@ -33,10 +33,8 @@ import walkingkooka.tree.expression.function.ExpressionFunction;
 import walkingkooka.tree.expression.function.ExpressionFunctionParameter;
 import walkingkooka.tree.select.parser.NodeSelectorAttributeName;
 
-import java.math.MathContext;
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Locale;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.function.Function;
@@ -228,16 +226,6 @@ final class BasicNodeSelectorExpressionEvaluationContext<N extends Node<N, NAME,
     @Override
     public ExpressionNumberKind expressionNumberKind() {
         return this.context.expressionNumberKind();
-    }
-
-    @Override
-    public Locale locale() {
-        return this.context.locale();
-    }
-
-    @Override
-    public MathContext mathContext() {
-        return this.context.mathContext();
     }
 
     @Override

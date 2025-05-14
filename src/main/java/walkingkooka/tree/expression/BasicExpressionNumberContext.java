@@ -20,8 +20,6 @@ package walkingkooka.tree.expression;
 import walkingkooka.math.DecimalNumberContext;
 import walkingkooka.math.DecimalNumberContextDelegator;
 
-import java.math.MathContext;
-import java.util.Locale;
 import java.util.Objects;
 
 final class BasicExpressionNumberContext implements ExpressionNumberContext,
@@ -53,16 +51,6 @@ final class BasicExpressionNumberContext implements ExpressionNumberContext,
     @Override
     public DecimalNumberContext decimalNumberContext() {
         return this.decimalNumberContext;
-    }
-
-    @Override
-    public Locale locale() {
-        return this.decimalNumberContext.locale();
-    }
-
-    @Override
-    public MathContext mathContext() {
-        return this.decimalNumberContext.mathContext();
     }
 
     private final DecimalNumberContext decimalNumberContext;
