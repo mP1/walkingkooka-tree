@@ -19,14 +19,15 @@ package walkingkooka.tree.expression;
 
 import walkingkooka.Either;
 import walkingkooka.collect.set.Sets;
+import walkingkooka.datetime.DateTimeContext;
+import walkingkooka.datetime.DateTimeContextDelegator;
 import walkingkooka.math.DecimalNumberContext;
 import walkingkooka.math.DecimalNumberContextDelegator;
 import walkingkooka.text.CaseSensitivity;
 import walkingkooka.tree.expression.function.ExpressionFunction;
 import walkingkooka.tree.expression.function.ExpressionFunctionParameter;
 
-import java.time.LocalDateTime;
-import java.util.List;
+import java.util.Locale;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
@@ -38,6 +39,7 @@ import java.util.function.Function;
  * {@link Expression}, even indirectly.<br>
  */
 final class CycleDetectingExpressionEvaluationContext implements ExpressionEvaluationContext,
+    DateTimeContextDelegator,
     DecimalNumberContextDelegator {
 
     /**
@@ -129,51 +131,16 @@ final class CycleDetectingExpressionEvaluationContext implements ExpressionEvalu
         throw new CycleDetectedExpressionEvaluationConversionException("Cycle detected to " + reference, reference);
     }
 
+    @Override
+    public Locale locale() {
+        return this.context.locale();
+    }
+
     // DateTimeContext..................................................................................................
 
     @Override
-    public List<String> ampms() {
-        return this.context.ampms();
-    }
-
-    @Override
-    public int defaultYear() {
-        return this.context.defaultYear();
-    }
-
-    @Override
-    public List<String> monthNames() {
-        return this.context.monthNames();
-    }
-
-    @Override
-    public List<String> monthNameAbbreviations() {
-        return this.context.monthNameAbbreviations();
-    }
-
-    @Override
-    public LocalDateTime now() {
-        return this.context.now();
-    }
-
-    @Override
-    public int twoToFourDigitYear(final int year) {
-        return this.context.twoToFourDigitYear(year);
-    }
-
-    @Override
-    public int twoDigitYear() {
-        return this.context.twoDigitYear();
-    }
-
-    @Override
-    public List<String> weekDayNames() {
-        return this.context.weekDayNames();
-    }
-
-    @Override
-    public List<String> weekDayNameAbbreviations() {
-        return this.context.weekDayNameAbbreviations();
+    public DateTimeContext dateTimeContext() {
+        return this.context;
     }
 
     // ExpressionNumberContext..........................................................................................
