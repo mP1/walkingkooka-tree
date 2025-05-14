@@ -40,8 +40,8 @@ final class ExpressionNumberDouble extends ExpressionNumber {
         this.value = value;
     }
 
-    @Override//
-    Object value() {
+    @Override
+    public Double value() {
         return this.value;
     }
 
