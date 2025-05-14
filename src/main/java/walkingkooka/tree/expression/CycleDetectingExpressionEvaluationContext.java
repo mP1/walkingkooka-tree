@@ -25,10 +25,8 @@ import walkingkooka.text.CaseSensitivity;
 import walkingkooka.tree.expression.function.ExpressionFunction;
 import walkingkooka.tree.expression.function.ExpressionFunctionParameter;
 
-import java.math.MathContext;
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Locale;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
@@ -178,21 +176,11 @@ final class CycleDetectingExpressionEvaluationContext implements ExpressionEvalu
         return this.context.weekDayNameAbbreviations();
     }
 
-    // DecimalNumberContext.............................................................................................
+    // ExpressionNumberContext..........................................................................................
 
     @Override
     public ExpressionNumberKind expressionNumberKind() {
         return this.context.expressionNumberKind();
-    }
-
-    @Override
-    public Locale locale() {
-        return this.context.locale();
-    }
-
-    @Override
-    public MathContext mathContext() {
-        return this.context.mathContext();
     }
 
     // DecimalNumberContextDelegator....................................................................................

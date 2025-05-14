@@ -25,7 +25,6 @@ import walkingkooka.math.DecimalNumberContextDelegator;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Locale;
 import java.util.Objects;
 
 final class BasicExpressionNumberConverterContext implements ExpressionNumberConverterContext,
@@ -132,11 +131,6 @@ final class BasicExpressionNumberConverterContext implements ExpressionNumberCon
     @Override
     public String weekDayNameAbbreviation(int day) {
         return this.context.weekDayNameAbbreviation(day);
-    }
-
-    @Override
-    public Locale locale() {
-        return this.context.locale();
     }
 
     @Override
