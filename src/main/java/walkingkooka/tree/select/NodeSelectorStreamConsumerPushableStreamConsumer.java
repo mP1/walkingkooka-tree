@@ -22,7 +22,7 @@ import walkingkooka.predicate.Predicates;
 import walkingkooka.stream.push.PushableStreamConsumer;
 import walkingkooka.tree.Node;
 import walkingkooka.tree.expression.ExpressionEvaluationContext;
-import walkingkooka.tree.expression.ExpressionNumberConverterContext;
+import walkingkooka.tree.expression.convert.ExpressionNumberConverterContext;
 
 import java.util.Objects;
 import java.util.function.Consumer;

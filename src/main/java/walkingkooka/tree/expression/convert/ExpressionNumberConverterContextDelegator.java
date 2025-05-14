@@ -15,10 +15,25 @@
  *
  */
 
-package walkingkooka.tree.expression;
+package walkingkooka.tree.expression.convert;
 
 import walkingkooka.convert.ConverterContext;
+import walkingkooka.convert.ConverterContextDelegator;
+import walkingkooka.tree.expression.ExpressionNumberKind;
 
-public interface ExpressionNumberConverterContext extends ConverterContext,
-    DateTimeExpressionNumberContext {
+public interface ExpressionNumberConverterContextDelegator extends ExpressionNumberConverterContext,
+    ConverterContextDelegator {
+
+    @Override
+    default ConverterContext converterContext() {
+        return this.expressionNumberConverterContext();
+    }
+
+    @Override
+    default ExpressionNumberKind expressionNumberKind() {
+        return this.expressionNumberConverterContext()
+            .expressionNumberKind();
+    }
+
+    ExpressionNumberConverterContext expressionNumberConverterContext();
 }

@@ -15,7 +15,7 @@
  *
  */
 
-package walkingkooka.tree.expression;
+package walkingkooka.tree.expression.convert;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.ToStringTesting;
@@ -24,6 +24,7 @@ import walkingkooka.convert.ConverterTesting2;
 import walkingkooka.convert.Converters;
 import walkingkooka.datetime.DateTimeContexts;
 import walkingkooka.math.DecimalNumberContexts;
+import walkingkooka.tree.expression.ExpressionNumberKind;
 
 import java.math.MathContext;
 

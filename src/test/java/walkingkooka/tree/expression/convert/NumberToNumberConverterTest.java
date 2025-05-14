@@ -15,12 +15,14 @@
  *
  */
 
-package walkingkooka.tree.expression;
+package walkingkooka.tree.expression.convert;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.ToStringTesting;
 import walkingkooka.convert.ConverterTesting2;
+import walkingkooka.tree.expression.ExpressionNumber;
+import walkingkooka.tree.expression.ExpressionNumberKind;
 
 public final class NumberToNumberConverterTest implements ConverterTesting2<NumberToNumberConverter<FakeExpressionNumberConverterContext>, FakeExpressionNumberConverterContext>,
     ToStringTesting<NumberToNumberConverter<FakeExpressionNumberConverterContext>> {

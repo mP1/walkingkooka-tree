@@ -15,7 +15,7 @@
  *
  */
 
-package walkingkooka.tree.expression;
+package walkingkooka.tree.expression.convert;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
@@ -24,6 +24,8 @@ import walkingkooka.HashCodeEqualsDefinedTesting2;
 import walkingkooka.convert.Converter;
 import walkingkooka.convert.Converters;
 import walkingkooka.convert.FakeConverter;
+import walkingkooka.tree.expression.ExpressionNumber;
+import walkingkooka.tree.expression.ExpressionNumberKind;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;

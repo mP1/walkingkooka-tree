@@ -18,6 +18,7 @@
 package walkingkooka.tree.expression;
 
 import walkingkooka.text.CaseSensitivity;
+import walkingkooka.tree.expression.convert.FakeExpressionNumberConverterContext;
 import walkingkooka.tree.expression.function.ExpressionFunction;
 import walkingkooka.tree.expression.function.ExpressionFunctionParameter;
 

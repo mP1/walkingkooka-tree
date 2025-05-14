@@ -15,10 +15,11 @@
  *
  */
 
-package walkingkooka.tree.expression;
+package walkingkooka.tree.expression.convert;
 
 import walkingkooka.convert.Converter;
 import walkingkooka.reflect.PublicStaticHelper;
+import walkingkooka.tree.expression.ExpressionNumber;
 
 /**
  * A collection of useful {@link Converter} involving {@link ExpressionNumber}.

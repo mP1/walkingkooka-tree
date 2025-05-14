@@ -15,7 +15,7 @@
  *
  */
 
-package walkingkooka.tree.expression;
+package walkingkooka.tree.expression.convert;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.ToStringTesting;
@@ -28,6 +28,7 @@ import walkingkooka.datetime.DateTimeSymbols;
 import walkingkooka.math.DecimalNumberContext;
 import walkingkooka.math.DecimalNumberContextDelegator;
 import walkingkooka.math.DecimalNumberContexts;
+import walkingkooka.tree.expression.ExpressionNumberKind;
 
 import java.math.MathContext;
 import java.text.DateFormatSymbols;

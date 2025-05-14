@@ -15,11 +15,12 @@
  *
  */
 
-package walkingkooka.tree.expression;
+package walkingkooka.tree.expression.convert;
 
 import walkingkooka.convert.Converter;
 import walkingkooka.convert.ConverterContext;
 import walkingkooka.reflect.PublicStaticHelper;
+import walkingkooka.tree.expression.ExpressionNumberKind;
 
 public final class ExpressionNumberConverterContexts implements PublicStaticHelper {
 

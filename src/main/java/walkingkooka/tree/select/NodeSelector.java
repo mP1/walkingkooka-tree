@@ -24,7 +24,7 @@ import walkingkooka.tree.Node;
 import walkingkooka.tree.expression.Expression;
 import walkingkooka.tree.expression.ExpressionEvaluationContext;
 import walkingkooka.tree.expression.ExpressionFunctionName;
-import walkingkooka.tree.expression.ExpressionNumberConverterContext;
+import walkingkooka.tree.expression.convert.ExpressionNumberConverterContext;
 import walkingkooka.tree.select.parser.ExpressionNodeSelectorParserToken;
 import walkingkooka.tree.select.parser.NodeSelectorNodeName;
 import walkingkooka.tree.select.parser.NodeSelectorParserToken;
