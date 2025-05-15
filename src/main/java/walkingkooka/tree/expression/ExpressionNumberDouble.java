@@ -52,7 +52,7 @@ final class ExpressionNumberDouble extends ExpressionNumber {
 
     @Override
     ExpressionNumberBigDecimal setKindBigDecimal() {
-        return ExpressionNumberBigDecimal.with(this.bigDecimal());
+        return ExpressionNumberBigDecimal.withBigDecimal(this.bigDecimal());
     }
 
     @Override
