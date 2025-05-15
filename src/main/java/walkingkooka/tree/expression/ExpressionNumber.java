@@ -62,19 +62,24 @@ public abstract class ExpressionNumber extends Number implements Comparable<Expr
     }
 
     /**
-     * Creates a {@link ExpressionNumber} wrapping the given {@link Double}.
-     * Future math operations will operate on doubles.
+     * Factory that tests the value and wraps it in the appropriate {@link ExpressionNumber}.
+     * If the value is already a {@link ExpressionNumber} it will be returned and not double wrapped.
      */
-    static ExpressionNumberDouble with(final double value) {
-        return ExpressionNumberDouble.withDouble(value);
-    }
+    public static ExpressionNumber with(final Number value) {
+        Objects.requireNonNull(value, "value");
 
-    /**
-     * Creates a {@link ExpressionNumber} wrapping the given {@link BigDecimal}.
-     * Future math operations will operate on {@link BigDecimal}.
-     */
-    static ExpressionNumberBigDecimal with(final BigDecimal value) {
-        return ExpressionNumberBigDecimal.withBigDecimal(value);
+        return value instanceof ExpressionNumber ?
+            (ExpressionNumber) value :
+            value instanceof BigDecimal || value instanceof BigInteger ?
+                ExpressionNumberBigDecimal.withBigDecimal(
+                    value instanceof BigDecimal ?
+                        (BigDecimal)
+                            value :
+                        new BigDecimal((BigInteger) value)
+                ) :
+                ExpressionNumberDouble.withDouble(
+                    value.doubleValue()
+                );
     }
 
     /**

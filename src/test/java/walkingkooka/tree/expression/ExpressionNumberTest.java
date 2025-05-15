@@ -24,8 +24,37 @@ import walkingkooka.reflect.JavaVisibility;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 
+import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
 public final class ExpressionNumberTest implements ClassTesting<ExpressionNumber> {
 
+    @Test
+    public void testWithNullFails() {
+        assertThrows(
+            NullPointerException.class,
+            () -> ExpressionNumber.with(null)
+        );
+    }
+
+    @Test
+    public void testWithExpressionNumberBigDecimal() {
+        final ExpressionNumberBigDecimal number = ExpressionNumberBigDecimal.withBigDecimal(BigDecimal.ONE);
+        assertSame(
+            number,
+            ExpressionNumber.with(number)
+        );
+    }
+
+    @Test
+    public void testWithExpressionNumberDouble() {
+        final ExpressionNumberDouble number = ExpressionNumberDouble.withDouble(1.0);
+        assertSame(
+            number,
+            ExpressionNumber.with(number)
+        );
+    }
+    
     @Test
     public void testIsNull() {
         this.isAndCheck(null, false);
@@ -133,53 +162,55 @@ public final class ExpressionNumberTest implements ClassTesting<ExpressionNumber
 
     @Test
     public void testWithByte() {
-        this.withNumberAndCheck((byte) 1);
+        this.withAndCheck((byte) 1);
     }
 
     @Test
     public void testWithShort() {
-        this.withNumberAndCheck((short) 1);
+        this.withAndCheck((short) 1);
     }
 
     @Test
     public void testWithInteger() {
-        this.withNumberAndCheck(1);
+        this.withAndCheck(1);
     }
 
     @Test
     public void testWithLong() {
-        this.withNumberAndCheck(1L);
+        this.withAndCheck(1L);
     }
 
     @Test
     public void testWithFloat() {
-        this.withNumberAndCheck(1.5f);
+        this.withAndCheck(1.5f);
     }
 
     @Test
     public void testWithDouble() {
-        this.withNumberAndCheck(1.5);
+        this.withAndCheck(1.5);
     }
 
     @Test
     public void testWithBigInteger() {
-        this.withNumberAndCheck(BigInteger.TEN);
+        this.withAndCheck(BigInteger.TEN);
     }
 
     @Test
     public void testWithBigDecimal() {
-        this.withNumberAndCheck(BigDecimal.valueOf(1.5));
+        this.withAndCheck(BigDecimal.valueOf(1.5));
     }
 
-    private void withNumberAndCheck(final Number value) {
+    private void withAndCheck(final Number value) {
         if (value instanceof BigInteger || value instanceof BigDecimal) {
-            final ExpressionNumber expressionNumber = ExpressionNumber.with(value instanceof BigDecimal ?
-                (BigDecimal) value :
-                new BigDecimal((BigInteger) value));
+            final ExpressionNumber expressionNumber = ExpressionNumber.with(
+                value instanceof BigDecimal ?
+                    value :
+                    new BigDecimal((BigInteger) value)
+            );
             this.checkEquals(ExpressionNumberBigDecimal.class, expressionNumber.getClass(), "type");
             this.checkEquals(value instanceof BigDecimal ? value : new BigDecimal((BigInteger) value), expressionNumber.bigDecimal(), "bigDecimal");
         } else {
-            final ExpressionNumber expressionNumber = ExpressionNumber.with(value.doubleValue());
+            final ExpressionNumber expressionNumber = ExpressionNumber.with(value);
             this.checkEquals(ExpressionNumberDouble.class, expressionNumber.getClass(), "type");
             this.checkEquals(value.doubleValue(), expressionNumber.doubleValue(), "doubleValue");
         }

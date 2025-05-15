@@ -123,7 +123,7 @@ public enum ExpressionNumberKind {
             return E;
         }
 
-        private final ExpressionNumber E = ExpressionNumber.with(Math.E);
+        private final ExpressionNumber E = ExpressionNumberDouble.withDouble(Math.E);
 
         @Override
         public ExpressionNumber parse(final String text) {
@@ -144,7 +144,7 @@ public enum ExpressionNumberKind {
             return PI;
         }
 
-        private final ExpressionNumber PI = ExpressionNumber.with(Math.PI);
+        private final ExpressionNumber PI = ExpressionNumberDouble.withDouble(Math.PI);
 
         @Override
         ExpressionNumber randomBetween0(final ExpressionNumber lower,
