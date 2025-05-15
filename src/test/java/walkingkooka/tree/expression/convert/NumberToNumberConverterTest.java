@@ -30,7 +30,7 @@ public final class NumberToNumberConverterTest implements ConverterTesting2<Numb
     private final static ExpressionNumberKind EXPRESSION_NUMBER_KIND = ExpressionNumberKind.BIG_DECIMAL;
 
     @Test
-    public void testExpressionNumberBigDecimalToNonNumber() {
+    public void testConvertExpressionNumberBigDecimalToNonNumber() {
         this.convertFails(
             ExpressionNumberKind.BIG_DECIMAL.create(123),
             String.class
@@ -38,7 +38,7 @@ public final class NumberToNumberConverterTest implements ConverterTesting2<Numb
     }
 
     @Test
-    public void testExpressionNumberDoubleToNonNumber() {
+    public void testConvertExpressionNumberDoubleToNonNumber() {
         this.convertFails(
             ExpressionNumberKind.DOUBLE.create(123),
             String.class
@@ -46,7 +46,7 @@ public final class NumberToNumberConverterTest implements ConverterTesting2<Numb
     }
 
     @Test
-    public void testNumberToNonNumber() {
+    public void testConvertNumberToNonNumber() {
         this.convertFails(
             123,
             String.class
@@ -54,14 +54,14 @@ public final class NumberToNumberConverterTest implements ConverterTesting2<Numb
     }
 
     @Test
-    public void testExpressionNumberBigDecimalToExpressionNumberBigDecimal() {
+    public void testConvertExpressionNumberBigDecimalToExpressionNumberBigDecimal() {
         this.convertAndCheck(
             ExpressionNumberKind.BIG_DECIMAL.create(123)
         );
     }
 
     @Test
-    public void testExpressionNumberBigDecimalToExpressionNumberDouble() {
+    public void testConvertExpressionNumberBigDecimalToExpressionNumberDouble() {
         this.convertAndCheck(
             ExpressionNumberKind.BIG_DECIMAL.create(123),
             ExpressionNumber.class,
@@ -71,7 +71,7 @@ public final class NumberToNumberConverterTest implements ConverterTesting2<Numb
     }
 
     @Test
-    public void testExpressionNumberBigDecimalToInteger() {
+    public void testConvertExpressionNumberBigDecimalToInteger() {
         this.convertAndCheck(
             ExpressionNumberKind.BIG_DECIMAL.create(123),
             123
@@ -79,7 +79,7 @@ public final class NumberToNumberConverterTest implements ConverterTesting2<Numb
     }
 
     @Test
-    public void testExpressionNumberBigDecimalToNumber() {
+    public void testConvertExpressionNumberBigDecimalToNumber() {
         this.convertAndCheck(
             ExpressionNumberKind.BIG_DECIMAL.create(123),
             Number.class
@@ -87,7 +87,7 @@ public final class NumberToNumberConverterTest implements ConverterTesting2<Numb
     }
 
     @Test
-    public void testExpressionNumberDoubleToExpressionNumberBigDecimal() {
+    public void testConvertExpressionNumberDoubleToExpressionNumberBigDecimal() {
         this.convertAndCheck(
             ExpressionNumberKind.DOUBLE.create(123),
             ExpressionNumber.class,
@@ -97,14 +97,14 @@ public final class NumberToNumberConverterTest implements ConverterTesting2<Numb
     }
 
     @Test
-    public void testExpressionNumberDoubleToExpressionNumberDouble() {
+    public void testConvertExpressionNumberDoubleToExpressionNumberDouble() {
         this.convertAndCheck(
             ExpressionNumberKind.DOUBLE.create(123)
         );
     }
 
     @Test
-    public void testExpressionNumberDoubleToInteger() {
+    public void testConvertExpressionNumberDoubleToInteger() {
         this.convertAndCheck(
             ExpressionNumberKind.DOUBLE.create(123),
             123
@@ -112,7 +112,7 @@ public final class NumberToNumberConverterTest implements ConverterTesting2<Numb
     }
 
     @Test
-    public void testExpressionNumberDoubleToNumber() {
+    public void testConvertExpressionNumberDoubleToNumber() {
         this.convertAndCheck(
             ExpressionNumberKind.DOUBLE.create(123),
             Number.class
