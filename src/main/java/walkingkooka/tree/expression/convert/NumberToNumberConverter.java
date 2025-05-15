@@ -21,8 +21,8 @@ import walkingkooka.Cast;
 import walkingkooka.Either;
 import walkingkooka.convert.Converter;
 import walkingkooka.convert.Converters;
-import walkingkooka.math.Maths;
 import walkingkooka.tree.expression.ExpressionNumber;
+import walkingkooka.tree.expression.ExpressionNumberKind;
 
 /**
  * A {@link Converter} that may be used to convert any {@link Number} including {@link ExpressionNumber} to another
@@ -46,7 +46,7 @@ final class NumberToNumberConverter<C extends ExpressionNumberConverterContext> 
     public boolean canConvert(final Object value,
                               final Class<?> type,
                               final C context) {
-        return ExpressionNumber.is(value) &&
+        return (null == value || ExpressionNumber.is(value)) &&
             (
                 ExpressionNumber.isClass(type) ||
                     Number.class == type
@@ -57,61 +57,55 @@ final class NumberToNumberConverter<C extends ExpressionNumberConverterContext> 
     public <T> Either<T, String> convert(final Object value,
                                          final Class<T> type,
                                          final C context) {
-        Either<T, String> result;
+        Either<T, String> result = null;
 
-        if (value.getClass() == type || Number.class == type) {
-            result = this.successfulConversion(
-                value,
-                type
-            );
-        } else {
-            if (ExpressionNumber.is(value) && ExpressionNumber.isClass(type)) {
-                if (Maths.isNumber(value)) {
-                    // Number -> Number
-                    if (Maths.isNumberClass(type)) {
-                        result = this.numberToNumber.convert(
-                            value,
-                            type,
-                            context
-                        );
-                    } else {
-                        // Number -> ExpressionNumber
-                        result = this.successfulConversion(
-                            context.expressionNumberKind()
-                                .create(
-                                    (Number) value
-                                ),
-                            type
-                        );
-                    }
-
-                } else {
-                    // ExpressionNumber -> Number
-                    if (Maths.isNumberClass(type)) {
-                        final ExpressionNumber expressionNumber = (ExpressionNumber) value;
-
-                        result = this.numberToNumber.convert(
-                            expressionNumber.value(),
-                            type,
-                            context
-                        );
-                    } else {
-                        // ExpressionNumber -> ExpressionNumber
-                        result = this.successfulConversion(
-                            context.expressionNumberKind()
-                                .create(
-                                    (Number) value
-                                ),
-                            type
-                        );
-                    }
-                }
-            } else {
-                result = this.failConversion(
+        if (this.canConvert(value, type, context)) {
+            if (null == value || value.getClass() == type) {
+                result = this.successfulConversion(
                     value,
                     type
                 );
+            } else {
+                if (Number.class == type) {
+                    result = this.successfulConversion(
+                        value,
+                        type
+                    );
+                } else {
+                    Number number = (Number) value;
+
+                    if (ExpressionNumber.isExpressionNumberAndNotNumber(type)) {
+                        result = this.successfulConversion(
+                            ExpressionNumberKind.BIG_DECIMAL.numberType() == type ?
+                                ExpressionNumberKind.BIG_DECIMAL.create(number)
+                                :
+                                ExpressionNumberKind.DOUBLE.numberType() == type ?
+                                    ExpressionNumberKind.DOUBLE.create(number)
+                                    :
+                                    ExpressionNumber.with(number),
+                            type
+                        );
+                    } else {
+                        // target is Number, unwrap if necessary
+                        if (value instanceof ExpressionNumber) {
+                            number = ((ExpressionNumber) value).value();
+                        }
+
+                        result = this.numberToNumber.convert(
+                            number,
+                            type,
+                            context
+                        );
+                    }
+                }
             }
+        }
+
+        if (null == result) {
+            result = this.failConversion(
+                value,
+                type
+            );
         }
 
         return result;
