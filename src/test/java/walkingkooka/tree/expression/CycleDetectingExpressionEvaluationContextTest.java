@@ -349,11 +349,12 @@ public final class CycleDetectingExpressionEvaluationContextTest implements Clas
                             ),
                             (t, c) -> t.cast(BigIntegerParserToken.class).value()
                         )
-                        .convert(value,
+                        .convert(
+                            value,
                             target,
                             ConverterContexts.basic(
                                 Converters.JAVA_EPOCH_OFFSET, // dateOffset
-                                Converters.fake(),
+                                Converters.characterOrCharSequenceOrHasTextOrStringToCharacterOrCharSequenceOrString(),
                                 DateTimeContexts.fake(),
                                 DecimalNumberContexts.american(MathContext.DECIMAL32)
                             )
