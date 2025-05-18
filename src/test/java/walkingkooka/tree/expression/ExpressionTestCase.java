@@ -372,10 +372,15 @@ public abstract class ExpressionTestCase<N extends Expression> implements TreePr
         final Locale locale = Locale.ENGLISH;
 
         return ExpressionNumberConverterContexts.basic(
-            Converters.simple(),
+            Converters.collection(
+                Lists.of(
+                    Converters.simple(),
+                    Converters.characterOrCharSequenceOrHasTextOrStringToCharacterOrCharSequenceOrString()
+                )
+            ),
             ConverterContexts.basic(
                 Converters.JAVA_EPOCH_OFFSET,
-                Converters.fake(),
+                Converters.simple(),
                 DateTimeContexts.basic(
                     DateTimeSymbols.fromDateFormatSymbols(
                         new DateFormatSymbols(locale)
@@ -426,6 +431,7 @@ public abstract class ExpressionTestCase<N extends Expression> implements TreePr
         final Converter<ExpressionNumberConverterContext> converters = Converters.collection(
             Lists.of(
                 Converters.simple(),
+                Converters.characterOrCharSequenceOrHasTextOrStringToCharacterOrCharSequenceOrString(),
                 new FakeConverter<>() {
                     @Override
                     public boolean canConvert(final Object value,
