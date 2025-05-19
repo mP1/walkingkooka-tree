@@ -20,16 +20,17 @@ package walkingkooka.tree.expression.convert;
 import walkingkooka.Either;
 import walkingkooka.convert.Converter;
 import walkingkooka.convert.ConverterContext;
-import walkingkooka.datetime.DateTimeSymbols;
+import walkingkooka.datetime.DateTimeContext;
+import walkingkooka.datetime.DateTimeContextDelegator;
 import walkingkooka.math.DecimalNumberContext;
 import walkingkooka.math.DecimalNumberContextDelegator;
 import walkingkooka.tree.expression.ExpressionNumberKind;
 
-import java.time.LocalDateTime;
-import java.util.List;
+import java.util.Locale;
 import java.util.Objects;
 
 final class BasicExpressionNumberConverterContext implements ExpressionNumberConverterContext,
+    DateTimeContextDelegator,
     DecimalNumberContextDelegator {
 
     static BasicExpressionNumberConverterContext with(final Converter<ExpressionNumberConverterContext> converter,
@@ -72,77 +73,18 @@ final class BasicExpressionNumberConverterContext implements ExpressionNumberCon
     private final Converter<ExpressionNumberConverterContext> converter;
 
     @Override
-    public List<String> ampms() {
-        return this.context.ampms();
-    }
-
-    @Override
-    public String ampm(int hourOfDay) {
-        return this.context.ampm(hourOfDay);
-    }
-
-    @Override
-    public int defaultYear() {
-        return this.context.defaultYear();
-    }
-
-    @Override
-    public List<String> monthNames() {
-        return this.context.monthNames();
-    }
-
-    @Override
-    public String monthName(int month) {
-        return this.context.monthName(month);
-    }
-
-    @Override
-    public List<String> monthNameAbbreviations() {
-        return this.context.monthNameAbbreviations();
-    }
-
-    @Override
-    public String monthNameAbbreviation(int month) {
-        return this.context.monthNameAbbreviation(month);
-    }
-
-    @Override
-    public LocalDateTime now() {
-        return this.context.now();
-    }
-
-    @Override public int twoDigitYear() {
-        return this.context.twoDigitYear();
-    }
-
-    @Override
-    public List<String> weekDayNames() {
-        return this.context.weekDayNames();
-    }
-
-    @Override
-    public String weekDayName(int day) {
-        return this.context.weekDayName(day);
-    }
-
-    @Override
-    public List<String> weekDayNameAbbreviations() {
-        return this.context.weekDayNameAbbreviations();
-    }
-
-    @Override
-    public String weekDayNameAbbreviation(int day) {
-        return this.context.weekDayNameAbbreviation(day);
-    }
-
-    @Override
-    public DateTimeSymbols dateTimeSymbols() {
-        return this.context.dateTimeSymbols();
+    public DateTimeContext dateTimeContext() {
+        return this.context;
     }
 
     @Override
     public DecimalNumberContext decimalNumberContext() {
         return this.context;
+    }
+
+    @Override
+    public Locale locale() {
+        return this.context.locale();
     }
 
     private final ConverterContext context;
