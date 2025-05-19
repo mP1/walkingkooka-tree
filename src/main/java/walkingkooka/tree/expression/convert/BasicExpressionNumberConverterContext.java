@@ -20,6 +20,7 @@ package walkingkooka.tree.expression.convert;
 import walkingkooka.Either;
 import walkingkooka.convert.Converter;
 import walkingkooka.convert.ConverterContext;
+import walkingkooka.datetime.DateTimeSymbols;
 import walkingkooka.math.DecimalNumberContext;
 import walkingkooka.math.DecimalNumberContextDelegator;
 import walkingkooka.tree.expression.ExpressionNumberKind;
@@ -132,6 +133,11 @@ final class BasicExpressionNumberConverterContext implements ExpressionNumberCon
     @Override
     public String weekDayNameAbbreviation(int day) {
         return this.context.weekDayNameAbbreviation(day);
+    }
+
+    @Override
+    public DateTimeSymbols dateTimeSymbols() {
+        return this.context.dateTimeSymbols();
     }
 
     @Override
