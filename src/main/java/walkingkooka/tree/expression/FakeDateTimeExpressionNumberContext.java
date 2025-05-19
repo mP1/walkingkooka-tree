@@ -18,6 +18,7 @@
 package walkingkooka.tree.expression;
 
 import walkingkooka.datetime.FakeDateTimeContext;
+import walkingkooka.math.DecimalNumberSymbols;
 
 import java.math.MathContext;
 
@@ -89,6 +90,11 @@ public class FakeDateTimeExpressionNumberContext extends FakeDateTimeContext imp
 
     @Override
     public ExpressionNumberKind expressionNumberKind() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public DecimalNumberSymbols decimalNumberSymbols() {
         throw new UnsupportedOperationException();
     }
 }
