@@ -21,6 +21,7 @@ import walkingkooka.Cast;
 import walkingkooka.Either;
 import walkingkooka.convert.Converter;
 import walkingkooka.convert.Converters;
+import walkingkooka.convert.ShortCircuitingConverter;
 import walkingkooka.tree.expression.ExpressionNumber;
 import walkingkooka.tree.expression.ExpressionNumberKind;
 
@@ -28,7 +29,7 @@ import walkingkooka.tree.expression.ExpressionNumberKind;
  * A {@link Converter} that may be used to convert any {@link Number} including {@link ExpressionNumber} to another
  * {@link Number} including {@link ExpressionNumber}.
  */
-final class NumberToNumberConverter<C extends ExpressionNumberConverterContext> implements Converter<C> {
+final class NumberToNumberConverter<C extends ExpressionNumberConverterContext> implements ShortCircuitingConverter<C> {
 
     /**
      * Type safe singleton getter
@@ -54,9 +55,9 @@ final class NumberToNumberConverter<C extends ExpressionNumberConverterContext> 
     }
 
     @Override
-    public <T> Either<T, String> convert(final Object value,
-                                         final Class<T> type,
-                                         final C context) {
+    public <T> Either<T, String> doConvert(final Object value,
+                                           final Class<T> type,
+                                           final C context) {
         Either<T, String> result = null;
 
         if (this.canConvert(value, type, context)) {
