@@ -30,6 +30,14 @@ public final class NumberToNumberConverterTest implements ConverterTesting2<Numb
     private final static ExpressionNumberKind EXPRESSION_NUMBER_KIND = ExpressionNumberKind.BIG_DECIMAL;
 
     @Test
+    public void testConvertStringToStringFails() {
+        this.convertFails(
+            "Hello",
+            String.class
+        );
+    }
+
+    @Test
     public void testConvertExpressionNumberBigDecimalToNonNumber() {
         this.convertFails(
             ExpressionNumberKind.BIG_DECIMAL.create(123),
