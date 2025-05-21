@@ -30,6 +30,14 @@ public final class ExpressionNumberConverterNumberOrExpressionNumberToNumberTest
     // convert from ExpressionNumber....................................................................................
 
     @Test
+    public void testConvertStringToStringFails() {
+        this.convertFails(
+            "Hello",
+            String.class
+        );
+    }
+
+    @Test
     public void testConvertExpressionNumberToByteFails() {
         this.convertFromExpressionNumberAndFails(
             (byte) 123
