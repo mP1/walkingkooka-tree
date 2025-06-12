@@ -37,8 +37,7 @@ import java.util.function.Supplier;
 /**
  * A {@link Context} that travels during any expression evaluation.
  */
-public interface ExpressionEvaluationContext extends Context,
-    ExpressionNumberConverterContext,
+public interface ExpressionEvaluationContext extends ExpressionNumberConverterContext,
     ExpressionNumberContext,
     ExpressionPurityContext,
     HasExpressionFunction {
