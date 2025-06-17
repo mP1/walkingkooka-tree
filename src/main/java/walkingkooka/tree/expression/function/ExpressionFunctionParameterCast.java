@@ -18,6 +18,7 @@
 package walkingkooka.tree.expression.function;
 
 import javaemul.internal.annotations.GwtIncompatible;
+import walkingkooka.convert.HasConvertError;
 import walkingkooka.text.CharSequences;
 
 // https://github.com/mP1/walkingkooka-tree/issues/307
@@ -29,6 +30,20 @@ class ExpressionFunctionParameterCast extends ExpressionFunctionParameterCastGwt
                       final ExpressionFunctionParameter<T> parameter) {
         final Class<T> type = parameter.type();
         if (null != value && false == type.isInstance(value)) {
+            String invalidTypeMessage = null;
+
+            if (value instanceof HasConvertError) {
+                invalidTypeMessage = ((HasConvertError) value).convertErrorMessage()
+                    .orElse(null);
+            }
+
+            if (null == invalidTypeMessage) {
+                invalidTypeMessage = "Invalid type " +
+                    value.getClass().getName() +
+                    " expected " +
+                    type.getName();
+            }
+
             // Invalid parameter "name" value "Actual" expected "Expected".
             throw new ClassCastException(
                 "Parameter " +
@@ -36,10 +51,8 @@ class ExpressionFunctionParameterCast extends ExpressionFunctionParameterCastGwt
                         parameter.name()
                             .value()
                     ) +
-                    ": Invalid type " +
-                    value.getClass().getName() +
-                    " expected " +
-                    type.getName()
+                    ": " +
+                    invalidTypeMessage
             );
         }
         return type.cast(value);
