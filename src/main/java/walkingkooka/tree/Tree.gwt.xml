@@ -3,6 +3,7 @@
     <inherits name="walkingkooka.j2cl.java.util.locale.Locale"/>
     <inherits name="ch.obermuhlner.math.big.BigMath"/>
     <inherits name="walkingkooka.convert.Convert"/>
+    <inherits name="walkingkooka.locale.Locale"/>
     <inherits name="walkingkooka.text.cursor.parser.ebnf.Ebnf"/>
     <source path=""/>
 </module>
