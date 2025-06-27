@@ -17,13 +17,17 @@
 
 package walkingkooka.tree.expression;
 
+import walkingkooka.datetime.DateTimeSymbols;
+import walkingkooka.math.DecimalNumberSymbols;
 import walkingkooka.text.CaseSensitivity;
 import walkingkooka.tree.expression.convert.FakeExpressionNumberConverterContext;
 import walkingkooka.tree.expression.function.ExpressionFunction;
 import walkingkooka.tree.expression.function.ExpressionFunctionParameter;
 
+import java.util.Locale;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.Set;
 import java.util.function.Function;
 
 public class FakeExpressionEvaluationContext extends FakeExpressionNumberConverterContext implements ExpressionEvaluationContext {
@@ -75,6 +79,28 @@ public class FakeExpressionEvaluationContext extends FakeExpressionNumberConvert
     public Optional<Optional<Object>> reference(final ExpressionReference reference) {
         Objects.requireNonNull(reference, "reference");
 
+        throw new UnsupportedOperationException();
+    }
+
+    // LocaleContext....................................................................................................
+
+    @Override
+    public Set<Locale> availableLocales() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public Optional<DateTimeSymbols> dateTimeSymbolsForLocale(final Locale locale) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public Optional<DecimalNumberSymbols> decimalNumberSymbolsForLocale(final Locale locale) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public Locale locale() {
         throw new UnsupportedOperationException();
     }
 }

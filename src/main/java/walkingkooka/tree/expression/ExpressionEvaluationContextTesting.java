@@ -19,6 +19,7 @@ package walkingkooka.tree.expression;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.convert.CanConvertTesting;
+import walkingkooka.locale.LocaleContextTesting2;
 import walkingkooka.text.printer.TreePrintableTesting;
 import walkingkooka.tree.expression.function.ExpressionFunction;
 import walkingkooka.tree.expression.function.ExpressionFunctions;
@@ -37,6 +38,7 @@ public interface ExpressionEvaluationContextTesting<C extends ExpressionEvaluati
     CanConvertTesting<C>,
     ExpressionNumberContextTesting<C>,
     ExpressionPurityContextTesting<C>,
+    LocaleContextTesting2<C>,
     TreePrintableTesting {
 
     // enterScope.......................................................................................................

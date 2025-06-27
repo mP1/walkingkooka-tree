@@ -20,6 +20,7 @@ package walkingkooka.tree.expression;
 import walkingkooka.Cast;
 import walkingkooka.Context;
 import walkingkooka.collect.list.Lists;
+import walkingkooka.locale.LocaleContext;
 import walkingkooka.text.CaseSensitivity;
 import walkingkooka.tree.expression.convert.ExpressionNumberConverterContext;
 import walkingkooka.tree.expression.function.ExpressionFunction;
@@ -40,7 +41,8 @@ import java.util.function.Supplier;
 public interface ExpressionEvaluationContext extends ExpressionNumberConverterContext,
     ExpressionNumberContext,
     ExpressionPurityContext,
-    HasExpressionFunction {
+    HasExpressionFunction,
+    LocaleContext {
 
     /**
      * Factory that returns a {@link ExpressionEvaluationContext} of the same type with the given scoped variables.

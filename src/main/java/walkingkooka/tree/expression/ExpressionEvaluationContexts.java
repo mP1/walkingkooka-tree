@@ -18,6 +18,7 @@
 package walkingkooka.tree.expression;
 
 import walkingkooka.convert.ConverterContext;
+import walkingkooka.locale.LocaleContext;
 import walkingkooka.reflect.PublicStaticHelper;
 import walkingkooka.text.CaseSensitivity;
 import walkingkooka.tree.expression.function.ExpressionFunction;
@@ -36,7 +37,8 @@ public final class ExpressionEvaluationContexts implements PublicStaticHelper {
                                                     final Function<ExpressionReference, Optional<Optional<Object>>> references,
                                                     final Function<ExpressionReference, ExpressionEvaluationException> referenceNotFound,
                                                     final CaseSensitivity caseSensitivity,
-                                                    final ConverterContext converterContext) {
+                                                    final ConverterContext converterContext,
+                                                    final LocaleContext localeContext) {
         return BasicExpressionEvaluationContext.with(
             expressionNumberKind,
             functions,
@@ -44,7 +46,8 @@ public final class ExpressionEvaluationContexts implements PublicStaticHelper {
             references,
             referenceNotFound,
             caseSensitivity,
-            converterContext
+            converterContext,
+            localeContext
         );
     }
 

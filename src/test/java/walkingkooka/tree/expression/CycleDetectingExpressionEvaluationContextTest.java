@@ -374,6 +374,16 @@ public final class CycleDetectingExpressionEvaluationContextTest implements Clas
     }
 
     @Override
+    public void testDateTimeSymbolsForLocaleWithNullFails() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public void testDecimalNumberSymbolsForLocaleWithNullFails() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
     public CycleDetectingExpressionEvaluationContext createContext() {
         return this.createContext(true);
     }

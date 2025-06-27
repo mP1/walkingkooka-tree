@@ -28,6 +28,7 @@ import walkingkooka.convert.Converter;
 import walkingkooka.convert.ConverterContexts;
 import walkingkooka.convert.Converters;
 import walkingkooka.datetime.DateTimeContexts;
+import walkingkooka.locale.LocaleContexts;
 import walkingkooka.math.DecimalNumberContext;
 import walkingkooka.math.DecimalNumberContexts;
 import walkingkooka.naming.Names;
@@ -1845,7 +1846,8 @@ public final class NodeSelectorNodeSelectorParserTokenVisitorTest implements Nod
                             this.references(),
                             ExpressionEvaluationContexts.referenceNotFound(),
                             CaseSensitivity.SENSITIVE,
-                            this.converterContext()
+                            this.converterContext(),
+                            LocaleContexts.fake()
                         )
                     );
                 }

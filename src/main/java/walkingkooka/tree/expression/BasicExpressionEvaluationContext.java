@@ -21,6 +21,8 @@ import walkingkooka.Either;
 import walkingkooka.convert.ConverterContext;
 import walkingkooka.datetime.DateTimeContext;
 import walkingkooka.datetime.DateTimeContextDelegator;
+import walkingkooka.locale.LocaleContext;
+import walkingkooka.locale.LocaleContextDelegator;
 import walkingkooka.math.DecimalNumberContext;
 import walkingkooka.math.DecimalNumberContextDelegator;
 import walkingkooka.text.CaseSensitivity;
@@ -40,7 +42,8 @@ import java.util.function.Function;
  */
 final class BasicExpressionEvaluationContext implements ExpressionEvaluationContext,
     DateTimeContextDelegator,
-    DecimalNumberContextDelegator {
+    DecimalNumberContextDelegator,
+    LocaleContextDelegator {
 
     /**
      * Factory that creates a {@link BasicExpressionEvaluationContext}
@@ -51,7 +54,8 @@ final class BasicExpressionEvaluationContext implements ExpressionEvaluationCont
                                                  final Function<ExpressionReference, Optional<Optional<Object>>> references,
                                                  final Function<ExpressionReference, ExpressionEvaluationException> referenceNotFound,
                                                  final CaseSensitivity stringEqualityCaseSensitivity,
-                                                 final ConverterContext converterContext) {
+                                                 final ConverterContext converterContext,
+                                                 final LocaleContext localeContext) {
         Objects.requireNonNull(expressionNumberKind, "expressionNumberKind");
         Objects.requireNonNull(functions, "functions");
         Objects.requireNonNull(exceptionHandler, "exceptionHandler");
@@ -59,6 +63,7 @@ final class BasicExpressionEvaluationContext implements ExpressionEvaluationCont
         Objects.requireNonNull(referenceNotFound, "referenceNotFound");
         Objects.requireNonNull(stringEqualityCaseSensitivity, "stringEqualsCaseSensitivity");
         Objects.requireNonNull(converterContext, "converterContext");
+        Objects.requireNonNull(localeContext, "localeContext");
 
         return new BasicExpressionEvaluationContext(
             expressionNumberKind,
@@ -67,7 +72,8 @@ final class BasicExpressionEvaluationContext implements ExpressionEvaluationCont
             references,
             referenceNotFound,
             stringEqualityCaseSensitivity,
-            converterContext
+            converterContext,
+            localeContext
         );
     }
 
@@ -80,7 +86,8 @@ final class BasicExpressionEvaluationContext implements ExpressionEvaluationCont
                                              final Function<ExpressionReference, Optional<Optional<Object>>> references,
                                              final Function<ExpressionReference, ExpressionEvaluationException> referenceNotFound,
                                              final CaseSensitivity stringEqualityCaseSensitivity,
-                                             final ConverterContext converterContext) {
+                                             final ConverterContext converterContext,
+                                             final LocaleContext localeContext) {
         super();
 
         this.expressionNumberKind = expressionNumberKind;
@@ -90,6 +97,7 @@ final class BasicExpressionEvaluationContext implements ExpressionEvaluationCont
         this.referenceNotFound = referenceNotFound;
         this.stringEqualityCaseSensitivity = stringEqualityCaseSensitivity;
         this.converterContext = converterContext;
+        this.localeContext = localeContext;
     }
 
     @Override
@@ -110,11 +118,6 @@ final class BasicExpressionEvaluationContext implements ExpressionEvaluationCont
     }
 
     private final ExpressionNumberKind expressionNumberKind;
-
-    @Override
-    public Locale locale() {
-        return this.converterContext.locale();
-    }
 
     // DateTimeContext.................................................................................................
 
@@ -200,7 +203,21 @@ final class BasicExpressionEvaluationContext implements ExpressionEvaluationCont
 
     private final Function<ExpressionReference, ExpressionEvaluationException> referenceNotFound;
 
-    // Object..........................................................................................................
+    // LocaleContext....................................................................................................
+
+    @Override
+    public LocaleContext localeContext() {
+        return this.localeContext;
+    }
+
+    private final LocaleContext localeContext;
+
+    @Override
+    public Locale locale() {
+        return this.localeContext.locale();
+    }
+
+    // Object...........................................................................................................
     @Override
     public String toString() {
         return this.expressionNumberKind +
@@ -215,6 +232,8 @@ final class BasicExpressionEvaluationContext implements ExpressionEvaluationCont
             " " +
             this.stringEqualityCaseSensitivity +
             " " +
-            this.converterContext;
+            this.converterContext +
+            " " +
+            this.localeContext;
     }
 }

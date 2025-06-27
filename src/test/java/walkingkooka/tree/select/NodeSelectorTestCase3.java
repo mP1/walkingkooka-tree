@@ -29,6 +29,8 @@ import walkingkooka.convert.Converter;
 import walkingkooka.convert.ConverterContexts;
 import walkingkooka.convert.Converters;
 import walkingkooka.datetime.DateTimeContexts;
+import walkingkooka.locale.LocaleContext;
+import walkingkooka.locale.LocaleContexts;
 import walkingkooka.math.DecimalNumberContexts;
 import walkingkooka.naming.Names;
 import walkingkooka.naming.StringName;
@@ -69,6 +71,8 @@ abstract public class NodeSelectorTestCase3<S extends NodeSelector<TestNode, Str
     ToStringTesting<S> {
 
     final static ExpressionNumberKind EXPRESSION_NUMBER_KIND = ExpressionNumberKind.DEFAULT;
+
+    final static LocaleContext LOCALE_CONTEXT = LocaleContexts.fake();
 
     NodeSelectorTestCase3() {
         super();
@@ -432,7 +436,8 @@ abstract public class NodeSelectorTestCase3<S extends NodeSelector<TestNode, Str
                 this.references(),
                 ExpressionEvaluationContexts.referenceNotFound(),
                 CaseSensitivity.SENSITIVE,
-                this.converterContext()
+                this.converterContext(),
+                LOCALE_CONTEXT
             )
         );
     }

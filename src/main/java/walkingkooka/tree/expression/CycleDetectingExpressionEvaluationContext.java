@@ -21,6 +21,8 @@ import walkingkooka.Either;
 import walkingkooka.collect.set.Sets;
 import walkingkooka.datetime.DateTimeContext;
 import walkingkooka.datetime.DateTimeContextDelegator;
+import walkingkooka.locale.LocaleContext;
+import walkingkooka.locale.LocaleContextDelegator;
 import walkingkooka.math.DecimalNumberContext;
 import walkingkooka.math.DecimalNumberContextDelegator;
 import walkingkooka.text.CaseSensitivity;
@@ -40,7 +42,8 @@ import java.util.function.Function;
  */
 final class CycleDetectingExpressionEvaluationContext implements ExpressionEvaluationContext,
     DateTimeContextDelegator,
-    DecimalNumberContextDelegator {
+    DecimalNumberContextDelegator,
+    LocaleContextDelegator {
 
     /**
      * Factory that creates a new {@link CycleDetectingExpressionEvaluationContext}.
@@ -129,6 +132,13 @@ final class CycleDetectingExpressionEvaluationContext implements ExpressionEvalu
      */
     private void reportCycle(final ExpressionReference reference) {
         throw new CycleDetectedExpressionEvaluationConversionException("Cycle detected to " + reference, reference);
+    }
+
+    // LocaleContext....................................................................................................
+
+    @Override
+    public LocaleContext localeContext() {
+        return this.context;
     }
 
     @Override

@@ -24,6 +24,7 @@ import walkingkooka.collect.map.Maps;
 import walkingkooka.convert.ConverterContexts;
 import walkingkooka.convert.Converters;
 import walkingkooka.datetime.DateTimeContexts;
+import walkingkooka.locale.LocaleContexts;
 import walkingkooka.math.DecimalNumberContext;
 import walkingkooka.math.DecimalNumberContextDelegator;
 import walkingkooka.math.DecimalNumberContexts;
@@ -44,6 +45,7 @@ import walkingkooka.tree.expression.function.UnknownExpressionFunctionException;
 import walkingkooka.tree.select.parser.NodeSelectorAttributeName;
 
 import java.math.MathContext;
+import java.util.Locale;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.function.Function;
@@ -145,7 +147,8 @@ public final class BasicNodeSelectorExpressionEvaluationContextTest implements N
                 this.references(),
                 ExpressionEvaluationContexts.referenceNotFound(),
                 CaseSensitivity.SENSITIVE,
-                this.converterContext()
+                this.converterContext(),
+                LocaleContexts.jre(Locale.ENGLISH)
             ));
     }
 
