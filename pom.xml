@@ -221,6 +221,13 @@
                 <configuration>
                     <source>9</source>
                     <target>9</target>
+                    <annotationProcessorPaths>
+                        <path>
+                            <groupId>walkingkooka</groupId>
+                            <artifactId>walkingkooka-resource-annotation-processor</artifactId>
+                            <version>1.0-SNAPSHOT</version>
+                        </path>
+                    </annotationProcessorPaths>
                     <compilerArgs>
                         <arg>-Awalkingkooka.j2cl.java.util.Currency=XXX</arg>
                         <arg>-Awalkingkooka.j2cl.java.util.Locale=*</arg>

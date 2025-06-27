@@ -53,6 +53,33 @@
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>${maven.compiler.plugin}</version>
                 <configuration>
+                    <annotationProcessorPaths>
+                        <path>
+                            <groupId>walkingkooka</groupId>
+                            <artifactId>j2cl-java-util-currency-annotation-processor</artifactId>
+                            <version>1.0-SNAPSHOT</version>
+                        </path>
+                        <path>
+                            <groupId>walkingkooka</groupId>
+                            <artifactId>j2cl-java-util-Locale-annotation-processor</artifactId>
+                            <version>1.0-SNAPSHOT</version>
+                        </path>
+                        <path>
+                            <groupId>walkingkooka</groupId>
+                            <artifactId>j2cl-java-text-annotation-processor</artifactId>
+                            <version>1.0-SNAPSHOT</version>
+                        </path>
+                        <path>
+                            <groupId>walkingkooka</groupId>
+                            <artifactId>j2cl-java-util-TimeZone-annotation-processor</artifactId>
+                            <version>1.0-SNAPSHOT</version>
+                        </path>
+                        <path>
+                            <groupId>walkingkooka</groupId>
+                            <artifactId>walkingkooka-resource-annotation-processor</artifactId>
+                            <version>1.0-SNAPSHOT</version>
+                        </path>
+                    </annotationProcessorPaths>
                     <compilerArgs>
                         <param>-Awalkingkooka.j2cl.java.util.Currency=XXX</param>
                         <param>-Awalkingkooka.j2cl.java.util.Locale=EN-AU</param>
