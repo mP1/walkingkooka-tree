@@ -69,7 +69,10 @@ public final class CycleDetectingExpressionEvaluationContextTest implements Clas
 
     @Test
     public void testWithNullContextFails() {
-        assertThrows(NullPointerException.class, () -> CycleDetectingExpressionEvaluationContext.with(null));
+        assertThrows(
+            NullPointerException.class,
+            () -> CycleDetectingExpressionEvaluationContext.with(null)
+        );
     }
 
     @Test
@@ -95,7 +98,10 @@ public final class CycleDetectingExpressionEvaluationContextTest implements Clas
                 return VALUE;
             }
         };
-        final List<Object> parameters = Lists.of("param-1", "param-2");
+        final List<Object> parameters = Lists.of(
+            "param-1",
+            "param-2"
+        );
 
         final CycleDetectingExpressionEvaluationContext context = this.createContext(ExpressionEvaluationContexts.fake());
 
@@ -185,7 +191,10 @@ public final class CycleDetectingExpressionEvaluationContextTest implements Clas
                 }
             });
 
-        assertThrows(CycleDetectedExpressionEvaluationConversionException.class, () -> target.toValue(context));
+        assertThrows(
+            CycleDetectedExpressionEvaluationConversionException.class,
+            () -> target.toValue(context)
+        );
     }
 
     @Test
@@ -224,7 +233,11 @@ public final class CycleDetectingExpressionEvaluationContextTest implements Clas
                     throw exception;
                 }
             });
-        assertThrows(CycleDetectedExpressionEvaluationConversionException.class, () -> Expression.reference(A1).toValue(context));
+        assertThrows(
+            CycleDetectedExpressionEvaluationConversionException.class,
+            () -> Expression.reference(A1)
+                .toValue(context)
+        );
     }
 
     @Test
@@ -263,9 +276,13 @@ public final class CycleDetectingExpressionEvaluationContextTest implements Clas
                 }
             });
 
-        assertThrows(CycleDetectedExpressionEvaluationConversionException.class, () -> {
-            Expression.reference(B2).toValue(context); // --> B2 --> A1 --> B2 cycle!!!
-        });
+        assertThrows(
+            CycleDetectedExpressionEvaluationConversionException.class,
+            () -> {
+                Expression.reference(B2)
+                    .toValue(context); // --> B2 --> A1 --> B2 cycle!!!
+            }
+        );
     }
 
     @Test
@@ -314,7 +331,11 @@ public final class CycleDetectingExpressionEvaluationContextTest implements Clas
             CycleDetectedExpressionEvaluationConversionException.class,
             () -> b2Expression.toValue(context)
         );
-        this.toValueAndCheck(expression, context, VALUE);
+        this.toValueAndCheck(
+            expression,
+            context,
+            VALUE
+        );
     }
 
     @Test
@@ -329,7 +350,10 @@ public final class CycleDetectingExpressionEvaluationContextTest implements Clas
                     return mathContext;
                 }
             });
-        assertSame(mathContext, context.mathContext());
+        assertSame(
+            mathContext,
+            context.mathContext()
+        );
     }
 
     @Test
@@ -338,7 +362,8 @@ public final class CycleDetectingExpressionEvaluationContextTest implements Clas
             new FakeExpressionEvaluationContext() {
 
                 @Override
-                public <T> Either<T, String> convert(final Object value, final Class<T> target) {
+                public <T> Either<T, String> convert(final Object value,
+                                                     final Class<T> target) {
                     return Converters.parser(
                             BigInteger.class,
                             Parsers.bigInteger(10),
@@ -347,7 +372,8 @@ public final class CycleDetectingExpressionEvaluationContextTest implements Clas
                                 c,
                                 c
                             ),
-                            (t, c) -> t.cast(BigIntegerParserToken.class).value()
+                            (t, c) -> t.cast(BigIntegerParserToken.class)
+                                .value()
                         )
                         .convert(
                             value,
