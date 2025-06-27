@@ -57,49 +57,131 @@ public final class BasicNodeSelectorContextTest implements ClassTesting2<BasicNo
 
     private final static ExpressionNumberKind KIND = ExpressionNumberKind.DEFAULT;
 
+    private final static BooleanSupplier FINISHER = () -> false;
+
+    private final static Predicate<TestNode> PREDICATE = Predicates.always();
+
+    private final static Function<TestNode, TestNode> MAPPER = Function.identity();
+
+    private final static ExpressionNumberConverterContext CONVERTER_CONTEXT = ExpressionNumberConverterContexts.basic(
+        ExpressionNumberConverters.toNumberOrExpressionNumber(
+            Converters.fake()
+        ),
+        ConverterContexts.basic(
+            Converters.JAVA_EPOCH_OFFSET, // dateOffset
+            Converters.fake(),
+            DateTimeContexts.fake(),
+            DecimalNumberContexts.fake()
+        ),
+        KIND
+    );
+
+    private final static Function<NodeSelectorContext<TestNode, StringName, StringName, Object>, ExpressionEvaluationContext> EXPRESSION_EVALUATION_CONTEXT_FACTORY = new Function<>() {
+        @Override
+        public ExpressionEvaluationContext apply(final NodeSelectorContext<TestNode, StringName, StringName, Object> context) {
+            return ExpressionEvaluationContexts.basic(
+                KIND,
+                this.functions(),
+                this.exceptionHandler(),
+                this.references(),
+                ExpressionEvaluationContexts.referenceNotFound(),
+                CaseSensitivity.SENSITIVE,
+                CONVERTER_CONTEXT,
+                LocaleContexts.fake()
+            );
+        }
+
+        private Function<RuntimeException, Object> exceptionHandler() {
+            return (r) -> {
+                throw r;
+            };
+        }
+
+        private Function<ExpressionFunctionName, ExpressionFunction<?, ExpressionEvaluationContext>> functions() {
+            return (n) -> {
+                throw new UnsupportedOperationException();
+            };
+        }
+
+        private Function<ExpressionReference, Optional<Optional<Object>>> references() {
+            return (r) -> Optional.empty();
+        }
+
+        @Override
+        public String toString() {
+            return "factory123";
+        }
+    };
+
+    private final static Class<TestNode> NODE_TYPE = TestNode.class;
+
     @Test
     public void testWithNullFinisher() {
-        assertThrows(NullPointerException.class, () -> BasicNodeSelectorContext.with(null,
-            this.predicate(),
-            this.mapper(),
-            this.expressionEvaluationContext(),
-            this.nodeType()));
+        assertThrows(
+            NullPointerException.class,
+            () -> BasicNodeSelectorContext.with(null,
+                PREDICATE,
+                MAPPER,
+                EXPRESSION_EVALUATION_CONTEXT_FACTORY,
+                NODE_TYPE
+            )
+        );
     }
 
     @Test
     public void testWithNullFilter() {
-        assertThrows(NullPointerException.class, () -> BasicNodeSelectorContext.with(this.finisher(),
-            null,
-            this.mapper(),
-            this.expressionEvaluationContext(),
-            this.nodeType()));
+        assertThrows(
+            NullPointerException.class,
+            () -> BasicNodeSelectorContext.with(
+                FINISHER,
+                null,
+                MAPPER,
+                EXPRESSION_EVALUATION_CONTEXT_FACTORY,
+                NODE_TYPE
+            )
+        );
     }
 
     @Test
     public void testWithNullSelectedFails() {
-        assertThrows(NullPointerException.class, () -> BasicNodeSelectorContext.with(this.finisher(),
-            this.predicate(),
-            null,
-            this.expressionEvaluationContext(),
-            this.nodeType()));
+        assertThrows(
+            NullPointerException.class,
+            () -> BasicNodeSelectorContext.with(
+                FINISHER,
+                PREDICATE,
+                null,
+                EXPRESSION_EVALUATION_CONTEXT_FACTORY,
+                NODE_TYPE
+            )
+        );
     }
 
     @Test
     public void testWithNullExpressionEvaluationContextFails() {
-        assertThrows(NullPointerException.class, () -> BasicNodeSelectorContext.with(this.finisher(),
-            this.predicate(),
-            this.mapper(),
-            null,
-            this.nodeType()));
+        assertThrows(
+            NullPointerException.class,
+            () -> BasicNodeSelectorContext.with(
+                FINISHER,
+                PREDICATE,
+                MAPPER,
+                null,
+                NODE_TYPE
+            )
+        );
     }
 
     @Test
     public void testWithNullNodeTypeFails() {
-        assertThrows(NullPointerException.class, () -> BasicNodeSelectorContext.with(this.finisher(),
-            this.predicate(),
-            this.mapper(),
-            this.expressionEvaluationContext(),
-            null));
+        assertThrows(
+            NullPointerException.class,
+            () -> BasicNodeSelectorContext.with(
+                FINISHER,
+                PREDICATE,
+                MAPPER,
+                EXPRESSION_EVALUATION_CONTEXT_FACTORY,
+                null
+            )
+        );
     }
 
     @Test
@@ -110,7 +192,8 @@ public final class BasicNodeSelectorContextTest implements ClassTesting2<BasicNo
         this.checkEquals(
             KIND.create(number),
             context.evaluate(
-                Expression.value(KIND.create(number)
+                Expression.value(
+                    KIND.create(number)
                 )
             )
         );
@@ -126,8 +209,12 @@ public final class BasicNodeSelectorContextTest implements ClassTesting2<BasicNo
             KIND.create(left + right),
             context.evaluate(
                 Expression.add(
-                    Expression.value(KIND.create(left)),
-                    Expression.value(KIND.create(right))
+                    Expression.value(
+                        KIND.create(left)
+                    ),
+                    Expression.value(
+                        KIND.create(right)
+                    )
                 )
             )
         );
@@ -135,96 +222,33 @@ public final class BasicNodeSelectorContextTest implements ClassTesting2<BasicNo
 
     @Test
     public void testToString() {
-        final BooleanSupplier finisher = this.finisher();
-        final Predicate<TestNode> filter = this.predicate();
-        final Function<TestNode, TestNode> mapper = this.mapper();
-        final Function<NodeSelectorContext<TestNode, StringName, StringName, Object>, ExpressionEvaluationContext> expressionEvaluationContext = this.expressionEvaluationContext();
+        final BooleanSupplier finisher = FINISHER;
+        final Predicate<TestNode> filter = PREDICATE;
+        final Function<TestNode, TestNode> mapper = MAPPER;
+        final Function<NodeSelectorContext<TestNode, StringName, StringName, Object>, ExpressionEvaluationContext> context = EXPRESSION_EVALUATION_CONTEXT_FACTORY;
 
-        this.toStringAndCheck(BasicNodeSelectorContext.with(finisher,
+        this.toStringAndCheck(BasicNodeSelectorContext.with(
+                finisher,
                 filter,
                 mapper,
-                expressionEvaluationContext,
-                this.nodeType()),
-            finisher + " " + filter + " " + mapper + " " + expressionEvaluationContext);
+                context,
+                NODE_TYPE),
+            finisher + " " + filter + " " + mapper + " " + context
+        );
     }
 
     @Override
     public BasicNodeSelectorContext<TestNode, StringName, StringName, Object> createContext() {
-        return BasicNodeSelectorContext.with(this.finisher(),
-            this.predicate(),
-            this.mapper(),
-            this.expressionEvaluationContext(),
-            this.nodeType());
+        return BasicNodeSelectorContext.with(
+            FINISHER,
+            PREDICATE,
+            MAPPER,
+            EXPRESSION_EVALUATION_CONTEXT_FACTORY,
+            NODE_TYPE
+        );
     }
 
-    private BooleanSupplier finisher() {
-        return () -> false;
-    }
-
-    private Predicate<TestNode> predicate() {
-        return Predicates.always();
-    }
-
-    private Function<TestNode, TestNode> mapper() {
-        return Function.identity();
-    }
-
-    private Function<NodeSelectorContext<TestNode, StringName, StringName, Object>, ExpressionEvaluationContext> expressionEvaluationContext() {
-        return new Function<>() {
-            @Override
-            public ExpressionEvaluationContext apply(final NodeSelectorContext<TestNode, StringName, StringName, Object> context) {
-                return ExpressionEvaluationContexts.basic(
-                    KIND,
-                    this.functions(),
-                    this.exceptionHandler(),
-                    this.references(),
-                    ExpressionEvaluationContexts.referenceNotFound(),
-                    CaseSensitivity.SENSITIVE,
-                    this.converterContext(),
-                    LocaleContexts.fake()
-                );
-            }
-
-            private Function<RuntimeException, Object> exceptionHandler() {
-                return (r) -> {
-                    throw r;
-                };
-            }
-
-            private Function<ExpressionFunctionName, ExpressionFunction<?, ExpressionEvaluationContext>> functions() {
-                return (n) -> {
-                    throw new UnsupportedOperationException();
-                };
-            }
-
-            private Function<ExpressionReference, Optional<Optional<Object>>> references() {
-                return (r) -> Optional.empty();
-            }
-
-            private ExpressionNumberConverterContext converterContext() {
-                return ExpressionNumberConverterContexts.basic(
-                    ExpressionNumberConverters.toNumberOrExpressionNumber(
-                        Converters.fake()
-                    ),
-                    ConverterContexts.basic(
-                        Converters.JAVA_EPOCH_OFFSET, // dateOffset
-                        Converters.fake(),
-                        DateTimeContexts.fake(),
-                        DecimalNumberContexts.fake()
-                    ),
-                    KIND
-                );
-            }
-
-            public String toString() {
-                return "factory123";
-            }
-        };
-    }
-
-    private Class<TestNode> nodeType() {
-        return TestNode.class;
-    }
+    // class............................................................................................................
 
     @Override
     public Class<BasicNodeSelectorContext<TestNode, StringName, StringName, Object>> type() {
