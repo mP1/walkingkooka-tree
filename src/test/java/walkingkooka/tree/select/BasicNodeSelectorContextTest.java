@@ -22,6 +22,7 @@ import walkingkooka.Cast;
 import walkingkooka.convert.ConverterContexts;
 import walkingkooka.convert.Converters;
 import walkingkooka.datetime.DateTimeContexts;
+import walkingkooka.locale.LocaleContexts;
 import walkingkooka.math.DecimalNumberContexts;
 import walkingkooka.naming.StringName;
 import walkingkooka.predicate.Predicates;
@@ -179,7 +180,8 @@ public final class BasicNodeSelectorContextTest implements ClassTesting2<BasicNo
                     this.references(),
                     ExpressionEvaluationContexts.referenceNotFound(),
                     CaseSensitivity.SENSITIVE,
-                    this.converterContext()
+                    this.converterContext(),
+                    LocaleContexts.fake()
                 );
             }
 

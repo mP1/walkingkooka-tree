@@ -19,6 +19,8 @@ package walkingkooka.tree.expression;
 
 import walkingkooka.convert.ConverterContext;
 import walkingkooka.convert.ConverterContextDelegator;
+import walkingkooka.locale.LocaleContext;
+import walkingkooka.locale.LocaleContextDelegator;
 import walkingkooka.text.CaseSensitivity;
 import walkingkooka.tree.expression.function.ExpressionFunction;
 import walkingkooka.tree.expression.function.ExpressionFunctionParameter;
@@ -31,16 +33,25 @@ import java.util.function.Function;
  * {@link #enterScope(Function)}.
  */
 public interface ExpressionEvaluationContextDelegator extends ExpressionEvaluationContext,
-    ConverterContextDelegator {
+    ConverterContextDelegator,
+    LocaleContextDelegator {
 
     @Override
     default ConverterContext converterContext() {
         return this.expressionEvaluationContext();
     }
 
+    // LocaleContext....................................................................................................
+
+    @Override
+    default LocaleContext localeContext() {
+        return this.expressionEvaluationContext();
+    }
+
     @Override
     default Locale locale() {
-        return this.expressionEvaluationContext().locale();
+        return this.localeContext()
+            .locale();
     }
 
     // ExpressionEvaluationContext......................................................................................

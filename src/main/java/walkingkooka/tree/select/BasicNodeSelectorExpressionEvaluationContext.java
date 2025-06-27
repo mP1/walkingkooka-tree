@@ -21,6 +21,8 @@ import walkingkooka.Cast;
 import walkingkooka.Either;
 import walkingkooka.datetime.DateTimeContext;
 import walkingkooka.datetime.DateTimeContextDelegator;
+import walkingkooka.locale.LocaleContext;
+import walkingkooka.locale.LocaleContextDelegator;
 import walkingkooka.math.DecimalNumberContext;
 import walkingkooka.math.DecimalNumberContextDelegator;
 import walkingkooka.naming.Name;
@@ -59,7 +61,8 @@ final class BasicNodeSelectorExpressionEvaluationContext<N extends Node<N, NAME,
     AVALUE>
     implements NodeSelectorExpressionEvaluationContext<N, NAME, ANAME, AVALUE>,
     DateTimeContextDelegator,
-    DecimalNumberContextDelegator {
+    DecimalNumberContextDelegator,
+    LocaleContextDelegator {
 
     /**
      * Factory that creates a new {@link BasicNodeSelectorExpressionEvaluationContext}, using the given {@link Node} as the context.
@@ -208,6 +211,13 @@ final class BasicNodeSelectorExpressionEvaluationContext<N extends Node<N, NAME,
     @Override
     public boolean isText(final Object value) {
         return this.context.isText(value);
+    }
+
+    // LocaleContext....................................................................................................
+
+    @Override
+    public LocaleContext localeContext() {
+        return this.context;
     }
 
     private final ExpressionEvaluationContext context;
