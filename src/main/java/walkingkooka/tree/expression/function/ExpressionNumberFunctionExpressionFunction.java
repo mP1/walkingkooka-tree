@@ -77,7 +77,7 @@ final class ExpressionNumberFunctionExpressionFunction<C extends ExpressionEvalu
 
     private final static ExpressionFunctionParameter<ExpressionNumber> NUMBER = ExpressionFunctionParameterName.with("number")
         .required(ExpressionNumber.class)
-        .setKinds(ExpressionFunctionParameterKind.EVALUATE_RESOLVE_REFERENCES);
+        .setKinds(ExpressionFunctionParameterKind.CONVERT_EVALUATE_RESOLVE_REFERENCES);
 
     private final static List<ExpressionFunctionParameter<?>> PARAMETERS = ExpressionFunctionParameter.list(NUMBER);
 
