@@ -410,6 +410,11 @@ public final class CycleDetectingExpressionEvaluationContextTest implements Clas
     }
 
     @Override
+    public void testLocaleTextWithNullFails() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
     public CycleDetectingExpressionEvaluationContext createContext() {
         return this.createContext(true);
     }

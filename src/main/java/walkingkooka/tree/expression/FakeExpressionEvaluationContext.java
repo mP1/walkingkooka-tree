@@ -103,4 +103,9 @@ public class FakeExpressionEvaluationContext extends FakeExpressionNumberConvert
     public Locale locale() {
         throw new UnsupportedOperationException();
     }
+
+    @Override
+    public Optional<String> localeText(final Locale locale) {
+        throw new UnsupportedOperationException();
+    }
 }
