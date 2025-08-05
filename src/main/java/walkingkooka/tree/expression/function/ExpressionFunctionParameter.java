@@ -18,6 +18,8 @@
 package walkingkooka.tree.expression.function;
 
 import walkingkooka.Cast;
+import walkingkooka.ToStringBuilder;
+import walkingkooka.ToStringBuilderOption;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.set.Sets;
 import walkingkooka.naming.HasName;
@@ -359,12 +361,18 @@ public final class ExpressionFunctionParameter<T> implements HasName<ExpressionF
 
     @Override
     public String toString() {
-        return this.toStringKinds() +
-            this.type.getName() +
-            this.toStringTypeParameters() +
-            " " +
-            this.name +
-            this.cardinality.parameterToString;
+        return ToStringBuilder.empty()
+            .disable(ToStringBuilderOption.QUOTE)
+            .disable(ToStringBuilderOption.SKIP_IF_DEFAULT_VALUE)
+            .separator("")
+            .value(this.toStringKinds())
+            .value(this.type.getName())
+            .value(
+                this.toStringTypeParameters()
+            ).value(" ")
+            .value(this.name)
+            .value(this.cardinality.parameterToString)
+            .build();
     }
 
     private String toStringKinds() {
