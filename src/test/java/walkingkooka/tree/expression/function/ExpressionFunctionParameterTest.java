@@ -59,72 +59,70 @@ public final class ExpressionFunctionParameterTest implements HashCodeEqualsDefi
 
     @Test
     public void testWithNullNameFails() {
-        this.withNullFails(
-            null,
-            TYPE,
-            TYPE_PARAMETERS,
-            CARDINALITY,
-            KINDS
+        assertThrows(
+            NullPointerException.class,
+            () -> ExpressionFunctionParameter.with(
+                null,
+                TYPE,
+                TYPE_PARAMETERS,
+                CARDINALITY,
+                KINDS
+            )
         );
     }
 
     @Test
     public void testWithNullTypeFails() {
-        this.withNullFails(
-            NAME,
-            null,
-            TYPE_PARAMETERS,
-            CARDINALITY,
-            KINDS
+        assertThrows(
+            NullPointerException.class,
+            () -> ExpressionFunctionParameter.with(
+                NAME,
+                (Class<String>) null,
+                TYPE_PARAMETERS,
+                CARDINALITY,
+                KINDS
+            )
         );
     }
 
     @Test
     public void testWithNullTypeParametersFails() {
-        this.withNullFails(
-            NAME,
-            TYPE,
-            null,
-            CARDINALITY,
-            KINDS
+        assertThrows(
+            NullPointerException.class,
+            () -> ExpressionFunctionParameter.with(
+                NAME,
+                TYPE,
+                null,
+                CARDINALITY,
+                KINDS
+            )
         );
     }
 
     @Test
     public void testWithNullCardinalityFails() {
-        this.withNullFails(
-            NAME,
-            TYPE,
-            TYPE_PARAMETERS,
-            null,
-            KINDS
+        assertThrows(
+            NullPointerException.class,
+            () -> ExpressionFunctionParameter.with(
+                NAME,
+                TYPE,
+                TYPE_PARAMETERS,
+                null,
+                KINDS
+            )
         );
     }
 
     @Test
     public void testWithNullKindsFails() {
-        this.withNullFails(
-            NAME,
-            TYPE,
-            TYPE_PARAMETERS,
-            CARDINALITY,
-            null
-        );
-    }
-
-    private void withNullFails(final ExpressionFunctionParameterName name,
-                               final Class<String> type,
-                               final List<Class<?>> typeParameters,
-                               final ExpressionFunctionParameterCardinality cardinality,
-                               final Set<ExpressionFunctionParameterKind> kinds) {
         assertThrows(
             NullPointerException.class,
             () -> ExpressionFunctionParameter.with(
-                name,
-                type,
-                typeParameters,
-                cardinality,
-                kinds
+                NAME,
+                TYPE,
+                TYPE_PARAMETERS,
+                CARDINALITY,
+                null
             )
         );
     }
