@@ -243,20 +243,18 @@ public final class ExpressionFunctionParameter<T> implements HasName<ExpressionF
      * <br>
      * Note the index is not validated against the correct position of this parameter within the parameter list.
      */
-    public Optional<Optional<T>> get(final List<Object> parameters,
-                                     final int index) {
+    public Optional<T> get(final List<Object> parameters,
+                           final int index) {
         Objects.requireNonNull(parameters, "parameters");
 
         this.cardinality.get(this);
 
         return index >= parameters.size() ?
             Optional.empty() :
-            Optional.of(
-                Optional.ofNullable(
-                    ExpressionFunctionParameterCast.cast(
-                        parameters.get(index),
-                        this
-                    )
+            Optional.ofNullable(
+                ExpressionFunctionParameterCast.cast(
+                    parameters.get(index),
+                    this
                 )
             );
     }

@@ -483,26 +483,6 @@ public final class ExpressionFunctionParameterTest implements HashCodeEqualsDefi
     }
 
     @Test
-    public void testGetMissing() {
-        final ExpressionFunctionParameter<Integer> parameter = ExpressionFunctionParameter.with(
-            NAME,
-            Integer.class,
-            TYPE_PARAMETERS,
-            ExpressionFunctionParameterCardinality.OPTIONAL,
-            KINDS
-        );
-        this.checkEquals(
-            Optional.empty(),
-            parameter.get(
-                List.of(
-                    100
-                ),
-                1
-            )
-        );
-    }
-
-    @Test
     @Disabled("Need to emulate Class.cast")
     public void testGetWrongTypeFails() {
         final ExpressionFunctionParameter<Integer> parameter = ExpressionFunctionParameter.with(
@@ -524,7 +504,7 @@ public final class ExpressionFunctionParameterTest implements HashCodeEqualsDefi
     }
 
     @Test
-    public void testGetNonNull() {
+    public void testGetMissing() {
         final ExpressionFunctionParameter<Integer> parameter = ExpressionFunctionParameter.with(
             NAME,
             Integer.class,
@@ -532,22 +512,17 @@ public final class ExpressionFunctionParameterTest implements HashCodeEqualsDefi
             ExpressionFunctionParameterCardinality.OPTIONAL,
             KINDS
         );
-        this.checkEquals(
-            Optional.of(
-                Optional.of(100)
+        this.getAndCheck(
+            parameter,
+            List.of(
+                100
             ),
-            parameter.get(
-                List.of(
-                    100,
-                    "B"
-                ),
-                0
-            )
+            1
         );
     }
 
     @Test
-    public void testGetNull() {
+    public void testGetNonNullValue() {
         final ExpressionFunctionParameter<Integer> parameter = ExpressionFunctionParameter.with(
             NAME,
             Integer.class,
@@ -555,17 +530,33 @@ public final class ExpressionFunctionParameterTest implements HashCodeEqualsDefi
             ExpressionFunctionParameterCardinality.OPTIONAL,
             KINDS
         );
-        this.checkEquals(
-            Optional.of(
-                Optional.empty()
+        this.getAndCheck(
+            parameter,
+            List.of(
+                100,
+                "B"
             ),
-            parameter.get(
-                Arrays.asList(
-                    null,
-                    "B"
-                ),
-                0
-            )
+            0,
+            100
+        );
+    }
+
+    @Test
+    public void testGetNullValue() {
+        final ExpressionFunctionParameter<Integer> parameter = ExpressionFunctionParameter.with(
+            NAME,
+            Integer.class,
+            TYPE_PARAMETERS,
+            ExpressionFunctionParameterCardinality.OPTIONAL,
+            KINDS
+        );
+        this.getAndCheck(
+            parameter,
+            Arrays.asList(
+                null,
+                "B"
+            ),
+            0
         );
     }
 
@@ -578,15 +569,50 @@ public final class ExpressionFunctionParameterTest implements HashCodeEqualsDefi
             ExpressionFunctionParameterCardinality.OPTIONAL,
             KINDS
         );
+        this.getAndCheck(
+            parameter,
+            List.of(
+                100,
+                "B"
+            ),
+            99
+        );
+    }
+
+    private <T> void getAndCheck(final ExpressionFunctionParameter<T> parameter,
+                                 final List<Object> values,
+                                 final int index) {
+        this.getAndCheck(
+            parameter,
+            values,
+            index,
+            Optional.empty()
+        );
+    }
+
+    private <T> void getAndCheck(final ExpressionFunctionParameter<T> parameter,
+                                 final List<Object> values,
+                                 final int index,
+                                 final T expected) {
+        this.getAndCheck(
+            parameter,
+            values,
+            index,
+            Optional.of(expected)
+        );
+    }
+
+    private <T> void getAndCheck(final ExpressionFunctionParameter<T> parameter,
+                                 final List<Object> values,
+                                 final int index,
+                                 final Optional<T> expected) {
         this.checkEquals(
-            Optional.empty(),
+            expected,
             parameter.get(
-                List.of(
-                    100,
-                    "B"
-                ),
-                99
-            )
+                values,
+                index
+            ),
+            () -> parameter + " get " + index
         );
     }
 
