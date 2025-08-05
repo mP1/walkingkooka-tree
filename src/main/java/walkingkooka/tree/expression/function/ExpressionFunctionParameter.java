@@ -121,12 +121,10 @@ public final class ExpressionFunctionParameter<T> implements HasName<ExpressionF
      * Would be setter that returns a {@link ExpressionFunctionParameter} with the given {@link ExpressionFunctionParameterName}.
      */
     public ExpressionFunctionParameter<T> setName(final ExpressionFunctionParameterName name) {
-        Objects.requireNonNull(name, "name");
-
         return this.name.equals(name) ?
             this :
             new ExpressionFunctionParameter<>(
-                name,
+                Objects.requireNonNull(name, "name"),
                 this.type,
                 this.cardinality,
                 this.typeParameters,
@@ -146,13 +144,11 @@ public final class ExpressionFunctionParameter<T> implements HasName<ExpressionF
      * spreadsheet it needs all parameter values converted to a number.
      */
     public <TT> ExpressionFunctionParameter<TT> setType(final Class<TT> type) {
-        Objects.requireNonNull(type, "type");
-
         return this.type.equals(type) ?
             Cast.to(this) :
             new ExpressionFunctionParameter<>(
                 this.name,
-                type,
+                Objects.requireNonNull(type, "type"),
                 this.cardinality,
                 this.typeParameters,
                 this.kinds
@@ -169,9 +165,11 @@ public final class ExpressionFunctionParameter<T> implements HasName<ExpressionF
      * Sets the type parameter, this is intended to supply the type parameters for {@link List}.
      */
     public ExpressionFunctionParameter<T> setTypeParameters(final List<Class<?>> typeParameters) {
-        Objects.requireNonNull(typeParameters, "typeParameters");
-
-        return this.setTypeParameters0(Lists.immutable(typeParameters));
+        return this.setTypeParameters0(
+            Lists.immutable(
+                Objects.requireNonNull(typeParameters, "typeParameters")
+            )
+        );
     }
 
     private ExpressionFunctionParameter<T> setTypeParameters0(final List<Class<?>> typeParameters) {
@@ -196,14 +194,12 @@ public final class ExpressionFunctionParameter<T> implements HasName<ExpressionF
      * Would be setter that returns a {@link ExpressionFunctionParameter} with the given {@link ExpressionFunctionParameterCardinality}.
      */
     public ExpressionFunctionParameter<T> setCardinality(final ExpressionFunctionParameterCardinality cardinality) {
-        Objects.requireNonNull(cardinality, "cardinality");
-
         return this.cardinality.equals(cardinality) ?
             this :
             new ExpressionFunctionParameter<>(
                 this.name,
                 this.type,
-                cardinality,
+                Objects.requireNonNull(cardinality, "cardinality"),
                 this.typeParameters,
                 this.kinds
             );
