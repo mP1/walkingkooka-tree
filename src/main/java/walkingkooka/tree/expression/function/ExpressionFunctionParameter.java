@@ -88,6 +88,7 @@ public final class ExpressionFunctionParameter<T> implements HasName<ExpressionF
                                                           final Class<T> type,
                                                           final List<Class<?>> typeParameters,
                                                           final ExpressionFunctionParameterCardinality cardinality,
+                                                          final Optional<T> defaultValue,
                                                           final Set<ExpressionFunctionParameterKind> kinds) {
         return new ExpressionFunctionParameter<>(
             Objects.requireNonNull(name, "name"),
@@ -96,6 +97,7 @@ public final class ExpressionFunctionParameter<T> implements HasName<ExpressionF
             Lists.immutable(
                 Objects.requireNonNull(typeParameters, "typeParameters")
             ),
+            Objects.requireNonNull(defaultValue, "defaultValue"),
             Sets.immutable(
                 Objects.requireNonNull(kinds, "kinds")
             )
@@ -106,11 +108,13 @@ public final class ExpressionFunctionParameter<T> implements HasName<ExpressionF
                                         final Class<T> type,
                                         final ExpressionFunctionParameterCardinality cardinality,
                                         final List<Class<?>> typeParameters,
+                                        final Optional<T> defaultValue,
                                         final Set<ExpressionFunctionParameterKind> kinds) {
         this.name = name;
         this.type = type;
         this.cardinality = cardinality;
         this.typeParameters = typeParameters;
+        this.defaultValue = defaultValue;
         this.kinds = kinds;
     }
 
@@ -130,6 +134,7 @@ public final class ExpressionFunctionParameter<T> implements HasName<ExpressionF
                 this.type,
                 this.cardinality,
                 this.typeParameters,
+                this.defaultValue,
                 this.kinds
             );
     }
@@ -144,6 +149,7 @@ public final class ExpressionFunctionParameter<T> implements HasName<ExpressionF
      * Would be setter that returns a {@link ExpressionFunctionParameter} with the new type but copying all other properties.
      * This is particularly useful when updating a {@link ExpressionFunction} parameters such as COUNT which initially has its parameters declared but Object but within a
      * spreadsheet it needs all parameter values converted to a number.
+     * Note if the type is different the default value is also cleared.
      */
     public <TT> ExpressionFunctionParameter<TT> setType(final Class<TT> type) {
         return this.type.equals(type) ?
@@ -153,6 +159,7 @@ public final class ExpressionFunctionParameter<T> implements HasName<ExpressionF
                 Objects.requireNonNull(type, "type"),
                 this.cardinality,
                 this.typeParameters,
+                Optional.empty(),
                 this.kinds
             );
     }
@@ -182,6 +189,7 @@ public final class ExpressionFunctionParameter<T> implements HasName<ExpressionF
                 this.type,
                 this.cardinality,
                 typeParameters,
+                this.defaultValue,
                 this.kinds
             );
     }
@@ -203,11 +211,38 @@ public final class ExpressionFunctionParameter<T> implements HasName<ExpressionF
                 this.type,
                 Objects.requireNonNull(cardinality, "cardinality"),
                 this.typeParameters,
+                this.defaultValue,
                 this.kinds
             );
     }
 
     private final ExpressionFunctionParameterCardinality cardinality;
+
+    // defaultValue.....................................................................................................
+
+    /**
+     * The default value when this parameter is missing or null from function parameters.
+     */
+    public Optional<T> defaultValue() {
+        return this.defaultValue;
+    }
+
+    public ExpressionFunctionParameter<T> setDefaultValue(final Optional<T> defaultValue) {
+        return this.defaultValue.equals(defaultValue) ?
+            this :
+            new ExpressionFunctionParameter<>(
+                this.name,
+                this.type,
+                this.cardinality,
+                this.typeParameters,
+                Objects.requireNonNull(defaultValue, "defaultValue"),
+                this.kinds
+            );
+    }
+
+    private final Optional<T> defaultValue;
+
+    // kinds............................................................................................................
 
     /**
      * Returns the{@link ExpressionFunctionParameterKind} for this parameter.
@@ -232,6 +267,7 @@ public final class ExpressionFunctionParameter<T> implements HasName<ExpressionF
                 this.type,
                 this.cardinality,
                 this.typeParameters,
+                this.defaultValue,
                 Sets.readOnly(copy)
             );
     }
@@ -250,7 +286,7 @@ public final class ExpressionFunctionParameter<T> implements HasName<ExpressionF
         this.cardinality.get(this);
 
         return index >= parameters.size() ?
-            Optional.empty() :
+            this.defaultValue :
             Optional.ofNullable(
                 ExpressionFunctionParameterCast.cast(
                     parameters.get(index),
@@ -268,14 +304,19 @@ public final class ExpressionFunctionParameter<T> implements HasName<ExpressionF
                        final int index) {
         Objects.requireNonNull(parameters, "parameters");
 
-        this.cardinality.getOrFail(this);
+        Object value;
 
         if (index >= parameters.size()) {
-            throw new IndexOutOfBoundsException("Required parameter " + this.name() + " missing");
+            if (this.cardinality == ExpressionFunctionParameterCardinality.REQUIRED) {
+                throw new IndexOutOfBoundsException("Required parameter " + this.name() + " missing");
+            }
+            value = this.defaultValue.orElse(null);
+        } else {
+            value = parameters.get(index);
         }
 
         return ExpressionFunctionParameterCast.cast(
-            parameters.get(index),
+            value,
             this
         );
     }
@@ -339,6 +380,7 @@ public final class ExpressionFunctionParameter<T> implements HasName<ExpressionF
             this.type,
             this.typeParameters,
             this.cardinality,
+            this.defaultValue,
             this.kinds
         );
     }
@@ -354,6 +396,7 @@ public final class ExpressionFunctionParameter<T> implements HasName<ExpressionF
             this.type.equals(other.type) &&
             this.typeParameters.equals(other.typeParameters) &&
             this.cardinality == other.cardinality &&
+            this.defaultValue.equals(other.defaultValue) &&
             this.kinds.equals(other.kinds);
     }
 
@@ -370,6 +413,10 @@ public final class ExpressionFunctionParameter<T> implements HasName<ExpressionF
             ).value(" ")
             .value(this.name)
             .value(this.cardinality.parameterToString)
+            .enable(ToStringBuilderOption.SKIP_IF_DEFAULT_VALUE)
+            .enable(ToStringBuilderOption.QUOTE)
+            .separator(" ")
+            .value(this.defaultValue)
             .build();
     }
 

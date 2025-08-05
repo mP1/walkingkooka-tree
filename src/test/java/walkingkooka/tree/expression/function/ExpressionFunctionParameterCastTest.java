@@ -103,6 +103,7 @@ public final class ExpressionFunctionParameterCastTest implements ClassTesting2<
             parameterType,
             ExpressionFunctionParameter.NO_TYPE_PARAMETERS,
             ExpressionFunctionParameterCardinality.REQUIRED,
+            Optional.empty(), // no defaultValue
             ExpressionFunctionParameter.NO_KINDS
         );
     }
