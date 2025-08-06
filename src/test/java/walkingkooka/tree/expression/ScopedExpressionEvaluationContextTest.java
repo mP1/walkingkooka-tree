@@ -19,7 +19,6 @@ package walkingkooka.tree.expression;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.collect.list.Lists;
-import walkingkooka.collect.set.Sets;
 import walkingkooka.convert.ConverterContexts;
 import walkingkooka.convert.Converters;
 import walkingkooka.datetime.DateTimeContexts;
@@ -253,9 +252,10 @@ public final class ScopedExpressionEvaluationContextTest implements ExpressionEv
                 ExpressionFunctionParameter.with(
                     ExpressionFunctionParameterName.with("reference-parameter"),
                     Object.class,
-                    Lists.empty(),
+                    ExpressionFunctionParameter.NO_TYPE_PARAMETERS,
                     ExpressionFunctionParameterCardinality.REQUIRED,
-                    Sets.empty()
+                    Optional.empty(), // defaultValue
+                    ExpressionFunctionParameter.NO_KINDS
                 )
             );
         }
