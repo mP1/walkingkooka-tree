@@ -83,7 +83,8 @@ final class NumberToNumberConverter<C extends ExpressionNumberConverterContext> 
                                 ExpressionNumberKind.DOUBLE.numberType() == type ?
                                     ExpressionNumberKind.DOUBLE.create(number)
                                     :
-                                    ExpressionNumber.with(number),
+                                    context.expressionNumberKind()
+                                        .create(number),
                             type
                         );
                     } else {
