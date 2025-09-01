@@ -89,6 +89,12 @@ public final class ExpressionEvaluationContextDelegatorTest implements Expressio
         }
 
         @Override
+        public ExpressionEvaluationContext setLocale(final Locale locale) {
+            Objects.requireNonNull(locale, "locale");
+            return this;
+        }
+
+        @Override
         public ExpressionEvaluationContext expressionEvaluationContext() {
             final Locale locale = Locale.ENGLISH;
 

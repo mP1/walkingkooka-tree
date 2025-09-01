@@ -17,6 +17,7 @@
 
 package walkingkooka.tree.expression;
 
+import java.util.Locale;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.function.Function;
@@ -65,6 +66,12 @@ final class ScopedExpressionEvaluationContext implements ExpressionEvaluationCon
     private final Function<ExpressionReference, Optional<Optional<Object>>> referenceToValue;
 
     // ExpressionEvaluationContextDelegator.............................................................................
+
+    @Override
+    public ExpressionEvaluationContext setLocale(final Locale locale) {
+        this.context.setLocale(locale);
+        return this;
+    }
 
     @Override
     public ExpressionEvaluationContext expressionEvaluationContext() {

@@ -210,6 +210,12 @@ final class BasicExpressionEvaluationContext implements ExpressionEvaluationCont
         return this.localeContext;
     }
 
+    @Override
+    public ExpressionEvaluationContext setLocale(final Locale locale) {
+        this.localeContext.setLocale(locale);
+        return this;
+    }
+
     private final LocaleContext localeContext;
 
     @Override

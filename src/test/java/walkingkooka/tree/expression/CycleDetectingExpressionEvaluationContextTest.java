@@ -40,6 +40,7 @@ import walkingkooka.tree.expression.function.UnknownExpressionFunctionException;
 import java.math.BigInteger;
 import java.math.MathContext;
 import java.util.List;
+import java.util.Locale;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.function.Function;
@@ -524,6 +525,12 @@ public final class CycleDetectingExpressionEvaluationContextTest implements Clas
                 @Override
                 public char zeroDigit() {
                     return decimalNumberContext.zeroDigit();
+                }
+
+                @Override
+                public ExpressionEvaluationContext setLocale(final Locale locale) {
+                    Objects.requireNonNull(locale, "locale");
+                    throw new UnsupportedOperationException();
                 }
             }
         );

@@ -141,8 +141,8 @@ public final class SubtractExpressionTest extends ArithmeticExpressionTestCase2<
         this.toExpressionNumberAndCheck(
             this.createExpression(
                 expressionNumber(12),
-                localTime(34)
-            ), 12 - 34
+                localTime(0.5)
+            ), 12 - 0.5
         );
     }
 
@@ -193,8 +193,8 @@ public final class SubtractExpressionTest extends ArithmeticExpressionTestCase2<
         this.toExpressionNumberAndCheck(
             this.createExpression(
                 localDate(12)
-                , localTime(34)
-            ), 12L - 34L
+                , localTime(0.5)
+            ), 12L - 0.5
         );
     }
 
@@ -235,8 +235,8 @@ public final class SubtractExpressionTest extends ArithmeticExpressionTestCase2<
         this.toExpressionNumberAndCheck(
             this.createExpression(
                 localDateTime(12),
-                localTime(34)
-            ), 12L - 34L
+                localTime(0.5)
+            ), 12L - 0.5
         );
     }
 
@@ -256,9 +256,9 @@ public final class SubtractExpressionTest extends ArithmeticExpressionTestCase2<
     public void testToExpressionNumberLocalTimeExpressionNumber() {
         this.toExpressionNumberAndCheck(
             this.createExpression(
-                localTime(12),
+                localTime(0.5),
                 expressionNumber(34)
-            ), 12L - 34L
+            ), 0.5 - 34L
         );
     }
 
@@ -266,9 +266,9 @@ public final class SubtractExpressionTest extends ArithmeticExpressionTestCase2<
     public void testToExpressionNumberLocalTimeLocalDate() {
         this.toExpressionNumberAndCheck(
             this.createExpression(
-                localTime(12),
+                localTime(0.5),
                 localDate(34)
-            ), 12L - 34L
+            ), 0.5 - 34L
         );
     }
 
@@ -276,9 +276,9 @@ public final class SubtractExpressionTest extends ArithmeticExpressionTestCase2<
     public void testToExpressionNumberLocalTimeLocalDateTime() {
         this.toExpressionNumberAndCheck(
             this.createExpression(
-                localTime(12),
+                localTime(0.5),
                 localDateTime(34)
-            ), 12L - 34L
+            ), 0.5 - 34L
         );
     }
 
@@ -286,9 +286,9 @@ public final class SubtractExpressionTest extends ArithmeticExpressionTestCase2<
     public void testToExpressionNumberLocalTimeLocalTime() {
         this.toExpressionNumberAndCheck(
             this.createExpression(
-                localTime(12),
-                localTime(34)
-            ), 12L - 34L
+                localTime(0.5),
+                localTime(0.25)
+            ), 0.5 - 0.25
         );
     }
 
@@ -296,9 +296,9 @@ public final class SubtractExpressionTest extends ArithmeticExpressionTestCase2<
     public void testToExpressionNumberLocalTimeText() {
         this.toExpressionNumberAndCheck(
             this.createExpression(
-                localTime(12),
+                localTime(0.5),
                 text(34)
-            ), 12L - 34L
+            ), 0.5 - 34L
         );
     }
 

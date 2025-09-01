@@ -21,6 +21,8 @@ import walkingkooka.naming.Name;
 import walkingkooka.tree.Node;
 import walkingkooka.tree.expression.FakeExpressionEvaluationContext;
 
+import java.util.Locale;
+
 public class FakeNodeSelectorExpressionEvaluationContext<N extends Node<N, NAME, ANAME, AVALUE>,
     NAME extends Name,
     ANAME extends Name,
@@ -28,6 +30,11 @@ public class FakeNodeSelectorExpressionEvaluationContext<N extends Node<N, NAME,
 
     @Override
     public N node() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public NodeSelectorExpressionEvaluationContext<N, NAME, ANAME, AVALUE> setLocale(final Locale locale) {
         throw new UnsupportedOperationException();
     }
 }

@@ -153,12 +153,16 @@ public abstract class ExpressionTestCase<N extends Expression> implements TreePr
         );
     }
 
-    final LocalTime localTimeValue(final long value) {
+    final LocalTime localTimeValue(final double value) {
         return Converters.numberToLocalTime()
-            .convertOrFail(value, LocalTime.class, this.converterContext());
+            .convertOrFail(
+                value,
+                LocalTime.class,
+                this.converterContext()
+            );
     }
 
-    final ValueExpression<LocalTime> localTime(final long value) {
+    final ValueExpression<LocalTime> localTime(final double value) {
         return Expression.value(
             localTimeValue(value)
         );
@@ -495,7 +499,7 @@ public abstract class ExpressionTestCase<N extends Expression> implements TreePr
                 listToBoolean(),
                 fromBoolean(LocalDate.class, Converters.numberToLocalDate()),
                 fromBoolean(LocalDateTime.class, Converters.numberToLocalDateTime()),
-                fromBoolean(LocalTime.class, Converters.numberToLocalTime()),
+                //fromBoolean(LocalTime.class, Converters.numberToLocalTime()),
                 fromBoolean(ExpressionNumber.class, ExpressionNumberConverters.toNumberOrExpressionNumber(Converters.numberToNumber()))
             )
         );

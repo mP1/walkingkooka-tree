@@ -30,6 +30,7 @@ import walkingkooka.tree.expression.function.ExpressionFunctions;
 import walkingkooka.tree.expression.function.HasExpressionFunction;
 
 import java.util.List;
+import java.util.Locale;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.function.Function;
@@ -230,4 +231,9 @@ public interface ExpressionEvaluationContext extends ExpressionNumberConverterCo
      * Controls whether equals or not equals tests are case-sensitive for {@link String strings}
      */
     CaseSensitivity stringEqualsCaseSensitivity();
+
+    // LocaleContext....................................................................................................
+
+    @Override
+    ExpressionEvaluationContext setLocale(final Locale locale);
 }
