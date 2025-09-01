@@ -140,8 +140,8 @@ public final class AddExpressionTest extends ArithmeticExpressionTestCase<AddExp
         this.toExpressionNumberAndCheck(
             this.createExpression(
                 expressionNumber(12),
-                localTime(34)
-            ), 12 + 34
+                localTime(0.5)
+            ), 12 + 0.5
         );
     }
 
@@ -192,8 +192,8 @@ public final class AddExpressionTest extends ArithmeticExpressionTestCase<AddExp
         this.toExpressionNumberAndCheck(
             this.createExpression(
                 localDate(12),
-                localTime(34)
-            ), 12L + 34
+                localTime(0.5)
+            ), 12L + 0.5
         );
     }
 
@@ -266,9 +266,9 @@ public final class AddExpressionTest extends ArithmeticExpressionTestCase<AddExp
     public void testToExpressionNumberAddLocalTimeExpressionNumber() {
         this.toExpressionNumberAndCheck(
             this.createExpression(
-                localTime(12),
+                localTime(0.5),
                 expressionNumber(34.5)
-            ), 12L + 34.5
+            ), 0.5 + 34.5
         );
     }
 
@@ -276,9 +276,9 @@ public final class AddExpressionTest extends ArithmeticExpressionTestCase<AddExp
     public void testToExpressionNumberAddLocalTimeAndLocalDate() {
         this.toExpressionNumberAndCheck(
             this.createExpression(
-                localTime(12),
+                localTime(0.5),
                 localDate(34)
-            ), 12L + 34
+            ), 0.5 + 34
         );
     }
 
@@ -286,9 +286,9 @@ public final class AddExpressionTest extends ArithmeticExpressionTestCase<AddExp
     public void testToExpressionNumberAddLocalTimeAndLocalDateTime() {
         this.toExpressionNumberAndCheck(
             this.createExpression(
-                localTime(12),
+                localTime(0.5),
                 localDateTime(34)
-            ), 12L + 34.0
+            ), 0.5 + 34.0
         );
     }
 
@@ -296,9 +296,10 @@ public final class AddExpressionTest extends ArithmeticExpressionTestCase<AddExp
     public void testToExpressionNumberAddLocalTimeAndLocalTime() {
         this.toExpressionNumberAndCheck(
             this.createExpression(
-                localTime(12),
-                localTime(34)
-            ), 12L + 34
+                localTime(0.5),
+                localTime(0.25)
+            ),
+            0.5 + 0.25
         );
     }
 
@@ -308,10 +309,10 @@ public final class AddExpressionTest extends ArithmeticExpressionTestCase<AddExp
     public void testToTextWithLocalTimeText() {
         this.toTextAndCheck(
             this.createExpression(
-                localTime(12),
+                localTime(0.5),
                 text(34)
             ),
-            "46"
+            "34.5"
         );
     }
 
@@ -352,11 +353,12 @@ public final class AddExpressionTest extends ArithmeticExpressionTestCase<AddExp
         this.toTextAndCheck(
             this.createExpression(
                 text(12),
-                localTime(34)
+                localTime(0.5)
             ),
-            "12" + textText(
-                localTime(34)
-            )
+            "12" +
+                textText(
+                    localTime(0.5)
+                )
         );
     }
 

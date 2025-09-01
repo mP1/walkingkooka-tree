@@ -21,6 +21,8 @@ import walkingkooka.naming.Name;
 import walkingkooka.tree.Node;
 import walkingkooka.tree.expression.ExpressionEvaluationContext;
 
+import java.util.Locale;
+
 /**
  * A {@link ExpressionEvaluationContext} that adds a getter to retrieve the current {@link Node}.
  */
@@ -34,4 +36,7 @@ public interface NodeSelectorExpressionEvaluationContext<N extends Node<N, NAME,
      * Returns the current {@link Node}.
      */
     N node();
+
+    @Override
+    NodeSelectorExpressionEvaluationContext<N, NAME, ANAME, AVALUE> setLocale(final Locale locale);
 }

@@ -60,7 +60,7 @@ public abstract class ArithmeticExpressionTestCase2<N extends ArithmeticExpressi
         this.toValueFails(
             this.createExpression(
                 text(12),
-                localTime(34)
+                localTime(0.5)
             )
         );
     }

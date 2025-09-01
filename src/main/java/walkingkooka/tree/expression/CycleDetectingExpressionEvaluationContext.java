@@ -146,6 +146,12 @@ final class CycleDetectingExpressionEvaluationContext implements ExpressionEvalu
         return this.context.locale();
     }
 
+    @Override
+    public ExpressionEvaluationContext setLocale(final Locale locale) {
+        this.context.setLocale(locale);
+        return this;
+    }
+
     // DateTimeContext..................................................................................................
 
     @Override
