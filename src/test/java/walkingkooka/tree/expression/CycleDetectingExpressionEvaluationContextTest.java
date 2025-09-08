@@ -369,6 +369,7 @@ public final class CycleDetectingExpressionEvaluationContextTest implements Clas
                             BigInteger.class,
                             Parsers.bigInteger(10),
                             (c) -> ParserContexts.basic(
+                                false, // isGroupSeparatorWithinNumbersSupported
                                 InvalidCharacterExceptionFactory.POSITION,
                                 c,
                                 c

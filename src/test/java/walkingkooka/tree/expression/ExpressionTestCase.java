@@ -401,11 +401,13 @@ public abstract class ExpressionTestCase<N extends Expression> implements TreePr
     }
 
     ExpressionEvaluationContext context() {
-        final Function<ExpressionNumberConverterContext, ParserContext> parserContext = (c) -> ParserContexts.basic(
-            InvalidCharacterExceptionFactory.POSITION,
-            c,
-            c
-        );
+        final Function<ExpressionNumberConverterContext, ParserContext> parserContext = (c) ->
+            ParserContexts.basic(
+                false, // isGroupSeparatorWithinNumbersSupported
+                InvalidCharacterExceptionFactory.POSITION,
+                c,
+                c
+            );
 
         final Converter<ExpressionNumberConverterContext> stringDouble = Converters.parser(
             Double.class,
