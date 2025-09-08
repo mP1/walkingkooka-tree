@@ -85,6 +85,11 @@ final class BasicNodeSelectorParserContext implements NodeSelectorParserContext,
     private final ExpressionNumberKind kind;
 
     @Override
+    public boolean isGroupSeparatorWithinNumbersSupported() {
+        return false;
+    }
+
+    @Override
     public InvalidCharacterException invalidCharacterException(final Parser<?> parser,
                                                                final TextCursor cursor) {
         return InvalidCharacterExceptionFactory.POSITION_EXPECTED.apply(
