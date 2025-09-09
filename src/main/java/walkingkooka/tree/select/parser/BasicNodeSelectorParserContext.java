@@ -85,7 +85,7 @@ final class BasicNodeSelectorParserContext implements NodeSelectorParserContext,
     private final ExpressionNumberKind kind;
 
     @Override
-    public boolean isGroupSeparatorWithinNumbersSupported() {
+    public boolean canNumbersHaveGroupSeparator() {
         return false;
     }
 

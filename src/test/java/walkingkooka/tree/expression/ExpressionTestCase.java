@@ -403,7 +403,7 @@ public abstract class ExpressionTestCase<N extends Expression> implements TreePr
     ExpressionEvaluationContext context() {
         final Function<ExpressionNumberConverterContext, ParserContext> parserContext = (c) ->
             ParserContexts.basic(
-                false, // isGroupSeparatorWithinNumbersSupported
+                false, // canNumbersHaveGroupSeparator
                 InvalidCharacterExceptionFactory.POSITION,
                 c,
                 c
