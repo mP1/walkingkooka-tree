@@ -72,6 +72,7 @@ public final class ExpressionNumberConverterContextDelegatorTest implements Expr
                 ConverterContexts.basic(
                     false, // canNumbersHaveGroupSeparator
                     0,
+                    ',', // valueSeparator
                     Converters.fake(),
                     DateTimeContexts.basic(
                         DateTimeSymbols.fromDateFormatSymbols(

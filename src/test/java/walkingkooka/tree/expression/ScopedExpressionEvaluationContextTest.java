@@ -296,6 +296,7 @@ public final class ScopedExpressionEvaluationContextTest implements ExpressionEv
                 ConverterContexts.basic(
                     false, // canNumbersHaveGroupSeparator
                     0,
+                    ',', // valueSeparator
                     Converters.fake(),
                     DateTimeContexts.basic(
                         DateTimeSymbols.fromDateFormatSymbols(

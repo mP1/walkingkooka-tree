@@ -64,6 +64,11 @@ final class BasicExpressionNumberConverterContext implements ExpressionNumberCon
     }
 
     @Override
+    public char valueSeparator() {
+        return this.context.valueSeparator();
+    }
+
+    @Override
     public boolean canConvert(final Object value,
                               final Class<?> target) {
         return this.converter.canConvert(value, target, this);
