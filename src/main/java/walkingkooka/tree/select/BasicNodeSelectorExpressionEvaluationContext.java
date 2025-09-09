@@ -18,13 +18,10 @@
 package walkingkooka.tree.select;
 
 import walkingkooka.Cast;
-import walkingkooka.Either;
-import walkingkooka.datetime.DateTimeContext;
-import walkingkooka.datetime.DateTimeContextDelegator;
+import walkingkooka.convert.ConverterContext;
+import walkingkooka.convert.ConverterContextDelegator;
 import walkingkooka.locale.LocaleContext;
 import walkingkooka.locale.LocaleContextDelegator;
-import walkingkooka.math.DecimalNumberContext;
-import walkingkooka.math.DecimalNumberContextDelegator;
 import walkingkooka.naming.Name;
 import walkingkooka.text.CaseSensitivity;
 import walkingkooka.tree.Node;
@@ -60,8 +57,7 @@ final class BasicNodeSelectorExpressionEvaluationContext<N extends Node<N, NAME,
     ANAME extends Name,
     AVALUE>
     implements NodeSelectorExpressionEvaluationContext<N, NAME, ANAME, AVALUE>,
-    DateTimeContextDelegator,
-    DecimalNumberContextDelegator,
+    ConverterContextDelegator,
     LocaleContextDelegator {
 
     /**
@@ -165,47 +161,8 @@ final class BasicNodeSelectorExpressionEvaluationContext<N extends Node<N, NAME,
     private final static Object ABSENT = "";
 
     @Override
-    public boolean canNumbersHaveGroupSeparator() {
-        return this.context.canNumbersHaveGroupSeparator();
-    }
-
-    @Override
-    public long dateOffset() {
-        return this.context.dateOffset();
-    }
-
-    @Override
-    public boolean canConvert(final Object value, final Class<?> type) {
-        return this.context.canConvert(value, type);
-    }
-
-    @Override
-    public <T> Either<T, String> convert(final Object value, final Class<T> type) {
-        return this.context.convert(value, type);
-    }
-
-    // DateTimeContextDelegator.........................................................................................
-
-    @Override
-    public DateTimeContext dateTimeContext() {
-        return this.context;
-    }
-
-    @Override
-    public Locale locale() {
-        return this.context.locale();
-    }
-
-    // DecimalNumberContext............................................................................................
-
-    @Override
-    public ExpressionNumberKind expressionNumberKind() {
-        return this.context.expressionNumberKind();
-    }
-
-    @Override
-    public DecimalNumberContext decimalNumberContext() {
-        return this.context;
+    public boolean isText(final Object value) {
+        return this.context.isText(value);
     }
 
     @Override
@@ -213,9 +170,16 @@ final class BasicNodeSelectorExpressionEvaluationContext<N extends Node<N, NAME,
         return this.context.stringEqualsCaseSensitivity();
     }
 
+    // ConverterContextDelegator........................................................................................
+
     @Override
-    public boolean isText(final Object value) {
-        return this.context.isText(value);
+    public ConverterContext converterContext() {
+        return this.context;
+    }
+
+    @Override
+    public ExpressionNumberKind expressionNumberKind() {
+        return this.context.expressionNumberKind();
     }
 
     // LocaleContext....................................................................................................
@@ -223,6 +187,11 @@ final class BasicNodeSelectorExpressionEvaluationContext<N extends Node<N, NAME,
     @Override
     public LocaleContext localeContext() {
         return this.context;
+    }
+
+    @Override
+    public Locale locale() {
+        return this.context.locale();
     }
 
     @Override
