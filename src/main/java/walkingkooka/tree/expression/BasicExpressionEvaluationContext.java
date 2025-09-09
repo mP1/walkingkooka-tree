@@ -17,14 +17,10 @@
 
 package walkingkooka.tree.expression;
 
-import walkingkooka.Either;
 import walkingkooka.convert.ConverterContext;
-import walkingkooka.datetime.DateTimeContext;
-import walkingkooka.datetime.DateTimeContextDelegator;
+import walkingkooka.convert.ConverterContextDelegator;
 import walkingkooka.locale.LocaleContext;
 import walkingkooka.locale.LocaleContextDelegator;
-import walkingkooka.math.DecimalNumberContext;
-import walkingkooka.math.DecimalNumberContextDelegator;
 import walkingkooka.text.CaseSensitivity;
 import walkingkooka.tree.expression.function.ExpressionFunction;
 import walkingkooka.tree.expression.function.ExpressionFunctionParameter;
@@ -41,8 +37,7 @@ import java.util.function.Function;
  * This is useful for languages or environments that have auto converting of value semantics, think Javascript.
  */
 final class BasicExpressionEvaluationContext implements ExpressionEvaluationContext,
-    DateTimeContextDelegator,
-    DecimalNumberContextDelegator,
+    ConverterContextDelegator,
     LocaleContextDelegator {
 
     /**
@@ -119,42 +114,12 @@ final class BasicExpressionEvaluationContext implements ExpressionEvaluationCont
 
     private final ExpressionNumberKind expressionNumberKind;
 
-    // DateTimeContext.................................................................................................
+    // ConverterContextDelegator........................................................................................
+
 
     @Override
-    public DateTimeContext dateTimeContext() {
+    public ConverterContext converterContext() {
         return this.converterContext;
-    }
-
-    // DecimalNumberContext............................................................................................
-
-    @Override
-    public DecimalNumberContext decimalNumberContext() {
-        return this.converterContext;
-    }
-
-    // Convert..........................................................................................................
-
-    @Override
-    public boolean canNumbersHaveGroupSeparator() {
-        return this.converterContext.canNumbersHaveGroupSeparator();
-    }
-
-    @Override
-    public long dateOffset() {
-        return this.converterContext.dateOffset();
-    }
-
-    @Override
-    public boolean canConvert(final Object value,
-                              final Class<?> type) {
-        return this.converterContext.canConvert(value, type);
-    }
-
-    @Override
-    public <T> Either<T, String> convert(final Object value,
-                                         final Class<T> target) {
-        return this.converterContext.convert(value, target);
     }
 
     private final ConverterContext converterContext;
