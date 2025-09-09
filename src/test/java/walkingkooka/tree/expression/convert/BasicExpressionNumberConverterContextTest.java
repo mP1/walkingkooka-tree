@@ -78,6 +78,7 @@ public final class BasicExpressionNumberConverterContextTest implements Expressi
         final Locale locale = Locale.forLanguageTag("EN-AU");
 
         return ConverterContexts.basic(
+            false, // canNumbersHaveGroupSeparator
             Converters.JAVA_EPOCH_OFFSET, // dateOffset
             Converters.fake(),
             DateTimeContexts.basic(

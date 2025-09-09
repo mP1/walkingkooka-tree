@@ -68,6 +68,7 @@ public final class BasicNodeSelectorContextTest implements ClassTesting2<BasicNo
             Converters.fake()
         ),
         ConverterContexts.basic(
+            false, // canNumbersHaveGroupSeparator
             Converters.JAVA_EPOCH_OFFSET, // dateOffset
             Converters.fake(),
             DateTimeContexts.fake(),

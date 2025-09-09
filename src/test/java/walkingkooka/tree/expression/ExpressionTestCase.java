@@ -383,6 +383,7 @@ public abstract class ExpressionTestCase<N extends Expression> implements TreePr
                 )
             ),
             ConverterContexts.basic(
+                false, // canNumbersHaveGroupSeparator
                 Converters.JAVA_EPOCH_OFFSET,
                 Converters.simple(),
                 DateTimeContexts.basic(

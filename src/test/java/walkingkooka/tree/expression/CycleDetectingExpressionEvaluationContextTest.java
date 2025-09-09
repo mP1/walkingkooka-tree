@@ -381,6 +381,7 @@ public final class CycleDetectingExpressionEvaluationContextTest implements Clas
                             value,
                             target,
                             ConverterContexts.basic(
+                                false, // canNumbersHaveGroupSeparator
                                 Converters.JAVA_EPOCH_OFFSET, // dateOffset
                                 Converters.characterOrCharSequenceOrHasTextOrStringToCharacterOrCharSequenceOrString(),
                                 DateTimeContexts.fake(),

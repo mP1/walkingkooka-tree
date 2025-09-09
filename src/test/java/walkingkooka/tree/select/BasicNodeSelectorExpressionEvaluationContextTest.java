@@ -175,6 +175,7 @@ public final class BasicNodeSelectorExpressionEvaluationContextTest implements N
         return ExpressionNumberConverterContexts.basic(
             Converters.numberToNumber(),
             ConverterContexts.basic(
+                false, // canNumbersHaveGroupSeparator
                 Converters.JAVA_EPOCH_OFFSET, // dateOffset
                 Converters.fake(),
                 DateTimeContexts.fake(),

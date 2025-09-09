@@ -176,6 +176,11 @@ final class CycleDetectingExpressionEvaluationContext implements ExpressionEvalu
     // CanConvert.......................................................................................................
 
     @Override
+    public boolean canNumbersHaveGroupSeparator() {
+        return this.context.canNumbersHaveGroupSeparator();
+    }
+
+    @Override
     public long dateOffset() {
         return this.context.dateOffset();
     }
