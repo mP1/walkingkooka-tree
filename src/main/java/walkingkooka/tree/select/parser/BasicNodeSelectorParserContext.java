@@ -99,6 +99,13 @@ final class BasicNodeSelectorParserContext implements NodeSelectorParserContext,
     }
 
     @Override
+    public char valueSeparator() {
+        return ',';
+    }
+
+    // HasLocale........................................................................................................
+
+    @Override
     public Locale locale() {
         return this.dateTimeContext.locale();
     }

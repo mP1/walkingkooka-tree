@@ -371,6 +371,7 @@ public final class CycleDetectingExpressionEvaluationContextTest implements Clas
                             (c) -> ParserContexts.basic(
                                 false, // canNumbersHaveGroupSeparator
                                 InvalidCharacterExceptionFactory.POSITION,
+                                ',', // valueSeparator
                                 c,
                                 c
                             ),
