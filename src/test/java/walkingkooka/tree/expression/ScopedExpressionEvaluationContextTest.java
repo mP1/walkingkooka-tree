@@ -294,6 +294,7 @@ public final class ScopedExpressionEvaluationContextTest implements ExpressionEv
                 ExpressionEvaluationContexts.referenceNotFound(),
                 CaseSensitivity.SENSITIVE,
                 ConverterContexts.basic(
+                    false, // canNumbersHaveGroupSeparator
                     0,
                     Converters.fake(),
                     DateTimeContexts.basic(

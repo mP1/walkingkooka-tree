@@ -136,6 +136,11 @@ final class BasicExpressionEvaluationContext implements ExpressionEvaluationCont
     // Convert..........................................................................................................
 
     @Override
+    public boolean canNumbersHaveGroupSeparator() {
+        return this.converterContext.canNumbersHaveGroupSeparator();
+    }
+
+    @Override
     public long dateOffset() {
         return this.converterContext.dateOffset();
     }

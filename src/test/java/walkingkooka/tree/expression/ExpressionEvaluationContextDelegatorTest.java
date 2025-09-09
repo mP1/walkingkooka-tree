@@ -115,6 +115,7 @@ public final class ExpressionEvaluationContextDelegatorTest implements Expressio
                 ExpressionEvaluationContexts.referenceNotFound(),
                 CaseSensitivity.SENSITIVE,
                 ConverterContexts.basic(
+                    false, // canNumbersHaveGroupSeparator
                     0,
                     Converters.fake(),
                     DateTimeContexts.basic(

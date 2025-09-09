@@ -70,6 +70,7 @@ public final class ExpressionNumberConverterContextDelegatorTest implements Expr
             return ExpressionNumberConverterContexts.basic(
                 Converters.numberToBoolean(),
                 ConverterContexts.basic(
+                    false, // canNumbersHaveGroupSeparator
                     0,
                     Converters.fake(),
                     DateTimeContexts.basic(

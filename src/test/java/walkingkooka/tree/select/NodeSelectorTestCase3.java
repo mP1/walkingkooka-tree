@@ -601,6 +601,7 @@ abstract public class NodeSelectorTestCase3<S extends NodeSelector<TestNode, Str
         return ExpressionNumberConverterContexts.basic(
             this.converter(),
             ConverterContexts.basic(
+                false, // canNumbersHaveGroupSeparator
                 Converters.JAVA_EPOCH_OFFSET, // dateOffset
                 Converters.fake(),
                 DateTimeContexts.fake(),
