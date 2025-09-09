@@ -407,6 +407,7 @@ public abstract class ExpressionTestCase<N extends Expression> implements TreePr
             ParserContexts.basic(
                 false, // canNumbersHaveGroupSeparator
                 InvalidCharacterExceptionFactory.POSITION,
+                ',', // valueSeparator
                 c,
                 c
             );
