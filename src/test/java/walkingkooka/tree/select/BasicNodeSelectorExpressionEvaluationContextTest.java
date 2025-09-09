@@ -177,6 +177,7 @@ public final class BasicNodeSelectorExpressionEvaluationContextTest implements N
             ConverterContexts.basic(
                 false, // canNumbersHaveGroupSeparator
                 Converters.JAVA_EPOCH_OFFSET, // dateOffset
+                ',', // valueSeparator
                 Converters.fake(),
                 DateTimeContexts.fake(),
                 decimalNumberContext()

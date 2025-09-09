@@ -197,6 +197,11 @@ final class CycleDetectingExpressionEvaluationContext implements ExpressionEvalu
         return this.context.convert(from, type);
     }
 
+    @Override
+    public char valueSeparator() {
+        return this.context.valueSeparator();
+    }
+
     // Strings..........................................................................................................
 
     @Override

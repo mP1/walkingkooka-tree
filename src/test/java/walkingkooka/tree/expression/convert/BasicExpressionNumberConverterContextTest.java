@@ -80,6 +80,7 @@ public final class BasicExpressionNumberConverterContextTest implements Expressi
         return ConverterContexts.basic(
             false, // canNumbersHaveGroupSeparator
             Converters.JAVA_EPOCH_OFFSET, // dateOffset
+            ',', // valueSeparator
             Converters.fake(),
             DateTimeContexts.basic(
                 DateTimeSymbols.fromDateFormatSymbols(

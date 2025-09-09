@@ -784,6 +784,7 @@ public final class BasicExpressionEvaluationContextTest implements ClassTesting2
         return ConverterContexts.basic(
             false, // canNumbersHaveGroupSeparator
             Converters.JAVA_EPOCH_OFFSET, // dateOffset
+            ',', // valueSeparator
             Converters.collection(
                 Lists.of(
                     Converters.numberToNumber(),

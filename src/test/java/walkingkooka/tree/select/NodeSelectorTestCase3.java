@@ -603,6 +603,7 @@ abstract public class NodeSelectorTestCase3<S extends NodeSelector<TestNode, Str
             ConverterContexts.basic(
                 false, // canNumbersHaveGroupSeparator
                 Converters.JAVA_EPOCH_OFFSET, // dateOffset
+                ',', // valueSeparator
                 Converters.fake(),
                 DateTimeContexts.fake(),
                 DecimalNumberContexts.american(MathContext.DECIMAL32)
