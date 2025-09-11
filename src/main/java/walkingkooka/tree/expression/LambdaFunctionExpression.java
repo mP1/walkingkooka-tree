@@ -180,11 +180,6 @@ public final class LambdaFunctionExpression extends UnaryExpression {
     // Object ..........................................................................................................
 
     @Override
-    boolean canBeEqual(final Object other) {
-        return other instanceof LambdaFunctionExpression;
-    }
-
-    @Override
     boolean equalsIgnoringChildren(final Expression other) {
         return this.equalsIgnoringParentAndChildren0((LambdaFunctionExpression) other);
     }

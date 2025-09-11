@@ -109,11 +109,6 @@ public final class NotExpression extends UnaryExpression {
     // Object ....................................................................................................
 
     @Override
-    boolean canBeEqual(final Object other) {
-        return other instanceof NotExpression;
-    }
-
-    @Override
     boolean equalsIgnoringChildren(final Expression other) {
         return true; // no other properties name already tested.
     }

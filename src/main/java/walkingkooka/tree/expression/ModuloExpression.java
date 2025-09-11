@@ -86,11 +86,6 @@ public final class ModuloExpression extends ArithmeticExpression {
     // Object .........................................................................................................
 
     @Override
-    boolean canBeEqual(final Object other) {
-        return other instanceof ModuloExpression;
-    }
-
-    @Override
     void appendSymbol(final StringBuilder b) {
         b.append(SYMBOL);
     }

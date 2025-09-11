@@ -77,11 +77,6 @@ public final class GreaterThanEqualsExpression extends CompareExpression {
     // Object .........................................................................................................
 
     @Override
-    boolean canBeEqual(final Object other) {
-        return other instanceof GreaterThanEqualsExpression;
-    }
-
-    @Override
     void appendSymbol(final StringBuilder b) {
         b.append(SYMBOL);
     }

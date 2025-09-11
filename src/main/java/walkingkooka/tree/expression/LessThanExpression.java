@@ -77,11 +77,6 @@ public final class LessThanExpression extends CompareExpression {
     // Object .........................................................................................................
 
     @Override
-    boolean canBeEqual(final Object other) {
-        return other instanceof LessThanExpression;
-    }
-
-    @Override
     void appendSymbol(final StringBuilder b) {
         b.append(SYMBOL);
     }

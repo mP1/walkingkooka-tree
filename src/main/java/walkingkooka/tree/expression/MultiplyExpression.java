@@ -86,11 +86,6 @@ public final class MultiplyExpression extends ArithmeticExpression {
     // Object .........................................................................................................
 
     @Override
-    boolean canBeEqual(final Object other) {
-        return other instanceof MultiplyExpression;
-    }
-
-    @Override
     void appendSymbol(final StringBuilder b) {
         b.append(SYMBOL);
     }

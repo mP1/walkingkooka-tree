@@ -117,11 +117,6 @@ final public class ValueExpression<V> extends LeafExpression<V> {
     // Object ..........................................................................................................
 
     @Override
-    boolean canBeEqual(final Object other) {
-        return other instanceof ValueExpression;
-    }
-
-    @Override
     void toString0(final StringBuilder b) {
         b.append(CharSequences.quoteIfChars(this.value));
     }

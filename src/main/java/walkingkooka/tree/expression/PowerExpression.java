@@ -86,11 +86,6 @@ public final class PowerExpression extends ArithmeticExpression {
     // Object .........................................................................................................
 
     @Override
-    boolean canBeEqual(final Object other) {
-        return other instanceof PowerExpression;
-    }
-
-    @Override
     void appendSymbol(final StringBuilder b) {
         b.append(SYMBOL);
     }

@@ -82,11 +82,6 @@ public final class AndExpression extends LogicalExpression {
     // Object ....................................................................................................
 
     @Override
-    boolean canBeEqual(final Object other) {
-        return other instanceof AndExpression;
-    }
-
-    @Override
     void appendSymbol(final StringBuilder b) {
         b.append(SYMBOL);
     }

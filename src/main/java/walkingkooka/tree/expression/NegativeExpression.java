@@ -109,11 +109,6 @@ public final class NegativeExpression extends UnaryExpression {
     // Object ....................................................................................................
 
     @Override
-    boolean canBeEqual(final Object other) {
-        return other instanceof NegativeExpression;
-    }
-
-    @Override
     boolean equalsIgnoringChildren(final Expression other) {
         return true; // no other properties name already tested.
     }
