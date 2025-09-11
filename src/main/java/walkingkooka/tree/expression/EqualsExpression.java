@@ -77,11 +77,6 @@ public final class EqualsExpression extends CompareExpression {
     // object .........................................................................................................
 
     @Override
-    boolean canBeEqual(final Object other) {
-        return other instanceof EqualsExpression;
-    }
-
-    @Override
     void appendSymbol(final StringBuilder b) {
         b.append(SYMBOL);
     }

@@ -44,7 +44,4 @@ abstract class VariableExpression extends ParentExpression implements Value<List
 
     // Object........................................................................................................
 
-    @Override final boolean canBeEqual(final Object other) {
-        return other instanceof VariableExpression;
-    }
 }

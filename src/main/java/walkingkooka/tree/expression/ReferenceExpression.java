@@ -128,11 +128,6 @@ public final class ReferenceExpression extends LeafExpression<ExpressionReferenc
     // Object ....................................................................................................
 
     @Override
-    boolean canBeEqual(final Object other) {
-        return other instanceof ReferenceExpression;
-    }
-
-    @Override
     void toString0(final StringBuilder b) {
         b.append(this.value);
     }

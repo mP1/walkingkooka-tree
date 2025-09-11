@@ -133,11 +133,6 @@ final public class NamedFunctionExpression extends LeafExpression<ExpressionFunc
     // Object ..........................................................................................................
 
     @Override
-    boolean canBeEqual(final Object other) {
-        return other instanceof NamedFunctionExpression;
-    }
-
-    @Override
     void toString0(final StringBuilder b) {
         b.append(this.value);
     }
