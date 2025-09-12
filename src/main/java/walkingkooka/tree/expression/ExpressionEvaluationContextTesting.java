@@ -232,7 +232,7 @@ public interface ExpressionEvaluationContextTesting<C extends ExpressionEvaluati
         );
 
         this.checkEquals(
-            expected.getClass(),
+            expected.getMessage(),
             thrown.getMessage(),
             () -> "reference " + reference
         );
