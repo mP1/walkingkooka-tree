@@ -18,6 +18,7 @@
 package walkingkooka.tree.expression;
 
 import walkingkooka.Cast;
+import walkingkooka.HasNotFoundText;
 import walkingkooka.InvalidTextLengthException;
 import walkingkooka.naming.Name;
 import walkingkooka.predicate.character.CharPredicate;
@@ -41,7 +42,8 @@ import java.util.function.BiFunction;
  * Note that case-sensitivity is included in {@link #hashCode()} and {@link #equals(Object)}.
  */
 public final class ExpressionFunctionName implements Name,
-    Comparable<ExpressionFunctionName> {
+    Comparable<ExpressionFunctionName>,
+    HasNotFoundText {
 
     /**
      * When initially created {@link ExpressionFunctionName#caseSensitivity} is {@link CaseSensitivity#SENSITIVE}.
@@ -117,6 +119,7 @@ public final class ExpressionFunctionName implements Name,
     /**
      * Useful to report that a function was not found within an expression.
      */
+    @Override
     public String notFoundText() {
         return "Function not found: " + CharSequences.quoteAndEscape(this.name);
     }
