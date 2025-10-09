@@ -942,10 +942,10 @@ public final class ExpressionFunctionParameterTest implements HashCodeEqualsDefi
         );
     }
 
-    // convert..........................................................................................................
+    // convertOrFail....................................................................................................
 
     @Test
-    public void testConvertOrFail() {
+    public void testConvertOrFailWithScalar() {
         final ExpressionFunctionParameter<Integer> parameter = ExpressionFunctionParameter.with(
             NAME,
             Integer.class,
@@ -959,67 +959,90 @@ public final class ExpressionFunctionParameterTest implements HashCodeEqualsDefi
             12,
             parameter.convertOrFail(
                 "12",
-                this.ExpressionEvaluationContext()
+                this.expressionEvaluationContext()
             )
         );
     }
 
     @Test
-    public void testConvertOrFailListMissingTypeParameter() {
-        final ExpressionFunctionParameter<List<?>> parameter = ExpressionFunctionParameter.with(
-            NAME,
-            Cast.to(List.class),
-            ExpressionFunctionParameter.NO_TYPE_PARAMETERS,
-            CARDINALITY,
-            Optional.empty(), // defaultValue
-            KINDS
-        );
-
+    public void testConvertOrFailWithListMissingTypeParameter() {
         final List<?> list = Lists.of(
             1,
             22,
             "three"
         );
 
-        this.checkEquals(
+        this.convertOrFailAndCheck(
+            ExpressionFunctionParameter.with(
+                NAME,
+                Cast.to(List.class),
+                ExpressionFunctionParameter.NO_TYPE_PARAMETERS,
+                CARDINALITY,
+                Optional.empty(), // defaultValue
+                KINDS
+            ),
             list,
-            parameter.convertOrFail(
-                list,
-                this.ExpressionEvaluationContext()
-            )
+            list
         );
     }
 
     @Test
-    public void testConvertOrFailList() {
-        final ExpressionFunctionParameter<List<Integer>> parameter = ExpressionFunctionParameter.with(
-            NAME,
-            Cast.to(List.class),
-            List.of(Integer.class),
-            CARDINALITY,
-            Optional.empty(), // defaultValue
-            KINDS
+    public void testConvertOrFailWithList() {
+        this.convertOrFailAndCheck(
+            ExpressionFunctionParameter.with(
+                NAME,
+                Cast.to(List.class),
+                List.of(Integer.class),
+                CARDINALITY,
+                Optional.empty(), // defaultValue
+                KINDS
+            ),
+            Lists.of("12", "34", "56"),
+            List.of(12, 34, 56)
         );
+    }
 
+    private <T> void convertOrFailAndCheck(final ExpressionFunctionParameter<T> parameter,
+                                           final Object value,
+                                           final T expected) {
+        this.convertOrFailAndCheck(
+            parameter,
+            value,
+            this.expressionEvaluationContext(),
+            expected
+        );
+    }
+
+    private <T> void convertOrFailAndCheck(final ExpressionFunctionParameter<T> parameter,
+                                           final Object value,
+                                           final ExpressionEvaluationContext context,
+                                           final T expected) {
         this.checkEquals(
-            List.of(12, 34, 56),
+            expected,
             parameter.convertOrFail(
-                Lists.of("12", "34", "56"),
-                this.ExpressionEvaluationContext()
+                value,
+                context
             )
         );
     }
 
-    private ExpressionEvaluationContext ExpressionEvaluationContext() {
+    private ExpressionEvaluationContext expressionEvaluationContext() {
         return new FakeExpressionEvaluationContext() {
             @Override
             public <T> Either<T, String> convert(final Object value,
                                                  final Class<T> target) {
                 checkEquals(Integer.class, target, "target");
-                return Cast.to(Either.left(Integer.parseInt((String) value)));
+                return Cast.to(
+                    Either.left(
+                        Integer.parseInt((String) value
+                        )
+                    )
+                );
             }
         };
     }
+
+    // list.............................................................................................................
 
     @Test
     public void testList() {
