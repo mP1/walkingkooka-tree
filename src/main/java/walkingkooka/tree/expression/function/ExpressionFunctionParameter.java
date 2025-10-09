@@ -48,6 +48,11 @@ public final class ExpressionFunctionParameter<T> implements HasName<ExpressionF
     public final static List<Class<?>> NO_TYPE_PARAMETERS = Lists.empty();
 
     /**
+     * Type token for {@link List} with a type-parameter of wildcard.
+     */
+    public final static Class<List<?>> LIST_WILDCARD_CLASS = Cast.to(List.class);
+
+    /**
      * No {@link ExpressionFunctionParameterKind}.
      */
     public final static Set<ExpressionFunctionParameterKind> NO_KINDS = Sets.empty();
