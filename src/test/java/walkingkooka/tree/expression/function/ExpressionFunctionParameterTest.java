@@ -29,7 +29,6 @@ import walkingkooka.reflect.ConstantsTesting;
 import walkingkooka.reflect.FieldAttributes;
 import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.tree.expression.ExpressionEvaluationContext;
-import walkingkooka.tree.expression.ExpressionEvaluationContexts;
 import walkingkooka.tree.expression.FakeExpressionEvaluationContext;
 
 import java.lang.reflect.Field;
@@ -946,24 +945,6 @@ public final class ExpressionFunctionParameterTest implements HashCodeEqualsDefi
     // convert..........................................................................................................
 
     @Test
-    public void testConvertOrFailMissingListMissingTypeParameterFails() {
-        assertThrows(
-            IllegalStateException.class,
-            () -> ExpressionFunctionParameter.with(
-                NAME,
-                Cast.to(List.class),
-                ExpressionFunctionParameter.NO_TYPE_PARAMETERS,
-                CARDINALITY,
-                Optional.empty(), // defaultValue
-                KINDS
-            ).convertOrFail(
-                Lists.empty(),
-                ExpressionEvaluationContexts.fake()
-            )
-        );
-    }
-
-    @Test
     public void testConvertOrFail() {
         final ExpressionFunctionParameter<Integer> parameter = ExpressionFunctionParameter.with(
             NAME,
@@ -978,6 +959,32 @@ public final class ExpressionFunctionParameterTest implements HashCodeEqualsDefi
             12,
             parameter.convertOrFail(
                 "12",
+                this.ExpressionEvaluationContext()
+            )
+        );
+    }
+
+    @Test
+    public void testConvertOrFailListMissingTypeParameter() {
+        final ExpressionFunctionParameter<List<?>> parameter = ExpressionFunctionParameter.with(
+            NAME,
+            Cast.to(List.class),
+            ExpressionFunctionParameter.NO_TYPE_PARAMETERS,
+            CARDINALITY,
+            Optional.empty(), // defaultValue
+            KINDS
+        );
+
+        final List<?> list = Lists.of(
+            1,
+            22,
+            "three"
+        );
+
+        this.checkEquals(
+            list,
+            parameter.convertOrFail(
+                list,
                 this.ExpressionEvaluationContext()
             )
         );

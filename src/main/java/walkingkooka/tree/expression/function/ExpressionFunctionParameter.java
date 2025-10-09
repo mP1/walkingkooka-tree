@@ -349,26 +349,38 @@ public final class ExpressionFunctionParameter<T> implements HasName<ExpressionF
             context.convertOrFail(value, type);
     }
 
+    /**
+     * Handles converting a {@link List} without type-parameters or a type-parameter.
+     * <ul>
+     *     <li>If no type-parameter is given, the original list is returned unmodified.</li>
+     *     <li>If a type-parameter is given, each element is converted to that type.</li>
+     *     <li>If more than one type-parameter is given an {@link IllegalStateException} will be thrown.</li>
+     * </ul>
+     */
     private List<?> convertList(final List<?> list,
                                 final ExpressionEvaluationContext context) {
         final List<Class<?>> typeParameters = this.typeParameters();
         final int typeParametersCount = typeParameters.size();
-        final Class<?> listType;
+
+        final List<?> convertedList;
 
         switch (typeParametersCount) {
             case 0:
-                throw new IllegalStateException("Missing required type parameter for List");
+                convertedList = list;
+                break;
             case 1:
-                listType = typeParameters.get(0);
+                final Class<?> listType = typeParameters.get(0);
+
+                convertedList = Lists.immutable(
+                    list.stream()
+                        .map(v -> context.convertOrFail(v, listType))
+                        .collect(Collectors.toList()));
                 break;
             default:
                 throw new IllegalStateException("Expected only one type parameter for List but got " + typeParameters);
         }
 
-        return Lists.immutable(
-            list.stream()
-                .map(v -> context.convertOrFail(v, listType))
-                .collect(Collectors.toList()));
+        return convertedList;
     }
 
     // Object...........................................................................................................
