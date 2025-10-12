@@ -218,6 +218,8 @@ public interface ExpressionEvaluationContext extends ExpressionNumberConverterCo
             result = this.reference(reference)
                 .orElseThrow(thrower)
                 .orElseThrow(thrower);
+        } catch (final UnsupportedOperationException rethrow) {
+            throw rethrow;
         } catch (final RuntimeException exception) {
             result = this.handleException(exception);
         }
