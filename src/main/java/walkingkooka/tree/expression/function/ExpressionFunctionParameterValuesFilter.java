@@ -17,7 +17,6 @@
 
 package walkingkooka.tree.expression.function;
 
-import walkingkooka.Context;
 import walkingkooka.tree.expression.ExpressionEvaluationContext;
 
 import java.util.List;
@@ -32,14 +31,14 @@ final class ExpressionFunctionParameterValuesFilter<T, C extends ExpressionEvalu
 
     static <T, C extends ExpressionEvaluationContext> ExpressionFunctionParameterValuesFilter<T, C> with(final BiPredicate<Object, C> filter,
                                                                                                          final ExpressionFunction<T, C> function) {
-        checkFilter(filter);
-        checkFunction(function);
-
-        return new ExpressionFunctionParameterValuesFilter<>(filter, function);
+        return new ExpressionFunctionParameterValuesFilter<>(
+            checkFilter(filter),
+            function
+        );
     }
 
-    private static void checkFilter(final BiPredicate<Object, ? extends Context> filter) {
-        Objects.requireNonNull(filter, "filter");
+    private static <C extends ExpressionEvaluationContext> BiPredicate<Object, C> checkFilter(final BiPredicate<Object, C> filter) {
+        return Objects.requireNonNull(filter, "filter");
     }
 
     private ExpressionFunctionParameterValuesFilter(final BiPredicate<Object, C> filter,

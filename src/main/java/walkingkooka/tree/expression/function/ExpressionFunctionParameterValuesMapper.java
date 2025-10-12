@@ -30,10 +30,10 @@ final class ExpressionFunctionParameterValuesMapper<T, C extends ExpressionEvalu
 
     static <T, C extends ExpressionEvaluationContext> ExpressionFunctionParameterValuesMapper<T, C> with(final BiFunction<List<Object>, C, List<Object>> mapper,
                                                                                                          final ExpressionFunction<T, C> function) {
-        Objects.requireNonNull(mapper, "mapper");
-        checkFunction(function);
-
-        return new ExpressionFunctionParameterValuesMapper<>(mapper, function);
+        return new ExpressionFunctionParameterValuesMapper<>(
+            Objects.requireNonNull(mapper, "mapper"),
+            function
+        );
     }
 
     private ExpressionFunctionParameterValuesMapper(final BiFunction<List<Object>, C, List<Object>> mapper,
