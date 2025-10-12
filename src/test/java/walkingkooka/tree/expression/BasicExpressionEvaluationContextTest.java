@@ -24,6 +24,7 @@ import walkingkooka.ToStringTesting;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.convert.ConverterContext;
 import walkingkooka.convert.ConverterContexts;
+import walkingkooka.convert.ConverterException;
 import walkingkooka.convert.Converters;
 import walkingkooka.convert.FakeConverterContext;
 import walkingkooka.datetime.DateTimeContexts;
@@ -37,6 +38,7 @@ import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.text.CaseSensitivity;
 import walkingkooka.tree.expression.function.ExpressionFunction;
 import walkingkooka.tree.expression.function.ExpressionFunctionParameter;
+import walkingkooka.tree.expression.function.ExpressionFunctionParameterKind;
 import walkingkooka.tree.expression.function.ExpressionFunctionParameterName;
 import walkingkooka.tree.expression.function.FakeExpressionFunction;
 import walkingkooka.tree.expression.function.UnknownExpressionFunctionException;
@@ -295,6 +297,111 @@ public final class BasicExpressionEvaluationContextTest implements ClassTesting2
     }
 
     @Test
+    public void testEvaluateExpressionConversionFails() {
+        final ExpressionNumberKind kind = ExpressionNumberKind.DOUBLE;
+
+        this.evaluateExpressionAndCheck(
+            BasicExpressionEvaluationContext.with(
+                kind,
+                (n) -> {
+                    throw new UnsupportedOperationException();
+                },
+                (r) -> "@@@" + r.getMessage(),
+                (r) -> {
+                    throw new UnsupportedOperationException();
+                },
+                (r) -> {
+                    throw new UnsupportedOperationException();
+                },
+                CASE_SENSITIVITY,
+                new FakeConverterContext() {
+                    @Override
+                    public <T> Either<T, String> convert(final Object value,
+                                                         final Class<T> target) {
+                        return this.failConversion(
+                            value,
+                            target
+                        );
+                    }
+                },
+                LOCALE_CONTEXT
+            ),
+            Expression.divide(
+                Expression.value(kind.one()),
+                Expression.value(kind.zero())
+            ),
+            "@@@Failed to convert 1 (walkingkooka.tree.expression.ExpressionNumberDouble) to walkingkooka.tree.expression.ExpressionNumber"
+        );
+    }
+
+    @Test
+    public void testEvaluateExpressionFunctionConversionFails() {
+        final ExpressionFunctionName functionName = ExpressionFunctionName.with("HelloFunction");
+
+        final ConverterException thrown = assertThrows(
+            ConverterException.class,
+            () -> BasicExpressionEvaluationContext.with(
+                ExpressionNumberKind.BIG_DECIMAL,
+                (n) -> new FakeExpressionFunction<>() {
+                    @Override
+                    public Optional<ExpressionFunctionName> name() {
+                        return Optional.of(functionName);
+                    }
+
+                    @Override
+                    public List<ExpressionFunctionParameter<?>> parameters(final int count) {
+                        return Lists.of(
+                            ExpressionFunctionParameter.NUMBER.setKinds(
+                                ExpressionFunctionParameterKind.CONVERT_EVALUATE
+                            )
+                        );
+                    }
+
+                    @Override
+                    public Object apply(final List<Object> values,
+                                        final ExpressionEvaluationContext context) {
+                        ExpressionFunctionParameter.NUMBER.getOrFail(values, 0);
+                        throw new UnsupportedOperationException();
+                    }
+                },
+                (r) -> {
+                    throw r;
+                },
+                (r) -> {
+                    throw new UnsupportedOperationException();
+                },
+                (r) -> {
+                    throw new UnsupportedOperationException();
+                },
+                CASE_SENSITIVITY,
+                new FakeConverterContext() {
+                    @Override
+                    public <T> Either<T, String> convert(final Object value,
+                                                         final Class<T> target) {
+                        return this.failConversion(
+                            value,
+                            target
+                        );
+                    }
+                },
+                LOCALE_CONTEXT
+            ).evaluateExpression(
+                Expression.call(
+                    Expression.namedFunction(functionName),
+                    Lists.of(
+                        Expression.value("String1")
+                    )
+                )
+            )
+        );
+
+        this.checkEquals(
+            "HelloFunction: number: Failed to convert \"String1\" (java.lang.String) to walkingkooka.tree.expression.ExpressionNumber",
+            thrown.getMessage()
+        );
+    }
+
+    @Test
     public void testEvaluateExpressionThrowsExceptionTranslated() {
         final ExpressionNumberKind kind = ExpressionNumberKind.DOUBLE;
 
@@ -453,6 +560,55 @@ public final class BasicExpressionEvaluationContextTest implements ClassTesting2
     }
 
     // namedFunction........................................................................................................
+
+    @Test
+    public void testEvaluateFunctionConverterFails() {
+        final ExpressionNumberKind kind = ExpressionNumberKind.DOUBLE;
+
+        final ExpressionFunction<String, BasicExpressionEvaluationContext> function = new FakeExpressionFunction<>() {
+            @Override
+            public String apply(final List<Object> objects,
+                                final BasicExpressionEvaluationContext context) {
+                throw new RuntimeException("Thrown123");
+            }
+
+            @Override
+            public List<ExpressionFunctionParameter<?>> parameters(final int count) {
+                return ExpressionFunctionParameter.EMPTY;
+            }
+        };
+
+        this.evaluateFunctionAndCheck(
+            BasicExpressionEvaluationContext.with(
+                kind,
+                (n) -> {
+                    throw new UnsupportedOperationException();
+                },
+                (r) -> "@@@" + r.getMessage(),
+                (r) -> {
+                    throw new UnsupportedOperationException();
+                },
+                (r) -> {
+                    throw new UnsupportedOperationException();
+                },
+                CASE_SENSITIVITY,
+                new FakeConverterContext() {
+                    @Override
+                    public <T> Either<T, String> convert(final Object value,
+                                                         final Class<T> target) {
+                        return this.failConversion(
+                            value,
+                            target
+                        );
+                    }
+                },
+                LOCALE_CONTEXT
+            ),
+            function,
+            Lists.of(999),
+            "@@@Thrown123"
+        );
+    }
 
     @Test
     public void testEvaluateFunctionThrowsExceptionTranslated() {

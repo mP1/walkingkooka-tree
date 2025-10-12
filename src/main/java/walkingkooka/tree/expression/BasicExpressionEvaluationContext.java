@@ -19,6 +19,7 @@ package walkingkooka.tree.expression;
 
 import walkingkooka.convert.ConverterContext;
 import walkingkooka.convert.ConverterContextDelegator;
+import walkingkooka.convert.ConverterException;
 import walkingkooka.locale.LocaleContext;
 import walkingkooka.locale.LocaleContextDelegator;
 import walkingkooka.text.CaseSensitivity;
@@ -149,7 +150,15 @@ final class BasicExpressionEvaluationContext implements ExpressionEvaluationCont
     @Override
     public <T> T prepareParameter(final ExpressionFunctionParameter<T> parameter,
                                   final Object value) {
-        return parameter.convertOrFail(value, this);
+        try {
+            return parameter.convertOrFail(value, this);
+        } catch (final ConverterException rethrow) {
+            throw rethrow.setPrefix(
+                parameter.name()
+                    .value() +
+                    ": "
+            );
+        }
     }
 
     @Override

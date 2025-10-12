@@ -20,6 +20,7 @@ package walkingkooka.tree.expression;
 import walkingkooka.Cast;
 import walkingkooka.Context;
 import walkingkooka.collect.list.Lists;
+import walkingkooka.convert.ConverterException;
 import walkingkooka.locale.LocaleContext;
 import walkingkooka.text.CaseSensitivity;
 import walkingkooka.tree.expression.convert.ExpressionNumberConverterContext;
@@ -148,6 +149,15 @@ public interface ExpressionEvaluationContext extends ExpressionNumberConverterCo
             result = function.apply(
                 this.prepareParameters(function, parameters),
                 Cast.to(this)
+            );
+        } catch (final ConverterException rethrow) {
+            // HelloFunction: Parameter number: Conversion etc etc.
+            throw rethrow.setPrefix(
+                function.name()
+                    .map(ExpressionFunctionName::value)
+                    .orElse(ExpressionFunction.ANONYMOUS) +
+                    ": " +
+                    rethrow.prefix()
             );
         } catch (final InvalidExpressionFunctionParameterCountException cause) {
             // Function may be wrapped - want to use the outer ExpressionFunction.name
