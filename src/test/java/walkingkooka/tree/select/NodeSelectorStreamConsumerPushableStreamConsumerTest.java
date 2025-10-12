@@ -38,6 +38,7 @@ public final class NodeSelectorStreamConsumerPushableStreamConsumerTest extends 
     @BeforeEach
     public void beforeEachTest() {
         TestNode.clear();
+        this.node = TestNode.with("node"); // On github-actions CI, duplicate node names were being reported.
     }
 
     @Test
@@ -75,7 +76,7 @@ public final class NodeSelectorStreamConsumerPushableStreamConsumerTest extends 
             selector.toString());
     }
 
-    private final TestNode node = TestNode.with("node");
+    private TestNode node;
 
     private NodeSelector<TestNode, StringName, StringName, Object> selector() {
         return TestNode.relativeNodeSelector().named(Names.string("abc123"));
