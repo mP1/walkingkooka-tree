@@ -69,14 +69,13 @@ final class ExpressionEvaluationContextPrepareParametersListFlattened extends Ex
 
         return index < last ?
             this.getPrepareIfNecessary(index) :
-            this.getFlattenIfNecessary(index, index - last);
+            this.getFlattenIfNecessary(index - last);
     }
 
     /**
      * Lazily flatten the values belonging to the last parameter, and convert on demand the individual element being fetched.
      */
-    private Object getFlattenIfNecessary(final int index,
-                                         final int filteredIndex) {
+    private Object getFlattenIfNecessary(final int filteredIndex) {
         Object preparedValue;
 
         final Object[] converted = this.convertedFlattenValues;
