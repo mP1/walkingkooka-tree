@@ -326,6 +326,70 @@ public final class ExpressionEvaluationContextTest implements ClassTesting<Expre
         );
     }
 
+    // evaluateExpression.................................................................................................
+
+    @Test
+    public void testEvaluateExpressionThrowsUnsupportedOperationException() {
+        final ExpressionFunctionName functionName = ExpressionFunctionName.with("TestFunction");
+
+        assertThrows(
+            UnsupportedOperationException.class,
+            () -> new FakeExpressionEvaluationContext() {
+
+            }.evaluateExpression(
+                Expression.call(
+                    Expression.namedFunction(functionName),
+                    Lists.empty()
+                )
+            )
+        );
+    }
+
+    @Test
+    public void testEvaluateExpressionThrowsException() {
+        final ExpressionFunctionName functionName = ExpressionFunctionName.with("TestFunction");
+        final String message = "Message 123";
+
+        final IllegalStateException thrown = assertThrows(
+            IllegalStateException.class,
+            () -> new FakeExpressionEvaluationContext() {
+
+                @Override
+                public ExpressionFunction<?, ExpressionEvaluationContext> expressionFunction(final ExpressionFunctionName name) {
+                    return new FakeExpressionFunction<>() {
+                        @Override
+                        public Object apply(final List<Object> values,
+                                            final ExpressionEvaluationContext context) {
+                            throw new IllegalArgumentException(message);
+                        }
+
+                        @Override
+                        public List<ExpressionFunctionParameter<?>> parameters(final int count) {
+                            return NO_PARAMETERS;
+                        }
+                    };
+                }
+
+                @Override
+                public Object handleException(final RuntimeException exception) {
+                    throw new IllegalStateException(
+                        exception.getMessage()
+                    );
+                }
+            }.evaluateExpression(
+                Expression.call(
+                    Expression.namedFunction(functionName),
+                    Lists.empty()
+                )
+            )
+        );
+
+        this.checkEquals(
+            message,
+            thrown.getMessage()
+        );
+    }
+    
     // evaluateFunction.................................................................................................
 
     @Test
