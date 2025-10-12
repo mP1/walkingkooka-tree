@@ -29,12 +29,8 @@ import java.util.Optional;
  */
 abstract class ExpressionFunctionParameterValues<T, C extends ExpressionEvaluationContext> implements ExpressionFunction<T, C> {
 
-    static void checkFunction(final ExpressionFunction<?, ?> function) {
-        Objects.requireNonNull(function, "function");
-    }
-
     ExpressionFunctionParameterValues(final ExpressionFunction<T, C> function) {
-        this.function = function;
+        this.function = Objects.requireNonNull(function, "function");
     }
 
     @Override
