@@ -142,7 +142,6 @@ public final class ExpressionFunctionParameterName implements Name,
         return ExpressionFunctionParameter.with(
             this,
             type,
-            ExpressionFunctionParameter.NO_TYPE_PARAMETERS,
             cardinality,
             Optional.empty(),
             ExpressionFunctionParameter.NO_KINDS
