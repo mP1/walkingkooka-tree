@@ -78,6 +78,8 @@ public interface ExpressionEvaluationContext extends ExpressionNumberConverterCo
 
         try {
             result = expression.toValue(this);
+        } catch (final UnsupportedOperationException rethrow) {
+            throw rethrow;
         } catch (final RuntimeException exception) {
             result = this.handleException(exception);
         }
