@@ -31,13 +31,9 @@ final class ExpressionFunctionParameterValuesParameters<T, C extends ExpressionE
     static <T, C extends ExpressionEvaluationContext> ExpressionFunctionParameterValuesParameters<T, C> with(final List<ExpressionFunctionParameter<?>> parameters,
                                                                                                              final ExpressionFunction<T, C> function) {
         return new ExpressionFunctionParameterValuesParameters<>(
-            checkParameters(parameters),
+            Objects.requireNonNull(parameters, "parameters"),
             function
         );
-    }
-
-    private static List<ExpressionFunctionParameter<?>> checkParameters(final List<ExpressionFunctionParameter<?>> parameters) {
-        return Objects.requireNonNull(parameters, "parameters");
     }
 
     private ExpressionFunctionParameterValuesParameters(final List<ExpressionFunctionParameter<?>> parameters,
