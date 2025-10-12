@@ -23,10 +23,12 @@ import walkingkooka.collect.list.Lists;
 import walkingkooka.reflect.ClassTesting;
 import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.tree.expression.ExpressionEvaluationContext;
+import walkingkooka.tree.expression.ExpressionFunctionName;
 import walkingkooka.tree.expression.FakeExpressionEvaluationContext;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -155,6 +157,13 @@ public final class ExpressionFunctionTest implements ClassTesting<ExpressionFunc
             @Override
             public List<ExpressionFunctionParameter<?>> parameters(final int count) {
                 return Lists.of(parameters);
+            }
+
+            @Override
+            public Optional<ExpressionFunctionName> name() {
+                return Optional.of(
+                    ExpressionFunctionName.with("TestFunctionName")
+                );
             }
         }.checkParameterCount(Collections.nCopies(count, null));
     }
