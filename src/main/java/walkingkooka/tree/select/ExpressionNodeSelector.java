@@ -18,7 +18,7 @@
 package walkingkooka.tree.select;
 
 import walkingkooka.Cast;
-import walkingkooka.convert.ConversionException;
+import walkingkooka.convert.ConverterException;
 import walkingkooka.naming.Name;
 import walkingkooka.tree.Node;
 import walkingkooka.tree.expression.Expression;
@@ -80,7 +80,7 @@ final class ExpressionNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NAME 
             if (context.isNodeSelected(this.expression)) {
                 result = this.select(node, context);
             }
-        } catch (final ConversionException cause) {
+        } catch (final ConverterException cause) {
             throw new NodeSelectorException("Failed to execute expression: " + this, cause);
         }
 
