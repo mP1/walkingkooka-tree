@@ -28,6 +28,7 @@ import walkingkooka.tree.expression.function.ExpressionFunctionParameter;
 import walkingkooka.tree.expression.function.ExpressionFunctionParameterName;
 import walkingkooka.tree.expression.function.ExpressionFunctions;
 import walkingkooka.tree.expression.function.FakeExpressionFunction;
+import walkingkooka.tree.expression.function.InvalidExpressionFunctionParameterCountException;
 
 import java.util.List;
 import java.util.Optional;
@@ -438,6 +439,55 @@ public final class ExpressionEvaluationContextTest implements ClassTesting<Expre
 
         this.checkEquals(
             message,
+            thrown.getMessage()
+        );
+    }
+
+    @Test
+    public void testEvaluateFunctionThrowsInvalidExpressionFunctionParameterCountException() {
+        final ExpressionFunctionName functionName = ExpressionFunctionName.with("TestFunction123");
+
+        final InvalidExpressionFunctionParameterCountException thrown = assertThrows(
+            InvalidExpressionFunctionParameterCountException.class,
+            () -> new FakeExpressionEvaluationContext() {
+
+                @Override
+                public Object handleException(final RuntimeException exception) {
+                    throw exception; // rethrow!
+                }
+            }.evaluateFunction(
+                new FakeExpressionFunction<>() {
+                    @Override
+                    public Object apply(final List<Object> values,
+                                        final ExpressionEvaluationContext context) {
+                        this.checkParameterCount(values);
+                        throw new UnsupportedOperationException();
+                    }
+
+                    @Override
+                    public List<ExpressionFunctionParameter<?>> parameters(final int count) {
+                        return Lists.of(
+                            ExpressionFunctionParameter.DATE,
+                            ExpressionFunctionParameter.DATETIME,
+                            ExpressionFunctionParameter.TIME
+                        );
+                    }
+
+                    @Override
+                    public Optional<ExpressionFunctionName> name() {
+                        return Optional.of(
+                            ExpressionFunctionName.with("LostFunctionName") // message should contain TestFunction123
+                        );
+                    }
+                }.setName(
+                    Optional.of(functionName)
+                ),
+                Lists.of(1) // missing DATETIME, TIME parameter
+            )
+        );
+
+        this.checkEquals(
+            "TestFunction123: Missing parameters: date-time, time",
             thrown.getMessage()
         );
     }
