@@ -87,33 +87,16 @@ public interface ExpressionFunction<T, C extends ExpressionEvaluationContext> ex
     List<ExpressionFunctionParameter<?>> parameters(int count);
 
     /**
-     * Checks the given parameter values match the expected count exactly. Less or more parameters will result in a
-     * {@link IllegalArgumentException} being thrown.
+     * Checks the given parameter values match the expected count exactly.
+     * Too few or many will result in an {@link InvalidExpressionFunctionParameterCountException} being thrown.
+     * Because {@link ExpressionFunctionName} can be wrapped with a new {@link ExpressionFunctionName} the name may be
+     * updated by calling {@link InvalidExpressionFunctionParameterCountException#setFunctionName(Optional)}.
      */
     default void checkParameterCount(final List<Object> parameters) {
-        int min = 0;
-        int max = 0;
-
-        ExpressionFunctionParameterCardinality last = null;
-
-        final int count = parameters.size();
-        for (final ExpressionFunctionParameter<?> functionParameter : this.parameters(count)) {
-            final ExpressionFunctionParameterCardinality cardinality = functionParameter.cardinality();
-            min += cardinality.min;
-            max += cardinality.max;
-            last = cardinality;
-        }
-
-        if (ExpressionFunctionParameterCardinality.VARIABLE == last) {
-            max = Integer.MAX_VALUE;
-        }
-
-        if (count < min) {
-            throw new IllegalArgumentException("Missing parameters, got " + count + " expected " + min);
-        }
-        if (count > max) {
-            throw new IllegalArgumentException("Too many parameters got " + count + " expected " + max);
-        }
+        InvalidExpressionFunctionParameterCountException.checkParameters(
+            parameters,
+            this
+        );
     }
 
     /**
