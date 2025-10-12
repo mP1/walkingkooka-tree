@@ -43,11 +43,6 @@ import java.util.stream.Collectors;
 public final class ExpressionFunctionParameter<T> implements HasName<ExpressionFunctionParameterName> {
 
     /**
-     * Type parameters for types that are not generic and have NO type parameters.
-     */
-    public final static List<Class<?>> NO_TYPE_PARAMETERS = Lists.empty();
-
-    /**
      * Type token for {@link List} with a type-parameter of wildcard.
      */
     public final static Class<List<?>> LIST_WILDCARD_CLASS = Cast.to(List.class);
@@ -91,7 +86,6 @@ public final class ExpressionFunctionParameter<T> implements HasName<ExpressionF
     // @VisibleForTesting
     public static <T> ExpressionFunctionParameter<T> with(final ExpressionFunctionParameterName name,
                                                           final Class<T> type,
-                                                          final List<Class<?>> typeParameters,
                                                           final ExpressionFunctionParameterCardinality cardinality,
                                                           final Optional<T> defaultValue,
                                                           final Set<ExpressionFunctionParameterKind> kinds) {
@@ -99,9 +93,6 @@ public final class ExpressionFunctionParameter<T> implements HasName<ExpressionF
             Objects.requireNonNull(name, "name"),
             Objects.requireNonNull(type, "type"),
             Objects.requireNonNull(cardinality, "cardinality"),
-            Lists.immutable(
-                Objects.requireNonNull(typeParameters, "typeParameters")
-            ),
             Objects.requireNonNull(defaultValue, "defaultValue"),
             Sets.immutable(
                 Objects.requireNonNull(kinds, "kinds")
@@ -112,13 +103,11 @@ public final class ExpressionFunctionParameter<T> implements HasName<ExpressionF
     private ExpressionFunctionParameter(final ExpressionFunctionParameterName name,
                                         final Class<T> type,
                                         final ExpressionFunctionParameterCardinality cardinality,
-                                        final List<Class<?>> typeParameters,
                                         final Optional<T> defaultValue,
                                         final Set<ExpressionFunctionParameterKind> kinds) {
         this.name = name;
         this.type = type;
         this.cardinality = cardinality;
-        this.typeParameters = typeParameters;
         this.defaultValue = defaultValue;
         this.kinds = kinds;
     }
@@ -138,7 +127,6 @@ public final class ExpressionFunctionParameter<T> implements HasName<ExpressionF
                 Objects.requireNonNull(name, "name"),
                 this.type,
                 this.cardinality,
-                this.typeParameters,
                 this.defaultValue,
                 this.kinds
             );
@@ -163,43 +151,12 @@ public final class ExpressionFunctionParameter<T> implements HasName<ExpressionF
                 this.name,
                 Objects.requireNonNull(type, "type"),
                 this.cardinality,
-                this.typeParameters,
                 Optional.empty(),
                 this.kinds
             );
     }
 
     private final Class<T> type;
-
-    public List<Class<?>> typeParameters() {
-        return this.typeParameters;
-    }
-
-    /**
-     * Sets the type parameter, this is intended to supply the type parameters for {@link List}.
-     */
-    public ExpressionFunctionParameter<T> setTypeParameters(final List<Class<?>> typeParameters) {
-        return this.setTypeParameters0(
-            Lists.immutable(
-                Objects.requireNonNull(typeParameters, "typeParameters")
-            )
-        );
-    }
-
-    private ExpressionFunctionParameter<T> setTypeParameters0(final List<Class<?>> typeParameters) {
-        return this.typeParameters.equals(typeParameters) ?
-            this :
-            new ExpressionFunctionParameter<>(
-                this.name,
-                this.type,
-                this.cardinality,
-                typeParameters,
-                this.defaultValue,
-                this.kinds
-            );
-    }
-
-    private final List<Class<?>> typeParameters;
 
     public ExpressionFunctionParameterCardinality cardinality() {
         return this.cardinality;
@@ -215,7 +172,6 @@ public final class ExpressionFunctionParameter<T> implements HasName<ExpressionF
                 this.name,
                 this.type,
                 Objects.requireNonNull(cardinality, "cardinality"),
-                this.typeParameters,
                 this.defaultValue,
                 this.kinds
             );
@@ -239,7 +195,6 @@ public final class ExpressionFunctionParameter<T> implements HasName<ExpressionF
                 this.name,
                 this.type,
                 this.cardinality,
-                this.typeParameters,
                 Objects.requireNonNull(defaultValue, "defaultValue"),
                 this.kinds
             );
@@ -271,7 +226,6 @@ public final class ExpressionFunctionParameter<T> implements HasName<ExpressionF
                 this.name,
                 this.type,
                 this.cardinality,
-                this.typeParameters,
                 this.defaultValue,
                 Sets.readOnly(copy)
             );
@@ -347,45 +301,10 @@ public final class ExpressionFunctionParameter<T> implements HasName<ExpressionF
      */
     public T convertOrFail(final Object value,
                            final ExpressionEvaluationContext context) {
-        final Class<T> type = this.type();
-        final boolean isList = type.equals(List.class);
-        return isList ?
-            Cast.to(this.convertList((List<?>) value, context)) :
-            context.convertOrFail(value, type);
-    }
-
-    /**
-     * Handles converting a {@link List} without type-parameters or a type-parameter.
-     * <ul>
-     *     <li>If no type-parameter is given, the original list is returned unmodified.</li>
-     *     <li>If a type-parameter is given, each element is converted to that type.</li>
-     *     <li>If more than one type-parameter is given an {@link IllegalStateException} will be thrown.</li>
-     * </ul>
-     */
-    private List<?> convertList(final List<?> list,
-                                final ExpressionEvaluationContext context) {
-        final List<Class<?>> typeParameters = this.typeParameters();
-        final int typeParametersCount = typeParameters.size();
-
-        final List<?> convertedList;
-
-        switch (typeParametersCount) {
-            case 0:
-                convertedList = list;
-                break;
-            case 1:
-                final Class<?> listType = typeParameters.get(0);
-
-                convertedList = Lists.immutable(
-                    list.stream()
-                        .map(v -> context.convertOrFail(v, listType))
-                        .collect(Collectors.toList()));
-                break;
-            default:
-                throw new IllegalStateException("Expected only one type parameter for List but got " + typeParameters);
-        }
-
-        return convertedList;
+        return context.convertOrFail(
+            value,
+            this.type()
+        );
     }
 
     // Object...........................................................................................................
@@ -395,7 +314,6 @@ public final class ExpressionFunctionParameter<T> implements HasName<ExpressionF
         return Objects.hash(
             this.name,
             this.type,
-            this.typeParameters,
             this.cardinality,
             this.defaultValue,
             this.kinds
@@ -411,7 +329,6 @@ public final class ExpressionFunctionParameter<T> implements HasName<ExpressionF
     private boolean equals0(final ExpressionFunctionParameter<?> other) {
         return this.name.equals(other.name) &&
             this.type.equals(other.type) &&
-            this.typeParameters.equals(other.typeParameters) &&
             this.cardinality == other.cardinality &&
             this.defaultValue.equals(other.defaultValue) &&
             this.kinds.equals(other.kinds);
@@ -425,9 +342,7 @@ public final class ExpressionFunctionParameter<T> implements HasName<ExpressionF
             .separator("")
             .value(this.toStringKinds())
             .value(this.type.getName())
-            .value(
-                this.toStringTypeParameters()
-            ).value(" ")
+            .value(" ")
             .value(this.name)
             .value(this.cardinality.parameterToString)
             .enable(ToStringBuilderOption.SKIP_IF_DEFAULT_VALUE)
@@ -445,15 +360,5 @@ public final class ExpressionFunctionParameter<T> implements HasName<ExpressionF
             kinds.stream()
                 .map(ExpressionFunctionParameterKind::parameterToString)
                 .collect(Collectors.joining(", ", "", " "));
-    }
-
-    private String toStringTypeParameters() {
-        final List<Class<?>> typeParameters = this.typeParameters();
-
-        return typeParameters.isEmpty() ?
-            "" :
-            typeParameters.stream()
-                .map(Class::getName)
-                .collect(Collectors.joining(",", "<", ">"));
     }
 }
