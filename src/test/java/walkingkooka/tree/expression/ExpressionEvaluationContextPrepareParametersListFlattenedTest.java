@@ -334,8 +334,8 @@ public final class ExpressionEvaluationContextPrepareParametersListFlattenedTest
             "Fails!",
             this.createContextWhichConvertFails()
         );
-        this.getAndCheck(list, 0, "@@@Unable to convert Fails! to Integer");
-        this.getAndCheck(list, 0, "@@@Unable to convert Fails! to Integer");
+        this.getAndCheck(list, 0, "@@@required-integer: Unable to convert Fails! to Integer");
+        this.getAndCheck(list, 0, "@@@required-integer: Unable to convert Fails! to Integer");
     }
 
     @Test
