@@ -17,6 +17,7 @@
 
 package walkingkooka.tree.expression;
 
+import walkingkooka.convert.ConverterException;
 import walkingkooka.tree.expression.function.ExpressionFunctionParameter;
 import walkingkooka.tree.expression.function.ExpressionFunctionParameterCardinality;
 import walkingkooka.tree.expression.function.ExpressionFunctionParameterKind;
@@ -184,6 +185,14 @@ abstract class ExpressionEvaluationContextPrepareParametersList extends Abstract
                     prepared
                 ) :
                 prepared;
+        } catch (final ConverterException rethrow) {
+            result = context.handleException(
+                rethrow.setPrefix(
+                    parameter.name()
+                        .value() +
+                        ": "
+                )
+            );
         } catch (final UnsupportedOperationException rethrow) {
             throw rethrow;
         } catch (final RuntimeException exception) {
