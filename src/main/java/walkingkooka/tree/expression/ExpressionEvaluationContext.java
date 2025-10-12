@@ -146,6 +146,8 @@ public interface ExpressionEvaluationContext extends ExpressionNumberConverterCo
                 this.prepareParameters(function, parameters),
                 Cast.to(this)
             );
+        } catch (final UnsupportedOperationException rethrow) {
+            throw rethrow;
         } catch (final RuntimeException exception) {
             result = this.handleException(exception);
         }

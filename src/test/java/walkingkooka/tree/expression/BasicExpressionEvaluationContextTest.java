@@ -258,14 +258,14 @@ public final class BasicExpressionEvaluationContextTest implements ClassTesting2
             @Override
             public String apply(final List<Object> objects,
                                 final BasicExpressionEvaluationContext context) {
-                throw new UnsupportedOperationException(error);
+                throw new RuntimeException(error);
             }
         };
 
         this.evaluateFunctionAndCheck(
             this.createContext(
                 (n) -> {
-                    throw new UnsupportedOperationException();
+                    throw new RuntimeException();
                 },
                 Throwable::getMessage
             ),
@@ -462,7 +462,7 @@ public final class BasicExpressionEvaluationContextTest implements ClassTesting2
             @Override
             public String apply(final List<Object> objects,
                                 final BasicExpressionEvaluationContext context) {
-                throw new UnsupportedOperationException("Thrown123");
+                throw new RuntimeException("Thrown123");
             }
 
             @Override
