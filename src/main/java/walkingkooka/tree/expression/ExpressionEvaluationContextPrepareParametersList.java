@@ -184,6 +184,8 @@ abstract class ExpressionEvaluationContextPrepareParametersList extends Abstract
                     prepared
                 ) :
                 prepared;
+        } catch (final UnsupportedOperationException rethrow) {
+            throw rethrow;
         } catch (final RuntimeException exception) {
             result = context.handleException(exception);
         }

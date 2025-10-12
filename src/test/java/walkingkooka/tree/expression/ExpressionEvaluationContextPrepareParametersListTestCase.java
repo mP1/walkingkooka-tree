@@ -20,6 +20,7 @@ package walkingkooka.tree.expression;
 import walkingkooka.collect.list.ListTesting;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.collect.set.Sets;
+import walkingkooka.convert.ConverterException;
 import walkingkooka.reflect.ClassTesting;
 import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.text.printer.TreePrintableTesting;
@@ -137,7 +138,11 @@ public abstract class ExpressionEvaluationContextPrepareParametersListTestCase<T
             @Override
             public <TT> TT convertOrFail(final Object value,
                                          final Class<TT> target) {
-                throw new UnsupportedOperationException("Unable to convert " + value + " to " + target.getSimpleName());
+                throw new ConverterException(
+                    "Unable to convert " + value + " to " + target.getSimpleName(),
+                    value,
+                    target
+                );
             }
 
             @Override
