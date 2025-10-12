@@ -28,6 +28,7 @@ import walkingkooka.tree.expression.function.ExpressionFunctionParameter;
 import walkingkooka.tree.expression.function.ExpressionFunctionParameterKind;
 import walkingkooka.tree.expression.function.ExpressionFunctions;
 import walkingkooka.tree.expression.function.HasExpressionFunction;
+import walkingkooka.tree.expression.function.InvalidExpressionFunctionParameterCountException;
 
 import java.util.List;
 import java.util.Locale;
@@ -147,6 +148,13 @@ public interface ExpressionEvaluationContext extends ExpressionNumberConverterCo
             result = function.apply(
                 this.prepareParameters(function, parameters),
                 Cast.to(this)
+            );
+        } catch (final InvalidExpressionFunctionParameterCountException cause) {
+            // Function may be wrapped - want to use the outer ExpressionFunction.name
+            result = this.handleException(
+                cause.setFunctionName(
+                    function.name()
+                )
             );
         } catch (final UnsupportedOperationException rethrow) {
             throw rethrow;
