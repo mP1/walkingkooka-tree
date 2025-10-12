@@ -27,6 +27,7 @@ import walkingkooka.tree.expression.function.ExpressionFunction;
 import walkingkooka.tree.expression.function.ExpressionFunctionParameter;
 import walkingkooka.tree.expression.function.ExpressionFunctionParameterName;
 import walkingkooka.tree.expression.function.ExpressionFunctions;
+import walkingkooka.tree.expression.function.FakeExpressionFunction;
 
 import java.util.List;
 import java.util.Optional;
@@ -322,6 +323,58 @@ public final class ExpressionEvaluationContextTest implements ClassTesting<Expre
         this.checkNotEquals(
             ExpressionEvaluationContext.REFERENCE_NOT_FOUND_VALUE,
             ExpressionEvaluationContext.REFERENCE_NULL_VALUE
+        );
+    }
+
+    // evaluateFunction.................................................................................................
+
+    @Test
+    public void testEvaluateFunctionThrowsUnsupportedOperationException() {
+        assertThrows(
+            UnsupportedOperationException.class,
+            () -> new FakeExpressionEvaluationContext() {
+
+            }.evaluateFunction(
+                new FakeExpressionFunction<>(),
+                Lists.empty()
+            )
+        );
+    }
+
+    @Test
+    public void testEvaluateFunctionThrowsException() {
+        final String message = "Message 123";
+
+        final IllegalStateException thrown = assertThrows(
+            IllegalStateException.class,
+            () -> new FakeExpressionEvaluationContext() {
+
+                @Override
+                public Object handleException(final RuntimeException exception) {
+                    throw new IllegalStateException(
+                        exception.getMessage()
+                    );
+                }
+            }.evaluateFunction(
+                new FakeExpressionFunction<>() {
+                    @Override
+                    public Object apply(final List<Object> values,
+                                        final ExpressionEvaluationContext context) {
+                        throw new IllegalArgumentException(message);
+                    }
+
+                    @Override
+                    public List<ExpressionFunctionParameter<?>> parameters(final int count) {
+                        return NO_PARAMETERS;
+                    }
+                },
+                Lists.empty()
+            )
+        );
+
+        this.checkEquals(
+            message,
+            thrown.getMessage()
         );
     }
 
