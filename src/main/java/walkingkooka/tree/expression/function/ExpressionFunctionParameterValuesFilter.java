@@ -32,13 +32,9 @@ final class ExpressionFunctionParameterValuesFilter<T, C extends ExpressionEvalu
     static <T, C extends ExpressionEvaluationContext> ExpressionFunctionParameterValuesFilter<T, C> with(final BiPredicate<Object, C> filter,
                                                                                                          final ExpressionFunction<T, C> function) {
         return new ExpressionFunctionParameterValuesFilter<>(
-            checkFilter(filter),
+            Objects.requireNonNull(filter, "filter"),
             function
         );
-    }
-
-    private static <C extends ExpressionEvaluationContext> BiPredicate<Object, C> checkFilter(final BiPredicate<Object, C> filter) {
-        return Objects.requireNonNull(filter, "filter");
     }
 
     private ExpressionFunctionParameterValuesFilter(final BiPredicate<Object, C> filter,
@@ -68,7 +64,7 @@ final class ExpressionFunctionParameterValuesFilter<T, C extends ExpressionEvalu
      */
     @Override
     public ExpressionFunction<T, C> filterParameterValues(final BiPredicate<Object, C> filter) {
-        checkFilter(filter);
+        Objects.requireNonNull(filter, "filter");
 
         return this.filter.equals(filter) ?
             this :
