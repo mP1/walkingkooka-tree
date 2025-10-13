@@ -64,6 +64,10 @@ public abstract class ExpressionEvaluationContextPrepareParametersListTestCase<T
         }
     };
 
+    final static Optional<ExpressionFunctionName> FUNCTION_NAME = Optional.of(
+        ExpressionFunctionName.with("TestFunction")
+    );
+
     ExpressionEvaluationContextPrepareParametersListTestCase() {
         super();
     }

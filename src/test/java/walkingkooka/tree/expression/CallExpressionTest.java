@@ -139,6 +139,11 @@ public final class CallExpressionTest extends VariableExpressionTestCase<CallExp
                         return new FakeExpressionFunction<>() {
 
                             @Override
+                            public Optional<ExpressionFunctionName> name() {
+                                return Optional.of(FUNCTION_NAME);
+                            }
+
+                            @Override
                             public Object apply(final List<Object> p,
                                                 final ExpressionEvaluationContext context) {
                                 checkEquals(parameters, p);
@@ -392,6 +397,11 @@ public final class CallExpressionTest extends VariableExpressionTestCase<CallExp
                     return new FakeExpressionFunction<>() {
 
                         @Override
+                        public Optional<ExpressionFunctionName> name() {
+                            return Optional.of(FUNCTION_NAME);
+                        }
+
+                        @Override
                         public List<ExpressionFunctionParameter<?>> parameters(final int count) {
                             return Lists.of(a);
                         }
@@ -409,6 +419,11 @@ public final class CallExpressionTest extends VariableExpressionTestCase<CallExp
                                 "a"
                             );
                             return new FakeExpressionFunction<>() {
+
+                                @Override
+                                public Optional<ExpressionFunctionName> name() {
+                                    return ExpressionFunction.ANONYMOUS_NAME;
+                                }
 
                                 @Override
                                 public List<ExpressionFunctionParameter<?>> parameters(final int count) {

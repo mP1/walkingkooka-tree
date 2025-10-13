@@ -334,8 +334,8 @@ public final class ExpressionEvaluationContextPrepareParametersListFlattenedTest
             "Fails!",
             this.createContextWhichConvertFails()
         );
-        this.getAndCheck(list, 0, "@@@required-integer: Unable to convert Fails! to Integer");
-        this.getAndCheck(list, 0, "@@@required-integer: Unable to convert Fails! to Integer");
+        this.getAndCheck(list, 0, "@@@TestFunction: required-integer: Unable to convert Fails! to Integer");
+        this.getAndCheck(list, 0, "@@@TestFunction: required-integer: Unable to convert Fails! to Integer");
     }
 
     @Test
@@ -534,6 +534,7 @@ public final class ExpressionEvaluationContextPrepareParametersListFlattenedTest
     @Override
     ExpressionEvaluationContextPrepareParametersListFlattened createList(final List<ExpressionFunctionParameter<?>> parameters,
                                                                          final List<Object> values,
+                                                                         final Optional<ExpressionFunctionName> functionName,
                                                                          final ExpressionEvaluationContext context) {
         final List<ExpressionFunctionParameter<?>> parameters1 = Lists.array();
         parameters1.addAll(parameters);
@@ -549,6 +550,7 @@ public final class ExpressionEvaluationContextPrepareParametersListFlattenedTest
             values,
             values.size(),
             parameters.get(parameters.size() - 1),
+            functionName,
             context
         );
     }
@@ -570,6 +572,7 @@ public final class ExpressionEvaluationContextPrepareParametersListFlattenedTest
             values,
             parameters.size() - 1,
             parameters.get(parameters.size() - 1),
+            FUNCTION_NAME,
             context
         );
     }

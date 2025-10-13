@@ -228,6 +228,11 @@ public final class BasicExpressionEvaluationContextTest implements ClassTesting2
         final ExpressionFunction<Object, BasicExpressionEvaluationContext> function = new FakeExpressionFunction<>() {
 
             @Override
+            public Optional<ExpressionFunctionName> name() {
+                return ExpressionFunction.ANONYMOUS_NAME;
+            }
+
+            @Override
             public List<ExpressionFunctionParameter<?>> parameters(final int count) {
                 return ExpressionFunctionParameter.EMPTY;
             }
@@ -251,6 +256,11 @@ public final class BasicExpressionEvaluationContextTest implements ClassTesting2
         final String error = "**ERROR**";
 
         final ExpressionFunction<String, BasicExpressionEvaluationContext> function = new FakeExpressionFunction<>() {
+
+            @Override
+            public Optional<ExpressionFunctionName> name() {
+                return ExpressionFunction.ANONYMOUS_NAME;
+            }
 
             @Override
             public List<ExpressionFunctionParameter<?>> parameters(final int count) {
@@ -566,6 +576,12 @@ public final class BasicExpressionEvaluationContextTest implements ClassTesting2
         final ExpressionNumberKind kind = ExpressionNumberKind.DOUBLE;
 
         final ExpressionFunction<String, BasicExpressionEvaluationContext> function = new FakeExpressionFunction<>() {
+
+            @Override
+            public Optional<ExpressionFunctionName> name() {
+                return ExpressionFunction.ANONYMOUS_NAME;
+            }
+
             @Override
             public String apply(final List<Object> objects,
                                 final BasicExpressionEvaluationContext context) {
@@ -615,6 +631,12 @@ public final class BasicExpressionEvaluationContextTest implements ClassTesting2
         final ExpressionNumberKind kind = ExpressionNumberKind.DOUBLE;
 
         final ExpressionFunction<String, BasicExpressionEvaluationContext> function = new FakeExpressionFunction<>() {
+
+            @Override
+            public Optional<ExpressionFunctionName> name() {
+                return ExpressionFunction.ANONYMOUS_NAME;
+            }
+
             @Override
             public String apply(final List<Object> objects,
                                 final BasicExpressionEvaluationContext context) {

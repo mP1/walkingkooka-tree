@@ -21,6 +21,7 @@ import walkingkooka.tree.expression.function.ExpressionFunctionParameter;
 import walkingkooka.tree.expression.function.ExpressionFunctionParameterKind;
 
 import java.util.List;
+import java.util.Optional;
 
 /**
  * A lazy {@link List} of the original parameter values, performing the following if they are enabled for this namedFunction.
@@ -36,11 +37,13 @@ final class ExpressionEvaluationContextPrepareParametersListNonFlattened extends
     static ExpressionEvaluationContextPrepareParametersListNonFlattened withNonFlattened(final List<ExpressionFunctionParameter<?>> parameters,
                                                                                          final List<Object> values,
                                                                                          final int preparedValuesCount,
+                                                                                         final Optional<ExpressionFunctionName> functionName,
                                                                                          final ExpressionEvaluationContext context) {
         return new ExpressionEvaluationContextPrepareParametersListNonFlattened(
             parameters,
             values,
             preparedValuesCount,
+            functionName,
             context
         );
     }
@@ -51,11 +54,13 @@ final class ExpressionEvaluationContextPrepareParametersListNonFlattened extends
     private ExpressionEvaluationContextPrepareParametersListNonFlattened(final List<ExpressionFunctionParameter<?>> parameters,
                                                                          final List<Object> values,
                                                                          final int preparedValuesCount,
+                                                                         final Optional<ExpressionFunctionName> functionName,
                                                                          final ExpressionEvaluationContext context) {
         super(
             parameters,
             values,
             preparedValuesCount,
+            functionName,
             context
         );
     }
