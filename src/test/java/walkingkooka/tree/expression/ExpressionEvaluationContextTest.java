@@ -499,7 +499,7 @@ public final class ExpressionEvaluationContextTest implements ClassTesting<Expre
         );
 
         this.checkEquals(
-            "TestFunction123: Missing parameters: date-time, time",
+            "TestFunction123: Missing parameter(s): date-time, time",
             thrown.getMessage()
         );
     }

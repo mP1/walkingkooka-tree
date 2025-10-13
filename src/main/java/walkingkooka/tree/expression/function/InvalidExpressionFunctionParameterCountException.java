@@ -118,8 +118,8 @@ public final class InvalidExpressionFunctionParameterCountException extends Ille
         final int max = this.max;
 
         if (count < min) {
-            // Missing parameters X, Y, Z
-            b.append("Missing parameters: ");
+            // Missing parameter(s) X, Y, Z
+            b.append("Missing parameter(s): ");
 
             final List<ExpressionFunctionParameter<?>> parameters = this.parameters;
 
