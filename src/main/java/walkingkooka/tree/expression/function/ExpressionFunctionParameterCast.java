@@ -1,5 +1,5 @@
 /*
- * Copyright 2020 Miroslav Pokorny (github.com/mP1)
+ * Copyright 2019 Miroslav Pokorny (github.com/mP1)
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -37,23 +37,21 @@ class ExpressionFunctionParameterCast extends ExpressionFunctionParameterCastGwt
                     .orElse(null);
             }
 
+            // dont prefix with Parameter when a ConverterException message.
             if (null == invalidTypeMessage) {
-                invalidTypeMessage = "Invalid type " +
+                invalidTypeMessage = "Parameter " +
+                    CharSequences.quoteAndEscape(
+                        parameter.name()
+                            .value()
+                    ) +
+                    ": Invalid type " +
                     value.getClass().getName() +
                     " expected " +
                     type.getName();
             }
 
             // Invalid parameter "name" value "Actual" expected "Expected".
-            throw new ClassCastException(
-                "Parameter " +
-                    CharSequences.quoteAndEscape(
-                        parameter.name()
-                            .value()
-                    ) +
-                    ": " +
-                    invalidTypeMessage
-            );
+            throw new ClassCastException(invalidTypeMessage);
         }
         return type.cast(value);
     }
