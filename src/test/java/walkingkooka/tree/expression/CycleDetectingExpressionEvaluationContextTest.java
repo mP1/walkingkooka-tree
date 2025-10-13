@@ -88,6 +88,12 @@ public final class CycleDetectingExpressionEvaluationContextTest implements Clas
     @Test
     public void testEvaluateFunction() {
         final ExpressionFunction<Object, CycleDetectingExpressionEvaluationContext> function = new FakeExpressionFunction<>() {
+
+            @Override
+            public Optional<ExpressionFunctionName> name() {
+                return ExpressionFunction.ANONYMOUS_NAME;
+            }
+
             @Override
             public List<ExpressionFunctionParameter<?>> parameters(final int count) {
                 return Lists.empty();

@@ -242,6 +242,13 @@ public final class ScopedExpressionEvaluationContextTest implements ExpressionEv
     abstract class TestFunction extends FakeExpressionFunction<Object, ScopedExpressionEvaluationContext> {
 
         @Override
+        public final Optional<ExpressionFunctionName> name() {
+            return Optional.of(
+                ExpressionFunctionName.with("TestFunction")
+            );
+        }
+
+        @Override
         public abstract Object apply(final List<Object> objects, final ScopedExpressionEvaluationContext context);
 
         @Override

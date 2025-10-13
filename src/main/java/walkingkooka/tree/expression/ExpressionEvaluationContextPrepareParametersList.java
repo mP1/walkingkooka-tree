@@ -18,6 +18,7 @@
 package walkingkooka.tree.expression;
 
 import walkingkooka.convert.ConverterException;
+import walkingkooka.tree.expression.function.ExpressionFunction;
 import walkingkooka.tree.expression.function.ExpressionFunctionParameter;
 import walkingkooka.tree.expression.function.ExpressionFunctionParameterCardinality;
 import walkingkooka.tree.expression.function.ExpressionFunctionParameterKind;
@@ -26,6 +27,7 @@ import java.util.AbstractList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.Set;
 
 /**
@@ -41,9 +43,11 @@ abstract class ExpressionEvaluationContextPrepareParametersList extends Abstract
 
     static List<Object> with(final List<ExpressionFunctionParameter<?>> parameters,
                              final List<Object> values,
+                             final Optional<ExpressionFunctionName> functionName,
                              final ExpressionEvaluationContext context) {
         Objects.requireNonNull(parameters, "parameters");
         Objects.requireNonNull(values, "values");
+        Objects.requireNonNull(functionName, "functionName");
         Objects.requireNonNull(context, "context");
 
         return parameters.isEmpty() ?
@@ -51,6 +55,7 @@ abstract class ExpressionEvaluationContextPrepareParametersList extends Abstract
             withNotEmpty(
                 parameters,
                 unwrap(values),
+                functionName,
                 context
             );
     }
@@ -68,6 +73,7 @@ abstract class ExpressionEvaluationContextPrepareParametersList extends Abstract
      */
     private static List<Object> withNotEmpty(final List<ExpressionFunctionParameter<?>> parameters,
                                              final List<Object> values,
+                                             final Optional<ExpressionFunctionName> functionName,
                                              final ExpressionEvaluationContext context) {
         final int count = parameters.size();
         final ExpressionFunctionParameter<?> last = parameters.get(count - 1);
@@ -78,12 +84,14 @@ abstract class ExpressionEvaluationContextPrepareParametersList extends Abstract
                 values,
                 count - 1,
                 last,
+                functionName,
                 context
             ) :
             ExpressionEvaluationContextPrepareParametersListNonFlattened.withNonFlattened(
                 parameters,
                 values,
                 values.size(),
+                functionName,
                 context
             );
     }
@@ -94,12 +102,15 @@ abstract class ExpressionEvaluationContextPrepareParametersList extends Abstract
     ExpressionEvaluationContextPrepareParametersList(final List<ExpressionFunctionParameter<?>> parameters,
                                                      final List<Object> values,
                                                      final int preparedValuesCount,
+                                                     final Optional<ExpressionFunctionName> functionName,
                                                      final ExpressionEvaluationContext context) {
         this.parameters = parameters;
         this.values = values;
         this.context = context;
 
         this.preparedValues = preparedValues(preparedValuesCount);
+
+        this.functionName = functionName;
     }
 
     static Object[] preparedValues(final int count) {
@@ -186,8 +197,12 @@ abstract class ExpressionEvaluationContextPrepareParametersList extends Abstract
                 ) :
                 prepared;
         } catch (final ConverterException rethrow) {
+            // Hello: number: Unable to convert X to Y
             result = context.handleException(
                 rethrow.setPrefix(
+                    this.functionName.map(ExpressionFunctionName::value)
+                        .orElse(ExpressionFunction.ANONYMOUS) +
+                        ": " +
                     parameter.name()
                         .value() +
                         ": "
@@ -201,6 +216,8 @@ abstract class ExpressionEvaluationContextPrepareParametersList extends Abstract
 
         return result;
     }
+
+    private final Optional<ExpressionFunctionName> functionName;
 
     /**
      * Dummy placeholder that appears in {@link #preparedValues} and indicates the value has not be prepared and cached.

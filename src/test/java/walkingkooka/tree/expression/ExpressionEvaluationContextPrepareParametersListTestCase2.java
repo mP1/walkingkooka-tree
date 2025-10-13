@@ -25,6 +25,7 @@ import walkingkooka.tree.expression.function.ExpressionFunctionParameter;
 import walkingkooka.tree.expression.function.ExpressionFunctionParameterKind;
 
 import java.util.List;
+import java.util.Optional;
 
 public abstract class ExpressionEvaluationContextPrepareParametersListTestCase2<T extends ExpressionEvaluationContextPrepareParametersList> extends ExpressionEvaluationContextPrepareParametersListTestCase<T> {
 
@@ -120,8 +121,8 @@ public abstract class ExpressionEvaluationContextPrepareParametersListTestCase2<
             "Fails!",
             this.createContextWhichConvertFails()
         );
-        this.getAndCheck(list, 0, "@@@required-integer: Unable to convert Fails! to Integer");
-        this.getAndCheck(list, 0, "@@@required-integer: Unable to convert Fails! to Integer");
+        this.getAndCheck(list, 0, "@@@TestFunction: required-integer: Unable to convert Fails! to Integer");
+        this.getAndCheck(list, 0, "@@@TestFunction: required-integer: Unable to convert Fails! to Integer");
     }
 
     @Test
@@ -353,19 +354,17 @@ public abstract class ExpressionEvaluationContextPrepareParametersListTestCase2<
 
     // helpers..........................................................................................................
 
-    final T createList(
-        final ExpressionFunctionParameter<?> parameter,
-        final Object... values) {
+    final T createList(final ExpressionFunctionParameter<?> parameter,
+                       final Object... values) {
         return this.createList(
             Lists.of(parameter),
             Lists.of(values)
         );
     }
 
-    final T createList(
-        final ExpressionFunctionParameter<?> parameter,
-        final Object value,
-        final ExpressionEvaluationContext context) {
+    final T createList(final ExpressionFunctionParameter<?> parameter,
+                       final Object value,
+                       final ExpressionEvaluationContext context) {
         return this.createList(
             Lists.of(parameter),
             Lists.of(value),
@@ -373,9 +372,8 @@ public abstract class ExpressionEvaluationContextPrepareParametersListTestCase2<
         );
     }
 
-    final T createList(
-        final List<ExpressionFunctionParameter<?>> parameters,
-        final List<Object> values) {
+    final T createList(final List<ExpressionFunctionParameter<?>> parameters,
+                       final List<Object> values) {
         return this.createList(
             parameters,
             values,
@@ -383,10 +381,9 @@ public abstract class ExpressionEvaluationContextPrepareParametersListTestCase2<
         );
     }
 
-    final T createList(
-        final ExpressionFunctionParameter<?> parameter,
-        final List<Object> values,
-        final ExpressionEvaluationContext context) {
+    final T createList(final ExpressionFunctionParameter<?> parameter,
+                       final List<Object> values,
+                       final ExpressionEvaluationContext context) {
         return this.createList(
             Lists.of(parameter),
             values,
@@ -394,11 +391,21 @@ public abstract class ExpressionEvaluationContextPrepareParametersListTestCase2<
         );
     }
 
-    abstract T createList(
-        final List<ExpressionFunctionParameter<?>> parameters,
-        final List<Object> values,
-        final ExpressionEvaluationContext context
-    );
+    final T createList(final List<ExpressionFunctionParameter<?>> parameters,
+                       final List<Object> values,
+                       final ExpressionEvaluationContext context) {
+        return this.createList(
+            parameters,
+            values,
+            FUNCTION_NAME,
+            context
+        );
+    }
+
+    abstract T createList(final List<ExpressionFunctionParameter<?>> parameters,
+                          final List<Object> values,
+                          final Optional<ExpressionFunctionName> functionName,
+                          final ExpressionEvaluationContext context);
 
     abstract void sizeAndCheck2(final List<?> list,
                                 final int size);

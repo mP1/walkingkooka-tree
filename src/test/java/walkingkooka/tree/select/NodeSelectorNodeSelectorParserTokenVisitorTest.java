@@ -1856,7 +1856,7 @@ public final class NodeSelectorNodeSelectorParserTokenVisitorTest implements Nod
                     return (n) -> {
                         switch (n.value()) {
                             case "boolean":
-                                return new TestExpressionFunction() {
+                                return new TestExpressionFunction("boolean") {
                                     @Override
                                     public Object apply(final List<Object> parameters,
                                                         final NodeSelectorExpressionEvaluationContext<TestNode, StringName, StringName, Object> context) {
@@ -1864,7 +1864,7 @@ public final class NodeSelectorNodeSelectorParserTokenVisitorTest implements Nod
                                     }
                                 };
                             case "false":
-                                return new TestExpressionFunction() {
+                                return new TestExpressionFunction("false") {
                                     @Override
                                     public Object apply(final List<Object> parameters,
                                                         final NodeSelectorExpressionEvaluationContext<TestNode, StringName, StringName, Object> context) {
@@ -1872,7 +1872,7 @@ public final class NodeSelectorNodeSelectorParserTokenVisitorTest implements Nod
                                     }
                                 };
                             case "node":
-                                return new TestExpressionFunction() {
+                                return new TestExpressionFunction("node") {
                                     @Override
                                     public Object apply(final List<Object> parameters,
                                                         final NodeSelectorExpressionEvaluationContext<TestNode, StringName, StringName, Object> context) {
@@ -1880,7 +1880,7 @@ public final class NodeSelectorNodeSelectorParserTokenVisitorTest implements Nod
                                     }
                                 };
                             case "number":
-                                return new TestExpressionFunction() {
+                                return new TestExpressionFunction("number") {
                                     @Override
                                     public Object apply(final List<Object> parameters,
                                                         final NodeSelectorExpressionEvaluationContext<TestNode, StringName, StringName, Object> context) {
@@ -1892,7 +1892,7 @@ public final class NodeSelectorNodeSelectorParserTokenVisitorTest implements Nod
                                     }
                                 };
                             case "starts-with":
-                                return new TestExpressionFunction() {
+                                return new TestExpressionFunction("starts-with") {
                                     @Override
                                     public Object apply(final List<Object> parameters,
                                                         final NodeSelectorExpressionEvaluationContext<TestNode, StringName, StringName, Object> context) {
@@ -1902,7 +1902,7 @@ public final class NodeSelectorNodeSelectorParserTokenVisitorTest implements Nod
                                     }
                                 };
                             case "string-length":
-                                return new TestExpressionFunction() {
+                                return new TestExpressionFunction("string-length") {
                                     @Override
                                     public Object apply(final List<Object> parameters,
                                                         final NodeSelectorExpressionEvaluationContext<TestNode, StringName, StringName, Object> context) {
@@ -1910,7 +1910,7 @@ public final class NodeSelectorNodeSelectorParserTokenVisitorTest implements Nod
                                     }
                                 };
                             case "true":
-                                return new TestExpressionFunction() {
+                                return new TestExpressionFunction("true") {
                                     @Override
                                     public Object apply(final List<Object> parameters,
                                                         final NodeSelectorExpressionEvaluationContext<TestNode, StringName, StringName, Object> context) {
@@ -2021,9 +2021,19 @@ public final class NodeSelectorNodeSelectorParserTokenVisitorTest implements Nod
 
     static abstract class TestExpressionFunction extends FakeExpressionFunction<Object, NodeSelectorExpressionEvaluationContext<TestNode, StringName, StringName, Object>> {
 
-        TestExpressionFunction() {
+        TestExpressionFunction(final String name) {
             super();
+            this.name = Optional.of(
+                ExpressionFunctionName.with(name)
+            );
         }
+
+        @Override
+        public Optional<ExpressionFunctionName> name() {
+            return this.name;
+        }
+
+        private final Optional<ExpressionFunctionName> name;
 
         @Override
         public abstract Object apply(final List<Object> parameters,

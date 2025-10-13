@@ -24,6 +24,7 @@ import walkingkooka.tree.expression.function.ExpressionFunctionParameter;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * A partially lazy list, note values are evaluated and references resolved if necessary but the convert to the actual
@@ -35,12 +36,14 @@ final class ExpressionEvaluationContextPrepareParametersListFlattened extends Ex
                                                                                    final List<Object> values,
                                                                                    final int preparedValuesCount,
                                                                                    final ExpressionFunctionParameter<?> last,
+                                                                                   final Optional<ExpressionFunctionName> functionName,
                                                                                    final ExpressionEvaluationContext context) {
         return new ExpressionEvaluationContextPrepareParametersListFlattened(
             parameters,
             values,
             preparedValuesCount,
             last,
+            functionName,
             context
         );
     }
@@ -52,11 +55,13 @@ final class ExpressionEvaluationContextPrepareParametersListFlattened extends Ex
                                                                       final List<Object> values,
                                                                       final int preparedValuesCount,
                                                                       final ExpressionFunctionParameter<?> last,
+                                                                      final Optional<ExpressionFunctionName> functionName,
                                                                       final ExpressionEvaluationContext context) {
         super(
             parameters,
             values,
             preparedValuesCount,
+            functionName,
             context
         );
 

@@ -358,6 +358,12 @@ public final class ExpressionEvaluationContextTest implements ClassTesting<Expre
                 @Override
                 public ExpressionFunction<?, ExpressionEvaluationContext> expressionFunction(final ExpressionFunctionName name) {
                     return new FakeExpressionFunction<>() {
+
+                        @Override
+                        public Optional<ExpressionFunctionName> name() {
+                            return Optional.of(functionName);
+                        }
+
                         @Override
                         public Object apply(final List<Object> values,
                                             final ExpressionEvaluationContext context) {
@@ -422,6 +428,12 @@ public final class ExpressionEvaluationContextTest implements ClassTesting<Expre
                 }
             }.evaluateFunction(
                 new FakeExpressionFunction<>() {
+
+                    @Override
+                    public Optional<ExpressionFunctionName> name() {
+                        return ExpressionFunction.ANONYMOUS_NAME;
+                    }
+
                     @Override
                     public Object apply(final List<Object> values,
                                         final ExpressionEvaluationContext context) {
