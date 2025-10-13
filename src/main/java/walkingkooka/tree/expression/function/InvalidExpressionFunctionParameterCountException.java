@@ -58,28 +58,8 @@ public final class InvalidExpressionFunctionParameterCountException extends Ille
             max = Integer.MAX_VALUE;
         }
 
-        if (count < min) {
-            throw new InvalidExpressionFunctionParameterCountException(
-                count,
-                min,
-                max,
-                Lists.immutable(functionParameters),
-                function.name()
-            );
-        }
-        if (count > max) {
-            throw new InvalidExpressionFunctionParameterCountException(
-                count,
-                min,
-                max,
-                Lists.immutable(functionParameters),
-                function.name()
-            );
-        }
-
-
         if (count < min || count > max) {
-            new InvalidExpressionFunctionParameterCountException(
+            throw new InvalidExpressionFunctionParameterCountException(
                 count,
                 min,
                 max,
