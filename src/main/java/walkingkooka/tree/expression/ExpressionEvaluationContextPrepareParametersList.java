@@ -120,7 +120,10 @@ abstract class ExpressionEvaluationContextPrepareParametersList extends Abstract
     }
 
     final Object getPrepareIfNecessary(final int index) {
-        Object preparedValue = this.preparedValues[index];
+        final Object[] preparedValues = this.preparedValues;
+        Object preparedValue = index < preparedValues.length ?
+            preparedValues[index] :
+            MISSING;
 
         if (MISSING == preparedValue) {
             final List<ExpressionFunctionParameter<?>> parameters = this.parameters;
@@ -133,7 +136,14 @@ abstract class ExpressionEvaluationContextPrepareParametersList extends Abstract
             } else {
                 parameter = parameters.get(count - 1);
                 if (parameter.cardinality() != ExpressionFunctionParameterCardinality.VARIABLE) {
-                    throw new ArrayIndexOutOfBoundsException("Unknown parameter " + index + " expected only " + count);
+                    throw new ArrayIndexOutOfBoundsException(
+                        this.functionName.map(ExpressionFunctionName::value)
+                            .orElse(ExpressionFunction.ANONYMOUS) +
+                            ": Unknown parameter " +
+                            index +
+                            " expected only " +
+                            count
+                    );
                 }
             }
 
@@ -144,6 +154,10 @@ abstract class ExpressionEvaluationContextPrepareParametersList extends Abstract
             this.preparedValues[index] = preparedValue;
         }
         return preparedValue;
+    }
+
+    private void invalidParameter(final int index) {
+
     }
 
     final Object prepareValue(final ExpressionFunctionParameter<?> parameter,

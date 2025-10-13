@@ -27,6 +27,7 @@ import java.util.List;
 import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class ExpressionEvaluationContextPrepareParametersListTest extends ExpressionEvaluationContextPrepareParametersListTestCase<ExpressionEvaluationContextPrepareParametersList> {
 
@@ -46,6 +47,29 @@ public final class ExpressionEvaluationContextPrepareParametersListTest extends 
                 FUNCTION_NAME,
                 ExpressionEvaluationContexts.fake()
             )
+        );
+    }
+
+    @Test
+    public void testGetInvalidParameterFails() {
+        final ArrayIndexOutOfBoundsException thrown = assertThrows(
+            ArrayIndexOutOfBoundsException.class,
+            () -> ExpressionEvaluationContextPrepareParametersList.with(
+                Lists.of(
+                    REQUIRED
+                ),
+                Lists.of(
+                    100
+                ),
+                FUNCTION_NAME,
+                ExpressionEvaluationContexts.fake()
+            ).get(1)
+        );
+
+        this.checkEquals(
+            "TestFunction: Unknown parameter 1 expected only 1",
+            thrown.getMessage()
+
         );
     }
 
