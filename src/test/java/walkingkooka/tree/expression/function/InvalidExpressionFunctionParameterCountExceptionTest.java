@@ -120,7 +120,7 @@ public final class InvalidExpressionFunctionParameterCountExceptionTest implemen
         );
         this.checkMessage(
             thrown,
-            "Hello: Missing parameters: date-time, time"
+            "Hello: Missing parameter(s): date-time, time"
         );
     }
 
@@ -152,7 +152,7 @@ public final class InvalidExpressionFunctionParameterCountExceptionTest implemen
         );
         this.checkMessage(
             thrown,
-            "Anonymous: Missing parameters: date-time, time"
+            "Anonymous: Missing parameter(s): date-time, time"
         );
     }
 
@@ -190,7 +190,7 @@ public final class InvalidExpressionFunctionParameterCountExceptionTest implemen
                     ExpressionFunctionName.with("Replaced")
                 )
             ),
-            "Replaced: Missing parameters: date-time, time"
+            "Replaced: Missing parameter(s): date-time, time"
         );
     }
 
