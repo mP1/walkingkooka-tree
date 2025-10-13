@@ -46,15 +46,15 @@ public final class ExpressionFunctionParameterCastTest implements ClassTesting2<
 
     @Test
     public void testCastWithHasConvertErrorFails() {
+        final String message = "Cannot convert 'Hello' to 'Void' blah blah blah";
+
         final ClassCastException thrown = assertThrows(
             ClassCastException.class,
             () -> ExpressionFunctionParameterCast.cast(
                 new HasConvertError() {
                     @Override
                     public Optional<String> convertErrorMessage() {
-                        return Optional.of(
-                            "Cannot convert 'Hello' to 'Void' blah blah blah"
-                        );
+                        return Optional.of(message);
                     }
                 },
                 this.parameter(Void.class)
@@ -62,7 +62,7 @@ public final class ExpressionFunctionParameterCastTest implements ClassTesting2<
         );
 
         this.checkEquals(
-            "Parameter \"Parameter\": Cannot convert 'Hello' to 'Void' blah blah blah",
+            message,
             thrown.getMessage()
         );
     }
