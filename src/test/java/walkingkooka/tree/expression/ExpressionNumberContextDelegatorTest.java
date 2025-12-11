@@ -38,6 +38,11 @@ public class ExpressionNumberContextDelegatorTest implements ExpressionNumberCon
     }
 
     @Override
+    public int decimalNumberDigitCount() {
+        return EXPRESSION_NUMBER_CONTEXT.decimalNumberDigitCount();
+    }
+
+    @Override
     public DecimalNumberContext decimalNumberContext() {
         return EXPRESSION_NUMBER_CONTEXT;
     }

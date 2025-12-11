@@ -977,6 +977,12 @@ public final class BasicExpressionEvaluationContextTest implements ClassTesting2
     // DecimalNumberContextDelegator....................................................................................
 
     @Override
+    public int decimalNumberDigitCount() {
+        return this.decimalNumberContext()
+            .decimalNumberDigitCount();
+    }
+
+    @Override
     public DecimalNumberContext decimalNumberContext() {
         return DecimalNumberContexts.american(this.mathContext());
     }

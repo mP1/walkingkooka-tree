@@ -83,6 +83,11 @@ public final class BasicNodeSelectorParserContextTest implements ClassTesting2<B
     // DecimalNumberContextDelegator....................................................................................
 
     @Override
+    public int decimalNumberDigitCount() {
+        return DecimalNumberContext.DEFAULT_NUMBER_DIGIT_COUNT;
+    }
+
+    @Override
     public MathContext mathContext() {
         return MathContext.DECIMAL32;
     }

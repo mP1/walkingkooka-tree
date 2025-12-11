@@ -483,6 +483,11 @@ public final class CycleDetectingExpressionEvaluationContextTest implements Clas
                 }
 
                 @Override
+                public int decimalNumberDigitCount() {
+                    return decimalNumberContext.decimalNumberDigitCount();
+                }
+
+                @Override
                 public char decimalSeparator() {
                     return decimalNumberContext.decimalSeparator();
                 }
@@ -555,6 +560,12 @@ public final class CycleDetectingExpressionEvaluationContextTest implements Clas
     }
 
     // DecimalNumberContextDelegator....................................................................................
+
+    @Override
+    public int decimalNumberDigitCount() {
+        return this.decimalNumberContext()
+            .decimalNumberDigitCount();
+    }
 
     @Override
     public DecimalNumberContext decimalNumberContext() {

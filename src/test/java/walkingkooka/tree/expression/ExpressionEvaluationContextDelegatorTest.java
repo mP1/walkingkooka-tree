@@ -57,6 +57,11 @@ public final class ExpressionEvaluationContextDelegatorTest implements Expressio
     // DecimalNumberContextDelegator....................................................................................
 
     @Override
+    public int decimalNumberDigitCount() {
+        return DecimalNumberContext.DEFAULT_NUMBER_DIGIT_COUNT;
+    }
+
+    @Override
     public MathContext mathContext() {
         return new TestExpressionEvaluationContextDelegator()
             .mathContext();

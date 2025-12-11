@@ -98,6 +98,12 @@ public final class BasicExpressionNumberConverterContextTest implements Expressi
     // DecimalNumberContext.............................................................................................
 
     @Override
+    public int decimalNumberDigitCount() {
+        return this.decimalNumberContext()
+            .decimalNumberDigitCount();
+    }
+
+    @Override
     public DecimalNumberContext decimalNumberContext() {
         return DecimalNumberContexts.american(this.mathContext());
     }

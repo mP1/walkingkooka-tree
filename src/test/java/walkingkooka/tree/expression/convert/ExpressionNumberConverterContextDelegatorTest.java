@@ -43,6 +43,12 @@ public final class ExpressionNumberConverterContextDelegatorTest implements Expr
     // DecimalNumberContextDelegator....................................................................................
 
     @Override
+    public int decimalNumberDigitCount() {
+        return this.decimalNumberContext()
+            .decimalNumberDigitCount();
+    }
+
+    @Override
     public DecimalNumberContext decimalNumberContext() {
         return DECIMAL_CONTEXT;
     }
