@@ -29,6 +29,11 @@ public class FakeDateTimeExpressionNumberContext extends FakeDateTimeContext imp
     }
 
     @Override
+    public int decimalNumberDigitCount() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
     public char decimalSeparator() {
         throw new UnsupportedOperationException();
     }
