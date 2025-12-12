@@ -20,10 +20,6 @@ import walkingkooka.naming.Name;
 import walkingkooka.reflect.PublicStaticHelper;
 import walkingkooka.tree.Node;
 import walkingkooka.tree.expression.ExpressionEvaluationContext;
-import walkingkooka.tree.expression.ExpressionReference;
-
-import java.util.Optional;
-import java.util.function.Function;
 
 /**
  * A collection of factory methods to create {@link NodeSelectorContext}.
@@ -37,8 +33,11 @@ public final class NodeSelectorExpressionEvaluationContexts implements PublicSta
         NAME extends Name,
         ANAME extends Name,
         AVALUE> NodeSelectorExpressionEvaluationContext<N, NAME, ANAME, AVALUE> basic(final N node,
-                                                                                      final Function<Function<ExpressionReference, Optional<Optional<Object>>>, ExpressionEvaluationContext> context) {
-        return BasicNodeSelectorExpressionEvaluationContext.with(node, context);
+                                                                                      final ExpressionEvaluationContext context) {
+        return BasicNodeSelectorExpressionEvaluationContext.with(
+            node,
+            context
+        );
     }
 
     /**

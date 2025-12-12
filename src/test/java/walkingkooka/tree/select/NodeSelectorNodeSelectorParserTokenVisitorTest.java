@@ -1837,11 +1837,11 @@ public final class NodeSelectorNodeSelectorParserTokenVisitorTest implements Nod
                 private NodeSelectorExpressionEvaluationContext<TestNode, StringName, StringName, Object> expressionEvaluationContext() {
                     return NodeSelectorExpressionEvaluationContexts.basic(
                         this.node,
-                        (r) -> ExpressionEvaluationContexts.basic(
+                        ExpressionEvaluationContexts.basic(
                             EXPRESSION_NUMBER_KIND,
                             Cast.to(this.functions()),
-                            (rr) -> {
-                                throw rr;
+                            (runtimeException) -> {
+                                throw runtimeException;
                             },
                             this.references(),
                             ExpressionEvaluationContexts.referenceNotFound(),

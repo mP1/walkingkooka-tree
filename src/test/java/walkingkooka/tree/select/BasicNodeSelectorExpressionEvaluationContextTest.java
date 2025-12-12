@@ -64,12 +64,24 @@ public final class BasicNodeSelectorExpressionEvaluationContextTest implements N
 
     @Test
     public void testWithNullNodeFails() {
-        assertThrows(NullPointerException.class, () -> BasicNodeSelectorExpressionEvaluationContext.with(null, (r) -> ExpressionEvaluationContexts.fake()));
+        assertThrows(
+            NullPointerException.class,
+            () -> BasicNodeSelectorExpressionEvaluationContext.with(
+                null,
+                ExpressionEvaluationContexts.fake()
+            )
+        );
     }
 
     @Test
     public void testWithNullContextFactoryFails() {
-        assertThrows(NullPointerException.class, () -> BasicNodeSelectorExpressionEvaluationContext.with(TestNode.with("test-node-123"), null));
+        assertThrows(
+            NullPointerException.class,
+            () -> BasicNodeSelectorExpressionEvaluationContext.with(
+                TestNode.with("test-node-123"),
+                null
+            )
+        );
     }
 
     @Test
@@ -140,7 +152,7 @@ public final class BasicNodeSelectorExpressionEvaluationContextTest implements N
     private BasicNodeSelectorExpressionEvaluationContext<TestNode, StringName, StringName, Object> createContext(final TestNode node) {
         return BasicNodeSelectorExpressionEvaluationContext.with(
             node,
-            (r) -> ExpressionEvaluationContexts.basic(
+            ExpressionEvaluationContexts.basic(
                 EXPRESSION_NUMBER_KIND,
                 this.functions(),
                 this.exceptionHandler(),
@@ -149,7 +161,8 @@ public final class BasicNodeSelectorExpressionEvaluationContextTest implements N
                 CaseSensitivity.SENSITIVE,
                 this.converterContext(),
                 LocaleContexts.jre(Locale.ENGLISH)
-            ));
+            )
+        );
     }
 
     private Function<RuntimeException, Object> exceptionHandler() {
