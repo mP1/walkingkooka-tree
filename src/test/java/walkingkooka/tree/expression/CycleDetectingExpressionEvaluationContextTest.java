@@ -23,11 +23,17 @@ import walkingkooka.collect.list.Lists;
 import walkingkooka.convert.ConverterContexts;
 import walkingkooka.convert.Converters;
 import walkingkooka.datetime.DateTimeContexts;
+import walkingkooka.datetime.DateTimeSymbols;
+import walkingkooka.environment.EnvironmentContext;
+import walkingkooka.environment.EnvironmentContexts;
+import walkingkooka.locale.LocaleContexts;
 import walkingkooka.math.DecimalNumberContext;
 import walkingkooka.math.DecimalNumberContextDelegator;
 import walkingkooka.math.DecimalNumberContexts;
 import walkingkooka.reflect.ClassTesting2;
 import walkingkooka.reflect.JavaVisibility;
+import walkingkooka.text.CaseSensitivity;
+import walkingkooka.text.LineEnding;
 import walkingkooka.text.cursor.parser.BigIntegerParserToken;
 import walkingkooka.text.cursor.parser.InvalidCharacterExceptionFactory;
 import walkingkooka.text.cursor.parser.ParserContexts;
@@ -39,11 +45,12 @@ import walkingkooka.tree.expression.function.UnknownExpressionFunctionException;
 
 import java.math.BigInteger;
 import java.math.MathContext;
+import java.text.DateFormatSymbols;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
 import java.util.Optional;
-import java.util.function.Function;
 
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -74,6 +81,11 @@ public final class CycleDetectingExpressionEvaluationContextTest implements Clas
             NullPointerException.class,
             () -> CycleDetectingExpressionEvaluationContext.with(null)
         );
+    }
+
+    @Override
+    public void testEvaluateExpressionUnknownFunctionNameFails() {
+        throw new UnsupportedOperationException();
     }
 
     @Test
@@ -118,29 +130,6 @@ public final class CycleDetectingExpressionEvaluationContextTest implements Clas
             parameters,
             VALUE
         );
-    }
-
-    @Test
-    public void testIsPureFalse() {
-        this.isPureAndCheck2(false);
-    }
-
-    @Test
-    public void testIsPureTrue() {
-        this.isPureAndCheck2(true);
-    }
-
-    private void isPureAndCheck2(final boolean pure) {
-        final ExpressionFunctionName functionName = this.functionName();
-        this.isPureAndCheck(
-            this.createContext(pure),
-            functionName,
-            pure
-        );
-    }
-
-    private ExpressionFunctionName functionName() {
-        return ExpressionFunctionName.with("function123");
     }
 
     @Test
@@ -442,112 +431,50 @@ public final class CycleDetectingExpressionEvaluationContextTest implements Clas
 
     @Override
     public CycleDetectingExpressionEvaluationContext createContext() {
-        return this.createContext(true);
-    }
-
-    private CycleDetectingExpressionEvaluationContext createContext(final boolean pure) {
-        final DecimalNumberContext decimalNumberContext = this.decimalNumberContext();
+        final Locale locale = Locale.ENGLISH;
 
         return this.createContext(
-            new FakeExpressionEvaluationContext() {
-
-                @Override
-                public Object handleException(final RuntimeException exception) {
-                    throw exception;
-                }
-
-                @Override
-                public ExpressionFunction<?, ExpressionEvaluationContext> expressionFunction(final ExpressionFunctionName name) {
-                    Objects.requireNonNull(name, "name");
-                    throw new UnknownExpressionFunctionException(name);
-                }
-
-                @Override
-                public boolean isPure(final ExpressionFunctionName name) {
-                    Objects.requireNonNull(name, "name");
-                    return pure;
-                }
-
-                @Override
-                public ExpressionEvaluationContext enterScope(final Function<ExpressionReference, Optional<Optional<Object>>> scoped) {
-                    Objects.requireNonNull(scoped, "scoped");
-
+            ExpressionEvaluationContexts.basic(
+                ExpressionNumberKind.DEFAULT,
+                (functionName) -> {
+                    Objects.requireNonNull(functionName, "functionName");
+                    throw new UnknownExpressionFunctionException(functionName);
+                },
+                (exception) -> exception,
+                (reference) -> {
+                    Objects.requireNonNull(reference, "reference");
                     throw new UnsupportedOperationException();
-                }
-
-                // DecimalNumberContext.................................................................................
-
-                @Override
-                public String currencySymbol() {
-                    return decimalNumberContext.currencySymbol();
-                }
-
-                @Override
-                public int decimalNumberDigitCount() {
-                    return decimalNumberContext.decimalNumberDigitCount();
-                }
-
-                @Override
-                public char decimalSeparator() {
-                    return decimalNumberContext.decimalSeparator();
-                }
-
-                @Override
-                public String exponentSymbol() {
-                    return decimalNumberContext.exponentSymbol();
-                }
-
-                @Override
-                public char groupSeparator() {
-                    return decimalNumberContext.groupSeparator();
-                }
-
-                @Override
-                public String infinitySymbol() {
-                    return decimalNumberContext.infinitySymbol();
-                }
-
-                @Override
-                public char monetaryDecimalSeparator() {
-                    return decimalNumberContext.monetaryDecimalSeparator();
-                }
-
-                @Override
-                public String nanSymbol() {
-                    return decimalNumberContext.nanSymbol();
-                }
-
-                @Override
-                public char negativeSign() {
-                    return decimalNumberContext.negativeSign();
-                }
-
-                @Override
-                public char percentSymbol() {
-                    return decimalNumberContext.percentSymbol();
-                }
-
-                @Override
-                public char permillSymbol() {
-                    return decimalNumberContext.permillSymbol();
-                }
-
-                @Override
-                public char positiveSign() {
-                    return decimalNumberContext.positiveSign();
-                }
-
-                @Override
-                public char zeroDigit() {
-                    return decimalNumberContext.zeroDigit();
-                }
-
-                @Override
-                public ExpressionEvaluationContext setLocale(final Locale locale) {
-                    Objects.requireNonNull(locale, "locale");
+                },
+                (referenceNotFound) -> {
                     throw new UnsupportedOperationException();
-                }
-            }
+                },
+                CaseSensitivity.SENSITIVE,
+                ConverterContexts.basic(
+                    false, // canNumbersHaveGroupSeparator
+                    Converters.JAVA_EPOCH_OFFSET,
+                    ',', // valueSeparator
+                    Converters.simple(), // converter
+                    DateTimeContexts.basic(
+                        DateTimeSymbols.fromDateFormatSymbols(
+                            new DateFormatSymbols(locale)
+                        ),
+                        locale,
+                        1950, // defaultYear
+                        50, // twoDigitYear
+                        LocalDateTime::now
+                    ),
+                    this.decimalNumberContext()
+                ),
+                EnvironmentContexts.map(
+                    EnvironmentContexts.empty(
+                        LineEnding.NL,
+                        locale,
+                        LocalDateTime::now,
+                        EnvironmentContext.ANONYMOUS
+                    )
+                ),
+                LocaleContexts.jre(locale)
+            )
         );
     }
 

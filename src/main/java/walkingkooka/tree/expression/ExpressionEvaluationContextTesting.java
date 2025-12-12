@@ -19,6 +19,7 @@ package walkingkooka.tree.expression;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.convert.CanConvertTesting;
+import walkingkooka.environment.EnvironmentContextTesting2;
 import walkingkooka.locale.LocaleContextTesting2;
 import walkingkooka.text.printer.TreePrintableTesting;
 import walkingkooka.tree.expression.function.ExpressionFunction;
@@ -36,6 +37,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
  */
 public interface ExpressionEvaluationContextTesting<C extends ExpressionEvaluationContext> extends
     CanConvertTesting<C>,
+    EnvironmentContextTesting2<C>,
     ExpressionNumberContextTesting<C>,
     ExpressionPurityContextTesting<C>,
     LocaleContextTesting2<C>,
@@ -236,6 +238,14 @@ public interface ExpressionEvaluationContextTesting<C extends ExpressionEvaluati
             thrown.getMessage(),
             () -> "reference " + reference
         );
+    }
+
+    // EnvironmentContext...............................................................................................
+
+    @Test
+    @Override
+    default void testSetLocaleWithNullFails() {
+        LocaleContextTesting2.super.testSetLocaleWithNullFails();
     }
 
     // ExpressionEvaluationContext......................................................................................

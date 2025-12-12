@@ -28,6 +28,8 @@ import walkingkooka.convert.ConverterException;
 import walkingkooka.convert.Converters;
 import walkingkooka.convert.FakeConverterContext;
 import walkingkooka.datetime.DateTimeContexts;
+import walkingkooka.environment.EnvironmentContext;
+import walkingkooka.environment.EnvironmentContexts;
 import walkingkooka.locale.LocaleContext;
 import walkingkooka.locale.LocaleContexts;
 import walkingkooka.math.DecimalNumberContext;
@@ -36,6 +38,7 @@ import walkingkooka.math.DecimalNumberContexts;
 import walkingkooka.reflect.ClassTesting2;
 import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.text.CaseSensitivity;
+import walkingkooka.text.LineEnding;
 import walkingkooka.tree.expression.function.ExpressionFunction;
 import walkingkooka.tree.expression.function.ExpressionFunctionParameter;
 import walkingkooka.tree.expression.function.ExpressionFunctionParameterKind;
@@ -44,6 +47,7 @@ import walkingkooka.tree.expression.function.FakeExpressionFunction;
 import walkingkooka.tree.expression.function.UnknownExpressionFunctionException;
 
 import java.math.MathContext;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
@@ -79,8 +83,19 @@ public final class BasicExpressionEvaluationContextTest implements ClassTesting2
         throw r;
     };
 
+    private final static EnvironmentContext ENVIRONMENT_CONTEXT = EnvironmentContexts.readOnly(
+        EnvironmentContexts.map(
+            EnvironmentContexts.empty(
+                LineEnding.NL,
+                Locale.forLanguageTag("en-AU"),
+                LocalDateTime::now,
+                EnvironmentContext.ANONYMOUS
+            )
+        )
+    );
+
     private final static LocaleContext LOCALE_CONTEXT = LocaleContexts.jre(
-        Locale.forLanguageTag("EN-AU")
+        ENVIRONMENT_CONTEXT.locale()
     );
 
     @Test
@@ -95,6 +110,7 @@ public final class BasicExpressionEvaluationContextTest implements ClassTesting2
                 ExpressionEvaluationContexts.referenceNotFound(),
                 CASE_SENSITIVITY,
                 this.converterContext(),
+                ENVIRONMENT_CONTEXT,
                 LOCALE_CONTEXT
             )
         );
@@ -112,6 +128,7 @@ public final class BasicExpressionEvaluationContextTest implements ClassTesting2
                 ExpressionEvaluationContexts.referenceNotFound(),
                 CASE_SENSITIVITY,
                 this.converterContext(),
+                ENVIRONMENT_CONTEXT,
                 LOCALE_CONTEXT
             )
         );
@@ -129,6 +146,7 @@ public final class BasicExpressionEvaluationContextTest implements ClassTesting2
                 ExpressionEvaluationContexts.referenceNotFound(),
                 CASE_SENSITIVITY,
                 this.converterContext(),
+                ENVIRONMENT_CONTEXT,
                 LOCALE_CONTEXT
             )
         );
@@ -146,6 +164,7 @@ public final class BasicExpressionEvaluationContextTest implements ClassTesting2
                 ExpressionEvaluationContexts.referenceNotFound(),
                 CASE_SENSITIVITY,
                 this.converterContext(),
+                ENVIRONMENT_CONTEXT,
                 LOCALE_CONTEXT
             )
         );
@@ -163,6 +182,7 @@ public final class BasicExpressionEvaluationContextTest implements ClassTesting2
                 null,
                 CASE_SENSITIVITY,
                 this.converterContext(),
+                ENVIRONMENT_CONTEXT,
                 LOCALE_CONTEXT
             )
         );
@@ -180,6 +200,7 @@ public final class BasicExpressionEvaluationContextTest implements ClassTesting2
                 ExpressionEvaluationContexts.referenceNotFound(),
                 null,
                 this.converterContext(),
+                ENVIRONMENT_CONTEXT,
                 LOCALE_CONTEXT
             )
         );
@@ -196,6 +217,25 @@ public final class BasicExpressionEvaluationContextTest implements ClassTesting2
                 this.references(),
                 ExpressionEvaluationContexts.referenceNotFound(),
                 CASE_SENSITIVITY,
+                null,
+                ENVIRONMENT_CONTEXT,
+                LOCALE_CONTEXT
+            )
+        );
+    }
+
+    @Test
+    public void testWithNullEnvironmentContextFails() {
+        assertThrows(
+            NullPointerException.class,
+            () -> BasicExpressionEvaluationContext.with(
+                KIND,
+                this.functions(),
+                EXCEPTION_HANDLER,
+                this.references(),
+                ExpressionEvaluationContexts.referenceNotFound(),
+                CASE_SENSITIVITY,
+                this.converterContext(),
                 null,
                 LOCALE_CONTEXT
             )
@@ -214,6 +254,7 @@ public final class BasicExpressionEvaluationContextTest implements ClassTesting2
                 ExpressionEvaluationContexts.referenceNotFound(),
                 CASE_SENSITIVITY,
                 this.converterContext(),
+                ENVIRONMENT_CONTEXT,
                 null
             )
         );
@@ -334,6 +375,7 @@ public final class BasicExpressionEvaluationContextTest implements ClassTesting2
                         );
                     }
                 },
+                ENVIRONMENT_CONTEXT,
                 LOCALE_CONTEXT
             ),
             Expression.divide(
@@ -394,6 +436,7 @@ public final class BasicExpressionEvaluationContextTest implements ClassTesting2
                         );
                     }
                 },
+                ENVIRONMENT_CONTEXT,
                 LOCALE_CONTEXT
             ).evaluateExpression(
                 Expression.call(
@@ -438,6 +481,7 @@ public final class BasicExpressionEvaluationContextTest implements ClassTesting2
                         );
                     }
                 },
+                ENVIRONMENT_CONTEXT,
                 LOCALE_CONTEXT
             ),
             Expression.divide(
@@ -618,6 +662,7 @@ public final class BasicExpressionEvaluationContextTest implements ClassTesting2
                         );
                     }
                 },
+                ENVIRONMENT_CONTEXT,
                 LOCALE_CONTEXT
             ),
             function,
@@ -672,6 +717,7 @@ public final class BasicExpressionEvaluationContextTest implements ClassTesting2
                         );
                     }
                 },
+                ENVIRONMENT_CONTEXT,
                 LOCALE_CONTEXT
             ),
             function,
@@ -814,6 +860,7 @@ public final class BasicExpressionEvaluationContextTest implements ClassTesting2
                 referenceNotFound,
                 CASE_SENSITIVITY,
                 converterContext,
+                ENVIRONMENT_CONTEXT,
                 LOCALE_CONTEXT
             ),
             KIND +
@@ -829,6 +876,8 @@ public final class BasicExpressionEvaluationContextTest implements ClassTesting2
                 CASE_SENSITIVITY +
                 " " +
                 converterContext +
+                " " +
+                ENVIRONMENT_CONTEXT +
                 " " +
                 LOCALE_CONTEXT
         );
@@ -865,6 +914,7 @@ public final class BasicExpressionEvaluationContextTest implements ClassTesting2
             REFERENCE_NOT_FOUND,
             caseSensitivity,
             this.converterContext(),
+            ENVIRONMENT_CONTEXT.cloneEnvironment(),
             LOCALE_CONTEXT
         );
     }
@@ -879,6 +929,7 @@ public final class BasicExpressionEvaluationContextTest implements ClassTesting2
             (r) -> new ExpressionEvaluationReferenceException(REFERENCE_NOT_FOUND_MESSAGE, r),
             CASE_SENSITIVITY,
             this.converterContext(),
+            ENVIRONMENT_CONTEXT.cloneEnvironment(),
             LOCALE_CONTEXT
         );
     }
@@ -954,6 +1005,7 @@ public final class BasicExpressionEvaluationContextTest implements ClassTesting2
             REFERENCE_NOT_FOUND,
             CASE_SENSITIVITY,
             ConverterContexts.fake(),
+            ENVIRONMENT_CONTEXT.cloneEnvironment(),
             LOCALE_CONTEXT
         );
     }

@@ -18,12 +18,18 @@
 package walkingkooka.tree.expression;
 
 import walkingkooka.datetime.DateTimeSymbols;
+import walkingkooka.environment.EnvironmentContext;
+import walkingkooka.environment.EnvironmentValueName;
+import walkingkooka.environment.EnvironmentValueWatcher;
 import walkingkooka.math.DecimalNumberSymbols;
+import walkingkooka.net.email.EmailAddress;
 import walkingkooka.text.CaseSensitivity;
+import walkingkooka.text.LineEnding;
 import walkingkooka.tree.expression.convert.FakeExpressionNumberConverterContext;
 import walkingkooka.tree.expression.function.ExpressionFunction;
 import walkingkooka.tree.expression.function.ExpressionFunctionParameter;
 
+import java.time.LocalDateTime;
 import java.util.Locale;
 import java.util.Objects;
 import java.util.Optional;
@@ -118,6 +124,74 @@ public class FakeExpressionEvaluationContext extends FakeExpressionNumberConvert
 
     @Override
     public Optional<String> localeText(final Locale locale) {
+        throw new UnsupportedOperationException();
+    }
+
+    // FakeEnvironmentContext...........................................................................................
+
+    @Override
+    public LineEnding lineEnding() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public ExpressionEvaluationContext setLineEnding(final LineEnding lineEnding) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public ExpressionEvaluationContext cloneEnvironment() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public ExpressionEvaluationContext setEnvironmentContext(final EnvironmentContext context) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public <T> Optional<T> environmentValue(final EnvironmentValueName<T> name) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public Set<EnvironmentValueName<?>> environmentValueNames() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public <T> ExpressionEvaluationContext setEnvironmentValue(final EnvironmentValueName<T> name,
+                                                               final T value) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public ExpressionEvaluationContext removeEnvironmentValue(final EnvironmentValueName<?> name) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public LocalDateTime now() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public Optional<EmailAddress> user() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public ExpressionEvaluationContext setUser(final Optional<EmailAddress> user) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public Runnable addEventValueWatcher(final EnvironmentValueWatcher watcher) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public Runnable addEventValueWatcherOnce(final EnvironmentValueWatcher watcher) {
         throw new UnsupportedOperationException();
     }
 }

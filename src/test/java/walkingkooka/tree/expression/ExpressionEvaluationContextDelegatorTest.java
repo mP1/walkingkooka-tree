@@ -21,11 +21,14 @@ import walkingkooka.convert.ConverterContexts;
 import walkingkooka.convert.Converters;
 import walkingkooka.datetime.DateTimeContexts;
 import walkingkooka.datetime.DateTimeSymbols;
+import walkingkooka.environment.EnvironmentContext;
+import walkingkooka.environment.EnvironmentContexts;
 import walkingkooka.locale.LocaleContexts;
 import walkingkooka.math.DecimalNumberContext;
 import walkingkooka.math.DecimalNumberContextDelegator;
 import walkingkooka.math.DecimalNumberContexts;
 import walkingkooka.text.CaseSensitivity;
+import walkingkooka.text.LineEnding;
 import walkingkooka.tree.expression.ExpressionEvaluationContextDelegatorTest.TestExpressionEvaluationContextDelegator;
 
 import java.math.MathContext;
@@ -81,29 +84,10 @@ public final class ExpressionEvaluationContextDelegatorTest implements Expressio
 
     static final class TestExpressionEvaluationContextDelegator implements ExpressionEvaluationContextDelegator {
 
-        @Override
-        public Optional<Optional<Object>> reference(final ExpressionReference reference) {
-            return this.expressionEvaluationContext().reference(reference);
-        }
-
-        @Override
-        public ExpressionEvaluationContext enterScope(final Function<ExpressionReference, Optional<Optional<Object>>> scoped) {
-            Objects.requireNonNull(scoped, "scoped");
-
-            throw new UnsupportedOperationException();
-        }
-
-        @Override
-        public ExpressionEvaluationContext setLocale(final Locale locale) {
-            Objects.requireNonNull(locale, "locale");
-            return this;
-        }
-
-        @Override
-        public ExpressionEvaluationContext expressionEvaluationContext() {
+        TestExpressionEvaluationContextDelegator() {
             final Locale locale = Locale.ENGLISH;
 
-            return ExpressionEvaluationContexts.basic(
+            this.expressionEvaluationContext = ExpressionEvaluationContexts.basic(
                 ExpressionNumberKind.BIG_DECIMAL,
                 (fn) -> {
                     Objects.requireNonNull(fn, "fn");
@@ -135,9 +119,48 @@ public final class ExpressionEvaluationContextDelegatorTest implements Expressio
                     ),
                     DecimalNumberContexts.american(MathContext.DECIMAL32)
                 ),
+                EnvironmentContexts.map(
+                    EnvironmentContexts.empty(
+                        LineEnding.NL,
+                        locale,
+                        LocalDateTime::now,
+                        EnvironmentContext.ANONYMOUS
+                    )
+                ),
                 LocaleContexts.jre(locale)
             );
         }
+
+        @Override
+        public Optional<Optional<Object>> reference(final ExpressionReference reference) {
+            return this.expressionEvaluationContext().reference(reference);
+        }
+
+        @Override
+        public ExpressionEvaluationContext enterScope(final Function<ExpressionReference, Optional<Optional<Object>>> scoped) {
+            Objects.requireNonNull(scoped, "scoped");
+
+            throw new UnsupportedOperationException();
+        }
+
+        @Override
+        public ExpressionEvaluationContext cloneEnvironment() {
+            return new TestExpressionEvaluationContextDelegator();
+        }
+
+        @Override
+        public ExpressionEvaluationContext setEnvironmentContext(final EnvironmentContext environmentContext) {
+            Objects.requireNonNull(environmentContext, "environmentContext");
+
+            return new TestExpressionEvaluationContextDelegator();
+        }
+
+        @Override
+        public ExpressionEvaluationContext expressionEvaluationContext() {
+            return this.expressionEvaluationContext;
+        }
+
+        private final ExpressionEvaluationContext expressionEvaluationContext;
 
         @Override
         public String toString() {

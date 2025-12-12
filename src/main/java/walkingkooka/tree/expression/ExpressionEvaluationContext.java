@@ -20,8 +20,12 @@ package walkingkooka.tree.expression;
 import walkingkooka.Cast;
 import walkingkooka.Context;
 import walkingkooka.collect.list.Lists;
+import walkingkooka.environment.EnvironmentContext;
+import walkingkooka.environment.EnvironmentValueName;
 import walkingkooka.locale.LocaleContext;
+import walkingkooka.net.email.EmailAddress;
 import walkingkooka.text.CaseSensitivity;
+import walkingkooka.text.LineEnding;
 import walkingkooka.tree.expression.convert.ExpressionNumberConverterContext;
 import walkingkooka.tree.expression.function.ExpressionFunction;
 import walkingkooka.tree.expression.function.ExpressionFunctionParameter;
@@ -44,6 +48,7 @@ public interface ExpressionEvaluationContext extends ExpressionNumberConverterCo
     ExpressionNumberContext,
     ExpressionPurityContext,
     HasExpressionFunction,
+    EnvironmentContext,
     LocaleContext {
 
     /**
@@ -247,8 +252,27 @@ public interface ExpressionEvaluationContext extends ExpressionNumberConverterCo
      */
     CaseSensitivity stringEqualsCaseSensitivity();
 
-    // LocaleContext....................................................................................................
+    // EnvironmentContext...............................................................................................
+
+    @Override
+    ExpressionEvaluationContext cloneEnvironment();
+
+    @Override
+    ExpressionEvaluationContext removeEnvironmentValue(final EnvironmentValueName<?> environmentValueName);
+
+    @Override
+    <T> ExpressionEvaluationContext setEnvironmentValue(final EnvironmentValueName<T> environmentValueName,
+                                                        final T reference);
+
+    @Override
+    ExpressionEvaluationContext setEnvironmentContext(final EnvironmentContext environmentContext);
+
+    @Override
+    ExpressionEvaluationContext setLineEnding(final LineEnding lineEnding);
 
     @Override
     ExpressionEvaluationContext setLocale(final Locale locale);
+
+    @Override
+    ExpressionEvaluationContext setUser(final Optional<EmailAddress> user);
 }
