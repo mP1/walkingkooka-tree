@@ -29,6 +29,8 @@ import walkingkooka.convert.Converter;
 import walkingkooka.convert.ConverterContexts;
 import walkingkooka.convert.Converters;
 import walkingkooka.datetime.DateTimeContexts;
+import walkingkooka.environment.EnvironmentContext;
+import walkingkooka.environment.EnvironmentContexts;
 import walkingkooka.locale.LocaleContext;
 import walkingkooka.locale.LocaleContexts;
 import walkingkooka.math.DecimalNumberContexts;
@@ -36,6 +38,7 @@ import walkingkooka.naming.Names;
 import walkingkooka.naming.StringName;
 import walkingkooka.predicate.Predicates;
 import walkingkooka.text.CaseSensitivity;
+import walkingkooka.text.LineEnding;
 import walkingkooka.tree.Node;
 import walkingkooka.tree.TestNode;
 import walkingkooka.tree.expression.Expression;
@@ -50,9 +53,11 @@ import walkingkooka.tree.expression.convert.ExpressionNumberConverters;
 import walkingkooka.tree.expression.function.ExpressionFunction;
 
 import java.math.MathContext;
+import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
@@ -70,6 +75,15 @@ abstract public class NodeSelectorTestCase3<S extends NodeSelector<TestNode, Str
     ToStringTesting<S> {
 
     final static ExpressionNumberKind EXPRESSION_NUMBER_KIND = ExpressionNumberKind.DEFAULT;
+
+    final static EnvironmentContext ENVIRONMENT_CONTEXT = EnvironmentContexts.readOnly(
+        EnvironmentContexts.empty(
+            LineEnding.NL,
+            Locale.ENGLISH,
+            LocalDateTime::now,
+            EnvironmentContext.ANONYMOUS
+        )
+    );
 
     final static LocaleContext LOCALE_CONTEXT = LocaleContexts.fake();
 
@@ -553,6 +567,7 @@ abstract public class NodeSelectorTestCase3<S extends NodeSelector<TestNode, Str
                 ExpressionEvaluationContexts.referenceNotFound(),
                 CaseSensitivity.SENSITIVE,
                 this.converterContext(),
+                ENVIRONMENT_CONTEXT.cloneEnvironment(),
                 LOCALE_CONTEXT
             )
         );

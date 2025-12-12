@@ -20,10 +20,15 @@ package walkingkooka.tree.select;
 import walkingkooka.Cast;
 import walkingkooka.convert.ConverterContext;
 import walkingkooka.convert.ConverterContextDelegator;
+import walkingkooka.environment.EnvironmentContext;
+import walkingkooka.environment.EnvironmentContextDelegator;
+import walkingkooka.environment.EnvironmentValueName;
 import walkingkooka.locale.LocaleContext;
 import walkingkooka.locale.LocaleContextDelegator;
 import walkingkooka.naming.Name;
+import walkingkooka.net.email.EmailAddress;
 import walkingkooka.text.CaseSensitivity;
+import walkingkooka.text.LineEnding;
 import walkingkooka.tree.Node;
 import walkingkooka.tree.expression.ExpressionEvaluationContext;
 import walkingkooka.tree.expression.ExpressionFunctionName;
@@ -34,6 +39,7 @@ import walkingkooka.tree.expression.function.ExpressionFunction;
 import walkingkooka.tree.expression.function.ExpressionFunctionParameter;
 import walkingkooka.tree.select.parser.NodeSelectorAttributeName;
 
+import java.time.LocalDateTime;
 import java.util.Locale;
 import java.util.Objects;
 import java.util.Optional;
@@ -58,6 +64,7 @@ final class BasicNodeSelectorExpressionEvaluationContext<N extends Node<N, NAME,
     AVALUE>
     implements NodeSelectorExpressionEvaluationContext<N, NAME, ANAME, AVALUE>,
     ConverterContextDelegator,
+    EnvironmentContextDelegator,
     LocaleContextDelegator {
 
     /**
@@ -178,6 +185,74 @@ final class BasicNodeSelectorExpressionEvaluationContext<N extends Node<N, NAME,
     @Override
     public ExpressionNumberKind expressionNumberKind() {
         return this.context.expressionNumberKind();
+    }
+
+    // EnvironmentContext...............................................................................................
+
+    @Override
+    public NodeSelectorExpressionEvaluationContext<N, NAME, ANAME, AVALUE> cloneEnvironment() {
+        final ExpressionEvaluationContext before = this.context;
+        final ExpressionEvaluationContext after = before.cloneEnvironment();
+
+        return before == after ?
+            this :
+            new BasicNodeSelectorExpressionEvaluationContext<>(
+                this.node,
+                null
+            );
+    }
+
+    @Override
+    public NodeSelectorExpressionEvaluationContext<N, NAME, ANAME, AVALUE> setEnvironmentContext(final EnvironmentContext environmentContext) {
+        Objects.requireNonNull(environmentContext, "environmentContext");
+
+        final ExpressionEvaluationContext before = this.context;
+        final ExpressionEvaluationContext after = before.setEnvironmentContext(environmentContext);
+        return before == after ?
+            this :
+            new BasicNodeSelectorExpressionEvaluationContext<>(
+                this.node,
+                this.context
+            );
+    }
+
+    @Override
+    public NodeSelectorExpressionEvaluationContext<N, NAME, ANAME, AVALUE> setLineEnding(final LineEnding lineEnding) {
+        this.context.setLineEnding(lineEnding);
+        return this;
+    }
+
+    @Override
+    public <T> NodeSelectorExpressionEvaluationContext<N, NAME, ANAME, AVALUE> setEnvironmentValue(final EnvironmentValueName<T> name,
+                                                                                                   final T value) {
+        this.context.setEnvironmentValue(
+            name,
+            value
+        );
+        return this;
+    }
+
+    @Override
+    public NodeSelectorExpressionEvaluationContext<N, NAME, ANAME, AVALUE> removeEnvironmentValue(final EnvironmentValueName<?> name) {
+        this.context.removeEnvironmentValue(name);
+        return this;
+    }
+
+    @Override
+    public LocalDateTime now() {
+        return this.environmentContext()
+            .now();
+    }
+
+    @Override
+    public NodeSelectorExpressionEvaluationContext<N, NAME, ANAME, AVALUE> setUser(final Optional<EmailAddress> user) {
+        this.context.setUser(user);
+        return this;
+    }
+
+    @Override
+    public EnvironmentContext environmentContext() {
+        return this.context;
     }
 
     // LocaleContext....................................................................................................

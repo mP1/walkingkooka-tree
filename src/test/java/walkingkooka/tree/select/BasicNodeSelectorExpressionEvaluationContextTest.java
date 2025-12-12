@@ -24,6 +24,8 @@ import walkingkooka.collect.map.Maps;
 import walkingkooka.convert.ConverterContexts;
 import walkingkooka.convert.Converters;
 import walkingkooka.datetime.DateTimeContexts;
+import walkingkooka.environment.EnvironmentContext;
+import walkingkooka.environment.EnvironmentContexts;
 import walkingkooka.locale.LocaleContexts;
 import walkingkooka.math.DecimalNumberContext;
 import walkingkooka.math.DecimalNumberContextDelegator;
@@ -31,6 +33,7 @@ import walkingkooka.math.DecimalNumberContexts;
 import walkingkooka.naming.Names;
 import walkingkooka.naming.StringName;
 import walkingkooka.text.CaseSensitivity;
+import walkingkooka.text.LineEnding;
 import walkingkooka.tree.TestNode;
 import walkingkooka.tree.expression.Expression;
 import walkingkooka.tree.expression.ExpressionEvaluationContext;
@@ -45,6 +48,7 @@ import walkingkooka.tree.expression.function.UnknownExpressionFunctionException;
 import walkingkooka.tree.select.parser.NodeSelectorAttributeName;
 
 import java.math.MathContext;
+import java.time.LocalDateTime;
 import java.util.Locale;
 import java.util.Objects;
 import java.util.Optional;
@@ -150,6 +154,8 @@ public final class BasicNodeSelectorExpressionEvaluationContextTest implements N
     }
 
     private BasicNodeSelectorExpressionEvaluationContext<TestNode, StringName, StringName, Object> createContext(final TestNode node) {
+        final Locale locale = Locale.ENGLISH;
+
         return BasicNodeSelectorExpressionEvaluationContext.with(
             node,
             ExpressionEvaluationContexts.basic(
@@ -160,7 +166,15 @@ public final class BasicNodeSelectorExpressionEvaluationContextTest implements N
                 ExpressionEvaluationContexts.referenceNotFound(),
                 CaseSensitivity.SENSITIVE,
                 this.converterContext(),
-                LocaleContexts.jre(Locale.ENGLISH)
+                EnvironmentContexts.map(
+                    EnvironmentContexts.empty(
+                        LineEnding.NL,
+                        locale,
+                        LocalDateTime::now,
+                        EnvironmentContext.ANONYMOUS
+                    )
+                ),
+                LocaleContexts.jre(locale)
             )
         );
     }

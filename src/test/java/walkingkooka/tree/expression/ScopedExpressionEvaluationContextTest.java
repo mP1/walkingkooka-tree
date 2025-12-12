@@ -23,11 +23,14 @@ import walkingkooka.convert.ConverterContexts;
 import walkingkooka.convert.Converters;
 import walkingkooka.datetime.DateTimeContexts;
 import walkingkooka.datetime.DateTimeSymbols;
+import walkingkooka.environment.EnvironmentContext;
+import walkingkooka.environment.EnvironmentContexts;
 import walkingkooka.locale.LocaleContexts;
 import walkingkooka.math.DecimalNumberContext;
 import walkingkooka.math.DecimalNumberContextDelegator;
 import walkingkooka.math.DecimalNumberContexts;
 import walkingkooka.text.CaseSensitivity;
+import walkingkooka.text.LineEnding;
 import walkingkooka.tree.expression.function.ExpressionFunctionParameter;
 import walkingkooka.tree.expression.function.ExpressionFunctionParameterCardinality;
 import walkingkooka.tree.expression.function.ExpressionFunctionParameterName;
@@ -315,7 +318,15 @@ public final class ScopedExpressionEvaluationContextTest implements ExpressionEv
                     ),
                     DecimalNumberContexts.american(MathContext.DECIMAL32)
                 ),
-                LocaleContexts.jre(Locale.ENGLISH)
+                EnvironmentContexts.map(
+                    EnvironmentContexts.empty(
+                        LineEnding.NL,
+                        locale,
+                        LocalDateTime::now,
+                        EnvironmentContext.ANONYMOUS
+                    )
+                ),
+                LocaleContexts.jre(locale)
             )
         );
     }

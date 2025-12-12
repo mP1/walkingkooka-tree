@@ -21,14 +21,20 @@ import walkingkooka.Either;
 import walkingkooka.collect.set.Sets;
 import walkingkooka.datetime.DateTimeContext;
 import walkingkooka.datetime.DateTimeContextDelegator;
+import walkingkooka.environment.EnvironmentContext;
+import walkingkooka.environment.EnvironmentContextDelegator;
+import walkingkooka.environment.EnvironmentValueName;
 import walkingkooka.locale.LocaleContext;
 import walkingkooka.locale.LocaleContextDelegator;
 import walkingkooka.math.DecimalNumberContext;
 import walkingkooka.math.DecimalNumberContextDelegator;
+import walkingkooka.net.email.EmailAddress;
 import walkingkooka.text.CaseSensitivity;
+import walkingkooka.text.LineEnding;
 import walkingkooka.tree.expression.function.ExpressionFunction;
 import walkingkooka.tree.expression.function.ExpressionFunctionParameter;
 
+import java.time.LocalDateTime;
 import java.util.Locale;
 import java.util.Objects;
 import java.util.Optional;
@@ -43,6 +49,7 @@ import java.util.function.Function;
 final class CycleDetectingExpressionEvaluationContext implements ExpressionEvaluationContext,
     DateTimeContextDelegator,
     DecimalNumberContextDelegator,
+    EnvironmentContextDelegator,
     LocaleContextDelegator {
 
     /**
@@ -132,6 +139,63 @@ final class CycleDetectingExpressionEvaluationContext implements ExpressionEvalu
      */
     private void reportCycle(final ExpressionReference reference) {
         throw new CycleDetectedExpressionEvaluationConversionException("Cycle detected to " + reference, reference);
+    }
+
+    // EnvironmentContextDelegator......................................................................................
+
+    @Override
+    public ExpressionEvaluationContext cloneEnvironment() {
+        return this.setEnvironmentContext(
+            this.context.cloneEnvironment()
+        );
+    }
+
+    @Override
+    public ExpressionEvaluationContext setEnvironmentContext(final EnvironmentContext environmentContext) {
+        final ExpressionEvaluationContext before = this.context;
+        final ExpressionEvaluationContext after = before.setEnvironmentContext(environmentContext);
+
+        return before == after ?
+            this :
+            new CycleDetectingExpressionEvaluationContext(after);
+    }
+
+    @Override
+    public <T> ExpressionEvaluationContext setEnvironmentValue(final EnvironmentValueName<T> name,
+                                                               final T value) {
+        this.context.setEnvironmentValue(
+            name,
+            value
+        );
+        return this;
+    }
+
+    @Override
+    public ExpressionEvaluationContext removeEnvironmentValue(final EnvironmentValueName<?> name) {
+        this.context.removeEnvironmentValue(name);
+        return this;
+    }
+
+    @Override
+    public LocalDateTime now() {
+        return this.context.now();
+    }
+
+    @Override
+    public ExpressionEvaluationContext setLineEnding(final LineEnding lineEnding) {
+        this.context.setLineEnding(lineEnding);
+        return this;
+    }
+
+    @Override
+    public ExpressionEvaluationContext setUser(final Optional<EmailAddress> user) {
+        this.context.setUser(user);
+        return this;
+    }
+
+    @Override
+    public EnvironmentContext environmentContext() {
+        return this.context;
     }
 
     // LocaleContext....................................................................................................
