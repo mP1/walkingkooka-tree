@@ -68,7 +68,7 @@ final class BasicNodeSelectorExpressionEvaluationContext<N extends Node<N, NAME,
         ANAME extends Name,
         AVALUE>
     BasicNodeSelectorExpressionEvaluationContext<N, NAME, ANAME, AVALUE> with(final N node,
-                                                                              final Function<Function<ExpressionReference, Optional<Optional<Object>>>, ExpressionEvaluationContext> context) {
+                                                                              final ExpressionEvaluationContext context) {
         Objects.requireNonNull(node, "node");
         Objects.requireNonNull(context, "context");
 
@@ -79,12 +79,10 @@ final class BasicNodeSelectorExpressionEvaluationContext<N extends Node<N, NAME,
      * Private ctor use factory.
      */
     private BasicNodeSelectorExpressionEvaluationContext(final N node,
-                                                         final Function<Function<ExpressionReference, Optional<Optional<Object>>>, ExpressionEvaluationContext> context) {
+                                                         final ExpressionEvaluationContext context) {
         super();
         this.node = node;
-        this.context = context.apply(
-            BasicNodeSelectorExpressionEvaluationContextReferenceFunction.with(this)
-        );
+        this.context = context;
     }
 
     @Override
