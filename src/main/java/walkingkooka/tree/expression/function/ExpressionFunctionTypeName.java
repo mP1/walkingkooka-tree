@@ -63,7 +63,7 @@ final class ExpressionFunctionTypeName<C extends ExpressionEvaluationContext> im
                         final C context) {
         this.checkParameterCount(parameters);
 
-        return PARAMETER.getOrFail(parameters, 0, context)
+        return PARAMETER.getOrFail(parameters, 0)
             .getClass()
             .getName();
     }

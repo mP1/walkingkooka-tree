@@ -35,41 +35,12 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
-import java.util.function.Function;
 import java.util.stream.Collectors;
 
 /**
  * Captures an individual parameter to a @link ExpressionFunction}.
  */
 public final class ExpressionFunctionParameter<T> implements HasName<ExpressionFunctionParameterName> {
-
-    /**
-     * Type safe default value that returns {@link Optional#empty()}
-     */
-    public static <T> Function<ExpressionEvaluationContext, Optional<T>> withoutDefaultValue() {
-        return Cast.to(WITHOUT_DEFAULT_VALUE);
-    }
-
-    private final static Function<ExpressionEvaluationContext, ?> WITHOUT_DEFAULT_VALUE = new Function<>() {
-
-        @Override
-        public Optional<Object> apply(final ExpressionEvaluationContext context) {
-            Objects.requireNonNull(context, "context");
-            return Optional.empty();
-        }
-
-        @Override
-        public String toString() {
-            return "";
-        }
-    };
-
-    /**
-     * Fixed default value.
-     */
-    public static <T> Function<ExpressionEvaluationContext, Optional<T>> defaultValue(final Optional<T> value) {
-        return ExpressionFunctionParameterDefaultValue.with(value);
-    }
 
     /**
      * Type token for {@link List} with a type-parameter of wildcard.
@@ -116,7 +87,7 @@ public final class ExpressionFunctionParameter<T> implements HasName<ExpressionF
     public static <T> ExpressionFunctionParameter<T> with(final ExpressionFunctionParameterName name,
                                                           final Class<T> type,
                                                           final ExpressionFunctionParameterCardinality cardinality,
-                                                          final Function<ExpressionEvaluationContext, Optional<T>> defaultValue,
+                                                          final Optional<T> defaultValue,
                                                           final Set<ExpressionFunctionParameterKind> kinds) {
         return new ExpressionFunctionParameter<>(
             Objects.requireNonNull(name, "name"),
@@ -132,7 +103,7 @@ public final class ExpressionFunctionParameter<T> implements HasName<ExpressionF
     private ExpressionFunctionParameter(final ExpressionFunctionParameterName name,
                                         final Class<T> type,
                                         final ExpressionFunctionParameterCardinality cardinality,
-                                        final Function<ExpressionEvaluationContext, Optional<T>> defaultValue,
+                                        final Optional<T> defaultValue,
                                         final Set<ExpressionFunctionParameterKind> kinds) {
         this.name = name;
         this.type = type;
@@ -180,7 +151,7 @@ public final class ExpressionFunctionParameter<T> implements HasName<ExpressionF
                 this.name,
                 Objects.requireNonNull(type, "type"),
                 this.cardinality,
-                ExpressionFunctionParameter.withoutDefaultValue(),
+                Optional.empty(),
                 this.kinds
             );
     }
@@ -213,15 +184,11 @@ public final class ExpressionFunctionParameter<T> implements HasName<ExpressionF
     /**
      * The default value when this parameter is missing or null from function parameters.
      */
-    public Function<ExpressionEvaluationContext, Optional<T>> defaultValue() {
+    public Optional<T> defaultValue() {
         return this.defaultValue;
     }
 
-    /**
-     * Sets a {@link Function} which receives the current {@link ExpressionEvaluationContext} when this parameter
-     * is missing and a default value is required.
-     */
-    public ExpressionFunctionParameter<T> setDefaultValue(final Function<ExpressionEvaluationContext, Optional<T>> defaultValue) {
+    public ExpressionFunctionParameter<T> setDefaultValue(final Optional<T> defaultValue) {
         return this.defaultValue.equals(defaultValue) ?
             this :
             new ExpressionFunctionParameter<>(
@@ -233,7 +200,7 @@ public final class ExpressionFunctionParameter<T> implements HasName<ExpressionF
             );
     }
 
-    private final Function<ExpressionEvaluationContext, Optional<T>> defaultValue;
+    private final Optional<T> defaultValue;
 
     // kinds............................................................................................................
 
@@ -272,14 +239,13 @@ public final class ExpressionFunctionParameter<T> implements HasName<ExpressionF
      * Note the index is not validated against the correct position of this parameter within the parameter list.
      */
     public Optional<T> get(final List<Object> parameters,
-                           final int index,
-                           final ExpressionEvaluationContext context) {
+                           final int index) {
         Objects.requireNonNull(parameters, "parameters");
 
         this.cardinality.get(this);
 
         return index >= parameters.size() ?
-            this.defaultValue.apply(context) :
+            this.defaultValue :
             Optional.ofNullable(
                 ExpressionFunctionParameterCast.cast(
                     parameters.get(index),
@@ -294,8 +260,7 @@ public final class ExpressionFunctionParameter<T> implements HasName<ExpressionF
      * Note the index is not validated against the correct position of this parameter within the parameter list.
      */
     public T getOrFail(final List<Object> parameters,
-                       final int index,
-                       final ExpressionEvaluationContext context) {
+                       final int index) {
         Objects.requireNonNull(parameters, "parameters");
 
         Object value;
@@ -304,8 +269,7 @@ public final class ExpressionFunctionParameter<T> implements HasName<ExpressionF
             if (this.cardinality == ExpressionFunctionParameterCardinality.REQUIRED) {
                 throw new IndexOutOfBoundsException("Required parameter " + this.name() + " missing");
             }
-            value = this.defaultValue.apply(context)
-                .orElse(null);
+            value = this.defaultValue.orElse(null);
         } else {
             value = parameters.get(index);
         }

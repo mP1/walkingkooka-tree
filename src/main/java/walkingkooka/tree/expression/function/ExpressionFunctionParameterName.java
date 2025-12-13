@@ -25,6 +25,7 @@ import walkingkooka.text.CaseSensitivity;
 
 import java.util.Map;
 import java.util.Objects;
+import java.util.Optional;
 import java.util.TreeMap;
 
 /**
@@ -142,7 +143,7 @@ public final class ExpressionFunctionParameterName implements Name,
             this,
             type,
             cardinality,
-            ExpressionFunctionParameter.withoutDefaultValue(),
+            Optional.empty(),
             ExpressionFunctionParameter.NO_KINDS
         );
     }
