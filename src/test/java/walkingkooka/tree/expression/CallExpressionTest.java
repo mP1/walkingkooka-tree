@@ -415,7 +415,7 @@ public final class CallExpressionTest extends VariableExpressionTestCase<CallExp
 
                             checkEquals(
                                 namedFunctionParameterValue,
-                                a.getOrFail(parameters, 0, context),
+                                a.getOrFail(parameters, 0),
                                 "a"
                             );
                             return new FakeExpressionFunction<>() {
@@ -441,16 +441,8 @@ public final class CallExpressionTest extends VariableExpressionTestCase<CallExp
                                                     final ExpressionEvaluationContext context) {
                                     this.checkParameterCount(parameters);
 
-                                    final ExpressionNumber x = this.x.getOrFail(
-                                        parameters,
-                                        0,
-                                        context
-                                    );
-                                    final ExpressionNumber y = this.y.getOrFail(
-                                        parameters,
-                                        1,
-                                        context
-                                    );
+                                    final ExpressionNumber x = this.x.getOrFail(parameters, 0);
+                                    final ExpressionNumber y = this.y.getOrFail(parameters, 1);
                                     return x.add(y, context);
                                 }
 
