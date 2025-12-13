@@ -61,7 +61,7 @@ final class ExpressionNumberFunctionExpressionFunction<C extends ExpressionEvalu
                                   final C context) {
         this.checkParameterCount(parameters);
 
-        return NUMBER.getOrFail(parameters, 0)
+        return NUMBER.getOrFail(parameters, 0, context)
             .map(
                 this.function,
                 context.mathContext()
