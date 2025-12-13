@@ -412,7 +412,11 @@ public final class BasicExpressionEvaluationContextTest implements ClassTesting2
                     @Override
                     public Object apply(final List<Object> values,
                                         final ExpressionEvaluationContext context) {
-                        ExpressionFunctionParameter.NUMBER.getOrFail(values, 0);
+                        ExpressionFunctionParameter.NUMBER.getOrFail(
+                            values,
+                            0,
+                            context
+                        );
                         throw new UnsupportedOperationException();
                     }
                 },

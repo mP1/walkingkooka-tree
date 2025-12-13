@@ -263,7 +263,7 @@ public final class ScopedExpressionEvaluationContextTest implements ExpressionEv
                     ExpressionFunctionParameterName.with("reference-parameter"),
                     Object.class,
                     ExpressionFunctionParameterCardinality.REQUIRED,
-                    Optional.empty(), // defaultValue
+                    ExpressionFunctionParameter.withoutDefaultValue(), // defaultValue
                     ExpressionFunctionParameter.NO_KINDS
                 )
             );

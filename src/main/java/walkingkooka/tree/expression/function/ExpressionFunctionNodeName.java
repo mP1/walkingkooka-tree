@@ -55,7 +55,7 @@ final class ExpressionFunctionNodeName<C extends ExpressionEvaluationContext> im
                         final C context) {
         this.checkParameterCount(parameters);
 
-        return NODE.getOrFail(parameters, 0)
+        return NODE.getOrFail(parameters, 0, context)
             .name()
             .value();
     }
