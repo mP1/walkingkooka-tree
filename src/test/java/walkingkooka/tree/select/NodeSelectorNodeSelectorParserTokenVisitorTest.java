@@ -1840,6 +1840,9 @@ public final class NodeSelectorNodeSelectorParserTokenVisitorTest implements Nod
                         this.node,
                         ExpressionEvaluationContexts.basic(
                             EXPRESSION_NUMBER_KIND,
+                            (e, c) -> {
+                                throw new UnsupportedOperationException();
+                            },
                             Cast.to(this.functions()),
                             (runtimeException) -> {
                                 throw runtimeException;

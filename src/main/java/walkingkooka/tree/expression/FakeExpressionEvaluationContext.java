@@ -53,6 +53,11 @@ public class FakeExpressionEvaluationContext extends FakeExpressionNumberConvert
     }
 
     @Override
+    public Object evaluate(final String expression) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
     public ExpressionFunction<?, ExpressionEvaluationContext> expressionFunction(final ExpressionFunctionName name) {
         Objects.requireNonNull(name, "name");
         throw new UnsupportedOperationException();

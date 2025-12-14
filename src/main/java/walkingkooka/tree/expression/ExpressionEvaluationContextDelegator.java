@@ -130,6 +130,12 @@ public interface ExpressionEvaluationContextDelegator extends ExpressionEvaluati
     // ExpressionEvaluationContext......................................................................................
 
     @Override
+    default Object evaluate(final String expression) {
+        return this.expressionEvaluationContext()
+            .evaluate(expression);
+    }
+
+    @Override
     default boolean isPure(final ExpressionFunctionName name) {
         return this.expressionEvaluationContext().isPure(name);
     }

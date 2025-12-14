@@ -160,6 +160,10 @@ public final class BasicNodeSelectorExpressionEvaluationContextTest implements N
             node,
             ExpressionEvaluationContexts.basic(
                 EXPRESSION_NUMBER_KIND,
+                (e, c) -> {
+                    Objects.requireNonNull(e, "expression");
+                    throw new UnsupportedOperationException();
+                },
                 this.functions(),
                 this.exceptionHandler(),
                 this.references(),

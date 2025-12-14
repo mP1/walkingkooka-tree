@@ -89,6 +89,10 @@ public final class ExpressionEvaluationContextDelegatorTest implements Expressio
 
             this.expressionEvaluationContext = ExpressionEvaluationContexts.basic(
                 ExpressionNumberKind.BIG_DECIMAL,
+                (e, c) -> {
+                    Objects.requireNonNull(e, "expression");
+                    throw new UnsupportedOperationException();
+                },
                 (fn) -> {
                     Objects.requireNonNull(fn, "fn");
                     throw new UnsupportedOperationException();

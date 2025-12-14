@@ -25,6 +25,7 @@ import walkingkooka.text.CaseSensitivity;
 import walkingkooka.tree.expression.function.ExpressionFunction;
 
 import java.util.Optional;
+import java.util.function.BiFunction;
 import java.util.function.Function;
 
 public final class ExpressionEvaluationContexts implements PublicStaticHelper {
@@ -33,6 +34,7 @@ public final class ExpressionEvaluationContexts implements PublicStaticHelper {
      * {@see BasicExpressionEvaluationContext}
      */
     public static ExpressionEvaluationContext basic(final ExpressionNumberKind expressionNumberKind,
+                                                    final BiFunction<String, ExpressionEvaluationContext, Object> evaluator,
                                                     final Function<ExpressionFunctionName, ExpressionFunction<?, ExpressionEvaluationContext>> functions,
                                                     final Function<RuntimeException, Object> exceptionHandler,
                                                     final Function<ExpressionReference, Optional<Optional<Object>>> references,
@@ -43,6 +45,7 @@ public final class ExpressionEvaluationContexts implements PublicStaticHelper {
                                                     final LocaleContext localeContext) {
         return BasicExpressionEvaluationContext.with(
             expressionNumberKind,
+            evaluator,
             functions,
             exceptionHandler,
             references,
