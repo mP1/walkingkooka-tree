@@ -57,6 +57,11 @@ public interface ExpressionEvaluationContext extends ExpressionNumberConverterCo
     ExpressionEvaluationContext enterScope(final Function<ExpressionReference, Optional<Optional<Object>>> scoped);
 
     /**
+     * Evaluates the given expression or command giving a value.
+     */
+    Object evaluate(final String expression);
+
+    /**
      * If the value is a reference or expression resolve or evaluate.
      */
     default Object evaluateIfNecessary(final Object value) {

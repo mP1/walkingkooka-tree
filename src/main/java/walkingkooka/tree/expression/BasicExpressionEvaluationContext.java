@@ -34,6 +34,7 @@ import java.time.LocalDateTime;
 import java.util.Locale;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.function.BiFunction;
 import java.util.function.Function;
 
 /**
@@ -51,6 +52,7 @@ final class BasicExpressionEvaluationContext implements ExpressionEvaluationCont
      * Factory that creates a {@link BasicExpressionEvaluationContext}
      */
     static BasicExpressionEvaluationContext with(final ExpressionNumberKind expressionNumberKind,
+                                                 final BiFunction<String, ExpressionEvaluationContext, Object> evaluator,
                                                  final Function<ExpressionFunctionName, ExpressionFunction<?, ExpressionEvaluationContext>> functions,
                                                  final Function<RuntimeException, Object> exceptionHandler,
                                                  final Function<ExpressionReference, Optional<Optional<Object>>> references,
@@ -60,6 +62,7 @@ final class BasicExpressionEvaluationContext implements ExpressionEvaluationCont
                                                  final EnvironmentContext environmentContext,
                                                  final LocaleContext localeContext) {
         Objects.requireNonNull(expressionNumberKind, "expressionNumberKind");
+        Objects.requireNonNull(evaluator, "evaluator");
         Objects.requireNonNull(functions, "functions");
         Objects.requireNonNull(exceptionHandler, "exceptionHandler");
         Objects.requireNonNull(references, "references");
@@ -71,6 +74,7 @@ final class BasicExpressionEvaluationContext implements ExpressionEvaluationCont
 
         return new BasicExpressionEvaluationContext(
             expressionNumberKind,
+            evaluator,
             functions,
             exceptionHandler,
             references,
@@ -86,6 +90,7 @@ final class BasicExpressionEvaluationContext implements ExpressionEvaluationCont
      * Private ctor use factory
      */
     private BasicExpressionEvaluationContext(final ExpressionNumberKind expressionNumberKind,
+                                             final BiFunction<String, ExpressionEvaluationContext, Object> evaluator,
                                              final Function<ExpressionFunctionName, ExpressionFunction<?, ExpressionEvaluationContext>> functions,
                                              final Function<RuntimeException, Object> exceptionHandler,
                                              final Function<ExpressionReference, Optional<Optional<Object>>> references,
@@ -97,6 +102,7 @@ final class BasicExpressionEvaluationContext implements ExpressionEvaluationCont
         super();
 
         this.expressionNumberKind = expressionNumberKind;
+        this.evaluator = evaluator;
         this.exceptionHandler = exceptionHandler;
         this.functions = functions;
         this.references = references;
@@ -106,6 +112,16 @@ final class BasicExpressionEvaluationContext implements ExpressionEvaluationCont
         this.environmentContext = environmentContext;
         this.localeContext = localeContext;
     }
+
+    @Override
+    public Object evaluate(final String expression) {
+        return this.evaluator.apply(
+            expression,
+            this
+        );
+    }
+
+    private final BiFunction<String, ExpressionEvaluationContext, Object> evaluator;
 
     @Override
     public CaseSensitivity stringEqualsCaseSensitivity() {
@@ -200,6 +216,7 @@ final class BasicExpressionEvaluationContext implements ExpressionEvaluationCont
             this :
             new BasicExpressionEvaluationContext(
                 this.expressionNumberKind,
+                this.evaluator,
                 this.functions,
                 this.exceptionHandler,
                 this.references,
@@ -278,6 +295,8 @@ final class BasicExpressionEvaluationContext implements ExpressionEvaluationCont
     @Override
     public String toString() {
         return this.expressionNumberKind +
+            " " +
+            this.evaluator +
             " " +
             this.functions +
             " " +

@@ -88,6 +88,9 @@ public final class BasicNodeSelectorContextTest implements ClassTesting2<BasicNo
         public ExpressionEvaluationContext apply(final NodeSelectorContext<TestNode, StringName, StringName, Object> context) {
             return ExpressionEvaluationContexts.basic(
                 KIND,
+                (e, c) -> {
+                    throw new UnsupportedOperationException();
+                },
                 this.functions(),
                 this.exceptionHandler(),
                 this.references(),

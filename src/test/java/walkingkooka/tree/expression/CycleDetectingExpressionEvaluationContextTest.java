@@ -436,6 +436,10 @@ public final class CycleDetectingExpressionEvaluationContextTest implements Clas
         return this.createContext(
             ExpressionEvaluationContexts.basic(
                 ExpressionNumberKind.DEFAULT,
+                (e, c) -> {
+                    Objects.requireNonNull(e, "expression");
+                    throw new UnsupportedOperationException();
+                },
                 (functionName) -> {
                     Objects.requireNonNull(functionName, "functionName");
                     throw new UnknownExpressionFunctionException(functionName);

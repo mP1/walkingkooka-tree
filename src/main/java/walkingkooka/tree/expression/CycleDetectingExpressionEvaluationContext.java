@@ -70,6 +70,11 @@ final class CycleDetectingExpressionEvaluationContext implements ExpressionEvalu
     }
 
     @Override
+    public Object evaluate(final String expression) {
+        return this.context.evaluate(expression);
+    }
+
+    @Override
     public boolean isPure(final ExpressionFunctionName name) {
         return this.context.isPure(name);
     }

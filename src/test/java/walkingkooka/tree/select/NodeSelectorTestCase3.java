@@ -561,6 +561,9 @@ abstract public class NodeSelectorTestCase3<S extends NodeSelector<TestNode, Str
             c.node(),
             ExpressionEvaluationContexts.basic(
                 EXPRESSION_NUMBER_KIND,
+                (e, eec) -> {
+                    throw new UnsupportedOperationException();
+                },
                 this.functions(),
                 this.exceptionHandler(),
                 this.references(),

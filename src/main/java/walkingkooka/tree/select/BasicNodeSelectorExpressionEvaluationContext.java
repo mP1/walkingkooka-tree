@@ -109,6 +109,11 @@ final class BasicNodeSelectorExpressionEvaluationContext<N extends Node<N, NAME,
     }
 
     @Override
+    public Object evaluate(final String expression) {
+        return this.context.evaluate(expression);
+    }
+
+    @Override
     public ExpressionFunction<?, ExpressionEvaluationContext> expressionFunction(final ExpressionFunctionName name) {
         return this.context.expressionFunction(name);
     }

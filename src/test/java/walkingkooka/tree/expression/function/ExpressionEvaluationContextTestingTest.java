@@ -142,6 +142,12 @@ public class ExpressionEvaluationContextTestingTest implements ExpressionEvaluat
         }
 
         @Override
+        public Object evaluate(final String expression) {
+            Objects.requireNonNull(expression, "expression");
+            throw new UnsupportedOperationException();
+        }
+
+        @Override
         public <T> T prepareParameter(final ExpressionFunctionParameter<T> parameter,
                                       final Object value) {
             throw new UnsupportedOperationException();

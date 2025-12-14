@@ -285,6 +285,10 @@ public final class ScopedExpressionEvaluationContextTest implements ExpressionEv
             REFERENCE_TO_VALUE,
             ExpressionEvaluationContexts.basic(
                 ExpressionNumberKind.BIG_DECIMAL,
+                (e, c) -> {
+                    Objects.requireNonNull(e, "expression");
+                    throw new UnsupportedOperationException();
+                },
                 (fn) -> {
                     Objects.requireNonNull(fn, "fn");
                     throw new UnsupportedOperationException();

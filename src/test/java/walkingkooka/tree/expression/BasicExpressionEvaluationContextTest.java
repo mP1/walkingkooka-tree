@@ -52,6 +52,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.function.BiFunction;
 import java.util.function.Function;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -62,6 +63,11 @@ public final class BasicExpressionEvaluationContextTest implements ClassTesting2
     DecimalNumberContextDelegator {
 
     private final static ExpressionNumberKind KIND = ExpressionNumberKind.DEFAULT;
+
+    private final static BiFunction<String, ExpressionEvaluationContext, Object> EVALUATOR = (e, c) -> {
+        Objects.requireNonNull(e, "expression");
+        return e + e;
+    };
 
     private final static ExpressionReference REFERENCE = new FakeExpressionReference() {
     };
@@ -104,6 +110,7 @@ public final class BasicExpressionEvaluationContextTest implements ClassTesting2
             NullPointerException.class,
             () -> BasicExpressionEvaluationContext.with(
                 null,
+                EVALUATOR,
                 this.functions(),
                 EXCEPTION_HANDLER,
                 this.references(),
@@ -122,6 +129,7 @@ public final class BasicExpressionEvaluationContextTest implements ClassTesting2
             NullPointerException.class,
             () -> BasicExpressionEvaluationContext.with(
                 KIND,
+                EVALUATOR,
                 null,
                 EXCEPTION_HANDLER,
                 this.references(),
@@ -140,6 +148,7 @@ public final class BasicExpressionEvaluationContextTest implements ClassTesting2
             NullPointerException.class,
             () -> BasicExpressionEvaluationContext.with(
                 KIND,
+                EVALUATOR,
                 this.functions(),
                 null,
                 this.references(),
@@ -158,6 +167,7 @@ public final class BasicExpressionEvaluationContextTest implements ClassTesting2
             NullPointerException.class,
             () -> BasicExpressionEvaluationContext.with(
                 KIND,
+                EVALUATOR,
                 this.functions(),
                 EXCEPTION_HANDLER,
                 null,
@@ -176,6 +186,7 @@ public final class BasicExpressionEvaluationContextTest implements ClassTesting2
             NullPointerException.class,
             () -> BasicExpressionEvaluationContext.with(
                 KIND,
+                EVALUATOR,
                 this.functions(),
                 EXCEPTION_HANDLER,
                 this.references(),
@@ -194,6 +205,7 @@ public final class BasicExpressionEvaluationContextTest implements ClassTesting2
             NullPointerException.class,
             () -> BasicExpressionEvaluationContext.with(
                 KIND,
+                EVALUATOR,
                 this.functions(),
                 EXCEPTION_HANDLER,
                 this.references(),
@@ -212,6 +224,7 @@ public final class BasicExpressionEvaluationContextTest implements ClassTesting2
             NullPointerException.class,
             () -> BasicExpressionEvaluationContext.with(
                 KIND,
+                EVALUATOR,
                 this.functions(),
                 EXCEPTION_HANDLER,
                 this.references(),
@@ -230,6 +243,7 @@ public final class BasicExpressionEvaluationContextTest implements ClassTesting2
             NullPointerException.class,
             () -> BasicExpressionEvaluationContext.with(
                 KIND,
+                EVALUATOR,
                 this.functions(),
                 EXCEPTION_HANDLER,
                 this.references(),
@@ -248,6 +262,7 @@ public final class BasicExpressionEvaluationContextTest implements ClassTesting2
             NullPointerException.class,
             () -> BasicExpressionEvaluationContext.with(
                 KIND,
+                EVALUATOR,
                 this.functions(),
                 EXCEPTION_HANDLER,
                 this.references(),
@@ -354,6 +369,7 @@ public final class BasicExpressionEvaluationContextTest implements ClassTesting2
         this.evaluateExpressionAndCheck(
             BasicExpressionEvaluationContext.with(
                 kind,
+                EVALUATOR,
                 (n) -> {
                     throw new UnsupportedOperationException();
                 },
@@ -394,6 +410,7 @@ public final class BasicExpressionEvaluationContextTest implements ClassTesting2
             ConverterException.class,
             () -> BasicExpressionEvaluationContext.with(
                 ExpressionNumberKind.BIG_DECIMAL,
+                EVALUATOR,
                 (n) -> new FakeExpressionFunction<>() {
                     @Override
                     public Optional<ExpressionFunctionName> name() {
@@ -461,6 +478,7 @@ public final class BasicExpressionEvaluationContextTest implements ClassTesting2
         this.evaluateExpressionAndCheck(
             BasicExpressionEvaluationContext.with(
                 kind,
+                EVALUATOR,
                 (n) -> {
                     throw new UnsupportedOperationException();
                 },
@@ -641,6 +659,7 @@ public final class BasicExpressionEvaluationContextTest implements ClassTesting2
         this.evaluateFunctionAndCheck(
             BasicExpressionEvaluationContext.with(
                 kind,
+                EVALUATOR,
                 (n) -> {
                     throw new UnsupportedOperationException();
                 },
@@ -697,6 +716,7 @@ public final class BasicExpressionEvaluationContextTest implements ClassTesting2
         this.evaluateFunctionAndCheck(
             BasicExpressionEvaluationContext.with(
                 kind,
+                EVALUATOR,
                 (n) -> {
                     throw new UnsupportedOperationException();
                 },
@@ -854,6 +874,7 @@ public final class BasicExpressionEvaluationContextTest implements ClassTesting2
         this.toStringAndCheck(
             BasicExpressionEvaluationContext.with(
                 KIND,
+                EVALUATOR,
                 functions,
                 EXCEPTION_HANDLER,
                 references,
@@ -864,6 +885,8 @@ public final class BasicExpressionEvaluationContextTest implements ClassTesting2
                 LOCALE_CONTEXT
             ),
             KIND +
+                " " +
+                EVALUATOR +
                 " " +
                 functions +
                 " " +
@@ -908,6 +931,7 @@ public final class BasicExpressionEvaluationContextTest implements ClassTesting2
                                                            final CaseSensitivity caseSensitivity) {
         return BasicExpressionEvaluationContext.with(
             KIND,
+            EVALUATOR,
             this.functions(pure),
             EXCEPTION_HANDLER,
             this.references(),
@@ -923,6 +947,7 @@ public final class BasicExpressionEvaluationContextTest implements ClassTesting2
                                                            final Function<RuntimeException, Object> exceptionHandler) {
         return BasicExpressionEvaluationContext.with(
             KIND,
+            EVALUATOR,
             functions,
             exceptionHandler,
             this.references(),
@@ -997,6 +1022,7 @@ public final class BasicExpressionEvaluationContextTest implements ClassTesting2
     private BasicExpressionEvaluationContext createContext(final Function<ExpressionReference, Optional<Optional<Object>>> references) {
         return BasicExpressionEvaluationContext.with(
             KIND,
+            EVALUATOR,
             (n) -> {
                 throw new UnsupportedOperationException();
             },
