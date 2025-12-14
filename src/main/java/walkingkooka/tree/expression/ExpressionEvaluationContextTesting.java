@@ -82,16 +82,6 @@ public interface ExpressionEvaluationContextTesting<C extends ExpressionEvaluati
     default void evaluateAndCheck(final C context,
                                   final String text,
                                   final Object expected) {
-        this.evaluateAndCheck(
-            context,
-            text,
-            Optional.of(expected)
-        );
-    }
-
-    default void evaluateAndCheck(final C context,
-                                  final String text,
-                                  final Optional<Object> expected) {
         this.checkEquals(
             expected,
             context.evaluate(text),
