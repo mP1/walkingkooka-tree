@@ -75,6 +75,16 @@ public class ExpressionEvaluationContextTestingTest implements ExpressionEvaluat
     }
 
     @Override
+    public void testRemoveEnvironmentValueWithNowFails() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public void testSetEnvironmentValueWithNowFails() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
     public TestExpressionEvaluationContext createContext() {
         return new TestExpressionEvaluationContext();
     }
