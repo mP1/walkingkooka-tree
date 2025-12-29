@@ -215,7 +215,7 @@ public class ExpressionEvaluationContextTestingTest implements ExpressionEvaluat
                 locale,
                 50, // defaultYear
                 1950, // twoDigitYear
-                LocalDateTime::now
+                () -> LocalDateTime.MIN
             );
         }
 
@@ -300,7 +300,7 @@ public class ExpressionEvaluationContextTestingTest implements ExpressionEvaluat
             EnvironmentContexts.empty(
                 LineEnding.NL,
                 Locale.ENGLISH,
-                LocalDateTime::now,
+                () -> LocalDateTime.MIN,
                 EnvironmentContext.ANONYMOUS
             )
         );
