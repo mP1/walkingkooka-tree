@@ -465,7 +465,7 @@ public final class CycleDetectingExpressionEvaluationContextTest implements Clas
                         locale,
                         1950, // defaultYear
                         50, // twoDigitYear
-                        LocalDateTime::now
+                        () -> LocalDateTime.MIN
                     ),
                     this.decimalNumberContext()
                 ),
@@ -473,7 +473,7 @@ public final class CycleDetectingExpressionEvaluationContextTest implements Clas
                     EnvironmentContexts.empty(
                         LineEnding.NL,
                         locale,
-                        LocalDateTime::now,
+                        () -> LocalDateTime.MIN,
                         EnvironmentContext.ANONYMOUS
                     )
                 ),

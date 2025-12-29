@@ -119,7 +119,7 @@ public final class ExpressionEvaluationContextDelegatorTest implements Expressio
                         locale,
                         1900,
                         50,
-                        LocalDateTime::now
+                        () -> LocalDateTime.MIN
                     ),
                     DecimalNumberContexts.american(MathContext.DECIMAL32)
                 ),
@@ -127,7 +127,7 @@ public final class ExpressionEvaluationContextDelegatorTest implements Expressio
                     EnvironmentContexts.empty(
                         LineEnding.NL,
                         locale,
-                        LocalDateTime::now,
+                        () -> LocalDateTime.MIN,
                         EnvironmentContext.ANONYMOUS
                     )
                 ),

@@ -174,7 +174,7 @@ public final class BasicNodeSelectorExpressionEvaluationContextTest implements N
                     EnvironmentContexts.empty(
                         LineEnding.NL,
                         locale,
-                        LocalDateTime::now,
+                        () -> LocalDateTime.MIN,
                         EnvironmentContext.ANONYMOUS
                     )
                 ),

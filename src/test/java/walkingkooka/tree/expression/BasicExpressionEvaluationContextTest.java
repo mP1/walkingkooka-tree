@@ -94,7 +94,7 @@ public final class BasicExpressionEvaluationContextTest implements ClassTesting2
             EnvironmentContexts.empty(
                 LineEnding.NL,
                 Locale.forLanguageTag("en-AU"),
-                LocalDateTime::now,
+                () -> LocalDateTime.MIN,
                 EnvironmentContext.ANONYMOUS
             )
         )
