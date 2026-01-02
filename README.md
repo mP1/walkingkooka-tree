@@ -102,7 +102,6 @@ requirements, like locating cell/label references, parsing spreadsheet formula e
   - [Json](https://github.com/mP1/walkingkooka-tree-json/tree/master/src/main/java/walkingkooka/tree/json) Json objects.
   - [Patch](https://github.com/mP1/walkingkooka-tree-patch/tree/master/src/main/java/walkingkooka/tree/patch) JSON Patch
   - [Pojo](https://github.com/mP1/walkingkooka-tree-pojo/tree/master/src/main/java/walkingkooka/tree/pojo) Java POJOs
-  - [Search](https://github.com/mP1/walkingkooka-tree-search/tree/master/src/main/java/walkingkooka/tree/search) Text
     with highlight support
   - [Xml](https://github.com/mP1/walkingkooka-tree-xml/tree/master/src/main/java/walkingkooka/tree/xml) Xml documents
 
