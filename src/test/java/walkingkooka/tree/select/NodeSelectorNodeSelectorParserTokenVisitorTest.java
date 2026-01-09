@@ -38,6 +38,7 @@ import walkingkooka.predicate.Predicates;
 import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.text.CaseSensitivity;
 import walkingkooka.text.CharSequences;
+import walkingkooka.text.LineEnding;
 import walkingkooka.text.cursor.TextCursors;
 import walkingkooka.text.cursor.parser.ParserReporters;
 import walkingkooka.tree.TestNode;
@@ -2012,6 +2013,7 @@ public final class NodeSelectorNodeSelectorParserTokenVisitorTest implements Nod
                         ConverterContexts.basic(
                             false, // canNumbersHaveGroupSeparator
                             Converters.JAVA_EPOCH_OFFSET, // dateOffset
+                            LineEnding.NL,
                             ',', // valueSeparator
                             Converters.fake(),
                             DateTimeContexts.fake(),

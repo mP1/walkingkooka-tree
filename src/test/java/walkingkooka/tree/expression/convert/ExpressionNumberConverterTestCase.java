@@ -24,6 +24,7 @@ import walkingkooka.convert.ConverterTesting2;
 import walkingkooka.convert.Converters;
 import walkingkooka.datetime.DateTimeContexts;
 import walkingkooka.math.DecimalNumberContexts;
+import walkingkooka.text.LineEnding;
 import walkingkooka.tree.expression.ExpressionNumberKind;
 
 import java.math.MathContext;
@@ -55,6 +56,7 @@ public abstract class ExpressionNumberConverterTestCase<C extends ExpressionNumb
             ConverterContexts.basic(
                 false, // canNumbersHaveGroupSeparator
                 Converters.JAVA_EPOCH_OFFSET, // dateOffset
+                LineEnding.NL,
                 ',', // valueSeparator
                 Converters.fake(),
                 DateTimeContexts.fake(),

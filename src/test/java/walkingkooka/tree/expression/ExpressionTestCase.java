@@ -36,6 +36,7 @@ import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.reflect.PublicStaticFactoryTesting;
 import walkingkooka.text.CaseSensitivity;
 import walkingkooka.text.HasTextTesting;
+import walkingkooka.text.LineEnding;
 import walkingkooka.text.cursor.parser.DoubleParserToken;
 import walkingkooka.text.cursor.parser.InvalidCharacterExceptionFactory;
 import walkingkooka.text.cursor.parser.LocalDateParserToken;
@@ -385,6 +386,7 @@ public abstract class ExpressionTestCase<N extends Expression> implements TreePr
             ConverterContexts.basic(
                 false, // canNumbersHaveGroupSeparator
                 Converters.JAVA_EPOCH_OFFSET,
+                LineEnding.NL,
                 ',', // valueSeparator
                 Converters.simple(),
                 DateTimeContexts.basic(

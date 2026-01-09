@@ -379,6 +379,7 @@ public final class CycleDetectingExpressionEvaluationContextTest implements Clas
                             ConverterContexts.basic(
                                 false, // canNumbersHaveGroupSeparator
                                 Converters.JAVA_EPOCH_OFFSET, // dateOffset
+                                LineEnding.NL,
                                 ',', // valueSeparator
                                 Converters.characterOrCharSequenceOrHasTextOrStringToCharacterOrCharSequenceOrString(),
                                 DateTimeContexts.fake(),
@@ -456,6 +457,7 @@ public final class CycleDetectingExpressionEvaluationContextTest implements Clas
                 ConverterContexts.basic(
                     false, // canNumbersHaveGroupSeparator
                     Converters.JAVA_EPOCH_OFFSET,
+                    LineEnding.NL,
                     ',', // valueSeparator
                     Converters.simple(), // converter
                     DateTimeContexts.basic(

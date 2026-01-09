@@ -28,6 +28,7 @@ import walkingkooka.datetime.DateTimeSymbols;
 import walkingkooka.math.DecimalNumberContext;
 import walkingkooka.math.DecimalNumberContextDelegator;
 import walkingkooka.math.DecimalNumberContexts;
+import walkingkooka.text.LineEnding;
 import walkingkooka.tree.expression.ExpressionNumberKind;
 
 import java.math.MathContext;
@@ -80,6 +81,7 @@ public final class BasicExpressionNumberConverterContextTest implements Expressi
         return ConverterContexts.basic(
             false, // canNumbersHaveGroupSeparator
             Converters.JAVA_EPOCH_OFFSET, // dateOffset
+            LineEnding.NL,
             ',', // valueSeparator
             Converters.fake(),
             DateTimeContexts.basic(

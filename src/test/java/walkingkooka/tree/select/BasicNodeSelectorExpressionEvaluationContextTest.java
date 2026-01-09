@@ -215,6 +215,7 @@ public final class BasicNodeSelectorExpressionEvaluationContextTest implements N
             ConverterContexts.basic(
                 false, // canNumbersHaveGroupSeparator
                 Converters.JAVA_EPOCH_OFFSET, // dateOffset
+                LineEnding.NL,
                 ',', // valueSeparator
                 Converters.fake(),
                 DateTimeContexts.basic(

@@ -24,6 +24,7 @@ import walkingkooka.datetime.DateTimeContext;
 import walkingkooka.datetime.DateTimeContextDelegator;
 import walkingkooka.math.DecimalNumberContext;
 import walkingkooka.math.DecimalNumberContextDelegator;
+import walkingkooka.text.LineEnding;
 import walkingkooka.tree.expression.ExpressionNumberKind;
 
 import java.util.Locale;
@@ -61,6 +62,11 @@ final class BasicExpressionNumberConverterContext implements ExpressionNumberCon
     @Override
     public long dateOffset() {
         return this.context.dateOffset();
+    }
+
+    @Override
+    public LineEnding lineEnding() {
+        return this.context.lineEnding();
     }
 
     @Override

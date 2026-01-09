@@ -83,6 +83,13 @@ public interface ExpressionEvaluationContextDelegator extends ExpressionEvaluati
         return this;
     }
 
+    // must not use ConverterContext.lineEnding
+    @Override
+    default LineEnding lineEnding() {
+        return this.expressionEvaluationContext()
+            .lineEnding();
+    }
+
     @Override
     default ExpressionEvaluationContext setLineEnding(final LineEnding lineEnding) {
         this.environmentContext()
