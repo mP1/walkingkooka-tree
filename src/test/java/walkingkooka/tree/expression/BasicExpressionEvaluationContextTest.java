@@ -28,6 +28,8 @@ import walkingkooka.convert.ConverterException;
 import walkingkooka.convert.Converters;
 import walkingkooka.convert.FakeConverterContext;
 import walkingkooka.datetime.DateTimeContexts;
+import walkingkooka.datetime.DateTimeSymbols;
+import walkingkooka.datetime.HasNow;
 import walkingkooka.environment.EnvironmentContext;
 import walkingkooka.environment.EnvironmentContexts;
 import walkingkooka.locale.LocaleContext;
@@ -47,6 +49,7 @@ import walkingkooka.tree.expression.function.FakeExpressionFunction;
 import walkingkooka.tree.expression.function.UnknownExpressionFunctionException;
 
 import java.math.MathContext;
+import java.text.DateFormatSymbols;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Locale;
@@ -89,12 +92,16 @@ public final class BasicExpressionEvaluationContextTest implements ClassTesting2
         throw r;
     };
 
+    private final static HasNow HAS_NOW = () -> LocalDateTime.MIN;
+
+    private final static Locale LOCALE = Locale.forLanguageTag("en-AU");
+
     private final static EnvironmentContext ENVIRONMENT_CONTEXT = EnvironmentContexts.readOnly(
         EnvironmentContexts.map(
             EnvironmentContexts.empty(
                 LineEnding.NL,
-                Locale.forLanguageTag("en-AU"),
-                () -> LocalDateTime.MIN,
+                LOCALE,
+                HAS_NOW,
                 EnvironmentContext.ANONYMOUS
             )
         )
@@ -1030,7 +1037,7 @@ public final class BasicExpressionEvaluationContextTest implements ClassTesting2
             references,
             REFERENCE_NOT_FOUND,
             CASE_SENSITIVITY,
-            ConverterContexts.fake(),
+            this.converterContext(),
             ENVIRONMENT_CONTEXT.cloneEnvironment(),
             LOCALE_CONTEXT
         );
@@ -1047,7 +1054,15 @@ public final class BasicExpressionEvaluationContextTest implements ClassTesting2
                     Converters.simple()
                 )
             ),
-            DateTimeContexts.fake(),
+            DateTimeContexts.basic(
+                DateTimeSymbols.fromDateFormatSymbols(
+                    new DateFormatSymbols(LOCALE)
+                ),
+                LOCALE,
+                1950, // defaultYear
+                50, // twoDigitYear
+                HAS_NOW
+            ),
             this.decimalNumberContext()
         );
     }

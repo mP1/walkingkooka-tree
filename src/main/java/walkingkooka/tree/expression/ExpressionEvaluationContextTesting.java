@@ -18,7 +18,7 @@
 package walkingkooka.tree.expression;
 
 import org.junit.jupiter.api.Test;
-import walkingkooka.convert.CanConvertTesting;
+import walkingkooka.convert.ConverterLikeTesting;
 import walkingkooka.environment.EnvironmentContextTesting2;
 import walkingkooka.locale.LocaleContextTesting2;
 import walkingkooka.text.printer.TreePrintableTesting;
@@ -36,7 +36,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
  * Mixing testing interface for {@link ExpressionEvaluationContext}
  */
 public interface ExpressionEvaluationContextTesting<C extends ExpressionEvaluationContext> extends
-    CanConvertTesting<C>,
+    ConverterLikeTesting<C>,
     EnvironmentContextTesting2<C>,
     ExpressionNumberContextTesting<C>,
     ExpressionPurityContextTesting<C>,
@@ -272,7 +272,7 @@ public interface ExpressionEvaluationContextTesting<C extends ExpressionEvaluati
     // ExpressionEvaluationContext......................................................................................
 
     @Override
-    default C createCanConvert() {
+    default C createConverterLike() {
         return this.createContext();
     }
 
