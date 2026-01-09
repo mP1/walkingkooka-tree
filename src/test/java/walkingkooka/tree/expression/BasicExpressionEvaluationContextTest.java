@@ -116,7 +116,7 @@ public final class BasicExpressionEvaluationContextTest implements ClassTesting2
     private final static ConverterContext CONVERTER_CONTEXT = ConverterContexts.basic(
         false, // canNumbersHaveGroupSeparator
         Converters.JAVA_EPOCH_OFFSET, // dateOffset
-        LineEnding.NL,
+        LineEnding.CRNL,
         ',', // valueSeparator
         Converters.collection(
             Lists.of(
@@ -316,6 +316,21 @@ public final class BasicExpressionEvaluationContextTest implements ClassTesting2
                 ENVIRONMENT_CONTEXT,
                 null
             )
+        );
+    }
+
+    // lineEnding.......................................................................................................
+
+    @Test
+    public void testLineEnding() {
+        this.checkNotEquals(
+            ENVIRONMENT_CONTEXT.lineEnding(),
+            CONVERTER_CONTEXT.lineEnding()
+        );
+
+        this.lineEndingAndCheck(
+            this.createContext(),
+            ENVIRONMENT_CONTEXT.lineEnding()
         );
     }
 
