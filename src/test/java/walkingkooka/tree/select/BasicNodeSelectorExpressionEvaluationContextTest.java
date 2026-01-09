@@ -24,6 +24,8 @@ import walkingkooka.collect.map.Maps;
 import walkingkooka.convert.ConverterContexts;
 import walkingkooka.convert.Converters;
 import walkingkooka.datetime.DateTimeContexts;
+import walkingkooka.datetime.DateTimeSymbols;
+import walkingkooka.datetime.HasNow;
 import walkingkooka.environment.EnvironmentContext;
 import walkingkooka.environment.EnvironmentContexts;
 import walkingkooka.locale.LocaleContexts;
@@ -48,6 +50,7 @@ import walkingkooka.tree.expression.function.UnknownExpressionFunctionException;
 import walkingkooka.tree.select.parser.NodeSelectorAttributeName;
 
 import java.math.MathContext;
+import java.text.DateFormatSymbols;
 import java.time.LocalDateTime;
 import java.util.Locale;
 import java.util.Objects;
@@ -60,6 +63,8 @@ public final class BasicNodeSelectorExpressionEvaluationContextTest implements N
     DecimalNumberContextDelegator {
 
     private final static ExpressionNumberKind EXPRESSION_NUMBER_KIND = ExpressionNumberKind.DEFAULT;
+
+    private final static HasNow HAS_NOW = () -> LocalDateTime.MIN;
 
     @BeforeEach
     public void beforeEachTest() {
@@ -174,7 +179,7 @@ public final class BasicNodeSelectorExpressionEvaluationContextTest implements N
                     EnvironmentContexts.empty(
                         LineEnding.NL,
                         locale,
-                        () -> LocalDateTime.MIN,
+                        HAS_NOW,
                         EnvironmentContext.ANONYMOUS
                     )
                 ),
@@ -203,6 +208,8 @@ public final class BasicNodeSelectorExpressionEvaluationContextTest implements N
     }
 
     private ExpressionNumberConverterContext converterContext() {
+        final Locale locale = Locale.ENGLISH;
+
         return ExpressionNumberConverterContexts.basic(
             Converters.numberToNumber(),
             ConverterContexts.basic(
@@ -210,7 +217,15 @@ public final class BasicNodeSelectorExpressionEvaluationContextTest implements N
                 Converters.JAVA_EPOCH_OFFSET, // dateOffset
                 ',', // valueSeparator
                 Converters.fake(),
-                DateTimeContexts.fake(),
+                DateTimeContexts.basic(
+                    DateTimeSymbols.fromDateFormatSymbols(
+                        new DateFormatSymbols(locale)
+                    ),
+                    locale,
+                    1950, // defaultYear
+                    50, // twoDigitYear
+                    HAS_NOW
+                ),
                 decimalNumberContext()
             ),
             EXPRESSION_NUMBER_KIND

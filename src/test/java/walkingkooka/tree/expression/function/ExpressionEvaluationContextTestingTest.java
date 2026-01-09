@@ -213,8 +213,8 @@ public class ExpressionEvaluationContextTestingTest implements ExpressionEvaluat
                 localeContext.dateTimeSymbolsForLocale(locale)
                     .get(),
                 locale,
-                50, // defaultYear
-                1950, // twoDigitYear
+                1950, // defaultYear
+                50, // twoDigitYear
                 () -> LocalDateTime.MIN
             );
         }
