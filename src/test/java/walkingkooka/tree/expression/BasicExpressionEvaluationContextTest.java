@@ -111,6 +111,42 @@ public final class BasicExpressionEvaluationContextTest implements ClassTesting2
         ENVIRONMENT_CONTEXT.locale()
     );
 
+    private final static DecimalNumberContext DECIMAL_NUMBER_CONTEXT = DecimalNumberContexts.american(MathContext.DECIMAL32);
+
+    private final static ConverterContext CONVERTER_CONTEXT = ConverterContexts.basic(
+        false, // canNumbersHaveGroupSeparator
+        Converters.JAVA_EPOCH_OFFSET, // dateOffset
+        ',', // valueSeparator
+        Converters.collection(
+            Lists.of(
+                Converters.numberToNumber(),
+                Converters.simple()
+            )
+        ),
+        DateTimeContexts.basic(
+            DateTimeSymbols.fromDateFormatSymbols(
+                new DateFormatSymbols(LOCALE)
+            ),
+            LOCALE,
+            1950, // defaultYear
+            50, // twoDigitYear
+            HAS_NOW
+        ),
+        DECIMAL_NUMBER_CONTEXT
+    );
+
+    private final static Function<ExpressionReference, Optional<Optional<Object>>> REFERENCES = (r -> {
+        Objects.requireNonNull(r, "references");
+        if (false == REFERENCE.equals(r)) {
+            throw new IllegalArgumentException("Invalid reference " + r);
+        }
+
+        return Optional.of(
+            Optional.of(REFERENCE_VALUE)
+        );
+    }
+    );
+
     @Test
     public void testWithNullExpressionNumberKindFails() {
         assertThrows(
@@ -120,10 +156,10 @@ public final class BasicExpressionEvaluationContextTest implements ClassTesting2
                 EVALUATOR,
                 this.functions(),
                 EXCEPTION_HANDLER,
-                this.references(),
+                REFERENCES,
                 ExpressionEvaluationContexts.referenceNotFound(),
                 CASE_SENSITIVITY,
-                this.converterContext(),
+                CONVERTER_CONTEXT,
                 ENVIRONMENT_CONTEXT,
                 LOCALE_CONTEXT
             )
@@ -139,10 +175,10 @@ public final class BasicExpressionEvaluationContextTest implements ClassTesting2
                 EVALUATOR,
                 null,
                 EXCEPTION_HANDLER,
-                this.references(),
+                REFERENCES,
                 ExpressionEvaluationContexts.referenceNotFound(),
                 CASE_SENSITIVITY,
-                this.converterContext(),
+                CONVERTER_CONTEXT,
                 ENVIRONMENT_CONTEXT,
                 LOCALE_CONTEXT
             )
@@ -158,10 +194,10 @@ public final class BasicExpressionEvaluationContextTest implements ClassTesting2
                 EVALUATOR,
                 this.functions(),
                 null,
-                this.references(),
+                REFERENCES,
                 ExpressionEvaluationContexts.referenceNotFound(),
                 CASE_SENSITIVITY,
-                this.converterContext(),
+                CONVERTER_CONTEXT,
                 ENVIRONMENT_CONTEXT,
                 LOCALE_CONTEXT
             )
@@ -180,7 +216,7 @@ public final class BasicExpressionEvaluationContextTest implements ClassTesting2
                 null,
                 ExpressionEvaluationContexts.referenceNotFound(),
                 CASE_SENSITIVITY,
-                this.converterContext(),
+                CONVERTER_CONTEXT,
                 ENVIRONMENT_CONTEXT,
                 LOCALE_CONTEXT
             )
@@ -196,10 +232,10 @@ public final class BasicExpressionEvaluationContextTest implements ClassTesting2
                 EVALUATOR,
                 this.functions(),
                 EXCEPTION_HANDLER,
-                this.references(),
+                REFERENCES,
                 null,
                 CASE_SENSITIVITY,
-                this.converterContext(),
+                CONVERTER_CONTEXT,
                 ENVIRONMENT_CONTEXT,
                 LOCALE_CONTEXT
             )
@@ -215,10 +251,10 @@ public final class BasicExpressionEvaluationContextTest implements ClassTesting2
                 EVALUATOR,
                 this.functions(),
                 EXCEPTION_HANDLER,
-                this.references(),
+                REFERENCES,
                 ExpressionEvaluationContexts.referenceNotFound(),
                 null,
-                this.converterContext(),
+                CONVERTER_CONTEXT,
                 ENVIRONMENT_CONTEXT,
                 LOCALE_CONTEXT
             )
@@ -234,7 +270,7 @@ public final class BasicExpressionEvaluationContextTest implements ClassTesting2
                 EVALUATOR,
                 this.functions(),
                 EXCEPTION_HANDLER,
-                this.references(),
+                REFERENCES,
                 ExpressionEvaluationContexts.referenceNotFound(),
                 CASE_SENSITIVITY,
                 null,
@@ -253,10 +289,10 @@ public final class BasicExpressionEvaluationContextTest implements ClassTesting2
                 EVALUATOR,
                 this.functions(),
                 EXCEPTION_HANDLER,
-                this.references(),
+                REFERENCES,
                 ExpressionEvaluationContexts.referenceNotFound(),
                 CASE_SENSITIVITY,
-                this.converterContext(),
+                CONVERTER_CONTEXT,
                 null,
                 LOCALE_CONTEXT
             )
@@ -272,10 +308,10 @@ public final class BasicExpressionEvaluationContextTest implements ClassTesting2
                 EVALUATOR,
                 this.functions(),
                 EXCEPTION_HANDLER,
-                this.references(),
+                REFERENCES,
                 ExpressionEvaluationContexts.referenceNotFound(),
                 CASE_SENSITIVITY,
-                this.converterContext(),
+                CONVERTER_CONTEXT,
                 ENVIRONMENT_CONTEXT,
                 null
             )
@@ -874,9 +910,8 @@ public final class BasicExpressionEvaluationContextTest implements ClassTesting2
     @Test
     public void testToString() {
         final Function<ExpressionFunctionName, ExpressionFunction<?, ExpressionEvaluationContext>> functions = this.functions();
-        final Function<ExpressionReference, Optional<Optional<Object>>> references = this.references();
+        final Function<ExpressionReference, Optional<Optional<Object>>> references = REFERENCES;
         final Function<ExpressionReference, ExpressionEvaluationException> referenceNotFound = ExpressionEvaluationContexts.referenceNotFound();
-        final ConverterContext converterContext = this.converterContext();
 
         this.toStringAndCheck(
             BasicExpressionEvaluationContext.with(
@@ -887,7 +922,7 @@ public final class BasicExpressionEvaluationContextTest implements ClassTesting2
                 references,
                 referenceNotFound,
                 CASE_SENSITIVITY,
-                converterContext,
+                CONVERTER_CONTEXT,
                 ENVIRONMENT_CONTEXT,
                 LOCALE_CONTEXT
             ),
@@ -905,7 +940,7 @@ public final class BasicExpressionEvaluationContextTest implements ClassTesting2
                 " " +
                 CASE_SENSITIVITY +
                 " " +
-                converterContext +
+                CONVERTER_CONTEXT +
                 " " +
                 ENVIRONMENT_CONTEXT +
                 " " +
@@ -941,10 +976,10 @@ public final class BasicExpressionEvaluationContextTest implements ClassTesting2
             EVALUATOR,
             this.functions(pure),
             EXCEPTION_HANDLER,
-            this.references(),
+            REFERENCES,
             REFERENCE_NOT_FOUND,
             caseSensitivity,
-            this.converterContext(),
+            CONVERTER_CONTEXT,
             ENVIRONMENT_CONTEXT.cloneEnvironment(),
             LOCALE_CONTEXT
         );
@@ -957,10 +992,10 @@ public final class BasicExpressionEvaluationContextTest implements ClassTesting2
             EVALUATOR,
             functions,
             exceptionHandler,
-            this.references(),
+            REFERENCES,
             (r) -> new ExpressionEvaluationReferenceException(REFERENCE_NOT_FOUND_MESSAGE, r),
             CASE_SENSITIVITY,
-            this.converterContext(),
+            CONVERTER_CONTEXT,
             ENVIRONMENT_CONTEXT.cloneEnvironment(),
             LOCALE_CONTEXT
         );
@@ -1015,17 +1050,6 @@ public final class BasicExpressionEvaluationContextTest implements ClassTesting2
         return "namedFunction-value-234";
     }
 
-    private Function<ExpressionReference, Optional<Optional<Object>>> references() {
-        return (r -> {
-            Objects.requireNonNull(r, "references");
-            this.checkEquals(REFERENCE, r, "reference");
-
-            return Optional.of(
-                Optional.of(REFERENCE_VALUE)
-            );
-        });
-    }
-
     private BasicExpressionEvaluationContext createContext(final Function<ExpressionReference, Optional<Optional<Object>>> references) {
         return BasicExpressionEvaluationContext.with(
             KIND,
@@ -1037,33 +1061,9 @@ public final class BasicExpressionEvaluationContextTest implements ClassTesting2
             references,
             REFERENCE_NOT_FOUND,
             CASE_SENSITIVITY,
-            this.converterContext(),
+            CONVERTER_CONTEXT,
             ENVIRONMENT_CONTEXT.cloneEnvironment(),
             LOCALE_CONTEXT
-        );
-    }
-
-    private ConverterContext converterContext() {
-        return ConverterContexts.basic(
-            false, // canNumbersHaveGroupSeparator
-            Converters.JAVA_EPOCH_OFFSET, // dateOffset
-            ',', // valueSeparator
-            Converters.collection(
-                Lists.of(
-                    Converters.numberToNumber(),
-                    Converters.simple()
-                )
-            ),
-            DateTimeContexts.basic(
-                DateTimeSymbols.fromDateFormatSymbols(
-                    new DateFormatSymbols(LOCALE)
-                ),
-                LOCALE,
-                1950, // defaultYear
-                50, // twoDigitYear
-                HAS_NOW
-            ),
-            this.decimalNumberContext()
         );
     }
 
@@ -1071,18 +1071,17 @@ public final class BasicExpressionEvaluationContextTest implements ClassTesting2
 
     @Override
     public int decimalNumberDigitCount() {
-        return this.decimalNumberContext()
-            .decimalNumberDigitCount();
+        return DECIMAL_NUMBER_CONTEXT.decimalNumberDigitCount();
     }
 
     @Override
     public DecimalNumberContext decimalNumberContext() {
-        return DecimalNumberContexts.american(this.mathContext());
+        return DECIMAL_NUMBER_CONTEXT;
     }
 
     @Override
     public MathContext mathContext() {
-        return MathContext.DECIMAL32;
+        return DECIMAL_NUMBER_CONTEXT.mathContext();
     }
 
     // ClassTesting.....................................................................................................
