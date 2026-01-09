@@ -116,6 +116,7 @@ public final class BasicExpressionEvaluationContextTest implements ClassTesting2
     private final static ConverterContext CONVERTER_CONTEXT = ConverterContexts.basic(
         false, // canNumbersHaveGroupSeparator
         Converters.JAVA_EPOCH_OFFSET, // dateOffset
+        LineEnding.NL,
         ',', // valueSeparator
         Converters.collection(
             Lists.of(

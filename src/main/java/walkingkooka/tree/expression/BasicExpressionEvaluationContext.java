@@ -250,6 +250,11 @@ final class BasicExpressionEvaluationContext implements ExpressionEvaluationCont
     }
 
     @Override
+    public LineEnding lineEnding() {
+        return this.environmentContext.lineEnding();
+    }
+
+    @Override
     public ExpressionEvaluationContext setLineEnding(final LineEnding lineEnding) {
         this.environmentContext.setLineEnding(lineEnding);
         return this;

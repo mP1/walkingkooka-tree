@@ -309,6 +309,7 @@ public final class ScopedExpressionEvaluationContextTest implements ExpressionEv
                 ConverterContexts.basic(
                     false, // canNumbersHaveGroupSeparator
                     0,
+                    LineEnding.NL,
                     ',', // valueSeparator
                     Converters.fake(),
                     DateTimeContexts.basic(
