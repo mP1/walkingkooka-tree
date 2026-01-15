@@ -25,7 +25,6 @@ import walkingkooka.text.LineEnding;
 import walkingkooka.tree.Node;
 import walkingkooka.tree.expression.ExpressionEvaluationContext;
 
-import java.util.Locale;
 import java.util.Optional;
 
 /**
@@ -59,9 +58,6 @@ public interface NodeSelectorExpressionEvaluationContext<N extends Node<N, NAME,
 
     @Override
     NodeSelectorExpressionEvaluationContext<N, NAME, ANAME, AVALUE> setLineEnding(final LineEnding lineEnding);
-
-    @Override
-    NodeSelectorExpressionEvaluationContext<N, NAME, ANAME, AVALUE> setLocale(final Locale locale);
 
     @Override
     NodeSelectorExpressionEvaluationContext<N, NAME, ANAME, AVALUE> setUser(final Optional<EmailAddress> user);

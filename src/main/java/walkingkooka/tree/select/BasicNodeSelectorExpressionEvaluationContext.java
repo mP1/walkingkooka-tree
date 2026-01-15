@@ -278,9 +278,8 @@ final class BasicNodeSelectorExpressionEvaluationContext<N extends Node<N, NAME,
     }
 
     @Override
-    public NodeSelectorExpressionEvaluationContext<N, NAME, ANAME, AVALUE> setLocale(final Locale locale) {
+    public void setLocale(final Locale locale) {
         this.context.setLocale(locale);
-        return this;
     }
 
     private final ExpressionEvaluationContext context;

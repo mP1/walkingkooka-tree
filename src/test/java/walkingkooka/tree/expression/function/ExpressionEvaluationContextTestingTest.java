@@ -275,9 +275,8 @@ public class ExpressionEvaluationContextTestingTest implements ExpressionEvaluat
         }
 
         @Override
-        public TestExpressionEvaluationContext setLocale(final Locale locale) {
+        public void setLocale(final Locale locale) {
             this.environmentContext.setLocale(locale);
-            return this;
         }
 
         @Override

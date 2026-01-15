@@ -35,7 +35,6 @@ import walkingkooka.tree.expression.function.HasExpressionFunction;
 import walkingkooka.tree.expression.function.InvalidExpressionFunctionParameterCountException;
 
 import java.util.List;
-import java.util.Locale;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.function.Function;
@@ -274,9 +273,6 @@ public interface ExpressionEvaluationContext extends ExpressionNumberConverterCo
 
     @Override
     ExpressionEvaluationContext setLineEnding(final LineEnding lineEnding);
-
-    @Override
-    ExpressionEvaluationContext setLocale(final Locale locale);
 
     @Override
     ExpressionEvaluationContext setUser(final Optional<EmailAddress> user);
