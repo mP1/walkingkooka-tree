@@ -27,7 +27,6 @@ import walkingkooka.tree.Node;
 import walkingkooka.tree.expression.FakeExpressionEvaluationContext;
 
 import java.time.LocalDateTime;
-import java.util.Locale;
 import java.util.Optional;
 import java.util.Set;
 
@@ -48,16 +47,6 @@ public class FakeNodeSelectorExpressionEvaluationContext<N extends Node<N, NAME,
 
     @Override
     public NodeSelectorExpressionEvaluationContext<N, NAME, ANAME, AVALUE> setLineEnding(final LineEnding lineEnding) {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public Locale locale() {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public NodeSelectorExpressionEvaluationContext<N, NAME, ANAME, AVALUE> setLocale(final Locale locale) {
         throw new UnsupportedOperationException();
     }
 

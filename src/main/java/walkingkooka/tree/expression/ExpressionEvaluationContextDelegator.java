@@ -98,10 +98,9 @@ public interface ExpressionEvaluationContextDelegator extends ExpressionEvaluati
     }
 
     @Override
-    default ExpressionEvaluationContext setLocale(final Locale locale) {
+    default void setLocale(final Locale locale) {
         this.environmentContext()
             .setLocale(locale);
-        return this;
     }
 
     @Override
