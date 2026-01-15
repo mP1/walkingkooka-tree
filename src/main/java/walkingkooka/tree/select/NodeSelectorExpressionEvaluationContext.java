@@ -18,14 +18,9 @@
 package walkingkooka.tree.select;
 
 import walkingkooka.environment.EnvironmentContext;
-import walkingkooka.environment.EnvironmentValueName;
 import walkingkooka.naming.Name;
-import walkingkooka.net.email.EmailAddress;
-import walkingkooka.text.LineEnding;
 import walkingkooka.tree.Node;
 import walkingkooka.tree.expression.ExpressionEvaluationContext;
-
-import java.util.Optional;
 
 /**
  * A {@link ExpressionEvaluationContext} that adds a getter to retrieve the current {@link Node}.
@@ -47,18 +42,5 @@ public interface NodeSelectorExpressionEvaluationContext<N extends Node<N, NAME,
     NodeSelectorExpressionEvaluationContext<N, NAME, ANAME, AVALUE> cloneEnvironment();
 
     @Override
-    NodeSelectorExpressionEvaluationContext<N, NAME, ANAME, AVALUE> removeEnvironmentValue(final EnvironmentValueName<?> environmentValueName);
-
-    @Override
-    <T> NodeSelectorExpressionEvaluationContext<N, NAME, ANAME, AVALUE> setEnvironmentValue(final EnvironmentValueName<T> environmentValueName,
-                                                                                            final T reference);
-
-    @Override
     NodeSelectorExpressionEvaluationContext<N, NAME, ANAME, AVALUE> setEnvironmentContext(final EnvironmentContext environmentContext);
-
-    @Override
-    NodeSelectorExpressionEvaluationContext<N, NAME, ANAME, AVALUE> setLineEnding(final LineEnding lineEnding);
-
-    @Override
-    NodeSelectorExpressionEvaluationContext<N, NAME, ANAME, AVALUE> setUser(final Optional<EmailAddress> user);
 }

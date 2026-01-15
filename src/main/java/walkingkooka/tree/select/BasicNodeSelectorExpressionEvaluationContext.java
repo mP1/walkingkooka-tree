@@ -22,11 +22,9 @@ import walkingkooka.convert.ConverterContext;
 import walkingkooka.convert.ConverterContextDelegator;
 import walkingkooka.environment.EnvironmentContext;
 import walkingkooka.environment.EnvironmentContextDelegator;
-import walkingkooka.environment.EnvironmentValueName;
 import walkingkooka.locale.LocaleContext;
 import walkingkooka.locale.LocaleContextDelegator;
 import walkingkooka.naming.Name;
-import walkingkooka.net.email.EmailAddress;
 import walkingkooka.text.CaseSensitivity;
 import walkingkooka.text.LineEnding;
 import walkingkooka.tree.Node;
@@ -227,37 +225,9 @@ final class BasicNodeSelectorExpressionEvaluationContext<N extends Node<N, NAME,
     }
 
     @Override
-    public NodeSelectorExpressionEvaluationContext<N, NAME, ANAME, AVALUE> setLineEnding(final LineEnding lineEnding) {
-        this.context.setLineEnding(lineEnding);
-        return this;
-    }
-
-    @Override
-    public <T> NodeSelectorExpressionEvaluationContext<N, NAME, ANAME, AVALUE> setEnvironmentValue(final EnvironmentValueName<T> name,
-                                                                                                   final T value) {
-        this.context.setEnvironmentValue(
-            name,
-            value
-        );
-        return this;
-    }
-
-    @Override
-    public NodeSelectorExpressionEvaluationContext<N, NAME, ANAME, AVALUE> removeEnvironmentValue(final EnvironmentValueName<?> name) {
-        this.context.removeEnvironmentValue(name);
-        return this;
-    }
-
-    @Override
     public LocalDateTime now() {
         return this.environmentContext()
             .now();
-    }
-
-    @Override
-    public NodeSelectorExpressionEvaluationContext<N, NAME, ANAME, AVALUE> setUser(final Optional<EmailAddress> user) {
-        this.context.setUser(user);
-        return this;
     }
 
     @Override

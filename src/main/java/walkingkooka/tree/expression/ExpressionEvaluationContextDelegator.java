@@ -21,11 +21,8 @@ import walkingkooka.convert.ConverterContext;
 import walkingkooka.convert.ConverterContextDelegator;
 import walkingkooka.environment.EnvironmentContext;
 import walkingkooka.environment.EnvironmentContextDelegator;
-import walkingkooka.environment.EnvironmentValueName;
-import walkingkooka.environment.EnvironmentValueWatcher;
 import walkingkooka.locale.LocaleContext;
 import walkingkooka.locale.LocaleContextDelegator;
-import walkingkooka.net.email.EmailAddress;
 import walkingkooka.text.CaseSensitivity;
 import walkingkooka.text.LineEnding;
 import walkingkooka.tree.expression.function.ExpressionFunction;
@@ -33,7 +30,6 @@ import walkingkooka.tree.expression.function.ExpressionFunctionParameter;
 
 import java.time.LocalDateTime;
 import java.util.Locale;
-import java.util.Optional;
 import java.util.function.Function;
 
 /**
@@ -57,31 +53,7 @@ public interface ExpressionEvaluationContextDelegator extends ExpressionEvaluati
         return this.expressionEvaluationContext();
     }
 
-    @Override
-    default Locale locale() {
-        return this.environmentContext()
-            .locale();
-    }
-
     // EnvironmentContext...............................................................................................
-
-    @Override
-    default <T> ExpressionEvaluationContext setEnvironmentValue(final EnvironmentValueName<T> name,
-                                                                final T value) {
-        this.environmentContext()
-            .setEnvironmentValue(
-                name,
-                value
-            );
-        return this;
-    }
-
-    @Override
-    default ExpressionEvaluationContext removeEnvironmentValue(final EnvironmentValueName<?> name) {
-        this.environmentContext()
-            .removeEnvironmentValue(name);
-        return this;
-    }
 
     // must not use ConverterContext.lineEnding
     @Override
@@ -91,10 +63,9 @@ public interface ExpressionEvaluationContextDelegator extends ExpressionEvaluati
     }
 
     @Override
-    default ExpressionEvaluationContext setLineEnding(final LineEnding lineEnding) {
-        this.environmentContext()
-            .setLineEnding(lineEnding);
-        return this;
+    default Locale locale() {
+        return this.environmentContext()
+            .locale();
     }
 
     @Override
@@ -104,28 +75,9 @@ public interface ExpressionEvaluationContextDelegator extends ExpressionEvaluati
     }
 
     @Override
-    default ExpressionEvaluationContext setUser(final Optional<EmailAddress> user) {
-        this.environmentContext()
-            .setUser(user);
-        return this;
-    }
-
-    @Override
     default LocalDateTime now() {
         return this.environmentContext()
             .now();
-    }
-
-    @Override
-    default Runnable addEventValueWatcher(final EnvironmentValueWatcher watcher) {
-        return this.environmentContext()
-            .addEventValueWatcher(watcher);
-    }
-
-    @Override
-    default Runnable addEventValueWatcherOnce(final EnvironmentValueWatcher watcher) {
-        return this.environmentContext()
-            .addEventValueWatcherOnce(watcher);
     }
 
     @Override

@@ -23,14 +23,11 @@ import walkingkooka.datetime.DateTimeContext;
 import walkingkooka.datetime.DateTimeContextDelegator;
 import walkingkooka.environment.EnvironmentContext;
 import walkingkooka.environment.EnvironmentContextDelegator;
-import walkingkooka.environment.EnvironmentValueName;
 import walkingkooka.locale.LocaleContext;
 import walkingkooka.locale.LocaleContextDelegator;
 import walkingkooka.math.DecimalNumberContext;
 import walkingkooka.math.DecimalNumberContextDelegator;
-import walkingkooka.net.email.EmailAddress;
 import walkingkooka.text.CaseSensitivity;
-import walkingkooka.text.LineEnding;
 import walkingkooka.tree.expression.function.ExpressionFunction;
 import walkingkooka.tree.expression.function.ExpressionFunctionParameter;
 
@@ -166,36 +163,18 @@ final class CycleDetectingExpressionEvaluationContext implements ExpressionEvalu
     }
 
     @Override
-    public <T> ExpressionEvaluationContext setEnvironmentValue(final EnvironmentValueName<T> name,
-                                                               final T value) {
-        this.context.setEnvironmentValue(
-            name,
-            value
-        );
-        return this;
-    }
-
-    @Override
-    public ExpressionEvaluationContext removeEnvironmentValue(final EnvironmentValueName<?> name) {
-        this.context.removeEnvironmentValue(name);
-        return this;
-    }
-
-    @Override
     public LocalDateTime now() {
         return this.context.now();
     }
 
     @Override
-    public ExpressionEvaluationContext setLineEnding(final LineEnding lineEnding) {
-        this.context.setLineEnding(lineEnding);
-        return this;
+    public Locale locale() {
+        return this.context.locale();
     }
 
     @Override
-    public ExpressionEvaluationContext setUser(final Optional<EmailAddress> user) {
-        this.context.setUser(user);
-        return this;
+    public void setLocale(final Locale locale) {
+        this.context.setLocale(locale);
     }
 
     @Override
@@ -208,16 +187,6 @@ final class CycleDetectingExpressionEvaluationContext implements ExpressionEvalu
     @Override
     public LocaleContext localeContext() {
         return this.context;
-    }
-
-    @Override
-    public Locale locale() {
-        return this.context.locale();
-    }
-
-    @Override
-    public void setLocale(final Locale locale) {
-        this.context.setLocale(locale);
     }
 
     // DateTimeContext..................................................................................................
