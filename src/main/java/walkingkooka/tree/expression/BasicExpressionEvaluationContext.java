@@ -21,10 +21,8 @@ import walkingkooka.convert.ConverterContext;
 import walkingkooka.convert.ConverterContextDelegator;
 import walkingkooka.environment.EnvironmentContext;
 import walkingkooka.environment.EnvironmentContextDelegator;
-import walkingkooka.environment.EnvironmentValueName;
 import walkingkooka.locale.LocaleContext;
 import walkingkooka.locale.LocaleContextDelegator;
-import walkingkooka.net.email.EmailAddress;
 import walkingkooka.text.CaseSensitivity;
 import walkingkooka.text.LineEnding;
 import walkingkooka.tree.expression.function.ExpressionFunction;
@@ -229,35 +227,8 @@ final class BasicExpressionEvaluationContext implements ExpressionEvaluationCont
     }
 
     @Override
-    public <T> ExpressionEvaluationContext setEnvironmentValue(final EnvironmentValueName<T> name,
-                                                               final T value) {
-        this.environmentContext.setEnvironmentValue(
-            name,
-            value
-        );
-        return this;
-    }
-
-    @Override
-    public ExpressionEvaluationContext removeEnvironmentValue(final EnvironmentValueName<?> name) {
-        this.environmentContext.removeEnvironmentValue(name);
-        return this;
-    }
-
-    @Override
-    public LocalDateTime now() {
-        return this.environmentContext.now();
-    }
-
-    @Override
     public LineEnding lineEnding() {
         return this.environmentContext.lineEnding();
-    }
-
-    @Override
-    public ExpressionEvaluationContext setLineEnding(final LineEnding lineEnding) {
-        this.environmentContext.setLineEnding(lineEnding);
-        return this;
     }
 
     /**
@@ -274,9 +245,8 @@ final class BasicExpressionEvaluationContext implements ExpressionEvaluationCont
     }
 
     @Override
-    public ExpressionEvaluationContext setUser(final Optional<EmailAddress> user) {
-        this.environmentContext.setUser(user);
-        return this;
+    public LocalDateTime now() {
+        return this.environmentContext.now();
     }
 
     @Override

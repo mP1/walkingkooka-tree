@@ -248,14 +248,14 @@ public class ExpressionEvaluationContextTestingTest implements ExpressionEvaluat
         }
 
         @Override
-        public TestExpressionEvaluationContext removeEnvironmentValue(final EnvironmentValueName<?> environmentValueName) {
+        public void removeEnvironmentValue(final EnvironmentValueName<?> environmentValueName) {
             Objects.requireNonNull(environmentValueName, "environmentValueName");
             throw new UnsupportedOperationException();
         }
 
         @Override
-        public <T> TestExpressionEvaluationContext setEnvironmentValue(final EnvironmentValueName<T> environmentValueName,
-                                                                       final T reference) {
+        public <T> void setEnvironmentValue(final EnvironmentValueName<T> environmentValueName,
+                                            final T reference) {
             Objects.requireNonNull(environmentValueName, "environmentValueName");
             Objects.requireNonNull(reference, "reference");
 
@@ -269,9 +269,8 @@ public class ExpressionEvaluationContextTestingTest implements ExpressionEvaluat
         }
 
         @Override
-        public TestExpressionEvaluationContext setLineEnding(final LineEnding lineEnding) {
+        public void setLineEnding(final LineEnding lineEnding) {
             this.environmentContext.setLineEnding(lineEnding);
-            return this;
         }
 
         @Override
@@ -280,9 +279,8 @@ public class ExpressionEvaluationContextTestingTest implements ExpressionEvaluat
         }
 
         @Override
-        public TestExpressionEvaluationContext setUser(final Optional<EmailAddress> user) {
+        public void setUser(final Optional<EmailAddress> user) {
             this.environmentContext.setUser(user);
-            return this;
         }
 
         @Override
