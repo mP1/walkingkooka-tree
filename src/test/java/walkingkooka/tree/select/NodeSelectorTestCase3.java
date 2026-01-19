@@ -77,6 +77,7 @@ abstract public class NodeSelectorTestCase3<S extends NodeSelector<TestNode, Str
     final static ExpressionNumberKind EXPRESSION_NUMBER_KIND = ExpressionNumberKind.DEFAULT;
 
     final static EnvironmentContext ENVIRONMENT_CONTEXT = EnvironmentContexts.readOnly(
+        Predicates.always(), // all values are readonly
         EnvironmentContexts.empty(
             LineEnding.NL,
             Locale.ENGLISH,

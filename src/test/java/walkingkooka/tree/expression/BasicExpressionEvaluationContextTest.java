@@ -37,6 +37,7 @@ import walkingkooka.locale.LocaleContexts;
 import walkingkooka.math.DecimalNumberContext;
 import walkingkooka.math.DecimalNumberContextDelegator;
 import walkingkooka.math.DecimalNumberContexts;
+import walkingkooka.predicate.Predicates;
 import walkingkooka.reflect.ClassTesting2;
 import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.text.CaseSensitivity;
@@ -97,6 +98,7 @@ public final class BasicExpressionEvaluationContextTest implements ClassTesting2
     private final static Locale LOCALE = Locale.forLanguageTag("en-AU");
 
     private final static EnvironmentContext ENVIRONMENT_CONTEXT = EnvironmentContexts.readOnly(
+        Predicates.always(), // all values are read only
         EnvironmentContexts.map(
             EnvironmentContexts.empty(
                 LineEnding.NL,
