@@ -28,6 +28,7 @@ import walkingkooka.math.DecimalNumberContext;
 import walkingkooka.math.DecimalNumberContextDelegator;
 import walkingkooka.math.DecimalNumberContexts;
 import walkingkooka.text.CaseSensitivity;
+import walkingkooka.text.Indentation;
 import walkingkooka.text.LineEnding;
 import walkingkooka.tree.expression.ExpressionEvaluationContextDelegatorTest.TestExpressionEvaluationContextDelegator;
 
@@ -110,6 +111,7 @@ public final class ExpressionEvaluationContextDelegatorTest implements Expressio
                 ConverterContexts.basic(
                     false, // canNumbersHaveGroupSeparator
                     0,
+                    Indentation.SPACES2,
                     LineEnding.NL,
                     ',', // valueSeparator
                     Converters.fake(),

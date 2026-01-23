@@ -28,6 +28,7 @@ import walkingkooka.datetime.DateTimeSymbols;
 import walkingkooka.math.DecimalNumberContext;
 import walkingkooka.math.DecimalNumberContextDelegator;
 import walkingkooka.math.DecimalNumberContexts;
+import walkingkooka.text.Indentation;
 import walkingkooka.text.LineEnding;
 import walkingkooka.tree.expression.ExpressionNumberKind;
 
@@ -81,6 +82,7 @@ public final class BasicExpressionNumberConverterContextTest implements Expressi
         return ConverterContexts.basic(
             false, // canNumbersHaveGroupSeparator
             Converters.JAVA_EPOCH_OFFSET, // dateOffset
+            Indentation.SPACES2,
             LineEnding.NL,
             ',', // valueSeparator
             Converters.fake(),

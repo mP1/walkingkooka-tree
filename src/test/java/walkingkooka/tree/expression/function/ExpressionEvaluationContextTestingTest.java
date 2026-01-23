@@ -34,6 +34,7 @@ import walkingkooka.math.DecimalNumberContextDelegator;
 import walkingkooka.math.DecimalNumberContexts;
 import walkingkooka.net.email.EmailAddress;
 import walkingkooka.text.CaseSensitivity;
+import walkingkooka.text.Indentation;
 import walkingkooka.text.LineEnding;
 import walkingkooka.tree.expression.ExpressionEvaluationContext;
 import walkingkooka.tree.expression.ExpressionEvaluationContextTesting;
@@ -124,6 +125,11 @@ public class ExpressionEvaluationContextTestingTest implements ExpressionEvaluat
 
         @Override
         public long dateOffset() {
+            throw new UnsupportedOperationException();
+        }
+
+        @Override
+        public Indentation indentation() {
             throw new UnsupportedOperationException();
         }
 

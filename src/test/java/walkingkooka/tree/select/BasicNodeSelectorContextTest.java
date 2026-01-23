@@ -31,6 +31,7 @@ import walkingkooka.predicate.Predicates;
 import walkingkooka.reflect.ClassTesting2;
 import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.text.CaseSensitivity;
+import walkingkooka.text.Indentation;
 import walkingkooka.text.LineEnding;
 import walkingkooka.tree.TestNode;
 import walkingkooka.tree.expression.Expression;
@@ -75,6 +76,7 @@ public final class BasicNodeSelectorContextTest implements ClassTesting2<BasicNo
         ConverterContexts.basic(
             false, // canNumbersHaveGroupSeparator
             Converters.JAVA_EPOCH_OFFSET, // dateOffset
+            Indentation.SPACES2,
             LineEnding.NL,
             ',', // valueSeparator
             Converters.fake(),

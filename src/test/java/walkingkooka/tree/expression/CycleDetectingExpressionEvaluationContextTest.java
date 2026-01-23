@@ -33,6 +33,7 @@ import walkingkooka.math.DecimalNumberContexts;
 import walkingkooka.reflect.ClassTesting2;
 import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.text.CaseSensitivity;
+import walkingkooka.text.Indentation;
 import walkingkooka.text.LineEnding;
 import walkingkooka.text.cursor.parser.BigIntegerParserToken;
 import walkingkooka.text.cursor.parser.InvalidCharacterExceptionFactory;
@@ -379,6 +380,7 @@ public final class CycleDetectingExpressionEvaluationContextTest implements Clas
                             ConverterContexts.basic(
                                 false, // canNumbersHaveGroupSeparator
                                 Converters.JAVA_EPOCH_OFFSET, // dateOffset
+                                Indentation.SPACES2,
                                 LineEnding.NL,
                                 ',', // valueSeparator
                                 Converters.characterOrCharSequenceOrHasTextOrStringToCharacterOrCharSequenceOrString(),
@@ -457,6 +459,7 @@ public final class CycleDetectingExpressionEvaluationContextTest implements Clas
                 ConverterContexts.basic(
                     false, // canNumbersHaveGroupSeparator
                     Converters.JAVA_EPOCH_OFFSET,
+                    Indentation.SPACES2,
                     LineEnding.NL,
                     ',', // valueSeparator
                     Converters.simple(), // converter

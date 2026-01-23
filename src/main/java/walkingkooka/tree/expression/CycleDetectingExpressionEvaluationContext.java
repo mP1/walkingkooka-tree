@@ -28,6 +28,7 @@ import walkingkooka.locale.LocaleContextDelegator;
 import walkingkooka.math.DecimalNumberContext;
 import walkingkooka.math.DecimalNumberContextDelegator;
 import walkingkooka.text.CaseSensitivity;
+import walkingkooka.text.Indentation;
 import walkingkooka.tree.expression.function.ExpressionFunction;
 import walkingkooka.tree.expression.function.ExpressionFunctionParameter;
 
@@ -220,6 +221,11 @@ final class CycleDetectingExpressionEvaluationContext implements ExpressionEvalu
     @Override
     public long dateOffset() {
         return this.context.dateOffset();
+    }
+
+    @Override
+    public Indentation indentation() {
+        return this.context.indentation();
     }
 
     @Override

@@ -38,6 +38,7 @@ import walkingkooka.naming.Names;
 import walkingkooka.naming.StringName;
 import walkingkooka.predicate.Predicates;
 import walkingkooka.text.CaseSensitivity;
+import walkingkooka.text.Indentation;
 import walkingkooka.text.LineEnding;
 import walkingkooka.tree.Node;
 import walkingkooka.tree.TestNode;
@@ -622,6 +623,7 @@ abstract public class NodeSelectorTestCase3<S extends NodeSelector<TestNode, Str
             ConverterContexts.basic(
                 false, // canNumbersHaveGroupSeparator
                 Converters.JAVA_EPOCH_OFFSET, // dateOffset
+                Indentation.SPACES2,
                 LineEnding.NL,
                 ',', // valueSeparator
                 Converters.fake(),
