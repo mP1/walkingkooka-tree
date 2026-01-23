@@ -30,6 +30,7 @@ import walkingkooka.math.DecimalNumberContext;
 import walkingkooka.math.DecimalNumberContextDelegator;
 import walkingkooka.math.DecimalNumberContexts;
 import walkingkooka.text.CaseSensitivity;
+import walkingkooka.text.Indentation;
 import walkingkooka.text.LineEnding;
 import walkingkooka.tree.expression.function.ExpressionFunctionParameter;
 import walkingkooka.tree.expression.function.ExpressionFunctionParameterCardinality;
@@ -309,6 +310,7 @@ public final class ScopedExpressionEvaluationContextTest implements ExpressionEv
                 ConverterContexts.basic(
                     false, // canNumbersHaveGroupSeparator
                     0,
+                    Indentation.SPACES2,
                     LineEnding.NL,
                     ',', // valueSeparator
                     Converters.fake(),

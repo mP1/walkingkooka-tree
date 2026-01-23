@@ -24,6 +24,7 @@ import walkingkooka.datetime.DateTimeContext;
 import walkingkooka.datetime.DateTimeContextDelegator;
 import walkingkooka.math.DecimalNumberContext;
 import walkingkooka.math.DecimalNumberContextDelegator;
+import walkingkooka.text.Indentation;
 import walkingkooka.text.LineEnding;
 import walkingkooka.tree.expression.ExpressionNumberKind;
 
@@ -62,6 +63,11 @@ final class BasicExpressionNumberConverterContext implements ExpressionNumberCon
     @Override
     public long dateOffset() {
         return this.context.dateOffset();
+    }
+
+    @Override
+    public Indentation indentation() {
+        return this.context.indentation();
     }
 
     @Override
