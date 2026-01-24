@@ -80,6 +80,7 @@ abstract public class NodeSelectorTestCase3<S extends NodeSelector<TestNode, Str
     final static EnvironmentContext ENVIRONMENT_CONTEXT = EnvironmentContexts.readOnly(
         Predicates.always(), // all values are readonly
         EnvironmentContexts.empty(
+            Indentation.SPACES2,
             LineEnding.NL,
             Locale.ENGLISH,
             LocalDateTime::now,

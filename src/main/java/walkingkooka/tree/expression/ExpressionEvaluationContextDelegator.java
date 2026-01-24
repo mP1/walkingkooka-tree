@@ -24,6 +24,7 @@ import walkingkooka.environment.EnvironmentContextDelegator;
 import walkingkooka.locale.LocaleContext;
 import walkingkooka.locale.LocaleContextDelegator;
 import walkingkooka.text.CaseSensitivity;
+import walkingkooka.text.Indentation;
 import walkingkooka.text.LineEnding;
 import walkingkooka.tree.expression.function.ExpressionFunction;
 import walkingkooka.tree.expression.function.ExpressionFunctionParameter;
@@ -54,6 +55,11 @@ public interface ExpressionEvaluationContextDelegator extends ExpressionEvaluati
     }
 
     // EnvironmentContext...............................................................................................
+
+    @Override
+    default Indentation indentation() {
+        return EnvironmentContextDelegator.super.indentation();
+    }
 
     // must not use ConverterContext.lineEnding
     @Override

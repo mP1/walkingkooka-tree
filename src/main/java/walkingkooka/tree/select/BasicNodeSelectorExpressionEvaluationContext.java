@@ -26,6 +26,7 @@ import walkingkooka.locale.LocaleContext;
 import walkingkooka.locale.LocaleContextDelegator;
 import walkingkooka.naming.Name;
 import walkingkooka.text.CaseSensitivity;
+import walkingkooka.text.Indentation;
 import walkingkooka.text.LineEnding;
 import walkingkooka.tree.Node;
 import walkingkooka.tree.expression.ExpressionEvaluationContext;
@@ -217,6 +218,11 @@ final class BasicNodeSelectorExpressionEvaluationContext<N extends Node<N, NAME,
                 this.node,
                 this.context
             );
+    }
+
+    @Override
+    public Indentation indentation() {
+        return this.context.indentation();
     }
 
     @Override

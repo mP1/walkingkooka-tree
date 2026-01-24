@@ -102,6 +102,7 @@ public final class BasicExpressionEvaluationContextTest implements ClassTesting2
         Predicates.always(), // all values are read only
         EnvironmentContexts.map(
             EnvironmentContexts.empty(
+                INDENTATION,
                 LineEnding.NL,
                 LOCALE,
                 HAS_NOW,
@@ -119,7 +120,7 @@ public final class BasicExpressionEvaluationContextTest implements ClassTesting2
     private final static ConverterContext CONVERTER_CONTEXT = ConverterContexts.basic(
         false, // canNumbersHaveGroupSeparator
         Converters.JAVA_EPOCH_OFFSET, // dateOffset
-        Indentation.SPACES2,
+        Indentation.SPACES4,
         LineEnding.CRNL,
         ',', // valueSeparator
         Converters.collection(
@@ -323,6 +324,21 @@ public final class BasicExpressionEvaluationContextTest implements ClassTesting2
         );
     }
 
+    // indentation......................................................................................................
+
+    @Test
+    public void testIndentation() {
+        this.checkNotEquals(
+            ENVIRONMENT_CONTEXT.indentation(),
+            CONVERTER_CONTEXT.indentation()
+        );
+
+        this.indentationAndCheck(
+            this.createContext(),
+            ENVIRONMENT_CONTEXT.indentation()
+        );
+    }
+    
     // lineEnding.......................................................................................................
 
     @Test
