@@ -476,6 +476,7 @@ public final class CycleDetectingExpressionEvaluationContextTest implements Clas
                 ),
                 EnvironmentContexts.map(
                     EnvironmentContexts.empty(
+                        Indentation.SPACES2,
                         LineEnding.NL,
                         locale,
                         () -> LocalDateTime.MIN,

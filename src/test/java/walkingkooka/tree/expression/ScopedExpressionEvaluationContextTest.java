@@ -327,6 +327,7 @@ public final class ScopedExpressionEvaluationContextTest implements ExpressionEv
                 ),
                 EnvironmentContexts.map(
                     EnvironmentContexts.empty(
+                        Indentation.SPACES2,
                         LineEnding.NL,
                         locale,
                         () -> LocalDateTime.MIN,

@@ -86,6 +86,11 @@ public class ExpressionEvaluationContextTestingTest implements ExpressionEvaluat
     }
 
     @Override
+    public void testSetIndentationWithDifferentAndWatcher() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
     public TestExpressionEvaluationContext createContext() {
         return new TestExpressionEvaluationContext();
     }
@@ -130,7 +135,7 @@ public class ExpressionEvaluationContextTestingTest implements ExpressionEvaluat
 
         @Override
         public Indentation indentation() {
-            throw new UnsupportedOperationException();
+            return Indentation.SPACES2;
         }
 
         @Override
@@ -275,6 +280,11 @@ public class ExpressionEvaluationContextTestingTest implements ExpressionEvaluat
         }
 
         @Override
+        public void setIndentation(final Indentation indentation) {
+            this.environmentContext.setIndentation(indentation);
+        }
+        
+        @Override
         public void setLineEnding(final LineEnding lineEnding) {
             this.environmentContext.setLineEnding(lineEnding);
         }
@@ -301,6 +311,7 @@ public class ExpressionEvaluationContextTestingTest implements ExpressionEvaluat
 
         private final EnvironmentContext environmentContext = EnvironmentContexts.map(
             EnvironmentContexts.empty(
+                Indentation.SPACES2,
                 LineEnding.NL,
                 Locale.ENGLISH,
                 () -> LocalDateTime.MIN,

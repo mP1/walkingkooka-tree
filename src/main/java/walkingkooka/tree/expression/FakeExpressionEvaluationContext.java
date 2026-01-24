@@ -24,6 +24,7 @@ import walkingkooka.environment.EnvironmentValueWatcher;
 import walkingkooka.math.DecimalNumberSymbols;
 import walkingkooka.net.email.EmailAddress;
 import walkingkooka.text.CaseSensitivity;
+import walkingkooka.text.Indentation;
 import walkingkooka.text.LineEnding;
 import walkingkooka.tree.expression.convert.FakeExpressionNumberConverterContext;
 import walkingkooka.tree.expression.function.ExpressionFunction;
@@ -134,6 +135,16 @@ public class FakeExpressionEvaluationContext extends FakeExpressionNumberConvert
 
     // FakeEnvironmentContext...........................................................................................
 
+    @Override
+    public Indentation indentation() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public void setIndentation(final Indentation indentation) {
+        throw new UnsupportedOperationException();
+    }
+    
     @Override
     public LineEnding lineEnding() {
         throw new UnsupportedOperationException();

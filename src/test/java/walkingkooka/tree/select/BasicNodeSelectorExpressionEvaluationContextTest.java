@@ -178,6 +178,7 @@ public final class BasicNodeSelectorExpressionEvaluationContextTest implements N
                 this.converterContext(),
                 EnvironmentContexts.map(
                     EnvironmentContexts.empty(
+                        Indentation.SPACES2,
                         LineEnding.NL,
                         locale,
                         HAS_NOW,

@@ -102,6 +102,7 @@ public final class BasicNodeSelectorContextTest implements ClassTesting2<BasicNo
                 CONVERTER_CONTEXT,
                 EnvironmentContexts.map(
                     EnvironmentContexts.empty(
+                        Indentation.SPACES2,
                         LineEnding.NL,
                         Locale.ENGLISH,
                         LocalDateTime::now,

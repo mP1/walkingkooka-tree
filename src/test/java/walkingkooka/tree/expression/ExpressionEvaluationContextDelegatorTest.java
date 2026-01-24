@@ -17,6 +17,7 @@
 
 package walkingkooka.tree.expression;
 
+import org.junit.jupiter.api.Test;
 import walkingkooka.convert.ConverterContexts;
 import walkingkooka.convert.Converters;
 import walkingkooka.datetime.DateTimeContexts;
@@ -51,6 +52,14 @@ public final class ExpressionEvaluationContextDelegatorTest implements Expressio
     @Override
     public void testEnterScopeGivesDifferentInstance() {
         throw new UnsupportedOperationException();
+    }
+
+    @Test
+    public void testIndentation() {
+        this.indentationAndCheck(
+            this.createContext(),
+            INDENTATION
+        );
     }
 
     @Override
@@ -128,6 +137,7 @@ public final class ExpressionEvaluationContextDelegatorTest implements Expressio
                 ),
                 EnvironmentContexts.map(
                     EnvironmentContexts.empty(
+                        Indentation.SPACES2,
                         LineEnding.NL,
                         locale,
                         () -> LocalDateTime.MIN,
