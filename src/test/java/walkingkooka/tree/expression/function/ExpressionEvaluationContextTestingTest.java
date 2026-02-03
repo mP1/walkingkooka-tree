@@ -91,6 +91,11 @@ public class ExpressionEvaluationContextTestingTest implements ExpressionEvaluat
     }
 
     @Override
+    public void testSetTimeOffsetWithDifferentAndWatcher() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
     public TestExpressionEvaluationContext createContext() {
         return new TestExpressionEvaluationContext();
     }
