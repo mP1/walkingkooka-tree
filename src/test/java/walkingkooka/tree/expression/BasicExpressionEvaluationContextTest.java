@@ -53,6 +53,7 @@ import walkingkooka.tree.expression.function.UnknownExpressionFunctionException;
 import java.math.MathContext;
 import java.text.DateFormatSymbols;
 import java.time.LocalDateTime;
+import java.util.Currency;
 import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
@@ -94,6 +95,8 @@ public final class BasicExpressionEvaluationContextTest implements ClassTesting2
         throw r;
     };
 
+    private final static Currency CURRENCY = Currency.getInstance("AUD");
+
     private final static HasNow HAS_NOW = () -> LocalDateTime.MIN;
 
     private final static Locale LOCALE = Locale.forLanguageTag("en-AU");
@@ -102,6 +105,7 @@ public final class BasicExpressionEvaluationContextTest implements ClassTesting2
         Predicates.always(), // all values are read only
         EnvironmentContexts.map(
             EnvironmentContexts.empty(
+                CURRENCY,
                 INDENTATION,
                 LineEnding.NL,
                 LOCALE,
@@ -324,6 +328,16 @@ public final class BasicExpressionEvaluationContextTest implements ClassTesting2
         );
     }
 
+    // currency......................................................................................................
+
+    @Test
+    public void testCurrency() {
+        this.currencyAndCheck(
+            this.createContext(),
+            ENVIRONMENT_CONTEXT.currency()
+        );
+    }
+    
     // indentation......................................................................................................
 
     @Test

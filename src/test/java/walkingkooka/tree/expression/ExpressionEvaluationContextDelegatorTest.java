@@ -36,6 +36,7 @@ import walkingkooka.tree.expression.ExpressionEvaluationContextDelegatorTest.Tes
 import java.math.MathContext;
 import java.text.DateFormatSymbols;
 import java.time.LocalDateTime;
+import java.util.Currency;
 import java.util.Locale;
 import java.util.Objects;
 import java.util.Optional;
@@ -137,6 +138,7 @@ public final class ExpressionEvaluationContextDelegatorTest implements Expressio
                 ),
                 EnvironmentContexts.map(
                     EnvironmentContexts.empty(
+                        Currency.getInstance("AUD"),
                         Indentation.SPACES2,
                         LineEnding.NL,
                         locale,

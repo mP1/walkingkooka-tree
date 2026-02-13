@@ -46,6 +46,7 @@ import walkingkooka.tree.expression.convert.ExpressionNumberConverters;
 import walkingkooka.tree.expression.function.ExpressionFunction;
 
 import java.time.LocalDateTime;
+import java.util.Currency;
 import java.util.Locale;
 import java.util.Optional;
 import java.util.function.BooleanSupplier;
@@ -102,6 +103,7 @@ public final class BasicNodeSelectorContextTest implements ClassTesting2<BasicNo
                 CONVERTER_CONTEXT,
                 EnvironmentContexts.map(
                     EnvironmentContexts.empty(
+                        Currency.getInstance("AUD"),
                         Indentation.SPACES2,
                         LineEnding.NL,
                         Locale.ENGLISH,

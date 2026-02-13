@@ -40,6 +40,7 @@ import walkingkooka.tree.expression.function.FakeExpressionFunction;
 import java.math.MathContext;
 import java.text.DateFormatSymbols;
 import java.time.LocalDateTime;
+import java.util.Currency;
 import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
@@ -327,6 +328,7 @@ public final class ScopedExpressionEvaluationContextTest implements ExpressionEv
                 ),
                 EnvironmentContexts.map(
                     EnvironmentContexts.empty(
+                        Currency.getInstance("AUD"),
                         Indentation.SPACES2,
                         LineEnding.NL,
                         locale,
