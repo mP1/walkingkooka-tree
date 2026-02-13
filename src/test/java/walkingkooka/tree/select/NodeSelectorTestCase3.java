@@ -57,6 +57,7 @@ import java.math.MathContext;
 import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.Currency;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -80,6 +81,7 @@ abstract public class NodeSelectorTestCase3<S extends NodeSelector<TestNode, Str
     final static EnvironmentContext ENVIRONMENT_CONTEXT = EnvironmentContexts.readOnly(
         Predicates.always(), // all values are readonly
         EnvironmentContexts.empty(
+            Currency.getInstance("AUD"),
             Indentation.SPACES2,
             LineEnding.NL,
             Locale.ENGLISH,

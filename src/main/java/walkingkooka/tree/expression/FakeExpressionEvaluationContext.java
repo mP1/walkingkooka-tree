@@ -32,6 +32,7 @@ import walkingkooka.tree.expression.function.ExpressionFunctionParameter;
 
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
+import java.util.Currency;
 import java.util.Locale;
 import java.util.Objects;
 import java.util.Optional;
@@ -136,6 +137,16 @@ public class FakeExpressionEvaluationContext extends FakeExpressionNumberConvert
 
     // FakeEnvironmentContext...........................................................................................
 
+    @Override
+    public Currency currency() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public void setCurrency(final Currency currency) {
+        throw new UnsupportedOperationException();
+    }
+    
     @Override
     public Indentation indentation() {
         throw new UnsupportedOperationException();

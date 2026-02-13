@@ -46,6 +46,7 @@ import walkingkooka.tree.expression.function.ExpressionEvaluationContextTestingT
 
 import java.math.MathContext;
 import java.time.LocalDateTime;
+import java.util.Currency;
 import java.util.Locale;
 import java.util.Objects;
 import java.util.Optional;
@@ -285,6 +286,11 @@ public class ExpressionEvaluationContextTestingTest implements ExpressionEvaluat
         }
 
         @Override
+        public void setCurrency(final Currency currency) {
+            this.environmentContext.setCurrency(currency);
+        }
+        
+        @Override
         public void setIndentation(final Indentation indentation) {
             this.environmentContext.setIndentation(indentation);
         }
@@ -316,6 +322,7 @@ public class ExpressionEvaluationContextTestingTest implements ExpressionEvaluat
 
         private final EnvironmentContext environmentContext = EnvironmentContexts.map(
             EnvironmentContexts.empty(
+                Currency.getInstance("AUD"),
                 Indentation.SPACES2,
                 LineEnding.NL,
                 Locale.ENGLISH,

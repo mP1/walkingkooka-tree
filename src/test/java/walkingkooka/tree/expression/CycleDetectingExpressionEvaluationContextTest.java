@@ -48,6 +48,7 @@ import java.math.BigInteger;
 import java.math.MathContext;
 import java.text.DateFormatSymbols;
 import java.time.LocalDateTime;
+import java.util.Currency;
 import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
@@ -476,6 +477,7 @@ public final class CycleDetectingExpressionEvaluationContextTest implements Clas
                 ),
                 EnvironmentContexts.map(
                     EnvironmentContexts.empty(
+                        Currency.getInstance("AUD"),
                         Indentation.SPACES2,
                         LineEnding.NL,
                         locale,
