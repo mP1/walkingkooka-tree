@@ -429,7 +429,12 @@ public final class CycleDetectingExpressionEvaluationContextTest implements Clas
     }
 
     @Override
-    public void testLocaleTextWithNullFails() {
+    public void testLocaleTextWithNullLocaleFails() {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    public void testLocaleTextWithNullRequestedLocaleFails() {
         throw new UnsupportedOperationException();
     }
 

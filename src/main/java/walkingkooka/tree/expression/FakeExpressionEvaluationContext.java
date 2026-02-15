@@ -131,7 +131,8 @@ public class FakeExpressionEvaluationContext extends FakeExpressionNumberConvert
     }
 
     @Override
-    public Optional<String> localeText(final Locale locale) {
+    public Optional<String> localeText(final Locale locale,
+                                       final Locale requestedLocale) {
         throw new UnsupportedOperationException();
     }
 
