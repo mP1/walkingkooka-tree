@@ -124,6 +124,9 @@ public final class BasicExpressionEvaluationContextTest implements ClassTesting2
     private final static ConverterContext CONVERTER_CONTEXT = ConverterContexts.basic(
         (l) -> {
             throw new UnsupportedOperationException();
+        }, // canCurrencyForLocale
+        (l) -> {
+            throw new UnsupportedOperationException();
         }, // canDateTimeSymbolsForLocale
         (l) -> {
             throw new UnsupportedOperationException();

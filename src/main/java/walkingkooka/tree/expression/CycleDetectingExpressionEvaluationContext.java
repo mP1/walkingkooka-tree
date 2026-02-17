@@ -33,6 +33,7 @@ import walkingkooka.tree.expression.function.ExpressionFunction;
 import walkingkooka.tree.expression.function.ExpressionFunctionParameter;
 
 import java.time.LocalDateTime;
+import java.util.Currency;
 import java.util.Locale;
 import java.util.Objects;
 import java.util.Optional;
@@ -216,6 +217,11 @@ final class CycleDetectingExpressionEvaluationContext implements ExpressionEvalu
     @Override
     public boolean canNumbersHaveGroupSeparator() {
         return this.context.canNumbersHaveGroupSeparator();
+    }
+
+    @Override
+    public Optional<Currency> currencyForLocale(final Locale locale) {
+        return this.context.currencyForLocale(locale);
     }
 
     @Override

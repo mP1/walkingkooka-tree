@@ -130,6 +130,11 @@ public class ExpressionEvaluationContextTestingTest implements ExpressionEvaluat
         LocaleContextDelegator {
 
         @Override
+        public Optional<Currency> currencyForLocale(final Locale locale) {
+            throw new UnsupportedOperationException();
+        }
+
+        @Override
         public boolean canNumbersHaveGroupSeparator() {
             throw new UnsupportedOperationException();
         }
