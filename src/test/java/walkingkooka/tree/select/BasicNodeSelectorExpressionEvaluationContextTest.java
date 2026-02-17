@@ -217,6 +217,12 @@ public final class BasicNodeSelectorExpressionEvaluationContextTest implements N
         return ExpressionNumberConverterContexts.basic(
             Converters.numberToNumber(),
             ConverterContexts.basic(
+                (l) -> {
+                    throw new UnsupportedOperationException();
+                }, // canDateTimeSymbolsForLocale
+                (l) -> {
+                    throw new UnsupportedOperationException();
+                }, // canDecimalNumberSymbolsForLocale
                 false, // canNumbersHaveGroupSeparator
                 Converters.JAVA_EPOCH_OFFSET, // dateOffset
                 Indentation.SPACES2,

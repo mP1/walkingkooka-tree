@@ -624,6 +624,12 @@ abstract public class NodeSelectorTestCase3<S extends NodeSelector<TestNode, Str
         return ExpressionNumberConverterContexts.basic(
             this.converter(),
             ConverterContexts.basic(
+                (l) -> {
+                    throw new UnsupportedOperationException();
+                }, // canDateTimeSymbolsForLocale
+                (l) -> {
+                    throw new UnsupportedOperationException();
+                }, // canDecimalNumberSymbolsForLocale
                 false, // canNumbersHaveGroupSeparator
                 Converters.JAVA_EPOCH_OFFSET, // dateOffset
                 Indentation.SPACES2,

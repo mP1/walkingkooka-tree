@@ -19,10 +19,12 @@ package walkingkooka.tree.expression;
 
 import walkingkooka.convert.ConverterContext;
 import walkingkooka.convert.ConverterContextDelegator;
+import walkingkooka.datetime.DateTimeSymbols;
 import walkingkooka.environment.EnvironmentContext;
 import walkingkooka.environment.EnvironmentContextDelegator;
 import walkingkooka.locale.LocaleContext;
 import walkingkooka.locale.LocaleContextDelegator;
+import walkingkooka.math.DecimalNumberSymbols;
 import walkingkooka.text.CaseSensitivity;
 import walkingkooka.text.Indentation;
 import walkingkooka.text.LineEnding;
@@ -270,6 +272,16 @@ final class BasicExpressionEvaluationContext implements ExpressionEvaluationCont
     }
 
     private final LocaleContext localeContext;
+
+    @Override
+    public Optional<DateTimeSymbols> dateTimeSymbolsForLocale(final Locale locale) {
+        return this.localeContext.dateTimeSymbolsForLocale(locale);
+    }
+
+    @Override
+    public Optional<DecimalNumberSymbols> decimalNumberSymbolsForLocale(final Locale locale) {
+        return this.localeContext.decimalNumberSymbolsForLocale(locale);
+    }
 
     // Object...........................................................................................................
     @Override

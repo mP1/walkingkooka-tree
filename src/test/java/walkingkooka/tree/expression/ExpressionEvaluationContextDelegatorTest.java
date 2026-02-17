@@ -119,6 +119,12 @@ public final class ExpressionEvaluationContextDelegatorTest implements Expressio
                 ExpressionEvaluationContexts.referenceNotFound(),
                 CaseSensitivity.SENSITIVE,
                 ConverterContexts.basic(
+                    (l) -> {
+                        throw new UnsupportedOperationException();
+                    }, // canDateTimeSymbolsForLocale
+                    (l) -> {
+                        throw new UnsupportedOperationException();
+                    }, // canDecimalNumberSymbolsForLocale
                     false, // canNumbersHaveGroupSeparator
                     0,
                     Indentation.SPACES2,

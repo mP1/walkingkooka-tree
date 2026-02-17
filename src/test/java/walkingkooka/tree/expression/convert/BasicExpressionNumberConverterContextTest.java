@@ -36,6 +36,7 @@ import java.math.MathContext;
 import java.text.DateFormatSymbols;
 import java.time.LocalDateTime;
 import java.util.Locale;
+import java.util.Objects;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -80,6 +81,14 @@ public final class BasicExpressionNumberConverterContextTest implements Expressi
         final Locale locale = Locale.forLanguageTag("EN-AU");
 
         return ConverterContexts.basic(
+            (l) -> {
+                Objects.requireNonNull(l, "locale");
+                throw new UnsupportedOperationException();
+            }, // canDateTimeSymbolsForLocale
+            (l) -> {
+                Objects.requireNonNull(l, "locale");
+                throw new UnsupportedOperationException();
+            }, // canDecimalNumberSymbolsForLocale
             false, // canNumbersHaveGroupSeparator
             Converters.JAVA_EPOCH_OFFSET, // dateOffset
             Indentation.SPACES2,
