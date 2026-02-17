@@ -309,6 +309,12 @@ public final class ScopedExpressionEvaluationContextTest implements ExpressionEv
                 ExpressionEvaluationContexts.referenceNotFound(),
                 CaseSensitivity.SENSITIVE,
                 ConverterContexts.basic(
+                    (l) -> {
+                        throw new UnsupportedOperationException();
+                    }, // canDateTimeSymbolsForLocale
+                    (l) -> {
+                        throw new UnsupportedOperationException();
+                    }, // canDecimalNumberSymbolsForLocale
                     false, // canNumbersHaveGroupSeparator
                     0,
                     Indentation.SPACES2,

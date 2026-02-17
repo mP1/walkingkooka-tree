@@ -33,6 +33,7 @@ import java.math.MathContext;
 import java.text.DateFormatSymbols;
 import java.time.LocalDateTime;
 import java.util.Locale;
+import java.util.Objects;
 
 public final class ExpressionNumberConverterContextDelegatorTest implements ExpressionNumberConverterContextTesting<TestExpressionNumberConverterContextDelegator>,
     DecimalNumberContextDelegator {
@@ -78,6 +79,14 @@ public final class ExpressionNumberConverterContextDelegatorTest implements Expr
             return ExpressionNumberConverterContexts.basic(
                 Converters.numberToBoolean(),
                 ConverterContexts.basic(
+                    (l) -> {
+                        Objects.requireNonNull(l, "locale");
+                        throw new UnsupportedOperationException();
+                    }, // canDateTimeSymbolsForLocale
+                    (l) -> {
+                        Objects.requireNonNull(l, "locale");
+                        throw new UnsupportedOperationException();
+                    }, // canDecimalNumberSymbolsForLocale
                     false, // canNumbersHaveGroupSeparator
                     0,
                     Indentation.SPACES2,

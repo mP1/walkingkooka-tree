@@ -122,6 +122,12 @@ public final class BasicExpressionEvaluationContextTest implements ClassTesting2
     private final static DecimalNumberContext DECIMAL_NUMBER_CONTEXT = DecimalNumberContexts.american(MathContext.DECIMAL32);
 
     private final static ConverterContext CONVERTER_CONTEXT = ConverterContexts.basic(
+        (l) -> {
+            throw new UnsupportedOperationException();
+        }, // canDateTimeSymbolsForLocale
+        (l) -> {
+            throw new UnsupportedOperationException();
+        }, // canDecimalNumberSymbolsForLocale
         false, // canNumbersHaveGroupSeparator
         Converters.JAVA_EPOCH_OFFSET, // dateOffset
         Indentation.SPACES4,

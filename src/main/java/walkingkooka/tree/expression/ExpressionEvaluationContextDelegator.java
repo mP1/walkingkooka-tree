@@ -19,10 +19,12 @@ package walkingkooka.tree.expression;
 
 import walkingkooka.convert.ConverterContext;
 import walkingkooka.convert.ConverterContextDelegator;
+import walkingkooka.datetime.DateTimeSymbols;
 import walkingkooka.environment.EnvironmentContext;
 import walkingkooka.environment.EnvironmentContextDelegator;
 import walkingkooka.locale.LocaleContext;
 import walkingkooka.locale.LocaleContextDelegator;
+import walkingkooka.math.DecimalNumberSymbols;
 import walkingkooka.text.CaseSensitivity;
 import walkingkooka.text.Indentation;
 import walkingkooka.text.LineEnding;
@@ -31,6 +33,7 @@ import walkingkooka.tree.expression.function.ExpressionFunctionParameter;
 
 import java.time.LocalDateTime;
 import java.util.Locale;
+import java.util.Optional;
 import java.util.function.Function;
 
 /**
@@ -52,6 +55,18 @@ public interface ExpressionEvaluationContextDelegator extends ExpressionEvaluati
     @Override
     default LocaleContext localeContext() {
         return this.expressionEvaluationContext();
+    }
+
+    @Override
+    default Optional<DateTimeSymbols> dateTimeSymbolsForLocale(final Locale locale) {
+        return this.localeContext()
+            .dateTimeSymbolsForLocale(locale);
+    }
+
+    @Override
+    default Optional<DecimalNumberSymbols> decimalNumberSymbolsForLocale(final Locale locale) {
+        return this.localeContext()
+            .decimalNumberSymbolsForLocale(locale);
     }
 
     // EnvironmentContext...............................................................................................

@@ -17,8 +17,11 @@
 
 package walkingkooka.tree.expression;
 
+import walkingkooka.datetime.DateTimeSymbols;
 import walkingkooka.environment.EnvironmentContext;
+import walkingkooka.math.DecimalNumberSymbols;
 
+import java.util.Locale;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.function.Function;
@@ -91,6 +94,16 @@ final class ScopedExpressionEvaluationContext implements ExpressionEvaluationCon
     @Override
     public ExpressionEvaluationContext expressionEvaluationContext() {
         return this.context;
+    }
+
+    @Override
+    public Optional<DateTimeSymbols> dateTimeSymbolsForLocale(final Locale locale) {
+        return this.context.dateTimeSymbolsForLocale(locale);
+    }
+
+    @Override
+    public Optional<DecimalNumberSymbols> decimalNumberSymbolsForLocale(final Locale locale) {
+        return this.context.decimalNumberSymbolsForLocale(locale);
     }
 
     private final ExpressionEvaluationContext context;

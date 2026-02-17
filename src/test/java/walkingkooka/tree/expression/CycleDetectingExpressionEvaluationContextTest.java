@@ -379,6 +379,12 @@ public final class CycleDetectingExpressionEvaluationContextTest implements Clas
                             value,
                             target,
                             ConverterContexts.basic(
+                                (l) -> {
+                                    throw new UnsupportedOperationException();
+                                }, // canDateTimeSymbolsForLocale
+                                (l) -> {
+                                    throw new UnsupportedOperationException();
+                                }, // canDecimalNumberSymbolsForLocale
                                 false, // canNumbersHaveGroupSeparator
                                 Converters.JAVA_EPOCH_OFFSET, // dateOffset
                                 Indentation.SPACES2,
@@ -458,6 +464,12 @@ public final class CycleDetectingExpressionEvaluationContextTest implements Clas
                 },
                 CaseSensitivity.SENSITIVE,
                 ConverterContexts.basic(
+                    (l) -> {
+                        throw new UnsupportedOperationException();
+                    }, // canDateTimeSymbolsForLocale
+                    (l) -> {
+                        throw new UnsupportedOperationException();
+                    }, // canDecimalNumberSymbolsForLocale
                     false, // canNumbersHaveGroupSeparator
                     Converters.JAVA_EPOCH_OFFSET,
                     Indentation.SPACES2,
