@@ -283,6 +283,11 @@ final class BasicExpressionEvaluationContext implements ExpressionEvaluationCont
         return this.localeContext.decimalNumberSymbolsForLocale(locale);
     }
 
+    @Override
+    public Optional<Locale> localeForLanguageTag(final String languageTag) {
+        return this.localeContext.localeForLanguageTag(languageTag);
+    }
+
     // Object...........................................................................................................
     @Override
     public String toString() {
