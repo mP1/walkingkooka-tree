@@ -626,6 +626,9 @@ abstract public class NodeSelectorTestCase3<S extends NodeSelector<TestNode, Str
             ConverterContexts.basic(
                 (l) -> {
                     throw new UnsupportedOperationException();
+                }, // canCurrencyForLocale
+                (l) -> {
+                    throw new UnsupportedOperationException();
                 }, // canDateTimeSymbolsForLocale
                 (l) -> {
                     throw new UnsupportedOperationException();

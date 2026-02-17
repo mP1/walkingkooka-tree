@@ -219,6 +219,9 @@ public final class BasicNodeSelectorExpressionEvaluationContextTest implements N
             ConverterContexts.basic(
                 (l) -> {
                     throw new UnsupportedOperationException();
+                }, // canCurrencyForLocale
+                (l) -> {
+                    throw new UnsupportedOperationException();
                 }, // canDateTimeSymbolsForLocale
                 (l) -> {
                     throw new UnsupportedOperationException();

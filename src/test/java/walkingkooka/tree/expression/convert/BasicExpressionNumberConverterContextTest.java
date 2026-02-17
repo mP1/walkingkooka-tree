@@ -84,6 +84,10 @@ public final class BasicExpressionNumberConverterContextTest implements Expressi
             (l) -> {
                 Objects.requireNonNull(l, "locale");
                 throw new UnsupportedOperationException();
+            }, // canCurrencyForLocale
+            (l) -> {
+                Objects.requireNonNull(l, "locale");
+                throw new UnsupportedOperationException();
             }, // canDateTimeSymbolsForLocale
             (l) -> {
                 Objects.requireNonNull(l, "locale");

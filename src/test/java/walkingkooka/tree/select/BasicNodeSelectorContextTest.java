@@ -77,6 +77,9 @@ public final class BasicNodeSelectorContextTest implements ClassTesting2<BasicNo
         ConverterContexts.basic(
             (l) -> {
                 throw new UnsupportedOperationException();
+            }, // canCurrencyForLocale
+            (l) -> {
+                throw new UnsupportedOperationException();
             }, // canDateTimeSymbolsForLocale
             (l) -> {
                 throw new UnsupportedOperationException();

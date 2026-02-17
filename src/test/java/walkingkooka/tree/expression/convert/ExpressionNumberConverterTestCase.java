@@ -57,6 +57,9 @@ public abstract class ExpressionNumberConverterTestCase<C extends ExpressionNumb
             ConverterContexts.basic(
                 (l) -> {
                     throw new UnsupportedOperationException();
+                }, // canCurrencyForLocale
+                (l) -> {
+                    throw new UnsupportedOperationException();
                 }, // canDateTimeSymbolsForLocale
                 (l) -> {
                     throw new UnsupportedOperationException();

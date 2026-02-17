@@ -30,6 +30,7 @@ import walkingkooka.text.Indentation;
 import walkingkooka.text.LineEnding;
 import walkingkooka.tree.expression.ExpressionNumberKind;
 
+import java.util.Currency;
 import java.util.Locale;
 import java.util.Objects;
 import java.util.Optional;
@@ -61,6 +62,11 @@ final class BasicExpressionNumberConverterContext implements ExpressionNumberCon
     @Override
     public boolean canNumbersHaveGroupSeparator() {
         return this.context.canNumbersHaveGroupSeparator();
+    }
+
+    @Override
+    public Optional<Currency> currencyForLocale(final Locale locale) {
+        return this.context.currencyForLocale(locale);
     }
 
     @Override
