@@ -95,6 +95,11 @@ final class BasicExpressionNumberConverterContext implements ExpressionNumberCon
     }
 
     @Override
+    public Optional<Locale> localeForLanguageTag(final String languageTag) {
+        return this.context.localeForLanguageTag(languageTag);
+    }
+
+    @Override
     public char valueSeparator() {
         return this.context.valueSeparator();
     }

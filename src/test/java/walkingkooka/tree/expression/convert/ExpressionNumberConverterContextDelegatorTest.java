@@ -91,6 +91,10 @@ public final class ExpressionNumberConverterContextDelegatorTest implements Expr
                         Objects.requireNonNull(l, "locale");
                         throw new UnsupportedOperationException();
                     }, // canDecimalNumberSymbolsForLocale
+                    (lt) -> {
+                        Objects.requireNonNull(lt, "languageTag");
+                        throw new UnsupportedOperationException();
+                    }, // canLocaleForLanguageTag
                     false, // canNumbersHaveGroupSeparator
                     0,
                     Indentation.SPACES2,

@@ -69,6 +69,12 @@ public interface ExpressionEvaluationContextDelegator extends ExpressionEvaluati
             .decimalNumberSymbolsForLocale(locale);
     }
 
+    @Override
+    default Optional<Locale> localeForLanguageTag(final String languageTag) {
+        return this.localeContext()
+            .localeForLanguageTag(languageTag);
+    }
+
     // EnvironmentContext...............................................................................................
 
     @Override

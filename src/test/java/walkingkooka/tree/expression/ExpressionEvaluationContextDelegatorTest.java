@@ -128,6 +128,9 @@ public final class ExpressionEvaluationContextDelegatorTest implements Expressio
                     (l) -> {
                         throw new UnsupportedOperationException();
                     }, // canDecimalNumberSymbolsForLocale
+                    (lt) -> {
+                        throw new UnsupportedOperationException();
+                    }, // canLocaleForLanguageTag
                     false, // canNumbersHaveGroupSeparator
                     0,
                     Indentation.SPACES2,

@@ -318,6 +318,9 @@ public final class ScopedExpressionEvaluationContextTest implements ExpressionEv
                     (l) -> {
                         throw new UnsupportedOperationException();
                     }, // canDecimalNumberSymbolsForLocale
+                    (lt) -> {
+                        throw new UnsupportedOperationException();
+                    }, // canLocaleForLanguageTag
                     false, // canNumbersHaveGroupSeparator
                     0,
                     Indentation.SPACES2,
