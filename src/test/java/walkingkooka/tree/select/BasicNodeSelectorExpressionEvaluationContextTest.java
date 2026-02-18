@@ -220,15 +220,6 @@ public final class BasicNodeSelectorExpressionEvaluationContextTest implements N
                 (l) -> {
                     throw new UnsupportedOperationException();
                 }, // canCurrencyForLocale
-                (l) -> {
-                    throw new UnsupportedOperationException();
-                }, // canDateTimeSymbolsForLocale
-                (l) -> {
-                    throw new UnsupportedOperationException();
-                }, // canDecimalNumberSymbolsForLocale
-                (lt) -> {
-                    throw new UnsupportedOperationException();
-                }, // canLocaleForLanguageTag
                 false, // canNumbersHaveGroupSeparator
                 Converters.JAVA_EPOCH_OFFSET, // dateOffset
                 Indentation.SPACES2,
@@ -244,7 +235,8 @@ public final class BasicNodeSelectorExpressionEvaluationContextTest implements N
                     50, // twoDigitYear
                     HAS_NOW
                 ),
-                decimalNumberContext()
+                decimalNumberContext(),
+                LocaleContexts.fake()
             ),
             EXPRESSION_NUMBER_KIND
         );

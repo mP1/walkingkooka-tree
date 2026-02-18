@@ -21,6 +21,7 @@ import walkingkooka.convert.ConverterContexts;
 import walkingkooka.convert.Converters;
 import walkingkooka.datetime.DateTimeContexts;
 import walkingkooka.datetime.DateTimeSymbols;
+import walkingkooka.locale.LocaleContexts;
 import walkingkooka.math.DecimalNumberContext;
 import walkingkooka.math.DecimalNumberContextDelegator;
 import walkingkooka.math.DecimalNumberContexts;
@@ -83,18 +84,6 @@ public final class ExpressionNumberConverterContextDelegatorTest implements Expr
                         Objects.requireNonNull(l, "locale");
                         throw new UnsupportedOperationException();
                     }, // canCurrencyForLocale
-                    (l) -> {
-                        Objects.requireNonNull(l, "locale");
-                        throw new UnsupportedOperationException();
-                    }, // canDateTimeSymbolsForLocale
-                    (l) -> {
-                        Objects.requireNonNull(l, "locale");
-                        throw new UnsupportedOperationException();
-                    }, // canDecimalNumberSymbolsForLocale
-                    (lt) -> {
-                        Objects.requireNonNull(lt, "languageTag");
-                        throw new UnsupportedOperationException();
-                    }, // canLocaleForLanguageTag
                     false, // canNumbersHaveGroupSeparator
                     0,
                     Indentation.SPACES2,
@@ -110,7 +99,8 @@ public final class ExpressionNumberConverterContextDelegatorTest implements Expr
                         50,
                         LocalDateTime::now
                     ),
-                    DECIMAL_CONTEXT
+                    DECIMAL_CONTEXT,
+                    LocaleContexts.jre(locale)
                 ),
                 ExpressionNumberKind.BIG_DECIMAL
             );

@@ -2015,15 +2015,6 @@ public final class NodeSelectorNodeSelectorParserTokenVisitorTest implements Nod
                             (l) -> {
                                 throw new UnsupportedOperationException();
                             }, // canCurrencyForLocale
-                            (l) -> {
-                                throw new UnsupportedOperationException();
-                            }, // canDateTimeSymbolsForLocale
-                            (l) -> {
-                                throw new UnsupportedOperationException();
-                            }, // canDecimalNumberSymbolsForLocale
-                            (lt) -> {
-                                throw new UnsupportedOperationException();
-                            }, // canLocaleForLanguageTag
                             false, // canNumbersHaveGroupSeparator
                             Converters.JAVA_EPOCH_OFFSET, // dateOffset
                             Indentation.SPACES2,
@@ -2031,7 +2022,8 @@ public final class NodeSelectorNodeSelectorParserTokenVisitorTest implements Nod
                             ',', // valueSeparator
                             Converters.fake(),
                             DateTimeContexts.fake(),
-                            decimalNumberContext()
+                            decimalNumberContext(),
+                            LocaleContexts.fake()
                         ),
                         EXPRESSION_NUMBER_KIND);
                 }

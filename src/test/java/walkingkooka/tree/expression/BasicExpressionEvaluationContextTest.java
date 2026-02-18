@@ -125,15 +125,6 @@ public final class BasicExpressionEvaluationContextTest implements ClassTesting2
         (l) -> {
             throw new UnsupportedOperationException();
         }, // canCurrencyForLocale
-        (l) -> {
-            throw new UnsupportedOperationException();
-        }, // canDateTimeSymbolsForLocale
-        (l) -> {
-            throw new UnsupportedOperationException();
-        }, // canDecimalNumberSymbolsForLocale
-        (lt) -> {
-            throw new UnsupportedOperationException();
-        }, // canLocaleForLanguageTag
         false, // canNumbersHaveGroupSeparator
         Converters.JAVA_EPOCH_OFFSET, // dateOffset
         Indentation.SPACES4,
@@ -154,7 +145,8 @@ public final class BasicExpressionEvaluationContextTest implements ClassTesting2
             50, // twoDigitYear
             HAS_NOW
         ),
-        DECIMAL_NUMBER_CONTEXT
+        DECIMAL_NUMBER_CONTEXT,
+        LocaleContexts.fake()
     );
 
     private final static Function<ExpressionReference, Optional<Optional<Object>>> REFERENCES = (r -> {

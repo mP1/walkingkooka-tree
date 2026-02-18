@@ -382,16 +382,6 @@ public final class CycleDetectingExpressionEvaluationContextTest implements Clas
                                 (l) -> {
                                     throw new UnsupportedOperationException();
                                 }, // canCurrencyForLocale
-
-                                (l) -> {
-                                    throw new UnsupportedOperationException();
-                                }, // canDateTimeSymbolsForLocale
-                                (l) -> {
-                                    throw new UnsupportedOperationException();
-                                }, // canDecimalNumberSymbolsForLocale
-                                (lt) -> {
-                                    throw new UnsupportedOperationException();
-                                }, // canLocaleForLanguageTag
                                 false, // canNumbersHaveGroupSeparator
                                 Converters.JAVA_EPOCH_OFFSET, // dateOffset
                                 Indentation.SPACES2,
@@ -399,7 +389,8 @@ public final class CycleDetectingExpressionEvaluationContextTest implements Clas
                                 ',', // valueSeparator
                                 Converters.characterOrCharSequenceOrHasTextOrStringToCharacterOrCharSequenceOrString(),
                                 DateTimeContexts.fake(),
-                                DecimalNumberContexts.american(MathContext.DECIMAL32)
+                                DecimalNumberContexts.american(MathContext.DECIMAL32),
+                                LocaleContexts.fake()
                             )
                         );
                 }
@@ -474,16 +465,6 @@ public final class CycleDetectingExpressionEvaluationContextTest implements Clas
                     (l) -> {
                         throw new UnsupportedOperationException();
                     }, // canCurrencyForLocale
-
-                    (l) -> {
-                        throw new UnsupportedOperationException();
-                    }, // canDateTimeSymbolsForLocale
-                    (l) -> {
-                        throw new UnsupportedOperationException();
-                    }, // canDecimalNumberSymbolsForLocale
-                    (lt) -> {
-                        throw new UnsupportedOperationException();
-                    }, // canLocaleForLanguageTag
                     false, // canNumbersHaveGroupSeparator
                     Converters.JAVA_EPOCH_OFFSET,
                     Indentation.SPACES2,
@@ -499,7 +480,8 @@ public final class CycleDetectingExpressionEvaluationContextTest implements Clas
                         50, // twoDigitYear
                         () -> LocalDateTime.MIN
                     ),
-                    this.decimalNumberContext()
+                    this.decimalNumberContext(),
+                    LocaleContexts.fake()
                 ),
                 EnvironmentContexts.map(
                     EnvironmentContexts.empty(
