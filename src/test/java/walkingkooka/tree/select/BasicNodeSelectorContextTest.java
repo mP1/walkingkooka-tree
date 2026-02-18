@@ -78,15 +78,6 @@ public final class BasicNodeSelectorContextTest implements ClassTesting2<BasicNo
             (l) -> {
                 throw new UnsupportedOperationException();
             }, // canCurrencyForLocale
-            (l) -> {
-                throw new UnsupportedOperationException();
-            }, // canDateTimeSymbolsForLocale
-            (l) -> {
-                throw new UnsupportedOperationException();
-            }, // canDecimalNumberSymbolsForLocale
-            (lt) -> {
-                throw new UnsupportedOperationException();
-            }, // canLocaleForLanguageTag
             false, // canNumbersHaveGroupSeparator
             Converters.JAVA_EPOCH_OFFSET, // dateOffset
             Indentation.SPACES2,
@@ -94,7 +85,8 @@ public final class BasicNodeSelectorContextTest implements ClassTesting2<BasicNo
             ',', // valueSeparator
             Converters.fake(),
             DateTimeContexts.fake(),
-            DecimalNumberContexts.fake()
+            DecimalNumberContexts.fake(),
+            LocaleContexts.fake()
         ),
         KIND
     );

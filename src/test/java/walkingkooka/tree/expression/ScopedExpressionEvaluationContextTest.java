@@ -312,15 +312,6 @@ public final class ScopedExpressionEvaluationContextTest implements ExpressionEv
                     (l) -> {
                         throw new UnsupportedOperationException();
                     }, // canCurrencyForLocale
-                    (l) -> {
-                        throw new UnsupportedOperationException();
-                    }, // canDateTimeSymbolsForLocale
-                    (l) -> {
-                        throw new UnsupportedOperationException();
-                    }, // canDecimalNumberSymbolsForLocale
-                    (lt) -> {
-                        throw new UnsupportedOperationException();
-                    }, // canLocaleForLanguageTag
                     false, // canNumbersHaveGroupSeparator
                     0,
                     Indentation.SPACES2,
@@ -336,7 +327,8 @@ public final class ScopedExpressionEvaluationContextTest implements ExpressionEv
                         50,
                         () -> LocalDateTime.MIN
                     ),
-                    DecimalNumberContexts.american(MathContext.DECIMAL32)
+                    DecimalNumberContexts.american(MathContext.DECIMAL32),
+                    LocaleContexts.fake()
                 ),
                 EnvironmentContexts.map(
                     EnvironmentContexts.empty(
