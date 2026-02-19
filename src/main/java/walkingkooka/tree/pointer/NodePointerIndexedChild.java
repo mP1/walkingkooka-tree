@@ -99,11 +99,6 @@ final class NodePointerIndexedChild<N extends Node<N, NAME, ?, ?>, NAME extends 
     }
 
     @Override
-    boolean canBeEqual(final Object other) {
-        return other instanceof NodePointerIndexedChild;
-    }
-
-    @Override
     boolean equals1(final NodePointer<?, ?> other) {
         return this.equals2(Cast.to(other));
     }

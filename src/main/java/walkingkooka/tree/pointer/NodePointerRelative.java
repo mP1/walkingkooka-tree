@@ -111,11 +111,6 @@ final class NodePointerRelative<N extends Node<N, NAME, ?, ?>, NAME extends Name
     }
 
     @Override
-    boolean canBeEqual(final Object other) {
-        return other instanceof NodePointerRelative;
-    }
-
-    @Override
     boolean equals1(final NodePointer<?, ?> other) {
         return this.equals2(Cast.to(other));
     }

@@ -91,11 +91,6 @@ final class NodePointerAppend<N extends Node<N, NAME, ?, ?>, NAME extends Name> 
     }
 
     @Override
-    boolean canBeEqual(final Object other) {
-        return other instanceof NodePointerAppend;
-    }
-
-    @Override
     boolean equals1(final NodePointer<?, ?> other) {
         return true;
     }
