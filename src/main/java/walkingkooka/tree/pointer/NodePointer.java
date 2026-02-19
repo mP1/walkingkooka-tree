@@ -238,7 +238,8 @@ public abstract class NodePointer<N extends Node<N, NAME, ?, ?>, NAME extends Na
     /**
      * Very similar to {@link #traverse(Node)} but returns the second last node or fails.
      */
-    final N traverseAndAddOrFail(final N node, final N value) {
+    final N traverseAndAddOrFail(final N node,
+                                 final N value) {
         N result;
 
         N current = node;
@@ -294,12 +295,13 @@ public abstract class NodePointer<N extends Node<N, NAME, ?, ?>, NAME extends Na
      */
     abstract public boolean isRelative();
 
-    // NodePatch helpers.................................................................................................
+    // NodePatch helpers................................................................................................
 
     /**
      * Uses this {@link NodePointer} to find the node that path and add the given node, returning the result.
      */
-    final public N add(final N node, final N value) {
+    final public N add(final N node,
+                       final N value) {
         Objects.requireNonNull((Node<?, ?, ?, ?>) node, "node");
         Objects.requireNonNull(value, "value");
 
@@ -309,7 +311,8 @@ public abstract class NodePointer<N extends Node<N, NAME, ?, ?>, NAME extends Na
     /**
      * Sub classes must add the value to the given {@link Node}.
      */
-    abstract N add0(final N node, final N value);
+    abstract N add0(final N node,
+                    final N value);
 
     /**
      * Uses this {@link NodePointer} to find the node that path and remove the given node, returning the result.
@@ -331,7 +334,7 @@ public abstract class NodePointer<N extends Node<N, NAME, ?, ?>, NAME extends Na
             .orElseThrow(() -> new NodePointerException("Unable to remove " + this + " from " + node));
     }
 
-    // NodePointerVisitor................................................................................
+    // NodePointerVisitor...............................................................................................
 
     abstract void accept(final NodePointerVisitor<N, NAME> visitor);
 
@@ -364,7 +367,7 @@ public abstract class NodePointer<N extends Node<N, NAME, ?, ?>, NAME extends Na
 
     abstract boolean equals1(final NodePointer<?, ?> other);
 
-    // Object ..............................................................................................
+    // Object ..........................................................................................................
 
     /**
      * Return the full node pointer string.
