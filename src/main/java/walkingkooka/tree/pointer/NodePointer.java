@@ -47,7 +47,7 @@ public abstract class NodePointer<N extends Node<N, NAME, ?, ?>, NAME extends Na
                                                                                                 final Class<N> nodeType) {
         Objects.requireNonNull(pointer, "pointer");
         Objects.requireNonNull(nameFactory, "name factory");
-        checkNodeType(nodeType);
+        Objects.requireNonNull(nodeType, "nodeType");
 
         final String[] components = pointer.split(SEPARATOR.string());
         NodePointer<N, NAME> result = any(nodeType);
@@ -103,7 +103,7 @@ public abstract class NodePointer<N extends Node<N, NAME, ?, ?>, NAME extends Na
      * Creates a match all.
      */
     public static <N extends Node<N, NAME, ?, ?>, NAME extends Name> NodePointer<N, NAME> any(final Class<N> nodeType) {
-        checkNodeType(nodeType);
+        Objects.requireNonNull(nodeType, "nodeType");
 
         return NodePointerAny.get();
     }
@@ -113,7 +113,7 @@ public abstract class NodePointer<N extends Node<N, NAME, ?, ?>, NAME extends Na
      */
     public static <N extends Node<N, NAME, ?, ?>, NAME extends Name> NodePointer<N, NAME> indexed(final int index,
                                                                                                   final Class<N> nodeType) {
-        checkNodeType(nodeType);
+        Objects.requireNonNull(nodeType, "nodeType");
 
         return NodePointerIndexedChild.with(index);
     }
@@ -123,7 +123,7 @@ public abstract class NodePointer<N extends Node<N, NAME, ?, ?>, NAME extends Na
      */
     public static <N extends Node<N, NAME, ?, ?>, NAME extends Name> NodePointer<N, NAME> named(final NAME name,
                                                                                                 final Class<N> nodeType) {
-        checkNodeType(nodeType);
+        Objects.requireNonNull(nodeType, "nodeType");
 
         return NodePointerNamedChild.with(name);
     }
@@ -133,7 +133,7 @@ public abstract class NodePointer<N extends Node<N, NAME, ?, ?>, NAME extends Na
      */
     public static <N extends Node<N, NAME, ?, ?>, NAME extends Name> NodePointer<N, NAME> relative(final int ancestor,
                                                                                                    final Class<N> nodeType) {
-        checkNodeType(nodeType);
+        Objects.requireNonNull(nodeType, "nodeType");
 
         return NodePointerRelative.with(ancestor, false);
     }
@@ -143,7 +143,7 @@ public abstract class NodePointer<N extends Node<N, NAME, ?, ?>, NAME extends Na
      */
     public static <N extends Node<N, NAME, ?, ?>, NAME extends Name> NodePointer<N, NAME> relativeHash(final int ancestor,
                                                                                                        final Class<N> nodeType) {
-        checkNodeType(nodeType);
+        Objects.requireNonNull(nodeType, "nodeType");
 
         return NodePointerRelative.with(ancestor, true);
     }
@@ -391,10 +391,6 @@ public abstract class NodePointer<N extends Node<N, NAME, ?, ?>, NAME extends Na
     abstract void toString0(final StringBuilder b);
 
     abstract void lastToString(final StringBuilder b);
-
-    private static <N extends Node<N, ?, ?, ?>> void checkNodeType(Class<N> nodeType) {
-        Objects.requireNonNull(nodeType, "nodeType");
-    }
 
     // helpers....................................................................................................
 
