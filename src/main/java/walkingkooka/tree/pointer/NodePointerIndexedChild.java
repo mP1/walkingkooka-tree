@@ -36,7 +36,11 @@ final class NodePointerIndexedChild<N extends Node<N, NAME, ?, ?>, NAME extends 
      */
     static <N extends Node<N, NAME, ?, ?>, NAME extends Name> NodePointerIndexedChild<N, NAME> with(final int index) {
         if (index < 0) {
-            throw new IndexOutOfBoundsException("Invalid index " + index + " values should be greater or equal to 0");
+            throw new IndexOutOfBoundsException(
+                "Invalid index " +
+                    index +
+                    " values should be greater or equal to 0"
+            );
         }
 
         return new NodePointerIndexedChild<N, NAME>(index, absent());
@@ -45,7 +49,8 @@ final class NodePointerIndexedChild<N extends Node<N, NAME, ?, ?>, NAME extends 
     /**
      * Private ctor.
      */
-    private NodePointerIndexedChild(final int index, final NodePointer<N, NAME> pointer) {
+    private NodePointerIndexedChild(final int index,
+                                    final NodePointer<N, NAME> pointer) {
         super(pointer);
         this.index = index;
     }
@@ -54,7 +59,10 @@ final class NodePointerIndexedChild<N extends Node<N, NAME, ?, ?>, NAME extends 
 
     @Override
     NodePointer<N, NAME> appendToLast(final NodePointer<N, NAME> pointer) {
-        return new NodePointerIndexedChild<>(this.index, this.appendToLast0(pointer));
+        return new NodePointerIndexedChild<>(
+            this.index,
+            this.appendToLast0(pointer)
+        );
     }
 
     @Override
@@ -80,7 +88,7 @@ final class NodePointerIndexedChild<N extends Node<N, NAME, ?, ?>, NAME extends 
         return this.removeOrFail(node);
     }
 
-    // NodePointerVisitor.............................................................................................
+    // NodePointerVisitor...............................................................................................
 
     @Override
     void accept(final NodePointerVisitor<N, NAME> visitor) {
@@ -88,14 +96,20 @@ final class NodePointerIndexedChild<N extends Node<N, NAME, ?, ?>, NAME extends 
         if (Visiting.CONTINUE == visitor.startVisitIndexedChild(this, index)) {
             this.acceptNext(visitor);
         }
-        visitor.endVisitIndexedChild(this, index);
+        visitor.endVisitIndexedChild(
+            this,
+            index
+        );
     }
 
     // Object...........................................................................................................
 
     @Override
     public int hashCode() {
-        return Objects.hash(this.index, this.next);
+        return Objects.hash(
+            this.index,
+            this.next
+        );
     }
 
     @Override
@@ -115,5 +129,6 @@ final class NodePointerIndexedChild<N extends Node<N, NAME, ?, ?>, NAME extends 
 
     @Override
     void lastToString(final StringBuilder b) {
+        // NOP
     }
 }
