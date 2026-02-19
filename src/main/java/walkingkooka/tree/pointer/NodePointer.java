@@ -191,9 +191,11 @@ public abstract class NodePointer<N extends Node<N, NAME, ?, ?>, NAME extends Na
      * Walks this pointer and returns the matching {@link Node}
      */
     public final Optional<N> traverse(final N node) {
-        checkNode(node);
+        Objects.requireNonNull((Node<?, ?, ?, ?>) node, "node");
 
-        return Optional.ofNullable(this.traverseOrNull(node));
+        return Optional.ofNullable(
+            this.traverseOrNull(node)
+        );
     }
 
     /**
@@ -298,7 +300,7 @@ public abstract class NodePointer<N extends Node<N, NAME, ?, ?>, NAME extends Na
      * Uses this {@link NodePointer} to find the node that path and add the given node, returning the result.
      */
     final public N add(final N node, final N value) {
-        checkNode(node);
+        Objects.requireNonNull((Node<?, ?, ?, ?>) node, "node");
         Objects.requireNonNull(value, "value");
 
         return this.traverseAndAddOrFail(node, value);
@@ -313,7 +315,7 @@ public abstract class NodePointer<N extends Node<N, NAME, ?, ?>, NAME extends Na
      * Uses this {@link NodePointer} to find the node that path and remove the given node, returning the result.
      */
     final public N remove(final N node) {
-        checkNode(node);
+        Objects.requireNonNull((Node<?, ?, ?, ?>) node, "node");
 
         return this.remove0(node);
     }
@@ -391,10 +393,4 @@ public abstract class NodePointer<N extends Node<N, NAME, ?, ?>, NAME extends Na
     abstract void toString0(final StringBuilder b);
 
     abstract void lastToString(final StringBuilder b);
-
-    // helpers....................................................................................................
-
-    private static void checkNode(final Node<?, ?, ?, ?> node) {
-        Objects.requireNonNull(node, "node");
-    }
 }
