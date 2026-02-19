@@ -36,13 +36,17 @@ final class NodePointerNamedChild<N extends Node<N, NAME, ?, ?>, NAME extends Na
     static <N extends Node<N, NAME, ?, ?>, NAME extends Name> NodePointerNamedChild<N, NAME> with(final NAME name) {
         Objects.requireNonNull(name, "name");
 
-        return new NodePointerNamedChild<N, NAME>(name, absent());
+        return new NodePointerNamedChild<N, NAME>(
+            name,
+            absent()
+        );
     }
 
     /**
      * Private ctor.
      */
-    private NodePointerNamedChild(final NAME name, final NodePointer<N, NAME> next) {
+    private NodePointerNamedChild(final NAME name,
+                                  final NodePointer<N, NAME> next) {
         super(next);
         this.name = name;
     }
@@ -51,7 +55,10 @@ final class NodePointerNamedChild<N extends Node<N, NAME, ?, ?>, NAME extends Na
 
     @Override
     NodePointer<N, NAME> appendToLast(final NodePointer<N, NAME> pointer) {
-        return new NodePointerNamedChild<>(this.name, this.appendToLast0(pointer));
+        return new NodePointerNamedChild<>(
+            this.name,
+            this.appendToLast0(pointer)
+        );
     }
 
     @Override
@@ -90,14 +97,20 @@ final class NodePointerNamedChild<N extends Node<N, NAME, ?, ?>, NAME extends Na
         if (Visiting.CONTINUE == visitor.startVisitNamedChild(this, name)) {
             this.acceptNext(visitor);
         }
-        visitor.endVisitNamedChild(this, name);
+        visitor.endVisitNamedChild(
+            this,
+            name
+        );
     }
 
     // Object...........................................................................................................
 
     @Override
     public int hashCode() {
-        return Objects.hash(this.name, this.next);
+        return Objects.hash(
+            this.name,
+            this.next
+        );
     }
 
     @Override
