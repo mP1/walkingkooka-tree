@@ -37,16 +37,26 @@ final class NodePointerRelative<N extends Node<N, NAME, ?, ?>, NAME extends Name
     static <N extends Node<N, NAME, ?, ?>, NAME extends Name> NodePointerRelative<N, NAME> with(final int ancestorCount,
                                                                                                 final boolean hash) {
         if (ancestorCount < 0) {
-            throw new IllegalArgumentException("Invalid ancestorCount " + ancestorCount + " values should be greater or equal to 0");
+            throw new IllegalArgumentException(
+                "Invalid ancestorCount " +
+                    ancestorCount +
+                    " values should be greater or equal to 0"
+            );
         }
 
-        return new NodePointerRelative<N, NAME>(ancestorCount, hash, absent());
+        return new NodePointerRelative<N, NAME>(
+            ancestorCount,
+            hash,
+            absent()
+        );
     }
 
     /**
      * Private ctor.
      */
-    private NodePointerRelative(final int ancestorCount, final boolean hash, final NodePointer<N, NAME> pointer) {
+    private NodePointerRelative(final int ancestorCount,
+                                final boolean hash,
+                                final NodePointer<N, NAME> pointer) {
         super(pointer);
         this.ancestorCount = ancestorCount;
         this.hash = hash;
@@ -54,7 +64,11 @@ final class NodePointerRelative<N extends Node<N, NAME, ?, ?>, NAME extends Name
 
     @Override
     NodePointer<N, NAME> appendToLast(final NodePointer<N, NAME> pointer) {
-        return new NodePointerRelative<>(this.ancestorCount, this.hash, this.appendToLast0(pointer));
+        return new NodePointerRelative<>(
+            this.ancestorCount,
+            this.hash,
+            this.appendToLast0(pointer)
+        );
     }
 
     @Override
@@ -63,7 +77,7 @@ final class NodePointerRelative<N extends Node<N, NAME, ?, ?>, NAME extends Name
 
         for (int i = 0; i < this.ancestorCount; i++) {
             final Optional<N> parent = next.parent();
-            if (!parent.isPresent()) {
+            if (false == parent.isPresent()) {
                 next = null;
                 break;
             }
@@ -83,17 +97,27 @@ final class NodePointerRelative<N extends Node<N, NAME, ?, ?>, NAME extends Name
 
     @Override
     N add0(final N node, final N value) {
-        return this.next.add0(node, value);
+        return this.next.add0(
+            node,
+            value
+        );
     }
 
     @Override
     N remove0(final N node) {
         return this.traverseOrFail(node)
             .parentWithout()
-            .orElseThrow(() -> new NodePointerException("Unable to remove " + this + " from " + node));
+            .orElseThrow(
+                () -> new NodePointerException(
+                    "Unable to remove " +
+                        this +
+                        " from " +
+                        node
+                )
+            );
     }
 
-    // NodePointerVisitor.............................................................................................
+    // NodePointerVisitor...............................................................................................
 
     @Override
     void accept(final NodePointerVisitor<N, NAME> visitor) {
