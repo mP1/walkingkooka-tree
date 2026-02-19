@@ -85,11 +85,6 @@ final class NodePointerAny<N extends Node<N, NAME, ?, ?>, NAME extends Name> ext
     }
 
     @Override
-    boolean canBeEqual(final Object other) {
-        return other instanceof NodePointerAny;
-    }
-
-    @Override
     boolean equals1(final NodePointer<?, ?> other) {
         return true;
     }
