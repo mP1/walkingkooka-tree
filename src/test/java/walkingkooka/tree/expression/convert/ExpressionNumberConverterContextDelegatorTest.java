@@ -19,6 +19,7 @@ package walkingkooka.tree.expression.convert;
 
 import walkingkooka.convert.ConverterContexts;
 import walkingkooka.convert.Converters;
+import walkingkooka.currency.FakeCurrencyContext;
 import walkingkooka.datetime.DateTimeContexts;
 import walkingkooka.datetime.DateTimeSymbols;
 import walkingkooka.locale.LocaleContexts;
@@ -33,8 +34,9 @@ import walkingkooka.tree.expression.convert.ExpressionNumberConverterContextDele
 import java.math.MathContext;
 import java.text.DateFormatSymbols;
 import java.time.LocalDateTime;
+import java.util.Currency;
 import java.util.Locale;
-import java.util.Objects;
+import java.util.Optional;
 
 public final class ExpressionNumberConverterContextDelegatorTest implements ExpressionNumberConverterContextTesting<TestExpressionNumberConverterContextDelegator>,
     DecimalNumberContextDelegator {
@@ -80,16 +82,22 @@ public final class ExpressionNumberConverterContextDelegatorTest implements Expr
             return ExpressionNumberConverterContexts.basic(
                 Converters.numberToBoolean(),
                 ConverterContexts.basic(
-                    (l) -> {
-                        Objects.requireNonNull(l, "locale");
-                        throw new UnsupportedOperationException();
-                    }, // canCurrencyForLocale
                     false, // canNumbersHaveGroupSeparator
                     0,
                     Indentation.SPACES2,
                     LineEnding.NL,
                     ',', // valueSeparator
                     Converters.fake(),
+                    new FakeCurrencyContext() {
+                        @Override
+                        public Optional<Currency> currencyForLocale(final Locale locale) {
+                            return Optional.of(
+                                Currency.getInstance(locale)
+                            );
+                        }
+                    }.setLocaleContext(
+                        LocaleContexts.jre(locale)
+                    ),
                     DateTimeContexts.basic(
                         DateTimeSymbols.fromDateFormatSymbols(
                             new DateFormatSymbols(locale)
@@ -99,8 +107,7 @@ public final class ExpressionNumberConverterContextDelegatorTest implements Expr
                         50,
                         LocalDateTime::now
                     ),
-                    DECIMAL_CONTEXT,
-                    LocaleContexts.jre(locale)
+                    DECIMAL_CONTEXT
                 ),
                 ExpressionNumberKind.BIG_DECIMAL
             );

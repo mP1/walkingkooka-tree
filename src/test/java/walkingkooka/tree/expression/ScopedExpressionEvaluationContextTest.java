@@ -21,6 +21,7 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.convert.ConverterContexts;
 import walkingkooka.convert.Converters;
+import walkingkooka.currency.CurrencyLocaleContexts;
 import walkingkooka.datetime.DateTimeContexts;
 import walkingkooka.datetime.DateTimeSymbols;
 import walkingkooka.environment.EnvironmentContext;
@@ -309,15 +310,13 @@ public final class ScopedExpressionEvaluationContextTest implements ExpressionEv
                 ExpressionEvaluationContexts.referenceNotFound(),
                 CaseSensitivity.SENSITIVE,
                 ConverterContexts.basic(
-                    (l) -> {
-                        throw new UnsupportedOperationException();
-                    }, // canCurrencyForLocale
                     false, // canNumbersHaveGroupSeparator
                     0,
                     Indentation.SPACES2,
                     LineEnding.NL,
                     ',', // valueSeparator
                     Converters.fake(),
+                    CurrencyLocaleContexts.fake(),
                     DateTimeContexts.basic(
                         DateTimeSymbols.fromDateFormatSymbols(
                             new DateFormatSymbols(locale)
@@ -327,8 +326,7 @@ public final class ScopedExpressionEvaluationContextTest implements ExpressionEv
                         50,
                         () -> LocalDateTime.MIN
                     ),
-                    DecimalNumberContexts.american(MathContext.DECIMAL32),
-                    LocaleContexts.fake()
+                    DecimalNumberContexts.american(MathContext.DECIMAL32)
                 ),
                 EnvironmentContexts.map(
                     EnvironmentContexts.empty(

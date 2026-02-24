@@ -23,6 +23,7 @@ import walkingkooka.Cast;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.convert.ConverterContexts;
 import walkingkooka.convert.Converters;
+import walkingkooka.currency.CurrencyLocaleContexts;
 import walkingkooka.datetime.DateTimeContexts;
 import walkingkooka.datetime.DateTimeSymbols;
 import walkingkooka.datetime.HasNow;
@@ -217,15 +218,13 @@ public final class BasicNodeSelectorExpressionEvaluationContextTest implements N
         return ExpressionNumberConverterContexts.basic(
             Converters.numberToNumber(),
             ConverterContexts.basic(
-                (l) -> {
-                    throw new UnsupportedOperationException();
-                }, // canCurrencyForLocale
                 false, // canNumbersHaveGroupSeparator
                 Converters.JAVA_EPOCH_OFFSET, // dateOffset
                 Indentation.SPACES2,
                 LineEnding.NL,
                 ',', // valueSeparator
                 Converters.fake(),
+                CurrencyLocaleContexts.fake(),
                 DateTimeContexts.basic(
                     DateTimeSymbols.fromDateFormatSymbols(
                         new DateFormatSymbols(locale)
@@ -235,8 +234,7 @@ public final class BasicNodeSelectorExpressionEvaluationContextTest implements N
                     50, // twoDigitYear
                     HAS_NOW
                 ),
-                decimalNumberContext(),
-                LocaleContexts.fake()
+                decimalNumberContext()
             ),
             EXPRESSION_NUMBER_KIND
         );

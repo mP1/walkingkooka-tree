@@ -21,6 +21,7 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.convert.ConverterContexts;
 import walkingkooka.convert.Converters;
+import walkingkooka.currency.CurrencyLocaleContexts;
 import walkingkooka.datetime.DateTimeContexts;
 import walkingkooka.environment.EnvironmentContext;
 import walkingkooka.environment.EnvironmentContexts;
@@ -75,18 +76,15 @@ public final class BasicNodeSelectorContextTest implements ClassTesting2<BasicNo
             Converters.fake()
         ),
         ConverterContexts.basic(
-            (l) -> {
-                throw new UnsupportedOperationException();
-            }, // canCurrencyForLocale
             false, // canNumbersHaveGroupSeparator
             Converters.JAVA_EPOCH_OFFSET, // dateOffset
             Indentation.SPACES2,
             LineEnding.NL,
             ',', // valueSeparator
             Converters.fake(),
+            CurrencyLocaleContexts.fake(),
             DateTimeContexts.fake(),
-            DecimalNumberContexts.fake(),
-            LocaleContexts.fake()
+            DecimalNumberContexts.fake()
         ),
         KIND
     );

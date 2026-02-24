@@ -20,6 +20,7 @@ package walkingkooka.tree.expression;
 import org.junit.jupiter.api.Test;
 import walkingkooka.convert.ConverterContexts;
 import walkingkooka.convert.Converters;
+import walkingkooka.currency.CurrencyLocaleContexts;
 import walkingkooka.datetime.DateTimeContexts;
 import walkingkooka.datetime.DateTimeSymbols;
 import walkingkooka.environment.EnvironmentContext;
@@ -119,15 +120,13 @@ public final class ExpressionEvaluationContextDelegatorTest implements Expressio
                 ExpressionEvaluationContexts.referenceNotFound(),
                 CaseSensitivity.SENSITIVE,
                 ConverterContexts.basic(
-                    (l) -> {
-                        throw new UnsupportedOperationException();
-                    }, // canCurrencyForLocale
                     false, // canNumbersHaveGroupSeparator
                     0,
                     Indentation.SPACES2,
                     LineEnding.NL,
                     ',', // valueSeparator
                     Converters.fake(),
+                    CurrencyLocaleContexts.fake(),
                     DateTimeContexts.basic(
                         DateTimeSymbols.fromDateFormatSymbols(
                             new DateFormatSymbols(locale)
@@ -137,8 +136,7 @@ public final class ExpressionEvaluationContextDelegatorTest implements Expressio
                         50,
                         () -> LocalDateTime.MIN
                     ),
-                    DecimalNumberContexts.american(MathContext.DECIMAL32),
-                    LocaleContexts.fake()
+                    DecimalNumberContexts.american(MathContext.DECIMAL32)
                 ),
                 EnvironmentContexts.map(
                     EnvironmentContexts.empty(

@@ -25,9 +25,9 @@ import walkingkooka.convert.Converter;
 import walkingkooka.convert.ConverterContexts;
 import walkingkooka.convert.Converters;
 import walkingkooka.convert.FakeConverter;
+import walkingkooka.currency.CurrencyLocaleContexts;
 import walkingkooka.datetime.DateTimeContexts;
 import walkingkooka.datetime.DateTimeSymbols;
-import walkingkooka.locale.LocaleContexts;
 import walkingkooka.math.DecimalNumberContexts;
 import walkingkooka.naming.Name;
 import walkingkooka.predicate.Predicates;
@@ -386,15 +386,13 @@ public abstract class ExpressionTestCase<N extends Expression> implements TreePr
                 )
             ),
             ConverterContexts.basic(
-                (l) -> {
-                    throw new UnsupportedOperationException();
-                }, // canCurrencyForLocale
                 false, // canNumbersHaveGroupSeparator
                 Converters.JAVA_EPOCH_OFFSET,
                 Indentation.SPACES2,
                 LineEnding.NL,
                 ',', // valueSeparator
                 Converters.simple(),
+                CurrencyLocaleContexts.fake(),
                 DateTimeContexts.basic(
                     DateTimeSymbols.fromDateFormatSymbols(
                         new DateFormatSymbols(locale)
@@ -404,8 +402,7 @@ public abstract class ExpressionTestCase<N extends Expression> implements TreePr
                     20,
                     LocalDateTime::now
                 ),
-                DecimalNumberContexts.american(MathContext.DECIMAL32),
-                LocaleContexts.fake()
+                DecimalNumberContexts.american(MathContext.DECIMAL32)
             ),
             EXPRESSION_NUMBER_KIND
         );

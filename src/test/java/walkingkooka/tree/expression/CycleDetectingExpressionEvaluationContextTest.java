@@ -22,6 +22,7 @@ import walkingkooka.Either;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.convert.ConverterContexts;
 import walkingkooka.convert.Converters;
+import walkingkooka.currency.CurrencyLocaleContexts;
 import walkingkooka.datetime.DateTimeContexts;
 import walkingkooka.datetime.DateTimeSymbols;
 import walkingkooka.environment.EnvironmentContext;
@@ -379,18 +380,15 @@ public final class CycleDetectingExpressionEvaluationContextTest implements Clas
                             value,
                             target,
                             ConverterContexts.basic(
-                                (l) -> {
-                                    throw new UnsupportedOperationException();
-                                }, // canCurrencyForLocale
                                 false, // canNumbersHaveGroupSeparator
                                 Converters.JAVA_EPOCH_OFFSET, // dateOffset
                                 Indentation.SPACES2,
                                 LineEnding.NL,
                                 ',', // valueSeparator
                                 Converters.characterOrCharSequenceOrHasTextOrStringToCharacterOrCharSequenceOrString(),
+                                CurrencyLocaleContexts.fake(),
                                 DateTimeContexts.fake(),
-                                DecimalNumberContexts.american(MathContext.DECIMAL32),
-                                LocaleContexts.fake()
+                                DecimalNumberContexts.american(MathContext.DECIMAL32)
                             )
                         );
                 }
@@ -462,15 +460,13 @@ public final class CycleDetectingExpressionEvaluationContextTest implements Clas
                 },
                 CaseSensitivity.SENSITIVE,
                 ConverterContexts.basic(
-                    (l) -> {
-                        throw new UnsupportedOperationException();
-                    }, // canCurrencyForLocale
                     false, // canNumbersHaveGroupSeparator
                     Converters.JAVA_EPOCH_OFFSET,
                     Indentation.SPACES2,
                     LineEnding.NL,
                     ',', // valueSeparator
                     Converters.simple(), // converter
+                    CurrencyLocaleContexts.fake(),
                     DateTimeContexts.basic(
                         DateTimeSymbols.fromDateFormatSymbols(
                             new DateFormatSymbols(locale)
@@ -480,8 +476,7 @@ public final class CycleDetectingExpressionEvaluationContextTest implements Clas
                         50, // twoDigitYear
                         () -> LocalDateTime.MIN
                     ),
-                    this.decimalNumberContext(),
-                    LocaleContexts.fake()
+                    this.decimalNumberContext()
                 ),
                 EnvironmentContexts.map(
                     EnvironmentContexts.empty(

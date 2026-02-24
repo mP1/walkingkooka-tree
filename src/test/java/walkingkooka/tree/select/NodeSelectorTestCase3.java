@@ -28,6 +28,7 @@ import walkingkooka.collect.set.Sets;
 import walkingkooka.convert.Converter;
 import walkingkooka.convert.ConverterContexts;
 import walkingkooka.convert.Converters;
+import walkingkooka.currency.CurrencyLocaleContexts;
 import walkingkooka.datetime.DateTimeContexts;
 import walkingkooka.environment.EnvironmentContext;
 import walkingkooka.environment.EnvironmentContexts;
@@ -624,18 +625,15 @@ abstract public class NodeSelectorTestCase3<S extends NodeSelector<TestNode, Str
         return ExpressionNumberConverterContexts.basic(
             this.converter(),
             ConverterContexts.basic(
-                (l) -> {
-                    throw new UnsupportedOperationException();
-                }, // canCurrencyForLocale
                 false, // canNumbersHaveGroupSeparator
                 Converters.JAVA_EPOCH_OFFSET, // dateOffset
                 Indentation.SPACES2,
                 LineEnding.NL,
                 ',', // valueSeparator
                 Converters.fake(),
+                CurrencyLocaleContexts.fake(),
                 DateTimeContexts.fake(),
-                DecimalNumberContexts.american(MathContext.DECIMAL32),
-                LocaleContexts.fake()
+                DecimalNumberContexts.american(MathContext.DECIMAL32)
             ),
             EXPRESSION_NUMBER_KIND
         );

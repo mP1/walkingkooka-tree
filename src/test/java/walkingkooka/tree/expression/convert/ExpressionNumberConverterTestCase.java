@@ -22,8 +22,8 @@ import walkingkooka.ToStringTesting;
 import walkingkooka.convert.ConverterContexts;
 import walkingkooka.convert.ConverterTesting2;
 import walkingkooka.convert.Converters;
+import walkingkooka.currency.CurrencyLocaleContexts;
 import walkingkooka.datetime.DateTimeContexts;
-import walkingkooka.locale.LocaleContexts;
 import walkingkooka.math.DecimalNumberContexts;
 import walkingkooka.text.Indentation;
 import walkingkooka.text.LineEnding;
@@ -56,18 +56,15 @@ public abstract class ExpressionNumberConverterTestCase<C extends ExpressionNumb
         return ExpressionNumberConverterContexts.basic(
             Converters.fake(),
             ConverterContexts.basic(
-                (l) -> {
-                    throw new UnsupportedOperationException();
-                }, // canCurrencyForLocale
                 false, // canNumbersHaveGroupSeparator
                 Converters.JAVA_EPOCH_OFFSET, // dateOffset
                 Indentation.SPACES2,
                 LineEnding.NL,
                 ',', // valueSeparator
                 Converters.fake(),
+                CurrencyLocaleContexts.fake(),
                 DateTimeContexts.fake(),
-                DecimalNumberContexts.american(MathContext.DECIMAL32),
-                LocaleContexts.fake()
+                DecimalNumberContexts.american(MathContext.DECIMAL32)
             ),
             kind
         );

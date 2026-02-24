@@ -27,6 +27,7 @@ import walkingkooka.collect.set.Sets;
 import walkingkooka.convert.Converter;
 import walkingkooka.convert.ConverterContexts;
 import walkingkooka.convert.Converters;
+import walkingkooka.currency.CurrencyLocaleContexts;
 import walkingkooka.datetime.DateTimeContexts;
 import walkingkooka.environment.EnvironmentContexts;
 import walkingkooka.locale.LocaleContexts;
@@ -2012,18 +2013,15 @@ public final class NodeSelectorNodeSelectorParserTokenVisitorTest implements Nod
                             }
                         },
                         ConverterContexts.basic(
-                            (l) -> {
-                                throw new UnsupportedOperationException();
-                            }, // canCurrencyForLocale
                             false, // canNumbersHaveGroupSeparator
                             Converters.JAVA_EPOCH_OFFSET, // dateOffset
                             Indentation.SPACES2,
                             LineEnding.NL,
                             ',', // valueSeparator
                             Converters.fake(),
+                            CurrencyLocaleContexts.fake(),
                             DateTimeContexts.fake(),
-                            decimalNumberContext(),
-                            LocaleContexts.fake()
+                            decimalNumberContext()
                         ),
                         EXPRESSION_NUMBER_KIND);
                 }

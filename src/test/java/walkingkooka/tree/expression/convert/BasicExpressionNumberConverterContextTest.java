@@ -23,6 +23,7 @@ import walkingkooka.convert.Converter;
 import walkingkooka.convert.ConverterContext;
 import walkingkooka.convert.ConverterContexts;
 import walkingkooka.convert.Converters;
+import walkingkooka.currency.FakeCurrencyContext;
 import walkingkooka.datetime.DateTimeContexts;
 import walkingkooka.datetime.DateTimeSymbols;
 import walkingkooka.locale.LocaleContexts;
@@ -36,8 +37,9 @@ import walkingkooka.tree.expression.ExpressionNumberKind;
 import java.math.MathContext;
 import java.text.DateFormatSymbols;
 import java.time.LocalDateTime;
+import java.util.Currency;
 import java.util.Locale;
-import java.util.Objects;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -82,16 +84,22 @@ public final class BasicExpressionNumberConverterContextTest implements Expressi
         final Locale locale = Locale.forLanguageTag("EN-AU");
 
         return ConverterContexts.basic(
-            (l) -> {
-                Objects.requireNonNull(l, "locale");
-                throw new UnsupportedOperationException();
-            }, // canCurrencyForLocale
             false, // canNumbersHaveGroupSeparator
             Converters.JAVA_EPOCH_OFFSET, // dateOffset
             Indentation.SPACES2,
             LineEnding.NL,
             ',', // valueSeparator
             Converters.fake(),
+            new FakeCurrencyContext() {
+                @Override
+                public Optional<Currency> currencyForLocale(final Locale locale) {
+                    return Optional.of(
+                        Currency.getInstance(locale)
+                    );
+                }
+            }.setLocaleContext(
+                LocaleContexts.jre(locale)
+            ),
             DateTimeContexts.basic(
                 DateTimeSymbols.fromDateFormatSymbols(
                     new DateFormatSymbols(locale)
@@ -101,8 +109,7 @@ public final class BasicExpressionNumberConverterContextTest implements Expressi
                 20,
                 LocalDateTime::now
             ),
-            this.decimalNumberContext(),
-            LocaleContexts.jre(locale)
+            this.decimalNumberContext()
         );
     }
 
