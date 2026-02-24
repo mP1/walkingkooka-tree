@@ -27,6 +27,7 @@ import walkingkooka.convert.ConverterContexts;
 import walkingkooka.convert.ConverterException;
 import walkingkooka.convert.Converters;
 import walkingkooka.convert.FakeConverterContext;
+import walkingkooka.currency.CurrencyLocaleContexts;
 import walkingkooka.datetime.DateTimeContexts;
 import walkingkooka.datetime.DateTimeSymbols;
 import walkingkooka.datetime.HasNow;
@@ -122,9 +123,6 @@ public final class BasicExpressionEvaluationContextTest implements ClassTesting2
     private final static DecimalNumberContext DECIMAL_NUMBER_CONTEXT = DecimalNumberContexts.american(MathContext.DECIMAL32);
 
     private final static ConverterContext CONVERTER_CONTEXT = ConverterContexts.basic(
-        (l) -> {
-            throw new UnsupportedOperationException();
-        }, // canCurrencyForLocale
         false, // canNumbersHaveGroupSeparator
         Converters.JAVA_EPOCH_OFFSET, // dateOffset
         Indentation.SPACES4,
@@ -136,6 +134,7 @@ public final class BasicExpressionEvaluationContextTest implements ClassTesting2
                 Converters.simple()
             )
         ),
+        CurrencyLocaleContexts.fake(),
         DateTimeContexts.basic(
             DateTimeSymbols.fromDateFormatSymbols(
                 new DateFormatSymbols(LOCALE)
@@ -145,8 +144,7 @@ public final class BasicExpressionEvaluationContextTest implements ClassTesting2
             50, // twoDigitYear
             HAS_NOW
         ),
-        DECIMAL_NUMBER_CONTEXT,
-        LocaleContexts.fake()
+        DECIMAL_NUMBER_CONTEXT
     );
 
     private final static Function<ExpressionReference, Optional<Optional<Object>>> REFERENCES = (r -> {
