@@ -8,7 +8,10 @@
 
 ## Background
 
-Trees are everywhere in computing, representing more complex data structures than a list or sequence with examples being
+Trees are everywhere in computing, representing more complex than a list or sequence. The former is two dimensional,
+while the other is linear or one dimensional.
+
+Examples of trees in computing:
 
 - JSON
 - XML documents
@@ -16,9 +19,10 @@ Trees are everywhere in computing, representing more complex data structures tha
 
 Before expanding on their utility consider the following key classes/interfaces.
 
-## [Expression](https://github.com/mP1/walkingkooka-tree/tree/master/src/main/java/walkingkooka/tree/expression/Expression.java)
+# [Expression](https://github.com/mP1/walkingkooka-tree/tree/master/src/main/java/walkingkooka/tree/expression/Expression.java)
 
-An agnostic AST that supports complex expressions, including computation, logical operands and user defined functions.
+An agnostic AST that supports complex expressions, including computation, logical operands and invoking user defined
+functions.
 
 - Immutable
 - Functional
@@ -27,44 +31,42 @@ An agnostic AST that supports complex expressions, including computation, logica
 
 ## [ExpressionNumber](https://github.com/mP1/walkingkooka-tree/blob/master/src/main/java/walkingkooka/tree/expression/ExpressionNumber.java)
 
-An abstraction that supports two number types
+An abstraction holding a number value within an `Expression`, which available choices including:
 
 - `BigDecimal` slower but more precision and various `Rounding` options.
 - `double` faster but limited 64-bit precision
 - `float` fastest but limited 32-bit precision [TODO](https://github.com/mP1/walkingkooka-tree/issues/722)
-
-Either may be used within an expression and during computations with the answer matching the form provided by the
-accompanying `ExpressionEvaluationContext`.
 
 ## [ExpressionEvaluationContext](https://github.com/mP1/walkingkooka-tree/tree/master/src/main/java/walkingkooka/tree/expression/ExpressionEvaluationContext.java)
 
 A context accompanies the evaluation of an `Expression` and provides context aware values and behaviours.
 
 - A powerful construct that supports many values and behaviours that modify evaluation of an expression.
-- Provides the preferred `ExpressionNumber` to use at evaluation time.
-- The context can provide for example locale aware values such as decimal point, current symbol and more.
-- Mapping
-  of [function names](https://github.com/mP1/walkingkooka-tree/tree/master/src/main/java/walkingkooka/tree/expression/ExpressionFunctionName.java)
-  to
-  a [function](https://github.com/mP1/walkingkooka-tree/tree/master/src/main/java/walkingkooka/tree/expression/function/ExpressionFunction.java)
-- Switching locales or function mappings and more make it possible to re-evaluate an `Expression` simply providing a
-  different `ExpressionEvaluationContext`.
-- XPath expressions and spreadsheet formula expressions both use `Expression` to compute their results.
+- Provides the preferred `ExpressionNumber` to use at evaluation time, during number / calculations.
+-
+Extends [LocaleContext](https://github.com/mP1/walkingkooka-locale/blob/master/src/main/java/walkingkooka/locale/LocaleContext.java),
+which provides locale aware values such as decimal point, currency, day names and more.
 
 ## [ExpressionFunction](https://github.com/mP1/walkingkooka-tree/blob/master/src/main/java/walkingkooka/tree/expression/function/ExpressionFunction.java)
 
-This interface makes it easy to insert a function located by name into an `Expression` AST. Numerous methods are
-provided to support meta programming and have a familiar feel to java reflection.
+A function provides an independent function which describes
 
-- returnType()
-- parameters() provides a meta view of each individual parameter name, cardinality (including optional support), type
-  and other `Expression` execution semantics.
-- purity Useful to decide whether an expression or function needs re-evaluation, useful for big spreadsheets with lots
-  of cells to avoid a lot of costly and slow re-evaluation.
+- *name*
+  The [name](https://github.com/mP1/walkingkooka-tree/blob/master/src/main/java/walkingkooka/tree/expression/ExpressionFunctionName.java),
+  which is used within expressions.
+- *return type* The return type
+- *parameters* All the parameters including their name, cardinality and type.
+- *purity* Useful to determine whether the computed value can be cached, Within a spreadsheet this can help improve
+  speed by avoiding unnecessary recalculations, because component values have or will never change.
 
-Numerous projects are available focusing on grouping functions that perform a similar or related task:
+The
+accompanying [ExpressionEvaluationContext](https://github.com/mP1/walkingkooka-tree/blob/master/src/main/java/walkingkooka/tree/expression/ExpressionEvaluationContext.java)
+when executing a function uses the function metadata to convert values to the target type as necessary, supporting a
+type-safe but dynamic conversions as necessary.
 
-The following function project hold many generic functions.
+### [Projects](https://github.com/mP1?tab=repositories&q=function&type=&language=&sort=)
+
+The following function projects hold many functions, and can be used in any `Expression` context including Spreadsheets.
 
 - [boolean](https://github.com/mP1/walkingkooka-tree-expression-function-boolean)
 - [datetime](https://github.com/mP1/walkingkooka-tree-expression-function-datetime)
@@ -75,52 +77,39 @@ The following function project hold many generic functions.
 - [spreadsheet](https://github.com/mP1/walkingkooka-spreadsheet-expression-function)
 - [stat](https://github.com/mP1/walkingkooka-tree-expression-function-stat)
 - [string](https://github.com/mP1/walkingkooka-tree-expression-function-string)
-
-These project below require a `SpreadsheetExpressionEvaluationContext` which helps support numerous spreadsheet type
-requirements, like locating cell/label references, parsing spreadsheet formula expressions and more.
-
 - [walkingkooka-spreadsheet-expression-function](https://github.com/mP1/walkingkooka-spreadsheet-expression-function)
+  Contains additional functions that can be executed within a spreadsheet
+  expression context.
 
-## [Node](https://github.com/mP1/walkingkooka-tree/blob/master/src/main/java/walkingkooka/tree/Node.java)
+# [Node](https://github.com/mP1/walkingkooka-tree/blob/master/src/main/java/walkingkooka/tree/Node.java)
 
-- A node is the smaller unit within a tree with two basic forms leaves and parent nodes.
-- This provides the base interface for all Tree like representations in all my repos from parsing grammars, expressions
-  and more.
+A `Node` is a unit within a tree, coming in two forms, leaves and parent nodes with the former never having children
+while the later possibly containing zero or more children. Numerous `Node` implementations include:
+
+- [Expression](https://github.com/mP1/walkingkooka-tree/tree/master/src/main/java/walkingkooka/tree/expression)
+- [File](https://github.com/mP1/walkingkooka-tree-file/tree/master/src/main/java/walkingkooka/tree/file) A file system
+  abstraction, execute xpath over directories and files.
+- [Json](https://github.com/mP1/walkingkooka-tree-json/tree/master/src/main/java/walkingkooka/tree/json) Json objects.
+- [Patch](https://github.com/mP1/walkingkooka-tree-patch/tree/master/src/main/java/walkingkooka/tree/patch) JSON Patch
+- [Pojo](https://github.com/mP1/walkingkooka-tree-pojo/tree/master/src/main/java/walkingkooka/tree/pojo) Java POJOs with
+  highlight support
+- [Xml](https://github.com/mP1/walkingkooka-tree-xml/tree/master/src/main/java/walkingkooka/tree/xml) Xml documents
 
 ## [Select](https://github.com/mP1/walkingkooka-tree/blob/master/src/main/java/walkingkooka/tree/select)
 
-- An almost identical in representation supporting constructs and functionality found in XPATH.
-- Language is almost identical to XPATH expressions both in syntax and textual representation and execution form.
-- Other represent
-- General purpose XPATH like execution system that works over many tree systems, unlike XPATH which only works with XML.
-- XPath expressions can work unaltered over the following tree abstractions.
+A selector represents a query which may be used to match `Node` within a node graph, equivalent
+to [XPATH](https://en.wikipedia.org/wiki/XPath)
 
-  - [Expression](https://github.com/mP1/walkingkooka-tree/tree/master/src/main/java/walkingkooka/tree/expression)
-    Described above
-  - [File](https://github.com/mP1/walkingkooka-tree-file/tree/master/src/main/java/walkingkooka/tree/file) A file system
-    abstraction, execute xpath over directories and files.
-  - [Json](https://github.com/mP1/walkingkooka-tree-json/tree/master/src/main/java/walkingkooka/tree/json) Json objects.
-  - [Patch](https://github.com/mP1/walkingkooka-tree-patch/tree/master/src/main/java/walkingkooka/tree/patch) JSON Patch
-  - [Pojo](https://github.com/mP1/walkingkooka-tree-pojo/tree/master/src/main/java/walkingkooka/tree/pojo) Java POJOs
-    with highlight support
-  - [Xml](https://github.com/mP1/walkingkooka-tree-xml/tree/master/src/main/java/walkingkooka/tree/xml) Xml documents
+- Almost identical in syntax and effective functionality to that of XPATH.
+- May be executed using any of the many `Node` implementations.
 
-### Additional Tree Navigation Technologies.
+## [NodePointer](https://github.com/mP1/walkingkooka-tree/blob/master/src/main/java/walkingkooka/tree/pointer/NodePointer.java)
 
-Additional standard tree navigation approaches are also implemented supporting `Node` are also provided in other repos.
+A `NodePointer` supports path navigation/selection over a `Node` and is similar in syntax and features
+to [JSON POINTER](https://datatracker.ietf.org/doc/html/rfc6901). Like
+`Select` is can operate against any of the above mentioned `Node` implementations.
 
-- [JSON POINTER](https://datatracker.ietf.org/doc/html/rfc6901) Another navigation system that may be used to identify a
-  value within a JSON document.
-- [json-patch](http://jsonpatch.com) only works with JSON and not XML.
-- [XPATH](https://en.wikipedia.org/wiki/XPath) only works with XML and not JSON.
+## [NodePatch](https://github.com/mP1/walkingkooka-tree-patch/blob/master/src/main/java/walkingkooka/tree/patch/NodePatch.java)
 
-## Visitors
-
-Lists have powerful APIs such as `java.util.stream.Stream` and besides the navigation technologies briefly mentioned
-above it is often necessary to find and change an AST in some way or perhaps convert from/to another AST.
-
-- Visitors are provided for `Expression` and all `Node` implementations used in numerous interesting ways.
-- The [spreadsheet project](https://github.com/mP1/walkingkooka-spreadsheet) uses visitors in many use cases, to support
-  writing formulas when a column/row is moved.
-- An `ExpressionVisitor` can be used to transform an Expression back to the `ParserToken` representation, allowing a
-  roundtrip from parsing text into an expression and back.
+A `NodePatch` is an equivalent technology similar to [json-patch](http://jsonpatch.com) but supports all `Node`
+technologies.
