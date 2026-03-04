@@ -36,6 +36,7 @@ import java.text.DateFormatSymbols;
 import java.time.LocalDateTime;
 import java.util.Currency;
 import java.util.Locale;
+import java.util.Objects;
 import java.util.Optional;
 
 public final class ExpressionNumberConverterContextDelegatorTest implements ExpressionNumberConverterContextTesting<TestExpressionNumberConverterContextDelegator>,
@@ -89,6 +90,14 @@ public final class ExpressionNumberConverterContextDelegatorTest implements Expr
                     ',', // valueSeparator
                     Converters.fake(),
                     new FakeCurrencyContext() {
+
+                        @Override
+                        public Optional<Currency> currencyForCurrencyCode(final String currencyCode) {
+                            Objects.requireNonNull(currencyCode, "currencyCode");
+
+                            throw new UnsupportedOperationException();
+                        }
+
                         @Override
                         public Optional<Currency> currencyForLocale(final Locale locale) {
                             return Optional.of(
