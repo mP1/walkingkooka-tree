@@ -20,6 +20,8 @@ package walkingkooka.tree.expression.convert;
 import walkingkooka.Either;
 import walkingkooka.convert.Converter;
 import walkingkooka.convert.ConverterContext;
+import walkingkooka.currency.CurrencyCodeLanguageTagContext;
+import walkingkooka.currency.CurrencyCodeLanguageTagContextDelegator;
 import walkingkooka.datetime.DateTimeContext;
 import walkingkooka.datetime.DateTimeContextDelegator;
 import walkingkooka.datetime.DateTimeSymbols;
@@ -36,6 +38,7 @@ import java.util.Objects;
 import java.util.Optional;
 
 final class BasicExpressionNumberConverterContext implements ExpressionNumberConverterContext,
+    CurrencyCodeLanguageTagContextDelegator,
     DateTimeContextDelegator,
     DecimalNumberContextDelegator {
 
@@ -62,6 +65,11 @@ final class BasicExpressionNumberConverterContext implements ExpressionNumberCon
     @Override
     public boolean canNumbersHaveGroupSeparator() {
         return this.context.canNumbersHaveGroupSeparator();
+    }
+
+    @Override
+    public CurrencyCodeLanguageTagContext currencyCodeLanguageTagContext() {
+        return this.context;
     }
 
     @Override

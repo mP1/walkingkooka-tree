@@ -184,6 +184,13 @@ final class CycleDetectingExpressionEvaluationContext implements ExpressionEvalu
         return this.context;
     }
 
+    // CanCurrencyForCurrencyCode.......................................................................................
+
+    @Override
+    public Optional<Currency> currencyForCurrencyCode(final String currencyCode) {
+        return this.context.currencyForCurrencyCode(currencyCode);
+    }
+
     // LocaleContext....................................................................................................
 
     @Override
