@@ -19,6 +19,7 @@ package walkingkooka.tree.expression;
 
 import walkingkooka.datetime.DateTimeSymbols;
 import walkingkooka.environment.EnvironmentContext;
+import walkingkooka.locale.LocaleLanguageTag;
 import walkingkooka.math.DecimalNumberSymbols;
 
 import java.util.Locale;
@@ -107,7 +108,7 @@ final class ScopedExpressionEvaluationContext implements ExpressionEvaluationCon
     }
 
     @Override
-    public Optional<Locale> localeForLanguageTag(final String languageTag) {
+    public Optional<Locale> localeForLanguageTag(final LocaleLanguageTag languageTag) {
         return this.context.localeForLanguageTag(languageTag);
     }
 
