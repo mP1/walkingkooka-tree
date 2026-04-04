@@ -19,6 +19,7 @@ package walkingkooka.tree.expression.convert;
 
 import walkingkooka.convert.ConverterContexts;
 import walkingkooka.convert.Converters;
+import walkingkooka.currency.CurrencyCode;
 import walkingkooka.currency.FakeCurrencyContext;
 import walkingkooka.datetime.DateTimeContexts;
 import walkingkooka.datetime.DateTimeSymbols;
@@ -92,7 +93,7 @@ public final class ExpressionNumberConverterContextDelegatorTest implements Expr
                     new FakeCurrencyContext() {
 
                         @Override
-                        public Optional<Currency> currencyForCurrencyCode(final String currencyCode) {
+                        public Optional<Currency> currencyForCurrencyCode(final CurrencyCode currencyCode) {
                             Objects.requireNonNull(currencyCode, "currencyCode");
 
                             throw new UnsupportedOperationException();

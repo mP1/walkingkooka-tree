@@ -19,6 +19,7 @@ package walkingkooka.tree.expression;
 
 import walkingkooka.Either;
 import walkingkooka.collect.set.Sets;
+import walkingkooka.currency.CurrencyCode;
 import walkingkooka.datetime.DateTimeContext;
 import walkingkooka.datetime.DateTimeContextDelegator;
 import walkingkooka.environment.EnvironmentContext;
@@ -187,7 +188,7 @@ final class CycleDetectingExpressionEvaluationContext implements ExpressionEvalu
     // CanCurrencyForCurrencyCode.......................................................................................
 
     @Override
-    public Optional<Currency> currencyForCurrencyCode(final String currencyCode) {
+    public Optional<Currency> currencyForCurrencyCode(final CurrencyCode currencyCode) {
         return this.context.currencyForCurrencyCode(currencyCode);
     }
 
