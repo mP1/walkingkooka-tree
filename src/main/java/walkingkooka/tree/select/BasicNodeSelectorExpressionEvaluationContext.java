@@ -25,6 +25,7 @@ import walkingkooka.environment.EnvironmentContext;
 import walkingkooka.environment.EnvironmentContextDelegator;
 import walkingkooka.locale.LocaleContext;
 import walkingkooka.locale.LocaleContextDelegator;
+import walkingkooka.locale.LocaleLanguageTag;
 import walkingkooka.math.DecimalNumberSymbols;
 import walkingkooka.naming.Name;
 import walkingkooka.text.CaseSensitivity;
@@ -271,7 +272,7 @@ final class BasicNodeSelectorExpressionEvaluationContext<N extends Node<N, NAME,
     }
 
     @Override
-    public Optional<Locale> localeForLanguageTag(final String languageTag) {
+    public Optional<Locale> localeForLanguageTag(final LocaleLanguageTag languageTag) {
         return this.context.localeForLanguageTag(languageTag);
     }
 
