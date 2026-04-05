@@ -47,8 +47,8 @@ import java.util.function.IntFunction;
 public final class ExpressionFunctions implements PublicStaticHelper {
 
     /**
-     * Returns a namedFunction that may or may not be case-sensitive when performing namedFunction name lookups.
-     * If the {@link Set} includes an anonymous namedFunction (where {@link ExpressionFunction#name() returns @link Optional#empty()}.
+     * Returns a {@link ExpressionFunction} that may or may not be case-sensitive when performing {@link ExpressionFunction} name lookups.
+     * If the {@link Set} includes an anonymous {@link ExpressionFunction} (where {@link ExpressionFunction#name() returns @link Optional#empty()}.
      */
     public static <C extends ExpressionEvaluationContext> Function<ExpressionFunctionName, Optional<ExpressionFunction<?, C>>> lookup(final Set<ExpressionFunction<?, C>> functions,
                                                                                                                                       final CaseSensitivity caseSensitivity) {
@@ -78,7 +78,7 @@ public final class ExpressionFunctions implements PublicStaticHelper {
     }
 
     /**
-     * Visit all {@link ExpressionFunction functions}. Note this does not include the {@link #fake() fake namedFunction}
+     * Visit all {@link ExpressionFunction functions}. Note this does not include the {@link #fake() fake {@link ExpressionFunction}}
      */
     public static void visit(final Consumer<ExpressionFunction<?, ?>> consumer) {
         Lists.of(
