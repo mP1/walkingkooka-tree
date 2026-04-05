@@ -79,8 +79,7 @@ The following function projects hold many functions, and can be used in any `Exp
 - [stat](https://github.com/mP1/walkingkooka-tree-expression-function-stat)
 - [string](https://github.com/mP1/walkingkooka-tree-expression-function-string)
 - [walkingkooka-spreadsheet-expression-function](https://github.com/mP1/walkingkooka-spreadsheet-expression-function)
-  Contains additional functions that can be executed within a spreadsheet
-  expression context.
+  Contains additional functions that can be executed within a spreadsheet expression context.
 
 # [Node](https://github.com/mP1/walkingkooka-tree/blob/master/src/main/java/walkingkooka/tree/Node.java)
 
@@ -98,8 +97,8 @@ while the later possibly containing zero or more children. Numerous `Node` imple
 
 ## [Select](https://github.com/mP1/walkingkooka-tree/blob/master/src/main/java/walkingkooka/tree/select)
 
-A selector represents a query which may be used to match `Node` within a node graph, equivalent
-to [XPATH](https://en.wikipedia.org/wiki/XPath)
+A selector represents a query which may be used to match `Node` within a node graph, equivalent to
+[XPATH](https://en.wikipedia.org/wiki/XPath)
 
 - Almost identical in syntax and effective functionality to that of XPATH.
 - May be executed using any of the many `Node` implementations.
@@ -107,8 +106,8 @@ to [XPATH](https://en.wikipedia.org/wiki/XPath)
 ## [NodePointer](https://github.com/mP1/walkingkooka-tree/blob/master/src/main/java/walkingkooka/tree/pointer/NodePointer.java)
 
 A `NodePointer` supports path navigation/selection over a `Node` and is similar in syntax and features
-to [JSON POINTER](https://datatracker.ietf.org/doc/html/rfc6901). Like
-`Select` is can operate against any of the above mentioned `Node` implementations.
+to [JSON POINTER](https://datatracker.ietf.org/doc/html/rfc6901). Like `Select` is can operate against any of the above
+mentioned `Node` implementations.
 
 ## [NodePatch](https://github.com/mP1/walkingkooka-tree-patch/blob/master/src/main/java/walkingkooka/tree/patch/NodePatch.java)
 
