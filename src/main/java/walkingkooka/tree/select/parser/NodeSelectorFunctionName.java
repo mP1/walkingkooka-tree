@@ -22,10 +22,11 @@ import walkingkooka.naming.Name;
 import walkingkooka.predicate.character.CharPredicate;
 import walkingkooka.predicate.character.CharPredicates;
 import walkingkooka.tree.expression.ExpressionReference;
+import walkingkooka.tree.expression.function.ExpressionFunction;
 import walkingkooka.tree.expression.function.ExpressionFunctionParameterName;
 
 /**
- * The {@link Name} of a namedFunction.
+ * The {@link Name} of a {@link ExpressionFunction}.
  */
 final public class NodeSelectorFunctionName extends NodeSelectorNameValue
     implements ExpressionReference, Comparable<NodeSelectorFunctionName> {
@@ -48,7 +49,7 @@ final public class NodeSelectorFunctionName extends NodeSelectorNameValue
         );
 
         if (name.length() > MAX_LENGTH) {
-            throw new InvalidTextLengthException("namedFunction name", name, 0, MAX_LENGTH);
+            throw new InvalidTextLengthException("Function name", name, 0, MAX_LENGTH);
         }
 
         return new NodeSelectorFunctionName(name);

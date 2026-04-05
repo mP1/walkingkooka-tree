@@ -34,7 +34,7 @@ import java.util.function.Predicate;
 
 /**
  * This {@link NodeSelectorParserTokenVisitor} translates a {@link PredicateNodeSelectorParserToken} into a {@link Expression} equivalent.
- * A support {@link walkingkooka.tree.expression.ExpressionEvaluationContext} will provide namedFunction to definition and attribute to value lookups.
+ * A support {@link walkingkooka.tree.expression.ExpressionEvaluationContext} will provide function to definition and attribute to value lookups.
  */
 final class PredicateNodeSelectorParserTokenNodeSelectorParserTokenVisitor extends NodeSelectorParserTokenVisitor {
 

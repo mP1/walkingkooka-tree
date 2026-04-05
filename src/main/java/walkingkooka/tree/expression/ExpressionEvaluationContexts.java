@@ -72,7 +72,7 @@ public final class ExpressionEvaluationContexts implements PublicStaticHelper {
     }
 
     /**
-     * A namedFunction that creates a {@link ExpressionEvaluationReferenceException}.
+     * A {@link Function} that creates a {@link ExpressionEvaluationReferenceException}.
      */
     public static Function<ExpressionReference, ExpressionEvaluationException> referenceNotFound() {
         return (r) -> new ExpressionEvaluationReferenceException(

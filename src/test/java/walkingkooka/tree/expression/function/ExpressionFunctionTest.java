@@ -249,7 +249,7 @@ public final class ExpressionFunctionTest implements ClassTesting<ExpressionFunc
         this.checkEquals(
             parameter,
             function.parameters(0).get(index),
-            "namedFunction.parameters().get(" + index + ")"
+            "function.parameters().get(" + index + ")"
         );
     }
 

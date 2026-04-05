@@ -25,7 +25,7 @@ import java.math.MathContext;
 import java.util.Optional;
 
 /**
- * A namedFunction that may be applied to a {@link ExpressionNumber}. The appropriate method is called depending on the
+ * A {@link ExpressionFunction} that may be applied to a {@link ExpressionNumber}. The appropriate method is called depending on the
  * {@link ExpressionNumberKind}.
  */
 public interface ExpressionNumberFunction {

@@ -788,7 +788,7 @@ public final class NodeSelectorNodeSelectorParserTokenVisitorTest implements Nod
             leaf2);
     }
 
-    // namedFunction: position().......................................................................................
+    // function: position().............................................................................................
 
     @Test
     public void testWildcardExpressionPosition() {
@@ -1522,7 +1522,7 @@ public final class NodeSelectorNodeSelectorParserTokenVisitorTest implements Nod
             branch1);
     }
 
-    // namedFunction: boolean().......................................................................................
+    // function: boolean()..............................................................................................
 
     @Test
     public void testWildcardExpressionBooleanTrue() {
@@ -1587,7 +1587,7 @@ public final class NodeSelectorNodeSelectorParserTokenVisitorTest implements Nod
             child);
     }
 
-    // namedFunction: name.......................................................................................
+    // function: name...................................................................................................
 
     @Test
     public void testWildcardExpressionCurrentNodeName() {
@@ -1622,7 +1622,7 @@ public final class NodeSelectorNodeSelectorParserTokenVisitorTest implements Nod
             leaf1, leaf2);
     }
 
-    // namedFunction: number().......................................................................................
+    // function: number()...............................................................................................
 
     @Test
     public void testDescendantsOrSelfExpressionNumberPredicate() {
@@ -1635,7 +1635,7 @@ public final class NodeSelectorNodeSelectorParserTokenVisitorTest implements Nod
             root, leaf);
     }
 
-    // namedFunction: true().......................................................................................
+    // function: true().................................................................................................
 
     @Test
     public void testExpressionStartsWithNameNodeEqualsTrueEvaluate() {
@@ -1666,7 +1666,7 @@ public final class NodeSelectorNodeSelectorParserTokenVisitorTest implements Nod
             child);
     }
 
-    // namedFunction: false().......................................................................................
+    // function: false()................................................................................................
 
     @Test
     public void testExpressionStartsWithNameNodeEqualsFalseEvaluate() {

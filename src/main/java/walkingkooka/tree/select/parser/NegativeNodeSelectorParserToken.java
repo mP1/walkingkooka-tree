@@ -17,12 +17,13 @@
 package walkingkooka.tree.select.parser;
 
 import walkingkooka.text.cursor.parser.ParserToken;
+import walkingkooka.tree.expression.function.ExpressionFunction;
 import walkingkooka.visit.Visiting;
 
 import java.util.List;
 
 /**
- * Holds a unary negative token with an argument such as a number or namedFunction.
+ * Holds a unary negative token with an argument such as a number or {@link ExpressionFunction}.
  */
 public final class NegativeNodeSelectorParserToken extends ParentNodeSelectorParserToken<NegativeNodeSelectorParserToken> {
 

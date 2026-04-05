@@ -135,7 +135,7 @@ public final class CallExpressionTest extends VariableExpressionTestCase<CallExp
                 new FakeExpressionEvaluationContext() {
                     @Override
                     public ExpressionFunction<?, ExpressionEvaluationContext> expressionFunction(final ExpressionFunctionName name) {
-                        checkEquals(FUNCTION_NAME, name, "namedFunction name");
+                        checkEquals(FUNCTION_NAME, name, "function name");
                         return new FakeExpressionFunction<>() {
 
                             @Override
@@ -392,7 +392,7 @@ public final class CallExpressionTest extends VariableExpressionTestCase<CallExp
 
                 @Override
                 public ExpressionFunction<?, ExpressionEvaluationContext> expressionFunction(final ExpressionFunctionName name) {
-                    checkEquals(FUNCTION_NAME, name, "namedFunction name");
+                    checkEquals(FUNCTION_NAME, name, "function name");
 
                     return new FakeExpressionFunction<>() {
 
@@ -470,7 +470,7 @@ public final class CallExpressionTest extends VariableExpressionTestCase<CallExp
         return new FakeExpressionEvaluationContext() {
             @Override
             public ExpressionFunction<?, ExpressionEvaluationContext> expressionFunction(final ExpressionFunctionName name) {
-                checkEquals(FUNCTION_NAME, name, "namedFunction name");
+                checkEquals(FUNCTION_NAME, name, "function name");
 
                 return new FakeExpressionFunction<>() {
                     @Override

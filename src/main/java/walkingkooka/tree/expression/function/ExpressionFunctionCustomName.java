@@ -36,7 +36,7 @@ final class ExpressionFunctionCustomName<T, C extends ExpressionEvaluationContex
      */
     static <T, C extends ExpressionEvaluationContext> ExpressionFunction<T, C> with(final ExpressionFunction<T, C> function,
                                                                                     final Optional<ExpressionFunctionName> name) {
-        Objects.requireNonNull(function, "namedFunction");
+        Objects.requireNonNull(function, "function");
         Objects.requireNonNull(name, "name");
 
         return function.name().equals(name) ?

@@ -563,7 +563,7 @@ public final class NodeSelectorParsersTest implements ParserTesting2<Parser<Node
         );
     }
 
-    // absolute nodeName predicate namedFunction.....................................................................
+    // absolute nodeName predicate function.............................................................................
 
     // /nodeName [
     @Test
@@ -1951,7 +1951,7 @@ public final class NodeSelectorParsersTest implements ParserTesting2<Parser<Node
         );
     }
 
-    // absolute wildcard predicate namedFunction.....................................................................
+    // absolute wildcard predicate function.............................................................................
 
     // /wildcard [
     @Test

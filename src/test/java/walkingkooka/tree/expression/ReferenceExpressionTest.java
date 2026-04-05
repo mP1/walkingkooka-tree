@@ -154,7 +154,7 @@ public final class ReferenceExpressionTest extends LeafExpressionTestCase<Refere
 
     @Override
     ExpressionReference differentValue() {
-        return new TestExpressionReference("different-namedFunction");
+        return new TestExpressionReference("different-function");
     }
 
     private static class TestExpressionReference extends FakeExpressionReference {
