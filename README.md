@@ -60,6 +60,18 @@ A function provides an independent function which describes
 - *purity* Useful to determine whether the computed value can be cached, Within a spreadsheet this can help improve
   speed by avoiding unnecessary recalculations, because component values have or will never change.
 
+### [ExpressionFunction(s)](https://github.com/mP1/walkingkooka-tree/blob/master/src/main/java/walkingkooka/tree/expression/function/ExpressionFunction.java)
+
+- [basic](https://github.com/mP1/walkingkooka-tree/blob/master/src/main/java/walkingkooka/tree/expression/function/BasicExpressionFunction.java)
+- [eval](https://github.com/mP1/walkingkooka-tree/blob/master/src/main/java/walkingkooka/tree/expression/function/ExpressionFunctionEval.java)
+- [expressionNumberFunction](https://github.com/mP1/walkingkooka-tree/blob/master/src/main/java/walkingkooka/tree/expression/function/ExpressionNumberFunctionExpressionFunction.java)
+- [fake](https://github.com/mP1/walkingkooka-tree/blob/master/src/main/java/walkingkooka/tree/expression/function/FakeExpressionFunction.java)
+- [lambda](https://github.com/mP1/walkingkooka-tree/blob/master/src/main/java/walkingkooka/tree/expression/function/ExpressionFunctionNull.java)
+- [node](https://github.com/mP1/walkingkooka-tree/blob/master/src/main/java/walkingkooka/tree/expression/function/ExpressionFunctionNode.java)
+- [nodeName](https://github.com/mP1/walkingkooka-tree/blob/master/src/main/java/walkingkooka/tree/expression/function/ExpressionFunctionNodeName.java)
+- [nullFunction](https://github.com/mP1/walkingkooka-tree/blob/master/src/main/java/walkingkooka/tree/expression/function/ExpressionFunctionNull.java)
+- [typeName](https://github.com/mP1/walkingkooka-tree/blob/master/src/main/java/walkingkooka/tree/expression/function/ExpressionFunctionTypeName.java)
+
 The accompanying
 [ExpressionEvaluationContext](https://github.com/mP1/walkingkooka-tree/blob/master/src/main/java/walkingkooka/tree/expression/ExpressionEvaluationContext.java)
 when executing a function uses the function metadata to convert values to the target type as necessary, supporting a
