@@ -44,6 +44,7 @@ A context accompanies the evaluation of an `Expression` and provides context awa
 - A powerful construct that supports many values and behaviours that modify evaluation of an expression.
 - Provides the preferred `ExpressionNumber` to use at evaluation time, during number / calculations.
 -
+
 Extends [LocaleContext](https://github.com/mP1/walkingkooka-locale/blob/master/src/main/java/walkingkooka/locale/LocaleContext.java),
 which provides locale aware values such as decimal point, currency, day names and more.
 
@@ -59,8 +60,8 @@ A function provides an independent function which describes
 - *purity* Useful to determine whether the computed value can be cached, Within a spreadsheet this can help improve
   speed by avoiding unnecessary recalculations, because component values have or will never change.
 
-The
-accompanying [ExpressionEvaluationContext](https://github.com/mP1/walkingkooka-tree/blob/master/src/main/java/walkingkooka/tree/expression/ExpressionEvaluationContext.java)
+The accompanying
+[ExpressionEvaluationContext](https://github.com/mP1/walkingkooka-tree/blob/master/src/main/java/walkingkooka/tree/expression/ExpressionEvaluationContext.java)
 when executing a function uses the function metadata to convert values to the target type as necessary, supporting a
 type-safe but dynamic conversions as necessary.
 
