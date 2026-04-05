@@ -17,6 +17,7 @@
 
 package walkingkooka.tree.expression;
 
+import walkingkooka.tree.expression.function.ExpressionFunction;
 import walkingkooka.tree.expression.function.ExpressionFunctionParameter;
 import walkingkooka.tree.expression.function.ExpressionFunctionParameterKind;
 
@@ -24,7 +25,7 @@ import java.util.List;
 import java.util.Optional;
 
 /**
- * A lazy {@link List} of the original parameter values, performing the following if they are enabled for this namedFunction.
+ * A lazy {@link List} of the original parameter values, performing the following if they are enabled for the {@link ExpressionFunction}.
  * <ul>
  * <li>Evaluate {@link Expression} if {@link ExpressionFunctionParameterKind#EVALUATE}</li>
  * <li>Resolve {@link ReferenceExpression} if {@link ExpressionFunctionParameterKind#RESOLVE_REFERENCES}</li>

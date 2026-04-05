@@ -221,7 +221,7 @@ public final class ExpressionFunctionsTest implements PublicStaticHelperTesting<
         ExpressionFunctions.visit(
             (e) -> names.add(
                 e.name()
-                    .orElseThrow(() -> new IllegalStateException("namedFunction must have a name"))
+                    .orElseThrow(() -> new IllegalStateException("ExpressionFunction must have a name"))
             )
         );
 

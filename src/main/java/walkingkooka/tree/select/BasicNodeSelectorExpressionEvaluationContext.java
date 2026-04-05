@@ -101,7 +101,7 @@ final class BasicNodeSelectorExpressionEvaluationContext<N extends Node<N, NAME,
 
     private final N node;
 
-    // namedFunction.........................................................................................................
+    // function.........................................................................................................
 
     @Override
     public ExpressionEvaluationContext enterScope(final Function<ExpressionReference, Optional<Optional<Object>>> scoped) {

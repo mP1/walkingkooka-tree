@@ -70,7 +70,7 @@ public final class ExpressionFunctionParameterValuesParametersTest extends Expre
     };
 
     private final static Optional<ExpressionFunctionName> NAME = Optional.of(
-        ExpressionFunctionName.with("custom-namedFunction")
+        ExpressionFunctionName.with("custom-function")
     );
 
     @Test

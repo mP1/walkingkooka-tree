@@ -726,7 +726,7 @@ public final class BasicExpressionEvaluationContextTest implements ClassTesting2
         );
     }
 
-    // namedFunction........................................................................................................
+    // evaluateFunction.................................................................................................
 
     @Test
     public void testEvaluateFunctionConverterFails() {
@@ -1099,7 +1099,7 @@ public final class BasicExpressionEvaluationContextTest implements ClassTesting2
     }
 
     private Object functionValue() {
-        return "namedFunction-value-234";
+        return "function-value-234";
     }
 
     private BasicExpressionEvaluationContext createContext(final Function<ExpressionReference, Optional<Optional<Object>>> references) {

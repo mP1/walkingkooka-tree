@@ -249,7 +249,7 @@ abstract class ExpressionEvaluationContextPrepareParametersList extends Abstract
     final Object[] preparedValues;
 
     /**
-     * The parameters for this namedFunction.
+     * The parameters for this {@link ExpressionFunction}.
      */
     final List<ExpressionFunctionParameter<?>> parameters;
 

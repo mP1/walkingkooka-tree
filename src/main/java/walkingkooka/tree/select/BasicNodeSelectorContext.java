@@ -22,6 +22,7 @@ import walkingkooka.naming.Name;
 import walkingkooka.tree.Node;
 import walkingkooka.tree.expression.Expression;
 import walkingkooka.tree.expression.ExpressionEvaluationContext;
+import walkingkooka.tree.expression.function.ExpressionFunction;
 
 import java.util.Objects;
 import java.util.function.BooleanSupplier;
@@ -127,7 +128,7 @@ final class BasicNodeSelectorContext<N extends Node<N, NAME, ANAME, AVALUE>, NAM
     private final Function<NodeSelectorContext<N, NAME, ANAME, AVALUE>, ExpressionEvaluationContext> expressionEvaluationContext;
 
     /**
-     * The current {@link Node} which is also becomes the first argument for all namedFunction invocations.
+     * The current {@link Node} which is also becomes the first argument for all {@link ExpressionFunction} invocations.
      */
     private N current;
 

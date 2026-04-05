@@ -128,7 +128,7 @@ public interface ExpressionEvaluationContext extends ExpressionNumberConverterCo
     }
 
     /**
-     * This method is called with each parameter and value pair, prior to invoking the namedFunction.
+     * This method is called with each parameter and value pair, prior to invoking the {@link ExpressionFunction}.
      * <br>
      * This provides an opportunity to convert the value to the required parameter type if the language requires such
      * semantics.

@@ -26,9 +26,9 @@ public final class UnknownExpressionFunctionExceptionTest implements ThrowableTe
 
     @Test
     public void testCreate() {
-        final ExpressionFunctionName name = ExpressionFunctionName.with("custom-namedFunction");
+        final ExpressionFunctionName name = ExpressionFunctionName.with("custom-function");
         final UnknownExpressionFunctionException exception = new UnknownExpressionFunctionException(name);
-        this.checkMessage(exception, "Unknown function \"custom-namedFunction\"");
+        this.checkMessage(exception, "Unknown function \"custom-function\"");
         this.checkEquals(name, exception.name());
     }
 

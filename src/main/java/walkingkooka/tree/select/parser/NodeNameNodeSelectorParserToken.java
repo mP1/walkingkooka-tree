@@ -16,8 +16,10 @@
  */
 package walkingkooka.tree.select.parser;
 
+import walkingkooka.tree.expression.function.ExpressionFunction;
+
 /**
- * Holds a namedFunction name.
+ * Holds a {@link ExpressionFunction} name.
  */
 public final class NodeNameNodeSelectorParserToken extends NonSymbolNodeSelectorParserToken<NodeSelectorNodeName> {
 

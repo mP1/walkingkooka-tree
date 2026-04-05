@@ -44,6 +44,7 @@ import walkingkooka.tree.expression.ReferenceExpression;
 import walkingkooka.tree.expression.SubtractExpression;
 import walkingkooka.tree.expression.ValueExpression;
 import walkingkooka.tree.expression.XorExpression;
+import walkingkooka.tree.expression.function.ExpressionFunction;
 import walkingkooka.visit.Visiting;
 
 import java.time.LocalDate;
@@ -55,7 +56,7 @@ import java.util.List;
 /**
  * A {@link ExpressionVisitor} that turns a {@link Expression} into a xpath expression string.
  * It assumes that all {@link walkingkooka.tree.expression.ExpressionReference} are attributes,
- * some values such as {@link java.time.LocalDate} become namedFunction calls with a string literal.
+ * some values such as {@link java.time.LocalDate} become {@link ExpressionFunction} calls with a string literal.
  */
 final class ExpressionNodeSelectorToStringExpressionVisitor extends ExpressionVisitor {
 
