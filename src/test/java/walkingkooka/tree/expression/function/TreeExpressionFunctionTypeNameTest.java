@@ -24,7 +24,7 @@ import walkingkooka.tree.expression.ExpressionEvaluationContexts;
 
 import java.math.BigDecimal;
 
-public final class ExpressionFunctionTypeNameTest extends ExpressionFunctionTestCase<ExpressionFunctionTypeName<ExpressionEvaluationContext>,
+public final class TreeExpressionFunctionTypeNameTest extends TreeExpressionFunctionTestCase<TreeExpressionFunctionTypeName<ExpressionEvaluationContext>,
     ExpressionEvaluationContext,
     String> {
 
@@ -46,8 +46,8 @@ public final class ExpressionFunctionTypeNameTest extends ExpressionFunctionTest
     }
 
     @Override
-    public ExpressionFunctionTypeName<ExpressionEvaluationContext> createBiFunction() {
-        return ExpressionFunctionTypeName.instance();
+    public TreeExpressionFunctionTypeName<ExpressionEvaluationContext> createBiFunction() {
+        return TreeExpressionFunctionTypeName.instance();
     }
 
     @Override
@@ -68,7 +68,7 @@ public final class ExpressionFunctionTypeNameTest extends ExpressionFunctionTest
     // class............................................................................................................
 
     @Override
-    public Class<ExpressionFunctionTypeName<ExpressionEvaluationContext>> type() {
-        return Cast.to(ExpressionFunctionTypeName.class);
+    public Class<TreeExpressionFunctionTypeName<ExpressionEvaluationContext>> type() {
+        return Cast.to(TreeExpressionFunctionTypeName.class);
     }
 }
