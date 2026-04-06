@@ -19,6 +19,7 @@ package walkingkooka.tree.expression.function;
 
 import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.Maps;
+import walkingkooka.currency.CurrencyCode;
 import walkingkooka.naming.Name;
 import walkingkooka.reflect.PublicStaticHelper;
 import walkingkooka.text.CaseSensitivity;
@@ -82,6 +83,7 @@ public final class ExpressionFunctions implements PublicStaticHelper {
      */
     public static void visit(final Consumer<ExpressionFunction<?, ?>> consumer) {
         Lists.of(
+            currencyCode(),
             node(),
             nodeName(),
             nullFunction(),
@@ -104,6 +106,13 @@ public final class ExpressionFunctions implements PublicStaticHelper {
             returnType,
             biFunction
         );
+    }
+
+    /**
+     * {@see TreeExpressionFunctionCurrencyCode}
+     */
+    public static <C extends ExpressionEvaluationContext> ExpressionFunction<CurrencyCode, C> currencyCode() {
+        return TreeExpressionFunctionCurrencyCode.instance();
     }
 
     /**
