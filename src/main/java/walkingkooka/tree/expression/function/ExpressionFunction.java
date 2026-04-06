@@ -73,7 +73,7 @@ public interface ExpressionFunction<T, C extends ExpressionEvaluationContext> ex
      */
     default ExpressionFunction<T, C> setName(final Optional<ExpressionFunctionName> name) {
         Objects.requireNonNull(name, "name");
-        return ExpressionFunctionCustomName.with(this, name);
+        return TreeExpressionFunctionCustomName.with(this, name);
     }
 
     /**

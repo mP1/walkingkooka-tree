@@ -29,7 +29,7 @@ import java.util.Optional;
 /**
  * An {@link ExpressionFunction} that returns a different {@link ExpressionFunctionName}.
  */
-final class ExpressionFunctionCustomName<T, C extends ExpressionEvaluationContext> implements ExpressionFunction<T, C> {
+final class TreeExpressionFunctionCustomName<T, C extends ExpressionEvaluationContext> extends TreeExpressionFunction<T, C> {
 
     /**
      * Factory called by {@link ExpressionFunction#setName}
@@ -41,27 +41,26 @@ final class ExpressionFunctionCustomName<T, C extends ExpressionEvaluationContex
 
         return function.name().equals(name) ?
             function :
-            function instanceof ExpressionFunctionCustomName ?
+            function instanceof TreeExpressionFunctionCustomName ?
                 unwrap(Cast.to(function), name) :
-                new ExpressionFunctionCustomName<>(function, name);
+                new TreeExpressionFunctionCustomName<>(function, name);
     }
 
     /**
-     * Handles the special case not preventing double wrapping a {@link ExpressionFunctionCustomName}.
+     * Handles the special case not preventing double wrapping a {@link TreeExpressionFunctionCustomName}.
      */
-    static <T, C extends ExpressionEvaluationContext> ExpressionFunction<T, C> unwrap(final ExpressionFunctionCustomName<T, C> function,
+    static <T, C extends ExpressionEvaluationContext> ExpressionFunction<T, C> unwrap(final TreeExpressionFunctionCustomName<T, C> function,
                                                                                       final Optional<ExpressionFunctionName> name) {
-        return new ExpressionFunctionCustomName<>(function.function, name);
+        return new TreeExpressionFunctionCustomName<>(function.function, name);
     }
 
     /**
      * Private ctor use factory.
      */
-    private ExpressionFunctionCustomName(final ExpressionFunction<T, C> function,
-                                         final Optional<ExpressionFunctionName> name) {
-        super();
+    private TreeExpressionFunctionCustomName(final ExpressionFunction<T, C> function,
+                                             final Optional<ExpressionFunctionName> name) {
+        super(name);
         this.function = function;
-        this.name = name;
     }
 
     @Override
@@ -76,13 +75,6 @@ final class ExpressionFunctionCustomName<T, C extends ExpressionEvaluationContex
     }
 
     private final ExpressionFunction<T, C> function;
-
-    @Override
-    public Optional<ExpressionFunctionName> name() {
-        return this.name;
-    }
-
-    private final Optional<ExpressionFunctionName> name;
 
     @Override
     public List<ExpressionFunctionParameter<?>> parameters(final int count) {
@@ -107,18 +99,11 @@ final class ExpressionFunctionCustomName<T, C extends ExpressionEvaluationContex
     @Override
     public boolean equals(final Object other) {
         return (this == other) ||
-            other instanceof ExpressionFunctionCustomName && this.equals0((ExpressionFunctionCustomName<?, ?>) other);
+            other instanceof TreeExpressionFunctionCustomName && this.equals0((TreeExpressionFunctionCustomName<?, ?>) other);
     }
 
-    private boolean equals0(final ExpressionFunctionCustomName<?, ?> other) {
+    private boolean equals0(final TreeExpressionFunctionCustomName<?, ?> other) {
         return this.name.equals(other.name) &&
             this.function.equals(other.function);
-    }
-
-    @Override
-    public String toString() {
-        return this.name()
-            .map(ExpressionFunctionName::value)
-            .orElse(ANONYMOUS);
     }
 }
