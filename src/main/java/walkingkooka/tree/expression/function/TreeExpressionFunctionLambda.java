@@ -20,44 +20,38 @@ package walkingkooka.tree.expression.function;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.tree.expression.Expression;
 import walkingkooka.tree.expression.ExpressionEvaluationContext;
-import walkingkooka.tree.expression.ExpressionFunctionName;
 import walkingkooka.tree.expression.ExpressionPurityContext;
 
 import java.util.List;
 import java.util.Objects;
-import java.util.Optional;
 import java.util.function.Function;
 
 /**
  * A {@link ExpressionFunction} that supports binding given parameter values using the parameter names to a {@link ExpressionEvaluationContext} before invoking a {@link Function}.
  */
-final class ExpressionFunctionLambda<T, C extends ExpressionEvaluationContext> implements ExpressionFunction<T, C> {
+final class TreeExpressionFunctionLambda<T, C extends ExpressionEvaluationContext> extends TreeExpressionFunction<T, C> {
 
-    static <T, C extends ExpressionEvaluationContext> ExpressionFunctionLambda<T, C> with(final List<ExpressionFunctionParameter<?>> parameters,
-                                                                                          final Class<T> returnType,
-                                                                                          final Expression expression) {
+    static <T, C extends ExpressionEvaluationContext> TreeExpressionFunctionLambda<T, C> with(final List<ExpressionFunctionParameter<?>> parameters,
+                                                                                              final Class<T> returnType,
+                                                                                              final Expression expression) {
         Objects.requireNonNull(parameters, "parameters");
         Objects.requireNonNull(returnType, "returnType");
         Objects.requireNonNull(expression, "expression");
 
-        return new ExpressionFunctionLambda<>(
+        return new TreeExpressionFunctionLambda<>(
             Lists.immutable(parameters),
             returnType,
             expression
         );
     }
 
-    private ExpressionFunctionLambda(final List<ExpressionFunctionParameter<?>> parameters,
-                                     final Class<T> returnType,
-                                     final Expression expression) {
+    private TreeExpressionFunctionLambda(final List<ExpressionFunctionParameter<?>> parameters,
+                                         final Class<T> returnType,
+                                         final Expression expression) {
+        super(null);
         this.parameters = parameters;
         this.returnType = returnType;
         this.expression = expression;
-    }
-
-    @Override
-    public Optional<ExpressionFunctionName> name() {
-        return ANONYMOUS_NAME;
     }
 
     @Override
@@ -89,7 +83,7 @@ final class ExpressionFunctionLambda<T, C extends ExpressionEvaluationContext> i
 
         return context.convertOrFail(
             context.enterScope(
-                ExpressionFunctionLambdaExpressionEvaluationContextFunction.with(
+                TreeExpressionFunctionLambdaExpressionEvaluationContextFunction.with(
                     this.parameters,
                     values
                 )
@@ -102,9 +96,4 @@ final class ExpressionFunctionLambda<T, C extends ExpressionEvaluationContext> i
      * The {@link Function} that will be executed.
      */
     private final Expression expression;
-
-    @Override
-    public String toString() {
-        return ANONYMOUS;
-    }
 }

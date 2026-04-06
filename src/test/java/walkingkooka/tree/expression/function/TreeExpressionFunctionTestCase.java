@@ -43,7 +43,8 @@ public abstract class TreeExpressionFunctionTestCase<F extends TreeExpressionFun
                     throw new UnsupportedOperationException();
                 }
             },
-            true
+            false == this instanceof TreeExpressionFunctionLambdaTest
+
         );
     }
 
