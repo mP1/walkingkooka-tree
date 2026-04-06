@@ -34,7 +34,7 @@ import java.util.function.Function;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public class ExpressionFunctionLambdaTest extends ExpressionFunctionTestCase<ExpressionFunctionLambda<String, FakeExpressionEvaluationContext>,
+public class TreeExpressionFunctionLambdaTest extends TreeExpressionFunctionTestCase<TreeExpressionFunctionLambda<String, FakeExpressionEvaluationContext>,
     FakeExpressionEvaluationContext,
     String> {
 
@@ -100,7 +100,7 @@ public class ExpressionFunctionLambdaTest extends ExpressionFunctionTestCase<Exp
                            final Expression expression) {
         assertThrows(
             NullPointerException.class,
-            () -> ExpressionFunctionLambda.with(
+            () -> TreeExpressionFunctionLambda.with(
                 parameters,
                 returnType,
                 expression
@@ -137,8 +137,8 @@ public class ExpressionFunctionLambdaTest extends ExpressionFunctionTestCase<Exp
     // helpers..........................................................................................................
 
     @Override
-    public ExpressionFunctionLambda<String, FakeExpressionEvaluationContext> createBiFunction() {
-        return ExpressionFunctionLambda.with(
+    public TreeExpressionFunctionLambda<String, FakeExpressionEvaluationContext> createBiFunction() {
+        return TreeExpressionFunctionLambda.with(
             PARAMETERS,
             RETURN_TYPE,
             EXPRESSION
@@ -207,7 +207,7 @@ public class ExpressionFunctionLambdaTest extends ExpressionFunctionTestCase<Exp
     // class............................................................................................................
 
     @Override
-    public Class<ExpressionFunctionLambda<String, FakeExpressionEvaluationContext>> type() {
-        return Cast.to(ExpressionFunctionLambda.class);
+    public Class<TreeExpressionFunctionLambda<String, FakeExpressionEvaluationContext>> type() {
+        return Cast.to(TreeExpressionFunctionLambda.class);
     }
 }

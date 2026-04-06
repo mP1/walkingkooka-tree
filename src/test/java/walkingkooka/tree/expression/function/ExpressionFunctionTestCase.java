@@ -43,7 +43,7 @@ public abstract class ExpressionFunctionTestCase<F extends ExpressionFunction<T,
                     throw new UnsupportedOperationException();
                 }
             },
-            false == this instanceof ExpressionFunctionLambdaTest
+            true
         );
     }
 
