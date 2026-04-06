@@ -47,7 +47,7 @@ abstract class TreeExpressionFunction<T, C extends ExpressionEvaluationContext> 
         return this.name;
     }
 
-    private final Optional<ExpressionFunctionName> name;
+    final Optional<ExpressionFunctionName> name;
 
     @Override
     public final String toString() {

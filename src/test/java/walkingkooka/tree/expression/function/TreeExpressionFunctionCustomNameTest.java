@@ -32,10 +32,10 @@ import static org.junit.jupiter.api.Assertions.assertNotSame;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class ExpressionFunctionCustomNameTest extends ExpressionFunctionTestCase<ExpressionFunctionCustomName<String, ExpressionEvaluationContext>,
+public final class TreeExpressionFunctionCustomNameTest extends TreeExpressionFunctionTestCase<TreeExpressionFunctionCustomName<String, ExpressionEvaluationContext>,
     ExpressionEvaluationContext,
     String>
-    implements HashCodeEqualsDefinedTesting2<ExpressionFunctionCustomName<String, ExpressionEvaluationContext>> {
+    implements HashCodeEqualsDefinedTesting2<TreeExpressionFunctionCustomName<String, ExpressionEvaluationContext>> {
 
     private final static Optional<ExpressionFunctionName> NAME = Optional.of(
         ExpressionFunctionName.with("Custom")
@@ -43,12 +43,12 @@ public final class ExpressionFunctionCustomNameTest extends ExpressionFunctionTe
 
     @Test
     public void testWithNullFunctionFails() {
-        assertThrows(NullPointerException.class, () -> ExpressionFunctionCustomName.with(null, NAME));
+        assertThrows(NullPointerException.class, () -> TreeExpressionFunctionCustomName.with(null, NAME));
     }
 
     @Test
     public void testWithNullNameFails() {
-        assertThrows(NullPointerException.class, () -> ExpressionFunctionCustomName.with(wrapped(), null));
+        assertThrows(NullPointerException.class, () -> TreeExpressionFunctionCustomName.with(wrapped(), null));
     }
 
     @Test
@@ -62,13 +62,13 @@ public final class ExpressionFunctionCustomNameTest extends ExpressionFunctionTe
     @Test
     @Override
     public void testSetNameSame() {
-        final ExpressionFunctionCustomName<String, ExpressionEvaluationContext> function = this.createBiFunction();
+        final TreeExpressionFunctionCustomName<String, ExpressionEvaluationContext> function = this.createBiFunction();
         assertSame(function, function.setName(NAME));
     }
 
     @Test
     public void testSetNameDifferent() {
-        final ExpressionFunctionCustomName<String, ExpressionEvaluationContext> function = this.createBiFunction();
+        final TreeExpressionFunctionCustomName<String, ExpressionEvaluationContext> function = this.createBiFunction();
         final Optional<ExpressionFunctionName> different = Optional.of(
             ExpressionFunctionName.with("different")
         );
@@ -80,8 +80,8 @@ public final class ExpressionFunctionCustomNameTest extends ExpressionFunctionTe
     }
 
     @Override
-    public ExpressionFunctionCustomName<String, ExpressionEvaluationContext> createBiFunction() {
-        return Cast.to(ExpressionFunctionCustomName.with(wrapped(), NAME));
+    public TreeExpressionFunctionCustomName<String, ExpressionEvaluationContext> createBiFunction() {
+        return Cast.to(TreeExpressionFunctionCustomName.with(wrapped(), NAME));
     }
 
     private ExpressionFunction<String, ExpressionEvaluationContext> wrapped() {
@@ -105,13 +105,13 @@ public final class ExpressionFunctionCustomNameTest extends ExpressionFunctionTe
         final ExpressionFunction<String, ExpressionEvaluationContext> function = ExpressionFunctions.typeName();
 
         this.checkNotEquals(
-            ExpressionFunctionCustomName.with(
+            TreeExpressionFunctionCustomName.with(
                 function,
                 Optional.of(
                     ExpressionFunctionName.with("abc")
                 )
             ),
-            ExpressionFunctionCustomName.with(
+            TreeExpressionFunctionCustomName.with(
                 function,
                 Optional.of(
                     ExpressionFunctionName.with("different")
@@ -123,7 +123,7 @@ public final class ExpressionFunctionCustomNameTest extends ExpressionFunctionTe
     @Test
     public void testEqualsDifferentFunction() {
         this.checkNotEquals(
-            ExpressionFunctionCustomName.with(
+            TreeExpressionFunctionCustomName.with(
                 new FakeExpressionFunction<>() {
 
                     @Override
@@ -133,7 +133,7 @@ public final class ExpressionFunctionCustomNameTest extends ExpressionFunctionTe
                 },
                 NAME
             ),
-            ExpressionFunctionCustomName.with(
+            TreeExpressionFunctionCustomName.with(
                 new FakeExpressionFunction<>() {
 
                     @Override
@@ -147,7 +147,7 @@ public final class ExpressionFunctionCustomNameTest extends ExpressionFunctionTe
     }
 
     @Override
-    public ExpressionFunctionCustomName<String, ExpressionEvaluationContext> createObject() {
+    public TreeExpressionFunctionCustomName<String, ExpressionEvaluationContext> createObject() {
         return this.createBiFunction();
     }
     // toString.........................................................................................................
@@ -164,7 +164,7 @@ public final class ExpressionFunctionCustomNameTest extends ExpressionFunctionTe
     // class............................................................................................................
 
     @Override
-    public Class<ExpressionFunctionCustomName<String, ExpressionEvaluationContext>> type() {
-        return Cast.to(ExpressionFunctionCustomName.class);
+    public Class<TreeExpressionFunctionCustomName<String, ExpressionEvaluationContext>> type() {
+        return Cast.to(TreeExpressionFunctionCustomName.class);
     }
 }
