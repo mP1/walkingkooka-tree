@@ -20,37 +20,27 @@ package walkingkooka.tree.expression.function;
 import walkingkooka.Cast;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.tree.expression.ExpressionEvaluationContext;
-import walkingkooka.tree.expression.ExpressionFunctionName;
 import walkingkooka.tree.expression.ExpressionPurityContext;
 
 import java.util.List;
-import java.util.Optional;
 
 /**
  * A {@link ExpressionFunction} that always returns a null value.
  */
-final class ExpressionFunctionNull<C extends ExpressionEvaluationContext> implements ExpressionFunction<Object, C> {
+final class TreeExpressionFunctionNull<C extends ExpressionEvaluationContext> extends TreeExpressionFunction<Object, C> {
 
-    static <C extends ExpressionEvaluationContext> ExpressionFunctionNull<C> instance() {
+    static <C extends ExpressionEvaluationContext> TreeExpressionFunctionNull<C> instance() {
         return Cast.to(INSTANCE);
     }
 
     /**
      * Singleton
      */
-    private final static ExpressionFunctionNull<?> INSTANCE = new ExpressionFunctionNull<>();
+    private final static TreeExpressionFunctionNull<?> INSTANCE = new TreeExpressionFunctionNull<>();
 
-    private ExpressionFunctionNull() {
+    private TreeExpressionFunctionNull() {
+        super("null");
     }
-
-    @Override
-    public Optional<ExpressionFunctionName> name() {
-        return NAME;
-    }
-
-    private final static Optional<ExpressionFunctionName> NAME = Optional.of(
-        ExpressionFunctionName.with("null")
-    );
 
     @Override
     public boolean isPure(final ExpressionPurityContext context) {
@@ -72,11 +62,5 @@ final class ExpressionFunctionNull<C extends ExpressionEvaluationContext> implem
                         final C c) {
         this.checkParameterCount(objects);
         return null;
-    }
-
-    @Override
-    public String toString() {
-        return NAME.get()
-            .toString();
     }
 }
