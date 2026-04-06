@@ -20,36 +20,26 @@ package walkingkooka.tree.expression.function;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.tree.expression.Expression;
 import walkingkooka.tree.expression.ExpressionEvaluationContext;
-import walkingkooka.tree.expression.ExpressionFunctionName;
 import walkingkooka.tree.expression.ExpressionPurityContext;
 
 import java.util.List;
 import java.util.Objects;
-import java.util.Optional;
 
 /**
  * A {@link ExpressionFunction} which evaluates the given {@link Expression}. The expression ignores any given parameters.
  */
-final class ExpressionFunctionEval<C extends ExpressionEvaluationContext> implements ExpressionFunction<Object, C> {
+final class TreeExpressionFunctionEval<C extends ExpressionEvaluationContext> extends TreeExpressionFunction<Object, C> {
 
-    static <C extends ExpressionEvaluationContext> ExpressionFunctionEval<C> with(final Expression expression) {
-        return new ExpressionFunctionEval<>(
+    static <C extends ExpressionEvaluationContext> TreeExpressionFunctionEval<C> with(final Expression expression) {
+        return new TreeExpressionFunctionEval<>(
             Objects.requireNonNull(expression, "expression")
         );
     }
 
-    private ExpressionFunctionEval(final Expression expression) {
+    private TreeExpressionFunctionEval(final Expression expression) {
+        super("eval");
         this.expression = expression;
     }
-
-    @Override
-    public Optional<ExpressionFunctionName> name() {
-        return NAME;
-    }
-
-    private final static Optional<ExpressionFunctionName> NAME = Optional.of(
-        ExpressionFunctionName.with("eval")
-    );
 
     @Override
     public boolean isPure(final ExpressionPurityContext context) {
@@ -76,12 +66,4 @@ final class ExpressionFunctionEval<C extends ExpressionEvaluationContext> implem
     }
 
     private final Expression expression;
-
-    // Object...........................................................................................................
-
-    @Override
-    public String toString() {
-        return NAME.get()
-            .toString();
-    }
 }

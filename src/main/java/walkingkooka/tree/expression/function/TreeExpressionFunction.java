@@ -19,7 +19,6 @@ package walkingkooka.tree.expression.function;
 
 import walkingkooka.tree.expression.ExpressionEvaluationContext;
 import walkingkooka.tree.expression.ExpressionFunctionName;
-import walkingkooka.tree.expression.ExpressionPurityContext;
 
 import java.util.Optional;
 
@@ -30,8 +29,10 @@ abstract class TreeExpressionFunction<T, C extends ExpressionEvaluationContext> 
 
     TreeExpressionFunction(final String name) {
         super();
-        this.name = Optional.of(
-            ExpressionFunctionName.with(name)
+        this.name = Optional.ofNullable(
+            null != name ?
+                ExpressionFunctionName.with(name) :
+                null
         );
     }
 
@@ -41,14 +42,6 @@ abstract class TreeExpressionFunction<T, C extends ExpressionEvaluationContext> 
     }
 
     private final Optional<ExpressionFunctionName> name;
-
-    /**
-     * All functions are pure
-     */
-    @Override
-    public final boolean isPure(final ExpressionPurityContext context) {
-        return true;
-    }
 
     @Override
     public final String toString() {
