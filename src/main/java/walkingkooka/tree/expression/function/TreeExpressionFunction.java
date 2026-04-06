@@ -27,12 +27,18 @@ import java.util.Optional;
  */
 abstract class TreeExpressionFunction<T, C extends ExpressionEvaluationContext> implements ExpressionFunction<T, C> {
 
-    TreeExpressionFunction(final String name) {
+    TreeExpressionFunction(final Optional<ExpressionFunctionName> name) {
         super();
-        this.name = Optional.ofNullable(
+        this.name = name;
+    }
+
+    TreeExpressionFunction(final String name) {
+        this(
+            Optional.ofNullable(
             null != name ?
                 ExpressionFunctionName.with(name) :
                 null
+            )
         );
     }
 

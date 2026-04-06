@@ -48,7 +48,7 @@ final class TreeExpressionFunctionLambda<T, C extends ExpressionEvaluationContex
     private TreeExpressionFunctionLambda(final List<ExpressionFunctionParameter<?>> parameters,
                                          final Class<T> returnType,
                                          final Expression expression) {
-        super(null);
+        super(ANONYMOUS_NAME);
         this.parameters = parameters;
         this.returnType = returnType;
         this.expression = expression;
