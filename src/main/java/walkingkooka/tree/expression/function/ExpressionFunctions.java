@@ -90,14 +90,14 @@ public final class ExpressionFunctions implements PublicStaticHelper {
     }
 
     /**
-     * {@see BasicExpressionFunction}
+     * {@see TreeExpressionFunctionBasic}
      */
     public static <T, C extends ExpressionEvaluationContext> ExpressionFunction<T, C> basic(final Optional<ExpressionFunctionName> name,
                                                                                             final boolean pure,
                                                                                             final IntFunction<List<ExpressionFunctionParameter<?>>> parameters,
                                                                                             final Class<T> returnType,
                                                                                             final BiFunction<List<Object>, C, T> biFunction) {
-        return BasicExpressionFunction.with(
+        return TreeExpressionFunctionBasic.with(
             name,
             pure,
             parameters,

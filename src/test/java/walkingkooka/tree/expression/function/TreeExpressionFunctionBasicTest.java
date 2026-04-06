@@ -32,7 +32,7 @@ import static org.junit.jupiter.api.Assertions.assertNotSame;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class BasicExpressionFunctionTest implements ExpressionFunctionTesting<BasicExpressionFunction<String, FakeExpressionEvaluationContext>, String, FakeExpressionEvaluationContext> {
+public final class TreeExpressionFunctionBasicTest extends TreeExpressionFunctionTestCase<TreeExpressionFunctionBasic<String, FakeExpressionEvaluationContext>, FakeExpressionEvaluationContext, String> {
 
     private final static Optional<ExpressionFunctionName> NAME = Optional.of(
         ExpressionFunctionName.with("test123")
@@ -100,7 +100,7 @@ public final class BasicExpressionFunctionTest implements ExpressionFunctionTest
                            final BiFunction<List<Object>, FakeExpressionEvaluationContext, String> biFunction) {
         assertThrows(
             NullPointerException.class,
-            () -> BasicExpressionFunction.with(
+            () -> TreeExpressionFunctionBasic.with(
                 name,
                 pure,
                 parameters,
@@ -113,13 +113,13 @@ public final class BasicExpressionFunctionTest implements ExpressionFunctionTest
     @Test
     @Override
     public void testSetNameSame() {
-        final BasicExpressionFunction<String, FakeExpressionEvaluationContext> function = this.createBiFunction();
+        final TreeExpressionFunctionBasic<String, FakeExpressionEvaluationContext> function = this.createBiFunction();
         assertSame(function, function.setName(NAME));
     }
 
     @Test
     public void testSetNameDifferent() {
-        final BasicExpressionFunction<String, FakeExpressionEvaluationContext> function = this.createBiFunction();
+        final TreeExpressionFunctionBasic<String, FakeExpressionEvaluationContext> function = this.createBiFunction();
         final Optional<ExpressionFunctionName> different = Optional.of(
             ExpressionFunctionName.with("different")
         );
@@ -157,8 +157,8 @@ public final class BasicExpressionFunctionTest implements ExpressionFunctionTest
     }
 
     @Override
-    public BasicExpressionFunction<String, FakeExpressionEvaluationContext> createBiFunction() {
-        return BasicExpressionFunction.with(
+    public TreeExpressionFunctionBasic<String, FakeExpressionEvaluationContext> createBiFunction() {
+        return TreeExpressionFunctionBasic.with(
             NAME,
             PURE,
             PARAMETERS,
@@ -178,7 +178,7 @@ public final class BasicExpressionFunctionTest implements ExpressionFunctionTest
     }
 
     @Override
-    public Class<BasicExpressionFunction<String, FakeExpressionEvaluationContext>> type() {
-        return Cast.to(BasicExpressionFunction.class);
+    public Class<TreeExpressionFunctionBasic<String, FakeExpressionEvaluationContext>> type() {
+        return Cast.to(TreeExpressionFunctionBasic.class);
     }
 }

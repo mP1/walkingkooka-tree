@@ -31,14 +31,14 @@ import java.util.function.IntFunction;
  * A {@link ExpressionFunction} that accepts as parameters all of its properties and operations supporting the
  * assembly of dynamic functions.
  */
-final class BasicExpressionFunction<T, C extends ExpressionEvaluationContext> implements ExpressionFunction<T, C> {
+final class TreeExpressionFunctionBasic<T, C extends ExpressionEvaluationContext> extends TreeExpressionFunction<T, C> {
 
-    static <T, C extends ExpressionEvaluationContext> BasicExpressionFunction<T, C> with(final Optional<ExpressionFunctionName> name,
-                                                                                         final boolean pure,
-                                                                                         final IntFunction<List<ExpressionFunctionParameter<?>>> parameters,
-                                                                                         final Class<T> returnType,
-                                                                                         final BiFunction<List<Object>, C, T> biFunction) {
-        return new BasicExpressionFunction<>(
+    static <T, C extends ExpressionEvaluationContext> TreeExpressionFunctionBasic<T, C> with(final Optional<ExpressionFunctionName> name,
+                                                                                             final boolean pure,
+                                                                                             final IntFunction<List<ExpressionFunctionParameter<?>>> parameters,
+                                                                                             final Class<T> returnType,
+                                                                                             final BiFunction<List<Object>, C, T> biFunction) {
+        return new TreeExpressionFunctionBasic<>(
             Objects.requireNonNull(name, "name"),
             pure,
             Objects.requireNonNull(parameters, "parameters"),
@@ -47,21 +47,17 @@ final class BasicExpressionFunction<T, C extends ExpressionEvaluationContext> im
         );
     }
 
-    private BasicExpressionFunction(final Optional<ExpressionFunctionName> name,
-                                    final boolean pure,
-                                    final IntFunction<List<ExpressionFunctionParameter<?>>> parameters,
-                                    final Class<T> returnType,
-                                    final BiFunction<List<Object>, C, T> biFunction) {
-        this.name = name;
+    private TreeExpressionFunctionBasic(final Optional<ExpressionFunctionName> name,
+                                        final boolean pure,
+                                        final IntFunction<List<ExpressionFunctionParameter<?>>> parameters,
+                                        final Class<T> returnType,
+                                        final BiFunction<List<Object>, C, T> biFunction) {
+        super(name);
+
         this.pure = pure;
         this.parameters = parameters;
         this.returnType = returnType;
         this.biFunction = biFunction;
-    }
-
-    @Override
-    public Optional<ExpressionFunctionName> name() {
-        return this.name;
     }
 
     @Override
@@ -70,7 +66,7 @@ final class BasicExpressionFunction<T, C extends ExpressionEvaluationContext> im
 
         return this.name().equals(name) ?
             this :
-            new BasicExpressionFunction<>(
+            new TreeExpressionFunctionBasic<>(
                 name,
                 this.pure,
                 this.parameters,
@@ -78,8 +74,6 @@ final class BasicExpressionFunction<T, C extends ExpressionEvaluationContext> im
                 this.biFunction
             );
     }
-
-    private final Optional<ExpressionFunctionName> name;
 
     @Override
     public boolean isPure(final ExpressionPurityContext context) {
@@ -110,6 +104,8 @@ final class BasicExpressionFunction<T, C extends ExpressionEvaluationContext> im
 
     private final BiFunction<List<Object>, C, T> biFunction;
 
+    // Object...........................................................................................................
+
     @Override
     public int hashCode() {
         return Objects.hash(
@@ -124,21 +120,14 @@ final class BasicExpressionFunction<T, C extends ExpressionEvaluationContext> im
     @Override
     public boolean equals(final Object other) {
         return this == other ||
-            other instanceof BasicExpressionFunction && this.equals1((BasicExpressionFunction<?, ?>) other);
+            other instanceof TreeExpressionFunctionBasic && this.equals1((TreeExpressionFunctionBasic<?, ?>) other);
     }
 
-    private boolean equals1(final BasicExpressionFunction<?, ?> other) {
+    private boolean equals1(final TreeExpressionFunctionBasic<?, ?> other) {
         return this.name.equals(other.name) &&
             this.pure == other.pure &&
             this.parameters.equals(other.parameters) &&
             this.returnType.equals(other.returnType) &&
             this.biFunction.equals(other.biFunction);
-    }
-
-    @Override
-    public String toString() {
-        return this.name()
-            .map(ExpressionFunctionName::value)
-            .orElse(ANONYMOUS);
     }
 }
