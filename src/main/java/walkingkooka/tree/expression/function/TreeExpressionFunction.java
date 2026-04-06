@@ -46,7 +46,7 @@ abstract class TreeExpressionFunction<T, C extends ExpressionEvaluationContext> 
     @Override
     public final String toString() {
         return this.name()
-            .get()
-            .toString();
+            .map(ExpressionFunctionName::value)
+            .orElse(ANONYMOUS);
     }
 }
