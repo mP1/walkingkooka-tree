@@ -19,53 +19,32 @@ package walkingkooka.tree.expression.function;
 
 import walkingkooka.Cast;
 import walkingkooka.tree.expression.ExpressionEvaluationContext;
-import walkingkooka.tree.expression.ExpressionFunctionName;
 import walkingkooka.tree.expression.ExpressionPurityContext;
 
 import java.util.List;
-import java.util.Optional;
 
 /**
  * A function that returns {@link Object#getClass()#getName()} of the first parameter.
  */
-final class ExpressionFunctionTypeName<C extends ExpressionEvaluationContext> implements ExpressionFunction<String, C> {
+final class TreeExpressionFunctionTypeName<C extends ExpressionEvaluationContext> extends TreeExpressionFunction<String, C> {
 
     /**
      * Instance getter.
      */
-    static <C extends ExpressionEvaluationContext> ExpressionFunctionTypeName<C> instance() {
+    static <C extends ExpressionEvaluationContext> TreeExpressionFunctionTypeName<C> instance() {
         return Cast.to(INSTANCE);
     }
 
     /**
      * Singleton
      */
-    private static final ExpressionFunctionTypeName<?> INSTANCE = new ExpressionFunctionTypeName<>();
+    private static final TreeExpressionFunctionTypeName<?> INSTANCE = new TreeExpressionFunctionTypeName<>();
 
     /**
      * Private ctor
      */
-    private ExpressionFunctionTypeName() {
-        super();
-    }
-
-    @Override
-    public Optional<ExpressionFunctionName> name() {
-        return NAME;
-    }
-
-    private final static Optional<ExpressionFunctionName> NAME = Optional.of(
-        ExpressionFunctionName.with("typeName")
-    );
-
-    @Override
-    public String apply(final List<Object> parameters,
-                        final C context) {
-        this.checkParameterCount(parameters);
-
-        return PARAMETER.getOrFail(parameters, 0)
-            .getClass()
-            .getName();
+    private TreeExpressionFunctionTypeName() {
+        super("typeName");
     }
 
     @Override
@@ -90,9 +69,12 @@ final class ExpressionFunctionTypeName<C extends ExpressionEvaluationContext> im
     }
 
     @Override
-    public String toString() {
-        return this.name()
-            .get()
-            .toString();
+    public String apply(final List<Object> parameters,
+                        final C context) {
+        this.checkParameterCount(parameters);
+
+        return PARAMETER.getOrFail(parameters, 0)
+            .getClass()
+            .getName();
     }
 }
