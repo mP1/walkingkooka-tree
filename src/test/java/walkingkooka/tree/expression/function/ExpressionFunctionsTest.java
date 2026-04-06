@@ -18,17 +18,34 @@
 package walkingkooka.tree.expression.function;
 
 import org.junit.jupiter.api.Test;
+import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.set.Sets;
 import walkingkooka.collect.set.SortedSets;
+import walkingkooka.convert.ConverterContexts;
+import walkingkooka.convert.Converters;
+import walkingkooka.currency.CurrencyCode;
+import walkingkooka.currency.CurrencyLocaleContexts;
+import walkingkooka.datetime.DateTimeContexts;
+import walkingkooka.environment.EnvironmentContexts;
+import walkingkooka.locale.LocaleContexts;
+import walkingkooka.locale.LocaleLanguageTag;
+import walkingkooka.math.DecimalNumberContexts;
 import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.reflect.PublicStaticHelperTesting;
 import walkingkooka.text.CaseSensitivity;
+import walkingkooka.text.Indentation;
+import walkingkooka.text.LineEnding;
+import walkingkooka.tree.expression.Expression;
 import walkingkooka.tree.expression.ExpressionEvaluationContext;
+import walkingkooka.tree.expression.ExpressionEvaluationContexts;
 import walkingkooka.tree.expression.ExpressionFunctionName;
+import walkingkooka.tree.expression.ExpressionNumberKind;
+import walkingkooka.tree.expression.ExpressionReference;
 
 import java.lang.reflect.Method;
 import java.math.MathContext;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 import java.util.function.Function;
@@ -243,6 +260,127 @@ public final class ExpressionFunctionsTest implements PublicStaticHelperTesting<
                 ExpressionFunctions.typeName()
                     .name()
                     .get()
+            )
+        );
+    }
+
+    @Test
+    public void testEvaluateCurrencyCode() {
+        final String currencyCode = "AUD";
+
+        this.evaluateAndCheck(
+            "currencyCode",
+            Lists.of(currencyCode),
+            CurrencyCode.parse(currencyCode)
+        );
+    }
+
+    @Test
+    public void testEvaluateLocaleLanguageTag() {
+        final String localeLanguageTag = "en-AU";
+
+        this.evaluateAndCheck(
+            "localeLanguageTag",
+            Lists.of(localeLanguageTag),
+            LocaleLanguageTag.parse(localeLanguageTag)
+        );
+    }
+
+    @Test
+    public void testEvaluateEval() {
+        this.evaluateAndCheck(
+            "eval",
+            Lists.empty(),
+            123
+        );
+    }
+
+    @Test
+    public void testEvaluateNull() {
+        this.evaluateAndCheck(
+            "null",
+            Lists.of(),
+            null
+        );
+    }
+
+    @Test
+    public void testEvaluateTypeName() {
+        this.evaluateAndCheck(
+            "typeName",
+            Lists.of(this),
+            this.getClass()
+                .getName()
+        );
+    }
+
+    private void evaluateAndCheck(final String functionName,
+                                  final List<Object> parameters,
+                                  final Object expected) {
+        this.checkEquals(
+            expected,
+            Expression.call(
+                Expression.namedFunction(
+                    ExpressionFunctionName.with(functionName)
+                ),
+                parameters.stream()
+                    .map(Expression::value)
+                    .collect(Collectors.toList())
+            ).toValue(
+                ExpressionEvaluationContexts.basic(
+                    ExpressionNumberKind.BIG_DECIMAL,
+                    (e, c) -> {
+                        throw new UnsupportedOperationException();
+                    },
+                    (name) -> {
+                        switch (name.value()) {
+                            case "currencyCode":
+                                return ExpressionFunctions.currencyCode();
+                            case "localeLanguageTag":
+                                return ExpressionFunctions.localeLanguageTag();
+                            case "eval":
+                                return ExpressionFunctions.eval(
+                                    Expression.value(123)
+                                );
+                            case "null":
+                                return ExpressionFunctions.nullFunction();
+                            case "typeName":
+                                return ExpressionFunctions.typeName();
+                            default:
+                                throw new UnknownExpressionFunctionException(name);
+                        }
+                    }, // name -> function
+                    (final RuntimeException cause) -> {
+                        throw cause;
+                    },
+                    (ExpressionReference reference) -> {
+                        throw new UnsupportedOperationException();
+                    },
+                    (ExpressionReference reference) -> {
+                        throw new UnsupportedOperationException();
+                    },
+                    CaseSensitivity.SENSITIVE,
+                    ConverterContexts.basic(
+                        false, // canNumbersHaveGroupSeparator
+                        Converters.EXCEL_1900_DATE_SYSTEM_OFFSET, // dateTimeOffset
+                        Indentation.SPACES2,
+                        LineEnding.NL,
+                        ',', // valueSeparator
+                        Converters.collection(
+                            Lists.of(
+                                Converters.characterOrCharSequenceOrHasTextOrStringToCharacterOrCharSequenceOrString(),
+                                Converters.simple(),
+                                Converters.textToCurrencyCode(),
+                                Converters.textToLocaleLanguageTag()
+                            )
+                        ),
+                        CurrencyLocaleContexts.fake(),
+                        DateTimeContexts.fake(),
+                        DecimalNumberContexts.fake()
+                    ),
+                    EnvironmentContexts.fake(),
+                    LocaleContexts.fake()
+                )
             )
         );
     }
