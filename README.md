@@ -67,7 +67,7 @@ A function provides an independent function which describes
 - [expressionNumberFunction](https://github.com/mP1/walkingkooka-tree/blob/master/src/main/java/walkingkooka/tree/expression/function/ExpressionNumberFunctionExpressionFunction.java)
 - [fake](https://github.com/mP1/walkingkooka-tree/blob/master/src/main/java/walkingkooka/tree/expression/function/FakeExpressionFunction.java)
 - [lambda](https://github.com/mP1/walkingkooka-tree/blob/master/src/main/java/walkingkooka/tree/expression/function/ExpressionFunctionNull.java)
-- [node](https://github.com/mP1/walkingkooka-tree/blob/master/src/main/java/walkingkooka/tree/expression/function/ExpressionFunctionNode.java)
+- [node](https://github.com/mP1/walkingkooka-tree/blob/master/src/main/java/walkingkooka/tree/expression/function/TreeExpressionFunctionNode.java)
 - [nodeName](https://github.com/mP1/walkingkooka-tree/blob/master/src/main/java/walkingkooka/tree/expression/function/TreeExpressionFunctionNodeName.java)
 - [nullFunction](https://github.com/mP1/walkingkooka-tree/blob/master/src/main/java/walkingkooka/tree/expression/function/TreeExpressionFunctionNull.java)
 - [typeName](https://github.com/mP1/walkingkooka-tree/blob/master/src/main/java/walkingkooka/tree/expression/function/TreeExpressionFunctionTypeName.java)

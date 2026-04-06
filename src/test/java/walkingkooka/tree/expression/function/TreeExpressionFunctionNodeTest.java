@@ -24,7 +24,7 @@ import walkingkooka.tree.TestNode;
 import walkingkooka.tree.select.FakeNodeSelectorExpressionEvaluationContext;
 import walkingkooka.tree.select.NodeSelectorExpressionEvaluationContext;
 
-public final class ExpressionFunctionNodeTest extends ExpressionFunctionTestCase<ExpressionFunctionNode<TestNode, StringName, StringName, Object, NodeSelectorExpressionEvaluationContext<TestNode, StringName, StringName, Object>>,
+public final class TreeExpressionFunctionNodeTest extends TreeExpressionFunctionTestCase<TreeExpressionFunctionNode<TestNode, StringName, StringName, Object, NodeSelectorExpressionEvaluationContext<TestNode, StringName, StringName, Object>>,
     NodeSelectorExpressionEvaluationContext<TestNode, StringName, StringName, Object>,
     TestNode> {
 
@@ -41,8 +41,8 @@ public final class ExpressionFunctionNodeTest extends ExpressionFunctionTestCase
     }
 
     @Override
-    public ExpressionFunctionNode<TestNode, StringName, StringName, Object, NodeSelectorExpressionEvaluationContext<TestNode, StringName, StringName, Object>> createBiFunction() {
-        return ExpressionFunctionNode.instance();
+    public TreeExpressionFunctionNode<TestNode, StringName, StringName, Object, NodeSelectorExpressionEvaluationContext<TestNode, StringName, StringName, Object>> createBiFunction() {
+        return TreeExpressionFunctionNode.instance();
     }
 
     @Override
@@ -72,7 +72,7 @@ public final class ExpressionFunctionNodeTest extends ExpressionFunctionTestCase
     // class............................................................................................................
 
     @Override
-    public Class<ExpressionFunctionNode<TestNode, StringName, StringName, Object, NodeSelectorExpressionEvaluationContext<TestNode, StringName, StringName, Object>>> type() {
-        return Cast.to(ExpressionFunctionNode.class);
+    public Class<TreeExpressionFunctionNode<TestNode, StringName, StringName, Object, NodeSelectorExpressionEvaluationContext<TestNode, StringName, StringName, Object>>> type() {
+        return Cast.to(TreeExpressionFunctionNode.class);
     }
 }
