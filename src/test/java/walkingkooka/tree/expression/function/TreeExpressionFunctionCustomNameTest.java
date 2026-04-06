@@ -43,27 +43,50 @@ public final class TreeExpressionFunctionCustomNameTest extends TreeExpressionFu
 
     @Test
     public void testWithNullFunctionFails() {
-        assertThrows(NullPointerException.class, () -> TreeExpressionFunctionCustomName.with(null, NAME));
+        assertThrows(
+            NullPointerException.class,
+            () -> TreeExpressionFunctionCustomName.with(
+                null,
+                NAME
+            )
+        );
     }
 
     @Test
     public void testWithNullNameFails() {
-        assertThrows(NullPointerException.class, () -> TreeExpressionFunctionCustomName.with(wrapped(), null));
+        assertThrows(
+            NullPointerException.class,
+            () -> TreeExpressionFunctionCustomName.with(
+                wrapped(),
+                null
+            )
+        );
     }
 
     @Test
     public void testApply() {
         final List<Object> parameters = Lists.of(this);
         final ExpressionEvaluationContext context = this.createContext();
-        this.applyAndCheck(this.createBiFunction(), parameters, context,
-            this.wrapped().apply(parameters, context));
+        this.applyAndCheck(
+            this.createBiFunction(),
+            parameters,
+            context,
+            this.wrapped()
+                .apply(
+                    parameters,
+                    context
+                )
+        );
     }
 
     @Test
     @Override
     public void testSetNameSame() {
         final TreeExpressionFunctionCustomName<String, ExpressionEvaluationContext> function = this.createBiFunction();
-        assertSame(function, function.setName(NAME));
+        assertSame(
+            function,
+            function.setName(NAME)
+        );
     }
 
     @Test
