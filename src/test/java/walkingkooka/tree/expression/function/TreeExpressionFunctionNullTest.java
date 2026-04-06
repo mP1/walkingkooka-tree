@@ -24,7 +24,7 @@ import walkingkooka.tree.expression.FakeExpressionEvaluationContext;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public class ExpressionFunctionNullTest extends ExpressionFunctionTestCase<ExpressionFunctionNull<FakeExpressionEvaluationContext>,
+public class TreeExpressionFunctionNullTest extends TreeExpressionFunctionTestCase<TreeExpressionFunctionNull<FakeExpressionEvaluationContext>,
     FakeExpressionEvaluationContext,
     Object> {
 
@@ -49,8 +49,8 @@ public class ExpressionFunctionNullTest extends ExpressionFunctionTestCase<Expre
     // helpers..........................................................................................................
 
     @Override
-    public ExpressionFunctionNull<FakeExpressionEvaluationContext> createBiFunction() {
-        return ExpressionFunctionNull.instance();
+    public TreeExpressionFunctionNull<FakeExpressionEvaluationContext> createBiFunction() {
+        return TreeExpressionFunctionNull.instance();
     }
 
     @Override
@@ -76,7 +76,7 @@ public class ExpressionFunctionNullTest extends ExpressionFunctionTestCase<Expre
     // class............................................................................................................
 
     @Override
-    public Class<ExpressionFunctionNull<FakeExpressionEvaluationContext>> type() {
-        return Cast.to(ExpressionFunctionNull.class);
+    public Class<TreeExpressionFunctionNull<FakeExpressionEvaluationContext>> type() {
+        return Cast.to(TreeExpressionFunctionNull.class);
     }
 }
