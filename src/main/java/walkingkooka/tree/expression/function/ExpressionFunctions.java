@@ -20,6 +20,7 @@ package walkingkooka.tree.expression.function;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.currency.CurrencyCode;
+import walkingkooka.locale.LocaleLanguageTag;
 import walkingkooka.naming.Name;
 import walkingkooka.reflect.PublicStaticHelper;
 import walkingkooka.text.CaseSensitivity;
@@ -84,6 +85,7 @@ public final class ExpressionFunctions implements PublicStaticHelper {
     public static void visit(final Consumer<ExpressionFunction<?, ?>> consumer) {
         Lists.of(
             currencyCode(),
+            localeLanguageTag(),
             node(),
             nodeName(),
             nullFunction(),
@@ -151,6 +153,13 @@ public final class ExpressionFunctions implements PublicStaticHelper {
             returnType,
             expression
         );
+    }
+
+    /**
+     * {@see TreeExpressionFunctionLocaleLanguageTag}
+     */
+    public static <C extends ExpressionEvaluationContext> ExpressionFunction<LocaleLanguageTag, C> localeLanguageTag() {
+        return TreeExpressionFunctionLocaleLanguageTag.instance();
     }
 
     /**
