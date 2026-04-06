@@ -21,21 +21,19 @@ import walkingkooka.Cast;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.naming.Name;
 import walkingkooka.tree.Node;
-import walkingkooka.tree.expression.ExpressionFunctionName;
 import walkingkooka.tree.expression.ExpressionPurityContext;
 import walkingkooka.tree.select.NodeSelectorExpressionEvaluationContext;
 
 import java.util.List;
-import java.util.Optional;
 
 /**
  * Returns the current {@link Node} which is fetched from {@link NodeSelectorExpressionEvaluationContext#node()}
  */
-final class ExpressionFunctionNode<N extends Node<N, NAME, ANAME, AVALUE>,
+final class TreeExpressionFunctionNode<N extends Node<N, NAME, ANAME, AVALUE>,
     NAME extends Name,
     ANAME extends Name,
     AVALUE,
-    C extends NodeSelectorExpressionEvaluationContext<N, NAME, ANAME, AVALUE>> implements ExpressionFunction<N, C> {
+    C extends NodeSelectorExpressionEvaluationContext<N, NAME, ANAME, AVALUE>> extends TreeExpressionFunction<N, C> {
 
     /**
      * Instance getter.
@@ -44,7 +42,7 @@ final class ExpressionFunctionNode<N extends Node<N, NAME, ANAME, AVALUE>,
         NAME extends Name,
         ANAME extends Name,
         AVALUE,
-        C extends NodeSelectorExpressionEvaluationContext<N, NAME, ANAME, AVALUE>> ExpressionFunctionNode<N, NAME, ANAME, AVALUE, C> instance() {
+        C extends NodeSelectorExpressionEvaluationContext<N, NAME, ANAME, AVALUE>> TreeExpressionFunctionNode<N, NAME, ANAME, AVALUE, C> instance() {
         return Cast.to(INSTANCE);
     }
 
@@ -52,29 +50,14 @@ final class ExpressionFunctionNode<N extends Node<N, NAME, ANAME, AVALUE>,
      * Singleton
      */
     @SuppressWarnings("rawtypes")
-    private static final ExpressionFunctionNode INSTANCE = new ExpressionFunctionNode<>();
+    private static final TreeExpressionFunctionNode INSTANCE = new TreeExpressionFunctionNode<>();
 
     /**
      * Private ctor
      */
-    private ExpressionFunctionNode() {
-        super();
+    private TreeExpressionFunctionNode() {
+        super("node");
     }
-
-    @Override
-    public N apply(final List<Object> parameters,
-                   final C context) {
-        return context.node();
-    }
-
-    @Override
-    public Optional<ExpressionFunctionName> name() {
-        return NAME;
-    }
-
-    private final static Optional<ExpressionFunctionName> NAME = Optional.of(
-        ExpressionFunctionName.with("node")
-    );
 
     @Override
     public List<ExpressionFunctionParameter<?>> parameters(final int count) {
@@ -94,9 +77,8 @@ final class ExpressionFunctionNode<N extends Node<N, NAME, ANAME, AVALUE>,
     }
 
     @Override
-    public String toString() {
-        return this.name()
-            .get()
-            .toString();
+    public N apply(final List<Object> parameters,
+                   final C context) {
+        return context.node();
     }
 }
