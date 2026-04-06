@@ -27,7 +27,7 @@ import walkingkooka.tree.Node;
 import walkingkooka.tree.expression.ExpressionEvaluationContext;
 import walkingkooka.tree.expression.FakeExpressionEvaluationContext;
 
-public final class ExpressionFunctionNodeNameTest extends ExpressionFunctionTestCase<ExpressionFunctionNodeName<ExpressionEvaluationContext>,
+public final class TreeExpressionFunctionNodeNameTest extends TreeExpressionFunctionTestCase<TreeExpressionFunctionNodeName<ExpressionEvaluationContext>,
     ExpressionEvaluationContext,
     String> {
 
@@ -50,8 +50,8 @@ public final class ExpressionFunctionNodeNameTest extends ExpressionFunctionTest
     }
 
     @Override
-    public ExpressionFunctionNodeName<ExpressionEvaluationContext> createBiFunction() {
-        return ExpressionFunctionNodeName.instance();
+    public TreeExpressionFunctionNodeName<ExpressionEvaluationContext> createBiFunction() {
+        return TreeExpressionFunctionNodeName.instance();
     }
 
     @Override
@@ -86,7 +86,7 @@ public final class ExpressionFunctionNodeNameTest extends ExpressionFunctionTest
     // class............................................................................................................
 
     @Override
-    public Class<ExpressionFunctionNodeName<ExpressionEvaluationContext>> type() {
-        return Cast.to(ExpressionFunctionNodeName.class);
+    public Class<TreeExpressionFunctionNodeName<ExpressionEvaluationContext>> type() {
+        return Cast.to(TreeExpressionFunctionNodeName.class);
     }
 }

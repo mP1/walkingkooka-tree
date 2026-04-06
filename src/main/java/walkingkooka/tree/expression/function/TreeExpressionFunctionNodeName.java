@@ -20,54 +20,33 @@ package walkingkooka.tree.expression.function;
 import walkingkooka.Cast;
 import walkingkooka.tree.Node;
 import walkingkooka.tree.expression.ExpressionEvaluationContext;
-import walkingkooka.tree.expression.ExpressionFunctionName;
 import walkingkooka.tree.expression.ExpressionPurityContext;
 
 import java.util.List;
-import java.util.Optional;
 
 /**
  * A non standard function that returns {@link Node#name()}. It assumes the {@link Node} is the first parameter.
  */
-final class ExpressionFunctionNodeName<C extends ExpressionEvaluationContext> implements ExpressionFunction<String, C> {
+final class TreeExpressionFunctionNodeName<C extends ExpressionEvaluationContext> extends TreeExpressionFunction<String, C> {
 
     /**
      * Instance getter.
      */
-    static <C extends ExpressionEvaluationContext> ExpressionFunctionNodeName<C> instance() {
+    static <C extends ExpressionEvaluationContext> TreeExpressionFunctionNodeName<C> instance() {
         return Cast.to(INSTANCE);
     }
 
     /**
      * Singleton
      */
-    private static final ExpressionFunctionNodeName<?> INSTANCE = new ExpressionFunctionNodeName<>();
+    private static final TreeExpressionFunctionNodeName<?> INSTANCE = new TreeExpressionFunctionNodeName<>();
 
     /**
      * Private ctor
      */
-    private ExpressionFunctionNodeName() {
-        super();
+    private TreeExpressionFunctionNodeName() {
+        super("name");
     }
-
-    @Override
-    public String apply(final List<Object> parameters,
-                        final C context) {
-        this.checkParameterCount(parameters);
-
-        return NODE.getOrFail(parameters, 0)
-            .name()
-            .value();
-    }
-
-    @Override
-    public Optional<ExpressionFunctionName> name() {
-        return NAME;
-    }
-
-    private final static Optional<ExpressionFunctionName> NAME = Optional.of(
-        ExpressionFunctionName.with("name")
-    );
 
     @Override
     public List<ExpressionFunctionParameter<?>> parameters(final int count) {
@@ -92,9 +71,12 @@ final class ExpressionFunctionNodeName<C extends ExpressionEvaluationContext> im
     }
 
     @Override
-    public String toString() {
-        return this.name()
-            .get()
-            .toString();
+    public String apply(final List<Object> parameters,
+                        final C context) {
+        this.checkParameterCount(parameters);
+
+        return NODE.getOrFail(parameters, 0)
+            .name()
+            .value();
     }
 }

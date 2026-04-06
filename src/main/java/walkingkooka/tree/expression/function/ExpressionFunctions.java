@@ -156,10 +156,10 @@ public final class ExpressionFunctions implements PublicStaticHelper {
     }
 
     /**
-     * {@see ExpressionFunctionNodeName}
+     * {@see TreeExpressionFunctionNodeName}
      */
     public static <C extends ExpressionEvaluationContext> ExpressionFunction<String, C> nodeName() {
-        return ExpressionFunctionNodeName.instance();
+        return TreeExpressionFunctionNodeName.instance();
     }
 
     /**
