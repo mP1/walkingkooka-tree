@@ -40,7 +40,7 @@ final class TreeExpressionFunctionEval<C extends ExpressionEvaluationContext> ex
 
     @Override
     public boolean isPure(final ExpressionPurityContext context) {
-        return false;
+        return true;
     }
 
     @Override
