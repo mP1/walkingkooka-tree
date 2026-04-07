@@ -18,11 +18,14 @@
 package walkingkooka.tree.expression.function;
 
 import org.junit.jupiter.api.Test;
+import walkingkooka.Either;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.set.Sets;
 import walkingkooka.collect.set.SortedSets;
+import walkingkooka.convert.ConverterContext;
 import walkingkooka.convert.ConverterContexts;
 import walkingkooka.convert.Converters;
+import walkingkooka.convert.ShortCircuitingConverter;
 import walkingkooka.currency.CurrencyCode;
 import walkingkooka.currency.FakeCurrencyLocaleContext;
 import walkingkooka.datetime.DateTimeContexts;
@@ -55,6 +58,8 @@ import java.util.stream.Collectors;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class ExpressionFunctionsTest implements PublicStaticHelperTesting<ExpressionFunctions> {
+
+    private final static ExpressionNumberKind EXPRESSION_NUMBER_KIND = ExpressionNumberKind.BIG_DECIMAL;
 
     @Test
     public void testLookupNullFunctionsFails() {
@@ -307,6 +312,17 @@ public final class ExpressionFunctionsTest implements PublicStaticHelperTesting<
         );
     }
 
+    private final static String EXPRESSION = "1+2";
+
+    @Test
+    public void testEvaluateEval() {
+        this.evaluateAndCheck(
+            "eval",
+            Lists.of(EXPRESSION),
+            EXPRESSION_NUMBER_KIND.create(3)
+        );
+    }
+
     @Test
     public void testEvaluateNull() {
         this.evaluateAndCheck(
@@ -348,6 +364,8 @@ public final class ExpressionFunctionsTest implements PublicStaticHelperTesting<
                         switch (name.value()) {
                             case "currencyCode":
                                 return ExpressionFunctions.currencyCode();
+                            case "eval":
+                                return ExpressionFunctions.eval();
                             case "locale":
                                 return ExpressionFunctions.locale();
                             case "localeLanguageTag":
@@ -385,6 +403,31 @@ public final class ExpressionFunctionsTest implements PublicStaticHelperTesting<
                                 Converters.characterOrCharSequenceOrHasTextOrStringToCharacterOrCharSequenceOrString(),
                                 Converters.simple(),
                                 Converters.textToCurrencyCode(),
+                                new ShortCircuitingConverter<>() {
+                                    @Override
+                                    public boolean canConvert(final Object value,
+                                                              final Class<?> type,
+                                                              final ConverterContext context) {
+                                        return EXPRESSION.equals(value) && Expression.class == type;
+                                    }
+
+                                    @Override
+                                    public <T> Either<T, String> doConvert(final Object value,
+                                                                           final Class<T> type,
+                                                                           final ConverterContext converterContext) {
+                                        return this.successfulConversion(
+                                            Expression.add(
+                                                Expression.value(
+                                                    EXPRESSION_NUMBER_KIND.one()
+                                                ),
+                                                Expression.value(
+                                                    EXPRESSION_NUMBER_KIND.create(2.0)
+                                                )
+                                            ),
+                                            type
+                                        );
+                                    }
+                                },
                                 Converters.textToLocale(),
                                 Converters.textToLocaleLanguageTag()
                             )
@@ -398,7 +441,7 @@ public final class ExpressionFunctionsTest implements PublicStaticHelperTesting<
                             }
                         },
                         DateTimeContexts.fake(),
-                        DecimalNumberContexts.fake()
+                        DecimalNumberContexts.american(MathContext.DECIMAL32)
                     ),
                     EnvironmentContexts.fake(),
                     LocaleContexts.fake()
