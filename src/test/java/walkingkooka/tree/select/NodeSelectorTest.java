@@ -58,15 +58,24 @@ public final class NodeSelectorTest implements ClassTesting2<NodeSelector<TestNo
 
     @Test
     public void testDescendantOrSelfStream() {
-        final TestNode root = TestNode.with("root",
-            TestNode.with("branch1", TestNode.with("leaf1")),
-            TestNode.with("branch2",
+        final TestNode root = TestNode.with(
+            "root",
+            TestNode.with(
+                "branch1",
+                TestNode.with("leaf1")
+            ),
+            TestNode.with(
+                "branch2",
                 TestNode.with("leaf2"),
-                TestNode.with("leaf3")));
+                TestNode.with("leaf3")
+            )
+        );
 
-        this.collectAndCheck(() -> this.stream(TestNode.absoluteNodeSelector()
+        this.collectAndCheck(() -> this.stream(
+                TestNode.absoluteNodeSelector()
                     .descendantOrSelf(),
-                root),
+                root
+            ),
             root,
             root.child(0),
             root.child(0).child(0),
@@ -83,10 +92,11 @@ public final class NodeSelectorTest implements ClassTesting2<NodeSelector<TestNo
                 TestNode.with("leaf2"),
                 TestNode.with("leaf3")));
 
-        this.collectAndCheck(() -> this.stream(TestNode.absoluteNodeSelector()
+        this.collectAndCheck(() -> this.stream(
+                    TestNode.absoluteNodeSelector()
                         .descendantOrSelf(),
-                    root)
-                .skip(1)
+                    root
+                ).skip(1)
                 .limit(2),
             //root, skip 1
             root.child(0), // branch1
@@ -99,16 +109,27 @@ public final class NodeSelectorTest implements ClassTesting2<NodeSelector<TestNo
 
     @Test
     public void testDescendantOrSelfNamedStream() {
-        final TestNode root = TestNode.with("root",
-            TestNode.with("branch1", TestNode.with("leaf")),
-            TestNode.with("branch2",
+        final TestNode root = TestNode.with(
+            "root",
+            TestNode.with(
+                "branch1",
+                TestNode.with("leaf")
+            ),
+            TestNode.with(
+                "branch2",
                 TestNode.with("skip"),
-                TestNode.with("leaf")));
+                TestNode.with("leaf")
+            )
+        );
 
-        this.collectAndCheck(() -> this.stream(TestNode.absoluteNodeSelector()
+        this.collectAndCheck(() -> this.stream(
+                TestNode.absoluteNodeSelector()
                     .descendantOrSelf()
-                    .named(Names.string("leaf")),
-                root),
+                    .named(
+                        Names.string("leaf")
+                    ),
+                root
+            ),
             root.child(0).child(0),
             root.child(1).child(1));
     }
@@ -117,16 +138,20 @@ public final class NodeSelectorTest implements ClassTesting2<NodeSelector<TestNo
 
     @Override
     public Stream<TestNode> createStream() {
-        return this.stream(TestNode.absoluteNodeSelector()
+        return this.stream(
+            TestNode.absoluteNodeSelector()
                 .descendantOrSelf(),
-            ROOT);
+            ROOT
+        );
     }
 
     private Stream<TestNode> stream(final NodeSelector<TestNode, StringName, StringName, Object> selector,
                                     final TestNode node) {
-        return selector.stream(node,
+        return selector.stream(
+            node,
             this.expressionEvaluationContext(),
-            TestNode.class);
+            TestNode.class
+        );
     }
 
     private Function<NodeSelectorContext<TestNode, StringName, StringName, Object>, ExpressionEvaluationContext> expressionEvaluationContext() {
@@ -146,13 +171,16 @@ public final class NodeSelectorTest implements ClassTesting2<NodeSelector<TestNo
         return nodes;
     }
 
-    private final static TestNode ROOT = TestNode.with("root",
+    private final static TestNode ROOT = TestNode.with(
+        "root",
         TestNode.with("branch1"),
         TestNode.with("branch2",
             TestNode.with("leaf1"),
-            TestNode.with("leaf2")));
+            TestNode.with("leaf2")
+        )
+    );
 
-    // ClassTesting.....................................................................................................
+    // class............................................................................................................
 
     @Override
     public Class<NodeSelector<TestNode, StringName, StringName, Object>> type() {
