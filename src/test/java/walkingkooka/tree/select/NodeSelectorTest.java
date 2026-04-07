@@ -38,6 +38,10 @@ import java.util.stream.Stream;
 public final class NodeSelectorTest implements ClassTesting2<NodeSelector<TestNode, StringName, StringName, Object>>,
     StreamTesting<Stream<TestNode>, TestNode> {
 
+    static {
+        TestNode.disableUniqueNameChecks();
+    }
+
     // locally unnecessary but CI sometimes fails and this helps
     @BeforeAll
     public static void beforeAll() {
@@ -47,14 +51,13 @@ public final class NodeSelectorTest implements ClassTesting2<NodeSelector<TestNo
     @BeforeEach
     public void beforeEachTest() {
         TestNode.clear();
+        TestNode.disableUniqueNameChecks();
     }
 
     // Stream..........................................................................................................
 
     @Test
     public void testDescendantOrSelfStream() {
-        TestNode.disableUniqueNameChecks();
-
         final TestNode root = TestNode.with("root",
             TestNode.with("branch1", TestNode.with("leaf1")),
             TestNode.with("branch2",
@@ -74,8 +77,6 @@ public final class NodeSelectorTest implements ClassTesting2<NodeSelector<TestNo
 
     @Test
     public void testDescendantOrSelfSkip1Limit2Stream() {
-        TestNode.disableUniqueNameChecks();
-
         final TestNode root = TestNode.with("root",
             TestNode.with("branch1", TestNode.with("leaf1")),
             TestNode.with("branch2",
@@ -98,8 +99,6 @@ public final class NodeSelectorTest implements ClassTesting2<NodeSelector<TestNo
 
     @Test
     public void testDescendantOrSelfNamedStream() {
-        TestNode.disableUniqueNameChecks();
-
         final TestNode root = TestNode.with("root",
             TestNode.with("branch1", TestNode.with("leaf")),
             TestNode.with("branch2",
