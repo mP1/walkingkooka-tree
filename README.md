@@ -66,6 +66,7 @@ A function provides an independent function which describes
 - [currencyCode](https://github.com/mP1/walkingkooka-tree/blob/master/src/main/java/walkingkooka/tree/expression/function/TreeExpressionFunctionCurrencyCode.java)
 - [expression](https://github.com/mP1/walkingkooka-tree/blob/master/src/main/java/walkingkooka/tree/expression/function/TreeExpressionFunctionExpression.java)
 - [expressionNumberFunction](https://github.com/mP1/walkingkooka-tree/blob/master/src/main/java/walkingkooka/tree/expression/function/ExpressionNumberFunctionExpressionFunction.java)
+- [eval](https://github.com/mP1/walkingkooka-tree/blob/master/src/main/java/walkingkooka/tree/expression/function/TreeExpressionFunctionEval.java)
 - [fake](https://github.com/mP1/walkingkooka-tree/blob/master/src/main/java/walkingkooka/tree/expression/function/FakeExpressionFunction.java)
 - [lambda](https://github.com/mP1/walkingkooka-tree/blob/master/src/main/java/walkingkooka/tree/expression/function/TreeExpressionFunctionLambda.java)
 - [locale](https://github.com/mP1/walkingkooka-tree/blob/master/src/main/java/walkingkooka/tree/expression/function/TreeExpressionFunctionLocale.java)

@@ -86,6 +86,7 @@ public final class ExpressionFunctions implements PublicStaticHelper {
     public static void visit(final Consumer<ExpressionFunction<?, ?>> consumer) {
         Lists.of(
             currencyCode(),
+            eval(),
             locale(),
             localeLanguageTag(),
             node(),
@@ -135,6 +136,13 @@ public final class ExpressionFunctions implements PublicStaticHelper {
             name,
             function
         );
+    }
+
+    /**
+     * {@see TreeExpressionFunctionEval}
+     */
+    public static <C extends ExpressionEvaluationContext> ExpressionFunction<Object, C> eval() {
+        return TreeExpressionFunctionEval.instance();
     }
 
     /**
