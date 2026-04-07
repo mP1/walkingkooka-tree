@@ -28,16 +28,16 @@ import java.util.Objects;
 /**
  * A {@link ExpressionFunction} which evaluates the given {@link Expression}. The expression ignores any given parameters.
  */
-final class TreeExpressionFunctionEval<C extends ExpressionEvaluationContext> extends TreeExpressionFunction<Object, C> {
+final class TreeExpressionFunctionExpression<C extends ExpressionEvaluationContext> extends TreeExpressionFunction<Object, C> {
 
-    static <C extends ExpressionEvaluationContext> TreeExpressionFunctionEval<C> with(final Expression expression) {
-        return new TreeExpressionFunctionEval<>(
+    static <C extends ExpressionEvaluationContext> TreeExpressionFunctionExpression<C> with(final Expression expression) {
+        return new TreeExpressionFunctionExpression<>(
             Objects.requireNonNull(expression, "expression")
         );
     }
 
-    private TreeExpressionFunctionEval(final Expression expression) {
-        super("eval");
+    private TreeExpressionFunctionExpression(final Expression expression) {
+        super("expression");
         this.expression = expression;
     }
 

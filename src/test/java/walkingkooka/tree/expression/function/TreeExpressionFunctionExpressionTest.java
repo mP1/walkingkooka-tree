@@ -27,7 +27,7 @@ import walkingkooka.tree.expression.FakeExpressionEvaluationContext;
 
 import java.math.MathContext;
 
-public final class TreeExpressionFunctionEvalTest extends TreeExpressionFunctionTestCase<TreeExpressionFunctionEval<FakeExpressionEvaluationContext>,
+public final class TreeExpressionFunctionExpressionTest extends TreeExpressionFunctionTestCase<TreeExpressionFunctionExpression<FakeExpressionEvaluationContext>,
     FakeExpressionEvaluationContext,
     Object> {
 
@@ -77,8 +77,8 @@ public final class TreeExpressionFunctionEvalTest extends TreeExpressionFunction
     }
 
     @Override
-    public TreeExpressionFunctionEval<FakeExpressionEvaluationContext> createBiFunction() {
-        return TreeExpressionFunctionEval.with(EXPRESSION);
+    public TreeExpressionFunctionExpression<FakeExpressionEvaluationContext> createBiFunction() {
+        return TreeExpressionFunctionExpression.with(EXPRESSION);
     }
 
     // toString.........................................................................................................
@@ -86,15 +86,15 @@ public final class TreeExpressionFunctionEvalTest extends TreeExpressionFunction
     @Test
     public void testToString() {
         this.toStringAndCheck(
-            TreeExpressionFunctionEval.with(EXPRESSION),
-            "eval"
+            TreeExpressionFunctionExpression.with(EXPRESSION),
+            "expression"
         );
     }
 
     // class............................................................................................................
 
     @Override
-    public Class<TreeExpressionFunctionEval<FakeExpressionEvaluationContext>> type() {
-        return Cast.to(TreeExpressionFunctionEval.class);
+    public Class<TreeExpressionFunctionExpression<FakeExpressionEvaluationContext>> type() {
+        return Cast.to(TreeExpressionFunctionExpression.class);
     }
 }

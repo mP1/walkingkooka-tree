@@ -299,9 +299,9 @@ public final class ExpressionFunctionsTest implements PublicStaticHelperTesting<
     }
 
     @Test
-    public void testEvaluateEval() {
+    public void testEvaluateExpression() {
         this.evaluateAndCheck(
-            "eval",
+            "expression",
             Lists.empty(),
             123
         );
@@ -352,8 +352,8 @@ public final class ExpressionFunctionsTest implements PublicStaticHelperTesting<
                                 return ExpressionFunctions.locale();
                             case "localeLanguageTag":
                                 return ExpressionFunctions.localeLanguageTag();
-                            case "eval":
-                                return ExpressionFunctions.eval(
+                            case "expression":
+                                return ExpressionFunctions.expression(
                                     Expression.value(123)
                                 );
                             case "null":
