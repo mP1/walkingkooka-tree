@@ -120,10 +120,10 @@ public final class ExpressionFunctions implements PublicStaticHelper {
     }
 
     /**
-     * {@see TreeExpressionFunctionEval}
+     * {@see TreeExpressionFunctionExpression}
      */
-    public static <C extends ExpressionEvaluationContext> ExpressionFunction<Object, C> eval(final Expression expression) {
-        return TreeExpressionFunctionEval.with(expression);
+    public static <C extends ExpressionEvaluationContext> ExpressionFunction<Object, C> expression(final Expression expression) {
+        return TreeExpressionFunctionExpression.with(expression);
     }
 
     /**
