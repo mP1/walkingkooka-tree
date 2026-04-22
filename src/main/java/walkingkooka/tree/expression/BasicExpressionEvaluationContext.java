@@ -19,6 +19,7 @@ package walkingkooka.tree.expression;
 
 import walkingkooka.convert.ConverterContext;
 import walkingkooka.convert.ConverterContextDelegator;
+import walkingkooka.currency.CurrencyCode;
 import walkingkooka.datetime.DateTimeSymbols;
 import walkingkooka.environment.EnvironmentContext;
 import walkingkooka.environment.EnvironmentContextDelegator;
@@ -150,6 +151,11 @@ final class BasicExpressionEvaluationContext implements ExpressionEvaluationCont
     @Override
     public ConverterContext converterContext() {
         return this.converterContext;
+    }
+
+    @Override
+    public CurrencyCode currencyCode() {
+        return this.converterContext.currencyCode();
     }
 
     private final ConverterContext converterContext;
