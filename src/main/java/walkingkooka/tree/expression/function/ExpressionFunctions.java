@@ -33,6 +33,7 @@ import walkingkooka.tree.expression.ExpressionNumber;
 import walkingkooka.tree.expression.ExpressionNumberFunction;
 import walkingkooka.tree.select.NodeSelectorExpressionEvaluationContext;
 
+import java.util.Currency;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -113,6 +114,13 @@ public final class ExpressionFunctions implements PublicStaticHelper {
         );
     }
 
+    /**
+     * {@see TreeExpressionFunctionCurrency}
+     */
+    public static <C extends ExpressionEvaluationContext> ExpressionFunction<Currency, C> currency() {
+        return TreeExpressionFunctionCurrency.instance();
+    }
+    
     /**
      * {@see TreeExpressionFunctionCurrencyCode}
      */
