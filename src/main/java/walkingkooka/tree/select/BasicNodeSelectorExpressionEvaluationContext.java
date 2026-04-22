@@ -20,6 +20,7 @@ package walkingkooka.tree.select;
 import walkingkooka.Cast;
 import walkingkooka.convert.ConverterContext;
 import walkingkooka.convert.ConverterContextDelegator;
+import walkingkooka.currency.CurrencyCode;
 import walkingkooka.datetime.DateTimeSymbols;
 import walkingkooka.environment.EnvironmentContext;
 import walkingkooka.environment.EnvironmentContextDelegator;
@@ -187,6 +188,11 @@ final class BasicNodeSelectorExpressionEvaluationContext<N extends Node<N, NAME,
     @Override
     public ConverterContext converterContext() {
         return this.context;
+    }
+
+    @Override
+    public CurrencyCode currencyCode() {
+        return this.context.currencyCode();
     }
 
     @Override

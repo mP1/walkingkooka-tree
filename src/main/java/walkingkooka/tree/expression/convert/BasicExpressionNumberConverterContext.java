@@ -20,6 +20,7 @@ package walkingkooka.tree.expression.convert;
 import walkingkooka.Either;
 import walkingkooka.convert.Converter;
 import walkingkooka.convert.ConverterContext;
+import walkingkooka.currency.CurrencyCode;
 import walkingkooka.currency.CurrencyCodeLanguageTagContext;
 import walkingkooka.currency.CurrencyCodeLanguageTagContextDelegator;
 import walkingkooka.datetime.DateTimeContext;
@@ -91,6 +92,11 @@ final class BasicExpressionNumberConverterContext implements ExpressionNumberCon
     @Override
     public long dateOffset() {
         return this.context.dateOffset();
+    }
+
+    @Override
+    public CurrencyCode currencyCode() {
+        return this.context.currencyCode();
     }
 
     @Override
