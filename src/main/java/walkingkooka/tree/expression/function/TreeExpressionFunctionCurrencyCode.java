@@ -2,14 +2,13 @@ package walkingkooka.tree.expression.function;
 
 import walkingkooka.Cast;
 import walkingkooka.currency.CurrencyCode;
-import walkingkooka.net.Url;
 import walkingkooka.tree.expression.ExpressionEvaluationContext;
 import walkingkooka.tree.expression.ExpressionPurityContext;
 
 import java.util.List;
 
 /**
- * A function that accepts a {@link Url} and creates a {@link CurrencyCode}.
+ * A function that accepts a single parameter possibly converting and returns a {@link CurrencyCode}.
  */
 final class TreeExpressionFunctionCurrencyCode<C extends ExpressionEvaluationContext> extends TreeExpressionFunction<CurrencyCode, C> {
 
