@@ -25,9 +25,12 @@ import walkingkooka.convert.Converter;
 import walkingkooka.convert.ConverterContexts;
 import walkingkooka.convert.Converters;
 import walkingkooka.convert.FakeConverter;
-import walkingkooka.currency.CurrencyLocaleContexts;
+import walkingkooka.currency.CurrencyContexts;
+import walkingkooka.currency.FakeCurrencyExchangeRater;
 import walkingkooka.datetime.DateTimeContexts;
 import walkingkooka.datetime.DateTimeSymbols;
+import walkingkooka.locale.LocaleContext;
+import walkingkooka.locale.LocaleContexts;
 import walkingkooka.math.DecimalNumberContexts;
 import walkingkooka.naming.Name;
 import walkingkooka.predicate.Predicates;
@@ -61,6 +64,7 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.ZoneOffset;
 import java.time.format.DateTimeFormatter;
+import java.util.Currency;
 import java.util.List;
 import java.util.Locale;
 import java.util.function.Function;
@@ -376,7 +380,9 @@ public abstract class ExpressionTestCase<N extends Expression> implements TreePr
     }
 
     private ExpressionNumberConverterContext converterContext() {
-        final Locale locale = Locale.ENGLISH;
+        final Locale locale = Locale.forLanguageTag("en-AU");
+
+        final LocaleContext localeContext = LocaleContexts.jre(locale);
 
         return ExpressionNumberConverterContexts.basic(
             Converters.collection(
@@ -392,7 +398,11 @@ public abstract class ExpressionTestCase<N extends Expression> implements TreePr
                 LineEnding.NL,
                 ',', // valueSeparator
                 Converters.simple(),
-                CurrencyLocaleContexts.fake(),
+                CurrencyContexts.jre(
+                    Currency.getInstance(locale),
+                    new FakeCurrencyExchangeRater(),
+                    localeContext
+                ).setLocaleContext(localeContext),
                 DateTimeContexts.basic(
                     DateTimeSymbols.fromDateFormatSymbols(
                         new DateFormatSymbols(locale)
