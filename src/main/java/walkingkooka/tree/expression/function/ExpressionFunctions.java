@@ -20,6 +20,7 @@ package walkingkooka.tree.expression.function;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.currency.CurrencyCode;
+import walkingkooka.currency.CurrencyValue;
 import walkingkooka.locale.LocaleLanguageTag;
 import walkingkooka.naming.Name;
 import walkingkooka.reflect.PublicStaticHelper;
@@ -88,6 +89,7 @@ public final class ExpressionFunctions implements PublicStaticHelper {
         Lists.of(
             currency(),
             currencyCode(),
+            currencyValue(),
             eval(),
             locale(),
             localeLanguageTag(),
@@ -127,6 +129,13 @@ public final class ExpressionFunctions implements PublicStaticHelper {
      */
     public static <C extends ExpressionEvaluationContext> ExpressionFunction<CurrencyCode, C> currencyCode() {
         return TreeExpressionFunctionCurrencyCode.instance();
+    }
+
+    /**
+     * {@see TreeExpressionFunctionCurrencyValue}
+     */
+    public static <C extends ExpressionEvaluationContext> ExpressionFunction<CurrencyValue, C> currencyValue() {
+        return TreeExpressionFunctionCurrencyValue.instance();
     }
 
     /**
