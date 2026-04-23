@@ -86,6 +86,7 @@ public final class ExpressionFunctions implements PublicStaticHelper {
      */
     public static void visit(final Consumer<ExpressionFunction<?, ?>> consumer) {
         Lists.of(
+            currency(),
             currencyCode(),
             eval(),
             locale(),
