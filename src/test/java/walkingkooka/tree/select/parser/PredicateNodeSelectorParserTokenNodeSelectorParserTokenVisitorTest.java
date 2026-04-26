@@ -42,7 +42,7 @@ public final class PredicateNodeSelectorParserTokenNodeSelectorParserTokenVisito
             () -> new PredicateNodeSelectorParserTokenNodeSelectorParserTokenVisitor(Predicates.never())
                 .accept(token)
         );
-        checkMessage(
+        this.getMessageAndCheck(
             thrown,
             "Unknown function \"zyx\""
         );

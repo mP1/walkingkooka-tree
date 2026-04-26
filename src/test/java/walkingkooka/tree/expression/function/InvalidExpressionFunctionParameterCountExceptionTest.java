@@ -118,7 +118,7 @@ public final class InvalidExpressionFunctionParameterCountExceptionTest implemen
                 }
             )
         );
-        this.checkMessage(
+        this.getMessageAndCheck(
             thrown,
             "Hello: Missing parameter(s): date-time, time"
         );
@@ -150,7 +150,7 @@ public final class InvalidExpressionFunctionParameterCountExceptionTest implemen
                 }
             )
         );
-        this.checkMessage(
+        this.getMessageAndCheck(
             thrown,
             "Anonymous: Missing parameter(s): date-time, time"
         );
@@ -184,7 +184,7 @@ public final class InvalidExpressionFunctionParameterCountExceptionTest implemen
                 }
             )
         );
-        this.checkMessage(
+        this.getMessageAndCheck(
             thrown.setFunctionName(
                 Optional.of(
                     ExpressionFunctionName.with("Replaced")
@@ -222,7 +222,7 @@ public final class InvalidExpressionFunctionParameterCountExceptionTest implemen
                 }
             )
         );
-        this.checkMessage(
+        this.getMessageAndCheck(
             thrown,
             "Hello: 2 extra parameter values"
         );
@@ -254,7 +254,7 @@ public final class InvalidExpressionFunctionParameterCountExceptionTest implemen
                 }
             )
         );
-        this.checkMessage(
+        this.getMessageAndCheck(
             thrown,
             "Anonymous: 2 extra parameter values"
         );
@@ -288,7 +288,7 @@ public final class InvalidExpressionFunctionParameterCountExceptionTest implemen
                 }
             )
         );
-        this.checkMessage(
+        this.getMessageAndCheck(
             thrown.setFunctionName(
                 Optional.of(
                     ExpressionFunctionName.with("Hello")
