@@ -17,14 +17,14 @@
 
 package walkingkooka.tree.expression;
 
-import walkingkooka.Value;
+import walkingkooka.HasValue;
 
 import java.util.List;
 
 /**
  * A expression which may have zero or more child expression.
  */
-abstract class VariableExpression extends ParentExpression implements Value<List<Expression>> {
+abstract class VariableExpression extends ParentExpression implements HasValue<List<Expression>> {
 
     VariableExpression(final int index, final List<Expression> expressions) {
         super(index, expressions);

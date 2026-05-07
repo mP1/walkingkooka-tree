@@ -18,8 +18,8 @@
 package walkingkooka.tree.expression;
 
 import walkingkooka.Cast;
+import walkingkooka.HasValue;
 import walkingkooka.NeverError;
-import walkingkooka.Value;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.text.CharSequences;
 import walkingkooka.text.printer.IndentingPrinter;
@@ -31,7 +31,7 @@ import java.util.Objects;
  * A leaf node, where a leaf has no children.
  */
 @SuppressWarnings("lgtm[java/inconsistent-equals-and-hashcode]")
-abstract class LeafExpression<V> extends Expression implements Value<V> {
+abstract class LeafExpression<V> extends Expression implements HasValue<V> {
 
     LeafExpression(final int index, final V value) {
         super(index);

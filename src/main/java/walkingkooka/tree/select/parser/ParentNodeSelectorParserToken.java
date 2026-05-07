@@ -16,7 +16,7 @@
  */
 package walkingkooka.tree.select.parser;
 
-import walkingkooka.Value;
+import walkingkooka.HasValue;
 import walkingkooka.text.cursor.parser.ParserToken;
 
 import java.util.List;
@@ -25,7 +25,7 @@ import java.util.List;
  * Base class for a token that contain another child token, with the class knowing the cardinality.
  */
 abstract class ParentNodeSelectorParserToken<T extends ParentNodeSelectorParserToken<T>> extends NodeSelectorParserToken
-    implements Value<List<ParserToken>> {
+    implements HasValue<List<ParserToken>> {
 
     ParentNodeSelectorParserToken(final List<ParserToken> value,
                                   final String text) {

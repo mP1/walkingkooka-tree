@@ -17,7 +17,7 @@
 
 package walkingkooka.tree.expression;
 
-import walkingkooka.Value;
+import walkingkooka.HasValue;
 import walkingkooka.compare.CompareResult;
 import walkingkooka.math.Maths;
 
@@ -33,7 +33,7 @@ import java.util.Objects;
  * does not widen or narrow the right parameter.
  */
 public abstract class ExpressionNumber extends Number implements Comparable<ExpressionNumber>,
-    Value<Number> {
+    HasValue<Number> {
 
     private static final long serialVersionUID = 0L;
 
