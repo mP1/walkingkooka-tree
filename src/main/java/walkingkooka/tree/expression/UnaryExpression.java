@@ -17,7 +17,7 @@
 
 package walkingkooka.tree.expression;
 
-import walkingkooka.Value;
+import walkingkooka.HasValue;
 import walkingkooka.collect.list.Lists;
 
 import java.util.List;
@@ -26,7 +26,7 @@ import java.util.Optional;
 /**
  * Base class for any expression with a single parameter.
  */
-abstract class UnaryExpression extends ParentFixedExpression implements Value<Expression> {
+abstract class UnaryExpression extends ParentFixedExpression implements HasValue<Expression> {
 
     UnaryExpression(final int index, final Expression expression) {
         super(index, Lists.of(expression));
