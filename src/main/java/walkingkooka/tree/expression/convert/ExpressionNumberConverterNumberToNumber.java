@@ -21,7 +21,6 @@ import walkingkooka.Cast;
 import walkingkooka.Either;
 import walkingkooka.convert.Converter;
 import walkingkooka.convert.Converters;
-import walkingkooka.convert.ShortCircuitingConverter;
 import walkingkooka.tree.expression.ExpressionNumber;
 import walkingkooka.tree.expression.ExpressionNumberKind;
 
@@ -29,7 +28,7 @@ import walkingkooka.tree.expression.ExpressionNumberKind;
  * A {@link Converter} that may be used to convert any {@link Number} including {@link ExpressionNumber} to another
  * {@link Number} including {@link ExpressionNumber}.
  */
-final class ExpressionNumberConverterNumberToNumber<C extends ExpressionNumberConverterContext> implements ShortCircuitingConverter<C> {
+final class ExpressionNumberConverterNumberToNumber<C extends ExpressionNumberConverterContext> extends ExpressionNumberConverter<C> {
 
     /**
      * Type safe singleton getter
