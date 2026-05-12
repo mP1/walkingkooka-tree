@@ -34,10 +34,10 @@ public final class ExpressionNumberConverters implements PublicStaticHelper {
     }
 
     /**
-     * {@see ExpressionNumberConverterNumberToNumberConverter}
+     * {@see ExpressionNumberConverterNumberToNumber}
      */
     public static <C extends ExpressionNumberConverterContext> Converter<C> numberToNumber() {
-        return ExpressionNumberConverterNumberToNumberConverter.instance();
+        return ExpressionNumberConverterNumberToNumber.instance();
     }
 
     /**

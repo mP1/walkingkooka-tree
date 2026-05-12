@@ -29,18 +29,18 @@ import walkingkooka.tree.expression.ExpressionNumberKind;
  * A {@link Converter} that may be used to convert any {@link Number} including {@link ExpressionNumber} to another
  * {@link Number} including {@link ExpressionNumber}.
  */
-final class ExpressionNumberConverterNumberToNumberConverter<C extends ExpressionNumberConverterContext> implements ShortCircuitingConverter<C> {
+final class ExpressionNumberConverterNumberToNumber<C extends ExpressionNumberConverterContext> implements ShortCircuitingConverter<C> {
 
     /**
      * Type safe singleton getter
      */
-    static <C extends ExpressionNumberConverterContext> ExpressionNumberConverterNumberToNumberConverter<C> instance() {
+    static <C extends ExpressionNumberConverterContext> ExpressionNumberConverterNumberToNumber<C> instance() {
         return Cast.to(INSTANCE);
     }
 
-    private final static ExpressionNumberConverterNumberToNumberConverter<?> INSTANCE = new ExpressionNumberConverterNumberToNumberConverter<>();
+    private final static ExpressionNumberConverterNumberToNumber<?> INSTANCE = new ExpressionNumberConverterNumberToNumber<>();
 
-    private ExpressionNumberConverterNumberToNumberConverter() {
+    private ExpressionNumberConverterNumberToNumber() {
     }
 
     @Override
