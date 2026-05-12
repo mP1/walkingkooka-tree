@@ -26,12 +26,12 @@ import walkingkooka.tree.expression.ExpressionNumber;
  * Base {@link Converter} that includes logic to always convert a {@link ExpressionNumber} to a {@link ExpressionNumber},
  * and dispatches each method depending if the value is a {@link ExpressionNumber}.
  */
-abstract class ExpressionNumberConverter<C extends ExpressionNumberConverterContext> implements ShortCircuitingConverter<C> {
+abstract class ExpressionNumberConverterShared<C extends ExpressionNumberConverterContext> implements ShortCircuitingConverter<C> {
 
     /**
      * Package private to limit sub-classing.
      */
-    ExpressionNumberConverter() {
+    ExpressionNumberConverterShared() {
         super();
     }
 

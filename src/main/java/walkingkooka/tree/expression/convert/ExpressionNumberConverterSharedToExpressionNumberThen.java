@@ -39,21 +39,21 @@ import java.util.Objects;
  * uses its own parser to convert a String -> ExpressionNumber and then a second Converter#numberNumber to convert
  * that intermediate ExpressionNumber to the target Number type.
  */
-final class ExpressionNumberConverterToExpressionNumberThen<C extends ExpressionNumberConverterContext> extends ExpressionNumberConverter<C> {
+final class ExpressionNumberConverterSharedToExpressionNumberThen<C extends ExpressionNumberConverterContext> extends ExpressionNumberConverterShared<C> {
 
-    static <C extends ExpressionNumberConverterContext> ExpressionNumberConverterToExpressionNumberThen<C> with(final Converter<C> toExpressionNumber,
-                                                                                                                final Converter<C> fromExpressionNumber) {
+    static <C extends ExpressionNumberConverterContext> ExpressionNumberConverterSharedToExpressionNumberThen<C> with(final Converter<C> toExpressionNumber,
+                                                                                                                      final Converter<C> fromExpressionNumber) {
         Objects.requireNonNull(toExpressionNumber, "toExpressionNumber");
         Objects.requireNonNull(fromExpressionNumber, "fromExpressionNumber");
 
-        return new ExpressionNumberConverterToExpressionNumberThen<>(
+        return new ExpressionNumberConverterSharedToExpressionNumberThen<>(
             toExpressionNumber,
             fromExpressionNumber
         );
     }
 
-    private ExpressionNumberConverterToExpressionNumberThen(final Converter<C> toExpressionNumber,
-                                                            final Converter<C> fromExpressionNumber) {
+    private ExpressionNumberConverterSharedToExpressionNumberThen(final Converter<C> toExpressionNumber,
+                                                                  final Converter<C> fromExpressionNumber) {
         this.toExpressionNumber = toExpressionNumber;
         this.fromExpressionNumber = fromExpressionNumber;
     }
@@ -180,10 +180,10 @@ final class ExpressionNumberConverterToExpressionNumberThen<C extends Expression
     @Override
     public boolean equals(final Object other) {
         return this == other ||
-            other instanceof ExpressionNumberConverterToExpressionNumberThen && this.equals0(Cast.to(other));
+            other instanceof ExpressionNumberConverterSharedToExpressionNumberThen && this.equals0(Cast.to(other));
     }
 
-    private boolean equals0(final ExpressionNumberConverterToExpressionNumberThen<?> other) {
+    private boolean equals0(final ExpressionNumberConverterSharedToExpressionNumberThen<?> other) {
         return this.toExpressionNumber.equals(other.toExpressionNumber) &&
             this.fromExpressionNumber.equals(other.fromExpressionNumber);
     }

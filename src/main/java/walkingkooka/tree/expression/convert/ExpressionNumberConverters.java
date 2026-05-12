@@ -27,10 +27,10 @@ import walkingkooka.tree.expression.ExpressionNumber;
 public final class ExpressionNumberConverters implements PublicStaticHelper {
 
     /**
-     * {@see ExpressionNumberConverterNumberOrExpressionNumberToNumber}
+     * {@see ExpressionNumberConverterSharedNumberOrExpressionNumberToNumber}
      */
     public static <C extends ExpressionNumberConverterContext> Converter<C> numberOrExpressionNumberToNumber() {
-        return ExpressionNumberConverterNumberOrExpressionNumberToNumber.instance();
+        return ExpressionNumberConverterSharedNumberOrExpressionNumberToNumber.instance();
     }
 
     /**
@@ -41,11 +41,11 @@ public final class ExpressionNumberConverters implements PublicStaticHelper {
     }
 
     /**
-     * {@see ExpressionNumberConverterToExpressionNumberThen}
+     * {@see ExpressionNumberConverterSharedToExpressionNumberThen}
      */
     public static <C extends ExpressionNumberConverterContext> Converter<C> toExpressionNumberThen(final Converter<C> toExpressionNumber,
                                                                                                    final Converter<C> toTarget) {
-        return ExpressionNumberConverterToExpressionNumberThen.with(
+        return ExpressionNumberConverterSharedToExpressionNumberThen.with(
             toExpressionNumber,
             toTarget
         );
@@ -55,7 +55,7 @@ public final class ExpressionNumberConverters implements PublicStaticHelper {
      * Adds support for converting numbers to another numbers or {@link ExpressionNumber}.
      */
     public static <C extends ExpressionNumberConverterContext> Converter<C> toNumberOrExpressionNumber(final Converter<C> converter) {
-        return ExpressionNumberConverterToNumberOrExpressionNumber.with(converter);
+        return ExpressionNumberConverterSharedToNumberOrExpressionNumber.with(converter);
     }
 
     /**

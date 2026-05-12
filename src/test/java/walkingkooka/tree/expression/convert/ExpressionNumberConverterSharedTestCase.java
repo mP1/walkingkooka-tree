@@ -31,11 +31,11 @@ import walkingkooka.tree.expression.ExpressionNumberKind;
 
 import java.math.MathContext;
 
-public abstract class ExpressionNumberConverterTestCase<C extends ExpressionNumberConverter<ExpressionNumberConverterContext>>
+public abstract class ExpressionNumberConverterSharedTestCase<C extends ExpressionNumberConverterShared<ExpressionNumberConverterContext>>
     implements ConverterTesting2<C, ExpressionNumberConverterContext>,
     ToStringTesting<C> {
 
-    ExpressionNumberConverterTestCase() {
+    ExpressionNumberConverterSharedTestCase() {
         super();
     }
 
@@ -74,7 +74,7 @@ public abstract class ExpressionNumberConverterTestCase<C extends ExpressionNumb
 
     @Override
     public final String typeNamePrefix() {
-        return ExpressionNumberConverter.class.getSimpleName();
+        return ExpressionNumberConverterShared.class.getSimpleName();
     }
 
     @Override
