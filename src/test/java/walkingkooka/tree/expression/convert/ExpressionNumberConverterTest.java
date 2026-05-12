@@ -17,27 +17,19 @@
 
 package walkingkooka.tree.expression.convert;
 
-import org.junit.jupiter.api.Test;
+import walkingkooka.Cast;
+import walkingkooka.reflect.ClassTesting;
+import walkingkooka.reflect.JavaVisibility;
 
-public abstract class ExpressionNumberConverterSharedTestCase<C extends ExpressionNumberConverterShared<ExpressionNumberConverterContext>>
-    extends ExpressionNumberConverterTestCase<C> {
-
-    ExpressionNumberConverterSharedTestCase() {
-        super();
-    }
-
-    @Test
-    public final void testConvertValueToSameValueTypeNotNumber() {
-        this.convertFails(
-            "Hello",
-            String.class
-        );
-    }
-
-    // class............................................................................................................
+public final class ExpressionNumberConverterTest implements ClassTesting<ExpressionNumberConverter<?>> {
 
     @Override
-    public final String typeNamePrefix() {
-        return ExpressionNumberConverterShared.class.getSimpleName();
+    public Class<ExpressionNumberConverter<?>> type() {
+        return Cast.to(ExpressionNumberConverter.class);
+    }
+
+    @Override
+    public JavaVisibility typeVisibility() {
+        return JavaVisibility.PACKAGE_PRIVATE;
     }
 }

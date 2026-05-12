@@ -19,14 +19,13 @@ package walkingkooka.tree.expression.convert;
 
 import walkingkooka.Either;
 import walkingkooka.convert.Converter;
-import walkingkooka.convert.ShortCircuitingConverter;
 import walkingkooka.tree.expression.ExpressionNumber;
 
 /**
  * Base {@link Converter} that includes logic to always convert a {@link ExpressionNumber} to a {@link ExpressionNumber},
  * and dispatches each method depending if the value is a {@link ExpressionNumber}.
  */
-abstract class ExpressionNumberConverterShared<C extends ExpressionNumberConverterContext> implements ShortCircuitingConverter<C> {
+abstract class ExpressionNumberConverterShared<C extends ExpressionNumberConverterContext> extends ExpressionNumberConverter<C> {
 
     /**
      * Package private to limit sub-classing.
@@ -96,9 +95,4 @@ abstract class ExpressionNumberConverterShared<C extends ExpressionNumberConvert
     abstract <T> Either<T, String> convertNonExpressionNumber(final Object value,
                                                               final Class<T> type,
                                                               final C context);
-
-    /**
-     * Force sub-classes to implement.
-     */
-    abstract public String toString();
 }
