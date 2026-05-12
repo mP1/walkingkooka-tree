@@ -31,9 +31,9 @@ import walkingkooka.tree.expression.ExpressionNumberKind;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class ExpressionNumberConverterToExpressionNumberThenTest implements ConverterTesting2<ExpressionNumberConverterToExpressionNumberThen<ExpressionNumberConverterContext>, ExpressionNumberConverterContext>,
-    HashCodeEqualsDefinedTesting2<ExpressionNumberConverterToExpressionNumberThen<ExpressionNumberConverterContext>>,
-    ToStringTesting<ExpressionNumberConverterToExpressionNumberThen<ExpressionNumberConverterContext>> {
+public final class ExpressionNumberConverterSharedToExpressionNumberThenTest implements ConverterTesting2<ExpressionNumberConverterSharedToExpressionNumberThen<ExpressionNumberConverterContext>, ExpressionNumberConverterContext>,
+    HashCodeEqualsDefinedTesting2<ExpressionNumberConverterSharedToExpressionNumberThen<ExpressionNumberConverterContext>>,
+    ToStringTesting<ExpressionNumberConverterSharedToExpressionNumberThen<ExpressionNumberConverterContext>> {
 
     private final static String STRING_TO_EXPRESSION_NUMBER = "String to ExpressionNumber";
 
@@ -49,7 +49,7 @@ public final class ExpressionNumberConverterToExpressionNumberThenTest implement
     public void testWithNullToExpressionNumberConverterFails() {
         assertThrows(
             NullPointerException.class,
-            () -> ExpressionNumberConverterToExpressionNumberThen.with(
+            () -> ExpressionNumberConverterSharedToExpressionNumberThen.with(
                 null,
                 Converters.fake()
             )
@@ -60,7 +60,7 @@ public final class ExpressionNumberConverterToExpressionNumberThenTest implement
     public void testWithNullFromExpressionNumberConverterFails() {
         assertThrows(
             NullPointerException.class,
-            () -> ExpressionNumberConverterToExpressionNumberThen.with(
+            () -> ExpressionNumberConverterSharedToExpressionNumberThen.with(
                 Converters.fake(),
                 null
             )
@@ -85,7 +85,7 @@ public final class ExpressionNumberConverterToExpressionNumberThenTest implement
         final String failMessage = "Fail message 123";
 
         this.convertFails(
-            ExpressionNumberConverterToExpressionNumberThen.with(
+            ExpressionNumberConverterSharedToExpressionNumberThen.with(
                 Converters.fake(), // should not be called as input is already ExpressionNumber
                 new Converter<>() {
                     @Override
@@ -128,7 +128,7 @@ public final class ExpressionNumberConverterToExpressionNumberThenTest implement
         final Character expected = '+';
 
         this.convertAndCheck(
-            ExpressionNumberConverterToExpressionNumberThen.with(
+            ExpressionNumberConverterSharedToExpressionNumberThen.with(
                 Converters.fake(), // should not be called as input is already ExpressionNumber
                 new Converter<>() {
                     @Override
@@ -176,7 +176,7 @@ public final class ExpressionNumberConverterToExpressionNumberThenTest implement
         final Class<String> targetType = String.class;
 
         this.convertFails(
-            ExpressionNumberConverterToExpressionNumberThen.with(
+            ExpressionNumberConverterSharedToExpressionNumberThen.with(
                 new Converter<>() {
                     @Override
                     public boolean canConvert(final Object value,
@@ -221,7 +221,7 @@ public final class ExpressionNumberConverterToExpressionNumberThenTest implement
         final ExpressionNumber expressionNumber = kind.create(input);
 
         this.convertFails(
-            ExpressionNumberConverterToExpressionNumberThen.with(
+            ExpressionNumberConverterSharedToExpressionNumberThen.with(
                 new Converter<>() {
                     @Override
                     public boolean canConvert(final Object value,
@@ -288,7 +288,7 @@ public final class ExpressionNumberConverterToExpressionNumberThenTest implement
         final String expected = "*EXPECTED 123*";
 
         this.convertAndCheck(
-            ExpressionNumberConverterToExpressionNumberThen.with(
+            ExpressionNumberConverterSharedToExpressionNumberThen.with(
                 new Converter<>() {
                     @Override
                     public boolean canConvert(final Object value,
@@ -358,7 +358,7 @@ public final class ExpressionNumberConverterToExpressionNumberThenTest implement
         final ExpressionNumber expressionNumber = kind.create(input);
 
         this.convertAndCheck(
-            ExpressionNumberConverterToExpressionNumberThen.with(
+            ExpressionNumberConverterSharedToExpressionNumberThen.with(
                 new Converter<>() {
                     @Override
                     public boolean canConvert(final Object value,
@@ -419,8 +419,8 @@ public final class ExpressionNumberConverterToExpressionNumberThenTest implement
     // helpers..........................................................................................................
 
     @Override
-    public ExpressionNumberConverterToExpressionNumberThen<ExpressionNumberConverterContext> createConverter() {
-        return ExpressionNumberConverterToExpressionNumberThen.with(
+    public ExpressionNumberConverterSharedToExpressionNumberThen<ExpressionNumberConverterContext> createConverter() {
+        return ExpressionNumberConverterSharedToExpressionNumberThen.with(
             new FakeConverter<>() {
                 @Override
                 public boolean canConvert(final Object value,
@@ -502,7 +502,7 @@ public final class ExpressionNumberConverterToExpressionNumberThenTest implement
     @Test
     public void testEqualsDifferentToExpressionNumberConverter() {
         this.checkNotEquals(
-            ExpressionNumberConverterToExpressionNumberThen.with(
+            ExpressionNumberConverterSharedToExpressionNumberThen.with(
                 Converters.fake(),
                 SECOND
             )
@@ -512,7 +512,7 @@ public final class ExpressionNumberConverterToExpressionNumberThenTest implement
     @Test
     public void testEqualsDifferentFromExpressionNumberConverter() {
         this.checkNotEquals(
-            ExpressionNumberConverterToExpressionNumberThen.with(
+            ExpressionNumberConverterSharedToExpressionNumberThen.with(
                 FIRST,
                 Converters.fake()
             )
@@ -520,8 +520,8 @@ public final class ExpressionNumberConverterToExpressionNumberThenTest implement
     }
 
     @Override
-    public ExpressionNumberConverterToExpressionNumberThen<ExpressionNumberConverterContext> createObject() {
-        return ExpressionNumberConverterToExpressionNumberThen.with(
+    public ExpressionNumberConverterSharedToExpressionNumberThen<ExpressionNumberConverterContext> createObject() {
+        return ExpressionNumberConverterSharedToExpressionNumberThen.with(
             FIRST,
             SECOND
         );
@@ -530,8 +530,8 @@ public final class ExpressionNumberConverterToExpressionNumberThenTest implement
     // class............................................................................................................
 
     @Override
-    public Class<ExpressionNumberConverterToExpressionNumberThen<ExpressionNumberConverterContext>> type() {
-        return Cast.to(ExpressionNumberConverterToExpressionNumberThen.class);
+    public Class<ExpressionNumberConverterSharedToExpressionNumberThen<ExpressionNumberConverterContext>> type() {
+        return Cast.to(ExpressionNumberConverterSharedToExpressionNumberThen.class);
     }
 
     // type naming......................................................................................................

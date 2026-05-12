@@ -36,24 +36,24 @@ import java.util.Objects;
  * If the input is an {@link ExpressionNumber} and the target a {@link ExpressionNumber} no convert happens, the wrapped
  * {@link Converter} is never invoked.
  */
-final class ExpressionNumberConverterToNumberOrExpressionNumber<C extends ExpressionNumberConverterContext> extends ExpressionNumberConverter<C> {
+final class ExpressionNumberConverterSharedToNumberOrExpressionNumber<C extends ExpressionNumberConverterContext> extends ExpressionNumberConverterShared<C> {
 
     /**
-     * Factory that creates a new {@link ExpressionNumberConverterToNumberOrExpressionNumber}.
+     * Factory that creates a new {@link ExpressionNumberConverterSharedToNumberOrExpressionNumber}.
      * This should only be called by {@link ExpressionNumberConverters#toNumberOrExpressionNumber(Converter)}.
      */
-    static <C extends ExpressionNumberConverterContext> ExpressionNumberConverterToNumberOrExpressionNumber<C> with(final Converter<C> converter) {
+    static <C extends ExpressionNumberConverterContext> ExpressionNumberConverterSharedToNumberOrExpressionNumber<C> with(final Converter<C> converter) {
         Objects.requireNonNull(converter, "converter");
 
-        return converter instanceof ExpressionNumberConverterToNumberOrExpressionNumber ?
+        return converter instanceof ExpressionNumberConverterSharedToNumberOrExpressionNumber ?
             Cast.to(converter) :
-            new ExpressionNumberConverterToNumberOrExpressionNumber<>(converter);
+            new ExpressionNumberConverterSharedToNumberOrExpressionNumber<>(converter);
     }
 
     /**
      * Private ctor use factory
      */
-    private ExpressionNumberConverterToNumberOrExpressionNumber(final Converter<C> converter) {
+    private ExpressionNumberConverterSharedToNumberOrExpressionNumber(final Converter<C> converter) {
         super();
         this.converter = converter;
     }
@@ -193,10 +193,10 @@ final class ExpressionNumberConverterToNumberOrExpressionNumber<C extends Expres
     @Override
     public boolean equals(final Object other) {
         return this == other ||
-            other instanceof ExpressionNumberConverterToNumberOrExpressionNumber && this.equals0(Cast.to(other));
+            other instanceof ExpressionNumberConverterSharedToNumberOrExpressionNumber && this.equals0(Cast.to(other));
     }
 
-    private boolean equals0(final ExpressionNumberConverterToNumberOrExpressionNumber<?> other) {
+    private boolean equals0(final ExpressionNumberConverterSharedToNumberOrExpressionNumber<?> other) {
         return this.converter.equals(other.converter);
     }
 
