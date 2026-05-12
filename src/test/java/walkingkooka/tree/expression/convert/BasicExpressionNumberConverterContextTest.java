@@ -24,6 +24,7 @@ import walkingkooka.convert.ConverterContext;
 import walkingkooka.convert.ConverterContexts;
 import walkingkooka.convert.Converters;
 import walkingkooka.currency.CurrencyCode;
+import walkingkooka.currency.CurrencyExchangeRaters;
 import walkingkooka.currency.FakeCurrencyContext;
 import walkingkooka.datetime.DateTimeContexts;
 import walkingkooka.datetime.DateTimeSymbols;
@@ -92,6 +93,7 @@ public final class BasicExpressionNumberConverterContextTest implements Expressi
             LineEnding.NL,
             ',', // valueSeparator
             Converters.fake(),
+            CurrencyExchangeRaters.fake(),
             new FakeCurrencyContext() {
 
                 @Override

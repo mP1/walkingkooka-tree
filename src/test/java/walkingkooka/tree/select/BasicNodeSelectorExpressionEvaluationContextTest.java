@@ -23,6 +23,7 @@ import walkingkooka.Cast;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.convert.ConverterContexts;
 import walkingkooka.convert.Converters;
+import walkingkooka.currency.CurrencyExchangeRaters;
 import walkingkooka.currency.CurrencyLocaleContexts;
 import walkingkooka.datetime.DateTimeContexts;
 import walkingkooka.datetime.DateTimeSymbols;
@@ -224,6 +225,7 @@ public final class BasicNodeSelectorExpressionEvaluationContextTest implements N
                 LineEnding.NL,
                 ',', // valueSeparator
                 Converters.fake(),
+                CurrencyExchangeRaters.fake(),
                 CurrencyLocaleContexts.fake(),
                 DateTimeContexts.basic(
                     DateTimeSymbols.fromDateFormatSymbols(

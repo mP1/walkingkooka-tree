@@ -27,6 +27,7 @@ import walkingkooka.convert.ConverterContexts;
 import walkingkooka.convert.Converters;
 import walkingkooka.convert.ShortCircuitingConverter;
 import walkingkooka.currency.CurrencyCode;
+import walkingkooka.currency.CurrencyExchangeRaters;
 import walkingkooka.currency.FakeCurrencyLocaleContext;
 import walkingkooka.datetime.DateTimeContexts;
 import walkingkooka.environment.EnvironmentContexts;
@@ -432,6 +433,7 @@ public final class ExpressionFunctionsTest implements PublicStaticHelperTesting<
                                 Converters.textToLocaleLanguageTag()
                             )
                         ),
+                        CurrencyExchangeRaters.fake(),
                         new FakeCurrencyLocaleContext() {
                             @Override
                             public Optional<Locale> localeForLanguageTag(final LocaleLanguageTag languageTag) {
