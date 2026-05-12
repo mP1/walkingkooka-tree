@@ -20,6 +20,8 @@ package walkingkooka.tree.expression;
 import walkingkooka.Either;
 import walkingkooka.collect.set.Sets;
 import walkingkooka.currency.CurrencyCode;
+import walkingkooka.currency.CurrencyExchangeRater;
+import walkingkooka.currency.CurrencyExchangeRaterDelegator;
 import walkingkooka.datetime.DateTimeContext;
 import walkingkooka.datetime.DateTimeContextDelegator;
 import walkingkooka.environment.EnvironmentContext;
@@ -47,6 +49,7 @@ import java.util.function.Function;
  * {@link Expression}, even indirectly.<br>
  */
 final class CycleDetectingExpressionEvaluationContext implements ExpressionEvaluationContext,
+    CurrencyExchangeRaterDelegator,
     DateTimeContextDelegator,
     DecimalNumberContextDelegator,
     EnvironmentContextDelegator,
@@ -190,6 +193,13 @@ final class CycleDetectingExpressionEvaluationContext implements ExpressionEvalu
     @Override
     public Optional<Currency> currencyForCurrencyCode(final CurrencyCode currencyCode) {
         return this.context.currencyForCurrencyCode(currencyCode);
+    }
+
+    // CurrencyExchangeRaterDelegator...................................................................................
+
+    @Override
+    public CurrencyExchangeRater currencyExchangeRater() {
+        return this.context;
     }
 
     // LocaleContext....................................................................................................

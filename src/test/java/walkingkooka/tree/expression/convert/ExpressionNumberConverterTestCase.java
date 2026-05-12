@@ -22,6 +22,7 @@ import walkingkooka.ToStringTesting;
 import walkingkooka.convert.ConverterContexts;
 import walkingkooka.convert.ConverterTesting2;
 import walkingkooka.convert.Converters;
+import walkingkooka.currency.CurrencyExchangeRaters;
 import walkingkooka.currency.CurrencyLocaleContexts;
 import walkingkooka.datetime.DateTimeContexts;
 import walkingkooka.math.DecimalNumberContexts;
@@ -62,6 +63,7 @@ public abstract class ExpressionNumberConverterTestCase<C extends ExpressionNumb
                 LineEnding.NL,
                 ',', // valueSeparator
                 Converters.fake(),
+                CurrencyExchangeRaters.fake(),
                 CurrencyLocaleContexts.fake(),
                 DateTimeContexts.fake(),
                 DecimalNumberContexts.american(MathContext.DECIMAL32)

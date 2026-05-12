@@ -27,6 +27,7 @@ import walkingkooka.collect.set.Sets;
 import walkingkooka.convert.Converter;
 import walkingkooka.convert.ConverterContexts;
 import walkingkooka.convert.Converters;
+import walkingkooka.currency.CurrencyExchangeRaters;
 import walkingkooka.currency.CurrencyLocaleContexts;
 import walkingkooka.datetime.DateTimeContexts;
 import walkingkooka.environment.EnvironmentContexts;
@@ -2019,6 +2020,7 @@ public final class NodeSelectorNodeSelectorParserTokenVisitorTest implements Nod
                             LineEnding.NL,
                             ',', // valueSeparator
                             Converters.fake(),
+                            CurrencyExchangeRaters.fake(),
                             CurrencyLocaleContexts.fake(),
                             DateTimeContexts.fake(),
                             decimalNumberContext()

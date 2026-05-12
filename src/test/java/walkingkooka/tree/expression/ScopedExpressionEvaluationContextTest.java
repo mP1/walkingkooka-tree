@@ -21,6 +21,7 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.convert.ConverterContexts;
 import walkingkooka.convert.Converters;
+import walkingkooka.currency.CurrencyExchangeRaters;
 import walkingkooka.currency.CurrencyLocaleContexts;
 import walkingkooka.datetime.DateTimeContexts;
 import walkingkooka.datetime.DateTimeSymbols;
@@ -316,6 +317,7 @@ public final class ScopedExpressionEvaluationContextTest implements ExpressionEv
                     LineEnding.NL,
                     ',', // valueSeparator
                     Converters.fake(),
+                    CurrencyExchangeRaters.fake(),
                     CurrencyLocaleContexts.fake(),
                     DateTimeContexts.basic(
                         DateTimeSymbols.fromDateFormatSymbols(

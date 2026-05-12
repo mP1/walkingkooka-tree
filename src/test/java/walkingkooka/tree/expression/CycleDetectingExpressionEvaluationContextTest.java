@@ -22,6 +22,7 @@ import walkingkooka.Either;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.convert.ConverterContexts;
 import walkingkooka.convert.Converters;
+import walkingkooka.currency.CurrencyExchangeRaters;
 import walkingkooka.currency.CurrencyLocaleContexts;
 import walkingkooka.datetime.DateTimeContexts;
 import walkingkooka.datetime.DateTimeSymbols;
@@ -386,6 +387,7 @@ public final class CycleDetectingExpressionEvaluationContextTest implements Clas
                                 LineEnding.NL,
                                 ',', // valueSeparator
                                 Converters.characterOrCharSequenceOrHasTextOrStringToCharacterOrCharSequenceOrString(),
+                                CurrencyExchangeRaters.fake(),
                                 CurrencyLocaleContexts.fake(),
                                 DateTimeContexts.fake(),
                                 DecimalNumberContexts.american(MathContext.DECIMAL32)
@@ -466,6 +468,7 @@ public final class CycleDetectingExpressionEvaluationContextTest implements Clas
                     LineEnding.NL,
                     ',', // valueSeparator
                     Converters.simple(), // converter
+                    CurrencyExchangeRaters.fake(),
                     CurrencyLocaleContexts.fake(),
                     DateTimeContexts.basic(
                         DateTimeSymbols.fromDateFormatSymbols(

@@ -20,6 +20,9 @@ package walkingkooka.tree.expression.function;
 import org.junit.jupiter.api.Test;
 import walkingkooka.Either;
 import walkingkooka.currency.CurrencyCode;
+import walkingkooka.currency.CurrencyExchangeRater;
+import walkingkooka.currency.CurrencyExchangeRaterDelegator;
+import walkingkooka.currency.CurrencyExchangeRaters;
 import walkingkooka.datetime.DateTimeContext;
 import walkingkooka.datetime.DateTimeContextDelegator;
 import walkingkooka.datetime.DateTimeContexts;
@@ -125,6 +128,7 @@ public class ExpressionEvaluationContextTestingTest implements ExpressionEvaluat
     }
 
     final static class TestExpressionEvaluationContext implements ExpressionEvaluationContext,
+        CurrencyExchangeRaterDelegator,
         DateTimeContextDelegator,
         DecimalNumberContextDelegator,
         EnvironmentContextDelegator,
@@ -266,6 +270,13 @@ public class ExpressionEvaluationContextTestingTest implements ExpressionEvaluat
         public Locale locale() {
             return this.environmentContext()
                 .locale();
+        }
+
+        // CurrencyExchangeRaterDelegator...............................................................................
+
+        @Override
+        public CurrencyExchangeRater currencyExchangeRater() {
+            return CurrencyExchangeRaters.fake();
         }
 
         // EnvironmentContextDelegator..................................................................................
