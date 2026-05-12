@@ -26,7 +26,6 @@ import walkingkooka.convert.ConverterContexts;
 import walkingkooka.convert.Converters;
 import walkingkooka.convert.FakeConverter;
 import walkingkooka.currency.CurrencyContexts;
-import walkingkooka.currency.CurrencyExchangeRaters;
 import walkingkooka.currency.FakeCurrencyExchangeRater;
 import walkingkooka.datetime.DateTimeContexts;
 import walkingkooka.datetime.DateTimeSymbols;
@@ -399,7 +398,6 @@ public abstract class ExpressionTestCase<N extends Expression> implements TreePr
                 LineEnding.NL,
                 ',', // valueSeparator
                 Converters.simple(),
-                CurrencyExchangeRaters.fake(),
                 CurrencyContexts.jre(
                     Currency.getInstance(locale),
                     new FakeCurrencyExchangeRater(),

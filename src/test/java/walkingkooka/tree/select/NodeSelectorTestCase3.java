@@ -28,7 +28,6 @@ import walkingkooka.collect.set.Sets;
 import walkingkooka.convert.Converter;
 import walkingkooka.convert.ConverterContexts;
 import walkingkooka.convert.Converters;
-import walkingkooka.currency.CurrencyExchangeRaters;
 import walkingkooka.currency.CurrencyLocaleContexts;
 import walkingkooka.datetime.DateTimeContexts;
 import walkingkooka.environment.EnvironmentContext;
@@ -632,7 +631,6 @@ abstract public class NodeSelectorTestCase3<S extends NodeSelector<TestNode, Str
                 LineEnding.NL,
                 ',', // valueSeparator
                 Converters.fake(),
-                CurrencyExchangeRaters.fake(),
                 CurrencyLocaleContexts.fake(),
                 DateTimeContexts.fake(),
                 DecimalNumberContexts.american(MathContext.DECIMAL32)
