@@ -27,7 +27,6 @@ import walkingkooka.convert.ConverterContexts;
 import walkingkooka.convert.ConverterException;
 import walkingkooka.convert.Converters;
 import walkingkooka.convert.FakeConverterContext;
-import walkingkooka.currency.CurrencyExchangeRaters;
 import walkingkooka.currency.CurrencyLocaleContexts;
 import walkingkooka.datetime.DateTimeContexts;
 import walkingkooka.datetime.DateTimeSymbols;
@@ -135,7 +134,6 @@ public final class BasicExpressionEvaluationContextTest implements ClassTesting2
                 Converters.simple()
             )
         ),
-        CurrencyExchangeRaters.fake(),
         CurrencyLocaleContexts.fake(),
         DateTimeContexts.basic(
             DateTimeSymbols.fromDateFormatSymbols(

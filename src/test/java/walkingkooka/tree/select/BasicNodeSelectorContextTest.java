@@ -21,7 +21,6 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.convert.ConverterContexts;
 import walkingkooka.convert.Converters;
-import walkingkooka.currency.CurrencyExchangeRaters;
 import walkingkooka.currency.CurrencyLocaleContexts;
 import walkingkooka.datetime.DateTimeContexts;
 import walkingkooka.environment.EnvironmentContext;
@@ -83,7 +82,6 @@ public final class BasicNodeSelectorContextTest implements ClassTesting2<BasicNo
             LineEnding.NL,
             ',', // valueSeparator
             Converters.fake(),
-            CurrencyExchangeRaters.fake(),
             CurrencyLocaleContexts.fake(),
             DateTimeContexts.fake(),
             DecimalNumberContexts.fake()
