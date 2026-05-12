@@ -24,8 +24,8 @@ import walkingkooka.convert.ConverterTesting2;
 import walkingkooka.tree.expression.ExpressionNumber;
 import walkingkooka.tree.expression.ExpressionNumberKind;
 
-public final class ExpressionNumberConverterNumberToNumberConverterTest implements ConverterTesting2<ExpressionNumberConverterNumberToNumberConverter<FakeExpressionNumberConverterContext>, FakeExpressionNumberConverterContext>,
-    ToStringTesting<ExpressionNumberConverterNumberToNumberConverter<FakeExpressionNumberConverterContext>> {
+public final class ExpressionNumberConverterNumberToNumberTest implements ConverterTesting2<ExpressionNumberConverterNumberToNumber<FakeExpressionNumberConverterContext>, FakeExpressionNumberConverterContext>,
+    ToStringTesting<ExpressionNumberConverterNumberToNumber<FakeExpressionNumberConverterContext>> {
 
     private final static ExpressionNumberKind EXPRESSION_NUMBER_KIND = ExpressionNumberKind.BIG_DECIMAL;
 
@@ -209,8 +209,8 @@ public final class ExpressionNumberConverterNumberToNumberConverterTest implemen
     }
 
     @Override
-    public ExpressionNumberConverterNumberToNumberConverter<FakeExpressionNumberConverterContext> createConverter() {
-        return ExpressionNumberConverterNumberToNumberConverter.instance();
+    public ExpressionNumberConverterNumberToNumber<FakeExpressionNumberConverterContext> createConverter() {
+        return ExpressionNumberConverterNumberToNumber.instance();
     }
 
     @Override
@@ -232,7 +232,7 @@ public final class ExpressionNumberConverterNumberToNumberConverterTest implemen
     @Test
     public void testToString() {
         this.toStringAndCheck(
-            ExpressionNumberConverterNumberToNumberConverter.instance(),
+            ExpressionNumberConverterNumberToNumber.instance(),
             "number to number"
         );
     }
@@ -240,7 +240,17 @@ public final class ExpressionNumberConverterNumberToNumberConverterTest implemen
     // class............................................................................................................
 
     @Override
-    public Class<ExpressionNumberConverterNumberToNumberConverter<FakeExpressionNumberConverterContext>> type() {
-        return Cast.to(ExpressionNumberConverterNumberToNumberConverter.class);
+    public Class<ExpressionNumberConverterNumberToNumber<FakeExpressionNumberConverterContext>> type() {
+        return Cast.to(ExpressionNumberConverterNumberToNumber.class);
+    }
+
+    @Override
+    public String typeNamePrefix() {
+        return ExpressionNumber.class.getSimpleName();
+    }
+
+    @Override
+    public String typeNameSuffix() {
+        return "";
     }
 }
