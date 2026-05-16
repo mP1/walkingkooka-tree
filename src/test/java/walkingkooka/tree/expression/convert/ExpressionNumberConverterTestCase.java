@@ -18,6 +18,7 @@
 package walkingkooka.tree.expression.convert;
 
 import walkingkooka.ToStringTesting;
+import walkingkooka.convert.BinaryNumberConverterFunctions;
 import walkingkooka.convert.ConverterContexts;
 import walkingkooka.convert.ConverterTesting2;
 import walkingkooka.convert.Converters;
@@ -48,6 +49,7 @@ public abstract class ExpressionNumberConverterTestCase<C extends ExpressionNumb
     final ExpressionNumberConverterContext createContext(final ExpressionNumberKind kind) {
         return ExpressionNumberConverterContexts.basic(
             Converters.fake(),
+            BinaryNumberConverterFunctions.fake(), // multiplier
             ConverterContexts.basic(
                 false, // canNumbersHaveGroupSeparator
                 Converters.JAVA_EPOCH_OFFSET, // dateOffset
@@ -55,6 +57,7 @@ public abstract class ExpressionNumberConverterTestCase<C extends ExpressionNumb
                 LineEnding.NL,
                 ',', // valueSeparator
                 Converters.fake(),
+                BinaryNumberConverterFunctions.fake(), // multiplier
                 CurrencyLocaleContexts.fake(),
                 DateTimeContexts.fake(),
                 DecimalNumberContexts.american(MathContext.DECIMAL32)

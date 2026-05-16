@@ -19,6 +19,7 @@ package walkingkooka.tree.select;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
+import walkingkooka.convert.BinaryNumberConverterFunctions;
 import walkingkooka.convert.ConverterContexts;
 import walkingkooka.convert.Converters;
 import walkingkooka.currency.CurrencyLocaleContexts;
@@ -75,6 +76,7 @@ public final class BasicNodeSelectorContextTest implements ClassTesting2<BasicNo
         ExpressionNumberConverters.toNumberOrExpressionNumber(
             Converters.fake()
         ),
+        BinaryNumberConverterFunctions.fake(), // multiplier
         ConverterContexts.basic(
             false, // canNumbersHaveGroupSeparator
             Converters.JAVA_EPOCH_OFFSET, // dateOffset
@@ -82,6 +84,7 @@ public final class BasicNodeSelectorContextTest implements ClassTesting2<BasicNo
             LineEnding.NL,
             ',', // valueSeparator
             Converters.fake(),
+            BinaryNumberConverterFunctions.fake(), // multiplier
             CurrencyLocaleContexts.fake(),
             DateTimeContexts.fake(),
             DecimalNumberContexts.fake()

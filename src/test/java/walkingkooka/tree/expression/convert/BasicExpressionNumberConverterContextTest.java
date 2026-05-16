@@ -19,6 +19,8 @@ package walkingkooka.tree.expression.convert;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.ToStringTesting;
+import walkingkooka.convert.BinaryNumberConverterFunction;
+import walkingkooka.convert.BinaryNumberConverterFunctions;
 import walkingkooka.convert.Converter;
 import walkingkooka.convert.ConverterContext;
 import walkingkooka.convert.ConverterContexts;
@@ -33,6 +35,7 @@ import walkingkooka.math.DecimalNumberContextDelegator;
 import walkingkooka.math.DecimalNumberContexts;
 import walkingkooka.text.Indentation;
 import walkingkooka.text.LineEnding;
+import walkingkooka.tree.expression.ExpressionNumber;
 import walkingkooka.tree.expression.ExpressionNumberKind;
 
 import java.math.MathContext;
@@ -50,26 +53,98 @@ public final class BasicExpressionNumberConverterContextTest implements Expressi
     DecimalNumberContextDelegator {
 
     private final static ExpressionNumberKind KIND = ExpressionNumberKind.DEFAULT;
-    private final static Converter<ExpressionNumberConverterContext> CONVERTER = Converters.numberToNumber();
+    private final static Converter<ExpressionNumberConverterContext> CONVERTER = ExpressionNumberConverters.numberToNumber();
+
+    private final static BinaryNumberConverterFunction<ExpressionNumberConverterContext> MULTIPLER = ExpressionNumberBinaryNumberConverterFunctions.multiply();
 
     @Test
     public void testWithNullConverterFails() {
-        assertThrows(NullPointerException.class, () -> BasicExpressionNumberConverterContext.with(null, this.converterContext(), KIND));
+        assertThrows(
+            NullPointerException.class,
+            () -> BasicExpressionNumberConverterContext.with(
+                null,
+                MULTIPLER,
+                this.converterContext(),
+                KIND
+            )
+        );
+    }
+
+    @Test
+    public void testWithNullMultiplierFails() {
+        assertThrows(
+            NullPointerException.class,
+            () -> BasicExpressionNumberConverterContext.with(
+                CONVERTER,
+                null,
+                this.converterContext(),
+                KIND
+            )
+        );
     }
 
     @Test
     public void testWithNullConverterContextFails() {
-        assertThrows(NullPointerException.class, () -> BasicExpressionNumberConverterContext.with(CONVERTER, null, KIND));
+        assertThrows(
+            NullPointerException.class,
+            () -> BasicExpressionNumberConverterContext.with(
+                CONVERTER,
+                MULTIPLER,
+                null,
+                KIND
+            )
+        );
     }
 
     @Test
     public void testWithNullExpressionNumberKindFails() {
-        assertThrows(NullPointerException.class, () -> BasicExpressionNumberConverterContext.with(CONVERTER, this.converterContext(), null));
+        assertThrows(
+            NullPointerException.class,
+            () -> BasicExpressionNumberConverterContext.with(
+                CONVERTER,
+                MULTIPLER,
+                this.converterContext(),
+                null
+            )
+        );
     }
 
     @Test
     public void testConvert() {
         this.convertAndCheck(123, Float.class, 123f);
+    }
+
+    @Test
+    public void testMultiplyNumberNumberInteger() {
+        this.multiplyAndCheck(
+            this.createContext(),
+            2,
+            3,
+            Integer.class,
+            6
+        );
+    }
+
+    @Test
+    public void testMultiplyNumberNumberNumber() {
+        this.multiplyAndCheck(
+            this.createContext(),
+            2,
+            3,
+            Number.class,
+            6
+        );
+    }
+
+    @Test
+    public void testMultiplyNumberNumberExpressionNumber() {
+        this.multiplyAndCheck(
+            this.createContext(),
+            2,
+            3,
+            ExpressionNumber.class,
+            KIND.create(6)
+        );
     }
 
     @Test
@@ -79,7 +154,12 @@ public final class BasicExpressionNumberConverterContextTest implements Expressi
 
     @Override
     public BasicExpressionNumberConverterContext createContext() {
-        return BasicExpressionNumberConverterContext.with(CONVERTER, this.converterContext(), KIND);
+        return BasicExpressionNumberConverterContext.with(
+            CONVERTER,
+            MULTIPLER,
+            this.converterContext(),
+            KIND
+        );
     }
 
     private ConverterContext converterContext() {
@@ -92,6 +172,7 @@ public final class BasicExpressionNumberConverterContextTest implements Expressi
             LineEnding.NL,
             ',', // valueSeparator
             Converters.fake(),
+            BinaryNumberConverterFunctions.fake(), // multiplier
             new FakeCurrencyContext() {
 
                 @Override

@@ -20,6 +20,7 @@ package walkingkooka.tree.expression;
 import org.junit.jupiter.api.Test;
 import walkingkooka.Either;
 import walkingkooka.collect.list.Lists;
+import walkingkooka.convert.BinaryNumberConverterFunctions;
 import walkingkooka.convert.ConverterContexts;
 import walkingkooka.convert.Converters;
 import walkingkooka.currency.CurrencyLocaleContexts;
@@ -386,6 +387,7 @@ public final class CycleDetectingExpressionEvaluationContextTest implements Clas
                                 LineEnding.NL,
                                 ',', // valueSeparator
                                 Converters.characterOrCharSequenceOrHasTextOrStringToCharacterOrCharSequenceOrString(),
+                                BinaryNumberConverterFunctions.fake(), // multiplier
                                 CurrencyLocaleContexts.fake(),
                                 DateTimeContexts.fake(),
                                 DecimalNumberContexts.american(MathContext.DECIMAL32)
@@ -466,6 +468,7 @@ public final class CycleDetectingExpressionEvaluationContextTest implements Clas
                     LineEnding.NL,
                     ',', // valueSeparator
                     Converters.simple(), // converter
+                    BinaryNumberConverterFunctions.fake(), // multiplier
                     CurrencyLocaleContexts.fake(),
                     DateTimeContexts.basic(
                         DateTimeSymbols.fromDateFormatSymbols(

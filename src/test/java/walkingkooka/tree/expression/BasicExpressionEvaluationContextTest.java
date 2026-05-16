@@ -22,6 +22,7 @@ import walkingkooka.Cast;
 import walkingkooka.Either;
 import walkingkooka.ToStringTesting;
 import walkingkooka.collect.list.Lists;
+import walkingkooka.convert.BinaryNumberConverterFunctions;
 import walkingkooka.convert.ConverterContext;
 import walkingkooka.convert.ConverterContexts;
 import walkingkooka.convert.ConverterException;
@@ -134,6 +135,7 @@ public final class BasicExpressionEvaluationContextTest implements ClassTesting2
                 Converters.simple()
             )
         ),
+        BinaryNumberConverterFunctions.fake(), // multiplier
         CurrencyLocaleContexts.fake(),
         DateTimeContexts.basic(
             DateTimeSymbols.fromDateFormatSymbols(
