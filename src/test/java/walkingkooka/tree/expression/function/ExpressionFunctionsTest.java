@@ -22,6 +22,7 @@ import walkingkooka.Either;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.set.Sets;
 import walkingkooka.collect.set.SortedSets;
+import walkingkooka.convert.BinaryNumberConverterFunctions;
 import walkingkooka.convert.ConverterContext;
 import walkingkooka.convert.ConverterContexts;
 import walkingkooka.convert.Converters;
@@ -432,6 +433,7 @@ public final class ExpressionFunctionsTest implements PublicStaticHelperTesting<
                                 Converters.textToLocaleLanguageTag()
                             )
                         ),
+                        BinaryNumberConverterFunctions.fake(), // multiplier
                         new FakeCurrencyLocaleContext() {
                             @Override
                             public Optional<Locale> localeForLanguageTag(final LocaleLanguageTag languageTag) {

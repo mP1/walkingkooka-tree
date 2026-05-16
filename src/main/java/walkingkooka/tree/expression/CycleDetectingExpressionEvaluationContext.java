@@ -243,6 +243,17 @@ final class CycleDetectingExpressionEvaluationContext implements ExpressionEvalu
     }
 
     @Override
+    public <N extends Number> N multiply(final Number left,
+                                         final Number right,
+                                         final Class<N> type) {
+        return this.context.multiply(
+            left,
+            right,
+            type
+        );
+    }
+
+    @Override
     public boolean canConvert(final Object from,
                               final Class<?> type) {
         return this.context.canConvert(from, type);

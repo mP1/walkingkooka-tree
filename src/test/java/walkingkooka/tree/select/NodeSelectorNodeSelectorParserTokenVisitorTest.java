@@ -24,6 +24,7 @@ import walkingkooka.Either;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.collect.set.Sets;
+import walkingkooka.convert.BinaryNumberConverterFunctions;
 import walkingkooka.convert.Converter;
 import walkingkooka.convert.ConverterContexts;
 import walkingkooka.convert.Converters;
@@ -2012,6 +2013,7 @@ public final class NodeSelectorNodeSelectorParserTokenVisitorTest implements Nod
                                 return convert0(value, type);
                             }
                         },
+                        BinaryNumberConverterFunctions.fake(), // multiplier
                         ConverterContexts.basic(
                             false, // canNumbersHaveGroupSeparator
                             Converters.JAVA_EPOCH_OFFSET, // dateOffset
@@ -2019,6 +2021,7 @@ public final class NodeSelectorNodeSelectorParserTokenVisitorTest implements Nod
                             LineEnding.NL,
                             ',', // valueSeparator
                             Converters.fake(),
+                            BinaryNumberConverterFunctions.fake(), // multiplier
                             CurrencyLocaleContexts.fake(),
                             DateTimeContexts.fake(),
                             decimalNumberContext()

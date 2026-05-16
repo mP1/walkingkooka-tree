@@ -18,6 +18,7 @@
 package walkingkooka.tree.expression;
 
 import org.junit.jupiter.api.Test;
+import walkingkooka.convert.BinaryNumberConverterFunctions;
 import walkingkooka.convert.ConverterContexts;
 import walkingkooka.convert.Converters;
 import walkingkooka.currency.CurrencyLocaleContexts;
@@ -126,6 +127,7 @@ public final class ExpressionEvaluationContextDelegatorTest implements Expressio
                     LineEnding.NL,
                     ',', // valueSeparator
                     Converters.fake(),
+                    BinaryNumberConverterFunctions.fake(), // multiplier
                     CurrencyLocaleContexts.fake(),
                     DateTimeContexts.basic(
                         DateTimeSymbols.fromDateFormatSymbols(

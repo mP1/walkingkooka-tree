@@ -18,6 +18,7 @@
 package walkingkooka.tree.expression.convert;
 
 import walkingkooka.Either;
+import walkingkooka.convert.BinaryNumberConverterFunction;
 import walkingkooka.convert.Converter;
 import walkingkooka.convert.ConverterContext;
 import walkingkooka.currency.CurrencyCode;
@@ -45,21 +46,28 @@ final class BasicExpressionNumberConverterContext implements ExpressionNumberCon
     DecimalNumberContextDelegator {
 
     static BasicExpressionNumberConverterContext with(final Converter<ExpressionNumberConverterContext> converter,
+                                                      final BinaryNumberConverterFunction<ExpressionNumberConverterContext> multiplier,
                                                       final ConverterContext context,
                                                       final ExpressionNumberKind kind) {
         Objects.requireNonNull(converter, "converter");
+        Objects.requireNonNull(multiplier, "multiplier");
         Objects.requireNonNull(context, "context");
         Objects.requireNonNull(kind, "kind");
 
-        return new BasicExpressionNumberConverterContext(converter,
+        return new BasicExpressionNumberConverterContext(
+            converter,
+            multiplier,
             context,
-            kind);
+            kind
+        );
     }
 
     private BasicExpressionNumberConverterContext(final Converter<ExpressionNumberConverterContext> converter,
+                                                  final BinaryNumberConverterFunction<ExpressionNumberConverterContext> multiplier,
                                                   final ConverterContext context,
                                                   final ExpressionNumberKind kind) {
         this.converter = converter;
+        this.multiplier = multiplier;
         this.context = context;
         this.kind = kind;
     }
@@ -113,6 +121,20 @@ final class BasicExpressionNumberConverterContext implements ExpressionNumberCon
     public Optional<Locale> localeForLanguageTag(final LocaleLanguageTag languageTag) {
         return this.context.localeForLanguageTag(languageTag);
     }
+
+    @Override
+    public <N extends Number> N multiply(final Number left,
+                                         final Number right,
+                                         final Class<N> type) {
+        return this.multiplier.apply(
+            left,
+            right,
+            type,
+            this // ExpressionNumberConverterContext
+        );
+    }
+
+    private final BinaryNumberConverterFunction<ExpressionNumberConverterContext> multiplier;
 
     @Override
     public char valueSeparator() {

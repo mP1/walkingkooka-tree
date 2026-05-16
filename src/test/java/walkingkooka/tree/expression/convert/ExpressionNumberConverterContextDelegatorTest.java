@@ -17,6 +17,7 @@
 
 package walkingkooka.tree.expression.convert;
 
+import walkingkooka.convert.BinaryNumberConverterFunctions;
 import walkingkooka.convert.ConverterContexts;
 import walkingkooka.convert.Converters;
 import walkingkooka.currency.CurrencyCode;
@@ -83,6 +84,7 @@ public final class ExpressionNumberConverterContextDelegatorTest implements Expr
 
             return ExpressionNumberConverterContexts.basic(
                 Converters.numberToBoolean(),
+                BinaryNumberConverterFunctions.multiply(), // multiplier
                 ConverterContexts.basic(
                     false, // canNumbersHaveGroupSeparator
                     0,
@@ -90,6 +92,7 @@ public final class ExpressionNumberConverterContextDelegatorTest implements Expr
                     LineEnding.NL,
                     ',', // valueSeparator
                     Converters.fake(),
+                    BinaryNumberConverterFunctions.multiply(), // multiplier
                     new FakeCurrencyContext() {
 
                         @Override

@@ -21,6 +21,7 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.Either;
 import walkingkooka.collect.list.Lists;
+import walkingkooka.convert.BinaryNumberConverterFunctions;
 import walkingkooka.convert.Converter;
 import walkingkooka.convert.ConverterContexts;
 import walkingkooka.convert.Converters;
@@ -391,6 +392,7 @@ public abstract class ExpressionTestCase<N extends Expression> implements TreePr
                     Converters.characterOrCharSequenceOrHasTextOrStringToCharacterOrCharSequenceOrString()
                 )
             ),
+            BinaryNumberConverterFunctions.fake(), // multiplier
             ConverterContexts.basic(
                 false, // canNumbersHaveGroupSeparator
                 Converters.JAVA_EPOCH_OFFSET,
@@ -398,6 +400,7 @@ public abstract class ExpressionTestCase<N extends Expression> implements TreePr
                 LineEnding.NL,
                 ',', // valueSeparator
                 Converters.simple(),
+                BinaryNumberConverterFunctions.fake(), // multiplier
                 CurrencyContexts.jre(
                     Currency.getInstance(locale),
                     new FakeCurrencyExchangeRater(),

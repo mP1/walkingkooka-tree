@@ -25,6 +25,7 @@ import walkingkooka.ToStringTesting;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.collect.set.Sets;
+import walkingkooka.convert.BinaryNumberConverterFunctions;
 import walkingkooka.convert.Converter;
 import walkingkooka.convert.ConverterContexts;
 import walkingkooka.convert.Converters;
@@ -624,6 +625,7 @@ abstract public class NodeSelectorTestCase3<S extends NodeSelector<TestNode, Str
     private ExpressionNumberConverterContext converterContext() {
         return ExpressionNumberConverterContexts.basic(
             this.converter(),
+            BinaryNumberConverterFunctions.fake(), // multiplier
             ConverterContexts.basic(
                 false, // canNumbersHaveGroupSeparator
                 Converters.JAVA_EPOCH_OFFSET, // dateOffset
@@ -631,6 +633,7 @@ abstract public class NodeSelectorTestCase3<S extends NodeSelector<TestNode, Str
                 LineEnding.NL,
                 ',', // valueSeparator
                 Converters.fake(),
+                BinaryNumberConverterFunctions.fake(), // multiplier
                 CurrencyLocaleContexts.fake(),
                 DateTimeContexts.fake(),
                 DecimalNumberContexts.american(MathContext.DECIMAL32)
