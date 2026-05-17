@@ -20,6 +20,7 @@ package walkingkooka.tree.expression.function;
 import org.junit.jupiter.api.Test;
 import walkingkooka.Either;
 import walkingkooka.currency.CurrencyCode;
+import walkingkooka.currency.CurrencyExchange;
 import walkingkooka.datetime.DateTimeContext;
 import walkingkooka.datetime.DateTimeContextDelegator;
 import walkingkooka.datetime.DateTimeContexts;
@@ -51,6 +52,7 @@ import java.util.Currency;
 import java.util.Locale;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.Set;
 import java.util.function.Function;
 
 public class ExpressionEvaluationContextTestingTest implements ExpressionEvaluationContextTesting<TestExpressionEvaluationContext>,
@@ -273,6 +275,18 @@ public class ExpressionEvaluationContextTestingTest implements ExpressionEvaluat
         public Locale locale() {
             return this.environmentContext()
                 .locale();
+        }
+
+        @Override
+        public Set<CurrencyExchange> currencyExchanges() {
+            throw new UnsupportedOperationException();
+        }
+
+        @Override
+        public Optional<Number> currencyExchangeRate(final CurrencyExchange currencyExchange,
+                                                     final Optional<LocalDateTime> dateTime) {
+            Objects.requireNonNull(currencyExchange, "currencyExchange");
+            throw new UnsupportedOperationException();
         }
 
         // EnvironmentContextDelegator..................................................................................

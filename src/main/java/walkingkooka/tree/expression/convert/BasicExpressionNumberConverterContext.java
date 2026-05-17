@@ -24,6 +24,8 @@ import walkingkooka.convert.ConverterContext;
 import walkingkooka.currency.CurrencyCode;
 import walkingkooka.currency.CurrencyCodeLanguageTagContext;
 import walkingkooka.currency.CurrencyCodeLanguageTagContextDelegator;
+import walkingkooka.currency.CurrencyExchangeRater;
+import walkingkooka.currency.CurrencyExchangeRaterDelegator;
 import walkingkooka.datetime.DateTimeContext;
 import walkingkooka.datetime.DateTimeContextDelegator;
 import walkingkooka.datetime.DateTimeSymbols;
@@ -42,6 +44,7 @@ import java.util.Optional;
 
 final class BasicExpressionNumberConverterContext implements ExpressionNumberConverterContext,
     CurrencyCodeLanguageTagContextDelegator,
+    CurrencyExchangeRaterDelegator,
     DateTimeContextDelegator,
     DecimalNumberContextDelegator {
 
@@ -154,6 +157,11 @@ final class BasicExpressionNumberConverterContext implements ExpressionNumberCon
     }
 
     private final Converter<ExpressionNumberConverterContext> converter;
+
+    @Override
+    public CurrencyExchangeRater currencyExchangeRater() {
+        return this.context;
+    }
 
     @Override
     public DateTimeContext dateTimeContext() {
