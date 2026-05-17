@@ -21,6 +21,7 @@ import walkingkooka.convert.BinaryNumberConverterFunctions;
 import walkingkooka.convert.ConverterContexts;
 import walkingkooka.convert.Converters;
 import walkingkooka.currency.CurrencyCode;
+import walkingkooka.currency.CurrencyExchange;
 import walkingkooka.currency.FakeCurrencyContext;
 import walkingkooka.datetime.DateTimeContexts;
 import walkingkooka.datetime.DateTimeSymbols;
@@ -107,6 +108,15 @@ public final class ExpressionNumberConverterContextDelegatorTest implements Expr
                             return Optional.of(
                                 Currency.getInstance(locale)
                             );
+                        }
+
+                        @Override
+                        public Optional<Number> currencyExchangeRate(final CurrencyExchange currencyExchange,
+                                                                     final Optional<LocalDateTime> dateTime) {
+                            Objects.requireNonNull(currencyExchange, "currencyExchange");
+                            Objects.requireNonNull(dateTime, "dateTime");
+
+                            throw new UnsupportedOperationException();
                         }
                     }.setLocaleContext(
                         LocaleContexts.jre(locale)
