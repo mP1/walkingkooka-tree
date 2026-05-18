@@ -58,6 +58,57 @@ public final class BasicExpressionNumberConverterContextTest implements Expressi
 
     private final static BinaryNumberConverterFunction<ExpressionNumberConverterContext> MULTIPLER = ExpressionNumberBinaryNumberConverterFunctions.multiply();
 
+    private final static DecimalNumberContext DECIMAL_NUMBER_CONTEXT = DecimalNumberContexts.american(MathContext.DECIMAL32);
+
+    private final static Locale LOCALE = Locale.forLanguageTag("EN-AU");
+
+    private final static ConverterContext CONVERTER_CONTEXT = ConverterContexts.basic(
+        false, // canNumbersHaveGroupSeparator
+        Converters.JAVA_EPOCH_OFFSET, // dateOffset
+        Indentation.SPACES2,
+        LineEnding.NL,
+        ',', // valueSeparator
+        Converters.fake(),
+        BinaryNumberConverterFunctions.fake(), // multiplier
+        new FakeCurrencyContext() {
+
+            @Override
+            public Optional<Currency> currencyForCurrencyCode(final CurrencyCode currencyCode) {
+                Objects.requireNonNull(currencyCode, "currencyCode");
+
+                throw new UnsupportedOperationException();
+            }
+
+            @Override
+            public Optional<Currency> currencyForLocale(final Locale locale) {
+                return Optional.of(
+                    Currency.getInstance(locale)
+                );
+            }
+
+            @Override
+            public Optional<Number> currencyExchangeRate(final CurrencyExchange currencyExchange,
+                                                         final Optional<LocalDateTime> dateTime) {
+                Objects.requireNonNull(currencyExchange, "currencyExchange");
+                Objects.requireNonNull(dateTime, "dateTime");
+
+                throw new UnsupportedOperationException();
+            }
+        }.setLocaleContext(
+            LocaleContexts.jre(LOCALE)
+        ),
+        DateTimeContexts.basic(
+            DateTimeSymbols.fromDateFormatSymbols(
+                new DateFormatSymbols(LOCALE)
+            ),
+            LOCALE,
+            1900,
+            20,
+            LocalDateTime::now
+        ),
+        DECIMAL_NUMBER_CONTEXT
+    );
+
     @Test
     public void testWithNullConverterFails() {
         assertThrows(
@@ -65,7 +116,7 @@ public final class BasicExpressionNumberConverterContextTest implements Expressi
             () -> BasicExpressionNumberConverterContext.with(
                 null,
                 MULTIPLER,
-                this.converterContext(),
+                CONVERTER_CONTEXT,
                 KIND
             )
         );
@@ -78,7 +129,7 @@ public final class BasicExpressionNumberConverterContextTest implements Expressi
             () -> BasicExpressionNumberConverterContext.with(
                 CONVERTER,
                 null,
-                this.converterContext(),
+                CONVERTER_CONTEXT,
                 KIND
             )
         );
@@ -104,7 +155,7 @@ public final class BasicExpressionNumberConverterContextTest implements Expressi
             () -> BasicExpressionNumberConverterContext.with(
                 CONVERTER,
                 MULTIPLER,
-                this.converterContext(),
+                CONVERTER_CONTEXT,
                 null
             )
         );
@@ -150,7 +201,10 @@ public final class BasicExpressionNumberConverterContextTest implements Expressi
 
     @Test
     public void testToString() {
-        this.toStringAndCheck(this.createContext(), this.converterContext() + " " + KIND);
+        this.toStringAndCheck(
+            this.createContext(),
+            CONVERTER_CONTEXT + " " + KIND
+        );
     }
 
     @Override
@@ -158,59 +212,8 @@ public final class BasicExpressionNumberConverterContextTest implements Expressi
         return BasicExpressionNumberConverterContext.with(
             CONVERTER,
             MULTIPLER,
-            this.converterContext(),
+            CONVERTER_CONTEXT,
             KIND
-        );
-    }
-
-    private ConverterContext converterContext() {
-        final Locale locale = Locale.forLanguageTag("EN-AU");
-
-        return ConverterContexts.basic(
-            false, // canNumbersHaveGroupSeparator
-            Converters.JAVA_EPOCH_OFFSET, // dateOffset
-            Indentation.SPACES2,
-            LineEnding.NL,
-            ',', // valueSeparator
-            Converters.fake(),
-            BinaryNumberConverterFunctions.fake(), // multiplier
-            new FakeCurrencyContext() {
-
-                @Override
-                public Optional<Currency> currencyForCurrencyCode(final CurrencyCode currencyCode) {
-                    Objects.requireNonNull(currencyCode, "currencyCode");
-
-                    throw new UnsupportedOperationException();
-                }
-
-                @Override
-                public Optional<Currency> currencyForLocale(final Locale locale) {
-                    return Optional.of(
-                        Currency.getInstance(locale)
-                    );
-                }
-
-                @Override
-                public Optional<Number> currencyExchangeRate(final CurrencyExchange currencyExchange,
-                                                             final Optional<LocalDateTime> dateTime) {
-                    Objects.requireNonNull(currencyExchange, "currencyExchange");
-                    Objects.requireNonNull(dateTime, "dateTime");
-
-                    throw new UnsupportedOperationException();
-                }
-            }.setLocaleContext(
-                LocaleContexts.jre(locale)
-            ),
-            DateTimeContexts.basic(
-                DateTimeSymbols.fromDateFormatSymbols(
-                    new DateFormatSymbols(locale)
-                ),
-                locale,
-                1900,
-                20,
-                LocalDateTime::now
-            ),
-            this.decimalNumberContext()
         );
     }
 
@@ -218,18 +221,17 @@ public final class BasicExpressionNumberConverterContextTest implements Expressi
 
     @Override
     public int decimalNumberDigitCount() {
-        return this.decimalNumberContext()
-            .decimalNumberDigitCount();
+        return DECIMAL_NUMBER_CONTEXT.decimalNumberDigitCount();
     }
 
     @Override
     public DecimalNumberContext decimalNumberContext() {
-        return DecimalNumberContexts.american(this.mathContext());
+        return DECIMAL_NUMBER_CONTEXT;
     }
 
     @Override
     public MathContext mathContext() {
-        return MathContext.DECIMAL32;
+        return DECIMAL_NUMBER_CONTEXT.mathContext();
     }
 
     // class............................................................................................................
