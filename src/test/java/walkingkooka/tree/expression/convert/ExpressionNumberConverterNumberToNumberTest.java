@@ -153,12 +153,9 @@ public final class ExpressionNumberConverterNumberToNumberTest extends Expressio
 
     @Test
     public void testConvertExpressionNumberDoubleToNumber() {
-        final ExpressionNumber value = ExpressionNumberKind.DOUBLE.create(123);
-
         this.convertAndCheck(
-            value,
-            Number.class,
-            EXPRESSION_NUMBER_KIND.create(value)
+            ExpressionNumberKind.DOUBLE.create(123),
+            Number.class
         );
     }
 
@@ -199,12 +196,10 @@ public final class ExpressionNumberConverterNumberToNumberTest extends Expressio
 
     @Test
     public void testConvertIntegerToNumber() {
-        final Integer number = 123;
-
         this.convertAndCheck(
-            number,
+            123,
             Number.class,
-            EXPRESSION_NUMBER_KIND.create(number)
+            123
         );
     }
 

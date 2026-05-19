@@ -184,7 +184,7 @@ public final class BasicExpressionNumberConverterContextTest implements Expressi
             2,
             3,
             Number.class,
-            KIND.create(6)
+            6
         );
     }
 
