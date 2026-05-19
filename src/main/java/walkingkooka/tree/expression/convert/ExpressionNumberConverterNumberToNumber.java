@@ -26,8 +26,7 @@ import walkingkooka.tree.expression.ExpressionNumberKind;
 
 /**
  * A {@link Converter} that may be used to convert any {@link Number} including {@link ExpressionNumber} to another
- * {@link Number} including {@link ExpressionNumber}. If the target type is {@link Number} the number value will be
- * converted to a {@link ExpressionNumber} using {@link ExpressionNumberConverterContext#expressionNumberKind()}.
+ * {@link Number} including {@link ExpressionNumber}.
  */
 final class ExpressionNumberConverterNumberToNumber<C extends ExpressionNumberConverterContext> extends ExpressionNumberConverter<C> {
 
@@ -67,15 +66,14 @@ final class ExpressionNumberConverterNumberToNumber<C extends ExpressionNumberCo
                     type
                 );
             } else {
-                Number number = (Number) value;
-
                 if (Number.class == type) {
                     result = this.successfulConversion(
-                        context.expressionNumberKind()
-                            .create(number),
+                        value,
                         type
                     );
                 } else {
+                    Number number = (Number) value;
+
                     if (ExpressionNumber.isExpressionNumberAndNotNumber(type)) {
                         result = this.successfulConversion(
                             ExpressionNumberKind.BIG_DECIMAL.numberType() == type ?

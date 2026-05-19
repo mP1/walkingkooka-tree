@@ -35,7 +35,7 @@ public abstract class ExpressionNumberConverterTestCase<C extends ExpressionNumb
     implements ConverterTesting2<C, ExpressionNumberConverterContext>,
     ToStringTesting<C> {
 
-    final static ExpressionNumberKind EXPRESSION_NUMBER_KIND = ExpressionNumberKind.BIG_DECIMAL;
+    private final static ExpressionNumberKind EXPRESSION_NUMBER_KIND = ExpressionNumberKind.BIG_DECIMAL;
 
     ExpressionNumberConverterTestCase() {
         super();
