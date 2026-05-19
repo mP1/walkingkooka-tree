@@ -26,7 +26,8 @@ import walkingkooka.tree.expression.ExpressionNumberKind;
 
 /**
  * A {@link Converter} that may be used to convert any {@link Number} including {@link ExpressionNumber} to another
- * {@link Number} including {@link ExpressionNumber}.
+ * {@link Number} including {@link ExpressionNumber}. If the target is {@link Number} the original {@link Number} will
+ * be returned.
  */
 final class ExpressionNumberConverterNumberToNumber<C extends ExpressionNumberConverterContext> extends ExpressionNumberConverter<C> {
 
