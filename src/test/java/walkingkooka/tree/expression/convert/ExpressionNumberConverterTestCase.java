@@ -30,6 +30,7 @@ import walkingkooka.text.LineEnding;
 import walkingkooka.tree.expression.ExpressionNumberKind;
 
 import java.math.MathContext;
+import java.nio.charset.StandardCharsets;
 
 public abstract class ExpressionNumberConverterTestCase<C extends ExpressionNumberConverter<ExpressionNumberConverterContext>>
     implements ConverterTesting2<C, ExpressionNumberConverterContext>,
@@ -52,6 +53,7 @@ public abstract class ExpressionNumberConverterTestCase<C extends ExpressionNumb
             BinaryNumberConverterFunctions.fake(), // multiplier
             ConverterContexts.basic(
                 false, // canNumbersHaveGroupSeparator
+                StandardCharsets.UTF_8,
                 Converters.JAVA_EPOCH_OFFSET, // dateOffset
                 Indentation.SPACES2,
                 LineEnding.NL,

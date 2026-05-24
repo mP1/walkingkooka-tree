@@ -40,6 +40,7 @@ import walkingkooka.tree.expression.function.ExpressionFunctionParameterName;
 import walkingkooka.tree.expression.function.FakeExpressionFunction;
 
 import java.math.MathContext;
+import java.nio.charset.StandardCharsets;
 import java.text.DateFormatSymbols;
 import java.time.LocalDateTime;
 import java.util.Currency;
@@ -312,6 +313,7 @@ public final class ScopedExpressionEvaluationContextTest implements ExpressionEv
                 CaseSensitivity.SENSITIVE,
                 ConverterContexts.basic(
                     false, // canNumbersHaveGroupSeparator
+                    StandardCharsets.UTF_8,
                     0,
                     Indentation.SPACES2,
                     LineEnding.NL,

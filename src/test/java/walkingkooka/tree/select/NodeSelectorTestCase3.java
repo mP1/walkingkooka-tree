@@ -56,6 +56,7 @@ import walkingkooka.tree.expression.convert.ExpressionNumberConverters;
 import walkingkooka.tree.expression.function.ExpressionFunction;
 
 import java.math.MathContext;
+import java.nio.charset.StandardCharsets;
 import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.Collection;
@@ -628,6 +629,7 @@ abstract public class NodeSelectorTestCase3<S extends NodeSelector<TestNode, Str
             BinaryNumberConverterFunctions.fake(), // multiplier
             ConverterContexts.basic(
                 false, // canNumbersHaveGroupSeparator
+                StandardCharsets.UTF_8,
                 Converters.JAVA_EPOCH_OFFSET, // dateOffset
                 Indentation.SPACES2,
                 LineEnding.NL,

@@ -47,6 +47,7 @@ import walkingkooka.tree.expression.FakeExpressionReference;
 import walkingkooka.tree.expression.function.ExpressionEvaluationContextTestingTest.TestExpressionEvaluationContext;
 
 import java.math.MathContext;
+import java.nio.charset.Charset;
 import java.time.LocalDateTime;
 import java.util.Currency;
 import java.util.Locale;
@@ -144,6 +145,11 @@ public class ExpressionEvaluationContextTestingTest implements ExpressionEvaluat
 
         @Override
         public boolean canNumbersHaveGroupSeparator() {
+            throw new UnsupportedOperationException();
+        }
+
+        @Override
+        public Charset charset() {
             throw new UnsupportedOperationException();
         }
 

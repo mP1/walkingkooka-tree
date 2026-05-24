@@ -66,6 +66,7 @@ import walkingkooka.tree.select.parser.NodeSelectorParsers;
 
 import java.math.BigDecimal;
 import java.math.MathContext;
+import java.nio.charset.StandardCharsets;
 import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
@@ -2016,6 +2017,7 @@ public final class NodeSelectorNodeSelectorParserTokenVisitorTest implements Nod
                         BinaryNumberConverterFunctions.fake(), // multiplier
                         ConverterContexts.basic(
                             false, // canNumbersHaveGroupSeparator
+                            StandardCharsets.UTF_8,
                             Converters.JAVA_EPOCH_OFFSET, // dateOffset
                             Indentation.SPACES2,
                             LineEnding.NL,

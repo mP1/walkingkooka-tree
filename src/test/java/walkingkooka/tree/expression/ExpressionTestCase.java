@@ -58,6 +58,7 @@ import walkingkooka.tree.expression.convert.ExpressionNumberConverterContexts;
 import walkingkooka.tree.expression.convert.ExpressionNumberConverters;
 
 import java.math.MathContext;
+import java.nio.charset.StandardCharsets;
 import java.text.DateFormatSymbols;
 import java.text.DecimalFormat;
 import java.time.LocalDate;
@@ -395,6 +396,7 @@ public abstract class ExpressionTestCase<N extends Expression> implements TreePr
             BinaryNumberConverterFunctions.fake(), // multiplier
             ConverterContexts.basic(
                 false, // canNumbersHaveGroupSeparator
+                StandardCharsets.UTF_8,
                 Converters.JAVA_EPOCH_OFFSET,
                 Indentation.SPACES2,
                 LineEnding.NL,

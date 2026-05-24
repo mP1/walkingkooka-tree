@@ -37,6 +37,7 @@ import walkingkooka.text.Indentation;
 import walkingkooka.text.LineEnding;
 import walkingkooka.tree.expression.ExpressionNumberKind;
 
+import java.nio.charset.Charset;
 import java.util.Currency;
 import java.util.Locale;
 import java.util.Objects;
@@ -161,6 +162,11 @@ final class BasicExpressionNumberConverterContext implements ExpressionNumberCon
     @Override
     public CurrencyExchangeRater currencyExchangeRater() {
         return this.context;
+    }
+
+    @Override
+    public Charset charset() {
+        return this.context.charset();
     }
 
     @Override

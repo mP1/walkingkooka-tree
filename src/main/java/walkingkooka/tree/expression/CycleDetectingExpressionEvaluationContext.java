@@ -35,6 +35,7 @@ import walkingkooka.text.Indentation;
 import walkingkooka.tree.expression.function.ExpressionFunction;
 import walkingkooka.tree.expression.function.ExpressionFunctionParameter;
 
+import java.nio.charset.Charset;
 import java.time.LocalDateTime;
 import java.util.Currency;
 import java.util.Locale;
@@ -228,6 +229,11 @@ final class CycleDetectingExpressionEvaluationContext implements ExpressionEvalu
     @Override
     public boolean canNumbersHaveGroupSeparator() {
         return this.context.canNumbersHaveGroupSeparator();
+    }
+
+    @Override
+    public Charset charset() {
+        return this.context.charset();
     }
 
     @Override
