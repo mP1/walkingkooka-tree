@@ -47,6 +47,7 @@ import walkingkooka.tree.expression.convert.ExpressionNumberConverterContexts;
 import walkingkooka.tree.expression.convert.ExpressionNumberConverters;
 import walkingkooka.tree.expression.function.ExpressionFunction;
 
+import java.nio.charset.StandardCharsets;
 import java.time.LocalDateTime;
 import java.util.Currency;
 import java.util.Locale;
@@ -79,6 +80,7 @@ public final class BasicNodeSelectorContextTest implements ClassTesting2<BasicNo
         BinaryNumberConverterFunctions.fake(), // multiplier
         ConverterContexts.basic(
             false, // canNumbersHaveGroupSeparator
+            StandardCharsets.UTF_8,
             Converters.JAVA_EPOCH_OFFSET, // dateOffset
             Indentation.SPACES2,
             LineEnding.NL,

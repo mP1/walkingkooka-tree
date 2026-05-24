@@ -36,6 +36,7 @@ import walkingkooka.text.LineEnding;
 import walkingkooka.tree.expression.ExpressionEvaluationContextDelegatorTest.TestExpressionEvaluationContextDelegator;
 
 import java.math.MathContext;
+import java.nio.charset.StandardCharsets;
 import java.text.DateFormatSymbols;
 import java.time.LocalDateTime;
 import java.util.Currency;
@@ -122,6 +123,7 @@ public final class ExpressionEvaluationContextDelegatorTest implements Expressio
                 CaseSensitivity.SENSITIVE,
                 ConverterContexts.basic(
                     false, // canNumbersHaveGroupSeparator
+                    StandardCharsets.UTF_8,
                     0,
                     Indentation.SPACES2,
                     LineEnding.NL,

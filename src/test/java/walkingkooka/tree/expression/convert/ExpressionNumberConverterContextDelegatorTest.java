@@ -35,6 +35,7 @@ import walkingkooka.tree.expression.ExpressionNumberKind;
 import walkingkooka.tree.expression.convert.ExpressionNumberConverterContextDelegatorTest.TestExpressionNumberConverterContextDelegator;
 
 import java.math.MathContext;
+import java.nio.charset.StandardCharsets;
 import java.text.DateFormatSymbols;
 import java.time.LocalDateTime;
 import java.util.Currency;
@@ -88,6 +89,7 @@ public final class ExpressionNumberConverterContextDelegatorTest implements Expr
                 BinaryNumberConverterFunctions.multiply(), // multiplier
                 ConverterContexts.basic(
                     false, // canNumbersHaveGroupSeparator
+                    StandardCharsets.UTF_8,
                     0,
                     Indentation.SPACES2,
                     LineEnding.NL,
