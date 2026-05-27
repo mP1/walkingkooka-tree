@@ -48,6 +48,7 @@ import walkingkooka.tree.expression.function.ExpressionEvaluationContextTestingT
 
 import java.math.MathContext;
 import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.time.LocalDateTime;
 import java.util.Currency;
 import java.util.Locale;
@@ -150,7 +151,7 @@ public class ExpressionEvaluationContextTestingTest implements ExpressionEvaluat
 
         @Override
         public Charset charset() {
-            throw new UnsupportedOperationException();
+            return StandardCharsets.UTF_8;
         }
 
         @Override
@@ -360,6 +361,7 @@ public class ExpressionEvaluationContextTestingTest implements ExpressionEvaluat
 
         private final EnvironmentContext environmentContext = EnvironmentContexts.map(
             EnvironmentContexts.empty(
+                StandardCharsets.UTF_8,
                 Currency.getInstance("AUD"),
                 Indentation.SPACES2,
                 LineEnding.NL,

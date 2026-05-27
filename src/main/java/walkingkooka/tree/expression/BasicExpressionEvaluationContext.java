@@ -33,6 +33,7 @@ import walkingkooka.text.LineEnding;
 import walkingkooka.tree.expression.function.ExpressionFunction;
 import walkingkooka.tree.expression.function.ExpressionFunctionParameter;
 
+import java.nio.charset.Charset;
 import java.time.LocalDateTime;
 import java.util.Locale;
 import java.util.Objects;
@@ -234,6 +235,11 @@ final class BasicExpressionEvaluationContext implements ExpressionEvaluationCont
                 Objects.requireNonNull(environmentContext, "environmentContext"),
                 this.localeContext
             );
+    }
+
+    @Override
+    public Charset charset() {
+        return this.environmentContext.charset();
     }
 
     @Override

@@ -110,6 +110,7 @@ public final class BasicNodeSelectorContextTest implements ClassTesting2<BasicNo
                 CONVERTER_CONTEXT,
                 EnvironmentContexts.map(
                     EnvironmentContexts.empty(
+                        StandardCharsets.UTF_8,
                         Currency.getInstance("AUD"),
                         Indentation.SPACES2,
                         LineEnding.NL,

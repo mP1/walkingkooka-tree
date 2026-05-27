@@ -42,6 +42,7 @@ import walkingkooka.tree.expression.function.ExpressionFunction;
 import walkingkooka.tree.expression.function.ExpressionFunctionParameter;
 import walkingkooka.tree.select.parser.NodeSelectorAttributeName;
 
+import java.nio.charset.Charset;
 import java.time.LocalDateTime;
 import java.util.Locale;
 import java.util.Objects;
@@ -227,6 +228,11 @@ final class BasicNodeSelectorExpressionEvaluationContext<N extends Node<N, NAME,
                 this.node,
                 this.context
             );
+    }
+
+    @Override
+    public Charset charset() {
+        return this.context.charset();
     }
 
     @Override

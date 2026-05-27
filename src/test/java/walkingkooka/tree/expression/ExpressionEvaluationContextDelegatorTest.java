@@ -144,6 +144,7 @@ public final class ExpressionEvaluationContextDelegatorTest implements Expressio
                 ),
                 EnvironmentContexts.map(
                     EnvironmentContexts.empty(
+                        StandardCharsets.UTF_8,
                         Currency.getInstance("AUD"),
                         Indentation.SPACES2,
                         LineEnding.NL,

@@ -486,6 +486,7 @@ public final class CycleDetectingExpressionEvaluationContextTest implements Clas
                 ),
                 EnvironmentContexts.map(
                     EnvironmentContexts.empty(
+                        StandardCharsets.UTF_8,
                         Currency.getInstance("AUD"),
                         Indentation.SPACES2,
                         LineEnding.NL,
