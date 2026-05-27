@@ -33,6 +33,7 @@ import walkingkooka.text.LineEnding;
 import walkingkooka.tree.expression.function.ExpressionFunction;
 import walkingkooka.tree.expression.function.ExpressionFunctionParameter;
 
+import java.nio.charset.Charset;
 import java.time.LocalDateTime;
 import java.util.Locale;
 import java.util.Optional;
@@ -86,6 +87,11 @@ public interface ExpressionEvaluationContextDelegator extends ExpressionEvaluati
     }
 
     // EnvironmentContext...............................................................................................
+
+    @Override
+    default Charset charset() {
+        return EnvironmentContextDelegator.super.charset();
+    }
 
     @Override
     default Indentation indentation() {

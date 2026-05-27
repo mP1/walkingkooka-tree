@@ -108,6 +108,7 @@ public final class BasicExpressionEvaluationContextTest implements ClassTesting2
         Predicates.always(), // all values are read only
         EnvironmentContexts.map(
             EnvironmentContexts.empty(
+                StandardCharsets.UTF_8,
                 CURRENCY,
                 INDENTATION,
                 LineEnding.NL,
