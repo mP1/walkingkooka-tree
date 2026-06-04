@@ -117,6 +117,6 @@ final class ExpressionNumberConverterNumberToNumber<C extends ExpressionNumberCo
 
     @Override
     public String toString() {
-        return "number to number";
+        return Number.class.getSimpleName() + " to " + Number.class.getSimpleName();
     }
 }

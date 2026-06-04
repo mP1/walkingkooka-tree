@@ -214,7 +214,7 @@ public final class ExpressionNumberConverterNumberToNumberTest extends Expressio
     public void testToString() {
         this.toStringAndCheck(
             ExpressionNumberConverterNumberToNumber.instance(),
-            "number to number"
+            "Number to Number"
         );
     }
 
