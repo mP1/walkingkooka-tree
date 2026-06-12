@@ -156,10 +156,6 @@ abstract class ExpressionEvaluationContextPrepareParametersList extends Abstract
         return preparedValue;
     }
 
-    private void invalidParameter(final int index) {
-
-    }
-
     final Object prepareValue(final ExpressionFunctionParameter<?> parameter,
                               final Object value) {
         final ExpressionEvaluationContext context = this.context;
