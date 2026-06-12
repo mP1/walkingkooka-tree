@@ -92,6 +92,7 @@ public final class ExpressionFunctions implements PublicStaticHelper {
             currencyValue(),
             eval(),
             list(),
+            listNonNull(),
             locale(),
             localeLanguageTag(),
             node(),
@@ -189,6 +190,13 @@ public final class ExpressionFunctions implements PublicStaticHelper {
      */
     public static <C extends ExpressionEvaluationContext> ExpressionFunction<List<?>, C> list() {
         return TreeExpressionFunctionListSharedList.instance();
+    }
+
+    /**
+     * {@see TreeExpressionFunctionListSharedListNonNull}
+     */
+    public static <C extends ExpressionEvaluationContext> ExpressionFunction<List<?>, C> listNonNull() {
+        return TreeExpressionFunctionListSharedListNonNull.instance();
     }
 
     /**
