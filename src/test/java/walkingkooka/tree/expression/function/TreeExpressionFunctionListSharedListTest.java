@@ -46,6 +46,21 @@ public class TreeExpressionFunctionListSharedListTest extends TreeExpressionFunc
     }
 
     @Test
+    public void testApplyIncludesNullElement() {
+        final List<Object> list = Lists.of(
+            10,
+            null,
+            20,
+            null
+        );
+
+        this.applyAndCheck(
+            list,
+            list
+        );
+    }
+
+    @Test
     public void testApply() {
         final List<Object> list = Lists.of(10, 20);
 
