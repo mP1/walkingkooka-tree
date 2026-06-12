@@ -30,9 +30,8 @@ import java.util.List;
 import java.util.Optional;
 import java.util.function.Function;
 
-public class TreeExpressionFunctionListTest extends TreeExpressionFunctionTestCase<TreeExpressionFunctionList<FakeExpressionEvaluationContext>,
-    FakeExpressionEvaluationContext,
-    List<?>> {
+public class TreeExpressionFunctionListSharedListTest extends TreeExpressionFunctionListSharedTestCase<TreeExpressionFunctionListSharedList<FakeExpressionEvaluationContext>,
+    FakeExpressionEvaluationContext> {
 
     // apply............................................................................................................
 
@@ -59,8 +58,8 @@ public class TreeExpressionFunctionListTest extends TreeExpressionFunctionTestCa
     // helpers..........................................................................................................
 
     @Override
-    public TreeExpressionFunctionList<FakeExpressionEvaluationContext> createBiFunction() {
-        return TreeExpressionFunctionList.instance();
+    public TreeExpressionFunctionListSharedList<FakeExpressionEvaluationContext> createBiFunction() {
+        return TreeExpressionFunctionListSharedList.instance();
     }
 
     @Override
@@ -114,7 +113,7 @@ public class TreeExpressionFunctionListTest extends TreeExpressionFunctionTestCa
     // class............................................................................................................
 
     @Override
-    public Class<TreeExpressionFunctionList<FakeExpressionEvaluationContext>> type() {
-        return Cast.to(TreeExpressionFunctionList.class);
+    public Class<TreeExpressionFunctionListSharedList<FakeExpressionEvaluationContext>> type() {
+        return Cast.to(TreeExpressionFunctionListSharedList.class);
     }
 }
