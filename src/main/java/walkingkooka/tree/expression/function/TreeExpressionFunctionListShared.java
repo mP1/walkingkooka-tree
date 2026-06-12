@@ -18,7 +18,6 @@
 package walkingkooka.tree.expression.function;
 
 import walkingkooka.Cast;
-import walkingkooka.collect.list.Lists;
 import walkingkooka.tree.expression.ExpressionEvaluationContext;
 import walkingkooka.tree.expression.ExpressionPurityContext;
 
@@ -27,47 +26,30 @@ import java.util.List;
 /**
  * A {@link ExpressionFunction} which accepts values and returns a {@link List}.
  */
-final class TreeExpressionFunctionList<C extends ExpressionEvaluationContext> extends TreeExpressionFunction<List<?>, C> {
+abstract class TreeExpressionFunctionListShared<C extends ExpressionEvaluationContext> extends TreeExpressionFunction<List<?>, C> {
 
-    static <C extends ExpressionEvaluationContext> TreeExpressionFunctionList<C> instance() {
-        return INSTANCE;
-    }
-
-    private final static TreeExpressionFunctionList INSTANCE = new TreeExpressionFunctionList<>();
-
-    private TreeExpressionFunctionList() {
-        super("list");
+    TreeExpressionFunctionListShared(final String name) {
+        super(name);
     }
 
     @Override
-    public boolean isPure(final ExpressionPurityContext context) {
+    public final boolean isPure(final ExpressionPurityContext context) {
         return true;
     }
 
     @Override
-    public List<ExpressionFunctionParameter<?>> parameters(final int count) {
+    public final List<ExpressionFunctionParameter<?>> parameters(final int count) {
         return PARAMETERS;
     }
 
     @Override
-    public Class<List<?>> returnType() {
+    public final Class<List<?>> returnType() {
         return LIST;
     }
 
     private final static Class<List<?>> LIST = Cast.to(List.class);
 
-    @Override
-    public List<?> apply(final List<Object> parameters,
-                         final C context) {
-        return Lists.immutable(
-            ELEMENTS.getVariable(
-                parameters,
-                0
-            )
-        );
-    }
-
-    private final static ExpressionFunctionParameter<Object> ELEMENTS = ExpressionFunctionParameterName.with("elements")
+    final static ExpressionFunctionParameter<Object> ELEMENTS = ExpressionFunctionParameterName.with("elements")
         .variable(Object.class)
         .setKinds(
             ExpressionFunctionParameterKind.EVALUATE_RESOLVE_REFERENCES

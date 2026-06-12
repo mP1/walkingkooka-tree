@@ -185,10 +185,10 @@ public final class ExpressionFunctions implements PublicStaticHelper {
     }
 
     /**
-     * {@see TreeExpressionFunctionList}
+     * {@see TreeExpressionFunctionListSharedList}
      */
     public static <C extends ExpressionEvaluationContext> ExpressionFunction<List<?>, C> list() {
-        return TreeExpressionFunctionList.instance();
+        return TreeExpressionFunctionListSharedList.instance();
     }
 
     /**
