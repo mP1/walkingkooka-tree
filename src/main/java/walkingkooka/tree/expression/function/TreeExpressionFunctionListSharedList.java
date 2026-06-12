@@ -38,8 +38,8 @@ final class TreeExpressionFunctionListSharedList<C extends ExpressionEvaluationC
     }
 
     @Override
-    public final List<?> apply(final List<Object> parameters,
-                               final C context) {
+    public List<?> apply(final List<Object> parameters,
+                         final C context) {
         return Lists.immutable(
             ELEMENTS.getVariable(
                 parameters,
