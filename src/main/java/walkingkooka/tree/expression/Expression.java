@@ -21,6 +21,7 @@ import walkingkooka.Cast;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.naming.Name;
+import walkingkooka.net.header.MediaType;
 import walkingkooka.text.HasText;
 import walkingkooka.text.printer.IndentingPrinter;
 import walkingkooka.text.printer.TreePrintable;
@@ -51,6 +52,11 @@ public abstract class Expression implements Node<Expression, ExpressionFunctionN
     ExpressionPurity,
     HasText,
     TreePrintable {
+
+    /**
+     * The content type for any {@link Expression}.
+     */
+    public final static MediaType MEDIA_TYPE = MediaType.parse("text/expression");
 
     /**
      * An empty list that holds no children.
