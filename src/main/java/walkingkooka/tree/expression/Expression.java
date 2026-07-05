@@ -20,6 +20,7 @@ package walkingkooka.tree.expression;
 import walkingkooka.Cast;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.Maps;
+import walkingkooka.io.FileExtension;
 import walkingkooka.naming.Name;
 import walkingkooka.net.header.MediaType;
 import walkingkooka.text.HasText;
@@ -52,6 +53,11 @@ public abstract class Expression implements Node<Expression, ExpressionFunctionN
     ExpressionPurity,
     HasText,
     TreePrintable {
+
+    /**
+     * {@link #FILE_EXTENSION}.
+     */
+    public final static FileExtension FILE_EXTENSION = FileExtension.EXPRESSION;
 
     /**
      * The content type for any {@link Expression}.
