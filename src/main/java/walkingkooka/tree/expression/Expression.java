@@ -55,7 +55,7 @@ public abstract class Expression implements Node<Expression, ExpressionFunctionN
     TreePrintable {
 
     /**
-     * {@link #FILE_EXTENSION}.
+     * The default or preferred {@link FileExtension} for expressions.
      */
     public final static FileExtension FILE_EXTENSION = FileExtension.EXPRESSION;
 
