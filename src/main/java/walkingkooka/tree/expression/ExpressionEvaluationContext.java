@@ -40,7 +40,8 @@ import java.util.function.Supplier;
 /**
  * A {@link Context} that travels during any expression evaluation.
  */
-public interface ExpressionEvaluationContext extends ExpressionNumberConverterContext,
+public interface ExpressionEvaluationContext extends CanEvaluateExpression,
+    ExpressionNumberConverterContext,
     ExpressionNumberContext,
     ExpressionPurityContext,
     HasExpressionFunction,
@@ -78,6 +79,7 @@ public interface ExpressionEvaluationContext extends ExpressionNumberConverterCo
     /**
      * Evaluate the given {@link Expression} returning the result/value.
      */
+    @Override
     default Object evaluateExpression(final Expression expression) {
         Objects.requireNonNull(expression, "expression");
 
