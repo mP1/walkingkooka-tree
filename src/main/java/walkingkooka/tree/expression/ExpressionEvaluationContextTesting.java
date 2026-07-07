@@ -36,6 +36,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
  * Mixing testing interface for {@link ExpressionEvaluationContext}
  */
 public interface ExpressionEvaluationContextTesting<C extends ExpressionEvaluationContext> extends
+    CanEvaluateExpressionTesting,
     ConverterLikeTesting<C>,
     EnvironmentContextTesting2<C>,
     ExpressionNumberContextTesting<C>,
@@ -118,14 +119,6 @@ public interface ExpressionEvaluationContextTesting<C extends ExpressionEvaluati
     default void evaluateExpressionAndCheck(final Expression expression,
                                             final Object value) {
         this.evaluateExpressionAndCheck(this.createContext(), expression, value);
-    }
-
-    default void evaluateExpressionAndCheck(final C context,
-                                            final Expression expression,
-                                            final Object value) {
-        this.checkEquals(value,
-            context.evaluateExpression(expression),
-            () -> "evaluate " + expression + " " + context);
     }
 
     default void toValueAndCheck(final Expression node,
