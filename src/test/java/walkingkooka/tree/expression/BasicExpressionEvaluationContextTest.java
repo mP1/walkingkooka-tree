@@ -42,6 +42,7 @@ import walkingkooka.math.DecimalNumberContexts;
 import walkingkooka.predicate.Predicates;
 import walkingkooka.reflect.ClassTesting2;
 import walkingkooka.reflect.JavaVisibility;
+import walkingkooka.reflect.ThrowableTesting;
 import walkingkooka.text.CaseSensitivity;
 import walkingkooka.text.Indentation;
 import walkingkooka.text.LineEnding;
@@ -69,7 +70,8 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 public final class BasicExpressionEvaluationContextTest implements ClassTesting2<BasicExpressionEvaluationContext>,
     ExpressionEvaluationContextTesting<BasicExpressionEvaluationContext>,
     ToStringTesting<BasicExpressionEvaluationContext>,
-    DecimalNumberContextDelegator {
+    DecimalNumberContextDelegator,
+    ThrowableTesting {
 
     private final static ExpressionNumberKind KIND = ExpressionNumberKind.DEFAULT;
 
@@ -565,9 +567,9 @@ public final class BasicExpressionEvaluationContextTest implements ClassTesting2
             )
         );
 
-        this.checkEquals(
-            "HelloFunction: number: Failed to convert \"String1\" (java.lang.String) to walkingkooka.tree.expression.ExpressionNumber",
-            thrown.getMessage()
+        this.getMessageAndCheck(
+            thrown,
+            "HelloFunction: number: Failed to convert \"String1\" (java.lang.String) to walkingkooka.tree.expression.ExpressionNumber"
         );
     }
 
@@ -876,9 +878,9 @@ public final class BasicExpressionEvaluationContextTest implements ClassTesting2
             REFERENCE,
             thrown.expressionReference()
         );
-        this.checkEquals(
-            REFERENCE_NOT_FOUND_MESSAGE,
-            thrown.getMessage()
+        this.getMessageAndCheck(
+            thrown,
+            REFERENCE_NOT_FOUND_MESSAGE
         );
     }
 

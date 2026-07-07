@@ -22,6 +22,7 @@ import walkingkooka.Either;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.reflect.ClassTesting;
 import walkingkooka.reflect.JavaVisibility;
+import walkingkooka.reflect.ThrowableTesting;
 import walkingkooka.text.CharSequences;
 import walkingkooka.tree.expression.function.ExpressionFunction;
 import walkingkooka.tree.expression.function.ExpressionFunctionParameter;
@@ -36,7 +37,8 @@ import java.util.function.Function;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class ExpressionEvaluationContextTest implements ClassTesting<ExpressionEvaluationContext> {
+public final class ExpressionEvaluationContextTest implements ClassTesting<ExpressionEvaluationContext>,
+    ThrowableTesting {
 
     @Test
     public void testEvaluateIfNecessaryNull() {
@@ -391,9 +393,9 @@ public final class ExpressionEvaluationContextTest implements ClassTesting<Expre
             )
         );
 
-        this.checkEquals(
-            message,
-            thrown.getMessage()
+        this.getMessageAndCheck(
+            thrown,
+            message
         );
     }
     
@@ -449,9 +451,9 @@ public final class ExpressionEvaluationContextTest implements ClassTesting<Expre
             )
         );
 
-        this.checkEquals(
-            message,
-            thrown.getMessage()
+        this.getMessageAndCheck(
+            thrown,
+            message
         );
     }
 
@@ -498,9 +500,9 @@ public final class ExpressionEvaluationContextTest implements ClassTesting<Expre
             )
         );
 
-        this.checkEquals(
-            "TestFunction123: Missing parameter(s): date-time, time",
-            thrown.getMessage()
+        this.getMessageAndCheck(
+            thrown,
+            "TestFunction123: Missing parameter(s): date-time, time"
         );
     }
 

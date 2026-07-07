@@ -23,6 +23,7 @@ import walkingkooka.collect.set.Sets;
 import walkingkooka.convert.ConverterException;
 import walkingkooka.reflect.ClassTesting;
 import walkingkooka.reflect.JavaVisibility;
+import walkingkooka.reflect.ThrowableTesting;
 import walkingkooka.text.printer.TreePrintableTesting;
 import walkingkooka.tree.expression.function.ExpressionFunctionParameter;
 import walkingkooka.tree.expression.function.ExpressionFunctionParameterKind;
@@ -33,7 +34,8 @@ import java.util.Optional;
 
 public abstract class ExpressionEvaluationContextPrepareParametersListTestCase<T extends ExpressionEvaluationContextPrepareParametersList> implements ClassTesting<T>,
     ListTesting,
-    TreePrintableTesting {
+    TreePrintableTesting,
+    ThrowableTesting {
 
     final static ExpressionFunctionParameter<Integer> REQUIRED = ExpressionFunctionParameterName.with("required-integer")
         .required(Integer.class);

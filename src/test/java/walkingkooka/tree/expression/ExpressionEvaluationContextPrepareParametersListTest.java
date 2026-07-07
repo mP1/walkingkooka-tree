@@ -66,9 +66,9 @@ public final class ExpressionEvaluationContextPrepareParametersListTest extends 
             ).get(1)
         );
 
-        this.checkEquals(
-            "TestFunction: Unknown parameter 1 expected only 1",
-            thrown.getMessage()
+        this.getMessageAndCheck(
+            thrown,
+            "TestFunction: Unknown parameter 1 expected only 1"
 
         );
     }
