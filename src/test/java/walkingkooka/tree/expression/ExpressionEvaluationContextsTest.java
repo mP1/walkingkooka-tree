@@ -20,10 +20,12 @@ package walkingkooka.tree.expression;
 import org.junit.jupiter.api.Test;
 import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.reflect.PublicStaticHelperTesting;
+import walkingkooka.reflect.ThrowableTesting;
 
 import java.lang.reflect.Method;
 
-public class ExpressionEvaluationContextsTest implements PublicStaticHelperTesting<ExpressionEvaluationContexts> {
+public class ExpressionEvaluationContextsTest implements PublicStaticHelperTesting<ExpressionEvaluationContexts>,
+    ThrowableTesting {
 
     @Test
     public void testReferenceNotFound() {
@@ -44,10 +46,9 @@ public class ExpressionEvaluationContextsTest implements PublicStaticHelperTesti
         );
 
 
-        this.checkEquals(
-            "Reference not found: Reference123",
-            thrown.getMessage(),
-            reference::toString
+        this.getMessageAndCheck(
+            thrown,
+            "Reference not found: Reference123"
         );
     }
 

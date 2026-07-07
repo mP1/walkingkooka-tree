@@ -23,6 +23,7 @@ import walkingkooka.compare.ComparableTesting2;
 import walkingkooka.reflect.ClassTesting;
 import walkingkooka.reflect.IsMethodTesting;
 import walkingkooka.reflect.JavaVisibility;
+import walkingkooka.reflect.ThrowableTesting;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
@@ -37,6 +38,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 public abstract class ExpressionNumberTestCase<N extends ExpressionNumber> implements ClassTesting<N>,
     ComparableTesting2<ExpressionNumber>,
     IsMethodTesting<N>,
+    ThrowableTesting,
     ToStringTesting<N> {
 
     final static ExpressionNumberContext CONTEXT = createContext(MathContext.DECIMAL32);
@@ -450,10 +452,9 @@ public abstract class ExpressionNumberTestCase<N extends ExpressionNumber> imple
             ExpressionEvaluationException.class,
             () -> number.divide(this.create(0), CONTEXT)
         );
-        this.checkEquals(
-            "Division by zero",
-            thrown.getMessage(),
-            "message"
+        this.getMessageAndCheck(
+            thrown,
+            "Division by zero"
         );
         this.checkEquals(
             ArithmeticException.class,
