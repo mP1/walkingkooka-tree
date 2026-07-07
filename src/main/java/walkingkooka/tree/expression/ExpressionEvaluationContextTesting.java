@@ -118,7 +118,11 @@ public interface ExpressionEvaluationContextTesting<C extends ExpressionEvaluati
 
     default void evaluateExpressionAndCheck(final Expression expression,
                                             final Object value) {
-        this.evaluateExpressionAndCheck(this.createContext(), expression, value);
+        this.evaluateExpressionAndCheck(
+            this.createContext(),
+            expression,
+            value
+        );
     }
 
     default void toValueAndCheck(final Expression node,
@@ -184,7 +188,10 @@ public interface ExpressionEvaluationContextTesting<C extends ExpressionEvaluati
                                               final T expected) {
         this.checkEquals(
             expected,
-            context.evaluateFunction(function, parameters),
+            context.evaluateFunction(
+                function,
+                parameters
+            ),
             () -> "evaluate " + function + " " + parameters
         );
     }
