@@ -272,7 +272,7 @@ public abstract class NodePointer<N extends Node<N, NAME, ?, ?>, NAME extends Na
     /**
      * Returns the next {@link NodePointer} in the chain.
      */
-    public Optional<NodePointer<N, NAME>> next() {
+    public final Optional<NodePointer<N, NAME>> next() {
         return Optional.ofNullable(this.next);
     }
 
