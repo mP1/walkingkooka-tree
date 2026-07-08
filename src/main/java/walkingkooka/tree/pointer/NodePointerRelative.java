@@ -91,11 +91,6 @@ final class NodePointerRelative<N extends Node<N, NAME, ?, ?>, NAME extends Name
     private final boolean hash;
 
     @Override
-    public boolean isRelative() {
-        return true;
-    }
-
-    @Override
     N add0(final N node, final N value) {
         return this.next.add0(
             node,

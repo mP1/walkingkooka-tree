@@ -293,7 +293,9 @@ public abstract class NodePointer<N extends Node<N, NAME, ?, ?>, NAME extends Na
     /**
      * Tests if this is a relative pointer.
      */
-    abstract public boolean isRelative();
+    public final boolean isRelative() {
+        return this instanceof NodePointerRelative;
+    }
 
     // NodePatch helpers................................................................................................
 

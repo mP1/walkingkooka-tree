@@ -56,11 +56,6 @@ final class NodePointerAny<N extends Node<N, NAME, ?, ?>, NAME extends Name> ext
     }
 
     @Override
-    public boolean isRelative() {
-        return false;
-    }
-
-    @Override
     N add0(final N node, final N value) {
         throw new UnsupportedOperationException("Add not supported for " + this);
     }
