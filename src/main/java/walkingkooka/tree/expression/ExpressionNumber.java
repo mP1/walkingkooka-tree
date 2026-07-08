@@ -375,10 +375,9 @@ public abstract class ExpressionNumber extends Number implements Comparable<Expr
     @Override
     public final boolean equals(final Object other) {
         return this == other ||
-            this.canBeEqual(other) && CompareResult.EQ.test(this.compareTo((ExpressionNumber) other));
+            null != other && this.getClass() == other.getClass() &&
+                CompareResult.EQ.test(this.compareTo((ExpressionNumber) other));
     }
-
-    abstract boolean canBeEqual(final Object other);
 
     /**
      * If the toString has only decimal zeros remove them.
