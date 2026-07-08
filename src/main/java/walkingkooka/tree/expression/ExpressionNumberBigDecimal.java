@@ -403,12 +403,7 @@ final class ExpressionNumberBigDecimal extends ExpressionNumber {
 
     final BigDecimal value;
 
-    // Object............................................................................................................
-
-    @Override
-    public int hashCode() {
-        return value.stripTrailingZeros().hashCode();
-    }
+    // Object...........................................................................................................
 
     private boolean equalsValue(final BigDecimal value) {
         return CompareResult.EQ.test(this.value.compareTo(value));
