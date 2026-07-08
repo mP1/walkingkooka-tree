@@ -62,11 +62,6 @@ final class NodePointerAppend<N extends Node<N, NAME, ?, ?>, NAME extends Name> 
     }
 
     @Override
-    public boolean isRelative() {
-        return false;
-    }
-
-    @Override
     N add0(final N node, final N value) {
         return node.appendChild(value);
     }
