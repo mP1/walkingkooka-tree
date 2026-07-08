@@ -360,13 +360,6 @@ final class ExpressionNumberDouble extends ExpressionNumber {
 
     private final double value;
 
-    // Object............................................................................................................
-
-    @Override
-    public int hashCode() {
-        return Double.hashCode(this.value);
-    }
-
     // Comparable.......................................................................................................
 
     @Override

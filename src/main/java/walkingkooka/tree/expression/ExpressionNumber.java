@@ -370,7 +370,10 @@ public abstract class ExpressionNumber extends Number implements Comparable<Expr
     // Object...........................................................................................................
 
     @Override
-    public abstract int hashCode();
+    public final int hashCode() {
+        return this.value()
+            .hashCode();
+    }
 
     @Override
     public final boolean equals(final Object other) {
