@@ -367,11 +367,6 @@ final class ExpressionNumberDouble extends ExpressionNumber {
         return Double.hashCode(this.value);
     }
 
-    @Override
-    boolean canBeEqual(final Object other) {
-        return other instanceof ExpressionNumberDouble;
-    }
-
     // Comparable.......................................................................................................
 
     @Override

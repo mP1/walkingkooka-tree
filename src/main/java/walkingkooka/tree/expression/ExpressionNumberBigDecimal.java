@@ -410,11 +410,6 @@ final class ExpressionNumberBigDecimal extends ExpressionNumber {
         return value.stripTrailingZeros().hashCode();
     }
 
-    @Override
-    boolean canBeEqual(final Object other) {
-        return other instanceof ExpressionNumberBigDecimal;
-    }
-
     private boolean equalsValue(final BigDecimal value) {
         return CompareResult.EQ.test(this.value.compareTo(value));
     }
