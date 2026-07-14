@@ -22,6 +22,7 @@ import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.io.FileExtension;
 import walkingkooka.naming.Name;
+import walkingkooka.net.header.HasContentType;
 import walkingkooka.net.header.MediaType;
 import walkingkooka.text.HasText;
 import walkingkooka.text.printer.IndentingPrinter;
@@ -51,6 +52,7 @@ import java.util.function.Predicate;
  */
 public abstract class Expression implements Node<Expression, ExpressionFunctionName, Name, Object>,
     ExpressionPurity,
+    HasContentType,
     HasText,
     TreePrintable {
 
@@ -642,4 +644,13 @@ public abstract class Expression implements Node<Expression, ExpressionFunctionN
             functions,
             Expression.class);
     }
+
+    // HasContentType...................................................................................................
+
+    @Override
+    public Optional<MediaType> contentType() {
+        return CONTENT_TYPE;
+    }
+
+    private final static Optional<MediaType> CONTENT_TYPE = Optional.of(MEDIA_TYPE);
 }

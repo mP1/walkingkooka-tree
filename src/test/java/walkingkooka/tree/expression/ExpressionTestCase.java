@@ -34,6 +34,7 @@ import walkingkooka.locale.LocaleContext;
 import walkingkooka.locale.LocaleContexts;
 import walkingkooka.math.DecimalNumberContexts;
 import walkingkooka.naming.Name;
+import walkingkooka.net.header.HasContentTypeTesting;
 import walkingkooka.predicate.Predicates;
 import walkingkooka.reflect.ClassTesting2;
 import walkingkooka.reflect.IsMethodTesting;
@@ -74,6 +75,7 @@ import java.util.function.Predicate;
 
 public abstract class ExpressionTestCase<N extends Expression> implements TreePrintableTesting,
     ClassTesting2<Expression>,
+    HasContentTypeTesting,
     HasTextTesting,
     ExpressionPurityTesting,
     IsMethodTesting<N>,
@@ -96,6 +98,16 @@ public abstract class ExpressionTestCase<N extends Expression> implements TreePr
     @Override
     public final void testSetSameAttributes() {
         // Ignored
+    }
+
+    // HasContentType...................................................................................................
+
+    @Test
+    public final void testContentType() {
+        this.contentTypeAndCheck(
+            this.createExpression(),
+            Expression.MEDIA_TYPE
+        );
     }
 
     // HasText.........................................................................................................
