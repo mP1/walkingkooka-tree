@@ -34,6 +34,7 @@ import walkingkooka.math.DecimalNumberContexts;
 import walkingkooka.text.CaseSensitivity;
 import walkingkooka.text.Indentation;
 import walkingkooka.text.LineEnding;
+import walkingkooka.text.TextPrinting;
 import walkingkooka.tree.expression.function.ExpressionFunctionParameter;
 import walkingkooka.tree.expression.function.ExpressionFunctionParameterCardinality;
 import walkingkooka.tree.expression.function.ExpressionFunctionParameterName;
@@ -313,13 +314,14 @@ public final class ScopedExpressionEvaluationContextTest implements ExpressionEv
                 CaseSensitivity.SENSITIVE,
                 ConverterContexts.basic(
                     false, // canNumbersHaveGroupSeparator
-                    StandardCharsets.UTF_8,
                     0,
-                    Indentation.SPACES2,
-                    LineEnding.NL,
                     ',', // valueSeparator
                     Converters.fake(),
                     BinaryNumberConverterFunctions.fake(), // multiplier
+                    TextPrinting.with(
+                        Indentation.SPACES2,
+                        LineEnding.NL
+                    ).setCharset(StandardCharsets.UTF_8),
                     CurrencyLocaleContexts.fake(),
                     DateTimeContexts.basic(
                         DateTimeSymbols.fromDateFormatSymbols(

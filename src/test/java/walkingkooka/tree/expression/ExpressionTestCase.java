@@ -44,6 +44,7 @@ import walkingkooka.text.CaseSensitivity;
 import walkingkooka.text.HasTextTesting;
 import walkingkooka.text.Indentation;
 import walkingkooka.text.LineEnding;
+import walkingkooka.text.TextPrinting;
 import walkingkooka.text.cursor.parser.DoubleParserToken;
 import walkingkooka.text.cursor.parser.InvalidCharacterExceptionFactory;
 import walkingkooka.text.cursor.parser.LocalDateParserToken;
@@ -408,13 +409,14 @@ public abstract class ExpressionTestCase<N extends Expression> implements TreePr
             BinaryNumberConverterFunctions.fake(), // multiplier
             ConverterContexts.basic(
                 false, // canNumbersHaveGroupSeparator
-                StandardCharsets.UTF_8,
                 Converters.JAVA_EPOCH_OFFSET,
-                Indentation.SPACES2,
-                LineEnding.NL,
                 ',', // valueSeparator
                 Converters.simple(),
                 BinaryNumberConverterFunctions.fake(), // multiplier
+                TextPrinting.with(
+                    Indentation.SPACES2,
+                    LineEnding.NL
+                ).setCharset(StandardCharsets.UTF_8),
                 CurrencyContexts.jre(
                     Currency.getInstance(locale),
                     new FakeCurrencyExchangeRater(),
