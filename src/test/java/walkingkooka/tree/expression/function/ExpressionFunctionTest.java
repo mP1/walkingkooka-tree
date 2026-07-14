@@ -47,112 +47,174 @@ public final class ExpressionFunctionTest implements ClassTesting<ExpressionFunc
     // checkParameterCount..............................................................................................
 
     @Test
-    public void testCheckParametersRequired() {
-        this.checkParameters(1, REQUIRED);
+    public void testCheckParametersCountWithRequired() {
+        this.checkParameterCount(
+            1,
+            REQUIRED
+        );
     }
 
     @Test
-    public void testCheckParametersRequiredRequired() {
-        this.checkParameters(2, REQUIRED, REQUIRED);
+    public void testCheckParametersCountWithRequiredRequired() {
+        this.checkParameterCount(
+            2,
+            REQUIRED, REQUIRED
+        );
     }
 
     @Test
-    public void testCheckParametersRequiredRequiredRequired() {
-        this.checkParameters(3, REQUIRED, REQUIRED, REQUIRED);
+    public void testCheckParametersCountWithRequiredRequiredRequired() {
+        this.checkParameterCount(
+            3,
+            REQUIRED, REQUIRED, REQUIRED);
     }
 
     @Test
-    public void testCheckParametersRequiredRequiredExtraFails() {
-        this.checkParametersFails(2, REQUIRED);
+    public void testCheckParametersCountWithRequiredRequiredExtraFails() {
+        this.checkParametersCountFails(
+            2,
+            REQUIRED
+        );
     }
 
     @Test
-    public void testCheckParametersOptional() {
-        this.checkParameters(1, OPTIONAL);
+    public void testCheckParametersCountWithOptional() {
+        this.checkParameterCount(
+            1,
+            OPTIONAL
+        );
     }
 
     @Test
-    public void testCheckParametersOptionalMissing() {
-        this.checkParameters(0, OPTIONAL);
+    public void testCheckParametersCountWithOptionalMissing() {
+        this.checkParameterCount(
+            0,
+            OPTIONAL
+        );
     }
 
     @Test
-    public void testCheckParametersOptionalOptionalMissingMissing() {
-        this.checkParameters(0, OPTIONAL, OPTIONAL);
+    public void testCheckParametersCountWithOptionalOptionalMissingMissing() {
+        this.checkParameterCount(
+            0,
+            OPTIONAL, OPTIONAL
+        );
     }
 
     @Test
-    public void testCheckParametersOptionalOptionalPresentMissing() {
-        this.checkParameters(1, OPTIONAL, OPTIONAL);
+    public void testCheckParametersCountWithOptionalOptionalPresentMissing() {
+        this.checkParameterCount(
+            1,
+            OPTIONAL, OPTIONAL
+        );
     }
 
     @Test
-    public void testCheckParametersOptionalOptionalPresentPresent() {
-        this.checkParameters(2, OPTIONAL, OPTIONAL);
+    public void testCheckParametersCountWithOptionalOptionalPresentPresent() {
+        this.checkParameterCount(
+            2,
+            OPTIONAL, OPTIONAL
+        );
     }
 
     @Test
-    public void testCheckParametersOptionalOptionalPresentPresentExtraFails() {
-        this.checkParametersFails(3, OPTIONAL, OPTIONAL);
+    public void testCheckParametersCountWithOptionalOptionalPresentPresentExtraFails() {
+        this.checkParametersCountFails(
+            3,
+            OPTIONAL, OPTIONAL
+        );
     }
 
     @Test
-    public void testCheckParametersVariableNone() {
-        this.checkParameters(0, VARIABLE);
+    public void testCheckParametersCountWithVariableNone() {
+        this.checkParameterCount(
+            0,
+            VARIABLE
+        );
     }
 
     @Test
-    public void testCheckParametersVariable() {
-        this.checkParameters(1, VARIABLE);
+    public void testCheckParametersCountWithVariable() {
+        this.checkParameterCount(
+            1,
+            VARIABLE
+        );
     }
 
     @Test
-    public void testCheckParametersVariable2() {
-        this.checkParameters(2, VARIABLE);
+    public void testCheckParametersCountWithVariable2() {
+        this.checkParameterCount(
+            2,
+            VARIABLE
+        );
     }
 
     @Test
-    public void testCheckParametersRequiredVariable0Fails() {
-        this.checkParametersFails(0, REQUIRED, VARIABLE);
+    public void testCheckParametersCountWithRequiredVariable0Fails() {
+        this.checkParametersCountFails(
+            0,
+            REQUIRED, VARIABLE
+        );
     }
 
     @Test
-    public void testCheckParametersRequiredVariable1() {
-        this.checkParameters(1, REQUIRED, VARIABLE);
+    public void testCheckParametersCountWithRequiredVariable1() {
+        this.checkParameterCount(
+            1,
+            REQUIRED, VARIABLE
+        );
     }
 
     @Test
-    public void testCheckParametersRequiredVariable2() {
-        this.checkParameters(2, REQUIRED, VARIABLE);
+    public void testCheckParametersCountWithRequiredVariable2() {
+        this.checkParameterCount(
+            2,
+            REQUIRED, VARIABLE
+        );
     }
 
     @Test
-    public void testCheckParametersRequiredVariable3() {
-        this.checkParameters(3, REQUIRED, VARIABLE);
+    public void testCheckParametersCountWithRequiredVariable3() {
+        this.checkParameterCount(
+            3,
+            REQUIRED, VARIABLE
+        );
     }
 
     @Test
-    public void testCheckParametersRequiredOptional0Fails() {
-        this.checkParametersFails(0, REQUIRED, OPTIONAL);
+    public void testCheckParametersCountWithRequiredOptional0Fails() {
+        this.checkParametersCountFails(
+            0,
+            REQUIRED, OPTIONAL
+        );
     }
 
     @Test
-    public void testCheckParametersRequiredOptional1() {
-        this.checkParameters(1, REQUIRED, OPTIONAL);
+    public void testCheckParametersCountWithRequiredOptional1() {
+        this.checkParameterCount(
+            1,
+            REQUIRED, OPTIONAL
+        );
     }
 
     @Test
-    public void testCheckParametersRequiredOptional2() {
-        this.checkParameters(2, REQUIRED, OPTIONAL);
+    public void testCheckParametersCountWithRequiredOptional2() {
+        this.checkParameterCount(
+            2,
+            REQUIRED, OPTIONAL
+        );
     }
 
     @Test
-    public void testCheckParametersRequiredOptional3Fails() {
-        this.checkParametersFails(3, REQUIRED, OPTIONAL);
+    public void testCheckParametersCountWithRequiredOptional3Fails() {
+        this.checkParametersCountFails(
+            3,
+            REQUIRED, OPTIONAL
+        );
     }
 
-    private void checkParameters(final int count,
-                                 final ExpressionFunctionParameter<?>... parameters) {
+    private void checkParameterCount(final int count,
+                                     final ExpressionFunctionParameter<?>... parameters) {
         new FakeExpressionFunction<Void, FakeExpressionEvaluationContext>() {
             @Override
             public List<ExpressionFunctionParameter<?>> parameters(final int count) {
@@ -165,20 +227,24 @@ public final class ExpressionFunctionTest implements ClassTesting<ExpressionFunc
                     ExpressionFunctionName.with("TestFunctionName")
                 );
             }
-        }.checkParameterCount(Collections.nCopies(count, null));
+        }.checkParameterCount(
+            Collections.nCopies(
+                count,
+                null
+            )
+        );
     }
 
 
-    private void checkParametersFails(final int count,
-                                      final ExpressionFunctionParameter<?>... parameters) {
-        boolean failed = false;
-
-        try {
-            this.checkParameters(count, parameters);
-        } catch (final IllegalArgumentException expected) {
-            failed = true;
-        }
-        this.checkEquals(true, failed);
+    private void checkParametersCountFails(final int count,
+                                           final ExpressionFunctionParameter<?>... parameters) {
+        assertThrows(
+            IllegalArgumentException.class,
+            () -> this.checkParameterCount(
+                count,
+                parameters
+            )
+        );
     }
 
     // parameters.......................................................................................................
@@ -249,14 +315,14 @@ public final class ExpressionFunctionTest implements ClassTesting<ExpressionFunc
         this.checkEquals(
             parameter,
             function.parameters(0).get(index),
-            "function.parameters().get(" + index + ")"
+            () -> "function.parameters().get(" + index + ")"
         );
     }
 
     // setKinds........................................................................................................
 
     @Test
-    public void testSetKindsNullParametersFails() {
+    public void testSetKindsWithNullParametersFails() {
         assertThrows(
             NullPointerException.class,
             () -> ExpressionFunction.setKinds(
@@ -267,7 +333,7 @@ public final class ExpressionFunctionTest implements ClassTesting<ExpressionFunc
     }
 
     @Test
-    public void testSetKindsNullKindsFails() {
+    public void testSetKindsWithNullKindsFails() {
         assertThrows(
             NullPointerException.class,
             () -> ExpressionFunction.setKinds(
@@ -278,7 +344,7 @@ public final class ExpressionFunctionTest implements ClassTesting<ExpressionFunc
     }
 
     @Test
-    public void testSetKindsNoParameters() {
+    public void testSetKindsWithNoParameters() {
         this.setKindsAndCheck(
             ExpressionFunctionParameter.EMPTY,
             ExpressionFunctionParameterKind.CONVERT_EVALUATE_FLATTEN_RESOLVE_REFERENCES
@@ -286,7 +352,7 @@ public final class ExpressionFunctionTest implements ClassTesting<ExpressionFunc
     }
 
     @Test
-    public void testSetKindsSameKinds() {
+    public void testSetKindsWithSameKinds() {
         this.setKindsAndCheck(
             Lists.of(
                 ExpressionFunctionParameter.NUMBER.setKinds(ExpressionFunctionParameterKind.EVALUATE_RESOLVE_REFERENCES)
@@ -296,7 +362,7 @@ public final class ExpressionFunctionTest implements ClassTesting<ExpressionFunc
     }
 
     @Test
-    public void testSetKindsSameKinds2() {
+    public void testSetKindsWithSameKinds2() {
         this.setKindsAndCheck(
             Lists.of(
                 ExpressionFunctionParameter.NUMBER.setKinds(ExpressionFunctionParameterKind.CONVERT_EVALUATE_FLATTEN_RESOLVE_REFERENCES)
@@ -306,7 +372,7 @@ public final class ExpressionFunctionTest implements ClassTesting<ExpressionFunc
     }
 
     @Test
-    public void testSetKindsDifferent() {
+    public void testSetKindsWithDifferent() {
         this.setKindsAndCheck(
             Lists.of(
                 ExpressionFunctionParameter.NUMBER.setKinds(ExpressionFunctionParameterKind.CONVERT_EVALUATE_FLATTEN_RESOLVE_REFERENCES)
@@ -319,7 +385,7 @@ public final class ExpressionFunctionTest implements ClassTesting<ExpressionFunc
     }
 
     @Test
-    public void testSetKindsDifferent2() {
+    public void testSetKindsWithDifferent2() {
         this.setKindsAndCheck(
             Lists.of(
                 ExpressionFunctionParameter.NUMBER.setKinds(ExpressionFunctionParameterKind.EVALUATE_RESOLVE_REFERENCES),
@@ -352,7 +418,7 @@ public final class ExpressionFunctionTest implements ClassTesting<ExpressionFunc
         );
     }
 
-    // ClassTesting....................................................................................................
+    // class............................................................................................................
 
     @Override
     public Class<ExpressionFunction<?, ?>> type() {
