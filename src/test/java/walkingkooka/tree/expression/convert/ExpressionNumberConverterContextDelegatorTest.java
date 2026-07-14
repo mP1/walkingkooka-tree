@@ -29,14 +29,10 @@ import walkingkooka.locale.LocaleContexts;
 import walkingkooka.math.DecimalNumberContext;
 import walkingkooka.math.DecimalNumberContextDelegator;
 import walkingkooka.math.DecimalNumberContexts;
-import walkingkooka.text.Indentation;
-import walkingkooka.text.LineEnding;
-import walkingkooka.text.TextPrinting;
 import walkingkooka.tree.expression.ExpressionNumberKind;
 import walkingkooka.tree.expression.convert.ExpressionNumberConverterContextDelegatorTest.TestExpressionNumberConverterContextDelegator;
 
 import java.math.MathContext;
-import java.nio.charset.StandardCharsets;
 import java.text.DateFormatSymbols;
 import java.time.LocalDateTime;
 import java.util.Currency;
@@ -94,10 +90,7 @@ public final class ExpressionNumberConverterContextDelegatorTest implements Expr
                     ',', // valueSeparator
                     Converters.fake(),
                     BinaryNumberConverterFunctions.multiply(), // multiplier
-                    TextPrinting.with(
-                        Indentation.SPACES2,
-                        LineEnding.NL
-                    ).setCharset(StandardCharsets.UTF_8),
+                    BINARY_TEXT_CONTEXT,
                     new FakeCurrencyContext() {
 
                         @Override
