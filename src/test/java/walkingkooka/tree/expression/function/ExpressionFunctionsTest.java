@@ -39,6 +39,7 @@ import walkingkooka.reflect.PublicStaticHelperTesting;
 import walkingkooka.text.CaseSensitivity;
 import walkingkooka.text.Indentation;
 import walkingkooka.text.LineEnding;
+import walkingkooka.text.TextPrinting;
 import walkingkooka.tree.expression.Expression;
 import walkingkooka.tree.expression.ExpressionEvaluationContext;
 import walkingkooka.tree.expression.ExpressionEvaluationContexts;
@@ -396,10 +397,7 @@ public final class ExpressionFunctionsTest implements PublicStaticHelperTesting<
                     CaseSensitivity.SENSITIVE,
                     ConverterContexts.basic(
                         false, // canNumbersHaveGroupSeparator
-                        StandardCharsets.UTF_8,
                         Converters.EXCEL_1900_DATE_SYSTEM_OFFSET, // dateTimeOffset
-                        Indentation.SPACES2,
-                        LineEnding.NL,
                         ',', // valueSeparator
                         Converters.collection(
                             Lists.of(
@@ -436,6 +434,10 @@ public final class ExpressionFunctionsTest implements PublicStaticHelperTesting<
                             )
                         ),
                         BinaryNumberConverterFunctions.fake(), // multiplier
+                        TextPrinting.with(
+                            Indentation.SPACES2,
+                            LineEnding.NL
+                        ).setCharset(StandardCharsets.UTF_8),
                         new FakeCurrencyLocaleContext() {
                             @Override
                             public Optional<Locale> localeForLanguageTag(final LocaleLanguageTag languageTag) {

@@ -42,6 +42,7 @@ import walkingkooka.predicate.Predicates;
 import walkingkooka.text.CaseSensitivity;
 import walkingkooka.text.Indentation;
 import walkingkooka.text.LineEnding;
+import walkingkooka.text.TextPrinting;
 import walkingkooka.tree.Node;
 import walkingkooka.tree.TestNode;
 import walkingkooka.tree.expression.Expression;
@@ -630,13 +631,14 @@ abstract public class NodeSelectorTestCase3<S extends NodeSelector<TestNode, Str
             BinaryNumberConverterFunctions.fake(), // multiplier
             ConverterContexts.basic(
                 false, // canNumbersHaveGroupSeparator
-                StandardCharsets.UTF_8,
                 Converters.JAVA_EPOCH_OFFSET, // dateOffset
-                Indentation.SPACES2,
-                LineEnding.NL,
                 ',', // valueSeparator
                 Converters.fake(),
                 BinaryNumberConverterFunctions.fake(), // multiplier
+                TextPrinting.with(
+                    Indentation.SPACES2,
+                    LineEnding.NL
+                ).setCharset(StandardCharsets.UTF_8),
                 CurrencyLocaleContexts.fake(),
                 DateTimeContexts.fake(),
                 DecimalNumberContexts.american(MathContext.DECIMAL32)

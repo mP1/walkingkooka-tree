@@ -42,6 +42,7 @@ import walkingkooka.text.CaseSensitivity;
 import walkingkooka.text.CharSequences;
 import walkingkooka.text.Indentation;
 import walkingkooka.text.LineEnding;
+import walkingkooka.text.TextPrinting;
 import walkingkooka.text.cursor.TextCursors;
 import walkingkooka.text.cursor.parser.ParserReporters;
 import walkingkooka.tree.TestNode;
@@ -2017,13 +2018,14 @@ public final class NodeSelectorNodeSelectorParserTokenVisitorTest implements Nod
                         BinaryNumberConverterFunctions.fake(), // multiplier
                         ConverterContexts.basic(
                             false, // canNumbersHaveGroupSeparator
-                            StandardCharsets.UTF_8,
                             Converters.JAVA_EPOCH_OFFSET, // dateOffset
-                            Indentation.SPACES2,
-                            LineEnding.NL,
                             ',', // valueSeparator
                             Converters.fake(),
                             BinaryNumberConverterFunctions.fake(), // multiplier
+                            TextPrinting.with(
+                                Indentation.SPACES2,
+                                LineEnding.NL
+                            ).setCharset(StandardCharsets.UTF_8),
                             CurrencyLocaleContexts.fake(),
                             DateTimeContexts.fake(),
                             decimalNumberContext()

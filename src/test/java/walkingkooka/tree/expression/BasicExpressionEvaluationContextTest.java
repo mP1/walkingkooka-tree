@@ -46,6 +46,7 @@ import walkingkooka.reflect.ThrowableTesting;
 import walkingkooka.text.CaseSensitivity;
 import walkingkooka.text.Indentation;
 import walkingkooka.text.LineEnding;
+import walkingkooka.text.TextPrinting;
 import walkingkooka.tree.expression.function.ExpressionFunction;
 import walkingkooka.tree.expression.function.ExpressionFunctionParameter;
 import walkingkooka.tree.expression.function.ExpressionFunctionParameterKind;
@@ -129,10 +130,7 @@ public final class BasicExpressionEvaluationContextTest implements ClassTesting2
 
     private final static ConverterContext CONVERTER_CONTEXT = ConverterContexts.basic(
         false, // canNumbersHaveGroupSeparator
-        StandardCharsets.UTF_8,
         Converters.JAVA_EPOCH_OFFSET, // dateOffset
-        Indentation.SPACES4,
-        LineEnding.CRNL,
         ',', // valueSeparator
         Converters.collection(
             Lists.of(
@@ -141,6 +139,10 @@ public final class BasicExpressionEvaluationContextTest implements ClassTesting2
             )
         ),
         BinaryNumberConverterFunctions.fake(), // multiplier
+        TextPrinting.with(
+            Indentation.SPACES4,
+            LineEnding.CRNL
+        ).setCharset(StandardCharsets.UTF_8),
         CurrencyLocaleContexts.fake(),
         DateTimeContexts.basic(
             DateTimeSymbols.fromDateFormatSymbols(

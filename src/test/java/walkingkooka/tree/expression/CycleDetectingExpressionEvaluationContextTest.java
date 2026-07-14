@@ -37,6 +37,7 @@ import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.text.CaseSensitivity;
 import walkingkooka.text.Indentation;
 import walkingkooka.text.LineEnding;
+import walkingkooka.text.TextPrinting;
 import walkingkooka.text.cursor.parser.BigIntegerParserToken;
 import walkingkooka.text.cursor.parser.InvalidCharacterExceptionFactory;
 import walkingkooka.text.cursor.parser.ParserContexts;
@@ -383,13 +384,14 @@ public final class CycleDetectingExpressionEvaluationContextTest implements Clas
                             target,
                             ConverterContexts.basic(
                                 false, // canNumbersHaveGroupSeparator
-                                StandardCharsets.UTF_8,
                                 Converters.JAVA_EPOCH_OFFSET, // dateOffset
-                                Indentation.SPACES2,
-                                LineEnding.NL,
                                 ',', // valueSeparator
                                 Converters.characterOrCharSequenceOrHasTextOrStringToCharacterOrCharSequenceOrString(),
                                 BinaryNumberConverterFunctions.fake(), // multiplier
+                                TextPrinting.with(
+                                    Indentation.SPACES2,
+                                    LineEnding.NL
+                                ).setCharset(StandardCharsets.UTF_8),
                                 CurrencyLocaleContexts.fake(),
                                 DateTimeContexts.fake(),
                                 DecimalNumberContexts.american(MathContext.DECIMAL32)
@@ -465,13 +467,14 @@ public final class CycleDetectingExpressionEvaluationContextTest implements Clas
                 CaseSensitivity.SENSITIVE,
                 ConverterContexts.basic(
                     false, // canNumbersHaveGroupSeparator
-                    StandardCharsets.UTF_8,
                     Converters.JAVA_EPOCH_OFFSET,
-                    Indentation.SPACES2,
-                    LineEnding.NL,
                     ',', // valueSeparator
                     Converters.simple(), // converter
                     BinaryNumberConverterFunctions.fake(), // multiplier
+                    TextPrinting.with(
+                        Indentation.SPACES2,
+                        LineEnding.NL
+                    ).setCharset(StandardCharsets.UTF_8),
                     CurrencyLocaleContexts.fake(),
                     DateTimeContexts.basic(
                         DateTimeSymbols.fromDateFormatSymbols(
