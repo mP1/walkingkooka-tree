@@ -24,11 +24,13 @@ import walkingkooka.predicate.Predicates;
 import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.reflect.ThrowableTesting;
 import walkingkooka.tree.expression.ExpressionNumberKind;
+import walkingkooka.tree.expression.HasExpressionNumberKindTesting;
 import walkingkooka.tree.select.NodeSelectorException;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class PredicateNodeSelectorParserTokenNodeSelectorParserTokenVisitorTest implements NodeSelectorParserTokenVisitorTesting<PredicateNodeSelectorParserTokenNodeSelectorParserTokenVisitor>,
+    HasExpressionNumberKindTesting,
     ThrowableTesting {
 
     @Test
@@ -39,8 +41,10 @@ public final class PredicateNodeSelectorParserTokenNodeSelectorParserTokenVisito
 
         final NodeSelectorException thrown = assertThrows(
             NodeSelectorException.class,
-            () -> new PredicateNodeSelectorParserTokenNodeSelectorParserTokenVisitor(Predicates.never())
-                .accept(token)
+            () -> new PredicateNodeSelectorParserTokenNodeSelectorParserTokenVisitor(
+                Predicates.never(), // functions
+                HAS_EXPRESSION_NUMBER_KIND
+            ).accept(token)
         );
         this.getMessageAndCheck(
             thrown,
@@ -50,7 +54,10 @@ public final class PredicateNodeSelectorParserTokenNodeSelectorParserTokenVisito
 
     @Override
     public PredicateNodeSelectorParserTokenNodeSelectorParserTokenVisitor createVisitor() {
-        return new PredicateNodeSelectorParserTokenNodeSelectorParserTokenVisitor(null);
+        return new PredicateNodeSelectorParserTokenNodeSelectorParserTokenVisitor(
+            null, // functions
+            null // hasExpressionNumberKind
+        );
     }
 
     @Override

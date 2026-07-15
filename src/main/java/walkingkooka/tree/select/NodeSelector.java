@@ -24,6 +24,7 @@ import walkingkooka.tree.Node;
 import walkingkooka.tree.expression.Expression;
 import walkingkooka.tree.expression.ExpressionEvaluationContext;
 import walkingkooka.tree.expression.ExpressionFunctionName;
+import walkingkooka.tree.expression.HasExpressionNumberKind;
 import walkingkooka.tree.expression.convert.ExpressionNumberConverterContext;
 import walkingkooka.tree.select.parser.ExpressionNodeSelectorParserToken;
 import walkingkooka.tree.select.parser.NodeSelectorNodeName;
@@ -60,9 +61,16 @@ public abstract class NodeSelector<N extends Node<N, NAME, ANAME, AVALUE>,
         AVALUE> NodeSelector<N, NAME, ANAME, AVALUE> parserToken(final ExpressionNodeSelectorParserToken token,
                                                                  final Function<NodeSelectorNodeName, NAME> nameFactory,
                                                                  final Predicate<ExpressionFunctionName> functions,
+                                                                 final HasExpressionNumberKind expressionNumberKind,
                                                                  final Class<N> nodeType) {
 
-        return NodeSelectorNodeSelectorParserTokenVisitor.with(token, nameFactory, functions, nodeType);
+        return NodeSelectorNodeSelectorParserTokenVisitor.with(
+            token,
+            nameFactory,
+            functions,
+            expressionNumberKind,
+            nodeType
+        );
     }
 
     /**

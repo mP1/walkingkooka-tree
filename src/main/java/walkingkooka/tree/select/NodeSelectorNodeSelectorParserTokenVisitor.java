@@ -20,6 +20,7 @@ package walkingkooka.tree.select;
 import walkingkooka.naming.Name;
 import walkingkooka.tree.Node;
 import walkingkooka.tree.expression.ExpressionFunctionName;
+import walkingkooka.tree.expression.HasExpressionNumberKind;
 import walkingkooka.tree.select.parser.AbsoluteNodeSelectorParserToken;
 import walkingkooka.tree.select.parser.AncestorNodeSelectorParserToken;
 import walkingkooka.tree.select.parser.AncestorOrSelfNodeSelectorParserToken;
@@ -58,15 +59,20 @@ final class NodeSelectorNodeSelectorParserTokenVisitor<N extends Node<N, NAME, A
         ANAME extends Name, AVALUE> NodeSelector<N, NAME, ANAME, AVALUE> with(final NodeSelectorParserToken token,
                                                                               final Function<NodeSelectorNodeName, NAME> nameFactory,
                                                                               final Predicate<ExpressionFunctionName> functions,
+                                                                              final HasExpressionNumberKind expressionNumberKind,
                                                                               final Class<N> node) {
         Objects.requireNonNull(token, "token");
         Objects.requireNonNull(nameFactory, "nameFactory");
         Objects.requireNonNull(functions, "functions");
+        Objects.requireNonNull(expressionNumberKind, "expressionNumberKind");
         Objects.requireNonNull(node, "node");
 
-        return new NodeSelectorNodeSelectorParserTokenVisitor<>(nameFactory,
+        return new NodeSelectorNodeSelectorParserTokenVisitor<>(
+            nameFactory,
             functions,
-            node).acceptAndComplete(token);
+            expressionNumberKind,
+            node
+        ).acceptAndComplete(token);
     }
 
     /**
@@ -75,11 +81,13 @@ final class NodeSelectorNodeSelectorParserTokenVisitor<N extends Node<N, NAME, A
     // @VisibleForTesting
     NodeSelectorNodeSelectorParserTokenVisitor(final Function<NodeSelectorNodeName, NAME> nameFactory,
                                                final Predicate<ExpressionFunctionName> functions,
+                                               final HasExpressionNumberKind expressionNumberKind,
                                                final Class<N> node) {
         super();
 
         this.nameFactory = nameFactory;
         this.functions = functions;
+        this.expressionNumberKind = expressionNumberKind;
         this.prepare();
     }
 
@@ -96,12 +104,21 @@ final class NodeSelectorNodeSelectorParserTokenVisitor<N extends Node<N, NAME, A
     @Override
     protected Visiting startVisit(final PredicateNodeSelectorParserToken token) {
         this.childrenIfAxis();
-        this.test(this.selector.expression(token.toExpression(this.functions)));
+        this.test(
+            this.selector.expression(
+                token.toExpression(
+                    this.functions,
+                    this.expressionNumberKind
+                )
+            )
+        );
         return Visiting.SKIP;
     }
 
     private final Predicate<ExpressionFunctionName> functions;
 
+
+    private final HasExpressionNumberKind expressionNumberKind;
 
     // Leaf tokens...........................................................................................
 
