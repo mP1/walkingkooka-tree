@@ -21,6 +21,8 @@ import walkingkooka.text.printer.TreePrintableTesting;
 
 public interface HasExpressionNumberKindTesting extends TreePrintableTesting {
 
+    ExpressionNumberKind EXPRESSION_NUMBER_KIND = ExpressionNumberKind.BIG_DECIMAL;
+
     default void expressionNumberKindAndCheck(final HasExpressionNumberKind has,
                                               final ExpressionNumberKind expected) {
         this.checkEquals(
