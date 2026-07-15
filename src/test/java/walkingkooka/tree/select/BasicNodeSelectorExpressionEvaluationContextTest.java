@@ -44,7 +44,6 @@ import walkingkooka.tree.expression.Expression;
 import walkingkooka.tree.expression.ExpressionEvaluationContext;
 import walkingkooka.tree.expression.ExpressionEvaluationContexts;
 import walkingkooka.tree.expression.ExpressionFunctionName;
-import walkingkooka.tree.expression.ExpressionNumberKind;
 import walkingkooka.tree.expression.ExpressionReference;
 import walkingkooka.tree.expression.convert.ExpressionNumberConverterContext;
 import walkingkooka.tree.expression.convert.ExpressionNumberConverterContexts;
@@ -65,8 +64,6 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class BasicNodeSelectorExpressionEvaluationContextTest implements NodeSelectorExpressionEvaluationContextTesting<BasicNodeSelectorExpressionEvaluationContext<TestNode, StringName, StringName, Object>, TestNode, StringName, StringName, Object>,
     DecimalNumberContextDelegator {
-
-    private final static ExpressionNumberKind EXPRESSION_NUMBER_KIND = ExpressionNumberKind.DEFAULT;
 
     @BeforeEach
     public void beforeEachTest() {
