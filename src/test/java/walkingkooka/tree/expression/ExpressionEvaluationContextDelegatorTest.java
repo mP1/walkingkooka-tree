@@ -33,7 +33,6 @@ import walkingkooka.math.DecimalNumberContexts;
 import walkingkooka.text.CaseSensitivity;
 import walkingkooka.text.Indentation;
 import walkingkooka.text.LineEnding;
-import walkingkooka.text.TextPrinting;
 import walkingkooka.tree.expression.ExpressionEvaluationContextDelegatorTest.TestExpressionEvaluationContextDelegator;
 
 import java.math.MathContext;
@@ -128,10 +127,7 @@ public final class ExpressionEvaluationContextDelegatorTest implements Expressio
                     ',', // valueSeparator
                     Converters.fake(),
                     BinaryNumberConverterFunctions.fake(), // multiplier
-                    TextPrinting.with(
-                        Indentation.SPACES2,
-                        LineEnding.NL
-                    ).setCharset(StandardCharsets.UTF_8),
+                    BINARY_TEXT_CONTEXT,
                     CurrencyLocaleContexts.fake(),
                     DateTimeContexts.basic(
                         DateTimeSymbols.fromDateFormatSymbols(

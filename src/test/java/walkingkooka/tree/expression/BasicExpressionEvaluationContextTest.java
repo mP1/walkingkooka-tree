@@ -132,7 +132,7 @@ public final class BasicExpressionEvaluationContextTest implements ClassTesting2
         TextPrinting.with(
             Indentation.SPACES4,
             LineEnding.CRNL
-        ).setCharset(StandardCharsets.UTF_8),
+        ).setCharset(CHARSET), // must be different from INDENTATION & LINE_ENDING
         CurrencyLocaleContexts.fake(),
         DateTimeContexts.basic(
             DateTimeSymbols.fromDateFormatSymbols(

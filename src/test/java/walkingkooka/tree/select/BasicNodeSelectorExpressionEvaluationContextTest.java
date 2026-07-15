@@ -38,7 +38,6 @@ import walkingkooka.naming.StringName;
 import walkingkooka.text.CaseSensitivity;
 import walkingkooka.text.Indentation;
 import walkingkooka.text.LineEnding;
-import walkingkooka.text.TextPrinting;
 import walkingkooka.tree.TestNode;
 import walkingkooka.tree.expression.Expression;
 import walkingkooka.tree.expression.ExpressionEvaluationContext;
@@ -221,10 +220,7 @@ public final class BasicNodeSelectorExpressionEvaluationContextTest implements N
                 ',', // valueSeparator
                 Converters.fake(),
                 BinaryNumberConverterFunctions.fake(), // multiplier
-                TextPrinting.with(
-                    Indentation.SPACES2,
-                    LineEnding.NL
-                ).setCharset(StandardCharsets.UTF_8),
+                BINARY_TEXT_CONTEXT,
                 CurrencyLocaleContexts.fake(),
                 DateTimeContexts.basic(
                     DateTimeSymbols.fromDateFormatSymbols(
