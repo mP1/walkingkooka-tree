@@ -33,8 +33,6 @@ import walkingkooka.datetime.DateTimeContexts;
 import walkingkooka.datetime.DateTimeSymbols;
 import walkingkooka.environment.EnvironmentContext;
 import walkingkooka.environment.EnvironmentContexts;
-import walkingkooka.locale.LocaleContext;
-import walkingkooka.locale.LocaleContexts;
 import walkingkooka.math.DecimalNumberContext;
 import walkingkooka.math.DecimalNumberContextDelegator;
 import walkingkooka.math.DecimalNumberContexts;
@@ -116,10 +114,6 @@ public final class BasicExpressionEvaluationContextTest implements ClassTesting2
                 EnvironmentContext.ANONYMOUS
             )
         )
-    );
-
-    private final static LocaleContext LOCALE_CONTEXT = LocaleContexts.jre(
-        ENVIRONMENT_CONTEXT.locale()
     );
 
     private final static DecimalNumberContext DECIMAL_NUMBER_CONTEXT = DecimalNumberContexts.american(MathContext.DECIMAL32);
