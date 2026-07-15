@@ -31,7 +31,6 @@ import walkingkooka.convert.FakeConverterContext;
 import walkingkooka.currency.CurrencyLocaleContexts;
 import walkingkooka.datetime.DateTimeContexts;
 import walkingkooka.datetime.DateTimeSymbols;
-import walkingkooka.datetime.HasNow;
 import walkingkooka.environment.EnvironmentContext;
 import walkingkooka.environment.EnvironmentContexts;
 import walkingkooka.locale.LocaleContext;
@@ -57,7 +56,6 @@ import walkingkooka.tree.expression.function.UnknownExpressionFunctionException;
 import java.math.MathContext;
 import java.nio.charset.StandardCharsets;
 import java.text.DateFormatSymbols;
-import java.time.LocalDateTime;
 import java.util.Currency;
 import java.util.List;
 import java.util.Locale;
@@ -102,8 +100,6 @@ public final class BasicExpressionEvaluationContextTest implements ClassTesting2
     };
 
     private final static Currency CURRENCY = Currency.getInstance("AUD");
-
-    private final static HasNow HAS_NOW = () -> LocalDateTime.MIN;
 
     private final static Locale LOCALE = Locale.forLanguageTag("en-AU");
 
