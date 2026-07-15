@@ -110,7 +110,7 @@ public final class BasicExpressionEvaluationContextTest implements ClassTesting2
                 StandardCharsets.UTF_8,
                 CURRENCY,
                 INDENTATION,
-                LineEnding.NL,
+                LINE_ENDING,
                 LOCALE,
                 HAS_NOW,
                 EnvironmentContext.ANONYMOUS
