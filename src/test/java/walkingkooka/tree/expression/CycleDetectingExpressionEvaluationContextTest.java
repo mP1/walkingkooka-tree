@@ -37,7 +37,6 @@ import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.text.CaseSensitivity;
 import walkingkooka.text.Indentation;
 import walkingkooka.text.LineEnding;
-import walkingkooka.text.TextPrinting;
 import walkingkooka.text.cursor.parser.BigIntegerParserToken;
 import walkingkooka.text.cursor.parser.InvalidCharacterExceptionFactory;
 import walkingkooka.text.cursor.parser.ParserContexts;
@@ -388,10 +387,7 @@ public final class CycleDetectingExpressionEvaluationContextTest implements Clas
                                 ',', // valueSeparator
                                 Converters.characterOrCharSequenceOrHasTextOrStringToCharacterOrCharSequenceOrString(),
                                 BinaryNumberConverterFunctions.fake(), // multiplier
-                                TextPrinting.with(
-                                    Indentation.SPACES2,
-                                    LineEnding.NL
-                                ).setCharset(StandardCharsets.UTF_8),
+                                BINARY_TEXT_CONTEXT,
                                 CurrencyLocaleContexts.fake(),
                                 DateTimeContexts.fake(),
                                 DecimalNumberContexts.american(MathContext.DECIMAL32)
@@ -471,10 +467,7 @@ public final class CycleDetectingExpressionEvaluationContextTest implements Clas
                     ',', // valueSeparator
                     Converters.simple(), // converter
                     BinaryNumberConverterFunctions.fake(), // multiplier
-                    TextPrinting.with(
-                        Indentation.SPACES2,
-                        LineEnding.NL
-                    ).setCharset(StandardCharsets.UTF_8),
+                    BINARY_TEXT_CONTEXT,
                     CurrencyLocaleContexts.fake(),
                     DateTimeContexts.basic(
                         DateTimeSymbols.fromDateFormatSymbols(
