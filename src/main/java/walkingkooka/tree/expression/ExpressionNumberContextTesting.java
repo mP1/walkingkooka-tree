@@ -19,5 +19,6 @@ package walkingkooka.tree.expression;
 
 import walkingkooka.math.DecimalNumberContextTesting2;
 
-public interface ExpressionNumberContextTesting<C extends ExpressionNumberContext> extends DecimalNumberContextTesting2<C> {
+public interface ExpressionNumberContextTesting<C extends ExpressionNumberContext> extends DecimalNumberContextTesting2<C>,
+    HasExpressionNumberKindTesting {
 }
