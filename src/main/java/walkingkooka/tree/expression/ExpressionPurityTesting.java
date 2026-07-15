@@ -20,6 +20,7 @@ package walkingkooka.tree.expression;
 import walkingkooka.test.Testing;
 import walkingkooka.text.Indentation;
 import walkingkooka.text.LineEnding;
+import walkingkooka.text.TextPrinting;
 import walkingkooka.text.printer.TreePrintable;
 
 /**
@@ -34,7 +35,12 @@ public interface ExpressionPurityTesting extends Testing {
             expected,
             purity.isPure(context),
             () -> purity instanceof TreePrintable ?
-                ((TreePrintable) purity).treeToString(Indentation.SPACES2, LineEnding.NL) :
+                ((TreePrintable) purity).treeToString(
+                    TextPrinting.with(
+                        Indentation.SPACES2,
+                        LineEnding.NL
+                    )
+                ) :
                 purity.toString()
         );
     }
