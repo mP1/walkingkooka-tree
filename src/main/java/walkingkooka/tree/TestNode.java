@@ -28,6 +28,7 @@ import walkingkooka.naming.PathSeparator;
 import walkingkooka.naming.StringName;
 import walkingkooka.text.CharSequences;
 import walkingkooka.tree.expression.ExpressionFunctionName;
+import walkingkooka.tree.expression.HasExpressionNumberKind;
 import walkingkooka.tree.select.NodeSelector;
 import walkingkooka.tree.select.parser.ExpressionNodeSelectorParserToken;
 
@@ -317,10 +318,14 @@ public final class TestNode implements Node<TestNode, StringName, StringName, Ob
      * Creates a {@link NodeSelector} for {@link TestNode} from a {@link ExpressionNodeSelectorParserToken}.
      */
     public static NodeSelector<TestNode, StringName, StringName, Object> nodeSelectorExpressionParserToken(final ExpressionNodeSelectorParserToken token,
-                                                                                                           final Predicate<ExpressionFunctionName> functions) {
-        return NodeSelector.parserToken(token,
+                                                                                                           final Predicate<ExpressionFunctionName> functions,
+                                                                                                           final HasExpressionNumberKind hasExpressionNumberKind) {
+        return NodeSelector.parserToken(
+            token,
             n -> Names.string(n.value()),
             functions,
-            TestNode.class);
+            hasExpressionNumberKind,
+            TestNode.class
+        );
     }
 }

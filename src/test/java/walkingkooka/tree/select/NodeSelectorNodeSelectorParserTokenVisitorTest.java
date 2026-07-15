@@ -50,8 +50,8 @@ import walkingkooka.tree.expression.Expression;
 import walkingkooka.tree.expression.ExpressionEvaluationContexts;
 import walkingkooka.tree.expression.ExpressionFunctionName;
 import walkingkooka.tree.expression.ExpressionNumber;
-import walkingkooka.tree.expression.ExpressionNumberKind;
 import walkingkooka.tree.expression.ExpressionReference;
+import walkingkooka.tree.expression.HasExpressionNumberKindTesting;
 import walkingkooka.tree.expression.ValueExpression;
 import walkingkooka.tree.expression.convert.ExpressionNumberConverterContext;
 import walkingkooka.tree.expression.convert.ExpressionNumberConverterContexts;
@@ -76,9 +76,8 @@ import java.util.Set;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
-public final class NodeSelectorNodeSelectorParserTokenVisitorTest implements NodeSelectorParserTokenVisitorTesting<NodeSelectorNodeSelectorParserTokenVisitor<TestNode, StringName, StringName, Object>> {
-
-    private final static ExpressionNumberKind EXPRESSION_NUMBER_KIND = ExpressionNumberKind.DEFAULT;
+public final class NodeSelectorNodeSelectorParserTokenVisitorTest implements NodeSelectorParserTokenVisitorTesting<NodeSelectorNodeSelectorParserTokenVisitor<TestNode, StringName, StringName, Object>>,
+    HasExpressionNumberKindTesting {
 
     @BeforeEach
     public void beforeEachTest() {
@@ -1772,7 +1771,12 @@ public final class NodeSelectorNodeSelectorParserTokenVisitorTest implements Nod
 
     @Override
     public NodeSelectorNodeSelectorParserTokenVisitor<TestNode, StringName, StringName, Object> createVisitor() {
-        return new NodeSelectorNodeSelectorParserTokenVisitor<>(null, null, null);
+        return new NodeSelectorNodeSelectorParserTokenVisitor<>(
+            null,
+            null,
+            null,
+            null
+        );
     }
 
     private TestNode node(final String name, final TestNode... nodes) {
@@ -1959,11 +1963,23 @@ public final class NodeSelectorNodeSelectorParserTokenVisitorTest implements Nod
 
                     if (ExpressionNumber.class == target) {
                         if (value instanceof Number) {
-                            return Cast.to(Either.left(ExpressionNumberKind.DEFAULT.create((Number) value)));
+                            return Cast.to(
+                                Either.left(
+                                    EXPRESSION_NUMBER_KIND.create((Number) value)
+                                )
+                            );
                         }
                         if (value instanceof Boolean) {
                             final Boolean booleanValue = (Boolean) value;
-                            return Cast.to(Either.left(ExpressionNumberKind.DEFAULT.create(booleanValue ? BigDecimal.ONE : BigDecimal.ZERO)));
+                            return Cast.to(
+                                Either.left(
+                                    EXPRESSION_NUMBER_KIND.create(
+                                        booleanValue ?
+                                            1 :
+                                            0
+                                    )
+                                )
+                            );
                         }
                     }
 
@@ -2074,10 +2090,13 @@ public final class NodeSelectorNodeSelectorParserTokenVisitorTest implements Nod
     }
 
     private NodeSelector<TestNode, StringName, StringName, Object> parseExpression(final String expression) {
-        return NodeSelectorNodeSelectorParserTokenVisitor.with(this.parseOrFail(expression),
+        return NodeSelectorNodeSelectorParserTokenVisitor.with(
+            this.parseOrFail(expression),
             (s) -> Names.string(s.value()),
             Predicates.always(),
-            TestNode.class);
+            HAS_EXPRESSION_NUMBER_KIND,
+            TestNode.class
+        );
     }
 
     private ExpressionNodeSelectorParserToken parseOrFail(final String expression) {

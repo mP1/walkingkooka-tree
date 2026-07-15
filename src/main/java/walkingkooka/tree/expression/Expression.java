@@ -638,11 +638,15 @@ public abstract class Expression implements Node<Expression, ExpressionFunctionN
      * Creates a {@link NodeSelector} for {@link Expression} from a {@link ExpressionNodeSelectorParserToken}.
      */
     public static NodeSelector<Expression, ExpressionFunctionName, Name, Object> nodeSelectorExpressionParserToken(final ExpressionNodeSelectorParserToken token,
-                                                                                                                   final Predicate<ExpressionFunctionName> functions) {
-        return NodeSelector.parserToken(token,
+                                                                                                                   final Predicate<ExpressionFunctionName> functions,
+                                                                                                                   final HasExpressionNumberKind expressionNumberKind) {
+        return NodeSelector.parserToken(
+            token,
             n -> ExpressionFunctionName.with(n.value()),
             functions,
-            Expression.class);
+            expressionNumberKind,
+            Expression.class
+        );
     }
 
     // HasContentType...................................................................................................

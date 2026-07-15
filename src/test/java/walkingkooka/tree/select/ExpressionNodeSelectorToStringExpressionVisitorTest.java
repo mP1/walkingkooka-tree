@@ -30,6 +30,7 @@ import walkingkooka.tree.expression.Expression;
 import walkingkooka.tree.expression.ExpressionFunctionName;
 import walkingkooka.tree.expression.ExpressionNumberKind;
 import walkingkooka.tree.expression.ExpressionVisitorTesting;
+import walkingkooka.tree.expression.HasExpressionNumberKindTesting;
 import walkingkooka.tree.select.parser.NodeSelectorParserContexts;
 import walkingkooka.tree.select.parser.NodeSelectorParsers;
 import walkingkooka.tree.select.parser.PredicateNodeSelectorParserToken;
@@ -42,9 +43,8 @@ import java.time.LocalTime;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class ExpressionNodeSelectorToStringExpressionVisitorTest implements ExpressionVisitorTesting<ExpressionNodeSelectorToStringExpressionVisitor> {
-
-    private static final ExpressionNumberKind EXPRESSION_NUMBER_KIND = ExpressionNumberKind.DEFAULT;
+public final class ExpressionNodeSelectorToStringExpressionVisitorTest implements ExpressionVisitorTesting<ExpressionNodeSelectorToStringExpressionVisitor>,
+    HasExpressionNumberKindTesting {
 
     @Test
     public void testNumber() {
@@ -284,7 +284,10 @@ public final class ExpressionNodeSelectorToStringExpressionVisitorTest implement
     private void parseAndStringExpressionCheck(final String expression) {
         final PredicateNodeSelectorParserToken parsed = parseOrFail(expression);
 
-        final Expression expressionObject = parsed.toExpression(Predicates.always());
+        final Expression expressionObject = parsed.toExpression(
+            Predicates.always(), // functions
+            HAS_EXPRESSION_NUMBER_KIND
+        );
 
         this.checkEquals(expression,
             ExpressionNodeSelectorToStringExpressionVisitor.toString(expressionObject),

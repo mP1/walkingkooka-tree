@@ -23,8 +23,8 @@ import walkingkooka.collect.stack.Stacks;
 import walkingkooka.text.CharSequences;
 import walkingkooka.tree.expression.Expression;
 import walkingkooka.tree.expression.ExpressionFunctionName;
-import walkingkooka.tree.expression.ExpressionNumberKind;
 import walkingkooka.tree.expression.ExpressionReference;
+import walkingkooka.tree.expression.HasExpressionNumberKind;
 import walkingkooka.tree.select.NodeSelectorException;
 import walkingkooka.visit.Visiting;
 
@@ -42,8 +42,12 @@ final class PredicateNodeSelectorParserTokenNodeSelectorParserTokenVisitor exten
      * Converts the contents of a predicate into a {@link Expression}.
      */
     static Expression toExpression(final PredicateNodeSelectorParserToken token,
-                                   final Predicate<ExpressionFunctionName> functions) {
-        final PredicateNodeSelectorParserTokenNodeSelectorParserTokenVisitor visitor = new PredicateNodeSelectorParserTokenNodeSelectorParserTokenVisitor(functions);
+                                   final Predicate<ExpressionFunctionName> functions,
+                                   final HasExpressionNumberKind hasExpressionNumberKind) {
+        final PredicateNodeSelectorParserTokenNodeSelectorParserTokenVisitor visitor = new PredicateNodeSelectorParserTokenNodeSelectorParserTokenVisitor(
+            functions,
+            hasExpressionNumberKind
+        );
         token.accept(visitor);
 
         final List<Expression> nodes = visitor.children;
@@ -59,9 +63,11 @@ final class PredicateNodeSelectorParserTokenNodeSelectorParserTokenVisitor exten
      * Private ctor use static method.
      */
     // @VisibleForTesting
-    PredicateNodeSelectorParserTokenNodeSelectorParserTokenVisitor(final Predicate<ExpressionFunctionName> functions) {
+    PredicateNodeSelectorParserTokenNodeSelectorParserTokenVisitor(final Predicate<ExpressionFunctionName> functions,
+                                                                   final HasExpressionNumberKind hasExpressionNumberKind) {
         super();
         this.functions = functions;
+        this.hasExpressionNumberKind = hasExpressionNumberKind;
     }
 
     @Override
@@ -257,11 +263,14 @@ final class PredicateNodeSelectorParserTokenNodeSelectorParserTokenVisitor exten
     protected void visit(final ExpressionNumberNodeSelectorParserToken token) {
         this.add(
             Expression.value(
-                ExpressionNumberKind.DEFAULT.create(token.value())
+                this.hasExpressionNumberKind.expressionNumberKind()
+                    .create(token.value())
             ),
             token
         );
     }
+
+    private final HasExpressionNumberKind hasExpressionNumberKind;
 
     @Override
     protected void visit(final QuotedTextNodeSelectorParserToken token) {

@@ -22,6 +22,7 @@ import walkingkooka.collect.list.Lists;
 import walkingkooka.naming.Name;
 import walkingkooka.predicate.Predicates;
 import walkingkooka.reflect.MethodAttributes;
+import walkingkooka.tree.expression.HasExpressionNumberKind;
 import walkingkooka.tree.select.NodeSelector;
 import walkingkooka.tree.select.NodeSelectorTesting;
 import walkingkooka.tree.select.parser.ExpressionNodeSelectorParserToken;
@@ -80,9 +81,16 @@ public interface NodeTesting<N extends Node<N, NAME, ANAME, AVALUE>,
             .filter(MethodAttributes.STATIC::is)
             .filter(m -> m.getReturnType() == NodeSelector.class)
             .filter(m -> m.getName().equals("nodeSelectorExpressionParserToken"))
-            .filter(m -> Arrays.equals(m.getParameterTypes(), new Object[]{ExpressionNodeSelectorParserToken.class, Predicate.class}))
-            .findFirst()
-            .orElseThrow(() -> new AssertionError("Unable to find static method NodeSelector nodeSelectorExpressionParserToken(ExpressionNodeSelectorParserToken, Predicate)"));
+            .filter(m -> Arrays.equals(
+                    m.getParameterTypes(),
+                    new Object[]{
+                        ExpressionNodeSelectorParserToken.class,
+                        Predicate.class,
+                        HasExpressionNumberKind.class
+                    }
+                )
+            ).findFirst()
+            .orElseThrow(() -> new AssertionError("Unable to find static method NodeSelector nodeSelectorExpressionParserToken(ExpressionNodeSelectorParserToken, Predicate, HasExpressionNumberKind)"));
     }
 
     @Test
