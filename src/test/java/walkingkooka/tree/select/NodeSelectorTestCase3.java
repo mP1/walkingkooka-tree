@@ -31,10 +31,8 @@ import walkingkooka.convert.ConverterContexts;
 import walkingkooka.convert.Converters;
 import walkingkooka.currency.CurrencyLocaleContexts;
 import walkingkooka.datetime.DateTimeContexts;
-import walkingkooka.environment.EnvironmentContext;
-import walkingkooka.environment.EnvironmentContexts;
-import walkingkooka.locale.LocaleContext;
-import walkingkooka.locale.LocaleContexts;
+import walkingkooka.environment.EnvironmentContextTesting;
+import walkingkooka.locale.LocaleContextTesting;
 import walkingkooka.math.DecimalNumberContexts;
 import walkingkooka.naming.Names;
 import walkingkooka.naming.StringName;
@@ -58,12 +56,9 @@ import walkingkooka.tree.expression.function.ExpressionFunction;
 
 import java.math.MathContext;
 import java.nio.charset.StandardCharsets;
-import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.Collection;
-import java.util.Currency;
 import java.util.List;
-import java.util.Locale;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
@@ -77,25 +72,12 @@ import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 abstract public class NodeSelectorTestCase3<S extends NodeSelector<TestNode, StringName, StringName, Object>> extends NodeSelectorTestCase2<S>
-    implements HashCodeEqualsDefinedTesting2<S>,
+    implements EnvironmentContextTesting,
+    HashCodeEqualsDefinedTesting2<S>,
+    LocaleContextTesting,
     ToStringTesting<S> {
 
     final static ExpressionNumberKind EXPRESSION_NUMBER_KIND = ExpressionNumberKind.DEFAULT;
-
-    final static EnvironmentContext ENVIRONMENT_CONTEXT = EnvironmentContexts.readOnly(
-        Predicates.always(), // all values are readonly
-        EnvironmentContexts.empty(
-            StandardCharsets.UTF_8,
-            Currency.getInstance("AUD"),
-            Indentation.SPACES2,
-            LineEnding.NL,
-            Locale.ENGLISH,
-            LocalDateTime::now,
-            EnvironmentContext.ANONYMOUS
-        )
-    );
-
-    final static LocaleContext LOCALE_CONTEXT = LocaleContexts.fake();
 
     NodeSelectorTestCase3() {
         super();

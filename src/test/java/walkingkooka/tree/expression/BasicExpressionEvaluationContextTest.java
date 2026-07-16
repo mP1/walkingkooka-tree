@@ -31,18 +31,14 @@ import walkingkooka.convert.FakeConverterContext;
 import walkingkooka.currency.CurrencyLocaleContexts;
 import walkingkooka.datetime.DateTimeContexts;
 import walkingkooka.datetime.DateTimeSymbols;
-import walkingkooka.environment.EnvironmentContext;
-import walkingkooka.environment.EnvironmentContexts;
+import walkingkooka.environment.EnvironmentContextTesting;
 import walkingkooka.math.DecimalNumberContext;
 import walkingkooka.math.DecimalNumberContextDelegator;
 import walkingkooka.math.DecimalNumberContexts;
-import walkingkooka.predicate.Predicates;
 import walkingkooka.reflect.ClassTesting2;
 import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.reflect.ThrowableTesting;
 import walkingkooka.text.CaseSensitivity;
-import walkingkooka.text.Indentation;
-import walkingkooka.text.LineEnding;
 import walkingkooka.text.TextPrinting;
 import walkingkooka.tree.expression.function.ExpressionFunction;
 import walkingkooka.tree.expression.function.ExpressionFunctionParameter;
@@ -52,11 +48,8 @@ import walkingkooka.tree.expression.function.FakeExpressionFunction;
 import walkingkooka.tree.expression.function.UnknownExpressionFunctionException;
 
 import java.math.MathContext;
-import java.nio.charset.StandardCharsets;
 import java.text.DateFormatSymbols;
-import java.util.Currency;
 import java.util.List;
-import java.util.Locale;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.function.BiFunction;
@@ -68,6 +61,7 @@ public final class BasicExpressionEvaluationContextTest implements ClassTesting2
     ExpressionEvaluationContextTesting<BasicExpressionEvaluationContext>,
     ToStringTesting<BasicExpressionEvaluationContext>,
     DecimalNumberContextDelegator,
+    EnvironmentContextTesting,
     ThrowableTesting {
 
     private final static ExpressionNumberKind KIND = ExpressionNumberKind.DEFAULT;
@@ -97,25 +91,6 @@ public final class BasicExpressionEvaluationContextTest implements ClassTesting2
         throw r;
     };
 
-    private final static Currency CURRENCY = Currency.getInstance("AUD");
-
-    private final static Locale LOCALE = Locale.forLanguageTag("en-AU");
-
-    private final static EnvironmentContext ENVIRONMENT_CONTEXT = EnvironmentContexts.readOnly(
-        Predicates.always(), // all values are read only
-        EnvironmentContexts.map(
-            EnvironmentContexts.empty(
-                StandardCharsets.UTF_8,
-                CURRENCY,
-                INDENTATION,
-                LINE_ENDING,
-                LOCALE,
-                HAS_NOW,
-                EnvironmentContext.ANONYMOUS
-            )
-        )
-    );
-
     private final static DecimalNumberContext DECIMAL_NUMBER_CONTEXT = DecimalNumberContexts.american(MathContext.DECIMAL32);
 
     private final static ConverterContext CONVERTER_CONTEXT = ConverterContexts.basic(
@@ -130,9 +105,9 @@ public final class BasicExpressionEvaluationContextTest implements ClassTesting2
         ),
         BinaryNumberConverterFunctions.fake(), // multiplier
         TextPrinting.with(
-            Indentation.SPACES4,
-            LineEnding.CRNL
-        ).setCharset(CHARSET), // must be different from INDENTATION & LINE_ENDING
+            DIFFERENT_INDENTATION,
+            DIFFERENT_LINE_ENDING
+        ).setCharset(CHARSET),
         CurrencyLocaleContexts.fake(),
         DateTimeContexts.basic(
             DateTimeSymbols.fromDateFormatSymbols(
