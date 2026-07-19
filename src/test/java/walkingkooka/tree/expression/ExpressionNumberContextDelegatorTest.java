@@ -19,7 +19,6 @@ package walkingkooka.tree.expression;
 
 import walkingkooka.math.DecimalNumberContext;
 import walkingkooka.math.DecimalNumberContextDelegator;
-import walkingkooka.math.DecimalNumberContexts;
 import walkingkooka.tree.expression.ExpressionNumberContextDelegatorTest.TestExpressionNumberContextDelegator;
 
 import java.math.MathContext;
@@ -29,7 +28,7 @@ public class ExpressionNumberContextDelegatorTest implements ExpressionNumberCon
 
     private final static ExpressionNumberContext EXPRESSION_NUMBER_CONTEXT = ExpressionNumberContexts.basic(
         ExpressionNumberKind.BIG_DECIMAL,
-        DecimalNumberContexts.american(MathContext.DECIMAL32)
+        DECIMAL_NUMBER_CONTEXT
     );
 
     @Override

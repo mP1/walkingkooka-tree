@@ -33,7 +33,7 @@ import walkingkooka.datetime.DateTimeContexts;
 import walkingkooka.environment.EnvironmentContexts;
 import walkingkooka.locale.LocaleContexts;
 import walkingkooka.math.DecimalNumberContext;
-import walkingkooka.math.DecimalNumberContexts;
+import walkingkooka.math.DecimalNumberContextTesting;
 import walkingkooka.naming.Names;
 import walkingkooka.naming.StringName;
 import walkingkooka.predicate.Predicates;
@@ -66,7 +66,6 @@ import walkingkooka.tree.select.parser.NodeSelectorParserTokenVisitorTesting;
 import walkingkooka.tree.select.parser.NodeSelectorParsers;
 
 import java.math.BigDecimal;
-import java.math.MathContext;
 import java.nio.charset.StandardCharsets;
 import java.util.Collection;
 import java.util.List;
@@ -77,6 +76,7 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 
 public final class NodeSelectorNodeSelectorParserTokenVisitorTest implements NodeSelectorParserTokenVisitorTesting<NodeSelectorNodeSelectorParserTokenVisitor<TestNode, StringName, StringName, Object>>,
+    DecimalNumberContextTesting,
     HasExpressionNumberKindTesting {
 
     @BeforeEach
@@ -2113,7 +2113,7 @@ public final class NodeSelectorNodeSelectorParserTokenVisitorTest implements Nod
     }
 
     private DecimalNumberContext decimalNumberContext() {
-        return DecimalNumberContexts.american(MathContext.DECIMAL32);
+        return DECIMAL_NUMBER_CONTEXT;
     }
 
     private static StringName nameAbc123() {

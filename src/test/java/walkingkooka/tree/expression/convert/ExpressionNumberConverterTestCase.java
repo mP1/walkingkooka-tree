@@ -24,17 +24,17 @@ import walkingkooka.convert.ConverterTesting2;
 import walkingkooka.convert.Converters;
 import walkingkooka.currency.CurrencyLocaleContexts;
 import walkingkooka.datetime.DateTimeContexts;
-import walkingkooka.math.DecimalNumberContexts;
+import walkingkooka.math.DecimalNumberContextTesting;
 import walkingkooka.text.Indentation;
 import walkingkooka.text.LineEnding;
 import walkingkooka.text.TextPrinting;
 import walkingkooka.tree.expression.ExpressionNumberKind;
 
-import java.math.MathContext;
 import java.nio.charset.StandardCharsets;
 
 public abstract class ExpressionNumberConverterTestCase<C extends ExpressionNumberConverter<ExpressionNumberConverterContext>>
     implements ConverterTesting2<C, ExpressionNumberConverterContext>,
+    DecimalNumberContextTesting,
     ToStringTesting<C> {
 
     private final static ExpressionNumberKind EXPRESSION_NUMBER_KIND = ExpressionNumberKind.BIG_DECIMAL;
@@ -64,7 +64,7 @@ public abstract class ExpressionNumberConverterTestCase<C extends ExpressionNumb
                 ).setCharset(StandardCharsets.UTF_8),
                 CurrencyLocaleContexts.fake(),
                 DateTimeContexts.fake(),
-                DecimalNumberContexts.american(MathContext.DECIMAL32)
+                DECIMAL_NUMBER_CONTEXT
             ),
             kind
         );

@@ -32,7 +32,6 @@ import walkingkooka.environment.EnvironmentContexts;
 import walkingkooka.locale.LocaleContexts;
 import walkingkooka.math.DecimalNumberContext;
 import walkingkooka.math.DecimalNumberContextDelegator;
-import walkingkooka.math.DecimalNumberContexts;
 import walkingkooka.naming.Names;
 import walkingkooka.naming.StringName;
 import walkingkooka.text.CaseSensitivity;
@@ -241,18 +240,17 @@ public final class BasicNodeSelectorExpressionEvaluationContextTest implements N
 
     @Override
     public DecimalNumberContext decimalNumberContext() {
-        return DecimalNumberContexts.american(this.mathContext());
+        return DECIMAL_NUMBER_CONTEXT;
     }
 
     @Override
     public int decimalNumberDigitCount() {
-        return this.decimalNumberContext()
-            .decimalNumberDigitCount();
+        return DEFAULT_NUMBER_DIGIT_COUNT;
     }
 
     @Override
     public MathContext mathContext() {
-        return MathContext.DECIMAL32;
+        return MATH_CONTEXT;
     }
 
     // ClassTesting.....................................................................................................
