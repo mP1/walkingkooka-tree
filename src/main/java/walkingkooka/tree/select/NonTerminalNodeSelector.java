@@ -19,6 +19,8 @@ package walkingkooka.tree.select;
 
 import walkingkooka.Cast;
 import walkingkooka.naming.Name;
+import walkingkooka.text.CharSequences;
+import walkingkooka.text.printer.IndentingPrinter;
 import walkingkooka.tree.Node;
 import walkingkooka.visit.Visiting;
 
@@ -106,5 +108,40 @@ abstract class NonTerminalNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, N
         if (null != this.next) {
             this.next.toString0(b);
         }
+    }
+
+    // TreePrintable....................................................................................................
+
+    @Override
+    void printTree0(final IndentingPrinter printer) {
+        printer.println(
+            CharSequences.subSequence(
+                this.getClass().getSimpleName(),
+                0,
+                -NODE_SELECTOR_LENGTH
+            )
+        );
+
+        this.printTreeNext(printer);
+    }
+
+    private final static int NODE_SELECTOR_LENGTH = NodeSelector.class.getSimpleName()
+        .length();
+
+    @Override
+    void printTreeNext(final IndentingPrinter printer) {
+        if (this instanceof ExpressionNodeSelector) {
+            printer.indent();
+            {
+                ((ExpressionNodeSelector<N, NAME, ANAME, AVALUE>) this).expression.printTree(printer);
+                this.next.printTreeNext(printer);
+            }
+            printer.outdent();
+        }
+        printer.indent();
+        {
+            this.next.printTree0(printer);
+        }
+        printer.outdent();
     }
 }

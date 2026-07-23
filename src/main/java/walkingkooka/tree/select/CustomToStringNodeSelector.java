@@ -19,6 +19,8 @@ package walkingkooka.tree.select;
 
 import walkingkooka.Cast;
 import walkingkooka.naming.Name;
+import walkingkooka.text.CharSequences;
+import walkingkooka.text.printer.IndentingPrinter;
 import walkingkooka.tree.Node;
 import walkingkooka.visit.Visiting;
 
@@ -130,4 +132,27 @@ final class CustomToStringNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, N
 
     // @VisibleForTesting
     final NodeSelector<N, NAME, ANAME, AVALUE> selector;
+
+    // TreePrintable....................................................................................................
+
+    @Override
+    void printTree0(final IndentingPrinter printer) {
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
+    void printTreeNext(final IndentingPrinter printer) {
+        printer.indent();
+        {
+            printer.println(
+                CharSequences.quoteAndEscape(this.toString)
+            );
+            printer.indent();
+            {
+                this.selector.printTree0(printer);
+            }
+            printer.outdent();
+        }
+        printer.outdent();
+    }
 }

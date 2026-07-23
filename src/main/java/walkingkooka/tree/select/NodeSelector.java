@@ -20,6 +20,8 @@ package walkingkooka.tree.select;
 import walkingkooka.naming.Name;
 import walkingkooka.stream.push.PushableStreamConsumer;
 import walkingkooka.text.CharacterConstant;
+import walkingkooka.text.printer.IndentingPrinter;
+import walkingkooka.text.printer.TreePrintable;
 import walkingkooka.tree.Node;
 import walkingkooka.tree.expression.Expression;
 import walkingkooka.tree.expression.ExpressionEvaluationContext;
@@ -46,6 +48,7 @@ public abstract class NodeSelector<N extends Node<N, NAME, ANAME, AVALUE>,
     NAME extends Name,
     ANAME extends Name,
     AVALUE> implements BiFunction<N, NodeSelectorContext<N, NAME, ANAME, AVALUE>, N>,
+    TreePrintable,
     Visitable {
 
     /**
@@ -491,4 +494,19 @@ public abstract class NodeSelector<N extends Node<N, NAME, ANAME, AVALUE>,
      * All subclasses except for {@link CustomToStringNodeSelector} return this.
      */
     abstract NodeSelector<N, NAME, ANAME, AVALUE> unwrapIfCustomToStringNodeSelector();
+
+    // TreePrintable....................................................................................................
+
+    @Override
+    public final void printTree(final IndentingPrinter printer) {
+        printer.println(
+            this.getClass().getSimpleName()
+        );
+
+        this.printTreeNext(printer);
+    }
+
+    abstract void printTree0(final IndentingPrinter printer);
+
+    abstract void printTreeNext(final IndentingPrinter printer);
 }
