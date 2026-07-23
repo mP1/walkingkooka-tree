@@ -24,7 +24,7 @@ import java.util.List;
 import java.util.Optional;
 
 /**
- * This is the {@link ExpressionFunction} returned by {@link Expression#function(ExpressionEvaluationContext)} for all sub classes except
+ * This is the {@link ExpressionFunction} returned by {@link Expression#function(ExpressionEvaluationContext)} for all subclasses except
  * {@link CallExpression}.
  */
 final class ExpressionExpressionFunction implements ExpressionFunction<Object, ExpressionEvaluationContext> {

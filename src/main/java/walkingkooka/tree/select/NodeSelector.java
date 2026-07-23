@@ -469,7 +469,7 @@ public abstract class NodeSelector<N extends Node<N, NAME, ANAME, AVALUE>,
     // Object...........................................................................................................
 
     /**
-     * Force sub classes to implement.
+     * Force subclasses to implement.
      */
     @Override
     public final String toString() {
@@ -488,7 +488,7 @@ public abstract class NodeSelector<N extends Node<N, NAME, ANAME, AVALUE>,
     }
 
     /**
-     * All sub classes except for {@link CustomToStringNodeSelector} return this.
+     * All subclasses except for {@link CustomToStringNodeSelector} return this.
      */
     abstract NodeSelector<N, NAME, ANAME, AVALUE> unwrapIfCustomToStringNodeSelector();
 }

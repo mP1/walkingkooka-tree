@@ -21,7 +21,7 @@ import walkingkooka.naming.Name;
 import walkingkooka.tree.Node;
 
 /**
- * A base {@link NodeSelector} for all sub classes that are not {@link CustomToStringNodeSelector}.
+ * A base {@link NodeSelector} for all subclasses that are not {@link CustomToStringNodeSelector}.
  */
 abstract class NonCustomToStringNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NAME extends Name, ANAME extends Name, AVALUE>
     extends

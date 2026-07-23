@@ -39,7 +39,7 @@ import java.util.Optional;
 import java.util.function.Predicate;
 
 /**
- * There are many sub classes of {@link Expression} representing different concepts typically found with an expression
+ * There are many subclasses of {@link Expression} representing different concepts typically found with an expression
  * language, from values, to arithmetic or functions.
  * <br>
  * The provided <code>toXXX</code> methods along with the required {@link ExpressionEvaluationContext} support a
@@ -548,7 +548,7 @@ public abstract class Expression implements Node<Expression, ExpressionFunctionN
     public abstract String toString(final ExpressionEvaluationContext context);
 
     /**
-     * Evaluates this node returning its {@link ExpressionReference} or value. For all sub classes except {@link ReferenceExpression}
+     * Evaluates this node returning its {@link ExpressionReference} or value. For all subclasses except {@link ReferenceExpression}
      * will be identical to {@link #toValue(ExpressionEvaluationContext)}.
      */
     public abstract Object toReferenceOrValue(final ExpressionEvaluationContext context);

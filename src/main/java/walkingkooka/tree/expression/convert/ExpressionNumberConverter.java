@@ -30,7 +30,7 @@ abstract class ExpressionNumberConverter<C extends ExpressionNumberConverterCont
     }
 
     /**
-     * Force sub-classes to implement.
+     * Force subclasses to implement.
      */
     abstract public String toString();
 }
