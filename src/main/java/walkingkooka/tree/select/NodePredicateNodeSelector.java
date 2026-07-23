@@ -48,8 +48,9 @@ final class NodePredicateNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NA
     /**
      * Private constructor
      */
-    private NodePredicateNodeSelector(final Predicate<N> predicate, final NodeSelector<N, NAME, ANAME, AVALUE> selector) {
-        super(selector);
+    private NodePredicateNodeSelector(final Predicate<N> predicate,
+                                      final NodeSelector<N, NAME, ANAME, AVALUE> next) {
+        super(next);
         this.predicate = predicate;
     }
 

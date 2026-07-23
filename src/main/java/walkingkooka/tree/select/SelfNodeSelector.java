@@ -43,8 +43,8 @@ final class SelfNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NAME extend
     /**
      * Private constructor
      */
-    private SelfNodeSelector(final NodeSelector<N, NAME, ANAME, AVALUE> selector) {
-        super(selector);
+    private SelfNodeSelector(final NodeSelector<N, NAME, ANAME, AVALUE> next) {
+        super(next);
     }
 
     @Override

@@ -29,8 +29,8 @@ abstract class AbsoluteOrAxisNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>
     /**
      * Package private constructor
      */
-    AbsoluteOrAxisNodeSelector(final NodeSelector<N, NAME, ANAME, AVALUE> selector) {
-        super(selector);
+    AbsoluteOrAxisNodeSelector(final NodeSelector<N, NAME, ANAME, AVALUE> next) {
+        super(next);
     }
 
     /**

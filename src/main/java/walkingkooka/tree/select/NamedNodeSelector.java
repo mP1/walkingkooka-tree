@@ -46,8 +46,8 @@ final class NamedNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NAME exten
     /**
      * Private constructor
      */
-    private NamedNodeSelector(final NAME name, final NodeSelector<N, NAME, ANAME, AVALUE> selector) {
-        super(selector);
+    private NamedNodeSelector(final NAME name, final NodeSelector<N, NAME, ANAME, AVALUE> next) {
+        super(next);
         this.name = name;
     }
 

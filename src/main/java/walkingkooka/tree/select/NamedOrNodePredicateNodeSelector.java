@@ -29,8 +29,8 @@ abstract class NamedOrNodePredicateNodeSelector<N extends Node<N, NAME, ANAME, A
     /**
      * Package private constructor
      */
-    NamedOrNodePredicateNodeSelector(final NodeSelector<N, NAME, ANAME, AVALUE> selector) {
-        super(selector);
+    NamedOrNodePredicateNodeSelector(final NodeSelector<N, NAME, ANAME, AVALUE> next) {
+        super(next);
     }
 
     /**
