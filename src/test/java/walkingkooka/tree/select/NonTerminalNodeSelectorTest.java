@@ -19,11 +19,19 @@ package walkingkooka.tree.select;
 
 import walkingkooka.Cast;
 import walkingkooka.naming.StringName;
+import walkingkooka.reflect.ClassTesting2;
+import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.tree.TestNode;
 
-public final class NonTerminalNodeSelectorTest extends NodeSelectorTestCase2<NonTerminalNodeSelector<TestNode, StringName, StringName, Object>> {
+public final class NonTerminalNodeSelectorTest implements ClassTesting2<NonTerminalNodeSelector<TestNode, StringName, StringName, Object>> {
+
     @Override
     public Class<NonTerminalNodeSelector<TestNode, StringName, StringName, Object>> type() {
         return Cast.to(NonTerminalNodeSelector.class);
+    }
+
+    @Override
+    public JavaVisibility typeVisibility() {
+        return JavaVisibility.PACKAGE_PRIVATE;
     }
 }

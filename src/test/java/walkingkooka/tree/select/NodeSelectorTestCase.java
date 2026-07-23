@@ -37,6 +37,9 @@ import walkingkooka.math.DecimalNumberContextTesting;
 import walkingkooka.naming.Names;
 import walkingkooka.naming.StringName;
 import walkingkooka.predicate.Predicates;
+import walkingkooka.reflect.ClassTesting2;
+import walkingkooka.reflect.JavaVisibility;
+import walkingkooka.reflect.TypeNameTesting;
 import walkingkooka.text.CaseSensitivity;
 import walkingkooka.text.Indentation;
 import walkingkooka.text.LineEnding;
@@ -71,17 +74,18 @@ import java.util.stream.Collectors;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-abstract public class NodeSelectorTestCase3<S extends NodeSelector<TestNode, StringName, StringName, Object>> extends NodeSelectorTestCase2<S>
-    implements BiFunctionTesting<S, TestNode, NodeSelectorContext<TestNode, StringName, StringName, Object>, TestNode>,
+abstract public class NodeSelectorTestCase<S extends NodeSelector<TestNode, StringName, StringName, Object>> implements BiFunctionTesting<S, TestNode, NodeSelectorContext<TestNode, StringName, StringName, Object>, TestNode>,
+    ClassTesting2<S>,
     DecimalNumberContextTesting,
     EnvironmentContextTesting,
     HashCodeEqualsDefinedTesting2<S>,
     LocaleContextTesting,
-    ToStringTesting<S> {
+    ToStringTesting<S>,
+    TypeNameTesting<S> {
 
     final static ExpressionNumberKind EXPRESSION_NUMBER_KIND = ExpressionNumberKind.DEFAULT;
 
-    NodeSelectorTestCase3() {
+    NodeSelectorTestCase() {
         super();
     }
 
@@ -643,5 +647,22 @@ abstract public class NodeSelectorTestCase3<S extends NodeSelector<TestNode, Str
     @Override
     public final S createObject() {
         return this.createSelector();
+    }
+
+    // class............................................................................................................
+
+    @Override
+    public final JavaVisibility typeVisibility() {
+        return JavaVisibility.PACKAGE_PRIVATE;
+    }
+
+    @Override
+    public final String typeNamePrefix() {
+        return "";
+    }
+
+    @Override
+    public final String typeNameSuffix() {
+        return NodeSelector.class.getSimpleName();
     }
 }
