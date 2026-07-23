@@ -123,7 +123,7 @@ abstract class ParentExpression extends Expression {
     // TreePrintable....................................................................................................
 
     /**
-     * Most sub-classes of {@link ParentExpression} only have children and no other properties, making this a perfect
+     * Most subclasses of {@link ParentExpression} only have children and no other properties, making this a perfect
      * fit to printTree themselves.
      */
     final void printTreeTypeAndChildren(final IndentingPrinter printer) {

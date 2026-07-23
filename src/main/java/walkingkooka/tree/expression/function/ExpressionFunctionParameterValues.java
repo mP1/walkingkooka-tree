@@ -25,7 +25,7 @@ import java.util.Objects;
 import java.util.Optional;
 
 /**
- * A base class for several {@link ExpressionFunction} sub classes that delegates most methods but leaves a few abstract.
+ * A base class for several {@link ExpressionFunction} subclasses that delegates most methods but leaves a few abstract.
  */
 abstract class ExpressionFunctionParameterValues<T, C extends ExpressionEvaluationContext> implements ExpressionFunction<T, C> {
 

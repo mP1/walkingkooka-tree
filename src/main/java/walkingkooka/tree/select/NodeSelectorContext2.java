@@ -22,7 +22,7 @@ import walkingkooka.tree.Node;
 import walkingkooka.tree.expression.Expression;
 
 /**
- * Base class for several {@link NodeSelectorContext} wrappers. Static factory methods are also available for all sub classes.
+ * Base class for several {@link NodeSelectorContext} wrappers. Static factory methods are also available for all subclasses.
  */
 abstract class NodeSelectorContext2<N extends Node<N, NAME, ANAME, AVALUE>, NAME extends Name, ANAME extends Name, AVALUE> implements NodeSelectorContext<N, NAME, ANAME, AVALUE> {
 
