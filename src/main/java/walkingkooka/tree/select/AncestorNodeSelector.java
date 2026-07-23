@@ -85,8 +85,4 @@ final class AncestorNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NAME ex
         b.axisName("ancestor");
     }
 
-    @Override
-    boolean canBeEqual(final Object other) {
-        return other instanceof AncestorNodeSelector;
-    }
 }

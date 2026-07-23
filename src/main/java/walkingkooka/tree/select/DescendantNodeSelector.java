@@ -82,11 +82,6 @@ final class DescendantNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NAME 
     // Object...........................................................................................................
 
     @Override
-    boolean canBeEqual(final Object other) {
-        return other instanceof DescendantNodeSelector;
-    }
-
-    @Override
     void toString1(final NodeSelectorToStringBuilder b) {
         b.axisName("descendant");
     }

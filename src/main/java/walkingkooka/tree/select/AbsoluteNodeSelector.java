@@ -100,8 +100,4 @@ final class AbsoluteNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NAME ex
         b.absolute();
     }
 
-    @Override
-    boolean canBeEqual(final Object other) {
-        return other instanceof AbsoluteNodeSelector;
-    }
 }

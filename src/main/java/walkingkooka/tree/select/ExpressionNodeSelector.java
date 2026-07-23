@@ -119,11 +119,6 @@ final class ExpressionNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NAME 
     }
 
     @Override
-    boolean canBeEqual(final Object other) {
-        return other instanceof ExpressionNodeSelector;
-    }
-
-    @Override
     boolean equals1(final NonTerminalNodeSelector<?, ?, ?, ?> other) {
         return this.equals2(Cast.to(other));
     }

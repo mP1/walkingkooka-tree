@@ -85,11 +85,6 @@ final class NamedNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NAME exten
     }
 
     @Override
-    boolean canBeEqual(final Object other) {
-        return other instanceof NamedNodeSelector;
-    }
-
-    @Override
     boolean equals1(final NonTerminalNodeSelector<?, ?, ?, ?> other) {
         return this.equals2(Cast.to(other));
     }

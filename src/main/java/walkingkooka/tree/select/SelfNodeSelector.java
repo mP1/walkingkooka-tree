@@ -80,11 +80,6 @@ final class SelfNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NAME extend
     // Object...........................................................................................................
 
     @Override
-    boolean canBeEqual(final Object other) {
-        return other instanceof SelfNodeSelector;
-    }
-
-    @Override
     void toString1(final NodeSelectorToStringBuilder b) {
         b.self();
     }

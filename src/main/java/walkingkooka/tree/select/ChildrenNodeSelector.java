@@ -76,11 +76,6 @@ final class ChildrenNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NAME ex
     // Object...........................................................................................................
 
     @Override
-    boolean canBeEqual(final Object other) {
-        return other instanceof ChildrenNodeSelector;
-    }
-
-    @Override
     void toString1(final NodeSelectorToStringBuilder b) {
         b.axisName("child");
     }

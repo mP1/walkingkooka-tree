@@ -76,11 +76,6 @@ final class ParentNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NAME exte
     // Object...........................................................................................................
 
     @Override
-    boolean canBeEqual(final Object other) {
-        return other instanceof ParentNodeSelector;
-    }
-
-    @Override
     void toString1(final NodeSelectorToStringBuilder b) {
         b.parent();
     }

@@ -78,11 +78,6 @@ final class PrecedingSiblingNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>,
     // Object...........................................................................................................
 
     @Override
-    boolean canBeEqual(final Object other) {
-        return other instanceof PrecedingSiblingNodeSelector;
-    }
-
-    @Override
     void toString1(final NodeSelectorToStringBuilder b) {
         b.axisName("preceding-sibling");
     }
