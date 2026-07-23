@@ -117,7 +117,7 @@ public abstract class NodeSelector<N extends Node<N, NAME, ANAME, AVALUE>,
     NodeSelector() {
     }
 
-    // builder...........................................................................................................
+    // builder..........................................................................................................
 
     /**
      * Appends an ancestor axis
@@ -136,28 +136,32 @@ public abstract class NodeSelector<N extends Node<N, NAME, ANAME, AVALUE>,
     /**
      * Appends an attribute value contains test.
      */
-    public final NodeSelector<N, NAME, ANAME, AVALUE> attributeValueContains(final ANAME name, final AVALUE value) {
+    public final NodeSelector<N, NAME, ANAME, AVALUE> attributeValueContains(final ANAME name,
+                                                                             final AVALUE value) {
         return this.predicate(NodeSelectorNodeAttributeValuePredicateContains.contains(name, value));
     }
 
     /**
      * Appends an attribute value ends with test.
      */
-    public final NodeSelector<N, NAME, ANAME, AVALUE> attributeValueEndsWith(final ANAME name, final AVALUE value) {
+    public final NodeSelector<N, NAME, ANAME, AVALUE> attributeValueEndsWith(final ANAME name,
+                                                                             final AVALUE value) {
         return this.predicate(NodeSelectorNodeAttributeValuePredicateEndsWith.endsWith(name, value));
     }
 
     /**
      * Appends an attribute value equals test.
      */
-    public final NodeSelector<N, NAME, ANAME, AVALUE> attributeValueEquals(final ANAME name, final AVALUE value) {
+    public final NodeSelector<N, NAME, ANAME, AVALUE> attributeValueEquals(final ANAME name,
+                                                                           final AVALUE value) {
         return this.predicate(NodeSelectorNodeAttributeValuePredicateEquals.equalsPredicate(name, value));
     }
 
     /**
      * Appends an attribute value starts with test.
      */
-    public final NodeSelector<N, NAME, ANAME, AVALUE> attributeValueStartsWith(final ANAME name, final AVALUE value) {
+    public final NodeSelector<N, NAME, ANAME, AVALUE> attributeValueStartsWith(final ANAME name,
+                                                                               final AVALUE value) {
         return this.predicate(NodeSelectorNodeAttributeValuePredicateStartsWith.startsWith(name, value));
     }
 
@@ -267,15 +271,16 @@ public abstract class NodeSelector<N extends Node<N, NAME, ANAME, AVALUE>,
 
     abstract NodeSelector<N, NAME, ANAME, AVALUE> append0(final NodeSelector<N, NAME, ANAME, AVALUE> selector);
 
-    // apply...........................................................................................................
+    // apply............................................................................................................
 
     /**
      * Accepts a starting {@link Node} anywhere in a tree returning all matching nodes.
      * The {@link Consumer} is invoked for each and every {@link Node} prior to any test and continued traversal. It may be
      * used to abort the visiting process by throwing an {@link RuntimeException}
      */
-    @Override final public N apply(final N node,
-                                   final NodeSelectorContext<N, NAME, ANAME, AVALUE> context) {
+    @Override
+    public final N apply(final N node,
+                         final NodeSelectorContext<N, NAME, ANAME, AVALUE> context) {
         Objects.requireNonNull(node, "node");
         Objects.requireNonNull(context, "context");
 
@@ -309,7 +314,8 @@ public abstract class NodeSelector<N extends Node<N, NAME, ANAME, AVALUE>,
     /**
      * Selects all preceding siblings of the given {@link Node}.
      */
-    final N selectPrecedingSiblings(final N node, final NodeSelectorContext2<N, NAME, ANAME, AVALUE> context) {
+    final N selectPrecedingSiblings(final N node,
+                                    final NodeSelectorContext2<N, NAME, ANAME, AVALUE> context) {
         N result = node;
 
         final Optional<N> parent = node.parent();
@@ -320,7 +326,7 @@ public abstract class NodeSelector<N extends Node<N, NAME, ANAME, AVALUE>,
 
             for (; ; ) {
                 final Optional<N> next = current.previousSibling();
-                if (!next.isPresent()) {
+                if (false == next.isPresent()) {
                     result = current.parentOrFail().children().get(index);
                     break;
                 }
@@ -339,7 +345,8 @@ public abstract class NodeSelector<N extends Node<N, NAME, ANAME, AVALUE>,
     /**
      * Selects all following siblings of the given {@link Node}.
      */
-    final N selectFollowingSiblings(final N node, final NodeSelectorContext2<N, NAME, ANAME, AVALUE> context) {
+    final N selectFollowingSiblings(final N node,
+                                    final NodeSelectorContext2<N, NAME, ANAME, AVALUE> context) {
         N result = node;
 
         final Optional<N> parent = node.parent();
@@ -349,7 +356,7 @@ public abstract class NodeSelector<N extends Node<N, NAME, ANAME, AVALUE>,
 
             for (; ; ) {
                 final Optional<N> next = current.nextSibling();
-                if (!next.isPresent()) {
+                if (false == next.isPresent()) {
                     result = current.parentOrFail().children().get(index);
                     break;
                 }
@@ -367,7 +374,8 @@ public abstract class NodeSelector<N extends Node<N, NAME, ANAME, AVALUE>,
     /**
      * Selects all direct children of the given {@link Node node}.`
      */
-    final N selectChildren(final N node, final NodeSelectorContext2<N, NAME, ANAME, AVALUE> context) {
+    final N selectChildren(final N node,
+                           final NodeSelectorContext2<N, NAME, ANAME, AVALUE> context) {
         N result = node;
 
         Optional<N> next = node.firstChild();
@@ -381,7 +389,7 @@ public abstract class NodeSelector<N extends Node<N, NAME, ANAME, AVALUE>,
 
                 result = this.testThenSelect(nextNode, context);
                 next = result.nextSibling();
-                if (!next.isPresent()) {
+                if (false == next.isPresent()) {
                     result = result.parentOrFail();
                     break;
                 }
@@ -394,7 +402,8 @@ public abstract class NodeSelector<N extends Node<N, NAME, ANAME, AVALUE>,
     /**
      * Matches the parent only if one is present.
      */
-    final N selectParent(final N node, final NodeSelectorContext2<N, NAME, ANAME, AVALUE> context) {
+    final N selectParent(final N node,
+                         final NodeSelectorContext2<N, NAME, ANAME, AVALUE> context) {
         return context.isFinished() ?
             node :
             node.parent()
@@ -405,7 +414,8 @@ public abstract class NodeSelector<N extends Node<N, NAME, ANAME, AVALUE>,
     /**
      * Perform a conditional predicate test of the provided {@link Node} and if that passes calls {@link #select(Node, NodeSelectorContext2)}.
      */
-    final N testThenSelect(final N node, final NodeSelectorContext2<N, NAME, ANAME, AVALUE> context) {
+    final N testThenSelect(final N node,
+                           final NodeSelectorContext2<N, NAME, ANAME, AVALUE> context) {
         return context.test(node) ?
             this.select(node, context) :
             node;
@@ -414,7 +424,8 @@ public abstract class NodeSelector<N extends Node<N, NAME, ANAME, AVALUE>,
     /**
      * Handles a selected {@link Node}
      */
-    abstract N select(final N node, final NodeSelectorContext2<N, NAME, ANAME, AVALUE> context);
+    abstract N select(final N node,
+                      final NodeSelectorContext2<N, NAME, ANAME, AVALUE> context);
 
     // NodeSelectorVisitor..............................................................................................
 
@@ -446,10 +457,13 @@ public abstract class NodeSelector<N extends Node<N, NAME, ANAME, AVALUE>,
                                   final Function<NodeSelectorContext<N, NAME, ANAME, AVALUE>, ExpressionEvaluationContext> expressionEvaluationContext,
                                   final Class<N> nodeType) {
         return PushableStreamConsumer.stream(
-            NodeSelectorStreamConsumerPushableStreamConsumer.with(node,
+            NodeSelectorStreamConsumerPushableStreamConsumer.with(
+                node,
                 this,
                 expressionEvaluationContext,
-                nodeType));
+                nodeType
+            )
+        );
     }
 
     // Object...........................................................................................................
