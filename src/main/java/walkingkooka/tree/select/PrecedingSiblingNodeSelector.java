@@ -41,8 +41,8 @@ final class PrecedingSiblingNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>,
     /**
      * Private constructor
      */
-    private PrecedingSiblingNodeSelector(final NodeSelector<N, NAME, ANAME, AVALUE> selector) {
-        super(selector);
+    private PrecedingSiblingNodeSelector(final NodeSelector<N, NAME, ANAME, AVALUE> next) {
+        super(next);
     }
 
     @Override

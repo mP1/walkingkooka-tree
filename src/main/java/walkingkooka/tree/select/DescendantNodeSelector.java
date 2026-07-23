@@ -43,8 +43,8 @@ final class DescendantNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NAME 
     /**
      * Private constructor
      */
-    private DescendantNodeSelector(final NodeSelector<N, NAME, ANAME, AVALUE> selector) {
-        super(selector);
+    private DescendantNodeSelector(final NodeSelector<N, NAME, ANAME, AVALUE> next) {
+        super(next);
     }
 
     @Override

@@ -50,8 +50,8 @@ final class ExpressionNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NAME 
      * Private constructor
      */
     private ExpressionNodeSelector(final Expression expression,
-                                   final NodeSelector<N, NAME, ANAME, AVALUE> selector) {
-        super(selector);
+                                   final NodeSelector<N, NAME, ANAME, AVALUE> next) {
+        super(next);
         this.expression = expression;
     }
 

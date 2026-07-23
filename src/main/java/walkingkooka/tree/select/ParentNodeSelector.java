@@ -42,8 +42,8 @@ final class ParentNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NAME exte
     /**
      * Private constructor
      */
-    private ParentNodeSelector(final NodeSelector<N, NAME, ANAME, AVALUE> selector) {
-        super(selector);
+    private ParentNodeSelector(final NodeSelector<N, NAME, ANAME, AVALUE> next) {
+        super(next);
     }
 
     @Override
