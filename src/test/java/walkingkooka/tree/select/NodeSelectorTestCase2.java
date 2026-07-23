@@ -17,10 +17,22 @@
 
 package walkingkooka.tree.select;
 
-abstract public class NodeSelectorTestCase2<T> extends NodeSelectorTestCase<T> {
+import walkingkooka.reflect.ClassTesting2;
+import walkingkooka.reflect.JavaVisibility;
+import walkingkooka.reflect.TypeNameTesting;
+
+abstract public class NodeSelectorTestCase2<T> implements ClassTesting2<T>,
+    TypeNameTesting<T> {
 
     NodeSelectorTestCase2() {
         super();
+    }
+
+    // class............................................................................................................
+
+    @Override
+    public final JavaVisibility typeVisibility() {
+        return JavaVisibility.PACKAGE_PRIVATE;
     }
 
     @Override

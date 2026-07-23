@@ -22,6 +22,8 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.naming.Names;
 import walkingkooka.naming.StringName;
 import walkingkooka.predicate.PredicateTesting2;
+import walkingkooka.reflect.ClassTesting2;
+import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.tree.TestNode;
 
 import java.util.Collections;
@@ -29,8 +31,8 @@ import java.util.Collections;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public abstract class NodeSelectorNodeAttributeValuePredicateTestCase<N extends NodeSelectorNodeAttributeValuePredicate<TestNode, StringName, StringName, Object>>
-    extends NodeSelectorTestCase<N>
-    implements PredicateTesting2<N, TestNode> {
+    implements PredicateTesting2<N, TestNode>,
+    ClassTesting2<N> {
 
     @BeforeEach
     public void beforeEachTest() {
@@ -71,7 +73,12 @@ public abstract class NodeSelectorNodeAttributeValuePredicateTestCase<N extends 
 
     abstract N createPredicate(final StringName name, final Object value);
 
-    // TypeNameTesting .........................................................................................
+    // class............................................................................................................
+
+    @Override
+    public final JavaVisibility typeVisibility() {
+        return JavaVisibility.PACKAGE_PRIVATE;
+    }
 
     @Override
     public final String typeNamePrefix() {

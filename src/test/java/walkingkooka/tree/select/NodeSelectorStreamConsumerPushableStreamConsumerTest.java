@@ -23,6 +23,9 @@ import walkingkooka.Cast;
 import walkingkooka.ToStringTesting;
 import walkingkooka.naming.Names;
 import walkingkooka.naming.StringName;
+import walkingkooka.reflect.ClassTesting2;
+import walkingkooka.reflect.JavaVisibility;
+import walkingkooka.reflect.TypeNameTesting;
 import walkingkooka.tree.TestNode;
 import walkingkooka.tree.expression.ExpressionEvaluationContext;
 import walkingkooka.tree.expression.ExpressionEvaluationContexts;
@@ -32,8 +35,9 @@ import java.util.function.Function;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class NodeSelectorStreamConsumerPushableStreamConsumerTest extends NodeSelectorTestCase<NodeSelectorStreamConsumerPushableStreamConsumer<TestNode, StringName, StringName, Object>>
-    implements ToStringTesting<NodeSelectorStreamConsumerPushableStreamConsumer<TestNode, StringName, StringName, Object>> {
+public final class NodeSelectorStreamConsumerPushableStreamConsumerTest implements ClassTesting2<NodeSelectorStreamConsumerPushableStreamConsumer<TestNode, StringName, StringName, Object>>,
+    ToStringTesting<NodeSelectorStreamConsumerPushableStreamConsumer<TestNode, StringName, StringName, Object>>,
+    TypeNameTesting<NodeSelectorStreamConsumerPushableStreamConsumer<TestNode, StringName, StringName, Object>> {
 
     @BeforeEach
     public void beforeEachTest() {
@@ -93,6 +97,11 @@ public final class NodeSelectorStreamConsumerPushableStreamConsumerTest extends 
     @Override
     public Class<NodeSelectorStreamConsumerPushableStreamConsumer<TestNode, StringName, StringName, Object>> type() {
         return Cast.to(NodeSelectorStreamConsumerPushableStreamConsumer.class);
+    }
+
+    @Override
+    public JavaVisibility typeVisibility() {
+        return JavaVisibility.PACKAGE_PRIVATE;
     }
 
     @Override
