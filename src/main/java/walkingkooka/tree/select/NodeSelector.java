@@ -25,7 +25,6 @@ import walkingkooka.tree.expression.Expression;
 import walkingkooka.tree.expression.ExpressionEvaluationContext;
 import walkingkooka.tree.expression.ExpressionFunctionName;
 import walkingkooka.tree.expression.HasExpressionNumberKind;
-import walkingkooka.tree.expression.convert.ExpressionNumberConverterContext;
 import walkingkooka.tree.select.parser.ExpressionNodeSelectorParserToken;
 import walkingkooka.tree.select.parser.NodeSelectorNodeName;
 import walkingkooka.tree.select.parser.NodeSelectorParserToken;
@@ -440,9 +439,9 @@ public abstract class NodeSelector<N extends Node<N, NAME, ANAME, AVALUE>,
      * Returns a stream which will execute this selector starting with the given {@link Node} and then push matches to the
      * {@link Stream} for further stream processing.
      */
-    public final <C extends ExpressionNumberConverterContext> Stream<N> stream(final N node,
-                                                                               final Function<NodeSelectorContext<N, NAME, ANAME, AVALUE>, ExpressionEvaluationContext> expressionEvaluationContext,
-                                                                               final Class<N> nodeType) {
+    public final Stream<N> stream(final N node,
+                                  final Function<NodeSelectorContext<N, NAME, ANAME, AVALUE>, ExpressionEvaluationContext> expressionEvaluationContext,
+                                  final Class<N> nodeType) {
         return PushableStreamConsumer.stream(
             NodeSelectorStreamConsumerPushableStreamConsumer.with(node,
                 this,
