@@ -20,6 +20,7 @@ package walkingkooka.tree.select;
 import walkingkooka.Cast;
 import walkingkooka.NeverError;
 import walkingkooka.naming.Name;
+import walkingkooka.text.printer.IndentingPrinter;
 import walkingkooka.tree.Node;
 
 /**
@@ -85,5 +86,17 @@ final class TerminalNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NAME ex
     @Override
     void toString0(final NodeSelectorToStringBuilder b) {
         // nop
+    }
+
+    // TreePrintable....................................................................................................
+
+    @Override
+    void printTree0(final IndentingPrinter printer) {
+        printer.println("Terminal");
+    }
+
+    @Override
+    void printTreeNext(final IndentingPrinter printer) {
+        // NOP
     }
 }

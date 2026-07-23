@@ -27,7 +27,9 @@ import walkingkooka.naming.StringName;
 import walkingkooka.reflect.ClassTesting2;
 import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.stream.StreamTesting;
+import walkingkooka.text.printer.TreePrintableTesting;
 import walkingkooka.tree.TestNode;
+import walkingkooka.tree.expression.Expression;
 import walkingkooka.tree.expression.ExpressionEvaluationContext;
 import walkingkooka.tree.expression.ExpressionEvaluationContexts;
 
@@ -36,7 +38,8 @@ import java.util.function.Function;
 import java.util.stream.Stream;
 
 public final class NodeSelectorTest implements ClassTesting2<NodeSelector<TestNode, StringName, StringName, Object>>,
-    StreamTesting<Stream<TestNode>, TestNode> {
+    StreamTesting<Stream<TestNode>, TestNode>,
+    TreePrintableTesting {
 
     static {
         TestNode.disableUniqueNameChecks();
@@ -179,6 +182,63 @@ public final class NodeSelectorTest implements ClassTesting2<NodeSelector<TestNo
             TestNode.with("leaf2")
         )
     );
+
+    // TreePrintable....................................................................................................
+
+    @Test
+    public void testPrintTreeAbsolute() {
+        this.treePrintAndCheck(
+            NodeSelector.absolute(),
+            "AbsoluteNodeSelector\n" +
+                "  Terminal\n"
+        );
+    }
+
+    @Test
+    public void testPrintTreeAbsoluteExpression() {
+        this.treePrintAndCheck(
+            NodeSelector.absolute()
+                .expression(
+                    Expression.add(
+                        Expression.value(1),
+                        Expression.value(2)
+                    )
+                ),
+            "AbsoluteNodeSelector\n" +
+                "  Expression\n" +
+                "    AddExpression\n" +
+                "      ValueExpression 1 (java.lang.Integer)\n" +
+                "      ValueExpression 2 (java.lang.Integer)\n" +
+                "    Terminal\n"
+        );
+    }
+
+    @Test
+    public void testPrintTreeAbsoluteFirstChildDescendantOfSelf() {
+        this.treePrintAndCheck(
+            NodeSelector.absolute()
+                .firstChild()
+                .descendantOrSelf(),
+            "AbsoluteNodeSelector\n" +
+                "  FirstChild\n" +
+                "    DescendantOrSelf\n" +
+                "      Terminal\n"
+        );
+    }
+
+    @Test
+    public void testPrintTreeAbsoluteCustomToString() {
+        this.treePrintAndCheck(
+            NodeSelector.absolute()
+                .setToString("CustomToString123")
+                .descendantOrSelf(),
+            "CustomToStringNodeSelector\n" +
+                "  \"CustomToString123\"\n" +
+                "    Absolute\n" +
+                "      DescendantOrSelf\n" +
+                "        Terminal\n"
+        );
+    }
 
     // class............................................................................................................
 
