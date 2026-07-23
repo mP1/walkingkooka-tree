@@ -20,7 +20,6 @@ package walkingkooka.tree.select.parser;
 import org.junit.jupiter.api.Test;
 import walkingkooka.math.DecimalNumberContext;
 import walkingkooka.math.DecimalNumberContextDelegator;
-import walkingkooka.math.DecimalNumberContexts;
 import walkingkooka.reflect.ClassTesting2;
 import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.tree.expression.ExpressionNumberKind;
@@ -84,17 +83,17 @@ public final class BasicNodeSelectorParserContextTest implements ClassTesting2<B
 
     @Override
     public int decimalNumberDigitCount() {
-        return DecimalNumberContext.DEFAULT_NUMBER_DIGIT_COUNT;
+        return DEFAULT_NUMBER_DIGIT_COUNT;
     }
 
     @Override
     public MathContext mathContext() {
-        return MathContext.DECIMAL32;
+        return MATH_CONTEXT;
     }
 
     @Override
     public DecimalNumberContext decimalNumberContext() {
-        return DecimalNumberContexts.american(this.mathContext());
+        return DECIMAL_NUMBER_CONTEXT;
     }
 
     // class............................................................................................................

@@ -31,7 +31,6 @@ import walkingkooka.environment.EnvironmentContexts;
 import walkingkooka.locale.LocaleContexts;
 import walkingkooka.math.DecimalNumberContext;
 import walkingkooka.math.DecimalNumberContextDelegator;
-import walkingkooka.math.DecimalNumberContexts;
 import walkingkooka.reflect.ClassTesting2;
 import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.text.CaseSensitivity;
@@ -390,7 +389,7 @@ public final class CycleDetectingExpressionEvaluationContextTest implements Clas
                                 BINARY_TEXT_CONTEXT,
                                 CurrencyLocaleContexts.fake(),
                                 DateTimeContexts.fake(),
-                                DecimalNumberContexts.american(MathContext.DECIMAL32)
+                                DECIMAL_NUMBER_CONTEXT
                             )
                         );
                 }
@@ -514,12 +513,12 @@ public final class CycleDetectingExpressionEvaluationContextTest implements Clas
 
     @Override
     public DecimalNumberContext decimalNumberContext() {
-        return DecimalNumberContexts.american(this.mathContext());
+        return DECIMAL_NUMBER_CONTEXT;
     }
 
     @Override
     public MathContext mathContext() {
-        return MathContext.DECIMAL32;
+        return MATH_CONTEXT;
     }
 
     // ClassTesting.....................................................................................................

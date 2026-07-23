@@ -33,7 +33,7 @@ import walkingkooka.currency.CurrencyLocaleContexts;
 import walkingkooka.datetime.DateTimeContexts;
 import walkingkooka.environment.EnvironmentContextTesting;
 import walkingkooka.locale.LocaleContextTesting;
-import walkingkooka.math.DecimalNumberContexts;
+import walkingkooka.math.DecimalNumberContextTesting;
 import walkingkooka.naming.Names;
 import walkingkooka.naming.StringName;
 import walkingkooka.predicate.Predicates;
@@ -54,7 +54,6 @@ import walkingkooka.tree.expression.convert.ExpressionNumberConverterContexts;
 import walkingkooka.tree.expression.convert.ExpressionNumberConverters;
 import walkingkooka.tree.expression.function.ExpressionFunction;
 
-import java.math.MathContext;
 import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
 import java.util.Collection;
@@ -72,7 +71,8 @@ import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 abstract public class NodeSelectorTestCase3<S extends NodeSelector<TestNode, StringName, StringName, Object>> extends NodeSelectorTestCase2<S>
-    implements EnvironmentContextTesting,
+    implements DecimalNumberContextTesting,
+    EnvironmentContextTesting,
     HashCodeEqualsDefinedTesting2<S>,
     LocaleContextTesting,
     ToStringTesting<S> {
@@ -623,7 +623,7 @@ abstract public class NodeSelectorTestCase3<S extends NodeSelector<TestNode, Str
                 ).setCharset(StandardCharsets.UTF_8),
                 CurrencyLocaleContexts.fake(),
                 DateTimeContexts.fake(),
-                DecimalNumberContexts.american(MathContext.DECIMAL32)
+                DECIMAL_NUMBER_CONTEXT
             ),
             EXPRESSION_NUMBER_KIND
         );

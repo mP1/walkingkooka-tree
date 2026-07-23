@@ -33,7 +33,7 @@ import walkingkooka.datetime.DateTimeContexts;
 import walkingkooka.environment.EnvironmentContexts;
 import walkingkooka.locale.LocaleContexts;
 import walkingkooka.locale.LocaleLanguageTag;
-import walkingkooka.math.DecimalNumberContexts;
+import walkingkooka.math.DecimalNumberContextTesting;
 import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.reflect.PublicStaticHelperTesting;
 import walkingkooka.text.CaseSensitivity;
@@ -60,7 +60,8 @@ import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class ExpressionFunctionsTest implements PublicStaticHelperTesting<ExpressionFunctions> {
+public final class ExpressionFunctionsTest implements PublicStaticHelperTesting<ExpressionFunctions>,
+    DecimalNumberContextTesting {
 
     private final static ExpressionNumberKind EXPRESSION_NUMBER_KIND = ExpressionNumberKind.BIG_DECIMAL;
 
@@ -447,7 +448,7 @@ public final class ExpressionFunctionsTest implements PublicStaticHelperTesting<
                             }
                         },
                         DateTimeContexts.fake(),
-                        DecimalNumberContexts.american(MathContext.DECIMAL32)
+                        DECIMAL_NUMBER_CONTEXT
                     ),
                     EnvironmentContexts.fake(),
                     LocaleContexts.fake()

@@ -27,7 +27,7 @@ import walkingkooka.datetime.DateTimeContexts;
 import walkingkooka.environment.EnvironmentContext;
 import walkingkooka.environment.EnvironmentContexts;
 import walkingkooka.locale.LocaleContexts;
-import walkingkooka.math.DecimalNumberContexts;
+import walkingkooka.math.DecimalNumberContextTesting;
 import walkingkooka.naming.StringName;
 import walkingkooka.predicate.Predicates;
 import walkingkooka.reflect.ClassTesting2;
@@ -60,6 +60,7 @@ import java.util.function.Predicate;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class BasicNodeSelectorContextTest implements ClassTesting2<BasicNodeSelectorContext<TestNode, StringName, StringName, Object>>,
+    DecimalNumberContextTesting,
     NodeSelectorContextTesting<BasicNodeSelectorContext<TestNode, StringName, StringName, Object>,
         TestNode,
         StringName,
@@ -91,7 +92,7 @@ public final class BasicNodeSelectorContextTest implements ClassTesting2<BasicNo
             ).setCharset(StandardCharsets.UTF_8),
             CurrencyLocaleContexts.fake(),
             DateTimeContexts.fake(),
-            DecimalNumberContexts.fake()
+            DECIMAL_NUMBER_CONTEXT
         ),
         KIND
     );

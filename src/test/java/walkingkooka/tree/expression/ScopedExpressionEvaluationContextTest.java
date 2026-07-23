@@ -363,9 +363,6 @@ public final class ScopedExpressionEvaluationContextTest implements ExpressionEv
         return DECIMAL_NUMBER_CONTEXT.mathContext();
     }
 
-
-    private final static DecimalNumberContext DECIMAL_NUMBER_CONTEXT = DecimalNumberContexts.american(MathContext.DECIMAL32);
-
     // class............................................................................................................
 
     @Override

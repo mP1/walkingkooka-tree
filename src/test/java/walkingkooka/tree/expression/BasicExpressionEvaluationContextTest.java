@@ -34,7 +34,6 @@ import walkingkooka.datetime.DateTimeSymbols;
 import walkingkooka.environment.EnvironmentContextTesting;
 import walkingkooka.math.DecimalNumberContext;
 import walkingkooka.math.DecimalNumberContextDelegator;
-import walkingkooka.math.DecimalNumberContexts;
 import walkingkooka.reflect.ClassTesting2;
 import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.reflect.ThrowableTesting;
@@ -90,8 +89,6 @@ public final class BasicExpressionEvaluationContextTest implements ClassTesting2
     private final static Function<RuntimeException, Object> EXCEPTION_HANDLER = (r) -> {
         throw r;
     };
-
-    private final static DecimalNumberContext DECIMAL_NUMBER_CONTEXT = DecimalNumberContexts.american(MathContext.DECIMAL32);
 
     private final static ConverterContext CONVERTER_CONTEXT = ConverterContexts.basic(
         false, // canNumbersHaveGroupSeparator

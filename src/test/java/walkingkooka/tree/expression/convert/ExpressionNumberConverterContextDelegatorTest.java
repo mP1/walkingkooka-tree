@@ -28,7 +28,7 @@ import walkingkooka.datetime.DateTimeSymbols;
 import walkingkooka.locale.LocaleContexts;
 import walkingkooka.math.DecimalNumberContext;
 import walkingkooka.math.DecimalNumberContextDelegator;
-import walkingkooka.math.DecimalNumberContexts;
+import walkingkooka.math.DecimalNumberContextTesting;
 import walkingkooka.tree.expression.ExpressionNumberKind;
 import walkingkooka.tree.expression.convert.ExpressionNumberConverterContextDelegatorTest.TestExpressionNumberConverterContextDelegator;
 
@@ -41,7 +41,8 @@ import java.util.Objects;
 import java.util.Optional;
 
 public final class ExpressionNumberConverterContextDelegatorTest implements ExpressionNumberConverterContextTesting<TestExpressionNumberConverterContextDelegator>,
-    DecimalNumberContextDelegator {
+    DecimalNumberContextDelegator,
+    DecimalNumberContextTesting {
 
     @Override
     public TestExpressionNumberConverterContextDelegator createContext() {
@@ -58,15 +59,13 @@ public final class ExpressionNumberConverterContextDelegatorTest implements Expr
 
     @Override
     public DecimalNumberContext decimalNumberContext() {
-        return DECIMAL_CONTEXT;
+        return DECIMAL_NUMBER_CONTEXT;
     }
 
     @Override
     public MathContext mathContext() {
         return MathContext.DECIMAL32;
     }
-
-    private final static DecimalNumberContext DECIMAL_CONTEXT = DecimalNumberContexts.american(MathContext.DECIMAL32);
 
     // class............................................................................................................
 
@@ -127,7 +126,7 @@ public final class ExpressionNumberConverterContextDelegatorTest implements Expr
                         50,
                         LocalDateTime::now
                     ),
-                    DECIMAL_CONTEXT
+                    DECIMAL_NUMBER_CONTEXT
                 ),
                 ExpressionNumberKind.BIG_DECIMAL
             );

@@ -32,7 +32,7 @@ import walkingkooka.datetime.DateTimeContexts;
 import walkingkooka.datetime.DateTimeSymbols;
 import walkingkooka.locale.LocaleContext;
 import walkingkooka.locale.LocaleContexts;
-import walkingkooka.math.DecimalNumberContexts;
+import walkingkooka.math.DecimalNumberContextTesting;
 import walkingkooka.naming.Name;
 import walkingkooka.net.header.HasContentTypeTesting;
 import walkingkooka.predicate.Predicates;
@@ -76,6 +76,7 @@ import java.util.function.Predicate;
 
 public abstract class ExpressionTestCase<N extends Expression> implements TreePrintableTesting,
     ClassTesting2<Expression>,
+    DecimalNumberContextTesting,
     HasContentTypeTesting,
     HasTextTesting,
     ExpressionPurityTesting,
@@ -431,7 +432,7 @@ public abstract class ExpressionTestCase<N extends Expression> implements TreePr
                     20,
                     LocalDateTime::now
                 ),
-                DecimalNumberContexts.american(MathContext.DECIMAL32)
+                DECIMAL_NUMBER_CONTEXT
             ),
             EXPRESSION_NUMBER_KIND
         );
