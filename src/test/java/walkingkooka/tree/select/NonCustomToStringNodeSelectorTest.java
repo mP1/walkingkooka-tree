@@ -19,14 +19,21 @@ package walkingkooka.tree.select;
 
 import walkingkooka.Cast;
 import walkingkooka.naming.StringName;
+import walkingkooka.reflect.ClassTesting2;
+import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.tree.TestNode;
 
-public final class NonCustomToStringNodeSelectorTest extends NodeSelectorTestCase2<NonCustomToStringNodeSelector<TestNode, StringName, StringName, Object>> {
+public final class NonCustomToStringNodeSelectorTest implements ClassTesting2<NonCustomToStringNodeSelector<TestNode, StringName, StringName, Object>> {
 
-    // TypeNameTesting .........................................................................................
+    // class............................................................................................................
 
     @Override
     public Class<NonCustomToStringNodeSelector<TestNode, StringName, StringName, Object>> type() {
         return Cast.to(NonCustomToStringNodeSelector.class);
+    }
+
+    @Override
+    public JavaVisibility typeVisibility() {
+        return JavaVisibility.PACKAGE_PRIVATE;
     }
 }

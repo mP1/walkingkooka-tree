@@ -19,11 +19,19 @@ package walkingkooka.tree.select;
 
 import walkingkooka.Cast;
 import walkingkooka.naming.StringName;
+import walkingkooka.reflect.ClassTesting2;
+import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.tree.TestNode;
 
-public final class AxisNodeSelectorTest extends NodeSelectorTestCase2<AxisNodeSelector<TestNode, StringName, StringName, Object>> {
+public final class AxisNodeSelectorTest implements ClassTesting2<AxisNodeSelector<TestNode, StringName, StringName, Object>> {
+
     @Override
     public Class<AxisNodeSelector<TestNode, StringName, StringName, Object>> type() {
         return Cast.to(AxisNodeSelector.class);
+    }
+
+    @Override
+    public JavaVisibility typeVisibility() {
+        return JavaVisibility.PACKAGE_PRIVATE;
     }
 }

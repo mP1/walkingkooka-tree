@@ -19,12 +19,19 @@ package walkingkooka.tree.select;
 
 import walkingkooka.Cast;
 import walkingkooka.naming.StringName;
+import walkingkooka.reflect.ClassTesting2;
+import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.tree.TestNode;
 
-public final class NamedOrNodePredicateNodeSelectorTest extends NodeSelectorTestCase2<NamedOrNodePredicateNodeSelector<TestNode, StringName, StringName, Object>> {
+public final class NamedOrNodePredicateNodeSelectorTest implements ClassTesting2<NamedOrNodePredicateNodeSelector<TestNode, StringName, StringName, Object>> {
 
     @Override
     public Class<NamedOrNodePredicateNodeSelector<TestNode, StringName, StringName, Object>> type() {
         return Cast.to(NamedOrNodePredicateNodeSelector.class);
+    }
+
+    @Override
+    public JavaVisibility typeVisibility() {
+        return JavaVisibility.PACKAGE_PRIVATE;
     }
 }
