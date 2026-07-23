@@ -33,6 +33,7 @@ import walkingkooka.visit.Visiting;
 
 import java.util.Objects;
 import java.util.Optional;
+import java.util.function.BiFunction;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Predicate;
@@ -44,7 +45,8 @@ import java.util.stream.Stream;
 public abstract class NodeSelector<N extends Node<N, NAME, ANAME, AVALUE>,
     NAME extends Name,
     ANAME extends Name,
-    AVALUE> implements Visitable {
+    AVALUE> implements BiFunction<N, NodeSelectorContext<N, NAME, ANAME, AVALUE>, N>,
+    Visitable {
 
     /**
      * Path separator
@@ -272,7 +274,8 @@ public abstract class NodeSelector<N extends Node<N, NAME, ANAME, AVALUE>,
      * The {@link Consumer} is invoked for each and every {@link Node} prior to any test and continued traversal. It may be
      * used to abort the visiting process by throwing an {@link RuntimeException}
      */
-    final public N apply(final N node, final NodeSelectorContext<N, NAME, ANAME, AVALUE> context) {
+    @Override final public N apply(final N node,
+                                   final NodeSelectorContext<N, NAME, ANAME, AVALUE> context) {
         Objects.requireNonNull(node, "node");
         Objects.requireNonNull(context, "context");
 

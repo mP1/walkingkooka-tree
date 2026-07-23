@@ -53,6 +53,7 @@ import walkingkooka.tree.expression.convert.ExpressionNumberConverterContext;
 import walkingkooka.tree.expression.convert.ExpressionNumberConverterContexts;
 import walkingkooka.tree.expression.convert.ExpressionNumberConverters;
 import walkingkooka.tree.expression.function.ExpressionFunction;
+import walkingkooka.util.BiFunctionTesting;
 
 import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
@@ -71,7 +72,8 @@ import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 abstract public class NodeSelectorTestCase3<S extends NodeSelector<TestNode, StringName, StringName, Object>> extends NodeSelectorTestCase2<S>
-    implements DecimalNumberContextTesting,
+    implements BiFunctionTesting<S, TestNode, NodeSelectorContext<TestNode, StringName, StringName, Object>, TestNode>,
+    DecimalNumberContextTesting,
     EnvironmentContextTesting,
     HashCodeEqualsDefinedTesting2<S>,
     LocaleContextTesting,
@@ -627,6 +629,13 @@ abstract public class NodeSelectorTestCase3<S extends NodeSelector<TestNode, Str
             ),
             EXPRESSION_NUMBER_KIND
         );
+    }
+
+    // BiFunctionTesting................................................................................................
+
+    @Override
+    public final S createBiFunction() {
+        return this.createSelector();
     }
 
     // HashCodeEqualsDefinedTesting.....................................................................................
