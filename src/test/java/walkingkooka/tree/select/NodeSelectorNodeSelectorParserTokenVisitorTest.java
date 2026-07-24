@@ -38,11 +38,9 @@ import walkingkooka.naming.Names;
 import walkingkooka.naming.StringName;
 import walkingkooka.predicate.Predicates;
 import walkingkooka.reflect.JavaVisibility;
+import walkingkooka.text.BinaryTextContextTesting;
 import walkingkooka.text.CaseSensitivity;
 import walkingkooka.text.CharSequences;
-import walkingkooka.text.Indentation;
-import walkingkooka.text.LineEnding;
-import walkingkooka.text.TextPrinting;
 import walkingkooka.text.cursor.TextCursors;
 import walkingkooka.text.cursor.parser.ParserReporters;
 import walkingkooka.tree.TestNode;
@@ -66,7 +64,6 @@ import walkingkooka.tree.select.parser.NodeSelectorParserTokenVisitorTesting;
 import walkingkooka.tree.select.parser.NodeSelectorParsers;
 
 import java.math.BigDecimal;
-import java.nio.charset.StandardCharsets;
 import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
@@ -76,6 +73,7 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 
 public final class NodeSelectorNodeSelectorParserTokenVisitorTest implements NodeSelectorParserTokenVisitorTesting<NodeSelectorNodeSelectorParserTokenVisitor<TestNode, StringName, StringName, Object>>,
+    BinaryTextContextTesting,
     DecimalNumberContextTesting,
     HasExpressionNumberKindTesting {
 
@@ -2038,15 +2036,13 @@ public final class NodeSelectorNodeSelectorParserTokenVisitorTest implements Nod
                             ',', // valueSeparator
                             Converters.fake(),
                             BinaryNumberConverterFunctions.fake(), // multiplier
-                            TextPrinting.with(
-                                Indentation.SPACES2,
-                                LineEnding.NL
-                            ).setCharset(StandardCharsets.UTF_8),
+                            BINARY_TEXT_CONTEXT,
                             CurrencyLocaleContexts.fake(),
                             DateTimeContexts.fake(),
                             decimalNumberContext()
                         ),
-                        EXPRESSION_NUMBER_KIND);
+                        EXPRESSION_NUMBER_KIND
+                    );
                 }
             });
 
