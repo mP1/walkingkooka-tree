@@ -27,16 +27,12 @@ import walkingkooka.convert.Converters;
 import walkingkooka.currency.CurrencyLocaleContexts;
 import walkingkooka.datetime.DateTimeContexts;
 import walkingkooka.datetime.DateTimeSymbols;
-import walkingkooka.environment.EnvironmentContext;
-import walkingkooka.environment.EnvironmentContexts;
 import walkingkooka.locale.LocaleContexts;
 import walkingkooka.math.DecimalNumberContext;
 import walkingkooka.math.DecimalNumberContextDelegator;
 import walkingkooka.naming.Names;
 import walkingkooka.naming.StringName;
 import walkingkooka.text.CaseSensitivity;
-import walkingkooka.text.Indentation;
-import walkingkooka.text.LineEnding;
 import walkingkooka.tree.TestNode;
 import walkingkooka.tree.expression.Expression;
 import walkingkooka.tree.expression.ExpressionEvaluationContext;
@@ -50,9 +46,7 @@ import walkingkooka.tree.expression.function.UnknownExpressionFunctionException;
 import walkingkooka.tree.select.parser.NodeSelectorAttributeName;
 
 import java.math.MathContext;
-import java.nio.charset.StandardCharsets;
 import java.text.DateFormatSymbols;
-import java.util.Currency;
 import java.util.Locale;
 import java.util.Objects;
 import java.util.Optional;
@@ -172,17 +166,7 @@ public final class BasicNodeSelectorExpressionEvaluationContextTest implements N
                 ExpressionEvaluationContexts.referenceNotFound(),
                 CaseSensitivity.SENSITIVE,
                 this.converterContext(),
-                EnvironmentContexts.map(
-                    EnvironmentContexts.empty(
-                        StandardCharsets.UTF_8,
-                        Currency.getInstance("AUD"),
-                        Indentation.SPACES2,
-                        LineEnding.NL,
-                        locale,
-                        HAS_NOW,
-                        EnvironmentContext.ANONYMOUS
-                    )
-                ),
+                ENVIRONMENT_CONTEXT.cloneEnvironment(),
                 LocaleContexts.jre(locale)
             )
         );

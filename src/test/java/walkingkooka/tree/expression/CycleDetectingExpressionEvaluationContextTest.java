@@ -26,16 +26,12 @@ import walkingkooka.convert.Converters;
 import walkingkooka.currency.CurrencyLocaleContexts;
 import walkingkooka.datetime.DateTimeContexts;
 import walkingkooka.datetime.DateTimeSymbols;
-import walkingkooka.environment.EnvironmentContext;
-import walkingkooka.environment.EnvironmentContexts;
 import walkingkooka.locale.LocaleContexts;
 import walkingkooka.math.DecimalNumberContext;
 import walkingkooka.math.DecimalNumberContextDelegator;
 import walkingkooka.reflect.ClassTesting2;
 import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.text.CaseSensitivity;
-import walkingkooka.text.Indentation;
-import walkingkooka.text.LineEnding;
 import walkingkooka.text.cursor.parser.BigIntegerParserToken;
 import walkingkooka.text.cursor.parser.InvalidCharacterExceptionFactory;
 import walkingkooka.text.cursor.parser.ParserContexts;
@@ -47,10 +43,8 @@ import walkingkooka.tree.expression.function.UnknownExpressionFunctionException;
 
 import java.math.BigInteger;
 import java.math.MathContext;
-import java.nio.charset.StandardCharsets;
 import java.text.DateFormatSymbols;
 import java.time.LocalDateTime;
-import java.util.Currency;
 import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
@@ -479,17 +473,7 @@ public final class CycleDetectingExpressionEvaluationContextTest implements Clas
                     ),
                     this.decimalNumberContext()
                 ),
-                EnvironmentContexts.map(
-                    EnvironmentContexts.empty(
-                        StandardCharsets.UTF_8,
-                        Currency.getInstance("AUD"),
-                        Indentation.SPACES2,
-                        LineEnding.NL,
-                        locale,
-                        () -> LocalDateTime.MIN,
-                        EnvironmentContext.ANONYMOUS
-                    )
-                ),
+                ENVIRONMENT_CONTEXT.cloneEnvironment(),
                 LocaleContexts.jre(locale)
             )
         );
