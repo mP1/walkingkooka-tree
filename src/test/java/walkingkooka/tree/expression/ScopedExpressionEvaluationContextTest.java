@@ -22,13 +22,11 @@ import walkingkooka.collect.list.Lists;
 import walkingkooka.convert.BinaryNumberConverterFunctions;
 import walkingkooka.convert.ConverterContexts;
 import walkingkooka.convert.Converters;
+import walkingkooka.currency.CurrencyLocaleContextTesting;
 import walkingkooka.currency.CurrencyLocaleContexts;
-import walkingkooka.datetime.DateTimeContexts;
-import walkingkooka.datetime.DateTimeSymbols;
-import walkingkooka.locale.LocaleContexts;
+import walkingkooka.datetime.DateTimeContextTesting;
 import walkingkooka.math.DecimalNumberContext;
 import walkingkooka.math.DecimalNumberContextDelegator;
-import walkingkooka.math.DecimalNumberContexts;
 import walkingkooka.text.CaseSensitivity;
 import walkingkooka.tree.expression.function.ExpressionFunctionParameter;
 import walkingkooka.tree.expression.function.ExpressionFunctionParameterCardinality;
@@ -36,10 +34,7 @@ import walkingkooka.tree.expression.function.ExpressionFunctionParameterName;
 import walkingkooka.tree.expression.function.FakeExpressionFunction;
 
 import java.math.MathContext;
-import java.text.DateFormatSymbols;
-import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Locale;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.function.Function;
@@ -47,6 +42,8 @@ import java.util.function.Function;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class ScopedExpressionEvaluationContextTest implements ExpressionEvaluationContextTesting<ScopedExpressionEvaluationContext>,
+    CurrencyLocaleContextTesting,
+    DateTimeContextTesting,
     DecimalNumberContextDelegator {
 
     private final static ExpressionReference LOCAL_REFERENCE = new ExpressionReference() {
@@ -278,12 +275,10 @@ public final class ScopedExpressionEvaluationContextTest implements ExpressionEv
 
     @Override
     public ScopedExpressionEvaluationContext createContext() {
-        final Locale locale = Locale.ENGLISH;
-
         return ScopedExpressionEvaluationContext.with(
             REFERENCE_TO_VALUE,
             ExpressionEvaluationContexts.basic(
-                ExpressionNumberKind.BIG_DECIMAL,
+                EXPRESSION_NUMBER_KIND,
                 (e, c) -> {
                     Objects.requireNonNull(e, "expression");
                     throw new UnsupportedOperationException();
@@ -313,19 +308,11 @@ public final class ScopedExpressionEvaluationContextTest implements ExpressionEv
                     BinaryNumberConverterFunctions.fake(), // multiplier
                     BINARY_TEXT_CONTEXT,
                     CurrencyLocaleContexts.fake(),
-                    DateTimeContexts.basic(
-                        DateTimeSymbols.fromDateFormatSymbols(
-                            new DateFormatSymbols(locale)
-                        ),
-                        locale,
-                        1900,
-                        50,
-                        () -> LocalDateTime.MIN
-                    ),
-                    DecimalNumberContexts.american(MathContext.DECIMAL32)
+                    DATE_TIME_CONTEXT,
+                    DECIMAL_NUMBER_CONTEXT
                 ),
                 ENVIRONMENT_CONTEXT.cloneEnvironment(),
-                LocaleContexts.jre(locale)
+                LOCALE_CONTEXT
             )
         );
     }
