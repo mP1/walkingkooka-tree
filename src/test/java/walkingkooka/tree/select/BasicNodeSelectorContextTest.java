@@ -24,8 +24,7 @@ import walkingkooka.convert.ConverterContexts;
 import walkingkooka.convert.Converters;
 import walkingkooka.currency.CurrencyLocaleContexts;
 import walkingkooka.datetime.DateTimeContexts;
-import walkingkooka.environment.EnvironmentContext;
-import walkingkooka.environment.EnvironmentContexts;
+import walkingkooka.environment.EnvironmentContextTesting;
 import walkingkooka.locale.LocaleContexts;
 import walkingkooka.math.DecimalNumberContextTesting;
 import walkingkooka.naming.StringName;
@@ -49,9 +48,6 @@ import walkingkooka.tree.expression.convert.ExpressionNumberConverters;
 import walkingkooka.tree.expression.function.ExpressionFunction;
 
 import java.nio.charset.StandardCharsets;
-import java.time.LocalDateTime;
-import java.util.Currency;
-import java.util.Locale;
 import java.util.Optional;
 import java.util.function.BooleanSupplier;
 import java.util.function.Function;
@@ -61,6 +57,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class BasicNodeSelectorContextTest implements ClassTesting2<BasicNodeSelectorContext<TestNode, StringName, StringName, Object>>,
     DecimalNumberContextTesting,
+    EnvironmentContextTesting,
     NodeSelectorContextTesting<BasicNodeSelectorContext<TestNode, StringName, StringName, Object>,
         TestNode,
         StringName,
@@ -111,17 +108,7 @@ public final class BasicNodeSelectorContextTest implements ClassTesting2<BasicNo
                 ExpressionEvaluationContexts.referenceNotFound(),
                 CaseSensitivity.SENSITIVE,
                 CONVERTER_CONTEXT,
-                EnvironmentContexts.map(
-                    EnvironmentContexts.empty(
-                        StandardCharsets.UTF_8,
-                        Currency.getInstance("AUD"),
-                        Indentation.SPACES2,
-                        LineEnding.NL,
-                        Locale.ENGLISH,
-                        LocalDateTime::now,
-                        EnvironmentContext.ANONYMOUS
-                    )
-                ),
+                ENVIRONMENT_CONTEXT.cloneEnvironment(),
                 LocaleContexts.fake()
             );
         }
