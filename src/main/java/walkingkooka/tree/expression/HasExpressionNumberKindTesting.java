@@ -23,6 +23,8 @@ public interface HasExpressionNumberKindTesting extends TreePrintableTesting {
 
     ExpressionNumberKind EXPRESSION_NUMBER_KIND = ExpressionNumberKind.BIG_DECIMAL;
 
+    ExpressionNumberKind DIFFERENT_EXPRESSION_NUMBER_KIND = ExpressionNumberKind.DOUBLE;
+
     HasExpressionNumberKind HAS_EXPRESSION_NUMBER_KIND = () -> EXPRESSION_NUMBER_KIND;
 
     default void expressionNumberKindAndCheck(final HasExpressionNumberKind has,
