@@ -27,6 +27,7 @@ import walkingkooka.reflect.ClassTesting2;
 import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.test.ParseStringTesting;
 import walkingkooka.text.CharSequences;
+import walkingkooka.text.printer.TreePrintableTesting;
 import walkingkooka.tree.TestNode;
 
 import java.util.Optional;
@@ -38,6 +39,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public final class NodePointerTest implements ClassTesting2<NodePointer<TestNode, StringName>>,
     ParseStringTesting<NodePointer<TestNode, StringName>>,
+    TreePrintableTesting,
     ToStringTesting<NodePointer<TestNode, StringName>> {
 
     private final static StringName ABC = Names.string("abc");
@@ -856,6 +858,20 @@ public final class NodePointerTest implements ClassTesting2<NodePointer<TestNode
         assertFalse(pointer.isAbsolute(), "isAbsolute");
         assertTrue(pointer.isRelative(), "isRelative");
         assertFalse(pointer.toString().startsWith("/"), () -> "pointer shouldnt start with '/' =" + pointer);
+    }
+
+    // TreePrintable....................................................................................................
+
+    @Test
+    public void testTreePrint() {
+        this.treePrintAndCheck(
+            this.parseString("/abc/def/[1]"),
+            "NodePointerNamedChild\n" +
+                "  NamedChild\n" +
+                "    /def\n" +
+                "      NamedChild\n" +
+                "        /[1]\n"
+        );
     }
 
     // class............................................................................................................
