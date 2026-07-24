@@ -382,7 +382,7 @@ public final class ExpressionFunctionsTest implements PublicStaticHelperTesting<
                             case "typeName":
                                 return ExpressionFunctions.typeName();
                             default:
-                                throw new UnknownExpressionFunctionException(name);
+                                throw name.unknownExpressionFunctionException();
                         }
                     }, // name -> function
                     (final RuntimeException cause) -> {

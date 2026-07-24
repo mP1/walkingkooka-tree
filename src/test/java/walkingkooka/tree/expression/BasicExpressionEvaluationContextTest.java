@@ -44,7 +44,6 @@ import walkingkooka.tree.expression.function.ExpressionFunctionParameter;
 import walkingkooka.tree.expression.function.ExpressionFunctionParameterKind;
 import walkingkooka.tree.expression.function.ExpressionFunctionParameterName;
 import walkingkooka.tree.expression.function.FakeExpressionFunction;
-import walkingkooka.tree.expression.function.UnknownExpressionFunctionException;
 
 import java.math.MathContext;
 import java.text.DateFormatSymbols;
@@ -1033,7 +1032,7 @@ public final class BasicExpressionEvaluationContextTest implements ClassTesting2
             Objects.requireNonNull(functionName, "functionName");
 
             if (false == this.functionName().equals(functionName)) {
-                throw new UnknownExpressionFunctionException(functionName);
+                throw functionName.unknownExpressionFunctionException();
             }
 
             return new FakeExpressionFunction<>() {
