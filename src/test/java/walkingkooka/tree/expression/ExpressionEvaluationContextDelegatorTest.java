@@ -21,25 +21,23 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.convert.BinaryNumberConverterFunctions;
 import walkingkooka.convert.ConverterContexts;
 import walkingkooka.convert.Converters;
+import walkingkooka.currency.CurrencyLocaleContextTesting;
 import walkingkooka.currency.CurrencyLocaleContexts;
-import walkingkooka.datetime.DateTimeContexts;
-import walkingkooka.datetime.DateTimeSymbols;
+import walkingkooka.datetime.DateTimeContextTesting;
 import walkingkooka.environment.EnvironmentContext;
-import walkingkooka.locale.LocaleContexts;
 import walkingkooka.math.DecimalNumberContext;
 import walkingkooka.math.DecimalNumberContextDelegator;
 import walkingkooka.text.CaseSensitivity;
 import walkingkooka.tree.expression.ExpressionEvaluationContextDelegatorTest.TestExpressionEvaluationContextDelegator;
 
 import java.math.MathContext;
-import java.text.DateFormatSymbols;
-import java.time.LocalDateTime;
-import java.util.Locale;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.function.Function;
 
 public final class ExpressionEvaluationContextDelegatorTest implements ExpressionEvaluationContextTesting<TestExpressionEvaluationContextDelegator>,
+    CurrencyLocaleContextTesting,
+    DateTimeContextTesting,
     DecimalNumberContextDelegator {
 
     @Override
@@ -93,8 +91,6 @@ public final class ExpressionEvaluationContextDelegatorTest implements Expressio
     static final class TestExpressionEvaluationContextDelegator implements ExpressionEvaluationContextDelegator {
 
         TestExpressionEvaluationContextDelegator() {
-            final Locale locale = Locale.ENGLISH;
-
             this.expressionEvaluationContext = ExpressionEvaluationContexts.basic(
                 ExpressionNumberKind.BIG_DECIMAL,
                 (e, c) -> {
@@ -123,19 +119,11 @@ public final class ExpressionEvaluationContextDelegatorTest implements Expressio
                     BinaryNumberConverterFunctions.fake(), // multiplier
                     BINARY_TEXT_CONTEXT,
                     CurrencyLocaleContexts.fake(),
-                    DateTimeContexts.basic(
-                        DateTimeSymbols.fromDateFormatSymbols(
-                            new DateFormatSymbols(locale)
-                        ),
-                        locale,
-                        1900,
-                        50,
-                        () -> LocalDateTime.MIN
-                    ),
+                    DATE_TIME_CONTEXT,
                     DECIMAL_NUMBER_CONTEXT
                 ),
                 ENVIRONMENT_CONTEXT.cloneEnvironment(),
-                LocaleContexts.jre(locale)
+                LOCALE_CONTEXT
             );
         }
 
