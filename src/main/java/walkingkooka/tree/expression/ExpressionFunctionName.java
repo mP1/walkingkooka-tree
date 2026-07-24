@@ -29,6 +29,7 @@ import walkingkooka.text.cursor.TextCursor;
 import walkingkooka.text.cursor.parser.Parser;
 import walkingkooka.text.cursor.parser.ParserContext;
 import walkingkooka.text.cursor.parser.Parsers;
+import walkingkooka.tree.expression.function.UnknownExpressionFunctionException;
 
 import java.util.Comparator;
 import java.util.Objects;
@@ -204,4 +205,13 @@ public final class ExpressionFunctionName implements Name,
      */
     public final static BiFunction<TextCursor, ParserContext, Optional<ExpressionFunctionName>> PARSER = (t, c) -> PARSER2.parse(t, c)
         .map(token -> with(token.text()));
+
+    // UnknownExpressionFunctionException...............................................................................
+
+    /**
+     * Creates but does not throw a {@link UnknownExpressionFunctionException}
+     */
+    public UnknownExpressionFunctionException unknownExpressionFunctionException() {
+        return new UnknownExpressionFunctionException(this);
+    }
 }

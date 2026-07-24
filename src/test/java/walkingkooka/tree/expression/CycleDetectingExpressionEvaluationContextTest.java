@@ -39,7 +39,6 @@ import walkingkooka.text.cursor.parser.Parsers;
 import walkingkooka.tree.expression.function.ExpressionFunction;
 import walkingkooka.tree.expression.function.ExpressionFunctionParameter;
 import walkingkooka.tree.expression.function.FakeExpressionFunction;
-import walkingkooka.tree.expression.function.UnknownExpressionFunctionException;
 
 import java.math.BigInteger;
 import java.math.MathContext;
@@ -440,7 +439,7 @@ public final class CycleDetectingExpressionEvaluationContextTest implements Clas
                 },
                 (functionName) -> {
                     Objects.requireNonNull(functionName, "functionName");
-                    throw new UnknownExpressionFunctionException(functionName);
+                    throw functionName.unknownExpressionFunctionException();
                 },
                 (exception) -> exception,
                 (reference) -> {
