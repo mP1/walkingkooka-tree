@@ -41,24 +41,20 @@ import walkingkooka.reflect.ClassTesting2;
 import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.reflect.TypeNameTesting;
 import walkingkooka.text.CaseSensitivity;
-import walkingkooka.text.Indentation;
-import walkingkooka.text.LineEnding;
-import walkingkooka.text.TextPrinting;
 import walkingkooka.tree.Node;
 import walkingkooka.tree.TestNode;
 import walkingkooka.tree.expression.Expression;
 import walkingkooka.tree.expression.ExpressionEvaluationContext;
 import walkingkooka.tree.expression.ExpressionEvaluationContexts;
 import walkingkooka.tree.expression.ExpressionFunctionName;
-import walkingkooka.tree.expression.ExpressionNumberKind;
 import walkingkooka.tree.expression.ExpressionReference;
+import walkingkooka.tree.expression.HasExpressionNumberKindTesting;
 import walkingkooka.tree.expression.convert.ExpressionNumberConverterContext;
 import walkingkooka.tree.expression.convert.ExpressionNumberConverterContexts;
 import walkingkooka.tree.expression.convert.ExpressionNumberConverters;
 import walkingkooka.tree.expression.function.ExpressionFunction;
 import walkingkooka.util.BiFunctionTesting;
 
-import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
@@ -79,11 +75,10 @@ abstract public class NodeSelectorTestCase<S extends NodeSelector<TestNode, Stri
     DecimalNumberContextTesting,
     EnvironmentContextTesting,
     HashCodeEqualsDefinedTesting2<S>,
+    HasExpressionNumberKindTesting,
     LocaleContextTesting,
     ToStringTesting<S>,
     TypeNameTesting<S> {
-
-    final static ExpressionNumberKind EXPRESSION_NUMBER_KIND = ExpressionNumberKind.DEFAULT;
 
     NodeSelectorTestCase() {
         super();
@@ -623,10 +618,7 @@ abstract public class NodeSelectorTestCase<S extends NodeSelector<TestNode, Stri
                 ',', // valueSeparator
                 Converters.fake(),
                 BinaryNumberConverterFunctions.fake(), // multiplier
-                TextPrinting.with(
-                    Indentation.SPACES2,
-                    LineEnding.NL
-                ).setCharset(StandardCharsets.UTF_8),
+                BINARY_TEXT_CONTEXT,
                 CurrencyLocaleContexts.fake(),
                 DateTimeContexts.fake(),
                 DECIMAL_NUMBER_CONTEXT
