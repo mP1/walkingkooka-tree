@@ -23,10 +23,10 @@ import walkingkooka.collect.list.Lists;
 import walkingkooka.convert.BinaryNumberConverterFunctions;
 import walkingkooka.convert.ConverterContexts;
 import walkingkooka.convert.Converters;
+import walkingkooka.currency.CurrencyLocaleContextTesting;
 import walkingkooka.currency.CurrencyLocaleContexts;
+import walkingkooka.datetime.DateTimeContextTesting;
 import walkingkooka.datetime.DateTimeContexts;
-import walkingkooka.datetime.DateTimeSymbols;
-import walkingkooka.locale.LocaleContexts;
 import walkingkooka.math.DecimalNumberContext;
 import walkingkooka.math.DecimalNumberContextDelegator;
 import walkingkooka.reflect.ClassTesting2;
@@ -43,10 +43,7 @@ import walkingkooka.tree.expression.function.UnknownExpressionFunctionException;
 
 import java.math.BigInteger;
 import java.math.MathContext;
-import java.text.DateFormatSymbols;
-import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Locale;
 import java.util.Objects;
 import java.util.Optional;
 
@@ -56,6 +53,8 @@ import static org.junit.jupiter.api.Assertions.fail;
 
 public final class CycleDetectingExpressionEvaluationContextTest implements ClassTesting2<CycleDetectingExpressionEvaluationContext>,
     ExpressionEvaluationContextTesting<CycleDetectingExpressionEvaluationContext>,
+    CurrencyLocaleContextTesting,
+    DateTimeContextTesting,
     DecimalNumberContextDelegator {
 
     private final static String VALUE = "text123";
@@ -432,11 +431,9 @@ public final class CycleDetectingExpressionEvaluationContextTest implements Clas
 
     @Override
     public CycleDetectingExpressionEvaluationContext createContext() {
-        final Locale locale = Locale.ENGLISH;
-
         return this.createContext(
             ExpressionEvaluationContexts.basic(
-                ExpressionNumberKind.DEFAULT,
+                EXPRESSION_NUMBER_KIND,
                 (e, c) -> {
                     Objects.requireNonNull(e, "expression");
                     throw new UnsupportedOperationException();
@@ -462,19 +459,11 @@ public final class CycleDetectingExpressionEvaluationContextTest implements Clas
                     BinaryNumberConverterFunctions.fake(), // multiplier
                     BINARY_TEXT_CONTEXT,
                     CurrencyLocaleContexts.fake(),
-                    DateTimeContexts.basic(
-                        DateTimeSymbols.fromDateFormatSymbols(
-                            new DateFormatSymbols(locale)
-                        ),
-                        locale,
-                        1950, // defaultYear
-                        50, // twoDigitYear
-                        () -> LocalDateTime.MIN
-                    ),
+                    DATE_TIME_CONTEXT,
                     this.decimalNumberContext()
                 ),
                 ENVIRONMENT_CONTEXT.cloneEnvironment(),
-                LocaleContexts.jre(locale)
+                LOCALE_CONTEXT
             )
         );
     }
