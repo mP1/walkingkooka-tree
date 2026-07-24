@@ -28,7 +28,7 @@ import walkingkooka.convert.ConverterContexts;
 import walkingkooka.convert.Converters;
 import walkingkooka.convert.ShortCircuitingConverter;
 import walkingkooka.currency.CurrencyCode;
-import walkingkooka.currency.FakeCurrencyLocaleContext;
+import walkingkooka.currency.CurrencyLocaleContextTesting;
 import walkingkooka.datetime.DateTimeContexts;
 import walkingkooka.environment.EnvironmentContexts;
 import walkingkooka.locale.LocaleContexts;
@@ -36,10 +36,8 @@ import walkingkooka.locale.LocaleLanguageTag;
 import walkingkooka.math.DecimalNumberContextTesting;
 import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.reflect.PublicStaticHelperTesting;
+import walkingkooka.text.BinaryTextContextTesting;
 import walkingkooka.text.CaseSensitivity;
-import walkingkooka.text.Indentation;
-import walkingkooka.text.LineEnding;
-import walkingkooka.text.TextPrinting;
 import walkingkooka.tree.expression.Expression;
 import walkingkooka.tree.expression.ExpressionEvaluationContext;
 import walkingkooka.tree.expression.ExpressionEvaluationContexts;
@@ -49,7 +47,6 @@ import walkingkooka.tree.expression.ExpressionReference;
 
 import java.lang.reflect.Method;
 import java.math.MathContext;
-import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
@@ -61,6 +58,8 @@ import java.util.stream.Collectors;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class ExpressionFunctionsTest implements PublicStaticHelperTesting<ExpressionFunctions>,
+    BinaryTextContextTesting,
+    CurrencyLocaleContextTesting,
     DecimalNumberContextTesting {
 
     private final static ExpressionNumberKind EXPRESSION_NUMBER_KIND = ExpressionNumberKind.BIG_DECIMAL;
@@ -435,18 +434,8 @@ public final class ExpressionFunctionsTest implements PublicStaticHelperTesting<
                             )
                         ),
                         BinaryNumberConverterFunctions.fake(), // multiplier
-                        TextPrinting.with(
-                            Indentation.SPACES2,
-                            LineEnding.NL
-                        ).setCharset(StandardCharsets.UTF_8),
-                        new FakeCurrencyLocaleContext() {
-                            @Override
-                            public Optional<Locale> localeForLanguageTag(final LocaleLanguageTag languageTag) {
-                                return LocaleContexts.jre(
-                                    Locale.forLanguageTag("en-AU")
-                                ).localeForLanguageTag(languageTag);
-                            }
-                        },
+                        BINARY_TEXT_CONTEXT,
+                        CURRENCY_LOCALE_CONTEXT,
                         DateTimeContexts.fake(),
                         DECIMAL_NUMBER_CONTEXT
                     ),
