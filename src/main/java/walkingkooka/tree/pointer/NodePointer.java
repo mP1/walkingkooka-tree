@@ -21,6 +21,8 @@ import walkingkooka.Cast;
 import walkingkooka.naming.Name;
 import walkingkooka.text.CharSequences;
 import walkingkooka.text.CharacterConstant;
+import walkingkooka.text.printer.IndentingPrinter;
+import walkingkooka.text.printer.TreePrintable;
 import walkingkooka.tree.Node;
 import walkingkooka.visit.Visitable;
 
@@ -35,7 +37,8 @@ import java.util.function.Function;
  * <br>
  * <a href="http://json-schema.org/latest/relative-json-pointer.html#RFC4627">spec</a>
  */
-public abstract class NodePointer<N extends Node<N, NAME, ?, ?>, NAME extends Name> implements Visitable {
+public abstract class NodePointer<N extends Node<N, NAME, ?, ?>, NAME extends Name> implements TreePrintable,
+    Visitable {
 
     final static String APPEND = "-";
 
@@ -397,4 +400,43 @@ public abstract class NodePointer<N extends Node<N, NAME, ?, ?>, NAME extends Na
     abstract void toString0(final StringBuilder b);
 
     abstract void lastToString(final StringBuilder b);
+
+    // TreePrintable....................................................................................................
+
+    @Override
+    public final void printTree(final IndentingPrinter printer) {
+        printer.println(
+            this.getClass().getSimpleName()
+        );
+
+        this.printTreeNext(printer);
+    }
+
+    private void printTreeNext(final IndentingPrinter printer) {
+        final NodePointer<N, NAME> next = this.next;
+        if (null != next) {
+            printer.indent();
+            {
+                printer.println(
+                    next.getClass()
+                        .getSimpleName()
+                        .substring(
+                            NodePointer.class.getSimpleName()
+                                .length()
+                        )
+                );
+                printer.indent();
+                {
+                    final StringBuilder b = new StringBuilder();
+                    next.toString0(b);
+
+                    printer.println(b);
+
+                    next.printTreeNext(printer);
+                }
+                printer.outdent();
+            }
+            printer.outdent();
+        }
+    }
 }
