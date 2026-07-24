@@ -32,22 +32,18 @@ import walkingkooka.predicate.Predicates;
 import walkingkooka.reflect.ClassTesting2;
 import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.text.CaseSensitivity;
-import walkingkooka.text.Indentation;
-import walkingkooka.text.LineEnding;
-import walkingkooka.text.TextPrinting;
 import walkingkooka.tree.TestNode;
 import walkingkooka.tree.expression.Expression;
 import walkingkooka.tree.expression.ExpressionEvaluationContext;
 import walkingkooka.tree.expression.ExpressionEvaluationContexts;
 import walkingkooka.tree.expression.ExpressionFunctionName;
-import walkingkooka.tree.expression.ExpressionNumberKind;
 import walkingkooka.tree.expression.ExpressionReference;
+import walkingkooka.tree.expression.HasExpressionNumberKindTesting;
 import walkingkooka.tree.expression.convert.ExpressionNumberConverterContext;
 import walkingkooka.tree.expression.convert.ExpressionNumberConverterContexts;
 import walkingkooka.tree.expression.convert.ExpressionNumberConverters;
 import walkingkooka.tree.expression.function.ExpressionFunction;
 
-import java.nio.charset.StandardCharsets;
 import java.util.Optional;
 import java.util.function.BooleanSupplier;
 import java.util.function.Function;
@@ -58,13 +54,12 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 public final class BasicNodeSelectorContextTest implements ClassTesting2<BasicNodeSelectorContext<TestNode, StringName, StringName, Object>>,
     DecimalNumberContextTesting,
     EnvironmentContextTesting,
+    HasExpressionNumberKindTesting,
     NodeSelectorContextTesting<BasicNodeSelectorContext<TestNode, StringName, StringName, Object>,
         TestNode,
         StringName,
         StringName,
         Object> {
-
-    private final static ExpressionNumberKind KIND = ExpressionNumberKind.DEFAULT;
 
     private final static BooleanSupplier FINISHER = () -> false;
 
@@ -83,22 +78,19 @@ public final class BasicNodeSelectorContextTest implements ClassTesting2<BasicNo
             ',', // valueSeparator
             Converters.fake(),
             BinaryNumberConverterFunctions.fake(), // multiplier
-            TextPrinting.with(
-                Indentation.SPACES2,
-                LineEnding.NL
-            ).setCharset(StandardCharsets.UTF_8),
+            BINARY_TEXT_CONTEXT,
             CurrencyLocaleContexts.fake(),
             DateTimeContexts.fake(),
             DECIMAL_NUMBER_CONTEXT
         ),
-        KIND
+        EXPRESSION_NUMBER_KIND
     );
 
     private final static Function<NodeSelectorContext<TestNode, StringName, StringName, Object>, ExpressionEvaluationContext> EXPRESSION_EVALUATION_CONTEXT_FACTORY = new Function<>() {
         @Override
         public ExpressionEvaluationContext apply(final NodeSelectorContext<TestNode, StringName, StringName, Object> context) {
             return ExpressionEvaluationContexts.basic(
-                KIND,
+                EXPRESSION_NUMBER_KIND,
                 (e, c) -> {
                     throw new UnsupportedOperationException();
                 },
@@ -212,10 +204,10 @@ public final class BasicNodeSelectorContextTest implements ClassTesting2<BasicNo
         final int number = 123;
 
         this.checkEquals(
-            KIND.create(number),
+            EXPRESSION_NUMBER_KIND.create(number),
             context.evaluate(
                 Expression.value(
-                    KIND.create(number)
+                    EXPRESSION_NUMBER_KIND.create(number)
                 )
             )
         );
@@ -228,14 +220,14 @@ public final class BasicNodeSelectorContextTest implements ClassTesting2<BasicNo
         final int right = 456;
 
         this.checkEquals(
-            KIND.create(left + right),
+            EXPRESSION_NUMBER_KIND.create(left + right),
             context.evaluate(
                 Expression.add(
                     Expression.value(
-                        KIND.create(left)
+                        EXPRESSION_NUMBER_KIND.create(left)
                     ),
                     Expression.value(
-                        KIND.create(right)
+                        EXPRESSION_NUMBER_KIND.create(right)
                     )
                 )
             )
