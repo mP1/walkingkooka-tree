@@ -17,13 +17,15 @@
 
 package walkingkooka.tree.expression.function;
 
+import walkingkooka.naming.HasName;
 import walkingkooka.text.CharSequences;
 import walkingkooka.tree.expression.ExpressionException;
 import walkingkooka.tree.expression.ExpressionFunctionName;
 
 import java.util.Objects;
 
-public class UnknownExpressionFunctionException extends ExpressionException {
+public class UnknownExpressionFunctionException extends ExpressionException
+    implements HasName<ExpressionFunctionName> {
 
     private static final long serialVersionUID = 1L;
 
@@ -37,6 +39,7 @@ public class UnknownExpressionFunctionException extends ExpressionException {
         return "Unknown function " + CharSequences.quote(this.name().value());
     }
 
+    @Override
     public final ExpressionFunctionName name() {
         return this.name;
     }

@@ -18,18 +18,23 @@
 package walkingkooka.tree.expression.function;
 
 import org.junit.jupiter.api.Test;
+import walkingkooka.naming.HasNameTesting;
 import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.reflect.ThrowableTesting2;
 import walkingkooka.tree.expression.ExpressionFunctionName;
 
-public final class UnknownExpressionFunctionExceptionTest implements ThrowableTesting2<UnknownExpressionFunctionException> {
+public final class UnknownExpressionFunctionExceptionTest implements HasNameTesting,
+    ThrowableTesting2<UnknownExpressionFunctionException> {
 
     @Test
     public void testCreate() {
         final ExpressionFunctionName name = ExpressionFunctionName.with("custom-function");
         final UnknownExpressionFunctionException exception = new UnknownExpressionFunctionException(name);
         this.getMessageAndCheck(exception, "Unknown function \"custom-function\"");
-        this.checkEquals(name, exception.name());
+        this.nameAndCheck(
+            exception,
+            name
+        );
     }
 
     @Override
