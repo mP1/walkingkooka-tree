@@ -18,7 +18,7 @@
 package walkingkooka.tree.expression;
 
 import org.junit.jupiter.api.Test;
-import walkingkooka.convert.ConverterLikeTesting;
+import walkingkooka.convert.ConverterLikeTesting2;
 import walkingkooka.environment.EnvironmentContextTesting2;
 import walkingkooka.locale.LocaleContextTesting2;
 import walkingkooka.text.printer.TreePrintableTesting;
@@ -37,7 +37,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
  */
 public interface ExpressionEvaluationContextTesting<C extends ExpressionEvaluationContext> extends
     CanEvaluateExpressionTesting,
-    ConverterLikeTesting<C>,
+    ConverterLikeTesting2<C>,
     EnvironmentContextTesting2<C>,
     ExpressionNumberContextTesting<C>,
     ExpressionPurityContextTesting<C>,
