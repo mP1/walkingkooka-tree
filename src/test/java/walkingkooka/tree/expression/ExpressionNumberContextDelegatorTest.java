@@ -23,7 +23,7 @@ import walkingkooka.tree.expression.ExpressionNumberContextDelegatorTest.TestExp
 
 import java.math.MathContext;
 
-public class ExpressionNumberContextDelegatorTest implements ExpressionNumberContextTesting<TestExpressionNumberContextDelegator>,
+public class ExpressionNumberContextDelegatorTest implements ExpressionNumberContextTesting2<TestExpressionNumberContextDelegator>,
     DecimalNumberContextDelegator {
 
     private final static ExpressionNumberContext EXPRESSION_NUMBER_CONTEXT = ExpressionNumberContexts.basic(
