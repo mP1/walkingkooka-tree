@@ -17,31 +17,30 @@
 
 package walkingkooka.tree.expression;
 
-import walkingkooka.text.printer.TreePrintableTesting;
-
 import java.math.BigDecimal;
 import java.math.MathContext;
 
-public interface ExpressionNumberFunctionTesting extends TreePrintableTesting {
+public interface ExpressionNumberFunctionTesting2<F extends ExpressionNumberFunction> extends ExpressionNumberFunctionTesting {
 
-    default void mapBigDecimalAndCheck(final ExpressionNumberFunction function,
-                                       final BigDecimal value,
+    default void mapBigDecimalAndCheck(final BigDecimal value,
                                        final MathContext context,
                                        final BigDecimal expected) {
-        this.checkEquals(
-            expected,
-            function.mapBigDecimal(value, context),
-            () -> "mapBigDecimal " + value
+        this.mapBigDecimalAndCheck(
+            this.createExpressionNumberFunction(),
+            value,
+            context,
+            expected
         );
     }
 
-    default void mapDoubleAndCheck(final ExpressionNumberFunction function,
-                                   final double value,
+    default void mapDoubleAndCheck(final double value,
                                    final double expected) {
-        this.checkEquals(
-            expected,
-            function.mapDouble(value),
-            () -> "mapDouble " + value
+        this.mapDoubleAndCheck(
+            this.createExpressionNumberFunction(),
+            value,
+            expected
         );
     }
+
+    F createExpressionNumberFunction();
 }
