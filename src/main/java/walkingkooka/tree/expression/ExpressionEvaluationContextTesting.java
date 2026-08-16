@@ -40,7 +40,7 @@ public interface ExpressionEvaluationContextTesting<C extends ExpressionEvaluati
     ConverterLikeTesting2<C>,
     EnvironmentContextTesting2<C>,
     ExpressionNumberContextTesting2<C>,
-    ExpressionPurityContextTesting<C>,
+    ExpressionPurityContextTesting2<C>,
     LocaleContextTesting2<C>,
     TreePrintableTesting {
 
