@@ -29,7 +29,7 @@ import java.util.function.DoubleUnaryOperator;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class LambdasExpressionNumberFunctionTest implements ExpressionNumberFunctionTesting<LambdasExpressionNumberFunction>,
+public final class LambdasExpressionNumberFunctionTest implements ExpressionNumberFunctionTesting2<LambdasExpressionNumberFunction>,
     ClassTesting<LambdasExpressionNumberFunction>,
     ToStringTesting<LambdasExpressionNumberFunction> {
 

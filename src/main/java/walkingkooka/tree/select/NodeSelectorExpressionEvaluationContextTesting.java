@@ -17,24 +17,7 @@
 
 package walkingkooka.tree.select;
 
-import org.junit.jupiter.api.Test;
-import walkingkooka.naming.Name;
-import walkingkooka.tree.Node;
-import walkingkooka.tree.expression.ExpressionEvaluationContextTesting2;
+import walkingkooka.tree.expression.ExpressionEvaluationContextTesting;
 
-public interface NodeSelectorExpressionEvaluationContextTesting<C extends NodeSelectorExpressionEvaluationContext<N, NAME, ANAME, AVALUE>,
-    N extends Node<N, NAME, ANAME, AVALUE>,
-    NAME extends Name,
-    ANAME extends Name,
-    AVALUE> extends ExpressionEvaluationContextTesting2<C> {
-
-    @Test
-    default void testNode() {
-        this.checkNotEquals(null, this.createContext().node());
-    }
-
-    @Override
-    default String typeNameSuffix() {
-        return NodeSelectorExpressionEvaluationContext.class.getSimpleName();
-    }
+public interface NodeSelectorExpressionEvaluationContextTesting extends ExpressionEvaluationContextTesting {
 }
