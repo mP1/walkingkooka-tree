@@ -17,20 +17,32 @@
 
 package walkingkooka.tree.expression;
 
-import walkingkooka.text.printer.TreePrintableTesting;
+import org.junit.jupiter.api.Test;
+import walkingkooka.ContextTesting;
+
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 /**
  * Mixing testing interface for {@link ExpressionPurityContext}
  */
-public interface ExpressionPurityContextTesting extends TreePrintableTesting {
+public interface ExpressionPurityContextTesting2<C extends ExpressionPurityContext> extends ExpressionPurityContextTesting,
+    ContextTesting<C> {
 
-    default void isPureAndCheck(final ExpressionPurityContext context,
-                                final ExpressionFunctionName name,
+    @Test
+    default void testIsPureNullNameFails() {
+        assertThrows(
+            NullPointerException.class,
+            () -> this.createContext()
+                .isPure(null))
+        ;
+    }
+
+    default void isPureAndCheck(final ExpressionFunctionName name,
                                 final boolean expected) {
-        this.checkEquals(
-            expected,
-            context.isPure(name),
-            () -> "isPure " + name
+        this.isPureAndCheck(
+            this.createContext(),
+            name,
+            expected
         );
     }
 }
