@@ -35,7 +35,7 @@ import java.util.Objects;
 import java.util.Optional;
 import java.util.function.Function;
 
-public final class ExpressionEvaluationContextDelegatorTest implements ExpressionEvaluationContextTesting<TestExpressionEvaluationContextDelegator>,
+public final class ExpressionEvaluationContextDelegatorTest implements ExpressionEvaluationContextTesting2<TestExpressionEvaluationContextDelegator>,
     CurrencyLocaleContextTesting,
     DateTimeContextTesting,
     DecimalNumberContextDelegator {

@@ -51,7 +51,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.fail;
 
 public final class CycleDetectingExpressionEvaluationContextTest implements ClassTesting2<CycleDetectingExpressionEvaluationContext>,
-    ExpressionEvaluationContextTesting<CycleDetectingExpressionEvaluationContext>,
+    ExpressionEvaluationContextTesting2<CycleDetectingExpressionEvaluationContext>,
     CurrencyLocaleContextTesting,
     DateTimeContextTesting,
     DecimalNumberContextDelegator {

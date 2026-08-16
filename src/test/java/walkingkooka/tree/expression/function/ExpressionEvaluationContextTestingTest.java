@@ -37,7 +37,7 @@ import walkingkooka.text.CaseSensitivity;
 import walkingkooka.text.Indentation;
 import walkingkooka.text.LineEnding;
 import walkingkooka.tree.expression.ExpressionEvaluationContext;
-import walkingkooka.tree.expression.ExpressionEvaluationContextTesting;
+import walkingkooka.tree.expression.ExpressionEvaluationContextTesting2;
 import walkingkooka.tree.expression.ExpressionFunctionName;
 import walkingkooka.tree.expression.ExpressionNumberKind;
 import walkingkooka.tree.expression.ExpressionReference;
@@ -55,7 +55,7 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.function.Function;
 
-public class ExpressionEvaluationContextTestingTest implements ExpressionEvaluationContextTesting<TestExpressionEvaluationContext>,
+public class ExpressionEvaluationContextTestingTest implements ExpressionEvaluationContextTesting2<TestExpressionEvaluationContext>,
     DecimalNumberContextDelegator {
 
     private final static String UNKNOWN_REFERENCE_MESSAGE = "Unknown reference 123";

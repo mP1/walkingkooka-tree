@@ -56,7 +56,7 @@ import java.util.function.Function;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class BasicExpressionEvaluationContextTest implements ClassTesting2<BasicExpressionEvaluationContext>,
-    ExpressionEvaluationContextTesting<BasicExpressionEvaluationContext>,
+    ExpressionEvaluationContextTesting2<BasicExpressionEvaluationContext>,
     ToStringTesting<BasicExpressionEvaluationContext>,
     DecimalNumberContextDelegator,
     EnvironmentContextTesting,
