@@ -26,14 +26,14 @@ import java.math.RoundingMode;
 
 import static org.junit.jupiter.api.Assertions.assertSame;
 
-public final class ExpressionNumberFunctionTestingTest implements Testing {
+public final class ExpressionNumberFunctionTesting2Test implements Testing {
 
     @Test
     public void testMapBigDecimalAndCheck() {
         for (final RoundingMode roundingMode : RoundingMode.values()) {
             final MathContext context = new MathContext(32, roundingMode);
 
-            new ExpressionNumberFunctionTesting<>() {
+            new ExpressionNumberFunctionTesting2<>() {
                 @Override
                 public FakeExpressionNumberFunction createExpressionNumberFunction() {
                     throw new UnsupportedOperationException();
@@ -59,7 +59,7 @@ public final class ExpressionNumberFunctionTestingTest implements Testing {
         boolean failed = false;
 
         try {
-            new ExpressionNumberFunctionTesting<>() {
+            new ExpressionNumberFunctionTesting2<>() {
                 @Override
                 public FakeExpressionNumberFunction createExpressionNumberFunction() {
                     throw new UnsupportedOperationException();
@@ -85,7 +85,7 @@ public final class ExpressionNumberFunctionTestingTest implements Testing {
 
     @Test
     public void testMapDoubleAndCheck() {
-        new ExpressionNumberFunctionTesting<>() {
+        new ExpressionNumberFunctionTesting2<>() {
             @Override
             public FakeExpressionNumberFunction createExpressionNumberFunction() {
                 throw new UnsupportedOperationException();
@@ -107,7 +107,7 @@ public final class ExpressionNumberFunctionTestingTest implements Testing {
         boolean failed = false;
 
         try {
-            new ExpressionNumberFunctionTesting<>() {
+            new ExpressionNumberFunctionTesting2<>() {
                 @Override
                 public FakeExpressionNumberFunction createExpressionNumberFunction() {
                     throw new UnsupportedOperationException();
