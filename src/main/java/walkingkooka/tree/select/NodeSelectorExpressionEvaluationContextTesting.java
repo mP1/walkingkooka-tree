@@ -20,13 +20,13 @@ package walkingkooka.tree.select;
 import org.junit.jupiter.api.Test;
 import walkingkooka.naming.Name;
 import walkingkooka.tree.Node;
-import walkingkooka.tree.expression.ExpressionEvaluationContextTesting;
+import walkingkooka.tree.expression.ExpressionEvaluationContextTesting2;
 
 public interface NodeSelectorExpressionEvaluationContextTesting<C extends NodeSelectorExpressionEvaluationContext<N, NAME, ANAME, AVALUE>,
     N extends Node<N, NAME, ANAME, AVALUE>,
     NAME extends Name,
     ANAME extends Name,
-    AVALUE> extends ExpressionEvaluationContextTesting<C> {
+    AVALUE> extends ExpressionEvaluationContextTesting2<C> {
 
     @Test
     default void testNode() {
