@@ -24,8 +24,7 @@ import walkingkooka.convert.ConverterContext;
 import walkingkooka.currency.CurrencyCode;
 import walkingkooka.currency.CurrencyCodeLanguageTagContext;
 import walkingkooka.currency.CurrencyCodeLanguageTagContextDelegator;
-import walkingkooka.currency.CurrencyExchangeRater;
-import walkingkooka.currency.CurrencyExchangeRaterDelegator;
+import walkingkooka.currency.CurrencyExchange;
 import walkingkooka.datetime.DateTimeContext;
 import walkingkooka.datetime.DateTimeContextDelegator;
 import walkingkooka.datetime.DateTimeSymbols;
@@ -38,14 +37,15 @@ import walkingkooka.text.LineEnding;
 import walkingkooka.tree.expression.ExpressionNumberKind;
 
 import java.nio.charset.Charset;
+import java.time.LocalDateTime;
 import java.util.Currency;
 import java.util.Locale;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.Set;
 
 final class BasicExpressionNumberConverterContext implements ExpressionNumberConverterContext,
     CurrencyCodeLanguageTagContextDelegator,
-    CurrencyExchangeRaterDelegator,
     DateTimeContextDelegator,
     DecimalNumberContextDelegator {
 
@@ -159,9 +159,22 @@ final class BasicExpressionNumberConverterContext implements ExpressionNumberCon
 
     private final Converter<ExpressionNumberConverterContext> converter;
 
+    // CanCurrencyExchangeRate..........................................................................................
+
     @Override
-    public CurrencyExchangeRater currencyExchangeRater() {
-        return this.context;
+    public Optional<Number> currencyExchangeRate(final CurrencyExchange currencyExchange,
+                                                 final Optional<LocalDateTime> dateTime) {
+        return this.context.currencyExchangeRate(
+            currencyExchange,
+            dateTime
+        );
+    }
+
+    // CanCurrencyExchanges.............................................................................................
+
+    @Override
+    public Set<CurrencyExchange> currencyExchanges() {
+        return this.context.currencyExchanges();
     }
 
     @Override
