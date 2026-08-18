@@ -46,7 +46,7 @@ import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class BasicExpressionNumberConverterContextTest implements ExpressionNumberConverterContextTesting<BasicExpressionNumberConverterContext>,
+public final class BasicExpressionNumberConverterContextTest implements ExpressionNumberConverterContextTesting2<BasicExpressionNumberConverterContext>,
     ToStringTesting<BasicExpressionNumberConverterContext>,
     DecimalNumberContextDelegator {
 

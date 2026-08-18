@@ -40,7 +40,7 @@ import java.util.Locale;
 import java.util.Objects;
 import java.util.Optional;
 
-public final class ExpressionNumberConverterContextDelegatorTest implements ExpressionNumberConverterContextTesting<TestExpressionNumberConverterContextDelegator>,
+public final class ExpressionNumberConverterContextDelegatorTest implements ExpressionNumberConverterContextTesting2<TestExpressionNumberConverterContextDelegator>,
     DecimalNumberContextDelegator,
     DecimalNumberContextTesting {
 
