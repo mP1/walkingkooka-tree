@@ -17,7 +17,7 @@
 
 package walkingkooka.tree.expression.convert;
 
-import walkingkooka.convert.ConverterContextTesting;
+import walkingkooka.convert.ConverterContextTesting2;
 
-public interface ExpressionNumberConverterContextTesting<C extends ExpressionNumberConverterContext> extends ConverterContextTesting<C> {
+public interface ExpressionNumberConverterContextTesting<C extends ExpressionNumberConverterContext> extends ConverterContextTesting2<C> {
 }
