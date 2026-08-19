@@ -42,16 +42,6 @@ public interface ExpressionEvaluationContextTesting extends
     ThrowableTesting,
     TreePrintableTesting {
 
-    default void evaluateAndCheck(final ExpressionEvaluationContext context,
-                                  final String text,
-                                  final Object expected) {
-        this.checkEquals(
-            expected,
-            context.evaluate(text),
-            text
-        );
-    }
-
     // evaluateExpression...............................................................................................
 
     default void toValueAndCheck(final Expression node,
