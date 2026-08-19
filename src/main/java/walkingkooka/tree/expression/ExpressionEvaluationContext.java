@@ -41,6 +41,7 @@ import java.util.function.Supplier;
  * A {@link Context} that travels during any expression evaluation.
  */
 public interface ExpressionEvaluationContext extends CanEvaluateExpression,
+    CanEvaluateString,
     ExpressionNumberConverterContext,
     ExpressionNumberContext,
     ExpressionPurityContext,
@@ -52,11 +53,6 @@ public interface ExpressionEvaluationContext extends CanEvaluateExpression,
      * Factory that returns a {@link ExpressionEvaluationContext} of the same type with the given scoped variables.
      */
     ExpressionEvaluationContext enterScope(final Function<ExpressionReference, Optional<Optional<Object>>> scoped);
-
-    /**
-     * Evaluates the given expression or command giving a value.
-     */
-    Object evaluate(final String expression);
 
     /**
      * If the value is a reference or expression resolve or evaluate.
