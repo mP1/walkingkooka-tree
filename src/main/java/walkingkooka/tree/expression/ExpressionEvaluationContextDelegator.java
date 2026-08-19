@@ -44,9 +44,17 @@ import java.util.function.Function;
  * {@link #enterScope(Function)}.
  */
 public interface ExpressionEvaluationContextDelegator extends ExpressionEvaluationContext,
+    CanEvaluateStringDelegator,
     ConverterContextDelegator,
     EnvironmentContextDelegator,
     LocaleContextDelegator {
+
+    // CanEvaluateStringDelegator.......................................................................................
+
+    @Override
+    default CanEvaluateString canEvaluateString() {
+        return this.expressionEvaluationContext();
+    }
 
     // ConverterContextDelegator........................................................................................
 

@@ -33,8 +33,8 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 /**
  * Mixing testing interface for {@link ExpressionEvaluationContext}
  */
-public interface ExpressionEvaluationContextTesting2<C extends ExpressionEvaluationContext> extends
-    ExpressionEvaluationContextTesting,
+public interface ExpressionEvaluationContextTesting2<C extends ExpressionEvaluationContext> extends ExpressionEvaluationContextTesting,
+    CanEvaluateStringTesting2<C>,
     ConverterLikeTesting2<C>,
     EnvironmentContextTesting2<C>,
     ExpressionNumberContextTesting2<C>,
@@ -63,17 +63,6 @@ public interface ExpressionEvaluationContextTesting2<C extends ExpressionEvaluat
                     throw new UnsupportedOperationException();
                 }
             )
-        );
-    }
-
-    // evaluate.........................................................................................................
-
-    @Test
-    default void testEvaluateWithNullFails() {
-        assertThrows(
-            NullPointerException.class,
-            () -> this.createContext()
-                .evaluate(null)
         );
     }
 
@@ -176,6 +165,13 @@ public interface ExpressionEvaluationContextTesting2<C extends ExpressionEvaluat
     @Override
     default void testSetLocaleWithNullFails() {
         LocaleContextTesting2.super.testSetLocaleWithNullFails();
+    }
+
+    // CanEvaluateString................................................................................................
+
+    @Override
+    default C createCanEvaluateString() {
+        return this.createContext();
     }
 
     // ExpressionEvaluationContext......................................................................................
