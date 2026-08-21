@@ -249,4 +249,11 @@ public class FakeExpressionEvaluationContext extends FakeExpressionNumberConvert
     public Runnable addEnvironmentWatcherOnce(final EnvironmentWatcher watcher) {
         throw new UnsupportedOperationException();
     }
+
+    // CanParseEnvironmentValueName.....................................................................................
+
+    @Override
+    public EnvironmentValueName<?> parseEnvironmentValueName(final String name) {
+        throw new UnsupportedOperationException();
+    }
 }
