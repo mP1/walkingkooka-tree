@@ -25,8 +25,7 @@ import walkingkooka.convert.BinaryNumberConverterFunctions;
 import walkingkooka.convert.ConverterContexts;
 import walkingkooka.convert.Converters;
 import walkingkooka.currency.CurrencyLocaleContexts;
-import walkingkooka.datetime.DateTimeContexts;
-import walkingkooka.datetime.DateTimeSymbols;
+import walkingkooka.datetime.DateTimeContextTesting;
 import walkingkooka.locale.LocaleContexts;
 import walkingkooka.math.DecimalNumberContext;
 import walkingkooka.math.DecimalNumberContextDelegator;
@@ -45,7 +44,6 @@ import walkingkooka.tree.expression.function.ExpressionFunction;
 import walkingkooka.tree.select.parser.NodeSelectorAttributeName;
 
 import java.math.MathContext;
-import java.text.DateFormatSymbols;
 import java.util.Locale;
 import java.util.Objects;
 import java.util.Optional;
@@ -54,6 +52,7 @@ import java.util.function.Function;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class BasicNodeSelectorExpressionEvaluationContextTest implements NodeSelectorExpressionEvaluationContextTesting2<BasicNodeSelectorExpressionEvaluationContext<TestNode, StringName, StringName, Object>, TestNode, StringName, StringName, Object>,
+    DateTimeContextTesting,
     DecimalNumberContextDelegator {
 
     @BeforeEach
@@ -191,8 +190,6 @@ public final class BasicNodeSelectorExpressionEvaluationContextTest implements N
     }
 
     private ExpressionNumberConverterContext converterContext() {
-        final Locale locale = Locale.ENGLISH;
-
         return ExpressionNumberConverterContexts.basic(
             Converters.numberToNumber(),
             BinaryNumberConverterFunctions.fake(), // multiplier
@@ -204,16 +201,8 @@ public final class BasicNodeSelectorExpressionEvaluationContextTest implements N
                 BinaryNumberConverterFunctions.fake(), // multiplier
                 BINARY_TEXT_CONTEXT,
                 CurrencyLocaleContexts.fake(),
-                DateTimeContexts.basic(
-                    DateTimeSymbols.fromDateFormatSymbols(
-                        new DateFormatSymbols(locale)
-                    ),
-                    locale,
-                    1950, // defaultYear
-                    50, // twoDigitYear
-                    HAS_NOW
-                ),
-                decimalNumberContext()
+                DATE_TIME_CONTEXT,
+                DECIMAL_NUMBER_CONTEXT
             ),
             EXPRESSION_NUMBER_KIND
         );
