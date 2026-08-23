@@ -31,6 +31,7 @@ import walkingkooka.convert.FakeConverterContext;
 import walkingkooka.currency.CurrencyLocaleContexts;
 import walkingkooka.datetime.DateTimeContexts;
 import walkingkooka.datetime.DateTimeSymbols;
+import walkingkooka.environment.EnvironmentContext;
 import walkingkooka.environment.EnvironmentContextTesting;
 import walkingkooka.math.DecimalNumberContext;
 import walkingkooka.math.DecimalNumberContextDelegator;
@@ -1104,6 +1105,32 @@ public final class BasicExpressionEvaluationContextTest implements ClassTesting2
     @Override
     public MathContext mathContext() {
         return DECIMAL_NUMBER_CONTEXT.mathContext();
+    }
+
+    // HasEnvironmentContext............................................................................................
+
+    @Test
+    @Override
+    public void testEnvironmentContext() {
+        final EnvironmentContext context = ENVIRONMENT_CONTEXT;
+
+        this.environmentContextAndCheck(
+            BasicExpressionEvaluationContext.with(
+                KIND,
+                EVALUATOR,
+                (n) -> {
+                    throw new UnsupportedOperationException();
+                },
+                EXCEPTION_HANDLER,
+                REFERENCES,
+                REFERENCE_NOT_FOUND,
+                CASE_SENSITIVITY,
+                CONVERTER_CONTEXT,
+                context,
+                LOCALE_CONTEXT
+            ),
+            context
+        );
     }
 
     // ClassTesting.....................................................................................................

@@ -475,6 +475,19 @@ public final class CycleDetectingExpressionEvaluationContextTest implements Clas
         return Expression.value(VALUE);
     }
 
+    // HasEnvironmentContext............................................................................................
+
+    @Test
+    @Override
+    public void testEnvironmentContext() {
+        final ExpressionEvaluationContext context = ExpressionEvaluationContexts.fake();
+
+        this.environmentContextAndCheck(
+            CycleDetectingExpressionEvaluationContext.with(context),
+            context
+        );
+    }
+
     // DecimalNumberContextDelegator....................................................................................
 
     @Override

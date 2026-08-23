@@ -63,6 +63,17 @@ public final class ExpressionEvaluationContextDelegatorTest implements Expressio
         return new TestExpressionEvaluationContextDelegator();
     }
 
+    @Test
+    @Override
+    public void testEnvironmentContext() {
+        final TestExpressionEvaluationContextDelegator context = this.createContext();
+
+        this.environmentContextAndCheck(
+            context,
+            context.expressionEvaluationContext
+        );
+    }
+
     // DecimalNumberContextDelegator....................................................................................
 
     @Override

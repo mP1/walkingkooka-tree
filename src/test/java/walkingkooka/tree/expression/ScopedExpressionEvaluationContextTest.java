@@ -334,6 +334,22 @@ public final class ScopedExpressionEvaluationContextTest implements ExpressionEv
         return DECIMAL_NUMBER_CONTEXT.mathContext();
     }
 
+    // HasEnvironmentContext............................................................................................
+
+    @Test
+    @Override
+    public void testEnvironmentContext() {
+        final ExpressionEvaluationContext context = ExpressionEvaluationContexts.fake();
+
+        this.environmentContextAndCheck(
+            ScopedExpressionEvaluationContext.with(
+                REFERENCE_TO_VALUE,
+                context
+            ),
+            context
+        );
+    }
+
     // class............................................................................................................
 
     @Override
