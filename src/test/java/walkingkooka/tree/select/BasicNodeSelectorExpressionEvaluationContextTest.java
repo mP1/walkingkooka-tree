@@ -236,6 +236,22 @@ public final class BasicNodeSelectorExpressionEvaluationContextTest implements N
         return MATH_CONTEXT;
     }
 
+    // HasEnvironmentContext............................................................................................
+
+    @Test
+    @Override
+    public void testEnvironmentContext() {
+        final ExpressionEvaluationContext context = ExpressionEvaluationContexts.fake();
+
+        this.environmentContextAndCheck(
+            BasicNodeSelectorExpressionEvaluationContext.with(
+                TestNode.with("test-node-123"),
+                context
+            ),
+            context
+        );
+    }
+
     // ClassTesting.....................................................................................................
 
     @Override

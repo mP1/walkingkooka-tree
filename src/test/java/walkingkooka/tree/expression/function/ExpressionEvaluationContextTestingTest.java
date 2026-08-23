@@ -124,6 +124,19 @@ public class ExpressionEvaluationContextTestingTest implements ExpressionEvaluat
         return TestExpressionEvaluationContext.class;
     }
 
+    // HasEnvironmentContext............................................................................................
+
+    @Test
+    @Override
+    public void testEnvironmentContext() {
+        final TestExpressionEvaluationContext context = this.createContext();
+
+        this.environmentContextAndCheck(
+            context,
+            context.environmentContext
+        );
+    }
+
     final static class TestExpressionEvaluationContext implements ExpressionEvaluationContext,
         DateTimeContextDelegator,
         DecimalNumberContextDelegator,
