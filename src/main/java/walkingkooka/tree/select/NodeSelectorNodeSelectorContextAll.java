@@ -22,32 +22,32 @@ import walkingkooka.tree.Node;
 import walkingkooka.tree.expression.Expression;
 
 /**
- * The default {@link NodeSelectorContext2}.
+ * The default {@link NodeSelectorNodeSelectorContext}.
  */
-final class NodeSelectorContext2All<N extends Node<N, NAME, ANAME, AVALUE>, NAME extends Name, ANAME extends Name, AVALUE>
-    extends NodeSelectorContext2<N, NAME, ANAME, AVALUE> {
+final class NodeSelectorNodeSelectorContextAll<N extends Node<N, NAME, ANAME, AVALUE>, NAME extends Name, ANAME extends Name, AVALUE>
+    extends NodeSelectorNodeSelectorContext<N, NAME, ANAME, AVALUE> {
 
-    static <N extends Node<N, NAME, ANAME, AVALUE>, NAME extends Name, ANAME extends Name, AVALUE> NodeSelectorContext2All<N, NAME, ANAME, AVALUE> with(final NodeSelectorContext<N, NAME, ANAME, AVALUE> context) {
-        return new NodeSelectorContext2All<>(context);
+    static <N extends Node<N, NAME, ANAME, AVALUE>, NAME extends Name, ANAME extends Name, AVALUE> NodeSelectorNodeSelectorContextAll<N, NAME, ANAME, AVALUE> with(final NodeSelectorContext<N, NAME, ANAME, AVALUE> context) {
+        return new NodeSelectorNodeSelectorContextAll<>(context);
     }
 
-    private NodeSelectorContext2All(final NodeSelectorContext<N, NAME, ANAME, AVALUE> context) {
+    private NodeSelectorNodeSelectorContextAll(final NodeSelectorContext<N, NAME, ANAME, AVALUE> context) {
         super(context);
     }
 
     @Override
-    NodeSelectorContext2<N, NAME, ANAME, AVALUE> all() {
+    NodeSelectorNodeSelectorContext<N, NAME, ANAME, AVALUE> all() {
         return this;
     }
 
     @Override
-    NodeSelectorContext2<N, NAME, ANAME, AVALUE> expressionCreateIfNecessary() {
+    NodeSelectorNodeSelectorContext<N, NAME, ANAME, AVALUE> expressionCreateIfNecessary() {
         return this.expression();
     }
 
     @Override
-    NodeSelectorContext2<N, NAME, ANAME, AVALUE> expression() {
-        return NodeSelectorContext2.expression(this.context);
+    NodeSelectorNodeSelectorContext<N, NAME, ANAME, AVALUE> expression() {
+        return NodeSelectorNodeSelectorContext.expression(this.context);
     }
 
     @Override

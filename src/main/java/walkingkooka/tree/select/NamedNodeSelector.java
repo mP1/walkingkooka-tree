@@ -57,7 +57,7 @@ final class NamedNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NAME exten
     }
 
     @Override
-    N apply1(final N node, final NodeSelectorContext2<N, NAME, ANAME, AVALUE> context) {
+    N apply1(final N node, final NodeSelectorNodeSelectorContext<N, NAME, ANAME, AVALUE> context) {
         return this.name.equals(node.name()) ?
             this.select(node, context) :
             node;

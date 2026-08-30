@@ -56,12 +56,12 @@ final class SelfNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NAME extend
     }
 
     @Override
-    N apply1(final N node, final NodeSelectorContext2<N, NAME, ANAME, AVALUE> context) {
+    N apply1(final N node, final NodeSelectorNodeSelectorContext<N, NAME, ANAME, AVALUE> context) {
         return this.select(node, context);
     }
 
     @Override
-    N select(final N node, final NodeSelectorContext2<N, NAME, ANAME, AVALUE> context) {
+    N select(final N node, final NodeSelectorNodeSelectorContext<N, NAME, ANAME, AVALUE> context) {
         return this.selectNext(node, context);
     }
 

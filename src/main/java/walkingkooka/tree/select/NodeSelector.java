@@ -288,29 +288,29 @@ public abstract class NodeSelector<N extends Node<N, NAME, ANAME, AVALUE>,
         Objects.requireNonNull(context, "context");
 
         return !context.isFinished() && context.test(node) ?
-            this.apply0(node, NodeSelectorContext2.all(context)) :
+            this.apply0(node, NodeSelectorNodeSelectorContext.all(context)) :
             node;
     }
 
     /**
-     * Sub classes must call this method which calls the observer and then immediately calls {@link #apply1(Node, NodeSelectorContext2)}
+     * Sub classes must call this method which calls the observer and then immediately calls {@link #apply1(Node, NodeSelectorNodeSelectorContext)}
      * This method assumes that {@link NodeSelectorContext#test(Node)} was previously called for the given {@link Node}.
      */
-    final N apply0(final N node, final NodeSelectorContext2<N, NAME, ANAME, AVALUE> context) {
+    final N apply0(final N node, final NodeSelectorNodeSelectorContext<N, NAME, ANAME, AVALUE> context) {
         return this.apply1(node, this.beginPrepareContext(context));
     }
 
     /**
      * Sub classes except for {@link ExpressionNodeSelector} call next#finishPrepareContext
      */
-    abstract NodeSelectorContext2<N, NAME, ANAME, AVALUE> beginPrepareContext(final NodeSelectorContext2<N, NAME, ANAME, AVALUE> context);
+    abstract NodeSelectorNodeSelectorContext<N, NAME, ANAME, AVALUE> beginPrepareContext(final NodeSelectorNodeSelectorContext<N, NAME, ANAME, AVALUE> context);
 
-    abstract NodeSelectorContext2<N, NAME, ANAME, AVALUE> finishPrepareContext(final NodeSelectorContext2<N, NAME, ANAME, AVALUE> context);
+    abstract NodeSelectorNodeSelectorContext<N, NAME, ANAME, AVALUE> finishPrepareContext(final NodeSelectorNodeSelectorContext<N, NAME, ANAME, AVALUE> context);
 
     /**
      * Sub classes must implement this to contain the core logic in testing if a node is actually selected.
      */
-    abstract N apply1(final N node, final NodeSelectorContext2<N, NAME, ANAME, AVALUE> context);
+    abstract N apply1(final N node, final NodeSelectorNodeSelectorContext<N, NAME, ANAME, AVALUE> context);
 
     // select...........................................................................................................
 
@@ -318,7 +318,7 @@ public abstract class NodeSelector<N extends Node<N, NAME, ANAME, AVALUE>,
      * Selects all preceding siblings of the given {@link Node}.
      */
     final N selectPrecedingSiblings(final N node,
-                                    final NodeSelectorContext2<N, NAME, ANAME, AVALUE> context) {
+                                    final NodeSelectorNodeSelectorContext<N, NAME, ANAME, AVALUE> context) {
         N result = node;
 
         final Optional<N> parent = node.parent();
@@ -349,7 +349,7 @@ public abstract class NodeSelector<N extends Node<N, NAME, ANAME, AVALUE>,
      * Selects all following siblings of the given {@link Node}.
      */
     final N selectFollowingSiblings(final N node,
-                                    final NodeSelectorContext2<N, NAME, ANAME, AVALUE> context) {
+                                    final NodeSelectorNodeSelectorContext<N, NAME, ANAME, AVALUE> context) {
         N result = node;
 
         final Optional<N> parent = node.parent();
@@ -378,7 +378,7 @@ public abstract class NodeSelector<N extends Node<N, NAME, ANAME, AVALUE>,
      * Selects all direct children of the given {@link Node node}.`
      */
     final N selectChildren(final N node,
-                           final NodeSelectorContext2<N, NAME, ANAME, AVALUE> context) {
+                           final NodeSelectorNodeSelectorContext<N, NAME, ANAME, AVALUE> context) {
         N result = node;
 
         Optional<N> next = node.firstChild();
@@ -406,7 +406,7 @@ public abstract class NodeSelector<N extends Node<N, NAME, ANAME, AVALUE>,
      * Matches the parent only if one is present.
      */
     final N selectParent(final N node,
-                         final NodeSelectorContext2<N, NAME, ANAME, AVALUE> context) {
+                         final NodeSelectorNodeSelectorContext<N, NAME, ANAME, AVALUE> context) {
         return context.isFinished() ?
             node :
             node.parent()
@@ -415,10 +415,10 @@ public abstract class NodeSelector<N extends Node<N, NAME, ANAME, AVALUE>,
     }
 
     /**
-     * Perform a conditional predicate test of the provided {@link Node} and if that passes calls {@link #select(Node, NodeSelectorContext2)}.
+     * Perform a conditional predicate test of the provided {@link Node} and if that passes calls {@link #select(Node, NodeSelectorNodeSelectorContext)}.
      */
     final N testThenSelect(final N node,
-                           final NodeSelectorContext2<N, NAME, ANAME, AVALUE> context) {
+                           final NodeSelectorNodeSelectorContext<N, NAME, ANAME, AVALUE> context) {
         return context.test(node) ?
             this.select(node, context) :
             node;
@@ -428,7 +428,7 @@ public abstract class NodeSelector<N extends Node<N, NAME, ANAME, AVALUE>,
      * Handles a selected {@link Node}
      */
     abstract N select(final N node,
-                      final NodeSelectorContext2<N, NAME, ANAME, AVALUE> context);
+                      final NodeSelectorNodeSelectorContext<N, NAME, ANAME, AVALUE> context);
 
     // NodeSelectorVisitor..............................................................................................
 

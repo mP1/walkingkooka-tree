@@ -65,7 +65,7 @@ final class CustomToStringNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, N
      * Delegate to the wrapped {@link NodeSelector}
      */
     @Override
-    NodeSelectorContext2<N, NAME, ANAME, AVALUE> beginPrepareContext(final NodeSelectorContext2<N, NAME, ANAME, AVALUE> context) {
+    NodeSelectorNodeSelectorContext<N, NAME, ANAME, AVALUE> beginPrepareContext(final NodeSelectorNodeSelectorContext<N, NAME, ANAME, AVALUE> context) {
         return this.selector.beginPrepareContext(context);
     }
 
@@ -73,17 +73,17 @@ final class CustomToStringNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, N
      * Delegate to the wrapped {@link NodeSelector}
      */
     @Override
-    NodeSelectorContext2<N, NAME, ANAME, AVALUE> finishPrepareContext(final NodeSelectorContext2<N, NAME, ANAME, AVALUE> context) {
+    NodeSelectorNodeSelectorContext<N, NAME, ANAME, AVALUE> finishPrepareContext(final NodeSelectorNodeSelectorContext<N, NAME, ANAME, AVALUE> context) {
         return this.selector.finishPrepareContext(context);
     }
 
     @Override
-    N apply1(final N node, final NodeSelectorContext2<N, NAME, ANAME, AVALUE> context) {
+    N apply1(final N node, final NodeSelectorNodeSelectorContext<N, NAME, ANAME, AVALUE> context) {
         return this.selector.apply1(node, context);
     }
 
     @Override
-    N select(final N node, final NodeSelectorContext2<N, NAME, ANAME, AVALUE> context) {
+    N select(final N node, final NodeSelectorNodeSelectorContext<N, NAME, ANAME, AVALUE> context) {
         return this.selector.select(node, context);
     }
 

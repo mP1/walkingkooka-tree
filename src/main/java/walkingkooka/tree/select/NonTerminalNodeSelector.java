@@ -48,7 +48,7 @@ abstract class NonTerminalNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, N
      */
     final N selectChild(final Optional<N> node,
                         final N parent,
-                        final NodeSelectorContext2<N, NAME, ANAME, AVALUE> context) {
+                        final NodeSelectorNodeSelectorContext<N, NAME, ANAME, AVALUE> context) {
         return node.map(child -> this.select(child, context).parentOrFail())
             .orElse(parent);
     }
@@ -56,7 +56,7 @@ abstract class NonTerminalNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, N
     /**
      * The default simply records the {@link Node} to the {@link NodeSelectorContext}.
      */
-    final N selectNext(final N node, final NodeSelectorContext2<N, NAME, ANAME, AVALUE> context) {
+    final N selectNext(final N node, final NodeSelectorNodeSelectorContext<N, NAME, ANAME, AVALUE> context) {
         return this.next.apply0(node, context);
     }
 

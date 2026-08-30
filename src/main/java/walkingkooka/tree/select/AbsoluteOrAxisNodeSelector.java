@@ -37,12 +37,12 @@ abstract class AbsoluteOrAxisNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>
      * Ask the next {@link NodeSelector} to finish.
      */
     @Override
-    final NodeSelectorContext2<N, NAME, ANAME, AVALUE> beginPrepareContext(final NodeSelectorContext2<N, NAME, ANAME, AVALUE> context) {
+    final NodeSelectorNodeSelectorContext<N, NAME, ANAME, AVALUE> beginPrepareContext(final NodeSelectorNodeSelectorContext<N, NAME, ANAME, AVALUE> context) {
         return this.next.finishPrepareContext(context.all());
     }
 
     @Override
-    final NodeSelectorContext2<N, NAME, ANAME, AVALUE> finishPrepareContext(final NodeSelectorContext2<N, NAME, ANAME, AVALUE> context) {
+    final NodeSelectorNodeSelectorContext<N, NAME, ANAME, AVALUE> finishPrepareContext(final NodeSelectorNodeSelectorContext<N, NAME, ANAME, AVALUE> context) {
         return context.all();
     }
 }

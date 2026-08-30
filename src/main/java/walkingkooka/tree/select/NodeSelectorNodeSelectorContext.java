@@ -24,7 +24,7 @@ import walkingkooka.tree.expression.Expression;
 /**
  * Base class for several {@link NodeSelectorContext} wrappers. Static factory methods are also available for all subclasses.
  */
-abstract class NodeSelectorContext2<N extends Node<N, NAME, ANAME, AVALUE>, NAME extends Name, ANAME extends Name, AVALUE> implements NodeSelectorContext<N, NAME, ANAME, AVALUE> {
+abstract class NodeSelectorNodeSelectorContext<N extends Node<N, NAME, ANAME, AVALUE>, NAME extends Name, ANAME extends Name, AVALUE> implements NodeSelectorContext<N, NAME, ANAME, AVALUE> {
 
     /**
      * {@see AllNodeSelectorContext2}
@@ -32,8 +32,8 @@ abstract class NodeSelectorContext2<N extends Node<N, NAME, ANAME, AVALUE>, NAME
     static <N extends Node<N, NAME, ANAME, AVALUE>,
         NAME extends Name,
         ANAME extends Name,
-        AVALUE> NodeSelectorContext2<N, NAME, ANAME, AVALUE> all(final NodeSelectorContext<N, NAME, ANAME, AVALUE> context) {
-        return NodeSelectorContext2All.with(context);
+        AVALUE> NodeSelectorNodeSelectorContext<N, NAME, ANAME, AVALUE> all(final NodeSelectorContext<N, NAME, ANAME, AVALUE> context) {
+        return NodeSelectorNodeSelectorContextAll.with(context);
     }
 
     /**
@@ -42,14 +42,14 @@ abstract class NodeSelectorContext2<N extends Node<N, NAME, ANAME, AVALUE>, NAME
     static <N extends Node<N, NAME, ANAME, AVALUE>,
         NAME extends Name,
         ANAME extends Name,
-        AVALUE> NodeSelectorContext2ExpressionNodeSelector<N, NAME, ANAME, AVALUE> expression(final NodeSelectorContext<N, NAME, ANAME, AVALUE> context) {
-        return NodeSelectorContext2ExpressionNodeSelector.with(context);
+        AVALUE> NodeSelectorNodeSelectorContextExpressionNodeSelector<N, NAME, ANAME, AVALUE> expression(final NodeSelectorContext<N, NAME, ANAME, AVALUE> context) {
+        return NodeSelectorNodeSelectorContextExpressionNodeSelector.with(context);
     }
 
     /**
      * Package private to limit sub classing.
      */
-    NodeSelectorContext2(final NodeSelectorContext<N, NAME, ANAME, AVALUE> context) {
+    NodeSelectorNodeSelectorContext(final NodeSelectorContext<N, NAME, ANAME, AVALUE> context) {
         super();
         this.context = context;
     }
@@ -87,19 +87,19 @@ abstract class NodeSelectorContext2<N extends Node<N, NAME, ANAME, AVALUE>, NAME
     }
 
     /**
-     * Unconditionally returns a {@link NodeSelectorContext2All}.
+     * Unconditionally returns a {@link NodeSelectorNodeSelectorContextAll}.
      */
-    abstract NodeSelectorContext2<N, NAME, ANAME, AVALUE> all();
+    abstract NodeSelectorNodeSelectorContext<N, NAME, ANAME, AVALUE> all();
 
     /**
-     * The context should create a {@link NodeSelectorContext2ExpressionNodeSelector} if it is not already one.
+     * The context should create a {@link NodeSelectorNodeSelectorContextExpressionNodeSelector} if it is not already one.
      */
-    abstract NodeSelectorContext2<N, NAME, ANAME, AVALUE> expressionCreateIfNecessary();
+    abstract NodeSelectorNodeSelectorContext<N, NAME, ANAME, AVALUE> expressionCreateIfNecessary();
 
     /**
-     * Unconditionally create a {@link NodeSelectorContext2ExpressionNodeSelector}.
+     * Unconditionally create a {@link NodeSelectorNodeSelectorContextExpressionNodeSelector}.
      */
-    abstract NodeSelectorContext2<N, NAME, ANAME, AVALUE> expression();
+    abstract NodeSelectorNodeSelectorContext<N, NAME, ANAME, AVALUE> expression();
 
     /**
      * Invoked during a {@link ExpressionNodeSelector} to test a value against the position of the current {@link Node}.

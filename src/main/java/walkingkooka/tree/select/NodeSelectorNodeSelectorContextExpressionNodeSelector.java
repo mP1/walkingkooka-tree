@@ -22,33 +22,33 @@ import walkingkooka.tree.Node;
 import walkingkooka.tree.expression.Expression;
 
 /**
- * A {@link NodeSelectorContext2} that tracks the position of selected {@link Node}. This allows {@link ExpressionNodeSelector} to
+ * A {@link NodeSelectorNodeSelectorContext} that tracks the position of selected {@link Node}. This allows {@link ExpressionNodeSelector} to
  * test numeric values against the current position of the current {@link Node}.
  */
-final class NodeSelectorContext2ExpressionNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NAME extends Name, ANAME extends Name, AVALUE>
-    extends NodeSelectorContext2<N, NAME, ANAME, AVALUE> {
+final class NodeSelectorNodeSelectorContextExpressionNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NAME extends Name, ANAME extends Name, AVALUE>
+    extends NodeSelectorNodeSelectorContext<N, NAME, ANAME, AVALUE> {
 
-    static <N extends Node<N, NAME, ANAME, AVALUE>, NAME extends Name, ANAME extends Name, AVALUE> NodeSelectorContext2ExpressionNodeSelector<N, NAME, ANAME, AVALUE> with(final NodeSelectorContext<N, NAME, ANAME, AVALUE> context) {
-        return new NodeSelectorContext2ExpressionNodeSelector<>(context);
+    static <N extends Node<N, NAME, ANAME, AVALUE>, NAME extends Name, ANAME extends Name, AVALUE> NodeSelectorNodeSelectorContextExpressionNodeSelector<N, NAME, ANAME, AVALUE> with(final NodeSelectorContext<N, NAME, ANAME, AVALUE> context) {
+        return new NodeSelectorNodeSelectorContextExpressionNodeSelector<>(context);
     }
 
-    private NodeSelectorContext2ExpressionNodeSelector(final NodeSelectorContext<N, NAME, ANAME, AVALUE> context) {
+    private NodeSelectorNodeSelectorContextExpressionNodeSelector(final NodeSelectorContext<N, NAME, ANAME, AVALUE> context) {
         super(context);
     }
 
     @Override
-    NodeSelectorContext2<N, NAME, ANAME, AVALUE> all() {
-        return NodeSelectorContext2.all(this.context);
+    NodeSelectorNodeSelectorContext<N, NAME, ANAME, AVALUE> all() {
+        return NodeSelectorNodeSelectorContext.all(this.context);
     }
 
     @Override
-    NodeSelectorContext2<N, NAME, ANAME, AVALUE> expressionCreateIfNecessary() {
+    NodeSelectorNodeSelectorContext<N, NAME, ANAME, AVALUE> expressionCreateIfNecessary() {
         return this;
     }
 
     @Override
-    NodeSelectorContext2<N, NAME, ANAME, AVALUE> expression() {
-        return NodeSelectorContext2.expression(this.context);
+    NodeSelectorNodeSelectorContext<N, NAME, ANAME, AVALUE> expression() {
+        return NodeSelectorNodeSelectorContext.expression(this.context);
     }
 
     /**
