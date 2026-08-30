@@ -33,14 +33,14 @@ import java.util.function.Predicate;
 /**
  * A {@link NodeSelectorContext} that routes test and selected {@link Node} to a individual {@link Consumer}
  */
-final class BasicNodeSelectorContext<N extends Node<N, NAME, ANAME, AVALUE>, NAME extends Name, ANAME extends Name, AVALUE>
+final class NodeSelectorContextBasic<N extends Node<N, NAME, ANAME, AVALUE>, NAME extends Name, ANAME extends Name, AVALUE>
     implements NodeSelectorContext<N, NAME, ANAME, AVALUE> {
 
     static <N extends Node<N, NAME, ANAME, AVALUE>,
         NAME extends Name,
         ANAME extends Name,
         AVALUE,
-        C extends ExpressionEvaluationContext> BasicNodeSelectorContext<N, NAME, ANAME, AVALUE> with(final BooleanSupplier finisher,
+        C extends ExpressionEvaluationContext> NodeSelectorContextBasic<N, NAME, ANAME, AVALUE> with(final BooleanSupplier finisher,
                                                                                                      final Predicate<N> filter,
                                                                                                      final Function<N, N> mapper,
                                                                                                      final Function<NodeSelectorContext<N, NAME, ANAME, AVALUE>, C> expressionEvaluationContext,
@@ -51,13 +51,13 @@ final class BasicNodeSelectorContext<N extends Node<N, NAME, ANAME, AVALUE>, NAM
         Objects.requireNonNull(expressionEvaluationContext, "expressionEvaluationContext");
         Objects.requireNonNull(nodeType, "nodeType");
 
-        return new BasicNodeSelectorContext<>(finisher,
+        return new NodeSelectorContextBasic<>(finisher,
             filter,
             mapper,
             Cast.to(expressionEvaluationContext));
     }
 
-    private BasicNodeSelectorContext(final BooleanSupplier finisher,
+    private NodeSelectorContextBasic(final BooleanSupplier finisher,
                                      final Predicate<N> filter,
                                      final Function<N, N> mapper,
                                      final Function<NodeSelectorContext<N, NAME, ANAME, AVALUE>, ExpressionEvaluationContext> expressionEvaluationContext) {

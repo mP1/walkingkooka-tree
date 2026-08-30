@@ -51,11 +51,11 @@ import java.util.function.Predicate;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class BasicNodeSelectorContextTest implements ClassTesting2<BasicNodeSelectorContext<TestNode, StringName, StringName, Object>>,
+public final class NodeSelectorContextBasicTest implements ClassTesting2<NodeSelectorContextBasic<TestNode, StringName, StringName, Object>>,
     DecimalNumberContextTesting,
     EnvironmentContextTesting,
     HasExpressionNumberKindTesting,
-    NodeSelectorContextTesting<BasicNodeSelectorContext<TestNode, StringName, StringName, Object>,
+    NodeSelectorContextTesting<NodeSelectorContextBasic<TestNode, StringName, StringName, Object>,
         TestNode,
         StringName,
         StringName,
@@ -133,7 +133,7 @@ public final class BasicNodeSelectorContextTest implements ClassTesting2<BasicNo
     public void testWithNullFinisher() {
         assertThrows(
             NullPointerException.class,
-            () -> BasicNodeSelectorContext.with(null,
+            () -> NodeSelectorContextBasic.with(null,
                 PREDICATE,
                 MAPPER,
                 EXPRESSION_EVALUATION_CONTEXT_FACTORY,
@@ -146,7 +146,7 @@ public final class BasicNodeSelectorContextTest implements ClassTesting2<BasicNo
     public void testWithNullFilter() {
         assertThrows(
             NullPointerException.class,
-            () -> BasicNodeSelectorContext.with(
+            () -> NodeSelectorContextBasic.with(
                 FINISHER,
                 null,
                 MAPPER,
@@ -160,7 +160,7 @@ public final class BasicNodeSelectorContextTest implements ClassTesting2<BasicNo
     public void testWithNullSelectedFails() {
         assertThrows(
             NullPointerException.class,
-            () -> BasicNodeSelectorContext.with(
+            () -> NodeSelectorContextBasic.with(
                 FINISHER,
                 PREDICATE,
                 null,
@@ -174,7 +174,7 @@ public final class BasicNodeSelectorContextTest implements ClassTesting2<BasicNo
     public void testWithNullExpressionEvaluationContextFails() {
         assertThrows(
             NullPointerException.class,
-            () -> BasicNodeSelectorContext.with(
+            () -> NodeSelectorContextBasic.with(
                 FINISHER,
                 PREDICATE,
                 MAPPER,
@@ -188,7 +188,7 @@ public final class BasicNodeSelectorContextTest implements ClassTesting2<BasicNo
     public void testWithNullNodeTypeFails() {
         assertThrows(
             NullPointerException.class,
-            () -> BasicNodeSelectorContext.with(
+            () -> NodeSelectorContextBasic.with(
                 FINISHER,
                 PREDICATE,
                 MAPPER,
@@ -200,7 +200,7 @@ public final class BasicNodeSelectorContextTest implements ClassTesting2<BasicNo
 
     @Test
     public void testEvaluate() {
-        final BasicNodeSelectorContext<TestNode, StringName, StringName, Object> context = this.createContext();
+        final NodeSelectorContextBasic<TestNode, StringName, StringName, Object> context = this.createContext();
         final int number = 123;
 
         this.checkEquals(
@@ -215,7 +215,7 @@ public final class BasicNodeSelectorContextTest implements ClassTesting2<BasicNo
 
     @Test
     public void testEvaluateAddition() {
-        final BasicNodeSelectorContext<TestNode, StringName, StringName, Object> context = this.createContext();
+        final NodeSelectorContextBasic<TestNode, StringName, StringName, Object> context = this.createContext();
         final int left = 123;
         final int right = 456;
 
@@ -241,7 +241,7 @@ public final class BasicNodeSelectorContextTest implements ClassTesting2<BasicNo
         final Function<TestNode, TestNode> mapper = MAPPER;
         final Function<NodeSelectorContext<TestNode, StringName, StringName, Object>, ExpressionEvaluationContext> context = EXPRESSION_EVALUATION_CONTEXT_FACTORY;
 
-        this.toStringAndCheck(BasicNodeSelectorContext.with(
+        this.toStringAndCheck(NodeSelectorContextBasic.with(
                 finisher,
                 filter,
                 mapper,
@@ -252,8 +252,8 @@ public final class BasicNodeSelectorContextTest implements ClassTesting2<BasicNo
     }
 
     @Override
-    public BasicNodeSelectorContext<TestNode, StringName, StringName, Object> createContext() {
-        return BasicNodeSelectorContext.with(
+    public NodeSelectorContextBasic<TestNode, StringName, StringName, Object> createContext() {
+        return NodeSelectorContextBasic.with(
             FINISHER,
             PREDICATE,
             MAPPER,
@@ -265,12 +265,17 @@ public final class BasicNodeSelectorContextTest implements ClassTesting2<BasicNo
     // class............................................................................................................
 
     @Override
-    public Class<BasicNodeSelectorContext<TestNode, StringName, StringName, Object>> type() {
-        return Cast.to(BasicNodeSelectorContext.class);
+    public Class<NodeSelectorContextBasic<TestNode, StringName, StringName, Object>> type() {
+        return Cast.to(NodeSelectorContextBasic.class);
     }
 
     @Override
     public JavaVisibility typeVisibility() {
         return JavaVisibility.PACKAGE_PRIVATE;
+    }
+
+    @Override
+    public void testTypeNaming() {
+        throw new UnsupportedOperationException();
     }
 }
