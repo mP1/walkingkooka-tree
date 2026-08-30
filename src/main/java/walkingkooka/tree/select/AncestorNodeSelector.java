@@ -55,12 +55,12 @@ final class AncestorNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NAME ex
     }
 
     @Override
-    N apply1(final N node, final NodeSelectorContext2<N, NAME, ANAME, AVALUE> context) {
+    N apply1(final N node, final NodeSelectorNodeSelectorContext<N, NAME, ANAME, AVALUE> context) {
         return this.selectParent(node, context);
     }
 
     @Override
-    N select(final N node, final NodeSelectorContext2<N, NAME, ANAME, AVALUE> context) {
+    N select(final N node, final NodeSelectorNodeSelectorContext<N, NAME, ANAME, AVALUE> context) {
         final N node2 = this.selectNext(node, context);
 
         return this.selectParent(node2, context);

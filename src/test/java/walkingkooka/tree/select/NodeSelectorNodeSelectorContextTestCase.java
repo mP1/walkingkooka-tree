@@ -25,7 +25,7 @@ import walkingkooka.tree.Node;
 import walkingkooka.tree.TestNode;
 import walkingkooka.tree.expression.ExpressionNumberKind;
 
-public abstract class NodeSelectorContext2TestCase<C extends NodeSelectorContext<N, NAME, ANAME, AVALUE>,
+public abstract class NodeSelectorNodeSelectorContextTestCase<C extends NodeSelectorContext<N, NAME, ANAME, AVALUE>,
     N extends Node<N, NAME, ANAME, AVALUE>,
     NAME extends Name,
     ANAME extends Name,
@@ -38,7 +38,7 @@ public abstract class NodeSelectorContext2TestCase<C extends NodeSelectorContext
 
     final static ExpressionNumberKind EXPRESSION_NUMBER_KIND = ExpressionNumberKind.DEFAULT;
 
-    NodeSelectorContext2TestCase() {
+    NodeSelectorNodeSelectorContextTestCase() {
         super();
     }
 
@@ -51,14 +51,14 @@ public abstract class NodeSelectorContext2TestCase<C extends NodeSelectorContext
         };
     }
 
-    final void checkType(final NodeSelectorContext2<?, ?, ?, ?> context,
+    final void checkType(final NodeSelectorNodeSelectorContext<?, ?, ?, ?> context,
                          final Class<?> type) {
         this.checkEquals(type.getName(), context.getClass().getName(), () -> "" + context + " must be " + type.getName());
     }
 
     @Override
     public final String typeNamePrefix() {
-        return NodeSelectorContext2.class.getSimpleName();
+        return NodeSelectorNodeSelectorContext.class.getSimpleName();
     }
 
     @Override

@@ -61,17 +61,17 @@ final class ExpressionNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NAME 
     }
 
     @Override
-    NodeSelectorContext2<N, NAME, ANAME, AVALUE> beginPrepareContext(final NodeSelectorContext2<N, NAME, ANAME, AVALUE> context) {
+    NodeSelectorNodeSelectorContext<N, NAME, ANAME, AVALUE> beginPrepareContext(final NodeSelectorNodeSelectorContext<N, NAME, ANAME, AVALUE> context) {
         return context.expressionCreateIfNecessary();
     }
 
     @Override
-    NodeSelectorContext2<N, NAME, ANAME, AVALUE> finishPrepareContext(final NodeSelectorContext2<N, NAME, ANAME, AVALUE> context) {
+    NodeSelectorNodeSelectorContext<N, NAME, ANAME, AVALUE> finishPrepareContext(final NodeSelectorNodeSelectorContext<N, NAME, ANAME, AVALUE> context) {
         return context.expression();
     }
 
     @Override
-    N apply1(final N node, final NodeSelectorContext2<N, NAME, ANAME, AVALUE> context) {
+    N apply1(final N node, final NodeSelectorNodeSelectorContext<N, NAME, ANAME, AVALUE> context) {
         N result = node;
 
         try {
@@ -95,7 +95,7 @@ final class ExpressionNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NAME 
     final Expression expression;
 
     @Override
-    N select(final N node, final NodeSelectorContext2<N, NAME, ANAME, AVALUE> context) {
+    N select(final N node, final NodeSelectorNodeSelectorContext<N, NAME, ANAME, AVALUE> context) {
         return this.selectNext(node, context);
     }
 

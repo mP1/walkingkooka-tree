@@ -60,7 +60,7 @@ final class NodePredicateNodeSelector<N extends Node<N, NAME, ANAME, AVALUE>, NA
     }
 
     @Override
-    N apply1(final N node, final NodeSelectorContext2<N, NAME, ANAME, AVALUE> context) {
+    N apply1(final N node, final NodeSelectorNodeSelectorContext<N, NAME, ANAME, AVALUE> context) {
         context.setNode(node);
 
         return this.predicate.test(node) ?
