@@ -44,7 +44,7 @@ public final class NodeSelectorContexts implements PublicStaticHelper {
                                                                                                  final Function<N, N> mapper,
                                                                                                  final Function<NodeSelectorContext<N, NAME, ANAME, AVALUE>, C> expressionEvaluationContext,
                                                                                                  final Class<N> nodeType) {
-        return BasicNodeSelectorContext.with(finisher,
+        return NodeSelectorContextBasic.with(finisher,
             filter,
             mapper,
             expressionEvaluationContext,
