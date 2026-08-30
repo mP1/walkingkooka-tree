@@ -18,12 +18,9 @@
 package walkingkooka.tree.select;
 
 import walkingkooka.Context;
-import walkingkooka.collect.list.Lists;
 import walkingkooka.naming.Name;
 import walkingkooka.tree.Node;
 import walkingkooka.tree.expression.Expression;
-
-import java.util.List;
 
 /**
  * The {@link Context} that accompanies all match requests. Not it gathers the selected nodes and so cant be reused.
@@ -55,11 +52,6 @@ public interface NodeSelectorContext<N extends Node<N, NAME, ANAME, AVALUE>, NAM
      * Invoked with each and every selected {@link Node node}.
      */
     N selected(final N node);
-
-    /**
-     * Constant for functions without any parameters.
-     */
-    List<Object> NO_PARAMETERS = Lists.empty();
 
     /**
      * Evaluates the {@link Expression} returning the value.
