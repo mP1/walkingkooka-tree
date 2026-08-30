@@ -22,7 +22,6 @@ import walkingkooka.predicate.Predicates;
 import walkingkooka.stream.push.PushableStreamConsumer;
 import walkingkooka.tree.Node;
 import walkingkooka.tree.expression.ExpressionEvaluationContext;
-import walkingkooka.tree.expression.convert.ExpressionNumberConverterContext;
 
 import java.util.Objects;
 import java.util.function.Consumer;
@@ -43,11 +42,10 @@ final class NodeSelectorStreamConsumerPushableStreamConsumer<N extends Node<N, N
     static <N extends Node<N, NAME, ANAME, AVALUE>,
         NAME extends Name,
         ANAME extends Name,
-        AVALUE,
-        C extends ExpressionNumberConverterContext> NodeSelectorStreamConsumerPushableStreamConsumer<N, NAME, ANAME, AVALUE> with(final N node,
-                                                                                                                                  final NodeSelector<N, NAME, ANAME, AVALUE> selector,
-                                                                                                                                  final Function<NodeSelectorContext<N, NAME, ANAME, AVALUE>, ExpressionEvaluationContext> expressionEvaluationContext,
-                                                                                                                                  final Class<N> nodeType) {
+        AVALUE> NodeSelectorStreamConsumerPushableStreamConsumer<N, NAME, ANAME, AVALUE> with(final N node,
+                                                                                              final NodeSelector<N, NAME, ANAME, AVALUE> selector,
+                                                                                              final Function<NodeSelectorContext<N, NAME, ANAME, AVALUE>, ExpressionEvaluationContext> expressionEvaluationContext,
+                                                                                              final Class<N> nodeType) {
         Objects.requireNonNull(node, "node");
 
         return new NodeSelectorStreamConsumerPushableStreamConsumer<>(node,
