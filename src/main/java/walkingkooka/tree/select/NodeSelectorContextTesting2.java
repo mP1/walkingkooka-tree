@@ -35,8 +35,12 @@ public interface NodeSelectorContextTesting2<C extends NodeSelectorContext<N, NA
     NodeSelectorContextTesting {
 
     @Test
-    default void testEvaluateNullFails() {
-        assertThrows(NullPointerException.class, () -> this.createContext().evaluate(null));
+    default void testEvaluateWithNullExpressionFails() {
+        assertThrows(
+            NullPointerException.class,
+            () -> this.createContext()
+                .evaluate(null)
+        );
     }
 
     @Override
