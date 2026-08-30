@@ -29,7 +29,7 @@ public abstract class NodeSelectorNodeSelectorContextTestCase<C extends NodeSele
     N extends Node<N, NAME, ANAME, AVALUE>,
     NAME extends Name,
     ANAME extends Name,
-    AVALUE> implements NodeSelectorContextTesting<C,
+    AVALUE> implements NodeSelectorContextTesting2<C,
     N,
     NAME,
     ANAME,

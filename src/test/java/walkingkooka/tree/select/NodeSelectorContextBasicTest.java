@@ -55,7 +55,7 @@ public final class NodeSelectorContextBasicTest implements ClassTesting2<NodeSel
     DecimalNumberContextTesting,
     EnvironmentContextTesting,
     HasExpressionNumberKindTesting,
-    NodeSelectorContextTesting<NodeSelectorContextBasic<TestNode, StringName, StringName, Object>,
+    NodeSelectorContextTesting2<NodeSelectorContextBasic<TestNode, StringName, StringName, Object>,
         TestNode,
         StringName,
         StringName,
