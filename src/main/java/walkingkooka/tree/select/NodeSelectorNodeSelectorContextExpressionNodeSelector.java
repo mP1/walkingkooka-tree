@@ -56,7 +56,7 @@ final class NodeSelectorNodeSelectorContextExpressionNodeSelector<N extends Node
      */
     @Override
     boolean isNodeSelected(final Expression expression) {
-        final Object value = this.evaluate(expression);
+        final Object value = this.evaluateExpression(expression);
         boolean selected = Boolean.TRUE.equals(value);
         if (false == selected && value instanceof Number) {
             final Number number = (Number) value;

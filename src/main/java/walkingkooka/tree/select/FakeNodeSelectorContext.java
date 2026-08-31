@@ -56,7 +56,7 @@ public class FakeNodeSelectorContext<N extends Node<N, NAME, ANAME, AVALUE>,
      * Evaluates the {@link Expression} returning the value.
      */
     @Override
-    public Object evaluate(final Expression expression) {
+    public Object evaluateExpression(final Expression expression) {
         throw new UnsupportedOperationException();
     }
 }

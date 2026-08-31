@@ -119,7 +119,7 @@ final class NodeSelectorContextBasic<N extends Node<N, NAME, ANAME, AVALUE>, NAM
     private final Function<N, N> mapper;
 
     @Override
-    public Object evaluate(final Expression expression) {
+    public Object evaluateExpression(final Expression expression) {
         // create a new context and then evaluate the expression.
         return expression.toValue(
             this.expressionEvaluationContextFactory.apply(this)

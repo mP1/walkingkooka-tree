@@ -101,7 +101,7 @@ public final class NodeSelectorNodeSelectorContextExpressionNodeSelectorTest ext
             new FakeNodeSelectorContext<TestNode, StringName, StringName, Object>() {
 
                 @Override
-                public Object evaluate(final Expression expression) {
+                public Object evaluateExpression(final Expression expression) {
                     Objects.requireNonNull(expression, "expression");
 
                     return expression.toValue(
