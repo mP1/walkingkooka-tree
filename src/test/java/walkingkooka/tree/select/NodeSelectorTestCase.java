@@ -366,31 +366,31 @@ abstract public class NodeSelectorTestCase<S extends NodeSelector<TestNode, Stri
             .collect(Collectors.toList());
     }
 
-    final void acceptMapAndCheck(final TestNode start) {
-        this.acceptMapAndCheck(start, start);
+    final void applyMapAndCheck(final TestNode start) {
+        this.applyMapAndCheck(start, start);
     }
 
-    final void acceptMapAndCheck(final TestNode start,
-                                 final TestNode result) {
-        this.acceptMapAndCheck(
+    final void applyMapAndCheck(final TestNode start,
+                                final TestNode result) {
+        this.applyMapAndCheck(
             this.createSelector(),
             start,
             result
         );
     }
 
-    final void acceptMapAndCheck(final NodeSelector<TestNode, StringName, StringName, Object> selector,
-                                 final TestNode start) {
-        this.acceptMapAndCheck(
+    final void applyMapAndCheck(final NodeSelector<TestNode, StringName, StringName, Object> selector,
+                                final TestNode start) {
+        this.applyMapAndCheck(
             selector,
             start,
             start
         );
     }
 
-    final void acceptMapAndCheck(final NodeSelector<TestNode, StringName, StringName, Object> selector,
-                                 final TestNode start,
-                                 final TestNode result) {
+    final void applyMapAndCheck(final NodeSelector<TestNode, StringName, StringName, Object> selector,
+                                final TestNode start,
+                                final TestNode result) {
         TestNode.clear();
 
         final String startToString = start.toString();

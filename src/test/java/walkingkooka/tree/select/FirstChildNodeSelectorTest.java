@@ -124,7 +124,7 @@ final public class FirstChildNodeSelectorTest extends
 
     @Test
     public void testFirstChildMap() {
-        this.acceptMapAndCheck(TestNode.with("parent"));
+        this.applyMapAndCheck(TestNode.with("parent"));
     }
 
     @Test
@@ -132,7 +132,7 @@ final public class FirstChildNodeSelectorTest extends
         final TestNode parent = TestNode.with("parent",
             TestNode.with("child1"), TestNode.with("child2"), TestNode.with("child3"));
 
-        this.acceptMapAndCheck(parent,
+        this.applyMapAndCheck(parent,
             parent.setChild(0, TestNode.with("child1*0")));
     }
 
@@ -145,7 +145,7 @@ final public class FirstChildNodeSelectorTest extends
 
         TestNode.clear();
 
-        this.acceptMapAndCheck(grand.child(0),
+        this.applyMapAndCheck(grand.child(0),
             TestNode.with("grand-parent",
                     TestNode.with("parent1",
                         TestNode.with("child1*0"), TestNode.with("child2"), TestNode.with("child3")),

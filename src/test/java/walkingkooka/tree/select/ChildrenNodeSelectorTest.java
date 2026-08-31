@@ -125,7 +125,7 @@ final public class ChildrenNodeSelectorTest
 
     @Test
     public void testChildrenMapWithoutChildren() {
-        this.acceptMapAndCheck(TestNode.with("without-children"));
+        this.applyMapAndCheck(TestNode.with("without-children"));
     }
 
     @Test
@@ -169,7 +169,7 @@ final public class ChildrenNodeSelectorTest
 
         TestNode.clear();
 
-        this.acceptMapAndCheck(grandParent.child(0),
+        this.applyMapAndCheck(grandParent.child(0),
             TestNode.with("grand",
                     TestNode.with("parent1",
                         TestNode.with("child1*0"), TestNode.with("child2*1")),
@@ -186,7 +186,7 @@ final public class ChildrenNodeSelectorTest
 
         TestNode.clear();
 
-        this.acceptMapAndCheck(grandParent,
+        this.applyMapAndCheck(grandParent,
             TestNode.with("grand",
                 TestNode.with("parent1*0",
                     TestNode.with("child1"), TestNode.with("child2")),

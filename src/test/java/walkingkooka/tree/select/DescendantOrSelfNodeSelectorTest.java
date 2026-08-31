@@ -165,7 +165,7 @@ final public class DescendantOrSelfNodeSelectorTest extends
 
         TestNode.clear();
 
-        this.acceptMapAndCheck(grandParent.child(0),
+        this.applyMapAndCheck(grandParent.child(0),
             TestNode.with("grand",
                     TestNode.with("parent1*0",
                         TestNode.with("child1*1"), TestNode.with("child2*2")),
@@ -182,7 +182,7 @@ final public class DescendantOrSelfNodeSelectorTest extends
 
         TestNode.clear();
 
-        this.acceptMapAndCheck(grandParent,
+        this.applyMapAndCheck(grandParent,
             TestNode.with("grand*0",
                 TestNode.with("parent1*1",
                     TestNode.with("child1*2"), TestNode.with("child2*3")),

@@ -124,7 +124,7 @@ final public class AncestorNodeSelectorTest extends
 
         TestNode.clear();
 
-        this.acceptMapAndCheck(grandParent.child(0).child(0),
+        this.applyMapAndCheck(grandParent.child(0).child(0),
             TestNode.with("grand*1",
                     TestNode.with("parent1*0",
                         TestNode.with("child1"), TestNode.with("child2")),

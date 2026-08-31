@@ -62,7 +62,7 @@ final public class TerminalNodeSelectorTest
 
         TestNode.clear();
 
-        this.acceptMapAndCheck(parent,
+        this.applyMapAndCheck(parent,
             TestNode.with("parent*0",
                 TestNode.with("child1"), TestNode.with("child2"), TestNode.with("child3")));
     }

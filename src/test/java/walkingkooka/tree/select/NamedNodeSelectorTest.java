@@ -167,7 +167,7 @@ final public class NamedNodeSelectorTest extends
 
         TestNode.clear();
 
-        this.acceptMapAndCheck(TestNode.relativeNodeSelector().named(child1.name()),
+        this.applyMapAndCheck(TestNode.relativeNodeSelector().named(child1.name()),
             parent.child(0),
             TestNode.with("parent", TestNode.with(child1.name().value() + "*0"), TestNode.with("child"))
                 .child(0));
@@ -180,7 +180,7 @@ final public class NamedNodeSelectorTest extends
 
         TestNode.clear();
 
-        this.acceptMapAndCheck(TestNode.absoluteNodeSelector().children().named(child.name()),
+        this.applyMapAndCheck(TestNode.absoluteNodeSelector().children().named(child.name()),
             parent,
             TestNode.with("parent",
                 TestNode.with("child1*0", TestNode.with("grandChild")),
@@ -195,7 +195,7 @@ final public class NamedNodeSelectorTest extends
         final TestNode child2 = TestNode.with("child", TestNode.with("grandChild2"));
         final TestNode parent = TestNode.with("parent", child1, TestNode.with("skip"), child2);
 
-        this.acceptMapAndCheck(TestNode.absoluteNodeSelector().children().named(child1.name()),
+        this.applyMapAndCheck(TestNode.absoluteNodeSelector().children().named(child1.name()),
             parent,
             TestNode.with("parent",
                 TestNode.with("child*0", TestNode.with("grandChild1")),
@@ -205,7 +205,7 @@ final public class NamedNodeSelectorTest extends
 
     @Test
     public void testMapUnmatched() {
-        this.acceptMapAndCheck(TestNode.with("different"));
+        this.applyMapAndCheck(TestNode.with("different"));
     }
 
     // NodeSelectorVisitor............................................................................................

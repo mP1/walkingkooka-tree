@@ -128,7 +128,7 @@ final public class NodePredicateNodeSelectorTest extends
 
         TestNode.clear();
 
-        this.acceptMapAndCheck(this.createSelector2(),
+        this.applyMapAndCheck(this.createSelector2(),
             parent.child(0),
             TestNode.with("parent", TestNode.with(MAGIC_VALUE + "*0"), TestNode.with("child"))
                 .child(0));
