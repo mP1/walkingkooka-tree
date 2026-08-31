@@ -200,7 +200,6 @@ public final class NodeSelectorContextBasicTest implements ClassTesting2<NodeSel
 
     @Test
     public void testEvaluateExpressionAddition() {
-        final NodeSelectorContextBasic<TestNode, StringName, StringName, Object> context = this.createContext();
         final int left = 123;
         final int right = 456;
 
