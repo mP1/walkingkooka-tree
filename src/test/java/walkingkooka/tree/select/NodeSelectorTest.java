@@ -30,11 +30,9 @@ import walkingkooka.stream.StreamTesting;
 import walkingkooka.text.printer.TreePrintableTesting;
 import walkingkooka.tree.TestNode;
 import walkingkooka.tree.expression.Expression;
-import walkingkooka.tree.expression.ExpressionEvaluationContext;
 import walkingkooka.tree.expression.ExpressionEvaluationContexts;
 
 import java.util.List;
-import java.util.function.Function;
 import java.util.stream.Stream;
 
 public final class NodeSelectorTest implements ClassTesting2<NodeSelector<TestNode, StringName, StringName, Object>>,
@@ -152,13 +150,9 @@ public final class NodeSelectorTest implements ClassTesting2<NodeSelector<TestNo
                                     final TestNode node) {
         return selector.stream(
             node,
-            this.expressionEvaluationContext(),
+            (c) -> ExpressionEvaluationContexts.fake(),
             TestNode.class
         );
-    }
-
-    private Function<NodeSelectorContext<TestNode, StringName, StringName, Object>, ExpressionEvaluationContext> expressionEvaluationContext() {
-        return (c) -> ExpressionEvaluationContexts.fake();
     }
 
     @Override
