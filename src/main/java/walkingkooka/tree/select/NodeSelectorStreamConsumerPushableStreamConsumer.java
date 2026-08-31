@@ -65,11 +65,13 @@ final class NodeSelectorStreamConsumerPushableStreamConsumer<N extends Node<N, N
         this.selector = selector;
         this.node = node;
 
-        this.context = NodeSelectorContexts.basic(this::finisher,
+        this.context = NodeSelectorContexts.basic(
+            this::finisher,
             Predicates.always(),
             this::mapper,
             expressionEvaluationContextFactory,
-            nodeType);
+            nodeType
+        );
     }
 
     /**
@@ -93,7 +95,11 @@ final class NodeSelectorStreamConsumerPushableStreamConsumer<N extends Node<N, N
     @Override
     public void accept(final PushableStreamConsumer<N> pushableStreamConsumer) {
         this.pushableStreamConsumer = pushableStreamConsumer;
-        this.selector.apply(this.node, this.context);
+
+        this.selector.apply(
+            this.node,
+            this.context
+        );
     }
 
     private PushableStreamConsumer<N> pushableStreamConsumer;
