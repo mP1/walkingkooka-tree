@@ -47,15 +47,15 @@ import java.util.function.Function;
  * values are also converted to the parameter's type.
  * This is useful for languages or environments that have auto converting of value semantics, think Javascript.
  */
-final class BasicExpressionEvaluationContext implements ExpressionEvaluationContext,
+final class ExpressionEvaluationContextBasic implements ExpressionEvaluationContext,
     ConverterContextDelegator,
     EnvironmentContextDelegator,
     LocaleContextDelegator {
 
     /**
-     * Factory that creates a {@link BasicExpressionEvaluationContext}
+     * Factory that creates a {@link ExpressionEvaluationContextBasic}
      */
-    static BasicExpressionEvaluationContext with(final ExpressionNumberKind expressionNumberKind,
+    static ExpressionEvaluationContextBasic with(final ExpressionNumberKind expressionNumberKind,
                                                  final BiFunction<String, ExpressionEvaluationContext, Object> evaluator,
                                                  final Function<ExpressionFunctionName, ExpressionFunction<?, ExpressionEvaluationContext>> functions,
                                                  final Function<RuntimeException, Object> exceptionHandler,
@@ -76,7 +76,7 @@ final class BasicExpressionEvaluationContext implements ExpressionEvaluationCont
         Objects.requireNonNull(environmentContext, "environmentContext");
         Objects.requireNonNull(localeContext, "localeContext");
 
-        return new BasicExpressionEvaluationContext(
+        return new ExpressionEvaluationContextBasic(
             expressionNumberKind,
             evaluator,
             functions,
@@ -93,7 +93,7 @@ final class BasicExpressionEvaluationContext implements ExpressionEvaluationCont
     /**
      * Private ctor use factory
      */
-    private BasicExpressionEvaluationContext(final ExpressionNumberKind expressionNumberKind,
+    private ExpressionEvaluationContextBasic(final ExpressionNumberKind expressionNumberKind,
                                              final BiFunction<String, ExpressionEvaluationContext, Object> evaluator,
                                              final Function<ExpressionFunctionName, ExpressionFunction<?, ExpressionEvaluationContext>> functions,
                                              final Function<RuntimeException, Object> exceptionHandler,
@@ -223,7 +223,7 @@ final class BasicExpressionEvaluationContext implements ExpressionEvaluationCont
     public ExpressionEvaluationContext setEnvironmentContext(final EnvironmentContext environmentContext) {
         return this.environmentContext == environmentContext ?
             this :
-            new BasicExpressionEvaluationContext(
+            new ExpressionEvaluationContextBasic(
                 this.expressionNumberKind,
                 this.evaluator,
                 this.functions,
