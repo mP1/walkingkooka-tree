@@ -34,6 +34,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
  * Mixing testing interface for {@link ExpressionEvaluationContext}
  */
 public interface ExpressionEvaluationContextTesting2<C extends ExpressionEvaluationContext> extends ExpressionEvaluationContextTesting,
+    CanEvaluateExpressionTesting2<C>,
     CanEvaluateStringTesting2<C>,
     ConverterLikeTesting2<C>,
     EnvironmentContextTesting2<C>,
@@ -69,14 +70,6 @@ public interface ExpressionEvaluationContextTesting2<C extends ExpressionEvaluat
     // evaluateExpression...............................................................................................
 
     @Test
-    default void testEvaluateExpressionWithNullExpressionFails() {
-        assertThrows(
-            NullPointerException.class,
-            () -> this.createContext().evaluateExpression(null)
-        );
-    }
-
-    @Test
     default void testEvaluateExpressionUnknownFunctionNameFails() {
         assertThrows(
             UnknownExpressionFunctionException.class,
@@ -89,15 +82,6 @@ public interface ExpressionEvaluationContextTesting2<C extends ExpressionEvaluat
                         Expression.NO_CHILDREN
                     )
                 )
-        );
-    }
-
-    default void evaluateExpressionAndCheck(final Expression expression,
-                                            final Object value) {
-        this.evaluateExpressionAndCheck(
-            this.createContext(),
-            expression,
-            value
         );
     }
 
@@ -165,6 +149,13 @@ public interface ExpressionEvaluationContextTesting2<C extends ExpressionEvaluat
     @Override
     default void testSetLocaleWithNullFails() {
         LocaleContextTesting2.super.testSetLocaleWithNullFails();
+    }
+
+    // CanEvaluateExpression............................................................................................
+
+    @Override
+    default C createCanEvaluateExpression() {
+        return this.createContext();
     }
 
     // CanEvaluateString................................................................................................
