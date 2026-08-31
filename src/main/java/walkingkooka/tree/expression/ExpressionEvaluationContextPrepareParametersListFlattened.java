@@ -148,7 +148,6 @@ final class ExpressionEvaluationContextPrepareParametersListFlattened extends Ex
                     collection.iterator(),
                     flattenValues
                 );
-                continue;
             } else {
                 flattenValues.add(value);
             }
