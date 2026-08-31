@@ -43,29 +43,29 @@ final class NodeSelectorContextBasic<N extends Node<N, NAME, ANAME, AVALUE>, NAM
         C extends ExpressionEvaluationContext> NodeSelectorContextBasic<N, NAME, ANAME, AVALUE> with(final BooleanSupplier finisher,
                                                                                                      final Predicate<N> filter,
                                                                                                      final Function<N, N> mapper,
-                                                                                                     final Function<NodeSelectorContext<N, NAME, ANAME, AVALUE>, C> expressionEvaluationContext,
+                                                                                                     final Function<NodeSelectorContext<N, NAME, ANAME, AVALUE>, C> expressionEvaluationContextFactory,
                                                                                                      final Class<N> nodeType) {
         Objects.requireNonNull(finisher, "finisher");
         Objects.requireNonNull(filter, "filter");
         Objects.requireNonNull(mapper, "mapper");
-        Objects.requireNonNull(expressionEvaluationContext, "expressionEvaluationContext");
+        Objects.requireNonNull(expressionEvaluationContextFactory, "expressionEvaluationContextFactory");
         Objects.requireNonNull(nodeType, "nodeType");
 
         return new NodeSelectorContextBasic<>(finisher,
             filter,
             mapper,
-            Cast.to(expressionEvaluationContext));
+            Cast.to(expressionEvaluationContextFactory));
     }
 
     private NodeSelectorContextBasic(final BooleanSupplier finisher,
                                      final Predicate<N> filter,
                                      final Function<N, N> mapper,
-                                     final Function<NodeSelectorContext<N, NAME, ANAME, AVALUE>, ExpressionEvaluationContext> expressionEvaluationContext) {
+                                     final Function<NodeSelectorContext<N, NAME, ANAME, AVALUE>, ExpressionEvaluationContext> expressionEvaluationContextFactory) {
         this.finisher = finisher;
         this.filter = filter;
         this.mapper = mapper;
 
-        this.expressionEvaluationContext = expressionEvaluationContext;
+        this.expressionEvaluationContextFactory = expressionEvaluationContextFactory;
     }
 
     @Override
@@ -119,13 +119,13 @@ final class NodeSelectorContextBasic<N extends Node<N, NAME, ANAME, AVALUE>, NAM
     @Override
     public Object evaluate(final Expression expression) {
         // create a new context and then evaluate the expression.
-        return expression.toValue(this.expressionEvaluationContext.apply(this));
+        return expression.toValue(this.expressionEvaluationContextFactory.apply(this));
     }
 
     /**
      * A factory that returns a {@link ExpressionEvaluationContext} after being given a {@link NodeSelectorContext}.
      */
-    private final Function<NodeSelectorContext<N, NAME, ANAME, AVALUE>, ExpressionEvaluationContext> expressionEvaluationContext;
+    private final Function<NodeSelectorContext<N, NAME, ANAME, AVALUE>, ExpressionEvaluationContext> expressionEvaluationContextFactory;
 
     /**
      * The current {@link Node} which is also becomes the first argument for all {@link ExpressionFunction} invocations.
@@ -137,6 +137,6 @@ final class NodeSelectorContextBasic<N extends Node<N, NAME, ANAME, AVALUE>, NAM
         return this.finisher + " " +
             this.filter + " " +
             this.mapper + " " +
-            this.expressionEvaluationContext;
+            this.expressionEvaluationContextFactory;
     }
 }

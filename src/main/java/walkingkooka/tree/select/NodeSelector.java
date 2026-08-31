@@ -457,13 +457,13 @@ public abstract class NodeSelector<N extends Node<N, NAME, ANAME, AVALUE>,
      * {@link Stream} for further stream processing.
      */
     public final Stream<N> stream(final N node,
-                                  final Function<NodeSelectorContext<N, NAME, ANAME, AVALUE>, ExpressionEvaluationContext> expressionEvaluationContext,
+                                  final Function<NodeSelectorContext<N, NAME, ANAME, AVALUE>, ExpressionEvaluationContext> expressionEvaluationContextFactory,
                                   final Class<N> nodeType) {
         return PushableStreamConsumer.stream(
             NodeSelectorStreamConsumerPushableStreamConsumer.with(
                 node,
                 this,
-                expressionEvaluationContext,
+                expressionEvaluationContextFactory,
                 nodeType
             )
         );

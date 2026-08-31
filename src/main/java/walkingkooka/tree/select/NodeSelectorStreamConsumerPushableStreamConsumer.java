@@ -44,13 +44,13 @@ final class NodeSelectorStreamConsumerPushableStreamConsumer<N extends Node<N, N
         ANAME extends Name,
         AVALUE> NodeSelectorStreamConsumerPushableStreamConsumer<N, NAME, ANAME, AVALUE> with(final N node,
                                                                                               final NodeSelector<N, NAME, ANAME, AVALUE> selector,
-                                                                                              final Function<NodeSelectorContext<N, NAME, ANAME, AVALUE>, ExpressionEvaluationContext> expressionEvaluationContext,
+                                                                                              final Function<NodeSelectorContext<N, NAME, ANAME, AVALUE>, ExpressionEvaluationContext> expressionEvaluationContextFactory,
                                                                                               final Class<N> nodeType) {
         Objects.requireNonNull(node, "node");
 
         return new NodeSelectorStreamConsumerPushableStreamConsumer<>(node,
             selector,
-            expressionEvaluationContext,
+            expressionEvaluationContextFactory,
             nodeType);
     }
 
@@ -59,7 +59,7 @@ final class NodeSelectorStreamConsumerPushableStreamConsumer<N extends Node<N, N
      */
     private NodeSelectorStreamConsumerPushableStreamConsumer(final N node,
                                                              final NodeSelector<N, NAME, ANAME, AVALUE> selector,
-                                                             final Function<NodeSelectorContext<N, NAME, ANAME, AVALUE>, ExpressionEvaluationContext> expressionEvaluationContext,
+                                                             final Function<NodeSelectorContext<N, NAME, ANAME, AVALUE>, ExpressionEvaluationContext> expressionEvaluationContextFactory,
                                                              final Class<N> nodeType) {
         super();
         this.selector = selector;
@@ -68,7 +68,7 @@ final class NodeSelectorStreamConsumerPushableStreamConsumer<N extends Node<N, N
         this.context = NodeSelectorContexts.basic(this::finisher,
             Predicates.always(),
             this::mapper,
-            expressionEvaluationContext,
+            expressionEvaluationContextFactory,
             nodeType);
     }
 

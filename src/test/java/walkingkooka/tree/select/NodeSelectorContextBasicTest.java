@@ -171,7 +171,7 @@ public final class NodeSelectorContextBasicTest implements ClassTesting2<NodeSel
     }
 
     @Test
-    public void testWithNullExpressionEvaluationContextFails() {
+    public void testWithNullExpressionEvaluationContextFactoryFails() {
         assertThrows(
             NullPointerException.class,
             () -> NodeSelectorContextBasic.with(
