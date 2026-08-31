@@ -120,10 +120,10 @@ final class NodeSelectorContextBasic<N extends Node<N, NAME, ANAME, AVALUE>, NAM
 
     @Override
     public Object evaluateExpression(final Expression expression) {
-        // create a new context and then evaluate the expression.
-        return expression.toValue(
-            this.expressionEvaluationContextFactory.apply(this)
-        );
+        Objects.requireNonNull(expression, "expression");
+
+        return this.expressionEvaluationContextFactory.apply(this)
+            .evaluateExpression(expression);
     }
 
     /**
