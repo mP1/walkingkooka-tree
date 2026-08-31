@@ -38,16 +38,12 @@ import walkingkooka.tree.expression.ExpressionEvaluationContext;
 import walkingkooka.tree.expression.ExpressionEvaluationContexts;
 import walkingkooka.tree.expression.ExpressionFunctionName;
 import walkingkooka.tree.expression.ExpressionReference;
-import walkingkooka.tree.expression.convert.ExpressionNumberConverterContext;
 import walkingkooka.tree.expression.convert.ExpressionNumberConverterContexts;
-import walkingkooka.tree.expression.function.ExpressionFunction;
 import walkingkooka.tree.select.parser.NodeSelectorAttributeName;
 
 import java.math.MathContext;
 import java.util.Locale;
 import java.util.Objects;
-import java.util.Optional;
-import java.util.function.Function;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -158,53 +154,37 @@ public final class NodeSelectorExpressionEvaluationContextBasicTest implements N
                     Objects.requireNonNull(e, "expression");
                     throw new UnsupportedOperationException();
                 },
-                this.functions(),
-                this.exceptionHandler(),
-                this.references(),
+                (final ExpressionFunctionName n) -> {
+                    Objects.requireNonNull(n, "name");
+                    throw n.unknownExpressionFunctionException();
+                },
+                (final RuntimeException r) -> {
+                    throw r;
+                }, // exceptionHandler
+                (final ExpressionReference r) -> {
+                    throw new UnsupportedOperationException();
+                },
                 ExpressionEvaluationContexts.referenceNotFound(),
                 CaseSensitivity.SENSITIVE,
-                this.converterContext(),
+                ExpressionNumberConverterContexts.basic(
+                    Converters.numberToNumber(),
+                    BinaryNumberConverterFunctions.fake(), // multiplier
+                    ConverterContexts.basic(
+                        false, // canNumbersHaveGroupSeparator
+                        Converters.JAVA_EPOCH_OFFSET, // dateOffset
+                        ',', // valueSeparator
+                        Converters.fake(),
+                        BinaryNumberConverterFunctions.fake(), // multiplier
+                        BINARY_TEXT_CONTEXT,
+                        CurrencyLocaleContexts.fake(),
+                        DATE_TIME_CONTEXT,
+                        DECIMAL_NUMBER_CONTEXT
+                    ),
+                    EXPRESSION_NUMBER_KIND
+                ),
                 ENVIRONMENT_CONTEXT.cloneEnvironment(),
                 LocaleContexts.jre(locale)
             )
-        );
-    }
-
-    private Function<RuntimeException, Object> exceptionHandler() {
-        return (r) -> {
-            throw r;
-        };
-    }
-
-    private Function<ExpressionFunctionName, ExpressionFunction<?, ExpressionEvaluationContext>> functions() {
-        return (n) -> {
-            Objects.requireNonNull(n, "name");
-            throw n.unknownExpressionFunctionException();
-        };
-    }
-
-    private Function<ExpressionReference, Optional<Optional<Object>>> references() {
-        return (r -> {
-            throw new UnsupportedOperationException();
-        });
-    }
-
-    private ExpressionNumberConverterContext converterContext() {
-        return ExpressionNumberConverterContexts.basic(
-            Converters.numberToNumber(),
-            BinaryNumberConverterFunctions.fake(), // multiplier
-            ConverterContexts.basic(
-                false, // canNumbersHaveGroupSeparator
-                Converters.JAVA_EPOCH_OFFSET, // dateOffset
-                ',', // valueSeparator
-                Converters.fake(),
-                BinaryNumberConverterFunctions.fake(), // multiplier
-                BINARY_TEXT_CONTEXT,
-                CurrencyLocaleContexts.fake(),
-                DATE_TIME_CONTEXT,
-                DECIMAL_NUMBER_CONTEXT
-            ),
-            EXPRESSION_NUMBER_KIND
         );
     }
 
