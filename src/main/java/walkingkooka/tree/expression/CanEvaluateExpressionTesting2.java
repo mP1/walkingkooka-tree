@@ -32,5 +32,14 @@ public interface CanEvaluateExpressionTesting2<C extends CanEvaluateExpression> 
         );
     }
 
+    default void evaluateExpressionAndCheck(final Expression expression,
+                                            final Object expected) {
+        this.evaluateExpressionAndCheck(
+            this.createCanEvaluateExpression(),
+            expression,
+            expected
+        );
+    }
+
     C createCanEvaluateExpression();
 }
