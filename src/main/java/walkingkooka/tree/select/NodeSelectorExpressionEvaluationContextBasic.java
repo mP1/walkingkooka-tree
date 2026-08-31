@@ -62,7 +62,7 @@ import java.util.function.Function;
  *     <li>starts-with</li>
  * </ul>
  */
-final class BasicNodeSelectorExpressionEvaluationContext<N extends Node<N, NAME, ANAME, AVALUE>,
+final class NodeSelectorExpressionEvaluationContextBasic<N extends Node<N, NAME, ANAME, AVALUE>,
     NAME extends Name,
     ANAME extends Name,
     AVALUE>
@@ -72,24 +72,24 @@ final class BasicNodeSelectorExpressionEvaluationContext<N extends Node<N, NAME,
     LocaleContextDelegator {
 
     /**
-     * Factory that creates a new {@link BasicNodeSelectorExpressionEvaluationContext}, using the given {@link Node} as the context.
+     * Factory that creates a new {@link NodeSelectorExpressionEvaluationContextBasic}, using the given {@link Node} as the context.
      */
     static <N extends Node<N, NAME, ANAME, AVALUE>,
         NAME extends Name,
         ANAME extends Name,
         AVALUE>
-    BasicNodeSelectorExpressionEvaluationContext<N, NAME, ANAME, AVALUE> with(final N node,
+    NodeSelectorExpressionEvaluationContextBasic<N, NAME, ANAME, AVALUE> with(final N node,
                                                                               final ExpressionEvaluationContext context) {
         Objects.requireNonNull(node, "node");
         Objects.requireNonNull(context, "context");
 
-        return new BasicNodeSelectorExpressionEvaluationContext<>(node, context);
+        return new NodeSelectorExpressionEvaluationContextBasic<>(node, context);
     }
 
     /**
      * Private ctor use factory.
      */
-    private BasicNodeSelectorExpressionEvaluationContext(final N node,
+    private NodeSelectorExpressionEvaluationContextBasic(final N node,
                                                          final ExpressionEvaluationContext context) {
         super();
         this.node = node;
@@ -210,7 +210,7 @@ final class BasicNodeSelectorExpressionEvaluationContext<N extends Node<N, NAME,
 
         return before == after ?
             this :
-            new BasicNodeSelectorExpressionEvaluationContext<>(
+            new NodeSelectorExpressionEvaluationContextBasic<>(
                 this.node,
                 null
             );
@@ -224,7 +224,7 @@ final class BasicNodeSelectorExpressionEvaluationContext<N extends Node<N, NAME,
         final ExpressionEvaluationContext after = before.setEnvironmentContext(environmentContext);
         return before == after ?
             this :
-            new BasicNodeSelectorExpressionEvaluationContext<>(
+            new NodeSelectorExpressionEvaluationContextBasic<>(
                 this.node,
                 this.context
             );
