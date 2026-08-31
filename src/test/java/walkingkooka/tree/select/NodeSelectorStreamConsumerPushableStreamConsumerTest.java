@@ -45,54 +45,72 @@ public final class NodeSelectorStreamConsumerPushableStreamConsumerTest implemen
         this.node = TestNode.with("node"); // On github-actions CI, duplicate node names were being reported.
     }
 
+    private final static NodeSelector<TestNode, StringName, StringName, Object> SELECTOR = TestNode.relativeNodeSelector()
+        .named(
+            Names.string("abc123")
+        );
+
+    private final static Function<NodeSelectorContext<TestNode, StringName, StringName, Object>, ExpressionEvaluationContext> EXPRESSION_EVALUATION_CONTEXT = (c) -> ExpressionEvaluationContexts.fake();
+
+    private final static Class<TestNode> NODE_TYPE = TestNode.class;
+
     @Test
     public void testWithNullNodeFails() {
-        assertThrows(NullPointerException.class, () -> NodeSelectorStreamConsumerPushableStreamConsumer.with(null,
-            this.selector(),
-            this.expressionEvaluationContext(),
-            this.nodeType()));
+        assertThrows(
+            NullPointerException.class,
+            () -> NodeSelectorStreamConsumerPushableStreamConsumer.with(
+                null,
+                SELECTOR,
+                EXPRESSION_EVALUATION_CONTEXT,
+                NODE_TYPE
+            )
+        );
     }
 
     @Test
     public void testWithNullExpressionEvaluationContextFails() {
-        assertThrows(NullPointerException.class, () -> NodeSelectorStreamConsumerPushableStreamConsumer.with(this.node,
-            this.selector(),
-            null,
-            this.nodeType()));
+        assertThrows(
+            NullPointerException.class,
+            () -> NodeSelectorStreamConsumerPushableStreamConsumer.with(
+                this.node,
+                SELECTOR,
+                null,
+                NODE_TYPE
+            )
+        );
     }
 
     @Test
     public void testWithNullNodeTypeFails() {
-        assertThrows(NullPointerException.class, () -> NodeSelectorStreamConsumerPushableStreamConsumer.with(this.node,
-            this.selector(),
-            this.expressionEvaluationContext(),
-            null));
+        assertThrows(
+            NullPointerException.class,
+            () -> NodeSelectorStreamConsumerPushableStreamConsumer.with(
+                this.node,
+                SELECTOR,
+                EXPRESSION_EVALUATION_CONTEXT,
+                null
+            )
+        );
     }
 
     @Test
     public void testToString() {
-        final NodeSelector<TestNode, StringName, StringName, Object> selector = this.selector();
+        final NodeSelector<TestNode, StringName, StringName, Object> selector = SELECTOR;
 
-        this.toStringAndCheck(NodeSelectorStreamConsumerPushableStreamConsumer.with(this.node,
+        this.toStringAndCheck(
+            NodeSelectorStreamConsumerPushableStreamConsumer.with(
+                this.node,
                 selector,
-                this.expressionEvaluationContext(),
-                this.nodeType()),
-            selector.toString());
+                EXPRESSION_EVALUATION_CONTEXT,
+                NODE_TYPE
+            ),
+            selector.toString()
+        );
     }
 
     private TestNode node;
 
-    private NodeSelector<TestNode, StringName, StringName, Object> selector() {
-        return TestNode.relativeNodeSelector().named(Names.string("abc123"));
-    }
-
-    private Function<NodeSelectorContext<TestNode, StringName, StringName, Object>, ExpressionEvaluationContext> expressionEvaluationContext() {
-        return (c) -> ExpressionEvaluationContexts.fake();
-    }
-
-    private Class<TestNode> nodeType() {
-        return TestNode.class;
-    }
+    // class............................................................................................................
 
     @Override
     public Class<NodeSelectorStreamConsumerPushableStreamConsumer<TestNode, StringName, StringName, Object>> type() {
