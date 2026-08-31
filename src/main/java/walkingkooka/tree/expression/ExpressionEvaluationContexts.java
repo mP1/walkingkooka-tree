@@ -61,7 +61,7 @@ public final class ExpressionEvaluationContexts implements PublicStaticHelper {
      * {@see CycleDetectingExpressionEvaluationContext}
      */
     public static ExpressionEvaluationContext cycleDetecting(final ExpressionEvaluationContext context) {
-        return CycleDetectingExpressionEvaluationContext.with(context);
+        return ExpressionEvaluationContextCycleDetecting.with(context);
     }
 
     /**
