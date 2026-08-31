@@ -29,8 +29,7 @@ import walkingkooka.convert.ConverterException;
 import walkingkooka.convert.Converters;
 import walkingkooka.convert.FakeConverterContext;
 import walkingkooka.currency.CurrencyLocaleContexts;
-import walkingkooka.datetime.DateTimeContexts;
-import walkingkooka.datetime.DateTimeSymbols;
+import walkingkooka.datetime.DateTimeContextTesting;
 import walkingkooka.environment.EnvironmentContext;
 import walkingkooka.environment.EnvironmentContextTesting;
 import walkingkooka.math.DecimalNumberContext;
@@ -47,7 +46,6 @@ import walkingkooka.tree.expression.function.ExpressionFunctionParameterName;
 import walkingkooka.tree.expression.function.FakeExpressionFunction;
 
 import java.math.MathContext;
-import java.text.DateFormatSymbols;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -59,11 +57,11 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 public final class ExpressionEvaluationContextBasicTest implements ClassTesting2<ExpressionEvaluationContextBasic>,
     ExpressionEvaluationContextTesting2<ExpressionEvaluationContextBasic>,
     ToStringTesting<ExpressionEvaluationContextBasic>,
+    DateTimeContextTesting,
     DecimalNumberContextDelegator,
     EnvironmentContextTesting,
+    HasExpressionNumberKindTesting,
     ThrowableTesting {
-
-    private final static ExpressionNumberKind KIND = ExpressionNumberKind.DEFAULT;
 
     private final static BiFunction<String, ExpressionEvaluationContext, Object> EVALUATOR = (e, c) -> {
         Objects.requireNonNull(e, "expression");
@@ -106,15 +104,7 @@ public final class ExpressionEvaluationContextBasicTest implements ClassTesting2
             DIFFERENT_LINE_ENDING
         ).setCharset(CHARSET),
         CurrencyLocaleContexts.fake(),
-        DateTimeContexts.basic(
-            DateTimeSymbols.fromDateFormatSymbols(
-                new DateFormatSymbols(LOCALE)
-            ),
-            LOCALE,
-            1950, // defaultYear
-            50, // twoDigitYear
-            HAS_NOW
-        ),
+        DATE_TIME_CONTEXT,
         DECIMAL_NUMBER_CONTEXT
     );
 
@@ -154,7 +144,7 @@ public final class ExpressionEvaluationContextBasicTest implements ClassTesting2
         assertThrows(
             NullPointerException.class,
             () -> ExpressionEvaluationContextBasic.with(
-                KIND,
+                EXPRESSION_NUMBER_KIND,
                 EVALUATOR,
                 null,
                 EXCEPTION_HANDLER,
@@ -173,7 +163,7 @@ public final class ExpressionEvaluationContextBasicTest implements ClassTesting2
         assertThrows(
             NullPointerException.class,
             () -> ExpressionEvaluationContextBasic.with(
-                KIND,
+                EXPRESSION_NUMBER_KIND,
                 EVALUATOR,
                 this.functions(),
                 null,
@@ -192,7 +182,7 @@ public final class ExpressionEvaluationContextBasicTest implements ClassTesting2
         assertThrows(
             NullPointerException.class,
             () -> ExpressionEvaluationContextBasic.with(
-                KIND,
+                EXPRESSION_NUMBER_KIND,
                 EVALUATOR,
                 this.functions(),
                 EXCEPTION_HANDLER,
@@ -211,7 +201,7 @@ public final class ExpressionEvaluationContextBasicTest implements ClassTesting2
         assertThrows(
             NullPointerException.class,
             () -> ExpressionEvaluationContextBasic.with(
-                KIND,
+                EXPRESSION_NUMBER_KIND,
                 EVALUATOR,
                 this.functions(),
                 EXCEPTION_HANDLER,
@@ -230,7 +220,7 @@ public final class ExpressionEvaluationContextBasicTest implements ClassTesting2
         assertThrows(
             NullPointerException.class,
             () -> ExpressionEvaluationContextBasic.with(
-                KIND,
+                EXPRESSION_NUMBER_KIND,
                 EVALUATOR,
                 this.functions(),
                 EXCEPTION_HANDLER,
@@ -249,7 +239,7 @@ public final class ExpressionEvaluationContextBasicTest implements ClassTesting2
         assertThrows(
             NullPointerException.class,
             () -> ExpressionEvaluationContextBasic.with(
-                KIND,
+                EXPRESSION_NUMBER_KIND,
                 EVALUATOR,
                 this.functions(),
                 EXCEPTION_HANDLER,
@@ -268,7 +258,7 @@ public final class ExpressionEvaluationContextBasicTest implements ClassTesting2
         assertThrows(
             NullPointerException.class,
             () -> ExpressionEvaluationContextBasic.with(
-                KIND,
+                EXPRESSION_NUMBER_KIND,
                 EVALUATOR,
                 this.functions(),
                 EXCEPTION_HANDLER,
@@ -287,7 +277,7 @@ public final class ExpressionEvaluationContextBasicTest implements ClassTesting2
         assertThrows(
             NullPointerException.class,
             () -> ExpressionEvaluationContextBasic.with(
-                KIND,
+                EXPRESSION_NUMBER_KIND,
                 EVALUATOR,
                 this.functions(),
                 EXCEPTION_HANDLER,
@@ -345,8 +335,6 @@ public final class ExpressionEvaluationContextBasicTest implements ClassTesting2
 
     @Test
     public void testEvaluateFunction() {
-        final Object value = this.functionValue();
-
         final ExpressionFunction<Object, ExpressionEvaluationContextBasic> function = new FakeExpressionFunction<>() {
 
             @Override
@@ -362,14 +350,14 @@ public final class ExpressionEvaluationContextBasicTest implements ClassTesting2
             @Override
             public Object apply(final List<Object> objects,
                                 final ExpressionEvaluationContextBasic context) {
-                return value;
+                return FUNCTION_VALUE;
             }
         };
 
         this.evaluateFunctionAndCheck(
             function,
-            this.parameters(),
-            value
+            FUNCTION_PARAMETERS,
+            FUNCTION_VALUE
         );
     }
 
@@ -827,7 +815,7 @@ public final class ExpressionEvaluationContextBasicTest implements ClassTesting2
     private void isPureAndCheck2(final boolean pure) {
         this.isPureAndCheck(
             this.createContext(pure, CASE_SENSITIVITY),
-            this.functionName(),
+            FUNCTION_NAME,
             pure
         );
     }
@@ -938,7 +926,7 @@ public final class ExpressionEvaluationContextBasicTest implements ClassTesting2
 
         this.toStringAndCheck(
             ExpressionEvaluationContextBasic.with(
-                KIND,
+                EXPRESSION_NUMBER_KIND,
                 EVALUATOR,
                 functions,
                 EXCEPTION_HANDLER,
@@ -949,7 +937,7 @@ public final class ExpressionEvaluationContextBasicTest implements ClassTesting2
                 ENVIRONMENT_CONTEXT,
                 LOCALE_CONTEXT
             ),
-            KIND +
+            EXPRESSION_NUMBER_KIND +
                 " " +
                 EVALUATOR +
                 " " +
@@ -995,7 +983,7 @@ public final class ExpressionEvaluationContextBasicTest implements ClassTesting2
     private ExpressionEvaluationContextBasic createContext(final boolean pure,
                                                            final CaseSensitivity caseSensitivity) {
         return ExpressionEvaluationContextBasic.with(
-            KIND,
+            EXPRESSION_NUMBER_KIND,
             EVALUATOR,
             this.functions(pure),
             EXCEPTION_HANDLER,
@@ -1011,7 +999,7 @@ public final class ExpressionEvaluationContextBasicTest implements ClassTesting2
     private ExpressionEvaluationContextBasic createContext(final Function<ExpressionFunctionName, ExpressionFunction<?, ExpressionEvaluationContext>> functions,
                                                            final Function<RuntimeException, Object> exceptionHandler) {
         return ExpressionEvaluationContextBasic.with(
-            KIND,
+            EXPRESSION_NUMBER_KIND,
             EVALUATOR,
             functions,
             exceptionHandler,
@@ -1032,7 +1020,7 @@ public final class ExpressionEvaluationContextBasicTest implements ClassTesting2
         return (functionName) -> {
             Objects.requireNonNull(functionName, "functionName");
 
-            if (false == this.functionName().equals(functionName)) {
+            if (false == FUNCTION_NAME.equals(functionName)) {
                 throw functionName.unknownExpressionFunctionException();
             }
 
@@ -1043,7 +1031,7 @@ public final class ExpressionEvaluationContextBasicTest implements ClassTesting2
                     Objects.requireNonNull(parameters, "parameters");
                     Objects.requireNonNull(context, "context");
 
-                    return ExpressionEvaluationContextBasicTest.this.functionValue();
+                    return FUNCTION_VALUE;
                 }
 
                 @Override
@@ -1061,21 +1049,18 @@ public final class ExpressionEvaluationContextBasicTest implements ClassTesting2
         };
     }
 
-    private ExpressionFunctionName functionName() {
-        return ExpressionFunctionName.with("sum");
-    }
+    private final static ExpressionFunctionName FUNCTION_NAME = ExpressionFunctionName.with("sum");
 
-    private List<Object> parameters() {
-        return Lists.of("parameter-1", 2);
-    }
+    private final static List<Object> FUNCTION_PARAMETERS = Lists.of(
+        "parameter-1",
+        2
+    );
 
-    private Object functionValue() {
-        return "function-value-234";
-    }
+    private final static Object FUNCTION_VALUE = "function-value-234";
 
     private ExpressionEvaluationContextBasic createContext(final Function<ExpressionReference, Optional<Optional<Object>>> references) {
         return ExpressionEvaluationContextBasic.with(
-            KIND,
+            EXPRESSION_NUMBER_KIND,
             EVALUATOR,
             (n) -> {
                 throw new UnsupportedOperationException();
@@ -1116,7 +1101,7 @@ public final class ExpressionEvaluationContextBasicTest implements ClassTesting2
 
         this.environmentContextAndCheck(
             ExpressionEvaluationContextBasic.with(
-                KIND,
+                EXPRESSION_NUMBER_KIND,
                 EVALUATOR,
                 (n) -> {
                     throw new UnsupportedOperationException();
