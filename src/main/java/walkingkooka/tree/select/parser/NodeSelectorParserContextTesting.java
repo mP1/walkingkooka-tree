@@ -18,14 +18,14 @@
 package walkingkooka.tree.select.parser;
 
 import org.junit.jupiter.api.Test;
-import walkingkooka.text.cursor.parser.ParserContextTesting;
+import walkingkooka.text.cursor.parser.ParserContextTesting2;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 /**
  * Mixing testing interface for {@link NodeSelectorParserContext}
  */
-public interface NodeSelectorParserContextTesting<C extends NodeSelectorParserContext> extends ParserContextTesting<C> {
+public interface NodeSelectorParserContextTesting<C extends NodeSelectorParserContext> extends ParserContextTesting2<C> {
 
     @Test
     default void testLocaleFails() {
