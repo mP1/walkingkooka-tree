@@ -29,7 +29,7 @@ import java.math.MathContext;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class BasicNodeSelectorParserContextTest implements ClassTesting2<BasicNodeSelectorParserContext>,
-    NodeSelectorParserContextTesting<BasicNodeSelectorParserContext>,
+    NodeSelectorParserContextTesting2<BasicNodeSelectorParserContext>,
     DecimalNumberContextDelegator {
 
     private final static ExpressionNumberKind KIND = ExpressionNumberKind.DEFAULT;
