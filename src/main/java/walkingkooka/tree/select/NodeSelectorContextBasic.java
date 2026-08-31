@@ -51,10 +51,12 @@ final class NodeSelectorContextBasic<N extends Node<N, NAME, ANAME, AVALUE>, NAM
         Objects.requireNonNull(expressionEvaluationContextFactory, "expressionEvaluationContextFactory");
         Objects.requireNonNull(nodeType, "nodeType");
 
-        return new NodeSelectorContextBasic<>(finisher,
+        return new NodeSelectorContextBasic<>(
+            finisher,
             filter,
             mapper,
-            Cast.to(expressionEvaluationContextFactory));
+            Cast.to(expressionEvaluationContextFactory)
+        );
     }
 
     private NodeSelectorContextBasic(final BooleanSupplier finisher,
@@ -119,7 +121,9 @@ final class NodeSelectorContextBasic<N extends Node<N, NAME, ANAME, AVALUE>, NAM
     @Override
     public Object evaluate(final Expression expression) {
         // create a new context and then evaluate the expression.
-        return expression.toValue(this.expressionEvaluationContextFactory.apply(this));
+        return expression.toValue(
+            this.expressionEvaluationContextFactory.apply(this)
+        );
     }
 
     /**
