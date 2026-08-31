@@ -51,7 +51,7 @@ import java.util.function.Function;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class BasicNodeSelectorExpressionEvaluationContextTest implements NodeSelectorExpressionEvaluationContextTesting2<BasicNodeSelectorExpressionEvaluationContext<TestNode, StringName, StringName, Object>, TestNode, StringName, StringName, Object>,
+public final class NodeSelectorExpressionEvaluationContextBasicTest implements NodeSelectorExpressionEvaluationContextTesting2<NodeSelectorExpressionEvaluationContextBasic<TestNode, StringName, StringName, Object>, TestNode, StringName, StringName, Object>,
     DateTimeContextTesting,
     DecimalNumberContextDelegator {
 
@@ -64,7 +64,7 @@ public final class BasicNodeSelectorExpressionEvaluationContextTest implements N
     public void testWithNullNodeFails() {
         assertThrows(
             NullPointerException.class,
-            () -> BasicNodeSelectorExpressionEvaluationContext.with(
+            () -> NodeSelectorExpressionEvaluationContextBasic.with(
                 null,
                 ExpressionEvaluationContexts.fake()
             )
@@ -75,7 +75,7 @@ public final class BasicNodeSelectorExpressionEvaluationContextTest implements N
     public void testWithNullContextFactoryFails() {
         assertThrows(
             NullPointerException.class,
-            () -> BasicNodeSelectorExpressionEvaluationContext.with(
+            () -> NodeSelectorExpressionEvaluationContextBasic.with(
                 TestNode.with("test-node-123"),
                 null
             )
@@ -143,14 +143,14 @@ public final class BasicNodeSelectorExpressionEvaluationContextTest implements N
     }
 
     @Override
-    public BasicNodeSelectorExpressionEvaluationContext<TestNode, StringName, StringName, Object> createContext() {
+    public NodeSelectorExpressionEvaluationContextBasic<TestNode, StringName, StringName, Object> createContext() {
         return this.createContext(TestNode.with("test-node-123"));
     }
 
-    private BasicNodeSelectorExpressionEvaluationContext<TestNode, StringName, StringName, Object> createContext(final TestNode node) {
+    private NodeSelectorExpressionEvaluationContextBasic<TestNode, StringName, StringName, Object> createContext(final TestNode node) {
         final Locale locale = Locale.ENGLISH;
 
-        return BasicNodeSelectorExpressionEvaluationContext.with(
+        return NodeSelectorExpressionEvaluationContextBasic.with(
             node,
             ExpressionEvaluationContexts.basic(
                 EXPRESSION_NUMBER_KIND,
@@ -233,7 +233,7 @@ public final class BasicNodeSelectorExpressionEvaluationContextTest implements N
         final ExpressionEvaluationContext context = ExpressionEvaluationContexts.fake();
 
         this.environmentContextAndCheck(
-            BasicNodeSelectorExpressionEvaluationContext.with(
+            NodeSelectorExpressionEvaluationContextBasic.with(
                 TestNode.with("test-node-123"),
                 context
             ),
@@ -241,10 +241,15 @@ public final class BasicNodeSelectorExpressionEvaluationContextTest implements N
         );
     }
 
-    // ClassTesting.....................................................................................................
+    // Class............................................................................................................
 
     @Override
-    public Class<BasicNodeSelectorExpressionEvaluationContext<TestNode, StringName, StringName, Object>> type() {
-        return Cast.to(BasicNodeSelectorExpressionEvaluationContext.class);
+    public Class<NodeSelectorExpressionEvaluationContextBasic<TestNode, StringName, StringName, Object>> type() {
+        return Cast.to(NodeSelectorExpressionEvaluationContextBasic.class);
+    }
+
+    @Override
+    public void testTypeNaming() {
+        throw new UnsupportedOperationException();
     }
 }
