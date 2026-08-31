@@ -43,7 +43,7 @@ public final class ExpressionEvaluationContexts implements PublicStaticHelper {
                                                     final ConverterContext converterContext,
                                                     final EnvironmentContext environmentContext,
                                                     final LocaleContext localeContext) {
-        return BasicExpressionEvaluationContext.with(
+        return ExpressionEvaluationContextBasic.with(
             expressionNumberKind,
             evaluator,
             functions,
