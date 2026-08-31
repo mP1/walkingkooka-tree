@@ -41,7 +41,7 @@ import java.util.function.Function;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class ScopedExpressionEvaluationContextTest implements ExpressionEvaluationContextTesting2<ScopedExpressionEvaluationContext>,
+public final class ExpressionEvaluationContextScopedTest implements ExpressionEvaluationContextTesting2<ExpressionEvaluationContextScoped>,
     CurrencyLocaleContextTesting,
     DateTimeContextTesting,
     DecimalNumberContextDelegator {
@@ -76,7 +76,7 @@ public final class ScopedExpressionEvaluationContextTest implements ExpressionEv
     public void testWithNullScopeFails() {
         assertThrows(
             NullPointerException.class,
-            () -> ScopedExpressionEvaluationContext.with(
+            () -> ExpressionEvaluationContextScoped.with(
                 null,
                 ExpressionEvaluationContexts.fake()
             )
@@ -87,7 +87,7 @@ public final class ScopedExpressionEvaluationContextTest implements ExpressionEv
     public void testWithNullExpressionEvaluationContextFails() {
         assertThrows(
             NullPointerException.class,
-            () -> ScopedExpressionEvaluationContext.with(
+            () -> ExpressionEvaluationContextScoped.with(
                 REFERENCE_TO_VALUE,
                 null
             )
@@ -184,7 +184,7 @@ public final class ScopedExpressionEvaluationContextTest implements ExpressionEv
 
                 @Override
                 public Object apply(final List<Object> objects,
-                                    final ScopedExpressionEvaluationContext context) {
+                                    final ExpressionEvaluationContextScoped context) {
                     return context.referenceOrFail(
                         (ExpressionReference) objects.get(0)
                     );
@@ -203,7 +203,7 @@ public final class ScopedExpressionEvaluationContextTest implements ExpressionEv
 
                 @Override
                 public Object apply(final List<Object> objects,
-                                    final ScopedExpressionEvaluationContext context) {
+                                    final ExpressionEvaluationContextScoped context) {
                     return context.referenceOrFail(
                         (ExpressionReference) objects.get(0)
                     );
@@ -224,7 +224,7 @@ public final class ScopedExpressionEvaluationContextTest implements ExpressionEv
 
                 @Override
                 public Object apply(final List<Object> objects,
-                                    final ScopedExpressionEvaluationContext context) {
+                                    final ExpressionEvaluationContextScoped context) {
                     return context.reference(
                             (ExpressionReference) objects.get(0)
                         ).map(Optional::get)
@@ -238,7 +238,7 @@ public final class ScopedExpressionEvaluationContextTest implements ExpressionEv
         );
     }
 
-    abstract class TestFunction extends FakeExpressionFunction<Object, ScopedExpressionEvaluationContext> {
+    abstract class TestFunction extends FakeExpressionFunction<Object, ExpressionEvaluationContextScoped> {
 
         @Override
         public final Optional<ExpressionFunctionName> name() {
@@ -248,7 +248,7 @@ public final class ScopedExpressionEvaluationContextTest implements ExpressionEv
         }
 
         @Override
-        public abstract Object apply(final List<Object> objects, final ScopedExpressionEvaluationContext context);
+        public abstract Object apply(final List<Object> objects, final ExpressionEvaluationContextScoped context);
 
         @Override
         public final List<ExpressionFunctionParameter<?>> parameters(final int count) {
@@ -274,8 +274,8 @@ public final class ScopedExpressionEvaluationContextTest implements ExpressionEv
     }
 
     @Override
-    public ScopedExpressionEvaluationContext createContext() {
-        return ScopedExpressionEvaluationContext.with(
+    public ExpressionEvaluationContextScoped createContext() {
+        return ExpressionEvaluationContextScoped.with(
             REFERENCE_TO_VALUE,
             ExpressionEvaluationContexts.basic(
                 EXPRESSION_NUMBER_KIND,
@@ -342,7 +342,7 @@ public final class ScopedExpressionEvaluationContextTest implements ExpressionEv
         final ExpressionEvaluationContext context = ExpressionEvaluationContexts.fake();
 
         this.environmentContextAndCheck(
-            ScopedExpressionEvaluationContext.with(
+            ExpressionEvaluationContextScoped.with(
                 REFERENCE_TO_VALUE,
                 context
             ),
@@ -353,7 +353,12 @@ public final class ScopedExpressionEvaluationContextTest implements ExpressionEv
     // class............................................................................................................
 
     @Override
-    public Class<ScopedExpressionEvaluationContext> type() {
-        return ScopedExpressionEvaluationContext.class;
+    public Class<ExpressionEvaluationContextScoped> type() {
+        return ExpressionEvaluationContextScoped.class;
+    }
+
+    @Override
+    public void testTypeNaming() {
+        throw new UnsupportedOperationException();
     }
 }
