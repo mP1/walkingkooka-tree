@@ -44,15 +44,11 @@ import walkingkooka.text.CaseSensitivity;
 import walkingkooka.tree.Node;
 import walkingkooka.tree.TestNode;
 import walkingkooka.tree.expression.Expression;
-import walkingkooka.tree.expression.ExpressionEvaluationContext;
 import walkingkooka.tree.expression.ExpressionEvaluationContexts;
-import walkingkooka.tree.expression.ExpressionFunctionName;
-import walkingkooka.tree.expression.ExpressionReference;
 import walkingkooka.tree.expression.HasExpressionNumberKindTesting;
 import walkingkooka.tree.expression.convert.ExpressionNumberConverterContext;
 import walkingkooka.tree.expression.convert.ExpressionNumberConverterContexts;
 import walkingkooka.tree.expression.convert.ExpressionNumberConverters;
-import walkingkooka.tree.expression.function.ExpressionFunction;
 import walkingkooka.util.BiFunctionTesting;
 
 import java.util.Arrays;
@@ -557,75 +553,60 @@ abstract public class NodeSelectorTestCase<S extends NodeSelector<TestNode, Stri
                 (e, eec) -> {
                     throw new UnsupportedOperationException();
                 },
-                this.functions(),
-                this.exceptionHandler(),
-                this.references(),
+                (n) -> Cast.to(
+                    NodeSelectorContexts.basicFunctions()
+                        .apply(n)
+                ), // functions
+                (cause) -> {
+                    throw cause;
+                }, // ExceptionHandler
+                (r -> {
+                    throw new UnsupportedOperationException();
+                }
+                ), // references
                 ExpressionEvaluationContexts.referenceNotFound(),
                 CaseSensitivity.SENSITIVE,
-                this.converterContext(),
+                CONVERTER_CONTEXT,
                 ENVIRONMENT_CONTEXT.cloneEnvironment(),
                 LOCALE_CONTEXT
             )
         );
     }
 
-    private Function<ExpressionFunctionName, ExpressionFunction<?, ExpressionEvaluationContext>> functions() {
-        return (n) -> Cast.to(
-            NodeSelectorContexts.basicFunctions()
-                .apply(n)
-        );
-    }
-
-    private Function<RuntimeException, Object> exceptionHandler() {
-        return (r) -> {
-            throw r;
-        };
-    }
-
-    private Function<ExpressionReference, Optional<Optional<Object>>> references() {
-        return (r -> {
-            throw new UnsupportedOperationException();
-        });
-    }
-
-    private Converter<ExpressionNumberConverterContext> converter() {
-        return Converters.collection(
-            Lists.of(
-                Converters.simple(),
-                ExpressionNumberConverters.numberOrExpressionNumberToNumber(),
-                Converters.<String, Integer, ExpressionNumberConverterContext>mapper(
-                    (t) -> t instanceof String,
-                    Predicates.is(Integer.class),
-                    Integer::parseInt
-                ),
-                Converters.mapper(
-                    t -> t instanceof Node,
-                    Predicates.is(Node.class),
-                    Function.identity()
-                ),
-                ExpressionNumberConverters.toNumberOrExpressionNumber(Converters.simple())
-            )
-        );
-    }
-
-    private ExpressionNumberConverterContext converterContext() {
-        return ExpressionNumberConverterContexts.basic(
-            this.converter(),
-            BinaryNumberConverterFunctions.fake(), // multiplier
-            ConverterContexts.basic(
-                false, // canNumbersHaveGroupSeparator
-                Converters.JAVA_EPOCH_OFFSET, // dateOffset
-                ',', // valueSeparator
-                Converters.fake(),
-                BinaryNumberConverterFunctions.fake(), // multiplier
-                BINARY_TEXT_CONTEXT,
-                CurrencyLocaleContexts.fake(),
-                DateTimeContexts.fake(),
-                DECIMAL_NUMBER_CONTEXT
+    private final static Converter<ExpressionNumberConverterContext> CONVERTER = Converters.collection(
+        Lists.of(
+            Converters.simple(),
+            ExpressionNumberConverters.numberOrExpressionNumberToNumber(),
+            Converters.<String, Integer, ExpressionNumberConverterContext>mapper(
+                (t) -> t instanceof String,
+                Predicates.is(Integer.class),
+                Integer::parseInt
             ),
-            EXPRESSION_NUMBER_KIND
-        );
-    }
+            Converters.mapper(
+                t -> t instanceof Node,
+                Predicates.is(Node.class),
+                Function.identity()
+            ),
+            ExpressionNumberConverters.toNumberOrExpressionNumber(Converters.simple())
+        )
+    );
+
+    private final static ExpressionNumberConverterContext CONVERTER_CONTEXT = ExpressionNumberConverterContexts.basic(
+        CONVERTER,
+        BinaryNumberConverterFunctions.fake(), // multiplier
+        ConverterContexts.basic(
+            false, // canNumbersHaveGroupSeparator
+            Converters.JAVA_EPOCH_OFFSET, // dateOffset
+            ',', // valueSeparator
+            Converters.fake(),
+            BinaryNumberConverterFunctions.fake(), // multiplier
+            BINARY_TEXT_CONTEXT,
+            CurrencyLocaleContexts.fake(),
+            DateTimeContexts.fake(),
+            DECIMAL_NUMBER_CONTEXT
+        ),
+        EXPRESSION_NUMBER_KIND
+    );
 
     // BiFunctionTesting................................................................................................
 
