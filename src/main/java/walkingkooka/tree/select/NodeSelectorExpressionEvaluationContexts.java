@@ -41,6 +41,16 @@ public final class NodeSelectorExpressionEvaluationContexts implements PublicSta
     }
 
     /**
+     * {@see FakeNodeSelectorExpressionEvaluationContext}
+     */
+    public static <N extends Node<N, NAME, ANAME, AVALUE>,
+        NAME extends Name,
+        ANAME extends Name,
+        AVALUE> FakeNodeSelectorExpressionEvaluationContext<N, NAME, ANAME, AVALUE> fake() {
+        return new FakeNodeSelectorExpressionEvaluationContext<>();
+    }
+
+    /**
      * Stop creation.
      */
     private NodeSelectorExpressionEvaluationContexts() {
