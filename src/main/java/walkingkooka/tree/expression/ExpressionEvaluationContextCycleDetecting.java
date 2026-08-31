@@ -48,25 +48,25 @@ import java.util.function.Function;
  * {@link #reference(ExpressionReference)} to detect cycles between resolving a {@link ExpressionReference} to a
  * {@link Expression}, even indirectly.<br>
  */
-final class CycleDetectingExpressionEvaluationContext implements ExpressionEvaluationContext,
+final class ExpressionEvaluationContextCycleDetecting implements ExpressionEvaluationContext,
     DateTimeContextDelegator,
     DecimalNumberContextDelegator,
     EnvironmentContextDelegator,
     LocaleContextDelegator {
 
     /**
-     * Factory that creates a new {@link CycleDetectingExpressionEvaluationContext}.
+     * Factory that creates a new {@link ExpressionEvaluationContextCycleDetecting}.
      */
-    static CycleDetectingExpressionEvaluationContext with(final ExpressionEvaluationContext context) {
+    static ExpressionEvaluationContextCycleDetecting with(final ExpressionEvaluationContext context) {
         Objects.requireNonNull(context, "context");
 
-        return new CycleDetectingExpressionEvaluationContext(context);
+        return new ExpressionEvaluationContextCycleDetecting(context);
     }
 
     /**
      * Private ctor use factory.
      */
-    private CycleDetectingExpressionEvaluationContext(final ExpressionEvaluationContext context) {
+    private ExpressionEvaluationContextCycleDetecting(final ExpressionEvaluationContext context) {
         this.context = context;
         this.cycles = Sets.ordered();
     }
@@ -164,7 +164,7 @@ final class CycleDetectingExpressionEvaluationContext implements ExpressionEvalu
 
         return before == after ?
             this :
-            new CycleDetectingExpressionEvaluationContext(after);
+            new ExpressionEvaluationContextCycleDetecting(after);
     }
 
     @Override

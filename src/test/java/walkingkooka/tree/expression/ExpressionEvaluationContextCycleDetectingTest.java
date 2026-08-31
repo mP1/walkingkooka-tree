@@ -50,8 +50,8 @@ import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.fail;
 
-public final class CycleDetectingExpressionEvaluationContextTest implements ClassTesting2<CycleDetectingExpressionEvaluationContext>,
-    ExpressionEvaluationContextTesting2<CycleDetectingExpressionEvaluationContext>,
+public final class ExpressionEvaluationContextCycleDetectingTest implements ClassTesting2<ExpressionEvaluationContextCycleDetecting>,
+    ExpressionEvaluationContextTesting2<ExpressionEvaluationContextCycleDetecting>,
     CurrencyLocaleContextTesting,
     DateTimeContextTesting,
     DecimalNumberContextDelegator {
@@ -75,7 +75,7 @@ public final class CycleDetectingExpressionEvaluationContextTest implements Clas
     public void testWithNullContextFails() {
         assertThrows(
             NullPointerException.class,
-            () -> CycleDetectingExpressionEvaluationContext.with(null)
+            () -> ExpressionEvaluationContextCycleDetecting.with(null)
         );
     }
 
@@ -95,7 +95,7 @@ public final class CycleDetectingExpressionEvaluationContextTest implements Clas
 
     @Test
     public void testEvaluateFunction() {
-        final ExpressionFunction<Object, CycleDetectingExpressionEvaluationContext> function = new FakeExpressionFunction<>() {
+        final ExpressionFunction<Object, ExpressionEvaluationContextCycleDetecting> function = new FakeExpressionFunction<>() {
 
             @Override
             public Optional<ExpressionFunctionName> name() {
@@ -109,7 +109,7 @@ public final class CycleDetectingExpressionEvaluationContextTest implements Clas
 
             @Override
             public Object apply(final List<Object> parameters,
-                                final CycleDetectingExpressionEvaluationContext context) {
+                                final ExpressionEvaluationContextCycleDetecting context) {
                 return VALUE;
             }
         };
@@ -118,7 +118,7 @@ public final class CycleDetectingExpressionEvaluationContextTest implements Clas
             "param-2"
         );
 
-        final CycleDetectingExpressionEvaluationContext context = this.createContext(ExpressionEvaluationContexts.fake());
+        final ExpressionEvaluationContextCycleDetecting context = this.createContext(ExpressionEvaluationContexts.fake());
 
         this.evaluateFunctionAndCheck(
             context,
@@ -156,7 +156,7 @@ public final class CycleDetectingExpressionEvaluationContextTest implements Clas
         // A1 -> target
         final ReferenceExpression target = Expression.reference(A1);
 
-        final CycleDetectingExpressionEvaluationContext context = this.createContext(
+        final ExpressionEvaluationContextCycleDetecting context = this.createContext(
             new FakeExpressionEvaluationContext() {
 
                 @Override
@@ -192,7 +192,7 @@ public final class CycleDetectingExpressionEvaluationContextTest implements Clas
     @Test
     public void testReferenceWithCycleFails() {
         // B2 -> A1 -> target
-        final CycleDetectingExpressionEvaluationContext context = this.createContext(
+        final ExpressionEvaluationContextCycleDetecting context = this.createContext(
             new FakeExpressionEvaluationContext() {
 
                 @Override
@@ -234,7 +234,7 @@ public final class CycleDetectingExpressionEvaluationContextTest implements Clas
 
     @Test
     public void testReferenceWithCycleFails2() {
-        final CycleDetectingExpressionEvaluationContext context = this.createContext(
+        final ExpressionEvaluationContextCycleDetecting context = this.createContext(
             new FakeExpressionEvaluationContext() {
 
                 @Override
@@ -286,7 +286,7 @@ public final class CycleDetectingExpressionEvaluationContextTest implements Clas
         final Expression b2Expression = Expression.reference(a1);
         final Expression expression = this.text();
 
-        final CycleDetectingExpressionEvaluationContext context = this.createContext(
+        final ExpressionEvaluationContextCycleDetecting context = this.createContext(
             new FakeExpressionEvaluationContext() {
 
                 @Override
@@ -335,7 +335,7 @@ public final class CycleDetectingExpressionEvaluationContextTest implements Clas
     public void testMathContext() {
         final MathContext mathContext = MathContext.DECIMAL32;
 
-        final CycleDetectingExpressionEvaluationContext context = this.createContext(
+        final ExpressionEvaluationContextCycleDetecting context = this.createContext(
             new FakeExpressionEvaluationContext() {
                 @Override
                 public MathContext mathContext() {
@@ -350,7 +350,7 @@ public final class CycleDetectingExpressionEvaluationContextTest implements Clas
 
     @Test
     public void testConvert() {
-        final CycleDetectingExpressionEvaluationContext context = this.createContext(
+        final ExpressionEvaluationContextCycleDetecting context = this.createContext(
             new FakeExpressionEvaluationContext() {
 
                 @Override
@@ -429,7 +429,7 @@ public final class CycleDetectingExpressionEvaluationContextTest implements Clas
     }
 
     @Override
-    public CycleDetectingExpressionEvaluationContext createContext() {
+    public ExpressionEvaluationContextCycleDetecting createContext() {
         return this.createContext(
             ExpressionEvaluationContexts.basic(
                 EXPRESSION_NUMBER_KIND,
@@ -467,8 +467,8 @@ public final class CycleDetectingExpressionEvaluationContextTest implements Clas
         );
     }
 
-    private CycleDetectingExpressionEvaluationContext createContext(final ExpressionEvaluationContext context) {
-        return CycleDetectingExpressionEvaluationContext.with(context);
+    private ExpressionEvaluationContextCycleDetecting createContext(final ExpressionEvaluationContext context) {
+        return ExpressionEvaluationContextCycleDetecting.with(context);
     }
 
     private ValueExpression<String> text() {
@@ -483,7 +483,7 @@ public final class CycleDetectingExpressionEvaluationContextTest implements Clas
         final ExpressionEvaluationContext context = ExpressionEvaluationContexts.fake();
 
         this.environmentContextAndCheck(
-            CycleDetectingExpressionEvaluationContext.with(context),
+            ExpressionEvaluationContextCycleDetecting.with(context),
             context
         );
     }
@@ -506,15 +506,20 @@ public final class CycleDetectingExpressionEvaluationContextTest implements Clas
         return MATH_CONTEXT;
     }
 
-    // ClassTesting.....................................................................................................
+    // Class............................................................................................................
 
     @Override
-    public Class<CycleDetectingExpressionEvaluationContext> type() {
-        return CycleDetectingExpressionEvaluationContext.class;
+    public Class<ExpressionEvaluationContextCycleDetecting> type() {
+        return ExpressionEvaluationContextCycleDetecting.class;
     }
 
     @Override
     public JavaVisibility typeVisibility() {
         return JavaVisibility.PACKAGE_PRIVATE;
+    }
+
+    @Override
+    public void testTypeNaming() {
+        throw new UnsupportedOperationException();
     }
 }
