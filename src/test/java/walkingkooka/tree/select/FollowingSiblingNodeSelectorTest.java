@@ -229,7 +229,7 @@ final public class FollowingSiblingNodeSelectorTest extends
 
         TestNode.clear();
 
-        this.acceptMapAndCheck(grandParent.child(1),
+        this.applyMapAndCheck(grandParent.child(1),
             TestNode.with("grand",
                     TestNode.with("parent1",
                         TestNode.with("child1"), TestNode.with("child2")),
@@ -248,7 +248,7 @@ final public class FollowingSiblingNodeSelectorTest extends
 
         TestNode.clear();
 
-        this.acceptMapAndCheck(grandParent.child(0),
+        this.applyMapAndCheck(grandParent.child(0),
             TestNode.with("grand",
                     TestNode.with("parent1",
                         TestNode.with("child1"), TestNode.with("child2")),
@@ -259,7 +259,7 @@ final public class FollowingSiblingNodeSelectorTest extends
 
     @Test
     public void testFollowingSiblingMapWithoutFollowingSiblings() {
-        this.acceptMapAndCheck(TestNode.with("node123"));
+        this.applyMapAndCheck(TestNode.with("node123"));
     }
 
     // NodeSelectorVisitor............................................................................................

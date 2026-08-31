@@ -101,7 +101,7 @@ final public class SelfNodeSelectorTest extends
 
         TestNode.clear();
 
-        this.acceptMapAndCheck(parent,
+        this.applyMapAndCheck(parent,
             TestNode.with("parent*0", TestNode.with("child")));
     }
 

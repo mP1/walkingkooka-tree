@@ -104,7 +104,7 @@ final public class DescendantNodeSelectorTest extends
 
     @Test
     public void testDescendantMapWithoutDescendants() {
-        this.acceptMapAndCheck(TestNode.with("without"));
+        this.applyMapAndCheck(TestNode.with("without"));
     }
 
     @Test
@@ -190,7 +190,7 @@ final public class DescendantNodeSelectorTest extends
 
         TestNode.clear();
 
-        this.acceptMapAndCheck(grandParent.child(0),
+        this.applyMapAndCheck(grandParent.child(0),
             TestNode.with("grand",
                     TestNode.with("parent1",
                         TestNode.with("child1*0"), TestNode.with("child2*1")),
@@ -207,7 +207,7 @@ final public class DescendantNodeSelectorTest extends
 
         TestNode.clear();
 
-        this.acceptMapAndCheck(grandParent,
+        this.applyMapAndCheck(grandParent,
             TestNode.with("grand",
                 TestNode.with("parent1*0",
                     TestNode.with("child1*1"), TestNode.with("child2*2")),

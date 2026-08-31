@@ -92,7 +92,7 @@ final public class CustomToStringNodeSelectorTest extends NodeSelectorTestCase<C
         final TestNode parent = TestNode.with("parent",
             TestNode.with("child1"), TestNode.with("child2"), TestNode.with("child3"));
 
-        this.acceptMapAndCheck(TestNode.relativeNodeSelector().firstChild().setToString(TOSTRING),
+        this.applyMapAndCheck(TestNode.relativeNodeSelector().firstChild().setToString(TOSTRING),
             parent,
             parent.setChild(0, TestNode.with("child1*0")));
     }

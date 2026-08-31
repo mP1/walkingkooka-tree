@@ -190,13 +190,13 @@ final public class ExpressionNodeSelectorTest extends
     public void testExpressionFalseMap() {
         final TestNode node = TestNode.with("node");
 
-        this.acceptMapAndCheck(ExpressionNodeSelector.with(Expression.value(false)),
+        this.applyMapAndCheck(ExpressionNodeSelector.with(Expression.value(false)),
             node);
     }
 
     @Test
     public void testExpressionTrueMap() {
-        this.acceptMapAndCheck(ExpressionNodeSelector.with(Expression.value(true)),
+        this.applyMapAndCheck(ExpressionNodeSelector.with(Expression.value(true)),
             TestNode.with("node"),
             TestNode.with("node*0"));
     }
@@ -207,7 +207,7 @@ final public class ExpressionNodeSelectorTest extends
 
         TestNode.clear();
 
-        this.acceptMapAndCheck(ExpressionNodeSelector.with(Expression.value(true)),
+        this.applyMapAndCheck(ExpressionNodeSelector.with(Expression.value(true)),
             parent.child(0),
             TestNode.with("parent", TestNode.with("child*0")).child(0));
     }
@@ -220,7 +220,7 @@ final public class ExpressionNodeSelectorTest extends
 
         TestNode.clear();
 
-        this.acceptMapAndCheck(ExpressionNodeSelector.with(Expression.value(true)),
+        this.applyMapAndCheck(ExpressionNodeSelector.with(Expression.value(true)),
             parent.child(0),
             TestNode.with("parent",
                     TestNode.with("child*0",
@@ -230,13 +230,13 @@ final public class ExpressionNodeSelectorTest extends
 
     @Test
     public void testExpressionNumberNegativeMap() {
-        this.acceptMapAndCheck(ExpressionNodeSelector.with(expressionNumber(-2)),
+        this.applyMapAndCheck(ExpressionNodeSelector.with(expressionNumber(-2)),
             TestNode.with("node"));
     }
 
     @Test
     public void testExpressionNumberOutOfRangeMap() {
-        this.acceptMapAndCheck(ExpressionNodeSelector.with(expressionNumber(999)),
+        this.applyMapAndCheck(ExpressionNodeSelector.with(expressionNumber(999)),
             TestNode.with("node"));
     }
 
@@ -249,7 +249,7 @@ final public class ExpressionNodeSelectorTest extends
 
         TestNode.clear();
 
-        this.acceptMapAndCheck(TestNode.relativeNodeSelector()
+        this.applyMapAndCheck(TestNode.relativeNodeSelector()
                 .children()
                 .expression(expressionNumber(99)),
             parent,
@@ -266,7 +266,7 @@ final public class ExpressionNodeSelectorTest extends
         TestNode.clear();
 
         //noinspection PointlessArithmeticExpression
-        this.acceptMapAndCheck(TestNode.relativeNodeSelector()
+        this.applyMapAndCheck(TestNode.relativeNodeSelector()
                 .children()
                 .expression(expressionNumber(NodeSelector.INDEX_BIAS + 0)),
             parent,
@@ -282,7 +282,7 @@ final public class ExpressionNodeSelectorTest extends
 
         TestNode.clear();
 
-        this.acceptMapAndCheck(TestNode.relativeNodeSelector()
+        this.applyMapAndCheck(TestNode.relativeNodeSelector()
                 .children()
                 .expression(expressionNumber(NodeSelector.INDEX_BIAS + 1)),
             parent,
@@ -298,7 +298,7 @@ final public class ExpressionNodeSelectorTest extends
 
         TestNode.clear();
 
-        this.acceptMapAndCheck(TestNode.relativeNodeSelector()
+        this.applyMapAndCheck(TestNode.relativeNodeSelector()
                 .children()
                 .expression(expressionNumber(NodeSelector.INDEX_BIAS + 2)),
             parent,
@@ -314,7 +314,7 @@ final public class ExpressionNodeSelectorTest extends
 
         TestNode.clear();
 
-        this.acceptMapAndCheck(TestNode.relativeNodeSelector().children().expression(Expression.value(true)),
+        this.applyMapAndCheck(TestNode.relativeNodeSelector().children().expression(Expression.value(true)),
             parent,
             TestNode.with("parent",
                 TestNode.with("child1*0", TestNode.with("grandChildren1")),
@@ -336,7 +336,7 @@ final public class ExpressionNodeSelectorTest extends
                 TestNode.with("td", TestNode.with("div2"))
             ));
 
-        this.acceptMapAndCheck(TestNode.relativeNodeSelector()
+        this.applyMapAndCheck(TestNode.relativeNodeSelector()
                 .children()
                 .named(Names.string("tr"))
                 .expression(expressionNumber(1))
@@ -369,7 +369,7 @@ final public class ExpressionNodeSelectorTest extends
                 TestNode.with("td4")
             ));
 
-        this.acceptMapAndCheck(TestNode.relativeNodeSelector()
+        this.applyMapAndCheck(TestNode.relativeNodeSelector()
                 .children()
                 .named(Names.string("tr"))
                 .expression(expressionNumber(1))
@@ -402,7 +402,7 @@ final public class ExpressionNodeSelectorTest extends
                 TestNode.with("td", TestNode.with("div4"))
             ));
 
-        this.acceptMapAndCheck(TestNode.relativeNodeSelector()
+        this.applyMapAndCheck(TestNode.relativeNodeSelector()
                 .children()
                 .named(Names.string("tr"))
                 .expression(expressionNumber(2))

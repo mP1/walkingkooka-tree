@@ -102,7 +102,7 @@ final public class AbsoluteNodeSelectorTest extends
 
         TestNode.clear();
 
-        this.acceptMapAndCheck(grandParent.child(1),
+        this.applyMapAndCheck(grandParent.child(1),
             TestNode.with("grand*0",
                     TestNode.with("parent1",
                         TestNode.with("child1"), TestNode.with("child2")),
@@ -119,7 +119,7 @@ final public class AbsoluteNodeSelectorTest extends
 
         TestNode.clear();
 
-        this.acceptMapAndCheck(grandParent,
+        this.applyMapAndCheck(grandParent,
             TestNode.with("grand*0",
                 TestNode.with("parent1",
                     TestNode.with("child1"), TestNode.with("child2")),

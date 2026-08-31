@@ -122,7 +122,7 @@ final public class ParentNodeSelectorTest extends
 
         TestNode.clear();
 
-        this.acceptMapAndCheck(parent.child(0),
+        this.applyMapAndCheck(parent.child(0),
             TestNode.with("parent*0", TestNode.with("child"))
                 .child(0));
     }
@@ -133,7 +133,7 @@ final public class ParentNodeSelectorTest extends
 
         TestNode.clear();
 
-        this.acceptMapAndCheck(parent);
+        this.applyMapAndCheck(parent);
     }
 
     // NodeSelectorVisitor............................................................................................
