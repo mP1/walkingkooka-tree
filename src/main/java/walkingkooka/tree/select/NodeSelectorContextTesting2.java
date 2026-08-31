@@ -17,12 +17,10 @@
 
 package walkingkooka.tree.select;
 
-import org.junit.jupiter.api.Test;
 import walkingkooka.ContextTesting;
 import walkingkooka.naming.Name;
 import walkingkooka.tree.Node;
-
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import walkingkooka.tree.expression.CanEvaluateExpressionTesting2;
 
 /**
  * Mixing testing interface for {@link NodeSelectorContext}
@@ -32,16 +30,17 @@ public interface NodeSelectorContextTesting2<C extends NodeSelectorContext<N, NA
     NAME extends Name,
     ANAME extends Name,
     AVALUE> extends ContextTesting<C>,
-    NodeSelectorContextTesting {
+    NodeSelectorContextTesting,
+    CanEvaluateExpressionTesting2<C> {
 
-    @Test
-    default void testEvaluateWithNullExpressionFails() {
-        assertThrows(
-            NullPointerException.class,
-            () -> this.createContext()
-                .evaluate(null)
-        );
+    // CanEvaluateExpressionTesting2....................................................................................
+
+    @Override
+    default C createCanEvaluateExpression() {
+        return this.createContext();
     }
+
+    // class............................................................................................................
 
     @Override
     default String typeNameSuffix() {

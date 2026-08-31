@@ -198,41 +198,40 @@ public final class NodeSelectorContextBasicTest implements ClassTesting2<NodeSel
         );
     }
 
+    // evaluateExpression...............................................................................................
+
     @Test
-    public void testEvaluate() {
-        final NodeSelectorContextBasic<TestNode, StringName, StringName, Object> context = this.createContext();
+    public void testEvaluateExpression() {
         final int number = 123;
 
-        this.checkEquals(
-            EXPRESSION_NUMBER_KIND.create(number),
-            context.evaluate(
-                Expression.value(
-                    EXPRESSION_NUMBER_KIND.create(number)
-                )
-            )
+        this.evaluateExpressionAndCheck(
+            Expression.value(
+                EXPRESSION_NUMBER_KIND.create(number)
+            ),
+            EXPRESSION_NUMBER_KIND.create(number)
         );
     }
 
     @Test
-    public void testEvaluateAddition() {
+    public void testEvaluateExpressionAddition() {
         final NodeSelectorContextBasic<TestNode, StringName, StringName, Object> context = this.createContext();
         final int left = 123;
         final int right = 456;
 
-        this.checkEquals(
-            EXPRESSION_NUMBER_KIND.create(left + right),
-            context.evaluate(
-                Expression.add(
-                    Expression.value(
-                        EXPRESSION_NUMBER_KIND.create(left)
-                    ),
-                    Expression.value(
-                        EXPRESSION_NUMBER_KIND.create(right)
-                    )
+        this.evaluateExpressionAndCheck(
+            Expression.add(
+                Expression.value(
+                    EXPRESSION_NUMBER_KIND.create(left)
+                ),
+                Expression.value(
+                    EXPRESSION_NUMBER_KIND.create(right)
                 )
-            )
+            ),
+            EXPRESSION_NUMBER_KIND.create(left + right)
         );
     }
+
+    // toString.........................................................................................................
 
     @Test
     public void testToString() {

@@ -1839,7 +1839,7 @@ public final class NodeSelectorNodeSelectorParserTokenVisitorTest implements Nod
                 }
 
                 @Override
-                public Object evaluate(final Expression expression) {
+                public Object evaluateExpression(final Expression expression) {
                     return expression.toValue(this.expressionEvaluationContext());
                 }
 

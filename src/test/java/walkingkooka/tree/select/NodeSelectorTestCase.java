@@ -521,9 +521,9 @@ abstract public class NodeSelectorTestCase<S extends NodeSelector<TestNode, Stri
             }
 
             @Override
-            public Object evaluate(final Expression expression) {
+            public Object evaluateExpression(final Expression expression) {
                 this.finisherGuardCheck();
-                return context.evaluate(expression);
+                return context.evaluateExpression(expression);
             }
 
             @Override

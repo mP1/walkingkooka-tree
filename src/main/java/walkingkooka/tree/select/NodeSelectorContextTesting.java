@@ -17,10 +17,10 @@
 
 package walkingkooka.tree.select;
 
-import walkingkooka.text.printer.TreePrintableTesting;
+import walkingkooka.tree.expression.CanEvaluateExpressionTesting;
 
 /**
  * Mixing testing interface for {@link NodeSelectorContext}
  */
-public interface NodeSelectorContextTesting extends TreePrintableTesting {
+public interface NodeSelectorContextTesting extends CanEvaluateExpressionTesting {
 }
