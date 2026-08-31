@@ -86,7 +86,7 @@ public final class ExpressionEvaluationContexts implements PublicStaticHelper {
      */
     public static ExpressionEvaluationContext scoped(final Function<ExpressionReference, Optional<Optional<Object>>> referenceToValue,
                                                      final ExpressionEvaluationContext context) {
-        return ScopedExpressionEvaluationContext.with(
+        return ExpressionEvaluationContextScoped.with(
             referenceToValue,
             context
         );

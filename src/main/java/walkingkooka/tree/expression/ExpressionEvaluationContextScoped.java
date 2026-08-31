@@ -31,18 +31,18 @@ import java.util.function.Function;
  * An {@link ExpressionEvaluationContext} that wraps another {@link ExpressionEvaluationContext} delegating all
  * methods with special handling for scoped references in {@link #reference(ExpressionReference)}.
  */
-final class ScopedExpressionEvaluationContext implements ExpressionEvaluationContext,
+final class ExpressionEvaluationContextScoped implements ExpressionEvaluationContext,
     ExpressionEvaluationContextDelegator {
 
-    static ScopedExpressionEvaluationContext with(final Function<ExpressionReference, Optional<Optional<Object>>> referenceToValue,
+    static ExpressionEvaluationContextScoped with(final Function<ExpressionReference, Optional<Optional<Object>>> referenceToValue,
                                                   final ExpressionEvaluationContext context) {
-        return new ScopedExpressionEvaluationContext(
+        return new ExpressionEvaluationContextScoped(
             Objects.requireNonNull(referenceToValue, "referenceToValue"),
             Objects.requireNonNull(context, "context")
         );
     }
 
-    private ScopedExpressionEvaluationContext(final Function<ExpressionReference, Optional<Optional<Object>>> referenceToValue,
+    private ExpressionEvaluationContextScoped(final Function<ExpressionReference, Optional<Optional<Object>>> referenceToValue,
                                               final ExpressionEvaluationContext context) {
         this.referenceToValue = referenceToValue;
         this.context = context;
@@ -52,7 +52,7 @@ final class ScopedExpressionEvaluationContext implements ExpressionEvaluationCon
 
     @Override
     public ExpressionEvaluationContext enterScope(final Function<ExpressionReference, Optional<Optional<Object>>> scoped) {
-        return ScopedExpressionEvaluationContext.with(
+        return ExpressionEvaluationContextScoped.with(
             scoped,
             this
         );
@@ -86,7 +86,7 @@ final class ScopedExpressionEvaluationContext implements ExpressionEvaluationCon
 
         return before == after ?
             this :
-            new ScopedExpressionEvaluationContext(
+            new ExpressionEvaluationContextScoped(
                 this.referenceToValue,
                 after
             );
