@@ -420,7 +420,7 @@ public abstract class ExpressionTestCase<N extends Expression> implements TreePr
                 ).setCharset(StandardCharsets.UTF_8),
                 CurrencyContexts.jre(
                     Currency.getInstance(locale),
-                    new FakeCurrencyExchangeRater(),
+                    new FakeCurrencyExchangeRater<>(),
                     localeContext
                 ).setLocaleContext(localeContext),
                 DateTimeContexts.basic(
