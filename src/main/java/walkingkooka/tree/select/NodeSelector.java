@@ -267,7 +267,7 @@ public abstract class NodeSelector<N extends Node<N, NAME, ANAME, AVALUE>,
     }
 
     final NodeSelector<N, NAME, ANAME, AVALUE> append(final NodeSelector<N, NAME, ANAME, AVALUE> selector) {
-        Objects.requireNonNull(selector, "select");
+        Objects.requireNonNull(selector, "selector");
 
         return this.append0(selector);
     }
