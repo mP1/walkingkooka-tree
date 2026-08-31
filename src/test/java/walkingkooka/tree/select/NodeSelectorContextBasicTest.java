@@ -37,12 +37,10 @@ import walkingkooka.tree.expression.Expression;
 import walkingkooka.tree.expression.ExpressionEvaluationContext;
 import walkingkooka.tree.expression.ExpressionEvaluationContexts;
 import walkingkooka.tree.expression.ExpressionFunctionName;
-import walkingkooka.tree.expression.ExpressionReference;
 import walkingkooka.tree.expression.HasExpressionNumberKindTesting;
 import walkingkooka.tree.expression.convert.ExpressionNumberConverterContext;
 import walkingkooka.tree.expression.convert.ExpressionNumberConverterContexts;
 import walkingkooka.tree.expression.convert.ExpressionNumberConverters;
-import walkingkooka.tree.expression.function.ExpressionFunction;
 
 import java.util.Optional;
 import java.util.function.BooleanSupplier;
@@ -94,31 +92,19 @@ public final class NodeSelectorContextBasicTest implements ClassTesting2<NodeSel
                 (e, c) -> {
                     throw new UnsupportedOperationException();
                 },
-                this.functions(),
-                this.exceptionHandler(),
-                this.references(),
+                (ExpressionFunctionName n) -> {
+                    throw new UnsupportedOperationException();
+                }, // function
+                (RuntimeException r) -> {
+                    throw r;
+                }, // exception handler
+                (r) -> Optional.empty(), // references
                 ExpressionEvaluationContexts.referenceNotFound(),
                 CaseSensitivity.SENSITIVE,
                 CONVERTER_CONTEXT,
                 ENVIRONMENT_CONTEXT.cloneEnvironment(),
                 LocaleContexts.fake()
             );
-        }
-
-        private Function<RuntimeException, Object> exceptionHandler() {
-            return (r) -> {
-                throw r;
-            };
-        }
-
-        private Function<ExpressionFunctionName, ExpressionFunction<?, ExpressionEvaluationContext>> functions() {
-            return (n) -> {
-                throw new UnsupportedOperationException();
-            };
-        }
-
-        private Function<ExpressionReference, Optional<Optional<Object>>> references() {
-            return (r) -> Optional.empty();
         }
 
         @Override
