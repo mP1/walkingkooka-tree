@@ -25,32 +25,24 @@ import walkingkooka.convert.Converter;
 import walkingkooka.convert.ConverterContext;
 import walkingkooka.convert.ConverterContexts;
 import walkingkooka.convert.Converters;
-import walkingkooka.currency.CurrencyCode;
-import walkingkooka.currency.CurrencyExchange;
-import walkingkooka.currency.FakeCurrencyContext;
-import walkingkooka.datetime.DateTimeContexts;
-import walkingkooka.datetime.DateTimeSymbols;
-import walkingkooka.locale.LocaleContexts;
+import walkingkooka.currency.CurrencyLocaleContextTesting;
+import walkingkooka.datetime.DateTimeContextTesting;
 import walkingkooka.math.DecimalNumberContext;
 import walkingkooka.math.DecimalNumberContextDelegator;
 import walkingkooka.tree.expression.ExpressionNumber;
-import walkingkooka.tree.expression.ExpressionNumberKind;
+import walkingkooka.tree.expression.HasExpressionNumberKindTesting;
 
 import java.math.MathContext;
-import java.text.DateFormatSymbols;
-import java.time.LocalDateTime;
-import java.util.Currency;
-import java.util.Locale;
-import java.util.Objects;
-import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class ExpressionNumberConverterContextBasicTest implements ExpressionNumberConverterContextTesting2<ExpressionNumberConverterContextBasic>,
     ToStringTesting<ExpressionNumberConverterContextBasic>,
-    DecimalNumberContextDelegator {
+    CurrencyLocaleContextTesting,
+    DateTimeContextTesting,
+    DecimalNumberContextDelegator,
+    HasExpressionNumberKindTesting {
 
-    private final static ExpressionNumberKind KIND = ExpressionNumberKind.DEFAULT;
     private final static Converter<ExpressionNumberConverterContext> CONVERTER = ExpressionNumberConverters.numberToNumber();
 
     private final static BinaryNumberConverterFunction<ExpressionNumberConverterContext> MULTIPLER = ExpressionNumberBinaryNumberConverterFunctions.multiply();
@@ -62,42 +54,8 @@ public final class ExpressionNumberConverterContextBasicTest implements Expressi
         Converters.fake(),
         BinaryNumberConverterFunctions.fake(), // multiplier
         BINARY_TEXT_CONTEXT,
-        new FakeCurrencyContext() {
-
-            @Override
-            public Optional<Currency> currencyForCurrencyCode(final CurrencyCode currencyCode) {
-                Objects.requireNonNull(currencyCode, "currencyCode");
-
-                throw new UnsupportedOperationException();
-            }
-
-            @Override
-            public Optional<Currency> currencyForLocale(final Locale locale) {
-                return Optional.of(
-                    Currency.getInstance(locale)
-                );
-            }
-
-            @Override
-            public Optional<Number> currencyExchangeRate(final CurrencyExchange currencyExchange,
-                                                         final Optional<LocalDateTime> dateTime) {
-                Objects.requireNonNull(currencyExchange, "currencyExchange");
-                Objects.requireNonNull(dateTime, "dateTime");
-
-                throw new UnsupportedOperationException();
-            }
-        }.setLocaleContext(
-            LocaleContexts.jre(LOCALE)
-        ),
-        DateTimeContexts.basic(
-            DateTimeSymbols.fromDateFormatSymbols(
-                new DateFormatSymbols(LOCALE)
-            ),
-            LOCALE,
-            1900,
-            20,
-            LocalDateTime::now
-        ),
+        CURRENCY_LOCALE_CONTEXT,
+        DATE_TIME_CONTEXT,
         DECIMAL_NUMBER_CONTEXT
     );
 
@@ -109,7 +67,7 @@ public final class ExpressionNumberConverterContextBasicTest implements Expressi
                 null,
                 MULTIPLER,
                 CONVERTER_CONTEXT,
-                KIND
+                EXPRESSION_NUMBER_KIND
             )
         );
     }
@@ -122,7 +80,7 @@ public final class ExpressionNumberConverterContextBasicTest implements Expressi
                 CONVERTER,
                 null,
                 CONVERTER_CONTEXT,
-                KIND
+                EXPRESSION_NUMBER_KIND
             )
         );
     }
@@ -135,7 +93,7 @@ public final class ExpressionNumberConverterContextBasicTest implements Expressi
                 CONVERTER,
                 MULTIPLER,
                 null,
-                KIND
+                EXPRESSION_NUMBER_KIND
             )
         );
     }
@@ -187,7 +145,7 @@ public final class ExpressionNumberConverterContextBasicTest implements Expressi
             2,
             3,
             ExpressionNumber.class,
-            KIND.create(6)
+            EXPRESSION_NUMBER_KIND.create(6)
         );
     }
 
@@ -195,7 +153,7 @@ public final class ExpressionNumberConverterContextBasicTest implements Expressi
     public void testToString() {
         this.toStringAndCheck(
             this.createContext(),
-            CONVERTER_CONTEXT + " " + KIND
+            CONVERTER_CONTEXT + " " + EXPRESSION_NUMBER_KIND
         );
     }
 
@@ -205,7 +163,7 @@ public final class ExpressionNumberConverterContextBasicTest implements Expressi
             CONVERTER,
             MULTIPLER,
             CONVERTER_CONTEXT,
-            KIND
+            EXPRESSION_NUMBER_KIND
         );
     }
 
