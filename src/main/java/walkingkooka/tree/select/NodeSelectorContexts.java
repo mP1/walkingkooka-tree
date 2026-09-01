@@ -19,7 +19,6 @@ package walkingkooka.tree.select;
 import walkingkooka.naming.Name;
 import walkingkooka.reflect.PublicStaticHelper;
 import walkingkooka.tree.Node;
-import walkingkooka.tree.expression.ExpressionEvaluationContext;
 import walkingkooka.tree.expression.ExpressionFunctionName;
 import walkingkooka.tree.expression.function.ExpressionFunction;
 
@@ -38,12 +37,11 @@ public final class NodeSelectorContexts implements PublicStaticHelper {
     public static <N extends Node<N, NAME, ANAME, AVALUE>,
         NAME extends Name,
         ANAME extends Name,
-        AVALUE,
-        C extends ExpressionEvaluationContext> NodeSelectorContext<N, NAME, ANAME, AVALUE> basic(final BooleanSupplier finisher,
-                                                                                                 final Predicate<N> filter,
-                                                                                                 final Function<N, N> mapper,
-                                                                                                 final Function<N, NodeSelectorExpressionEvaluationContext<N, NAME, ANAME, AVALUE>> expressionEvaluationContextFactory,
-                                                                                                 final Class<N> nodeType) {
+        AVALUE> NodeSelectorContext<N, NAME, ANAME, AVALUE> basic(final BooleanSupplier finisher,
+                                                                  final Predicate<N> filter,
+                                                                  final Function<N, N> mapper,
+                                                                  final Function<N, NodeSelectorExpressionEvaluationContext<N, NAME, ANAME, AVALUE>> expressionEvaluationContextFactory,
+                                                                  final Class<N> nodeType) {
         return NodeSelectorContextBasic.with(
             finisher,
             filter,

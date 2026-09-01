@@ -38,12 +38,11 @@ final class NodeSelectorContextBasic<N extends Node<N, NAME, ANAME, AVALUE>, NAM
     static <N extends Node<N, NAME, ANAME, AVALUE>,
         NAME extends Name,
         ANAME extends Name,
-        AVALUE,
-        C extends ExpressionEvaluationContext> NodeSelectorContextBasic<N, NAME, ANAME, AVALUE> with(final BooleanSupplier finisher,
-                                                                                                     final Predicate<N> filter,
-                                                                                                     final Function<N, N> mapper,
-                                                                                                     final Function<N, NodeSelectorExpressionEvaluationContext<N, NAME, ANAME, AVALUE>> expressionEvaluationContextFactory,
-                                                                                                     final Class<N> nodeType) {
+        AVALUE> NodeSelectorContextBasic<N, NAME, ANAME, AVALUE> with(final BooleanSupplier finisher,
+                                                                      final Predicate<N> filter,
+                                                                      final Function<N, N> mapper,
+                                                                      final Function<N, NodeSelectorExpressionEvaluationContext<N, NAME, ANAME, AVALUE>> expressionEvaluationContextFactory,
+                                                                      final Class<N> nodeType) {
         Objects.requireNonNull(finisher, "finisher");
         Objects.requireNonNull(filter, "filter");
         Objects.requireNonNull(mapper, "mapper");
