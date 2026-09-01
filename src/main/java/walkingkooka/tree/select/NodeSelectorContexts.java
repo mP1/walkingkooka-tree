@@ -33,7 +33,7 @@ import java.util.function.Predicate;
 public final class NodeSelectorContexts implements PublicStaticHelper {
 
     /**
-     * {@see BasicNodeSelectorContext}
+     * {@see NodeSelectorContextBasic}
      */
     public static <N extends Node<N, NAME, ANAME, AVALUE>,
         NAME extends Name,
