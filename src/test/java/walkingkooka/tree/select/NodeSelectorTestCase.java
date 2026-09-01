@@ -48,7 +48,7 @@ import walkingkooka.tree.expression.HasExpressionNumberKindTesting;
 import walkingkooka.tree.expression.convert.ExpressionNumberConverterContext;
 import walkingkooka.tree.expression.convert.ExpressionNumberConverterContexts;
 import walkingkooka.tree.expression.convert.ExpressionNumberConverters;
-import walkingkooka.util.BiFunctionTesting;
+import walkingkooka.util.BiFunctionTesting2;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -66,7 +66,7 @@ import java.util.stream.Collectors;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-abstract public class NodeSelectorTestCase<S extends NodeSelector<TestNode, StringName, StringName, Object>> implements BiFunctionTesting<S, TestNode, NodeSelectorContext<TestNode, StringName, StringName, Object>, TestNode>,
+abstract public class NodeSelectorTestCase<S extends NodeSelector<TestNode, StringName, StringName, Object>> implements BiFunctionTesting2<S, TestNode, NodeSelectorContext<TestNode, StringName, StringName, Object>, TestNode>,
     ClassTesting2<S>,
     CurrencyLocaleContextTesting,
     DateTimeContextTesting,
