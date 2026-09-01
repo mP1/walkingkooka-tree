@@ -190,20 +190,15 @@ public final class NodeSelectorContextBasicTest implements ClassTesting2<NodeSel
 
     @Test
     public void testToString() {
-        final BooleanSupplier finisher = FINISHER;
-        final Predicate<TestNode> filter = PREDICATE;
-        final Function<TestNode, TestNode> mapper = MAPPER;
-        final Function<TestNode, NodeSelectorExpressionEvaluationContext<TestNode, StringName, StringName, Object>> context = EXPRESSION_EVALUATION_CONTEXT_FACTORY;
-
         this.toStringAndCheck(
             NodeSelectorContextBasic.with(
-                finisher,
-                filter,
-                mapper,
-                context,
+                FINISHER,
+                PREDICATE,
+                MAPPER,
+                EXPRESSION_EVALUATION_CONTEXT_FACTORY,
                 NODE_TYPE
             ),
-            finisher + " " + filter + " " + mapper + " " + context
+            "finisher=" + FINISHER + " filter=" + PREDICATE + " mapper=" + MAPPER + " expressionEvaluationContextFactory=" + EXPRESSION_EVALUATION_CONTEXT_FACTORY
         );
     }
 

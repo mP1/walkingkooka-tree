@@ -18,6 +18,8 @@
 package walkingkooka.tree.select;
 
 import walkingkooka.Cast;
+import walkingkooka.ToStringBuilder;
+import walkingkooka.UsesToStringBuilder;
 import walkingkooka.naming.Name;
 import walkingkooka.tree.Node;
 import walkingkooka.tree.expression.ExpressionEvaluationContext;
@@ -33,7 +35,8 @@ import java.util.function.Predicate;
  * A {@link NodeSelectorContext} that routes test and selected {@link Node} to a individual {@link Consumer}
  */
 final class NodeSelectorContextBasic<N extends Node<N, NAME, ANAME, AVALUE>, NAME extends Name, ANAME extends Name, AVALUE>
-    implements NodeSelectorContext<N, NAME, ANAME, AVALUE> {
+    implements NodeSelectorContext<N, NAME, ANAME, AVALUE>,
+    UsesToStringBuilder {
 
     static <N extends Node<N, NAME, ANAME, AVALUE>,
         NAME extends Name,
@@ -131,11 +134,24 @@ final class NodeSelectorContextBasic<N extends Node<N, NAME, ANAME, AVALUE>, NAM
      */
     private final Function<N, NodeSelectorExpressionEvaluationContext<N, NAME, ANAME, AVALUE>> expressionEvaluationContextFactory;
 
+    // Object...........................................................................................................
+
     @Override
     public String toString() {
-        return this.finisher + " " +
-            this.filter + " " +
-            this.mapper + " " +
-            this.expressionEvaluationContextFactory;
+        return ToStringBuilder.buildFrom(this);
+    }
+
+    // UsesToStringBuilder..............................................................................................
+
+    @Override
+    public void buildToString(final ToStringBuilder b) {
+        b.label("finisher")
+            .value(this.finisher)
+            .label("filter")
+            .value(this.filter)
+            .label("mapper")
+            .value(this.mapper)
+            .label("expressionEvaluationContextFactory")
+            .value(this.expressionEvaluationContextFactory);
     }
 }
