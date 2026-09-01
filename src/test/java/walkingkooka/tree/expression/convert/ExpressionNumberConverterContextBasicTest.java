@@ -45,7 +45,7 @@ public final class ExpressionNumberConverterContextBasicTest implements Expressi
 
     private final static Converter<ExpressionNumberConverterContext> CONVERTER = ExpressionNumberConverters.numberToNumber();
 
-    private final static BinaryNumberConverterFunction<ExpressionNumberConverterContext> MULTIPLER = ExpressionNumberBinaryNumberConverterFunctions.multiply();
+    private final static BinaryNumberConverterFunction<ExpressionNumberConverterContext> MULTIPLIER = ExpressionNumberBinaryNumberConverterFunctions.multiply();
 
     private final static ConverterContext CONVERTER_CONTEXT = ConverterContexts.basic(
         false, // canNumbersHaveGroupSeparator
@@ -65,7 +65,7 @@ public final class ExpressionNumberConverterContextBasicTest implements Expressi
             NullPointerException.class,
             () -> ExpressionNumberConverterContextBasic.with(
                 null,
-                MULTIPLER,
+                MULTIPLIER,
                 CONVERTER_CONTEXT,
                 EXPRESSION_NUMBER_KIND
             )
@@ -91,7 +91,7 @@ public final class ExpressionNumberConverterContextBasicTest implements Expressi
             NullPointerException.class,
             () -> ExpressionNumberConverterContextBasic.with(
                 CONVERTER,
-                MULTIPLER,
+                MULTIPLIER,
                 null,
                 EXPRESSION_NUMBER_KIND
             )
@@ -104,7 +104,7 @@ public final class ExpressionNumberConverterContextBasicTest implements Expressi
             NullPointerException.class,
             () -> ExpressionNumberConverterContextBasic.with(
                 CONVERTER,
-                MULTIPLER,
+                MULTIPLIER,
                 CONVERTER_CONTEXT,
                 null
             )
@@ -161,7 +161,7 @@ public final class ExpressionNumberConverterContextBasicTest implements Expressi
     public ExpressionNumberConverterContextBasic createContext() {
         return ExpressionNumberConverterContextBasic.with(
             CONVERTER,
-            MULTIPLER,
+            MULTIPLIER,
             CONVERTER_CONTEXT,
             EXPRESSION_NUMBER_KIND
         );
