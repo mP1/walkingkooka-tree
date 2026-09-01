@@ -26,13 +26,13 @@ import walkingkooka.tree.expression.ExpressionNumberKind;
 public final class ExpressionNumberConverterContexts implements PublicStaticHelper {
 
     /**
-     * {@see BasicExpressionNumberConverterContext}
+     * {@see ExpressionNumberConverterContextBasic}
      */
     public static ExpressionNumberConverterContext basic(final Converter<ExpressionNumberConverterContext> converter,
                                                          final BinaryNumberConverterFunction<ExpressionNumberConverterContext> multiplier,
                                                          final ConverterContext context,
                                                          final ExpressionNumberKind kind) {
-        return BasicExpressionNumberConverterContext.with(
+        return ExpressionNumberConverterContextBasic.with(
             converter,
             multiplier,
             context,

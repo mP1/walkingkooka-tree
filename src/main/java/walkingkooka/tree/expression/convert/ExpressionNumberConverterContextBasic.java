@@ -44,12 +44,12 @@ import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
 
-final class BasicExpressionNumberConverterContext implements ExpressionNumberConverterContext,
+final class ExpressionNumberConverterContextBasic implements ExpressionNumberConverterContext,
     CurrencyCodeLanguageTagContextDelegator,
     DateTimeContextDelegator,
     DecimalNumberContextDelegator {
 
-    static BasicExpressionNumberConverterContext with(final Converter<ExpressionNumberConverterContext> converter,
+    static ExpressionNumberConverterContextBasic with(final Converter<ExpressionNumberConverterContext> converter,
                                                       final BinaryNumberConverterFunction<ExpressionNumberConverterContext> multiplier,
                                                       final ConverterContext context,
                                                       final ExpressionNumberKind kind) {
@@ -58,7 +58,7 @@ final class BasicExpressionNumberConverterContext implements ExpressionNumberCon
         Objects.requireNonNull(context, "context");
         Objects.requireNonNull(kind, "kind");
 
-        return new BasicExpressionNumberConverterContext(
+        return new ExpressionNumberConverterContextBasic(
             converter,
             multiplier,
             context,
@@ -66,7 +66,7 @@ final class BasicExpressionNumberConverterContext implements ExpressionNumberCon
         );
     }
 
-    private BasicExpressionNumberConverterContext(final Converter<ExpressionNumberConverterContext> converter,
+    private ExpressionNumberConverterContextBasic(final Converter<ExpressionNumberConverterContext> converter,
                                                   final BinaryNumberConverterFunction<ExpressionNumberConverterContext> multiplier,
                                                   final ConverterContext context,
                                                   final ExpressionNumberKind kind) {
