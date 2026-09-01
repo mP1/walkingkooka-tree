@@ -31,7 +31,7 @@ import java.util.function.Function;
 public final class ExpressionEvaluationContexts implements PublicStaticHelper {
 
     /**
-     * {@see BasicExpressionEvaluationContext}
+     * {@see ExpressionEvaluationContextBasic}
      */
     public static ExpressionEvaluationContext basic(final ExpressionNumberKind expressionNumberKind,
                                                     final BiFunction<String, ExpressionEvaluationContext, Object> evaluator,
@@ -58,7 +58,7 @@ public final class ExpressionEvaluationContexts implements PublicStaticHelper {
     }
 
     /**
-     * {@see CycleDetectingExpressionEvaluationContext}
+     * {@see ExpressionEvaluationContextCycleDetecting}
      */
     public static ExpressionEvaluationContext cycleDetecting(final ExpressionEvaluationContext context) {
         return ExpressionEvaluationContextCycleDetecting.with(context);
@@ -82,7 +82,7 @@ public final class ExpressionEvaluationContexts implements PublicStaticHelper {
     }
 
     /**
-     * {@see ScopedExpressionEvaluationContext}
+     * {@see ExpressionEvaluationContextScoped}
      */
     public static ExpressionEvaluationContext scoped(final Function<ExpressionReference, Optional<Optional<Object>>> referenceToValue,
                                                      final ExpressionEvaluationContext context) {
