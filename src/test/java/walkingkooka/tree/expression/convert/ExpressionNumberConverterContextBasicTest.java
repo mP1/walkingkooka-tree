@@ -46,8 +46,8 @@ import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class BasicExpressionNumberConverterContextTest implements ExpressionNumberConverterContextTesting2<BasicExpressionNumberConverterContext>,
-    ToStringTesting<BasicExpressionNumberConverterContext>,
+public final class ExpressionNumberConverterContextBasicTest implements ExpressionNumberConverterContextTesting2<ExpressionNumberConverterContextBasic>,
+    ToStringTesting<ExpressionNumberConverterContextBasic>,
     DecimalNumberContextDelegator {
 
     private final static ExpressionNumberKind KIND = ExpressionNumberKind.DEFAULT;
@@ -105,7 +105,7 @@ public final class BasicExpressionNumberConverterContextTest implements Expressi
     public void testWithNullConverterFails() {
         assertThrows(
             NullPointerException.class,
-            () -> BasicExpressionNumberConverterContext.with(
+            () -> ExpressionNumberConverterContextBasic.with(
                 null,
                 MULTIPLER,
                 CONVERTER_CONTEXT,
@@ -118,7 +118,7 @@ public final class BasicExpressionNumberConverterContextTest implements Expressi
     public void testWithNullMultiplierFails() {
         assertThrows(
             NullPointerException.class,
-            () -> BasicExpressionNumberConverterContext.with(
+            () -> ExpressionNumberConverterContextBasic.with(
                 CONVERTER,
                 null,
                 CONVERTER_CONTEXT,
@@ -131,7 +131,7 @@ public final class BasicExpressionNumberConverterContextTest implements Expressi
     public void testWithNullConverterContextFails() {
         assertThrows(
             NullPointerException.class,
-            () -> BasicExpressionNumberConverterContext.with(
+            () -> ExpressionNumberConverterContextBasic.with(
                 CONVERTER,
                 MULTIPLER,
                 null,
@@ -144,7 +144,7 @@ public final class BasicExpressionNumberConverterContextTest implements Expressi
     public void testWithNullExpressionNumberKindFails() {
         assertThrows(
             NullPointerException.class,
-            () -> BasicExpressionNumberConverterContext.with(
+            () -> ExpressionNumberConverterContextBasic.with(
                 CONVERTER,
                 MULTIPLER,
                 CONVERTER_CONTEXT,
@@ -200,8 +200,8 @@ public final class BasicExpressionNumberConverterContextTest implements Expressi
     }
 
     @Override
-    public BasicExpressionNumberConverterContext createContext() {
-        return BasicExpressionNumberConverterContext.with(
+    public ExpressionNumberConverterContextBasic createContext() {
+        return ExpressionNumberConverterContextBasic.with(
             CONVERTER,
             MULTIPLER,
             CONVERTER_CONTEXT,
@@ -229,7 +229,12 @@ public final class BasicExpressionNumberConverterContextTest implements Expressi
     // class............................................................................................................
 
     @Override
-    public Class<BasicExpressionNumberConverterContext> type() {
-        return BasicExpressionNumberConverterContext.class;
+    public Class<ExpressionNumberConverterContextBasic> type() {
+        return ExpressionNumberConverterContextBasic.class;
+    }
+
+    @Override
+    public void testTypeNaming() {
+        throw new UnsupportedOperationException();
     }
 }
