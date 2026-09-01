@@ -27,11 +27,8 @@ import walkingkooka.reflect.ClassTesting2;
 import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.reflect.TypeNameTesting;
 import walkingkooka.tree.TestNode;
-import walkingkooka.tree.expression.ExpressionEvaluationContext;
-import walkingkooka.tree.expression.ExpressionEvaluationContexts;
 
 import java.util.function.Consumer;
-import java.util.function.Function;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -50,7 +47,7 @@ public final class NodeSelectorStreamConsumerPushableStreamConsumerTest implemen
             Names.string("abc123")
         );
 
-    private final static Function<NodeSelectorContext<TestNode, StringName, StringName, Object>, ExpressionEvaluationContext> EXPRESSION_EVALUATION_CONTEXT = (c) -> ExpressionEvaluationContexts.fake();
+    private final static NodeSelectorContext<TestNode, StringName, StringName, Object> NODE_SELECTOR_CONTEXT = NodeSelectorContexts.fake();
 
     private final static Class<TestNode> NODE_TYPE = TestNode.class;
 
@@ -61,14 +58,14 @@ public final class NodeSelectorStreamConsumerPushableStreamConsumerTest implemen
             () -> NodeSelectorStreamConsumerPushableStreamConsumer.with(
                 null,
                 SELECTOR,
-                EXPRESSION_EVALUATION_CONTEXT,
+                NODE_SELECTOR_CONTEXT,
                 NODE_TYPE
             )
         );
     }
 
     @Test
-    public void testWithNullExpressionEvaluationContextFails() {
+    public void testWithNullNodeSelectorContextFails() {
         assertThrows(
             NullPointerException.class,
             () -> NodeSelectorStreamConsumerPushableStreamConsumer.with(
@@ -87,7 +84,7 @@ public final class NodeSelectorStreamConsumerPushableStreamConsumerTest implemen
             () -> NodeSelectorStreamConsumerPushableStreamConsumer.with(
                 this.node,
                 SELECTOR,
-                EXPRESSION_EVALUATION_CONTEXT,
+                NODE_SELECTOR_CONTEXT,
                 null
             )
         );
@@ -101,7 +98,7 @@ public final class NodeSelectorStreamConsumerPushableStreamConsumerTest implemen
             NodeSelectorStreamConsumerPushableStreamConsumer.with(
                 this.node,
                 selector,
-                EXPRESSION_EVALUATION_CONTEXT,
+                NODE_SELECTOR_CONTEXT,
                 NODE_TYPE
             ),
             selector.toString()

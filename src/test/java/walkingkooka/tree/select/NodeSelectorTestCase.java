@@ -26,13 +26,13 @@ import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.collect.set.Sets;
 import walkingkooka.convert.BinaryNumberConverterFunctions;
-import walkingkooka.convert.Converter;
 import walkingkooka.convert.ConverterContexts;
 import walkingkooka.convert.Converters;
+import walkingkooka.currency.CurrencyLocaleContextTesting;
 import walkingkooka.currency.CurrencyLocaleContexts;
+import walkingkooka.datetime.DateTimeContextTesting;
 import walkingkooka.datetime.DateTimeContexts;
 import walkingkooka.environment.EnvironmentContextTesting;
-import walkingkooka.locale.LocaleContextTesting;
 import walkingkooka.math.DecimalNumberContextTesting;
 import walkingkooka.naming.Names;
 import walkingkooka.naming.StringName;
@@ -43,7 +43,6 @@ import walkingkooka.reflect.TypeNameTesting;
 import walkingkooka.text.CaseSensitivity;
 import walkingkooka.tree.Node;
 import walkingkooka.tree.TestNode;
-import walkingkooka.tree.expression.Expression;
 import walkingkooka.tree.expression.ExpressionEvaluationContexts;
 import walkingkooka.tree.expression.HasExpressionNumberKindTesting;
 import walkingkooka.tree.expression.convert.ExpressionNumberConverterContext;
@@ -55,6 +54,7 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
 import java.util.function.BooleanSupplier;
@@ -68,11 +68,12 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 abstract public class NodeSelectorTestCase<S extends NodeSelector<TestNode, StringName, StringName, Object>> implements BiFunctionTesting<S, TestNode, NodeSelectorContext<TestNode, StringName, StringName, Object>, TestNode>,
     ClassTesting2<S>,
+    CurrencyLocaleContextTesting,
+    DateTimeContextTesting,
     DecimalNumberContextTesting,
     EnvironmentContextTesting,
     HashCodeEqualsDefinedTesting2<S>,
     HasExpressionNumberKindTesting,
-    LocaleContextTesting,
     ToStringTesting<S>,
     TypeNameTesting<S> {
 
@@ -479,7 +480,63 @@ abstract public class NodeSelectorTestCase<S extends NodeSelector<TestNode, Stri
             finisher,
             filter,
             mapper,
-            this.nodeSelectorExpressionEvaluationContext(),
+            (final TestNode testNode) -> NodeSelectorExpressionEvaluationContexts.basic(
+                testNode,
+                ExpressionEvaluationContexts.basic(
+                    EXPRESSION_NUMBER_KIND,
+                    (e, c) -> {
+                        Objects.requireNonNull(e, "expression");
+                        throw new UnsupportedOperationException();
+                    },
+                    (n) -> Cast.to(
+                        NodeSelectorContexts.basicFunctions()
+                            .apply(n)
+                    ), // functions,
+                    (exception) -> exception,
+                    (reference) -> {
+                        Objects.requireNonNull(reference, "reference");
+                        throw new UnsupportedOperationException();
+                    },
+                    (referenceNotFound) -> {
+                        throw new UnsupportedOperationException();
+                    },
+                    CaseSensitivity.SENSITIVE,
+                    ExpressionNumberConverterContexts.basic(
+                        Converters.collection(
+                            Lists.of(
+                                Converters.simple(),
+                                ExpressionNumberConverters.numberOrExpressionNumberToNumber(),
+                                Converters.<String, Integer, ExpressionNumberConverterContext>mapper(
+                                    (t) -> t instanceof String,
+                                    Predicates.is(Integer.class),
+                                    Integer::parseInt
+                                ),
+                                Converters.mapper(
+                                    t -> t instanceof Node,
+                                    Predicates.is(Node.class),
+                                    Function.identity()
+                                ),
+                                ExpressionNumberConverters.toNumberOrExpressionNumber(Converters.simple())
+                            )
+                        ),
+                        BinaryNumberConverterFunctions.fake(), // multiplier
+                        ConverterContexts.basic(
+                            false, // canNumbersHaveGroupSeparator
+                            Converters.JAVA_EPOCH_OFFSET, // dateOffset
+                            ',', // valueSeparator
+                            Converters.fake(),
+                            BinaryNumberConverterFunctions.fake(), // multiplier
+                            BINARY_TEXT_CONTEXT,
+                            CurrencyLocaleContexts.fake(),
+                            DateTimeContexts.fake(),
+                            DECIMAL_NUMBER_CONTEXT
+                        ),
+                        EXPRESSION_NUMBER_KIND
+                    ),
+                    ENVIRONMENT_CONTEXT.cloneEnvironment(),
+                    LOCALE_CONTEXT
+                )
+            ),
             TestNode.class
         );
 
@@ -517,9 +574,8 @@ abstract public class NodeSelectorTestCase<S extends NodeSelector<TestNode, Stri
             }
 
             @Override
-            public Object evaluateExpression(final Expression expression) {
-                this.finisherGuardCheck();
-                return context.evaluateExpression(expression);
+            public NodeSelectorExpressionEvaluationContext<TestNode, StringName, StringName, Object> expressionEvaluationContext(final TestNode node) {
+                return context.expressionEvaluationContext(node);
             }
 
             @Override
@@ -544,69 +600,6 @@ abstract public class NodeSelectorTestCase<S extends NodeSelector<TestNode, Stri
     final Map<StringName, Object> attributes(final String name, final Object value) {
         return Maps.of(Names.string(name), value);
     }
-
-    final Function<NodeSelectorContext<TestNode, StringName, StringName, Object>, NodeSelectorExpressionEvaluationContext<TestNode, StringName, StringName, Object>> nodeSelectorExpressionEvaluationContext() {
-        return (c) -> NodeSelectorExpressionEvaluationContexts.basic(
-            c.node(),
-            ExpressionEvaluationContexts.basic(
-                EXPRESSION_NUMBER_KIND,
-                (e, eec) -> {
-                    throw new UnsupportedOperationException();
-                },
-                (n) -> Cast.to(
-                    NodeSelectorContexts.basicFunctions()
-                        .apply(n)
-                ), // functions
-                (cause) -> {
-                    throw cause;
-                }, // ExceptionHandler
-                (r -> {
-                    throw new UnsupportedOperationException();
-                }
-                ), // references
-                ExpressionEvaluationContexts.referenceNotFound(),
-                CaseSensitivity.SENSITIVE,
-                CONVERTER_CONTEXT,
-                ENVIRONMENT_CONTEXT.cloneEnvironment(),
-                LOCALE_CONTEXT
-            )
-        );
-    }
-
-    private final static Converter<ExpressionNumberConverterContext> CONVERTER = Converters.collection(
-        Lists.of(
-            Converters.simple(),
-            ExpressionNumberConverters.numberOrExpressionNumberToNumber(),
-            Converters.<String, Integer, ExpressionNumberConverterContext>mapper(
-                (t) -> t instanceof String,
-                Predicates.is(Integer.class),
-                Integer::parseInt
-            ),
-            Converters.mapper(
-                t -> t instanceof Node,
-                Predicates.is(Node.class),
-                Function.identity()
-            ),
-            ExpressionNumberConverters.toNumberOrExpressionNumber(Converters.simple())
-        )
-    );
-
-    private final static ExpressionNumberConverterContext CONVERTER_CONTEXT = ExpressionNumberConverterContexts.basic(
-        CONVERTER,
-        BinaryNumberConverterFunctions.fake(), // multiplier
-        ConverterContexts.basic(
-            false, // canNumbersHaveGroupSeparator
-            Converters.JAVA_EPOCH_OFFSET, // dateOffset
-            ',', // valueSeparator
-            Converters.fake(),
-            BinaryNumberConverterFunctions.fake(), // multiplier
-            BINARY_TEXT_CONTEXT,
-            CurrencyLocaleContexts.fake(),
-            DateTimeContexts.fake(),
-            DECIMAL_NUMBER_CONTEXT
-        ),
-        EXPRESSION_NUMBER_KIND
-    );
 
     // BiFunctionTesting................................................................................................
 

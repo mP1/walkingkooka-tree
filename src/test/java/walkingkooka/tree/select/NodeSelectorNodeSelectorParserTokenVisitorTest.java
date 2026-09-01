@@ -2293,6 +2293,11 @@ public final class NodeSelectorNodeSelectorParserTokenVisitorTest implements Nod
                 }
 
                 @Override
+                public TestNode node() {
+                    return this.node;
+                }
+
+                @Override
                 public void setNode(final TestNode node) {
                     this.node = node;
                 }
@@ -2306,28 +2311,26 @@ public final class NodeSelectorNodeSelectorParserTokenVisitorTest implements Nod
                 }
 
                 @Override
-                public Object evaluateExpression(final Expression expression) {
-                    return expression.toValue(
-                        NodeSelectorExpressionEvaluationContexts.basic(
-                            this.node,
-                            ExpressionEvaluationContexts.basic(
-                                EXPRESSION_NUMBER_KIND,
-                                (final String e, final ExpressionEvaluationContext c) -> {
-                                    throw new UnsupportedOperationException();
-                                },
-                                Cast.to(this.functions()),
-                                (final RuntimeException runtimeException) -> {
-                                    throw runtimeException;
-                                },
-                                (final ExpressionReference r) -> {
-                                    throw new UnsupportedOperationException();
-                                }, // references
-                                ExpressionEvaluationContexts.referenceNotFound(),
-                                CaseSensitivity.SENSITIVE,
-                                this.converterContext(),
-                                EnvironmentContexts.fake(),
-                                LocaleContexts.fake()
-                            )
+                public NodeSelectorExpressionEvaluationContext<TestNode, StringName, StringName, Object> expressionEvaluationContext(final TestNode node) {
+                    return NodeSelectorExpressionEvaluationContexts.basic(
+                        node,
+                        ExpressionEvaluationContexts.basic(
+                            EXPRESSION_NUMBER_KIND,
+                            (final String e, final ExpressionEvaluationContext c) -> {
+                                throw new UnsupportedOperationException();
+                            },
+                            Cast.to(this.functions()),
+                            (final RuntimeException runtimeException) -> {
+                                throw runtimeException;
+                            },
+                            (final ExpressionReference r) -> {
+                                throw new UnsupportedOperationException();
+                            }, // references
+                            ExpressionEvaluationContexts.referenceNotFound(),
+                            CaseSensitivity.SENSITIVE,
+                            this.converterContext(),
+                            EnvironmentContexts.fake(),
+                            LocaleContexts.fake()
                         )
                     );
                 }

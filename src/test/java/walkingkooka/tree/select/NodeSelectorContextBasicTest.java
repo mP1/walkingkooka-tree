@@ -33,8 +33,6 @@ import walkingkooka.reflect.ClassTesting2;
 import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.text.CaseSensitivity;
 import walkingkooka.tree.TestNode;
-import walkingkooka.tree.expression.Expression;
-import walkingkooka.tree.expression.ExpressionEvaluationContext;
 import walkingkooka.tree.expression.ExpressionEvaluationContexts;
 import walkingkooka.tree.expression.ExpressionFunctionName;
 import walkingkooka.tree.expression.HasExpressionNumberKindTesting;
@@ -84,26 +82,29 @@ public final class NodeSelectorContextBasicTest implements ClassTesting2<NodeSel
         EXPRESSION_NUMBER_KIND
     );
 
-    private final static Function<NodeSelectorContext<TestNode, StringName, StringName, Object>, ExpressionEvaluationContext> EXPRESSION_EVALUATION_CONTEXT_FACTORY = new Function<>() {
+    private final static Function<TestNode, NodeSelectorExpressionEvaluationContext<TestNode, StringName, StringName, Object>> EXPRESSION_EVALUATION_CONTEXT_FACTORY = new Function<>() {
         @Override
-        public ExpressionEvaluationContext apply(final NodeSelectorContext<TestNode, StringName, StringName, Object> context) {
-            return ExpressionEvaluationContexts.basic(
-                EXPRESSION_NUMBER_KIND,
-                (e, c) -> {
-                    throw new UnsupportedOperationException();
-                },
-                (ExpressionFunctionName n) -> {
-                    throw new UnsupportedOperationException();
-                }, // function
-                (RuntimeException r) -> {
-                    throw r;
-                }, // exception handler
-                (r) -> Optional.empty(), // references
-                ExpressionEvaluationContexts.referenceNotFound(),
-                CaseSensitivity.SENSITIVE,
-                CONVERTER_CONTEXT,
-                ENVIRONMENT_CONTEXT.cloneEnvironment(),
-                LocaleContexts.fake()
+        public NodeSelectorExpressionEvaluationContext<TestNode, StringName, StringName, Object> apply(final TestNode node) {
+            return NodeSelectorExpressionEvaluationContexts.basic(
+                node,
+                ExpressionEvaluationContexts.basic(
+                    EXPRESSION_NUMBER_KIND,
+                    (e, c) -> {
+                        throw new UnsupportedOperationException();
+                    },
+                    (ExpressionFunctionName n) -> {
+                        throw new UnsupportedOperationException();
+                    }, // function
+                    (RuntimeException r) -> {
+                        throw r;
+                    }, // exception handler
+                    (r) -> Optional.empty(), // references
+                    ExpressionEvaluationContexts.referenceNotFound(),
+                    CaseSensitivity.SENSITIVE,
+                    CONVERTER_CONTEXT,
+                    ENVIRONMENT_CONTEXT.cloneEnvironment(),
+                    LocaleContexts.fake()
+                )
             );
         }
 
@@ -119,7 +120,8 @@ public final class NodeSelectorContextBasicTest implements ClassTesting2<NodeSel
     public void testWithNullFinisher() {
         assertThrows(
             NullPointerException.class,
-            () -> NodeSelectorContextBasic.with(null,
+            () -> NodeSelectorContextBasic.with(
+                null,
                 PREDICATE,
                 MAPPER,
                 EXPRESSION_EVALUATION_CONTEXT_FACTORY,
@@ -184,38 +186,6 @@ public final class NodeSelectorContextBasicTest implements ClassTesting2<NodeSel
         );
     }
 
-    // evaluateExpression...............................................................................................
-
-    @Test
-    public void testEvaluateExpression() {
-        final int number = 123;
-
-        this.evaluateExpressionAndCheck(
-            Expression.value(
-                EXPRESSION_NUMBER_KIND.create(number)
-            ),
-            EXPRESSION_NUMBER_KIND.create(number)
-        );
-    }
-
-    @Test
-    public void testEvaluateExpressionAddition() {
-        final int left = 123;
-        final int right = 456;
-
-        this.evaluateExpressionAndCheck(
-            Expression.add(
-                Expression.value(
-                    EXPRESSION_NUMBER_KIND.create(left)
-                ),
-                Expression.value(
-                    EXPRESSION_NUMBER_KIND.create(right)
-                )
-            ),
-            EXPRESSION_NUMBER_KIND.create(left + right)
-        );
-    }
-
     // toString.........................................................................................................
 
     @Test
@@ -223,14 +193,16 @@ public final class NodeSelectorContextBasicTest implements ClassTesting2<NodeSel
         final BooleanSupplier finisher = FINISHER;
         final Predicate<TestNode> filter = PREDICATE;
         final Function<TestNode, TestNode> mapper = MAPPER;
-        final Function<NodeSelectorContext<TestNode, StringName, StringName, Object>, ExpressionEvaluationContext> context = EXPRESSION_EVALUATION_CONTEXT_FACTORY;
+        final Function<TestNode, NodeSelectorExpressionEvaluationContext<TestNode, StringName, StringName, Object>> context = EXPRESSION_EVALUATION_CONTEXT_FACTORY;
 
-        this.toStringAndCheck(NodeSelectorContextBasic.with(
+        this.toStringAndCheck(
+            NodeSelectorContextBasic.with(
                 finisher,
                 filter,
                 mapper,
                 context,
-                NODE_TYPE),
+                NODE_TYPE
+            ),
             finisher + " " + filter + " " + mapper + " " + context
         );
     }

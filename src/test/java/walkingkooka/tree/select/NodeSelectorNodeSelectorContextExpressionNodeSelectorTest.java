@@ -19,19 +19,19 @@ package walkingkooka.tree.select;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
+import walkingkooka.environment.EnvironmentContextTesting;
 import walkingkooka.naming.StringName;
 import walkingkooka.text.CharSequences;
 import walkingkooka.tree.TestNode;
 import walkingkooka.tree.expression.Expression;
 import walkingkooka.tree.expression.ExpressionEvaluationContexts;
 
-import java.util.Objects;
-
 import static org.junit.jupiter.api.Assertions.assertNotSame;
 import static org.junit.jupiter.api.Assertions.assertSame;
 
 public final class NodeSelectorNodeSelectorContextExpressionNodeSelectorTest extends NodeSelectorNodeSelectorContextTestCase<NodeSelectorNodeSelectorContextExpressionNodeSelector<TestNode, StringName, StringName, Object>,
-    TestNode, StringName, StringName, Object> {
+    TestNode, StringName, StringName, Object>
+    implements EnvironmentContextTesting {
 
     private final static int INDEX = 5;
 
@@ -97,18 +97,25 @@ public final class NodeSelectorNodeSelectorContextExpressionNodeSelectorTest ext
 
     @Override
     public NodeSelectorNodeSelectorContextExpressionNodeSelector<TestNode, StringName, StringName, Object> createContext() {
+        TestNode.clear();
+        final TestNode node = TestNode.with("node");
+
         final NodeSelectorNodeSelectorContextExpressionNodeSelector<TestNode, StringName, StringName, Object> context = NodeSelectorNodeSelectorContextExpressionNodeSelector.with(
             new FakeNodeSelectorContext<TestNode, StringName, StringName, Object>() {
+                @Override
+                public TestNode node() {
+                    return node;
+                }
 
                 @Override
-                public Object evaluateExpression(final Expression expression) {
-                    Objects.requireNonNull(expression, "expression");
-
-                    return expression.toValue(
+                public NodeSelectorExpressionEvaluationContext<TestNode, StringName, StringName, Object> expressionEvaluationContext(final TestNode node) {
+                    return NodeSelectorExpressionEvaluationContexts.basic(
+                        node,
                         ExpressionEvaluationContexts.fake()
                     );
                 }
-            });
+            }
+        );
         context.position = INDEX;
         return context;
     }

@@ -22,21 +22,39 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
 import walkingkooka.collect.list.Lists;
+import walkingkooka.convert.BinaryNumberConverterFunctions;
+import walkingkooka.convert.ConverterContexts;
+import walkingkooka.convert.Converters;
+import walkingkooka.currency.CurrencyLocaleContexts;
+import walkingkooka.datetime.DateTimeContextTesting;
+import walkingkooka.environment.EnvironmentContextTesting;
+import walkingkooka.locale.LocaleContextTesting;
+import walkingkooka.math.DecimalNumberContextTesting;
 import walkingkooka.naming.Names;
 import walkingkooka.naming.StringName;
+import walkingkooka.predicate.Predicates;
 import walkingkooka.reflect.ClassTesting2;
 import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.stream.StreamTesting;
+import walkingkooka.text.CaseSensitivity;
 import walkingkooka.text.printer.TreePrintableTesting;
 import walkingkooka.tree.TestNode;
 import walkingkooka.tree.expression.Expression;
 import walkingkooka.tree.expression.ExpressionEvaluationContexts;
+import walkingkooka.tree.expression.HasExpressionNumberKindTesting;
 
 import java.util.List;
+import java.util.Objects;
+import java.util.function.Function;
 import java.util.stream.Stream;
 
 public final class NodeSelectorTest implements ClassTesting2<NodeSelector<TestNode, StringName, StringName, Object>>,
     StreamTesting<Stream<TestNode>, TestNode>,
+    DateTimeContextTesting,
+    DecimalNumberContextTesting,
+    EnvironmentContextTesting,
+    HasExpressionNumberKindTesting,
+    LocaleContextTesting,
     TreePrintableTesting {
 
     static {
@@ -150,7 +168,48 @@ public final class NodeSelectorTest implements ClassTesting2<NodeSelector<TestNo
                                     final TestNode node) {
         return selector.stream(
             node,
-            (c) -> ExpressionEvaluationContexts.fake(),
+            NodeSelectorContexts.basic(
+                () -> false,
+                Predicates.always(), // filter
+                Function.identity(), // mapper
+                (final TestNode testNode) -> NodeSelectorExpressionEvaluationContexts.basic(
+                    testNode,
+                    ExpressionEvaluationContexts.basic(
+                        EXPRESSION_NUMBER_KIND,
+                        (e, c) -> {
+                            Objects.requireNonNull(e, "expression");
+                            throw new UnsupportedOperationException();
+                        },
+                        (functionName) -> {
+                            Objects.requireNonNull(functionName, "functionName");
+                            throw functionName.unknownExpressionFunctionException();
+                        },
+                        (exception) -> exception,
+                        (reference) -> {
+                            Objects.requireNonNull(reference, "reference");
+                            throw new UnsupportedOperationException();
+                        },
+                        (referenceNotFound) -> {
+                            throw new UnsupportedOperationException();
+                        },
+                        CaseSensitivity.SENSITIVE,
+                        ConverterContexts.basic(
+                            false, // canNumbersHaveGroupSeparator
+                            Converters.JAVA_EPOCH_OFFSET,
+                            ',', // valueSeparator
+                            Converters.simple(), // converter
+                            BinaryNumberConverterFunctions.fake(), // multiplier
+                            BINARY_TEXT_CONTEXT,
+                            CurrencyLocaleContexts.fake(),
+                            DATE_TIME_CONTEXT,
+                            DECIMAL_NUMBER_CONTEXT
+                        ),
+                        ENVIRONMENT_CONTEXT.cloneEnvironment(),
+                        LOCALE_CONTEXT
+                    )
+                ),
+                TestNode.class
+            ),
             TestNode.class
         );
     }

@@ -20,7 +20,6 @@ package walkingkooka.tree.select;
 import walkingkooka.Cast;
 import walkingkooka.naming.Name;
 import walkingkooka.tree.Node;
-import walkingkooka.tree.expression.Expression;
 import walkingkooka.tree.expression.ExpressionEvaluationContext;
 import walkingkooka.tree.expression.function.ExpressionFunction;
 
@@ -43,7 +42,7 @@ final class NodeSelectorContextBasic<N extends Node<N, NAME, ANAME, AVALUE>, NAM
         C extends ExpressionEvaluationContext> NodeSelectorContextBasic<N, NAME, ANAME, AVALUE> with(final BooleanSupplier finisher,
                                                                                                      final Predicate<N> filter,
                                                                                                      final Function<N, N> mapper,
-                                                                                                     final Function<NodeSelectorContext<N, NAME, ANAME, AVALUE>, C> expressionEvaluationContextFactory,
+                                                                                                     final Function<N, NodeSelectorExpressionEvaluationContext<N, NAME, ANAME, AVALUE>> expressionEvaluationContextFactory,
                                                                                                      final Class<N> nodeType) {
         Objects.requireNonNull(finisher, "finisher");
         Objects.requireNonNull(filter, "filter");
@@ -62,7 +61,7 @@ final class NodeSelectorContextBasic<N extends Node<N, NAME, ANAME, AVALUE>, NAM
     private NodeSelectorContextBasic(final BooleanSupplier finisher,
                                      final Predicate<N> filter,
                                      final Function<N, N> mapper,
-                                     final Function<NodeSelectorContext<N, NAME, ANAME, AVALUE>, ExpressionEvaluationContext> expressionEvaluationContextFactory) {
+                                     final Function<N, NodeSelectorExpressionEvaluationContext<N, NAME, ANAME, AVALUE>> expressionEvaluationContextFactory) {
         this.finisher = finisher;
         this.filter = filter;
         this.mapper = mapper;
@@ -118,23 +117,20 @@ final class NodeSelectorContextBasic<N extends Node<N, NAME, ANAME, AVALUE>, NAM
 
     private final Function<N, N> mapper;
 
-    @Override
-    public Object evaluateExpression(final Expression expression) {
-        Objects.requireNonNull(expression, "expression");
+    /**
+     * The current {@link Node} which is also becomes the first argument for all {@link ExpressionFunction} invocations.
+     */
+    private N current;
 
-        return this.expressionEvaluationContextFactory.apply(this)
-            .evaluateExpression(expression);
+    @Override
+    public NodeSelectorExpressionEvaluationContext<N, NAME, ANAME, AVALUE> expressionEvaluationContext(final N node) {
+        return this.expressionEvaluationContextFactory.apply(node);
     }
 
     /**
      * A factory that returns a {@link ExpressionEvaluationContext} after being given a {@link NodeSelectorContext}.
      */
-    private final Function<NodeSelectorContext<N, NAME, ANAME, AVALUE>, ExpressionEvaluationContext> expressionEvaluationContextFactory;
-
-    /**
-     * The current {@link Node} which is also becomes the first argument for all {@link ExpressionFunction} invocations.
-     */
-    private N current;
+    private final Function<N, NodeSelectorExpressionEvaluationContext<N, NAME, ANAME, AVALUE>> expressionEvaluationContextFactory;
 
     @Override
     public String toString() {
