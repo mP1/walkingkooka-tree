@@ -42,7 +42,7 @@ public final class NodeSelectorContexts implements PublicStaticHelper {
         C extends ExpressionEvaluationContext> NodeSelectorContext<N, NAME, ANAME, AVALUE> basic(final BooleanSupplier finisher,
                                                                                                  final Predicate<N> filter,
                                                                                                  final Function<N, N> mapper,
-                                                                                                 final Function<NodeSelectorContext<N, NAME, ANAME, AVALUE>, C> expressionEvaluationContextFactory,
+                                                                                                 final Function<N, NodeSelectorExpressionEvaluationContext<N, NAME, ANAME, AVALUE>> expressionEvaluationContextFactory,
                                                                                                  final Class<N> nodeType) {
         return NodeSelectorContextBasic.with(
             finisher,

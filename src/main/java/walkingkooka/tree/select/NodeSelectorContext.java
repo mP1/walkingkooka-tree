@@ -20,13 +20,11 @@ package walkingkooka.tree.select;
 import walkingkooka.Context;
 import walkingkooka.naming.Name;
 import walkingkooka.tree.Node;
-import walkingkooka.tree.expression.CanEvaluateExpression;
 
 /**
  * The {@link Context} that accompanies all match requests. Not it gathers the selected nodes and so cant be reused.
  */
-public interface NodeSelectorContext<N extends Node<N, NAME, ANAME, AVALUE>, NAME extends Name, ANAME extends Name, AVALUE> extends Context,
-    CanEvaluateExpression {
+public interface NodeSelectorContext<N extends Node<N, NAME, ANAME, AVALUE>, NAME extends Name, ANAME extends Name, AVALUE> extends Context {
 
     /**
      * One time flag that when true aborts future attempts to test and select additional {@link Node nodes}.
@@ -53,4 +51,9 @@ public interface NodeSelectorContext<N extends Node<N, NAME, ANAME, AVALUE>, NAM
      * Invoked with each and every selected {@link Node node}.
      */
     N selected(final N node);
+
+    /**
+     * Create a new {@link NodeSelectorExpressionEvaluationContext} with the given {@link Node}.
+     */
+    NodeSelectorExpressionEvaluationContext<N, NAME, ANAME, AVALUE> expressionEvaluationContext(final N node);
 }

@@ -20,7 +20,6 @@ package walkingkooka.tree.select;
 import walkingkooka.ContextTesting;
 import walkingkooka.naming.Name;
 import walkingkooka.tree.Node;
-import walkingkooka.tree.expression.CanEvaluateExpressionTesting2;
 
 /**
  * Mixing testing interface for {@link NodeSelectorContext}
@@ -30,15 +29,7 @@ public interface NodeSelectorContextTesting2<C extends NodeSelectorContext<N, NA
     NAME extends Name,
     ANAME extends Name,
     AVALUE> extends ContextTesting<C>,
-    NodeSelectorContextTesting,
-    CanEvaluateExpressionTesting2<C> {
-
-    // CanEvaluateExpressionTesting2....................................................................................
-
-    @Override
-    default C createCanEvaluateExpression() {
-        return this.createContext();
-    }
+    NodeSelectorContextTesting {
 
     // class............................................................................................................
 

@@ -21,11 +21,9 @@ import walkingkooka.naming.Name;
 import walkingkooka.predicate.Predicates;
 import walkingkooka.stream.push.PushableStreamConsumer;
 import walkingkooka.tree.Node;
-import walkingkooka.tree.expression.ExpressionEvaluationContext;
 
 import java.util.Objects;
 import java.util.function.Consumer;
-import java.util.function.Function;
 import java.util.stream.Stream;
 
 /**
@@ -44,14 +42,17 @@ final class NodeSelectorStreamConsumerPushableStreamConsumer<N extends Node<N, N
         ANAME extends Name,
         AVALUE> NodeSelectorStreamConsumerPushableStreamConsumer<N, NAME, ANAME, AVALUE> with(final N node,
                                                                                               final NodeSelector<N, NAME, ANAME, AVALUE> selector,
-                                                                                              final Function<NodeSelectorContext<N, NAME, ANAME, AVALUE>, ExpressionEvaluationContext> expressionEvaluationContextFactory,
+                                                                                              final NodeSelectorContext<N, NAME, ANAME, AVALUE> context,
                                                                                               final Class<N> nodeType) {
         Objects.requireNonNull(node, "node");
 
-        return new NodeSelectorStreamConsumerPushableStreamConsumer<>(node,
+        return new NodeSelectorStreamConsumerPushableStreamConsumer<>(
+            node,
             selector,
-            expressionEvaluationContextFactory,
-            nodeType);
+            //expressionEvaluationContextFactory,
+            context,
+            nodeType
+        );
     }
 
     /**
@@ -59,7 +60,7 @@ final class NodeSelectorStreamConsumerPushableStreamConsumer<N extends Node<N, N
      */
     private NodeSelectorStreamConsumerPushableStreamConsumer(final N node,
                                                              final NodeSelector<N, NAME, ANAME, AVALUE> selector,
-                                                             final Function<NodeSelectorContext<N, NAME, ANAME, AVALUE>, ExpressionEvaluationContext> expressionEvaluationContextFactory,
+                                                             final NodeSelectorContext<N, NAME, ANAME, AVALUE> context,
                                                              final Class<N> nodeType) {
         super();
         this.selector = selector;
@@ -69,7 +70,7 @@ final class NodeSelectorStreamConsumerPushableStreamConsumer<N extends Node<N, N
             this::finisher,
             Predicates.always(),
             this::mapper,
-            expressionEvaluationContextFactory,
+            context::expressionEvaluationContext,
             nodeType
         );
     }

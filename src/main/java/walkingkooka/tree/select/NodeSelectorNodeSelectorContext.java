@@ -82,8 +82,8 @@ abstract class NodeSelectorNodeSelectorContext<N extends Node<N, NAME, ANAME, AV
     }
 
     @Override
-    public final Object evaluateExpression(final Expression expression) {
-        return this.context.evaluateExpression(expression);
+    public final NodeSelectorExpressionEvaluationContext<N, NAME, ANAME, AVALUE> expressionEvaluationContext(final N node) {
+        return this.context.expressionEvaluationContext(node);
     }
 
     /**

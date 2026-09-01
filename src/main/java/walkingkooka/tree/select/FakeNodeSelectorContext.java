@@ -20,7 +20,6 @@ package walkingkooka.tree.select;
 import walkingkooka.naming.Name;
 import walkingkooka.test.Fake;
 import walkingkooka.tree.Node;
-import walkingkooka.tree.expression.Expression;
 
 public class FakeNodeSelectorContext<N extends Node<N, NAME, ANAME, AVALUE>,
     NAME extends Name,
@@ -52,11 +51,8 @@ public class FakeNodeSelectorContext<N extends Node<N, NAME, ANAME, AVALUE>,
         throw new UnsupportedOperationException();
     }
 
-    /**
-     * Evaluates the {@link Expression} returning the value.
-     */
     @Override
-    public Object evaluateExpression(final Expression expression) {
+    public NodeSelectorExpressionEvaluationContext<N, NAME, ANAME, AVALUE> expressionEvaluationContext(final N node) {
         throw new UnsupportedOperationException();
     }
 }

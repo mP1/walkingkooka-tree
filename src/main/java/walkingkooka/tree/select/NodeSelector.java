@@ -24,7 +24,6 @@ import walkingkooka.text.printer.IndentingPrinter;
 import walkingkooka.text.printer.TreePrintable;
 import walkingkooka.tree.Node;
 import walkingkooka.tree.expression.Expression;
-import walkingkooka.tree.expression.ExpressionEvaluationContext;
 import walkingkooka.tree.expression.ExpressionFunctionName;
 import walkingkooka.tree.expression.HasExpressionNumberKind;
 import walkingkooka.tree.select.parser.ExpressionNodeSelectorParserToken;
@@ -457,13 +456,13 @@ public abstract class NodeSelector<N extends Node<N, NAME, ANAME, AVALUE>,
      * {@link Stream} for further stream processing.
      */
     public final Stream<N> stream(final N node,
-                                  final Function<NodeSelectorContext<N, NAME, ANAME, AVALUE>, ExpressionEvaluationContext> expressionEvaluationContextFactory,
+                                  final NodeSelectorContext<N, NAME, ANAME, AVALUE> context,
                                   final Class<N> nodeType) {
         return PushableStreamConsumer.stream(
             NodeSelectorStreamConsumerPushableStreamConsumer.with(
                 node,
                 this,
-                expressionEvaluationContextFactory,
+                context,
                 nodeType
             )
         );
