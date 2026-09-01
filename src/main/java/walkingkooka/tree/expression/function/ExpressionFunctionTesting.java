@@ -26,7 +26,7 @@ import walkingkooka.tree.expression.ExpressionEvaluationContext;
 import walkingkooka.tree.expression.ExpressionNumberKind;
 import walkingkooka.tree.expression.ExpressionPurityTesting;
 import walkingkooka.tree.expression.ExpressionReference;
-import walkingkooka.util.BiFunctionTesting;
+import walkingkooka.util.BiFunctionTesting2;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -39,7 +39,7 @@ import static org.junit.jupiter.api.Assertions.fail;
  * Mixing interface that provides methods to test a {@link ExpressionFunction}
  */
 public interface ExpressionFunctionTesting<F extends ExpressionFunction<V, C>, V, C extends ExpressionEvaluationContext>
-    extends BiFunctionTesting<F, List<Object>, C, V>,
+    extends BiFunctionTesting2<F, List<Object>, C, V>,
     ExpressionPurityTesting,
     TypeNameTesting<F> {
 
