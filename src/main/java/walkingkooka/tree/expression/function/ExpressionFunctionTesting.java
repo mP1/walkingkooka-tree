@@ -20,6 +20,7 @@ package walkingkooka.tree.expression.function;
 import org.junit.jupiter.api.Test;
 import walkingkooka.NeverError;
 import walkingkooka.collect.list.Lists;
+import walkingkooka.reflect.PackagePrivateClassTesting;
 import walkingkooka.reflect.TypeNameTesting;
 import walkingkooka.text.CharSequences;
 import walkingkooka.tree.expression.ExpressionEvaluationContext;
@@ -41,6 +42,7 @@ import static org.junit.jupiter.api.Assertions.fail;
 public interface ExpressionFunctionTesting<F extends ExpressionFunction<V, C>, V, C extends ExpressionEvaluationContext>
     extends BiFunctionTesting2<F, List<Object>, C, V>,
     ExpressionPurityTesting,
+    PackagePrivateClassTesting<F>,
     TypeNameTesting<F> {
 
     @Test
