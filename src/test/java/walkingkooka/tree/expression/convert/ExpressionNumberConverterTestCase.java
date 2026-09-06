@@ -25,19 +25,16 @@ import walkingkooka.convert.Converters;
 import walkingkooka.currency.CurrencyLocaleContexts;
 import walkingkooka.datetime.DateTimeContexts;
 import walkingkooka.math.DecimalNumberContextTesting;
-import walkingkooka.text.Indentation;
-import walkingkooka.text.LineEnding;
-import walkingkooka.text.TextPrinting;
+import walkingkooka.text.BinaryTextContextTesting;
 import walkingkooka.tree.expression.ExpressionNumberKind;
-
-import java.nio.charset.StandardCharsets;
+import walkingkooka.tree.expression.HasExpressionNumberKindTesting;
 
 public abstract class ExpressionNumberConverterTestCase<C extends ExpressionNumberConverter<ExpressionNumberConverterContext>>
     implements ConverterTesting2<C, ExpressionNumberConverterContext>,
+    BinaryTextContextTesting,
     DecimalNumberContextTesting,
+    HasExpressionNumberKindTesting,
     ToStringTesting<C> {
-
-    private final static ExpressionNumberKind EXPRESSION_NUMBER_KIND = ExpressionNumberKind.BIG_DECIMAL;
 
     ExpressionNumberConverterTestCase() {
         super();
@@ -58,10 +55,7 @@ public abstract class ExpressionNumberConverterTestCase<C extends ExpressionNumb
                 ',', // valueSeparator
                 Converters.fake(),
                 BinaryNumberConverterFunctions.fake(), // multiplier
-                TextPrinting.with(
-                    Indentation.SPACES2,
-                    LineEnding.NL
-                ).setCharset(StandardCharsets.UTF_8),
+                BINARY_TEXT_CONTEXT,
                 CurrencyLocaleContexts.fake(),
                 DateTimeContexts.fake(),
                 DECIMAL_NUMBER_CONTEXT
