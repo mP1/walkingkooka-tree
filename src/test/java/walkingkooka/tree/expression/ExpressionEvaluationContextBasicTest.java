@@ -35,7 +35,6 @@ import walkingkooka.environment.EnvironmentContextTesting;
 import walkingkooka.math.DecimalNumberContext;
 import walkingkooka.math.DecimalNumberContextDelegator;
 import walkingkooka.reflect.ClassTesting2;
-import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.reflect.ThrowableTesting;
 import walkingkooka.text.CaseSensitivity;
 import walkingkooka.text.TextPrinting;
@@ -1123,11 +1122,6 @@ public final class ExpressionEvaluationContextBasicTest implements ClassTesting2
     @Override
     public Class<ExpressionEvaluationContextBasic> type() {
         return Cast.to(ExpressionEvaluationContextBasic.class);
-    }
-
-    @Override
-    public JavaVisibility typeVisibility() {
-        return JavaVisibility.PACKAGE_PRIVATE;
     }
 
     @Override

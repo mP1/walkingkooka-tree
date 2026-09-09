@@ -74,6 +74,11 @@ public final class ExpressionNumberConverterContextDelegatorTest implements Expr
         return TestExpressionNumberConverterContextDelegator.class;
     }
 
+    @Override
+    public void testTestNaming() {
+        throw new UnsupportedOperationException();
+    }
+
     final static class TestExpressionNumberConverterContextDelegator implements ExpressionNumberConverterContextDelegator {
 
         @Override

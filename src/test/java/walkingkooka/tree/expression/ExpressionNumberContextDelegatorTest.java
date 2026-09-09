@@ -74,4 +74,9 @@ public class ExpressionNumberContextDelegatorTest implements ExpressionNumberCon
     public Class<TestExpressionNumberContextDelegator> type() {
         return TestExpressionNumberContextDelegator.class;
     }
+
+    @Override
+    public void testTestNaming() {
+        throw new UnsupportedOperationException();
+    }
 }
