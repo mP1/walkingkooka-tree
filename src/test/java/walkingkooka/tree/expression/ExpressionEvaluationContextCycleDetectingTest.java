@@ -30,7 +30,6 @@ import walkingkooka.datetime.DateTimeContexts;
 import walkingkooka.math.DecimalNumberContext;
 import walkingkooka.math.DecimalNumberContextDelegator;
 import walkingkooka.reflect.ClassTesting2;
-import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.text.CaseSensitivity;
 import walkingkooka.text.cursor.parser.BigIntegerParserToken;
 import walkingkooka.text.cursor.parser.InvalidCharacterExceptionFactory;
@@ -511,11 +510,6 @@ public final class ExpressionEvaluationContextCycleDetectingTest implements Clas
     @Override
     public Class<ExpressionEvaluationContextCycleDetecting> type() {
         return ExpressionEvaluationContextCycleDetecting.class;
-    }
-
-    @Override
-    public JavaVisibility typeVisibility() {
-        return JavaVisibility.PACKAGE_PRIVATE;
     }
 
     @Override

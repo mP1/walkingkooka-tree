@@ -20,7 +20,6 @@ package walkingkooka.tree.select;
 import walkingkooka.naming.Name;
 import walkingkooka.naming.StringName;
 import walkingkooka.reflect.ClassTesting2;
-import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.tree.Node;
 import walkingkooka.tree.TestNode;
 import walkingkooka.tree.expression.ExpressionNumberKind;
@@ -64,10 +63,5 @@ public abstract class NodeSelectorNodeSelectorContextTestCase<C extends NodeSele
     @Override
     public final String typeNameSuffix() {
         return "";
-    }
-
-    @Override
-    public final JavaVisibility typeVisibility() {
-        return JavaVisibility.PACKAGE_PRIVATE;
     }
 }

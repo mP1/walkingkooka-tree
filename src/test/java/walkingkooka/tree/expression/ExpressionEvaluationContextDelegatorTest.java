@@ -99,6 +99,11 @@ public final class ExpressionEvaluationContextDelegatorTest implements Expressio
         return TestExpressionEvaluationContextDelegator.class;
     }
 
+    @Override
+    public void testTestNaming() {
+        throw new UnsupportedOperationException();
+    }
+
     static final class TestExpressionEvaluationContextDelegator implements ExpressionEvaluationContextDelegator {
 
         TestExpressionEvaluationContextDelegator() {

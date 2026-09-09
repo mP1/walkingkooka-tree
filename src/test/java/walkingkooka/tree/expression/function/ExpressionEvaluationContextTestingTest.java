@@ -124,6 +124,11 @@ public class ExpressionEvaluationContextTestingTest implements ExpressionEvaluat
         return TestExpressionEvaluationContext.class;
     }
 
+    @Override
+    public void testTestNaming() {
+        throw new UnsupportedOperationException();
+    }
+
     // HasEnvironmentContext............................................................................................
 
     @Test

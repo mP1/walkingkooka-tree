@@ -58,4 +58,9 @@ public final class NodeSelectorContextDelegatorTest implements NodeSelectorConte
     public void testTypeNaming() {
         throw new UnsupportedOperationException();
     }
+
+    @Override
+    public void testTestNaming() {
+        throw new UnsupportedOperationException();
+    }
 }

@@ -30,7 +30,6 @@ import walkingkooka.math.DecimalNumberContextTesting;
 import walkingkooka.naming.StringName;
 import walkingkooka.predicate.Predicates;
 import walkingkooka.reflect.ClassTesting2;
-import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.text.CaseSensitivity;
 import walkingkooka.tree.TestNode;
 import walkingkooka.tree.expression.ExpressionEvaluationContexts;
@@ -218,11 +217,6 @@ public final class NodeSelectorContextBasicTest implements ClassTesting2<NodeSel
     @Override
     public Class<NodeSelectorContextBasic<TestNode, StringName, StringName, Object>> type() {
         return Cast.to(NodeSelectorContextBasic.class);
-    }
-
-    @Override
-    public JavaVisibility typeVisibility() {
-        return JavaVisibility.PACKAGE_PRIVATE;
     }
 
     @Override
