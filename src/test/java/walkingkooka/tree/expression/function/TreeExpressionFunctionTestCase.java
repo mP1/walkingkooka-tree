@@ -44,6 +44,7 @@ public abstract class TreeExpressionFunctionTestCase<F extends TreeExpressionFun
             },
             false == (
                 this instanceof TreeExpressionFunctionLambdaTest ||
+                    this instanceof TreeExpressionFunctionLogTest ||
                     this instanceof TreeExpressionFunctionLoggingTestCase
             )
         );

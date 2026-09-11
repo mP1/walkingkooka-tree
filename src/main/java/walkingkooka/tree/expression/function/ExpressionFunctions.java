@@ -98,6 +98,7 @@ public final class ExpressionFunctions implements PublicStaticHelper {
             listNonNull(),
             locale(),
             localeLanguageTag(),
+            log(),
             node(),
             nodeName(),
             nullFunction(),
@@ -237,6 +238,13 @@ public final class ExpressionFunctions implements PublicStaticHelper {
      */
     public static <C extends ExpressionEvaluationContext> ExpressionFunction<LocaleLanguageTag, C> localeLanguageTag() {
         return TreeExpressionFunctionLocaleLanguageTag.instance();
+    }
+
+    /**
+     * {@see TreeExpressionFunctionLog}
+     */
+    public static <C extends ExpressionEvaluationContext> ExpressionFunction<Void, C> log() {
+        return TreeExpressionFunctionLog.instance();
     }
 
     /**
