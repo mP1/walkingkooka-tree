@@ -48,7 +48,7 @@ abstract class TreeExpressionFunctionLogging<C extends ExpressionEvaluationConte
 
     @Override
     public boolean isPure(final ExpressionPurityContext context) {
-        return true;
+        return false;
     }
 
     @Override
