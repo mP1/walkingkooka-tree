@@ -120,6 +120,32 @@ public final class ExpressionEvaluationContextBasicTest implements ClassTesting2
     );
 
     @Test
+    public void testConverterContextDoesntImplementHasExpressionNumberKind() {
+        this.checkNotEquals(
+            true,
+            CONVERTER_CONTEXT instanceof HasExpressionNumberKind
+        );
+    }
+
+    @Test
+    public void testDecimalNumberContextDoesntImplementHasExpressionNumberKind() {
+        this.checkNotEquals(
+            true,
+            DECIMAL_NUMBER_CONTEXT instanceof HasExpressionNumberKind
+        );
+    }
+
+    @Test
+    public void testEnvironmentContextDoesntImplementHasExpressionNumberKind() {
+        this.checkNotEquals(
+            true,
+            ENVIRONMENT_CONTEXT instanceof HasExpressionNumberKind
+        );
+    }
+
+    // with..............................................................................................................
+
+    @Test
     public void testWithNullExpressionNumberKindFails() {
         assertThrows(
             NullPointerException.class,
