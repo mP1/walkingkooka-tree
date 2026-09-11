@@ -92,6 +92,7 @@ public final class ExpressionFunctions implements PublicStaticHelper {
             currencyValue(),
             debug(),
             eval(),
+            info(),
             list(),
             listNonNull(),
             locale(),
@@ -179,6 +180,13 @@ public final class ExpressionFunctions implements PublicStaticHelper {
      */
     public static <T, C extends ExpressionEvaluationContext> ExpressionFunction<T, C> fake() {
         return new FakeExpressionFunction<>();
+    }
+
+    /**
+     * {@see TreeExpressionFunctionLoggingInfo}
+     */
+    public static <C extends ExpressionEvaluationContext> ExpressionFunction<Void, C> info() {
+        return TreeExpressionFunctionLoggingInfo.instance();
     }
 
     /**
