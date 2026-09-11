@@ -969,6 +969,8 @@ public final class ExpressionEvaluationContextBasicTest implements ClassTesting2
         this.convertAndCheck(123.0, Long.class, 123L);
     }
 
+    // stringEqualsCaseSensitivity......................................................................................
+
     @Test
     public void testStringEqualsCaseSensitivity() {
         this.checkEquals(
