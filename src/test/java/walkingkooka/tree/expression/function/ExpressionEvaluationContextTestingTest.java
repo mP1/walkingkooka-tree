@@ -30,6 +30,7 @@ import walkingkooka.environment.EnvironmentValueName;
 import walkingkooka.locale.LocaleContext;
 import walkingkooka.locale.LocaleContextDelegator;
 import walkingkooka.locale.LocaleContexts;
+import walkingkooka.logging.LoggingLevel;
 import walkingkooka.math.DecimalNumberContext;
 import walkingkooka.math.DecimalNumberContextDelegator;
 import walkingkooka.net.email.EmailAddress;
@@ -93,6 +94,7 @@ public class ExpressionEvaluationContextTestingTest implements ExpressionEvaluat
     public void testSetIndentationWithDifferentAndWatcher() {
         throw new UnsupportedOperationException();
     }
+
 
     @Override
     public void testSetTimeOffsetWithDifferentAndWatcher() {
@@ -356,6 +358,11 @@ public class ExpressionEvaluationContextTestingTest implements ExpressionEvaluat
         @Override
         public void setLocale(final Locale locale) {
             this.environmentContext.setLocale(locale);
+        }
+
+        @Override
+        public void setLoggingLevel(final LoggingLevel loggingLevel) {
+            this.environmentContext.setLoggingLevel(loggingLevel);
         }
 
         @Override
