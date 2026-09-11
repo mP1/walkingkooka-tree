@@ -23,13 +23,12 @@ import walkingkooka.currency.CurrencyCode;
 import walkingkooka.currency.CurrencyExchange;
 import walkingkooka.datetime.DateTimeContext;
 import walkingkooka.datetime.DateTimeContextDelegator;
-import walkingkooka.datetime.DateTimeContexts;
+import walkingkooka.datetime.DateTimeContextTesting;
 import walkingkooka.environment.EnvironmentContext;
 import walkingkooka.environment.EnvironmentContextDelegator;
 import walkingkooka.environment.EnvironmentValueName;
 import walkingkooka.locale.LocaleContext;
 import walkingkooka.locale.LocaleContextDelegator;
-import walkingkooka.locale.LocaleContexts;
 import walkingkooka.logging.LoggingLevel;
 import walkingkooka.math.DecimalNumberContext;
 import walkingkooka.math.DecimalNumberContextDelegator;
@@ -47,7 +46,6 @@ import walkingkooka.tree.expression.function.ExpressionEvaluationContextTestingT
 
 import java.math.MathContext;
 import java.nio.charset.Charset;
-import java.nio.charset.StandardCharsets;
 import java.time.LocalDateTime;
 import java.util.Currency;
 import java.util.Locale;
@@ -57,6 +55,7 @@ import java.util.Set;
 import java.util.function.Function;
 
 public class ExpressionEvaluationContextTestingTest implements ExpressionEvaluationContextTesting2<TestExpressionEvaluationContext>,
+    DateTimeContextTesting,
     DecimalNumberContextDelegator {
 
     private final static String UNKNOWN_REFERENCE_MESSAGE = "Unknown reference 123";
@@ -77,27 +76,6 @@ public class ExpressionEvaluationContextTestingTest implements ExpressionEvaluat
 
     @Override
     public void testEvaluateExpressionUnknownFunctionNameFails() {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public void testRemoveEnvironmentValueWithNowFails() {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public void testSetEnvironmentValueWithNowFails() {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public void testSetIndentationWithDifferentAndWatcher() {
-        throw new UnsupportedOperationException();
-    }
-
-
-    @Override
-    public void testSetTimeOffsetWithDifferentAndWatcher() {
         throw new UnsupportedOperationException();
     }
 
@@ -167,7 +145,7 @@ public class ExpressionEvaluationContextTestingTest implements ExpressionEvaluat
 
         @Override
         public Charset charset() {
-            return StandardCharsets.UTF_8;
+            return this.environmentContext.charset();
         }
 
         @Override
@@ -177,7 +155,7 @@ public class ExpressionEvaluationContextTestingTest implements ExpressionEvaluat
 
         @Override
         public Indentation indentation() {
-            return Indentation.SPACES2;
+            return this.environmentContext.indentation();
         }
 
         @Override
@@ -266,17 +244,7 @@ public class ExpressionEvaluationContextTestingTest implements ExpressionEvaluat
 
         @Override
         public DateTimeContext dateTimeContext() {
-            final LocaleContext localeContext = this.localeContext();
-            final Locale locale = localeContext.locale();
-
-            return DateTimeContexts.basic(
-                localeContext.dateTimeSymbolsForLocale(locale)
-                    .get(),
-                locale,
-                1950, // defaultYear
-                50, // twoDigitYear
-                () -> LocalDateTime.MIN
-            );
+            return DATE_TIME_CONTEXT;
         }
 
         @Override
@@ -291,7 +259,7 @@ public class ExpressionEvaluationContextTestingTest implements ExpressionEvaluat
 
         @Override
         public LocaleContext localeContext() {
-            return LocaleContexts.jre(Locale.FRANCE);
+            return LOCALE_CONTEXT;
         }
 
         @Override
@@ -321,17 +289,16 @@ public class ExpressionEvaluationContextTestingTest implements ExpressionEvaluat
 
         @Override
         public void removeEnvironmentValue(final EnvironmentValueName<?> environmentValueName) {
-            Objects.requireNonNull(environmentValueName, "environmentValueName");
-            throw new UnsupportedOperationException();
+            this.environmentContext.removeEnvironmentValue(environmentValueName);
         }
 
         @Override
         public <T> void setEnvironmentValue(final EnvironmentValueName<T> environmentValueName,
                                             final T reference) {
-            Objects.requireNonNull(environmentValueName, "environmentValueName");
-            Objects.requireNonNull(reference, "reference");
-
-            throw new UnsupportedOperationException();
+            this.environmentContext.setEnvironmentValue(
+                environmentValueName,
+                reference
+            );
         }
 
         @Override
