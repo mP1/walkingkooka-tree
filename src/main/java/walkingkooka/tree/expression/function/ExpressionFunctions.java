@@ -90,6 +90,7 @@ public final class ExpressionFunctions implements PublicStaticHelper {
             currency(),
             currencyCode(),
             currencyValue(),
+            debug(),
             eval(),
             list(),
             listNonNull(),
@@ -139,6 +140,13 @@ public final class ExpressionFunctions implements PublicStaticHelper {
      */
     public static <C extends ExpressionEvaluationContext> ExpressionFunction<CurrencyValue, C> currencyValue() {
         return TreeExpressionFunctionCurrencyValue.instance();
+    }
+
+    /**
+     * {@see TreeExpressionFunctionLoggingDebug}
+     */
+    public static <C extends ExpressionEvaluationContext> ExpressionFunction<Void, C> debug() {
+        return TreeExpressionFunctionLoggingDebug.instance();
     }
 
     /**
