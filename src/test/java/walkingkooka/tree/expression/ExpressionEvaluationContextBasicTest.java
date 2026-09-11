@@ -67,6 +67,50 @@ public final class ExpressionEvaluationContextBasicTest implements ClassTesting2
         return e + e;
     };
 
+    private static Function<ExpressionFunctionName, ExpressionFunction<?, ExpressionEvaluationContext>> functions(final boolean pure) {
+        return (functionName) -> {
+            Objects.requireNonNull(functionName, "functionName");
+
+            if (false == FUNCTION_NAME.equals(functionName)) {
+                throw functionName.unknownExpressionFunctionException();
+            }
+
+            return new FakeExpressionFunction<>() {
+                @Override
+                public Object apply(final List<Object> parameters,
+                                    final ExpressionEvaluationContext context) {
+                    Objects.requireNonNull(parameters, "parameters");
+                    Objects.requireNonNull(context, "context");
+
+                    return FUNCTION_VALUE;
+                }
+
+                @Override
+                public List<ExpressionFunctionParameter<?>> parameters(final int count) {
+                    return Lists.of(
+                        ExpressionFunctionParameterName.VALUE.required(Object.class)
+                    );
+                }
+
+                @Override
+                public boolean isPure(final ExpressionPurityContext context) {
+                    return pure;
+                }
+            };
+        };
+    }
+
+    private final static ExpressionFunctionName FUNCTION_NAME = ExpressionFunctionName.with("sum");
+
+    private final static List<Object> FUNCTION_PARAMETERS = Lists.of(
+        "parameter-1",
+        2
+    );
+
+    private final static Object FUNCTION_VALUE = "function-value-234";
+
+    private final static Function<ExpressionFunctionName, ExpressionFunction<?, ExpressionEvaluationContext>> FUNCTIONS = functions(true);
+
     private final static ExpressionReference REFERENCE = new FakeExpressionReference() {
     };
 
@@ -152,7 +196,7 @@ public final class ExpressionEvaluationContextBasicTest implements ClassTesting2
             () -> ExpressionEvaluationContextBasic.with(
                 null,
                 EVALUATOR,
-                this.functions(),
+                FUNCTIONS,
                 EXCEPTION_HANDLER,
                 REFERENCES,
                 ExpressionEvaluationContexts.referenceNotFound(),
@@ -190,7 +234,7 @@ public final class ExpressionEvaluationContextBasicTest implements ClassTesting2
             () -> ExpressionEvaluationContextBasic.with(
                 EXPRESSION_NUMBER_KIND,
                 EVALUATOR,
-                this.functions(),
+                FUNCTIONS,
                 null,
                 REFERENCES,
                 ExpressionEvaluationContexts.referenceNotFound(),
@@ -209,7 +253,7 @@ public final class ExpressionEvaluationContextBasicTest implements ClassTesting2
             () -> ExpressionEvaluationContextBasic.with(
                 EXPRESSION_NUMBER_KIND,
                 EVALUATOR,
-                this.functions(),
+                FUNCTIONS,
                 EXCEPTION_HANDLER,
                 null,
                 ExpressionEvaluationContexts.referenceNotFound(),
@@ -228,7 +272,7 @@ public final class ExpressionEvaluationContextBasicTest implements ClassTesting2
             () -> ExpressionEvaluationContextBasic.with(
                 EXPRESSION_NUMBER_KIND,
                 EVALUATOR,
-                this.functions(),
+                FUNCTIONS,
                 EXCEPTION_HANDLER,
                 REFERENCES,
                 null,
@@ -247,7 +291,7 @@ public final class ExpressionEvaluationContextBasicTest implements ClassTesting2
             () -> ExpressionEvaluationContextBasic.with(
                 EXPRESSION_NUMBER_KIND,
                 EVALUATOR,
-                this.functions(),
+                FUNCTIONS,
                 EXCEPTION_HANDLER,
                 REFERENCES,
                 ExpressionEvaluationContexts.referenceNotFound(),
@@ -266,7 +310,7 @@ public final class ExpressionEvaluationContextBasicTest implements ClassTesting2
             () -> ExpressionEvaluationContextBasic.with(
                 EXPRESSION_NUMBER_KIND,
                 EVALUATOR,
-                this.functions(),
+                FUNCTIONS,
                 EXCEPTION_HANDLER,
                 REFERENCES,
                 ExpressionEvaluationContexts.referenceNotFound(),
@@ -285,7 +329,7 @@ public final class ExpressionEvaluationContextBasicTest implements ClassTesting2
             () -> ExpressionEvaluationContextBasic.with(
                 EXPRESSION_NUMBER_KIND,
                 EVALUATOR,
-                this.functions(),
+                FUNCTIONS,
                 EXCEPTION_HANDLER,
                 REFERENCES,
                 ExpressionEvaluationContexts.referenceNotFound(),
@@ -304,7 +348,7 @@ public final class ExpressionEvaluationContextBasicTest implements ClassTesting2
             () -> ExpressionEvaluationContextBasic.with(
                 EXPRESSION_NUMBER_KIND,
                 EVALUATOR,
-                this.functions(),
+                FUNCTIONS,
                 EXCEPTION_HANDLER,
                 REFERENCES,
                 ExpressionEvaluationContexts.referenceNotFound(),
@@ -945,7 +989,6 @@ public final class ExpressionEvaluationContextBasicTest implements ClassTesting2
 
     @Test
     public void testToString() {
-        final Function<ExpressionFunctionName, ExpressionFunction<?, ExpressionEvaluationContext>> functions = this.functions();
         final Function<ExpressionReference, Optional<Optional<Object>>> references = REFERENCES;
         final Function<ExpressionReference, ExpressionEvaluationException> referenceNotFound = ExpressionEvaluationContexts.referenceNotFound();
 
@@ -953,7 +996,7 @@ public final class ExpressionEvaluationContextBasicTest implements ClassTesting2
             ExpressionEvaluationContextBasic.with(
                 EXPRESSION_NUMBER_KIND,
                 EVALUATOR,
-                functions,
+                FUNCTIONS,
                 EXCEPTION_HANDLER,
                 references,
                 referenceNotFound,
@@ -966,7 +1009,7 @@ public final class ExpressionEvaluationContextBasicTest implements ClassTesting2
                 " " +
                 EVALUATOR +
                 " " +
-                functions +
+                FUNCTIONS +
                 " " +
                 EXCEPTION_HANDLER +
                 " " +
@@ -1010,7 +1053,7 @@ public final class ExpressionEvaluationContextBasicTest implements ClassTesting2
         return ExpressionEvaluationContextBasic.with(
             EXPRESSION_NUMBER_KIND,
             EVALUATOR,
-            this.functions(pure),
+            functions(pure),
             EXCEPTION_HANDLER,
             REFERENCES,
             REFERENCE_NOT_FOUND,
@@ -1036,52 +1079,6 @@ public final class ExpressionEvaluationContextBasicTest implements ClassTesting2
             LOCALE_CONTEXT
         );
     }
-
-    private Function<ExpressionFunctionName, ExpressionFunction<?, ExpressionEvaluationContext>> functions() {
-        return this.functions(true);
-    }
-
-    private Function<ExpressionFunctionName, ExpressionFunction<?, ExpressionEvaluationContext>> functions(final boolean pure) {
-        return (functionName) -> {
-            Objects.requireNonNull(functionName, "functionName");
-
-            if (false == FUNCTION_NAME.equals(functionName)) {
-                throw functionName.unknownExpressionFunctionException();
-            }
-
-            return new FakeExpressionFunction<>() {
-                @Override
-                public Object apply(final List<Object> parameters,
-                                    final ExpressionEvaluationContext context) {
-                    Objects.requireNonNull(parameters, "parameters");
-                    Objects.requireNonNull(context, "context");
-
-                    return FUNCTION_VALUE;
-                }
-
-                @Override
-                public List<ExpressionFunctionParameter<?>> parameters(final int count) {
-                    return Lists.of(
-                        ExpressionFunctionParameterName.VALUE.required(Object.class)
-                    );
-                }
-
-                @Override
-                public boolean isPure(final ExpressionPurityContext context) {
-                    return pure;
-                }
-            };
-        };
-    }
-
-    private final static ExpressionFunctionName FUNCTION_NAME = ExpressionFunctionName.with("sum");
-
-    private final static List<Object> FUNCTION_PARAMETERS = Lists.of(
-        "parameter-1",
-        2
-    );
-
-    private final static Object FUNCTION_VALUE = "function-value-234";
 
     private ExpressionEvaluationContextBasic createContext(final Function<ExpressionReference, Optional<Optional<Object>>> references) {
         return ExpressionEvaluationContextBasic.with(
