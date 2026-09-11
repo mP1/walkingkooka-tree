@@ -101,7 +101,8 @@ public final class ExpressionFunctions implements PublicStaticHelper {
             nodeName(),
             nullFunction(),
             treeText(),
-            typeName()
+            typeName(),
+            warn()
         ).forEach(consumer);
     }
 
@@ -267,6 +268,13 @@ public final class ExpressionFunctions implements PublicStaticHelper {
      */
     public static <C extends ExpressionEvaluationContext> ExpressionFunction<String, C> typeName() {
         return TreeExpressionFunctionTypeName.instance();
+    }
+
+    /**
+     * {@see TreeExpressionFunctionLoggingWarn}
+     */
+    public static <C extends ExpressionEvaluationContext> ExpressionFunction<Void, C> warn() {
+        return TreeExpressionFunctionLoggingWarn.instance();
     }
 
     /**
