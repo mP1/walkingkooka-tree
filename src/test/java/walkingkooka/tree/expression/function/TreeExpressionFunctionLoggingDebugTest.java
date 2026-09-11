@@ -35,7 +35,7 @@ public final class TreeExpressionFunctionLoggingDebugTest extends TreeExpression
         final FakeExpressionEvaluationContext context = new FakeExpressionEvaluationContext() {
 
             @Override
-            public void debug(final String m) {
+            public void debug(final String message) {
                 logged.add(message);
             }
         };
