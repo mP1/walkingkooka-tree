@@ -22,6 +22,7 @@ import walkingkooka.collect.map.Maps;
 import walkingkooka.currency.CurrencyCode;
 import walkingkooka.currency.CurrencyValue;
 import walkingkooka.locale.LocaleLanguageTag;
+import walkingkooka.logging.LoggingLevel;
 import walkingkooka.naming.Name;
 import walkingkooka.reflect.PublicStaticHelper;
 import walkingkooka.text.CaseSensitivity;
@@ -99,6 +100,7 @@ public final class ExpressionFunctions implements PublicStaticHelper {
             locale(),
             localeLanguageTag(),
             log(),
+            loggingLevel(),
             node(),
             nodeName(),
             nullFunction(),
@@ -245,6 +247,13 @@ public final class ExpressionFunctions implements PublicStaticHelper {
      */
     public static <C extends ExpressionEvaluationContext> ExpressionFunction<Void, C> log() {
         return TreeExpressionFunctionLog.instance();
+    }
+
+    /**
+     * {@see TreeExpressionFunctionLoggingLevel}
+     */
+    public static <C extends ExpressionEvaluationContext> ExpressionFunction<LoggingLevel, C> loggingLevel() {
+        return TreeExpressionFunctionLoggingLevel.instance();
     }
 
     /**
