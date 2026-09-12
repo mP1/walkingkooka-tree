@@ -32,12 +32,16 @@ import walkingkooka.currency.CurrencyLocaleContexts;
 import walkingkooka.datetime.DateTimeContextTesting;
 import walkingkooka.environment.EnvironmentContext;
 import walkingkooka.environment.EnvironmentContextTesting;
+import walkingkooka.logging.CanLog;
+import walkingkooka.logging.CanLogs;
+import walkingkooka.logging.LoggingLevel;
 import walkingkooka.math.DecimalNumberContext;
 import walkingkooka.math.DecimalNumberContextDelegator;
 import walkingkooka.reflect.ClassTesting2;
 import walkingkooka.reflect.ThrowableTesting;
 import walkingkooka.text.CaseSensitivity;
 import walkingkooka.text.TextPrinting;
+import walkingkooka.text.printer.Printers;
 import walkingkooka.tree.expression.function.ExpressionFunction;
 import walkingkooka.tree.expression.function.ExpressionFunctionParameter;
 import walkingkooka.tree.expression.function.ExpressionFunctionParameterKind;
@@ -967,6 +971,212 @@ public final class ExpressionEvaluationContextBasicTest implements ClassTesting2
     @Test
     public void testConvert() {
         this.convertAndCheck(123.0, Long.class, 123L);
+    }
+
+    // log..............................................................................................................
+
+    private final static String MESSAGE1 = "Message111";
+    private final static String MESSAGE2 = "Message222";
+    private final static String MESSAGE3 = "Message333";
+    private final static String MESSAGE4 = "Message444";
+
+    @Test
+    public void testLogDisabled() {
+        final ExpressionEvaluationContextBasic context = this.createContext(
+            CanLogs.fake()
+        );
+        context.setLoggingLevel(LoggingLevel.NONE);
+        context.log(
+            LoggingLevel.DEBUG,
+            MESSAGE1
+        );
+    }
+
+    @Test
+    public void testDebugDisabled() {
+        final ExpressionEvaluationContextBasic context = this.createContext(
+            CanLogs.fake()
+        );
+        context.setLoggingLevel(LoggingLevel.NONE);
+        context.debug(
+            MESSAGE1
+        );
+    }
+
+    @Test
+    public void testInfoDisabled() {
+        final ExpressionEvaluationContextBasic context = this.createContext(
+            CanLogs.fake()
+        );
+        context.setLoggingLevel(LoggingLevel.NONE);
+        context.info(
+            MESSAGE1
+        );
+    }
+
+    @Test
+    public void testWarnDisabled() {
+        final ExpressionEvaluationContextBasic context = this.createContext(
+            CanLogs.fake()
+        );
+        context.setLoggingLevel(LoggingLevel.NONE);
+        context.warn(
+            MESSAGE1
+        );
+    }
+
+    @Test
+    public void testErrorDisabled() {
+        final ExpressionEvaluationContextBasic context = this.createContext(
+            CanLogs.fake()
+        );
+        context.setLoggingLevel(LoggingLevel.NONE);
+        context.error(
+            MESSAGE1
+        );
+    }
+
+    @Test
+    public void testDebugEnabled() {
+        final StringBuilder b = new StringBuilder();
+
+        final ExpressionEvaluationContextBasic context = this.createContext(b);
+        context.setLoggingLevel(LoggingLevel.DEBUG);
+        context.debug(MESSAGE1);
+
+        this.checkEquals(
+            MESSAGE1 + LINE_ENDING,
+            b.toString()
+        );
+    }
+
+    @Test
+    public void testInfoEnabled() {
+        final StringBuilder b = new StringBuilder();
+
+        final ExpressionEvaluationContextBasic context = this.createContext(b);
+        context.setLoggingLevel(LoggingLevel.INFO);
+        context.info(MESSAGE1);
+
+        this.checkEquals(
+            MESSAGE1 + LINE_ENDING,
+            b.toString()
+        );
+    }
+
+    @Test
+    public void testWarnEnabled() {
+        final StringBuilder b = new StringBuilder();
+
+        final ExpressionEvaluationContextBasic context = this.createContext(b);
+        context.setLoggingLevel(LoggingLevel.WARN);
+        context.warn(MESSAGE1);
+
+        this.checkEquals(
+            MESSAGE1 + LINE_ENDING,
+            b.toString()
+        );
+    }
+
+    @Test
+    public void testErrorEnabled() {
+        final StringBuilder b = new StringBuilder();
+
+        final ExpressionEvaluationContextBasic context = this.createContext(b);
+        context.setLoggingLevel(LoggingLevel.ERROR);
+        context.error(MESSAGE1);
+
+        this.checkEquals(
+            MESSAGE1 + LINE_ENDING,
+            b.toString()
+        );
+    }
+
+    @Test
+    public void testLogEnabled() {
+        final StringBuilder b = new StringBuilder();
+
+        final ExpressionEvaluationContextBasic context = this.createContext(b);
+        context.setLoggingLevel(LoggingLevel.INFO);
+        context.log(
+            LoggingLevel.DEBUG,
+            MESSAGE1
+        );
+        context.log(
+            LoggingLevel.INFO,
+            MESSAGE2
+        );
+        context.log(
+            LoggingLevel.WARN,
+            MESSAGE3
+        );
+        context.log(
+            LoggingLevel.ERROR,
+            MESSAGE4
+        );
+
+        this.checkEquals(
+            MESSAGE2 + LINE_ENDING +
+                MESSAGE3 + LINE_ENDING +
+                MESSAGE4 + LINE_ENDING,
+            b.toString()
+        );
+    }
+
+    @Test
+    public void testLogLevelChanged() {
+        final StringBuilder b = new StringBuilder();
+
+        final ExpressionEvaluationContextBasic context = this.createContext(b);
+        context.setLoggingLevel(LoggingLevel.ERROR);
+
+        context.debug(MESSAGE1);
+
+        context.setLoggingLevel(LoggingLevel.INFO);
+        context.debug(MESSAGE2);
+        context.warn(MESSAGE3);
+
+        context.setLoggingLevel(LoggingLevel.NONE);
+        context.log(
+            LoggingLevel.ERROR,
+            MESSAGE4
+        );
+
+        this.checkEquals(
+            MESSAGE3 + LINE_ENDING,
+            b.toString()
+        );
+    }
+
+    private ExpressionEvaluationContextBasic createContext(final StringBuilder b) {
+        return this.createContext(
+            CanLogs.printer(
+                Printers.stringBuilder(
+                    b,
+                    LINE_ENDING // yes doesnt sync with EnvironmentContext#lineEnding
+                )
+            )
+        );
+    }
+
+    private ExpressionEvaluationContextBasic createContext(final CanLog canLog) {
+        return ExpressionEvaluationContextBasic.with(
+            EXPRESSION_NUMBER_KIND,
+            EVALUATOR,
+            (n) -> {
+                throw new UnsupportedOperationException();
+            },
+            EXCEPTION_HANDLER,
+            REFERENCES,
+            REFERENCE_NOT_FOUND,
+            CASE_SENSITIVITY,
+            CONVERTER_CONTEXT,
+            ENVIRONMENT_CONTEXT.environment()
+                .setCanLog(canLog)
+                .environmentContext()
+                .cloneEnvironment(),
+            LOCALE_CONTEXT
+        );
     }
 
     // stringEqualsCaseSensitivity......................................................................................
