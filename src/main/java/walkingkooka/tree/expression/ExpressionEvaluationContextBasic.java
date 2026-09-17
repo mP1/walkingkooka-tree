@@ -17,6 +17,8 @@
 
 package walkingkooka.tree.expression;
 
+import walkingkooka.ToStringBuilder;
+import walkingkooka.UsesToStringBuilder;
 import walkingkooka.convert.ConverterContext;
 import walkingkooka.convert.ConverterContextDelegator;
 import walkingkooka.currency.CurrencyCode;
@@ -50,7 +52,8 @@ import java.util.function.Function;
 final class ExpressionEvaluationContextBasic implements ExpressionEvaluationContext,
     ConverterContextDelegator,
     EnvironmentContextDelegator,
-    LocaleContextDelegator {
+    LocaleContextDelegator,
+    UsesToStringBuilder {
 
     /**
      * Factory that creates a {@link ExpressionEvaluationContextBasic}
@@ -302,26 +305,35 @@ final class ExpressionEvaluationContextBasic implements ExpressionEvaluationCont
     }
 
     // Object...........................................................................................................
+
     @Override
     public String toString() {
-        return this.expressionNumberKind +
-            " " +
-            this.evaluator +
-            " " +
-            this.functions +
-            " " +
-            this.exceptionHandler +
-            " " +
-            this.references +
-            " " +
-            this.referenceNotFound +
-            " " +
-            this.stringEqualityCaseSensitivity +
-            " " +
-            this.converterContext +
-            " " +
-            this.environmentContext +
-            " " +
-            this.localeContext;
+        return ToStringBuilder.buildFrom(this);
+    }
+
+    // UsesToStringBuilder..............................................................................................
+
+    @Override
+    public void buildToString(final ToStringBuilder b) {
+        b.label("expressionNumberKind")
+            .value(this.expressionNumberKind)
+            .label("evaluator")
+            .value(this.evaluator)
+            .label("functions")
+            .value(this.functions)
+            .label("exceptionHandler")
+            .value(this.exceptionHandler)
+            .label("references")
+            .value(this.references)
+            .label("referenceNotFound")
+            .value(this.referenceNotFound)
+            .label("stringEqualityCaseSensitivity")
+            .value(this.stringEqualityCaseSensitivity)
+            .label("converterContext")
+            .value(this.converterContext)
+            .label("environmentContext")
+            .value(this.environmentContext)
+            .label("localeContext")
+            .value(this.localeContext);
     }
 }
