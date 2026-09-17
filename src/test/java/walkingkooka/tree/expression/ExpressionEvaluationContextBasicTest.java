@@ -66,41 +66,58 @@ public final class ExpressionEvaluationContextBasicTest implements ClassTesting2
     HasExpressionNumberKindTesting,
     ThrowableTesting {
 
-    private final static BiFunction<String, ExpressionEvaluationContext, Object> EVALUATOR = (e, c) -> {
-        Objects.requireNonNull(e, "expression");
-        return e + e;
+    private final static BiFunction<String, ExpressionEvaluationContext, Object> EVALUATOR = new BiFunction<>() {
+        @Override
+        public Object apply(final String expression,
+                            final ExpressionEvaluationContext context) {
+            Objects.requireNonNull(expression, "expression");
+            return expression + expression;
+        }
+
+        @Override
+        public String toString() {
+            return "EVALUATOR";
+        }
     };
 
     private static Function<ExpressionFunctionName, ExpressionFunction<?, ExpressionEvaluationContext>> functions(final boolean pure) {
-        return (functionName) -> {
-            Objects.requireNonNull(functionName, "functionName");
+        return new Function<>() {
 
-            if (false == FUNCTION_NAME.equals(functionName)) {
-                throw functionName.unknownExpressionFunctionException();
+            @Override
+            public ExpressionFunction<?, ExpressionEvaluationContext> apply(final ExpressionFunctionName functionName) {
+                Objects.requireNonNull(functionName, "functionName");
+
+                if (false == FUNCTION_NAME.equals(functionName)) {
+                    throw functionName.unknownExpressionFunctionException();
+                }
+
+                return new FakeExpressionFunction<>() {
+                    @Override
+                    public Object apply(final List<Object> parameters,
+                                        final ExpressionEvaluationContext context) {
+                        Objects.requireNonNull(parameters, "parameters");
+                        Objects.requireNonNull(context, "context");
+
+                        return FUNCTION_VALUE;
+                    }
+
+                    @Override
+                    public List<ExpressionFunctionParameter<?>> parameters(final int count) {
+                        return Lists.of(
+                            ExpressionFunctionParameterName.VALUE.required(Object.class)
+                        );
+                    }
+
+                    @Override
+                    public boolean isPure(final ExpressionPurityContext context) {
+                        return pure;
+                    }
+                };
             }
 
-            return new FakeExpressionFunction<>() {
-                @Override
-                public Object apply(final List<Object> parameters,
-                                    final ExpressionEvaluationContext context) {
-                    Objects.requireNonNull(parameters, "parameters");
-                    Objects.requireNonNull(context, "context");
-
-                    return FUNCTION_VALUE;
-                }
-
-                @Override
-                public List<ExpressionFunctionParameter<?>> parameters(final int count) {
-                    return Lists.of(
-                        ExpressionFunctionParameterName.VALUE.required(Object.class)
-                    );
-                }
-
-                @Override
-                public boolean isPure(final ExpressionPurityContext context) {
-                    return pure;
-                }
-            };
+            public String toString() {
+                return "FUNCTIONS";
+            }
         };
     }
 
@@ -122,17 +139,33 @@ public final class ExpressionEvaluationContextBasicTest implements ClassTesting2
 
     private final static String REFERENCE_NOT_FOUND_MESSAGE = "CustomMessage123";
 
-    private final static Function<ExpressionReference, ExpressionEvaluationException> REFERENCE_NOT_FOUND =
-        (r) ->
-            new ExpressionEvaluationReferenceException(
+    private final static Function<ExpressionReference, ExpressionEvaluationException> REFERENCE_NOT_FOUND = new Function<>() {
+        @Override
+        public ExpressionEvaluationException apply(ExpressionReference reference) {
+            return new ExpressionEvaluationReferenceException(
                 REFERENCE_NOT_FOUND_MESSAGE,
-                r
+                reference
             );
+        }
+
+        @Override
+        public String toString() {
+            return "REFERENCE_NOT_FOUND";
+        }
+    };
 
     private final static CaseSensitivity CASE_SENSITIVITY = CaseSensitivity.SENSITIVE;
 
-    private final static Function<RuntimeException, Object> EXCEPTION_HANDLER = (r) -> {
-        throw r;
+    private final static Function<RuntimeException, Object> EXCEPTION_HANDLER = new Function<>() {
+        @Override
+        public Object apply(final RuntimeException caught) {
+            throw caught;
+        }
+
+        @Override
+        public String toString() {
+            return "EXCEPTION_HANDLER";
+        }
     };
 
     private final static ConverterContext CONVERTER_CONTEXT = ConverterContexts.basic(
@@ -155,17 +188,25 @@ public final class ExpressionEvaluationContextBasicTest implements ClassTesting2
         DECIMAL_NUMBER_CONTEXT
     );
 
-    private final static Function<ExpressionReference, Optional<Optional<Object>>> REFERENCES = (r -> {
-        Objects.requireNonNull(r, "references");
-        if (false == REFERENCE.equals(r)) {
-            throw new IllegalArgumentException("Invalid reference " + r);
+    private final static Function<ExpressionReference, Optional<Optional<Object>>> REFERENCES = new Function<>() {
+
+        @Override
+        public Optional<Optional<Object>> apply(final ExpressionReference reference) {
+            Objects.requireNonNull(reference, "references");
+            if (false == REFERENCE.equals(reference)) {
+                throw new IllegalArgumentException("Invalid reference " + reference);
+            }
+
+            return Optional.of(
+                Optional.of(REFERENCE_VALUE)
+            );
         }
 
-        return Optional.of(
-            Optional.of(REFERENCE_VALUE)
-        );
-    }
-    );
+        @Override
+        public String toString() {
+            return "REFERENCES";
+        }
+    };
 
     @Test
     public void testConverterContextDoesntImplementHasExpressionNumberKind() {
@@ -1201,41 +1242,20 @@ public final class ExpressionEvaluationContextBasicTest implements ClassTesting2
 
     @Test
     public void testToString() {
-        final Function<ExpressionReference, Optional<Optional<Object>>> references = REFERENCES;
-        final Function<ExpressionReference, ExpressionEvaluationException> referenceNotFound = ExpressionEvaluationContexts.referenceNotFound();
-
         this.toStringAndCheck(
             ExpressionEvaluationContextBasic.with(
                 EXPRESSION_NUMBER_KIND,
                 EVALUATOR,
                 FUNCTIONS,
                 EXCEPTION_HANDLER,
-                references,
-                referenceNotFound,
+                REFERENCES,
+                REFERENCE_NOT_FOUND,
                 CASE_SENSITIVITY,
                 CONVERTER_CONTEXT,
                 ENVIRONMENT_CONTEXT,
                 LOCALE_CONTEXT
             ),
-            EXPRESSION_NUMBER_KIND +
-                " " +
-                EVALUATOR +
-                " " +
-                FUNCTIONS +
-                " " +
-                EXCEPTION_HANDLER +
-                " " +
-                references +
-                " " +
-                referenceNotFound +
-                " " +
-                CASE_SENSITIVITY +
-                " " +
-                CONVERTER_CONTEXT +
-                " " +
-                ENVIRONMENT_CONTEXT +
-                " " +
-                LOCALE_CONTEXT
+            "expressionNumberKind=BIG_DECIMAL evaluator=EVALUATOR functions=FUNCTIONS exceptionHandler=EXCEPTION_HANDLER references=REFERENCES referenceNotFound=REFERENCE_NOT_FOUND stringEqualityCaseSensitivity=SENSITIVE converterContext=binaryTextContext=charset=\"UTF-8\" indentation=\"    \" lineEnding=\"\\r\\n\" dateTimeContext=symbols=ampms=\"am\", \"pm\" monthNames=\"January\", \"February\", \"March\", \"April\", \"May\", \"June\", \"July\", \"August\", \"September\", \"October\", \"November\", \"December\" monthNameAbbreviations=\"Jan.\", \"Feb.\", \"Mar.\", \"Apr.\", \"May\", \"Jun.\", \"Jul.\", \"Aug.\", \"Sep.\", \"Oct.\", \"Nov.\", \"Dec.\" weekDayNames=\"Sunday\", \"Monday\", \"Tuesday\", \"Wednesday\", \"Thursday\", \"Friday\", \"Saturday\" weekDayNameAbbreviations=\"Sun.\", \"Mon.\", \"Tue.\", \"Wed.\", \"Thu.\", \"Fri.\", \"Sat.\" locale=\"en-AU\" twoDigitYear=50 decimalNumberContext=locale=en_US \"mathContext\" precision=7 roundingMode=HALF_EVEN \"decimalNumberSymbols\" negativeSign='-' positiveSign='+' zeroDigit='0' currencySymbol=\"$\" decimalSeparator='.' exponentSymbol=\"E\" "
         );
     }
 
