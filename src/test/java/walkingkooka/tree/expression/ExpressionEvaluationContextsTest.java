@@ -18,7 +18,6 @@
 package walkingkooka.tree.expression;
 
 import org.junit.jupiter.api.Test;
-import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.reflect.PublicStaticHelperTesting;
 import walkingkooka.reflect.ThrowableTesting;
 
@@ -60,10 +59,5 @@ public class ExpressionEvaluationContextsTest implements PublicStaticHelperTesti
     @Override
     public boolean canHavePublicTypes(final Method method) {
         return method.getName().equals("referenceNotFound");
-    }
-
-    @Override
-    public JavaVisibility typeVisibility() {
-        return JavaVisibility.PUBLIC;
     }
 }
