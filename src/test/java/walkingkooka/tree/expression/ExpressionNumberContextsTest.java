@@ -17,7 +17,6 @@
 
 package walkingkooka.tree.expression;
 
-import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.reflect.PublicStaticHelperTesting;
 
 import java.lang.reflect.Method;
@@ -27,11 +26,6 @@ public final class ExpressionNumberContextsTest implements PublicStaticHelperTes
     @Override
     public Class<ExpressionNumberContexts> type() {
         return ExpressionNumberContexts.class;
-    }
-
-    @Override
-    public JavaVisibility typeVisibility() {
-        return JavaVisibility.PUBLIC;
     }
 
     @Override
