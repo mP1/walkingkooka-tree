@@ -1086,7 +1086,7 @@ public final class ExpressionEvaluationContextBasicTest implements ClassTesting2
         context.debug(MESSAGE1);
 
         this.checkEquals(
-            MESSAGE1 + LINE_ENDING,
+            "DEBUG " + MESSAGE1 + LINE_ENDING,
             b.toString()
         );
     }
@@ -1100,7 +1100,7 @@ public final class ExpressionEvaluationContextBasicTest implements ClassTesting2
         context.info(MESSAGE1);
 
         this.checkEquals(
-            MESSAGE1 + LINE_ENDING,
+            "INFO " + MESSAGE1 + LINE_ENDING,
             b.toString()
         );
     }
@@ -1114,7 +1114,7 @@ public final class ExpressionEvaluationContextBasicTest implements ClassTesting2
         context.warn(MESSAGE1);
 
         this.checkEquals(
-            MESSAGE1 + LINE_ENDING,
+            "WARN " + MESSAGE1 + LINE_ENDING,
             b.toString()
         );
     }
@@ -1128,7 +1128,7 @@ public final class ExpressionEvaluationContextBasicTest implements ClassTesting2
         context.error(MESSAGE1);
 
         this.checkEquals(
-            MESSAGE1 + LINE_ENDING,
+            "ERROR " + MESSAGE1 + LINE_ENDING,
             b.toString()
         );
     }
@@ -1157,9 +1157,9 @@ public final class ExpressionEvaluationContextBasicTest implements ClassTesting2
         );
 
         this.checkEquals(
-            MESSAGE2 + LINE_ENDING +
-                MESSAGE3 + LINE_ENDING +
-                MESSAGE4 + LINE_ENDING,
+            "INFO " + MESSAGE2 + LINE_ENDING +
+                "WARN " + MESSAGE3 + LINE_ENDING +
+                "ERROR " + MESSAGE4 + LINE_ENDING,
             b.toString()
         );
     }
@@ -1184,7 +1184,7 @@ public final class ExpressionEvaluationContextBasicTest implements ClassTesting2
         );
 
         this.checkEquals(
-            MESSAGE3 + LINE_ENDING,
+            "WARN " + MESSAGE3 + LINE_ENDING,
             b.toString()
         );
     }
