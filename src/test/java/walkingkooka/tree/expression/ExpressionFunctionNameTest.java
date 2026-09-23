@@ -19,6 +19,8 @@ package walkingkooka.tree.expression;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.collect.list.Lists;
+import walkingkooka.logging.HasLoggerPathTesting;
+import walkingkooka.logging.LoggerPath;
 import walkingkooka.naming.NameTesting2;
 import walkingkooka.reflect.ClassTesting2;
 import walkingkooka.reflect.JavaVisibility;
@@ -36,7 +38,8 @@ import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class ExpressionFunctionNameTest implements ClassTesting2<ExpressionFunctionName>,
-    NameTesting2<ExpressionFunctionName, ExpressionFunctionName> {
+    NameTesting2<ExpressionFunctionName, ExpressionFunctionName>,
+    HasLoggerPathTesting {
 
     // DEFAULT_CASE_SENSITIVITY.........................................................................................
 
@@ -263,6 +266,18 @@ public final class ExpressionFunctionNameTest implements ClassTesting2<Expressio
             left,
             save.textBetween().toString(),
             "cursor remaining text after parsing"
+        );
+    }
+
+    // HasLogger........................................................................................................
+
+    @Test
+    public void testLogger() {
+        final String name = "sin";
+
+        this.loggerAndCheck(
+            ExpressionFunctionName.with(name),
+            LoggerPath.parse(name)
         );
     }
 
