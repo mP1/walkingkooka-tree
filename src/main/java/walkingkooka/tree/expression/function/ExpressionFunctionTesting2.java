@@ -22,11 +22,9 @@ import walkingkooka.NeverError;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.reflect.PackagePrivateClassTesting;
 import walkingkooka.reflect.TypeNameTesting;
-import walkingkooka.text.CharSequences;
 import walkingkooka.tree.expression.ExpressionEvaluationContext;
 import walkingkooka.tree.expression.ExpressionNumberKind;
 import walkingkooka.tree.expression.ExpressionPurityTesting;
-import walkingkooka.tree.expression.ExpressionReference;
 import walkingkooka.util.BiFunctionTesting2;
 
 import java.util.List;
@@ -41,6 +39,7 @@ import static org.junit.jupiter.api.Assertions.fail;
  */
 public interface ExpressionFunctionTesting2<F extends ExpressionFunction<V, C>, V, C extends ExpressionEvaluationContext>
     extends BiFunctionTesting2<F, List<Object>, C, V>,
+    ExpressionFunctionTesting,
     ExpressionPurityTesting,
     PackagePrivateClassTesting<F>,
     TypeNameTesting<F> {
@@ -243,51 +242,6 @@ public interface ExpressionFunctionTesting2<F extends ExpressionFunction<V, C>, 
                                 final List<Object> parameters,
                                 final V result) {
         this.applyAndCheck2(function, parameters, this.createContext(), result);
-    }
-
-    default <RR, CC extends ExpressionEvaluationContext> void applyAndCheck2(final ExpressionFunction<RR, CC> function,
-                                                                             final List<Object> parameters,
-                                                                             final CC context,
-                                                                             final RR result) {
-        for (final ExpressionFunctionParameter<?> parameter : function.parameters(parameters.size())) {
-            for (final ExpressionFunctionParameterKind kind : parameter.kinds()) {
-                switch (kind) {
-                    case FLATTEN:
-                        this.checkEquals(
-                            Lists.empty(),
-                            parameters.stream()
-                                .filter(List.class::isInstance)
-                                .collect(Collectors.toList()
-                                ),
-                            () -> "Should not include parameter(s) of type " + List.class.getName()
-                        );
-                        break;
-                    case RESOLVE_REFERENCES:
-                        this.checkEquals(
-                            Lists.empty(),
-                            parameters.stream()
-                                .filter(ExpressionReference.class::isInstance)
-                                .collect(Collectors.toList()
-                                ),
-                            () -> "Should not include parameter(s) of type " + ExpressionReference.class.getName()
-                        );
-                        break;
-                    default:
-                        break;
-                }
-            }
-        }
-
-        this.checkEquals(
-            result,
-            function.apply(parameters, context),
-            () -> "Wrong result for " +
-                function +
-                " for params: " +
-                parameters.stream()
-                    .map(CharSequences::quoteIfChars)
-                    .collect(Collectors.joining(", "))
-        );
     }
 
     C createContext();
