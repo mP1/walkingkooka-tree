@@ -18,6 +18,7 @@
 package walkingkooka.tree.expression.function;
 
 import walkingkooka.collect.list.Lists;
+import walkingkooka.logging.HasLoggerPathTesting;
 import walkingkooka.text.CharSequences;
 import walkingkooka.tree.expression.ExpressionEvaluationContext;
 import walkingkooka.tree.expression.ExpressionReference;
@@ -29,7 +30,8 @@ import java.util.stream.Collectors;
 /**
  * Mixing interface that provides methods to test a {@link ExpressionFunction}
  */
-public interface ExpressionFunctionTesting extends BiFunctionTesting {
+public interface ExpressionFunctionTesting extends BiFunctionTesting,
+    HasLoggerPathTesting {
 
     // apply.............................................................................................................
 

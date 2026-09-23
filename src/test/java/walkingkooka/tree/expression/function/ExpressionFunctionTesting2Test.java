@@ -120,7 +120,8 @@ public final class ExpressionFunctionTesting2Test implements ClassTesting<Expres
             Lists.of(
                 Lists.empty()
             ),
-            "Should not include parameter(s) of type java.util.List ==> expected: <[]> but was: <[[]]>"
+            "Should not include parameter(s) of type java.util.List ==> expected: <> but was: <[]\n" +
+                ">"
         );
     }
 
