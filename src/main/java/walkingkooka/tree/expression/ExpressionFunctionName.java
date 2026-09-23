@@ -20,6 +20,8 @@ package walkingkooka.tree.expression;
 import walkingkooka.Cast;
 import walkingkooka.HasNotFoundText;
 import walkingkooka.InvalidTextLengthException;
+import walkingkooka.logging.HasLoggerPath;
+import walkingkooka.logging.LoggerPath;
 import walkingkooka.naming.Name;
 import walkingkooka.predicate.character.CharPredicate;
 import walkingkooka.predicate.character.CharPredicates;
@@ -44,6 +46,7 @@ import java.util.function.BiFunction;
  */
 public final class ExpressionFunctionName implements Name,
     Comparable<ExpressionFunctionName>,
+    HasLoggerPath,
     HasNotFoundText {
 
     /**
@@ -108,6 +111,8 @@ public final class ExpressionFunctionName implements Name,
         }
         this.name = name;
         this.caseSensitivity = caseSensitivity;
+
+        this.loggerPath = LoggerPath.parse(name);
     }
 
     @Override
@@ -214,4 +219,13 @@ public final class ExpressionFunctionName implements Name,
     public UnknownExpressionFunctionException unknownExpressionFunctionException() {
         return new UnknownExpressionFunctionException(this);
     }
+
+    // HasLoggerPath....................................................................................................
+
+    @Override
+    public LoggerPath logger() {
+        return this.loggerPath;
+    }
+
+    private final LoggerPath loggerPath;
 }
