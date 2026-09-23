@@ -25,6 +25,7 @@ import walkingkooka.logging.LoggerPath;
 import walkingkooka.naming.Name;
 import walkingkooka.predicate.character.CharPredicate;
 import walkingkooka.predicate.character.CharPredicates;
+import walkingkooka.props.PropertiesPath;
 import walkingkooka.text.CaseSensitivity;
 import walkingkooka.text.CharSequences;
 import walkingkooka.text.cursor.TextCursor;
@@ -53,6 +54,11 @@ public final class ExpressionFunctionName implements Name,
      * When initially created {@link ExpressionFunctionName#caseSensitivity} is {@link CaseSensitivity#SENSITIVE}.
      */
     public final static CaseSensitivity DEFAULT_CASE_SENSITIVITY = CaseSensitivity.SENSITIVE;
+
+    /**
+     * Parent logger for all {@link ExpressionFunctionName} loggers.
+     */
+    public final static LoggerPath PARENT_LOGGER = LoggerPath.parse("function");
 
     /**
      * Factory that creates a new {@link ExpressionFunctionName} after verifying the given characters are acceptable.
@@ -112,7 +118,10 @@ public final class ExpressionFunctionName implements Name,
         this.name = name;
         this.caseSensitivity = caseSensitivity;
 
-        this.loggerPath = LoggerPath.parse(name);
+        // function.sin
+        this.loggerPath = LoggerPath.parse(
+            PARENT_LOGGER.value() + PropertiesPath.SEPARATOR + name
+        );
     }
 
     @Override
