@@ -277,7 +277,7 @@ public final class ExpressionFunctionNameTest implements ClassTesting2<Expressio
 
         this.loggerAndCheck(
             ExpressionFunctionName.with(name),
-            LoggerPath.parse(name)
+            LoggerPath.parse("function." + name)
         );
     }
 
