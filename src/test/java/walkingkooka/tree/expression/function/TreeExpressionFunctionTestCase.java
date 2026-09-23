@@ -24,7 +24,7 @@ import walkingkooka.tree.expression.ExpressionFunctionName;
 import walkingkooka.tree.expression.ExpressionPurityContext;
 import walkingkooka.tree.expression.ExpressionPurityTesting;
 
-public abstract class TreeExpressionFunctionTestCase<F extends TreeExpressionFunction<T, C>, C extends ExpressionEvaluationContext, T> implements ExpressionFunctionTesting<F, T, C>,
+public abstract class TreeExpressionFunctionTestCase<F extends TreeExpressionFunction<T, C>, C extends ExpressionEvaluationContext, T> implements ExpressionFunctionTesting2<F, T, C>,
     ExpressionPurityTesting,
     ClassTesting2<F> {
 
