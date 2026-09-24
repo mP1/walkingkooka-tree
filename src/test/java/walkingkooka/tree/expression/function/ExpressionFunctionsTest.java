@@ -35,6 +35,7 @@ import walkingkooka.locale.LocaleContexts;
 import walkingkooka.locale.LocaleLanguageTag;
 import walkingkooka.math.DecimalNumberContextTesting;
 import walkingkooka.reflect.PublicStaticHelperTesting;
+import walkingkooka.reflect.ThrowableTesting;
 import walkingkooka.text.BinaryTextContextTesting;
 import walkingkooka.text.CaseSensitivity;
 import walkingkooka.tree.expression.Expression;
@@ -59,7 +60,8 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 public final class ExpressionFunctionsTest implements PublicStaticHelperTesting<ExpressionFunctions>,
     BinaryTextContextTesting,
     CurrencyLocaleContextTesting,
-    DecimalNumberContextTesting {
+    DecimalNumberContextTesting,
+    ThrowableTesting {
 
     private final static ExpressionNumberKind EXPRESSION_NUMBER_KIND = ExpressionNumberKind.BIG_DECIMAL;
 
@@ -94,10 +96,9 @@ public final class ExpressionFunctionsTest implements PublicStaticHelperTesting<
                     CaseSensitivity.SENSITIVE
                 )
         );
-        this.checkEquals(
-            "Anonymous functions are not supported",
-            thrown.getMessage(),
-            "message"
+        this.getMessageAndCheck(
+            thrown,
+            "Anonymous functions are not supported"
         );
     }
 
@@ -113,11 +114,10 @@ public final class ExpressionFunctionsTest implements PublicStaticHelperTesting<
                 CaseSensitivity.SENSITIVE
             )
         );
-        this.checkEquals(
+        this.getMessageAndCheck(
+            thrown,
             "Duplicate f" +
-                "unction \"duplicate123\"",
-            thrown.getMessage(),
-            "message"
+                "unction \"duplicate123\""
         );
     }
 
@@ -133,10 +133,9 @@ public final class ExpressionFunctionsTest implements PublicStaticHelperTesting<
                 CaseSensitivity.INSENSITIVE
             )
         );
-        this.checkEquals(
-            "Duplicate function \"DUPLICATE123\"",
-            thrown.getMessage(),
-            "message"
+        this.getMessageAndCheck(
+            thrown,
+            "Duplicate function \"DUPLICATE123\""
         );
     }
 
