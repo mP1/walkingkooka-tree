@@ -21,12 +21,14 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.convert.HasConvertError;
 import walkingkooka.reflect.ClassTesting2;
 import walkingkooka.reflect.JavaVisibility;
+import walkingkooka.reflect.ThrowableTesting;
 
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class ExpressionFunctionParameterCastTest implements ClassTesting2<ExpressionFunctionParameterCast> {
+public final class ExpressionFunctionParameterCastTest implements ClassTesting2<ExpressionFunctionParameterCast>,
+    ThrowableTesting {
 
     @Test
     public void testCastFails() {
@@ -38,9 +40,9 @@ public final class ExpressionFunctionParameterCastTest implements ClassTesting2<
             )
         );
 
-        this.checkEquals(
-            "Parameter \"Parameter\": Invalid type java.lang.String expected java.lang.Void",
-            thrown.getMessage()
+        this.getMessageAndCheck(
+            thrown,
+            "Parameter \"Parameter\": Invalid type java.lang.String expected java.lang.Void"
         );
     }
 
@@ -61,9 +63,9 @@ public final class ExpressionFunctionParameterCastTest implements ClassTesting2<
             )
         );
 
-        this.checkEquals(
-            message,
-            thrown.getMessage()
+        this.getMessageAndCheck(
+            thrown,
+            message
         );
     }
 
