@@ -20,14 +20,17 @@ package walkingkooka.tree.expression.function;
 import org.junit.jupiter.api.Test;
 import walkingkooka.NeverError;
 import walkingkooka.collect.list.Lists;
+import walkingkooka.logging.LoggerPath;
 import walkingkooka.reflect.PackagePrivateClassTesting;
 import walkingkooka.reflect.TypeNameTesting;
 import walkingkooka.tree.expression.ExpressionEvaluationContext;
+import walkingkooka.tree.expression.ExpressionFunctionName;
 import walkingkooka.tree.expression.ExpressionNumberKind;
 import walkingkooka.tree.expression.ExpressionPurityTesting;
 import walkingkooka.util.BiFunctionTesting2;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.assertSame;
@@ -258,6 +261,25 @@ public interface ExpressionFunctionTesting2<F extends ExpressionFunction<V, C>, 
      * This value must be a valid parameter count and is used in numerous tests when testing parameters.
      */
     int minimumParameterCount();
+
+    // HasLoggerPath....................................................................................................
+
+    @Test
+    default void testLogger() {
+        final F function = this.createBiFunction();
+        final Optional<ExpressionFunctionName> name = function.name();
+
+        this.loggerAndCheck(
+            function,
+            name.isPresent() ?
+                LoggerPath.parse(
+                    "function." +
+                        name.get()
+                            .value()
+                ) :
+                ExpressionFunction.ANONYMOUS_LOGGER
+        );
+    }
 
     // TypeNameTesting..................................................................................................
 

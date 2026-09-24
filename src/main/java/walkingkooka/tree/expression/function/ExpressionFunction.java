@@ -18,6 +18,8 @@
 package walkingkooka.tree.expression.function;
 
 import walkingkooka.collect.list.Lists;
+import walkingkooka.logging.HasLoggerPath;
+import walkingkooka.logging.LoggerPath;
 import walkingkooka.naming.HasOptionalName;
 import walkingkooka.tree.expression.ExpressionEvaluationContext;
 import walkingkooka.tree.expression.ExpressionFunctionName;
@@ -36,6 +38,7 @@ import java.util.stream.Collectors;
  */
 public interface ExpressionFunction<T, C extends ExpressionEvaluationContext> extends BiFunction<List<Object>, C, T>,
     ExpressionPurity,
+    HasLoggerPath,
     HasOptionalName<ExpressionFunctionName> {
 
     /**
@@ -134,4 +137,15 @@ public interface ExpressionFunction<T, C extends ExpressionEvaluationContext> ex
     default ExpressionFunction<T, C> filterParameterValues(final BiPredicate<Object, C> filter) {
         return ExpressionFunctionParameterValuesFilter.with(filter, this);
     }
+
+    // HasLoggerPath....................................................................................................
+
+    @Override
+    default LoggerPath logger() {
+        return this.name()
+            .map(HasLoggerPath::logger)
+            .orElse(ANONYMOUS_LOGGER);
+    }
+
+    LoggerPath ANONYMOUS_LOGGER = LoggerPath.parse(ANONYMOUS);
 }
