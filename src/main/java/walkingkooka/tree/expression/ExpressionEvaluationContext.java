@@ -22,6 +22,7 @@ import walkingkooka.Context;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.environment.EnvironmentContext;
 import walkingkooka.locale.LocaleContext;
+import walkingkooka.logging.LoggerPath;
 import walkingkooka.text.CaseSensitivity;
 import walkingkooka.tree.expression.convert.ExpressionNumberConverterContext;
 import walkingkooka.tree.expression.function.ExpressionFunction;
@@ -48,6 +49,8 @@ public interface ExpressionEvaluationContext extends CanEvaluateExpression,
     HasExpressionFunction,
     EnvironmentContext,
     LocaleContext {
+
+    LoggerPath EXPRESSION_LOGGER = LoggerPath.parse("expression");
 
     /**
      * Factory that returns a {@link ExpressionEvaluationContext} of the same type with the given scoped variables.
