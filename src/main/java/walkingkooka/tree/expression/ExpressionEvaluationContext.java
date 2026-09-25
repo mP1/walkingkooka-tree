@@ -53,6 +53,16 @@ public interface ExpressionEvaluationContext extends CanEvaluateExpression,
     LoggerPath EXPRESSION_LOGGER = LoggerPath.parse("expression");
 
     /**
+     * Convenience method that calls {@link #logEnterAndExit(LoggerPath, Supplier)} with {@link #EXPRESSION_LOGGER}.
+     */
+    default <T> T logEnterAndExitExpression(final Supplier<T> supplier) {
+        return this.logEnterAndExit(
+            EXPRESSION_LOGGER,
+            supplier
+        );
+    }
+
+    /**
      * Factory that returns a {@link ExpressionEvaluationContext} of the same type with the given scoped variables.
      */
     ExpressionEvaluationContext enterScope(final Function<ExpressionReference, Optional<Optional<Object>>> scoped);
