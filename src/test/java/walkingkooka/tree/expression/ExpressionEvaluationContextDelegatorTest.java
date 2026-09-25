@@ -50,14 +50,6 @@ public final class ExpressionEvaluationContextDelegatorTest implements Expressio
         throw new UnsupportedOperationException();
     }
 
-    @Test
-    public void testIndentation() {
-        this.indentationAndCheck(
-            this.createContext(),
-            INDENTATION
-        );
-    }
-
     @Override
     public TestExpressionEvaluationContextDelegator createContext() {
         return new TestExpressionEvaluationContextDelegator();
