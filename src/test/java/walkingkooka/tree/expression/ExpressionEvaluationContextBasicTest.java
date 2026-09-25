@@ -32,6 +32,7 @@ import walkingkooka.currency.CurrencyLocaleContexts;
 import walkingkooka.datetime.DateTimeContextTesting;
 import walkingkooka.environment.EnvironmentContext;
 import walkingkooka.environment.EnvironmentContextTesting;
+import walkingkooka.locale.LocaleContext;
 import walkingkooka.logging.CanLog;
 import walkingkooka.logging.CanLogs;
 import walkingkooka.logging.LoggingLevel;
@@ -405,7 +406,26 @@ public final class ExpressionEvaluationContextBasicTest implements ClassTesting2
         );
     }
 
-    // currency......................................................................................................
+    // charset.........................................................................................................
+
+    @Test
+    public void testCharset() {
+        this.charsetAndCheck(
+            this.createContext(),
+            ENVIRONMENT_CONTEXT.charset()
+        );
+    }
+
+    @Test
+    public void testSetCharset() {
+        final ExpressionEvaluationContextBasic context = this.createContext();
+        this.setCharsetAndCheck(
+            context,
+            DIFFERENT_CHARSET
+        );
+    }
+
+    // currency.........................................................................................................
 
     @Test
     public void testCurrency() {
@@ -414,7 +434,16 @@ public final class ExpressionEvaluationContextBasicTest implements ClassTesting2
             ENVIRONMENT_CONTEXT.currency()
         );
     }
-    
+
+    @Test
+    public void testSetCurrency() {
+        final ExpressionEvaluationContextBasic context = this.createContext();
+        this.setCurrencyAndCheck(
+            context,
+            DIFFERENT_CURRENCY
+        );
+    }
+
     // indentation......................................................................................................
 
     @Test
@@ -429,7 +458,16 @@ public final class ExpressionEvaluationContextBasicTest implements ClassTesting2
             ENVIRONMENT_CONTEXT.indentation()
         );
     }
-    
+
+    @Test
+    public void testSetIndentation() {
+        final ExpressionEvaluationContextBasic context = this.createContext();
+        this.setIndentationAndCheck(
+            context,
+            DIFFERENT_INDENTATION
+        );
+    }
+
     // lineEnding.......................................................................................................
 
     @Test
@@ -442,6 +480,77 @@ public final class ExpressionEvaluationContextBasicTest implements ClassTesting2
         this.lineEndingAndCheck(
             this.createContext(),
             ENVIRONMENT_CONTEXT.lineEnding()
+        );
+    }
+
+    @Test
+    public void testSetLineEnding() {
+        final ExpressionEvaluationContextBasic context = this.createContext();
+        this.setLineEndingAndCheck(
+            context,
+            DIFFERENT_LINE_ENDING
+        );
+    }
+
+    // locale...........................................................................................................
+
+    @Test
+    public void testLocale() {
+        this.checkNotEquals(
+            ENVIRONMENT_CONTEXT.locale(),
+            CONVERTER_CONTEXT.locale()
+        );
+
+        this.localeAndCheck(
+            this.createContext(),
+            ENVIRONMENT_CONTEXT.locale()
+        );
+    }
+
+    @Test
+    public void testSetLocale() {
+        final ExpressionEvaluationContextBasic context = this.createContext();
+        this.setLocaleAndCheck(
+            (LocaleContext) context,
+            DIFFERENT_LOCALE
+        );
+    }
+
+    // loggingLevel.....................................................................................................
+
+    @Test
+    public void testLoggingLevel() {
+        this.loggingLevelAndCheck(
+            this.createContext(),
+            ENVIRONMENT_CONTEXT.loggingLevel()
+        );
+    }
+
+    @Test
+    public void testSetLoggingLevel() {
+        final ExpressionEvaluationContextBasic context = this.createContext();
+        this.setLoggingLevelAndCheck(
+            context,
+            DIFFERENT_LOGGING_LEVEL
+        );
+    }
+
+    // timeOffset.......................................................................................................
+
+    @Test
+    public void testTimeOffset() {
+        this.timeOffsetAndCheck(
+            this.createContext(),
+            ENVIRONMENT_CONTEXT.timeOffset()
+        );
+    }
+
+    @Test
+    public void testSetTimeOffset() {
+        final ExpressionEvaluationContextBasic context = this.createContext();
+        this.setTimeOffsetAndCheck(
+            context,
+            DIFFERENT_TIME_OFFSET
         );
     }
 
