@@ -20,6 +20,7 @@ package walkingkooka.tree.select.parser;
 import org.junit.jupiter.api.Test;
 import walkingkooka.math.DecimalNumberContext;
 import walkingkooka.math.DecimalNumberContextDelegator;
+import walkingkooka.math.DecimalNumberContexts;
 import walkingkooka.reflect.ClassTesting2;
 import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.tree.expression.ExpressionNumberKind;
@@ -31,6 +32,8 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 public final class BasicNodeSelectorParserContextTest implements ClassTesting2<BasicNodeSelectorParserContext>,
     NodeSelectorParserContextTesting2<BasicNodeSelectorParserContext>,
     DecimalNumberContextDelegator {
+
+    private final static DecimalNumberContext DECIMAL_NUMBER_CONTEXT = DecimalNumberContexts.american(MATH_CONTEXT);
 
     private final static ExpressionNumberKind KIND = ExpressionNumberKind.DEFAULT;
 
