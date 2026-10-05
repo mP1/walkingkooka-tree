@@ -32,12 +32,18 @@ public final class ExpressionNumberContextBasicTest implements ClassTesting<Expr
 
     @Test
     public void testWithNullExpressionNumberKindFails() {
-        assertThrows(NullPointerException.class, () -> ExpressionNumberContextBasic.with(null, DECIMAL_NUMBER_CONTEXT));
+        assertThrows(
+            NullPointerException.class,
+            () -> ExpressionNumberContextBasic.with(null, DECIMAL_NUMBER_CONTEXT)
+        );
     }
 
     @Test
     public void testWithNullDecimalNumberContextFails() {
-        assertThrows(NullPointerException.class, () -> ExpressionNumberContextBasic.with(EXPRESSION_NUMBER_KIND, null));
+        assertThrows(
+            NullPointerException.class,
+            () -> ExpressionNumberContextBasic.with(EXPRESSION_NUMBER_KIND, null)
+        );
     }
 
     // String..........................................................................................................
