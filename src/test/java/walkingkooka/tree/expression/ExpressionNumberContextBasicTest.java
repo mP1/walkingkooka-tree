@@ -19,17 +19,16 @@ package walkingkooka.tree.expression;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.ToStringTesting;
-import walkingkooka.math.DecimalNumberContext;
-import walkingkooka.math.DecimalNumberContexts;
+import walkingkooka.math.DecimalNumberContextTesting;
 import walkingkooka.reflect.ClassTesting;
 import walkingkooka.reflect.JavaVisibility;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class ExpressionNumberContextBasicTest implements ClassTesting<ExpressionNumberContextBasic>, ToStringTesting<ExpressionNumberContextBasic> {
-
-    private final static ExpressionNumberKind KIND = ExpressionNumberKind.DEFAULT;
-    private final static DecimalNumberContext DECIMAL_NUMBER_CONTEXT = DecimalNumberContexts.fake();
+public final class ExpressionNumberContextBasicTest implements ClassTesting<ExpressionNumberContextBasic>,
+    ToStringTesting<ExpressionNumberContextBasic>,
+    HasExpressionNumberKindTesting,
+    DecimalNumberContextTesting {
 
     @Test
     public void testWithNullExpressionNumberKindFails() {
@@ -38,12 +37,17 @@ public final class ExpressionNumberContextBasicTest implements ClassTesting<Expr
 
     @Test
     public void testWithNullDecimalNumberContextFails() {
-        assertThrows(NullPointerException.class, () -> ExpressionNumberContextBasic.with(KIND, null));
+        assertThrows(NullPointerException.class, () -> ExpressionNumberContextBasic.with(EXPRESSION_NUMBER_KIND, null));
     }
+
+    // String..........................................................................................................
 
     @Test
     public void testToString() {
-        this.toStringAndCheck(ExpressionNumberContextBasic.with(KIND, DECIMAL_NUMBER_CONTEXT), KIND + " " + DECIMAL_NUMBER_CONTEXT);
+        this.toStringAndCheck(
+            ExpressionNumberContextBasic.with(EXPRESSION_NUMBER_KIND, DECIMAL_NUMBER_CONTEXT),
+            "expressionNumberKind=BIG_DECIMAL decimalNumberContext=decimalNumberDigitNumberCount=9 symbols=negativeSign='-' positiveSign='+' zeroDigit='0' currencySymbol=\"$\" decimalSeparator='.' exponentSymbol=\"e\" groupSeparator=',' infinitySymbol=\"∞\" monetaryDecimalSeparator='.' nanSymbol=\"NaN\" percentSymbol='%' permillSymbol='‰' locale=en_AU mathContext=precision=7 roundingMode=HALF_EVEN"
+        );
     }
 
     @Override

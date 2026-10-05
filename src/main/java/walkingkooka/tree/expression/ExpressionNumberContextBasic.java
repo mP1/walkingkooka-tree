@@ -17,13 +17,16 @@
 
 package walkingkooka.tree.expression;
 
+import walkingkooka.ToStringBuilder;
+import walkingkooka.UsesToStringBuilder;
 import walkingkooka.math.DecimalNumberContext;
 import walkingkooka.math.DecimalNumberContextDelegator;
 
 import java.util.Objects;
 
 final class ExpressionNumberContextBasic implements ExpressionNumberContext,
-    DecimalNumberContextDelegator {
+    DecimalNumberContextDelegator,
+    UsesToStringBuilder {
 
     static ExpressionNumberContextBasic with(final ExpressionNumberKind expressionNumberKind,
                                              final DecimalNumberContext decimalNumberContext) {
@@ -59,6 +62,16 @@ final class ExpressionNumberContextBasic implements ExpressionNumberContext,
 
     @Override
     public String toString() {
-        return this.expressionNumberKind + " " + this.decimalNumberContext;
+        return ToStringBuilder.buildFrom(this);
+    }
+
+    // UsesToStringBuilder..............................................................................................
+
+    @Override
+    public void buildToString(final ToStringBuilder toStringBuilder) {
+        toStringBuilder.label("expressionNumberKind")
+            .value(this.expressionNumberKind)
+            .label("decimalNumberContext")
+            .value(this.decimalNumberContext);
     }
 }
