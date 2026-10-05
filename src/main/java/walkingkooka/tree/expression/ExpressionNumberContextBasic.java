@@ -22,18 +22,18 @@ import walkingkooka.math.DecimalNumberContextDelegator;
 
 import java.util.Objects;
 
-final class BasicExpressionNumberContext implements ExpressionNumberContext,
+final class ExpressionNumberContextBasic implements ExpressionNumberContext,
     DecimalNumberContextDelegator {
 
-    static BasicExpressionNumberContext with(final ExpressionNumberKind expressionNumberKind,
+    static ExpressionNumberContextBasic with(final ExpressionNumberKind expressionNumberKind,
                                              final DecimalNumberContext decimalNumberContext) {
         Objects.requireNonNull(expressionNumberKind, "expressionNumberKind");
         Objects.requireNonNull(decimalNumberContext, "decimalNumberContext");
 
-        return new BasicExpressionNumberContext(expressionNumberKind, decimalNumberContext);
+        return new ExpressionNumberContextBasic(expressionNumberKind, decimalNumberContext);
     }
 
-    private BasicExpressionNumberContext(final ExpressionNumberKind expressionNumberKind,
+    private ExpressionNumberContextBasic(final ExpressionNumberKind expressionNumberKind,
                                          final DecimalNumberContext decimalNumberContext) {
         this.expressionNumberKind = expressionNumberKind;
         this.decimalNumberContext = decimalNumberContext;

@@ -26,29 +26,29 @@ import walkingkooka.reflect.JavaVisibility;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class BasicExpressionNumberContextTest implements ClassTesting<BasicExpressionNumberContext>, ToStringTesting<BasicExpressionNumberContext> {
+public final class ExpressionNumberContextBasicTest implements ClassTesting<ExpressionNumberContextBasic>, ToStringTesting<ExpressionNumberContextBasic> {
 
     private final static ExpressionNumberKind KIND = ExpressionNumberKind.DEFAULT;
     private final static DecimalNumberContext DECIMAL_NUMBER_CONTEXT = DecimalNumberContexts.fake();
 
     @Test
     public void testWithNullExpressionNumberKindFails() {
-        assertThrows(NullPointerException.class, () -> BasicExpressionNumberContext.with(null, DECIMAL_NUMBER_CONTEXT));
+        assertThrows(NullPointerException.class, () -> ExpressionNumberContextBasic.with(null, DECIMAL_NUMBER_CONTEXT));
     }
 
     @Test
     public void testWithNullDecimalNumberContextFails() {
-        assertThrows(NullPointerException.class, () -> BasicExpressionNumberContext.with(KIND, null));
+        assertThrows(NullPointerException.class, () -> ExpressionNumberContextBasic.with(KIND, null));
     }
 
     @Test
     public void testToString() {
-        this.toStringAndCheck(BasicExpressionNumberContext.with(KIND, DECIMAL_NUMBER_CONTEXT), KIND + " " + DECIMAL_NUMBER_CONTEXT);
+        this.toStringAndCheck(ExpressionNumberContextBasic.with(KIND, DECIMAL_NUMBER_CONTEXT), KIND + " " + DECIMAL_NUMBER_CONTEXT);
     }
 
     @Override
-    public Class<BasicExpressionNumberContext> type() {
-        return BasicExpressionNumberContext.class;
+    public Class<ExpressionNumberContextBasic> type() {
+        return ExpressionNumberContextBasic.class;
     }
 
     @Override

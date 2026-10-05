@@ -23,11 +23,11 @@ import walkingkooka.reflect.PublicStaticHelper;
 public final class ExpressionNumberContexts implements PublicStaticHelper {
 
     /**
-     * {@see BasicExpressionNumberContext}
+     * {@see ExpressionNumberContextBasic}
      */
     public static ExpressionNumberContext basic(final ExpressionNumberKind expressionNumberKind,
                                                 final DecimalNumberContext decimalNumberContext) {
-        return BasicExpressionNumberContext.with(
+        return ExpressionNumberContextBasic.with(
             expressionNumberKind,
             decimalNumberContext
         );
