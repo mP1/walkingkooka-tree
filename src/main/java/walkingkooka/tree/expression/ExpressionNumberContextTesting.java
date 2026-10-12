@@ -21,4 +21,9 @@ import walkingkooka.math.DecimalNumberContextTesting;
 
 public interface ExpressionNumberContextTesting extends DecimalNumberContextTesting,
     HasExpressionNumberKindTesting {
+
+    ExpressionNumberContext EXPRESSION_NUMBER_CONTEXT = ExpressionNumberContexts.basic(
+        EXPRESSION_NUMBER_KIND,
+        DECIMAL_NUMBER_CONTEXT
+    );
 }
