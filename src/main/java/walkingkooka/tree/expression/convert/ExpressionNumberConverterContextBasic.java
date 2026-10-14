@@ -55,17 +55,17 @@ final class ExpressionNumberConverterContextBasic implements ExpressionNumberCon
     static ExpressionNumberConverterContextBasic with(final Converter<ExpressionNumberConverterContext> converter,
                                                       final BinaryNumberConverterFunction<ExpressionNumberConverterContext> multiplier,
                                                       final ConverterContext context,
-                                                      final ExpressionNumberKind kind) {
+                                                      final ExpressionNumberKind expressionNumberKind) {
         Objects.requireNonNull(converter, "converter");
         Objects.requireNonNull(multiplier, "multiplier");
         Objects.requireNonNull(context, "context");
-        Objects.requireNonNull(kind, "kind");
+        Objects.requireNonNull(expressionNumberKind, "expressionNumberKind");
 
         return new ExpressionNumberConverterContextBasic(
             converter,
             multiplier,
             context,
-            kind
+            expressionNumberKind
         );
     }
 
