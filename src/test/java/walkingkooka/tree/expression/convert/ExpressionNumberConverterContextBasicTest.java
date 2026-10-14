@@ -65,35 +65,9 @@ public final class ExpressionNumberConverterContextBasicTest implements Expressi
             NullPointerException.class,
             () -> ExpressionNumberConverterContextBasic.with(
                 null,
+                EXPRESSION_NUMBER_KIND,
                 MULTIPLIER,
-                CONVERTER_CONTEXT,
-                EXPRESSION_NUMBER_KIND
-            )
-        );
-    }
-
-    @Test
-    public void testWithNullMultiplierFails() {
-        assertThrows(
-            NullPointerException.class,
-            () -> ExpressionNumberConverterContextBasic.with(
-                CONVERTER,
-                null,
-                CONVERTER_CONTEXT,
-                EXPRESSION_NUMBER_KIND
-            )
-        );
-    }
-
-    @Test
-    public void testWithNullConverterContextFails() {
-        assertThrows(
-            NullPointerException.class,
-            () -> ExpressionNumberConverterContextBasic.with(
-                CONVERTER,
-                MULTIPLIER,
-                null,
-                EXPRESSION_NUMBER_KIND
+                CONVERTER_CONTEXT
             )
         );
     }
@@ -104,8 +78,34 @@ public final class ExpressionNumberConverterContextBasicTest implements Expressi
             NullPointerException.class,
             () -> ExpressionNumberConverterContextBasic.with(
                 CONVERTER,
+                null,
                 MULTIPLIER,
-                CONVERTER_CONTEXT,
+                CONVERTER_CONTEXT
+            )
+        );
+    }
+
+    @Test
+    public void testWithNullMultiplierFails() {
+        assertThrows(
+            NullPointerException.class,
+            () -> ExpressionNumberConverterContextBasic.with(
+                CONVERTER,
+                EXPRESSION_NUMBER_KIND,
+                null,
+                CONVERTER_CONTEXT
+            )
+        );
+    }
+
+    @Test
+    public void testWithNullConverterContextFails() {
+        assertThrows(
+            NullPointerException.class,
+            () -> ExpressionNumberConverterContextBasic.with(
+                CONVERTER,
+                EXPRESSION_NUMBER_KIND,
+                MULTIPLIER,
                 null
             )
         );
@@ -153,9 +153,9 @@ public final class ExpressionNumberConverterContextBasicTest implements Expressi
     public ExpressionNumberConverterContextBasic createContext() {
         return ExpressionNumberConverterContextBasic.with(
             CONVERTER,
+            EXPRESSION_NUMBER_KIND,
             MULTIPLIER,
-            CONVERTER_CONTEXT,
-            EXPRESSION_NUMBER_KIND
+            CONVERTER_CONTEXT
         );
     }
 
