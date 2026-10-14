@@ -29,14 +29,14 @@ public final class ExpressionNumberConverterContexts implements PublicStaticHelp
      * {@see ExpressionNumberConverterContextBasic}
      */
     public static ExpressionNumberConverterContext basic(final Converter<ExpressionNumberConverterContext> converter,
+                                                         final ExpressionNumberKind expressionNumberKind,
                                                          final BinaryNumberConverterFunction<ExpressionNumberConverterContext> multiplier,
-                                                         final ConverterContext context,
-                                                         final ExpressionNumberKind expressionNumberKind) {
+                                                         final ConverterContext context) {
         return ExpressionNumberConverterContextBasic.with(
             converter,
+            expressionNumberKind,
             multiplier,
-            context,
-            expressionNumberKind
+            context
         );
     }
 

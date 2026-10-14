@@ -53,30 +53,32 @@ final class ExpressionNumberConverterContextBasic implements ExpressionNumberCon
     UsesToStringBuilder {
 
     static ExpressionNumberConverterContextBasic with(final Converter<ExpressionNumberConverterContext> converter,
+                                                      final ExpressionNumberKind expressionNumberKind,
                                                       final BinaryNumberConverterFunction<ExpressionNumberConverterContext> multiplier,
-                                                      final ConverterContext context,
-                                                      final ExpressionNumberKind expressionNumberKind) {
+                                                      final ConverterContext context) {
         Objects.requireNonNull(converter, "converter");
+        Objects.requireNonNull(expressionNumberKind, "expressionNumberKind");
         Objects.requireNonNull(multiplier, "multiplier");
         Objects.requireNonNull(context, "context");
-        Objects.requireNonNull(expressionNumberKind, "expressionNumberKind");
 
         return new ExpressionNumberConverterContextBasic(
             converter,
+            expressionNumberKind,
             multiplier,
-            context,
-            expressionNumberKind
+            context
         );
     }
 
     private ExpressionNumberConverterContextBasic(final Converter<ExpressionNumberConverterContext> converter,
+                                                  final ExpressionNumberKind expressionNumberKind,
                                                   final BinaryNumberConverterFunction<ExpressionNumberConverterContext> multiplier,
-                                                  final ConverterContext context,
-                                                  final ExpressionNumberKind expressionNumberKind) {
+                                                  final ConverterContext context) {
+        super();
+
         this.converter = converter;
+        this.expressionNumberKind = expressionNumberKind;
         this.multiplier = multiplier;
         this.context = context;
-        this.expressionNumberKind = expressionNumberKind;
     }
 
     @Override
