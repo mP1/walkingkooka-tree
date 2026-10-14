@@ -31,12 +31,12 @@ public final class ExpressionNumberConverterContexts implements PublicStaticHelp
     public static ExpressionNumberConverterContext basic(final Converter<ExpressionNumberConverterContext> converter,
                                                          final BinaryNumberConverterFunction<ExpressionNumberConverterContext> multiplier,
                                                          final ConverterContext context,
-                                                         final ExpressionNumberKind kind) {
+                                                         final ExpressionNumberKind expressionNumberKind) {
         return ExpressionNumberConverterContextBasic.with(
             converter,
             multiplier,
             context,
-            kind
+            expressionNumberKind
         );
     }
 
