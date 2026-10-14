@@ -72,11 +72,11 @@ final class ExpressionNumberConverterContextBasic implements ExpressionNumberCon
     private ExpressionNumberConverterContextBasic(final Converter<ExpressionNumberConverterContext> converter,
                                                   final BinaryNumberConverterFunction<ExpressionNumberConverterContext> multiplier,
                                                   final ConverterContext context,
-                                                  final ExpressionNumberKind kind) {
+                                                  final ExpressionNumberKind expressionNumberKind) {
         this.converter = converter;
         this.multiplier = multiplier;
         this.context = context;
-        this.kind = kind;
+        this.expressionNumberKind = expressionNumberKind;
     }
 
     @Override
@@ -204,10 +204,10 @@ final class ExpressionNumberConverterContextBasic implements ExpressionNumberCon
 
     @Override
     public ExpressionNumberKind expressionNumberKind() {
-        return this.kind;
+        return this.expressionNumberKind;
     }
 
-    private final ExpressionNumberKind kind;
+    private final ExpressionNumberKind expressionNumberKind;
 
     // Object...........................................................................................................
 
@@ -225,7 +225,7 @@ final class ExpressionNumberConverterContextBasic implements ExpressionNumberCon
             .label("multiplier")
             .value(this.multiplier)
             .label("expressionNumberKind")
-            .value(this.kind)
+            .value(this.expressionNumberKind)
             .label("context")
             .value(this.context);
     }
