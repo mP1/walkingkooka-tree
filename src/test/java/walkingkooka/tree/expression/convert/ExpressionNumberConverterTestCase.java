@@ -48,6 +48,7 @@ public abstract class ExpressionNumberConverterTestCase<C extends ExpressionNumb
     final ExpressionNumberConverterContext createContext(final ExpressionNumberKind kind) {
         return ExpressionNumberConverterContexts.basic(
             Converters.fake(),
+            kind,
             BinaryNumberConverterFunctions.fake(), // multiplier
             ConverterContexts.basic(
                 false, // canNumbersHaveGroupSeparator
@@ -59,8 +60,7 @@ public abstract class ExpressionNumberConverterTestCase<C extends ExpressionNumb
                 CurrencyLocaleContexts.fake(),
                 DateTimeContexts.fake(),
                 DECIMAL_NUMBER_CONTEXT
-            ),
-            kind
+            )
         );
     }
 

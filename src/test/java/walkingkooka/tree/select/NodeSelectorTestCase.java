@@ -519,6 +519,7 @@ abstract public class NodeSelectorTestCase<S extends NodeSelector<TestNode, Stri
                                 ExpressionNumberConverters.toNumberOrExpressionNumber(Converters.simple())
                             )
                         ),
+                        EXPRESSION_NUMBER_KIND,
                         BinaryNumberConverterFunctions.fake(), // multiplier
                         ConverterContexts.basic(
                             false, // canNumbersHaveGroupSeparator
@@ -530,8 +531,7 @@ abstract public class NodeSelectorTestCase<S extends NodeSelector<TestNode, Stri
                             CurrencyLocaleContexts.fake(),
                             DateTimeContexts.fake(),
                             DECIMAL_NUMBER_CONTEXT
-                        ),
-                        EXPRESSION_NUMBER_KIND
+                        )
                     ),
                     ENVIRONMENT_CONTEXT.cloneEnvironment(),
                     LOCALE_CONTEXT

@@ -66,6 +66,7 @@ public final class NodeSelectorContextBasicTest implements ClassTesting2<NodeSel
         ExpressionNumberConverters.toNumberOrExpressionNumber(
             Converters.fake()
         ),
+        EXPRESSION_NUMBER_KIND,
         BinaryNumberConverterFunctions.fake(), // multiplier
         ConverterContexts.basic(
             false, // canNumbersHaveGroupSeparator
@@ -77,8 +78,7 @@ public final class NodeSelectorContextBasicTest implements ClassTesting2<NodeSel
             CurrencyLocaleContexts.fake(),
             DateTimeContexts.fake(),
             DECIMAL_NUMBER_CONTEXT
-        ),
-        EXPRESSION_NUMBER_KIND
+        )
     );
 
     private final static Function<TestNode, NodeSelectorExpressionEvaluationContext<TestNode, StringName, StringName, Object>> EXPRESSION_EVALUATION_CONTEXT_FACTORY = new Function<>() {
