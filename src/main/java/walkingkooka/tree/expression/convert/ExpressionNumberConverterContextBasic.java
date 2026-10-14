@@ -18,6 +18,8 @@
 package walkingkooka.tree.expression.convert;
 
 import walkingkooka.Either;
+import walkingkooka.ToStringBuilder;
+import walkingkooka.UsesToStringBuilder;
 import walkingkooka.convert.BinaryNumberConverterFunction;
 import walkingkooka.convert.Converter;
 import walkingkooka.convert.ConverterContext;
@@ -47,7 +49,8 @@ import java.util.Set;
 final class ExpressionNumberConverterContextBasic implements ExpressionNumberConverterContext,
     CurrencyCodeLanguageTagContextDelegator,
     DateTimeContextDelegator,
-    DecimalNumberContextDelegator {
+    DecimalNumberContextDelegator,
+    UsesToStringBuilder {
 
     static ExpressionNumberConverterContextBasic with(final Converter<ExpressionNumberConverterContext> converter,
                                                       final BinaryNumberConverterFunction<ExpressionNumberConverterContext> multiplier,
@@ -206,8 +209,24 @@ final class ExpressionNumberConverterContextBasic implements ExpressionNumberCon
 
     private final ExpressionNumberKind kind;
 
+    // Object...........................................................................................................
+
     @Override
     public String toString() {
-        return this.context + " " + this.kind;
+        return ToStringBuilder.buildFrom(this);
+    }
+
+    // UsesToStringBuilder..............................................................................................
+
+    @Override
+    public void buildToString(final ToStringBuilder toStringBuilder) {
+        toStringBuilder.label("converter")
+            .value(this.converter)
+            .label("multiplier")
+            .value(this.multiplier)
+            .label("expressionNumberKind")
+            .value(this.kind)
+            .label("context")
+            .value(this.context);
     }
 }
