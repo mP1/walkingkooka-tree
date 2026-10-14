@@ -26,12 +26,8 @@ import walkingkooka.convert.Converter;
 import walkingkooka.convert.ConverterContexts;
 import walkingkooka.convert.Converters;
 import walkingkooka.convert.FakeConverter;
-import walkingkooka.currency.CurrencyContexts;
-import walkingkooka.currency.FakeCurrencyExchangeRater;
-import walkingkooka.datetime.DateTimeContexts;
-import walkingkooka.datetime.DateTimeSymbols;
-import walkingkooka.locale.LocaleContext;
-import walkingkooka.locale.LocaleContexts;
+import walkingkooka.currency.CurrencyLocaleContextTesting;
+import walkingkooka.datetime.DateTimeContextTesting;
 import walkingkooka.math.DecimalNumberContextTesting;
 import walkingkooka.naming.Name;
 import walkingkooka.net.header.HasContentTypeTesting;
@@ -40,17 +36,16 @@ import walkingkooka.reflect.ClassTesting2;
 import walkingkooka.reflect.IsMethodTesting;
 import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.reflect.PublicStaticFactoryTesting;
+import walkingkooka.text.BinaryTextContextTesting;
 import walkingkooka.text.CaseSensitivity;
 import walkingkooka.text.HasTextTesting;
-import walkingkooka.text.Indentation;
-import walkingkooka.text.LineEnding;
-import walkingkooka.text.TextPrinting;
 import walkingkooka.text.cursor.parser.DoubleParserToken;
 import walkingkooka.text.cursor.parser.InvalidCharacterExceptionFactory;
 import walkingkooka.text.cursor.parser.LocalDateParserToken;
 import walkingkooka.text.cursor.parser.LocalDateTimeParserToken;
 import walkingkooka.text.cursor.parser.LocalTimeParserToken;
 import walkingkooka.text.cursor.parser.ParserContext;
+import walkingkooka.text.cursor.parser.ParserContextTesting;
 import walkingkooka.text.cursor.parser.ParserContexts;
 import walkingkooka.text.cursor.parser.Parsers;
 import walkingkooka.text.printer.TreePrintableTesting;
@@ -60,28 +55,28 @@ import walkingkooka.tree.expression.convert.ExpressionNumberConverterContexts;
 import walkingkooka.tree.expression.convert.ExpressionNumberConverters;
 
 import java.math.MathContext;
-import java.nio.charset.StandardCharsets;
-import java.text.DateFormatSymbols;
 import java.text.DecimalFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.ZoneOffset;
 import java.time.format.DateTimeFormatter;
-import java.util.Currency;
 import java.util.List;
-import java.util.Locale;
 import java.util.function.Function;
 import java.util.function.Predicate;
 
 public abstract class ExpressionTestCase<N extends Expression> implements TreePrintableTesting,
     ClassTesting2<Expression>,
+    BinaryTextContextTesting,
+    CurrencyLocaleContextTesting,
+    DateTimeContextTesting,
     DecimalNumberContextTesting,
     HasContentTypeTesting,
     HasTextTesting,
     ExpressionPurityTesting,
     IsMethodTesting<N>,
-    NodeTesting<Expression, ExpressionFunctionName, Name, Object> {
+    NodeTesting<Expression, ExpressionFunctionName, Name, Object>,
+    ParserContextTesting {
 
     final static ExpressionNumberKind EXPRESSION_NUMBER_KIND = ExpressionNumberKind.DEFAULT;
 
@@ -396,10 +391,6 @@ public abstract class ExpressionTestCase<N extends Expression> implements TreePr
     }
 
     private ExpressionNumberConverterContext converterContext() {
-        final Locale locale = Locale.forLanguageTag("en-AU");
-
-        final LocaleContext localeContext = LocaleContexts.jre(locale);
-
         return ExpressionNumberConverterContexts.basic(
             Converters.collection(
                 Lists.of(
@@ -415,24 +406,9 @@ public abstract class ExpressionTestCase<N extends Expression> implements TreePr
                 ',', // valueSeparator
                 Converters.simple(),
                 BinaryNumberConverterFunctions.fake(), // multiplier
-                TextPrinting.with(
-                    Indentation.SPACES2,
-                    LineEnding.NL
-                ).setCharset(StandardCharsets.UTF_8),
-                CurrencyContexts.jre(
-                    Currency.getInstance(locale),
-                    new FakeCurrencyExchangeRater<>(),
-                    localeContext
-                ).setLocaleContext(localeContext),
-                DateTimeContexts.basic(
-                    DateTimeSymbols.fromDateFormatSymbols(
-                        new DateFormatSymbols(locale)
-                    ),
-                    locale,
-                    1900,
-                    20,
-                    LocalDateTime::now
-                ),
+                BINARY_TEXT_CONTEXT,
+                CURRENCY_LOCALE_CONTEXT,
+                DATE_TIME_CONTEXT,
                 DECIMAL_NUMBER_CONTEXT
             )
         );
@@ -549,7 +525,7 @@ public abstract class ExpressionTestCase<N extends Expression> implements TreePr
 
             @Override
             public MathContext mathContext() {
-                return MathContext.DECIMAL64;
+                return MATH_CONTEXT;
             }
 
             @Override
