@@ -20,29 +20,22 @@ package walkingkooka.tree.expression.convert;
 import walkingkooka.convert.BinaryNumberConverterFunctions;
 import walkingkooka.convert.ConverterContexts;
 import walkingkooka.convert.Converters;
-import walkingkooka.currency.CurrencyCode;
-import walkingkooka.currency.CurrencyExchange;
-import walkingkooka.currency.FakeCurrencyContext;
-import walkingkooka.datetime.DateTimeContexts;
-import walkingkooka.datetime.DateTimeSymbols;
-import walkingkooka.locale.LocaleContexts;
+import walkingkooka.currency.CurrencyLocaleContextTesting;
+import walkingkooka.datetime.DateTimeContextTesting;
 import walkingkooka.math.DecimalNumberContext;
 import walkingkooka.math.DecimalNumberContextDelegator;
 import walkingkooka.math.DecimalNumberContextTesting;
-import walkingkooka.tree.expression.ExpressionNumberKind;
+import walkingkooka.tree.expression.HasExpressionNumberKindTesting;
 import walkingkooka.tree.expression.convert.ExpressionNumberConverterContextDelegatorTest.TestExpressionNumberConverterContextDelegator;
 
 import java.math.MathContext;
-import java.text.DateFormatSymbols;
-import java.time.LocalDateTime;
-import java.util.Currency;
-import java.util.Locale;
-import java.util.Objects;
-import java.util.Optional;
 
 public final class ExpressionNumberConverterContextDelegatorTest implements ExpressionNumberConverterContextTesting2<TestExpressionNumberConverterContextDelegator>,
+    CurrencyLocaleContextTesting,
+    DateTimeContextTesting,
     DecimalNumberContextDelegator,
-    DecimalNumberContextTesting {
+    DecimalNumberContextTesting,
+    HasExpressionNumberKindTesting {
 
     @Override
     public TestExpressionNumberConverterContextDelegator createContext() {
@@ -53,8 +46,7 @@ public final class ExpressionNumberConverterContextDelegatorTest implements Expr
 
     @Override
     public int decimalNumberDigitCount() {
-        return this.decimalNumberContext()
-            .decimalNumberDigitCount();
+        return DEFAULT_NUMBER_DIGIT_COUNT;
     }
 
     @Override
@@ -64,7 +56,7 @@ public final class ExpressionNumberConverterContextDelegatorTest implements Expr
 
     @Override
     public MathContext mathContext() {
-        return MathContext.DECIMAL32;
+        return MATH_CONTEXT;
     }
 
     // class............................................................................................................
@@ -83,11 +75,9 @@ public final class ExpressionNumberConverterContextDelegatorTest implements Expr
 
         @Override
         public ExpressionNumberConverterContext expressionNumberConverterContext() {
-            final Locale locale = Locale.ENGLISH;
-
             return ExpressionNumberConverterContexts.basic(
                 Converters.numberToBoolean(),
-                ExpressionNumberKind.BIG_DECIMAL,
+                EXPRESSION_NUMBER_KIND,
                 BinaryNumberConverterFunctions.multiply(), // multiplier
                 ConverterContexts.basic(
                     false, // canNumbersHaveGroupSeparator
@@ -96,42 +86,8 @@ public final class ExpressionNumberConverterContextDelegatorTest implements Expr
                     Converters.fake(),
                     BinaryNumberConverterFunctions.multiply(), // multiplier
                     BINARY_TEXT_CONTEXT,
-                    new FakeCurrencyContext() {
-
-                        @Override
-                        public Optional<Currency> currencyForCurrencyCode(final CurrencyCode currencyCode) {
-                            Objects.requireNonNull(currencyCode, "currencyCode");
-
-                            throw new UnsupportedOperationException();
-                        }
-
-                        @Override
-                        public Optional<Currency> currencyForLocale(final Locale locale) {
-                            return Optional.of(
-                                Currency.getInstance(locale)
-                            );
-                        }
-
-                        @Override
-                        public Optional<Number> currencyExchangeRate(final CurrencyExchange currencyExchange,
-                                                                     final Optional<LocalDateTime> dateTime) {
-                            Objects.requireNonNull(currencyExchange, "currencyExchange");
-                            Objects.requireNonNull(dateTime, "dateTime");
-
-                            throw new UnsupportedOperationException();
-                        }
-                    }.setLocaleContext(
-                        LocaleContexts.jre(locale)
-                    ),
-                    DateTimeContexts.basic(
-                        DateTimeSymbols.fromDateFormatSymbols(
-                            new DateFormatSymbols(locale)
-                        ),
-                        locale,
-                        1900,
-                        50,
-                        LocalDateTime::now
-                    ),
+                    CURRENCY_LOCALE_CONTEXT,
+                    DATE_TIME_CONTEXT,
                     DECIMAL_NUMBER_CONTEXT
                 )
             );
