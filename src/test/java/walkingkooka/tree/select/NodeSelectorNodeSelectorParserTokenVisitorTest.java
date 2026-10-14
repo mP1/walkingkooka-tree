@@ -2497,6 +2497,7 @@ public final class NodeSelectorNodeSelectorParserTokenVisitorTest implements Nod
                                 return convert0(value, type);
                             }
                         },
+                        EXPRESSION_NUMBER_KIND,
                         BinaryNumberConverterFunctions.fake(), // multiplier
                         ConverterContexts.basic(
                             false, // canNumbersHaveGroupSeparator
@@ -2508,8 +2509,7 @@ public final class NodeSelectorNodeSelectorParserTokenVisitorTest implements Nod
                             CurrencyLocaleContexts.fake(),
                             DateTimeContexts.fake(),
                             DECIMAL_NUMBER_CONTEXT
-                        ),
-                        EXPRESSION_NUMBER_KIND
+                        )
                     );
                 }
             });

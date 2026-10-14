@@ -407,6 +407,7 @@ public abstract class ExpressionTestCase<N extends Expression> implements TreePr
                     Converters.characterOrCharSequenceOrHasTextOrStringToCharacterOrCharSequenceOrString()
                 )
             ),
+            EXPRESSION_NUMBER_KIND,
             BinaryNumberConverterFunctions.fake(), // multiplier
             ConverterContexts.basic(
                 false, // canNumbersHaveGroupSeparator
@@ -433,8 +434,7 @@ public abstract class ExpressionTestCase<N extends Expression> implements TreePr
                     LocalDateTime::now
                 ),
                 DECIMAL_NUMBER_CONTEXT
-            ),
-            EXPRESSION_NUMBER_KIND
+            )
         );
     }
 

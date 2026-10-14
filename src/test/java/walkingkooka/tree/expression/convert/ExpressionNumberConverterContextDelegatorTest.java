@@ -87,6 +87,7 @@ public final class ExpressionNumberConverterContextDelegatorTest implements Expr
 
             return ExpressionNumberConverterContexts.basic(
                 Converters.numberToBoolean(),
+                ExpressionNumberKind.BIG_DECIMAL,
                 BinaryNumberConverterFunctions.multiply(), // multiplier
                 ConverterContexts.basic(
                     false, // canNumbersHaveGroupSeparator
@@ -132,8 +133,7 @@ public final class ExpressionNumberConverterContextDelegatorTest implements Expr
                         LocalDateTime::now
                     ),
                     DECIMAL_NUMBER_CONTEXT
-                ),
-                ExpressionNumberKind.BIG_DECIMAL
+                )
             );
         }
 

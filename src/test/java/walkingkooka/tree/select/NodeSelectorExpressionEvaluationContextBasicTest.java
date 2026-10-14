@@ -168,6 +168,7 @@ public final class NodeSelectorExpressionEvaluationContextBasicTest implements N
                 CaseSensitivity.SENSITIVE,
                 ExpressionNumberConverterContexts.basic(
                     Converters.numberToNumber(),
+                    EXPRESSION_NUMBER_KIND,
                     BinaryNumberConverterFunctions.fake(), // multiplier
                     ConverterContexts.basic(
                         false, // canNumbersHaveGroupSeparator
@@ -179,8 +180,7 @@ public final class NodeSelectorExpressionEvaluationContextBasicTest implements N
                         CurrencyLocaleContexts.fake(),
                         DATE_TIME_CONTEXT,
                         DECIMAL_NUMBER_CONTEXT
-                    ),
-                    EXPRESSION_NUMBER_KIND
+                    )
                 ),
                 ENVIRONMENT_CONTEXT.cloneEnvironment(),
                 LocaleContexts.jre(locale)
