@@ -149,14 +149,6 @@ public final class ExpressionNumberConverterContextBasicTest implements Expressi
         );
     }
 
-    @Test
-    public void testToString() {
-        this.toStringAndCheck(
-            this.createContext(),
-            CONVERTER_CONTEXT + " " + EXPRESSION_NUMBER_KIND
-        );
-    }
-
     @Override
     public ExpressionNumberConverterContextBasic createContext() {
         return ExpressionNumberConverterContextBasic.with(
@@ -182,6 +174,16 @@ public final class ExpressionNumberConverterContextBasicTest implements Expressi
     @Override
     public MathContext mathContext() {
         return DECIMAL_NUMBER_CONTEXT.mathContext();
+    }
+
+    // toString.........................................................................................................
+
+    @Test
+    public void testToString() {
+        this.toStringAndCheck(
+            this.createContext(),
+            "converter=Number to Number multiplier=walkingkooka.tree.expression.convert.BasicMultiplyBinaryNumberConverterFunction expressionNumberKind=BIG_DECIMAL context=binaryTextContext=charset=\"UTF-8\" indentation=\"  \" lineEnding=\"\\n\" dateTimeContext=symbols=ampms=\"am\", \"pm\" monthNames=\"January\", \"February\", \"March\", \"April\", \"May\", \"June\", \"July\", \"August\", \"September\", \"October\", \"November\", \"December\" monthNameAbbreviations=\"Jan.\", \"Feb.\", \"Mar.\", \"Apr.\", \"May\", \"Jun.\", \"Jul.\", \"Aug.\", \"Sep.\", \"Oct.\", \"Nov.\", \"Dec.\" weekDayNames=\"Sunday\", \"Monday\", \"Tuesday\", \"Wednesday\", \"Thursday\", \"Friday\", \"Saturday\" weekDayNameAbbreviations=\"Sun.\", \"Mon.\", \"Tue.\", \"Wed.\", \"Thu.\", \"Fri.\", \"Sat.\" locale=\"en-AU\" twoDigitYear=50 decimalNumberContext=decimalNumberDigitNumberCount=9 symbols=negativeSign='-' positiveSign='+' zeroDigit='0' currencySymbol=\"$\" decimalSeparator='.' exponentSymbol=\"e\" groupSeparator=',' infinitySymbol=\"∞\" monetaryDecimalSeparator='.' nanSymbol=\"NaN\" percentSymbol='%' permillSymbol="
+        );
     }
 
     // class............................................................................................................
