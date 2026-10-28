@@ -348,6 +348,13 @@ public abstract class Expression implements Node<Expression, ExpressionFunctionN
     }
 
     /**
+     * Only {@link BinaryExpression} returns true
+     */
+    public final boolean isBinary() {
+        return this instanceof BinaryExpression;
+    }
+
+    /**
      * Only {@link CallExpression} returns true
      */
     public final boolean isCall() {
@@ -492,6 +499,13 @@ public abstract class Expression implements Node<Expression, ExpressionFunctionN
      */
     public final boolean isSubtract() {
         return this instanceof SubtractExpression;
+    }
+
+    /**
+     * Only {@link UnaryExpression} returns true
+     */
+    public final boolean isUnary() {
+        return this instanceof UnaryExpression;
     }
 
     /**
