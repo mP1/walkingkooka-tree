@@ -22,7 +22,6 @@ import walkingkooka.tree.expression.function.ExpressionFunction;
 import walkingkooka.visit.Visiting;
 
 import java.util.List;
-import java.util.Objects;
 
 /**
  * A not expression.
@@ -34,8 +33,6 @@ public final class NotExpression extends UnaryExpression {
     public final static String SYMBOL = "!";
 
     static NotExpression with(final Expression value) {
-        Objects.requireNonNull(value, "value");
-
         return new NotExpression(
             NO_INDEX,
             value
