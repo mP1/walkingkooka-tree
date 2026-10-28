@@ -28,10 +28,10 @@ final class ExpressionChildrenListBinary extends ExpressionChildrenList<Expressi
     static ExpressionChildrenListBinary fromCollection(final Collection<Expression> children) {
         Objects.requireNonNull(children, "children");
 
-        ExpressionChildrenListBinary binaryExpressionChildrenList;
+        ExpressionChildrenListBinary expressionChildrenListBinary;
 
         if (children instanceof ExpressionChildrenListBinary) {
-            binaryExpressionChildrenList = (ExpressionChildrenListBinary) children;
+            expressionChildrenListBinary = (ExpressionChildrenListBinary) children;
         } else {
             final Object[] childrenArray = children.toArray();
             final int count = childrenArray.length;
@@ -40,12 +40,12 @@ final class ExpressionChildrenListBinary extends ExpressionChildrenList<Expressi
                 throw new IllegalArgumentException("Expected left and right got " + count + " children");
             }
 
-            binaryExpressionChildrenList = with(
+            expressionChildrenListBinary = with(
                 (Expression) childrenArray[0],
                 (Expression) childrenArray[1]
             );
         }
-        return binaryExpressionChildrenList;
+        return expressionChildrenListBinary;
     }
 
     static ExpressionChildrenListBinary with(final Expression left,
@@ -91,10 +91,10 @@ final class ExpressionChildrenListBinary extends ExpressionChildrenList<Expressi
     public ExpressionChildrenListBinary setElements(final Collection<Expression> collection) {
         Objects.requireNonNull(collection, "collection");
 
-        ExpressionChildrenListBinary binaryExpressionChildrenList;
+        ExpressionChildrenListBinary expressionChildrenListBinary;
 
         if (collection instanceof ExpressionChildrenListBinary) {
-            binaryExpressionChildrenList = (ExpressionChildrenListBinary) collection;
+            expressionChildrenListBinary = (ExpressionChildrenListBinary) collection;
         } else {
             final Object[] children = collection.toArray();
             final int count = children.length;
@@ -103,12 +103,12 @@ final class ExpressionChildrenListBinary extends ExpressionChildrenList<Expressi
                 throw new IllegalArgumentException("Expected left and right got " + count + " children");
             }
 
-            binaryExpressionChildrenList = this.setLeftAndRight(
+            expressionChildrenListBinary = this.setLeftAndRight(
                 (Expression) children[0],
                 (Expression) children[1]
             );
         }
-        return binaryExpressionChildrenList;
+        return expressionChildrenListBinary;
     }
 
     ExpressionChildrenListBinary setLeftAndRight(final Expression left,
