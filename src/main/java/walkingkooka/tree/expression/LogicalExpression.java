@@ -28,8 +28,14 @@ package walkingkooka.tree.expression;
  */
 public abstract class LogicalExpression extends BinaryExpression {
 
-    LogicalExpression(final int index, final Expression left, final Expression right) {
-        super(index, left, right);
+    LogicalExpression(final int index,
+                      final Expression left,
+                      final Expression right) {
+        super(
+            index,
+            left,
+            right
+        );
     }
 
     // evaluation .....................................................................................................
@@ -40,9 +46,10 @@ public abstract class LogicalExpression extends BinaryExpression {
             .toValue(context);
     }
 
-    @Override final Expression apply(final Object left,
-                                     final Object right,
-                                     final ExpressionEvaluationContext context) {
+    @Override //
+    final Expression apply(final Object left,
+                           final Object right,
+                           final ExpressionEvaluationContext context) {
         final Object result;
         if (left instanceof Boolean) {
             result = this.applyBoolean(
