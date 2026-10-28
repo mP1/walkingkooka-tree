@@ -30,13 +30,24 @@ public final class OrExpression extends LogicalExpression {
 
     public final static String SYMBOL = "|";
 
-    static OrExpression with(final Expression left, final Expression right) {
+    static OrExpression with(final Expression left,
+                             final Expression right) {
         check(left, right);
-        return new OrExpression(NO_INDEX, left, right);
+        return new OrExpression(
+            NO_INDEX,
+            left,
+            right
+        );
     }
 
-    private OrExpression(final int index, final Expression left, final Expression right) {
-        super(index, left, right);
+    private OrExpression(final int index,
+                         final Expression left,
+                         final Expression right) {
+        super(
+            index,
+            left,
+            right
+        );
     }
 
     @Override
@@ -55,8 +66,14 @@ public final class OrExpression extends LogicalExpression {
     }
 
     @Override
-    OrExpression replace1(final int index, final Expression left, final Expression right) {
-        return new OrExpression(index, left, right);
+    OrExpression replace1(final int index,
+                          final Expression left,
+                          final Expression right) {
+        return new OrExpression(
+            index,
+            left,
+            right
+        );
     }
 
     // Visitor .........................................................................................................
@@ -72,7 +89,8 @@ public final class OrExpression extends LogicalExpression {
     // evaluation .....................................................................................................
 
     @Override
-    boolean applyBoolean(final boolean left, final boolean right) {
+    boolean applyBoolean(final boolean left,
+                         final boolean right) {
         return left | right;
     }
 
