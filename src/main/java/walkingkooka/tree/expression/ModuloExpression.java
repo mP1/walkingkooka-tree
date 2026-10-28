@@ -30,13 +30,24 @@ public final class ModuloExpression extends ArithmeticExpression {
 
     public final static String SYMBOL = "%";
 
-    static ModuloExpression with(final Expression left, final Expression right) {
+    static ModuloExpression with(final Expression left,
+                                 final Expression right) {
         check(left, right);
-        return new ModuloExpression(NO_INDEX, left, right);
+        return new ModuloExpression(
+            NO_INDEX,
+            left,
+            right
+        );
     }
 
-    private ModuloExpression(final int index, final Expression left, final Expression right) {
-        super(index, left, right);
+    private ModuloExpression(final int index,
+                             final Expression left,
+                             final Expression right) {
+        super(
+            index,
+            left,
+            right
+        );
     }
 
     @Override
@@ -51,12 +62,19 @@ public final class ModuloExpression extends ArithmeticExpression {
 
     @Override
     public ModuloExpression setChildren(final List<Expression> children) {
-        return this.setChildren0(children).cast();
+        return this.setChildren0(children)
+            .cast();
     }
 
     @Override
-    ModuloExpression replace1(final int index, final Expression left, final Expression right) {
-        return new ModuloExpression(index, left, right);
+    ModuloExpression replace1(final int index,
+                              final Expression left,
+                              final Expression right) {
+        return new ModuloExpression(
+            index,
+            left,
+            right
+        );
     }
 
     // Visitor .........................................................................................................
@@ -72,15 +90,22 @@ public final class ModuloExpression extends ArithmeticExpression {
     // Evaluation .......................................................................................................
 
     @Override
-    String applyText(final String left, final String right, final ExpressionEvaluationContext context) {
-        throw new UnsupportedOperationException(left + SYMBOL + right);
+    String applyText(final String left,
+                     final String right,
+                     final ExpressionEvaluationContext context) {
+        throw new UnsupportedOperationException(
+            left + SYMBOL + right
+        );
     }
 
     @Override
     ExpressionNumber applyExpressionNumber(final ExpressionNumber left,
                                            final ExpressionNumber right,
                                            final ExpressionEvaluationContext context) {
-        return left.modulo(right, context);
+        return left.modulo(
+            right,
+            context
+        );
     }
 
     // Object .........................................................................................................
