@@ -34,7 +34,7 @@ public final class ExpressionChildrenListBinaryTest extends ExpressionChildrenLi
     // fromCollection...................................................................................................
 
     @Test
-    public void testWithNullCollectionFails() {
+    public void testFromCollectionWithNullCollectionFails() {
         assertThrows(
             NullPointerException.class,
             () -> ExpressionChildrenListBinary.fromCollection(null)
@@ -42,7 +42,7 @@ public final class ExpressionChildrenListBinaryTest extends ExpressionChildrenLi
     }
 
     @Test
-    public void testWithEmptyCollectionFails() {
+    public void testFromCollectionWithEmptyCollectionFails() {
         assertThrows(
             IllegalArgumentException.class,
             () -> ExpressionChildrenListBinary.fromCollection(
@@ -52,7 +52,7 @@ public final class ExpressionChildrenListBinaryTest extends ExpressionChildrenLi
     }
 
     @Test
-    public void testWithCollectionWithOneFails() {
+    public void testFromCollectionWithCollectionWithOneFails() {
         assertThrows(
             IllegalArgumentException.class,
             () -> ExpressionChildrenListBinary.fromCollection(
@@ -62,7 +62,7 @@ public final class ExpressionChildrenListBinaryTest extends ExpressionChildrenLi
     }
 
     @Test
-    public void testWithCollectionWithThreeFails() {
+    public void testFromCollectionWithCollectionWithThreeFails() {
         assertThrows(
             IllegalArgumentException.class,
             () -> ExpressionChildrenListBinary.fromCollection(
@@ -76,7 +76,7 @@ public final class ExpressionChildrenListBinaryTest extends ExpressionChildrenLi
     }
 
     @Test
-    public void testWithCollection() {
+    public void testFromCollection() {
         this.checkEquals(
             this.createList(),
             ExpressionChildrenListBinary.fromCollection(
