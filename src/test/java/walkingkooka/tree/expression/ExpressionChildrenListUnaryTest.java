@@ -18,6 +18,7 @@
 package walkingkooka.tree.expression;
 
 import org.junit.jupiter.api.Test;
+import walkingkooka.collect.list.Lists;
 
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -28,6 +29,51 @@ public final class ExpressionChildrenListUnaryTest extends ExpressionChildrenLis
 
     private final static Expression DIFFERENT = Expression.value("different");
 
+    // fromCollection...................................................................................................
+
+    @Test
+    public void testFromCollectionWithNullCollectionFails() {
+        assertThrows(
+            NullPointerException.class,
+            () -> ExpressionChildrenListUnary.fromCollection(null)
+        );
+    }
+
+    @Test
+    public void testFromCollectionWithEmptyCollectionFails() {
+        assertThrows(
+            IllegalArgumentException.class,
+            () -> ExpressionChildrenListUnary.fromCollection(
+                Lists.empty()
+            )
+        );
+    }
+
+    @Test
+    public void testFromCollectionWithCollectionWithTwoFails() {
+        assertThrows(
+            IllegalArgumentException.class,
+            () -> ExpressionChildrenListUnary.fromCollection(
+                Lists.of(
+                    CHILD,
+                    DIFFERENT
+                )
+            )
+        );
+    }
+
+    @Test
+    public void testFromCollectionWithCollection() {
+        this.checkEquals(
+            this.createList(),
+            ExpressionChildrenListUnary.fromCollection(
+                Lists.of(CHILD)
+            )
+        );
+    }
+
+    // with.............................................................................................................
+    
     @Test
     public void testWithNullChildFails() {
         assertThrows(
