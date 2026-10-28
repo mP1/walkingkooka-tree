@@ -25,6 +25,29 @@ import java.util.Objects;
  */
 final class ExpressionChildrenListBinary extends ExpressionChildrenList<ExpressionChildrenListBinary> {
 
+    static ExpressionChildrenListBinary fromCollection(final Collection<Expression> children) {
+        Objects.requireNonNull(children, "children");
+
+        ExpressionChildrenListBinary binaryExpressionChildrenList;
+
+        if (children instanceof ExpressionChildrenListBinary) {
+            binaryExpressionChildrenList = (ExpressionChildrenListBinary) children;
+        } else {
+            final Object[] childrenArray = children.toArray();
+            final int count = childrenArray.length;
+
+            if (2 != count) {
+                throw new IllegalArgumentException("Expected left and right got " + count + " children");
+            }
+
+            binaryExpressionChildrenList = with(
+                (Expression) childrenArray[0],
+                (Expression) childrenArray[1]
+            );
+        }
+        return binaryExpressionChildrenList;
+    }
+
     static ExpressionChildrenListBinary with(final Expression left,
                                              final Expression right) {
         return new ExpressionChildrenListBinary(
