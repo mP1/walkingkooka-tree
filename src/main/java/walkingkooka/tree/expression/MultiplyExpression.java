@@ -30,13 +30,24 @@ public final class MultiplyExpression extends ArithmeticExpression {
 
     public final static String SYMBOL = "*";
 
-    static MultiplyExpression with(final Expression left, final Expression right) {
+    static MultiplyExpression with(final Expression left,
+                                   final Expression right) {
         check(left, right);
-        return new MultiplyExpression(NO_INDEX, left, right);
+        return new MultiplyExpression(
+            NO_INDEX,
+            left,
+            right
+        );
     }
 
-    private MultiplyExpression(final int index, final Expression left, final Expression right) {
-        super(index, left, right);
+    private MultiplyExpression(final int index,
+                               final Expression left,
+                               final Expression right) {
+        super(
+            index,
+            left,
+            right
+        );
     }
 
     @Override
@@ -55,8 +66,14 @@ public final class MultiplyExpression extends ArithmeticExpression {
     }
 
     @Override
-    MultiplyExpression replace1(final int index, final Expression left, final Expression right) {
-        return new MultiplyExpression(index, left, right);
+    MultiplyExpression replace1(final int index,
+                                final Expression left,
+                                final Expression right) {
+        return new MultiplyExpression(
+            index,
+            left,
+            right
+        );
     }
 
     // Visitor .........................................................................................................
@@ -72,15 +89,22 @@ public final class MultiplyExpression extends ArithmeticExpression {
     // Evaluation .......................................................................................................
 
     @Override
-    String applyText(final String left, final String right, final ExpressionEvaluationContext context) {
-        throw new UnsupportedOperationException(left + SYMBOL + right); // MAYBE try and convert right to int and times the string.
+    String applyText(final String left,
+                     final String right,
+                     final ExpressionEvaluationContext context) {
+        throw new UnsupportedOperationException(
+            left + SYMBOL + right
+        ); // MAYBE try and convert right to int and times the string.
     }
 
     @Override
     ExpressionNumber applyExpressionNumber(final ExpressionNumber left,
                                            final ExpressionNumber right,
                                            final ExpressionEvaluationContext context) {
-        return left.multiply(right, context);
+        return left.multiply(
+            right,
+            context
+        );
     }
 
     // Object .........................................................................................................
