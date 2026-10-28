@@ -37,15 +37,22 @@ abstract class UnaryExpression extends ParentFixedExpression implements HasValue
         return this.children().get(0);
     }
 
-    @Override final int expectedChildCount() {
+    @Override //
+    final int expectedChildCount() {
         return 1;
     }
 
-    @Override final UnaryExpression replace0(final int index, final List<Expression> children) {
-        return replace1(index, children.get(0));
+    @Override //
+    final UnaryExpression replace0(final int index,
+                                   final List<Expression> children) {
+        return replace1(
+            index,
+            children.get(0)
+        );
     }
 
-    abstract UnaryExpression replace1(final int index, final Expression expression);
+    abstract UnaryExpression replace1(final int index,
+                                      final Expression expression);
 
     // Node.............................................................................................................
 
