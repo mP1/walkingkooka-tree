@@ -1046,7 +1046,7 @@ public final class ExpressionEvaluationContextBasicTest implements ClassTesting2
         context.debug(MESSAGE1);
 
         this.checkEquals(
-            "DEBUG fire value change loggingLevel=NONE to loggingLevel=DEBUG\n" +
+            "DEBUG environmentValue loggingLevel change NONE to DEBUG\n" +
                 "DEBUG Message111\n",
             b.toString()
         );
