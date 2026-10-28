@@ -36,7 +36,6 @@ public final class LambdaFunctionExpression extends UnaryExpression {
     static LambdaFunctionExpression with(final List<ExpressionFunctionParameter<?>> parameters,
                                          final Expression value) {
         Objects.requireNonNull(parameters, "parameters");
-        Objects.requireNonNull(value, "value");
 
         return new LambdaFunctionExpression(
             NO_INDEX,

@@ -21,6 +21,7 @@ import walkingkooka.HasValue;
 import walkingkooka.collect.list.Lists;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 /**
@@ -28,8 +29,13 @@ import java.util.Optional;
  */
 abstract class UnaryExpression extends ParentFixedExpression implements HasValue<Expression> {
 
-    UnaryExpression(final int index, final Expression expression) {
-        super(index, Lists.of(expression));
+    UnaryExpression(final int index, final Expression value) {
+        super(
+            index,
+            Lists.of(
+                Objects.requireNonNull(value, "value")
+            )
+        );
     }
 
     @Override

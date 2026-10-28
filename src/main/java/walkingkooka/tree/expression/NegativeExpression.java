@@ -22,7 +22,6 @@ import walkingkooka.tree.expression.function.ExpressionFunction;
 import walkingkooka.visit.Visiting;
 
 import java.util.List;
-import java.util.Objects;
 
 /**
  * A negative expression.
@@ -34,8 +33,10 @@ public final class NegativeExpression extends UnaryExpression {
     public final static String SYMBOL = "-";
 
     static NegativeExpression with(final Expression value) {
-        Objects.requireNonNull(value, "value");
-        return new NegativeExpression(NO_INDEX, value);
+        return new NegativeExpression(
+            NO_INDEX,
+            value
+        );
     }
 
     private NegativeExpression(final int index,
