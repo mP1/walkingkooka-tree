@@ -31,13 +31,24 @@ public final class AddExpression extends ArithmeticExpression {
 
     public final static String SYMBOL = "+";
 
-    static AddExpression with(final Expression left, final Expression right) {
+    static AddExpression with(final Expression left,
+                              final Expression right) {
         check(left, right);
-        return new AddExpression(NO_INDEX, left, right);
+        return new AddExpression(
+            NO_INDEX,
+            left,
+            right
+        );
     }
 
-    private AddExpression(final int index, final Expression left, final Expression right) {
-        super(index, left, right);
+    private AddExpression(final int index,
+                          final Expression left,
+                          final Expression right) {
+        super(
+            index,
+            left,
+            right
+        );
     }
 
     @Override
@@ -47,7 +58,8 @@ public final class AddExpression extends ArithmeticExpression {
 
     @Override
     public AddExpression removeParent() {
-        return this.removeParent0().cast();
+        return this.removeParent0()
+            .cast();
     }
 
     @Override
@@ -58,8 +70,14 @@ public final class AddExpression extends ArithmeticExpression {
     }
 
     @Override
-    AddExpression replace1(final int index, final Expression left, final Expression right) {
-        return new AddExpression(index, left, right);
+    AddExpression replace1(final int index,
+                           final Expression left,
+                           final Expression right) {
+        return new AddExpression(
+            index,
+            left,
+            right
+        );
     }
 
     // Visitor .........................................................................................................
@@ -78,7 +96,9 @@ public final class AddExpression extends ArithmeticExpression {
      * Addition between two strings results in concatenation of both operands.
      */
     @Override
-    String applyText(final String left, final String right, final ExpressionEvaluationContext context) {
+    String applyText(final String left,
+                     final String right,
+                     final ExpressionEvaluationContext context) {
         return left.concat(right);
     }
 
@@ -86,7 +106,10 @@ public final class AddExpression extends ArithmeticExpression {
     ExpressionNumber applyExpressionNumber(final ExpressionNumber left,
                                            final ExpressionNumber right,
                                            final ExpressionEvaluationContext context) {
-        return left.add(right, context);
+        return left.add(
+            right,
+            context
+        );
     }
 
     // Object .........................................................................................................
