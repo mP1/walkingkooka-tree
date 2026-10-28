@@ -28,13 +28,24 @@ public final class EqualsExpression extends CompareExpression {
 
     public final static String SYMBOL = "=";
 
-    static EqualsExpression with(final Expression left, final Expression right) {
+    static EqualsExpression with(final Expression left,
+                                 final Expression right) {
         check(left, right);
-        return new EqualsExpression(NO_INDEX, left, right);
+        return new EqualsExpression(
+            NO_INDEX,
+            left,
+            right
+        );
     }
 
-    private EqualsExpression(final int index, final Expression left, final Expression right) {
-        super(index, left, right);
+    private EqualsExpression(final int index,
+                             final Expression left,
+                             final Expression right) {
+        super(
+            index,
+            left,
+            right
+        );
     }
 
     @Override
@@ -53,8 +64,14 @@ public final class EqualsExpression extends CompareExpression {
     }
 
     @Override
-    EqualsExpression replace1(final int index, final Expression left, final Expression right) {
-        return new EqualsExpression(index, left, right);
+    EqualsExpression replace1(final int index,
+                              final Expression left,
+                              final Expression right) {
+        return new EqualsExpression(
+            index,
+            left,
+            right
+        );
     }
 
     // Visitor .........................................................................................................
