@@ -27,13 +27,24 @@ public final class AndExpression extends LogicalExpression {
 
     public final static String SYMBOL = "&";
 
-    static AndExpression with(final Expression left, final Expression right) {
+    static AndExpression with(final Expression left,
+                              final Expression right) {
         check(left, right);
-        return new AndExpression(NO_INDEX, left, right);
+        return new AndExpression(
+            NO_INDEX,
+            left,
+            right
+        );
     }
 
-    private AndExpression(final int index, final Expression left, final Expression right) {
-        super(index, left, right);
+    private AndExpression(final int index,
+                          final Expression left,
+                          final Expression right) {
+        super(
+            index,
+            left,
+            right
+        );
     }
 
     @Override
@@ -52,8 +63,14 @@ public final class AndExpression extends LogicalExpression {
     }
 
     @Override
-    AndExpression replace1(final int index, final Expression left, final Expression right) {
-        return new AndExpression(index, left, right);
+    AndExpression replace1(final int index,
+                           final Expression left,
+                           final Expression right) {
+        return new AndExpression(
+            index,
+            left,
+            right
+        );
     }
 
     // Visitor .........................................................................................................
@@ -69,7 +86,8 @@ public final class AndExpression extends LogicalExpression {
     // evaluation .....................................................................................................
 
     @Override
-    boolean applyBoolean(final boolean left, final boolean right) {
+    boolean applyBoolean(final boolean left,
+                         final boolean right) {
         return left & right;
     }
 
