@@ -18,16 +18,11 @@
 package walkingkooka.tree.expression;
 
 import org.junit.jupiter.api.Test;
-import walkingkooka.HashCodeEqualsDefinedTesting2;
-import walkingkooka.collect.list.ImmutableListTesting;
-import walkingkooka.reflect.PackagePrivateClassTesting;
 
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class UnaryExpressionChildrenListTest implements ImmutableListTesting<UnaryExpressionChildrenList, Expression>,
-    HashCodeEqualsDefinedTesting2<UnaryExpressionChildrenList>,
-    PackagePrivateClassTesting<UnaryExpressionChildrenList> {
+public final class ExpressionChildrenListUnaryTest extends ExpressionChildrenListTestCase<ExpressionChildrenListUnary> {
 
     private final static Expression CHILD = Expression.value("child");
 
@@ -37,7 +32,7 @@ public final class UnaryExpressionChildrenListTest implements ImmutableListTesti
     public void testWithNullChildFails() {
         assertThrows(
             NullPointerException.class,
-            () -> UnaryExpressionChildrenList.with(
+            () -> ExpressionChildrenListUnary.with(
                 null
             )
         );
@@ -45,7 +40,7 @@ public final class UnaryExpressionChildrenListTest implements ImmutableListTesti
 
     @Test
     public void testWith() {
-        final UnaryExpressionChildrenList list = this.createList();
+        final ExpressionChildrenListUnary list = this.createList();
 
         this.checkEquals(
             CHILD,
@@ -73,7 +68,7 @@ public final class UnaryExpressionChildrenListTest implements ImmutableListTesti
 
     @Test
     public void testSetChildWithSame() {
-        final UnaryExpressionChildrenList list = this.createList();
+        final ExpressionChildrenListUnary list = this.createList();
 
         this.setChildAndCheck(
             list,
@@ -87,16 +82,16 @@ public final class UnaryExpressionChildrenListTest implements ImmutableListTesti
         this.setChildAndCheck(
             this.createList(),
             DIFFERENT,
-            UnaryExpressionChildrenList.with(
+            ExpressionChildrenListUnary.with(
                 DIFFERENT
             )
         );
     }
 
-    private void setChildAndCheck(final UnaryExpressionChildrenList list,
+    private void setChildAndCheck(final ExpressionChildrenListUnary list,
                                   final Expression child,
-                                  final UnaryExpressionChildrenList expected) {
-        final UnaryExpressionChildrenList actual = list.setChild(child);
+                                  final ExpressionChildrenListUnary expected) {
+        final ExpressionChildrenListUnary actual = list.setChild(child);
 
         if (expected.equals(list)) {
             assertSame(
@@ -113,8 +108,8 @@ public final class UnaryExpressionChildrenListTest implements ImmutableListTesti
     }
 
     @Override
-    public UnaryExpressionChildrenList createList() {
-        return UnaryExpressionChildrenList.with(CHILD);
+    public ExpressionChildrenListUnary createList() {
+        return ExpressionChildrenListUnary.with(CHILD);
     }
 
     // hashCode/equals..................................................................................................
@@ -122,19 +117,14 @@ public final class UnaryExpressionChildrenListTest implements ImmutableListTesti
     @Test
     public void testEqualsDifferentChild() {
         this.checkNotEquals(
-            UnaryExpressionChildrenList.with(DIFFERENT)
+            ExpressionChildrenListUnary.with(DIFFERENT)
         );
-    }
-
-    @Override
-    public UnaryExpressionChildrenList createObject() {
-        return this.createList();
     }
 
     // class............................................................................................................
 
     @Override
-    public Class<UnaryExpressionChildrenList> type() {
-        return UnaryExpressionChildrenList.class;
+    public Class<ExpressionChildrenListUnary> type() {
+        return ExpressionChildrenListUnary.class;
     }
 }

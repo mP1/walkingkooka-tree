@@ -17,25 +17,21 @@
 
 package walkingkooka.tree.expression;
 
-import walkingkooka.collect.list.ImmutableListDefaults;
-
-import java.util.AbstractList;
 import java.util.Collection;
 import java.util.Objects;
 
 /**
  * An {@link walkingkooka.collect.list.ImmutableList} that holds the only child of a {@link UnaryExpression}.
  */
-final class UnaryExpressionChildrenList extends AbstractList<Expression>
-    implements ImmutableListDefaults<UnaryExpressionChildrenList, Expression> {
+final class ExpressionChildrenListUnary extends ExpressionChildrenList<ExpressionChildrenListUnary> {
 
-    static UnaryExpressionChildrenList with(final Expression child) {
-        return new UnaryExpressionChildrenList(
+    static ExpressionChildrenListUnary with(final Expression child) {
+        return new ExpressionChildrenListUnary(
             child
         );
     }
 
-    private UnaryExpressionChildrenList(final Expression child) {
+    private ExpressionChildrenListUnary(final Expression child) {
         super();
 
         this.child = Objects.requireNonNull(child, "child");
@@ -62,13 +58,13 @@ final class UnaryExpressionChildrenList extends AbstractList<Expression>
     }
 
     @Override
-    public UnaryExpressionChildrenList setElements(final Collection<Expression> collection) {
+    public ExpressionChildrenListUnary setElements(final Collection<Expression> collection) {
         Objects.requireNonNull(collection, "collection");
 
-        UnaryExpressionChildrenList binaryExpressionChildrenList;
+        ExpressionChildrenListUnary binaryExpressionChildrenList;
 
-        if (collection instanceof UnaryExpressionChildrenList) {
-            binaryExpressionChildrenList = (UnaryExpressionChildrenList) collection;
+        if (collection instanceof ExpressionChildrenListUnary) {
+            binaryExpressionChildrenList = (ExpressionChildrenListUnary) collection;
         } else {
             final Object[] children = collection.toArray();
             final int count = children.length;
@@ -84,17 +80,12 @@ final class UnaryExpressionChildrenList extends AbstractList<Expression>
         return binaryExpressionChildrenList;
     }
 
-    UnaryExpressionChildrenList setChild(final Expression child) {
+    ExpressionChildrenListUnary setChild(final Expression child) {
         return this.child.equals(child) ?
             this :
-            new UnaryExpressionChildrenList(
+            new ExpressionChildrenListUnary(
                 child
             );
-    }
-
-    @Override
-    public void elementCheck(final Expression expression) {
-        Objects.requireNonNull(expression, "expression");
     }
 
     final Expression child;
