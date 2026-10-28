@@ -28,13 +28,24 @@ public final class GreaterThanExpression extends CompareExpression {
 
     public final static String SYMBOL = ">";
 
-    static GreaterThanExpression with(final Expression left, final Expression right) {
+    static GreaterThanExpression with(final Expression left,
+                                      final Expression right) {
         check(left, right);
-        return new GreaterThanExpression(NO_INDEX, left, right);
+        return new GreaterThanExpression(
+            NO_INDEX,
+            left,
+            right
+        );
     }
 
-    private GreaterThanExpression(final int index, final Expression left, final Expression right) {
-        super(index, left, right);
+    private GreaterThanExpression(final int index,
+                                  final Expression left,
+                                  final Expression right) {
+        super(
+            index,
+            left,
+            right
+        );
     }
 
     @Override
@@ -53,8 +64,14 @@ public final class GreaterThanExpression extends CompareExpression {
     }
 
     @Override
-    GreaterThanExpression replace1(final int index, final Expression left, final Expression right) {
-        return new GreaterThanExpression(index, left, right);
+    GreaterThanExpression replace1(final int index,
+                                   final Expression left,
+                                   final Expression right) {
+        return new GreaterThanExpression(
+            index,
+            left,
+            right
+        );
     }
 
     // Visitor .........................................................................................................
