@@ -17,27 +17,23 @@
 
 package walkingkooka.tree.expression;
 
-import walkingkooka.collect.list.ImmutableListDefaults;
-
-import java.util.AbstractList;
 import java.util.Collection;
 import java.util.Objects;
 
 /**
  * An {@link walkingkooka.collect.list.ImmutableList} that holds the left and right children of a {@link BinaryExpression}.
  */
-final class BinaryExpressionChildrenList extends AbstractList<Expression>
-    implements ImmutableListDefaults<BinaryExpressionChildrenList, Expression> {
+final class ExpressionChildrenListBinary extends ExpressionChildrenList<ExpressionChildrenListBinary> {
 
-    static BinaryExpressionChildrenList with(final Expression left,
+    static ExpressionChildrenListBinary with(final Expression left,
                                              final Expression right) {
-        return new BinaryExpressionChildrenList(
+        return new ExpressionChildrenListBinary(
             left,
             right
         );
     }
 
-    private BinaryExpressionChildrenList(final Expression left,
+    private ExpressionChildrenListBinary(final Expression left,
                                          final Expression right) {
         super();
 
@@ -69,13 +65,13 @@ final class BinaryExpressionChildrenList extends AbstractList<Expression>
     }
 
     @Override
-    public BinaryExpressionChildrenList setElements(final Collection<Expression> collection) {
+    public ExpressionChildrenListBinary setElements(final Collection<Expression> collection) {
         Objects.requireNonNull(collection, "collection");
 
-        BinaryExpressionChildrenList binaryExpressionChildrenList;
+        ExpressionChildrenListBinary binaryExpressionChildrenList;
 
-        if (collection instanceof BinaryExpressionChildrenList) {
-            binaryExpressionChildrenList = (BinaryExpressionChildrenList) collection;
+        if (collection instanceof ExpressionChildrenListBinary) {
+            binaryExpressionChildrenList = (ExpressionChildrenListBinary) collection;
         } else {
             final Object[] children = collection.toArray();
             final int count = children.length;
@@ -92,20 +88,15 @@ final class BinaryExpressionChildrenList extends AbstractList<Expression>
         return binaryExpressionChildrenList;
     }
 
-    BinaryExpressionChildrenList setLeftAndRight(final Expression left,
+    ExpressionChildrenListBinary setLeftAndRight(final Expression left,
                                                  final Expression right) {
         return this.left.equals(left) &&
             this.right.equals(right) ?
             this :
-            new BinaryExpressionChildrenList(
+            new ExpressionChildrenListBinary(
                 left,
                 right
             );
-    }
-
-    @Override
-    public void elementCheck(final Expression expression) {
-        Objects.requireNonNull(expression, "expression");
     }
 
     final Expression left;
