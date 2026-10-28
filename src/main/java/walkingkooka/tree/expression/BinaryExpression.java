@@ -30,13 +30,22 @@ import java.util.Optional;
  */
 abstract class BinaryExpression extends ParentFixedExpression {
 
-    static void check(final Expression left, final Expression right) {
+    static void check(final Expression left,
+                      final Expression right) {
         Objects.requireNonNull(left, "left");
         Objects.requireNonNull(right, "right");
     }
 
-    BinaryExpression(final int index, final Expression left, final Expression right) {
-        super(index, Lists.of(left, right));
+    BinaryExpression(final int index,
+                     final Expression left,
+                     final Expression right) {
+        super(
+            index,
+            Lists.of(
+                left,
+                right
+            )
+        );
     }
 
     public final Expression left() {
@@ -52,22 +61,34 @@ abstract class BinaryExpression extends ParentFixedExpression {
         return 2;
     }
 
-    @Override final BinaryExpression replace0(final int index, final List<Expression> children) {
-        return replace1(index, children.get(0), children.get(1));
+    @Override //
+    final BinaryExpression replace0(final int index,
+                                    final List<Expression> children) {
+        return replace1(
+            index,
+            children.get(0),
+            children.get(1)
+        );
     }
 
-    abstract BinaryExpression replace1(final int index, final Expression left, final Expression right);
+    abstract BinaryExpression replace1(final int index,
+                                       final Expression left,
+                                       final Expression right);
 
     // Node........................................................................................................
 
     @Override
     public final Optional<Expression> firstChild() {
-        return Optional.of(this.left());
+        return Optional.of(
+            this.left()
+        );
     }
 
     @Override
     public final Optional<Expression> lastChild() {
-        return Optional.of(this.right());
+        return Optional.of(
+            this.right()
+        );
     }
 
     // Visitor........................................................................................................
