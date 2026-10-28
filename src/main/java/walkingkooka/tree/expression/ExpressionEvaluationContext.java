@@ -86,7 +86,9 @@ public interface ExpressionEvaluationContext extends CanEvaluateExpression,
     }
 
     /**
-     * Evaluate the given {@link Expression} returning the result/value.
+     * Evaluate the given {@link Expression} returning the result/value. Any {@link UnsupportedOperationException}
+     * are rethrown and other {@link RuntimeException} are passed to {@link #handleException(RuntimeException)},
+     * which may translate into another value or rethrow or similar.
      */
     @Override
     default Object evaluateExpression(final Expression expression) {
@@ -95,7 +97,7 @@ public interface ExpressionEvaluationContext extends CanEvaluateExpression,
         Object result;
 
         try {
-            result = expression.toValue(this);
+            result = this.evaluateExpressionValue(expression);
         } catch (final UnsupportedOperationException rethrow) {
             throw rethrow;
         } catch (final RuntimeException exception) {
@@ -103,6 +105,14 @@ public interface ExpressionEvaluationContext extends CanEvaluateExpression,
         }
 
         return result;
+    }
+
+    /**
+     * Invokes {@link Expression#toValue(ExpressionEvaluationContext)}. This should not be invoked directly, and is
+     * only provided so that it may be overridden.
+     */
+    default Object evaluateExpressionValue(final Expression expression) {
+        return expression.toValue(this);
     }
 
     /**
