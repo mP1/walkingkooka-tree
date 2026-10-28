@@ -611,8 +611,10 @@ public abstract class ExpressionTestCase<N extends Expression> implements TreePr
             m.equals("isEmpty") ||
             m.equals("isNotEmpty") ||
             m.equals("isArithmetic") ||
+            m.equals("isBinary") ||
             m.equals("isCompare") ||
-            m.equals("isLogical");
+            m.equals("isLogical") ||
+            m.equals("isUnary");
     }
 
     @Override
