@@ -30,191 +30,191 @@ public abstract class ExpressionVisitor extends Visitor<Expression> {
     // Expression.......................................................................................................
 
     @Override
-    public final void accept(final Expression node) {
-        Objects.requireNonNull(node, "node");
+    public final void accept(final Expression expression) {
+        Objects.requireNonNull(expression, "expression");
 
-        if (Visiting.CONTINUE == this.startVisit(node)) {
-            node.accept(this);
+        if (Visiting.CONTINUE == this.startVisit(expression)) {
+            expression.accept(this);
         }
-        this.endVisit(node);
+        this.endVisit(expression);
     }
 
-    protected Visiting startVisit(final Expression node) {
+    protected Visiting startVisit(final Expression expression) {
         return Visiting.CONTINUE;
     }
 
-    protected void endVisit(final Expression node) {
+    protected void endVisit(final Expression expression) {
         // nop
     }
 
-    protected void visit(final ReferenceExpression node) {
+    protected void visit(final ReferenceExpression expression) {
         // nop
     }
 
-    protected void visit(final ValueExpression<?> node) {
+    protected void visit(final ValueExpression<?> expression) {
         // nop
     }
 
-    protected Visiting startVisit(final AddExpression node) {
+    protected Visiting startVisit(final AddExpression expression) {
         return Visiting.CONTINUE;
     }
 
-    protected void endVisit(final AddExpression node) {
+    protected void endVisit(final AddExpression expression) {
         // nop
     }
 
-    protected Visiting startVisit(final AndExpression node) {
+    protected Visiting startVisit(final AndExpression expression) {
         return Visiting.CONTINUE;
     }
 
-    protected void endVisit(final AndExpression node) {
+    protected void endVisit(final AndExpression expression) {
         // nop
     }
 
-    protected Visiting startVisit(final CallExpression node) {
+    protected Visiting startVisit(final CallExpression expression) {
         return Visiting.CONTINUE;
     }
 
-    protected void endVisit(final CallExpression node) {
+    protected void endVisit(final CallExpression expression) {
         // nop
     }
 
-    protected Visiting startVisit(final DivideExpression node) {
+    protected Visiting startVisit(final DivideExpression expression) {
         return Visiting.CONTINUE;
     }
 
-    protected void endVisit(final DivideExpression node) {
+    protected void endVisit(final DivideExpression expression) {
         // nop
     }
 
-    protected Visiting startVisit(final EqualsExpression node) {
+    protected Visiting startVisit(final EqualsExpression expression) {
         return Visiting.CONTINUE;
     }
 
-    protected void endVisit(final EqualsExpression node) {
+    protected void endVisit(final EqualsExpression expression) {
         // nop
     }
 
-    protected Visiting startVisit(final GreaterThanExpression node) {
+    protected Visiting startVisit(final GreaterThanExpression expression) {
         return Visiting.CONTINUE;
     }
 
-    protected void endVisit(final GreaterThanExpression node) {
+    protected void endVisit(final GreaterThanExpression expression) {
         // nop
     }
 
-    protected Visiting startVisit(final GreaterThanEqualsExpression node) {
+    protected Visiting startVisit(final GreaterThanEqualsExpression expression) {
         return Visiting.CONTINUE;
     }
 
-    protected void endVisit(final GreaterThanEqualsExpression node) {
+    protected void endVisit(final GreaterThanEqualsExpression expression) {
         // nop
     }
 
-    protected Visiting startVisit(final LambdaFunctionExpression node) {
+    protected Visiting startVisit(final LambdaFunctionExpression expression) {
         return Visiting.CONTINUE;
     }
 
-    protected void endVisit(final LambdaFunctionExpression node) {
+    protected void endVisit(final LambdaFunctionExpression expression) {
         // nop
     }
 
-    protected Visiting startVisit(final LessThanExpression node) {
+    protected Visiting startVisit(final LessThanExpression expression) {
         return Visiting.CONTINUE;
     }
 
-    protected void endVisit(final LessThanExpression node) {
+    protected void endVisit(final LessThanExpression expression) {
         // nop
     }
 
-    protected Visiting startVisit(final LessThanEqualsExpression node) {
+    protected Visiting startVisit(final LessThanEqualsExpression expression) {
         return Visiting.CONTINUE;
     }
 
-    protected void endVisit(final LessThanEqualsExpression node) {
+    protected void endVisit(final LessThanEqualsExpression expression) {
         // nop
     }
 
-    protected Visiting startVisit(final ListExpression node) {
+    protected Visiting startVisit(final ListExpression expression) {
         return Visiting.CONTINUE;
     }
 
-    protected void endVisit(final ListExpression node) {
+    protected void endVisit(final ListExpression expression) {
         // nop
     }
 
-    protected Visiting startVisit(final ModuloExpression node) {
+    protected Visiting startVisit(final ModuloExpression expression) {
         return Visiting.CONTINUE;
     }
 
-    protected void endVisit(final ModuloExpression node) {
+    protected void endVisit(final ModuloExpression expression) {
         // nop
     }
 
-    protected Visiting startVisit(final MultiplyExpression node) {
+    protected Visiting startVisit(final MultiplyExpression expression) {
         return Visiting.CONTINUE;
     }
 
-    protected void endVisit(final MultiplyExpression node) {
+    protected void endVisit(final MultiplyExpression expression) {
         // nop
     }
 
-    protected void visit(final NamedFunctionExpression node) {
+    protected void visit(final NamedFunctionExpression expression) {
     }
 
-    protected Visiting startVisit(final NegativeExpression node) {
+    protected Visiting startVisit(final NegativeExpression expression) {
         return Visiting.CONTINUE;
     }
 
-    protected void endVisit(final NegativeExpression node) {
+    protected void endVisit(final NegativeExpression expression) {
         // nop
     }
 
-    protected Visiting startVisit(final NotEqualsExpression node) {
+    protected Visiting startVisit(final NotEqualsExpression expression) {
         return Visiting.CONTINUE;
     }
 
-    protected void endVisit(final NotEqualsExpression node) {
+    protected void endVisit(final NotEqualsExpression expression) {
         // nop
     }
 
-    protected Visiting startVisit(final NotExpression node) {
+    protected Visiting startVisit(final NotExpression expression) {
         return Visiting.CONTINUE;
     }
 
-    protected void endVisit(final NotExpression node) {
+    protected void endVisit(final NotExpression expression) {
         // nop
     }
 
-    protected Visiting startVisit(final OrExpression node) {
+    protected Visiting startVisit(final OrExpression expression) {
         return Visiting.CONTINUE;
     }
 
-    protected void endVisit(final OrExpression node) {
+    protected void endVisit(final OrExpression expression) {
         // nop
     }
 
-    protected Visiting startVisit(final PowerExpression node) {
+    protected Visiting startVisit(final PowerExpression expression) {
         return Visiting.CONTINUE;
     }
 
-    protected void endVisit(final PowerExpression node) {
+    protected void endVisit(final PowerExpression expression) {
         // nop
     }
 
-    protected Visiting startVisit(final SubtractExpression node) {
+    protected Visiting startVisit(final SubtractExpression expression) {
         return Visiting.CONTINUE;
     }
 
-    protected void endVisit(final SubtractExpression node) {
+    protected void endVisit(final SubtractExpression expression) {
         // nop
     }
 
-    protected Visiting startVisit(final XorExpression node) {
+    protected Visiting startVisit(final XorExpression expression) {
         return Visiting.CONTINUE;
     }
 
-    protected void endVisit(final XorExpression node) {
+    protected void endVisit(final XorExpression expression) {
         // nop
     }
 }

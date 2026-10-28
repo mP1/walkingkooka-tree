@@ -72,104 +72,104 @@ final class NodeSelectorExpressionExpressionVisitor<N extends Node<N, NAME, ANAM
     }
 
     @Override
-    protected Visiting startVisit(final AddExpression node) {
+    protected Visiting startVisit(final AddExpression expression) {
         return Visiting.SKIP;
     }
 
     @Override
-    protected Visiting startVisit(final AndExpression node) {
+    protected Visiting startVisit(final AndExpression expression) {
         return Visiting.SKIP;
     }
 
     @Override
-    protected Visiting startVisit(final CallExpression node) {
+    protected Visiting startVisit(final CallExpression expression) {
         return Visiting.SKIP;
     }
 
     @Override
-    protected Visiting startVisit(final DivideExpression node) {
+    protected Visiting startVisit(final DivideExpression expression) {
         return Visiting.SKIP;
     }
 
     @Override
-    protected Visiting startVisit(final EqualsExpression node) {
+    protected Visiting startVisit(final EqualsExpression expression) {
         return Visiting.SKIP;
     }
 
     @Override
-    protected Visiting startVisit(final GreaterThanExpression node) {
+    protected Visiting startVisit(final GreaterThanExpression expression) {
         return Visiting.SKIP;
     }
 
     @Override
-    protected Visiting startVisit(final GreaterThanEqualsExpression node) {
+    protected Visiting startVisit(final GreaterThanEqualsExpression expression) {
         return Visiting.SKIP;
     }
 
     @Override
-    protected Visiting startVisit(final LessThanExpression node) {
+    protected Visiting startVisit(final LessThanExpression expression) {
         return Visiting.SKIP;
     }
 
     @Override
-    protected Visiting startVisit(final LessThanEqualsExpression node) {
+    protected Visiting startVisit(final LessThanEqualsExpression expression) {
         return Visiting.SKIP;
     }
 
     @Override
-    protected Visiting startVisit(final ListExpression node) {
+    protected Visiting startVisit(final ListExpression expression) {
         return Visiting.SKIP;
     }
 
     @Override
-    protected Visiting startVisit(final ModuloExpression node) {
+    protected Visiting startVisit(final ModuloExpression expression) {
         return Visiting.SKIP;
     }
 
     @Override
-    protected Visiting startVisit(final MultiplyExpression node) {
+    protected Visiting startVisit(final MultiplyExpression expression) {
         return Visiting.SKIP;
     }
 
     @Override
-    protected Visiting startVisit(final NegativeExpression node) {
+    protected Visiting startVisit(final NegativeExpression expression) {
         return Visiting.SKIP;
     }
 
     @Override
-    protected Visiting startVisit(final NotEqualsExpression node) {
+    protected Visiting startVisit(final NotEqualsExpression expression) {
         return Visiting.SKIP;
     }
 
     @Override
-    protected Visiting startVisit(final NotExpression node) {
+    protected Visiting startVisit(final NotExpression expression) {
         return Visiting.SKIP;
     }
 
     @Override
-    protected Visiting startVisit(final OrExpression node) {
+    protected Visiting startVisit(final OrExpression expression) {
         return Visiting.SKIP;
     }
 
     @Override
-    protected Visiting startVisit(final PowerExpression node) {
+    protected Visiting startVisit(final PowerExpression expression) {
         return Visiting.SKIP;
     }
 
     @Override
-    protected Visiting startVisit(final SubtractExpression node) {
+    protected Visiting startVisit(final SubtractExpression expression) {
         return Visiting.SKIP;
     }
 
     @Override
-    protected Visiting startVisit(final XorExpression node) {
+    protected Visiting startVisit(final XorExpression expression) {
         return Visiting.SKIP;
     }
 
     @Override
-    protected void visit(final ValueExpression<?> node) {
-        final Object value = node.value();
-        if (Boolean.TRUE.equals(node.value())) {
+    protected void visit(final ValueExpression<?> expression) {
+        final Object value = expression.value();
+        if (Boolean.TRUE.equals(expression.value())) {
             this.selector = this.selector.setToString(this.selector + "[true()]");
             this.addExpression = false;
         }

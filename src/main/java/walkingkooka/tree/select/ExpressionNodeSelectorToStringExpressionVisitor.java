@@ -60,9 +60,9 @@ import java.util.List;
  */
 final class ExpressionNodeSelectorToStringExpressionVisitor extends ExpressionVisitor {
 
-    static String toString(final Expression node) {
+    static String toString(final Expression expression) {
         final ExpressionNodeSelectorToStringExpressionVisitor visitor = new ExpressionNodeSelectorToStringExpressionVisitor();
-        visitor.accept(node);
+        visitor.accept(expression);
         return visitor.toString();
     }
 
@@ -72,19 +72,19 @@ final class ExpressionNodeSelectorToStringExpressionVisitor extends ExpressionVi
     }
 
     @Override
-    protected void visit(final NamedFunctionExpression node) {
-        this.append(node.value().value());
+    protected void visit(final NamedFunctionExpression expression) {
+        this.append(expression.value().value());
     }
 
     @Override
-    protected void visit(final ReferenceExpression node) {
-        this.append("@" + node); // must be an attribute
+    protected void visit(final ReferenceExpression expression) {
+        this.append("@" + expression); // must be an attribute
     }
 
     @Override
-    protected void visit(final ValueExpression<?> node) {
+    protected void visit(final ValueExpression<?> expression) {
         do {
-            final Object value = node.value();
+            final Object value = expression.value();
             if (value instanceof Boolean) {
                 this.namedFunction(value.toString());
                 break;
@@ -114,18 +114,18 @@ final class ExpressionNodeSelectorToStringExpressionVisitor extends ExpressionVi
 
 
     @Override
-    protected Visiting startVisit(final AddExpression node) {
-        return this.binary(node.left(), "+", node.right());
+    protected Visiting startVisit(final AddExpression expression) {
+        return this.binary(expression.left(), "+", expression.right());
     }
 
     @Override
-    protected Visiting startVisit(final AndExpression node) {
-        return this.binary(node.left(), " and ", node.right());
+    protected Visiting startVisit(final AndExpression expression) {
+        return this.binary(expression.left(), " and ", expression.right());
     }
 
     @Override
-    protected Visiting startVisit(final CallExpression node) {
-        final Expression callable = node.callable();
+    protected Visiting startVisit(final CallExpression expression) {
+        final Expression callable = expression.callable();
         if (!callable.isNamedFunction()) {
             throw new IllegalArgumentException("Only named functions callables supported " + callable);
         }
@@ -135,95 +135,95 @@ final class ExpressionNodeSelectorToStringExpressionVisitor extends ExpressionVi
         return this.namedFunction(
             namedFunctionExpression.value()
                 .value(),
-            node.value()
+            expression.value()
         );
     }
 
     @Override
-    protected Visiting startVisit(final DivideExpression node) {
-        return this.binary(node.left(), " div ", node.right());
+    protected Visiting startVisit(final DivideExpression expression) {
+        return this.binary(expression.left(), " div ", expression.right());
     }
 
     @Override
-    protected Visiting startVisit(final EqualsExpression node) {
-        return this.binary(node.left(), "=", node.right());
+    protected Visiting startVisit(final EqualsExpression expression) {
+        return this.binary(expression.left(), "=", expression.right());
     }
 
     @Override
-    protected Visiting startVisit(final GreaterThanExpression node) {
-        return this.binary(node.left(), ">", node.right());
+    protected Visiting startVisit(final GreaterThanExpression expression) {
+        return this.binary(expression.left(), ">", expression.right());
     }
 
     @Override
-    protected Visiting startVisit(final GreaterThanEqualsExpression node) {
-        return this.binary(node.left(), ">=", node.right());
+    protected Visiting startVisit(final GreaterThanEqualsExpression expression) {
+        return this.binary(expression.left(), ">=", expression.right());
     }
 
     @Override
-    protected Visiting startVisit(final LessThanExpression node) {
-        return this.binary(node.left(), "<", node.right());
+    protected Visiting startVisit(final LessThanExpression expression) {
+        return this.binary(expression.left(), "<", expression.right());
     }
 
     @Override
-    protected Visiting startVisit(final LessThanEqualsExpression node) {
-        return this.binary(node.left(), "<=", node.right());
+    protected Visiting startVisit(final LessThanEqualsExpression expression) {
+        return this.binary(expression.left(), "<=", expression.right());
     }
 
     @Override
-    protected Visiting startVisit(final ListExpression node) {
+    protected Visiting startVisit(final ListExpression expression) {
         this.append('[');
         return Visiting.CONTINUE;
     }
 
     @Override
-    protected void endVisit(final ListExpression node) {
+    protected void endVisit(final ListExpression expression) {
         this.append(']');
     }
 
     @Override
-    protected Visiting startVisit(final ModuloExpression node) {
-        return this.binary(node.left(), " mod ", node.right());
+    protected Visiting startVisit(final ModuloExpression expression) {
+        return this.binary(expression.left(), " mod ", expression.right());
     }
 
     @Override
-    protected Visiting startVisit(final MultiplyExpression node) {
-        return this.binary(node.left(), "*", node.right());
+    protected Visiting startVisit(final MultiplyExpression expression) {
+        return this.binary(expression.left(), "*", expression.right());
     }
 
     @Override
-    protected Visiting startVisit(final NegativeExpression node) {
+    protected Visiting startVisit(final NegativeExpression expression) {
         this.append('-');
-        return super.startVisit(node);
+        return super.startVisit(expression);
     }
 
     @Override
-    protected Visiting startVisit(final NotEqualsExpression node) {
-        return this.binary(node.left(), "!=", node.right());
+    protected Visiting startVisit(final NotEqualsExpression expression) {
+        return this.binary(expression.left(), "!=", expression.right());
     }
 
     @Override
-    protected Visiting startVisit(final NotExpression node) {
-        return this.namedFunction("not", node.children());
+    protected Visiting startVisit(final NotExpression expression) {
+        return this.namedFunction("not", expression.children());
     }
 
     @Override
-    protected Visiting startVisit(final OrExpression node) {
-        return this.binary(node.left(), " or ", node.right());
+    protected Visiting startVisit(final OrExpression expression) {
+        return this.binary(expression.left(), " or ", expression.right());
     }
 
     @Override
-    protected Visiting startVisit(final PowerExpression node) {
-        return this.namedFunction("pow", node.children());
+    protected Visiting startVisit(final PowerExpression expression) {
+        return this.namedFunction("pow", expression.children());
     }
 
     @Override
-    protected Visiting startVisit(final SubtractExpression node) {
-        return this.binary(node.left(), "-", node.right());
+    protected Visiting startVisit(final SubtractExpression expression) {
+        return this.binary(expression.left(), "-", expression.right());
     }
 
     @Override
-    protected Visiting startVisit(final XorExpression node) {
-        return this.namedFunction("xor", node.children());
+    protected Visiting startVisit(final XorExpression expression) {
+        return this.namedFunction("xor", expression.children());
     }
 
     // helpers ........................................................................................................
