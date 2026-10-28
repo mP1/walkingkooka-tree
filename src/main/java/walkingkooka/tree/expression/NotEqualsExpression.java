@@ -30,7 +30,6 @@ public final class NotEqualsExpression extends CompareExpression {
 
     static NotEqualsExpression with(final Expression left,
                                     final Expression right) {
-        check(left, right);
         return new NotEqualsExpression(
             NO_INDEX,
             left,

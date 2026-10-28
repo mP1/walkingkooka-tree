@@ -32,7 +32,6 @@ public final class PowerExpression extends ArithmeticExpression {
 
     static PowerExpression with(final Expression left,
                                 final Expression right) {
-        check(left, right);
         return new PowerExpression(
             NO_INDEX,
             left,

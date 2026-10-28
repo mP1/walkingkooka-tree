@@ -30,7 +30,6 @@ public final class EqualsExpression extends CompareExpression {
 
     static EqualsExpression with(final Expression left,
                                  final Expression right) {
-        check(left, right);
         return new EqualsExpression(
             NO_INDEX,
             left,

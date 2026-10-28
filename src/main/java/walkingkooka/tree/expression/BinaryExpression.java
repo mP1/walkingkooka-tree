@@ -30,20 +30,14 @@ import java.util.Optional;
  */
 abstract class BinaryExpression extends ParentFixedExpression {
 
-    static void check(final Expression left,
-                      final Expression right) {
-        Objects.requireNonNull(left, "left");
-        Objects.requireNonNull(right, "right");
-    }
-
     BinaryExpression(final int index,
                      final Expression left,
                      final Expression right) {
         super(
             index,
             Lists.of(
-                left,
-                right
+                Objects.requireNonNull(left, "left"),
+                Objects.requireNonNull(right, "right")
             )
         );
     }

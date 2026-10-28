@@ -32,7 +32,6 @@ public final class ModuloExpression extends ArithmeticExpression {
 
     static ModuloExpression with(final Expression left,
                                  final Expression right) {
-        check(left, right);
         return new ModuloExpression(
             NO_INDEX,
             left,

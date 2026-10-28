@@ -30,8 +30,11 @@ public final class LessThanEqualsExpression extends CompareExpression {
 
     static LessThanEqualsExpression with(final Expression left,
                                          final Expression right) {
-        check(left, right);
-        return new LessThanEqualsExpression(NO_INDEX, left, right);
+        return new LessThanEqualsExpression(
+            NO_INDEX,
+            left,
+            right
+        );
     }
 
     private LessThanEqualsExpression(final int index,

@@ -30,7 +30,6 @@ public final class GreaterThanEqualsExpression extends CompareExpression {
 
     static GreaterThanEqualsExpression with(final Expression left,
                                             final Expression right) {
-        check(left, right);
         return new GreaterThanEqualsExpression(
             NO_INDEX,
             left,

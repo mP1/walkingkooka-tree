@@ -32,7 +32,6 @@ public final class DivideExpression extends ArithmeticExpression {
 
     static DivideExpression with(final Expression left,
                                  final Expression right) {
-        check(left, right);
         return new DivideExpression(
             NO_INDEX,
             left,

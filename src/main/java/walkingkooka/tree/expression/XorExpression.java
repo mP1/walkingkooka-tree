@@ -32,7 +32,6 @@ public final class XorExpression extends LogicalExpression {
 
     static XorExpression with(final Expression left,
                               final Expression right) {
-        check(left, right);
         return new XorExpression(
             NO_INDEX,
             left,

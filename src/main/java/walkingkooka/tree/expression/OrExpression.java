@@ -32,7 +32,6 @@ public final class OrExpression extends LogicalExpression {
 
     static OrExpression with(final Expression left,
                              final Expression right) {
-        check(left, right);
         return new OrExpression(
             NO_INDEX,
             left,

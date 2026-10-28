@@ -32,7 +32,6 @@ public final class MultiplyExpression extends ArithmeticExpression {
 
     static MultiplyExpression with(final Expression left,
                                    final Expression right) {
-        check(left, right);
         return new MultiplyExpression(
             NO_INDEX,
             left,
