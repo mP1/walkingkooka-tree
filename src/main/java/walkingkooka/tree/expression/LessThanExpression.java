@@ -28,13 +28,24 @@ public final class LessThanExpression extends CompareExpression {
 
     public final static String SYMBOL = "<";
 
-    static LessThanExpression with(final Expression left, final Expression right) {
+    static LessThanExpression with(final Expression left,
+                                   final Expression right) {
         check(left, right);
-        return new LessThanExpression(NO_INDEX, left, right);
+        return new LessThanExpression(
+            NO_INDEX,
+            left,
+            right
+        );
     }
 
-    private LessThanExpression(final int index, final Expression left, final Expression right) {
-        super(index, left, right);
+    private LessThanExpression(final int index,
+                               final Expression left,
+                               final Expression right) {
+        super(
+            index,
+            left,
+            right
+        );
     }
 
     @Override
@@ -53,8 +64,14 @@ public final class LessThanExpression extends CompareExpression {
     }
 
     @Override
-    LessThanExpression replace1(final int index, final Expression left, final Expression right) {
-        return new LessThanExpression(index, left, right);
+    LessThanExpression replace1(final int index,
+                                final Expression left,
+                                final Expression right) {
+        return new LessThanExpression(
+            index,
+            left,
+            right
+        );
     }
 
     // Visitor .........................................................................................................
