@@ -29,7 +29,6 @@ public final class AndExpression extends LogicalExpression {
 
     static AndExpression with(final Expression left,
                               final Expression right) {
-        check(left, right);
         return new AndExpression(
             NO_INDEX,
             left,

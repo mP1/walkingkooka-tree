@@ -30,7 +30,6 @@ public final class LessThanExpression extends CompareExpression {
 
     static LessThanExpression with(final Expression left,
                                    final Expression right) {
-        check(left, right);
         return new LessThanExpression(
             NO_INDEX,
             left,

@@ -33,7 +33,6 @@ public final class AddExpression extends ArithmeticExpression {
 
     static AddExpression with(final Expression left,
                               final Expression right) {
-        check(left, right);
         return new AddExpression(
             NO_INDEX,
             left,

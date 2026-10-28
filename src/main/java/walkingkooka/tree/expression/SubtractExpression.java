@@ -32,7 +32,6 @@ public final class SubtractExpression extends ArithmeticExpression {
 
     static SubtractExpression with(final Expression left,
                                    final Expression right) {
-        check(left, right);
         return new SubtractExpression(
             NO_INDEX,
             left,
