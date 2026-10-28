@@ -32,18 +32,18 @@ public final class NotExpression extends UnaryExpression {
 
     public final static String SYMBOL = "!";
 
-    static NotExpression with(final Expression value) {
+    static NotExpression with(final Expression child) {
         return new NotExpression(
             NO_INDEX,
-            value
+            ExpressionChildrenListUnary.with(child)
         );
     }
 
     private NotExpression(final int index,
-                          final Expression value) {
+                          final ExpressionChildrenListUnary children) {
         super(
             index,
-            value
+            children
         );
     }
 
@@ -54,7 +54,8 @@ public final class NotExpression extends UnaryExpression {
 
     @Override
     public NotExpression removeParent() {
-        return this.removeParent0().cast();
+        return this.removeParent0()
+            .cast();
     }
 
     @Override
@@ -64,11 +65,18 @@ public final class NotExpression extends UnaryExpression {
     }
 
     @Override
-    NotExpression replace1(final int index,
-                           final Expression expression) {
+    NotExpression replaceChildren(final ExpressionChildrenListUnary expressionChildrenList) {
         return new NotExpression(
-            index,
-            expression
+            NO_INDEX,
+            expressionChildrenList
+        );
+    }
+
+    @Override
+    NotExpression replace(final int index) {
+        return new NotExpression(
+            this.index,
+            this.children
         );
     }
 

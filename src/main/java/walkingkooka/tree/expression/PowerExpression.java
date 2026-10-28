@@ -34,18 +34,18 @@ public final class PowerExpression extends ArithmeticExpression {
                                 final Expression right) {
         return new PowerExpression(
             NO_INDEX,
-            left,
-            right
+            ExpressionChildrenListBinary.with(
+                left,
+                right
+            )
         );
     }
 
     private PowerExpression(final int index,
-                            final Expression left,
-                            final Expression right) {
+                            final ExpressionChildrenListBinary children) {
         super(
             index,
-            left,
-            right
+            children
         );
     }
 
@@ -56,22 +56,29 @@ public final class PowerExpression extends ArithmeticExpression {
 
     @Override
     public PowerExpression removeParent() {
-        return this.removeParent0().cast();
+        return this.removeParent0()
+            .cast();
     }
 
     @Override
     public PowerExpression setChildren(final List<Expression> children) {
-        return this.setChildren0(children).cast();
+        return this.setChildren0(children)
+            .cast();
     }
 
     @Override
-    PowerExpression replace1(final int index,
-                             final Expression left,
-                             final Expression right) {
+    PowerExpression replaceChildren(final ExpressionChildrenListBinary expressionChildrenList) {
+        return new PowerExpression(
+            NO_INDEX,
+            expressionChildrenList
+        );
+    }
+
+    @Override
+    PowerExpression replace(final int index) {
         return new PowerExpression(
             index,
-            left,
-            right
+            this.children
         );
     }
 

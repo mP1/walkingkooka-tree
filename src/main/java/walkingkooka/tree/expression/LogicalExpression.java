@@ -29,12 +29,10 @@ package walkingkooka.tree.expression;
 public abstract class LogicalExpression extends BinaryExpression {
 
     LogicalExpression(final int index,
-                      final Expression left,
-                      final Expression right) {
+                      final ExpressionChildrenListBinary children) {
         super(
             index,
-            left,
-            right
+            children
         );
     }
 

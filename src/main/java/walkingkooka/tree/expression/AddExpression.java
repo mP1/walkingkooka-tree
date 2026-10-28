@@ -20,7 +20,6 @@ package walkingkooka.tree.expression;
 import walkingkooka.visit.Visiting;
 
 import java.util.List;
-import java.util.Objects;
 
 /**
  * A addition expression.
@@ -35,18 +34,18 @@ public final class AddExpression extends ArithmeticExpression {
                               final Expression right) {
         return new AddExpression(
             NO_INDEX,
-            left,
-            right
+            ExpressionChildrenListBinary.with(
+                left,
+                right
+            )
         );
     }
 
     private AddExpression(final int index,
-                          final Expression left,
-                          final Expression right) {
+                          final ExpressionChildrenListBinary children) {
         super(
             index,
-            left,
-            right
+            children
         );
     }
 
@@ -63,19 +62,23 @@ public final class AddExpression extends ArithmeticExpression {
 
     @Override
     public AddExpression setChildren(final List<Expression> children) {
-        Objects.requireNonNull(children, "children");
-
-        return this.setChildren0(children).cast();
+        return this.setChildren0(children)
+            .cast();
     }
 
     @Override
-    AddExpression replace1(final int index,
-                           final Expression left,
-                           final Expression right) {
+    AddExpression replaceChildren(final ExpressionChildrenListBinary expressionChildrenList) {
+        return new AddExpression(
+            NO_INDEX,
+            expressionChildrenList
+        );
+    }
+
+    @Override
+    AddExpression replace(final int index) {
         return new AddExpression(
             index,
-            left,
-            right
+            this.children
         );
     }
 

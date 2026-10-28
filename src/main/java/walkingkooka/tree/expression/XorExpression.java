@@ -34,18 +34,18 @@ public final class XorExpression extends LogicalExpression {
                               final Expression right) {
         return new XorExpression(
             NO_INDEX,
-            left,
-            right
+            ExpressionChildrenListBinary.with(
+                left,
+                right
+            )
         );
     }
 
     private XorExpression(final int index,
-                          final Expression left,
-                          final Expression right) {
+                          final ExpressionChildrenListBinary children) {
         super(
             index,
-            left,
-            right
+            children
         );
     }
 
@@ -56,22 +56,29 @@ public final class XorExpression extends LogicalExpression {
 
     @Override
     public XorExpression removeParent() {
-        return this.removeParent0().cast();
+        return this.removeParent0()
+            .cast();
     }
 
     @Override
     public XorExpression setChildren(final List<Expression> children) {
-        return this.setChildren0(children).cast();
+        return this.setChildren0(children)
+            .cast();
     }
 
     @Override
-    XorExpression replace1(final int index,
-                           final Expression left,
-                           final Expression right) {
+    XorExpression replaceChildren(final ExpressionChildrenListBinary expressionChildrenList) {
+        return new XorExpression(
+            NO_INDEX,
+            expressionChildrenList
+        );
+    }
+
+    @Override
+    XorExpression replace(final int index) {
         return new XorExpression(
             index,
-            left,
-            right
+            this.children
         );
     }
 

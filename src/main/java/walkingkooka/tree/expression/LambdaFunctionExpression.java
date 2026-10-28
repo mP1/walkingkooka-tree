@@ -40,14 +40,17 @@ public final class LambdaFunctionExpression extends UnaryExpression {
         return new LambdaFunctionExpression(
             NO_INDEX,
             Lists.immutable(parameters),
-            value
+            ExpressionChildrenListUnary.with(value)
         );
     }
 
     private LambdaFunctionExpression(final int index,
                                      final List<ExpressionFunctionParameter<?>> parameters,
-                                     final Expression value) {
-        super(index, value);
+                                     final ExpressionChildrenListUnary children) {
+        super(
+            index,
+            children
+        );
         this.parameters = parameters;
     }
 
@@ -58,25 +61,35 @@ public final class LambdaFunctionExpression extends UnaryExpression {
 
     @Override
     public LambdaFunctionExpression removeParent() {
-        return this.removeParent0().cast();
+        return this.removeParent0()
+            .cast();
     }
 
     @Override
     public LambdaFunctionExpression setChildren(final List<Expression> children) {
-        return this.setChildren0(children).cast();
+        return this.setChildren0(children)
+            .cast();
     }
 
     @Override
-    LambdaFunctionExpression replace1(final int index,
-                                      final Expression expression) {
+    LambdaFunctionExpression replaceChildren(final ExpressionChildrenListUnary expressionChildrenList) {
         return new LambdaFunctionExpression(
-            index,
+            NO_INDEX,
             this.parameters,
-            expression
+            expressionChildrenList
         );
     }
 
-    // parameter ..................................................................................................
+    @Override
+    LambdaFunctionExpression replace(final int index) {
+        return new LambdaFunctionExpression(
+            this.index,
+            this.parameters,
+            this.children
+        );
+    }
+
+    // parameter .......................................................................................................
 
     public List<ExpressionFunctionParameter<?>> parameters() {
         return this.parameters;
@@ -91,7 +104,7 @@ public final class LambdaFunctionExpression extends UnaryExpression {
             new LambdaFunctionExpression(
                 index,
                 parameters,
-                this.value()
+                this.children
             );
     }
 

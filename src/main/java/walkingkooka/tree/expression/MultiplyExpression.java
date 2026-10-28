@@ -34,18 +34,18 @@ public final class MultiplyExpression extends ArithmeticExpression {
                                    final Expression right) {
         return new MultiplyExpression(
             NO_INDEX,
-            left,
-            right
+            ExpressionChildrenListBinary.with(
+                left,
+                right
+            )
         );
     }
 
     private MultiplyExpression(final int index,
-                               final Expression left,
-                               final Expression right) {
+                               final ExpressionChildrenListBinary children) {
         super(
             index,
-            left,
-            right
+            children
         );
     }
 
@@ -56,22 +56,29 @@ public final class MultiplyExpression extends ArithmeticExpression {
 
     @Override
     public MultiplyExpression removeParent() {
-        return this.removeParent0().cast();
+        return this.removeParent0()
+            .cast();
     }
 
     @Override
     public MultiplyExpression setChildren(final List<Expression> children) {
-        return this.setChildren0(children).cast();
+        return this.setChildren0(children)
+            .cast();
     }
 
     @Override
-    MultiplyExpression replace1(final int index,
-                                final Expression left,
-                                final Expression right) {
+    MultiplyExpression replaceChildren(final ExpressionChildrenListBinary expressionChildrenList) {
+        return new MultiplyExpression(
+            NO_INDEX,
+            expressionChildrenList
+        );
+    }
+
+    @Override
+    MultiplyExpression replace(final int index) {
         return new MultiplyExpression(
             index,
-            left,
-            right
+            this.children
         );
     }
 

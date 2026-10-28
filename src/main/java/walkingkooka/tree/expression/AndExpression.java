@@ -31,18 +31,18 @@ public final class AndExpression extends LogicalExpression {
                               final Expression right) {
         return new AndExpression(
             NO_INDEX,
-            left,
-            right
+            ExpressionChildrenListBinary.with(
+                left,
+                right
+            )
         );
     }
 
     private AndExpression(final int index,
-                          final Expression left,
-                          final Expression right) {
+                          final ExpressionChildrenListBinary children) {
         super(
             index,
-            left,
-            right
+            children
         );
     }
 
@@ -53,22 +53,29 @@ public final class AndExpression extends LogicalExpression {
 
     @Override
     public AndExpression removeParent() {
-        return this.removeParent0().cast();
+        return this.removeParent0()
+            .cast();
     }
 
     @Override
     public AndExpression setChildren(final List<Expression> children) {
-        return this.setChildren0(children).cast();
+        return this.setChildren0(children)
+            .cast();
     }
 
     @Override
-    AndExpression replace1(final int index,
-                           final Expression left,
-                           final Expression right) {
+    AndExpression replaceChildren(final ExpressionChildrenListBinary expressionChildrenList) {
+        return new AndExpression(
+            NO_INDEX,
+            expressionChildrenList
+        );
+    }
+
+    @Override
+    AndExpression replace(final int index) {
         return new AndExpression(
             index,
-            left,
-            right
+            this.children
         );
     }
 

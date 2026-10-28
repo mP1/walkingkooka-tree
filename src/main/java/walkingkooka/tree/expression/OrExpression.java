@@ -34,18 +34,18 @@ public final class OrExpression extends LogicalExpression {
                              final Expression right) {
         return new OrExpression(
             NO_INDEX,
-            left,
-            right
+            ExpressionChildrenListBinary.with(
+                left,
+                right
+            )
         );
     }
 
     private OrExpression(final int index,
-                         final Expression left,
-                         final Expression right) {
+                         final ExpressionChildrenListBinary children) {
         super(
             index,
-            left,
-            right
+            children
         );
     }
 
@@ -56,22 +56,29 @@ public final class OrExpression extends LogicalExpression {
 
     @Override
     public OrExpression removeParent() {
-        return this.removeParent0().cast();
+        return this.removeParent0()
+            .cast();
     }
 
     @Override
     public OrExpression setChildren(final List<Expression> children) {
-        return this.setChildren0(children).cast();
+        return this.setChildren0(children)
+            .cast();
     }
 
     @Override
-    OrExpression replace1(final int index,
-                          final Expression left,
-                          final Expression right) {
+    OrExpression replaceChildren(final ExpressionChildrenListBinary expressionChildrenList) {
+        return new OrExpression(
+            NO_INDEX,
+            expressionChildrenList
+        );
+    }
+
+    @Override
+    OrExpression replace(final int index) {
         return new OrExpression(
             index,
-            left,
-            right
+            this.children
         );
     }
 

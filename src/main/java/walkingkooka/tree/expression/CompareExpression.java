@@ -26,8 +26,12 @@ import walkingkooka.compare.CompareResult;
  */
 public abstract class CompareExpression extends BinaryExpression {
 
-    CompareExpression(final int index, final Expression left, final Expression right) {
-        super(index, left, right);
+    CompareExpression(final int index,
+                      final ExpressionChildrenListBinary children) {
+        super(
+            index,
+            children
+        );
     }
 
     // evaluation .....................................................................................................

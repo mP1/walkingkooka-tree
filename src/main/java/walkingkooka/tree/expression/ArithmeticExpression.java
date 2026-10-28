@@ -23,9 +23,11 @@ package walkingkooka.tree.expression;
 abstract public class ArithmeticExpression extends BinaryExpression {
 
     ArithmeticExpression(final int index,
-                         final Expression left,
-                         final Expression right) {
-        super(index, left, right);
+                         final ExpressionChildrenListBinary children) {
+        super(
+            index,
+            children
+        );
     }
 
     // evaluation .....................................................................................................
