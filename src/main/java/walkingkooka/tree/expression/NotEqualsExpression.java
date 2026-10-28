@@ -28,13 +28,24 @@ public final class NotEqualsExpression extends CompareExpression {
 
     public final static String SYMBOL = "!=";
 
-    static NotEqualsExpression with(final Expression left, final Expression right) {
+    static NotEqualsExpression with(final Expression left,
+                                    final Expression right) {
         check(left, right);
-        return new NotEqualsExpression(NO_INDEX, left, right);
+        return new NotEqualsExpression(
+            NO_INDEX,
+            left,
+            right
+        );
     }
 
-    private NotEqualsExpression(final int index, final Expression left, final Expression right) {
-        super(index, left, right);
+    private NotEqualsExpression(final int index,
+                                final Expression left,
+                                final Expression right) {
+        super(
+            index,
+            left,
+            right
+        );
     }
 
     @Override
@@ -53,8 +64,14 @@ public final class NotEqualsExpression extends CompareExpression {
     }
 
     @Override
-    NotEqualsExpression replace1(final int index, final Expression left, final Expression right) {
-        return new NotEqualsExpression(index, left, right);
+    NotEqualsExpression replace1(final int index,
+                                 final Expression left,
+                                 final Expression right) {
+        return new NotEqualsExpression(
+            index,
+            left,
+            right
+        );
     }
 
     // Visitor .........................................................................................................
