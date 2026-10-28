@@ -31,7 +31,8 @@ import java.util.Optional;
 @SuppressWarnings("lgtm[java/inconsistent-equals-and-hashcode]")
 abstract class ParentExpression extends Expression {
 
-    ParentExpression(final int index, final List<Expression> children) {
+    ParentExpression(final int index,
+                     final List<Expression> children) {
         super(index);
 
         final Optional<Expression> p = Optional.of(this);
@@ -40,7 +41,7 @@ abstract class ParentExpression extends Expression {
         this.children = Lists.readOnly(copy);
 
         int i = 0;
-        for (Expression child : children) {
+        for (final Expression child : children) {
             copy.add(child.setParent(p, i));
             i++;
         }
@@ -66,15 +67,22 @@ abstract class ParentExpression extends Expression {
             this.replaceChildren(copy);
     }
 
-    @Override final Expression setChild(final Expression newChild) {
+    @Override //
+    final Expression setChild(final Expression newChild) {
         final int index = newChild.index();
 
-        return this.children().get(index).equals(newChild) ?
+        return this.children()
+            .get(index)
+            .equals(newChild) ?
             this :
-            this.replaceChild0(newChild, index);
+            this.replaceChild0(
+                newChild,
+                index
+            );
     }
 
-    private Expression replaceChild0(final Expression newChild, final int index) {
+    private Expression replaceChild0(final Expression newChild,
+                                     final int index) {
         final List<Expression> newChildren = Lists.array();
         newChildren.addAll(this.children());
         newChildren.set(index, newChild);
@@ -84,18 +92,25 @@ abstract class ParentExpression extends Expression {
 
     private ParentExpression replaceChildren(final List<Expression> children) {
         this.replaceChildrenCheck(children);
-        return this.replace0(this.index, children)
-            .replaceChild(this.parent())
+        return this.replace0(
+                this.index,
+                children
+            ).replaceChild(this.parent())
             .cast();
     }
 
     abstract void replaceChildrenCheck(final List<Expression> children);
 
-    @Override final Expression replace(final int index) {
-        return this.replace0(index, this.children());
+    @Override //
+    final Expression replace(final int index) {
+        return this.replace0(
+            index,
+            this.children()
+        );
     }
 
-    abstract ParentExpression replace0(final int index, final List<Expression> children);
+    abstract ParentExpression replace0(final int index,
+                                       final List<Expression> children);
 
     /**
      * Invokes {@link #toValue(ExpressionEvaluationContext)}.
@@ -112,7 +127,7 @@ abstract class ParentExpression extends Expression {
 
         for (final Expression expression : this.children()) {
             pure = pure & expression.isPure(context);
-            if (!pure) {
+            if (false == pure) {
                 break;
             }
         }
@@ -140,7 +155,10 @@ abstract class ParentExpression extends Expression {
         printer.indent();
 
         for (final Object child : this.children()) {
-            TreePrintable.printTreeOrToString(child, printer);
+            TreePrintable.printTreeOrToString(
+                child,
+                printer
+            );
         }
 
         printer.outdent();
@@ -150,10 +168,12 @@ abstract class ParentExpression extends Expression {
 
     @Override
     public final int hashCode() {
-        return this.children().hashCode();
+        return this.children()
+            .hashCode();
     }
 
-    @Override final boolean equalsChildren(final Expression other) {
+    @Override //
+    final boolean equalsChildren(final Expression other) {
         return this.children.equals(other.children());
     }
 }
