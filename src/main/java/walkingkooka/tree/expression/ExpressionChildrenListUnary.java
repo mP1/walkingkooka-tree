@@ -83,10 +83,10 @@ final class ExpressionChildrenListUnary extends ExpressionChildrenList<Expressio
     public ExpressionChildrenListUnary setElements(final Collection<Expression> collection) {
         Objects.requireNonNull(collection, "collection");
 
-        ExpressionChildrenListUnary binaryExpressionChildrenList;
+        ExpressionChildrenListUnary expressionChildrenListUnary;
 
         if (collection instanceof ExpressionChildrenListUnary) {
-            binaryExpressionChildrenList = (ExpressionChildrenListUnary) collection;
+            expressionChildrenListUnary = (ExpressionChildrenListUnary) collection;
         } else {
             final Object[] children = collection.toArray();
             final int count = children.length;
@@ -95,11 +95,11 @@ final class ExpressionChildrenListUnary extends ExpressionChildrenList<Expressio
                 throw new IllegalArgumentException("Expected one child got " + count + " children");
             }
 
-            binaryExpressionChildrenList = this.setChild(
+            expressionChildrenListUnary = this.setChild(
                 (Expression) children[0]
             );
         }
-        return binaryExpressionChildrenList;
+        return expressionChildrenListUnary;
     }
 
     ExpressionChildrenListUnary setChild(final Expression child) {
