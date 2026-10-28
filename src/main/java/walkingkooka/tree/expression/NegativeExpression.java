@@ -38,8 +38,12 @@ public final class NegativeExpression extends UnaryExpression {
         return new NegativeExpression(NO_INDEX, value);
     }
 
-    private NegativeExpression(final int index, final Expression value) {
-        super(index, value);
+    private NegativeExpression(final int index,
+                               final Expression value) {
+        super(
+            index,
+            value
+        );
     }
 
     @Override
@@ -58,8 +62,12 @@ public final class NegativeExpression extends UnaryExpression {
     }
 
     @Override
-    NegativeExpression replace1(final int index, final Expression expression) {
-        return new NegativeExpression(index, expression);
+    NegativeExpression replace1(final int index,
+                                final Expression expression) {
+        return new NegativeExpression(
+            index,
+            expression
+        );
     }
 
     // visitor..........................................................................................................
@@ -81,17 +89,24 @@ public final class NegativeExpression extends UnaryExpression {
 
     @Override
     public boolean toBoolean(final ExpressionEvaluationContext context) {
-        return context.convertOrFail(this.toExpressionNumber(context), Boolean.class);
+        return context.convertOrFail(
+            this.toExpressionNumber(context),
+            Boolean.class
+        );
     }
 
     @Override
     public ExpressionNumber toExpressionNumber(final ExpressionEvaluationContext context) {
-        return this.value().toExpressionNumber(context).negate(context);
+        return this.value()
+            .toExpressionNumber(context).negate(context);
     }
 
     @Override
     public String toString(final ExpressionEvaluationContext context) {
-        return context.convertOrFail(this.toExpressionNumber(context), String.class);
+        return context.convertOrFail(
+            this.toExpressionNumber(context),
+            String.class
+        );
     }
 
     @Override
