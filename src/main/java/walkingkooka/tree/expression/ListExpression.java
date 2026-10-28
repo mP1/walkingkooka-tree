@@ -55,18 +55,24 @@ public final class ListExpression extends VariableExpression {
     }
 
     @Override
-    ParentExpression replace0(final int index, final List<Expression> children) {
-        return new ListExpression(index, children);
+    ParentExpression replace0(final int index,
+                              final List<Expression> children) {
+        return new ListExpression(
+            index,
+            children
+        );
     }
 
     @Override
     public ListExpression removeParent() {
-        return this.removeParent0().cast();
+        return this.removeParent0()
+            .cast();
     }
 
     @Override
     public Expression setChildren(final List<Expression> children) {
-        return this.setChildren0(children).cast();
+        return this.setChildren0(children)
+            .cast();
     }
 
     // Value.........................................................................................................
@@ -108,12 +114,18 @@ public final class ListExpression extends VariableExpression {
 
     @Override
     public ExpressionNumber toExpressionNumber(final ExpressionEvaluationContext context) {
-        return this.convertValues(context, ExpressionNumber.class);
+        return this.convertValues(
+            context,
+            ExpressionNumber.class
+        );
     }
 
     @Override
     public String toString(final ExpressionEvaluationContext context) {
-        return this.convertValues(context, String.class);
+        return this.convertValues(
+            context,
+            String.class
+        );
     }
 
     @Override
@@ -123,7 +135,10 @@ public final class ListExpression extends VariableExpression {
 
     private <T> T convertValues(final ExpressionEvaluationContext context,
                                 final Class<T> target) {
-        return context.convertOrFail(this.convertValues(context), target);
+        return context.convertOrFail(
+            this.convertValues(context),
+            target
+        );
     }
 
     private List<?> convertValues(final ExpressionEvaluationContext context) {
