@@ -30,13 +30,24 @@ public final class SubtractExpression extends ArithmeticExpression {
 
     public final static String SYMBOL = "-";
 
-    static SubtractExpression with(final Expression left, final Expression right) {
+    static SubtractExpression with(final Expression left,
+                                   final Expression right) {
         check(left, right);
-        return new SubtractExpression(NO_INDEX, left, right);
+        return new SubtractExpression(
+            NO_INDEX,
+            left,
+            right
+        );
     }
 
-    private SubtractExpression(final int index, final Expression left, final Expression right) {
-        super(index, left, right);
+    private SubtractExpression(final int index,
+                               final Expression left,
+                               final Expression right) {
+        super(
+            index,
+            left,
+            right
+        );
     }
 
     @Override
@@ -55,8 +66,14 @@ public final class SubtractExpression extends ArithmeticExpression {
     }
 
     @Override
-    SubtractExpression replace1(final int index, final Expression left, final Expression right) {
-        return new SubtractExpression(index, left, right);
+    SubtractExpression replace1(final int index,
+                                final Expression left,
+                                final Expression right) {
+        return new SubtractExpression(
+            index,
+            left,
+            right
+        );
     }
 
     // Visitor .........................................................................................................
@@ -72,15 +89,22 @@ public final class SubtractExpression extends ArithmeticExpression {
     // Evaluation .......................................................................................................
 
     @Override
-    String applyText(final String left, final String right, final ExpressionEvaluationContext context) {
-        throw new UnsupportedOperationException(left + SYMBOL + right); // TODO maybe if right exists in left "remove" it, else throw.
+    String applyText(final String left,
+                     final String right,
+                     final ExpressionEvaluationContext context) {
+        throw new UnsupportedOperationException(
+            left + SYMBOL + right
+        ); // TODO maybe if right exists in left "remove" it, else throw.
     }
 
     @Override
     ExpressionNumber applyExpressionNumber(final ExpressionNumber left,
                                            final ExpressionNumber right,
                                            final ExpressionEvaluationContext context) {
-        return left.subtract(right, context);
+        return left.subtract(
+            right,
+            context
+        );
     }
 
     // Object .........................................................................................................
