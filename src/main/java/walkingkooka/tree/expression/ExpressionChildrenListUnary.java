@@ -25,6 +25,28 @@ import java.util.Objects;
  */
 final class ExpressionChildrenListUnary extends ExpressionChildrenList<ExpressionChildrenListUnary> {
 
+    static ExpressionChildrenListUnary fromCollection(final Collection<Expression> children) {
+        Objects.requireNonNull(children, "children");
+
+        ExpressionChildrenListUnary expressionChildrenListUnary;
+
+        if (children instanceof ExpressionChildrenListUnary) {
+            expressionChildrenListUnary = (ExpressionChildrenListUnary) children;
+        } else {
+            final Object[] childrenArray = children.toArray();
+            final int count = childrenArray.length;
+
+            if (1 != count) {
+                throw new IllegalArgumentException("Expected 1 child got " + count + " children");
+            }
+
+            expressionChildrenListUnary = with(
+                (Expression) childrenArray[0]
+            );
+        }
+        return expressionChildrenListUnary;
+    }
+    
     static ExpressionChildrenListUnary with(final Expression child) {
         return new ExpressionChildrenListUnary(
             child
