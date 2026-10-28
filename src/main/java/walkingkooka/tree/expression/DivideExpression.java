@@ -30,13 +30,24 @@ public final class DivideExpression extends ArithmeticExpression {
 
     public final static String SYMBOL = "/";
 
-    static DivideExpression with(final Expression left, final Expression right) {
+    static DivideExpression with(final Expression left,
+                                 final Expression right) {
         check(left, right);
-        return new DivideExpression(NO_INDEX, left, right);
+        return new DivideExpression(
+            NO_INDEX,
+            left,
+            right
+        );
     }
 
-    private DivideExpression(final int index, final Expression left, final Expression right) {
-        super(index, left, right);
+    private DivideExpression(final int index,
+                             final Expression left,
+                             final Expression right) {
+        super(
+            index,
+            left,
+            right
+        );
     }
 
     @Override
@@ -55,8 +66,14 @@ public final class DivideExpression extends ArithmeticExpression {
     }
 
     @Override
-    DivideExpression replace1(final int index, final Expression left, final Expression right) {
-        return new DivideExpression(index, left, right);
+    DivideExpression replace1(final int index,
+                              final Expression left,
+                              final Expression right) {
+        return new DivideExpression(
+            index,
+            left,
+            right
+        );
     }
 
     // Visitor .........................................................................................................
@@ -72,15 +89,22 @@ public final class DivideExpression extends ArithmeticExpression {
     // Evaluation .......................................................................................................
 
     @Override
-    String applyText(final String left, final String right, final ExpressionEvaluationContext context) {
-        throw new UnsupportedOperationException(left + SYMBOL + right);
+    String applyText(final String left,
+                     final String right,
+                     final ExpressionEvaluationContext context) {
+        throw new UnsupportedOperationException(
+            left + SYMBOL + right
+        );
     }
 
     @Override
     ExpressionNumber applyExpressionNumber(final ExpressionNumber left,
                                            final ExpressionNumber right,
                                            final ExpressionEvaluationContext context) {
-        return left.divide(right, context);
+        return left.divide(
+            right,
+            context
+        );
     }
 
     // Object .........................................................................................................
