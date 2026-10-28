@@ -18,6 +18,7 @@
 package walkingkooka.tree.expression;
 
 import org.junit.jupiter.api.Test;
+import walkingkooka.collect.list.Lists;
 
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -29,6 +30,65 @@ public final class ExpressionChildrenListBinaryTest extends ExpressionChildrenLi
     private final static Expression RIGHT = Expression.value("right");
 
     private final static Expression DIFFERENT = Expression.value("different");
+
+    // fromCollection...................................................................................................
+
+    @Test
+    public void testWithNullCollectionFails() {
+        assertThrows(
+            NullPointerException.class,
+            () -> ExpressionChildrenListBinary.fromCollection(null)
+        );
+    }
+
+    @Test
+    public void testWithEmptyCollectionFails() {
+        assertThrows(
+            IllegalArgumentException.class,
+            () -> ExpressionChildrenListBinary.fromCollection(
+                Lists.empty()
+            )
+        );
+    }
+
+    @Test
+    public void testWithCollectionWithOneFails() {
+        assertThrows(
+            IllegalArgumentException.class,
+            () -> ExpressionChildrenListBinary.fromCollection(
+                Lists.of(LEFT)
+            )
+        );
+    }
+
+    @Test
+    public void testWithCollectionWithThreeFails() {
+        assertThrows(
+            IllegalArgumentException.class,
+            () -> ExpressionChildrenListBinary.fromCollection(
+                Lists.of(
+                    LEFT,
+                    RIGHT,
+                    DIFFERENT
+                )
+            )
+        );
+    }
+
+    @Test
+    public void testWithCollection() {
+        this.checkEquals(
+            this.createList(),
+            ExpressionChildrenListBinary.fromCollection(
+                Lists.of(
+                    LEFT,
+                    RIGHT
+                )
+            )
+        );
+    }
+
+    // with.............................................................................................................
 
     @Test
     public void testWithNullLeftFails() {
