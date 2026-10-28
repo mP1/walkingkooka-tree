@@ -30,13 +30,24 @@ public final class PowerExpression extends ArithmeticExpression {
 
     public final static String SYMBOL = "^^";
 
-    static PowerExpression with(final Expression left, final Expression right) {
+    static PowerExpression with(final Expression left,
+                                final Expression right) {
         check(left, right);
-        return new PowerExpression(NO_INDEX, left, right);
+        return new PowerExpression(
+            NO_INDEX,
+            left,
+            right
+        );
     }
 
-    private PowerExpression(final int index, final Expression left, final Expression right) {
-        super(index, left, right);
+    private PowerExpression(final int index,
+                            final Expression left,
+                            final Expression right) {
+        super(
+            index,
+            left,
+            right
+        );
     }
 
     @Override
@@ -55,8 +66,14 @@ public final class PowerExpression extends ArithmeticExpression {
     }
 
     @Override
-    PowerExpression replace1(final int index, final Expression left, final Expression right) {
-        return new PowerExpression(index, left, right);
+    PowerExpression replace1(final int index,
+                             final Expression left,
+                             final Expression right) {
+        return new PowerExpression(
+            index,
+            left,
+            right
+        );
     }
 
     // Visitor .........................................................................................................
@@ -72,15 +89,22 @@ public final class PowerExpression extends ArithmeticExpression {
     // Evaluation .......................................................................................................
 
     @Override
-    String applyText(final String left, final String right, final ExpressionEvaluationContext context) {
-        throw new UnsupportedOperationException(left + SYMBOL + right);
+    String applyText(final String left,
+                     final String right,
+                     final ExpressionEvaluationContext context) {
+        throw new UnsupportedOperationException(
+            left + SYMBOL + right
+        );
     }
 
     @Override
     ExpressionNumber applyExpressionNumber(final ExpressionNumber left,
                                            final ExpressionNumber right,
                                            final ExpressionEvaluationContext context) {
-        return left.power(right, context);
+        return left.power(
+            right,
+            context
+        );
     }
 
     // Object .........................................................................................................
