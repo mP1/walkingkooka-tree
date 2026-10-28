@@ -18,16 +18,11 @@
 package walkingkooka.tree.expression;
 
 import org.junit.jupiter.api.Test;
-import walkingkooka.HashCodeEqualsDefinedTesting2;
-import walkingkooka.collect.list.ImmutableListTesting;
-import walkingkooka.reflect.PackagePrivateClassTesting;
 
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class BinaryExpressionChildrenListTest implements ImmutableListTesting<BinaryExpressionChildrenList, Expression>,
-    HashCodeEqualsDefinedTesting2<BinaryExpressionChildrenList>,
-    PackagePrivateClassTesting<BinaryExpressionChildrenList> {
+public final class ExpressionChildrenListBinaryTest extends ExpressionChildrenListTestCase<ExpressionChildrenListBinary> {
 
     private final static Expression LEFT = Expression.value("left");
 
@@ -39,7 +34,7 @@ public final class BinaryExpressionChildrenListTest implements ImmutableListTest
     public void testWithNullLeftFails() {
         assertThrows(
             NullPointerException.class,
-            () -> BinaryExpressionChildrenList.with(
+            () -> ExpressionChildrenListBinary.with(
                 null,
                 RIGHT
             )
@@ -50,7 +45,7 @@ public final class BinaryExpressionChildrenListTest implements ImmutableListTest
     public void testWithNullRightFails() {
         assertThrows(
             NullPointerException.class,
-            () -> BinaryExpressionChildrenList.with(
+            () -> ExpressionChildrenListBinary.with(
                 LEFT,
                 null
             )
@@ -59,7 +54,7 @@ public final class BinaryExpressionChildrenListTest implements ImmutableListTest
 
     @Test
     public void testWith() {
-        final BinaryExpressionChildrenList list = this.createList();
+        final ExpressionChildrenListBinary list = this.createList();
 
         this.checkEquals(
             LEFT,
@@ -101,7 +96,7 @@ public final class BinaryExpressionChildrenListTest implements ImmutableListTest
 
     @Test
     public void testSetLeftAndRightWithSame() {
-        final BinaryExpressionChildrenList list = this.createList();
+        final ExpressionChildrenListBinary list = this.createList();
 
         this.setLeftAndRightAndCheck(
             list,
@@ -117,7 +112,7 @@ public final class BinaryExpressionChildrenListTest implements ImmutableListTest
             this.createList(),
             DIFFERENT,
             RIGHT,
-            BinaryExpressionChildrenList.with(
+            ExpressionChildrenListBinary.with(
                 DIFFERENT,
                 RIGHT
             )
@@ -130,18 +125,18 @@ public final class BinaryExpressionChildrenListTest implements ImmutableListTest
             this.createList(),
             LEFT,
             DIFFERENT,
-            BinaryExpressionChildrenList.with(
+            ExpressionChildrenListBinary.with(
                 LEFT,
                 DIFFERENT
             )
         );
     }
 
-    private void setLeftAndRightAndCheck(final BinaryExpressionChildrenList list,
+    private void setLeftAndRightAndCheck(final ExpressionChildrenListBinary list,
                                          final Expression left,
                                          final Expression right,
-                                         final BinaryExpressionChildrenList expected) {
-        final BinaryExpressionChildrenList actual = list.setLeftAndRight(
+                                         final ExpressionChildrenListBinary expected) {
+        final ExpressionChildrenListBinary actual = list.setLeftAndRight(
             left,
             right
         );
@@ -161,8 +156,8 @@ public final class BinaryExpressionChildrenListTest implements ImmutableListTest
     }
 
     @Override
-    public BinaryExpressionChildrenList createList() {
-        return BinaryExpressionChildrenList.with(
+    public ExpressionChildrenListBinary createList() {
+        return ExpressionChildrenListBinary.with(
             LEFT,
             RIGHT
         );
@@ -173,7 +168,7 @@ public final class BinaryExpressionChildrenListTest implements ImmutableListTest
     @Test
     public void testEqualsDifferentLeft() {
         this.checkNotEquals(
-            BinaryExpressionChildrenList.with(
+            ExpressionChildrenListBinary.with(
                 DIFFERENT,
                 RIGHT
             )
@@ -183,22 +178,17 @@ public final class BinaryExpressionChildrenListTest implements ImmutableListTest
     @Test
     public void testEqualsDifferentRight() {
         this.checkNotEquals(
-            BinaryExpressionChildrenList.with(
+            ExpressionChildrenListBinary.with(
                 LEFT,
                 DIFFERENT
             )
         );
     }
 
-    @Override
-    public BinaryExpressionChildrenList createObject() {
-        return this.createList();
-    }
-
     // class............................................................................................................
 
     @Override
-    public Class<BinaryExpressionChildrenList> type() {
-        return BinaryExpressionChildrenList.class;
+    public Class<ExpressionChildrenListBinary> type() {
+        return ExpressionChildrenListBinary.class;
     }
 }
