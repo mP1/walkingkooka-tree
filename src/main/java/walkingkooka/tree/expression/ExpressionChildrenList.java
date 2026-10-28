@@ -33,4 +33,10 @@ abstract class ExpressionChildrenList<T extends ExpressionChildrenList<T>> exten
     public final void elementCheck(final Expression expression) {
         Objects.requireNonNull(expression, "expression");
     }
+
+    static void unaryChildCount(final int count) {
+        if (1 != count) {
+            throw new IllegalArgumentException("Expected one child got " + count + " children");
+        }
+    }
 }
