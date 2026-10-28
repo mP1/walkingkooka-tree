@@ -30,13 +30,24 @@ public final class XorExpression extends LogicalExpression {
 
     public final static String SYMBOL = "^";
 
-    static XorExpression with(final Expression left, final Expression right) {
+    static XorExpression with(final Expression left,
+                              final Expression right) {
         check(left, right);
-        return new XorExpression(NO_INDEX, left, right);
+        return new XorExpression(
+            NO_INDEX,
+            left,
+            right
+        );
     }
 
-    private XorExpression(final int index, final Expression left, final Expression right) {
-        super(index, left, right);
+    private XorExpression(final int index,
+                          final Expression left,
+                          final Expression right) {
+        super(
+            index,
+            left,
+            right
+        );
     }
 
     @Override
@@ -55,8 +66,14 @@ public final class XorExpression extends LogicalExpression {
     }
 
     @Override
-    XorExpression replace1(final int index, final Expression left, final Expression right) {
-        return new XorExpression(index, left, right);
+    XorExpression replace1(final int index,
+                           final Expression left,
+                           final Expression right) {
+        return new XorExpression(
+            index,
+            left,
+            right
+        );
     }
 
     // Visitor .........................................................................................................
