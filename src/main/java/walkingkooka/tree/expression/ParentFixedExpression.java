@@ -24,11 +24,16 @@ import java.util.List;
  */
 abstract class ParentFixedExpression extends ParentExpression {
 
-    ParentFixedExpression(final int index, final List<Expression> children) {
-        super(index, children);
+    ParentFixedExpression(final int index,
+                          final List<Expression> children) {
+        super(
+            index,
+            children
+        );
     }
 
-    @Override final void replaceChildrenCheck(final List<Expression> children) {
+    @Override//
+    final void replaceChildrenCheck(final List<Expression> children) {
         final int expected = this.expectedChildCount();
         final int count = children.size();
         if (count != expected) {
