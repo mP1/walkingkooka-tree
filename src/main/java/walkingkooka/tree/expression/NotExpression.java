@@ -35,11 +35,19 @@ public final class NotExpression extends UnaryExpression {
 
     static NotExpression with(final Expression value) {
         Objects.requireNonNull(value, "value");
-        return new NotExpression(NO_INDEX, value);
+
+        return new NotExpression(
+            NO_INDEX,
+            value
+        );
     }
 
-    private NotExpression(final int index, final Expression value) {
-        super(index, value);
+    private NotExpression(final int index,
+                          final Expression value) {
+        super(
+            index,
+            value
+        );
     }
 
     @Override
@@ -54,12 +62,17 @@ public final class NotExpression extends UnaryExpression {
 
     @Override
     public NotExpression setChildren(final List<Expression> children) {
-        return this.setChildren0(children).cast();
+        return this.setChildren0(children)
+            .cast();
     }
 
     @Override
-    NotExpression replace1(final int index, final Expression expression) {
-        return new NotExpression(index, expression);
+    NotExpression replace1(final int index,
+                           final Expression expression) {
+        return new NotExpression(
+            index,
+            expression
+        );
     }
 
     // visitor..........................................................................................................
@@ -81,17 +94,24 @@ public final class NotExpression extends UnaryExpression {
 
     @Override
     public boolean toBoolean(final ExpressionEvaluationContext context) {
-        return context.convertOrFail(this.toExpressionNumber(context), Boolean.class);
+        return context.convertOrFail(
+            this.toExpressionNumber(context),
+            Boolean.class
+        );
     }
 
     @Override
     public ExpressionNumber toExpressionNumber(final ExpressionEvaluationContext context) {
-        return this.value().toExpressionNumber(context).not();
+        return this.value()
+            .toExpressionNumber(context).not();
     }
 
     @Override
     public String toString(final ExpressionEvaluationContext context) {
-        return context.convertOrFail(this.toExpressionNumber(context), String.class);
+        return context.convertOrFail(
+            this.toExpressionNumber(context),
+            String.class
+        );
     }
 
     @Override
