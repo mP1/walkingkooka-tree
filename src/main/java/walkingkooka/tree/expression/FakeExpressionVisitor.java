@@ -25,217 +25,217 @@ public class FakeExpressionVisitor extends ExpressionVisitor implements Fake {
     }
 
     @Override
-    protected Visiting startVisit(final Expression node) {
+    protected Visiting startVisit(final Expression expression) {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    protected void endVisit(final Expression node) {
+    protected void endVisit(final Expression expression) {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    protected void visit(final NamedFunctionExpression node) {
+    protected void visit(final NamedFunctionExpression expression) {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    protected void visit(final ReferenceExpression node) {
+    protected void visit(final ReferenceExpression expression) {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    protected void visit(final ValueExpression<?> node) {
+    protected void visit(final ValueExpression<?> expression) {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    protected Visiting startVisit(final AddExpression node) {
+    protected Visiting startVisit(final AddExpression expression) {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    protected void endVisit(final AddExpression node) {
+    protected void endVisit(final AddExpression expression) {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    protected Visiting startVisit(final AndExpression node) {
+    protected Visiting startVisit(final AndExpression expression) {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    protected void endVisit(final AndExpression node) {
+    protected void endVisit(final AndExpression expression) {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    protected Visiting startVisit(final CallExpression node) {
+    protected Visiting startVisit(final CallExpression expression) {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    protected void endVisit(final CallExpression node) {
+    protected void endVisit(final CallExpression expression) {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    protected Visiting startVisit(final DivideExpression node) {
+    protected Visiting startVisit(final DivideExpression expression) {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    protected void endVisit(final DivideExpression node) {
+    protected void endVisit(final DivideExpression expression) {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    protected Visiting startVisit(final EqualsExpression node) {
+    protected Visiting startVisit(final EqualsExpression expression) {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    protected void endVisit(final EqualsExpression node) {
+    protected void endVisit(final EqualsExpression expression) {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    protected Visiting startVisit(final GreaterThanExpression node) {
+    protected Visiting startVisit(final GreaterThanExpression expression) {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    protected void endVisit(final GreaterThanExpression node) {
+    protected void endVisit(final GreaterThanExpression expression) {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    protected Visiting startVisit(final GreaterThanEqualsExpression node) {
+    protected Visiting startVisit(final GreaterThanEqualsExpression expression) {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    protected void endVisit(final GreaterThanEqualsExpression node) {
+    protected void endVisit(final GreaterThanEqualsExpression expression) {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    protected Visiting startVisit(final LambdaFunctionExpression node) {
+    protected Visiting startVisit(final LambdaFunctionExpression expression) {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    protected void endVisit(final LambdaFunctionExpression node) {
+    protected void endVisit(final LambdaFunctionExpression expression) {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    protected Visiting startVisit(final LessThanExpression node) {
+    protected Visiting startVisit(final LessThanExpression expression) {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    protected void endVisit(final LessThanExpression node) {
+    protected void endVisit(final LessThanExpression expression) {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    protected Visiting startVisit(final LessThanEqualsExpression node) {
+    protected Visiting startVisit(final LessThanEqualsExpression expression) {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    protected void endVisit(final LessThanEqualsExpression node) {
+    protected void endVisit(final LessThanEqualsExpression expression) {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    protected Visiting startVisit(final ListExpression node) {
+    protected Visiting startVisit(final ListExpression expression) {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    protected void endVisit(final ListExpression node) {
+    protected void endVisit(final ListExpression expression) {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    protected Visiting startVisit(final ModuloExpression node) {
+    protected Visiting startVisit(final ModuloExpression expression) {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    protected void endVisit(final ModuloExpression node) {
+    protected void endVisit(final ModuloExpression expression) {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    protected Visiting startVisit(final MultiplyExpression node) {
+    protected Visiting startVisit(final MultiplyExpression expression) {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    protected void endVisit(final MultiplyExpression node) {
+    protected void endVisit(final MultiplyExpression expression) {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    protected Visiting startVisit(final NegativeExpression node) {
+    protected Visiting startVisit(final NegativeExpression expression) {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    protected void endVisit(final NegativeExpression node) {
+    protected void endVisit(final NegativeExpression expression) {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    protected Visiting startVisit(final NotExpression node) {
+    protected Visiting startVisit(final NotExpression expression) {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    protected void endVisit(final NotExpression node) {
+    protected void endVisit(final NotExpression expression) {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    protected Visiting startVisit(final NotEqualsExpression node) {
+    protected Visiting startVisit(final NotEqualsExpression expression) {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    protected void endVisit(final NotEqualsExpression node) {
+    protected void endVisit(final NotEqualsExpression expression) {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    protected Visiting startVisit(final OrExpression node) {
+    protected Visiting startVisit(final OrExpression expression) {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    protected void endVisit(final OrExpression node) {
+    protected void endVisit(final OrExpression expression) {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    protected Visiting startVisit(final PowerExpression node) {
+    protected Visiting startVisit(final PowerExpression expression) {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    protected void endVisit(final PowerExpression node) {
+    protected void endVisit(final PowerExpression expression) {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    protected Visiting startVisit(final SubtractExpression node) {
+    protected Visiting startVisit(final SubtractExpression expression) {
         throw new UnsupportedOperationException();
     }
 
     @Override
-    protected void endVisit(final SubtractExpression node) {
+    protected void endVisit(final SubtractExpression expression) {
         throw new UnsupportedOperationException();
     }
 }
