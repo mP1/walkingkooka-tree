@@ -64,7 +64,7 @@ final public class NodeSelectorFunctionNameTest implements ClassTesting2<NodeSel
     public String possibleValidChars(final int position) {
         return 0 == position ?
             ASCII_LETTERS :
-            ASCII_LETTERS_DIGITS + "_";
+            ASCII_LETTERS_DIGITS;
     }
 
     @Override
