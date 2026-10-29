@@ -32,9 +32,8 @@ import walkingkooka.math.DecimalNumberContextTesting;
 import walkingkooka.naming.Name;
 import walkingkooka.net.header.HasContentTypeTesting;
 import walkingkooka.predicate.Predicates;
-import walkingkooka.reflect.ClassTesting2;
 import walkingkooka.reflect.IsMethodTesting;
-import walkingkooka.reflect.JavaVisibility;
+import walkingkooka.reflect.PublicClassTesting;
 import walkingkooka.reflect.PublicStaticFactoryTesting;
 import walkingkooka.text.BinaryTextContextTesting;
 import walkingkooka.text.CaseSensitivity;
@@ -66,7 +65,7 @@ import java.util.function.Function;
 import java.util.function.Predicate;
 
 public abstract class ExpressionTestCase<N extends Expression> implements TreePrintableTesting,
-    ClassTesting2<Expression>,
+    PublicClassTesting<Expression>,
     BinaryTextContextTesting,
     CurrencyLocaleContextTesting,
     DateTimeContextTesting,
@@ -629,11 +628,6 @@ public abstract class ExpressionTestCase<N extends Expression> implements TreePr
     }
 
     // class............................................................................................................
-
-    @Override
-    public final JavaVisibility typeVisibility() {
-        return JavaVisibility.PUBLIC;
-    }
 
     @Override
     public final String typeNamePrefix() {
