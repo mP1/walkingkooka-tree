@@ -49,7 +49,10 @@ public final class CallExpression extends VariableExpression {
     private CallExpression(final int index,
                            final Expression callable,
                            final List<Expression> parameters) {
-        super(index, parameters);
+        super(
+            index,
+            parameters
+        );
         this.callable = callable;
     }
 
@@ -81,17 +84,23 @@ public final class CallExpression extends VariableExpression {
         Objects.requireNonNull(callable, "callable");
         return this.callable().equals(callable) ?
             this :
-            new CallExpression(this.index, callable, this.value());
+            new CallExpression(
+                this.index,
+                callable,
+                this.value()
+            );
     }
 
     @Override
     public CallExpression removeParent() {
-        return this.removeParent0().cast();
+        return this.removeParent0()
+            .cast();
     }
 
     @Override
     public Expression setChildren(final List<Expression> children) {
-        return this.setChildren0(children).cast();
+        return this.setChildren0(children)
+            .cast();
     }
 
     // Value.........................................................................................................
@@ -105,7 +114,8 @@ public final class CallExpression extends VariableExpression {
 
     @Override
     public boolean isPure(final ExpressionPurityContext context) {
-        return this.callable().isPure(context) &&
+        return this.callable()
+            .isPure(context) &&
             this.isPureChildren(context);
     }
 
@@ -204,7 +214,9 @@ public final class CallExpression extends VariableExpression {
 
     @Override
     boolean equalsIgnoringChildren(final Expression other) {
-        return this.equalsIgnoringParentAndChildren0(Cast.to(other));
+        return this.equalsIgnoringParentAndChildren0(
+            Cast.to(other)
+        );
     }
 
     private boolean equalsIgnoringParentAndChildren0(final CallExpression other) {
