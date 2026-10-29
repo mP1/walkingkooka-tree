@@ -20,6 +20,8 @@ package walkingkooka.tree.expression;
 import org.junit.jupiter.api.Test;
 import walkingkooka.collect.list.Lists;
 
+import static org.junit.jupiter.api.Assertions.assertSame;
+
 public final class ExpressionChildrenListVariableTest extends ExpressionChildrenListTestCase<ExpressionChildrenListVariable> {
 
     private final static Expression FIRST = Expression.value("1st");
@@ -99,6 +101,16 @@ public final class ExpressionChildrenListVariableTest extends ExpressionChildren
         return new ExpressionChildrenListVariable(
             FIRST,
             SECOND
+        );
+    }
+
+    @Test
+    public void testExpressionChildrenListVariable() {
+        final ExpressionChildrenListVariable list = this.createList();
+
+        assertSame(
+            list,
+            list.toExpressionChildrenListVariable()
         );
     }
 

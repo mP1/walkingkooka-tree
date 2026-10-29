@@ -30,6 +30,17 @@ public abstract class ExpressionChildrenListTestCase<T extends ExpressionChildre
         super();
     }
 
+    final void toExpressionChildrenListVariableAndCheck(final ExpressionChildrenList<?> list) {
+        this.checkEquals(
+            new ExpressionChildrenListVariable(
+                list.toArray(
+                    new Expression[0]
+                )
+            ),
+            list.toExpressionChildrenListVariable()
+        );
+    }
+
     @Override
     public final T createObject() {
         return this.createList();

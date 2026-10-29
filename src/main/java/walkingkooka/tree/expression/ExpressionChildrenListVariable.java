@@ -76,5 +76,10 @@ final class ExpressionChildrenListVariable extends ExpressionChildrenList<Expres
         return expressionChildrenListVariable;
     }
 
+    @Override
+    ExpressionChildrenListVariable toExpressionChildrenListVariable() {
+        return this;
+    }
+
     private final Expression[] children;
 }

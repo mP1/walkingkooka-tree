@@ -107,5 +107,12 @@ final class ExpressionChildrenListUnary extends ExpressionChildrenList<Expressio
             );
     }
 
+    @Override
+    ExpressionChildrenListVariable toExpressionChildrenListVariable() {
+        return new ExpressionChildrenListVariable(
+            this.child
+        );
+    }
+
     final Expression child;
 }
