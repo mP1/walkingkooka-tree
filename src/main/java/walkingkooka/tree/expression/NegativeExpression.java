@@ -89,30 +89,10 @@ public final class NegativeExpression extends UnaryExpression {
     }
 
     @Override
-    public boolean toBoolean(final ExpressionEvaluationContext context) {
-        return context.convertOrFail(
-            this.toExpressionNumber(context),
-            Boolean.class
-        );
-    }
-
-    @Override
-    public ExpressionNumber toExpressionNumber(final ExpressionEvaluationContext context) {
-        return this.value()
-            .toExpressionNumber(context).negate(context);
-    }
-
-    @Override
-    public String toString(final ExpressionEvaluationContext context) {
-        return context.convertOrFail(
-            this.toExpressionNumber(context),
-            String.class
-        );
-    }
-
-    @Override
     public Number toValue(final ExpressionEvaluationContext context) {
-        return this.toExpressionNumber(context);
+        return this.value()
+            .toExpressionNumber(context)
+            .negate(context);
     }
 
     // printTree.......................................................................................................

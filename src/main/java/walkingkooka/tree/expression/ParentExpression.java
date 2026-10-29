@@ -120,6 +120,39 @@ abstract class ParentExpression extends Expression {
         return this.toValue(context);
     }
 
+
+    @Override
+    public final boolean toBoolean(final ExpressionEvaluationContext context) {
+        return this.toValueAndConvert(
+            context,
+            Boolean.class
+        );
+    }
+
+    @Override
+    public final ExpressionNumber toExpressionNumber(final ExpressionEvaluationContext context) {
+        return this.toValueAndConvert(
+            context,
+            ExpressionNumber.class
+        );
+    }
+
+    @Override
+    public final String toString(final ExpressionEvaluationContext context) {
+        return this.toValueAndConvert(
+            context,
+            String.class
+        );
+    }
+
+    final <T> T toValueAndConvert(final ExpressionEvaluationContext context,
+                                  final Class<T> type) {
+        return context.convertOrFail(
+            this.toValue(context),
+            type
+        );
+    }
+
     // ExpressionPurity..................................................................................................
 
     final boolean isPureChildren(final ExpressionPurityContext context) {

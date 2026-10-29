@@ -119,24 +119,6 @@ public final class LambdaFunctionExpression extends UnaryExpression {
     }
 
     @Override
-    public boolean toBoolean(final ExpressionEvaluationContext context) {
-        return this.value()
-            .toBoolean(context);
-    }
-
-    @Override
-    public ExpressionNumber toExpressionNumber(final ExpressionEvaluationContext context) {
-        return this.value()
-            .toExpressionNumber(context);
-    }
-
-    @Override
-    public String toString(final ExpressionEvaluationContext context) {
-        return this.value()
-            .toString(context);
-    }
-
-    @Override
     public Object toValue(final ExpressionEvaluationContext context) {
         return context.evaluateExpression(
             this.value()
