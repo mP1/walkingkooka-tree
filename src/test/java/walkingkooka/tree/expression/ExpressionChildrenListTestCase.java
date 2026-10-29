@@ -37,6 +37,13 @@ public abstract class ExpressionChildrenListTestCase<T extends ExpressionChildre
         );
     }
 
+    final void toExpressionChildrenListBinaryAndCheck(final ExpressionChildrenList<?> list) {
+        this.checkEquals(
+            ExpressionChildrenListBinary.fromCollection(list),
+            list.toExpressionChildrenListBinary()
+        );
+    }
+
     final void toExpressionChildrenListVariableAndCheck(final ExpressionChildrenList<?> list) {
         this.checkEquals(
             new ExpressionChildrenListVariable(
