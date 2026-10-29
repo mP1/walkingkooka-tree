@@ -21,7 +21,8 @@ import walkingkooka.Cast;
 import walkingkooka.compare.CompareResult;
 
 /**
- * Base class for all comparison {@link BinaryExpression} nodes such as LT, GTE etc.
+ * Base class for all comparison {@link BinaryExpression} nodes such as LT, GTE etc, which all
+ * produce a {@link Boolean} result.
  */
 public abstract class CompareExpression extends BinaryExpression {
 
@@ -33,13 +34,16 @@ public abstract class CompareExpression extends BinaryExpression {
 
     @Override
     public final Boolean toValue(final ExpressionEvaluationContext context) {
-        return this.toBoolean(context);
+        return context.convertOrFail(
+            this.apply(context),
+            Boolean.class
+        );
     }
 
     @Override //
-    final Expression apply(final Object left,
-                           final Object right,
-                           final ExpressionEvaluationContext context) {
+    final Object apply(final Object left,
+                       final Object right,
+                       final ExpressionEvaluationContext context) {
         final CompareResult compare = this.compareResult();
 
         final Object result;
@@ -63,7 +67,7 @@ public abstract class CompareExpression extends BinaryExpression {
             );
         }
 
-        return Expression.value(result);
+        return result;
     }
 
     /**

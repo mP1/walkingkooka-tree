@@ -138,43 +138,11 @@ public final class CallExpression extends VariableExpression {
     }
 
     @Override
-    public boolean toBoolean(final ExpressionEvaluationContext context) {
-        return this.executeFunctionAndConvert(
-            context,
-            Boolean.class
-        );
-    }
-
-    @Override
-    public ExpressionNumber toExpressionNumber(final ExpressionEvaluationContext context) {
-        return this.executeFunctionAndConvert(
-            context,
-            ExpressionNumber.class
-        );
-    }
-
-    @Override
-    public String toString(final ExpressionEvaluationContext context) {
-        return this.executeFunctionAndConvert(
-            context,
-            String.class
-        );
-    }
-
-    @Override
     public Object toValue(final ExpressionEvaluationContext context) {
         return context.evaluateFunction(
             this.callable()
                 .function(context),
             Cast.to(this.value())
-        );
-    }
-
-    private <T> T executeFunctionAndConvert(final ExpressionEvaluationContext context,
-                                            final Class<T> target) {
-        return context.convertOrFail(
-            this.toValue(context),
-            target
         );
     }
 

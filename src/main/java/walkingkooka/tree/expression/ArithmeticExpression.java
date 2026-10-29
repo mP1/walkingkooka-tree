@@ -31,8 +31,8 @@ abstract public class ArithmeticExpression extends BinaryExpression {
     // evaluation .....................................................................................................
 
     @Override
-    public final Number toValue(final ExpressionEvaluationContext context) {
-        return this.toExpressionNumber(context);
+    public final Object toValue(final ExpressionEvaluationContext context) {
+        return this.apply(context);
     }
 
     /**
@@ -40,9 +40,9 @@ abstract public class ArithmeticExpression extends BinaryExpression {
      * are converted to {@link ExpressionNumber} and given to {@link #applyExpressionNumber(ExpressionNumber, ExpressionNumber, ExpressionEvaluationContext)}.
      */
     @Override //
-    final Expression apply(final Object left,
-                           final Object right,
-                           final ExpressionEvaluationContext context) {
+    final Object apply(final Object left,
+                       final Object right,
+                       final ExpressionEvaluationContext context) {
         final Object result;
 
         if (context.isText(left)) {
@@ -59,7 +59,7 @@ abstract public class ArithmeticExpression extends BinaryExpression {
             );
         }
 
-        return Expression.value(result);
+        return result;
     }
 
     /**

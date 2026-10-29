@@ -42,14 +42,13 @@ public abstract class LogicalExpression extends BinaryExpression {
 
     @Override
     public final Object toValue(final ExpressionEvaluationContext context) {
-        return this.apply(context)
-            .toValue(context);
+        return this.apply(context);
     }
 
     @Override //
-    final Expression apply(final Object left,
-                           final Object right,
-                           final ExpressionEvaluationContext context) {
+    final Object apply(final Object left,
+                       final Object right,
+                       final ExpressionEvaluationContext context) {
         final Object result;
         if (left instanceof Boolean) {
             result = this.applyBoolean(
@@ -63,7 +62,7 @@ public abstract class LogicalExpression extends BinaryExpression {
             );
         }
 
-        return Expression.value(result);
+        return result;
     }
 
     /**

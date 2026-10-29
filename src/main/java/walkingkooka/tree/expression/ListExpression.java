@@ -113,43 +113,7 @@ public final class ListExpression extends VariableExpression {
     }
 
     @Override
-    public boolean toBoolean(final ExpressionEvaluationContext context) {
-        return this.convertValues(
-            context,
-            Boolean.class
-        );
-    }
-
-    @Override
-    public ExpressionNumber toExpressionNumber(final ExpressionEvaluationContext context) {
-        return this.convertValues(
-            context,
-            ExpressionNumber.class
-        );
-    }
-
-    @Override
-    public String toString(final ExpressionEvaluationContext context) {
-        return this.convertValues(
-            context,
-            String.class
-        );
-    }
-
-    @Override
     public Object toValue(final ExpressionEvaluationContext context) {
-        return this.convertValues(context);
-    }
-
-    private <T> T convertValues(final ExpressionEvaluationContext context,
-                                final Class<T> target) {
-        return context.convertOrFail(
-            this.convertValues(context),
-            target
-        );
-    }
-
-    private List<?> convertValues(final ExpressionEvaluationContext context) {
         return this.value()
             .stream()
             .map(v -> v.toValue(context))

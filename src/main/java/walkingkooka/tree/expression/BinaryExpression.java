@@ -92,35 +92,23 @@ abstract class BinaryExpression extends ParentFixedExpression {
         visitor.accept(this.right());
     }
 
-    // Evaluation ...................................................................................................
+    // Evaluation ......................................................................................................
 
     @Override
     ExpressionFunction<?, ExpressionEvaluationContext> function(final ExpressionEvaluationContext context) {
         return this.toValueFunction();
     }
 
-    @Override
-    public final boolean toBoolean(final ExpressionEvaluationContext context) {
-        return this.apply(context)
-            .toBoolean(context);
-    }
-
-    @Override
-    public final ExpressionNumber toExpressionNumber(final ExpressionEvaluationContext context) {
-        return this.apply(context)
-            .toExpressionNumber(context);
-    }
-
-    @Override
-    public final String toString(final ExpressionEvaluationContext context) {
-        return this.apply(context)
-            .toString(context);
-    }
-
-    final Expression apply(final ExpressionEvaluationContext context) {
+    /**
+     * Executes the binary expression after converting both the left and right to values. This is necessary
+     * because {@link LogicalExpression} needs to perform a post operation converting the value to {@link Boolean}.
+     */
+    final Object apply(final ExpressionEvaluationContext context) {
         return this.apply(
-            this.left().toValue(context),
-            this.right().toValue(context),
+            this.left()
+                .toValue(context),
+            this.right()
+                .toValue(context),
             context
         );
     }
@@ -128,7 +116,7 @@ abstract class BinaryExpression extends ParentFixedExpression {
     /**
      * Sub classes must take the left and right values and create a result.
      */
-    abstract Expression apply(final Object left,
+    abstract Object apply(final Object left,
                               final Object right,
                               final ExpressionEvaluationContext context);
 
