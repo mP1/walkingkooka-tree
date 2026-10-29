@@ -34,11 +34,9 @@ final class ExpressionChildrenListBinary extends ExpressionChildrenList<Expressi
             expressionChildrenListBinary = (ExpressionChildrenListBinary) children;
         } else {
             final Object[] childrenArray = children.toArray();
-            final int count = childrenArray.length;
-
-            if (2 != count) {
-                throw new IllegalArgumentException("Expected left and right got " + count + " children");
-            }
+            binaryChildCount(
+                childrenArray.length
+            );
 
             expressionChildrenListBinary = with(
                 (Expression) childrenArray[0],
@@ -97,11 +95,9 @@ final class ExpressionChildrenListBinary extends ExpressionChildrenList<Expressi
             expressionChildrenListBinary = (ExpressionChildrenListBinary) collection;
         } else {
             final Object[] children = collection.toArray();
-            final int count = children.length;
-
-            if (2 != count) {
-                throw new IllegalArgumentException("Expected left and right got " + count + " children");
-            }
+            binaryChildCount(
+                children.length
+            );
 
             expressionChildrenListBinary = this.setLeftAndRight(
                 (Expression) children[0],
