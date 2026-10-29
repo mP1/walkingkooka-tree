@@ -38,7 +38,10 @@ public final class ListExpression extends VariableExpression {
     static ListExpression with(final List<Expression> expressions) {
         Objects.requireNonNull(expressions, "expressions");
 
-        return new ListExpression(NO_INDEX, expressions);
+        return new ListExpression(
+            NO_INDEX,
+            expressions
+        );
     }
 
     /**
@@ -46,7 +49,10 @@ public final class ListExpression extends VariableExpression {
      */
     private ListExpression(final int index,
                            final List<Expression> expressions) {
-        super(index, expressions);
+        super(
+            index,
+            expressions
+        );
     }
 
     @Override
@@ -108,9 +114,11 @@ public final class ListExpression extends VariableExpression {
 
     @Override
     public boolean toBoolean(final ExpressionEvaluationContext context) {
-        return this.convertValues(context, Boolean.class);
+        return this.convertValues(
+            context,
+            Boolean.class
+        );
     }
-
 
     @Override
     public ExpressionNumber toExpressionNumber(final ExpressionEvaluationContext context) {
