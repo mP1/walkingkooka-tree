@@ -75,7 +75,7 @@ public final class DivideExpression extends ArithmeticExpression {
     }
 
     @Override
-    DivideExpression replace(final int index) {
+    DivideExpression replaceIndex(final int index) {
         return new DivideExpression(
             index,
             this.children

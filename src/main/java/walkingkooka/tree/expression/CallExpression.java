@@ -88,7 +88,7 @@ public final class CallExpression extends VariableExpression {
     }
 
     @Override
-    CallExpression replace(final int index) {
+    CallExpression replaceIndex(final int index) {
         return new CallExpression(
             index,
             this.callable,

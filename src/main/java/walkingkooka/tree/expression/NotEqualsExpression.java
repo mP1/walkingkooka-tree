@@ -73,7 +73,7 @@ public final class NotEqualsExpression extends CompareExpression {
     }
 
     @Override
-    NotEqualsExpression replace(final int index) {
+    NotEqualsExpression replaceIndex(final int index) {
         return new NotEqualsExpression(
             index,
             this.children

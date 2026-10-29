@@ -66,7 +66,7 @@ final public class NamedFunctionExpression extends LeafExpression<ExpressionFunc
     }
 
     @Override
-    public NamedFunctionExpression replace(final int index) {
+    public NamedFunctionExpression replaceIndex(final int index) {
         return this.replace1(
             index,
             this.value()

@@ -75,7 +75,7 @@ public final class MultiplyExpression extends ArithmeticExpression {
     }
 
     @Override
-    MultiplyExpression replace(final int index) {
+    MultiplyExpression replaceIndex(final int index) {
         return new MultiplyExpression(
             index,
             this.children

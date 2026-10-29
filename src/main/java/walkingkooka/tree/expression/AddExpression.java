@@ -75,7 +75,7 @@ public final class AddExpression extends ArithmeticExpression {
     }
 
     @Override
-    AddExpression replace(final int index) {
+    AddExpression replaceIndex(final int index) {
         return new AddExpression(
             index,
             this.children

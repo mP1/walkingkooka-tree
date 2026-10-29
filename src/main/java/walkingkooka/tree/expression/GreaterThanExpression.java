@@ -73,7 +73,7 @@ public final class GreaterThanExpression extends CompareExpression {
     }
 
     @Override
-    GreaterThanExpression replace(final int index) {
+    GreaterThanExpression replaceIndex(final int index) {
         return new GreaterThanExpression(
             index,
             this.children

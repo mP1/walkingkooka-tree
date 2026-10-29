@@ -75,7 +75,7 @@ public final class XorExpression extends LogicalExpression {
     }
 
     @Override
-    XorExpression replace(final int index) {
+    XorExpression replaceIndex(final int index) {
         return new XorExpression(
             index,
             this.children

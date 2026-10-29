@@ -61,7 +61,7 @@ public final class ReferenceExpression extends LeafExpression<ExpressionReferenc
     }
 
     @Override
-    public ReferenceExpression replace(final int index) {
+    public ReferenceExpression replaceIndex(final int index) {
         return this.replace1(index, this.value);
     }
 

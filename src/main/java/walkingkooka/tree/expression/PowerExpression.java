@@ -75,7 +75,7 @@ public final class PowerExpression extends ArithmeticExpression {
     }
 
     @Override
-    PowerExpression replace(final int index) {
+    PowerExpression replaceIndex(final int index) {
         return new PowerExpression(
             index,
             this.children
