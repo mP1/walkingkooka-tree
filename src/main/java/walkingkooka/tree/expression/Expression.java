@@ -53,6 +53,7 @@ import java.util.function.Predicate;
 public abstract class Expression implements Node<Expression, ExpressionFunctionName, Name, Object>,
     ExpressionPurity,
     HasContentType,
+    HasExpression,
     HasText,
     TreePrintable {
 
@@ -671,4 +672,12 @@ public abstract class Expression implements Node<Expression, ExpressionFunctionN
     }
 
     private final static Optional<MediaType> CONTENT_TYPE = Optional.of(MEDIA_TYPE);
+
+    // HasExpression....................................................................................................
+
+    @Override
+    public Optional<Expression> expression() {
+        return Optional.of(this);
+    }
+
 }

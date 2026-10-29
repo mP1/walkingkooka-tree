@@ -72,6 +72,7 @@ public abstract class ExpressionTestCase<N extends Expression> implements TreePr
     DateTimeContextTesting,
     DecimalNumberContextTesting,
     HasContentTypeTesting,
+    HasExpressionTesting,
     HasTextTesting,
     ExpressionPurityTesting,
     IsMethodTesting<N>,
@@ -585,6 +586,19 @@ public abstract class ExpressionTestCase<N extends Expression> implements TreePr
             Boolean.TRUE
         );
     }
+
+    // HasExpression....................................................................................................
+
+    @Test
+    public final void testExpression() {
+        final N expression = this.createExpression();
+        this.expressionAndCheck(
+            expression,
+            expression
+        );
+    }
+
+    // class............................................................................................................
 
     @Override
     public final String typeNamePrefix() {
