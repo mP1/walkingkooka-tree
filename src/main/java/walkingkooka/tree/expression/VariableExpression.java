@@ -26,11 +26,15 @@ import java.util.List;
  */
 abstract class VariableExpression extends ParentExpression implements HasValue<List<Expression>> {
 
-    VariableExpression(final int index, final List<Expression> expressions) {
-        super(index, expressions);
+    VariableExpression(final int index,
+                       final List<Expression> expressions) {
+        super(
+            index,
+            expressions);
     }
 
-    @Override final void replaceChildrenCheck(final List<Expression> children) {
+    @Override//
+    final void replaceChildrenCheck(final List<Expression> children) {
         // nothing to check
     }
 
@@ -41,7 +45,4 @@ abstract class VariableExpression extends ParentExpression implements HasValue<L
             visitor.accept(node);
         }
     }
-
-    // Object........................................................................................................
-
 }
