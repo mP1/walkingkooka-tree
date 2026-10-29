@@ -33,6 +33,13 @@ public final class HasExpressionTestingTest implements HasExpressionTesting,
     }
 
     @Test
+    public void testExpressionAndCheckWithNoExpressionConstant() {
+        this.expressionAndCheck(
+            () -> HasExpression.NO_EXPRESSION
+        );
+    }
+
+    @Test
     public void testExpressionAndCheckWhenNotEmpty() {
         final Expression expression = Expression.value(123);
 

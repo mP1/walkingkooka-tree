@@ -22,6 +22,8 @@ import java.util.Optional;
 
 public interface HasExpression {
 
+    Optional<Expression> NO_EXPRESSION = Optional.empty();
+
     Optional<Expression> expression();
 
     default Expression expressionOrFail() throws NoSuchElementException {
