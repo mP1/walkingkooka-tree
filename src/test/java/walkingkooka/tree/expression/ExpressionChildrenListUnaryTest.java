@@ -159,6 +159,13 @@ public final class ExpressionChildrenListUnaryTest extends ExpressionChildrenLis
     }
 
     @Test
+    public void testExpressionChildrenListUnary() {
+        this.toExpressionChildrenListUnaryAndCheck(
+            this.createList()
+        );
+    }
+
+    @Test
     public void testExpressionChildrenListVariable() {
         this.toExpressionChildrenListVariableAndCheck(
             this.createList()

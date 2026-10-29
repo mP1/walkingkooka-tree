@@ -77,6 +77,16 @@ final class ExpressionChildrenListVariable extends ExpressionChildrenList<Expres
     }
 
     @Override
+    ExpressionChildrenListUnary toExpressionChildrenListUnary() {
+        unaryChildCount(
+            this.size()
+        );
+        return ExpressionChildrenListUnary.with(
+            this.get(0)
+        );
+    }
+
+    @Override
     ExpressionChildrenListVariable toExpressionChildrenListVariable() {
         return this;
     }
