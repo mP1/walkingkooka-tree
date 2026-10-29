@@ -20,6 +20,8 @@ package walkingkooka.tree.expression;
 import org.junit.jupiter.api.Test;
 import walkingkooka.collect.list.Lists;
 
+import java.util.Optional;
+
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -156,6 +158,22 @@ public final class ExpressionChildrenListUnaryTest extends ExpressionChildrenLis
     @Override
     public ExpressionChildrenListUnary createList() {
         return ExpressionChildrenListUnary.with(CHILD);
+    }
+
+    @Test
+    public void testSetParent() {
+        final UnaryExpression unaryExpression = Expression.not(CHILD);
+
+        this.checkEquals(
+            ExpressionChildrenListUnary.with(
+                CHILD.setParent(
+                    Optional.of(unaryExpression),
+                    0
+                )
+            ),
+            this.createList()
+                .setParent(unaryExpression)
+        );
     }
 
     @Test

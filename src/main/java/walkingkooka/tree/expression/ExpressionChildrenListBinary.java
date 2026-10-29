@@ -19,6 +19,7 @@ package walkingkooka.tree.expression;
 
 import java.util.Collection;
 import java.util.Objects;
+import java.util.Optional;
 
 /**
  * An {@link walkingkooka.collect.list.ImmutableList} that holds the left and right children of a {@link BinaryExpression}.
@@ -116,6 +117,22 @@ final class ExpressionChildrenListBinary extends ExpressionChildrenList<Expressi
                 left,
                 right
             );
+    }
+
+    @Override
+    ExpressionChildrenListBinary setParent(final ParentExpression parent) {
+        final Optional<Expression> optionalParent = Optional.of(parent);
+
+        return new ExpressionChildrenListBinary(
+            this.left.setParent(
+                optionalParent,
+                0
+            ),
+            this.right.setParent(
+                optionalParent,
+                1
+            )
+        );
     }
 
     @Override

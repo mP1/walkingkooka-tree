@@ -19,6 +19,7 @@ package walkingkooka.tree.expression;
 
 import java.util.Collection;
 import java.util.Objects;
+import java.util.Optional;
 
 /**
  * An {@link walkingkooka.collect.list.ImmutableList} that holds the only child of a {@link UnaryExpression}.
@@ -105,6 +106,18 @@ final class ExpressionChildrenListUnary extends ExpressionChildrenList<Expressio
             new ExpressionChildrenListUnary(
                 child
             );
+    }
+
+    @Override
+    ExpressionChildrenListUnary setParent(final ParentExpression parent) {
+        final Optional<Expression> optionalParent = Optional.of(parent);
+
+        return new ExpressionChildrenListUnary(
+            this.child.setParent(
+                optionalParent,
+                0
+            )
+        );
     }
 
     @Override
