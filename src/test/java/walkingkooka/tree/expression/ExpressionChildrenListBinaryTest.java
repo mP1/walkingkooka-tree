@@ -20,6 +20,8 @@ package walkingkooka.tree.expression;
 import org.junit.jupiter.api.Test;
 import walkingkooka.collect.list.Lists;
 
+import java.util.Optional;
+
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -220,6 +222,31 @@ public final class ExpressionChildrenListBinaryTest extends ExpressionChildrenLi
         return ExpressionChildrenListBinary.with(
             LEFT,
             RIGHT
+        );
+    }
+
+    @Test
+    public void testSetParent() {
+        final BinaryExpression binaryExpression = Expression.subtract(
+            LEFT,
+            RIGHT
+        );
+
+        this.checkEquals(
+            ExpressionChildrenListBinary.with(
+                LEFT.setParent(
+                    Optional.of(binaryExpression),
+                    0
+                ),
+                RIGHT.setParent(
+                    Optional.of(binaryExpression),
+                    1
+                )
+            ),
+            ExpressionChildrenListBinary.with(
+                LEFT,
+                RIGHT
+            ).setParent(binaryExpression)
         );
     }
 

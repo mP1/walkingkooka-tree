@@ -20,6 +20,8 @@ package walkingkooka.tree.expression;
 import org.junit.jupiter.api.Test;
 import walkingkooka.collect.list.Lists;
 
+import java.util.Optional;
+
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -102,6 +104,43 @@ public final class ExpressionChildrenListVariableTest extends ExpressionChildren
         return new ExpressionChildrenListVariable(
             FIRST,
             SECOND
+        );
+    }
+
+    @Test
+    public void testSetParent() {
+        final ListExpression listExpression = Expression.list(
+            Lists.of(
+                FIRST,
+                SECOND,
+                DIFFERENT
+            )
+        );
+
+        this.checkEquals(
+            ExpressionChildrenListVariable.EMPTY.setElements(
+                Lists.of(
+                    FIRST.setParent(
+                        Optional.of(listExpression),
+                        0
+                    ),
+                    SECOND.setParent(
+                        Optional.of(listExpression),
+                        1
+                    ),
+                    DIFFERENT.setParent(
+                        Optional.of(listExpression),
+                        2
+                    )
+                )
+            ),
+            ExpressionChildrenListVariable.EMPTY.setElements(
+                Lists.of(
+                    FIRST,
+                    SECOND,
+                    DIFFERENT
+                )
+            ).setParent(listExpression)
         );
     }
 
