@@ -34,11 +34,10 @@ final class ExpressionChildrenListUnary extends ExpressionChildrenList<Expressio
             expressionChildrenListUnary = (ExpressionChildrenListUnary) children;
         } else {
             final Object[] childrenArray = children.toArray();
-            final int count = childrenArray.length;
 
-            if (1 != count) {
-                throw new IllegalArgumentException("Expected 1 child got " + count + " children");
-            }
+            unaryChildCount(
+                childrenArray.length
+            );
 
             expressionChildrenListUnary = with(
                 (Expression) childrenArray[0]
@@ -89,11 +88,9 @@ final class ExpressionChildrenListUnary extends ExpressionChildrenList<Expressio
             expressionChildrenListUnary = (ExpressionChildrenListUnary) collection;
         } else {
             final Object[] children = collection.toArray();
-            final int count = children.length;
-
-            if (1 != count) {
-                throw new IllegalArgumentException("Expected one child got " + count + " children");
-            }
+            unaryChildCount(
+                children.length
+            );
 
             expressionChildrenListUnary = this.setChild(
                 (Expression) children[0]
