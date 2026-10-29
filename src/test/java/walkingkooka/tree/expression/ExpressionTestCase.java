@@ -598,19 +598,7 @@ public abstract class ExpressionTestCase<N extends Expression> implements TreePr
         );
     }
 
-    // class............................................................................................................
-
-    @Override
-    public final String typeNamePrefix() {
-        return "";
-    }
-
-    @Override
-    public final String typeNameSuffix() {
-        return Expression.class.getSimpleName();
-    }
-
-    // IsMethodTesting.................................................................................................
+    // IsMethodTesting..................................................................................................
 
     @Override
     public final N createIsMethodObject() {
@@ -640,10 +628,20 @@ public abstract class ExpressionTestCase<N extends Expression> implements TreePr
         );
     }
 
-    // ClassTestCase.........................................................................................
+    // class............................................................................................................
 
     @Override
     public final JavaVisibility typeVisibility() {
         return JavaVisibility.PUBLIC;
+    }
+
+    @Override
+    public final String typeNamePrefix() {
+        return "";
+    }
+
+    @Override
+    public final String typeNameSuffix() {
+        return Expression.class.getSimpleName();
     }
 }
