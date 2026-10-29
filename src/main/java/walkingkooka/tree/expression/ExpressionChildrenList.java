@@ -45,4 +45,6 @@ abstract class ExpressionChildrenList<T extends ExpressionChildrenList<T>> exten
             throw new IllegalArgumentException("Expected one child got " + count + " children");
         }
     }
+
+    abstract ExpressionChildrenListVariable toExpressionChildrenListVariable();
 }

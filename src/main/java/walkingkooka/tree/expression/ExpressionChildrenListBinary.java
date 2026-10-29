@@ -118,6 +118,14 @@ final class ExpressionChildrenListBinary extends ExpressionChildrenList<Expressi
             );
     }
 
+    @Override
+    ExpressionChildrenListVariable toExpressionChildrenListVariable() {
+        return new ExpressionChildrenListVariable(
+            this.left,
+            this.right
+        );
+    }
+
     final Expression left;
 
     final Expression right;
