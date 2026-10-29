@@ -113,6 +113,12 @@ final class ExpressionChildrenListUnary extends ExpressionChildrenList<Expressio
     }
 
     @Override
+    ExpressionChildrenListBinary toExpressionChildrenListBinary() {
+        binaryChildCount(1);
+        throw new UnsupportedOperationException();
+    }
+
+    @Override
     ExpressionChildrenListVariable toExpressionChildrenListVariable() {
         return new ExpressionChildrenListVariable(
             this.child

@@ -166,6 +166,15 @@ public final class ExpressionChildrenListUnaryTest extends ExpressionChildrenLis
     }
 
     @Test
+    public void testExpressionChildrenListBinaryFails() {
+        assertThrows(
+            IllegalArgumentException.class,
+            () -> this.createList()
+                .toExpressionChildrenListBinary()
+        );
+    }
+
+    @Test
     public void testExpressionChildrenListVariable() {
         this.toExpressionChildrenListVariableAndCheck(
             this.createList()

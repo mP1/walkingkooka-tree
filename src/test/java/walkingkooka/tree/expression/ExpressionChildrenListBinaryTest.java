@@ -233,6 +233,13 @@ public final class ExpressionChildrenListBinaryTest extends ExpressionChildrenLi
     }
 
     @Test
+    public void testExpressionChildrenListBinary() {
+        this.toExpressionChildrenListBinaryAndCheck(
+            this.createList()
+        );
+    }
+
+    @Test
     public void testExpressionChildrenListVariable() {
         this.toExpressionChildrenListVariableAndCheck(
             this.createList()

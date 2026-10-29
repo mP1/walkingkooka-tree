@@ -125,6 +125,11 @@ final class ExpressionChildrenListBinary extends ExpressionChildrenList<Expressi
     }
 
     @Override
+    ExpressionChildrenListBinary toExpressionChildrenListBinary() {
+        return this;
+    }
+
+    @Override
     ExpressionChildrenListVariable toExpressionChildrenListVariable() {
         return new ExpressionChildrenListVariable(
             this.left,
