@@ -17,10 +17,30 @@
 
 package walkingkooka.tree.expression;
 
+import org.junit.jupiter.api.Test;
 import walkingkooka.reflect.PublicClassTesting;
+
+import java.util.Optional;
 
 public final class HasExpressionTestingTest implements HasExpressionTesting,
     PublicClassTesting<HasExpressionTesting> {
+
+    @Test
+    public void testExpressionAndCheckWhenEmpty() {
+        this.expressionAndCheck(
+            () -> Optional.empty()
+        );
+    }
+
+    @Test
+    public void testExpressionAndCheckWhenNotEmpty() {
+        final Expression expression = Expression.value(123);
+
+        this.expressionAndCheck(
+            expression,
+            expression
+        );
+    }
 
     // class............................................................................................................
 
