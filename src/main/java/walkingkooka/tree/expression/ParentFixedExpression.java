@@ -17,31 +17,18 @@
 
 package walkingkooka.tree.expression;
 
-import java.util.List;
-
 /**
  * Base class for either the unary or binary nodes.
  */
-abstract class ParentFixedExpression extends ParentExpression {
+abstract class ParentFixedExpression<T extends ExpressionChildrenList<T>> extends ParentExpression<T> {
 
     ParentFixedExpression(final int index,
-                          final List<Expression> children) {
+                          final T children) {
         super(
             index,
             children
         );
     }
-
-    @Override//
-    final void replaceChildrenCheck(final List<Expression> children) {
-        final int expected = this.expectedChildCount();
-        final int count = children.size();
-        if (count != expected) {
-            throw new IllegalArgumentException("Expected " + expected + " children but got " + count + "=" + children);
-        }
-    }
-
-    abstract int expectedChildCount();
 
     // Node........................................................................................................
 

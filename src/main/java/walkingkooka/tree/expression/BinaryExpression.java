@@ -17,57 +17,37 @@
 
 package walkingkooka.tree.expression;
 
-import walkingkooka.collect.list.Lists;
 import walkingkooka.text.printer.IndentingPrinter;
 import walkingkooka.tree.expression.function.ExpressionFunction;
 
 import java.util.List;
-import java.util.Objects;
 import java.util.Optional;
 
 /**
  * Base class for any expression that accepts two parameters.
  */
-abstract class BinaryExpression extends ParentFixedExpression {
+abstract class BinaryExpression extends ParentFixedExpression<ExpressionChildrenListBinary> {
 
     BinaryExpression(final int index,
-                     final Expression left,
-                     final Expression right) {
+                     final ExpressionChildrenListBinary children) {
         super(
             index,
-            Lists.of(
-                Objects.requireNonNull(left, "left"),
-                Objects.requireNonNull(right, "right")
-            )
+            children
         );
     }
 
     public final Expression left() {
-        return this.children().get(0);
+        return this.children.left;
     }
 
     public final Expression right() {
-        return this.children().get(1);
-    }
-
-    @Override
-    int expectedChildCount() {
-        return 2;
+        return this.children.right;
     }
 
     @Override //
-    final BinaryExpression replace0(final int index,
-                                    final List<Expression> children) {
-        return replace1(
-            index,
-            children.get(0),
-            children.get(1)
-        );
+    final ExpressionChildrenListBinary expressionChildrenList(final List<Expression> children) {
+        return ExpressionChildrenListBinary.fromCollection(children);
     }
-
-    abstract BinaryExpression replace1(final int index,
-                                       final Expression left,
-                                       final Expression right);
 
     // Node........................................................................................................
 

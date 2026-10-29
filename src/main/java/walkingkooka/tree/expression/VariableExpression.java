@@ -24,21 +24,22 @@ import java.util.List;
 /**
  * A expression which may have zero or more child expression.
  */
-abstract class VariableExpression extends ParentExpression implements HasValue<List<Expression>> {
+abstract class VariableExpression extends ParentExpression<ExpressionChildrenListVariable> implements HasValue<List<Expression>> {
 
     VariableExpression(final int index,
-                       final List<Expression> expressions) {
+                       final ExpressionChildrenListVariable children) {
         super(
             index,
-            expressions);
+            children
+        );
     }
 
-    @Override//
-    final void replaceChildrenCheck(final List<Expression> children) {
-        // nothing to check
+    @Override //
+    final ExpressionChildrenListVariable expressionChildrenList(final List<Expression> children) {
+        return ExpressionChildrenListVariable.EMPTY.setElements(children);
     }
 
-    // Visitor........................................................................................................
+    // Visitor..........................................................................................................
 
     final void acceptValues(final ExpressionVisitor visitor) {
         for (Expression node : this.children()) {

@@ -18,53 +18,41 @@
 package walkingkooka.tree.expression;
 
 import walkingkooka.HasValue;
-import walkingkooka.collect.list.Lists;
 
 import java.util.List;
-import java.util.Objects;
 import java.util.Optional;
 
 /**
  * Base class for any expression with a single parameter.
  */
-abstract class UnaryExpression extends ParentFixedExpression implements HasValue<Expression> {
+abstract class UnaryExpression extends ParentFixedExpression<ExpressionChildrenListUnary>
+    implements HasValue<Expression> {
 
-    UnaryExpression(final int index, final Expression value) {
+    UnaryExpression(final int index,
+                    final ExpressionChildrenListUnary children) {
         super(
             index,
-            Lists.of(
-                Objects.requireNonNull(value, "value")
-            )
+            children
         );
+    }
+
+    @Override //
+    final ExpressionChildrenListUnary expressionChildrenList(final List<Expression> children) {
+        return ExpressionChildrenListUnary.fromCollection(children);
     }
 
     @Override
     public final Expression value() {
-        return this.children().get(0);
+        return this.children.child;
     }
-
-    @Override //
-    final int expectedChildCount() {
-        return 1;
-    }
-
-    @Override //
-    final UnaryExpression replace0(final int index,
-                                   final List<Expression> children) {
-        return replace1(
-            index,
-            children.get(0)
-        );
-    }
-
-    abstract UnaryExpression replace1(final int index,
-                                      final Expression expression);
 
     // Node.............................................................................................................
 
     @Override
     public final Optional<Expression> firstChild() {
-        return Optional.of(this.value());
+        return Optional.of(
+            this.children.child
+        );
     }
 
     @Override

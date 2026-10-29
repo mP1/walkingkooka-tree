@@ -32,18 +32,18 @@ public final class NegativeExpression extends UnaryExpression {
 
     public final static String SYMBOL = "-";
 
-    static NegativeExpression with(final Expression value) {
+    static NegativeExpression with(final Expression child) {
         return new NegativeExpression(
             NO_INDEX,
-            value
+            ExpressionChildrenListUnary.with(child)
         );
     }
 
     private NegativeExpression(final int index,
-                               final Expression value) {
+                               final ExpressionChildrenListUnary children) {
         super(
             index,
-            value
+            children
         );
     }
 
@@ -54,20 +54,29 @@ public final class NegativeExpression extends UnaryExpression {
 
     @Override
     public NegativeExpression removeParent() {
-        return this.removeParent0().cast();
+        return this.removeParent0()
+            .cast();
     }
 
     @Override
     public NegativeExpression setChildren(final List<Expression> children) {
-        return this.setChildren0(children).cast();
+        return this.setChildren0(children)
+            .cast();
     }
 
     @Override
-    NegativeExpression replace1(final int index,
-                                final Expression expression) {
+    NegativeExpression replaceChildren(final ExpressionChildrenListUnary expressionChildrenList) {
         return new NegativeExpression(
-            index,
-            expression
+            NO_INDEX,
+            expressionChildrenList
+        );
+    }
+
+    @Override
+    NegativeExpression replace(final int index) {
+        return new NegativeExpression(
+            this.index,
+            this.children
         );
     }
 

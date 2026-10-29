@@ -32,18 +32,18 @@ public final class LessThanExpression extends CompareExpression {
                                    final Expression right) {
         return new LessThanExpression(
             NO_INDEX,
-            left,
-            right
+            ExpressionChildrenListBinary.with(
+                left,
+                right
+            )
         );
     }
 
     private LessThanExpression(final int index,
-                               final Expression left,
-                               final Expression right) {
+                               final ExpressionChildrenListBinary children) {
         super(
             index,
-            left,
-            right
+            children
         );
     }
 
@@ -54,22 +54,29 @@ public final class LessThanExpression extends CompareExpression {
 
     @Override
     public LessThanExpression removeParent() {
-        return this.removeParent0().cast();
+        return this.removeParent0()
+            .cast();
     }
 
     @Override
     public LessThanExpression setChildren(final List<Expression> children) {
-        return this.setChildren0(children).cast();
+        return this.setChildren0(children)
+            .cast();
     }
 
     @Override
-    LessThanExpression replace1(final int index,
-                                final Expression left,
-                                final Expression right) {
+    LessThanExpression replaceChildren(final ExpressionChildrenListBinary expressionChildrenList) {
+        return new LessThanExpression(
+            NO_INDEX,
+            expressionChildrenList
+        );
+    }
+
+    @Override
+    LessThanExpression replace(final int index) {
         return new LessThanExpression(
             index,
-            left,
-            right
+            this.children
         );
     }
 

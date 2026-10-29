@@ -32,18 +32,18 @@ public final class EqualsExpression extends CompareExpression {
                                  final Expression right) {
         return new EqualsExpression(
             NO_INDEX,
-            left,
-            right
+            ExpressionChildrenListBinary.with(
+                left,
+                right
+            )
         );
     }
 
     private EqualsExpression(final int index,
-                             final Expression left,
-                             final Expression right) {
+                             final ExpressionChildrenListBinary children) {
         super(
             index,
-            left,
-            right
+            children
         );
     }
 
@@ -54,22 +54,29 @@ public final class EqualsExpression extends CompareExpression {
 
     @Override
     public EqualsExpression removeParent() {
-        return this.removeParent0().cast();
+        return this.removeParent0()
+            .cast();
     }
 
     @Override
     public EqualsExpression setChildren(final List<Expression> children) {
-        return this.setChildren0(children).cast();
+        return this.setChildren0(children)
+            .cast();
     }
 
     @Override
-    EqualsExpression replace1(final int index,
-                              final Expression left,
-                              final Expression right) {
+    EqualsExpression replaceChildren(final ExpressionChildrenListBinary expressionChildrenList) {
+        return new EqualsExpression(
+            NO_INDEX,
+            expressionChildrenList
+        );
+    }
+
+    @Override
+    EqualsExpression replace(final int index) {
         return new EqualsExpression(
             index,
-            left,
-            right
+            this.children
         );
     }
 

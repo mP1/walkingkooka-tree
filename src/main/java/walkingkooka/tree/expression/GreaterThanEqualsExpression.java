@@ -32,18 +32,18 @@ public final class GreaterThanEqualsExpression extends CompareExpression {
                                             final Expression right) {
         return new GreaterThanEqualsExpression(
             NO_INDEX,
-            left,
-            right
+            ExpressionChildrenListBinary.with(
+                left,
+                right
+            )
         );
     }
 
     private GreaterThanEqualsExpression(final int index,
-                                        final Expression left,
-                                        final Expression right) {
+                                        final ExpressionChildrenListBinary children) {
         super(
             index,
-            left,
-            right
+            children
         );
     }
 
@@ -54,7 +54,8 @@ public final class GreaterThanEqualsExpression extends CompareExpression {
 
     @Override
     public GreaterThanEqualsExpression removeParent() {
-        return this.removeParent0().cast();
+        return this.removeParent0()
+            .cast();
     }
 
     @Override
@@ -64,13 +65,18 @@ public final class GreaterThanEqualsExpression extends CompareExpression {
     }
 
     @Override
-    GreaterThanEqualsExpression replace1(final int index,
-                                         final Expression left,
-                                         final Expression right) {
+    GreaterThanEqualsExpression replaceChildren(final ExpressionChildrenListBinary expressionChildrenList) {
+        return new GreaterThanEqualsExpression(
+            NO_INDEX,
+            expressionChildrenList
+        );
+    }
+
+    @Override
+    GreaterThanEqualsExpression replace(final int index) {
         return new GreaterThanEqualsExpression(
             index,
-            left,
-            right
+            this.children
         );
     }
 

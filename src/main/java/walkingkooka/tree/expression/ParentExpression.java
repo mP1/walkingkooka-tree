@@ -17,34 +17,21 @@
 
 package walkingkooka.tree.expression;
 
-import walkingkooka.collect.list.Lists;
 import walkingkooka.text.printer.IndentingPrinter;
 import walkingkooka.text.printer.TreePrintable;
 
 import java.util.List;
-import java.util.Objects;
-import java.util.Optional;
 
 /**
  * A parent holding zero or more child expressions.
  */
 @SuppressWarnings("lgtm[java/inconsistent-equals-and-hashcode]")
-abstract class ParentExpression extends Expression {
+abstract class ParentExpression<T extends ExpressionChildrenList<T>> extends Expression {
 
     ParentExpression(final int index,
-                     final List<Expression> children) {
+                     final T children) {
         super(index);
-
-        final Optional<Expression> p = Optional.of(this);
-
-        final List<Expression> copy = Lists.array();
-        this.children = Lists.readOnly(copy);
-
-        int i = 0;
-        for (final Expression child : children) {
-            copy.add(child.setParent(p, i));
-            i++;
-        }
+        this.children = children.setParent(this);
     }
 
     @Override
@@ -52,65 +39,29 @@ abstract class ParentExpression extends Expression {
         return this.children;
     }
 
-    private final List<Expression> children;
+    public final T children;
 
-    final Expression setChildren0(final List<Expression> children) {
-        Objects.requireNonNull(children, "children");
+    final ParentExpression<T> setChildren0(final List<Expression> children) {
+        final T expressionChildrenList = this.expressionChildrenList(children);
 
-        final List<Expression> copy = Lists.immutable(children);
-        return Lists.equals(
-            this.children(),
-            copy,
-            Expression::equals
-        ) ?
+        return expressionChildrenList.equals(this.children) ?
             this :
-            this.replaceChildren(copy);
+            this.replaceChildren(expressionChildrenList);
     }
+
+    abstract T expressionChildrenList(final List<Expression> children);
+
+    abstract ParentExpression<T> replaceChildren(final T expressionChildrenList);
 
     @Override //
     final Expression setChild(final Expression newChild) {
-        final int index = newChild.index();
-
-        return this.children()
-            .get(index)
-            .equals(newChild) ?
-            this :
-            this.replaceChild0(
-                newChild,
-                index
-            );
-    }
-
-    private Expression replaceChild0(final Expression newChild,
-                                     final int index) {
-        final List<Expression> newChildren = Lists.array();
-        newChildren.addAll(this.children());
-        newChildren.set(index, newChild);
-
-        return this.replaceChildren(newChildren);
-    }
-
-    private ParentExpression replaceChildren(final List<Expression> children) {
-        this.replaceChildrenCheck(children);
-        return this.replace0(
-                this.index,
-                children
-            ).replaceChild(this.parent())
-            .cast();
-    }
-
-    abstract void replaceChildrenCheck(final List<Expression> children);
-
-    @Override //
-    final Expression replace(final int index) {
-        return this.replace0(
-            index,
-            this.children()
+        return this.setChildren(
+            this.children.replace(
+                newChild.index(),
+                newChild
+            )
         );
     }
-
-    abstract ParentExpression replace0(final int index,
-                                       final List<Expression> children);
 
     /**
      * Invokes {@link #toValue(ExpressionEvaluationContext)}.
@@ -207,6 +158,9 @@ abstract class ParentExpression extends Expression {
 
     @Override //
     final boolean equalsChildren(final Expression other) {
-        return this.children.equals(other.children());
+        return this.children()
+            .equals(
+                other.children()
+            );
     }
 }

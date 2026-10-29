@@ -34,18 +34,18 @@ public final class DivideExpression extends ArithmeticExpression {
                                  final Expression right) {
         return new DivideExpression(
             NO_INDEX,
-            left,
-            right
+            ExpressionChildrenListBinary.with(
+                left,
+                right
+            )
         );
     }
 
     private DivideExpression(final int index,
-                             final Expression left,
-                             final Expression right) {
+                             final ExpressionChildrenListBinary children) {
         super(
             index,
-            left,
-            right
+            children
         );
     }
 
@@ -56,22 +56,29 @@ public final class DivideExpression extends ArithmeticExpression {
 
     @Override
     public DivideExpression removeParent() {
-        return this.removeParent0().cast();
+        return this.removeParent0()
+            .cast();
     }
 
     @Override
     public DivideExpression setChildren(final List<Expression> children) {
-        return this.setChildren0(children).cast();
+        return this.setChildren0(children)
+            .cast();
     }
 
     @Override
-    DivideExpression replace1(final int index,
-                              final Expression left,
-                              final Expression right) {
+    DivideExpression replaceChildren(final ExpressionChildrenListBinary expressionChildrenList) {
+        return new DivideExpression(
+            NO_INDEX,
+            expressionChildrenList
+        );
+    }
+
+    @Override
+    DivideExpression replace(final int index) {
         return new DivideExpression(
             index,
-            left,
-            right
+            this.children
         );
     }
 

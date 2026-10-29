@@ -35,12 +35,12 @@ public final class ListExpression extends VariableExpression {
     /**
      * Creates a new {@link ListExpression}
      */
-    static ListExpression with(final List<Expression> expressions) {
-        Objects.requireNonNull(expressions, "expressions");
+    static ListExpression with(final List<Expression> parameters) {
+        Objects.requireNonNull(parameters, "parameters");
 
         return new ListExpression(
             NO_INDEX,
-            expressions
+            ExpressionChildrenListVariable.EMPTY.setElements(parameters)
         );
     }
 
@@ -48,10 +48,10 @@ public final class ListExpression extends VariableExpression {
      * Private ctor
      */
     private ListExpression(final int index,
-                           final List<Expression> expressions) {
+                           final ExpressionChildrenListVariable parameters) {
         super(
             index,
-            expressions
+            parameters
         );
     }
 
@@ -61,24 +61,31 @@ public final class ListExpression extends VariableExpression {
     }
 
     @Override
-    ParentExpression replace0(final int index,
-                              final List<Expression> children) {
-        return new ListExpression(
-            index,
-            children
-        );
-    }
-
-    @Override
     public ListExpression removeParent() {
         return this.removeParent0()
             .cast();
     }
 
     @Override
-    public Expression setChildren(final List<Expression> children) {
+    public ListExpression setChildren(final List<Expression> children) {
         return this.setChildren0(children)
             .cast();
+    }
+
+    @Override
+    ListExpression replaceChildren(final ExpressionChildrenListVariable expressionChildrenList) {
+        return new ListExpression(
+            NO_INDEX,
+            expressionChildrenList
+        );
+    }
+
+    @Override
+    ListExpression replace(final int index) {
+        return new ListExpression(
+            this.index,
+            this.children
+        );
     }
 
     // Value.........................................................................................................

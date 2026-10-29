@@ -34,18 +34,18 @@ public final class ModuloExpression extends ArithmeticExpression {
                                  final Expression right) {
         return new ModuloExpression(
             NO_INDEX,
-            left,
-            right
+            ExpressionChildrenListBinary.with(
+                left,
+                right
+            )
         );
     }
 
     private ModuloExpression(final int index,
-                             final Expression left,
-                             final Expression right) {
+                             final ExpressionChildrenListBinary children) {
         super(
             index,
-            left,
-            right
+            children
         );
     }
 
@@ -56,7 +56,8 @@ public final class ModuloExpression extends ArithmeticExpression {
 
     @Override
     public ModuloExpression removeParent() {
-        return this.removeParent0().cast();
+        return this.removeParent0()
+            .cast();
     }
 
     @Override
@@ -66,17 +67,23 @@ public final class ModuloExpression extends ArithmeticExpression {
     }
 
     @Override
-    ModuloExpression replace1(final int index,
-                              final Expression left,
-                              final Expression right) {
+    ModuloExpression replaceChildren(final ExpressionChildrenListBinary expressionChildrenList) {
+        return new ModuloExpression(
+            NO_INDEX,
+            expressionChildrenList
+        );
+    }
+
+    @Override
+    ModuloExpression replace(final int index) {
         return new ModuloExpression(
             index,
-            left,
-            right
+            this.children
         );
     }
 
     // Visitor .........................................................................................................
+
 
     @Override
     public void accept(final ExpressionVisitor visitor) {

@@ -40,7 +40,11 @@ public final class CallExpression extends VariableExpression {
         Objects.requireNonNull(callable, "callable");
         Objects.requireNonNull(parameters, "parameters");
 
-        return new CallExpression(NO_INDEX, callable, parameters);
+        return new CallExpression(
+            NO_INDEX,
+            callable,
+            ExpressionChildrenListVariable.EMPTY.setElements(parameters)
+        );
     }
 
     /**
@@ -48,11 +52,12 @@ public final class CallExpression extends VariableExpression {
      */
     private CallExpression(final int index,
                            final Expression callable,
-                           final List<Expression> parameters) {
+                           final ExpressionChildrenListVariable parameters) {
         super(
             index,
             parameters
         );
+
         this.callable = callable;
     }
 
@@ -62,12 +67,32 @@ public final class CallExpression extends VariableExpression {
     }
 
     @Override
-    ParentExpression replace0(final int index,
-                              final List<Expression> children) {
+    public CallExpression removeParent() {
+        return this.removeParent0()
+            .cast();
+    }
+
+    @Override
+    public CallExpression setChildren(final List<Expression> children) {
+        return this.setChildren0(children)
+            .cast();
+    }
+
+    @Override
+    CallExpression replaceChildren(final ExpressionChildrenListVariable expressionChildrenList) {
+        return new CallExpression(
+            NO_INDEX,
+            this.callable,
+            expressionChildrenList
+        );
+    }
+
+    @Override
+    CallExpression replace(final int index) {
         return new CallExpression(
             index,
             this.callable,
-            children
+            this.children
         );
     }
 
@@ -87,23 +112,11 @@ public final class CallExpression extends VariableExpression {
             new CallExpression(
                 this.index,
                 callable,
-                this.value()
+                this.children
             );
     }
 
-    @Override
-    public CallExpression removeParent() {
-        return this.removeParent0()
-            .cast();
-    }
-
-    @Override
-    public Expression setChildren(final List<Expression> children) {
-        return this.setChildren0(children)
-            .cast();
-    }
-
-    // Value.........................................................................................................
+    // Value............................................................................................................
 
     @Override
     public List<Expression> value() {
