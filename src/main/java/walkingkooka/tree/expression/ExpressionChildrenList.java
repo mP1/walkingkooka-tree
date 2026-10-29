@@ -46,5 +46,7 @@ abstract class ExpressionChildrenList<T extends ExpressionChildrenList<T>> exten
         }
     }
 
+    abstract ExpressionChildrenListUnary toExpressionChildrenListUnary();
+
     abstract ExpressionChildrenListVariable toExpressionChildrenListVariable();
 }

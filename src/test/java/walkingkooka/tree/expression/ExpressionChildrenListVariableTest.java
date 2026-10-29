@@ -21,6 +21,7 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.collect.list.Lists;
 
 import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class ExpressionChildrenListVariableTest extends ExpressionChildrenListTestCase<ExpressionChildrenListVariable> {
 
@@ -101,6 +102,24 @@ public final class ExpressionChildrenListVariableTest extends ExpressionChildren
         return new ExpressionChildrenListVariable(
             FIRST,
             SECOND
+        );
+    }
+
+    @Test
+    public void testExpressionChildrenListUnary() {
+        this.toExpressionChildrenListUnaryAndCheck(
+            ExpressionChildrenListVariable.EMPTY.setElements(
+                Lists.of(FIRST)
+            )
+        );
+    }
+
+    @Test
+    public void testExpressionChildrenListUnaryNonOneFails() {
+        assertThrows(
+            IllegalArgumentException.class,
+            () -> this.createList()
+                .toExpressionChildrenListUnary()
         );
     }
 
