@@ -73,7 +73,7 @@ public final class LessThanExpression extends CompareExpression {
     }
 
     @Override
-    LessThanExpression replace(final int index) {
+    LessThanExpression replaceIndex(final int index) {
         return new LessThanExpression(
             index,
             this.children

@@ -266,7 +266,7 @@ public abstract class Expression implements Node<Expression, ExpressionFunctionN
      * It is only ever called by a parent node and is used to adopt new children.
      */
     final Expression setParent(final Optional<Expression> parent, final int index) {
-        final Expression copy = this.replace(index);
+        final Expression copy = this.replaceIndex(index);
         copy.parent = parent;
         return copy;
     }
@@ -279,7 +279,7 @@ public abstract class Expression implements Node<Expression, ExpressionFunctionN
     final Expression removeParent0() {
         return this.isRoot() ?
             this :
-            this.replace(NO_INDEX);
+            this.replaceIndex(NO_INDEX);
     }
 
     /**
@@ -310,7 +310,7 @@ public abstract class Expression implements Node<Expression, ExpressionFunctionN
 
     final int index;
 
-    abstract Expression replace(final int index);
+    abstract Expression replaceIndex(final int index);
 
     // attributes.......................................................................................................
 

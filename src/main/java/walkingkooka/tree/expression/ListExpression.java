@@ -81,7 +81,7 @@ public final class ListExpression extends VariableExpression {
     }
 
     @Override
-    ListExpression replace(final int index) {
+    ListExpression replaceIndex(final int index) {
         return new ListExpression(
             this.index,
             this.children

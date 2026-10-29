@@ -73,7 +73,7 @@ public final class NotExpression extends UnaryExpression {
     }
 
     @Override
-    NotExpression replace(final int index) {
+    NotExpression replaceIndex(final int index) {
         return new NotExpression(
             this.index,
             this.children

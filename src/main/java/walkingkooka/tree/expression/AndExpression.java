@@ -72,7 +72,7 @@ public final class AndExpression extends LogicalExpression {
     }
 
     @Override
-    AndExpression replace(final int index) {
+    AndExpression replaceIndex(final int index) {
         return new AndExpression(
             index,
             this.children

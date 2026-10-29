@@ -60,7 +60,7 @@ final public class ValueExpression<V> extends LeafExpression<V> {
     }
 
     @Override
-    public ValueExpression<V> replace(final int index) {
+    public ValueExpression<V> replaceIndex(final int index) {
         return this.replace1(index, this.value);
     }
 

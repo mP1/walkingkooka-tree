@@ -81,7 +81,7 @@ public final class LambdaFunctionExpression extends UnaryExpression {
     }
 
     @Override
-    LambdaFunctionExpression replace(final int index) {
+    LambdaFunctionExpression replaceIndex(final int index) {
         return new LambdaFunctionExpression(
             this.index,
             this.parameters,

@@ -73,7 +73,7 @@ public final class NegativeExpression extends UnaryExpression {
     }
 
     @Override
-    NegativeExpression replace(final int index) {
+    NegativeExpression replaceIndex(final int index) {
         return new NegativeExpression(
             this.index,
             this.children

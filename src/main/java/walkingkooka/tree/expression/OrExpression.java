@@ -75,7 +75,7 @@ public final class OrExpression extends LogicalExpression {
     }
 
     @Override
-    OrExpression replace(final int index) {
+    OrExpression replaceIndex(final int index) {
         return new OrExpression(
             index,
             this.children

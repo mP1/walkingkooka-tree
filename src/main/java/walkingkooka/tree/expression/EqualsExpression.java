@@ -73,7 +73,7 @@ public final class EqualsExpression extends CompareExpression {
     }
 
     @Override
-    EqualsExpression replace(final int index) {
+    EqualsExpression replaceIndex(final int index) {
         return new EqualsExpression(
             index,
             this.children

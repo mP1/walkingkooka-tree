@@ -75,7 +75,7 @@ public final class ModuloExpression extends ArithmeticExpression {
     }
 
     @Override
-    ModuloExpression replace(final int index) {
+    ModuloExpression replaceIndex(final int index) {
         return new ModuloExpression(
             index,
             this.children
