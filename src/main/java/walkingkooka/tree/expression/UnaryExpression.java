@@ -41,6 +41,18 @@ abstract public class UnaryExpression extends ParentFixedExpression<ExpressionCh
         return ExpressionChildrenListUnary.fromCollection(children);
     }
 
+    @Override
+    public final Object toValue(final ExpressionEvaluationContext context) {
+        return this.apply(
+            this.value()
+                .toValue(context),
+            context
+        );
+    }
+
+    public abstract Object apply(final Object value,
+                                 final ExpressionEvaluationContext context);
+
     // HasValue.........................................................................................................
 
     @Override

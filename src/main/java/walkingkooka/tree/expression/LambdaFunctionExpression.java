@@ -132,10 +132,9 @@ public final class LambdaFunctionExpression extends UnaryExpression {
     }
 
     @Override
-    public Object toValue(final ExpressionEvaluationContext context) {
-        return context.evaluateExpression(
-            this.value()
-        );
+    public Object apply(final Object value,
+                        final ExpressionEvaluationContext context) {
+        return value;
     }
 
     // printTree.......................................................................................................

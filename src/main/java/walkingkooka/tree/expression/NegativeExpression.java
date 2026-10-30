@@ -98,10 +98,12 @@ public final class NegativeExpression extends UnaryExpression {
     }
 
     @Override
-    public Number toValue(final ExpressionEvaluationContext context) {
-        return this.value()
-            .toExpressionNumber(context)
-            .negate(context);
+    public ExpressionNumber apply(final Object value,
+                                  final ExpressionEvaluationContext context) {
+        return context.convertOrFail(
+            value,
+            ExpressionNumber.class
+        ).negate(context);
     }
 
     // printTree.......................................................................................................
