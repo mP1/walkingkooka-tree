@@ -18,10 +18,9 @@
 package walkingkooka.tree.expression;
 
 import org.junit.jupiter.api.Test;
-import walkingkooka.reflect.ClassTesting2;
-import walkingkooka.reflect.JavaVisibility;
+import walkingkooka.reflect.PublicClassTesting;
 
-public final class BinaryExpressionTest implements ClassTesting2<BinaryExpression> {
+public final class BinaryExpressionTest implements PublicClassTesting<BinaryExpression> {
 
     @Test
     @Override
@@ -32,10 +31,5 @@ public final class BinaryExpressionTest implements ClassTesting2<BinaryExpressio
     @Override
     public Class<BinaryExpression> type() {
         return BinaryExpression.class;
-    }
-
-    @Override
-    public JavaVisibility typeVisibility() {
-        return JavaVisibility.PACKAGE_PRIVATE;
     }
 }

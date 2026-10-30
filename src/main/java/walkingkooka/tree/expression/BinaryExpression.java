@@ -26,7 +26,7 @@ import java.util.Optional;
 /**
  * Base class for any expression that accepts two parameters.
  */
-abstract class BinaryExpression extends ParentFixedExpression<ExpressionChildrenListBinary> {
+abstract public class BinaryExpression extends ParentFixedExpression<ExpressionChildrenListBinary> {
 
     BinaryExpression(final int index,
                      final ExpressionChildrenListBinary children) {
