@@ -98,10 +98,12 @@ public final class NotExpression extends UnaryExpression {
     }
 
     @Override
-    public Number toValue(final ExpressionEvaluationContext context) {
-        return this.value()
-            .toExpressionNumber(context)
-            .not();
+    public ExpressionNumber apply(final Object value,
+                                  final ExpressionEvaluationContext context) {
+        return context.convertOrFail(
+            value,
+            ExpressionNumber.class
+        ).not();
     }
 
     // printTree.......................................................................................................
