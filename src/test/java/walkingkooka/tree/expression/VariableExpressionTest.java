@@ -17,17 +17,12 @@
 
 package walkingkooka.tree.expression;
 
-import walkingkooka.reflect.ClassTesting2;
-import walkingkooka.reflect.JavaVisibility;
+import walkingkooka.reflect.PublicClassTesting;
 
-public final class VariableExpressionTest implements ClassTesting2<VariableExpression> {
+public final class VariableExpressionTest implements PublicClassTesting<VariableExpression> {
+
     @Override
     public Class<VariableExpression> type() {
         return VariableExpression.class;
-    }
-
-    @Override
-    public JavaVisibility typeVisibility() {
-        return JavaVisibility.PACKAGE_PRIVATE;
     }
 }
