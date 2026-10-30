@@ -33,7 +33,6 @@ import walkingkooka.visit.Visiting;
 
 import java.math.MathContext;
 import java.util.List;
-import java.util.Objects;
 import java.util.Optional;
 import java.util.function.Function;
 
@@ -121,20 +120,17 @@ public final class CallExpressionTest extends VariableExpressionTestCase<CallExp
         final StringName attribute = Names.string("attribute123");
         final ExpressionReference reference = NodeSelectorAttributeName.with(attribute.value());
 
-        final String value1 = "1";
-
         final CallExpression call = Expression.call(
             Expression.namedFunction(FUNCTION_NAME),
             Lists.of(
-                Expression.value(value1),
+                Expression.value("1"),
                 Expression.reference(reference)
             )
         );
-        final Integer value2 = 222;
-        final Object value3 = value1 + value2;
+        final List<Expression> parameters = call.value();
 
         this.checkEquals(
-            value3,
+            parameters,
             call.toValue(
                 new FakeExpressionEvaluationContext() {
                     @Override
@@ -150,14 +146,8 @@ public final class CallExpressionTest extends VariableExpressionTestCase<CallExp
                             @Override
                             public Object apply(final List<Object> p,
                                                 final ExpressionEvaluationContext context) {
-                                checkEquals(
-                                    Lists.of(
-                                        value1,
-                                        value2
-                                    ),
-                                    p
-                                );
-                                return value3;
+                                checkEquals(parameters, p);
+                                return parameters;
                             }
 
                             @Override
@@ -165,15 +155,6 @@ public final class CallExpressionTest extends VariableExpressionTestCase<CallExp
                                 return Lists.empty();
                             }
                         };
-                    }
-
-                    @Override
-                    public Optional<Optional<Object>> reference(final ExpressionReference reference) {
-                        Objects.requireNonNull(reference, "reference");
-
-                        return Optional.of(
-                            Optional.of(value2)
-                        );
                     }
                 }
             )

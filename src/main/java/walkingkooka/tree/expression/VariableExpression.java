@@ -17,6 +17,7 @@
 
 package walkingkooka.tree.expression;
 
+import walkingkooka.Cast;
 import walkingkooka.HasValue;
 
 import java.util.List;
@@ -42,16 +43,24 @@ abstract public class VariableExpression extends ParentExpression<ExpressionChil
 
     @Override
     public final Object toValue(final ExpressionEvaluationContext context) {
+        final List<Expression> value = this.value();
+
         return this.apply(
-            this.value()
-                .stream()
-                .map(
-                    (Expression expression) -> expression.toValue(context)
-                ).collect(Collectors.toList()),
+            this.isCall() ?
+                Cast.to(value) : // ;lazy dont evaluate individual expressions
+                this.value()
+                    .stream()
+                    .map(
+                        context::evaluateExpression
+                    ).collect(Collectors.toList()),
             context
         );
     }
 
+    /**
+     * Note there is a difference in the value for {@link CallExpression} will be the original un-evaluated {@link Expression}.
+     * For {@link ListExpression} the values will be evaluated.
+     */
     public abstract Object apply(final List<Object> value,
                                  final ExpressionEvaluationContext context);
 
