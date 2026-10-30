@@ -94,11 +94,11 @@ abstract public class BinaryExpression extends ParentFixedExpression<ExpressionC
     }
 
     /**
-     * Sub classes must take the left and right values and create a result.
+     * Sub-classes must take the left and right values and create a result.
      */
-    abstract Object apply(final Object left,
-                              final Object right,
-                              final ExpressionEvaluationContext context);
+    abstract public Object apply(final Object left,
+                                 final Object right,
+                                 final ExpressionEvaluationContext context);
 
     // printTree.......................................................................................................
 

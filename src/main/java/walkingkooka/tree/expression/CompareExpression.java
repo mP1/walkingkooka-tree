@@ -20,6 +20,8 @@ package walkingkooka.tree.expression;
 import walkingkooka.Cast;
 import walkingkooka.compare.CompareResult;
 
+import java.util.Objects;
+
 /**
  * Base class for all comparison {@link BinaryExpression} nodes such as LT, GTE etc, which all
  * produce a {@link Boolean} result.
@@ -45,9 +47,11 @@ public abstract class CompareExpression extends BinaryExpression {
     }
 
     @Override //
-    final Object apply(final Object left,
-                       final Object right,
-                       final ExpressionEvaluationContext context) {
+    public final Object apply(final Object left,
+                              final Object right,
+                              final ExpressionEvaluationContext context) {
+        Objects.requireNonNull(context, "context");
+
         final CompareResult compare = this.compareResult();
 
         final Object result;

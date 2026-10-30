@@ -17,6 +17,8 @@
 
 package walkingkooka.tree.expression;
 
+import java.util.Objects;
+
 /**
  * Base class for a logical {@link Expression}, basically the AND, OR, XOR operators.
  * <br>
@@ -44,9 +46,11 @@ public abstract class LogicalExpression extends BinaryExpression {
     }
 
     @Override //
-    final Object apply(final Object left,
-                       final Object right,
-                       final ExpressionEvaluationContext context) {
+    public final Object apply(final Object left,
+                              final Object right,
+                              final ExpressionEvaluationContext context) {
+        Objects.requireNonNull(context, "context");
+
         final Object result;
         if (left instanceof Boolean) {
             result = this.applyBoolean(

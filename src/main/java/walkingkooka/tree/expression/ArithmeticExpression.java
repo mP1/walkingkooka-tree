@@ -17,6 +17,8 @@
 
 package walkingkooka.tree.expression;
 
+import java.util.Objects;
+
 /**
  * Base class for all arithmetic {@link BinaryExpression} nodes such as addition, power etc.
  */
@@ -42,9 +44,11 @@ abstract public class ArithmeticExpression extends BinaryExpression {
      * are converted to {@link ExpressionNumber} and given to {@link #applyExpressionNumber(ExpressionNumber, ExpressionNumber, ExpressionEvaluationContext)}.
      */
     @Override //
-    final Object apply(final Object left,
-                       final Object right,
-                       final ExpressionEvaluationContext context) {
+    public final Object apply(final Object left,
+                              final Object right,
+                              final ExpressionEvaluationContext context) {
+        Objects.requireNonNull(context, "context");
+
         final Object result;
 
         if (context.isText(left)) {
