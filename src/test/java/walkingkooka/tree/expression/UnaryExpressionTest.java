@@ -17,17 +17,12 @@
 
 package walkingkooka.tree.expression;
 
-import walkingkooka.reflect.ClassTesting2;
-import walkingkooka.reflect.JavaVisibility;
+import walkingkooka.reflect.PublicClassTesting;
 
-public final class UnaryExpressionTest implements ClassTesting2<UnaryExpression> {
+public final class UnaryExpressionTest implements PublicClassTesting<UnaryExpression> {
+
     @Override
     public Class<UnaryExpression> type() {
         return UnaryExpression.class;
-    }
-
-    @Override
-    public JavaVisibility typeVisibility() {
-        return JavaVisibility.PACKAGE_PRIVATE;
     }
 }

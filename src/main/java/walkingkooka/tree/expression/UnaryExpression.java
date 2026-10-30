@@ -25,7 +25,7 @@ import java.util.Optional;
 /**
  * Base class for any expression with a single parameter.
  */
-abstract class UnaryExpression extends ParentFixedExpression<ExpressionChildrenListUnary>
+abstract public class UnaryExpression extends ParentFixedExpression<ExpressionChildrenListUnary>
     implements HasValue<Expression> {
 
     UnaryExpression(final int index,
