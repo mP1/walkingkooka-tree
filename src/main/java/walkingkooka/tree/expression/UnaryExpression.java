@@ -44,8 +44,7 @@ abstract public class UnaryExpression extends ParentFixedExpression<ExpressionCh
     @Override
     public final Object toValue(final ExpressionEvaluationContext context) {
         return this.apply(
-            this.value()
-                .toValue(context),
+            context.evaluateExpression(this.value()),
             context
         );
     }
