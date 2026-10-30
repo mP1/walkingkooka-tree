@@ -24,7 +24,7 @@ import java.util.List;
 /**
  * A expression which may have zero or more child expression.
  */
-abstract class VariableExpression extends ParentExpression<ExpressionChildrenListVariable> implements HasValue<List<Expression>> {
+abstract public class VariableExpression extends ParentExpression<ExpressionChildrenListVariable> implements HasValue<List<Expression>> {
 
     VariableExpression(final int index,
                        final ExpressionChildrenListVariable children) {
