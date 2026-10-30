@@ -151,11 +151,12 @@ public final class CallExpression extends VariableExpression {
     }
 
     @Override
-    public Object toValue(final ExpressionEvaluationContext context) {
+    public Object apply(final List<Object> value,
+                        final ExpressionEvaluationContext context) {
         return context.evaluateFunction(
             this.callable()
                 .function(context),
-            Cast.to(this.value())
+            value
         );
     }
 
