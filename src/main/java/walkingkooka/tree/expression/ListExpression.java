@@ -23,7 +23,6 @@ import walkingkooka.visit.Visiting;
 
 import java.util.List;
 import java.util.Objects;
-import java.util.stream.Collectors;
 
 /**
  * A {@link ListExpression} holds an ordered sequence of values, what may be termed an array or list in other programming languages.
@@ -120,11 +119,9 @@ public final class ListExpression extends VariableExpression {
     }
 
     @Override
-    public Object toValue(final ExpressionEvaluationContext context) {
-        return this.value()
-            .stream()
-            .map(v -> v.toValue(context))
-            .collect(Collectors.toList());
+    public Object apply(final List<Object> value,
+                        final ExpressionEvaluationContext context) {
+        return value;
     }
 
     // printTree.......................................................................................................

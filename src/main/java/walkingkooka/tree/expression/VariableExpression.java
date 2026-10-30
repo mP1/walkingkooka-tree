@@ -20,6 +20,7 @@ package walkingkooka.tree.expression;
 import walkingkooka.HasValue;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * A expression which may have zero or more child expression.
@@ -38,6 +39,21 @@ abstract public class VariableExpression extends ParentExpression<ExpressionChil
     final ExpressionChildrenListVariable expressionChildrenList(final List<Expression> children) {
         return ExpressionChildrenListVariable.EMPTY.setElements(children);
     }
+
+    @Override
+    public final Object toValue(final ExpressionEvaluationContext context) {
+        return this.apply(
+            this.value()
+                .stream()
+                .map(
+                    (Expression expression) -> expression.toValue(context)
+                ).collect(Collectors.toList()),
+            context
+        );
+    }
+
+    public abstract Object apply(final List<Object> value,
+                                 final ExpressionEvaluationContext context);
 
     // Visitor..........................................................................................................
 
