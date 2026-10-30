@@ -41,6 +41,8 @@ abstract public class UnaryExpression extends ParentFixedExpression<ExpressionCh
         return ExpressionChildrenListUnary.fromCollection(children);
     }
 
+    // HasValue.........................................................................................................
+
     @Override
     public final Expression value() {
         return this.children.child;
