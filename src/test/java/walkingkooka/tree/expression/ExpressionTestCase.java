@@ -49,9 +49,9 @@ import walkingkooka.text.cursor.parser.ParserContexts;
 import walkingkooka.text.cursor.parser.Parsers;
 import walkingkooka.text.printer.TreePrintableTesting;
 import walkingkooka.tree.NodeTesting;
-import walkingkooka.tree.expression.convert.ExpressionNumberConverterContext;
-import walkingkooka.tree.expression.convert.ExpressionNumberConverterContexts;
-import walkingkooka.tree.expression.convert.ExpressionNumberConverters;
+import walkingkooka.tree.expression.convert.TreeConverterContext;
+import walkingkooka.tree.expression.convert.TreeConverterContexts;
+import walkingkooka.tree.expression.convert.TreeConverters;
 
 import java.math.MathContext;
 import java.text.DecimalFormat;
@@ -390,8 +390,8 @@ public abstract class ExpressionTestCase<N extends Expression> implements TreePr
         }
     }
 
-    private ExpressionNumberConverterContext converterContext() {
-        return ExpressionNumberConverterContexts.basic(
+    private TreeConverterContext converterContext() {
+        return TreeConverterContexts.basic(
             Converters.collection(
                 Lists.of(
                     Converters.simple(),
@@ -415,7 +415,7 @@ public abstract class ExpressionTestCase<N extends Expression> implements TreePr
     }
 
     ExpressionEvaluationContext context() {
-        final Function<ExpressionNumberConverterContext, ParserContext> parserContext = (c) ->
+        final Function<TreeConverterContext, ParserContext> parserContext = (c) ->
             ParserContexts.basic(
                 false, // canNumbersHaveGroupSeparator
                 InvalidCharacterExceptionFactory.POSITION,
@@ -424,32 +424,32 @@ public abstract class ExpressionTestCase<N extends Expression> implements TreePr
                 c
             );
 
-        final Converter<ExpressionNumberConverterContext> stringDouble = Converters.parser(
+        final Converter<TreeConverterContext> stringDouble = Converters.parser(
             Double.class,
             Parsers.doubleParser(),
             parserContext,
             (v, c) -> v.cast(DoubleParserToken.class).value()
         );
-        final Converter<ExpressionNumberConverterContext> stringLocalDate = Converters.parser(
+        final Converter<TreeConverterContext> stringLocalDate = Converters.parser(
             LocalDate.class,
             Parsers.localDate((c) -> DateTimeFormatter.ISO_LOCAL_DATE),
             parserContext,
             (v, c) -> v.cast(LocalDateParserToken.class).value()
         );
-        final Converter<ExpressionNumberConverterContext> stringLocalDateTime = Converters.parser(
+        final Converter<TreeConverterContext> stringLocalDateTime = Converters.parser(
             LocalDateTime.class,
             Parsers.localDateTime((c) -> DateTimeFormatter.ISO_LOCAL_DATE_TIME),
             parserContext,
             (v, c) -> v.cast(LocalDateTimeParserToken.class).value()
         );
-        final Converter<ExpressionNumberConverterContext> stringLocalTime = Converters.parser(
+        final Converter<TreeConverterContext> stringLocalTime = Converters.parser(
             LocalTime.class,
             Parsers.localTime((c) -> DateTimeFormatter.ISO_LOCAL_TIME),
             parserContext,
             (v, c) -> v.cast(LocalTimeParserToken.class).value()
         );
 
-        final Converter<ExpressionNumberConverterContext> converters = Converters.collection(
+        final Converter<TreeConverterContext> converters = Converters.collection(
             Lists.of(
                 Converters.simple(),
                 Converters.characterOrCharSequenceOrHasTextOrStringToCharacterOrCharSequenceOrString(),
@@ -457,14 +457,14 @@ public abstract class ExpressionTestCase<N extends Expression> implements TreePr
                     @Override
                     public boolean canConvert(final Object value,
                                               final Class<?> type,
-                                              final ExpressionNumberConverterContext context) {
+                                              final TreeConverterContext context) {
                         return value instanceof ExpressionNumber && ExpressionNumber.class == type;
                     }
 
                     @Override
                     public <T> Either<T, String> convert(final Object value,
                                                          final Class<T> type,
-                                                         final ExpressionNumberConverterContext context) {
+                                                         final TreeConverterContext context) {
                         return this.canConvert(value, type, context) ?
                             Cast.to(Either.left(this.toExpressionNumber((ExpressionNumber) value))) :
                             this.failConversion(value, type);
@@ -477,47 +477,47 @@ public abstract class ExpressionTestCase<N extends Expression> implements TreePr
                 // localDate ->
                 toBoolean(LocalDate.class, LocalDate.ofEpochDay(0)),
                 Converters.localDateToLocalDateTime(),
-                ExpressionNumberConverters.toNumberOrExpressionNumber(Converters.localDateToNumber()),
+                TreeConverters.toNumberOrExpressionNumber(Converters.localDateToNumber()),
                 Converters.localDateToString((c) -> DateTimeFormatter.ISO_LOCAL_DATE),
                 // localDateTime ->
                 toBoolean(LocalDateTime.class, LocalDateTime.ofEpochSecond(0, 0, ZoneOffset.UTC)),
                 Converters.localDateTimeToLocalDate(),
                 Converters.localDateTimeToLocalTime(),
-                ExpressionNumberConverters.toNumberOrExpressionNumber(Converters.localDateTimeToNumber()),
+                TreeConverters.toNumberOrExpressionNumber(Converters.localDateTimeToNumber()),
                 Converters.localDateTimeToString((c) -> DateTimeFormatter.ISO_LOCAL_DATE_TIME),
                 // localTime
                 toBoolean(LocalTime.class, LocalTime.ofNanoOfDay(0)),
                 Converters.localTimeToLocalDateTime(),
-                ExpressionNumberConverters.toNumberOrExpressionNumber(Converters.localTimeToNumber()),
+                TreeConverters.toNumberOrExpressionNumber(Converters.localTimeToNumber()),
                 Converters.localTimeToString((c) -> DateTimeFormatter.ISO_LOCAL_TIME),
                 // ExpressionNumber ->,
-                ExpressionNumberConverters.numberOrExpressionNumberToNumber().to(Number.class, Converters.numberToNumber()),
-                ExpressionNumberConverters.numberOrExpressionNumberToNumber().to(Number.class, Converters.numberToBoolean()),
-                ExpressionNumberConverters.numberOrExpressionNumberToNumber().to(Number.class, Converters.numberToLocalDate()),
-                ExpressionNumberConverters.numberOrExpressionNumberToNumber().to(Number.class, Converters.numberToLocalDateTime()),
-                ExpressionNumberConverters.numberOrExpressionNumberToNumber().to(Number.class, Converters.numberToLocalTime()),
-                ExpressionNumberConverters.numberOrExpressionNumberToNumber().to(Number.class, Converters.numberToString((c) -> new DecimalFormat("#.###"))),
+                TreeConverters.numberOrExpressionNumberToNumber().to(Number.class, Converters.numberToNumber()),
+                TreeConverters.numberOrExpressionNumberToNumber().to(Number.class, Converters.numberToBoolean()),
+                TreeConverters.numberOrExpressionNumberToNumber().to(Number.class, Converters.numberToLocalDate()),
+                TreeConverters.numberOrExpressionNumberToNumber().to(Number.class, Converters.numberToLocalDateTime()),
+                TreeConverters.numberOrExpressionNumberToNumber().to(Number.class, Converters.numberToLocalTime()),
+                TreeConverters.numberOrExpressionNumberToNumber().to(Number.class, Converters.numberToString((c) -> new DecimalFormat("#.###"))),
                 // Number ->,
-                ExpressionNumberConverters.numberOrExpressionNumberToNumber().to(Number.class, Converters.numberToNumber()),
-                ExpressionNumberConverters.numberOrExpressionNumberToNumber().to(Number.class, Converters.numberToBoolean()),
-                ExpressionNumberConverters.numberOrExpressionNumberToNumber().to(Number.class, Converters.numberToLocalDate()),
-                ExpressionNumberConverters.numberOrExpressionNumberToNumber().to(Number.class, Converters.numberToLocalDateTime()),
-                ExpressionNumberConverters.numberOrExpressionNumberToNumber().to(Number.class, Converters.numberToLocalTime()),
-                ExpressionNumberConverters.numberOrExpressionNumberToNumber().to(Number.class, Converters.numberToString((c) -> new DecimalFormat("#.###"))),
+                TreeConverters.numberOrExpressionNumberToNumber().to(Number.class, Converters.numberToNumber()),
+                TreeConverters.numberOrExpressionNumberToNumber().to(Number.class, Converters.numberToBoolean()),
+                TreeConverters.numberOrExpressionNumberToNumber().to(Number.class, Converters.numberToLocalDate()),
+                TreeConverters.numberOrExpressionNumberToNumber().to(Number.class, Converters.numberToLocalDateTime()),
+                TreeConverters.numberOrExpressionNumberToNumber().to(Number.class, Converters.numberToLocalTime()),
+                TreeConverters.numberOrExpressionNumberToNumber().to(Number.class, Converters.numberToString((c) -> new DecimalFormat("#.###"))),
                 // string ->
-                Converters.<String, Boolean, ExpressionNumberConverterContext>mapper(v -> v instanceof String, Predicate.isEqual(Boolean.class), Boolean::valueOf),
-                Converters.<ExpressionFunctionName, Boolean, ExpressionNumberConverterContext>mapper(v -> v instanceof ExpressionFunctionName, Predicate.isEqual(Boolean.class), (i) -> true),
+                Converters.<String, Boolean, TreeConverterContext>mapper(v -> v instanceof String, Predicate.isEqual(Boolean.class), Boolean::valueOf),
+                Converters.<ExpressionFunctionName, Boolean, TreeConverterContext>mapper(v -> v instanceof ExpressionFunctionName, Predicate.isEqual(Boolean.class), (i) -> true),
                 stringLocalDate,
                 stringLocalDateTime,
                 stringLocalTime,
-                ExpressionNumberConverters.toNumberOrExpressionNumber(stringDouble),
+                TreeConverters.toNumberOrExpressionNumber(stringDouble),
                 Converters.objectToString(),
                 // boolean ->
                 listToBoolean(),
                 fromBoolean(LocalDate.class, Converters.numberToLocalDate()),
                 fromBoolean(LocalDateTime.class, Converters.numberToLocalDateTime()),
                 //fromBoolean(LocalTime.class, Converters.numberToLocalTime()),
-                fromBoolean(ExpressionNumber.class, ExpressionNumberConverters.toNumberOrExpressionNumber(Converters.numberToNumber()))
+                fromBoolean(ExpressionNumber.class, TreeConverters.toNumberOrExpressionNumber(Converters.numberToNumber()))
             )
         );
 
@@ -553,7 +553,7 @@ public abstract class ExpressionTestCase<N extends Expression> implements TreePr
     /**
      * Converts an empty list to false, and non empty list to true.
      */
-    private static Converter<ExpressionNumberConverterContext> listToBoolean() {
+    private static Converter<TreeConverterContext> listToBoolean() {
         return Converters.toBoolean(
             (v) -> v instanceof List,
             Predicates.is(Boolean.class),
@@ -563,9 +563,9 @@ public abstract class ExpressionTestCase<N extends Expression> implements TreePr
         );
     }
 
-    private <T> Converter<ExpressionNumberConverterContext> fromBoolean(final Class<T> targetType,
-                                                                        final Converter<ExpressionNumberConverterContext> trueOrFalse) {
-        final ExpressionNumberConverterContext context = this.converterContext();
+    private <T> Converter<TreeConverterContext> fromBoolean(final Class<T> targetType,
+                                                            final Converter<TreeConverterContext> trueOrFalse) {
+        final TreeConverterContext context = this.converterContext();
         return Converters.toBoolean(
             (t) -> t instanceof Boolean,
             (t) -> t == targetType,
@@ -575,8 +575,8 @@ public abstract class ExpressionTestCase<N extends Expression> implements TreePr
         );
     }
 
-    private static <S> Converter<ExpressionNumberConverterContext> toBoolean(final Class<S> sourceType,
-                                                                             final S falseValue) {
+    private static <S> Converter<TreeConverterContext> toBoolean(final Class<S> sourceType,
+                                                                 final S falseValue) {
         return Converters.toBoolean(
             (t) -> t.getClass() == sourceType,
             (t) -> t == Boolean.class,

@@ -52,8 +52,8 @@ import walkingkooka.tree.expression.ExpressionNumber;
 import walkingkooka.tree.expression.ExpressionReference;
 import walkingkooka.tree.expression.HasExpressionNumberKindTesting;
 import walkingkooka.tree.expression.ValueExpression;
-import walkingkooka.tree.expression.convert.ExpressionNumberConverterContext;
-import walkingkooka.tree.expression.convert.ExpressionNumberConverterContexts;
+import walkingkooka.tree.expression.convert.TreeConverterContext;
+import walkingkooka.tree.expression.convert.TreeConverterContexts;
 import walkingkooka.tree.expression.function.ExpressionFunction;
 import walkingkooka.tree.expression.function.ExpressionFunctionParameter;
 import walkingkooka.tree.expression.function.ExpressionFunctionParameterKind;
@@ -2480,20 +2480,20 @@ public final class NodeSelectorNodeSelectorParserTokenVisitorTest implements Nod
                     return Either.right("Failed to convert " + CharSequences.quoteIfChars(value) + " to " + target.getSimpleName());
                 }
 
-                private ExpressionNumberConverterContext converterContext() {
-                    return ExpressionNumberConverterContexts.basic(
+                private TreeConverterContext converterContext() {
+                    return TreeConverterContexts.basic(
                         new Converter<>() {
                             @Override
                             public boolean canConvert(final Object value,
                                                       final Class<?> type,
-                                                      final ExpressionNumberConverterContext context) {
+                                                      final TreeConverterContext context) {
                                 return true;
                             }
 
                             @Override
                             public <T> Either<T, String> convert(final Object value,
                                                                  final Class<T> type,
-                                                                 final ExpressionNumberConverterContext context) {
+                                                                 final TreeConverterContext context) {
                                 return convert0(value, type);
                             }
                         },

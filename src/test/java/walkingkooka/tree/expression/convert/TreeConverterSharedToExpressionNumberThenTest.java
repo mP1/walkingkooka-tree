@@ -31,13 +31,13 @@ import walkingkooka.tree.expression.ExpressionNumberKind;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class ExpressionNumberConverterSharedToExpressionNumberThenTest implements ConverterTesting2<ExpressionNumberConverterSharedToExpressionNumberThen<ExpressionNumberConverterContext>, ExpressionNumberConverterContext>,
-    HashCodeEqualsDefinedTesting2<ExpressionNumberConverterSharedToExpressionNumberThen<ExpressionNumberConverterContext>>,
-    ToStringTesting<ExpressionNumberConverterSharedToExpressionNumberThen<ExpressionNumberConverterContext>> {
+public final class TreeConverterSharedToExpressionNumberThenTest implements ConverterTesting2<TreeConverterSharedToExpressionNumberThen<TreeConverterContext>, TreeConverterContext>,
+    HashCodeEqualsDefinedTesting2<TreeConverterSharedToExpressionNumberThen<TreeConverterContext>>,
+    ToStringTesting<TreeConverterSharedToExpressionNumberThen<TreeConverterContext>> {
 
     private final static String STRING_TO_EXPRESSION_NUMBER = "String to ExpressionNumber";
 
-    private final static Converter<ExpressionNumberConverterContext> EXPRESSION_NUMBER_TO_NUMBER_CONVERTER = ExpressionNumberConverters.numberOrExpressionNumberToNumber()
+    private final static Converter<TreeConverterContext> EXPRESSION_NUMBER_TO_NUMBER_CONVERTER = TreeConverters.numberOrExpressionNumberToNumber()
         .to(
             Number.class,
             Converters.numberToNumber()
@@ -46,10 +46,10 @@ public final class ExpressionNumberConverterSharedToExpressionNumberThenTest imp
     // with..........................................................................................................
 
     @Test
-    public void testWithNullToExpressionNumberConverterFails() {
+    public void testWithNullToTreeConverterFails() {
         assertThrows(
             NullPointerException.class,
-            () -> ExpressionNumberConverterSharedToExpressionNumberThen.with(
+            () -> TreeConverterSharedToExpressionNumberThen.with(
                 null,
                 Converters.fake()
             )
@@ -57,10 +57,10 @@ public final class ExpressionNumberConverterSharedToExpressionNumberThenTest imp
     }
 
     @Test
-    public void testWithNullFromExpressionNumberConverterFails() {
+    public void testWithNullFromTreeConverterFails() {
         assertThrows(
             NullPointerException.class,
-            () -> ExpressionNumberConverterSharedToExpressionNumberThen.with(
+            () -> TreeConverterSharedToExpressionNumberThen.with(
                 Converters.fake(),
                 null
             )
@@ -70,35 +70,35 @@ public final class ExpressionNumberConverterSharedToExpressionNumberThenTest imp
     // input ExpressionNumber -> skips toExpressionNumber...............................................................
 
     @Test
-    public void testConvertExpressionNumberBigDecimalToNonExpressionNumberAndToExpressionNumberConverterAndContextExpressionNumberKindBigDecimalFails() {
-        this.convertExpressionNumberBigDecimalToNonExpressionNumberAndToExpressionNumberConverterFails(ExpressionNumberKind.BIG_DECIMAL);
+    public void testConvertExpressionNumberBigDecimalToNonExpressionNumberAndToTreeConverterAndContextExpressionNumberKindBigDecimalFails() {
+        this.convertExpressionNumberBigDecimalToNonExpressionNumberAndToTreeConverterFails(ExpressionNumberKind.BIG_DECIMAL);
     }
 
     @Test
-    public void testConvertExpressionNumberBigDecimalToNonExpressionNumberAndToExpressionNumberConverterAndContextExpressionNumberKindDoubleFails() {
-        this.convertExpressionNumberBigDecimalToNonExpressionNumberAndToExpressionNumberConverterFails(ExpressionNumberKind.DOUBLE);
+    public void testConvertExpressionNumberBigDecimalToNonExpressionNumberAndToTreeConverterAndContextExpressionNumberKindDoubleFails() {
+        this.convertExpressionNumberBigDecimalToNonExpressionNumberAndToTreeConverterFails(ExpressionNumberKind.DOUBLE);
     }
 
-    private void convertExpressionNumberBigDecimalToNonExpressionNumberAndToExpressionNumberConverterFails(final ExpressionNumberKind kind) {
+    private void convertExpressionNumberBigDecimalToNonExpressionNumberAndToTreeConverterFails(final ExpressionNumberKind kind) {
         final ExpressionNumber expressionNumber = kind.create(123);
         final Class<String> targetType = String.class;
         final String failMessage = "Fail message 123";
 
         this.convertFails(
-            ExpressionNumberConverterSharedToExpressionNumberThen.with(
+            TreeConverterSharedToExpressionNumberThen.with(
                 Converters.fake(), // should not be called as input is already ExpressionNumber
                 new Converter<>() {
                     @Override
                     public boolean canConvert(final Object value,
                                               final Class<?> type,
-                                              final ExpressionNumberConverterContext context) {
+                                              final TreeConverterContext context) {
                         return true;
                     }
 
                     @Override
                     public <T> Either<T, String> convert(final Object value,
                                                          final Class<T> type,
-                                                         final ExpressionNumberConverterContext context) {
+                                                         final TreeConverterContext context) {
                         checkEquals(expressionNumber, value);
                         checkEquals(targetType, type);
                         return Either.right(failMessage);
@@ -128,13 +128,13 @@ public final class ExpressionNumberConverterSharedToExpressionNumberThenTest imp
         final Character expected = '+';
 
         this.convertAndCheck(
-            ExpressionNumberConverterSharedToExpressionNumberThen.with(
+            TreeConverterSharedToExpressionNumberThen.with(
                 Converters.fake(), // should not be called as input is already ExpressionNumber
                 new Converter<>() {
                     @Override
                     public boolean canConvert(final Object value,
                                               final Class<?> type,
-                                              final ExpressionNumberConverterContext context) {
+                                              final TreeConverterContext context) {
                         checkEquals(expressionNumber, value);
                         checkEquals(targetType, type);
                         return true;
@@ -143,7 +143,7 @@ public final class ExpressionNumberConverterSharedToExpressionNumberThenTest imp
                     @Override
                     public <T> Either<T, String> convert(final Object value,
                                                          final Class<T> type,
-                                                         final ExpressionNumberConverterContext context) {
+                                                         final TreeConverterContext context) {
                         checkEquals(expressionNumber, value);
                         checkEquals(targetType, type);
                         return this.successfulConversion(
@@ -162,26 +162,26 @@ public final class ExpressionNumberConverterSharedToExpressionNumberThenTest imp
 
     // input NonExpressionNumber -> toExpressionNumber, fromExpressionNum ..............................................
     @Test
-    public void testConvertNonExpressionNumberToNonExpressionNumberAndToExpressionNumberConverterAndContextExpressionNumberKindBigDecimalFails() {
-        this.convertNonExpressionNumberToNonExpressionNumberAndExpressionNumberConverterFails(ExpressionNumberKind.BIG_DECIMAL);
+    public void testConvertNonExpressionNumberToNonExpressionNumberAndToTreeConverterAndContextExpressionNumberKindBigDecimalFails() {
+        this.convertNonExpressionNumberToNonExpressionNumberAndTreeConverterFails(ExpressionNumberKind.BIG_DECIMAL);
     }
 
     @Test
-    public void testConvertNonExpressionNumberToNonExpressionNumberAndToExpressionNumberConverterAndContextExpressionNumberKindDoubleFails() {
-        this.convertNonExpressionNumberToNonExpressionNumberAndExpressionNumberConverterFails(ExpressionNumberKind.DOUBLE);
+    public void testConvertNonExpressionNumberToNonExpressionNumberAndToTreeConverterAndContextExpressionNumberKindDoubleFails() {
+        this.convertNonExpressionNumberToNonExpressionNumberAndTreeConverterFails(ExpressionNumberKind.DOUBLE);
     }
 
-    private void convertNonExpressionNumberToNonExpressionNumberAndExpressionNumberConverterFails(final ExpressionNumberKind kind) {
+    private void convertNonExpressionNumberToNonExpressionNumberAndTreeConverterFails(final ExpressionNumberKind kind) {
         final Integer input = 123;
         final Class<String> targetType = String.class;
 
         this.convertFails(
-            ExpressionNumberConverterSharedToExpressionNumberThen.with(
+            TreeConverterSharedToExpressionNumberThen.with(
                 new Converter<>() {
                     @Override
                     public boolean canConvert(final Object value,
                                               final Class<?> type,
-                                              final ExpressionNumberConverterContext context) {
+                                              final TreeConverterContext context) {
                         checkEquals(input, value);
                         checkEquals(ExpressionNumber.class, type);
                         return true;
@@ -190,7 +190,7 @@ public final class ExpressionNumberConverterSharedToExpressionNumberThenTest imp
                     @Override
                     public <T> Either<T, String> convert(final Object value,
                                                          final Class<T> type,
-                                                         final ExpressionNumberConverterContext context) {
+                                                         final TreeConverterContext context) {
                         checkEquals(input, value);
                         checkEquals(ExpressionNumber.class, type);
                         return Either.right("This message should not be returned to the caller");
@@ -206,27 +206,27 @@ public final class ExpressionNumberConverterSharedToExpressionNumberThenTest imp
     }
 
     @Test
-    public void testConvertNonExpressionNumberFromExpressionNumberConverterBigDecimalFails() {
-        this.convertNonExpressionNumberAndFromExpressionNumberConverterFails(ExpressionNumberKind.BIG_DECIMAL);
+    public void testConvertNonExpressionNumberFromTreeConverterBigDecimalFails() {
+        this.convertNonExpressionNumberAndFromTreeConverterFails(ExpressionNumberKind.BIG_DECIMAL);
     }
 
     @Test
-    public void testConvertNonExpressionNumberFromExpressionNumberConverterDoubleFails() {
-        this.convertNonExpressionNumberAndFromExpressionNumberConverterFails(ExpressionNumberKind.DOUBLE);
+    public void testConvertNonExpressionNumberFromTreeConverterDoubleFails() {
+        this.convertNonExpressionNumberAndFromTreeConverterFails(ExpressionNumberKind.DOUBLE);
     }
 
-    private void convertNonExpressionNumberAndFromExpressionNumberConverterFails(final ExpressionNumberKind kind) {
+    private void convertNonExpressionNumberAndFromTreeConverterFails(final ExpressionNumberKind kind) {
         final Integer input = 123;
         final Class<String> targetType = String.class;
         final ExpressionNumber expressionNumber = kind.create(input);
 
         this.convertFails(
-            ExpressionNumberConverterSharedToExpressionNumberThen.with(
+            TreeConverterSharedToExpressionNumberThen.with(
                 new Converter<>() {
                     @Override
                     public boolean canConvert(final Object value,
                                               final Class<?> type,
-                                              final ExpressionNumberConverterContext context) {
+                                              final TreeConverterContext context) {
                         checkEquals(input, value);
                         checkEquals(ExpressionNumber.class, type);
                         return true;
@@ -235,7 +235,7 @@ public final class ExpressionNumberConverterSharedToExpressionNumberThenTest imp
                     @Override
                     public <T> Either<T, String> convert(final Object value,
                                                          final Class<T> type,
-                                                         final ExpressionNumberConverterContext context) {
+                                                         final TreeConverterContext context) {
                         checkEquals(input, value);
                         checkEquals(ExpressionNumber.class, type);
                         return this.successfulConversion(
@@ -248,7 +248,7 @@ public final class ExpressionNumberConverterSharedToExpressionNumberThenTest imp
                     @Override
                     public boolean canConvert(final Object value,
                                               final Class<?> type,
-                                              final ExpressionNumberConverterContext context) {
+                                              final TreeConverterContext context) {
                         checkEquals(expressionNumber, value);
                         checkEquals(targetType, type);
                         return true;
@@ -257,7 +257,7 @@ public final class ExpressionNumberConverterSharedToExpressionNumberThenTest imp
                     @Override
                     public <T> Either<T, String> convert(final Object value,
                                                          final Class<T> type,
-                                                         final ExpressionNumberConverterContext context) {
+                                                         final TreeConverterContext context) {
                         checkEquals(expressionNumber, value);
                         checkEquals(targetType, type);
                         return Either.right("This message should not be returned to the caller");
@@ -288,12 +288,12 @@ public final class ExpressionNumberConverterSharedToExpressionNumberThenTest imp
         final String expected = "*EXPECTED 123*";
 
         this.convertAndCheck(
-            ExpressionNumberConverterSharedToExpressionNumberThen.with(
+            TreeConverterSharedToExpressionNumberThen.with(
                 new Converter<>() {
                     @Override
                     public boolean canConvert(final Object value,
                                               final Class<?> type,
-                                              final ExpressionNumberConverterContext context) {
+                                              final TreeConverterContext context) {
                         checkEquals(input, value);
                         checkEquals(ExpressionNumber.class, type);
                         return true;
@@ -302,7 +302,7 @@ public final class ExpressionNumberConverterSharedToExpressionNumberThenTest imp
                     @Override
                     public <T> Either<T, String> convert(final Object value,
                                                          final Class<T> type,
-                                                         final ExpressionNumberConverterContext context) {
+                                                         final TreeConverterContext context) {
                         checkEquals(input, value);
                         checkEquals(ExpressionNumber.class, type);
                         return this.successfulConversion(
@@ -315,7 +315,7 @@ public final class ExpressionNumberConverterSharedToExpressionNumberThenTest imp
                     @Override
                     public boolean canConvert(final Object value,
                                               final Class<?> type,
-                                              final ExpressionNumberConverterContext context) {
+                                              final TreeConverterContext context) {
                         checkEquals(expressionNumber, value);
                         checkEquals(targetType, type);
                         return true;
@@ -324,7 +324,7 @@ public final class ExpressionNumberConverterSharedToExpressionNumberThenTest imp
                     @Override
                     public <T> Either<T, String> convert(final Object value,
                                                          final Class<T> type,
-                                                         final ExpressionNumberConverterContext context) {
+                                                         final TreeConverterContext context) {
                         checkEquals(expressionNumber, value);
                         checkEquals(targetType, type);
                         return this.successfulConversion(
@@ -358,12 +358,12 @@ public final class ExpressionNumberConverterSharedToExpressionNumberThenTest imp
         final ExpressionNumber expressionNumber = kind.create(input);
 
         this.convertAndCheck(
-            ExpressionNumberConverterSharedToExpressionNumberThen.with(
+            TreeConverterSharedToExpressionNumberThen.with(
                 new Converter<>() {
                     @Override
                     public boolean canConvert(final Object value,
                                               final Class<?> type,
-                                              final ExpressionNumberConverterContext context) {
+                                              final TreeConverterContext context) {
                         checkEquals(input, value);
                         checkEquals(ExpressionNumber.class, type);
                         return true;
@@ -372,7 +372,7 @@ public final class ExpressionNumberConverterSharedToExpressionNumberThenTest imp
                     @Override
                     public <T> Either<T, String> convert(final Object value,
                                                          final Class<T> type,
-                                                         final ExpressionNumberConverterContext context) {
+                                                         final TreeConverterContext context) {
                         checkEquals(input, value);
                         checkEquals(ExpressionNumber.class, type);
                         return this.successfulConversion(
@@ -419,13 +419,13 @@ public final class ExpressionNumberConverterSharedToExpressionNumberThenTest imp
     // helpers..........................................................................................................
 
     @Override
-    public ExpressionNumberConverterSharedToExpressionNumberThen<ExpressionNumberConverterContext> createConverter() {
-        return ExpressionNumberConverterSharedToExpressionNumberThen.with(
+    public TreeConverterSharedToExpressionNumberThen<TreeConverterContext> createConverter() {
+        return TreeConverterSharedToExpressionNumberThen.with(
             new FakeConverter<>() {
                 @Override
                 public boolean canConvert(final Object value,
                                           final Class<?> type,
-                                          final ExpressionNumberConverterContext context) {
+                                          final TreeConverterContext context) {
                     return value instanceof String && ExpressionNumber.class == type ||
                         ExpressionNumber.class.isInstance(value);
                 }
@@ -433,7 +433,7 @@ public final class ExpressionNumberConverterSharedToExpressionNumberThenTest imp
                 @Override
                 public <T> Either<T, String> convert(final Object value,
                                                      final Class<T> type,
-                                                     final ExpressionNumberConverterContext context) {
+                                                     final TreeConverterContext context) {
                     return this.canConvert(
                         value,
                         type,
@@ -465,7 +465,7 @@ public final class ExpressionNumberConverterSharedToExpressionNumberThenTest imp
 
     private <T> Either<T, String> parseString(final String value,
                                               final Class<T> type,
-                                              final ExpressionNumberConverterContext context) {
+                                              final TreeConverterContext context) {
         try {
             return context.successfulConversion(
                 context.expressionNumberKind().parse(value),
@@ -480,12 +480,12 @@ public final class ExpressionNumberConverterSharedToExpressionNumberThenTest imp
     }
 
     @Override
-    public ExpressionNumberConverterContext createContext() {
+    public TreeConverterContext createContext() {
         return this.createContext(ExpressionNumberKind.DEFAULT);
     }
 
-    private ExpressionNumberConverterContext createContext(final ExpressionNumberKind kind) {
-        return new FakeExpressionNumberConverterContext() {
+    private TreeConverterContext createContext(final ExpressionNumberKind kind) {
+        return new FakeTreeConverterContext() {
             @Override
             public ExpressionNumberKind expressionNumberKind() {
                 return kind;
@@ -495,14 +495,14 @@ public final class ExpressionNumberConverterSharedToExpressionNumberThenTest imp
 
     // hashCode/equals..................................................................................................
 
-    private final static Converter<ExpressionNumberConverterContext> FIRST = Converters.fake();
+    private final static Converter<TreeConverterContext> FIRST = Converters.fake();
 
-    private final static Converter<ExpressionNumberConverterContext> SECOND = Converters.fake();
+    private final static Converter<TreeConverterContext> SECOND = Converters.fake();
 
     @Test
-    public void testEqualsDifferentToExpressionNumberConverter() {
+    public void testEqualsDifferentToTreeConverter() {
         this.checkNotEquals(
-            ExpressionNumberConverterSharedToExpressionNumberThen.with(
+            TreeConverterSharedToExpressionNumberThen.with(
                 Converters.fake(),
                 SECOND
             )
@@ -510,9 +510,9 @@ public final class ExpressionNumberConverterSharedToExpressionNumberThenTest imp
     }
 
     @Test
-    public void testEqualsDifferentFromExpressionNumberConverter() {
+    public void testEqualsDifferentFromTreeConverter() {
         this.checkNotEquals(
-            ExpressionNumberConverterSharedToExpressionNumberThen.with(
+            TreeConverterSharedToExpressionNumberThen.with(
                 FIRST,
                 Converters.fake()
             )
@@ -520,8 +520,8 @@ public final class ExpressionNumberConverterSharedToExpressionNumberThenTest imp
     }
 
     @Override
-    public ExpressionNumberConverterSharedToExpressionNumberThen<ExpressionNumberConverterContext> createObject() {
-        return ExpressionNumberConverterSharedToExpressionNumberThen.with(
+    public TreeConverterSharedToExpressionNumberThen<TreeConverterContext> createObject() {
+        return TreeConverterSharedToExpressionNumberThen.with(
             FIRST,
             SECOND
         );
@@ -530,8 +530,8 @@ public final class ExpressionNumberConverterSharedToExpressionNumberThenTest imp
     // class............................................................................................................
 
     @Override
-    public Class<ExpressionNumberConverterSharedToExpressionNumberThen<ExpressionNumberConverterContext>> type() {
-        return Cast.to(ExpressionNumberConverterSharedToExpressionNumberThen.class);
+    public Class<TreeConverterSharedToExpressionNumberThen<TreeConverterContext>> type() {
+        return Cast.to(TreeConverterSharedToExpressionNumberThen.class);
     }
 
     // type naming......................................................................................................

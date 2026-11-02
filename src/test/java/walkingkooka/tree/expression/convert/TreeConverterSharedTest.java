@@ -21,11 +21,11 @@ import walkingkooka.Cast;
 import walkingkooka.reflect.ClassTesting;
 import walkingkooka.reflect.JavaVisibility;
 
-public final class ExpressionNumberConverterSharedTest implements ClassTesting<ExpressionNumberConverterShared<?>> {
+public final class TreeConverterSharedTest implements ClassTesting<TreeConverterShared<?>> {
 
     @Override
-    public Class<ExpressionNumberConverterShared<?>> type() {
-        return Cast.to(ExpressionNumberConverterShared.class);
+    public Class<TreeConverterShared<?>> type() {
+        return Cast.to(TreeConverterShared.class);
     }
 
     @Override

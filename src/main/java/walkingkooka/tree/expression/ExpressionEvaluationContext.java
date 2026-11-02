@@ -24,7 +24,7 @@ import walkingkooka.environment.EnvironmentContext;
 import walkingkooka.locale.LocaleContext;
 import walkingkooka.logging.LoggerPath;
 import walkingkooka.text.CaseSensitivity;
-import walkingkooka.tree.expression.convert.ExpressionNumberConverterContext;
+import walkingkooka.tree.expression.convert.TreeConverterContext;
 import walkingkooka.tree.expression.function.ExpressionFunction;
 import walkingkooka.tree.expression.function.ExpressionFunctionParameter;
 import walkingkooka.tree.expression.function.ExpressionFunctionParameterKind;
@@ -43,12 +43,12 @@ import java.util.function.Supplier;
  */
 public interface ExpressionEvaluationContext extends CanEvaluateExpression,
     CanEvaluateString,
-    ExpressionNumberConverterContext,
     ExpressionNumberContext,
     ExpressionPurityContext,
     HasExpressionFunction,
     EnvironmentContext,
-    LocaleContext {
+    LocaleContext,
+    TreeConverterContext {
 
     LoggerPath EXPRESSION_LOGGER = LoggerPath.parse("expression");
 

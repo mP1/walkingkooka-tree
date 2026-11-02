@@ -17,20 +17,13 @@
 
 package walkingkooka.tree.expression.convert;
 
-import walkingkooka.convert.ShortCircuitingConverter;
+import walkingkooka.convert.FakeConverterContext;
+import walkingkooka.tree.expression.ExpressionNumberKind;
 
+public class FakeTreeConverterContext extends FakeConverterContext implements TreeConverterContext {
 
-abstract class ExpressionNumberConverter<C extends ExpressionNumberConverterContext> implements ShortCircuitingConverter<C> {
-
-    /**
-     * Package private to limit sub-classing.
-     */
-    ExpressionNumberConverter() {
-        super();
+    @Override
+    public ExpressionNumberKind expressionNumberKind() {
+        throw new UnsupportedOperationException();
     }
-
-    /**
-     * Force subclasses to implement.
-     */
-    abstract public String toString();
 }

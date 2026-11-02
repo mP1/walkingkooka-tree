@@ -23,16 +23,16 @@ import walkingkooka.convert.ConverterContext;
 import walkingkooka.reflect.PublicStaticHelper;
 import walkingkooka.tree.expression.ExpressionNumberKind;
 
-public final class ExpressionNumberConverterContexts implements PublicStaticHelper {
+public final class TreeConverterContexts implements PublicStaticHelper {
 
     /**
-     * {@see ExpressionNumberConverterContextBasic}
+     * {@see TreeConverterContextBasic}
      */
-    public static ExpressionNumberConverterContext basic(final Converter<ExpressionNumberConverterContext> converter,
-                                                         final ExpressionNumberKind expressionNumberKind,
-                                                         final BinaryNumberConverterFunction<ExpressionNumberConverterContext> multiplier,
-                                                         final ConverterContext context) {
-        return ExpressionNumberConverterContextBasic.with(
+    public static TreeConverterContext basic(final Converter<TreeConverterContext> converter,
+                                             final ExpressionNumberKind expressionNumberKind,
+                                             final BinaryNumberConverterFunction<TreeConverterContext> multiplier,
+                                             final ConverterContext context) {
+        return TreeConverterContextBasic.with(
             converter,
             expressionNumberKind,
             multiplier,
@@ -43,11 +43,11 @@ public final class ExpressionNumberConverterContexts implements PublicStaticHelp
     /**
      * {@see FakeExpressionNumberContext}
      */
-    public static ExpressionNumberConverterContext fake() {
-        return new FakeExpressionNumberConverterContext();
+    public static TreeConverterContext fake() {
+        return new FakeTreeConverterContext();
     }
 
-    private ExpressionNumberConverterContexts() {
+    private TreeConverterContexts() {
         throw new UnsupportedOperationException();
     }
 }

@@ -36,24 +36,24 @@ import java.util.Objects;
  * If the input is an {@link ExpressionNumber} and the target a {@link ExpressionNumber} no convert happens, the wrapped
  * {@link Converter} is never invoked.
  */
-final class ExpressionNumberConverterSharedToNumberOrExpressionNumber<C extends ExpressionNumberConverterContext> extends ExpressionNumberConverterShared<C> {
+final class TreeConverterSharedToNumberOrExpressionNumber<C extends TreeConverterContext> extends TreeConverterShared<C> {
 
     /**
-     * Factory that creates a new {@link ExpressionNumberConverterSharedToNumberOrExpressionNumber}.
-     * This should only be called by {@link ExpressionNumberConverters#toNumberOrExpressionNumber(Converter)}.
+     * Factory that creates a new {@link TreeConverterSharedToNumberOrExpressionNumber}.
+     * This should only be called by {@link TreeConverters#toNumberOrExpressionNumber(Converter)}.
      */
-    static <C extends ExpressionNumberConverterContext> ExpressionNumberConverterSharedToNumberOrExpressionNumber<C> with(final Converter<C> converter) {
+    static <C extends TreeConverterContext> TreeConverterSharedToNumberOrExpressionNumber<C> with(final Converter<C> converter) {
         Objects.requireNonNull(converter, "converter");
 
-        return converter instanceof ExpressionNumberConverterSharedToNumberOrExpressionNumber ?
+        return converter instanceof TreeConverterSharedToNumberOrExpressionNumber ?
             Cast.to(converter) :
-            new ExpressionNumberConverterSharedToNumberOrExpressionNumber<>(converter);
+            new TreeConverterSharedToNumberOrExpressionNumber<>(converter);
     }
 
     /**
      * Private ctor use factory
      */
-    private ExpressionNumberConverterSharedToNumberOrExpressionNumber(final Converter<C> converter) {
+    private TreeConverterSharedToNumberOrExpressionNumber(final Converter<C> converter) {
         super();
         this.converter = converter;
     }
@@ -193,10 +193,10 @@ final class ExpressionNumberConverterSharedToNumberOrExpressionNumber<C extends 
     @Override
     public boolean equals(final Object other) {
         return this == other ||
-            other instanceof ExpressionNumberConverterSharedToNumberOrExpressionNumber && this.equals0(Cast.to(other));
+            other instanceof TreeConverterSharedToNumberOrExpressionNumber && this.equals0(Cast.to(other));
     }
 
-    private boolean equals0(final ExpressionNumberConverterSharedToNumberOrExpressionNumber<?> other) {
+    private boolean equals0(final TreeConverterSharedToNumberOrExpressionNumber<?> other) {
         return this.converter.equals(other.converter);
     }
 

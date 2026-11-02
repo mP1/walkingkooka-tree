@@ -28,7 +28,7 @@ public final class ExpressionNumberBinaryNumberConverterFunctions implements Pub
     /**
      * {@see BasicMultiplyBinaryNumberConverterFunction}
      */
-    public static <C extends ExpressionNumberConverterContext> BinaryNumberConverterFunction<C> multiply() {
+    public static <C extends TreeConverterContext> BinaryNumberConverterFunction<C> multiply() {
         return BasicMultiplyBinaryNumberConverterFunction.instance();
     }
 

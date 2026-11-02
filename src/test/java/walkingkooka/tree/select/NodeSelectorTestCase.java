@@ -45,9 +45,9 @@ import walkingkooka.tree.Node;
 import walkingkooka.tree.TestNode;
 import walkingkooka.tree.expression.ExpressionEvaluationContexts;
 import walkingkooka.tree.expression.HasExpressionNumberKindTesting;
-import walkingkooka.tree.expression.convert.ExpressionNumberConverterContext;
-import walkingkooka.tree.expression.convert.ExpressionNumberConverterContexts;
-import walkingkooka.tree.expression.convert.ExpressionNumberConverters;
+import walkingkooka.tree.expression.convert.TreeConverterContext;
+import walkingkooka.tree.expression.convert.TreeConverterContexts;
+import walkingkooka.tree.expression.convert.TreeConverters;
 import walkingkooka.util.BiFunctionTesting2;
 
 import java.util.Arrays;
@@ -501,12 +501,12 @@ abstract public class NodeSelectorTestCase<S extends NodeSelector<TestNode, Stri
                         throw new UnsupportedOperationException();
                     },
                     CaseSensitivity.SENSITIVE,
-                    ExpressionNumberConverterContexts.basic(
+                    TreeConverterContexts.basic(
                         Converters.collection(
                             Lists.of(
                                 Converters.simple(),
-                                ExpressionNumberConverters.numberOrExpressionNumberToNumber(),
-                                Converters.<String, Integer, ExpressionNumberConverterContext>mapper(
+                                TreeConverters.numberOrExpressionNumberToNumber(),
+                                Converters.<String, Integer, TreeConverterContext>mapper(
                                     (t) -> t instanceof String,
                                     Predicates.is(Integer.class),
                                     Integer::parseInt
@@ -516,7 +516,7 @@ abstract public class NodeSelectorTestCase<S extends NodeSelector<TestNode, Stri
                                     Predicates.is(Node.class),
                                     Function.identity()
                                 ),
-                                ExpressionNumberConverters.toNumberOrExpressionNumber(Converters.simple())
+                                TreeConverters.toNumberOrExpressionNumber(Converters.simple())
                             )
                         ),
                         EXPRESSION_NUMBER_KIND,

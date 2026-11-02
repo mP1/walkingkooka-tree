@@ -17,8 +17,9 @@
 
 package walkingkooka.tree.expression.convert;
 
-import walkingkooka.convert.ConverterContextTesting2;
+import walkingkooka.convert.ConverterContext;
+import walkingkooka.tree.expression.DateTimeExpressionNumberContext;
 
-public interface ExpressionNumberConverterContextTesting2<C extends ExpressionNumberConverterContext> extends ExpressionNumberConverterContextTesting,
-    ConverterContextTesting2<C> {
+public interface TreeConverterContext extends ConverterContext,
+    DateTimeExpressionNumberContext {
 }
