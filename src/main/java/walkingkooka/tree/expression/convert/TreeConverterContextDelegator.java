@@ -17,13 +17,23 @@
 
 package walkingkooka.tree.expression.convert;
 
-import walkingkooka.convert.FakeConverterContext;
+import walkingkooka.convert.ConverterContext;
+import walkingkooka.convert.ConverterContextDelegator;
 import walkingkooka.tree.expression.ExpressionNumberKind;
 
-public class FakeExpressionNumberConverterContext extends FakeConverterContext implements ExpressionNumberConverterContext {
+public interface TreeConverterContextDelegator extends TreeConverterContext,
+    ConverterContextDelegator {
 
     @Override
-    public ExpressionNumberKind expressionNumberKind() {
-        throw new UnsupportedOperationException();
+    default ConverterContext converterContext() {
+        return this.treeConverterContext();
     }
+
+    @Override
+    default ExpressionNumberKind expressionNumberKind() {
+        return this.treeConverterContext()
+            .expressionNumberKind();
+    }
+
+    TreeConverterContext treeConverterContext();
 }

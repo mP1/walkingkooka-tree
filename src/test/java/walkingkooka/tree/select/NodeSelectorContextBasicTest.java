@@ -35,9 +35,9 @@ import walkingkooka.tree.TestNode;
 import walkingkooka.tree.expression.ExpressionEvaluationContexts;
 import walkingkooka.tree.expression.ExpressionFunctionName;
 import walkingkooka.tree.expression.HasExpressionNumberKindTesting;
-import walkingkooka.tree.expression.convert.ExpressionNumberConverterContext;
-import walkingkooka.tree.expression.convert.ExpressionNumberConverterContexts;
-import walkingkooka.tree.expression.convert.ExpressionNumberConverters;
+import walkingkooka.tree.expression.convert.TreeConverterContext;
+import walkingkooka.tree.expression.convert.TreeConverterContexts;
+import walkingkooka.tree.expression.convert.TreeConverters;
 
 import java.util.Optional;
 import java.util.function.BooleanSupplier;
@@ -62,8 +62,8 @@ public final class NodeSelectorContextBasicTest implements ClassTesting2<NodeSel
 
     private final static Function<TestNode, TestNode> MAPPER = Function.identity();
 
-    private final static ExpressionNumberConverterContext CONVERTER_CONTEXT = ExpressionNumberConverterContexts.basic(
-        ExpressionNumberConverters.toNumberOrExpressionNumber(
+    private final static TreeConverterContext CONVERTER_CONTEXT = TreeConverterContexts.basic(
+        TreeConverters.toNumberOrExpressionNumber(
             Converters.fake()
         ),
         EXPRESSION_NUMBER_KIND,

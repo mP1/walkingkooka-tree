@@ -26,11 +26,11 @@ import walkingkooka.math.DecimalNumberContext;
 import walkingkooka.math.DecimalNumberContextDelegator;
 import walkingkooka.math.DecimalNumberContextTesting;
 import walkingkooka.tree.expression.HasExpressionNumberKindTesting;
-import walkingkooka.tree.expression.convert.ExpressionNumberConverterContextDelegatorTest.TestExpressionNumberConverterContextDelegator;
+import walkingkooka.tree.expression.convert.TreeConverterContextDelegatorTest.TestTreeConverterContextDelegator;
 
 import java.math.MathContext;
 
-public final class ExpressionNumberConverterContextDelegatorTest implements ExpressionNumberConverterContextTesting2<TestExpressionNumberConverterContextDelegator>,
+public final class TreeConverterContextDelegatorTest implements TreeConverterContextTesting2<TestTreeConverterContextDelegator>,
     CurrencyLocaleContextTesting,
     DateTimeContextTesting,
     DecimalNumberContextDelegator,
@@ -38,8 +38,8 @@ public final class ExpressionNumberConverterContextDelegatorTest implements Expr
     HasExpressionNumberKindTesting {
 
     @Override
-    public TestExpressionNumberConverterContextDelegator createContext() {
-        return new TestExpressionNumberConverterContextDelegator();
+    public TestTreeConverterContextDelegator createContext() {
+        return new TestTreeConverterContextDelegator();
     }
 
     // DecimalNumberContextDelegator....................................................................................
@@ -62,8 +62,8 @@ public final class ExpressionNumberConverterContextDelegatorTest implements Expr
     // class............................................................................................................
 
     @Override
-    public Class<TestExpressionNumberConverterContextDelegator> type() {
-        return TestExpressionNumberConverterContextDelegator.class;
+    public Class<TestTreeConverterContextDelegator> type() {
+        return TestTreeConverterContextDelegator.class;
     }
 
     @Override
@@ -71,11 +71,11 @@ public final class ExpressionNumberConverterContextDelegatorTest implements Expr
         throw new UnsupportedOperationException();
     }
 
-    final static class TestExpressionNumberConverterContextDelegator implements ExpressionNumberConverterContextDelegator {
+    final static class TestTreeConverterContextDelegator implements TreeConverterContextDelegator {
 
         @Override
-        public ExpressionNumberConverterContext expressionNumberConverterContext() {
-            return ExpressionNumberConverterContexts.basic(
+        public TreeConverterContext treeConverterContext() {
+            return TreeConverterContexts.basic(
                 Converters.numberToBoolean(),
                 EXPRESSION_NUMBER_KIND,
                 BinaryNumberConverterFunctions.multiply(), // multiplier

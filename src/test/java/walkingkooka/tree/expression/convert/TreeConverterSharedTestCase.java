@@ -17,18 +17,27 @@
 
 package walkingkooka.tree.expression.convert;
 
-import walkingkooka.reflect.PublicStaticHelperTesting;
+import org.junit.jupiter.api.Test;
 
-import java.lang.reflect.Method;
+public abstract class TreeConverterSharedTestCase<C extends TreeConverterShared<TreeConverterContext>>
+    extends TreeConverterTestCase<C> {
 
-public final class ExpressionNumberConvertersTest implements PublicStaticHelperTesting<ExpressionNumberConverters> {
-    @Override
-    public boolean canHavePublicTypes(final Method method) {
-        return false;
+    TreeConverterSharedTestCase() {
+        super();
     }
 
+    @Test
+    public final void testConvertValueToSameValueTypeNotNumber() {
+        this.convertFails(
+            "Hello",
+            String.class
+        );
+    }
+
+    // class............................................................................................................
+
     @Override
-    public Class<ExpressionNumberConverters> type() {
-        return ExpressionNumberConverters.class;
+    public final String typeNamePrefix() {
+        return TreeConverterShared.class.getSimpleName();
     }
 }

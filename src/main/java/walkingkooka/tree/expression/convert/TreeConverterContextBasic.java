@@ -46,22 +46,22 @@ import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
 
-final class ExpressionNumberConverterContextBasic implements ExpressionNumberConverterContext,
+final class TreeConverterContextBasic implements TreeConverterContext,
     CurrencyCodeLanguageTagContextDelegator,
     DateTimeContextDelegator,
     DecimalNumberContextDelegator,
     UsesToStringBuilder {
 
-    static ExpressionNumberConverterContextBasic with(final Converter<ExpressionNumberConverterContext> converter,
-                                                      final ExpressionNumberKind expressionNumberKind,
-                                                      final BinaryNumberConverterFunction<ExpressionNumberConverterContext> multiplier,
-                                                      final ConverterContext context) {
+    static TreeConverterContextBasic with(final Converter<TreeConverterContext> converter,
+                                          final ExpressionNumberKind expressionNumberKind,
+                                          final BinaryNumberConverterFunction<TreeConverterContext> multiplier,
+                                          final ConverterContext context) {
         Objects.requireNonNull(converter, "converter");
         Objects.requireNonNull(expressionNumberKind, "expressionNumberKind");
         Objects.requireNonNull(multiplier, "multiplier");
         Objects.requireNonNull(context, "context");
 
-        return new ExpressionNumberConverterContextBasic(
+        return new TreeConverterContextBasic(
             converter,
             expressionNumberKind,
             multiplier,
@@ -69,10 +69,10 @@ final class ExpressionNumberConverterContextBasic implements ExpressionNumberCon
         );
     }
 
-    private ExpressionNumberConverterContextBasic(final Converter<ExpressionNumberConverterContext> converter,
-                                                  final ExpressionNumberKind expressionNumberKind,
-                                                  final BinaryNumberConverterFunction<ExpressionNumberConverterContext> multiplier,
-                                                  final ConverterContext context) {
+    private TreeConverterContextBasic(final Converter<TreeConverterContext> converter,
+                                      final ExpressionNumberKind expressionNumberKind,
+                                      final BinaryNumberConverterFunction<TreeConverterContext> multiplier,
+                                      final ConverterContext context) {
         super();
 
         this.converter = converter;
@@ -139,11 +139,11 @@ final class ExpressionNumberConverterContextBasic implements ExpressionNumberCon
             left,
             right,
             type,
-            this // ExpressionNumberConverterContext
+            this // TreeConverterContext
         );
     }
 
-    private final BinaryNumberConverterFunction<ExpressionNumberConverterContext> multiplier;
+    private final BinaryNumberConverterFunction<TreeConverterContext> multiplier;
 
     @Override
     public char valueSeparator() {
@@ -162,7 +162,7 @@ final class ExpressionNumberConverterContextBasic implements ExpressionNumberCon
         return this.converter.convert(value, target, this);
     }
 
-    private final Converter<ExpressionNumberConverterContext> converter;
+    private final Converter<TreeConverterContext> converter;
 
     // CanCurrencyExchangeRate..........................................................................................
 

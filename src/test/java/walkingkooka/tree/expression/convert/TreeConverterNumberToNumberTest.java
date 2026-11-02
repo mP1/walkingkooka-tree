@@ -22,7 +22,7 @@ import walkingkooka.Cast;
 import walkingkooka.tree.expression.ExpressionNumber;
 import walkingkooka.tree.expression.ExpressionNumberKind;
 
-public final class ExpressionNumberConverterNumberToNumberTest extends ExpressionNumberConverterTestCase<ExpressionNumberConverterNumberToNumber<ExpressionNumberConverterContext>> {
+public final class TreeConverterNumberToNumberTest extends TreeConverterTestCase<TreeConverterNumberToNumber<TreeConverterContext>> {
 
     @Test
     public void testConvertStringToStringFails() {
@@ -204,8 +204,8 @@ public final class ExpressionNumberConverterNumberToNumberTest extends Expressio
     }
 
     @Override
-    public ExpressionNumberConverterNumberToNumber<ExpressionNumberConverterContext> createConverter() {
-        return ExpressionNumberConverterNumberToNumber.instance();
+    public TreeConverterNumberToNumber<TreeConverterContext> createConverter() {
+        return TreeConverterNumberToNumber.instance();
     }
 
     // toString.........................................................................................................
@@ -213,7 +213,7 @@ public final class ExpressionNumberConverterNumberToNumberTest extends Expressio
     @Test
     public void testToString() {
         this.toStringAndCheck(
-            ExpressionNumberConverterNumberToNumber.instance(),
+            TreeConverterNumberToNumber.instance(),
             "Number to Number"
         );
     }
@@ -221,12 +221,12 @@ public final class ExpressionNumberConverterNumberToNumberTest extends Expressio
     // class............................................................................................................
 
     @Override
-    public Class<ExpressionNumberConverterNumberToNumber<ExpressionNumberConverterContext>> type() {
-        return Cast.to(ExpressionNumberConverterNumberToNumber.class);
+    public Class<TreeConverterNumberToNumber<TreeConverterContext>> type() {
+        return Cast.to(TreeConverterNumberToNumber.class);
     }
 
     @Override
     public String typeNamePrefix() {
-        return ExpressionNumberConverter.class.getSimpleName();
+        return TreeConverter.class.getSimpleName();
     }
 }

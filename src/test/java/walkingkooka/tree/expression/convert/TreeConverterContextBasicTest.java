@@ -36,16 +36,16 @@ import java.math.MathContext;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class ExpressionNumberConverterContextBasicTest implements ExpressionNumberConverterContextTesting2<ExpressionNumberConverterContextBasic>,
-    ToStringTesting<ExpressionNumberConverterContextBasic>,
+public final class TreeConverterContextBasicTest implements TreeConverterContextTesting2<TreeConverterContextBasic>,
+    ToStringTesting<TreeConverterContextBasic>,
     CurrencyLocaleContextTesting,
     DateTimeContextTesting,
     DecimalNumberContextDelegator,
     HasExpressionNumberKindTesting {
 
-    private final static Converter<ExpressionNumberConverterContext> CONVERTER = ExpressionNumberConverters.numberToNumber();
+    private final static Converter<TreeConverterContext> CONVERTER = TreeConverters.numberToNumber();
 
-    private final static BinaryNumberConverterFunction<ExpressionNumberConverterContext> MULTIPLIER = ExpressionNumberBinaryNumberConverterFunctions.multiply();
+    private final static BinaryNumberConverterFunction<TreeConverterContext> MULTIPLIER = ExpressionNumberBinaryNumberConverterFunctions.multiply();
 
     private final static ConverterContext CONVERTER_CONTEXT = ConverterContexts.basic(
         false, // canNumbersHaveGroupSeparator
@@ -63,7 +63,7 @@ public final class ExpressionNumberConverterContextBasicTest implements Expressi
     public void testWithNullConverterFails() {
         assertThrows(
             NullPointerException.class,
-            () -> ExpressionNumberConverterContextBasic.with(
+            () -> TreeConverterContextBasic.with(
                 null,
                 EXPRESSION_NUMBER_KIND,
                 MULTIPLIER,
@@ -76,7 +76,7 @@ public final class ExpressionNumberConverterContextBasicTest implements Expressi
     public void testWithNullExpressionNumberKindFails() {
         assertThrows(
             NullPointerException.class,
-            () -> ExpressionNumberConverterContextBasic.with(
+            () -> TreeConverterContextBasic.with(
                 CONVERTER,
                 null,
                 MULTIPLIER,
@@ -89,7 +89,7 @@ public final class ExpressionNumberConverterContextBasicTest implements Expressi
     public void testWithNullMultiplierFails() {
         assertThrows(
             NullPointerException.class,
-            () -> ExpressionNumberConverterContextBasic.with(
+            () -> TreeConverterContextBasic.with(
                 CONVERTER,
                 EXPRESSION_NUMBER_KIND,
                 null,
@@ -102,7 +102,7 @@ public final class ExpressionNumberConverterContextBasicTest implements Expressi
     public void testWithNullConverterContextFails() {
         assertThrows(
             NullPointerException.class,
-            () -> ExpressionNumberConverterContextBasic.with(
+            () -> TreeConverterContextBasic.with(
                 CONVERTER,
                 EXPRESSION_NUMBER_KIND,
                 MULTIPLIER,
@@ -150,8 +150,8 @@ public final class ExpressionNumberConverterContextBasicTest implements Expressi
     }
 
     @Override
-    public ExpressionNumberConverterContextBasic createContext() {
-        return ExpressionNumberConverterContextBasic.with(
+    public TreeConverterContextBasic createContext() {
+        return TreeConverterContextBasic.with(
             CONVERTER,
             EXPRESSION_NUMBER_KIND,
             MULTIPLIER,
@@ -189,8 +189,8 @@ public final class ExpressionNumberConverterContextBasicTest implements Expressi
     // class............................................................................................................
 
     @Override
-    public Class<ExpressionNumberConverterContextBasic> type() {
-        return ExpressionNumberConverterContextBasic.class;
+    public Class<TreeConverterContextBasic> type() {
+        return TreeConverterContextBasic.class;
     }
 
     @Override

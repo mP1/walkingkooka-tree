@@ -29,24 +29,24 @@ import walkingkooka.text.BinaryTextContextTesting;
 import walkingkooka.tree.expression.ExpressionNumberKind;
 import walkingkooka.tree.expression.HasExpressionNumberKindTesting;
 
-public abstract class ExpressionNumberConverterTestCase<C extends ExpressionNumberConverter<ExpressionNumberConverterContext>>
-    implements ConverterTesting2<C, ExpressionNumberConverterContext>,
+public abstract class TreeConverterTestCase<C extends TreeConverter<TreeConverterContext>>
+    implements ConverterTesting2<C, TreeConverterContext>,
     BinaryTextContextTesting,
     DecimalNumberContextTesting,
     HasExpressionNumberKindTesting,
     ToStringTesting<C> {
 
-    ExpressionNumberConverterTestCase() {
+    TreeConverterTestCase() {
         super();
     }
 
     @Override
-    public final ExpressionNumberConverterContext createContext() {
+    public final TreeConverterContext createContext() {
         return this.createContext(EXPRESSION_NUMBER_KIND);
     }
 
-    final ExpressionNumberConverterContext createContext(final ExpressionNumberKind kind) {
-        return ExpressionNumberConverterContexts.basic(
+    final TreeConverterContext createContext(final ExpressionNumberKind kind) {
+        return TreeConverterContexts.basic(
             Converters.fake(),
             kind,
             BinaryNumberConverterFunctions.fake(), // multiplier

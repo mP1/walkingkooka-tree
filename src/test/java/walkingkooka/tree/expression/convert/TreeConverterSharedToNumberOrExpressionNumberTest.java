@@ -33,20 +33,20 @@ import java.math.BigInteger;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class ExpressionNumberConverterSharedToNumberOrExpressionNumberTest extends ExpressionNumberConverterSharedTestCase<ExpressionNumberConverterSharedToNumberOrExpressionNumber<ExpressionNumberConverterContext>>
-    implements HashCodeEqualsDefinedTesting2<ExpressionNumberConverterSharedToNumberOrExpressionNumber<?>> {
+public final class TreeConverterSharedToNumberOrExpressionNumberTest extends TreeConverterSharedTestCase<TreeConverterSharedToNumberOrExpressionNumber<TreeConverterContext>>
+    implements HashCodeEqualsDefinedTesting2<TreeConverterSharedToNumberOrExpressionNumber<?>> {
 
     @Test
     public void testWithNullConverterFails() {
-        assertThrows(NullPointerException.class, () -> ExpressionNumberConverterSharedToNumberOrExpressionNumber.with(null));
+        assertThrows(NullPointerException.class, () -> TreeConverterSharedToNumberOrExpressionNumber.with(null));
     }
 
     @Test
     public void testWithExpressionNumberToConverter() {
-        final ExpressionNumberConverterSharedToNumberOrExpressionNumber<ExpressionNumberConverterContext> converter = this.createConverter();
+        final TreeConverterSharedToNumberOrExpressionNumber<TreeConverterContext> converter = this.createConverter();
         assertSame(
             converter,
-            ExpressionNumberConverterSharedToNumberOrExpressionNumber.with(converter)
+            TreeConverterSharedToNumberOrExpressionNumber.with(converter)
         );
     }
 
@@ -125,23 +125,23 @@ public final class ExpressionNumberConverterSharedToNumberOrExpressionNumberTest
     private void convertFails3(final ExpressionNumberKind kind,
                                final String value,
                                final Class<?> type) {
-        final Converter<ExpressionNumberConverterContext> converter = ExpressionNumberConverters.toNumberOrExpressionNumber(
+        final Converter<TreeConverterContext> converter = TreeConverters.toNumberOrExpressionNumber(
             new FakeConverter<>() {
                 @Override
                 public boolean canConvert(final Object value,
                                           final Class<?> type,
-                                          final ExpressionNumberConverterContext context) {
+                                          final TreeConverterContext context) {
                     return false;
                 }
 
                 @Override
                 public <T> Either<T, String> convert(final Object value,
                                                      final Class<T> type,
-                                                     final ExpressionNumberConverterContext context) {
+                                                     final TreeConverterContext context) {
                     return this.failConversion(value, type);
                 }
             });
-        final ExpressionNumberConverterContext context = this.createContext(kind);
+        final TreeConverterContext context = this.createContext(kind);
         this.checkEquals(
             false,
             converter.canConvert(value, type, context)
@@ -226,8 +226,8 @@ public final class ExpressionNumberConverterSharedToNumberOrExpressionNumberTest
     @Test
     public void testConvertWithExpressionNumberConvertFromWithBigDecimalToExpressionNumber() {
         this.convertToExpressionNumberAndCheck(
-            ExpressionNumberConverterSharedToNumberOrExpressionNumber.with(
-                ExpressionNumberConverterSharedNumberOrExpressionNumberToNumber.instance()
+            TreeConverterSharedToNumberOrExpressionNumber.with(
+                TreeConverterSharedNumberOrExpressionNumberToNumber.instance()
                     .to(
                         Number.class,
                         Converters.numberToNumber()
@@ -244,7 +244,7 @@ public final class ExpressionNumberConverterSharedToNumberOrExpressionNumberTest
         );
     }
 
-    private void convertToExpressionNumberAndCheck(final ExpressionNumberConverterSharedToNumberOrExpressionNumber<ExpressionNumberConverterContext> converter,
+    private void convertToExpressionNumberAndCheck(final TreeConverterSharedToNumberOrExpressionNumber<TreeConverterContext> converter,
                                                    final Number number) {
         this.convertAndCheck2(
             converter,
@@ -312,7 +312,7 @@ public final class ExpressionNumberConverterSharedToNumberOrExpressionNumberTest
         );
     }
 
-    private void convertToBigDecimalAndCheck(final ExpressionNumberConverterSharedToNumberOrExpressionNumber<ExpressionNumberConverterContext> converter,
+    private void convertToBigDecimalAndCheck(final TreeConverterSharedToNumberOrExpressionNumber<TreeConverterContext> converter,
                                              final Number number) {
         final BigDecimal expected = ExpressionNumberKind.BIG_DECIMAL.create(number)
             .bigDecimal();
@@ -383,7 +383,7 @@ public final class ExpressionNumberConverterSharedToNumberOrExpressionNumberTest
         );
     }
 
-    private void convertToDoubleAndCheck(final ExpressionNumberConverterSharedToNumberOrExpressionNumber<ExpressionNumberConverterContext> converter,
+    private void convertToDoubleAndCheck(final TreeConverterSharedToNumberOrExpressionNumber<TreeConverterContext> converter,
                                          final Number number) {
         final double expected = ExpressionNumberKind.DOUBLE.create(number)
             .doubleValue();
@@ -405,7 +405,7 @@ public final class ExpressionNumberConverterSharedToNumberOrExpressionNumberTest
         );
     }
 
-    private <N> void convertAndCheck2(final Converter<ExpressionNumberConverterContext> converter,
+    private <N> void convertAndCheck2(final Converter<TreeConverterContext> converter,
                                       final ExpressionNumberKind kind,
                                       final Object from,
                                       final Class<N> target,
@@ -436,8 +436,8 @@ public final class ExpressionNumberConverterSharedToNumberOrExpressionNumberTest
     }
 
     @Override
-    public ExpressionNumberConverterSharedToNumberOrExpressionNumber<ExpressionNumberConverterContext> createConverter() {
-        return ExpressionNumberConverterSharedToNumberOrExpressionNumber.with(
+    public TreeConverterSharedToNumberOrExpressionNumber<TreeConverterContext> createConverter() {
+        return TreeConverterSharedToNumberOrExpressionNumber.with(
             Converters.numberToNumber()
         );
     }
@@ -447,9 +447,9 @@ public final class ExpressionNumberConverterSharedToNumberOrExpressionNumberTest
     @Test
     public void testToString() {
         this.toStringAndCheck(
-            ExpressionNumberConverterSharedToNumberOrExpressionNumber.with(Converters.fake()
+            TreeConverterSharedToNumberOrExpressionNumber.with(Converters.fake()
                 .setToString("Custom")
-                .cast(ExpressionNumberConverterContext.class)),
+                .cast(TreeConverterContext.class)),
             "Custom | " + ExpressionNumber.class.getSimpleName()
         );
     }
@@ -459,15 +459,15 @@ public final class ExpressionNumberConverterSharedToNumberOrExpressionNumberTest
     @Test
     public void testEqualsDifferentConverter() {
         this.checkNotEquals(
-            ExpressionNumberConverterSharedToNumberOrExpressionNumber.with(
+            TreeConverterSharedToNumberOrExpressionNumber.with(
                 Converters.fake()
             )
         );
     }
 
     @Override
-    public ExpressionNumberConverterSharedToNumberOrExpressionNumber<ExpressionNumberConverterContext> createObject() {
-        return ExpressionNumberConverterSharedToNumberOrExpressionNumber.with(
+    public TreeConverterSharedToNumberOrExpressionNumber<TreeConverterContext> createObject() {
+        return TreeConverterSharedToNumberOrExpressionNumber.with(
             Converters.numberToNumber()
         );
     }
@@ -475,7 +475,7 @@ public final class ExpressionNumberConverterSharedToNumberOrExpressionNumberTest
     // Class............................................................................................................
 
     @Override
-    public Class<ExpressionNumberConverterSharedToNumberOrExpressionNumber<ExpressionNumberConverterContext>> type() {
-        return Cast.to(ExpressionNumberConverterSharedToNumberOrExpressionNumber.class);
+    public Class<TreeConverterSharedToNumberOrExpressionNumber<TreeConverterContext>> type() {
+        return Cast.to(TreeConverterSharedToNumberOrExpressionNumber.class);
     }
 }

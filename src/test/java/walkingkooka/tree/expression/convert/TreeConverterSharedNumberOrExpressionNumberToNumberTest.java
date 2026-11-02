@@ -24,8 +24,7 @@ import walkingkooka.tree.expression.ExpressionNumberKind;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 
-public final class ExpressionNumberConverterSharedNumberOrExpressionNumberToNumberTest extends ExpressionNumberConverterSharedTestCase<ExpressionNumberConverterSharedNumberOrExpressionNumberToNumber<ExpressionNumberConverterContext>> {
-
+public final class TreeConverterSharedNumberOrExpressionNumberToNumberTest extends TreeConverterSharedTestCase<TreeConverterSharedNumberOrExpressionNumberToNumber<TreeConverterContext>> {
 
     // convert from ExpressionNumber....................................................................................
 
@@ -204,13 +203,13 @@ public final class ExpressionNumberConverterSharedNumberOrExpressionNumberToNumb
     }
 
     @Override
-    public ExpressionNumberConverterSharedNumberOrExpressionNumberToNumber<ExpressionNumberConverterContext> createConverter() {
-        return ExpressionNumberConverterSharedNumberOrExpressionNumberToNumber.instance();
+    public TreeConverterSharedNumberOrExpressionNumberToNumber<TreeConverterContext> createConverter() {
+        return TreeConverterSharedNumberOrExpressionNumberToNumber.instance();
     }
 
     @Override
-    public Class<ExpressionNumberConverterSharedNumberOrExpressionNumberToNumber<ExpressionNumberConverterContext>> type() {
-        return Cast.to(ExpressionNumberConverterSharedNumberOrExpressionNumberToNumber.class);
+    public Class<TreeConverterSharedNumberOrExpressionNumberToNumber<TreeConverterContext>> type() {
+        return Cast.to(TreeConverterSharedNumberOrExpressionNumberToNumber.class);
     }
 
     // toString.........................................................................................................

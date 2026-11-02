@@ -31,9 +31,9 @@ import walkingkooka.tree.expression.ExpressionNumberKind;
 import java.math.BigInteger;
 import java.math.MathContext;
 
-public final class BasicMultiplyBinaryNumberConverterFunctionTest implements BinaryNumberConverterFunctionTesting2<BasicMultiplyBinaryNumberConverterFunction<FakeExpressionNumberConverterContext>, FakeExpressionNumberConverterContext>,
-    ClassTesting<BasicMultiplyBinaryNumberConverterFunction<FakeExpressionNumberConverterContext>>,
-    ToStringTesting<BasicMultiplyBinaryNumberConverterFunction<FakeExpressionNumberConverterContext>> {
+public final class BasicMultiplyBinaryNumberConverterFunctionTest implements BinaryNumberConverterFunctionTesting2<BasicMultiplyBinaryNumberConverterFunction<FakeTreeConverterContext>, FakeTreeConverterContext>,
+    ClassTesting<BasicMultiplyBinaryNumberConverterFunction<FakeTreeConverterContext>>,
+    ToStringTesting<BasicMultiplyBinaryNumberConverterFunction<FakeTreeConverterContext>> {
 
     private final static ExpressionNumberKind KIND = ExpressionNumberKind.BIG_DECIMAL;
 
@@ -122,13 +122,13 @@ public final class BasicMultiplyBinaryNumberConverterFunctionTest implements Bin
     }
 
     @Override
-    public BasicMultiplyBinaryNumberConverterFunction<FakeExpressionNumberConverterContext> createBinaryNumberConverterFunction() {
+    public BasicMultiplyBinaryNumberConverterFunction<FakeTreeConverterContext> createBinaryNumberConverterFunction() {
         return BasicMultiplyBinaryNumberConverterFunction.instance();
     }
 
     @Override
-    public FakeExpressionNumberConverterContext createContext() {
-        return new FakeExpressionNumberConverterContext() {
+    public FakeTreeConverterContext createContext() {
+        return new FakeTreeConverterContext() {
 
             @Override
             public ExpressionNumberKind expressionNumberKind() {
@@ -150,7 +150,7 @@ public final class BasicMultiplyBinaryNumberConverterFunctionTest implements Bin
                 );
             }
 
-            private final Converter<FakeExpressionNumberConverterContext> converter = ExpressionNumberConverters.numberToNumber();
+            private final Converter<FakeTreeConverterContext> converter = TreeConverters.numberToNumber();
         };
     }
 
@@ -167,7 +167,7 @@ public final class BasicMultiplyBinaryNumberConverterFunctionTest implements Bin
     // class............................................................................................................
 
     @Override
-    public Class<BasicMultiplyBinaryNumberConverterFunction<FakeExpressionNumberConverterContext>> type() {
+    public Class<BasicMultiplyBinaryNumberConverterFunction<FakeTreeConverterContext>> type() {
         return Cast.to(BasicMultiplyBinaryNumberConverterFunction.class);
     }
 

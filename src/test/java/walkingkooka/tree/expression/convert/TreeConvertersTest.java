@@ -17,23 +17,18 @@
 
 package walkingkooka.tree.expression.convert;
 
-import walkingkooka.convert.ConverterContext;
-import walkingkooka.convert.ConverterContextDelegator;
-import walkingkooka.tree.expression.ExpressionNumberKind;
+import walkingkooka.reflect.PublicStaticHelperTesting;
 
-public interface ExpressionNumberConverterContextDelegator extends ExpressionNumberConverterContext,
-    ConverterContextDelegator {
+import java.lang.reflect.Method;
 
+public final class TreeConvertersTest implements PublicStaticHelperTesting<TreeConverters> {
     @Override
-    default ConverterContext converterContext() {
-        return this.expressionNumberConverterContext();
+    public boolean canHavePublicTypes(final Method method) {
+        return false;
     }
 
     @Override
-    default ExpressionNumberKind expressionNumberKind() {
-        return this.expressionNumberConverterContext()
-            .expressionNumberKind();
+    public Class<TreeConverters> type() {
+        return TreeConverters.class;
     }
-
-    ExpressionNumberConverterContext expressionNumberConverterContext();
 }

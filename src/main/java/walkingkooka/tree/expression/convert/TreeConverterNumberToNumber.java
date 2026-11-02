@@ -29,18 +29,18 @@ import walkingkooka.tree.expression.ExpressionNumberKind;
  * {@link Number} including {@link ExpressionNumber}. If the target is {@link Number} the original {@link Number} will
  * be returned.
  */
-final class ExpressionNumberConverterNumberToNumber<C extends ExpressionNumberConverterContext> extends ExpressionNumberConverter<C> {
+final class TreeConverterNumberToNumber<C extends TreeConverterContext> extends TreeConverter<C> {
 
     /**
      * Type safe singleton getter
      */
-    static <C extends ExpressionNumberConverterContext> ExpressionNumberConverterNumberToNumber<C> instance() {
+    static <C extends TreeConverterContext> TreeConverterNumberToNumber<C> instance() {
         return Cast.to(INSTANCE);
     }
 
-    private final static ExpressionNumberConverterNumberToNumber<?> INSTANCE = new ExpressionNumberConverterNumberToNumber<>();
+    private final static TreeConverterNumberToNumber<?> INSTANCE = new TreeConverterNumberToNumber<>();
 
-    private ExpressionNumberConverterNumberToNumber() {
+    private TreeConverterNumberToNumber() {
     }
 
     @Override

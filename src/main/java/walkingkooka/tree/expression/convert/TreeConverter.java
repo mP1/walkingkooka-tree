@@ -17,7 +17,20 @@
 
 package walkingkooka.tree.expression.convert;
 
-import walkingkooka.convert.ConverterContextTesting;
+import walkingkooka.convert.ShortCircuitingConverter;
 
-public interface ExpressionNumberConverterContextTesting extends ConverterContextTesting {
+
+abstract class TreeConverter<C extends TreeConverterContext> implements ShortCircuitingConverter<C> {
+
+    /**
+     * Package private to limit sub-classing.
+     */
+    TreeConverter() {
+        super();
+    }
+
+    /**
+     * Force subclasses to implement.
+     */
+    abstract public String toString();
 }

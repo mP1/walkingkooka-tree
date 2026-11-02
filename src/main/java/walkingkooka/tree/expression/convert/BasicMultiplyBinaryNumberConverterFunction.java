@@ -27,12 +27,12 @@ import java.util.Objects;
  * A {@link BinaryNumberConverterFunction} that first converts each of the two number parameters to the requested {@link Number},
  * including {@link ExpressionNumber} and then multiplies both numbers.
  */
-final class BasicMultiplyBinaryNumberConverterFunction<C extends ExpressionNumberConverterContext> implements BinaryNumberConverterFunction<C> {
+final class BasicMultiplyBinaryNumberConverterFunction<C extends TreeConverterContext> implements BinaryNumberConverterFunction<C> {
 
     /**
      * Type safe getter
      */
-    static <C extends ExpressionNumberConverterContext> BasicMultiplyBinaryNumberConverterFunction<C> instance() {
+    static <C extends TreeConverterContext> BasicMultiplyBinaryNumberConverterFunction<C> instance() {
         return INSTANCE;
     }
 
