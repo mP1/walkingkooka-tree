@@ -17,10 +17,47 @@
 
 package walkingkooka.tree.expression.convert;
 
+import org.junit.jupiter.api.Test;
 import walkingkooka.reflect.PublicClassTesting;
+import walkingkooka.tree.expression.HasExpressionNumberKindTesting;
+
+import java.math.MathContext;
 
 public final class TreeConverterContextTestingTest implements TreeConverterContextTesting,
-    PublicClassTesting<TreeConverterContextTesting> {
+    PublicClassTesting<TreeConverterContextTesting>,
+    HasExpressionNumberKindTesting {
+
+    // multiplyToExpressionNumber.......................................................................................
+
+    @Test
+    public void testMultiplyToExpressionNumberAndCheck() {
+        this.multiplyToExpressionNumberAndCheck(
+            new FakeTreeConverterContext() {
+                @Override
+                public <N extends Number> N multiply(final Number left,
+                                                     final Number right,
+                                                     final Class<N> type) {
+                    return type.cast(
+                        EXPRESSION_NUMBER_KIND.create(left)
+                            .multiply(
+                                EXPRESSION_NUMBER_KIND.create(right),
+                                this
+                            )
+                    );
+                }
+
+                @Override
+                public MathContext mathContext() {
+                    return MATH_CONTEXT;
+                }
+            },
+            12,
+            34,
+            EXPRESSION_NUMBER_KIND.create(12 * 34)
+        );
+    }
+
+    // class............................................................................................................
 
     @Override
     public Class<TreeConverterContextTesting> type() {

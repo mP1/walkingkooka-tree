@@ -19,7 +19,20 @@ package walkingkooka.tree.expression.convert;
 
 import walkingkooka.convert.ConverterContext;
 import walkingkooka.tree.expression.DateTimeExpressionNumberContext;
+import walkingkooka.tree.expression.ExpressionNumber;
 
 public interface TreeConverterContext extends ConverterContext,
     DateTimeExpressionNumberContext {
+
+    /**
+     * Helper that assumes a {@link ExpressionNumber} result.
+     */
+    default ExpressionNumber multiplyToExpressionNumber(final Number left,
+                                                        final Number right) {
+        return this.multiply(
+            left,
+            right,
+            ExpressionNumber.class
+        );
+    }
 }
