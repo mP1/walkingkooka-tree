@@ -18,6 +18,22 @@
 package walkingkooka.tree.expression.convert;
 
 import walkingkooka.convert.ConverterContextTesting;
+import walkingkooka.tree.expression.ExpressionNumber;
 
 public interface TreeConverterContextTesting extends ConverterContextTesting {
+
+    // multiplyToExpressionNumber.......................................................................................
+
+    default void multiplyToExpressionNumberAndCheck(final TreeConverterContext context,
+                                                    final Number left,
+                                                    final Number right,
+                                                    final ExpressionNumber expected) {
+        this.multiplyAndCheck(
+            context,
+            left,
+            right,
+            ExpressionNumber.class,
+            expected
+        );
+    }
 }
