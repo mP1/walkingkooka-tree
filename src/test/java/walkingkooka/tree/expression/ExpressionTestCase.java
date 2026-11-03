@@ -458,7 +458,7 @@ public abstract class ExpressionTestCase<N extends Expression> implements TreePr
                     public boolean canConvert(final Object value,
                                               final Class<?> type,
                                               final TreeConverterContext context) {
-                        return value instanceof ExpressionNumber && ExpressionNumber.class == type;
+                        return value instanceof Number && ExpressionNumber.class == type;
                     }
 
                     @Override
@@ -466,7 +466,10 @@ public abstract class ExpressionTestCase<N extends Expression> implements TreePr
                                                          final Class<T> type,
                                                          final TreeConverterContext context) {
                         return this.canConvert(value, type, context) ?
-                            Cast.to(Either.left(this.toExpressionNumber((ExpressionNumber) value))) :
+                            this.successfulConversion(
+                                EXPRESSION_NUMBER_KIND.create((Number) value),
+                                type
+                            ) :
                             this.failConversion(value, type);
                     }
 
