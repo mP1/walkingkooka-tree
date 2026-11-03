@@ -129,7 +129,7 @@ public final class EqualsExpressionTest extends CompareExpressionTestCase<Equals
     // Text.............................................................................................................
 
     @Test
-    public void testToBooleanTextExpressionNumber() {
+    public void testToBooleanTextExpressionNumberWithIntegersDifferent() {
         // left eq right == truthy expressionNumber
         this.toBooleanAndCheck(
             this.createExpression(
@@ -140,12 +140,54 @@ public final class EqualsExpressionTest extends CompareExpressionTestCase<Equals
     }
 
     @Test
-    public void testToBooleanTextExpressionNumber2() {
+    public void testToBooleanTextExpressionNumberWithIntegersSame() {
         // left eq right == truthy expressionNumber
         this.toBooleanAndCheck(
             this.createExpression(
                 text(12),
                 expressionNumber(12)
+            ), true
+        );
+    }
+
+    @Test
+    public void testToBooleanTextExpressionNumberWithExpressionNumberDifferent() {
+        this.toBooleanAndCheck(
+            this.createExpression(
+                Expression.value(
+                    EXPRESSION_NUMBER_KIND.create(12)
+                ),
+                Expression.value(
+                    EXPRESSION_NUMBER_KIND.create(34)
+                )
+            ), false
+        );
+    }
+
+    @Test
+    public void testToBooleanTextExpressionNumberWithExpressionNumberAndIntegerSame() {
+        this.toBooleanAndCheck(
+            this.createExpression(
+                Expression.value(
+                    EXPRESSION_NUMBER_KIND.create(12)
+                ),
+                Expression.value(
+                    12
+                )
+            ), true
+        );
+    }
+
+    @Test
+    public void testToBooleanTextExpressionNumberWithExpressionNumberAndDoubleSame2() {
+        this.toBooleanAndCheck(
+            this.createExpression(
+                Expression.value(
+                    EXPRESSION_NUMBER_KIND.create(12.5)
+                ),
+                Expression.value(
+                    12.5
+                )
             ), true
         );
     }

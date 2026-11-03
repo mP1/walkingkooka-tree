@@ -151,6 +151,36 @@ public final class LessThanEqualsExpressionTest extends CompareExpressionTestCas
     }
 
     @Test
+    public void testToBooleanTextWithIntegerAndDoubleLess() {
+        this.toBooleanAndCheck(
+            this.createExpression(
+                Expression.value(12),
+                Expression.value(34.0)
+            ), true
+        );
+    }
+
+    @Test
+    public void testToBooleanTextWithIntegerAndDoubleSame() {
+        this.toBooleanAndCheck(
+            this.createExpression(
+                Expression.value(12),
+                Expression.value(12.0)
+            ), true
+        );
+    }
+
+    @Test
+    public void testToBooleanTextWithIntegerAndDoubleMore() {
+        this.toBooleanAndCheck(
+            this.createExpression(
+                Expression.value(12),
+                Expression.value(3.0)
+            ), false
+        );
+    }
+
+    @Test
     public void testToBooleanTextText() {
         // left lte right == truthy expressionNumber
         this.toBooleanAndCheck(

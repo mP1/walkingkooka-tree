@@ -63,15 +63,35 @@ public abstract class CompareExpression extends BinaryExpression {
                 context
             );
         } else {
-            if (!(left instanceof Comparable)) {
+            if (false == (left instanceof Comparable)) {
                 throw new IllegalArgumentException(left + " is not comparable");
             }
 
-            final Class<Comparable<?>> leftClass = Cast.to(left.getClass());
+            Object leftComparable;
+            Object rightComparable;
+
+            // convert left and right to Expression before comparing
+            if (left instanceof Number) {
+                leftComparable = context.convertOrFail(
+                    left,
+                    ExpressionNumber.class
+                );
+                rightComparable = context.convertOrFail(
+                    right,
+                    ExpressionNumber.class
+                );
+            } else {
+                leftComparable = left;
+                rightComparable = context.convertOrFail(
+                    right,
+                    left.getClass()
+                );
+            }
+
             result = this.applyNonText(
                 compare,
-                Cast.to(left),
-                Cast.to(context.convertOrFail(right, leftClass))
+                Cast.to(leftComparable),
+                Cast.to(rightComparable)
             );
         }
 
