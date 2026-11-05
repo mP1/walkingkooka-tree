@@ -399,7 +399,7 @@ public final class ExpressionFunctionsTest implements PublicStaticHelperTesting<
                         ',', // valueSeparator
                         Converters.collection(
                             Lists.of(
-                                Converters.characterOrCharSequenceOrHasTextOrStringToCharacterOrCharSequenceOrString(),
+                                Converters.toText(),
                                 Converters.simple(),
                                 Converters.textToCurrencyCode(),
                                 new ShortCircuitingConverter<>() {

@@ -395,7 +395,7 @@ public abstract class ExpressionTestCase<N extends Expression> implements TreePr
             Converters.collection(
                 Lists.of(
                     Converters.simple(),
-                    Converters.characterOrCharSequenceOrHasTextOrStringToCharacterOrCharSequenceOrString()
+                    Converters.toText()
                 )
             ),
             EXPRESSION_NUMBER_KIND,
@@ -452,7 +452,7 @@ public abstract class ExpressionTestCase<N extends Expression> implements TreePr
         final Converter<TreeConverterContext> converters = Converters.collection(
             Lists.of(
                 Converters.simple(),
-                Converters.characterOrCharSequenceOrHasTextOrStringToCharacterOrCharSequenceOrString(),
+                Converters.toText(),
                 new FakeConverter<>() {
                     @Override
                     public boolean canConvert(final Object value,
