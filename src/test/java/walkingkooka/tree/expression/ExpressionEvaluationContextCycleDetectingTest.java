@@ -375,7 +375,7 @@ public final class ExpressionEvaluationContextCycleDetectingTest implements Clas
                                 false, // canNumbersHaveGroupSeparator
                                 Converters.JAVA_EPOCH_OFFSET, // dateOffset
                                 ',', // valueSeparator
-                                Converters.characterOrCharSequenceOrHasTextOrStringToCharacterOrCharSequenceOrString(),
+                                Converters.toText(),
                                 BinaryNumberConverterFunctions.fake(), // multiplier
                                 BINARY_TEXT_CONTEXT,
                                 CurrencyLocaleContexts.fake(),
