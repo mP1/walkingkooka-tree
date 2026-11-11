@@ -18,12 +18,9 @@
 package walkingkooka.tree.select.parser;
 
 import walkingkooka.naming.NameTesting2;
-import walkingkooka.reflect.ClassTesting2;
-import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.text.CaseSensitivity;
 
-final public class NodeSelectorFunctionNameTest implements ClassTesting2<NodeSelectorFunctionName>,
-    NameTesting2<NodeSelectorFunctionName, NodeSelectorFunctionName> {
+final public class NodeSelectorFunctionNameTest implements NameTesting2<NodeSelectorFunctionName, NodeSelectorFunctionName> {
 
     @Override
     public NodeSelectorFunctionName createName(final String name) {
@@ -75,10 +72,5 @@ final public class NodeSelectorFunctionNameTest implements ClassTesting2<NodeSel
     @Override
     public Class<NodeSelectorFunctionName> type() {
         return NodeSelectorFunctionName.class;
-    }
-
-    @Override
-    public JavaVisibility typeVisibility() {
-        return JavaVisibility.PUBLIC;
     }
 }

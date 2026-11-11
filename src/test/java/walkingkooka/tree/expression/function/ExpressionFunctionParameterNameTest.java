@@ -20,9 +20,7 @@ package walkingkooka.tree.expression.function;
 import org.junit.jupiter.api.Test;
 import walkingkooka.collect.set.Sets;
 import walkingkooka.naming.NameTesting2;
-import walkingkooka.reflect.ClassTesting2;
 import walkingkooka.reflect.ConstantsTesting;
-import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.text.CaseSensitivity;
 
 import java.util.Set;
@@ -30,8 +28,7 @@ import java.util.Set;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class ExpressionFunctionParameterNameTest implements ClassTesting2<ExpressionFunctionParameterName>,
-    ConstantsTesting<ExpressionFunctionParameterName>,
+public final class ExpressionFunctionParameterNameTest implements ConstantsTesting<ExpressionFunctionParameterName>,
     NameTesting2<ExpressionFunctionParameterName, ExpressionFunctionParameterName> {
 
     @Test
@@ -152,16 +149,11 @@ public final class ExpressionFunctionParameterNameTest implements ClassTesting2<
         return NameTesting2.subtract(ASCII, this.possibleValidChars(position));
     }
 
-    // ClassTesting....................................................................................................
+    // class............................................................................................................
 
     @Override
     public Class<ExpressionFunctionParameterName> type() {
         return ExpressionFunctionParameterName.class;
-    }
-
-    @Override
-    public JavaVisibility typeVisibility() {
-        return JavaVisibility.PUBLIC;
     }
 
     // ConstantsTesting................................................................................................
