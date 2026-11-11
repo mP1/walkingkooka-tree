@@ -22,8 +22,6 @@ import walkingkooka.collect.list.Lists;
 import walkingkooka.logging.HasLoggerPathTesting;
 import walkingkooka.logging.LoggerPath;
 import walkingkooka.naming.NameTesting2;
-import walkingkooka.reflect.ClassTesting2;
-import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.text.CaseSensitivity;
 import walkingkooka.text.cursor.TextCursor;
 import walkingkooka.text.cursor.TextCursorSavePoint;
@@ -37,8 +35,7 @@ import static org.junit.jupiter.api.Assertions.assertNotSame;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-public final class ExpressionFunctionNameTest implements ClassTesting2<ExpressionFunctionName>,
-    NameTesting2<ExpressionFunctionName, ExpressionFunctionName>,
+public final class ExpressionFunctionNameTest implements NameTesting2<ExpressionFunctionName, ExpressionFunctionName>,
     HasLoggerPathTesting {
 
     // DEFAULT_CASE_SENSITIVITY.........................................................................................
@@ -286,10 +283,5 @@ public final class ExpressionFunctionNameTest implements ClassTesting2<Expressio
     @Override
     public Class<ExpressionFunctionName> type() {
         return ExpressionFunctionName.class;
-    }
-
-    @Override
-    public JavaVisibility typeVisibility() {
-        return JavaVisibility.PUBLIC;
     }
 }
