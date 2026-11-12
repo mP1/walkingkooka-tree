@@ -34,7 +34,7 @@ public abstract class TreeConverterTestCase<C extends TreeConverter<TreeConverte
     BinaryTextContextTesting,
     DecimalNumberContextTesting,
     HasExpressionNumberKindTesting,
-    ToStringTesting<C> {
+    ToStringTesting {
 
     TreeConverterTestCase() {
         super();

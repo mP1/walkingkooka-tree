@@ -44,7 +44,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class ExpressionFunctionParameterTest implements HashCodeEqualsDefinedTesting2<ExpressionFunctionParameter<String>>,
     ConstantsTesting<ExpressionFunctionParameter<String>>,
-    ToStringTesting<ExpressionFunctionParameter<String>> {
+    ToStringTesting {
 
     private final static ExpressionFunctionParameterName NAME = ExpressionFunctionParameterName.with("name");
 

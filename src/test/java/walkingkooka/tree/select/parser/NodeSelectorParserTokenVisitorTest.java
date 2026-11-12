@@ -26,10 +26,6 @@ public final class NodeSelectorParserTokenVisitorTest implements NodeSelectorPar
     }
 
     @Override
-    public void testCheckToStringOverridden() {
-    }
-
-    @Override
     public NodeSelectorParserTokenVisitor createVisitor() {
         return new NodeSelectorParserTokenVisitor() {
         };

@@ -26,10 +26,6 @@ import walkingkooka.tree.select.parser.NodeSelectorVisitorTesting;
 public final class NodeSelectorVisitorTest implements NodeSelectorVisitorTesting<NodeSelectorVisitor<TestNode, StringName, StringName, Object>, TestNode, StringName, StringName, Object> {
 
     @Override
-    public void testCheckToStringOverridden() {
-    }
-
-    @Override
     public NodeSelectorVisitor<TestNode, StringName, StringName, Object> createVisitor() {
         return new FakeNodeSelectorVisitor<>();
     }

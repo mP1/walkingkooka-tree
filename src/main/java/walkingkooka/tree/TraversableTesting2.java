@@ -37,7 +37,7 @@ public interface TraversableTesting2<T extends Traversable<T>>
     extends BeanPropertiesTesting,
     CanBeEmptyTesting,
     HashCodeEqualsDefinedTesting2<T>,
-    ToStringTesting<T>,
+    ToStringTesting,
     TraversableTesting,
     TypeNameTesting<T> {
 

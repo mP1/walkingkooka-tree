@@ -26,7 +26,7 @@ import walkingkooka.reflect.JavaVisibility;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class ExpressionNumberContextBasicTest implements ClassTesting<ExpressionNumberContextBasic>,
-    ToStringTesting<ExpressionNumberContextBasic>,
+    ToStringTesting,
     HasExpressionNumberKindTesting,
     DecimalNumberContextTesting {
 

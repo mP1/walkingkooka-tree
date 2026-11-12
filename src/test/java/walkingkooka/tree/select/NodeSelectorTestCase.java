@@ -74,7 +74,7 @@ abstract public class NodeSelectorTestCase<S extends NodeSelector<TestNode, Stri
     EnvironmentContextTesting,
     HashCodeEqualsDefinedTesting2<S>,
     HasExpressionNumberKindTesting,
-    ToStringTesting<S>,
+    ToStringTesting,
     TypeNameTesting<S> {
 
     NodeSelectorTestCase() {

@@ -31,7 +31,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class LambdasExpressionNumberFunctionTest implements ExpressionNumberFunctionTesting2<LambdasExpressionNumberFunction>,
     ClassTesting<LambdasExpressionNumberFunction>,
-    ToStringTesting<LambdasExpressionNumberFunction> {
+    ToStringTesting {
 
     private final static BiFunction<BigDecimal, MathContext, BigDecimal> BIG_DECIMAL = (b, c) -> b.multiply(BigDecimal.TEN);
     private final static DoubleUnaryOperator DOUBLE = (d) -> d * 3;
