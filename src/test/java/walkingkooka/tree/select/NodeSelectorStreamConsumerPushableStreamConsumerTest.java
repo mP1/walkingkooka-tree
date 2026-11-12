@@ -33,7 +33,7 @@ import java.util.function.Consumer;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class NodeSelectorStreamConsumerPushableStreamConsumerTest implements ClassTesting2<NodeSelectorStreamConsumerPushableStreamConsumer<TestNode, StringName, StringName, Object>>,
-    ToStringTesting<NodeSelectorStreamConsumerPushableStreamConsumer<TestNode, StringName, StringName, Object>>,
+    ToStringTesting,
     TypeNameTesting<NodeSelectorStreamConsumerPushableStreamConsumer<TestNode, StringName, StringName, Object>> {
 
     @BeforeEach

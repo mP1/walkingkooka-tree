@@ -37,7 +37,7 @@ import java.math.MathContext;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class TreeConverterContextBasicTest implements TreeConverterContextTesting2<TreeConverterContextBasic>,
-    ToStringTesting<TreeConverterContextBasic>,
+    ToStringTesting,
     CurrencyLocaleContextTesting,
     DateTimeContextTesting,
     DecimalNumberContextDelegator,

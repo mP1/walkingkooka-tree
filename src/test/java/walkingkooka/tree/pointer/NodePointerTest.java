@@ -40,7 +40,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 public final class NodePointerTest implements ClassTesting2<NodePointer<TestNode, StringName>>,
     ParseStringTesting<NodePointer<TestNode, StringName>>,
     TreePrintableTesting,
-    ToStringTesting<NodePointer<TestNode, StringName>> {
+    ToStringTesting {
 
     private final static StringName ABC = Names.string("abc");
     private final static StringName DEF = Names.string("def");

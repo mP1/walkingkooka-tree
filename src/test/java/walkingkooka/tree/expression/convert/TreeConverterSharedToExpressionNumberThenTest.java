@@ -33,7 +33,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class TreeConverterSharedToExpressionNumberThenTest implements ConverterTesting2<TreeConverterSharedToExpressionNumberThen<TreeConverterContext>, TreeConverterContext>,
     HashCodeEqualsDefinedTesting2<TreeConverterSharedToExpressionNumberThen<TreeConverterContext>>,
-    ToStringTesting<TreeConverterSharedToExpressionNumberThen<TreeConverterContext>> {
+    ToStringTesting {
 
     private final static String STRING_TO_EXPRESSION_NUMBER = "String to ExpressionNumber";
 

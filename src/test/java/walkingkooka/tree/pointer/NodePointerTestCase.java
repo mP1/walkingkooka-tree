@@ -33,7 +33,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public abstract class NodePointerTestCase<N extends NodePointer<TestNode, StringName>> implements ClassTesting2<N>,
     HashCodeEqualsDefinedTesting2<N>,
-    ToStringTesting<N>,
+    ToStringTesting,
     TypeNameTesting<N> {
 
     NodePointerTestCase() {

@@ -33,7 +33,7 @@ import java.math.MathContext;
 
 public final class BasicMultiplyBinaryNumberConverterFunctionTest implements BinaryNumberConverterFunctionTesting2<BasicMultiplyBinaryNumberConverterFunction<FakeTreeConverterContext>, FakeTreeConverterContext>,
     ClassTesting<BasicMultiplyBinaryNumberConverterFunction<FakeTreeConverterContext>>,
-    ToStringTesting<BasicMultiplyBinaryNumberConverterFunction<FakeTreeConverterContext>> {
+    ToStringTesting {
 
     private final static ExpressionNumberKind KIND = ExpressionNumberKind.BIG_DECIMAL;
 

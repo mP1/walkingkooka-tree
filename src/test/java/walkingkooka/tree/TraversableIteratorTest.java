@@ -32,7 +32,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class TraversableIteratorTest implements ClassTesting2<TraversableIterator<TestNode>>,
     IteratorTesting,
-    ToStringTesting<TraversableIterator<TestNode>>,
+    ToStringTesting,
     TypeNameTesting<TraversableIterator<TestNode>> {
 
     @BeforeEach

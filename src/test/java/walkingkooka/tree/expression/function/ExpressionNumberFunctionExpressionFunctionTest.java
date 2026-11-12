@@ -38,7 +38,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class ExpressionNumberFunctionExpressionFunctionTest implements ExpressionFunctionTesting2<ExpressionNumberFunctionExpressionFunction<FakeExpressionEvaluationContext>, ExpressionNumber, FakeExpressionEvaluationContext>,
     ExpressionPurityTesting,
-    ToStringTesting<ExpressionNumberFunctionExpressionFunction<FakeExpressionEvaluationContext>> {
+    ToStringTesting {
 
     private final static Optional<ExpressionFunctionName> NAME = Optional.of(
         ExpressionFunctionName.with("test")
