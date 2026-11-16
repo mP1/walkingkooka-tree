@@ -26,10 +26,6 @@ import walkingkooka.convert.ConverterContexts;
 import walkingkooka.convert.Converters;
 import walkingkooka.currency.CurrencyLocaleContexts;
 import walkingkooka.datetime.DateTimeContextTesting;
-import walkingkooka.locale.LocaleContexts;
-import walkingkooka.logging.CanLogs;
-import walkingkooka.logging.LoggingContexts;
-import walkingkooka.logging.LoggingLevel;
 import walkingkooka.math.DecimalNumberContext;
 import walkingkooka.math.DecimalNumberContextDelegator;
 import walkingkooka.naming.Names;
@@ -45,7 +41,6 @@ import walkingkooka.tree.expression.convert.TreeConverterContexts;
 import walkingkooka.tree.select.parser.NodeSelectorAttributeName;
 
 import java.math.MathContext;
-import java.util.Locale;
 import java.util.Objects;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -148,8 +143,6 @@ public final class NodeSelectorExpressionEvaluationContextBasicTest implements N
     }
 
     private NodeSelectorExpressionEvaluationContextBasic<TestNode, StringName, StringName, Object> createContext(final TestNode node) {
-        final Locale locale = Locale.ENGLISH;
-
         return NodeSelectorExpressionEvaluationContextBasic.with(
             node,
             ExpressionEvaluationContexts.basic(
@@ -186,11 +179,8 @@ public final class NodeSelectorExpressionEvaluationContextBasicTest implements N
                         DECIMAL_NUMBER_CONTEXT
                     )
                 ),
-                LocaleContexts.jre(locale),
-                LoggingContexts.canLog(
-                    LoggingLevel.NONE,
-                    CanLogs.nullCanLog()
-                )
+                LOCALE_CONTEXT,
+                LOGGING_CONTEXT
             )
         );
     }
