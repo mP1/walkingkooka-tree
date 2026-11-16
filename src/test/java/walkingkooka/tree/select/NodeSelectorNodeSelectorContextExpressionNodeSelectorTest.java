@@ -19,7 +19,6 @@ package walkingkooka.tree.select;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.Cast;
-import walkingkooka.environment.EnvironmentContextTesting;
 import walkingkooka.naming.StringName;
 import walkingkooka.text.CharSequences;
 import walkingkooka.tree.TestNode;
@@ -30,8 +29,7 @@ import static org.junit.jupiter.api.Assertions.assertNotSame;
 import static org.junit.jupiter.api.Assertions.assertSame;
 
 public final class NodeSelectorNodeSelectorContextExpressionNodeSelectorTest extends NodeSelectorNodeSelectorContextTestCase<NodeSelectorNodeSelectorContextExpressionNodeSelector<TestNode, StringName, StringName, Object>,
-    TestNode, StringName, StringName, Object>
-    implements EnvironmentContextTesting {
+    TestNode, StringName, StringName, Object> {
 
     private final static int INDEX = 5;
 

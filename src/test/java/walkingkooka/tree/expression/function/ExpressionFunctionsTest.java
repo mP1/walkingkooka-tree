@@ -30,9 +30,9 @@ import walkingkooka.convert.ShortCircuitingConverter;
 import walkingkooka.currency.CurrencyCode;
 import walkingkooka.currency.CurrencyLocaleContextTesting;
 import walkingkooka.datetime.DateTimeContexts;
-import walkingkooka.environment.EnvironmentContexts;
 import walkingkooka.locale.LocaleContexts;
 import walkingkooka.locale.LocaleLanguageTag;
+import walkingkooka.logging.LoggingContexts;
 import walkingkooka.math.DecimalNumberContextTesting;
 import walkingkooka.reflect.PublicStaticHelperTesting;
 import walkingkooka.reflect.ThrowableTesting;
@@ -437,8 +437,8 @@ public final class ExpressionFunctionsTest implements PublicStaticHelperTesting<
                         DateTimeContexts.fake(),
                         DECIMAL_NUMBER_CONTEXT
                     ),
-                    EnvironmentContexts.fake(),
-                    LocaleContexts.fake()
+                    LocaleContexts.fake(),
+                    LoggingContexts.fake()
                 )
             )
         );

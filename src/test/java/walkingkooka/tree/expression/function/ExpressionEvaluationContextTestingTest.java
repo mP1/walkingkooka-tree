@@ -21,18 +21,16 @@ import org.junit.jupiter.api.Test;
 import walkingkooka.Either;
 import walkingkooka.currency.CurrencyCode;
 import walkingkooka.currency.CurrencyExchange;
+import walkingkooka.currency.HasCurrencyCodeTesting;
 import walkingkooka.datetime.DateTimeContext;
 import walkingkooka.datetime.DateTimeContextDelegator;
 import walkingkooka.datetime.DateTimeContextTesting;
-import walkingkooka.environment.EnvironmentContext;
-import walkingkooka.environment.EnvironmentContextDelegator;
-import walkingkooka.environment.EnvironmentValueName;
 import walkingkooka.locale.LocaleContext;
 import walkingkooka.locale.LocaleContextDelegator;
-import walkingkooka.logging.LoggingLevel;
+import walkingkooka.logging.LoggingContext;
+import walkingkooka.logging.LoggingContextDelegator;
 import walkingkooka.math.DecimalNumberContext;
 import walkingkooka.math.DecimalNumberContextDelegator;
-import walkingkooka.net.email.EmailAddress;
 import walkingkooka.text.CaseSensitivity;
 import walkingkooka.text.Indentation;
 import walkingkooka.text.LineEnding;
@@ -56,7 +54,8 @@ import java.util.function.Function;
 
 public class ExpressionEvaluationContextTestingTest implements ExpressionEvaluationContextTesting2<TestExpressionEvaluationContext>,
     DateTimeContextTesting,
-    DecimalNumberContextDelegator {
+    DecimalNumberContextDelegator,
+    HasCurrencyCodeTesting {
 
     private final static String UNKNOWN_REFERENCE_MESSAGE = "Unknown reference 123";
 
@@ -109,24 +108,11 @@ public class ExpressionEvaluationContextTestingTest implements ExpressionEvaluat
         throw new UnsupportedOperationException();
     }
 
-    // HasEnvironmentContext............................................................................................
-
-    @Test
-    @Override
-    public void testEnvironmentContext() {
-        final TestExpressionEvaluationContext context = this.createContext();
-
-        this.environmentContextAndCheck(
-            context,
-            context.environmentContext
-        );
-    }
-
     final static class TestExpressionEvaluationContext implements ExpressionEvaluationContext,
         DateTimeContextDelegator,
         DecimalNumberContextDelegator,
-        EnvironmentContextDelegator,
-        LocaleContextDelegator {
+        LocaleContextDelegator,
+        LoggingContextDelegator {
 
         @Override
         public Optional<Currency> currencyForCurrencyCode(final CurrencyCode currencyCode) {
@@ -145,7 +131,12 @@ public class ExpressionEvaluationContextTestingTest implements ExpressionEvaluat
 
         @Override
         public Charset charset() {
-            return this.environmentContext.charset();
+            return CHARSET;
+        }
+
+        @Override
+        public CurrencyCode currencyCode() {
+            return CURRENCY_CODE;
         }
 
         @Override
@@ -155,7 +146,12 @@ public class ExpressionEvaluationContextTestingTest implements ExpressionEvaluat
 
         @Override
         public Indentation indentation() {
-            return this.environmentContext.indentation();
+            return INDENTATION;
+        }
+
+        @Override
+        public LineEnding lineEnding() {
+            return LINE_ENDING;
         }
 
         @Override
@@ -264,8 +260,7 @@ public class ExpressionEvaluationContextTestingTest implements ExpressionEvaluat
 
         @Override
         public Locale locale() {
-            return this.environmentContext()
-                .locale();
+            return LOCALE;
         }
 
         @Override
@@ -280,74 +275,10 @@ public class ExpressionEvaluationContextTestingTest implements ExpressionEvaluat
             throw new UnsupportedOperationException();
         }
 
-        // EnvironmentContextDelegator..................................................................................
-
         @Override
-        public ExpressionEvaluationContext cloneEnvironment() {
-            return new TestExpressionEvaluationContext();
+        public LoggingContext loggingContext() {
+            return LOGGING_CONTEXT;
         }
-
-        @Override
-        public void removeEnvironmentValue(final EnvironmentValueName<?> environmentValueName) {
-            this.environmentContext.removeEnvironmentValue(environmentValueName);
-        }
-
-        @Override
-        public <T> void setEnvironmentValue(final EnvironmentValueName<T> environmentValueName,
-                                            final T reference) {
-            this.environmentContext.setEnvironmentValue(
-                environmentValueName,
-                reference
-            );
-        }
-
-        @Override
-        public TestExpressionEvaluationContext setEnvironmentContext(final EnvironmentContext environmentContext) {
-            Objects.requireNonNull(environmentContext, "environmentContext");
-            return new TestExpressionEvaluationContext();
-        }
-
-        @Override
-        public void setCurrency(final Currency currency) {
-            this.environmentContext.setCurrency(currency);
-        }
-        
-        @Override
-        public void setIndentation(final Indentation indentation) {
-            this.environmentContext.setIndentation(indentation);
-        }
-        
-        @Override
-        public void setLineEnding(final LineEnding lineEnding) {
-            this.environmentContext.setLineEnding(lineEnding);
-        }
-
-        @Override
-        public void setLocale(final Locale locale) {
-            this.environmentContext.setLocale(locale);
-        }
-
-        @Override
-        public void setLoggingLevel(final LoggingLevel loggingLevel) {
-            this.environmentContext.setLoggingLevel(loggingLevel);
-        }
-
-        @Override
-        public void setUser(final Optional<EmailAddress> user) {
-            this.environmentContext.setUser(user);
-        }
-
-        @Override
-        public LocalDateTime now() {
-            return this.environmentContext.now();
-        }
-
-        @Override
-        public EnvironmentContext environmentContext() {
-            return this.environmentContext;
-        }
-
-        private final EnvironmentContext environmentContext = ENVIRONMENT_CONTEXT.cloneEnvironment();
 
         @Override
         public String toString() {

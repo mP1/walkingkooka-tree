@@ -30,6 +30,7 @@ import walkingkooka.datetime.DateTimeContexts;
 import walkingkooka.math.DecimalNumberContext;
 import walkingkooka.math.DecimalNumberContextDelegator;
 import walkingkooka.reflect.ClassTesting2;
+import walkingkooka.text.BinaryTextContextTesting;
 import walkingkooka.text.CaseSensitivity;
 import walkingkooka.text.cursor.parser.BigIntegerParserToken;
 import walkingkooka.text.cursor.parser.InvalidCharacterExceptionFactory;
@@ -51,6 +52,7 @@ import static org.junit.jupiter.api.Assertions.fail;
 
 public final class ExpressionEvaluationContextCycleDetectingTest implements ClassTesting2<ExpressionEvaluationContextCycleDetecting>,
     ExpressionEvaluationContextTesting2<ExpressionEvaluationContextCycleDetecting>,
+    BinaryTextContextTesting,
     CurrencyLocaleContextTesting,
     DateTimeContextTesting,
     DecimalNumberContextDelegator {
@@ -460,8 +462,8 @@ public final class ExpressionEvaluationContextCycleDetectingTest implements Clas
                     DATE_TIME_CONTEXT,
                     this.decimalNumberContext()
                 ),
-                ENVIRONMENT_CONTEXT.cloneEnvironment(),
-                LOCALE_CONTEXT
+                LOCALE_CONTEXT,
+                LOGGING_CONTEXT
             )
         );
     }
@@ -472,19 +474,6 @@ public final class ExpressionEvaluationContextCycleDetectingTest implements Clas
 
     private ValueExpression<String> text() {
         return Expression.value(VALUE);
-    }
-
-    // HasEnvironmentContext............................................................................................
-
-    @Test
-    @Override
-    public void testEnvironmentContext() {
-        final ExpressionEvaluationContext context = ExpressionEvaluationContexts.fake();
-
-        this.environmentContextAndCheck(
-            ExpressionEvaluationContextCycleDetecting.with(context),
-            context
-        );
     }
 
     // DecimalNumberContextDelegator....................................................................................

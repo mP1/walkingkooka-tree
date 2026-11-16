@@ -17,7 +17,6 @@
 
 package walkingkooka.tree.select;
 
-import walkingkooka.environment.EnvironmentContext;
 import walkingkooka.naming.Name;
 import walkingkooka.tree.Node;
 import walkingkooka.tree.expression.FakeExpressionEvaluationContext;
@@ -29,16 +28,6 @@ public class FakeNodeSelectorExpressionEvaluationContext<N extends Node<N, NAME,
 
     @Override
     public N node() {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public NodeSelectorExpressionEvaluationContext<N, NAME, ANAME, AVALUE> cloneEnvironment() {
-        throw new UnsupportedOperationException();
-    }
-
-    @Override
-    public NodeSelectorExpressionEvaluationContext<N, NAME, ANAME, AVALUE> setEnvironmentContext(final EnvironmentContext context) {
         throw new UnsupportedOperationException();
     }
 }

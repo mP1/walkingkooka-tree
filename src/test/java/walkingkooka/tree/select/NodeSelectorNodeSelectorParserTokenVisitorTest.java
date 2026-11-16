@@ -30,8 +30,8 @@ import walkingkooka.convert.ConverterContexts;
 import walkingkooka.convert.Converters;
 import walkingkooka.currency.CurrencyLocaleContexts;
 import walkingkooka.datetime.DateTimeContexts;
-import walkingkooka.environment.EnvironmentContexts;
 import walkingkooka.locale.LocaleContexts;
+import walkingkooka.logging.LoggingContexts;
 import walkingkooka.math.DecimalNumberContextTesting;
 import walkingkooka.naming.Names;
 import walkingkooka.naming.StringName;
@@ -2329,8 +2329,8 @@ public final class NodeSelectorNodeSelectorParserTokenVisitorTest implements Nod
                             ExpressionEvaluationContexts.referenceNotFound(),
                             CaseSensitivity.SENSITIVE,
                             this.converterContext(),
-                            EnvironmentContexts.fake(),
-                            LocaleContexts.fake()
+                            LocaleContexts.fake(),
+                            LoggingContexts.fake()
                         )
                     );
                 }

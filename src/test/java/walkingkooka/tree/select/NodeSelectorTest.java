@@ -27,8 +27,8 @@ import walkingkooka.convert.ConverterContexts;
 import walkingkooka.convert.Converters;
 import walkingkooka.currency.CurrencyLocaleContexts;
 import walkingkooka.datetime.DateTimeContextTesting;
-import walkingkooka.environment.EnvironmentContextTesting;
 import walkingkooka.locale.LocaleContextTesting;
+import walkingkooka.logging.LoggingContextTesting;
 import walkingkooka.math.DecimalNumberContextTesting;
 import walkingkooka.naming.Names;
 import walkingkooka.naming.StringName;
@@ -36,6 +36,7 @@ import walkingkooka.predicate.Predicates;
 import walkingkooka.reflect.ClassTesting2;
 import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.stream.StreamTesting;
+import walkingkooka.text.BinaryTextContextTesting;
 import walkingkooka.text.CaseSensitivity;
 import walkingkooka.text.printer.TreePrintableTesting;
 import walkingkooka.tree.TestNode;
@@ -50,11 +51,12 @@ import java.util.stream.Stream;
 
 public final class NodeSelectorTest implements ClassTesting2<NodeSelector<TestNode, StringName, StringName, Object>>,
     StreamTesting<Stream<TestNode>, TestNode>,
+    BinaryTextContextTesting,
     DateTimeContextTesting,
     DecimalNumberContextTesting,
-    EnvironmentContextTesting,
     HasExpressionNumberKindTesting,
     LocaleContextTesting,
+    LoggingContextTesting,
     TreePrintableTesting {
 
     static {
@@ -204,8 +206,8 @@ public final class NodeSelectorTest implements ClassTesting2<NodeSelector<TestNo
                             DATE_TIME_CONTEXT,
                             DECIMAL_NUMBER_CONTEXT
                         ),
-                        ENVIRONMENT_CONTEXT.cloneEnvironment(),
-                        LOCALE_CONTEXT
+                        LOCALE_CONTEXT,
+                        LOGGING_CONTEXT
                     )
                 ),
                 TestNode.class

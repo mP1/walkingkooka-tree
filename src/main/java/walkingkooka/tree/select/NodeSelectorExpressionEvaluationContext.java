@@ -17,7 +17,6 @@
 
 package walkingkooka.tree.select;
 
-import walkingkooka.environment.EnvironmentContext;
 import walkingkooka.naming.Name;
 import walkingkooka.tree.Node;
 import walkingkooka.tree.expression.ExpressionEvaluationContext;
@@ -35,12 +34,4 @@ public interface NodeSelectorExpressionEvaluationContext<N extends Node<N, NAME,
      * Returns the current {@link Node}.
      */
     N node();
-
-    // EnvironmentContext...............................................................................................
-
-    @Override
-    NodeSelectorExpressionEvaluationContext<N, NAME, ANAME, AVALUE> cloneEnvironment();
-
-    @Override
-    NodeSelectorExpressionEvaluationContext<N, NAME, ANAME, AVALUE> setEnvironmentContext(final EnvironmentContext environmentContext);
 }

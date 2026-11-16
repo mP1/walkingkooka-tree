@@ -17,14 +17,12 @@
 
 package walkingkooka.tree.expression;
 
-import org.junit.jupiter.api.Test;
 import walkingkooka.convert.BinaryNumberConverterFunctions;
 import walkingkooka.convert.ConverterContexts;
 import walkingkooka.convert.Converters;
 import walkingkooka.currency.CurrencyLocaleContextTesting;
 import walkingkooka.currency.CurrencyLocaleContexts;
 import walkingkooka.datetime.DateTimeContextTesting;
-import walkingkooka.environment.EnvironmentContext;
 import walkingkooka.math.DecimalNumberContext;
 import walkingkooka.math.DecimalNumberContextDelegator;
 import walkingkooka.text.CaseSensitivity;
@@ -53,17 +51,6 @@ public final class ExpressionEvaluationContextDelegatorTest implements Expressio
     @Override
     public TestExpressionEvaluationContextDelegator createContext() {
         return new TestExpressionEvaluationContextDelegator();
-    }
-
-    @Test
-    @Override
-    public void testEnvironmentContext() {
-        final TestExpressionEvaluationContextDelegator context = this.createContext();
-
-        this.environmentContextAndCheck(
-            context,
-            context.expressionEvaluationContext
-        );
     }
 
     // DecimalNumberContextDelegator....................................................................................
@@ -130,8 +117,8 @@ public final class ExpressionEvaluationContextDelegatorTest implements Expressio
                     DATE_TIME_CONTEXT,
                     DECIMAL_NUMBER_CONTEXT
                 ),
-                ENVIRONMENT_CONTEXT.cloneEnvironment(),
-                LOCALE_CONTEXT
+                LOCALE_CONTEXT,
+                LOGGING_CONTEXT
             );
         }
 
@@ -145,18 +132,6 @@ public final class ExpressionEvaluationContextDelegatorTest implements Expressio
             Objects.requireNonNull(scoped, "scoped");
 
             throw new UnsupportedOperationException();
-        }
-
-        @Override
-        public ExpressionEvaluationContext cloneEnvironment() {
-            return new TestExpressionEvaluationContextDelegator();
-        }
-
-        @Override
-        public ExpressionEvaluationContext setEnvironmentContext(final EnvironmentContext environmentContext) {
-            Objects.requireNonNull(environmentContext, "environmentContext");
-
-            return new TestExpressionEvaluationContextDelegator();
         }
 
         @Override

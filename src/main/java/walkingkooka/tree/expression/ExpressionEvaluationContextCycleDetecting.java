@@ -23,14 +23,15 @@ import walkingkooka.currency.CurrencyCode;
 import walkingkooka.currency.CurrencyExchange;
 import walkingkooka.datetime.DateTimeContext;
 import walkingkooka.datetime.DateTimeContextDelegator;
-import walkingkooka.environment.EnvironmentContext;
-import walkingkooka.environment.EnvironmentContextDelegator;
 import walkingkooka.locale.LocaleContext;
 import walkingkooka.locale.LocaleContextDelegator;
+import walkingkooka.logging.LoggingContext;
+import walkingkooka.logging.LoggingContextDelegator;
 import walkingkooka.math.DecimalNumberContext;
 import walkingkooka.math.DecimalNumberContextDelegator;
 import walkingkooka.text.CaseSensitivity;
 import walkingkooka.text.Indentation;
+import walkingkooka.text.LineEnding;
 import walkingkooka.tree.expression.function.ExpressionFunction;
 import walkingkooka.tree.expression.function.ExpressionFunctionParameter;
 
@@ -51,8 +52,8 @@ import java.util.function.Function;
 final class ExpressionEvaluationContextCycleDetecting implements ExpressionEvaluationContext,
     DateTimeContextDelegator,
     DecimalNumberContextDelegator,
-    EnvironmentContextDelegator,
-    LocaleContextDelegator {
+    LocaleContextDelegator,
+    LoggingContextDelegator {
 
     /**
      * Factory that creates a new {@link ExpressionEvaluationContextCycleDetecting}.
@@ -148,45 +149,6 @@ final class ExpressionEvaluationContextCycleDetecting implements ExpressionEvalu
         throw new CycleDetectedExpressionEvaluationConversionException("Cycle detected to " + reference, reference);
     }
 
-    // EnvironmentContextDelegator......................................................................................
-
-    @Override
-    public ExpressionEvaluationContext cloneEnvironment() {
-        return this.setEnvironmentContext(
-            this.context.cloneEnvironment()
-        );
-    }
-
-    @Override
-    public ExpressionEvaluationContext setEnvironmentContext(final EnvironmentContext environmentContext) {
-        final ExpressionEvaluationContext before = this.context;
-        final ExpressionEvaluationContext after = before.setEnvironmentContext(environmentContext);
-
-        return before == after ?
-            this :
-            new ExpressionEvaluationContextCycleDetecting(after);
-    }
-
-    @Override
-    public LocalDateTime now() {
-        return this.context.now();
-    }
-
-    @Override
-    public Locale locale() {
-        return this.context.locale();
-    }
-
-    @Override
-    public void setLocale(final Locale locale) {
-        this.context.setLocale(locale);
-    }
-
-    @Override
-    public EnvironmentContext environmentContext() {
-        return this.context;
-    }
-
     // CanCurrencyExchangeRate..........................................................................................
 
     @Override
@@ -219,6 +181,11 @@ final class ExpressionEvaluationContextCycleDetecting implements ExpressionEvalu
         return this.context;
     }
 
+    @Override
+    public Locale locale() {
+        return this.context.locale();
+    }
+
     // DateTimeContext..................................................................................................
 
     @Override
@@ -240,6 +207,13 @@ final class ExpressionEvaluationContextCycleDetecting implements ExpressionEvalu
         return this.context;
     }
 
+    // LoggingContextDelegator..........................................................................................
+
+    @Override
+    public LoggingContext loggingContext() {
+        return this.context;
+    }
+
     // CanConvert.......................................................................................................
 
     @Override
@@ -250,6 +224,11 @@ final class ExpressionEvaluationContextCycleDetecting implements ExpressionEvalu
     @Override
     public Charset charset() {
         return this.context.charset();
+    }
+
+    @Override
+    public CurrencyCode currencyCode() {
+        return this.context.currencyCode();
     }
 
     @Override
@@ -265,6 +244,11 @@ final class ExpressionEvaluationContextCycleDetecting implements ExpressionEvalu
     @Override
     public Indentation indentation() {
         return this.context.indentation();
+    }
+
+    @Override
+    public LineEnding lineEnding() {
+        return this.context.lineEnding();
     }
 
     @Override

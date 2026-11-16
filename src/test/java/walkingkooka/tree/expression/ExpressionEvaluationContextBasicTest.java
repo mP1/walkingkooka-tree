@@ -30,10 +30,9 @@ import walkingkooka.convert.Converters;
 import walkingkooka.convert.FakeConverterContext;
 import walkingkooka.currency.CurrencyLocaleContexts;
 import walkingkooka.datetime.DateTimeContextTesting;
-import walkingkooka.environment.EnvironmentContext;
-import walkingkooka.environment.EnvironmentContextTesting;
 import walkingkooka.logging.CanLog;
 import walkingkooka.logging.CanLogs;
+import walkingkooka.logging.LoggingContexts;
 import walkingkooka.logging.LoggingLevel;
 import walkingkooka.math.DecimalNumberContext;
 import walkingkooka.math.DecimalNumberContextDelegator;
@@ -62,7 +61,6 @@ public final class ExpressionEvaluationContextBasicTest implements ClassTesting2
     ToStringTesting,
     DateTimeContextTesting,
     DecimalNumberContextDelegator,
-    EnvironmentContextTesting,
     HasExpressionNumberKindTesting,
     ThrowableTesting {
 
@@ -224,14 +222,6 @@ public final class ExpressionEvaluationContextBasicTest implements ClassTesting2
         );
     }
 
-    @Test
-    public void testEnvironmentContextDoesntImplementHasExpressionNumberKind() {
-        this.checkNotEquals(
-            true,
-            ENVIRONMENT_CONTEXT instanceof HasExpressionNumberKind
-        );
-    }
-
     // with..............................................................................................................
 
     @Test
@@ -247,8 +237,8 @@ public final class ExpressionEvaluationContextBasicTest implements ClassTesting2
                 ExpressionEvaluationContexts.referenceNotFound(),
                 CASE_SENSITIVITY,
                 CONVERTER_CONTEXT,
-                ENVIRONMENT_CONTEXT,
-                LOCALE_CONTEXT
+                LOCALE_CONTEXT,
+                LOGGING_CONTEXT
             )
         );
     }
@@ -266,8 +256,8 @@ public final class ExpressionEvaluationContextBasicTest implements ClassTesting2
                 ExpressionEvaluationContexts.referenceNotFound(),
                 CASE_SENSITIVITY,
                 CONVERTER_CONTEXT,
-                ENVIRONMENT_CONTEXT,
-                LOCALE_CONTEXT
+                LOCALE_CONTEXT,
+                LOGGING_CONTEXT
             )
         );
     }
@@ -285,8 +275,8 @@ public final class ExpressionEvaluationContextBasicTest implements ClassTesting2
                 ExpressionEvaluationContexts.referenceNotFound(),
                 CASE_SENSITIVITY,
                 CONVERTER_CONTEXT,
-                ENVIRONMENT_CONTEXT,
-                LOCALE_CONTEXT
+                LOCALE_CONTEXT,
+                LOGGING_CONTEXT
             )
         );
     }
@@ -304,8 +294,8 @@ public final class ExpressionEvaluationContextBasicTest implements ClassTesting2
                 ExpressionEvaluationContexts.referenceNotFound(),
                 CASE_SENSITIVITY,
                 CONVERTER_CONTEXT,
-                ENVIRONMENT_CONTEXT,
-                LOCALE_CONTEXT
+                LOCALE_CONTEXT,
+                LOGGING_CONTEXT
             )
         );
     }
@@ -323,8 +313,8 @@ public final class ExpressionEvaluationContextBasicTest implements ClassTesting2
                 null,
                 CASE_SENSITIVITY,
                 CONVERTER_CONTEXT,
-                ENVIRONMENT_CONTEXT,
-                LOCALE_CONTEXT
+                LOCALE_CONTEXT,
+                LOGGING_CONTEXT
             )
         );
     }
@@ -342,8 +332,8 @@ public final class ExpressionEvaluationContextBasicTest implements ClassTesting2
                 ExpressionEvaluationContexts.referenceNotFound(),
                 null,
                 CONVERTER_CONTEXT,
-                ENVIRONMENT_CONTEXT,
-                LOCALE_CONTEXT
+                LOCALE_CONTEXT,
+                LOGGING_CONTEXT
             )
         );
     }
@@ -361,14 +351,14 @@ public final class ExpressionEvaluationContextBasicTest implements ClassTesting2
                 ExpressionEvaluationContexts.referenceNotFound(),
                 CASE_SENSITIVITY,
                 null,
-                ENVIRONMENT_CONTEXT,
-                LOCALE_CONTEXT
+                LOCALE_CONTEXT,
+                LOGGING_CONTEXT
             )
         );
     }
 
     @Test
-    public void testWithNullEnvironmentContextFails() {
+    public void testWithNullLocaleContextFails() {
         assertThrows(
             NullPointerException.class,
             () -> ExpressionEvaluationContextBasic.with(
@@ -381,13 +371,13 @@ public final class ExpressionEvaluationContextBasicTest implements ClassTesting2
                 CASE_SENSITIVITY,
                 CONVERTER_CONTEXT,
                 null,
-                LOCALE_CONTEXT
+                LOGGING_CONTEXT
             )
         );
     }
 
     @Test
-    public void testWithNullLocaleContextContextFails() {
+    public void testWithNullLoggingContextFails() {
         assertThrows(
             NullPointerException.class,
             () -> ExpressionEvaluationContextBasic.with(
@@ -399,7 +389,7 @@ public final class ExpressionEvaluationContextBasicTest implements ClassTesting2
                 ExpressionEvaluationContexts.referenceNotFound(),
                 CASE_SENSITIVITY,
                 CONVERTER_CONTEXT,
-                ENVIRONMENT_CONTEXT,
+                LOCALE_CONTEXT,
                 null
             )
         );
@@ -519,8 +509,8 @@ public final class ExpressionEvaluationContextBasicTest implements ClassTesting2
                         );
                     }
                 },
-                ENVIRONMENT_CONTEXT,
-                LOCALE_CONTEXT
+                LOCALE_CONTEXT,
+                LOGGING_CONTEXT
             ),
             Expression.divide(
                 Expression.value(kind.one()),
@@ -581,8 +571,8 @@ public final class ExpressionEvaluationContextBasicTest implements ClassTesting2
                         );
                     }
                 },
-                ENVIRONMENT_CONTEXT,
-                LOCALE_CONTEXT
+                LOCALE_CONTEXT,
+                LOGGING_CONTEXT
             ).evaluateExpression(
                 Expression.call(
                     Expression.namedFunction(functionName),
@@ -627,8 +617,8 @@ public final class ExpressionEvaluationContextBasicTest implements ClassTesting2
                         );
                     }
                 },
-                ENVIRONMENT_CONTEXT,
-                LOCALE_CONTEXT
+                LOCALE_CONTEXT,
+                LOGGING_CONTEXT
             ),
             Expression.divide(
                 Expression.value(kind.one()),
@@ -809,8 +799,8 @@ public final class ExpressionEvaluationContextBasicTest implements ClassTesting2
                         );
                     }
                 },
-                ENVIRONMENT_CONTEXT,
-                LOCALE_CONTEXT
+                LOCALE_CONTEXT,
+                LOGGING_CONTEXT
             ),
             function,
             Lists.of(999),
@@ -865,8 +855,8 @@ public final class ExpressionEvaluationContextBasicTest implements ClassTesting2
                         );
                     }
                 },
-                ENVIRONMENT_CONTEXT,
-                LOCALE_CONTEXT
+                LOCALE_CONTEXT,
+                LOGGING_CONTEXT
             ),
             function,
             Lists.empty(),
@@ -1046,8 +1036,7 @@ public final class ExpressionEvaluationContextBasicTest implements ClassTesting2
         context.debug(MESSAGE1);
 
         this.checkEquals(
-            "environment DEBUG environmentValue loggingLevel change NONE to DEBUG\n" +
-                "DEBUG Message111\n",
+            "DEBUG Message111\n",
             b.toString()
         );
     }
@@ -1155,7 +1144,7 @@ public final class ExpressionEvaluationContextBasicTest implements ClassTesting2
             CanLogs.printer(
                 Printers.stringBuilder(
                     b,
-                    LINE_ENDING // yes doesnt sync with EnvironmentContext#lineEnding
+                    LINE_ENDING
                 )
             )
         );
@@ -1173,11 +1162,11 @@ public final class ExpressionEvaluationContextBasicTest implements ClassTesting2
             REFERENCE_NOT_FOUND,
             CASE_SENSITIVITY,
             CONVERTER_CONTEXT,
-            ENVIRONMENT_CONTEXT.environment()
-                .setCanLog(canLog)
-                .environmentContext()
-                .cloneEnvironment(),
-            LOCALE_CONTEXT
+            LOCALE_CONTEXT,
+            LoggingContexts.canLog(
+                LoggingLevel.NONE,
+                canLog
+            )
         );
     }
 
@@ -1213,8 +1202,8 @@ public final class ExpressionEvaluationContextBasicTest implements ClassTesting2
                 REFERENCE_NOT_FOUND,
                 CASE_SENSITIVITY,
                 CONVERTER_CONTEXT,
-                ENVIRONMENT_CONTEXT,
-                LOCALE_CONTEXT
+                LOCALE_CONTEXT,
+                LOGGING_CONTEXT
             ),
             "expressionNumberKind=BIG_DECIMAL evaluator=EVALUATOR functions=FUNCTIONS exceptionHandler=EXCEPTION_HANDLER references=REFERENCES referenceNotFound=REFERENCE_NOT_FOUND stringEqualityCaseSensitivity=SENSITIVE converterContext=binaryTextContext=charset=\"UTF-8\" indentation=\"    \" lineEnding=\"\\r\\n\" dateTimeContext=symbols=ampms=\"am\", \"pm\" monthNames=\"January\", \"February\", \"March\", \"April\", \"May\", \"June\", \"July\", \"August\", \"September\", \"October\", \"November\", \"December\" monthNameAbbreviations=\"Jan.\", \"Feb.\", \"Mar.\", \"Apr.\", \"May\", \"Jun.\", \"Jul.\", \"Aug.\", \"Sep.\", \"Oct.\", \"Nov.\", \"Dec.\" weekDayNames=\"Sunday\", \"Monday\", \"Tuesday\", \"Wednesday\", \"Thursday\", \"Friday\", \"Saturday\" weekDayNameAbbreviations=\"Sun.\", \"Mon.\", \"Tue.\", \"Wed.\", \"Thu.\", \"Fri.\", \"Sat.\" locale=\"en-AU\" twoDigitYear=50 decimalNumberContext=decimalNumberDigitNumberCount=9 symbols=negativeSign='-' positiveSign='+' zeroDigit='0' currencySymbol=\"$\" decimalSeparator='.' exponentSymbol=\"e\" groupSeparator=',' infinitySymbol=\"∞\" monetar"
         );
@@ -1252,8 +1241,8 @@ public final class ExpressionEvaluationContextBasicTest implements ClassTesting2
             REFERENCE_NOT_FOUND,
             caseSensitivity,
             CONVERTER_CONTEXT,
-            ENVIRONMENT_CONTEXT.cloneEnvironment(),
-            LOCALE_CONTEXT
+            LOCALE_CONTEXT,
+            LOGGING_CONTEXT
         );
     }
 
@@ -1268,8 +1257,8 @@ public final class ExpressionEvaluationContextBasicTest implements ClassTesting2
             (r) -> new ExpressionEvaluationReferenceException(REFERENCE_NOT_FOUND_MESSAGE, r),
             CASE_SENSITIVITY,
             CONVERTER_CONTEXT,
-            ENVIRONMENT_CONTEXT.cloneEnvironment(),
-            LOCALE_CONTEXT
+            LOCALE_CONTEXT,
+            LOGGING_CONTEXT
         );
     }
 
@@ -1285,8 +1274,8 @@ public final class ExpressionEvaluationContextBasicTest implements ClassTesting2
             REFERENCE_NOT_FOUND,
             CASE_SENSITIVITY,
             CONVERTER_CONTEXT,
-            ENVIRONMENT_CONTEXT.cloneEnvironment(),
-            LOCALE_CONTEXT
+            LOCALE_CONTEXT,
+            LOGGING_CONTEXT
         );
     }
 
@@ -1305,32 +1294,6 @@ public final class ExpressionEvaluationContextBasicTest implements ClassTesting2
     @Override
     public MathContext mathContext() {
         return DECIMAL_NUMBER_CONTEXT.mathContext();
-    }
-
-    // HasEnvironmentContext............................................................................................
-
-    @Test
-    @Override
-    public void testEnvironmentContext() {
-        final EnvironmentContext context = ENVIRONMENT_CONTEXT;
-
-        this.environmentContextAndCheck(
-            ExpressionEvaluationContextBasic.with(
-                EXPRESSION_NUMBER_KIND,
-                EVALUATOR,
-                (n) -> {
-                    throw new UnsupportedOperationException();
-                },
-                EXCEPTION_HANDLER,
-                REFERENCES,
-                REFERENCE_NOT_FOUND,
-                CASE_SENSITIVITY,
-                CONVERTER_CONTEXT,
-                context,
-                LOCALE_CONTEXT
-            ),
-            context
-        );
     }
 
     // ClassTesting.....................................................................................................
