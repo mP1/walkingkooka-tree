@@ -30,7 +30,6 @@ import walkingkooka.currency.CurrencyLocaleContextTesting;
 import walkingkooka.datetime.DateTimeContextTesting;
 import walkingkooka.math.DecimalNumberContextTesting;
 import walkingkooka.naming.Name;
-import walkingkooka.net.header.HasContentTypeTesting;
 import walkingkooka.predicate.Predicates;
 import walkingkooka.reflect.IsMethodTesting;
 import walkingkooka.reflect.PublicClassTesting;
@@ -70,7 +69,6 @@ public abstract class ExpressionTestCase<N extends Expression> implements TreePr
     CurrencyLocaleContextTesting,
     DateTimeContextTesting,
     DecimalNumberContextTesting,
-    HasContentTypeTesting,
     HasExpressionTesting,
     HasTextTesting,
     ExpressionPurityTesting,
@@ -95,16 +93,6 @@ public abstract class ExpressionTestCase<N extends Expression> implements TreePr
     @Override
     public final void testSetSameAttributes() {
         // Ignored
-    }
-
-    // HasContentType...................................................................................................
-
-    @Test
-    public final void testContentType() {
-        this.contentTypeAndCheck(
-            this.createExpression(),
-            Expression.MEDIA_TYPE
-        );
     }
 
     // HasText.........................................................................................................

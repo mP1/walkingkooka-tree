@@ -22,8 +22,6 @@ import walkingkooka.collect.list.Lists;
 import walkingkooka.collect.map.Maps;
 import walkingkooka.io.FileExtension;
 import walkingkooka.naming.Name;
-import walkingkooka.net.header.HasContentType;
-import walkingkooka.net.header.MediaType;
 import walkingkooka.text.HasText;
 import walkingkooka.text.printer.IndentingPrinter;
 import walkingkooka.text.printer.TreePrintable;
@@ -52,7 +50,6 @@ import java.util.function.Predicate;
  */
 public abstract class Expression implements Node<Expression, ExpressionFunctionName, Name, Object>,
     ExpressionPurity,
-    HasContentType,
     HasExpression,
     HasText,
     TreePrintable {
@@ -65,7 +62,7 @@ public abstract class Expression implements Node<Expression, ExpressionFunctionN
     /**
      * The content type for any {@link Expression}.
      */
-    public final static MediaType MEDIA_TYPE = MediaType.parse("text/expression");
+    public final static String MEDIA_TYPE = "text/expression";
 
     /**
      * An empty list that holds no children.
@@ -663,15 +660,6 @@ public abstract class Expression implements Node<Expression, ExpressionFunctionN
             Expression.class
         );
     }
-
-    // HasContentType...................................................................................................
-
-    @Override
-    public Optional<MediaType> contentType() {
-        return CONTENT_TYPE;
-    }
-
-    private final static Optional<MediaType> CONTENT_TYPE = Optional.of(MEDIA_TYPE);
 
     // HasExpression....................................................................................................
 
