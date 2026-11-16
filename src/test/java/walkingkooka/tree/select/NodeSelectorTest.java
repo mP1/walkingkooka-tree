@@ -33,8 +33,7 @@ import walkingkooka.math.DecimalNumberContextTesting;
 import walkingkooka.naming.Names;
 import walkingkooka.naming.StringName;
 import walkingkooka.predicate.Predicates;
-import walkingkooka.reflect.ClassTesting2;
-import walkingkooka.reflect.JavaVisibility;
+import walkingkooka.reflect.PublicClassTesting;
 import walkingkooka.stream.StreamTesting;
 import walkingkooka.text.BinaryTextContextTesting;
 import walkingkooka.text.CaseSensitivity;
@@ -49,7 +48,7 @@ import java.util.Objects;
 import java.util.function.Function;
 import java.util.stream.Stream;
 
-public final class NodeSelectorTest implements ClassTesting2<NodeSelector<TestNode, StringName, StringName, Object>>,
+public final class NodeSelectorTest implements PublicClassTesting<NodeSelector<TestNode, StringName, StringName, Object>>,
     StreamTesting<Stream<TestNode>, TestNode>,
     BinaryTextContextTesting,
     DateTimeContextTesting,
@@ -300,10 +299,5 @@ public final class NodeSelectorTest implements ClassTesting2<NodeSelector<TestNo
     @Override
     public Class<NodeSelector<TestNode, StringName, StringName, Object>> type() {
         return Cast.to(NodeSelector.class);
-    }
-
-    @Override
-    public JavaVisibility typeVisibility() {
-        return JavaVisibility.PUBLIC;
     }
 }
