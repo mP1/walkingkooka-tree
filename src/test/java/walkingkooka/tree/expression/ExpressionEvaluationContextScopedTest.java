@@ -27,6 +27,7 @@ import walkingkooka.currency.CurrencyLocaleContexts;
 import walkingkooka.datetime.DateTimeContextTesting;
 import walkingkooka.math.DecimalNumberContext;
 import walkingkooka.math.DecimalNumberContextDelegator;
+import walkingkooka.text.BinaryTextContextTesting;
 import walkingkooka.text.CaseSensitivity;
 import walkingkooka.tree.expression.function.ExpressionFunctionParameter;
 import walkingkooka.tree.expression.function.ExpressionFunctionParameterCardinality;
@@ -42,6 +43,7 @@ import java.util.function.Function;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class ExpressionEvaluationContextScopedTest implements ExpressionEvaluationContextTesting2<ExpressionEvaluationContextScoped>,
+    BinaryTextContextTesting,
     CurrencyLocaleContextTesting,
     DateTimeContextTesting,
     DecimalNumberContextDelegator {
@@ -311,8 +313,8 @@ public final class ExpressionEvaluationContextScopedTest implements ExpressionEv
                     DATE_TIME_CONTEXT,
                     DECIMAL_NUMBER_CONTEXT
                 ),
-                ENVIRONMENT_CONTEXT.cloneEnvironment(),
-                LOCALE_CONTEXT
+                LOCALE_CONTEXT,
+                LOGGING_CONTEXT
             )
         );
     }
@@ -332,22 +334,6 @@ public final class ExpressionEvaluationContextScopedTest implements ExpressionEv
     @Override
     public MathContext mathContext() {
         return DECIMAL_NUMBER_CONTEXT.mathContext();
-    }
-
-    // HasEnvironmentContext............................................................................................
-
-    @Test
-    @Override
-    public void testEnvironmentContext() {
-        final ExpressionEvaluationContext context = ExpressionEvaluationContexts.fake();
-
-        this.environmentContextAndCheck(
-            ExpressionEvaluationContextScoped.with(
-                REFERENCE_TO_VALUE,
-                context
-            ),
-            context
-        );
     }
 
     // class............................................................................................................

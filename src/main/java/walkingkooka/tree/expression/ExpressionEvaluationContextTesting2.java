@@ -19,8 +19,8 @@ package walkingkooka.tree.expression;
 
 import org.junit.jupiter.api.Test;
 import walkingkooka.convert.ConverterLikeTesting2;
-import walkingkooka.environment.EnvironmentContextTesting2;
 import walkingkooka.locale.LocaleContextTesting2;
+import walkingkooka.logging.LoggingContextTesting2;
 import walkingkooka.tree.expression.function.ExpressionFunction;
 import walkingkooka.tree.expression.function.ExpressionFunctions;
 import walkingkooka.tree.expression.function.UnknownExpressionFunctionException;
@@ -37,10 +37,10 @@ public interface ExpressionEvaluationContextTesting2<C extends ExpressionEvaluat
     CanEvaluateExpressionTesting2<C>,
     CanEvaluateStringTesting2<C>,
     ConverterLikeTesting2<C>,
-    EnvironmentContextTesting2<C>,
     ExpressionNumberContextTesting2<C>,
     ExpressionPurityContextTesting2<C>,
-    LocaleContextTesting2<C> {
+    LocaleContextTesting2<C>,
+    LoggingContextTesting2<C> {
 
     // enterScope.......................................................................................................
 
@@ -141,14 +141,6 @@ public interface ExpressionEvaluationContextTesting2<C extends ExpressionEvaluat
             () -> this.createContext()
                 .reference(null)
         );
-    }
-
-    // EnvironmentContext...............................................................................................
-
-    @Test
-    @Override
-    default void testSetLocaleWithNullFails() {
-        LocaleContextTesting2.super.testSetLocaleWithNullFails();
     }
 
     // CanEvaluateExpression............................................................................................

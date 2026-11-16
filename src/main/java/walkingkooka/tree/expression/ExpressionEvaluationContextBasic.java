@@ -23,20 +23,16 @@ import walkingkooka.convert.ConverterContext;
 import walkingkooka.convert.ConverterContextDelegator;
 import walkingkooka.currency.CurrencyCode;
 import walkingkooka.datetime.DateTimeSymbols;
-import walkingkooka.environment.EnvironmentContext;
-import walkingkooka.environment.EnvironmentContextDelegator;
 import walkingkooka.locale.LocaleContext;
 import walkingkooka.locale.LocaleContextDelegator;
 import walkingkooka.locale.LocaleLanguageTag;
+import walkingkooka.logging.LoggingContext;
+import walkingkooka.logging.LoggingContextDelegator;
 import walkingkooka.math.DecimalNumberSymbols;
 import walkingkooka.text.CaseSensitivity;
-import walkingkooka.text.Indentation;
-import walkingkooka.text.LineEnding;
 import walkingkooka.tree.expression.function.ExpressionFunction;
 import walkingkooka.tree.expression.function.ExpressionFunctionParameter;
 
-import java.nio.charset.Charset;
-import java.time.LocalDateTime;
 import java.util.Locale;
 import java.util.Objects;
 import java.util.Optional;
@@ -51,8 +47,8 @@ import java.util.function.Function;
  */
 final class ExpressionEvaluationContextBasic implements ExpressionEvaluationContext,
     ConverterContextDelegator,
-    EnvironmentContextDelegator,
     LocaleContextDelegator,
+    LoggingContextDelegator,
     UsesToStringBuilder {
 
     /**
@@ -66,8 +62,8 @@ final class ExpressionEvaluationContextBasic implements ExpressionEvaluationCont
                                                  final Function<ExpressionReference, ExpressionEvaluationException> referenceNotFound,
                                                  final CaseSensitivity stringEqualityCaseSensitivity,
                                                  final ConverterContext converterContext,
-                                                 final EnvironmentContext environmentContext,
-                                                 final LocaleContext localeContext) {
+                                                 final LocaleContext localeContext,
+                                                 final LoggingContext loggingContext) {
         Objects.requireNonNull(expressionNumberKind, "expressionNumberKind");
         Objects.requireNonNull(evaluator, "evaluator");
         Objects.requireNonNull(functions, "functions");
@@ -76,8 +72,8 @@ final class ExpressionEvaluationContextBasic implements ExpressionEvaluationCont
         Objects.requireNonNull(referenceNotFound, "referenceNotFound");
         Objects.requireNonNull(stringEqualityCaseSensitivity, "stringEqualsCaseSensitivity");
         Objects.requireNonNull(converterContext, "converterContext");
-        Objects.requireNonNull(environmentContext, "environmentContext");
         Objects.requireNonNull(localeContext, "localeContext");
+        Objects.requireNonNull(loggingContext, "loggingContext");
 
         return new ExpressionEvaluationContextBasic(
             expressionNumberKind,
@@ -88,8 +84,8 @@ final class ExpressionEvaluationContextBasic implements ExpressionEvaluationCont
             referenceNotFound,
             stringEqualityCaseSensitivity,
             converterContext,
-            environmentContext,
-            localeContext
+            localeContext,
+            loggingContext
         );
     }
 
@@ -104,8 +100,8 @@ final class ExpressionEvaluationContextBasic implements ExpressionEvaluationCont
                                              final Function<ExpressionReference, ExpressionEvaluationException> referenceNotFound,
                                              final CaseSensitivity stringEqualityCaseSensitivity,
                                              final ConverterContext converterContext,
-                                             final EnvironmentContext environmentContext,
-                                             final LocaleContext localeContext) {
+                                             final LocaleContext localeContext,
+                                             final LoggingContext loggingContext) {
         super();
 
         this.expressionNumberKind = expressionNumberKind;
@@ -116,8 +112,8 @@ final class ExpressionEvaluationContextBasic implements ExpressionEvaluationCont
         this.referenceNotFound = referenceNotFound;
         this.stringEqualityCaseSensitivity = stringEqualityCaseSensitivity;
         this.converterContext = converterContext;
-        this.environmentContext = environmentContext;
         this.localeContext = localeContext;
+        this.loggingContext = loggingContext;
     }
 
     @Override
@@ -213,74 +209,7 @@ final class ExpressionEvaluationContextBasic implements ExpressionEvaluationCont
 
     private final Function<ExpressionReference, ExpressionEvaluationException> referenceNotFound;
 
-    // EnvironmentContextDelegator......................................................................................
-
-    @Override
-    public ExpressionEvaluationContext cloneEnvironment() {
-        return this.setEnvironmentContext(
-            this.environmentContext.cloneEnvironment()
-        );
-    }
-
-    @Override
-    public ExpressionEvaluationContext setEnvironmentContext(final EnvironmentContext environmentContext) {
-        return this.environmentContext == environmentContext ?
-            this :
-            new ExpressionEvaluationContextBasic(
-                this.expressionNumberKind,
-                this.evaluator,
-                this.functions,
-                this.exceptionHandler,
-                this.references,
-                this.referenceNotFound,
-                this.stringEqualityCaseSensitivity,
-                this.converterContext,
-                Objects.requireNonNull(environmentContext, "environmentContext"),
-                this.localeContext
-            );
-    }
-
-    @Override
-    public Charset charset() {
-        return this.environmentContext.charset();
-    }
-
-    @Override
-    public Indentation indentation() {
-        return this.environmentContext.indentation();
-    }
-
-    @Override
-    public LineEnding lineEnding() {
-        return this.environmentContext.lineEnding();
-    }
-
-    /**
-     * Locale must come from {@link EnvironmentContext} and not {@link LocaleContext}.
-     */
-    @Override
-    public Locale locale() {
-        return this.environmentContext.locale();
-    }
-
-    @Override
-    public void setLocale(final Locale locale) {
-        this.environmentContext.setLocale(locale);
-    }
-
-    @Override
-    public LocalDateTime now() {
-        return this.environmentContext.now();
-    }
-
-    @Override
-    public EnvironmentContext environmentContext() {
-        return this.environmentContext;
-    }
-
-    private final EnvironmentContext environmentContext;
-
-    // LocaleContext....................................................................................................
+    // LocaleContextDelegator...........................................................................................
 
     @Override
     public LocaleContext localeContext() {
@@ -288,6 +217,11 @@ final class ExpressionEvaluationContextBasic implements ExpressionEvaluationCont
     }
 
     private final LocaleContext localeContext;
+
+    @Override
+    public Locale locale() {
+        return this.localeContext.locale();
+    }
 
     @Override
     public Optional<DateTimeSymbols> dateTimeSymbolsForLocale(final Locale locale) {
@@ -303,6 +237,15 @@ final class ExpressionEvaluationContextBasic implements ExpressionEvaluationCont
     public Optional<Locale> localeForLanguageTag(final LocaleLanguageTag languageTag) {
         return this.localeContext.localeForLanguageTag(languageTag);
     }
+
+    // LoggingContextDelegator..........................................................................................
+
+    @Override
+    public LoggingContext loggingContext() {
+        return this.loggingContext;
+    }
+
+    private final LoggingContext loggingContext;
 
     // Object...........................................................................................................
 
@@ -331,9 +274,9 @@ final class ExpressionEvaluationContextBasic implements ExpressionEvaluationCont
             .value(this.stringEqualityCaseSensitivity)
             .label("converterContext")
             .value(this.converterContext)
-            .label("environmentContext")
-            .value(this.environmentContext)
             .label("localeContext")
-            .value(this.localeContext);
+            .value(this.localeContext)
+            .label("loggingContext")
+            .value(this.loggingContext);
     }
 }

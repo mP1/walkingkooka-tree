@@ -18,9 +18,10 @@
 package walkingkooka.tree.expression;
 
 import walkingkooka.convert.ConverterLikeTesting;
-import walkingkooka.environment.EnvironmentContextTesting;
 import walkingkooka.locale.LocaleContextTesting;
+import walkingkooka.logging.LoggingContextTesting;
 import walkingkooka.reflect.ThrowableTesting;
+import walkingkooka.text.BinaryTextContextTesting;
 import walkingkooka.text.printer.TreePrintableTesting;
 import walkingkooka.tree.expression.function.ExpressionFunction;
 
@@ -33,12 +34,13 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
  * Mixing testing interface for {@link ExpressionEvaluationContext}
  */
 public interface ExpressionEvaluationContextTesting extends
+    BinaryTextContextTesting,
     CanEvaluateExpressionTesting,
     ConverterLikeTesting,
-    EnvironmentContextTesting,
     ExpressionNumberContextTesting,
     ExpressionPurityContextTesting,
     LocaleContextTesting,
+    LoggingContextTesting,
     ThrowableTesting,
     TreePrintableTesting {
 

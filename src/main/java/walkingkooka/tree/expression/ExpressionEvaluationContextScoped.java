@@ -18,7 +18,6 @@
 package walkingkooka.tree.expression;
 
 import walkingkooka.datetime.DateTimeSymbols;
-import walkingkooka.environment.EnvironmentContext;
 import walkingkooka.locale.LocaleLanguageTag;
 import walkingkooka.math.DecimalNumberSymbols;
 
@@ -70,28 +69,6 @@ final class ExpressionEvaluationContextScoped implements ExpressionEvaluationCon
 
     private final Function<ExpressionReference, Optional<Optional<Object>>> referenceToValue;
 
-    // ExpressionEvaluationContextDelegator.............................................................................
-
-    @Override
-    public ExpressionEvaluationContext cloneEnvironment() {
-        return this.setEnvironmentContext(
-            this.context.cloneEnvironment()
-        );
-    }
-
-    @Override
-    public ExpressionEvaluationContext setEnvironmentContext(final EnvironmentContext environmentContext) {
-        final ExpressionEvaluationContext before = this.context;
-        final ExpressionEvaluationContext after = before.setEnvironmentContext(environmentContext);
-
-        return before == after ?
-            this :
-            new ExpressionEvaluationContextScoped(
-                this.referenceToValue,
-                after
-            );
-    }
-
     @Override
     public ExpressionEvaluationContext expressionEvaluationContext() {
         return this.context;
@@ -105,6 +82,11 @@ final class ExpressionEvaluationContextScoped implements ExpressionEvaluationCon
     @Override
     public Optional<DecimalNumberSymbols> decimalNumberSymbolsForLocale(final Locale locale) {
         return this.context.decimalNumberSymbolsForLocale(locale);
+    }
+
+    @Override
+    public Locale locale() {
+        return this.context.locale();
     }
 
     @Override

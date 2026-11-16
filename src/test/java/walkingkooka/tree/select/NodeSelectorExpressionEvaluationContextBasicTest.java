@@ -27,14 +27,17 @@ import walkingkooka.convert.Converters;
 import walkingkooka.currency.CurrencyLocaleContexts;
 import walkingkooka.datetime.DateTimeContextTesting;
 import walkingkooka.locale.LocaleContexts;
+import walkingkooka.logging.CanLogs;
+import walkingkooka.logging.LoggingContexts;
+import walkingkooka.logging.LoggingLevel;
 import walkingkooka.math.DecimalNumberContext;
 import walkingkooka.math.DecimalNumberContextDelegator;
 import walkingkooka.naming.Names;
 import walkingkooka.naming.StringName;
+import walkingkooka.text.BinaryTextContextTesting;
 import walkingkooka.text.CaseSensitivity;
 import walkingkooka.tree.TestNode;
 import walkingkooka.tree.expression.Expression;
-import walkingkooka.tree.expression.ExpressionEvaluationContext;
 import walkingkooka.tree.expression.ExpressionEvaluationContexts;
 import walkingkooka.tree.expression.ExpressionFunctionName;
 import walkingkooka.tree.expression.ExpressionReference;
@@ -48,6 +51,7 @@ import java.util.Objects;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class NodeSelectorExpressionEvaluationContextBasicTest implements NodeSelectorExpressionEvaluationContextTesting2<NodeSelectorExpressionEvaluationContextBasic<TestNode, StringName, StringName, Object>, TestNode, StringName, StringName, Object>,
+    BinaryTextContextTesting,
     DateTimeContextTesting,
     DecimalNumberContextDelegator {
 
@@ -182,8 +186,11 @@ public final class NodeSelectorExpressionEvaluationContextBasicTest implements N
                         DECIMAL_NUMBER_CONTEXT
                     )
                 ),
-                ENVIRONMENT_CONTEXT.cloneEnvironment(),
-                LocaleContexts.jre(locale)
+                LocaleContexts.jre(locale),
+                LoggingContexts.canLog(
+                    LoggingLevel.NONE,
+                    CanLogs.nullCanLog()
+                )
             )
         );
     }
@@ -203,22 +210,6 @@ public final class NodeSelectorExpressionEvaluationContextBasicTest implements N
     @Override
     public MathContext mathContext() {
         return MATH_CONTEXT;
-    }
-
-    // HasEnvironmentContext............................................................................................
-
-    @Test
-    @Override
-    public void testEnvironmentContext() {
-        final ExpressionEvaluationContext context = ExpressionEvaluationContexts.fake();
-
-        this.environmentContextAndCheck(
-            NodeSelectorExpressionEvaluationContextBasic.with(
-                TestNode.with("test-node-123"),
-                context
-            ),
-            context
-        );
     }
 
     // Class............................................................................................................

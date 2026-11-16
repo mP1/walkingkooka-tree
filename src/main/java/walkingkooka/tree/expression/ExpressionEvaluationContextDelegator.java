@@ -21,20 +21,16 @@ import walkingkooka.convert.ConverterContext;
 import walkingkooka.convert.ConverterContextDelegator;
 import walkingkooka.currency.CurrencyCode;
 import walkingkooka.datetime.DateTimeSymbols;
-import walkingkooka.environment.EnvironmentContext;
-import walkingkooka.environment.EnvironmentContextDelegator;
 import walkingkooka.locale.LocaleContext;
 import walkingkooka.locale.LocaleContextDelegator;
 import walkingkooka.locale.LocaleLanguageTag;
+import walkingkooka.logging.LoggingContext;
+import walkingkooka.logging.LoggingContextDelegator;
 import walkingkooka.math.DecimalNumberSymbols;
 import walkingkooka.text.CaseSensitivity;
-import walkingkooka.text.Indentation;
-import walkingkooka.text.LineEnding;
 import walkingkooka.tree.expression.function.ExpressionFunction;
 import walkingkooka.tree.expression.function.ExpressionFunctionParameter;
 
-import java.nio.charset.Charset;
-import java.time.LocalDateTime;
 import java.util.Locale;
 import java.util.Optional;
 import java.util.function.Function;
@@ -46,8 +42,8 @@ import java.util.function.Function;
 public interface ExpressionEvaluationContextDelegator extends ExpressionEvaluationContext,
     CanEvaluateStringDelegator,
     ConverterContextDelegator,
-    EnvironmentContextDelegator,
-    LocaleContextDelegator {
+    LocaleContextDelegator,
+    LoggingContextDelegator {
 
     // CanEvaluateStringDelegator.......................................................................................
 
@@ -77,6 +73,12 @@ public interface ExpressionEvaluationContextDelegator extends ExpressionEvaluati
     }
 
     @Override
+    default Locale locale() {
+        return this.expressionEvaluationContext()
+            .locale();
+    }
+
+    @Override
     default Optional<DateTimeSymbols> dateTimeSymbolsForLocale(final Locale locale) {
         return this.localeContext()
             .dateTimeSymbolsForLocale(locale);
@@ -94,45 +96,10 @@ public interface ExpressionEvaluationContextDelegator extends ExpressionEvaluati
             .localeForLanguageTag(languageTag);
     }
 
-    // EnvironmentContext...............................................................................................
+    // LoggingContextDelegator..........................................................................................
 
     @Override
-    default Charset charset() {
-        return EnvironmentContextDelegator.super.charset();
-    }
-
-    @Override
-    default Indentation indentation() {
-        return EnvironmentContextDelegator.super.indentation();
-    }
-
-    // must not use ConverterContext.lineEnding
-    @Override
-    default LineEnding lineEnding() {
-        return this.expressionEvaluationContext()
-            .lineEnding();
-    }
-
-    @Override
-    default Locale locale() {
-        return this.environmentContext()
-            .locale();
-    }
-
-    @Override
-    default void setLocale(final Locale locale) {
-        this.environmentContext()
-            .setLocale(locale);
-    }
-
-    @Override
-    default LocalDateTime now() {
-        return this.environmentContext()
-            .now();
-    }
-
-    @Override
-    default EnvironmentContext environmentContext() {
+    default LoggingContext loggingContext() {
         return this.expressionEvaluationContext();
     }
 

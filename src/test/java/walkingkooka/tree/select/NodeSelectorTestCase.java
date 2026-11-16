@@ -32,7 +32,7 @@ import walkingkooka.currency.CurrencyLocaleContextTesting;
 import walkingkooka.currency.CurrencyLocaleContexts;
 import walkingkooka.datetime.DateTimeContextTesting;
 import walkingkooka.datetime.DateTimeContexts;
-import walkingkooka.environment.EnvironmentContextTesting;
+import walkingkooka.logging.LoggingContextTesting;
 import walkingkooka.math.DecimalNumberContextTesting;
 import walkingkooka.naming.Names;
 import walkingkooka.naming.StringName;
@@ -40,6 +40,7 @@ import walkingkooka.predicate.Predicates;
 import walkingkooka.reflect.ClassTesting2;
 import walkingkooka.reflect.JavaVisibility;
 import walkingkooka.reflect.TypeNameTesting;
+import walkingkooka.text.BinaryTextContextTesting;
 import walkingkooka.text.CaseSensitivity;
 import walkingkooka.tree.Node;
 import walkingkooka.tree.TestNode;
@@ -68,12 +69,13 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 abstract public class NodeSelectorTestCase<S extends NodeSelector<TestNode, StringName, StringName, Object>> implements BiFunctionTesting2<S, TestNode, NodeSelectorContext<TestNode, StringName, StringName, Object>, TestNode>,
     ClassTesting2<S>,
+    BinaryTextContextTesting,
     CurrencyLocaleContextTesting,
     DateTimeContextTesting,
     DecimalNumberContextTesting,
-    EnvironmentContextTesting,
     HashCodeEqualsDefinedTesting2<S>,
     HasExpressionNumberKindTesting,
+    LoggingContextTesting,
     ToStringTesting,
     TypeNameTesting<S> {
 
@@ -533,8 +535,8 @@ abstract public class NodeSelectorTestCase<S extends NodeSelector<TestNode, Stri
                             DECIMAL_NUMBER_CONTEXT
                         )
                     ),
-                    ENVIRONMENT_CONTEXT.cloneEnvironment(),
-                    LOCALE_CONTEXT
+                    LOCALE_CONTEXT,
+                    LOGGING_CONTEXT
                 )
             ),
             TestNode.class

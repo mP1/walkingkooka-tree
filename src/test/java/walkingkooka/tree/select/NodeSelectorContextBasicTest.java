@@ -24,12 +24,13 @@ import walkingkooka.convert.ConverterContexts;
 import walkingkooka.convert.Converters;
 import walkingkooka.currency.CurrencyLocaleContexts;
 import walkingkooka.datetime.DateTimeContexts;
-import walkingkooka.environment.EnvironmentContextTesting;
 import walkingkooka.locale.LocaleContexts;
+import walkingkooka.logging.LoggingContextTesting;
 import walkingkooka.math.DecimalNumberContextTesting;
 import walkingkooka.naming.StringName;
 import walkingkooka.predicate.Predicates;
 import walkingkooka.reflect.ClassTesting2;
+import walkingkooka.text.BinaryTextContextTesting;
 import walkingkooka.text.CaseSensitivity;
 import walkingkooka.tree.TestNode;
 import walkingkooka.tree.expression.ExpressionEvaluationContexts;
@@ -47,9 +48,10 @@ import java.util.function.Predicate;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class NodeSelectorContextBasicTest implements ClassTesting2<NodeSelectorContextBasic<TestNode, StringName, StringName, Object>>,
+    BinaryTextContextTesting,
     DecimalNumberContextTesting,
-    EnvironmentContextTesting,
     HasExpressionNumberKindTesting,
+    LoggingContextTesting,
     NodeSelectorContextTesting2<NodeSelectorContextBasic<TestNode, StringName, StringName, Object>,
         TestNode,
         StringName,
@@ -101,8 +103,8 @@ public final class NodeSelectorContextBasicTest implements ClassTesting2<NodeSel
                     ExpressionEvaluationContexts.referenceNotFound(),
                     CaseSensitivity.SENSITIVE,
                     CONVERTER_CONTEXT,
-                    ENVIRONMENT_CONTEXT.cloneEnvironment(),
-                    LocaleContexts.fake()
+                    LocaleContexts.fake(),
+                    LOGGING_CONTEXT
                 )
             );
         }

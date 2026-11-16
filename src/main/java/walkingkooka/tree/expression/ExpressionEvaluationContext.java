@@ -20,9 +20,10 @@ package walkingkooka.tree.expression;
 import walkingkooka.Cast;
 import walkingkooka.Context;
 import walkingkooka.collect.list.Lists;
-import walkingkooka.environment.EnvironmentContext;
 import walkingkooka.locale.LocaleContext;
 import walkingkooka.logging.LoggerPath;
+import walkingkooka.logging.LoggingContext;
+import walkingkooka.text.BinaryTextContext;
 import walkingkooka.text.CaseSensitivity;
 import walkingkooka.tree.expression.convert.TreeConverterContext;
 import walkingkooka.tree.expression.function.ExpressionFunction;
@@ -42,12 +43,13 @@ import java.util.function.Supplier;
  * A {@link Context} that travels during any expression evaluation.
  */
 public interface ExpressionEvaluationContext extends CanEvaluateExpression,
+    BinaryTextContext,
     CanEvaluateString,
     ExpressionNumberContext,
     ExpressionPurityContext,
     HasExpressionFunction,
-    EnvironmentContext,
     LocaleContext,
+    LoggingContext,
     TreeConverterContext {
 
     LoggerPath EXPRESSION_LOGGER = LoggerPath.parse("expression");
@@ -273,12 +275,4 @@ public interface ExpressionEvaluationContext extends CanEvaluateExpression,
      * Controls whether equals or not equals tests are case-sensitive for {@link String strings}
      */
     CaseSensitivity stringEqualsCaseSensitivity();
-
-    // EnvironmentContext...............................................................................................
-
-    @Override
-    ExpressionEvaluationContext cloneEnvironment();
-
-    @Override
-    ExpressionEvaluationContext setEnvironmentContext(final EnvironmentContext environmentContext);
 }

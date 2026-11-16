@@ -22,16 +22,14 @@ import walkingkooka.convert.ConverterContext;
 import walkingkooka.convert.ConverterContextDelegator;
 import walkingkooka.currency.CurrencyCode;
 import walkingkooka.datetime.DateTimeSymbols;
-import walkingkooka.environment.EnvironmentContext;
-import walkingkooka.environment.EnvironmentContextDelegator;
 import walkingkooka.locale.LocaleContext;
 import walkingkooka.locale.LocaleContextDelegator;
 import walkingkooka.locale.LocaleLanguageTag;
+import walkingkooka.logging.LoggingContext;
+import walkingkooka.logging.LoggingContextDelegator;
 import walkingkooka.math.DecimalNumberSymbols;
 import walkingkooka.naming.Name;
 import walkingkooka.text.CaseSensitivity;
-import walkingkooka.text.Indentation;
-import walkingkooka.text.LineEnding;
 import walkingkooka.tree.Node;
 import walkingkooka.tree.expression.ExpressionEvaluationContext;
 import walkingkooka.tree.expression.ExpressionFunctionName;
@@ -42,8 +40,6 @@ import walkingkooka.tree.expression.function.ExpressionFunction;
 import walkingkooka.tree.expression.function.ExpressionFunctionParameter;
 import walkingkooka.tree.select.parser.NodeSelectorAttributeName;
 
-import java.nio.charset.Charset;
-import java.time.LocalDateTime;
 import java.util.Locale;
 import java.util.Objects;
 import java.util.Optional;
@@ -68,8 +64,8 @@ final class NodeSelectorExpressionEvaluationContextBasic<N extends Node<N, NAME,
     AVALUE>
     implements NodeSelectorExpressionEvaluationContext<N, NAME, ANAME, AVALUE>,
     ConverterContextDelegator,
-    EnvironmentContextDelegator,
-    LocaleContextDelegator {
+    LocaleContextDelegator,
+    LoggingContextDelegator {
 
     /**
      * Factory that creates a new {@link NodeSelectorExpressionEvaluationContextBasic}, using the given {@link Node} as the context.
@@ -201,61 +197,6 @@ final class NodeSelectorExpressionEvaluationContextBasic<N extends Node<N, NAME,
         return this.context.expressionNumberKind();
     }
 
-    // EnvironmentContext...............................................................................................
-
-    @Override
-    public NodeSelectorExpressionEvaluationContext<N, NAME, ANAME, AVALUE> cloneEnvironment() {
-        final ExpressionEvaluationContext before = this.context;
-        final ExpressionEvaluationContext after = before.cloneEnvironment();
-
-        return before == after ?
-            this :
-            new NodeSelectorExpressionEvaluationContextBasic<>(
-                this.node,
-                null
-            );
-    }
-
-    @Override
-    public NodeSelectorExpressionEvaluationContext<N, NAME, ANAME, AVALUE> setEnvironmentContext(final EnvironmentContext environmentContext) {
-        Objects.requireNonNull(environmentContext, "environmentContext");
-
-        final ExpressionEvaluationContext before = this.context;
-        final ExpressionEvaluationContext after = before.setEnvironmentContext(environmentContext);
-        return before == after ?
-            this :
-            new NodeSelectorExpressionEvaluationContextBasic<>(
-                this.node,
-                this.context
-            );
-    }
-
-    @Override
-    public Charset charset() {
-        return this.context.charset();
-    }
-
-    @Override
-    public Indentation indentation() {
-        return this.context.indentation();
-    }
-
-    @Override
-    public LineEnding lineEnding() {
-        return this.context.lineEnding();
-    }
-
-    @Override
-    public LocalDateTime now() {
-        return this.environmentContext()
-            .now();
-    }
-
-    @Override
-    public EnvironmentContext environmentContext() {
-        return this.context;
-    }
-
     // LocaleContext....................................................................................................
 
     @Override
@@ -286,6 +227,13 @@ final class NodeSelectorExpressionEvaluationContextBasic<N extends Node<N, NAME,
     @Override
     public Optional<Locale> localeForLanguageTag(final LocaleLanguageTag languageTag) {
         return this.context.localeForLanguageTag(languageTag);
+    }
+
+    // LoggingContextDelegator..........................................................................................
+
+    @Override
+    public LoggingContext loggingContext() {
+        return this.context;
     }
 
     private final ExpressionEvaluationContext context;
