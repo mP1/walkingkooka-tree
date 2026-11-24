@@ -812,16 +812,6 @@ public final class NodePointerTest implements ClassTesting2<NodePointer<TestNode
         return parsed;
     }
 
-    @Override
-    public RuntimeException parseStringFailedExpected(final RuntimeException expected) {
-        return expected;
-    }
-
-    @Override
-    public Class<? extends RuntimeException> parseStringFailedExpected(final Class<? extends RuntimeException> expected) {
-        return expected;
-    }
-
     private void traverseAndCheck(final NodePointer<TestNode, StringName> pointer,
                                   final TestNode root,
                                   final String toString) {
