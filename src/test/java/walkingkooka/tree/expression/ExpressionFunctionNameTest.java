@@ -18,10 +18,12 @@
 package walkingkooka.tree.expression;
 
 import org.junit.jupiter.api.Test;
+import walkingkooka.InvalidCharacterException;
 import walkingkooka.collect.list.Lists;
 import walkingkooka.logging.HasLoggerPathTesting;
 import walkingkooka.logging.LoggerPath;
 import walkingkooka.naming.NameTesting2;
+import walkingkooka.reflect.ThrowableTesting;
 import walkingkooka.text.CaseSensitivity;
 import walkingkooka.text.cursor.TextCursor;
 import walkingkooka.text.cursor.TextCursorSavePoint;
@@ -36,7 +38,19 @@ import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class ExpressionFunctionNameTest implements NameTesting2<ExpressionFunctionName, ExpressionFunctionName>,
-    HasLoggerPathTesting {
+    HasLoggerPathTesting,
+    ThrowableTesting {
+
+    @Test
+    public void testWithInvalidCharacterFails() {
+        this.getMessageAndCheck(
+            assertThrows(
+                InvalidCharacterException.class,
+                () -> ExpressionFunctionName.with("hello!")
+            ),
+            "Invalid \"Function\" character '!' at 5"
+        );
+    }
 
     // DEFAULT_CASE_SENSITIVITY.........................................................................................
 

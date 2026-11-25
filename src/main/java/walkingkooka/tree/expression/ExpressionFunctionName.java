@@ -67,7 +67,7 @@ public final class ExpressionFunctionName implements Name,
         return new ExpressionFunctionName(
             CharPredicates.failIfNullOrEmptyOrInitialAndPartFalse(
                 name,
-                "name",
+                "Function",
                 INITIAL,
                 PART
             ),
