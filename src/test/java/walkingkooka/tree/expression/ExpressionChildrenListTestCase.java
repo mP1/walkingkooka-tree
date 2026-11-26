@@ -46,11 +46,7 @@ public abstract class ExpressionChildrenListTestCase<T extends ExpressionChildre
 
     final void toExpressionChildrenListVariableAndCheck(final ExpressionChildrenList<?> list) {
         this.checkEquals(
-            new ExpressionChildrenListVariable(
-                list.toArray(
-                    new Expression[0]
-                )
-            ),
+            new ExpressionChildrenListVariable(list),
             list.toExpressionChildrenListVariable()
         );
     }

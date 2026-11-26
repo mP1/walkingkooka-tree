@@ -17,6 +17,8 @@
 
 package walkingkooka.tree.expression;
 
+import walkingkooka.collect.list.Lists;
+
 import java.util.Collection;
 import java.util.Objects;
 import java.util.Optional;
@@ -134,7 +136,7 @@ final class ExpressionChildrenListUnary extends ExpressionChildrenList<Expressio
     @Override
     ExpressionChildrenListVariable toExpressionChildrenListVariable() {
         return new ExpressionChildrenListVariable(
-            this.child
+            Lists.of(this.child)
         );
     }
 

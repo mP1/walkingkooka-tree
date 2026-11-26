@@ -17,8 +17,10 @@
 
 package walkingkooka.tree.expression;
 
-import java.util.Arrays;
+import walkingkooka.collect.list.Lists;
+
 import java.util.Collection;
+import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
@@ -28,11 +30,11 @@ import java.util.Optional;
 final class ExpressionChildrenListVariable extends ExpressionChildrenList<ExpressionChildrenListVariable> {
 
     final static ExpressionChildrenListVariable EMPTY = new ExpressionChildrenListVariable(
-        new Expression[0]
+        Lists.empty()
     );
 
     // @VisibleForTesting
-    ExpressionChildrenListVariable(final Expression... children) {
+    ExpressionChildrenListVariable(final List<Expression> children) {
         super();
 
         this.children = Objects.requireNonNull(children, "children");
@@ -40,39 +42,34 @@ final class ExpressionChildrenListVariable extends ExpressionChildrenList<Expres
 
     @Override
     public Expression get(final int index) {
-        return this.children[index];
+        return this.children.get(index);
     }
 
     @Override
     public int size() {
-        return this.children.length;
+        return this.children.size();
     }
 
     @Override
     public ExpressionChildrenListVariable setElements(final Collection<Expression> collection) {
         Objects.requireNonNull(collection, "collection");
 
-        ExpressionChildrenListVariable expressionChildrenListVariable;
+        final ExpressionChildrenListVariable expressionChildrenListVariable;
 
         if (collection instanceof ExpressionChildrenListVariable) {
             expressionChildrenListVariable = (ExpressionChildrenListVariable) collection;
         } else {
-            final Object[] from = collection.toArray();
-            final Expression[] copy = new Expression[from.length];
+            final List<Expression> copy = Lists.array();
 
-            int i = 0;
-            for (final Object child : from) {
+            for (final Expression child : collection) {
                 Objects.requireNonNull(child, "child");
-                copy[i++] = (Expression) child;
+                copy.add(child);
             }
 
-            expressionChildrenListVariable =
-                Arrays.equals(
-                    copy,
-                    this.children
-                ) ?
-                    this :
-                    new ExpressionChildrenListVariable(copy);
+            expressionChildrenListVariable = this.children.equals(copy)
+                ?
+                this :
+                new ExpressionChildrenListVariable(copy);
         }
         return expressionChildrenListVariable;
     }
@@ -81,14 +78,17 @@ final class ExpressionChildrenListVariable extends ExpressionChildrenList<Expres
     ExpressionChildrenListVariable setParent(final ParentExpression parent) {
         final Optional<Expression> optionalParent = Optional.of(parent);
 
-        final Expression[] from = this.children;
-        final int count = from.length;
-        final Expression[] after = new Expression[count];
+        final List<Expression> from = this.children;
+        final int count = from.size();
+        final List<Expression> after = Lists.array();
 
         for (int i = 0; i < count; i++) {
-            after[i] = from[i].setParent(
-                optionalParent,
-                i
+            after.add(
+                from.get(i)
+                    .setParent(
+                        optionalParent,
+                        i
+                    )
             );
         }
 
@@ -115,5 +115,5 @@ final class ExpressionChildrenListVariable extends ExpressionChildrenList<Expres
         return this;
     }
 
-    private final Expression[] children;
+    private final List<Expression> children;
 }
