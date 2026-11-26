@@ -34,7 +34,7 @@ abstract class ExpressionChildrenList<T extends ExpressionChildrenList<T>> exten
         Objects.requireNonNull(expression, "expression");
     }
 
-    abstract T setParent(final ParentExpression parent);
+    abstract T setParent(final ParentExpression<?> parent);
 
     static void binaryChildCount(final int count) {
         if (2 != count) {
