@@ -111,7 +111,7 @@ final class ExpressionChildrenListUnary extends ExpressionChildrenList<Expressio
     }
 
     @Override
-    ExpressionChildrenListUnary setParent(final ParentExpression parent) {
+    ExpressionChildrenListUnary setParent(final ParentExpression<?> parent) {
         final Optional<Expression> optionalParent = Optional.of(parent);
 
         return new ExpressionChildrenListUnary(

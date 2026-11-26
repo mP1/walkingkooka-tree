@@ -122,7 +122,7 @@ final class ExpressionChildrenListBinary extends ExpressionChildrenList<Expressi
     }
 
     @Override
-    ExpressionChildrenListBinary setParent(final ParentExpression parent) {
+    ExpressionChildrenListBinary setParent(final ParentExpression<?> parent) {
         final Optional<Expression> optionalParent = Optional.of(parent);
 
         return new ExpressionChildrenListBinary(

@@ -75,7 +75,7 @@ final class ExpressionChildrenListVariable extends ExpressionChildrenList<Expres
     }
 
     @Override
-    ExpressionChildrenListVariable setParent(final ParentExpression parent) {
+    ExpressionChildrenListVariable setParent(final ParentExpression<?> parent) {
         final Optional<Expression> optionalParent = Optional.of(parent);
 
         final List<Expression> from = this.children;
