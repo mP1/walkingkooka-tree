@@ -1279,6 +1279,38 @@ public final class ExpressionEvaluationContextBasicTest implements ClassTesting2
         );
     }
 
+    // TreePrintable....................................................................................................
+
+    @Test
+    public void testPrintTree() {
+        this.treePrintAndCheck(
+            this.createContext(),
+            "ExpressionEvaluationContextBasic\n" +
+                "  expressionNumberKind\n" +
+                "    BIG_DECIMAL\n" +
+                "  evaluator\n" +
+                "    EVALUATOR (walkingkooka.tree.expression.ExpressionEvaluationContextBasicTest$1)\n" +
+                "  functions\n" +
+                "    FUNCTIONS (walkingkooka.tree.expression.ExpressionEvaluationContextBasicTest$2)\n" +
+                "  exceptionHandler\n" +
+                "    EXCEPTION_HANDLER (walkingkooka.tree.expression.ExpressionEvaluationContextBasicTest$5)\n" +
+                "  references\n" +
+                "    REFERENCES (walkingkooka.tree.expression.ExpressionEvaluationContextBasicTest$6)\n" +
+                "  exceptionHandler\n" +
+                "    EXCEPTION_HANDLER (walkingkooka.tree.expression.ExpressionEvaluationContextBasicTest$5)\n" +
+                "  referenceNotFound\n" +
+                "    REFERENCE_NOT_FOUND (walkingkooka.tree.expression.ExpressionEvaluationContextBasicTest$4)\n" +
+                "  stringEqualityCaseSensitivity\n" +
+                "    SENSITIVE\n" +
+                "  converterContext\n" +
+                "    binaryTextContext=charset=\"UTF-8\" indentation=\"    \" lineEnding=\"\\r\\n\" dateTimeContext=symbols=ampms=\"am\", \"pm\" monthNames=\"January\", \"February\", \"March\", \"April\", \"May\", \"June\", \"July\", \"August\", \"September\", \"October\", \"November\", \"December\" monthNameAbbreviations=\"Jan.\", \"Feb.\", \"Mar.\", \"Apr.\", \"May\", \"Jun.\", \"Jul.\", \"Aug.\", \"Sep.\", \"Oct.\", \"Nov.\", \"Dec.\" weekDayNames=\"Sunday\", \"Monday\", \"Tuesday\", \"Wednesday\", \"Thursday\", \"Friday\", \"Saturday\" weekDayNameAbbreviations=\"Sun.\", \"Mon.\", \"Tue.\", \"Wed.\", \"Thu.\", \"Fri.\", \"Sat.\" locale=\"en-AU\" twoDigitYear=50 decimalNumberContext=decimalNumberDigitNumberCount=9 symbols=negativeSign='-' positiveSign='+' zeroDigit='0' currencySymbol=\"$\" decimalSeparator='.' exponentSymbol=\"e\" groupSeparator=',' infinitySymbol=\"∞\" monetaryDecimalSeparator='.' nanSymbol=\"NaN\" percentSymbol='%' permillSymbol='‰' locale=en_AU mathContext=precision=7 roundingMode=HALF_EVEN (walkingkooka.convert.ConverterContextBasic)\n" +
+                "  localeContext\n" +
+                "    ReadOnly JRE en-AU (walkingkooka.locale.LocaleContextReadOnly)\n" +
+                "  loggingContext\n" +
+                "    NONE nul (walkingkooka.logging.LoggingContextCanLog)\n"
+        );
+    }
+
     // DecimalNumberContextDelegator....................................................................................
 
     @Override

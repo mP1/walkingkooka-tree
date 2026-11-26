@@ -30,6 +30,8 @@ import walkingkooka.logging.LoggingContext;
 import walkingkooka.logging.LoggingContextDelegator;
 import walkingkooka.math.DecimalNumberSymbols;
 import walkingkooka.text.CaseSensitivity;
+import walkingkooka.text.printer.IndentingPrinter;
+import walkingkooka.text.printer.TreePrintable;
 import walkingkooka.tree.expression.function.ExpressionFunction;
 import walkingkooka.tree.expression.function.ExpressionFunctionParameter;
 
@@ -49,6 +51,7 @@ final class ExpressionEvaluationContextBasic implements ExpressionEvaluationCont
     ConverterContextDelegator,
     LocaleContextDelegator,
     LoggingContextDelegator,
+    TreePrintable,
     UsesToStringBuilder {
 
     /**
@@ -278,5 +281,88 @@ final class ExpressionEvaluationContextBasic implements ExpressionEvaluationCont
             .value(this.localeContext)
             .label("loggingContext")
             .value(this.loggingContext);
+    }
+
+    // TreePrintable....................................................................................................
+
+    @Override
+    public void printTree(final IndentingPrinter printer) {
+        printer.println(this.getClass().getSimpleName());
+
+        printer.indent();
+        {
+            printTreeWithLabel(
+                "expressionNumberKind",
+                this.expressionNumberKind,
+                printer
+            );
+            printTreeWithLabel(
+                "evaluator",
+                this.evaluator,
+                printer
+            );
+            printTreeWithLabel(
+                "functions",
+                this.functions,
+                printer
+            );
+            printTreeWithLabel(
+                "exceptionHandler",
+                this.exceptionHandler,
+                printer
+            );
+            printTreeWithLabel(
+                "references",
+                this.references,
+                printer
+            );
+            printTreeWithLabel(
+                "exceptionHandler",
+                this.exceptionHandler,
+                printer
+            );
+            printTreeWithLabel(
+                "referenceNotFound",
+                this.referenceNotFound,
+                printer
+            );
+            printTreeWithLabel(
+                "stringEqualityCaseSensitivity",
+                this.stringEqualityCaseSensitivity,
+                printer
+            );
+            printTreeWithLabel(
+                "converterContext",
+                this.converterContext,
+                printer
+            );
+            printTreeWithLabel(
+                "localeContext",
+                this.localeContext,
+                printer
+            );
+            printTreeWithLabel(
+                "loggingContext",
+                this.loggingContext,
+                printer
+            );
+        }
+        printer.outdent();
+    }
+
+    private static void printTreeWithLabel(final String label,
+                                           final Object value,
+                                           final IndentingPrinter printer) {
+        printer.println(label);
+        printer.indent();
+        {
+            TreePrintable.printTreeOrToString(
+                value,
+                printer
+            );
+            printer.lineStart();
+        }
+        printer.outdent();
+
     }
 }
