@@ -93,8 +93,10 @@ public final class ExpressionChildrenListVariableTest extends ExpressionChildren
                 DIFFERENT
             ),
             new ExpressionChildrenListVariable(
-                FIRST,
-                DIFFERENT
+                Lists.of(
+                    FIRST,
+                    DIFFERENT
+                )
             )
         );
     }
@@ -102,8 +104,10 @@ public final class ExpressionChildrenListVariableTest extends ExpressionChildren
     @Override
     public ExpressionChildrenListVariable createList() {
         return new ExpressionChildrenListVariable(
-            FIRST,
-            SECOND
+            Lists.of(
+                FIRST,
+                SECOND
+            )
         );
     }
 
@@ -185,8 +189,10 @@ public final class ExpressionChildrenListVariableTest extends ExpressionChildren
     public void testEqualsDifferent() {
         this.checkNotEquals(
             new ExpressionChildrenListVariable(
-                DIFFERENT,
-                SECOND
+                Lists.of(
+                    DIFFERENT,
+                    SECOND
+                )
             )
         );
     }

@@ -17,6 +17,8 @@
 
 package walkingkooka.tree.expression;
 
+import walkingkooka.collect.list.Lists;
+
 import java.util.Collection;
 import java.util.Objects;
 import java.util.Optional;
@@ -149,8 +151,10 @@ final class ExpressionChildrenListBinary extends ExpressionChildrenList<Expressi
     @Override
     ExpressionChildrenListVariable toExpressionChildrenListVariable() {
         return new ExpressionChildrenListVariable(
-            this.left,
-            this.right
+            Lists.of(
+                this.left,
+                this.right
+            )
         );
     }
 
