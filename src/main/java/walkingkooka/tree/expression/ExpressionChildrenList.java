@@ -17,6 +17,7 @@
 
 package walkingkooka.tree.expression;
 
+import walkingkooka.collect.list.ImmutableList;
 import walkingkooka.collect.list.ImmutableListDefaults;
 
 import java.util.AbstractList;
@@ -55,8 +56,8 @@ abstract class ExpressionChildrenList<T extends ExpressionChildrenList<T>> exten
     abstract ExpressionChildrenListVariable toExpressionChildrenListVariable();
 
     @Override
-    public final T subList(final int from,
-                           final int to) {
+    public final ImmutableList<Expression> subList(final int from,
+                                                   final int to) {
         if (from < 0) {
             throw new IndexOutOfBoundsException("Invalid from index " + from + " < 0");
         }
@@ -70,9 +71,34 @@ abstract class ExpressionChildrenList<T extends ExpressionChildrenList<T>> exten
             throw new IndexOutOfBoundsException("Invalid to index " + to + " > " + size);
         }
 
-        if (0 == from && this.size() == to) {
-            return (T) this;
+        if (0 == from && size == to) {
+            return this;
         }
-        throw new UnsupportedOperationException();
+
+        final ImmutableList<Expression> immutableList;
+
+        switch (to - from) {
+            case 1:
+                immutableList = ExpressionChildrenListUnary.with(
+                    this.get(from)
+                );
+                break;
+            case 2:
+                immutableList = ExpressionChildrenListBinary.with(
+                    this.get(from),
+                    this.get(from + 1)
+                );
+                break;
+            default:
+                immutableList = new ExpressionChildrenListVariable(
+                    this.toList()
+                        .subList(
+                            from,
+                            to
+                        )
+                );
+        }
+
+        return immutableList;
     }
 }

@@ -20,6 +20,7 @@ package walkingkooka.tree.expression;
 import org.junit.jupiter.api.Test;
 import walkingkooka.collect.list.Lists;
 
+import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertSame;
@@ -27,11 +28,15 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public final class ExpressionChildrenListVariableTest extends ExpressionChildrenListTestCase<ExpressionChildrenListVariable> {
 
-    private final static Expression FIRST = Expression.value("1st");
+    private final static Expression EXPRESSION1 = Expression.value("111");
 
-    private final static Expression SECOND = Expression.value("2nd");
+    private final static Expression EXPRESSION2 = Expression.value("222");
 
-    private final static Expression DIFFERENT = Expression.value("different");
+    private final static Expression EXPRESSION3 = Expression.value("333");
+
+    private final static Expression EXPRESSION4 = Expression.value("444");
+
+    private final static Expression EXPRESSION5 = Expression.value("555");
 
     // EMPTY............................................................................................................
 
@@ -50,7 +55,7 @@ public final class ExpressionChildrenListVariableTest extends ExpressionChildren
         this.getAndCheck(
             this.createList(),
             0,
-            FIRST
+            EXPRESSION1
         );
     }
 
@@ -59,7 +64,7 @@ public final class ExpressionChildrenListVariableTest extends ExpressionChildren
         this.getAndCheck(
             this.createList(),
             1,
-            SECOND
+            EXPRESSION2
         );
     }
 
@@ -68,7 +73,7 @@ public final class ExpressionChildrenListVariableTest extends ExpressionChildren
         this.getAndCheck(
             this.createList(),
             1,
-            SECOND
+            EXPRESSION2
         );
     }
 
@@ -89,13 +94,72 @@ public final class ExpressionChildrenListVariableTest extends ExpressionChildren
         this.setElementsAndCheck(
             list,
             Lists.of(
-                FIRST,
-                DIFFERENT
+                EXPRESSION1,
+                EXPRESSION3
             ),
             new ExpressionChildrenListVariable(
                 Lists.of(
-                    FIRST,
-                    DIFFERENT
+                    EXPRESSION1,
+                    EXPRESSION3
+                )
+            )
+        );
+    }
+
+    // subList..........................................................................................................
+
+    private final static List<Expression> ELEMENTS = Lists.of(
+        EXPRESSION1,
+        EXPRESSION2,
+        EXPRESSION3,
+        EXPRESSION4,
+        EXPRESSION5
+    );
+
+    @Test
+    public void testSubList() {
+        this.subListAndCheck(
+            new ExpressionChildrenListVariable(ELEMENTS),
+            0,
+            2,
+            new ExpressionChildrenListVariable(
+                Lists.of(
+                    EXPRESSION1,
+                    EXPRESSION2
+                )
+            )
+        );
+    }
+
+    @Test
+    public void testSubList2() {
+        this.subListAndCheck(
+            new ExpressionChildrenListVariable(ELEMENTS),
+            2,
+            4,
+            new ExpressionChildrenListVariable(
+                Lists.of(
+                    EXPRESSION3,
+                    EXPRESSION4
+                )
+            )
+        );
+    }
+
+    @Test
+    public void testSubListSubList() {
+        this.subListAndCheck(
+            new ExpressionChildrenListVariable(ELEMENTS)
+                .subList(
+                    1,
+                    4
+                ), // 2, 3, 4
+            1,
+            3,
+            new ExpressionChildrenListVariable(
+                Lists.of(
+                    EXPRESSION3,
+                    EXPRESSION4
                 )
             )
         );
@@ -105,8 +169,8 @@ public final class ExpressionChildrenListVariableTest extends ExpressionChildren
     public ExpressionChildrenListVariable createList() {
         return new ExpressionChildrenListVariable(
             Lists.of(
-                FIRST,
-                SECOND
+                EXPRESSION1,
+                EXPRESSION2
             )
         );
     }
@@ -115,24 +179,24 @@ public final class ExpressionChildrenListVariableTest extends ExpressionChildren
     public void testSetParent() {
         final ListExpression listExpression = Expression.list(
             Lists.of(
-                FIRST,
-                SECOND,
-                DIFFERENT
+                EXPRESSION1,
+                EXPRESSION2,
+                EXPRESSION3
             )
         );
 
         this.checkEquals(
             ExpressionChildrenListVariable.EMPTY.setElements(
                 Lists.of(
-                    FIRST.setParent(
+                    EXPRESSION1.setParent(
                         Optional.of(listExpression),
                         0
                     ),
-                    SECOND.setParent(
+                    EXPRESSION2.setParent(
                         Optional.of(listExpression),
                         1
                     ),
-                    DIFFERENT.setParent(
+                    EXPRESSION3.setParent(
                         Optional.of(listExpression),
                         2
                     )
@@ -140,9 +204,9 @@ public final class ExpressionChildrenListVariableTest extends ExpressionChildren
             ),
             ExpressionChildrenListVariable.EMPTY.setElements(
                 Lists.of(
-                    FIRST,
-                    SECOND,
-                    DIFFERENT
+                    EXPRESSION1,
+                    EXPRESSION2,
+                    EXPRESSION3
                 )
             ).setParent(listExpression)
         );
@@ -152,7 +216,7 @@ public final class ExpressionChildrenListVariableTest extends ExpressionChildren
     public void testExpressionChildrenListUnary() {
         this.toExpressionChildrenListUnaryAndCheck(
             ExpressionChildrenListVariable.EMPTY.setElements(
-                Lists.of(FIRST)
+                Lists.of(EXPRESSION1)
             )
         );
     }
@@ -190,8 +254,8 @@ public final class ExpressionChildrenListVariableTest extends ExpressionChildren
         this.checkNotEquals(
             new ExpressionChildrenListVariable(
                 Lists.of(
-                    DIFFERENT,
-                    SECOND
+                    EXPRESSION3,
+                    EXPRESSION2
                 )
             )
         );
